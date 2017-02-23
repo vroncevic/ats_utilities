@@ -6,8 +6,8 @@ Usage:
 	from app.build_date import BuildDate
 
 	build_date = BuildDate("23 Feb 2017")
-	date = build_date.get()
-	build_date.set("22 Feb 2017")
+	date = build_date.get_build_date()
+	build_date.set_build_date("22 Feb 2017")
 
 @date: Feb 22, 2017
 @author: Vladimir Roncevic
@@ -26,8 +26,8 @@ class BuildDate:
 			__build_date - build date of App/Tool/Script (use string format)
 		method:
 			__init__ - create and initial instance
-			set - setting build date
-			get - getting build date
+			set_build_date - setting build date
+			get_build_date - getting build date
 	"""
 
 	def __init__(self, build_date=None):
@@ -37,14 +37,14 @@ class BuildDate:
 		"""
 		self.__build_date = build_date
 
-	def set(self, build_date):
+	def set_build_date(self, build_date):
 		"""
 		@summary: Setter for build date of App/Tool/Script
 		@param build_date: build date (provide in string format)
 		"""
 		self.__build_date = build_date
 
-	def get(self):
+	def get_build_date(self):
 		"""
 		@summary: Getter for build date of App/Tool/Script
 		@return: build date (string representation)

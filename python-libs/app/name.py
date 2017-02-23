@@ -6,8 +6,8 @@ Usage:
 	from app.name import AppName
 
 	app = AppName("RCP")
-	app_name = app.get()
-	app.set("RCP2")
+	app_name = app.get_name()
+	app.set_name("RCP2")
 
 @date: Feb 22, 2017
 @author: Vladimir Roncevic
@@ -26,8 +26,8 @@ class AppName:
 			__program_name - name of App/Tool/Script
 		method:
 			__init__ - create and initial instance
-			set - setting program name
-			get - getting program name
+			set_name - setting program name
+			get_name - getting program name
 	"""
 
 	def __init__(self, program_name=None):
@@ -37,14 +37,14 @@ class AppName:
 		"""
 		self.__program_name = program_name
 
-	def set(self, program_name):
+	def set_name(self, program_name):
 		"""
 		@summary: Setter for name of App/Tool/Script
 		@param program_name: App/Tool/Script name (provide in string format)
 		"""
 		self.__program_name = program_name
 
-	def get(self):
+	def get_name(self):
 		"""
 		@summary: Getter for name of App/Tool/Script
 		@return: App/Tool/Script name

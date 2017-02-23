@@ -6,8 +6,8 @@ Usage:
 	from app.license import AppLicense
 
 	lic = AppLicense(txt_license=None)
-	lic.set("GPLv3")
-	license = lic.get()
+	lic.set_license("GPLv3")
+	license = lic.get_license()
 
 @date: Feb 22, 2017
 @author: Vladimir Roncevic
@@ -26,8 +26,8 @@ class AppLicense:
 			__license - text with license (use string format)
 		method:
 			__init__ - create and initial instance
-			set - setting text license
-			get - getting text license
+			set_license - setting text license
+			get_license - getting text license
 	"""
 
 	def __init__(self, txt_license=None):
@@ -37,14 +37,14 @@ class AppLicense:
 		"""
 		self.__license = txt_license
 
-	def set(self, txt_license):
+	def set_license(self, txt_license):
 		"""
 		@summary: Setter for text license of App/Tool/Script
 		@param txt_license: text license (provide in string format)
 		"""
 		self.__license = txt_license
 
-	def get(self):
+	def get_license(self):
 		"""
 		@summary: Getter for text license of App/Tool/Script
 		@return: text license (string representation)

@@ -6,8 +6,8 @@ Usage:
 	from app.version import AppVersion
 
 	ver = AppVersion("1.0")
-	version = ver.get()
-	ver.set("1.1")
+	version = ver.get_version()
+	ver.set_version("1.1")
 
 @date: Feb 22, 2017
 @author: Vladimir Roncevic
@@ -26,8 +26,8 @@ class AppVersion:
 			__version - version number of App/Tool/Script
 		method:
 			__init__ - create and initial instance
-			set - setting version number
-			get - return version number
+			set_version - setting version number
+			get_version - return version number
 	"""
 
 	def __init__(self, version=None):
@@ -37,14 +37,14 @@ class AppVersion:
 		"""
 		self.__version = version
 
-	def set(self, version):
+	def set_version(self, version):
 		"""
 		@summary: Setter for version of App/Tool/Script
 		@param version: App/Tool/Script version (provide in string format)
 		"""
 		self.__version = version
 
-	def get(self):
+	def get_version(self):
 		"""
 		@summary: Getter for version of App/Tool/Script
 		@return: App/Tool/Script version
