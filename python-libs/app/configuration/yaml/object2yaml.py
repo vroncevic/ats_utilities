@@ -1,12 +1,12 @@
 # encoding: utf-8
 """
-configuration.yaml.yaml2object - class Yaml2Object
+app.configuration.yaml.object2yaml - class Object2Yaml
 
 Usage:
-	from configuration.yaml.yaml2object import Yaml2Object
+	from app.configuration.yaml.object2yaml import Object2Yaml
 
-	config_reader = Yaml2Object("simple_file.yaml")
-	config = config_reader.get_configuration()
+	config_writter = Object2Yaml("simple_file.yaml")
+	config_writter.set_configuration(config)
 
 @date: Feb 21, 2017
 @author: Vladimir Roncevic
@@ -16,22 +16,21 @@ Usage:
 @deffield: updated: Updated
 """
 
-from configuration.abstract_get_config import AbstractGetConfig
-from configuration.file_config import FileConfig
-from yaml import load
+from app.configuration.abstract_set_config import AbstractSetConfig
+from app.configuration.file_config import FileConfig
+from yaml import dump
 
-class Yaml2Object(AbstractGetConfig):
+class Object2Yaml(AbstractSetConfig):
 	"""
-	Define class Yaml2Object with atribute(s) and method(s).
-	Convert yaml configuration file to object with structure composed of
-	sections, properties, and values.
+	Define class Object2Yaml with atribute(s) and method(s).
+	Convert a configuration object to a yaml format and write to file.
 	It defines:
 		attribute:
 			__format - format of configuration content
 			__file_path - configuration file path (provide absolute path)
 		method:
 			__init__ - create and initial instance
-			get_configuration - return configuration object
+			set_configuration - write configuration to a yaml file
 	"""
 
 	__format = "yaml"
@@ -43,20 +42,21 @@ class Yaml2Object(AbstractGetConfig):
 		"""
 		self.__file_path = yaml_file
 
-	def get_configuration(self):
+	def set_configuration(self, config):
 		"""
-		@summary: Convert content from yaml file to object
-		@return: Success return configuration object, else return None
+		@summary: Convert a configuration from object to a yaml file
+		@param config: configuration object
+		@return: Success return true, else return false
 		"""
 		if FileConfig.check_file(self.__file_path):
 			file_extension = ".{0}".format(self.__format)
 			if FileConfig.check_format(self.__file_path, file_extension):
 				try:
-					cfile = open(self.__file_path, "r")
-					config = load(cfile)
+					cfile = open(self.__file_path, "w")
+					dump(config, cfile, default_flow_style=False)
 					cfile.close()
-					return config
+					return True
 				except IOError as e:
 					print("I/O error({0}): {1}".format(e.errno, e.strerror))
-		return None
+		return False
 

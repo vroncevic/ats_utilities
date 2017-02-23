@@ -1,6 +1,14 @@
 # encoding: utf-8
 """
-configuration.file_config - class FileConfig
+app.configuration.file_config - class FileConfig
+
+Usage:
+	from app.configuration.file_config import FileConfig
+
+	config_file = "main_configuration.json"
+	if FileConfig.check_file(config_file):
+		if FileConfig.check_format(config_file, ".json"):
+			print("File: {0} is regular!".format(config_file))
 
 @date: Feb 20, 2017
 @author: Vladimir Roncevic

@@ -1,14 +1,14 @@
 # encoding: utf-8
 """
-configuration.xml.object2xml - class Object2Xml
+app.configuration.cfg.Object2Cfg - class Object2Cfg
 
 Usage:
-	from configuration.xml.object2xml import Object2Xml
+	from app.configuration.cfg.object2cfg import Object2Cfg
 
-	config_writter = Object2Xml("simple_file.xml")
-	config_writter.set_configuration(config.extract())
+	config_writter = Object2Cfg("simple_file.cfg")
+	config_writter.set_configuration(config)
 
-@date: Feb 20, 2017
+@date: Feb 21, 2017
 @author: Vladimir Roncevic
 @contact: <elektron.ronca@gmail.com>
 @copyright: 2017 Free software to use and distributed it.
@@ -16,35 +16,35 @@ Usage:
 @deffield: updated: Updated
 """
 
-from configuration.abstract_set_config import AbstractSetConfig
-from configuration.file_config import FileConfig
+from app.configuration.abstract_set_config import AbstractSetConfig
+from app.configuration.file_config import FileConfig
 
-class Object2Xml(AbstractSetConfig):
+class Object2Cfg(AbstractSetConfig):
 	"""
-	define class Object2Xml with atribute(s) and method(s).
-	Convert configuration object to xml format and write to configuration file.
+	Define class Object2Cfg with atribute(s) and method(s).
+	Convert a configuration object to cfg format and write to a file.
 	It defines:
 		attribute:
 			__format - format of configuration content
 			__file_path - configuration file path (provide absolute path)
 		method:
 			__init__ - create and initial instance
-			set_configuration - write configuration to xml file
+			set_configuration - write configuration to a cfg file
 	"""
 
-	__format = "xml"
+	__format = "cfg"
 
-	def __init__(self, xml_file):
+	def __init__(self, cfg_file):
 		"""
 		@summary: Basic constructor
-		@param xml_file: absolute configuration file path
+		@param cfg_file: absolute configuration file path
 		"""
-		self.__file_path = xml_file
+		self.__file_path = cfg_file
 
 	def set_configuration(self, config):
 		"""
-		@summary: Convert content from object to xml file
-		@param config: configuration object
+		@summary: Convert configuration from an object to a cfg file
+		@param config: configuration object (dictionary)
 		@return: Success return true, else return false
 		"""
 		if FileConfig.check_file(self.__file_path):
@@ -52,7 +52,8 @@ class Object2Xml(AbstractSetConfig):
 			if FileConfig.check_format(self.__file_path, file_extension):
 				try:
 					cfile = open(self.__file_path, "w")
-					cfile.write("{}".format(config))
+					for key in config:
+						cfile.write("{0} = {1}\n".format(key, config[key]))
 					cfile.close()
 					return True
 				except IOError as e:

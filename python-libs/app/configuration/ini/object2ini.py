@@ -1,14 +1,14 @@
 # encoding: utf-8
 """
-configuration.cfg.Object2Cfg - class Object2Cfg
+app.configuration.ini.object2ini - class Object2Ini
 
 Usage:
-	from configuration.cfg.object2cfg import Object2Cfg
+	from app.configuration.ini.object2ini import Object2Ini
 
-	config_writter = Object2Cfg("simple_file.cfg")
+	config_writter = Object2Ini("simple_file.ini")
 	config_writter.set_configuration(config)
 
-@date: Feb 21, 2017
+@date: Feb 20, 2017
 @author: Vladimir Roncevic
 @contact: <elektron.ronca@gmail.com>
 @copyright: 2017 Free software to use and distributed it.
@@ -16,34 +16,34 @@ Usage:
 @deffield: updated: Updated
 """
 
-from configuration.abstract_set_config import AbstractSetConfig
-from configuration.file_config import FileConfig
+from app.configuration.abstract_set_config import AbstractSetConfig
+from app.configuration.file_config import FileConfig
 
-class Object2Cfg(AbstractSetConfig):
+class Object2Ini(AbstractSetConfig):
 	"""
-	Define class Object2Cfg with atribute(s) and method(s).
-	Convert configuration object to cfg format and write to configuration file.
+	define class Object2Ini with atribute(s) and method(s).
+	Convert a configuration object to an ini format and write to file.
 	It defines:
 		attribute:
 			__format - format of configuration content
 			__file_path - configuration file path (provide absolute path)
 		method:
 			__init__ - create and initial instance
-			set_configuration - write configuration to cfg file
+			set_configuration - write configuration to an ini file
 	"""
 
-	__format = "cfg"
+	__format = "ini"
 
-	def __init__(self, cfg_file):
+	def __init__(self, ini_file):
 		"""
 		@summary: Basic constructor
-		@param cfg_file: absolute configuration file path
+		@param ini_file: absolute configuration file path
 		"""
-		self.__file_path = cfg_file
+		self.__file_path = ini_file
 
 	def set_configuration(self, config):
 		"""
-		@summary: Convert content from object to cfg file
+		@summary: Convert a configuration from object to an ini file
 		@param config: configuration object
 		@return: Success return true, else return false
 		"""
@@ -52,8 +52,7 @@ class Object2Cfg(AbstractSetConfig):
 			if FileConfig.check_format(self.__file_path, file_extension):
 				try:
 					cfile = open(self.__file_path, "w")
-					for key in config:
-						cfile.write("{0} = {1}\n".format(key, config[key]))
+					config.write(cfile, space_around_delimiters=True)
 					cfile.close()
 					return True
 				except IOError as e:

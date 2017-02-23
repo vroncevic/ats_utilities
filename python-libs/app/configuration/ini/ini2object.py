@@ -1,12 +1,12 @@
 # encoding: utf-8
 """
-configuration.ini.object2ini - class Object2Ini
+app.configuration.ini.ini2object - class Ini2Object
 
 Usage:
-	from configuration.ini.object2ini import Object2Ini
+	from app.configuration.ini.ini2object import Ini2Object
 
-	config_writter = Object2Ini("simple_file.ini")
-	config_writter.set_configuration(config)
+	config_reader = Ini2Object("simple_file.ini")
+	config = config_reader.get_configuration()
 
 @date: Feb 20, 2017
 @author: Vladimir Roncevic
@@ -16,20 +16,22 @@ Usage:
 @deffield: updated: Updated
 """
 
-from configuration.abstract_set_config import AbstractSetConfig
-from configuration.file_config import FileConfig
+from app.configuration.abstract_get_config import AbstractGetConfig
+from app.configuration.file_config import FileConfig
+from configparser import ConfigParser
 
-class Object2Ini(AbstractSetConfig):
+class Ini2Object(AbstractGetConfig):
 	"""
-	define class Object2Ini with atribute(s) and method(s).
-	Convert configuration object to ini format and write to configuration file.
+	Define class Ini2Object with atribute(s) and method(s).
+	Convert configuration from an ini file to an object with structure composed
+	of sections, properties, and values.
 	It defines:
 		attribute:
 			__format - format of configuration content
 			__file_path - configuration file path (provide absolute path)
 		method:
 			__init__ - create and initial instance
-			set_configuration - write configuration to ini file
+			get_configuration - return configuration object
 	"""
 
 	__format = "ini"
@@ -41,21 +43,19 @@ class Object2Ini(AbstractSetConfig):
 		"""
 		self.__file_path = ini_file
 
-	def set_configuration(self, config):
+	def get_configuration(self):
 		"""
-		@summary: Convert content from object to ini file
-		@param config: configuration object
-		@return: Success return true, else return false
+		@summary: Convert content from an ini file to an object
+		@return: Success return configuration object, else return None
 		"""
 		if FileConfig.check_file(self.__file_path):
 			file_extension = ".{0}".format(self.__format)
 			if FileConfig.check_format(self.__file_path, file_extension):
 				try:
-					cfile = open(self.__file_path, "w")
-					config.write(cfile, space_around_delimiters=True)
-					cfile.close()
-					return True
+					config = ConfigParser()
+					config.read(self.__file_path, encoding=None)
+					return config
 				except IOError as e:
 					print("I/O error({0}): {1}".format(e.errno, e.strerror))
-		return False
+		return None
 

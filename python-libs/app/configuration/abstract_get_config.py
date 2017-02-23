@@ -1,6 +1,13 @@
 # encoding: utf-8
 """
-configuration.abstract_get_config - class AbstractGetConfig
+app.configuration.abstract_get_config - class AbstractGetConfig
+
+Usage:
+	from app.configuration.abstract_get_config import AbstractGetConfig
+
+	class ToolGetConfig(AbstractGetConfig):
+		def get_configuration(self):
+			# override segment code
 
 @date: Feb 20, 2017
 @author: Vladimir Roncevic

@@ -1,6 +1,13 @@
 # encoding: utf-8
 """
-configuration.abstract_set_config - class AbstractSetConfig
+app.configuration.abstract_set_config - class AbstractSetConfig
+
+Usage:
+	from app.configuration.abstract_set_config import AbstractSetConfig
+
+	class ToolSetConfig(AbstractSetConfig):
+		def set_configuration(self, config):
+			# override segment code
 
 @date: Feb 20, 2017
 @author: Vladimir Roncevic

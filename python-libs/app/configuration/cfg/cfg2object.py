@@ -1,9 +1,9 @@
 # encoding: utf-8
 """
-configuration.cfg.cfg2object - class Cfg2Object
+app.configuration.cfg.cfg2object - class Cfg2Object
 
 Usage:
-	from configuration.cfg.cfg2object import Cfg2Object
+	from app.configuration.cfg.cfg2object import Cfg2Object
 
 	config_reader = Cfg2Object("simple_file.cfg")
 	config = config_reader.get_configuration()
@@ -16,15 +16,15 @@ Usage:
 @deffield: updated: Updated
 """
 
-from configuration.abstract_get_config import AbstractGetConfig
-from configuration.file_config import FileConfig
+from app.configuration.abstract_get_config import AbstractGetConfig
+from app.configuration.file_config import FileConfig
 from re import match
 
 class Cfg2Object(AbstractGetConfig):
 	"""
 	Define class Cfg2Object with atribute(s) and method(s).
-	Convert configuration from cfg file to object with structure composed of
-	keys and values (key_1 = value_1, ..., key_n = value_n).
+	Convert configuration from a cfg file to an object with structure composed
+	of keys and values (key_1 = value_1, ..., key_n = value_n).
 	It defines:
 		attribute:
 			__format - format of configuration content
@@ -45,15 +45,15 @@ class Cfg2Object(AbstractGetConfig):
 
 	def get_configuration(self):
 		"""
-		@summary: Convert content from cfg file to object
+		@summary: Convert content from a cfg file to an object (dictionary)
 		@return: Success return configuration object, else return None
 		"""
 		if FileConfig.check_file(self.__file_path):
 			file_extension = ".{0}".format(self.__format)
 			if FileConfig.check_format(self.__file_path, file_extension):
 				try:
-					with open(self.__file_path, "r") as cfg:
-						content = cfg.read()
+					cfg = open(self.__file_path, "r")
+					content = cfg.read()
 					lines = content.splitlines()
 					config = {}
 					for line in lines:

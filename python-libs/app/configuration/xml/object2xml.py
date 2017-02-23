@@ -1,14 +1,14 @@
 # encoding: utf-8
 """
-configuration.json.object2json - class Object2Json
+app.configuration.xml.object2xml - class Object2Xml
 
 Usage:
-	from configuration.json.object2json import Object2Json
+	from app.configuration.xml.object2xml import Object2Xml
 
-	config_writter = Object2Json("simple_file.json")
-	config_writter.set_configuration(config)
+	config_writter = Object2Xml("simple_file.xml")
+	config_writter.set_configuration(config.extract())
 
-@date: Feb 21, 2017
+@date: Feb 20, 2017
 @author: Vladimir Roncevic
 @contact: <elektron.ronca@gmail.com>
 @copyright: 2017 Free software to use and distributed it.
@@ -16,35 +16,34 @@ Usage:
 @deffield: updated: Updated
 """
 
-from configuration.abstract_set_config import AbstractSetConfig
-from configuration.file_config import FileConfig
-from json import dump
+from app.configuration.abstract_set_config import AbstractSetConfig
+from app.configuration.file_config import FileConfig
 
-class Object2Json(AbstractSetConfig):
+class Object2Xml(AbstractSetConfig):
 	"""
-	Define class Object2Json with atribute(s) and method(s).
-	Convert configuration object to json format and write to configuration file.
+	define class Object2Xml with atribute(s) and method(s).
+	Convert a configuration object to a xml format and write to file.
 	It defines:
 		attribute:
 			__format - format of configuration content
 			__file_path - configuration file path (provide absolute path)
 		method:
 			__init__ - create and initial instance
-			set_configuration - write configuration to json file
+			set_configuration - write configuration to a xml file
 	"""
 
-	__format = "json"
+	__format = "xml"
 
-	def __init__(self, json_file):
+	def __init__(self, xml_file):
 		"""
 		@summary: Basic constructor
-		@param json_file: absolute configuration file path
+		@param xml_file: absolute configuration file path
 		"""
-		self.__file_path = json_file
+		self.__file_path = xml_file
 
 	def set_configuration(self, config):
 		"""
-		@summary: Convert content from object to json file
+		@summary: Convert a configuration from object to a xml file
 		@param config: configuration object
 		@return: Success return true, else return false
 		"""
@@ -53,7 +52,7 @@ class Object2Json(AbstractSetConfig):
 			if FileConfig.check_format(self.__file_path, file_extension):
 				try:
 					cfile = open(self.__file_path, "w")
-					dump(config, cfile)
+					cfile.write("{}".format(config))
 					cfile.close()
 					return True
 				except IOError as e:

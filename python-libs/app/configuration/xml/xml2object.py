@@ -1,11 +1,11 @@
 # encoding: utf-8
 """
-configuration.ini.ini2object - class Ini2Object
+app.configuration.xml.xml2object - class Xml2Object
 
 Usage:
-	from configuration.ini.ini2object import Ini2Object
+	from app.configuration.xml.xml2object import Xml2Object
 
-	config_reader = Ini2Object("simple_file.ini")
+	config_reader = Xml2Object("simple_file.xml")
 	config = config_reader.get_configuration()
 
 @date: Feb 20, 2017
@@ -16,44 +16,46 @@ Usage:
 @deffield: updated: Updated
 """
 
-from configuration.abstract_get_config import AbstractGetConfig
-from configuration.file_config import FileConfig
-from configparser import ConfigParser
+from app.configuration.abstract_get_config import AbstractGetConfig
+from app.configuration.file_config import FileConfig
+from bs4 import BeautifulSoup
 
-class Ini2Object(AbstractGetConfig):
+class Xml2Object(AbstractGetConfig):
 	"""
-	Define class Ini2Object with atribute(s) and method(s).
-	Convert configuration from ini file to object with structure composed of
-	sections, properties, and values.
+	Define class Xml2Object with atribute(s) and method(s).
+	Convert a xml configuration file (xml tags) to an object with structure
+	composed of sections, properties, and values.
 	It defines:
 		attribute:
 			__format - format of configuration content
 			__file_path - configuration file path (provide absolute path)
 		method:
 			__init__ - create and initial instance
-			get_configuration - return configuration object
+			get_configuration - return a configuration object
 	"""
 
-	__format = "ini"
+	__format = "xml"
 
-	def __init__(self, ini_file):
+	def __init__(self, xml_file):
 		"""
 		@summary: Basic constructor
-		@param ini_file: absolute configuration file path
+		@param xml_file: absolute configuration file path
 		"""
-		self.__file_path = ini_file
+		self.__file_path = xml_file
 
 	def get_configuration(self):
 		"""
-		@summary: Convert content from ini file to object
+		@summary: Convert configuration from xml file to an object
 		@return: Success return configuration object, else return None
 		"""
 		if FileConfig.check_file(self.__file_path):
 			file_extension = ".{0}".format(self.__format)
 			if FileConfig.check_format(self.__file_path, file_extension):
 				try:
-					config = ConfigParser()
-					config.read(self.__file_path, encoding=None)
+					cfile = open(self.__file_path, "r")
+					content = cfile.read()
+					config = BeautifulSoup(content, self.__format)
+					cfile.close()
 					return config
 				except IOError as e:
 					print("I/O error({0}): {1}".format(e.errno, e.strerror))

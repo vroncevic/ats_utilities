@@ -1,12 +1,12 @@
 # encoding: utf-8
 """
-configuration.json.json2object - class Json2Object
+app.configuration.json.object2json - class Object2Json
 
 Usage:
-	from configuration.json.json2object import Json2Object
+	from app.configuration.json.object2json import Object2Json
 
-	config_reader = Json2Object("simple_file.json")
-	config = config_reader.get_configuration()
+	config_writter = Object2Json("simple_file.json")
+	config_writter.set_configuration(config)
 
 @date: Feb 21, 2017
 @author: Vladimir Roncevic
@@ -16,21 +16,21 @@ Usage:
 @deffield: updated: Updated
 """
 
-from configuration.abstract_get_config import AbstractGetConfig
-from configuration.file_config import FileConfig
-from json import load
+from app.configuration.abstract_set_config import AbstractSetConfig
+from app.configuration.file_config import FileConfig
+from json import dump
 
-class Json2Object(AbstractGetConfig):
+class Object2Json(AbstractSetConfig):
 	"""
-	Define class Json2Object with atribute(s) and method(s).
-	Convert configuration from json file to an object configuration. 
+	Define class Object2Json with atribute(s) and method(s).
+	Convert a configuration object to a json format and write to file.
 	It defines:
 		attribute:
 			__format - format of configuration content
 			__file_path - configuration file path (provide absolute path)
 		method:
 			__init__ - create and initial instance
-			get_configuration - return configuration object
+			set_configuration - write configuration to a json file
 	"""
 
 	__format = "json"
@@ -42,20 +42,21 @@ class Json2Object(AbstractGetConfig):
 		"""
 		self.__file_path = json_file
 
-	def get_configuration(self):
+	def set_configuration(self, config):
 		"""
-		@summary: Convert content from json file to object
-		@return: Success return configuration object, else return None
+		@summary: Convert configuration from an object to a json file
+		@param config: configuration object
+		@return: Success return true, else return false
 		"""
 		if FileConfig.check_file(self.__file_path):
 			file_extension = ".{0}".format(self.__format)
 			if FileConfig.check_format(self.__file_path, file_extension):
 				try:
-					cfile = open(self.__file_path, "r")
-					config = load(cfile)
+					cfile = open(self.__file_path, "w")
+					dump(config, cfile)
 					cfile.close()
-					return config
+					return True
 				except IOError as e:
 					print("I/O error({0}): {1}".format(e.errno, e.strerror))
-		return None
+		return False
 

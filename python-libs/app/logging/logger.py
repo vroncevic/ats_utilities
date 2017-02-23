@@ -1,11 +1,11 @@
 # encoding: utf-8
 """
-app_logging.logger - class Logger
+app.logging.logger - class Logger
 
 Usage:
-	from app_logging.logger import Logger
+	from app.logging.logger import Logger
 	from logging import DEBUG, WARNING, CRITICAL, ERROR, INFO
-	
+
 	logger = Logger("simple_file.log")
 	logger.write_log("simple test", DEBUG)
 	logger.write_log("simple test", WARNING)
@@ -27,7 +27,7 @@ from logging import DEBUG, WARNING, CRITICAL, ERROR
 class Logger():
 	"""
 	Define class Logger with atribute(s) and method(s).
-	Logging mechanism for python app/tool/script.
+	Logging mechanism for App/Tool/Script.
 	It defines:
 		attribute:
 			__file_name - log file path (provide absolute path)
@@ -39,7 +39,7 @@ class Logger():
 	def __init__ (self, log_file):
 		"""
 		@summary: Basic constructor
-		@param log_file: Log file path
+		@param log_file: Log file path of App/Tool/Script
 		"""
 		self.__file_name = log_file
 		basicConfig(
