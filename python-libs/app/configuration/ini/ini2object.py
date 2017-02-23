@@ -49,7 +49,7 @@ class Ini2Object(AbstractGetConfig):
 		@return: Success return configuration object, else return None
 		"""
 		if FileConfig.check_file(self.__file_path):
-			file_extension = ".{0}".format(self.__format)
+			file_extension = ".{0}".format(Ini2Object.__format)
 			if FileConfig.check_format(self.__file_path, file_extension):
 				try:
 					config = ConfigParser()

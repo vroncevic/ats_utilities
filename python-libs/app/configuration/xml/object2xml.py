@@ -48,7 +48,7 @@ class Object2Xml(AbstractSetConfig):
 		@return: Success return true, else return false
 		"""
 		if FileConfig.check_file(self.__file_path):
-			file_extension = ".{0}".format(self.__format)
+			file_extension = ".{0}".format(Object2Xml.__format)
 			if FileConfig.check_format(self.__file_path, file_extension):
 				try:
 					cfile = open(self.__file_path, "w")

@@ -48,7 +48,7 @@ class Json2Object(AbstractGetConfig):
 		@return: Success return a configuration object, else return None
 		"""
 		if FileConfig.check_file(self.__file_path):
-			file_extension = ".{0}".format(self.__format)
+			file_extension = ".{0}".format(Json2Object.__format)
 			if FileConfig.check_format(self.__file_path, file_extension):
 				try:
 					cfile = open(self.__file_path, "r")
