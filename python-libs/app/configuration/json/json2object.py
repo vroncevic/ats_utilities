@@ -26,14 +26,14 @@ class Json2Object(AbstractGetConfig):
 	Convert a configuration from json file to an object configuration. 
 	It defines:
 		attribute:
-			__format - format of configuration content
+			__FORMAT - format of configuration content
 			__file_path - configuration file path (provide absolute path)
 		method:
 			__init__ - create and initial instance
 			get_configuration - return configuration object
 	"""
 
-	__format = "json"
+	__FORMAT = "json"
 
 	def __init__(self, json_file):
 		"""
@@ -48,7 +48,7 @@ class Json2Object(AbstractGetConfig):
 		@return: Success return a configuration object, else return None
 		"""
 		if FileConfig.check_file(self.__file_path):
-			file_extension = ".{0}".format(Json2Object.__format)
+			file_extension = ".{0}".format(Json2Object.__FORMAT)
 			if FileConfig.check_format(self.__file_path, file_extension):
 				try:
 					cfile = open(self.__file_path, "r")

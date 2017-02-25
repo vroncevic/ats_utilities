@@ -27,14 +27,14 @@ class Yaml2Object(AbstractGetConfig):
 	sections, properties, and values.
 	It defines:
 		attribute:
-			__format - format of configuration content
+			__FORMAT - format of configuration content
 			__file_path - configuration file path (provide absolute path)
 		method:
 			__init__ - create and initial instance
 			get_configuration - return a configuration object
 	"""
 
-	__format = "yaml"
+	__FORMAT = "yaml"
 
 	def __init__(self, yaml_file):
 		"""
@@ -49,7 +49,7 @@ class Yaml2Object(AbstractGetConfig):
 		@return: Success return configuration object, else return None
 		"""
 		if FileConfig.check_file(self.__file_path):
-			file_extension = ".{0}".format(Yaml2Object.__format)
+			file_extension = ".{0}".format(Yaml2Object.__FORMAT)
 			if FileConfig.check_format(self.__file_path, file_extension):
 				try:
 					cfile = open(self.__file_path, "r")

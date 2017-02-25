@@ -27,14 +27,14 @@ class Xml2Object(AbstractGetConfig):
 	composed of sections, properties, and values.
 	It defines:
 		attribute:
-			__format - format of configuration content
+			__FORMAT - format of configuration content
 			__file_path - configuration file path (provide absolute path)
 		method:
 			__init__ - create and initial instance
 			get_configuration - return a configuration object
 	"""
 
-	__format = "xml"
+	__FORMAT = "xml"
 
 	def __init__(self, xml_file):
 		"""
@@ -49,12 +49,12 @@ class Xml2Object(AbstractGetConfig):
 		@return: Success return configuration object, else return None
 		"""
 		if FileConfig.check_file(self.__file_path):
-			file_extension = ".{0}".format(Xml2Object.__format)
+			file_extension = ".{0}".format(Xml2Object.__FORMAT)
 			if FileConfig.check_format(self.__file_path, file_extension):
 				try:
 					cfile = open(self.__file_path, "r")
 					content = cfile.read()
-					config = BeautifulSoup(content, self.__format)
+					config = BeautifulSoup(content, Xml2Object.__FORMAT)
 					cfile.close()
 					return config
 				except IOError as e:

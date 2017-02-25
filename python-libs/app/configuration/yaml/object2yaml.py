@@ -26,14 +26,14 @@ class Object2Yaml(AbstractSetConfig):
 	Convert a configuration object to a yaml format and write to file.
 	It defines:
 		attribute:
-			__format - format of configuration content
+			__FORMAT - format of configuration content
 			__file_path - configuration file path (provide absolute path)
 		method:
 			__init__ - create and initial instance
 			set_configuration - write configuration to a yaml file
 	"""
 
-	__format = "yaml"
+	__FORMAT = "yaml"
 
 	def __init__(self, yaml_file):
 		"""
@@ -49,7 +49,7 @@ class Object2Yaml(AbstractSetConfig):
 		@return: Success return true, else return false
 		"""
 		if FileConfig.check_file(self.__file_path):
-			file_extension = ".{0}".format(Object2Yaml.__format)
+			file_extension = ".{0}".format(Object2Yaml.__FORMAT)
 			if FileConfig.check_format(self.__file_path, file_extension):
 				try:
 					cfile = open(self.__file_path, "w")

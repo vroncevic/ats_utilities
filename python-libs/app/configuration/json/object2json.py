@@ -26,14 +26,14 @@ class Object2Json(AbstractSetConfig):
 	Convert a configuration object to a json format and write to file.
 	It defines:
 		attribute:
-			__format - format of configuration content
+			__FORMAT - format of configuration content
 			__file_path - configuration file path (provide absolute path)
 		method:
 			__init__ - create and initial instance
 			set_configuration - write configuration to a json file
 	"""
 
-	__format = "json"
+	__FORMAT = "json"
 
 	def __init__(self, json_file):
 		"""
@@ -49,7 +49,7 @@ class Object2Json(AbstractSetConfig):
 		@return: Success return true, else return false
 		"""
 		if FileConfig.check_file(self.__file_path):
-			file_extension = ".{0}".format(Object2Json.__format)
+			file_extension = ".{0}".format(Object2Json.__FORMAT)
 			if FileConfig.check_format(self.__file_path, file_extension):
 				try:
 					cfile = open(self.__file_path, "w")

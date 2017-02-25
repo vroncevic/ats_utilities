@@ -27,14 +27,14 @@ class Cfg2Object(AbstractGetConfig):
 	of keys and values (key_1 = value_1, ..., key_n = value_n).
 	It defines:
 		attribute:
-			__format - format of configuration content
+			__FORMAT - format of configuration content
 			__file_path - configuration file path (provide absolute path)
 		method:
 			__init__ - create and initial instance
 			get_configuration - return configuration object
 	"""
 
-	__format = "cfg"
+	__FORMAT = "cfg"
 
 	def __init__(self, cfg_file):
 		"""
@@ -49,7 +49,7 @@ class Cfg2Object(AbstractGetConfig):
 		@return: Success return configuration object, else return None
 		"""
 		if FileConfig.check_file(self.__file_path):
-			file_extension = ".{0}".format(Cfg2Object.__format)
+			file_extension = ".{0}".format(Cfg2Object.__FORMAT)
 			if FileConfig.check_format(self.__file_path, file_extension):
 				try:
 					cfg = open(self.__file_path, "r")
