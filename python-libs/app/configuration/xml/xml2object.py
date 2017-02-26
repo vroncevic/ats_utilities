@@ -27,11 +27,11 @@ class Xml2Object(AbstractGetConfig):
 	composed of sections, properties, and values.
 	It defines:
 		attribute:
-			__FORMAT - format of configuration content
-			__file_path - configuration file path (provide absolute path)
+			__FORMAT - Format of configuration content
+			__file_path - Configuration file path (provide absolute path)
 		method:
-			__init__ - create and initial instance
-			get_configuration - return a configuration object
+			__init__ - Create and initial instance
+			get_configuration - Return a configuration object
 	"""
 
 	__FORMAT = "xml"
@@ -39,7 +39,7 @@ class Xml2Object(AbstractGetConfig):
 	def __init__(self, xml_file):
 		"""
 		@summary: Basic constructor
-		@param xml_file: absolute configuration file path
+		@param xml_file: Absolute configuration file path
 		"""
 		self.__file_path = xml_file
 

@@ -25,11 +25,11 @@ class Object2Xml(AbstractSetConfig):
 	Convert a configuration object to a xml format and write to file.
 	It defines:
 		attribute:
-			__FORMAT - format of configuration content
-			__file_path - configuration file path (provide absolute path)
+			__FORMAT - Format of configuration content
+			__file_path - Configuration file path (provide absolute path)
 		method:
-			__init__ - create and initial instance
-			set_configuration - write configuration to a xml file
+			__init__ - Create and initial instance
+			set_configuration - Write configuration to a xml file
 	"""
 
 	__FORMAT = "xml"
@@ -37,14 +37,14 @@ class Object2Xml(AbstractSetConfig):
 	def __init__(self, xml_file):
 		"""
 		@summary: Basic constructor
-		@param xml_file: absolute configuration file path
+		@param xml_file: Absolute configuration file path
 		"""
 		self.__file_path = xml_file
 
 	def set_configuration(self, config):
 		"""
 		@summary: Convert a configuration from object to a xml file
-		@param config: configuration object
+		@param config: Configuration object
 		@return: Success return true, else return false
 		"""
 		if FileConfig.check_file(self.__file_path):

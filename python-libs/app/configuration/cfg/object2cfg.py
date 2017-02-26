@@ -25,11 +25,11 @@ class Object2Cfg(AbstractSetConfig):
 	Convert a configuration object to cfg format and write to a file.
 	It defines:
 		attribute:
-			__FORMAT - format of configuration content
-			__file_path - configuration file path (provide absolute path)
+			__FORMAT - Format of configuration content
+			__file_path - Configuration file path (provide absolute path)
 		method:
-			__init__ - create and initial instance
-			set_configuration - write configuration to a cfg file
+			__init__ - Create and initial instance
+			set_configuration - Write configuration to a cfg file
 	"""
 
 	__FORMAT = "cfg"
@@ -37,14 +37,14 @@ class Object2Cfg(AbstractSetConfig):
 	def __init__(self, cfg_file):
 		"""
 		@summary: Basic constructor
-		@param cfg_file: absolute configuration file path
+		@param cfg_file: Absolute configuration file path
 		"""
 		self.__file_path = cfg_file
 
 	def set_configuration(self, config):
 		"""
 		@summary: Convert configuration from an object to a cfg file
-		@param config: configuration object (dictionary)
+		@param config: Configuration object (dictionary)
 		@return: Success return true, else return false
 		"""
 		if FileConfig.check_file(self.__file_path):

@@ -17,17 +17,17 @@ Usage:
 @deffield: updated: Updated
 """
 
-class AppName:
+class AppName(object):
 	"""
 	Define class AppName with atribute(s) and method(s).
 	Keep, set, get App/Tool/Script name.
 	It defines:
 		attribute:
-			__program_name - name of App/Tool/Script
+			__program_name - Name of App/Tool/Script
 		method:
-			__init__ - create and initial instance
-			set_name - setting program name
-			get_name - getting program name
+			__init__ - Create and initial instance
+			set_name - Setting program name
+			get_name - Getting program name
 	"""
 
 	def __init__(self, program_name=None):

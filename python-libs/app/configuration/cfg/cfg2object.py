@@ -27,11 +27,11 @@ class Cfg2Object(AbstractGetConfig):
 	of keys and values (key_1 = value_1, ..., key_n = value_n).
 	It defines:
 		attribute:
-			__FORMAT - format of configuration content
-			__file_path - configuration file path (provide absolute path)
+			__FORMAT - Format of configuration content
+			__file_path - Configuration file path (provide absolute path)
 		method:
-			__init__ - create and initial instance
-			get_configuration - return configuration object
+			__init__ - Create and initial instance
+			get_configuration - Return configuration object
 	"""
 
 	__FORMAT = "cfg"
@@ -39,7 +39,7 @@ class Cfg2Object(AbstractGetConfig):
 	def __init__(self, cfg_file):
 		"""
 		@summary: Basic constructor
-		@param cfg_file: absolute configuration file path
+		@param cfg_file: Absolute configuration file path
 		"""
 		self.__file_path = cfg_file
 

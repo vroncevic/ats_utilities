@@ -24,16 +24,16 @@ Usage:
 from logging import basicConfig, debug, info, warning, critical, error
 from logging import DEBUG, WARNING, CRITICAL, ERROR
 
-class Logger():
+class Logger(object):
 	"""
 	Define class Logger with atribute(s) and method(s).
 	Logging mechanism for App/Tool/Script.
 	It defines:
 		attribute:
-			__file_name - log file path (provide absolute path)
+			__file_name - Log file path (provide absolute path)
 		method:
-			__init__ - create and initial instance
-			write_log - write message to log file
+			__init__ - Create and initial instance
+			write_log - Write message to log file
 	"""
 
 	def __init__ (self, log_file):

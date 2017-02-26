@@ -17,17 +17,17 @@ Usage:
 @deffield: updated: Updated
 """
 
-class AppLicense:
+class AppLicense(object):
 	"""
 	Define class AppLicense with atribute(s) and method(s).
 	Keep, set, get text license of App/Tool/Script.
 	It defines:
 		attribute:
-			__license - text with license (use string format)
+			__license - Text with license (use string format)
 		method:
-			__init__ - create and initial instance
-			set_license - setting text license
-			get_license - getting text license
+			__init__ - Create and initial instance
+			set_license - Setting text license
+			get_license - Getting text license
 	"""
 
 	def __init__(self, txt_license=None):

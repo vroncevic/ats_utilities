@@ -20,7 +20,7 @@ Usage:
 
 from os.path import exists, isfile, splitext
 
-class FileConfig:
+class FileConfig(object):
 	"""
 	Define class FileConfig with atribute(s) and method(s).
 	File can contain configuration in next formats:
@@ -36,8 +36,8 @@ class FileConfig:
 		attribute:
 			None
 		method:
-			check_file - check configuration file path
-			check_format - check configuration file format by extension
+			check_file - Check configuration file path
+			check_format - Check configuration file format by extension
 	"""
 
 	@classmethod
@@ -47,9 +47,8 @@ class FileConfig:
 		@param file_path: absolute configuration file path
 		@return: Success return true, else return false
 		"""
-		if exists(file_path):
-			if isfile(file_path):
-				return True
+		if exists(file_path) and isfile(file_path):
+			return True
 		return False
 
 	@classmethod

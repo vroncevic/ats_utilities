@@ -25,11 +25,11 @@ class Object2Ini(AbstractSetConfig):
 	Convert a configuration object to an ini format and write to file.
 	It defines:
 		attribute:
-			__FORMAT - format of configuration content
-			__file_path - configuration file path (provide absolute path)
+			__FORMAT - Format of configuration content
+			__file_path - Configuration file path (provide absolute path)
 		method:
-			__init__ - create and initial instance
-			set_configuration - write configuration to an ini file
+			__init__ - Create and initial instance
+			set_configuration - Write configuration to an ini file
 	"""
 
 	__FORMAT = "ini"
@@ -37,14 +37,14 @@ class Object2Ini(AbstractSetConfig):
 	def __init__(self, ini_file):
 		"""
 		@summary: Basic constructor
-		@param ini_file: absolute configuration file path
+		@param ini_file: Absolute configuration file path
 		"""
 		self.__file_path = ini_file
 
 	def set_configuration(self, config):
 		"""
 		@summary: Convert a configuration from object to an ini file
-		@param config: configuration object
+		@param config: Configuration object
 		@return: Success return true, else return false
 		"""
 		if FileConfig.check_file(self.__file_path):

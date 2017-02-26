@@ -34,7 +34,7 @@ class AppInfo(AppName, AppVersion, BuildDate, AppLicense):
 		attribute:
 			None
 		method:
-			__init__ - create and initial instance
+			__init__ - Create and initial instance
 	"""
 
 	def __init__(self, info):

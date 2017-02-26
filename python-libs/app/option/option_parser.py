@@ -26,17 +26,17 @@ Usage:
 
 from optparse import OptionParser
 
-class AppOptionParser:
+class AppOptionParser(object):
 	"""
 	Define class AppOptionParser with atribute(s) and method(s).
 	Create option parser and process arguments from start.
 	It defines:
 		attribute:
-			__opt_parser - options parser
+			__opt_parser - Options parser
 		method:
-			__init__ - create and initial instance
-			add_option - adding option to App/Tool/Script
-			parese_args - parsing arguments from start
+			__init__ - Create and initial instance
+			add_option - Adding option to App/Tool/Script
+			parese_args - Process arguments from start
 	"""
 
 	def __init__(self, version, epilog, description):
@@ -47,9 +47,7 @@ class AppOptionParser:
 		@param description: App/Tool/Script author and license
 		"""
 		self.__opt_parser = OptionParser(
-			version=version,
-			epilog=epilog,
-			description=description
+			version=version, epilog=epilog, description=description
 		)
 
 	def add_option(self, *args, **kwargs):

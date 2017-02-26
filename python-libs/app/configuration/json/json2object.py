@@ -26,11 +26,11 @@ class Json2Object(AbstractGetConfig):
 	Convert a configuration from json file to an object configuration. 
 	It defines:
 		attribute:
-			__FORMAT - format of configuration content
-			__file_path - configuration file path (provide absolute path)
+			__FORMAT - Format of configuration content
+			__file_path - Configuration file path (provide absolute path)
 		method:
-			__init__ - create and initial instance
-			get_configuration - return configuration object
+			__init__ - Create and initial instance
+			get_configuration - Return configuration object
 	"""
 
 	__FORMAT = "json"
@@ -38,7 +38,7 @@ class Json2Object(AbstractGetConfig):
 	def __init__(self, json_file):
 		"""
 		@summary: Basic constructor
-		@param json_file: absolute configuration file path
+		@param json_file: Absolute configuration file path
 		"""
 		self.__file_path = json_file
 

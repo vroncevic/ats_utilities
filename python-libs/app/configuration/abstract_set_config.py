@@ -17,14 +17,14 @@ Usage:
 @deffield: updated: Updated
 """
 
-class AbstractSetConfig:
+class AbstractSetConfig(object):
 	"""
 	Define class AbstractSetConfig with atribute(s) and method(s).
 	It defines:
 		attribute:
 			None
 		method:
-			set_configuration - abstract method
+			set_configuration - Abstract method
 	"""
 
 	def set_configuration(self, config):

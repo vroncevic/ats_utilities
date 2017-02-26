@@ -17,17 +17,17 @@ Usage:
 @deffield: updated: Updated
 """
 
-class BuildDate:
+class BuildDate(object):
 	"""
 	Define class BuildDate with atribute(s) and method(s).
 	Keep, set, get build date of App/Tool/Script.
 	It defines:
 		attribute:
-			__build_date - build date of App/Tool/Script (use string format)
+			__build_date - Build date of App/Tool/Script (use string format)
 		method:
-			__init__ - create and initial instance
-			set_build_date - setting build date
-			get_build_date - getting build date
+			__init__ - Create and initial instance
+			set_build_date - Setting build date
+			get_build_date - Getting build date
 	"""
 
 	def __init__(self, build_date=None):

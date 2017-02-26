@@ -17,17 +17,17 @@ Usage:
 @deffield: updated: Updated
 """
 
-class AppVersion:
+class AppVersion(object):
 	"""
 	Define class AppVersion with atribute(s) and method(s).
 	Keep, set, get version number of App/Tool/Script.
 	It defines:
 		attribute:
-			__version - version number of App/Tool/Script
+			__version - Version number of App/Tool/Script
 		method:
-			__init__ - create and initial instance
-			set_version - setting version number
-			get_version - return version number
+			__init__ - Create and initial instance
+			set_version - Setting version number
+			get_version - Return version number
 	"""
 
 	def __init__(self, version=None):
