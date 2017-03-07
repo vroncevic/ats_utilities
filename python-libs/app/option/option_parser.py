@@ -36,7 +36,7 @@ class AppOptionParser(object):
 			__opt_parser - Options parser
 		method:
 			__init__ - Create and initial instance
-			add_option - Adding option to App/Tool/Script
+			add_operation - Adding option to App/Tool/Script
 			parese_args - Process arguments from start
 	"""
 
@@ -53,11 +53,11 @@ class AppOptionParser(object):
 					version=version, epilog=epilog, description=description
 				)
 			else:
-				raise AppError("Missing argument(s)!")
+				raise AppError("missing argument(s)!")
 		except AppError as e:
 			print("Error: ", e)
 
-	def add_option(self, *args, **kwargs):
+	def add_operation(self, *args, **kwargs):
 		"""
 		@summary: Adding option to App/Tool/Script
 		@param args: list of arguments
