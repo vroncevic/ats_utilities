@@ -25,7 +25,7 @@ Usage:
 """
 
 from optparse import OptionParser
-from app.lookup_error import AppError
+from app.error.lookup_error import AppError
 
 class AppOptionParser(object):
 	"""
