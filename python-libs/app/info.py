@@ -25,7 +25,7 @@ from app.name import AppName
 from app.version import AppVersion
 from app.build_date import BuildDate
 from app.license import AppLicense
-from app.lookup_error import AppError
+from app.error.lookup_error import AppError
 
 class AppInfo(AppName, AppVersion, BuildDate, AppLicense):
 	"""
