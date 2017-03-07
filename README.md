@@ -21,7 +21,9 @@ These modules requires other modules and libraries (Python 3):
 	bs4
 	json
 	configparser
+	optparse
 	re
+	Lookup
 
 COPYRIGHT AND LICENCE
 

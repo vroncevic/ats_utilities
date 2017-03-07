@@ -25,6 +25,7 @@ from app.name import AppName
 from app.version import AppVersion
 from app.build_date import BuildDate
 from app.license import AppLicense
+from app.lookup_error import AppError
 
 class AppInfo(AppName, AppVersion, BuildDate, AppLicense):
 	"""
@@ -42,8 +43,18 @@ class AppInfo(AppName, AppVersion, BuildDate, AppLicense):
 		@summary: Basic constructor
 		@param info: Dictionary with App/Tool/Script basic info
 		"""
-		AppName.__init__(self, info['app_name'])
-		AppVersion.__init__(self, info['app_version'])
-		BuildDate.__init__(self, info['app_build_date'])
-		AppLicense.__init__(self, info['app_license'])
+		try:
+			ck_name = "app_name" in info.keys()
+			ck_version = "app_version" in info.keys()
+			ck_build_date = "app_build_date" in info.keys()
+			ck_license = "app_license" in info.keys()
+			if ck_name and ck_version and ck_build_date and ck_license:
+				AppName.__init__(self, info['app_name'])
+				AppVersion.__init__(self, info['app_version'])
+				BuildDate.__init__(self, info['app_build_date'])
+				AppLicense.__init__(self, info['app_license'])
+			else:
+				raise AppError("Wrong App info structure!")
+		except AppError as e:
+			print("Error: ", e)
 

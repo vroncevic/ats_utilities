@@ -22,7 +22,8 @@ Usage:
 """
 
 from logging import basicConfig, debug, info, warning, critical, error
-from logging import DEBUG, WARNING, CRITICAL, ERROR
+from logging import DEBUG, WARNING, CRITICAL, ERROR, INFO
+from app.lookup_error import AppError
 
 class Logger(object):
 	"""
@@ -55,14 +56,19 @@ class Logger(object):
 		@param msg: Log message
 		@param ctrl: Control flag (debug, warrning, critical, error, info)
 		"""
-		if ctrl == DEBUG:
-			debug(msg)
-		elif ctrl == WARNING:
-			warning(msg)
-		elif ctrl == CRITICAL:
-			critical(msg)
-		elif ctrl == ERROR:
-			error(msg)
-		else:
-			info(msg)
+		try:
+			if ctrl == DEBUG:
+				debug(msg)
+			elif ctrl == WARNING:
+				warning(msg)
+			elif ctrl == CRITICAL:
+				critical(msg)
+			elif ctrl == ERROR:
+				error(msg)
+			elif ctrl == INFO:
+				info(msg)
+			else:
+				raise AppError("Wrong log level!")
+		except AppError as e:
+			print("Error: ", e)
 

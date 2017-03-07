@@ -25,6 +25,7 @@ Usage:
 """
 
 from optparse import OptionParser
+from app.lookup_error import AppError
 
 class AppOptionParser(object):
 	"""
@@ -46,9 +47,15 @@ class AppOptionParser(object):
 		@param epilog: App/Tool/Script long description
 		@param description: App/Tool/Script author and license
 		"""
-		self.__opt_parser = OptionParser(
-			version=version, epilog=epilog, description=description
-		)
+		try:
+			if version and epilog and description:
+				self.__opt_parser = OptionParser(
+					version=version, epilog=epilog, description=description
+				)
+			else:
+				raise AppError("Missing argument(s)!")
+		except AppError as e:
+			print("Error: ", e)
 
 	def add_option(self, *args, **kwargs):
 		"""

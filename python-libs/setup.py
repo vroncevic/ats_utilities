@@ -22,7 +22,8 @@ setup(
 		'app.configuration.xml',
 		'app.configuration.yaml',
 		'app.logging',
-		'app.option'
+		'app.option',
+		'app.error'
 	]
 )
 
