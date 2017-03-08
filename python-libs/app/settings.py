@@ -34,5 +34,5 @@ class Settings(Cfg2Object):
 		@summary: Basic constructor
 		@param base_config_file: File configuration path
 		"""
-		Cfg2Object.__init__(self, base_config_file)
+		super(Settings, self).__init__(base_config_file)
 
