@@ -54,9 +54,10 @@ class Object2Yaml(AbstractSetConfig):
 				try:
 					cfile = open(self.__file_path, "w")
 					dump(config, cfile, default_flow_style=False)
-					cfile.close()
-					return True
 				except IOError as e:
 					print("I/O error({0}): {1}".format(e.errno, e.strerror))
+				else:
+					cfile.close()
+					return True
 		return False
 

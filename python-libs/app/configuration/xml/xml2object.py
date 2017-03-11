@@ -54,10 +54,12 @@ class Xml2Object(AbstractGetConfig):
 				try:
 					cfile = open(self.__file_path, "r")
 					content = cfile.read()
-					config = BeautifulSoup(content, Xml2Object.__FORMAT)
-					cfile.close()
-					return config
 				except IOError as e:
 					print("I/O error({0}): {1}".format(e.errno, e.strerror))
+				else:
+					config = BeautifulSoup(content, Xml2Object.__FORMAT)
+					if bool(content):
+						cfile.close()
+						return config
 		return None
 

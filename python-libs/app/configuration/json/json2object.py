@@ -53,9 +53,11 @@ class Json2Object(AbstractGetConfig):
 				try:
 					cfile = open(self.__file_path, "r")
 					config = load(cfile)
-					cfile.close()
-					return config
 				except IOError as e:
 					print("I/O error({0}): {1}".format(e.errno, e.strerror))
+				else:
+					if bool(config):
+						cfile.close()
+						return config
 		return None
 

@@ -52,10 +52,14 @@ class Ini2Object(AbstractGetConfig):
 			file_extension = ".{0}".format(Ini2Object.__FORMAT)
 			if FileConfig.check_format(self.__file_path, file_extension):
 				try:
+					cfile = open(self.__file_path, "r")
 					config = ConfigParser()
-					config.read(self.__file_path, encoding=None)
-					return config
+					config.readfp(cfile)
 				except IOError as e:
 					print("I/O error({0}): {1}".format(e.errno, e.strerror))
+				else:
+					if bool(config):
+						cfile.close()
+						return config
 		return None
 

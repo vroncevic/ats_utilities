@@ -52,16 +52,19 @@ class Cfg2Object(AbstractGetConfig):
 			file_extension = ".{0}".format(Cfg2Object.__FORMAT)
 			if FileConfig.check_format(self.__file_path, file_extension):
 				try:
-					cfg = open(self.__file_path, "r")
-					content = cfg.read()
-					lines = content.splitlines()
-					config = {}
-					for line in lines:
-						if not match(r'^\s*$', line):
-							pairs = line.split("=")
-							config[pairs[0].strip()] = pairs[1].strip()
-					return config
+					cfile = open(self.__file_path, "r")
+					content = cfile.read()
 				except IOError as e:
 					print("I/O error({0}): {1}".format(e.errno, e.strerror))
+				else:
+					if bool(content):
+						cfile.close()
+						lines = content.splitlines()
+						config = {}
+						for line in lines:
+							if not match(r'^\s*$', line):
+								pairs = line.split("=")
+								config[pairs[0].strip()] = pairs[1].strip()
+						return config
 		return None
 

@@ -54,9 +54,10 @@ class Object2Cfg(AbstractSetConfig):
 					cfile = open(self.__file_path, "w")
 					for key in config:
 						cfile.write("{0} = {1}\n".format(key, config[key]))
-					cfile.close()
-					return True
 				except IOError as e:
 					print("I/O error({0}): {1}".format(e.errno, e.strerror))
+				else:
+					cfile.close()
+					return True
 		return False
 

@@ -53,9 +53,10 @@ class Object2Xml(AbstractSetConfig):
 				try:
 					cfile = open(self.__file_path, "w")
 					cfile.write("{}".format(config))
-					cfile.close()
-					return True
 				except IOError as e:
 					print("I/O error({0}): {1}".format(e.errno, e.strerror))
+				else:
+					cfile.close()
+					return True
 		return False
 
