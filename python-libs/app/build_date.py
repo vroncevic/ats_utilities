@@ -7,6 +7,8 @@ Usage:
 
 	build_date = BuildDate("23 Feb 2017")
 	date = build_date.get_build_date()
+	# operate with build date
+	# ...
 	build_date.set_build_date("22 Feb 2017")
 
 @date: Feb 22, 2017
@@ -19,35 +21,34 @@ Usage:
 
 class BuildDate(object):
 	"""
-	Define class BuildDate with atribute(s) and method(s).
+	Define class BuildDate with attribute(s) and method(s).
 	Keep, set, get build date of App/Tool/Script.
 	It defines:
 		attribute:
-			__build_date - Build date of App/Tool/Script (use string format)
+			__build_date - Build date of App/Tool/Script
 		method:
-			__init__ - Create and initial instance
-			set_build_date - Setting build date
-			get_build_date - Getting build date
+			__init__ - Initial constructor
+			set_build_date - Setting build date of App/Tool/Script
+			get_build_date - Getting build date of App/Tool/Script
 	"""
 
 	def __init__(self, build_date=None):
 		"""
-		@summary: Basic constructor
-		@param build_date: build date (provide in string format)
+		:arg: build_date - Build date of App/Tool/Script
+		:type: str
 		"""
 		self.__build_date = build_date
 
 	def set_build_date(self, build_date):
 		"""
-		@summary: Setter for build date of App/Tool/Script
-		@param build_date: build date (provide in string format)
+		:arg: build_date - Build date of App/Tool/Script
+		:type: str
 		"""
 		self.__build_date = build_date
 
 	def get_build_date(self):
 		"""
-		@summary: Getter for build date of App/Tool/Script
-		@return: build date (string representation)
+		:return: Build date of App/Tool/Script
+		:rtype: str
 		"""
 		return self.__build_date
-

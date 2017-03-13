@@ -7,6 +7,8 @@ Usage:
 
 	app = AppName("RCP")
 	app_name = app.get_name()
+	# operate with App name
+	# ...
 	app.set_name("RCP2")
 
 @date: Feb 22, 2017
@@ -19,35 +21,34 @@ Usage:
 
 class AppName(object):
 	"""
-	Define class AppName with atribute(s) and method(s).
+	Define class AppName with attribute(s) and method(s).
 	Keep, set, get App/Tool/Script name.
 	It defines:
 		attribute:
 			__program_name - Name of App/Tool/Script
 		method:
-			__init__ - Create and initial instance
-			set_name - Setting program name
-			get_name - Getting program name
+			__init__ - Initial constructor
+			set_name - Setting program name of App/Tool/Script
+			get_name - Getting program name of App/Tool/Script
 	"""
 
 	def __init__(self, program_name=None):
 		"""
-		@summary: Basic constructor
-		@param program_name: App/Tool/Script name (provide in string format)
+		:arg: program_name - App/Tool/Script name
+		:type: str
 		"""
 		self.__program_name = program_name
 
 	def set_name(self, program_name):
 		"""
-		@summary: Setter for name of App/Tool/Script
-		@param program_name: App/Tool/Script name (provide in string format)
+		:arg: program_name - App/Tool/Script name
+		:type: str
 		"""
 		self.__program_name = program_name
 
 	def get_name(self):
 		"""
-		@summary: Getter for name of App/Tool/Script
-		@return: App/Tool/Script name
+		:return: App/Tool/Script name
+		:rtype: str
 		"""
 		return self.__program_name
-

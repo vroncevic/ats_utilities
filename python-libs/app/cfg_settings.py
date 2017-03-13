@@ -1,12 +1,13 @@
 # encoding: utf-8
 """
-app.settings - class Settings
+app.cfg_settings - class Settings
 
 Usage:
-	from app.settings import Settings
+	from app.cfg_settings import Settings
 
-	class Base(Settings, CLI):
+	class CfgBase(Settings):
 		# Use settings in Base class of App
+		# ...
 
 @date: Feb 23, 2017
 @author: Vladimir Roncevic
@@ -17,11 +18,12 @@ Usage:
 """
 
 from app.configuration.cfg.cfg2object import Cfg2Object
+from app.configuration.cfg.object2cfg import Object2Cfg
 
-class Settings(Cfg2Object):
+class Settings(Cfg2Object, Object2Cfg):
 	"""
-	Define class Settings with atribute(s) and method(s).
-	Settings class with cfg interface.
+	Define class Settings with attribute(s) and method(s).
+	Settings class with cfg type of configuration.
 	It defines:
 		attribute:
 			None
@@ -31,8 +33,8 @@ class Settings(Cfg2Object):
 
 	def __init__(self, base_config_file):
 		"""
-		@summary: Basic constructor
-		@param base_config_file: File configuration path
+		:arg: base_config_file - File configuration path
+		:type: str
 		"""
-		super(Settings, self).__init__(base_config_file)
-
+		Cfg2Object.__init__(self, base_config_file)
+		Object2Cfg.__init__(self, base_config_file)

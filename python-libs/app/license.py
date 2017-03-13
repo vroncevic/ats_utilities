@@ -5,8 +5,10 @@ app.license - class AppLicense
 Usage:
 	from app.license import AppLicense
 
-	lic = AppLicense(txt_license=None)
+	lic = AppLicense()
 	lic.set_license("GPLv3")
+	# operate with license
+	# ...
 	license = lic.get_license()
 
 @date: Feb 22, 2017
@@ -19,35 +21,34 @@ Usage:
 
 class AppLicense(object):
 	"""
-	Define class AppLicense with atribute(s) and method(s).
+	Define class AppLicense with attribute(s) and method(s).
 	Keep, set, get text license of App/Tool/Script.
 	It defines:
 		attribute:
-			__license - Text with license (use string format)
+			__license - Text with license
 		method:
-			__init__ - Create and initial instance
-			set_license - Setting text license
-			get_license - Getting text license
+			__init__ - Initial constructor
+			set_license - Setting App/Tool/Script text license
+			get_license - Getting App/Tool/Script text license
 	"""
 
 	def __init__(self, txt_license=None):
 		"""
-		@summary: Basic constructor
-		@param txt_license: text license (provide in string format)
+		:arg: txt_license - App/Tool/Script text license
+		:type: str
 		"""
 		self.__license = txt_license
 
 	def set_license(self, txt_license):
 		"""
-		@summary: Setter for text license of App/Tool/Script
-		@param txt_license: text license (provide in string format)
+		:arg: txt_license - App/Tool/Script text license
+		:type: str
 		"""
 		self.__license = txt_license
 
 	def get_license(self):
 		"""
-		@summary: Getter for text license of App/Tool/Script
-		@return: text license (string representation)
+		:return: App/Tool/Script text license
+		:rtype: str
 		"""
 		return self.__license
-

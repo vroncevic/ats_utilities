@@ -10,6 +10,7 @@ Usage:
 			raise AppError("resource is missing, and that is not ok.")
 	except AppError as e:
 		print("Error: ", e)
+		# ...
 
 @date: Mar 07, 2017
 @author: Vladimir Roncevic
@@ -21,7 +22,7 @@ Usage:
 
 class AppError(LookupError):
 	"""
-	Define class AppError with atribute(s) and method(s).
+	Define class AppError with attribute(s) and method(s).
 	Lookup error mechanism.
 	It defines:
 		attribute:
@@ -29,5 +30,3 @@ class AppError(LookupError):
 		method:
 			None
 	"""
-
-

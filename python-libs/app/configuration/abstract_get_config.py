@@ -8,6 +8,7 @@ Usage:
 	class ToolGetConfig(AbstractGetConfig):
 		def get_configuration(self):
 			# override segment code
+			# ...
 
 @date: Feb 20, 2017
 @author: Vladimir Roncevic
@@ -19,7 +20,7 @@ Usage:
 
 class AbstractGetConfig(object):
 	"""
-	Define class AbstractGetConfig with atribute(s) and method(s).
+	Define class AbstractGetConfig with attribute(s) and method(s).
 	It defines:
 		attribute:
 			None
@@ -28,8 +29,4 @@ class AbstractGetConfig(object):
 	"""
 
 	def get_configuration(self):
-		"""
-		@summary: Subclass must implement this method
-		"""
 		raise NotImplementedError("Not implemented")
-

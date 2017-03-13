@@ -26,4 +26,3 @@ setup(
 		'app.error'
 	]
 )
-

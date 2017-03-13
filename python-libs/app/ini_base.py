@@ -1,12 +1,12 @@
 # encoding: utf-8
 """
-app.base - class Base
+app.ini_base - class IniBase
 
 Usage:
-	from app.base import Base
+	from app.ini_base import IniBase
 
-	class MyApp(Base):
-		# define App atribute(s) and method(s)
+	class MyApp(IniBase):
+		# define App attribute(s) and method(s)
 
 @date: Mar 07, 2017
 @author: Vladimir Roncevic
@@ -18,15 +18,14 @@ Usage:
 
 from abc import ABCMeta, abstractmethod
 from app.info import AppInfo
-from app.settings import Settings
+from app.ini_settings import Settings
 from app.option.option_parser import AppOptionParser
 from app.configuration.check_base_config import CheckBaseConfig
 from app.error.lookup_error import AppError
-from os.path import dirname, realpath
 
-class Base(AppInfo, Settings, AppOptionParser):
+class IniBase(AppInfo, Settings, AppOptionParser):
 	"""
-	Define class Base with atribute(s) and method(s).
+	Define class IniBase with attribute(s) and method(s).
 	Load a settings, create a CL interface and run operation.
 	It defines:
 		attribute:
@@ -40,14 +39,14 @@ class Base(AppInfo, Settings, AppOptionParser):
 
 	def __init__(self, base_config_file):
 		"""
-		@summary: Basic constructor
-		@param base_config_file: Configuration file path
+		:arg: base_config_file - Configuration file path
+		:type: str
 		"""
 		Settings.__init__(self, base_config_file)
 		try:
-			config = self.get_configuration()
-			if config != None and CheckBaseConfig.now(config):
-				AppInfo.__init__(self, config)
+			configuration = self.get_configuration()
+			if configuration and CheckBaseConfig.now(configuration):
+				AppInfo.__init__(self, configuration)
 				AppOptionParser.__init__(
 					self, "{0} {1}".format(
 						self.get_version(), self.get_build_date()
@@ -63,20 +62,20 @@ class Base(AppInfo, Settings, AppOptionParser):
 
 	def add_new_option(self, *args, **kwargs):
 		"""
-		@summary: Add new option to tool
-		@param args: list of arguments
-		@param kwargs: options and texts
+		:arg: args - Arguments
+		:type: Python object(s)
+		:arg: kwargs - Options and texts
+		:type: Python object(s)
 		"""
 		self.add_operation(*args, **kwargs)
 
 	def get_tool_status(self):
 		"""
-		@summary: Getting tool status
-		@return: Tool operational return true, else return false
+		:return: Operational boolean status
+		:rtype: bool
 		"""
 		return self.__tool_operational
 
 	@abstractmethod
 	def process(self):
 		pass
-

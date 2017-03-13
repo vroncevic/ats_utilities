@@ -30,19 +30,19 @@ from app.error.lookup_error import AppError
 
 class AppInfo(AppName, AppVersion, BuildDate, AppLicense):
 	"""
-	Define class AppInfo with atribute(s) and method(s).
-	Keep App/Tool/Script information.
+	Define class AppInfo with attribute(s) and method(s).
+	Keep App/Tool/Script information in one object.
 	It defines:
 		attribute:
 			None
 		method:
-			__init__ - Create and initial instance
+			__init__ - Initial constructor
 	"""
 
 	def __init__(self, info):
 		"""
-		@summary: Basic constructor
-		@param info: Dictionary with App/Tool/Script basic info
+		:arg: info - App/Tool/Script basic info
+		:type: dict
 		"""
 		try:
 			if CheckBaseConfig.now(info):
@@ -51,7 +51,6 @@ class AppInfo(AppName, AppVersion, BuildDate, AppLicense):
 				BuildDate.__init__(self, info['app_build_date'])
 				AppLicense.__init__(self, info['app_license'])
 			else:
-				raise AppError("Wrong App info structure!")
+				raise AppError("wrong App info structure!")
 		except AppError as e:
 			print("Error: ", e)
-

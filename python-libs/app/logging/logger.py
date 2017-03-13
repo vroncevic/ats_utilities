@@ -23,26 +23,26 @@ Usage:
 
 from logging import basicConfig, debug, info, warning, critical, error
 from logging import DEBUG, WARNING, CRITICAL, ERROR, INFO
-from app.lookup_error import AppError
+from app.error.lookup_error import AppError
 
 class Logger(object):
 	"""
-	Define class Logger with atribute(s) and method(s).
+	Define class Logger with attribute(s) and method(s).
 	Logging mechanism for App/Tool/Script.
 	It defines:
 		attribute:
-			__file_name - Log file path (provide absolute path)
+			__file_name - Log file path
 		method:
-			__init__ - Create and initial instance
+			__init__ - Initial constructor
 			write_log - Write message to log file
 	"""
 
-	def __init__ (self, log_file):
+	def __init__ (self, logging_file):
 		"""
-		@summary: Basic constructor
-		@param log_file: Log file path of App/Tool/Script
+		:arg: log_file - Log file path of App/Tool/Script
+		:type: str
 		"""
-		self.__file_name = log_file
+		self.__file_name = logging_file
 		basicConfig(
 			format="%(asctime)s - %(levelname)s - %(message)s",
 			datefmt="%m/%d/%Y %I:%M:%S %p",
@@ -53,8 +53,10 @@ class Logger(object):
 	def write_log(self, msg, ctrl):
 		"""
 		@summary: Write log message to file
-		@param msg: Log message
-		@param ctrl: Control flag (debug, warrning, critical, error, info)
+		:arg: msg - Log message
+		:type: str
+		:arg: ctrl - Control flag (debug, warning, critical, error, info)
+		:type: str
 		"""
 		try:
 			if ctrl == DEBUG:
@@ -68,7 +70,6 @@ class Logger(object):
 			elif ctrl == INFO:
 				info(msg)
 			else:
-				raise AppError("Wrong log level!")
+				raise AppError("not implemented log level")
 		except AppError as e:
 			print("Error: ", e)
-

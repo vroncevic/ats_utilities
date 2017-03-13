@@ -7,6 +7,8 @@ Usage:
 
 	config_reader = Ini2Object("simple_file.ini")
 	config = config_reader.get_configuration()
+	# operate with configuration
+	# ...
 
 @date: Feb 20, 2017
 @author: Vladimir Roncevic
@@ -22,44 +24,43 @@ from configparser import ConfigParser
 
 class Ini2Object(AbstractGetConfig):
 	"""
-	Define class Ini2Object with atribute(s) and method(s).
+	Define class Ini2Object with attribute(s) and method(s).
 	Convert configuration from an ini file to an object with structure composed
 	of sections, properties, and values.
 	It defines:
 		attribute:
 			__FORMAT - Format of configuration content
-			__file_path - Configuration file path (provide absolute path)
+			__file_path - Configuration file path
 		method:
-			__init__ - Create and initial instance
-			get_configuration - Return configuration object
+			__init__ - Initial constructor
+			get_configuration - Getting configuration from file
 	"""
 
 	__FORMAT = "ini"
 
-	def __init__(self, ini_file):
+	def __init__(self, configuration_file):
 		"""
-		@summary: Basic constructor
-		@param ini_file: Absolute configuration file path
+		:arg: configuration_file - Absolute configuration file path
+		:type: str
 		"""
-		self.__file_path = ini_file
+		self.__file_path = configuration_file
 
 	def get_configuration(self):
 		"""
-		@summary: Convert content from an ini file to an object
-		@return: Success return configuration object, else return None
+		:return: Configuration object
+		:rtype: ConfigParser or NoneType
 		"""
 		if FileConfig.check_file(self.__file_path):
 			file_extension = ".{0}".format(Ini2Object.__FORMAT)
 			if FileConfig.check_format(self.__file_path, file_extension):
 				try:
-					cfile = open(self.__file_path, "r")
+					configuration_file = open(self.__file_path, "r")
 					config = ConfigParser()
-					config.readfp(cfile)
+					config.read_file(configuration_file)
 				except IOError as e:
 					print("I/O error({0}): {1}".format(e.errno, e.strerror))
 				else:
-					if bool(config):
-						cfile.close()
+					if config:
+						configuration_file.close()
 						return config
 		return None
-

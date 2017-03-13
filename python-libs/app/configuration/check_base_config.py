@@ -4,7 +4,7 @@ app.configuration.check_base_config - class CheckBaseConfig
 
 Usage:
 	from app.configuration.check_base_config import CheckBaseConfig
-	...
+	# ...
 
 	if CheckBaseConfig.now(config):
 		# Everything is ok
@@ -19,7 +19,7 @@ Usage:
 
 class CheckBaseConfig(object):
 	"""
-	Define class GenPyModule with atribute(s) and method(s).
+	Define class GenPyModule with attribute(s) and method(s).
 	Checking basic configuration structure.
 	It defines:
 		attribute:
@@ -29,17 +29,17 @@ class CheckBaseConfig(object):
 	"""
 
 	@classmethod
-	def now(cls, config):
+	def now(cls, configuration):
 		"""
-		@summray: Check basic configuration
-		@param config: Base configuration (dictionary)
-		@return: Success return true, else return false
+		:arg: configuration - Base configuration
+		:type: dict
+		:return: Boolean status
+		:rtype: bool
 		"""
-		ck_name = "app_name" in config.keys()
-		ck_version = "app_version" in config.keys()
-		ck_build_date = "app_build_date" in config.keys()
-		ck_license = "app_license" in config.keys()
+		ck_name = "app_name" in configuration.keys()
+		ck_version = "app_version" in configuration.keys()
+		ck_build_date = "app_build_date" in configuration.keys()
+		ck_license = "app_license" in configuration.keys()
 		if ck_name and ck_version and ck_build_date and ck_license:
 			return True
 		return False
-

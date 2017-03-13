@@ -8,6 +8,7 @@ Usage:
 	class ToolSetConfig(AbstractSetConfig):
 		def set_configuration(self, config):
 			# override segment code
+			# ...
 
 @date: Feb 20, 2017
 @author: Vladimir Roncevic
@@ -19,7 +20,7 @@ Usage:
 
 class AbstractSetConfig(object):
 	"""
-	Define class AbstractSetConfig with atribute(s) and method(s).
+	Define class AbstractSetConfig with attribute(s) and method(s).
 	It defines:
 		attribute:
 			None
@@ -27,10 +28,8 @@ class AbstractSetConfig(object):
 			set_configuration - Abstract method
 	"""
 
-	def set_configuration(self, config):
+	def set_configuration(self, configuration):
 		"""
-		@summary: Subclass must implement this method
-		@param config: configuration object
+		:arg: configuration - Configuration object
 		"""
 		raise NotImplementedError("Not implemented")
-

@@ -5,8 +5,12 @@ app.configuration.json.object2json - class Object2Json
 Usage:
 	from app.configuration.json.object2json import Object2Json
 
-	config_writter = Object2Json("simple_file.json")
-	config_writter.set_configuration(config)
+	config_writer = Object2Json("simple_file.json")
+	# prepare configuration
+	# ...
+	status = config_writer.set_configuration(config)
+	# notify User/Admin about (not) success operation
+	# ...
 
 @date: Feb 21, 2017
 @author: Vladimir Roncevic
@@ -22,42 +26,42 @@ from json import dump
 
 class Object2Json(AbstractSetConfig):
 	"""
-	Define class Object2Json with atribute(s) and method(s).
+	Define class Object2Json with attribute(s) and method(s).
 	Convert a configuration object to a json format and write to file.
 	It defines:
 		attribute:
 			__FORMAT - Format of configuration content
-			__file_path - Configuration file path (provide absolute path)
+			__file_path - Configuration file path
 		method:
-			__init__ - Create and initial instance
+			__init__ - Initial constructor
 			set_configuration - Write configuration to a json file
 	"""
 
 	__FORMAT = "json"
 
-	def __init__(self, json_file):
+	def __init__(self, configuration_file):
 		"""
-		@summary: Basic constructor
-		@param json_file: Absolute configuration file path
+		:arg: configuration_file - Absolute configuration file path
+		:type: str
 		"""
-		self.__file_path = json_file
+		self.__file_path = configuration_file
 
-	def set_configuration(self, config):
+	def set_configuration(self, configuration):
 		"""
-		@summary: Convert configuration from an object to a json file
-		@param config: Configuration object
-		@return: Success return true, else return false
+		:arg: configuration - Configuration object
+		:type: Python object(s)
+		:return: Boolean status
+		:rtype: bool
 		"""
 		if FileConfig.check_file(self.__file_path):
 			file_extension = ".{0}".format(Object2Json.__FORMAT)
 			if FileConfig.check_format(self.__file_path, file_extension):
 				try:
-					cfile = open(self.__file_path, "w")
-					dump(config, cfile)
+					configuration_file = open(self.__file_path, "w")
+					dump(configuration, configuration_file)
 				except IOError as e:
 					print("I/O error({0}): {1}".format(e.errno, e.strerror))
 				else:
-					cfile.close()
+					configuration_file.close()
 					return True
 		return False
-

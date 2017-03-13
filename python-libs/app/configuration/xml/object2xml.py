@@ -5,8 +5,11 @@ app.configuration.xml.object2xml - class Object2Xml
 Usage:
 	from app.configuration.xml.object2xml import Object2Xml
 
-	config_writter = Object2Xml("simple_file.xml")
-	config_writter.set_configuration(config.extract())
+	config_writer = Object2Xml("simple_file.xml")
+	# ...
+	status = config_writer.set_configuration(config.extract())
+	# notify User/Admin about (not) success operation
+	# ...
 
 @date: Feb 20, 2017
 @author: Vladimir Roncevic
@@ -21,42 +24,42 @@ from app.configuration.file_config import FileConfig
 
 class Object2Xml(AbstractSetConfig):
 	"""
-	define class Object2Xml with atribute(s) and method(s).
+	define class Object2Xml with attribute(s) and method(s).
 	Convert a configuration object to a xml format and write to file.
 	It defines:
 		attribute:
 			__FORMAT - Format of configuration content
-			__file_path - Configuration file path (provide absolute path)
+			__file_path - Configuration file path
 		method:
-			__init__ - Create and initial instance
+			__init__ - Initial constructor
 			set_configuration - Write configuration to a xml file
 	"""
 
 	__FORMAT = "xml"
 
-	def __init__(self, xml_file):
+	def __init__(self, configuration_file):
 		"""
-		@summary: Basic constructor
-		@param xml_file: Absolute configuration file path
+		:arg: configuration_file - Absolute configuration file path
+		:type: str
 		"""
-		self.__file_path = xml_file
+		self.__file_path = configuration_file
 
-	def set_configuration(self, config):
+	def set_configuration(self, configuration):
 		"""
-		@summary: Convert a configuration from object to a xml file
-		@param config: Configuration object
-		@return: Success return true, else return false
+		:arg: configuration - Configuration object
+		:type: BeautifulSoup
+		:return: Boolean status
+		:rtype: bool
 		"""
 		if FileConfig.check_file(self.__file_path):
 			file_extension = ".{0}".format(Object2Xml.__FORMAT)
 			if FileConfig.check_format(self.__file_path, file_extension):
 				try:
-					cfile = open(self.__file_path, "w")
-					cfile.write("{}".format(config))
+					configuration_file = open(self.__file_path, "w")
+					configuration_file.write("{}".format(configuration))
 				except IOError as e:
 					print("I/O error({0}): {1}".format(e.errno, e.strerror))
 				else:
-					cfile.close()
+					configuration_file.close()
 					return True
 		return False
-

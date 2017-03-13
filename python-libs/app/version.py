@@ -7,6 +7,8 @@ Usage:
 
 	ver = AppVersion("1.0")
 	version = ver.get_version()
+	# operate with version
+	# ...
 	ver.set_version("1.1")
 
 @date: Feb 22, 2017
@@ -19,35 +21,34 @@ Usage:
 
 class AppVersion(object):
 	"""
-	Define class AppVersion with atribute(s) and method(s).
+	Define class AppVersion with attribute(s) and method(s).
 	Keep, set, get version number of App/Tool/Script.
 	It defines:
 		attribute:
 			__version - Version number of App/Tool/Script
 		method:
-			__init__ - Create and initial instance
-			set_version - Setting version number
-			get_version - Return version number
+			__init__ - Initial constructor
+			set_version - Setting version number of App/Tool/Script
+			get_version - Getting version number of App/Tool/Script
 	"""
 
 	def __init__(self, version=None):
 		"""
-		@summary: Basic constructor
-		@param version: App/Tool/Script version (provide in string format)
+		:arg: version - App/Tool/Script version
+		:type: str
 		"""
 		self.__version = version
 
 	def set_version(self, version):
 		"""
-		@summary: Setter for version of App/Tool/Script
-		@param version: App/Tool/Script version (provide in string format)
+		:arg: version - App/Tool/Script version
+		:type: str
 		"""
 		self.__version = version
 
 	def get_version(self):
 		"""
-		@summary: Getter for version of App/Tool/Script
-		@return: App/Tool/Script version
+		:return: App/Tool/Script version
+		:rtype: str
 		"""
 		return self.__version
-

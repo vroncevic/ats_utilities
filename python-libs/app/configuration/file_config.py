@@ -22,7 +22,7 @@ from os.path import exists, isfile, splitext
 
 class FileConfig(object):
 	"""
-	Define class FileConfig with atribute(s) and method(s).
+	Define class FileConfig with attribute(s) and method(s).
 	File can contain configuration in next formats:
 	XML  -  Configuration described by Extensible Markup Language.
 	INI  -  Configuration described by basic structure composed of sections,
@@ -43,9 +43,10 @@ class FileConfig(object):
 	@classmethod
 	def check_file(cls, file_path):
 		"""
-		@summary: Check configuration file path (existing and is it file)
-		@param file_path: absolute configuration file path
-		@return: Success return true, else return false
+		:arg: file_path - Absolute configuration file path
+		:type: str
+		:return: Boolean status
+		:rtype: bool
 		"""
 		if exists(file_path) and isfile(file_path):
 			return True
@@ -54,13 +55,14 @@ class FileConfig(object):
 	@classmethod
 	def check_format(cls, file_path, file_extension):
 		"""
-		@summary: Check configuration file format by extension
-		@param file_path: absolute configuration file path
-		@param file_extension: file format (file extension)
-		@return: Success return true, else return false
+		:arg: file_path - Absolute configuration file path
+		:type: str
+		:arg: file_extension - File format (file extension)
+		:type: str
+		:return: Boolean status
+		:rtype: bool
 		"""
 		ext = splitext(file_path)[-1].lower()
 		if ext == file_extension:
 			return True
 		return False
-

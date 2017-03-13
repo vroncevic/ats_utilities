@@ -29,23 +29,25 @@ from app.error.lookup_error import AppError
 
 class AppOptionParser(object):
 	"""
-	Define class AppOptionParser with atribute(s) and method(s).
+	Define class AppOptionParser with attribute(s) and method(s).
 	Create option parser and process arguments from start.
 	It defines:
 		attribute:
 			__opt_parser - Options parser
 		method:
-			__init__ - Create and initial instance
+			__init__ - Initial constructor
 			add_operation - Adding option to App/Tool/Script
 			parese_args - Process arguments from start
 	"""
 
 	def __init__(self, version, epilog, description):
 		"""
-		@summary: Basic constructor
-		@param version: App/Tool/Script version and build date
-		@param epilog: App/Tool/Script long description
-		@param description: App/Tool/Script author and license
+		:arg: version - App/Tool/Script version and build date
+		:type: str
+		:arg: epilog - App/Tool/Script long description
+		:type: str
+		:arg: description - App/Tool/Script author and license
+		:type: str
 		"""
 		try:
 			if version and epilog and description:
@@ -59,18 +61,19 @@ class AppOptionParser(object):
 
 	def add_operation(self, *args, **kwargs):
 		"""
-		@summary: Adding option to App/Tool/Script
-		@param args: list of arguments
-		@param kwargs: options and texts
+		:arg: args - List of arguments
+		:type: Python object(s)
+		:arg: kwargs: Options and texts
+		:type: Python object(s)
 		"""
 		self.__opt_parser.add_option(*args, **kwargs)
 
 	def parse_args(self, argv):
 		"""
-		@summary: Parse arguments from start
-		@param argv: arguments
-		@return: options and arguments
+		:arg: argv - Arguments
+		:type: Python object(s)
+		:return: Options and arguments
+		:type: Python object(s)
 		"""
 		(opts, args) = self.__opt_parser.parse_args(argv)
 		return opts, args
-
