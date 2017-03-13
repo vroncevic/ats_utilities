@@ -1,23 +1,12 @@
 # encoding: utf-8
-"""
-app.configuration.xml.object2xml - class Object2Xml
-
-Usage:
-	from app.configuration.xml.object2xml import Object2Xml
-
-	config_writer = Object2Xml("simple_file.xml")
-	# ...
-	status = config_writer.set_configuration(config.extract())
-	# notify User/Admin about (not) success operation
-	# ...
-
-@date: Feb 20, 2017
-@author: Vladimir Roncevic
-@contact: <elektron.ronca@gmail.com>
-@copyright: 2017 Free software to use and distributed it.
-@license: GNU General Public License (GPL)
-@deffield: updated: Updated
-"""
+__author__ = "Vladimir Roncevic"
+__copyright__ = "Copyright 2007, Free software to use and distributed it."
+__credits__ = ["Vladimir Roncevic"]
+__license__ = "GNU General Public License (GPL)"
+__version__ = "1.0.0"
+__maintainer__ = "Vladimir Roncevic"
+__email__ = "elektron.ronca@gmail.com"
+__status__ = "Updated"
 
 from app.configuration.abstract_set_config import AbstractSetConfig
 from app.configuration.file_config import FileConfig

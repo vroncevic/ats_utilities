@@ -1,22 +1,12 @@
 # encoding: utf-8
-"""
-app.configuration.json.json2object - class Json2Object
-
-Usage:
-	from app.configuration.json.json2object import Json2Object
-
-	config_reader = Json2Object("simple_file.json")
-	config = config_reader.get_configuration()
-	# operate with configuration
-	# ...
-
-@date: Feb 21, 2017
-@author: Vladimir Roncevic
-@contact: <elektron.ronca@gmail.com>
-@copyright: 2017 Free software to use and distributed it.
-@license: GNU General Public License (GPL)
-@deffield: updated: Updated
-"""
+__author__ = "Vladimir Roncevic"
+__copyright__ = "Copyright 2007, Free software to use and distributed it."
+__credits__ = ["Vladimir Roncevic"]
+__license__ = "GNU General Public License (GPL)"
+__version__ = "1.0.0"
+__maintainer__ = "Vladimir Roncevic"
+__email__ = "elektron.ronca@gmail.com"
+__status__ = "Updated"
 
 from app.configuration.abstract_get_config import AbstractGetConfig
 from app.configuration.file_config import FileConfig

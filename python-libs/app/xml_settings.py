@@ -1,21 +1,12 @@
 # encoding: utf-8
-"""
-app.xml_settings - class Settings
-
-Usage:
-	from app.xml_settings import Settings
-
-	class XmlBase(Settings):
-		# Use settings in Base class of App
-		# ...
-
-@date: Mar 13, 2017
-@author: Vladimir Roncevic
-@contact: <elektron.ronca@gmail.com>
-@copyright: 2017 Free software to use and distributed it.
-@license: GNU General Public License (GPL)
-@deffield: updated: Updated
-"""
+__author__ = "Vladimir Roncevic"
+__copyright__ = "Copyright 2017, Free software to use and distributed it."
+__credits__ = ["Vladimir Roncevic"]
+__license__ = "GNU General Public License (GPL)"
+__version__ = "1.0.0"
+__maintainer__ = "Vladimir Roncevic"
+__email__ = "elektron.ronca@gmail.com"
+__status__ = "Updated"
 
 from app.configuration.xml.xml2object import Xml2Object
 from app.configuration.xml.object2xml import Object2Xml

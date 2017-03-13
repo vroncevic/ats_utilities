@@ -1,24 +1,12 @@
 # encoding: utf-8
-"""
-app.configuration.json.object2json - class Object2Json
-
-Usage:
-	from app.configuration.json.object2json import Object2Json
-
-	config_writer = Object2Json("simple_file.json")
-	# prepare configuration
-	# ...
-	status = config_writer.set_configuration(config)
-	# notify User/Admin about (not) success operation
-	# ...
-
-@date: Feb 21, 2017
-@author: Vladimir Roncevic
-@contact: <elektron.ronca@gmail.com>
-@copyright: 2017 Free software to use and distributed it.
-@license: GNU General Public License (GPL)
-@deffield: updated: Updated
-"""
+__author__ = "Vladimir Roncevic"
+__copyright__ = "Copyright 2007, Free software to use and distributed it."
+__credits__ = ["Vladimir Roncevic"]
+__license__ = "GNU General Public License (GPL)"
+__version__ = "1.0.0"
+__maintainer__ = "Vladimir Roncevic"
+__email__ = "elektron.ronca@gmail.com"
+__status__ = "Updated"
 
 from app.configuration.abstract_set_config import AbstractSetConfig
 from app.configuration.file_config import FileConfig

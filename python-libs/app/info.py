@@ -1,25 +1,12 @@
 # encoding: utf-8
-"""
-app.info - class AppInfo
-
-Usage:
-	from app.info import AppInfo
-
-	info = {
-		'app_name':'RCP',
-		'app_version':'1.0',
-		'app_build_date': '23 Feb 2017',
-		'app_license':'GPLv3'
-	}
-	app_info = AppInfo(info)
-
-@date: Feb 22, 2017
-@author: Vladimir Roncevic
-@contact: <elektron.ronca@gmail.com>
-@copyright: 2017 Free software to use and distributed it.
-@license: GNU General Public License (GPL)
-@deffield: updated: Updated
-"""
+__author__ = "Vladimir Roncevic"
+__copyright__ = "Copyright 2017, Free software to use and distributed it."
+__credits__ = ["Vladimir Roncevic"]
+__license__ = "GNU General Public License (GPL)"
+__version__ = "1.0.0"
+__maintainer__ = "Vladimir Roncevic"
+__email__ = "elektron.ronca@gmail.com"
+__status__ = "Updated"
 
 from app.name import AppName
 from app.version import AppVersion

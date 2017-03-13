@@ -1,23 +1,12 @@
 # encoding: utf-8
-"""
-app.build_date - class BuildDate
-
-Usage:
-	from app.build_date import BuildDate
-
-	build_date = BuildDate("23 Feb 2017")
-	date = build_date.get_build_date()
-	# operate with build date
-	# ...
-	build_date.set_build_date("22 Feb 2017")
-
-@date: Feb 22, 2017
-@author: Vladimir Roncevic
-@contact: <elektron.ronca@gmail.com>
-@copyright: 2017 Free software to use and distributed it.
-@license: GNU General Public License (GPL)
-@deffield: updated: Updated
-"""
+__author__ = "Vladimir Roncevic"
+__copyright__ = "Copyright 2017, Free software to use and distributed it."
+__credits__ = ["Vladimir Roncevic"]
+__license__ = "GNU General Public License (GPL)"
+__version__ = "1.0.0"
+__maintainer__ = "Vladimir Roncevic"
+__email__ = "elektron.ronca@gmail.com"
+__status__ = "Updated"
 
 class BuildDate(object):
 	"""

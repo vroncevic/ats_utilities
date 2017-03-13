@@ -1,23 +1,12 @@
 # encoding: utf-8
-"""
-app.name - class AppName
-
-Usage:
-	from app.name import AppName
-
-	app = AppName("RCP")
-	app_name = app.get_name()
-	# operate with App name
-	# ...
-	app.set_name("RCP2")
-
-@date: Feb 22, 2017
-@author: Vladimir Roncevic
-@contact: <elektron.ronca@gmail.com>
-@copyright: 2017 Free software to use and distributed it.
-@license: GNU General Public License (GPL)
-@deffield: updated: Updated
-"""
+__author__ = "Vladimir Roncevic"
+__copyright__ = "Copyright 2017, Free software to use and distributed it."
+__credits__ = ["Vladimir Roncevic"]
+__license__ = "GNU General Public License (GPL)"
+__version__ = "1.0.0"
+__maintainer__ = "Vladimir Roncevic"
+__email__ = "elektron.ronca@gmail.com"
+__status__ = "Updated"
 
 class AppName(object):
 	"""

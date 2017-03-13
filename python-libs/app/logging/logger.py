@@ -1,25 +1,12 @@
 # encoding: utf-8
-"""
-app.logging.logger - class Logger
-
-Usage:
-	from app.logging.logger import Logger
-	from logging import DEBUG, WARNING, CRITICAL, ERROR, INFO
-
-	logger = Logger("simple_file.log")
-	logger.write_log("simple test", DEBUG)
-	logger.write_log("simple test", WARNING)
-	logger.write_log("simple test", CRITICAL)
-	logger.write_log("simple test", ERROR)
-	logger.write_log("simple test", INFO)
-
-@date: Feb 21, 2017
-@author: Vladimir Roncevic
-@contact: <elektron.ronca@gmail.com>
-@copyright: 2017 Free software to use and distributed it.
-@license: GNU General Public License (GPL)
-@deffield: updated: Updated
-"""
+__author__ = "Vladimir Roncevic"
+__copyright__ = "Copyright 2017, Free software to use and distributed it."
+__credits__ = ["Vladimir Roncevic"]
+__license__ = "GNU General Public License (GPL)"
+__version__ = "1.0.0"
+__maintainer__ = "Vladimir Roncevic"
+__email__ = "elektron.ronca@gmail.com"
+__status__ = "Updated"
 
 from logging import basicConfig, debug, info, warning, critical, error
 from logging import DEBUG, WARNING, CRITICAL, ERROR, INFO
