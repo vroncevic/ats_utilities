@@ -30,7 +30,7 @@ class Yaml2Object(AbstractGetConfig):
 
 	def __init__(self, configuration_file):
 		"""
-		:arg: yaml_file: Absolute configuration file path
+		:param configuration_file: Absolute configuration file path
 		:type: str
 		"""
 		self.__file_path = configuration_file

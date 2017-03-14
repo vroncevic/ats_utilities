@@ -23,14 +23,14 @@ class AppVersion(object):
 
 	def __init__(self, version=None):
 		"""
-		:arg: version - App/Tool/Script version
+		:param version: App/Tool/Script version
 		:type: str
 		"""
 		self.__version = version
 
 	def set_version(self, version):
 		"""
-		:arg: version - App/Tool/Script version
+		:param version: App/Tool/Script version
 		:type: str
 		"""
 		self.__version = version

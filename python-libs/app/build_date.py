@@ -23,14 +23,14 @@ class BuildDate(object):
 
 	def __init__(self, build_date=None):
 		"""
-		:arg: build_date - Build date of App/Tool/Script
+		:param build_date: Build date of App/Tool/Script
 		:type: str
 		"""
 		self.__build_date = build_date
 
 	def set_build_date(self, build_date):
 		"""
-		:arg: build_date - Build date of App/Tool/Script
+		:param build_date: Build date of App/Tool/Script
 		:type: str
 		"""
 		self.__build_date = build_date

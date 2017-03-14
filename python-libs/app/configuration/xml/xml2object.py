@@ -30,14 +30,14 @@ class Xml2Object(AbstractGetConfig):
 
 	def __init__(self, configuration_file):
 		"""
-		:arg: xml_file - Absolute configuration file path
+		:param configuration_file: Absolute configuration file path
 		:type: str
 		"""
 		self.__file_path = configuration_file
 
 	def get_configuration(self):
 		"""
-		:return: configuration file
+		:return: Configuration object
 		:rtype: BeautifulSoup or NoneType
 		"""
 		if FileConfig.check_file(self.__file_path):

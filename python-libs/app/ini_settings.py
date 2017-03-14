@@ -24,7 +24,7 @@ class Settings(Ini2Object, Object2Ini):
 
 	def __init__(self, base_config_file):
 		"""
-		:arg: base_config_file - File configuration path
+		:param base_config_file: File configuration path
 		:type: str
 		"""
 		Ini2Object.__init__(self, base_config_file)

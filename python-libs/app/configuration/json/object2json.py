@@ -29,14 +29,14 @@ class Object2Json(AbstractSetConfig):
 
 	def __init__(self, configuration_file):
 		"""
-		:arg: configuration_file - Absolute configuration file path
+		:param configuration_file: Absolute configuration file path
 		:type: str
 		"""
 		self.__file_path = configuration_file
 
 	def set_configuration(self, configuration):
 		"""
-		:arg: configuration - Configuration object
+		:param configuration: Configuration object
 		:type: Python object(s)
 		:return: Boolean status
 		:rtype: bool

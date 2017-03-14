@@ -26,11 +26,11 @@ class AppOptionParser(object):
 
 	def __init__(self, version, epilog, description):
 		"""
-		:arg: version - App/Tool/Script version and build date
+		:param version: App/Tool/Script version and build date
 		:type: str
-		:arg: epilog - App/Tool/Script long description
+		:param epilog: App/Tool/Script long description
 		:type: str
-		:arg: description - App/Tool/Script author and license
+		:param description: App/Tool/Script author and license
 		:type: str
 		"""
 		try:
@@ -45,19 +45,19 @@ class AppOptionParser(object):
 
 	def add_operation(self, *args, **kwargs):
 		"""
-		:arg: args - List of arguments
+		:param args: List of arguments
 		:type: Python object(s)
-		:arg: kwargs: Options and texts
+		:param kwargs: Options and texts
 		:type: Python object(s)
 		"""
 		self.__opt_parser.add_option(*args, **kwargs)
 
 	def parse_args(self, argv):
 		"""
-		:arg: argv - Arguments
+		:param argv: Arguments
 		:type: Python object(s)
 		:return: Options and arguments
-		:type: Python object(s)
+		:rtype: Python object(s)
 		"""
 		(opts, args) = self.__opt_parser.parse_args(argv)
 		return opts, args

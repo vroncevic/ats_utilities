@@ -23,14 +23,14 @@ class AppLicense(object):
 
 	def __init__(self, txt_license=None):
 		"""
-		:arg: txt_license - App/Tool/Script text license
+		:param txt_license: App/Tool/Script text license
 		:type: str
 		"""
 		self.__license = txt_license
 
 	def set_license(self, txt_license):
 		"""
-		:arg: txt_license - App/Tool/Script text license
+		:param txt_license: App/Tool/Script text license
 		:type: str
 		"""
 		self.__license = txt_license

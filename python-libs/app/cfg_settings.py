@@ -24,7 +24,7 @@ class Settings(Cfg2Object, Object2Cfg):
 
 	def __init__(self, base_config_file):
 		"""
-		:arg: base_config_file - File configuration path
+		:param base_config_file: File configuration path
 		:type: str
 		"""
 		Cfg2Object.__init__(self, base_config_file)

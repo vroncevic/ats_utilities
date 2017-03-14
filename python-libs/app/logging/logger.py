@@ -26,7 +26,7 @@ class Logger(object):
 
 	def __init__ (self, logging_file):
 		"""
-		:arg: log_file - Log file path of App/Tool/Script
+		:param logging_file: Log file path of App/Tool/Script
 		:type: str
 		"""
 		self.__file_name = logging_file
@@ -39,10 +39,9 @@ class Logger(object):
 
 	def write_log(self, msg, ctrl):
 		"""
-		@summary: Write log message to file
-		:arg: msg - Log message
+		:param msg: Log message
 		:type: str
-		:arg: ctrl - Control flag (debug, warning, critical, error, info)
+		:param ctrl: Control flag (debug, warning, critical, error, info)
 		:type: str
 		"""
 		try:

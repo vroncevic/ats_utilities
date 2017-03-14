@@ -23,14 +23,14 @@ class AppName(object):
 
 	def __init__(self, program_name=None):
 		"""
-		:arg: program_name - App/Tool/Script name
+		:param program_name: App/Tool/Script name
 		:type: str
 		"""
 		self.__program_name = program_name
 
 	def set_name(self, program_name):
 		"""
-		:arg: program_name - App/Tool/Script name
+		:param program_name: App/Tool/Script name
 		:type: str
 		"""
 		self.__program_name = program_name

@@ -28,7 +28,7 @@ class AppInfo(AppName, AppVersion, BuildDate, AppLicense):
 
 	def __init__(self, info):
 		"""
-		:arg: info - App/Tool/Script basic info
+		:param info: App/Tool/Script basic info
 		:type: dict
 		"""
 		try:

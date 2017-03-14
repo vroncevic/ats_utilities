@@ -33,7 +33,7 @@ class FileConfig(object):
 	@classmethod
 	def check_file(cls, file_path):
 		"""
-		:arg: file_path - Absolute configuration file path
+		:param file_path: Absolute configuration file path
 		:type: str
 		:return: Boolean status
 		:rtype: bool
@@ -45,9 +45,9 @@ class FileConfig(object):
 	@classmethod
 	def check_format(cls, file_path, file_extension):
 		"""
-		:arg: file_path - Absolute configuration file path
+		:param file_path: Absolute configuration file path
 		:type: str
-		:arg: file_extension - File format (file extension)
+		:param file_extension: File format (file extension)
 		:type: str
 		:return: Boolean status
 		:rtype: bool

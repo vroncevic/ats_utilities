@@ -20,6 +20,6 @@ class AbstractSetConfig(object):
 
 	def set_configuration(self, configuration):
 		"""
-		:arg: configuration - Configuration object
+		:param configuration: Configuration object
 		"""
 		raise NotImplementedError("Not implemented")

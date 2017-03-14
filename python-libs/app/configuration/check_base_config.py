@@ -22,7 +22,7 @@ class CheckBaseConfig(object):
 	@classmethod
 	def now(cls, configuration):
 		"""
-		:arg: configuration - Base configuration
+		:param configuration: Base configuration
 		:type: dict
 		:return: Boolean status
 		:rtype: bool

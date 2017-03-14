@@ -31,7 +31,7 @@ class IniBase(AppInfo, Settings, AppOptionParser):
 
 	def __init__(self, base_config_file):
 		"""
-		:arg: base_config_file - Configuration file path
+		:param base_config_file: Configuration file path
 		:type: str
 		"""
 		Settings.__init__(self, base_config_file)
@@ -54,9 +54,9 @@ class IniBase(AppInfo, Settings, AppOptionParser):
 
 	def add_new_option(self, *args, **kwargs):
 		"""
-		:arg: args - Arguments
+		:param args: Arguments
 		:type: Python object(s)
-		:arg: kwargs - Options and texts
+		:param kwargs: Options and texts
 		:type: Python object(s)
 		"""
 		self.add_operation(*args, **kwargs)

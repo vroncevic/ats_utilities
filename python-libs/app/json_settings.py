@@ -24,7 +24,7 @@ class Settings(Json2Object, Object2Json):
 
 	def __init__(self, base_config_file):
 		"""
-		:arg: base_config_file - File configuration path
+		:param base_config_file: File configuration path
 		:type: str
 		"""
 		Json2Object.__init__(self, base_config_file)
