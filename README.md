@@ -34,5 +34,5 @@ it under the same terms as Python itself, either Python version 3.4.2 or,
 at your option, any later version of Python 3 you may have available.
 
 ![alt tag](https://raw.githubusercontent.com/vroncevic/py_util/master/python_logo.png)
-![alt tag](https://raw.githubusercontent.com/vroncevic/py_util/master/linux_logo.jpg)
+![alt tag](https://raw.githubusercontent.com/vroncevic/py_util/master/linux_logo.png)
 
