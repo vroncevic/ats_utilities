@@ -9,35 +9,35 @@ __email__ = "elektron.ronca@gmail.com"
 __status__ = "Updated"
 
 class AppVersion(object):
-	"""
-	Define class AppVersion with attribute(s) and method(s).
-	Keep, set, get version number of App/Tool/Script.
-	It defines:
-		attribute:
-			__version - Version number of App/Tool/Script
-		method:
-			__init__ - Initial constructor
-			set_version - Setting version number of App/Tool/Script
-			get_version - Getting version number of App/Tool/Script
-	"""
+    """
+    Define class AppVersion with attribute(s) and method(s).
+    Keep, set, get version number of App/Tool/Script.
+    It defines:
+        attribute:
+            __version - Version number of App/Tool/Script
+        method:
+            __init__ - Initial constructor
+            set_version - Setting version number of App/Tool/Script
+            get_version - Getting version number of App/Tool/Script
+    """
 
-	def __init__(self, version=None):
-		"""
-		:param version: App/Tool/Script version
-		:type: str
-		"""
-		self.__version = version
+    def __init__(self, version=None):
+        """
+        :param version: App/Tool/Script version
+        :type: str
+        """
+        self.__version = version
 
-	def set_version(self, version):
-		"""
-		:param version: App/Tool/Script version
-		:type: str
-		"""
-		self.__version = version
+    def set_version(self, version):
+        """
+        :param version: App/Tool/Script version
+        :type: str
+        """
+        self.__version = version
 
-	def get_version(self):
-		"""
-		:return: App/Tool/Script version
-		:rtype: str
-		"""
-		return self.__version
+    def get_version(self):
+        """
+        :return: App/Tool/Script version
+        :rtype: str
+        """
+        return self.__version

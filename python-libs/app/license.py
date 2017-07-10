@@ -9,35 +9,35 @@ __email__ = "elektron.ronca@gmail.com"
 __status__ = "Updated"
 
 class AppLicense(object):
-	"""
-	Define class AppLicense with attribute(s) and method(s).
-	Keep, set, get text license of App/Tool/Script.
-	It defines:
-		attribute:
-			__license - Text with license
-		method:
-			__init__ - Initial constructor
-			set_license - Setting App/Tool/Script text license
-			get_license - Getting App/Tool/Script text license
-	"""
+    """
+    Define class AppLicense with attribute(s) and method(s).
+    Keep, set, get text license of App/Tool/Script.
+    It defines:
+        attribute:
+            __license - Text with license
+        method:
+            __init__ - Initial constructor
+            set_license - Setting App/Tool/Script text license
+            get_license - Getting App/Tool/Script text license
+    """
 
-	def __init__(self, txt_license=None):
-		"""
-		:param txt_license: App/Tool/Script text license
-		:type: str
-		"""
-		self.__license = txt_license
+    def __init__(self, txt_license=None):
+        """
+        :param txt_license: App/Tool/Script text license
+        :type: str
+        """
+        self.__license = txt_license
 
-	def set_license(self, txt_license):
-		"""
-		:param txt_license: App/Tool/Script text license
-		:type: str
-		"""
-		self.__license = txt_license
+    def set_license(self, txt_license):
+        """
+        :param txt_license: App/Tool/Script text license
+        :type: str
+        """
+        self.__license = txt_license
 
-	def get_license(self):
-		"""
-		:return: App/Tool/Script text license
-		:rtype: str
-		"""
-		return self.__license
+    def get_license(self):
+        """
+        :return: App/Tool/Script text license
+        :rtype: str
+        """
+        return self.__license

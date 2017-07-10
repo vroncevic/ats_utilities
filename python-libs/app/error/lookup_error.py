@@ -10,11 +10,11 @@ __status__ = "Updated"
 
 class AppError(LookupError):
 	"""
-	Define class AppError with attribute(s) and method(s).
-	Lookup error mechanism.
-	It defines:
-		attribute:
-			None
-		method:
-			None
-	"""
+    Define class AppError with attribute(s) and method(s).
+    Lookup error mechanism.
+    It defines:
+        attribute:
+            None
+        method:
+            None
+    """

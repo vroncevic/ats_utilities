@@ -16,28 +16,28 @@ from app.configuration.check_base_config import CheckBaseConfig
 from app.error.lookup_error import AppError
 
 class AppInfo(AppName, AppVersion, BuildDate, AppLicense):
-	"""
-	Define class AppInfo with attribute(s) and method(s).
-	Keep App/Tool/Script information in one object.
-	It defines:
-		attribute:
-			None
-		method:
-			__init__ - Initial constructor
-	"""
+    """
+    Define class AppInfo with attribute(s) and method(s).
+    Keep App/Tool/Script information in one object.
+    It defines:
+        attribute:
+            None
+        method:
+            __init__ - Initial constructor
+    """
 
-	def __init__(self, info):
-		"""
-		:param info: App/Tool/Script basic info
-		:type: dict
-		"""
-		try:
-			if CheckBaseConfig.now(info):
-				AppName.__init__(self, info['app_name'])
-				AppVersion.__init__(self, info['app_version'])
-				BuildDate.__init__(self, info['app_build_date'])
-				AppLicense.__init__(self, info['app_license'])
-			else:
-				raise AppError("wrong App info structure!")
-		except AppError as e:
-			print("Error: ", e)
+    def __init__(self, info):
+        """
+        :param info: App/Tool/Script basic info
+        :type: dict
+        """
+        try:
+            if CheckBaseConfig.now(info):
+                AppName.__init__(self, info['app_name'])
+                AppVersion.__init__(self, info['app_version'])
+                BuildDate.__init__(self, info['app_build_date'])
+                AppLicense.__init__(self, info['app_license'])
+            else:
+                raise AppError("wrong App info structure!")
+        except AppError as e:
+            print("Error: ", e)

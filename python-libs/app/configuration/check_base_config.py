@@ -9,28 +9,32 @@ __email__ = "elektron.ronca@gmail.com"
 __status__ = "Updated"
 
 class CheckBaseConfig(object):
-	"""
-	Define class GenPyModule with attribute(s) and method(s).
-	Checking basic configuration structure.
-	It defines:
-		attribute:
-			None
-		method:
-			now - Check basic configuration
-	"""
+    """
+    Define class GenPyModule with attribute(s) and method(s).
+    Checking basic configuration structure.
+    It defines:
+        attribute:
+            __BASE_CONFIG - Basic configuration keys
+        method:
+            now - Check basic configuration
+    """
 
-	@classmethod
-	def now(cls, configuration):
-		"""
-		:param configuration: Base configuration
-		:type: dict
-		:return: Boolean status
-		:rtype: bool
-		"""
-		ck_name = "app_name" in configuration.keys()
-		ck_version = "app_version" in configuration.keys()
-		ck_build_date = "app_build_date" in configuration.keys()
-		ck_license = "app_license" in configuration.keys()
-		if ck_name and ck_version and ck_build_date and ck_license:
-			return True
-		return False
+    __BASE_CONFIG = {
+        1 : "app_name",
+        2 : "app_version",
+        3 : "app_build_date",
+        4 : "app_license"
+    }
+
+    @classmethod
+    def now(cls, configuration):
+        """
+        :param configuration: Base configuration
+        :type: dict
+        :return: Boolean status
+        :rtype: bool
+        """
+        for config_key in configuration.keys():
+            if config_key not in CheckBaseConfig.__BASE_CONFIG.values():
+                return False
+        return True

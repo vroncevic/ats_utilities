@@ -8,7 +8,7 @@ setup(
 	description='Python utilities',
 	author='Vladimir Roncevic',
 	author_email='elektron.ronca@gmail.com',
-	url='https://github.com/vroncevic/py_util',
+	url='https://vroncevic.github.io/py_util/',
 	license='GPL 2017 Free software to use and distributed it.',
 	long_description='Configuration mechanism for python app/tool/script.',
 	keywords='app, configuration, logging, option, xml, cfg, ini, json, yaml',
