@@ -1,12 +1,14 @@
 # encoding: utf-8
-__author__ = "Vladimir Roncevic"
-__copyright__ = "Copyright 2017, Free software to use and distributed it."
-__credits__ = ["Vladimir Roncevic"]
-__license__ = "GNU General Public License (GPL)"
-__version__ = "1.0.0"
-__maintainer__ = "Vladimir Roncevic"
-__email__ = "elektron.ronca@gmail.com"
-__status__ = "Updated"
+
+__author__ = 'Vladimir Roncevic'
+__copyright__ = 'Copyright 2017, Free software to use and distributed it.'
+__credits__ = ['Vladimir Roncevic']
+__license__ = 'GNU General Public License (GPL)'
+__version__ = '1.0.0'
+__maintainer__ = 'Vladimir Roncevic'
+__email__ = 'elektron.ronca@gmail.com'
+__status__ = 'Updated'
+
 
 class AppVersion(object):
     """
@@ -23,6 +25,7 @@ class AppVersion(object):
 
     def __init__(self, version=None):
         """
+        Initial version number of App/Tool/Script.
         :param version: App/Tool/Script version
         :type: str
         """
@@ -30,6 +33,7 @@ class AppVersion(object):
 
     def set_version(self, version):
         """
+        Setting version number of App/Tool/Script.
         :param version: App/Tool/Script version
         :type: str
         """
@@ -37,6 +41,7 @@ class AppVersion(object):
 
     def get_version(self):
         """
+        Getting version number of App/Tool/Script.
         :return: App/Tool/Script version
         :rtype: str
         """

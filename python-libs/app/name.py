@@ -1,12 +1,14 @@
 # encoding: utf-8
-__author__ = "Vladimir Roncevic"
-__copyright__ = "Copyright 2017, Free software to use and distributed it."
-__credits__ = ["Vladimir Roncevic"]
-__license__ = "GNU General Public License (GPL)"
-__version__ = "1.0.0"
-__maintainer__ = "Vladimir Roncevic"
-__email__ = "elektron.ronca@gmail.com"
-__status__ = "Updated"
+
+__author__ = 'Vladimir Roncevic'
+__copyright__ = 'Copyright 2017, Free software to use and distributed it.'
+__credits__ = ['Vladimir Roncevic']
+__license__ = 'GNU General Public License (GPL)'
+__version__ = '1.0.0'
+__maintainer__ = 'Vladimir Roncevic'
+__email__ = 'elektron.ronca@gmail.com'
+__status__ = 'Updated'
+
 
 class AppName(object):
     """
@@ -23,6 +25,7 @@ class AppName(object):
 
     def __init__(self, program_name=None):
         """
+        Initial program name of App/Tool/Script.
         :param program_name: App/Tool/Script name
         :type: str
         """
@@ -30,6 +33,7 @@ class AppName(object):
 
     def set_name(self, program_name):
         """
+        Setting program name of App/Tool/Script.
         :param program_name: App/Tool/Script name
         :type: str
         """
@@ -37,6 +41,7 @@ class AppName(object):
 
     def get_name(self):
         """
+        Getting program name of App/Tool/Script.
         :return: App/Tool/Script name
         :rtype: str
         """
