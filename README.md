@@ -15,6 +15,7 @@ DEPENDENCIES
 
 These modules requires other modules and libraries (Python 3):
 
+    abc
 	logging
 	os.path
 	yaml
