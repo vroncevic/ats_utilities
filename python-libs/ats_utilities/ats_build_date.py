@@ -1,0 +1,76 @@
+# encoding: utf-8
+
+__author__ = 'Vladimir Roncevic'
+__copyright__ = 'Copyright 2017, Free software to use and distributed it.'
+__credits__ = ['Vladimir Roncevic']
+__license__ = 'GNU General Public License (GPL)'
+__version__ = '1.0.0'
+__maintainer__ = 'Vladimir Roncevic'
+__email__ = 'elektron.ronca@gmail.com'
+__status__ = 'Updated'
+
+
+class ATSBuildDate(object):
+    """
+    Define class ATSBuildDate with attribute(s) and method(s).
+    Keep, set, get build date of App/Tool/Script.
+    It defines:
+        attribute:
+            VERBOSE - Verbose prefix text
+            __build_date - Build date of App/Tool/Script
+        method:
+            __init__ - Initial constructor
+            set_build_date - Setting build date of App/Tool/Script
+            get_build_date - Getting build date of App/Tool/Script
+            __str__ - Dunder (magic) method
+            __repr__ - Dunder (magic) method
+    """
+
+    VERBOSE = '[BUILD_DATE]'
+
+    def __init__(self, build_date=None, verbose=False):
+        """
+        Initial build date of App/Tool/Script.
+        :param build_date: Build date of App/Tool/Script
+        :type: str
+        :param verbose: Enable/disable verbose option
+        :type verbose: bool
+        """
+        if verbose:
+            msg = ATSBuildDate.VERBOSE
+            print(msg)
+        self.__build_date = build_date
+
+    def set_build_date(self, build_date):
+        """
+        Setting build date of App/Tool/Script.
+        :param build_date: Build date of App/Tool/Script
+        :type: str
+        """
+        self.__build_date = build_date
+
+    def get_build_date(self):
+        """
+        Getting build date of App/Tool/Script.
+        :return: Build date of App/Tool/Script
+        :rtype: str
+        """
+        return self.__build_date
+
+    def __str__(self):
+        """
+        Return human readable string (ATSBuildDate).
+        :return: String representation of ATSBuildDate
+        :rtype: str
+        """
+        ats_build_date = self.get_build_date()
+        return "App/Tool/Script build date {0}".format(ats_build_date)
+
+    def __repr__(self):
+        """
+        Return unambiguous string (ATSBuildDate).
+        :return: String representation of ATSBuildDate
+        :rtype: str
+        """
+        ats_build_date = self.get_build_date()
+        return "{0}(\'{1}\')".format(type(self).__name__, ats_build_date)
