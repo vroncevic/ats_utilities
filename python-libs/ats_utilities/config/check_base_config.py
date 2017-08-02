@@ -19,7 +19,7 @@ class CheckBaseConfig(object):
             __BASE_CONFIG - Basic config keys
             VERBOSE - Verbose prefix text
         method:
-            now - Check basic configuration keys
+            is_correct - Check basic configuration keys
     """
 
     __BASE_CONFIG = {
@@ -32,11 +32,11 @@ class CheckBaseConfig(object):
     VERBOSE = '[CHECK_BASE_CONFIG]'
 
     @classmethod
-    def now(cls, configuration, verbose=False):
+    def is_correct(cls, configuration, verbose=False):
         """
-        Check basic config.
-        :param configuration: Base config
-        :type: dict
+        Check basic configuration structure.
+        :param configuration: Base configuration
+        :type configuration: dict
         :param verbose: Enable/disable verbose option
         :type verbose: bool
         :return: Boolean status
@@ -51,7 +51,9 @@ class CheckBaseConfig(object):
         for cfg_key in config_keys:
             if cfg_key not in config_values:
                 if verbose:
-                    msg = CheckBaseConfig.VERBOSE + ' key not expected'
+                    msg = "{0} {1} [{2}]".format(
+                        CheckBaseConfig.VERBOSE, 'key not expected', cfg_key
+                    )
                     print(msg)
                 statuses.append(False)
             else:

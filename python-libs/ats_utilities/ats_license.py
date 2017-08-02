@@ -20,8 +20,8 @@ class ATSLicense(object):
             __license - Text with license
         method:
             __init__ - Initial constructor
-            set_license - Setting App/Tool/Script text license
-            get_license - Getting App/Tool/Script text license
+            set_ats_license - Setting App/Tool/Script text license
+            get_ats_license - Getting App/Tool/Script text license
             __str__ - Dunder (magic) method
             __repr__ - Dunder (magic) method
     """
@@ -32,7 +32,7 @@ class ATSLicense(object):
         """
         Initial text license of App/Tool/Script.
         :param txt_license: App/Tool/Script text license
-        :type: str
+        :type txt_license: str
         :param verbose: Enable/disable verbose option
         :type verbose: bool
         """
@@ -41,15 +41,15 @@ class ATSLicense(object):
             print(msg)
         self.__license = txt_license
 
-    def set_license(self, txt_license):
+    def set_ats_license(self, txt_license):
         """
         Setting text license of App/Tool/Script.
         :param txt_license: App/Tool/Script text license
-        :type: str
+        :type txt_license: str
         """
         self.__license = txt_license
 
-    def get_license(self):
+    def get_ats_license(self):
         """
         Getting text license of App/Tool/Script.
         :return: App/Tool/Script text license
@@ -63,8 +63,7 @@ class ATSLicense(object):
         :return: String representation of ATSLicense
         :rtype: str
         """
-        ats_license = self.get_license()
-        return "App/Tool/Script license {0}".format(ats_license)
+        return "App/Tool/Script license {0}".format(self.__license)
 
     def __repr__(self):
         """
@@ -72,5 +71,4 @@ class ATSLicense(object):
         :return: String representation of ATSLicense
         :rtype: str
         """
-        ats_license = self.get_license()
-        return "{0}(\'{1}\')".format(type(self).__name__, ats_license)
+        return "{0}(\'{1}\')".format(type(self).__name__, self.__license)

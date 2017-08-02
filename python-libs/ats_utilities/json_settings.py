@@ -32,7 +32,7 @@ class JsonSettings(Json2Object, Object2Json):
         """
         Setting interfaces for json object.
         :param base_config_file: File config path
-        :type: str
+        :type base_config_file: str
         :param verbose: Enable/disable verbose option
         :type verbose: bool
         """
@@ -49,7 +49,7 @@ class JsonSettings(Json2Object, Object2Json):
         :rtype: str
         """
         file_path = self.get_file_path()
-        return 'File path {0}'.format(file_path)
+        return "File path {0}".format(file_path)
 
     def __repr__(self):
         """
@@ -58,4 +58,4 @@ class JsonSettings(Json2Object, Object2Json):
         :rtype: str
         """
         file_path = self.get_file_path()
-        return '{0}(\'{1}\')'.format(type(self).__name__, file_path)
+        return "{0}(\'{1}\')".format(type(self).__name__, file_path)

@@ -37,7 +37,7 @@ class Object2Json(BaseWriteConfig):
         """
         Setting configuration file path.
         :param configuration_file: Absolute configuration file path
-        :type: str
+        :type configuration_file: str
         :param verbose: Enable/disable verbose option
         :type verbose: bool
         """
@@ -54,7 +54,7 @@ class Object2Json(BaseWriteConfig):
         :type: Python object(s)
         :param verbose: Enable/disable verbose option
         :type verbose: bool
-        :return: Boolean status
+        :return: True (success) | False
         :rtype: bool
         """
         status = False
@@ -76,7 +76,7 @@ class Object2Json(BaseWriteConfig):
                     configuration_file.close()
                     status = True
                     if verbose:
-                        msg = Object2Json.VERBOSE + ' Done'
+                        msg = "{0} {1}".format(Object2Json.VERBOSE, 'Done')
                         print(msg)
         return True if status else False
 

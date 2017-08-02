@@ -38,7 +38,7 @@ class Ini2Object(BaseReadConfig):
         """
         Setting configuration file path.
         :param configuration_file: Absolute configuration file path
-        :type: str
+        :type configuration_file: str
         :param verbose: Enable/disable verbose option
         :type verbose: bool
         """
@@ -75,7 +75,7 @@ class Ini2Object(BaseReadConfig):
                     if config:
                         configuration_file.close()
                         if verbose:
-                            msg = Ini2Object.VERBOSE + ' Done'
+                            msg = "{0} {1}".format(Ini2Object.VERBOSE, 'Done')
                             print(msg)
                         return config
         return None

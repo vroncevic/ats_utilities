@@ -2,6 +2,8 @@
 
 from os.path import exists, isfile, splitext
 
+from ats_utilities.error.ats_file_error import ATSFileError
+
 __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2017, Free software to use and distributed it.'
 __credits__ = ['Vladimir Roncevic']
@@ -28,8 +30,8 @@ class FileConfig(object):
         attribute:
             VERBOSE - Verbose prefix text
         method:
-            check_file - Check config file path
-            check_format - Check config file format by extension
+            check_file - Check configuration file path
+            check_format - Check configuration file format by extension
     """
 
     VERBOSE = '[FILE_CONFIG]'
@@ -42,14 +44,30 @@ class FileConfig(object):
         :type: str
         :param verbose: Enable/disable verbose option
         :type verbose: bool
-        :return: Boolean status
+        :return: True (exist and regular) | False
         :rtype: bool
         """
         if verbose:
-            msg = FileConfig.VERBOSE + ' checking file ' + file_path
+            msg = "{0} {1} \n{2}".format(
+                FileConfig.VERBOSE, 'checking file', file_path
+            )
             print(msg)
-        file_path_exist = exists(file_path)
-        file_path_regular = isfile(file_path)
+        file_path_exist, file_path_regular = False, False
+        try:
+            file_path_exist = exists(file_path)
+            file_path_regular = isfile(file_path)
+            if not file_path_exist:
+                msg = "{0} {1}\n{2}".format(
+                    FileConfig.VERBOSE, 'file does not exist', file_path
+                )
+                raise ATSFileError(msg)
+            elif not file_path_regular:
+                msg = "{0} {1}\n{2}".format(
+                    FileConfig.VERBOSE, 'file is not regular', file_path
+                )
+                raise ATSFileError(msg)
+        except ATSFileError as e:
+            print(e)
         return True if file_path_exist and file_path_regular else False
 
     @classmethod
@@ -66,7 +84,20 @@ class FileConfig(object):
         :rtype: bool
         """
         if verbose:
-            msg = FileConfig.VERBOSE + ' checking file format ' + file_path
+            msg = "{0} {1} {2}".format(
+                FileConfig.VERBOSE, 'checking file extension', file_path
+            )
             print(msg)
-        ext = splitext(file_path)[-1].lower()
-        return True if ext == file_extension else False
+        status = False
+        try:
+            ext = splitext(file_path)[-1].lower()
+            status = ext == file_extension
+            if not status:
+                msg = "{0} {1} [{2}] {3}".format(
+                    FileConfig.VERBOSE, 'not matched file extension',
+                    file_extension, file_path
+                )
+                raise ATSFileError(msg)
+        except ATSFileError as e:
+            print(e)
+        return True if status else False

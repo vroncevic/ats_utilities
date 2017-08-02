@@ -20,19 +20,19 @@ class ATSBuildDate(object):
             __build_date - Build date of App/Tool/Script
         method:
             __init__ - Initial constructor
-            set_build_date - Setting build date of App/Tool/Script
-            get_build_date - Getting build date of App/Tool/Script
+            set_ats_build_date - Setting build date of App/Tool/Script
+            get_ats_build_date - Getting build date of App/Tool/Script
             __str__ - Dunder (magic) method
             __repr__ - Dunder (magic) method
     """
 
-    VERBOSE = '[BUILD_DATE]'
+    VERBOSE = '[ATS_BUILD_DATE]'
 
     def __init__(self, build_date=None, verbose=False):
         """
         Initial build date of App/Tool/Script.
         :param build_date: Build date of App/Tool/Script
-        :type: str
+        :type build_date: str
         :param verbose: Enable/disable verbose option
         :type verbose: bool
         """
@@ -41,15 +41,15 @@ class ATSBuildDate(object):
             print(msg)
         self.__build_date = build_date
 
-    def set_build_date(self, build_date):
+    def set_ats_build_date(self, build_date):
         """
         Setting build date of App/Tool/Script.
         :param build_date: Build date of App/Tool/Script
-        :type: str
+        :type build_date: str
         """
         self.__build_date = build_date
 
-    def get_build_date(self):
+    def get_ats_build_date(self):
         """
         Getting build date of App/Tool/Script.
         :return: Build date of App/Tool/Script
@@ -63,8 +63,7 @@ class ATSBuildDate(object):
         :return: String representation of ATSBuildDate
         :rtype: str
         """
-        ats_build_date = self.get_build_date()
-        return "App/Tool/Script build date {0}".format(ats_build_date)
+        return "App/Tool/Script build date {0}".format(self.__build_date)
 
     def __repr__(self):
         """
@@ -72,5 +71,4 @@ class ATSBuildDate(object):
         :return: String representation of ATSBuildDate
         :rtype: str
         """
-        ats_build_date = self.get_build_date()
-        return "{0}(\'{1}\')".format(type(self).__name__, ats_build_date)
+        return "{0}(\'{1}\')".format(type(self).__name__, self.__build_date)

@@ -39,7 +39,7 @@ class BaseWriteConfig(object):
         :type verbose: bool
         """
         if verbose:
-            msg = BaseWriteConfig.VERBOSE + ' Init file path'
+            msg = "{0} {1}".format(BaseWriteConfig.VERBOSE, 'Init file path')
             print(msg)
         self.__file_path = None
 
@@ -67,6 +67,8 @@ class BaseWriteConfig(object):
         :type configuration: dict
         :param verbose: Enable/disable verbose option
         :type verbose: bool
+        :return: Boolean status
+        :rtype: bool
         """
         pass
 
@@ -76,8 +78,7 @@ class BaseWriteConfig(object):
         :return: String representation of BaseWriteConfig
         :rtype: str
         """
-        file_path = self.get_file_path()
-        return 'File path {0}'.format(file_path)
+        return 'File path {0}'.format(self.__file_path)
 
     def __repr__(self):
         """

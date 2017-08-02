@@ -35,7 +35,7 @@ class Object2Cfg(BaseWriteConfig):
         """
         Setting configuration file path.
         :param configuration_file: Absolute configuration file path
-        :type: str
+        :type configuration_file: str
         :param verbose: Enable/disable verbose option
         :type verbose: bool
         """
@@ -49,16 +49,18 @@ class Object2Cfg(BaseWriteConfig):
         """
         Write configuration to file.
         :param configuration: Configuration object
-        :type: dict
+        :type configuration: dict
         :param verbose: Enable/disable verbose option
         :type verbose: bool
-        :return: Boolean status
+        :return: True (success) | False
         :rtype: bool
         """
         file_path = self.get_file_path()
         if verbose:
-            txt = Object2Cfg.VERBOSE + ' write configuration to file '
-            msg = "{0}{1}".format(txt, file_path)
+            txt = "{0} {1}".format(
+                Object2Cfg.VERBOSE, 'write configuration to file'
+            )
+            msg = "{0} {1}".format(txt, file_path)
             print(msg)
         status = False
         check_cfg_file = FileConfig.check_file(file_path, verbose)
@@ -71,7 +73,8 @@ class Object2Cfg(BaseWriteConfig):
                 try:
                     configuration_file = open(file_path, 'w')
                     for key in configuration:
-                        line = "{0} = {1}\n".format(key, configuration[key])
+                        config_value = configuration.get(key)
+                        line = "{0} = {1}\n".format(key, config_value)
                         configuration_file.write(line)
                 except IOError as e:
                     msg = "I/O error({0}): {1}".format(e.errno, e.strerror)
@@ -80,7 +83,7 @@ class Object2Cfg(BaseWriteConfig):
                     configuration_file.close()
                     status = True
                     if verbose:
-                        msg = Object2Cfg.VERBOSE + ' Done'
+                        msg = "{0} {1}".format(Object2Cfg.VERBOSE, 'Done')
                         print(msg)
         return True if status else False
 

@@ -38,7 +38,7 @@ class Cfg2Object(BaseReadConfig):
         """
         Setting configuration file path.
         :param configuration_file: Absolute configuration file path
-        :type: str
+        :type configuration_file: str
         :param verbose: Enable/disable verbose option
         :type verbose: bool
         """
@@ -58,8 +58,10 @@ class Cfg2Object(BaseReadConfig):
         """
         file_path = self.get_file_path()
         if verbose:
-            txt = Cfg2Object.VERBOSE + ' Read configuration from file '
-            msg = "{0}{1}".format(txt, file_path)
+            txt = "{0} {1}".format(
+                Cfg2Object.VERBOSE, 'Read configuration from file'
+            )
+            msg = "{0} {1}".format(txt, file_path)
             print(msg)
         check_cfg_file = FileConfig.check_file(file_path, verbose)
         if check_cfg_file:
@@ -85,7 +87,7 @@ class Cfg2Object(BaseReadConfig):
                                 pairs = line.split('=')
                                 config[pairs[0].strip()] = pairs[1].strip()
                         if verbose:
-                            msg = Cfg2Object.VERBOSE + ' Done'
+                            msg = "{0} {1}".format(Cfg2Object.VERBOSE, 'Done')
                             print(msg)
                         return config
         return None

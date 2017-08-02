@@ -2,7 +2,7 @@
 
 from optparse import OptionParser
 
-from ats_utilities.error.lookup_error import AppError
+from ats_utilities.error.ats_value_error import ATSValueError
 
 __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2017, Free software to use and distributed it.'
@@ -51,10 +51,14 @@ class ATSOptionParser(object):
                     version=version, epilog=epilog, description=description
                 )
             else:
-                msg = 'missing option parser argument(s)!'
-                raise AppError(msg)
-        except AppError as e:
-            print("Error: ", e)
+                msg = "{0} {1} {2}".format(
+                    ATSOptionParser.VERBOSE,
+                    'missing option parser argument(s)!',
+                    'version/epilog/description'
+                )
+                raise ATSValueError(msg)
+        except ATSValueError as e:
+            print(e)
 
     def add_operation(self, *args, **kwargs):
         """

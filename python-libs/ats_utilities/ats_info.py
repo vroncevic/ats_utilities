@@ -5,7 +5,7 @@ from ats_utilities.ats_version import ATSVersion
 from ats_utilities.ats_build_date import ATSBuildDate
 from ats_utilities.ats_license import ATSLicense
 from ats_utilities.config.check_base_config import CheckBaseConfig
-from ats_utilities.error.lookup_error import AppError
+from ats_utilities.error.ats_value_error import ATSValueError
 
 __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2017, Free software to use and distributed it.'
@@ -20,7 +20,7 @@ __status__ = 'Updated'
 class ATSInfo(ATSName, ATSVersion, ATSBuildDate, ATSLicense):
     """
     Define class ATSInfo with attribute(s) and method(s).
-    Keep App/Tool/Script information in one object.
+    Keep App/Tool/Script information in one container object.
     It defines:
         attribute:
             VERBOSE - Verbose prefix text
@@ -35,22 +35,35 @@ class ATSInfo(ATSName, ATSVersion, ATSBuildDate, ATSLicense):
     def __init__(self, info, verbose=False):
         """
         Setting container info for App/Tool/Script.
-        :param info: App/Tool/Script basic info
-        :type: dict
+        :param info: App/Tool/Script basic information
+        :type info: dict
         :param verbose: Enable/disable verbose option
         :type verbose: bool
         """
+        if verbose:
+            msg = ATSInfo.VERBOSE
+            print(msg)
         try:
-            if CheckBaseConfig.now(info, verbose):
-                ATSName.__init__(self, info['app_name'], verbose)
-                ATSVersion.__init__(self, info['app_version'], verbose)
-                ATSBuildDate.__init__(self, info['app_build_date'], verbose)
-                ATSLicense.__init__(self, info['app_license'], verbose)
+            check_config = CheckBaseConfig.is_correct(info, verbose)
+            is_dict = isinstance(info, dict)
+            if check_config and is_dict:
+                app_name = info.get('app_name')
+                ATSName.__init__(self, app_name, verbose)
+                app_version = info.get('app_version')
+                ATSVersion.__init__(self, app_version, verbose)
+                app_build_date = info.get('app_build_date')
+                ATSBuildDate.__init__(self, app_build_date, verbose)
+                app_license = info.get('app_license')
+                ATSLicense.__init__(self, app_license, verbose)
             else:
-                msg = 'wrong App/Tool/Script info structure!'
-                raise AppError(msg)
-        except AppError as e:
-            print("Error: ", e)
+                msg = "{0} {1} {2}".format(
+                    ATSInfo.VERBOSE,
+                    'wrong App/Tool/Script info structure',
+                    type(info)
+                )
+                raise ATSValueError(msg)
+        except ATSValueError as e:
+            print(e)
 
     def __str__(self):
         """
@@ -58,11 +71,11 @@ class ATSInfo(ATSName, ATSVersion, ATSBuildDate, ATSLicense):
         :return: String representation of ATSInfo
         :rtype: str
         """
-        ats_name = self.get_name()
-        ats_version = self.get_version()
-        ats_build_date = self.get_build_date()
-        ats_license = self.get_license()
-        return "App/Tool/Script info {0} {1} {2} {3}".format(
+        ats_name = self.get_ats_name()
+        ats_version = self.get_ats_version()
+        ats_build_date = self.get_ats_build_date()
+        ats_license = self.get_ats_license()
+        return "App/Tool/Script info \n{0} \n{1} \n{2} \n{3}".format(
             ats_name, ats_version, ats_build_date, ats_license
         )
 

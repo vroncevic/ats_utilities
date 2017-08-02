@@ -20,8 +20,8 @@ class ATSName(object):
             __program_name - Name of App/Tool/Script
         method:
             __init__ - Initial constructor
-            set_name - Setting program name of App/Tool/Script
-            get_name - Getting program name of App/Tool/Script
+            set_ats_name - Setting name of App/Tool/Script
+            get_ats_name - Getting name of App/Tool/Script
             __str__ - Dunder (magic) method
             __repr__ - Dunder (magic) method
     """
@@ -30,9 +30,9 @@ class ATSName(object):
 
     def __init__(self, program_name=None, verbose=False):
         """
-        Initial program name of App/Tool/Script.
+        Initial name of App/Tool/Script.
         :param program_name: App/Tool/Script name
-        :type: str
+        :type program_name: str
         :param verbose: Enable/disable verbose option
         :type verbose: bool
         """
@@ -41,17 +41,17 @@ class ATSName(object):
             print(msg)
         self.__program_name = program_name
 
-    def set_name(self, program_name):
+    def set_ats_name(self, program_name):
         """
-        Setting program name of App/Tool/Script.
+        Setting name of App/Tool/Script.
         :param program_name: App/Tool/Script name
-        :type: str
+        :type program_name: str
         """
         self.__program_name = program_name
 
-    def get_name(self):
+    def get_ats_name(self):
         """
-        Getting program name of App/Tool/Script.
+        Getting name of App/Tool/Script.
         :return: App/Tool/Script name
         :rtype: str
         """
@@ -63,8 +63,7 @@ class ATSName(object):
         :return: String representation of ATSName
         :rtype: str
         """
-        ats_name = self.get_name()
-        return "App/Tool/Script name {0}".format(ats_name)
+        return "App/Tool/Script name {0}".format(self.__program_name)
 
     def __repr__(self):
         """
@@ -72,5 +71,4 @@ class ATSName(object):
         :return: String representation of ATSName
         :rtype: str
         """
-        ats_name = self.get_name()
-        return "{0}(\'{1}\')".format(type(self).__name__, ats_name)
+        return "{0}(\'{1}\')".format(type(self).__name__, self.__program_name)

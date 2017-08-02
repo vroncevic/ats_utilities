@@ -35,7 +35,7 @@ class Object2Ini(BaseWriteConfig):
         """
         Setting configuration file path.
         :param configuration_file: Absolute configuration file path
-        :type: str
+        :type configuration_file: str
         :param verbose: Enable/disable verbose option
         :type verbose: bool
         """
@@ -52,7 +52,7 @@ class Object2Ini(BaseWriteConfig):
         :type: ConfigParser
         :param verbose: Enable/disable verbose option
         :type verbose: bool
-        :return: Boolean status
+        :return: True (success) | False
         :rtype: bool
         """
         status = False
@@ -76,7 +76,7 @@ class Object2Ini(BaseWriteConfig):
                     configuration_file.close()
                     status = True
                     if verbose:
-                        msg = Object2Ini.VERBOSE + ' Done'
+                        msg = "{0} {1}".format(Object2Ini.VERBOSE, 'Done')
                         print(msg)
         return True if status else False
 

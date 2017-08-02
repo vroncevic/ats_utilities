@@ -39,7 +39,7 @@ class BaseReadConfig(object):
         :type verbose: bool
         """
         if verbose:
-            msg = BaseReadConfig.VERBOSE + ' Init file path'
+            msg = "{0} {1}".format(BaseReadConfig.VERBOSE, 'Init file path')
             print(msg)
         self.__file_path = None
 
@@ -65,6 +65,8 @@ class BaseReadConfig(object):
         Read configuration from file (Abstract method).
         :param verbose: Enable/disable verbose option
         :type verbose: bool
+        :return: Configuration object
+        :rtype: Python object(s) | NoneType
         """
         pass
 
@@ -74,8 +76,7 @@ class BaseReadConfig(object):
         :return: String representation of BaseReadConfig
         :rtype: str
         """
-        file_path = self.get_file_path()
-        return 'File path {0}'.format(file_path)
+        return 'File path {0}'.format(self.__file_path)
 
     def __repr__(self):
         """

@@ -20,8 +20,8 @@ class ATSVersion(object):
             __version - Version number of App/Tool/Script
         method:
             __init__ - Initial constructor
-            set_version - Setting version number of App/Tool/Script
-            get_version - Getting version number of App/Tool/Script
+            set_ats_version - Setting version number of App/Tool/Script
+            get_ats_version - Getting version number of App/Tool/Script
             __str__ - Dunder (magic) method
             __repr__ - Dunder (magic) method
     """
@@ -32,7 +32,7 @@ class ATSVersion(object):
         """
         Initial version number of App/Tool/Script.
         :param version: App/Tool/Script version
-        :type: str
+        :type version: str
         :param verbose: Enable/disable verbose option
         :type verbose: bool
         """
@@ -41,15 +41,15 @@ class ATSVersion(object):
             print(msg)
         self.__version = version
 
-    def set_version(self, version):
+    def set_ats_version(self, version):
         """
         Setting version number of App/Tool/Script.
         :param version: App/Tool/Script version
-        :type: str
+        :type version: str
         """
         self.__version = version
 
-    def get_version(self):
+    def get_ats_version(self):
         """
         Getting version number of App/Tool/Script.
         :return: App/Tool/Script version
@@ -63,8 +63,7 @@ class ATSVersion(object):
         :return: String representation of ATSVersion
         :rtype: str
         """
-        ats_version = self.get_version()
-        return "App/Tool/Script version {0}".format(ats_version)
+        return "App/Tool/Script version {0}".format(self.__version)
 
     def __repr__(self):
         """
@@ -72,5 +71,4 @@ class ATSVersion(object):
         :return: String representation of ATSVersion
         :rtype: str
         """
-        ats_version = self.get_version()
-        return "{0}(\'{1}\')".format(type(self).__name__, ats_version)
+        return "{0}(\'{1}\')".format(type(self).__name__, self.__version)

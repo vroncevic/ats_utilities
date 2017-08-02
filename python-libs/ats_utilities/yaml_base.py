@@ -6,7 +6,7 @@ from ats_utilities.ats_info import ATSInfo
 from ats_utilities.yaml_settings import YamlSettings
 from ats_utilities.option.ats_option_parser import ATSOptionParser
 from ats_utilities.config.check_base_config import CheckBaseConfig
-from ats_utilities.error.lookup_error import AppError
+from ats_utilities.error.ats_value_error import ATSValueError
 
 __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2017, Free software to use and distributed it.'
@@ -42,7 +42,7 @@ class YamlBase(ATSInfo, YamlSettings, ATSOptionParser):
         """
         Setting version, build date, name and license of App/Tool/Script.
         :param base_config_file: Configuration file path
-        :type: str
+        :type base_config_file: str
         :param verbose: Enable/disable verbose option
         :type verbose: bool
         """
@@ -53,17 +53,19 @@ class YamlBase(ATSInfo, YamlSettings, ATSOptionParser):
         self.__tool_operational = False
         try:
             configuration = self.read_configuration(verbose)
-            check_configuration = CheckBaseConfig.now(configuration, verbose)
+            check_configuration = CheckBaseConfig.is_correct(
+                configuration, verbose
+            )
             if configuration and check_configuration:
                 ATSInfo.__init__(self, configuration, verbose)
                 statuses = []
-                tool_version = self.get_version()
+                tool_version = self.get_ats_version()
                 statuses.append(tool_version)
-                tool_build_date = self.get_build_date()
+                tool_build_date = self.get_ats_build_date()
                 statuses.append(tool_build_date)
-                tool_name = self.get_name()
+                tool_name = self.get_ats_name()
                 statuses.append(tool_name)
-                tool_lic = self.get_license()
+                tool_lic = self.get_ats_license()
                 statuses.append(tool_lic)
                 if all(status for status in statuses):
                     tool_info = "{0} {1}".format(tool_version, tool_build_date)
@@ -72,13 +74,18 @@ class YamlBase(ATSInfo, YamlSettings, ATSOptionParser):
                     )
                     self.__tool_operational = True
                 else:
-                    msg = 'missing tool version/build_date/name or license'
-                    raise AppError(msg)
+                    msg = "{0} {1}".format(
+                        YamlBase.VERBOSE,
+                        'missing tool version/build_date/name or license !'
+                    )
+                    raise ATSValueError(msg)
             else:
-                msg = 'wrong config base structure!'
-                raise AppError(msg)
-        except AppError as e:
-            print("Error: ", e)
+                msg = "{0} {1}".format(
+                    YamlBase.VERBOSE, 'wrong config base structure !'
+                )
+                raise ATSValueError(msg)
+        except ATSValueError as e:
+            print(e)
 
     def add_new_option(self, *args, **kwargs):
         """
@@ -114,7 +121,7 @@ class YamlBase(ATSInfo, YamlSettings, ATSOptionParser):
         :rtype: str
         """
         file_path = self.get_file_path()
-        return 'File path {0}'.format(file_path)
+        return "File path {0}".format(file_path)
 
     def __repr__(self):
         """
@@ -123,4 +130,4 @@ class YamlBase(ATSInfo, YamlSettings, ATSOptionParser):
         :rtype: str
         """
         file_path = self.get_file_path()
-        return '{0}(\'{1}\')'.format(type(self).__name__, file_path)
+        return "{0}(\'{1}\')".format(type(self).__name__, file_path)

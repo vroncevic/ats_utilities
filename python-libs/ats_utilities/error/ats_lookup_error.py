@@ -10,9 +10,9 @@ __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
 
 
-class AppError(LookupError):
+class ATSLookupError(LookupError):
     """
-    Define class AppError with attribute(s) and method(s).
+    Define class ATSLookupError with attribute(s) and method(s).
     Lookup error mechanism.
     It defines:
         attribute:
