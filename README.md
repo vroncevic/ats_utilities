@@ -30,7 +30,7 @@ These modules requires other modules and libraries (Python 3):
 
 COPYRIGHT AND LICENCE
 
-Copyright (C) 2017 by https://github.com/vroncevic/py_util
+Copyright (C) 2017 by https://vroncevic.github.io/py_util/
 
 This tool is free software; you can redistribute it and/or modify
 it under the same terms as Python itself, either Python version 3.4.2 or,
