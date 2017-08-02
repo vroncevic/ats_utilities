@@ -25,6 +25,8 @@ These modules requires other modules and libraries (Python 3):
 	optparse
 	re
 	Lookup
+    OSError
+    ValueError
 
 COPYRIGHT AND LICENCE
 
