@@ -6,6 +6,7 @@ from ats_utilities.ats_build_date import ATSBuildDate
 from ats_utilities.ats_license import ATSLicense
 from ats_utilities.config.check_base_config import CheckBaseConfig
 from ats_utilities.error.ats_value_error import ATSValueError
+from ats_utilities.text.stdout_text import ATS
 
 __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2017, Free software to use and distributed it.'
@@ -56,10 +57,9 @@ class ATSInfo(ATSName, ATSVersion, ATSBuildDate, ATSLicense):
                 app_license = info.get('app_license')
                 ATSLicense.__init__(self, app_license, verbose)
             else:
-                msg = "{0} {1} {2}".format(
-                    ATSInfo.VERBOSE,
-                    'wrong App/Tool/Script info structure',
-                    type(info)
+                msg = "{0} {1} {2} {3}".format(
+                    ATSInfo.VERBOSE, ATS,
+                    'wrong info structure', type(info)
                 )
                 raise ATSValueError(msg)
         except ATSValueError as e:
@@ -75,8 +75,8 @@ class ATSInfo(ATSName, ATSVersion, ATSBuildDate, ATSLicense):
         ats_version = self.get_ats_version()
         ats_build_date = self.get_ats_build_date()
         ats_license = self.get_ats_license()
-        return "App/Tool/Script info \n{0} \n{1} \n{2} \n{3}".format(
-            ats_name, ats_version, ats_build_date, ats_license
+        return "{0} info \n{1} \n{2} \n{3} \n{4}".format(
+            ATS, ats_name, ats_version, ats_build_date, ats_license
         )
 
     def __repr__(self):

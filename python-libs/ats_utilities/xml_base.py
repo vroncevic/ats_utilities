@@ -81,7 +81,7 @@ class XmlBase(ATSInfo, XmlSettings, ATSOptionParser):
                     raise ATSValueError(msg)
             else:
                 msg = "{0} {1}".format(
-                    XmlBase.VERBOSE, 'wrong config base structure !'
+                    XmlBase.VERBOSE, 'wrong configuration base structure !'
                 )
                 raise ATSValueError(msg)
         except ATSValueError as e:

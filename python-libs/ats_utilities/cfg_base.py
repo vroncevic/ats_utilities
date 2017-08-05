@@ -81,7 +81,7 @@ class CfgBase(ATSInfo, CfgSettings, ATSOptionParser):
                     raise ATSValueError(msg)
             else:
                 msg = "{0} {1}".format(
-                    CfgBase.VERBOSE, 'wrong config base structure !'
+                    CfgBase.VERBOSE, 'wrong configuration base structure !'
                 )
                 raise ATSValueError(msg)
         except ATSValueError as e:

@@ -1,5 +1,7 @@
 # encoding: utf-8
 
+from ats_utilities.text.stdout_text import ATS
+
 __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2017, Free software to use and distributed it.'
 __credits__ = ['Vladimir Roncevic']
@@ -63,7 +65,7 @@ class ATSName(object):
         :return: String representation of ATSName
         :rtype: str
         """
-        return "App/Tool/Script name {0}".format(self.__program_name)
+        return "{0} name {1}".format(ATS, self.__program_name)
 
     def __repr__(self):
         """

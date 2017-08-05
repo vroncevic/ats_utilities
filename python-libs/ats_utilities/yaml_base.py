@@ -81,7 +81,7 @@ class YamlBase(ATSInfo, YamlSettings, ATSOptionParser):
                     raise ATSValueError(msg)
             else:
                 msg = "{0} {1}".format(
-                    YamlBase.VERBOSE, 'wrong config base structure !'
+                    YamlBase.VERBOSE, 'wrong configuration base structure !'
                 )
                 raise ATSValueError(msg)
         except ATSValueError as e:

@@ -79,7 +79,7 @@ class IniBase(ATSInfo, IniSettings, ATSOptionParser):
                     raise ATSValueError(msg)
             else:
                 msg = "{0} {1}".format(
-                    IniBase.VERBOSE, 'wrong config base structure !'
+                    IniBase.VERBOSE, 'wrong configuration base structure !'
                 )
                 raise ATSValueError(msg)
         except ATSValueError as e:

@@ -81,7 +81,7 @@ class JsonBase(ATSInfo, JsonSettings, ATSOptionParser):
                     raise ATSValueError(msg)
             else:
                 msg = "{0} {1}".format(
-                    JsonBase.VERBOSE, 'wrong config base structure !'
+                    JsonBase.VERBOSE, 'wrong configuration base structure !'
                 )
                 raise ATSValueError(msg)
         except ATSValueError as e:

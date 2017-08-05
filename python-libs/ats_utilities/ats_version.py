@@ -1,5 +1,7 @@
 # encoding: utf-8
 
+from ats_utilities.text.stdout_text import ATS
+
 __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2017, Free software to use and distributed it.'
 __credits__ = ['Vladimir Roncevic']
@@ -63,7 +65,7 @@ class ATSVersion(object):
         :return: String representation of ATSVersion
         :rtype: str
         """
-        return "App/Tool/Script version {0}".format(self.__version)
+        return "{0} version {1}".format(ATS, self.__version)
 
     def __repr__(self):
         """

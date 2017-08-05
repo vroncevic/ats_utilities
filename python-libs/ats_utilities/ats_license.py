@@ -1,5 +1,7 @@
 # encoding: utf-8
 
+from ats_utilities.text.stdout_text import ATS
+
 __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2017, Free software to use and distributed it.'
 __credits__ = ['Vladimir Roncevic']
@@ -63,7 +65,7 @@ class ATSLicense(object):
         :return: String representation of ATSLicense
         :rtype: str
         """
-        return "App/Tool/Script license {0}".format(self.__license)
+        return "{0} license {1}".format(ATS, self.__license)
 
     def __repr__(self):
         """

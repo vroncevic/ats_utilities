@@ -7,6 +7,7 @@ from logging import (
 
 from ats_utilities.error.ats_value_error import ATSValueError
 from ats_utilities.error.ats_file_error import ATSFileError
+from ats_utilities.text.stdout_text import ATS
 
 __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2017, Free software to use and distributed it.'
@@ -72,10 +73,9 @@ class ATSLogger(object):
                 )
                 self.__logger = getLogger(ats_name)
             else:
-                msg = "{0} {1} \n{2}".format(
-                    ATSLogger.VERBOSE,
-                    'missing tool log file path',
-                    ats_log_file
+                msg = "{0} {1} {2} \n{3}".format(
+                    ATSLogger.VERBOSE, ATS,
+                    'missing log file path', ats_log_file
                 )
                 raise ATSFileError(msg)
         except ATSFileError as e:
@@ -130,7 +130,7 @@ class ATSLogger(object):
         :return: String representation of ATSLogger
         :rtype: str
         """
-        return "App/Tool/Script log file {0}".format(self.__log_file)
+        return "{0} log file \n{1}".format(ATS, self.__log_file)
 
     def __repr__(self):
         """
