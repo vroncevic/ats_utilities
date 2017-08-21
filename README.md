@@ -27,6 +27,7 @@ These modules requires other modules and libraries (Python 3):
 	Lookup
     OSError
     ValueError
+    colorama
 
 COPYRIGHT AND LICENCE
 
