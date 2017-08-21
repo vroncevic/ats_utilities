@@ -3,7 +3,10 @@
 from json import dump
 
 from ats_utilities.config.base_write_config import BaseWriteConfig
-from ats_utilities.config.file_config import FileConfig
+from ats_utilities.config.file_checking import FileChecking
+from ats_utilities.config.config_context_manager import ConfigFile
+from ats_utilities.error.ats_value_error import ATSValueError
+from ats_utilities.text.stdout_text import DBG, RST
 
 __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2017, Free software to use and distributed it.'
@@ -22,7 +25,7 @@ class Object2Json(BaseWriteConfig):
     It defines:
         attribute:
             __FORMAT - Format of configuration content
-            VERBOSE - Verbose prefix text
+            VERBOSE - Verbose prefix console text
         method:
             __init__ - Initial constructor
             write_configuration - Write configuration to a json file
@@ -41,10 +44,13 @@ class Object2Json(BaseWriteConfig):
         :param verbose: Enable/disable verbose option
         :type verbose: bool
         """
+        cls = self.__class__
         if verbose:
-            msg = Object2Json.VERBOSE
+            msg = "{0} {1}{2}{3}".format(
+                cls.VERBOSE, DBG, 'Setting interface', RST
+            )
             print(msg)
-        BaseWriteConfig.__init__(self, verbose)
+        super(Object2Json, self).__init__(verbose)
         self.set_file_path(configuration_file)
 
     def write_configuration(self, configuration, verbose=False):
@@ -57,26 +63,29 @@ class Object2Json(BaseWriteConfig):
         :return: True (success) | False
         :rtype: bool
         """
-        status = False
-        file_path = self.get_file_path()
-        check_cfg_file = FileConfig.check_file(file_path, verbose)
+        cls = self.__class__
+        file_path, status = self.get_file_path(), False
+        if verbose:
+            msg = "{0} {1}{2}\n{3}{4}".format(
+                cls.VERBOSE, DBG, 'Write configuration to file', file_path, RST
+            )
+            print(msg)
+        check_cfg_file = FileChecking.check_file(file_path, verbose)
         if check_cfg_file:
-            file_extension = ".{0}".format(Object2Json.__FORMAT)
-            check_cfg_file_format = FileConfig.check_format(
+            file_extension = ".{0}".format(cls.__FORMAT)
+            check_cfg_file_format = FileChecking.check_format(
                 file_path, file_extension, verbose
             )
             if check_cfg_file_format:
                 try:
-                    configuration_file = open(file_path, 'w')
-                    dump(configuration, configuration_file)
-                except IOError as e:
-                    msg = "I/O error({0}): {1}".format(e.errno, e.strerror)
-                    print(msg)
+                    with ConfigFile(file_path, 'w') as configuration_file:
+                        dump(configuration, configuration_file)
+                except ATSValueError as e:
+                    print(e)
                 else:
-                    configuration_file.close()
                     status = True
                     if verbose:
-                        msg = "{0} {1}".format(Object2Json.VERBOSE, 'Done')
+                        msg = "{0} {1}".format(cls.VERBOSE, 'Done')
                         print(msg)
         return True if status else False
 

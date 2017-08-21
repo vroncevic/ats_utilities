@@ -1,5 +1,7 @@
 # encoding: utf-8
 
+from ats_utilities.text.stdout_text import DBG, ERR, RST
+
 __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2017, Free software to use and distributed it.'
 __credits__ = ['Vladimir Roncevic']
@@ -17,7 +19,7 @@ class CheckBaseConfig(object):
     It defines:
         attribute:
             __BASE_CONFIG - Basic config keys
-            VERBOSE - Verbose prefix text
+            VERBOSE - Verbose prefix console text
         method:
             is_correct - Check basic configuration keys
     """
@@ -39,20 +41,22 @@ class CheckBaseConfig(object):
         :type configuration: dict
         :param verbose: Enable/disable verbose option
         :type verbose: bool
-        :return: Boolean status
+        :return: True (correct) | False
         :rtype: bool
         """
         if verbose:
-            msg = CheckBaseConfig.VERBOSE
+            msg = "{0} {1}{2}{3}".format(
+                cls.VERBOSE, DBG, 'Checking configuration parameters', RST
+            )
             print(msg)
         statuses = []
         config_keys = configuration.keys()
-        config_values = CheckBaseConfig.__BASE_CONFIG.values()
+        config_values = cls.__BASE_CONFIG.values()
         for cfg_key in config_keys:
             if cfg_key not in config_values:
                 if verbose:
-                    msg = "{0} {1} [{2}]".format(
-                        CheckBaseConfig.VERBOSE, 'key not expected', cfg_key
+                    msg = "{0} {1}{2} [{3}]{4}".format(
+                        cls.VERBOSE, ERR, 'Key not expected', cfg_key, RST
                     )
                     print(msg)
                 statuses.append(False)

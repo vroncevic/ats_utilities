@@ -2,6 +2,7 @@
 
 from abc import ABCMeta, abstractmethod
 
+from ats_utilities.text.stdout_text import ATS, DBG, ERR, RST
 from ats_utilities.ats_info import ATSInfo
 from ats_utilities.yaml_settings import YamlSettings
 from ats_utilities.option.ats_option_parser import ATSOptionParser
@@ -24,7 +25,7 @@ class YamlBase(ATSInfo, YamlSettings, ATSOptionParser):
     Load a settings, create a CL interface and run operation.
     It defines:
         attribute:
-            VERBOSE - Verbose prefix text
+            VERBOSE - Verbose prefix console text
             __tool_operational - Control operational flag
         method:
             __init__ - Initial constructor
@@ -46,8 +47,11 @@ class YamlBase(ATSInfo, YamlSettings, ATSOptionParser):
         :param verbose: Enable/disable verbose option
         :type verbose: bool
         """
+        cls = self.__class__
         if verbose:
-            msg = YamlBase.VERBOSE
+            msg = "{0} {1}{2}{3}".format(
+                cls.VERBOSE, DBG, 'Checking YAML configuration', RST
+            )
             print(msg)
         YamlSettings.__init__(self, base_config_file, verbose)
         self.__tool_operational = False
@@ -74,14 +78,14 @@ class YamlBase(ATSInfo, YamlSettings, ATSOptionParser):
                     )
                     self.__tool_operational = True
                 else:
-                    msg = "{0} {1}".format(
-                        YamlBase.VERBOSE,
-                        'missing tool version/build_date/name or license !'
+                    msg = "{0} {1}{2} of {3} {4}".format(
+                        cls.VERBOSE, ERR,
+                        'Missing version/build_date/name or license', ATS, RST
                     )
                     raise ATSValueError(msg)
             else:
-                msg = "{0} {1}".format(
-                    YamlBase.VERBOSE, 'wrong configuration base structure !'
+                msg = "{0} {1}{2} of {3}{4}".format(
+                    cls.VERBOSE, ERR, 'Wrong configuration structure', ATS, RST
                 )
                 raise ATSValueError(msg)
         except ATSValueError as e:
@@ -97,12 +101,20 @@ class YamlBase(ATSInfo, YamlSettings, ATSOptionParser):
         """
         self.add_operation(*args, **kwargs)
 
-    def get_tool_status(self):
+    def get_tool_status(self, verbose=False):
         """
         Getting tool status.
-        :return: Operational boolean status
+        :param verbose: Enable/disable verbose option
+        :type verbose: bool
+        :return: True (tool ready) | False
         :rtype: bool
         """
+        cls = self.__class__
+        if verbose:
+            msg = "{0} {1}[{2}]{3}".format(
+                cls.VERBOSE, DBG, self.__tool_operational, RST
+            )
+            print(msg)
         return self.__tool_operational
 
     @abstractmethod

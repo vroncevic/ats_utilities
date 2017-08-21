@@ -2,6 +2,7 @@
 
 from ats_utilities.config.cfg.cfg2object import Cfg2Object
 from ats_utilities.config.cfg.object2cfg import Object2Cfg
+from ats_utilities.text.stdout_text import ATS, DBG, RST
 
 __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2017, Free software to use and distributed it.'
@@ -19,7 +20,7 @@ class CfgSettings(Cfg2Object, Object2Cfg):
     CfgSettings class with cfg type of configuration.
     It defines:
         attribute:
-            VERBOSE - Verbose prefix text
+            VERBOSE - Verbose prefix console text
         method:
             __init__ - Initial constructor
             __str__ - Dunder (magic) method
@@ -36,8 +37,11 @@ class CfgSettings(Cfg2Object, Object2Cfg):
         :param verbose: Enable/disable verbose option
         :type verbose: bool
         """
+        cls = self.__class__
         if verbose:
-            msg = CfgSettings.VERBOSE
+            msg = "{0} {1}{2} for {3}{4}".format(
+                cls.VERBOSE, DBG, 'Setting CFG interface', ATS, RST
+            )
             print(msg)
         Cfg2Object.__init__(self, base_config_file, verbose)
         Object2Cfg.__init__(self, base_config_file, verbose)

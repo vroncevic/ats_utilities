@@ -6,7 +6,7 @@ from ats_utilities.ats_build_date import ATSBuildDate
 from ats_utilities.ats_license import ATSLicense
 from ats_utilities.config.check_base_config import CheckBaseConfig
 from ats_utilities.error.ats_value_error import ATSValueError
-from ats_utilities.text.stdout_text import ATS
+from ats_utilities.text.stdout_text import ATS, DBG, ERR, RST
 
 __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2017, Free software to use and distributed it.'
@@ -24,7 +24,7 @@ class ATSInfo(ATSName, ATSVersion, ATSBuildDate, ATSLicense):
     Keep App/Tool/Script information in one container object.
     It defines:
         attribute:
-            VERBOSE - Verbose prefix text
+            VERBOSE - Verbose prefix console text
         method:
             __init__ - Initial constructor
             __str__ - Dunder (magic) method
@@ -41,29 +41,28 @@ class ATSInfo(ATSName, ATSVersion, ATSBuildDate, ATSLicense):
         :param verbose: Enable/disable verbose option
         :type verbose: bool
         """
+        cls = self.__class__
         if verbose:
-            msg = ATSInfo.VERBOSE
+            msg = "{0} {1}{2}{3}".format(
+                cls.VERBOSE, DBG, 'Setting info structure', RST
+            )
             print(msg)
-        try:
-            check_config = CheckBaseConfig.is_correct(info, verbose)
-            is_dict = isinstance(info, dict)
-            if check_config and is_dict:
-                app_name = info.get('app_name')
-                ATSName.__init__(self, app_name, verbose)
-                app_version = info.get('app_version')
-                ATSVersion.__init__(self, app_version, verbose)
-                app_build_date = info.get('app_build_date')
-                ATSBuildDate.__init__(self, app_build_date, verbose)
-                app_license = info.get('app_license')
-                ATSLicense.__init__(self, app_license, verbose)
-            else:
-                msg = "{0} {1} {2} {3}".format(
-                    ATSInfo.VERBOSE, ATS,
-                    'wrong info structure', type(info)
-                )
-                raise ATSValueError(msg)
-        except ATSValueError as e:
-            print(e)
+        check_config = CheckBaseConfig.is_correct(info, verbose)
+        is_dict = isinstance(info, dict)
+        if check_config and is_dict:
+            app_name = info.get('app_name')
+            ATSName.__init__(self, app_name, verbose)
+            app_version = info.get('app_version')
+            ATSVersion.__init__(self, app_version, verbose)
+            app_build_date = info.get('app_build_date')
+            ATSBuildDate.__init__(self, app_build_date, verbose)
+            app_license = info.get('app_license')
+            ATSLicense.__init__(self, app_license, verbose)
+        else:
+            msg = "{0} {1}{2} {3} [{4}]{5}".format(
+                cls.VERBOSE, ERR, ATS, 'wrong info structure', type(info), RST
+            )
+            raise ATSValueError(msg)
 
     def __str__(self):
         """

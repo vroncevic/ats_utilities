@@ -2,6 +2,7 @@
 
 from ats_utilities.config.json.json2object import Json2Object
 from ats_utilities.config.json.object2json import Object2Json
+from ats_utilities.text.stdout_text import ATS, DBG, RST
 
 __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2017, Free software to use and distributed it.'
@@ -36,8 +37,11 @@ class JsonSettings(Json2Object, Object2Json):
         :param verbose: Enable/disable verbose option
         :type verbose: bool
         """
+        cls = self.__class__
         if verbose:
-            msg = JsonSettings.VERBOSE
+            msg = "{0} {1}{2} for {3}{4}".format(
+                cls.VERBOSE, DBG, 'Setting JSON interface', ATS, RST
+            )
             print(msg)
         Json2Object.__init__(self, base_config_file, verbose)
         Object2Json.__init__(self, base_config_file, verbose)

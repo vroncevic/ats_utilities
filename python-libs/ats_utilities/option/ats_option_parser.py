@@ -2,6 +2,7 @@
 
 from optparse import OptionParser
 
+from ats_utilities.text.stdout_text import DBG, ERR, RST
 from ats_utilities.error.ats_value_error import ATSValueError
 
 __author__ = 'Vladimir Roncevic'
@@ -20,7 +21,7 @@ class ATSOptionParser(object):
     Create option parser and process arguments from start.
     It defines:
         attribute:
-            VERBOSE - Verbose prefix text
+            VERBOSE - Verbose prefix console text
             __opt_parser - Options parser
         method:
             __init__ - Initial constructor
@@ -42,23 +43,22 @@ class ATSOptionParser(object):
         :param verbose: Enable/disable verbose option
         :type verbose: bool
         """
+        cls = self.__class__
         if verbose:
-            msg = ATSOptionParser.VERBOSE
+            msg = "{0} {1}{2}{3}".format(
+                cls.VERBOSE, DBG, 'Setting option parser', RST
+            )
             print(msg)
-        try:
-            if version and epilog and description:
-                self.__opt_parser = OptionParser(
-                    version=version, epilog=epilog, description=description
-                )
-            else:
-                msg = "{0} {1} {2}".format(
-                    ATSOptionParser.VERBOSE,
-                    'missing option parser argument(s)!',
-                    'version/epilog/description'
-                )
-                raise ATSValueError(msg)
-        except ATSValueError as e:
-            print(e)
+        if version and epilog and description:
+            self.__opt_parser = OptionParser(
+                version=version, epilog=epilog, description=description
+            )
+        else:
+            msg = "{0} {1}{2} {3}{4}".format(
+                cls.VERBOSE, ERR, 'Missing option parser argument(s)',
+                'version/epilog/description', RST
+            )
+            raise ATSValueError(msg)
 
     def add_operation(self, *args, **kwargs):
         """

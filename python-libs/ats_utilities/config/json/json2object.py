@@ -3,7 +3,10 @@
 from json import load
 
 from ats_utilities.config.base_read_config import BaseReadConfig
-from ats_utilities.config.file_config import FileConfig
+from ats_utilities.config.file_checking import FileChecking
+from ats_utilities.config.config_context_manager import ConfigFile
+from ats_utilities.error.ats_value_error import ATSValueError
+from ats_utilities.text.stdout_text import DBG, RST
 
 __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2017, Free software to use and distributed it.'
@@ -22,7 +25,7 @@ class Json2Object(BaseReadConfig):
     It defines:
         attribute:
             __FORMAT - Format of configuration content
-            VERBOSE - Verbose prefix text
+            VERBOSE - Verbose prefix console text
         method:
             __init__ - Initial constructor
             read_configuration - Read configuration from file
@@ -41,8 +44,11 @@ class Json2Object(BaseReadConfig):
         :param verbose: Enable/disable verbose option
         :type verbose: bool
         """
+        cls = self.__class__
         if verbose:
-            msg = Json2Object.VERBOSE
+            msg = "{0} {1}{2}{3}".format(
+                cls.VERBOSE, DBG, 'Setting interface', RST
+            )
             print(msg)
         BaseReadConfig.__init__(self, verbose)
         self.set_file_path(configuration_file)
@@ -55,28 +61,31 @@ class Json2Object(BaseReadConfig):
         :return: Configuration object
         :rtype: Python object(s) | NoneType
         """
-        file_path = self.get_file_path()
-        check_cfg_file = FileConfig.check_file(file_path, verbose)
+        cls = self.__class__
+        file_path, content = self.get_file_path(), None
+        if verbose:
+            msg = "{0} {1}{2}\n{3}{4}".format(
+                cls.VERBOSE, DBG, 'Read configuration from file', file_path, RST
+            )
+            print(msg)
+        check_cfg_file = FileChecking.check_file(file_path, verbose)
         if check_cfg_file:
-            file_extension = ".{0}".format(Json2Object.__FORMAT)
-            check_cfg_file_format = FileConfig.check_format(
+            file_extension = ".{0}".format(cls.__FORMAT)
+            check_cfg_file_format = FileChecking.check_format(
                 file_path, file_extension, verbose
             )
             if check_cfg_file_format:
                 try:
-                    configuration_file = open(file_path, 'r')
-                    config = load(configuration_file)
-                except IOError as e:
-                    msg = "I/O error({0}): {1}".format(e.errno, e.strerror)
-                    print(msg)
+                    with ConfigFile(file_path, 'r') as configuration_file:
+                        content = load(configuration_file)
+                except ATSValueError as e:
+                    print(e)
                 else:
-                    if config:
-                        configuration_file.close()
+                    if content:
                         if verbose:
-                            msg = "{0} {1}".format(Json2Object.VERBOSE, 'Done')
+                            msg = "{0} {1}".format(cls.VERBOSE, 'Done')
                             print(msg)
-                        return config
-        return None
+        return content
 
     def __str__(self):
         """

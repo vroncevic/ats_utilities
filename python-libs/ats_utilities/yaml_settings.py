@@ -2,6 +2,7 @@
 
 from ats_utilities.config.yaml.yaml2object import Yaml2Object
 from ats_utilities.config.yaml.object2yaml import Object2Yaml
+from ats_utilities.text.stdout_text import ATS, DBG, RST
 
 __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2017, Free software to use and distributed it.'
@@ -36,8 +37,11 @@ class YamlSettings(Yaml2Object, Object2Yaml):
         :param verbose: Enable/disable verbose option
         :type verbose: bool
         """
+        cls = self.__class__
         if verbose:
-            msg = YamlSettings.VERBOSE
+            msg = "{0} {1}{2} for {3}{4}".format(
+                cls.VERBOSE, DBG, 'Setting YAML interface', ATS, RST
+            )
             print(msg)
         Yaml2Object.__init__(self, base_config_file, verbose)
         Object2Yaml.__init__(self, base_config_file, verbose)

@@ -1,6 +1,6 @@
 # encoding: utf-8
 
-from ats_utilities.text.stdout_text import ATS
+from ats_utilities.text.stdout_text import ATS, DBG, RST
 
 __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2017, Free software to use and distributed it.'
@@ -18,7 +18,7 @@ class ATSBuildDate(object):
     Keep, set, get build date of App/Tool/Script.
     It defines:
         attribute:
-            VERBOSE - Verbose prefix text
+            VERBOSE - Verbose prefix console text
             __build_date - Build date of App/Tool/Script
         method:
             __init__ - Initial constructor
@@ -38,25 +38,44 @@ class ATSBuildDate(object):
         :param verbose: Enable/disable verbose option
         :type verbose: bool
         """
+        cls = self.__class__
         if verbose:
-            msg = ATSBuildDate.VERBOSE
+            msg = "{0} {1}{2}{3}".format(
+                cls.VERBOSE, DBG, 'Initial build date', RST
+            )
             print(msg)
         self.__build_date = build_date
 
-    def set_ats_build_date(self, build_date):
+    def set_ats_build_date(self, build_date, verbose=False):
         """
         Setting build date of App/Tool/Script.
         :param build_date: Build date of App/Tool/Script
         :type build_date: str
+        :param verbose: Enable/disable verbose option
+        :type verbose: bool
         """
+        cls = self.__class__
+        if verbose:
+            msg = "{0} {1}{2} [{3}]{4}".format(
+                cls.VERBOSE, DBG, 'Setting build date', build_date, RST
+            )
+            print(msg)
         self.__build_date = build_date
 
-    def get_ats_build_date(self):
+    def get_ats_build_date(self, verbose=False):
         """
         Getting build date of App/Tool/Script.
         :return: Build date of App/Tool/Script
         :rtype: str
+        :param verbose: Enable/disable verbose option
+        :type verbose: bool
         """
+        cls = self.__class__
+        if verbose:
+            msg = "{0} {1}{2} [{3}]{4}".format(
+                cls.VERBOSE, DBG, 'Getting build date', self.__build_date, RST
+            )
+            print(msg)
         return self.__build_date
 
     def __str__(self):

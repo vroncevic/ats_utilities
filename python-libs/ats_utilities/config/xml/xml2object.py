@@ -3,7 +3,10 @@
 from bs4 import BeautifulSoup
 
 from ats_utilities.config.base_read_config import BaseReadConfig
-from ats_utilities.config.file_config import FileConfig
+from ats_utilities.config.file_checking import FileChecking
+from ats_utilities.config.config_context_manager import ConfigFile
+from ats_utilities.error.ats_value_error import ATSValueError
+from ats_utilities.text.stdout_text import DBG, RST
 
 __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2017, Free software to use and distributed it.'
@@ -23,7 +26,7 @@ class Xml2Object(BaseReadConfig):
     It defines:
         attribute:
             __FORMAT - Format of configuration content
-            VERBOSE - Verbose prefix text
+            VERBOSE - Verbose prefix console text
         method:
             __init__ - Initial constructor
             read_configuration - Read a configuration from file
@@ -42,10 +45,13 @@ class Xml2Object(BaseReadConfig):
         :param verbose: Enable/disable verbose option
         :type verbose: bool
         """
+        cls = self.__class__
         if verbose:
-            msg = Xml2Object.VERBOSE
+            msg = "{0} {1}{2}{3}".format(
+                cls.VERBOSE, DBG, 'Setting interface', RST
+            )
             print(msg)
-        BaseReadConfig.__init__(self, verbose)
+        super(Xml2Object, self).__init__(verbose)
         self.set_file_path(configuration_file)
 
     def read_configuration(self, verbose=False):
@@ -56,26 +62,30 @@ class Xml2Object(BaseReadConfig):
         :return: Configuration object
         :rtype: BeautifulSoup | NoneType
         """
-        file_path = self.get_file_path()
-        check_cfg_file = FileConfig.check_file(file_path, verbose)
+        cls = self.__class__
+        file_path, content = self.get_file_path(), None
+        if verbose:
+            msg = "{0} {1}{2}\n{3}{4}".format(
+                cls.VERBOSE, DBG, 'Read configuration from file', file_path, RST
+            )
+            print(msg)
+        check_cfg_file = FileChecking.check_file(file_path, verbose)
         if check_cfg_file:
-            file_extension = ".{0}".format(Xml2Object.__FORMAT)
-            check_cfg_file_format = FileConfig.check_format(
+            file_extension = ".{0}".format(cls.__FORMAT)
+            check_cfg_file_format = FileChecking.check_format(
                 file_path, file_extension, verbose
             )
             if check_cfg_file_format:
                 try:
-                    configuration_file = open(file_path, 'r')
-                    content = configuration_file.read()
-                except IOError as e:
-                    msg = "I/O error({0}): {1}".format(e.errno, e.strerror)
-                    print(msg)
+                    with ConfigFile(file_path, 'r') as configuration_file:
+                        content = configuration_file.read()
+                except ATSValueError as e:
+                    print(e)
                 else:
-                    config = BeautifulSoup(content, Xml2Object.__FORMAT)
+                    config = BeautifulSoup(content, cls.__FORMAT)
                     if content:
-                        configuration_file.close()
                         if verbose:
-                            msg = "{0} {1}".format(Xml2Object.VERBOSE, 'Done')
+                            msg = "{0} {1}".format(cls.VERBOSE, 'Done')
                             print(msg)
                         return config
         return None

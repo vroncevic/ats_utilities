@@ -2,6 +2,7 @@
 
 from abc import ABCMeta, abstractmethod
 
+from ats_utilities.text.stdout_text import ATS, DBG, ERR, RST
 from ats_utilities.ats_info import ATSInfo
 from ats_utilities.ini_settings import IniSettings
 from ats_utilities.option.ats_option_parser import ATSOptionParser
@@ -24,7 +25,7 @@ class IniBase(ATSInfo, IniSettings, ATSOptionParser):
     Load a settings, create a CL interface and run operation.
     It defines:
         attribute:
-            VERBOSE - Verbose prefix text
+            VERBOSE - Verbose prefix console text
             __tool_operational - Control operational flag
         method:
             __init__ - Initial constructor
@@ -46,14 +47,19 @@ class IniBase(ATSInfo, IniSettings, ATSOptionParser):
         :param verbose: Enable/disable verbose option
         :type verbose: bool
         """
+        cls = self.__class__
         if verbose:
-            msg = IniBase.VERBOSE
+            msg = "{0} {1}{2}{3}".format(
+                cls.VERBOSE, DBG, 'Checking INI configuration', RST
+            )
             print(msg)
         IniSettings.__init__(self, base_config_file, verbose)
         self.__tool_operational = False
         try:
             configuration = self.read_configuration(verbose)
-            check_configuration = CheckBaseConfig.is_correct(configuration, verbose)
+            check_configuration = CheckBaseConfig.is_correct(
+                configuration, verbose
+            )
             if configuration and check_configuration:
                 ATSInfo.__init__(self, configuration, verbose)
                 statuses = []
@@ -72,14 +78,14 @@ class IniBase(ATSInfo, IniSettings, ATSOptionParser):
                     )
                     self.__tool_operational = True
                 else:
-                    msg = "{0} {1}".format(
-                        IniBase.VERBOSE,
-                        'missing tool version/build_date/name or license !'
+                    msg = "{0} {1}{2} of {3}{4}".format(
+                        cls.VERBOSE, ERR,
+                        'Missing version/build_date/name or license', ATS, RST
                     )
                     raise ATSValueError(msg)
             else:
-                msg = "{0} {1}".format(
-                    IniBase.VERBOSE, 'wrong configuration base structure !'
+                msg = "{0} {1}{2} of {3}{4}".format(
+                    cls.VERBOSE, ERR, 'Wrong configuration structure', ATS, RST
                 )
                 raise ATSValueError(msg)
         except ATSValueError as e:
@@ -95,12 +101,20 @@ class IniBase(ATSInfo, IniSettings, ATSOptionParser):
         """
         self.add_operation(*args, **kwargs)
 
-    def get_tool_status(self):
+    def get_tool_status(self, verbose=False):
         """
         Getting tool status.
-        :return: Operational boolean status
+        :param verbose: Enable/disable verbose option
+        :type verbose: bool
+        :return: True (tool ready) | False
         :rtype: bool
         """
+        cls = self.__class__
+        if verbose:
+            msg = "{0} {1}[{2}]{3}".format(
+                cls.VERBOSE, DBG, self.__tool_operational, RST
+            )
+            print(msg)
         return self.__tool_operational
 
     @abstractmethod

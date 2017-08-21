@@ -1,6 +1,6 @@
 # encoding: utf-8
 
-from ats_utilities.text.stdout_text import ATS
+from ats_utilities.text.stdout_text import ATS, DBG, RST
 
 __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2017, Free software to use and distributed it.'
@@ -18,7 +18,7 @@ class ATSName(object):
     Keep, set, get App/Tool/Script name.
     It defines:
         attribute:
-            VERBOSE - Verbose prefix text
+            VERBOSE - Verbose prefix console text
             __program_name - Name of App/Tool/Script
         method:
             __init__ - Initial constructor
@@ -38,25 +38,45 @@ class ATSName(object):
         :param verbose: Enable/disable verbose option
         :type verbose: bool
         """
+        cls = self.__class__
         if verbose:
-            msg = ATSName.VERBOSE
+            msg = "{0} {1}{2} [{2}]{4}".format(
+                cls.VERBOSE, DBG, 'Initial program name', program_name, RST
+            )
             print(msg)
         self.__program_name = program_name
 
-    def set_ats_name(self, program_name):
+    def set_ats_name(self, program_name, verbose=False):
         """
         Setting name of App/Tool/Script.
         :param program_name: App/Tool/Script name
         :type program_name: str
+        :param verbose: Enable/disable verbose option
+        :type verbose: bool
         """
+        cls = self.__class__
+        if verbose:
+            msg = "{0} {1}{2} [{3}]{4}".format(
+                cls.VERBOSE, DBG, 'Setting program name', program_name, RST
+            )
+            print(msg)
         self.__program_name = program_name
 
-    def get_ats_name(self):
+    def get_ats_name(self, verbose=False):
         """
         Getting name of App/Tool/Script.
+        :param verbose: Enable/disable verbose option
+        :type verbose: bool
         :return: App/Tool/Script name
         :rtype: str
         """
+        cls = self.__class__
+        if verbose:
+            msg = "{0} {1}{2} [{3}]{4}".format(
+                cls.VERBOSE, DBG, 'Getting program name',
+                self.__program_name, RST
+            )
+            print(msg)
         return self.__program_name
 
     def __str__(self):

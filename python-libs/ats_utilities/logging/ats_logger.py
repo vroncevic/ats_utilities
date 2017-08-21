@@ -5,9 +5,10 @@ from logging import (
     getLogger, basicConfig, DEBUG, WARNING, CRITICAL, ERROR, INFO
 )
 
+from ats_utilities.logging.ats_base_logger import ATSBaseLogger
 from ats_utilities.error.ats_value_error import ATSValueError
 from ats_utilities.error.ats_file_error import ATSFileError
-from ats_utilities.text.stdout_text import ATS
+from ats_utilities.text.stdout_text import ATS, DBG, ERR, RST
 
 __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2017, Free software to use and distributed it.'
@@ -19,21 +20,17 @@ __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
 
 
-class ATSLogger(object):
+class ATSLogger(ATSBaseLogger):
     """
     Define class ATSLogger with attribute(s) and method(s).
     Logging mechanism for App/Tool/Script.
     It defines:
         attribute:
-            VERBOSE - Verbose prefix text
+            VERBOSE - Verbose prefix console text
             LOG_MSG_FORMAT - Log message format
             LOG_DATE_FORMAT - Log date format
-            __logger - Object logger
-            __log_file - Log file path
         method:
             __init__ - Initial constructor
-            set_ats_logger - Setting logger object
-            get_ats_logger - Getting logger object
             write_log - Write message to log file
             __str__ - Dunder (magic) method
             __repr__ - Dunder (magic) method
@@ -56,73 +53,74 @@ class ATSLogger(object):
         :param verbose: Enable/disable verbose option
         :type verbose: bool
         """
+        cls = self.__class__
         if verbose:
-            msg = ATSLogger.VERBOSE
+            msg = "{0} {1}{2}{3}".format(
+                cls.VERBOSE, DBG, 'Initial logger', RST
+            )
             print(msg)
-        self.__logger = None
-        self.__log_file = None
-        try:
-            path_exists = exists(ats_log_file)
-            if ats_log_file and path_exists:
-                self.__log_file = ats_log_file
-                basicConfig(
-                    format=ATSLogger.LOG_MSG_FORMAT,
-                    datefmt=ATSLogger.LOG_DATE_FORMAT,
-                    filename=ats_log_file,
-                    level=DEBUG
-                )
-                self.__logger = getLogger(ats_name)
-            else:
-                msg = "{0} {1} {2} \n{3}".format(
-                    ATSLogger.VERBOSE, ATS,
-                    'missing log file path', ats_log_file
-                )
-                raise ATSFileError(msg)
-        except ATSFileError as e:
-            print(e)
+        super(ATSLogger, self).__init__(verbose)
+        path_exists = exists(ats_log_file)
+        if ats_log_file and path_exists and ats_name:
+            self.set_log_file(ats_log_file, verbose)
+            basicConfig(
+                format=cls.LOG_MSG_FORMAT, datefmt=cls.LOG_DATE_FORMAT,
+                filename=self.get_log_file(verbose), level=DEBUG
+            )
+            logger = getLogger(ats_name)
+            self.set_logger(logger, verbose)
+            self.set_logger_name(ats_name, verbose)
+        else:
+            msg = "{0} {1}{2} {3} \n{4}".format(
+                cls.VERBOSE, ERR, ATS, 'check log file path',
+                ats_log_file, RST
+            )
+            raise ATSFileError(msg)
 
-    def set_ats_logger(self, logger):
-        """
-        Setting logger object.
-        :param logger: Logger object
-        :type logger: Object logging.Logger
-        """
-        self.__logger = logger
-
-    def get_ats_logger(self):
-        """
-        Getting logger object.
-        :return: Logger object
-        :rtype: Object logging.Logger
-        """
-        return self.__logger
-
-    def write_log(self, msg, ctrl):
+    def write_log(self, msg, ctrl, verbose=False):
         """
         Write message to log file.
         :param msg: Log message
         :type: str
         :param ctrl: Control flag (debug, warning, critical, error, info)
         :type: int
+        :param verbose: Enable/disable verbose option
+        :type verbose: bool
+        :return: True (success) | False
+        :rtype: bool
         """
+        cls = self.__class__
+        if verbose:
+            msg = "{0} {1}{2}{3}".format(
+                cls.VERBOSE, DBG, 'Write log message', RST
+            )
+            print(msg)
+        status = False
         try:
-            if ctrl == ATSLogger.ATS_DEBUG:
-                self.__logger.debug(msg)
-            elif ctrl == ATSLogger.ATS_WARNING:
-                self.__logger.warning(msg)
-            elif ctrl == ATSLogger.ATS_CRITICAL:
-                self.__logger.critical(msg)
-            elif ctrl == ATSLogger.ATS_ERROR:
-                self.__logger.error(msg)
-            elif ctrl == ATSLogger.ATS_INFO:
-                self.__logger.info(msg)
+            switch_dict = {
+                cls.ATS_DEBUG: self.get_logger().debug,
+                cls.ATS_WARNING: self.get_logger().warning,
+                cls.ATS_CRITICAL: self.get_logger().critical,
+                cls.ATS_ERROR: self.get_logger().error,
+                cls.ATS_INFO: self.get_logger().info
+            }
+            ctrl_options = [
+                cls.ATS_DEBUG, cls.ATS_WARNING, cls.ATS_CRITICAL,
+                cls.ATS_ERROR, cls.ATS_INFO
+            ]
+            ctrl_is_int = isinstance(ctrl, int)
+            if ctrl_is_int and ctrl in ctrl_options:
+                switch_dict[ctrl](msg)
             else:
-                msg = "{0} [{1}]".format(
-                    ATSLogger.VERBOSE, 'not implemented log level', ctrl
+                msg = "{0} {1}{2} [{3}]{4}".format(
+                    cls.VERBOSE, ERR, 'Not implemented log level', ctrl, RST
                 )
                 raise ATSValueError(msg)
         except ATSValueError as e:
             print(e)
+        else:
+            status = True
+        return True if status else False
 
     def __str__(self):
         """
@@ -130,7 +128,8 @@ class ATSLogger(object):
         :return: String representation of ATSLogger
         :rtype: str
         """
-        return "{0} log file \n{1}".format(ATS, self.__log_file)
+        log_file_path = self.get_log_file()
+        return "{0} log file \n{1}".format(ATS, log_file_path)
 
     def __repr__(self):
         """
@@ -138,4 +137,8 @@ class ATSLogger(object):
         :return: String representation of ATSLogger
         :rtype: str
         """
-        return "{0}(\'{1}\')".format(type(self).__name__, self.__log_file)
+        logger_name = self.get_logger_name()
+        log_file = self.get_log_file()
+        return "{0}(\'{1}\', \'{2}\')".format(
+            type(self).__name__, logger_name, log_file
+        )

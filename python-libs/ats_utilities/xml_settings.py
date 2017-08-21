@@ -2,6 +2,7 @@
 
 from ats_utilities.config.xml.xml2object import Xml2Object
 from ats_utilities.config.xml.object2xml import Object2Xml
+from ats_utilities.text.stdout_text import ATS, DBG, RST
 
 __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2017, Free software to use and distributed it.'
@@ -36,8 +37,11 @@ class XmlSettings(Xml2Object, Object2Xml):
         :param verbose: Enable/disable verbose option
         :type verbose: bool
         """
+        cls = self.__class__
         if verbose:
-            msg = XmlSettings.VERBOSE
+            msg = "{0} {1}{2} for {3}{4}".format(
+                cls.VERBOSE, DBG, 'Setting XML interface', ATS, RST
+            )
             print(msg)
         Xml2Object.__init__(self, base_config_file, verbose)
         Object2Xml.__init__(self, base_config_file, verbose)
