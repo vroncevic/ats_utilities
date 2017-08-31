@@ -24,6 +24,7 @@ setup(
         'ats_utilities.config.yaml',
         'ats_utilities.logging',
         'ats_utilities.option',
-        'ats_utilities.error'
+        'ats_utilities.error',
+        'ats_utilities.text'
     ], requires=['colorama', 'bs4', 'yaml']
 )
