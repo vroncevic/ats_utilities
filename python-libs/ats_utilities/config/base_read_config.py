@@ -17,7 +17,7 @@ __status__ = 'Updated'
 class BaseReadConfig(object):
     """
     Define class BaseReadConfig with attribute(s) and method(s).
-    Class for read operation.
+    Class for read operation (configuration).
     It defines:
         attribute:
             VERBOSE - Verbose prefix console text
@@ -26,7 +26,7 @@ class BaseReadConfig(object):
             __init__ - Initial constructor
             set_file_path - Setting configuration file path
             get_file_path - Getting configuration file path
-            read_configuration - Read configuration from file (Abstract method)
+            read_configuration - Read configuration from file
             __str__ - Dunder (magic) method
             __repr__ - Dunder (magic) method
     """
@@ -70,8 +70,8 @@ class BaseReadConfig(object):
         Getting configuration file path.
         :param verbose: Enable/disable verbose option
         :type verbose: bool
-        :return: Configuration file path
-        :rtype: str
+        :return: Configuration file path | None
+        :rtype: str | NoneType
         """
         cls = self.__class__
         if verbose:

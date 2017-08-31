@@ -71,7 +71,7 @@ class ATSLogger(ATSBaseLogger):
             self.set_logger(logger, verbose)
             self.set_logger_name(ats_name, verbose)
         else:
-            msg = "{0} {1}{2} {3} \n{4}".format(
+            msg = "\n{0} {1}{2} {3} \n{4}\n".format(
                 cls.VERBOSE, ERR, ATS, 'check log file path',
                 ats_log_file, RST
             )
@@ -89,13 +89,12 @@ class ATSLogger(ATSBaseLogger):
         :return: True (success) | False
         :rtype: bool
         """
-        cls = self.__class__
+        cls, status = self.__class__, False
         if verbose:
             msg = "{0} {1}{2}{3}".format(
                 cls.VERBOSE, DBG, 'Write log message', RST
             )
             print(msg)
-        status = False
         try:
             switch_dict = {
                 cls.ATS_DEBUG: self.get_logger().debug,
@@ -112,7 +111,7 @@ class ATSLogger(ATSBaseLogger):
             if ctrl_is_int and ctrl in ctrl_options:
                 switch_dict[ctrl](msg)
             else:
-                msg = "{0} {1}{2} [{3}]{4}".format(
+                msg = "\n{0} {1}{2} [{3}]{4}\n".format(
                     cls.VERBOSE, ERR, 'Not implemented log level', ctrl, RST
                 )
                 raise ATSValueError(msg)

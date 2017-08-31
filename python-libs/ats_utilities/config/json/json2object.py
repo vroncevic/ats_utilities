@@ -50,7 +50,7 @@ class Json2Object(BaseReadConfig):
                 cls.VERBOSE, DBG, 'Setting interface', RST
             )
             print(msg)
-        BaseReadConfig.__init__(self, verbose)
+        super(Json2Object, self).__init__(verbose)
         self.set_file_path(configuration_file)
 
     def read_configuration(self, verbose=False):
@@ -62,21 +62,21 @@ class Json2Object(BaseReadConfig):
         :rtype: Python object(s) | NoneType
         """
         cls = self.__class__
-        file_path, content = self.get_file_path(), None
+        jsn_path, content = self.get_file_path(), None
         if verbose:
             msg = "{0} {1}{2}\n{3}{4}".format(
-                cls.VERBOSE, DBG, 'Read configuration from file', file_path, RST
+                cls.VERBOSE, DBG, 'Read configuration from file', jsn_path, RST
             )
             print(msg)
-        check_cfg_file = FileChecking.check_file(file_path, verbose)
-        if check_cfg_file:
+        check_jsn_file = FileChecking.check_file(jsn_path, verbose)
+        if check_jsn_file:
             file_extension = ".{0}".format(cls.__FORMAT)
             check_cfg_file_format = FileChecking.check_format(
-                file_path, file_extension, verbose
+                jsn_path, file_extension, verbose
             )
             if check_cfg_file_format:
                 try:
-                    with ConfigFile(file_path, 'r') as configuration_file:
+                    with ConfigFile(jsn_path, 'r') as configuration_file:
                         content = load(configuration_file)
                 except ATSValueError as e:
                     print(e)

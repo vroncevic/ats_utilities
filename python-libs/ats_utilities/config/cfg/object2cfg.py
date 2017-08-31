@@ -62,21 +62,21 @@ class Object2Cfg(BaseWriteConfig):
         :rtype: bool
         """
         cls = self.__class__
-        file_path, status = self.get_file_path(), False
+        cfg_path, status = self.get_file_path(), False
         if verbose:
             msg = "{0} {1}{2}\n{3}{4}".format(
-                cls.VERBOSE, DBG, 'Write configuration to file', file_path, RST
+                cls.VERBOSE, DBG, 'Write configuration to file', cfg_path, RST
             )
             print(msg)
-        check_cfg_file = FileChecking.check_file(file_path, verbose)
+        check_cfg_file = FileChecking.check_file(cfg_path, verbose)
         if check_cfg_file:
             file_extension = ".{0}".format(cls.__FORMAT)
             check_cfg_file_format = FileChecking.check_format(
-                file_path, file_extension, verbose
+                cfg_path, file_extension, verbose
             )
             if check_cfg_file_format:
                 try:
-                    with ConfigFile(file_path, 'w') as configuration_file:
+                    with ConfigFile(cfg_path, 'w') as configuration_file:
                         for key in configuration:
                             config_value = configuration.get(key)
                             line = "{0} = {1}\n".format(key, config_value)

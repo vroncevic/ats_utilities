@@ -63,21 +63,21 @@ class Xml2Object(BaseReadConfig):
         :rtype: BeautifulSoup | NoneType
         """
         cls = self.__class__
-        file_path, content = self.get_file_path(), None
+        xml_path, content = self.get_file_path(), None
         if verbose:
             msg = "{0} {1}{2}\n{3}{4}".format(
-                cls.VERBOSE, DBG, 'Read configuration from file', file_path, RST
+                cls.VERBOSE, DBG, 'Read configuration from file', xml_path, RST
             )
             print(msg)
-        check_cfg_file = FileChecking.check_file(file_path, verbose)
-        if check_cfg_file:
+        check_xml_file = FileChecking.check_file(xml_path, verbose)
+        if check_xml_file:
             file_extension = ".{0}".format(cls.__FORMAT)
             check_cfg_file_format = FileChecking.check_format(
-                file_path, file_extension, verbose
+                xml_path, file_extension, verbose
             )
             if check_cfg_file_format:
                 try:
-                    with ConfigFile(file_path, 'r') as configuration_file:
+                    with ConfigFile(xml_path, 'r') as configuration_file:
                         content = configuration_file.read()
                 except ATSValueError as e:
                     print(e)

@@ -63,21 +63,21 @@ class Yaml2Object(BaseReadConfig):
         :rtype: Python object(s) | NoneType
         """
         cls = self.__class__
-        file_path, content = self.get_file_path(), None
+        yml_path, content = self.get_file_path(), None
         if verbose:
             msg = "{0} {1}{2}\n{3}{4}".format(
-                cls.VERBOSE, DBG, 'Read configuration from file', file_path, RST
+                cls.VERBOSE, DBG, 'Read configuration from file', yml_path, RST
             )
             print(msg)
-        check_cfg_file = FileChecking.check_file(file_path, verbose)
-        if check_cfg_file:
+        check_yml_file = FileChecking.check_file(yml_path, verbose)
+        if check_yml_file:
             file_extension = ".{0}".format(cls.__FORMAT)
             check_cfg_file_format = FileChecking.check_format(
-                file_path, file_extension, verbose
+                yml_path, file_extension, verbose
             )
             if check_cfg_file_format:
                 try:
-                    with ConfigFile(file_path, 'r') as configuration_file:
+                    with ConfigFile(yml_path, 'r') as configuration_file:
                         content = load(configuration_file)
                 except ATSValueError as e:
                     print(e)

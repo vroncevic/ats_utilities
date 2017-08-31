@@ -17,7 +17,7 @@ __status__ = 'Updated'
 class ConfigFile(object):
     """
     Define class ConfigFile with attribute(s) and method(s).
-    
+    Configuration context manager.
     It defines:
         attribute:
             VERBOSE - Verbose prefix console text
@@ -55,7 +55,7 @@ class ConfigFile(object):
         if check_mode:
             self.__mode = mode
         else:
-            msg = "{0} {1}{2} [{3}] {4}".format(
+            msg = "\n{0} {1}{2} [{3}] {4}\n".format(
                 cls.VERBOSE, ERR, 'Not supported mode', mode, RST
             )
             raise ATSValueError(msg)
@@ -63,17 +63,26 @@ class ConfigFile(object):
     def __enter__(self):
         """
         Open configuration file in mode.
-        :return: File object
-        :rtype: file
+        :return: File object | None
+        :rtype: file | NoneType
         """
-        self.__file = open(self.__file_path, self.__mode)
+        cls = self.__class__
+        try:
+            self.__file = open(self.__file_path, self.__mode)
+        except IOError as e:
+            msg = "\n{0} {1}{2}{3}\n".format(cls.VERBOSE, ERR, e, RST)
+            print (msg)
+            self.__file = None
         return self.__file
 
-    def __exit__(self):
+    def __exit__(self, *args):
         """
         Closing configuration file.
         """
-        self.__file.close()
+        try:
+            self.__file.close()
+        except AttributeError:
+            pass
 
     def __str__(self):
         """
@@ -81,7 +90,7 @@ class ConfigFile(object):
         :return: String representation of ConfigFile
         :rtype: str
         """
-        return 'File {0}'.format(self.__file_path)
+        return "File {0}".format(self.__file_path)
 
     def __repr__(self):
         """
@@ -89,6 +98,6 @@ class ConfigFile(object):
         :return: String representation of ConfigFile
         :rtype: str
         """
-        return '{0}(\'{1}\', \'{2}\')'.format(
+        return "{0}(\'{1}\', \'{2}\')".format(
             type(self).__name__, self.__file_path, self.__mode
         )

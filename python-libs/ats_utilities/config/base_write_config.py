@@ -17,7 +17,7 @@ __status__ = 'Updated'
 class BaseWriteConfig(object):
     """
     Define class BaseWriteConfig with attribute(s) and method(s).
-    Class for write operation.
+    Class for write operation (configuration).
     It defines:
         attribute:
             VERBOSE - Verbose prefix console text
@@ -26,7 +26,7 @@ class BaseWriteConfig(object):
             __init__ - Initial constructor
             set_file_path - Setting configuration file path
             get_file_path - Getting configuration file path
-            write_configuration - Write configuration to file (Abstract method)
+            write_configuration - Write configuration to file
             __str__ - Dunder (magic) method
             __repr__ - Dunder (magic) method
     """
@@ -70,8 +70,8 @@ class BaseWriteConfig(object):
         Getting configuration file path.
         :param verbose: Enable/disable verbose option
         :type verbose: bool
-        :return: Configuration file path
-        :rtype: str
+        :return: Configuration file path | None
+        :rtype: str | NoneType
         """
         cls = self.__class__
         if verbose:

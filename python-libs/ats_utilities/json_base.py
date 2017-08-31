@@ -78,13 +78,13 @@ class JsonBase(ATSInfo, JsonSettings, ATSOptionParser):
                     )
                     self.__tool_operational = True
                 else:
-                    msg = "{0} {1}{2} of {3}{4}".format(
+                    msg = "\n{0} {1}{2} of {3}{4}\n".format(
                         cls.VERBOSE, ERR,
                         'Missing version/build_date/name or license', ATS, RST
                     )
                     raise ATSValueError(msg)
             else:
-                msg = "{0} {1}{2} of {3}{4}".format(
+                msg = "\n{0} {1}{2} of {3}{4}\n".format(
                     cls.VERBOSE, ERR, 'Wrong configuration structure', ATS, RST
                 )
                 raise ATSValueError(msg)

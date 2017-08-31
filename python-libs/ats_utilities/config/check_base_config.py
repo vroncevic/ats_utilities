@@ -15,10 +15,14 @@ __status__ = 'Updated'
 class CheckBaseConfig(object):
     """
     Define class GenPyModule with attribute(s) and method(s).
-    Checking basic config structure.
+    Checking basic configuration structure.
     It defines:
         attribute:
             __BASE_CONFIG - Basic config keys
+                1: 'ats_name'
+                2: 'ats_version'
+                3: 'ats_build_date'
+                4: 'ats_license'
             VERBOSE - Verbose prefix console text
         method:
             is_correct - Check basic configuration keys
@@ -49,13 +53,12 @@ class CheckBaseConfig(object):
                 cls.VERBOSE, DBG, 'Checking configuration parameters', RST
             )
             print(msg)
-        statuses = []
-        config_keys = configuration.keys()
+        statuses, config_keys = [], configuration.keys()
         config_values = cls.__BASE_CONFIG.values()
         for cfg_key in config_keys:
             if cfg_key not in config_values:
                 if verbose:
-                    msg = "{0} {1}{2} [{3}]{4}".format(
+                    msg = "\n{0} {1}{2} [{3}]{4}\n".format(
                         cls.VERBOSE, ERR, 'Key not expected', cfg_key, RST
                     )
                     print(msg)

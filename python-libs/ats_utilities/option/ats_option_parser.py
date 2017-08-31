@@ -54,7 +54,7 @@ class ATSOptionParser(object):
                 version=version, epilog=epilog, description=description
             )
         else:
-            msg = "{0} {1}{2} {3}{4}".format(
+            msg = "\n{0} {1}{2} {3}{4}\n".format(
                 cls.VERBOSE, ERR, 'Missing option parser argument(s)',
                 'version/epilog/description', RST
             )

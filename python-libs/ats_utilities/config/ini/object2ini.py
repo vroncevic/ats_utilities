@@ -62,21 +62,21 @@ class Object2Ini(BaseWriteConfig):
         :rtype: bool
         """
         cls = self.__class__
-        file_path, status = self.get_file_path(), False
+        ini_path, status = self.get_file_path(), False
         if verbose:
             msg = "{0} {1}{2}\n{3}{4}".format(
-                cls.VERBOSE, DBG, 'Write configuration to file', file_path, RST
+                cls.VERBOSE, DBG, 'Write configuration to file', ini_path, RST
             )
             print(msg)
-        check_cfg_file = FileChecking.check_file(file_path, verbose)
-        if check_cfg_file:
+        check_ini_file = FileChecking.check_file(ini_path, verbose)
+        if check_ini_file:
             file_extension = ".{0}".format(Object2Ini.__FORMAT)
             check_cfg_file_format = FileChecking.check_format(
-                file_path, file_extension, verbose
+                ini_path, file_extension, verbose
             )
             if check_cfg_file_format:
                 try:
-                    with ConfigFile(file_path, 'w') as configuration_file:
+                    with ConfigFile(ini_path, 'w') as configuration_file:
                         configuration.write(
                             configuration_file, space_around_delimiters=True
                         )

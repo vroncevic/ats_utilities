@@ -51,22 +51,22 @@ class FileChecking(object):
         :return: True (exist and regular) | False
         :rtype: bool
         """
+        file_path_exist, file_path_regular = False, False
         if verbose:
             msg = "{0} {1}{2} \n{3}{4}".format(
                 cls.VERBOSE, DBG, 'Checking configuration file', file_path, RST
             )
             print(msg)
-        file_path_exist, file_path_regular = False, False
         try:
             file_path_exist = exists(file_path)
             file_path_regular = isfile(file_path)
             if not file_path_exist:
-                msg = "{0} {1}{2}\n{3}{4}".format(
+                msg = "\n{0} {1}{2}\n{3}{4}\n".format(
                     cls.VERBOSE, ERR, 'File does not exist', file_path, RST
                 )
                 raise ATSFileError(msg)
             elif not file_path_regular:
-                msg = "{0} {1}{2}\n{3}{4}".format(
+                msg = "\n{0} {1}{2}\n{3}{4}\n".format(
                     cls.VERBOSE, ERR, 'File is not regular', file_path, RST
                 )
                 raise ATSFileError(msg)
@@ -97,7 +97,7 @@ class FileChecking(object):
             ext = splitext(file_path)[-1].lower()
             status = ext == file_extension
             if not status:
-                msg = "{0} {1}{2} [{3}]\n{4}{5}".format(
+                msg = "\n{0} {1}{2} [{3}]\n{4}{5}\n".format(
                     cls.VERBOSE, ERR, 'Not matched file extension',
                     file_extension, file_path, RST
                 )
@@ -126,7 +126,7 @@ class FileChecking(object):
         for item_mode in split_mode:
             if item_mode not in cls.__MODES:
                 if verbose:
-                    msg = "{0} {1}{2} [{3}]{4}".format(
+                    msg = "\n{0} {1}{2} [{3}]{4}\n".format(
                         cls.VERBOSE, ERR, 'Not supported mode', mode, RST
                     )
                     print(msg)

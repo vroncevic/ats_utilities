@@ -59,7 +59,7 @@ class ATSInfo(ATSName, ATSVersion, ATSBuildDate, ATSLicense):
             app_license = info.get('app_license')
             ATSLicense.__init__(self, app_license, verbose)
         else:
-            msg = "{0} {1}{2} {3} [{4}]{5}".format(
+            msg = "\n{0} {1}{2} {3} [{4}]{5}\n".format(
                 cls.VERBOSE, ERR, ATS, 'wrong info structure', type(info), RST
             )
             raise ATSValueError(msg)
