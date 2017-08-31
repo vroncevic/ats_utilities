@@ -31,6 +31,7 @@ class YamlBase(ATSInfo, YamlSettings, ATSOptionParser):
             __init__ - Initial constructor
             add_new_option - Adding new option for CL interface
             get_tool_status - Getting tool status
+            set_tool_status - Setting tool status
             process - Process and run tool operation (Abstract method)
             __str__ - Dunder (magic) method
             __repr__ - Dunder (magic) method
@@ -111,11 +112,27 @@ class YamlBase(ATSInfo, YamlSettings, ATSOptionParser):
         """
         cls = self.__class__
         if verbose:
-            msg = "{0} {1}[{2}]{3}".format(
+            msg = "{0} {1}Tool status [{2}]{3}".format(
                 cls.VERBOSE, DBG, self.__tool_operational, RST
             )
             print(msg)
         return self.__tool_operational
+
+    def set_tool_status(self, tool_status, verbose=False):
+        """
+        Setting tool status.
+        :param verbose: Enable/disable verbose option
+        :type verbose: bool
+        :param tool_status: Tool status (boolean)
+        :type tool_status: bool
+        """
+        cls = self.__class__
+        if verbose:
+            msg = "{0} {1}Tool status [{2}]{3}".format(
+                cls.VERBOSE, DBG, tool_status, RST
+            )
+            print(msg)
+        self.__tool_operational = tool_status
 
     @abstractmethod
     def process(self, verbose=False):
