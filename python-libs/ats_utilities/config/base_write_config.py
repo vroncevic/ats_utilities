@@ -1,8 +1,13 @@
-# encoding: utf-8
+# -*- coding: utf-8 -*-
 
 from abc import ABCMeta, abstractmethod
 
-from ats_utilities.text.stdout_text import DBG, RST
+try:
+    from ats_utilities.text.stdout_text import DBG, RST
+except ImportError as e:
+    msg = "\n{0}\n".format(e)
+    print(msg)
+    exit(-1)  # Force close python module #####################################
 
 __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2017, Free software to use and distributed it.'

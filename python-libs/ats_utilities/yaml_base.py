@@ -1,13 +1,18 @@
-# encoding: utf-8
+# -*- coding: utf-8 -*-
 
 from abc import ABCMeta, abstractmethod
 
-from ats_utilities.text.stdout_text import ATS, DBG, ERR, RST
-from ats_utilities.ats_info import ATSInfo
-from ats_utilities.yaml_settings import YamlSettings
-from ats_utilities.option.ats_option_parser import ATSOptionParser
-from ats_utilities.config.check_base_config import CheckBaseConfig
-from ats_utilities.error.ats_value_error import ATSValueError
+try:
+    from ats_utilities.text.stdout_text import ATS, DBG, ERR, RST
+    from ats_utilities.ats_info import ATSInfo
+    from ats_utilities.yaml_settings import YamlSettings
+    from ats_utilities.option.ats_option_parser import ATSOptionParser
+    from ats_utilities.config.check_base_config import CheckBaseConfig
+    from ats_utilities.error.ats_value_error import ATSValueError
+except ImportError as e:
+    msg = "\n{0}\n".format(e)
+    print(msg)
+    exit(-1)  # Force close python module #####################################
 
 __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2017, Free software to use and distributed it.'

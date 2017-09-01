@@ -1,6 +1,11 @@
-# encoding: utf-8
+# -*- coding: utf-8 -*-
 
-from colorama import Fore
+try:
+    from colorama import Fore
+except ImportError as e:
+    msg = "\n{0}\n".format(e)
+    print(msg)
+    exit(-1)  # Force close python module #####################################
 
 __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2017, Free software to use and distributed it.'

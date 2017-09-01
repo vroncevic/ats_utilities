@@ -1,12 +1,17 @@
-# encoding: utf-8
+# -*- coding: utf-8 -*-
 
-from ats_utilities.ats_name import ATSName
-from ats_utilities.ats_version import ATSVersion
-from ats_utilities.ats_build_date import ATSBuildDate
-from ats_utilities.ats_license import ATSLicense
-from ats_utilities.config.check_base_config import CheckBaseConfig
-from ats_utilities.error.ats_value_error import ATSValueError
-from ats_utilities.text.stdout_text import ATS, DBG, ERR, RST
+try:
+    from ats_utilities.ats_name import ATSName
+    from ats_utilities.ats_version import ATSVersion
+    from ats_utilities.ats_build_date import ATSBuildDate
+    from ats_utilities.ats_license import ATSLicense
+    from ats_utilities.config.check_base_config import CheckBaseConfig
+    from ats_utilities.error.ats_value_error import ATSValueError
+    from ats_utilities.text.stdout_text import ATS, DBG, ERR, RST
+except ImportError as e:
+    msg = "\n{0}\n".format(e)
+    print(msg)
+    exit(-1)  # Force close python module #####################################
 
 __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2017, Free software to use and distributed it.'

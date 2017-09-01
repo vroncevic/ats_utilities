@@ -1,14 +1,19 @@
-# encoding: utf-8
+# -*- coding: utf-8 -*-
 
 from os.path import exists
 from logging import (
     getLogger, basicConfig, DEBUG, WARNING, CRITICAL, ERROR, INFO
 )
 
-from ats_utilities.logging.ats_base_logger import ATSBaseLogger
-from ats_utilities.error.ats_value_error import ATSValueError
-from ats_utilities.error.ats_file_error import ATSFileError
-from ats_utilities.text.stdout_text import ATS, DBG, ERR, RST
+try:
+    from ats_utilities.logging.ats_base_logger import ATSBaseLogger
+    from ats_utilities.error.ats_value_error import ATSValueError
+    from ats_utilities.error.ats_file_error import ATSFileError
+    from ats_utilities.text.stdout_text import ATS, DBG, ERR, RST
+except ImportError as e:
+    msg = "\n{0}\n".format(e)
+    print(msg)
+    exit(-1)  # Force close python module #####################################
 
 __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2017, Free software to use and distributed it.'

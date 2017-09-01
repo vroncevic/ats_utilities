@@ -1,8 +1,13 @@
-# encoding: utf-8
+# -*- coding: utf-8 -*-
 
-from ats_utilities.error.ats_value_error import ATSValueError
-from ats_utilities.config.file_checking import FileChecking
-from ats_utilities.text.stdout_text import DBG, ERR, RST
+try:
+    from ats_utilities.error.ats_value_error import ATSValueError
+    from ats_utilities.config.file_checking import FileChecking
+    from ats_utilities.text.stdout_text import DBG, ERR, RST
+except ImportError as e:
+    msg = "\n{0}\n".format(e)
+    print(msg)
+    exit(-1)  # Force close python module #####################################
 
 __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2017, Free software to use and distributed it.'
