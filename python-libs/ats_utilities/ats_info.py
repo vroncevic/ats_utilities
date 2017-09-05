@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 
+import sys
+
 try:
     from ats_utilities.ats_name import ATSName
     from ats_utilities.ats_version import ATSVersion
@@ -7,11 +9,11 @@ try:
     from ats_utilities.ats_license import ATSLicense
     from ats_utilities.config.check_base_config import CheckBaseConfig
     from ats_utilities.error.ats_value_error import ATSValueError
-    from ats_utilities.text.stdout_text import ATS, DBG, ERR, RST
+    from ats_utilities.text import COut
+    from ats_utilities.text.stdout_text import ATS, ERR, RST
 except ImportError as e:
     msg = "\n{0}\n".format(e)
-    print(msg)
-    exit(-1)  # Force close python module #####################################
+    sys.exit(msg)  # Force close python ATS ###################################
 
 __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2017, Free software to use and distributed it.'
@@ -29,6 +31,10 @@ class ATSInfo(ATSName, ATSVersion, ATSBuildDate, ATSLicense):
     Keep App/Tool/Script information in one container object.
     It defines:
         attribute:
+            ATS_VERSION - ATS version key
+            ATS_NAME - ATS name key
+            ATS_BUILD_DATE - ATS build date key
+            ATS_LICENSE - ATS license key
             VERBOSE - Verbose prefix console text
         method:
             __init__ - Initial constructor
@@ -36,32 +42,34 @@ class ATSInfo(ATSName, ATSVersion, ATSBuildDate, ATSLicense):
             __repr__ - Dunder (magic) method
     """
 
-    VERBOSE = '[ATS_INFO]'
+    ATS_VERSION = 'ats_version'
+    ATS_NAME = 'ats_name'
+    ATS_BUILD_DATE = 'ats_build_date'
+    ATS_LICENSE = 'ats_license'
+    VERBOSE = 'ATS_INFO'
 
     def __init__(self, info, verbose=False):
         """
         Setting container info for App/Tool/Script.
         :param info: App/Tool/Script basic information
-        :type info: dict
+        :type info: <dict>
         :param verbose: Enable/disable verbose option
-        :type verbose: bool
+        :type verbose: <bool>
         """
-        cls = self.__class__
-        if verbose:
-            msg = "{0} {1}{2}{3}".format(
-                cls.VERBOSE, DBG, 'Setting info structure', RST
-            )
-            print(msg)
+        cls, cout = self.__class__, COut()
+        cout.set_ats_phase_process(cls.VERBOSE)
+        msg = "{0}".format('Setting info structure')
+        COut.print_console_msg(msg, verbose=verbose)
         check_config = CheckBaseConfig.is_correct(info, verbose)
         is_dict = isinstance(info, dict)
         if check_config and is_dict:
-            app_name = info.get('app_name')
+            app_name = info.get(cls.ATS_NAME)
             ATSName.__init__(self, app_name, verbose)
-            app_version = info.get('app_version')
+            app_version = info.get(cls.ATS_VERSION)
             ATSVersion.__init__(self, app_version, verbose)
-            app_build_date = info.get('app_build_date')
+            app_build_date = info.get(cls.ATS_BUILD_DATE)
             ATSBuildDate.__init__(self, app_build_date, verbose)
-            app_license = info.get('app_license')
+            app_license = info.get(cls.ATS_LICENSE)
             ATSLicense.__init__(self, app_license, verbose)
         else:
             msg = "\n{0} {1}{2} {3} [{4}]{5}\n".format(
@@ -73,7 +81,7 @@ class ATSInfo(ATSName, ATSVersion, ATSBuildDate, ATSLicense):
         """
         Return human readable string (ATSInfo).
         :return: String representation of ATSInfo
-        :rtype: str
+        :rtype: <str>
         """
         ats_name = self.get_ats_name()
         ats_version = self.get_ats_version()
@@ -87,6 +95,6 @@ class ATSInfo(ATSName, ATSVersion, ATSBuildDate, ATSLicense):
         """
         Return unambiguous string (ATSInfo).
         :return: String representation of ATSInfo
-        :rtype: str
+        :rtype: <str>
         """
         return "{0}(info)".format(type(self).__name__)

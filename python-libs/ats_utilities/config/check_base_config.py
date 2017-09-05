@@ -1,11 +1,13 @@
 # -*- coding: utf-8 -*-
 
+import sys
+
 try:
     from ats_utilities.text.stdout_text import DBG, ERR, RST
+    from ats_utilities.text import COut
 except ImportError as e:
     msg = "\n{0}\n".format(e)
-    print(msg)
-    exit(-1)  # Force close python module #####################################
+    sys.exit(msg)  # Force close python ATS ###################################
 
 __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2017, Free software to use and distributed it.'
@@ -40,34 +42,33 @@ class CheckBaseConfig(object):
         4: 'ats_license'
     }
 
-    VERBOSE = '[CHECK_BASE_CONFIG]'
+    VERBOSE = 'CHECK_BASE_CONFIG'
 
     @classmethod
     def is_correct(cls, configuration, verbose=False):
         """
         Check basic configuration structure.
         :param configuration: Base configuration
-        :type configuration: dict
+        :type configuration: <dict>
         :param verbose: Enable/disable verbose option
-        :type verbose: bool
+        :type verbose: <bool>
         :return: True (correct) | False
-        :rtype: bool
+        :rtype: <bool>
         """
-        if verbose:
-            msg = "{0} {1}{2}{3}".format(
-                cls.VERBOSE, DBG, 'Checking configuration parameters', RST
-            )
-            print(msg)
-        statuses, config_keys = [], configuration.keys()
-        config_values = cls.__BASE_CONFIG.values()
-        for cfg_key in config_keys:
-            if cfg_key not in config_values:
-                if verbose:
-                    msg = "\n{0} {1}{2} [{3}]{4}\n".format(
-                        cls.VERBOSE, ERR, 'Key not expected', cfg_key, RST
-                    )
-                    print(msg)
-                statuses.append(False)
-            else:
-                statuses.append(True)
-        return all(status for status in statuses)
+        cout = COut()
+        cout.set_ats_phase_process(cls.VERBOSE)
+        msg = "{0}".format('Checking configuration parameters')
+        COut.print_console_msg(msg, verbose=verbose)
+        configuration_is_dict, status = isinstance(configuration, dict), False
+        if configuration_is_dict:
+            statuses, config_keys = [], configuration.keys()
+            config_values = cls.__BASE_CONFIG.values()
+            for cfg_key in config_keys:
+                if cfg_key not in config_values:
+                    msg = "\n{0} [{1}]\n".format('Key not expected', cfg_key)
+                    COut.print_console_msg(msg, error=True)
+                    statuses.append(False)
+                else:
+                    statuses.append(True)
+            status = all(status for status in statuses)
+        return True if status else False

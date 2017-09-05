@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 
+import sys
+
 try:
     from yaml import dump
 
@@ -8,10 +10,10 @@ try:
     from ats_utilities.config.config_context_manager import ConfigFile
     from ats_utilities.error.ats_value_error import ATSValueError
     from ats_utilities.text.stdout_text import DBG, RST
+    from ats_utilities.text import COut
 except ImportError as e:
     msg = "\n{0}\n".format(e)
-    print(msg)
-    exit(-1)  # Force close python module #####################################
+    sys.exit(msg)  # Force close python ATS ###################################
 
 __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2017, Free software to use and distributed it.'
@@ -39,22 +41,20 @@ class Object2Yaml(BaseWriteConfig):
     """
 
     __FORMAT = 'yaml'
-    VERBOSE = '[OBJECT_TO_CFG]'
+    VERBOSE = 'OBJECT_TO_YAML'
 
     def __init__(self, configuration_file, verbose=False):
         """
         Setting configuration file path.
         :param configuration_file: Absolute configuration file path
-        :type configuration_file: str
+        :type configuration_file: <str>
         :param verbose: Enable/disable verbose option
-        :type verbose: bool
+        :type verbose: <bool>
         """
-        cls = self.__class__
-        if verbose:
-            msg = "{0} {1}{2}{3}".format(
-                cls.VERBOSE, DBG, 'Setting interface', RST
-            )
-            print(msg)
+        cls, cout = self.__class__, COut()
+        cout.set_ats_phase_process(cls.VERBOSE)
+        msg = "{0}".format('Setting interface')
+        COut.print_console_msg(msg, verbose=verbose)
         super(Object2Yaml, self).__init__(verbose)
         self.set_file_path(configuration_file)
 
@@ -62,28 +62,24 @@ class Object2Yaml(BaseWriteConfig):
         """
         Write configuration to a yaml file.
         :param configuration: Configuration object
-        :type: Python object(s)
+        :type configuration: <Python object(s)>
         :param verbose: Enable/disable verbose option
-        :type verbose: bool
+        :type verbose: <bool>
         :return: True (success) | False
-        :rtype: bool
+        :rtype: <bool>
         """
-        cls = self.__class__
-        yml_path, status = self.get_file_path(), False
-        if verbose:
-            msg = "{0} {1}{2}\n{3}{4}".format(
-                cls.VERBOSE, DBG, 'Write configuration to file', yml_path, RST
-            )
-            print(msg)
-        check_yml_file = FileChecking.check_file(yml_path, verbose)
-        if check_yml_file:
+        cls, yaml_path, status = self.__class__, self.get_file_path(), False
+        msg = "{0}\n{1}".format('Write configuration to file', yaml_path)
+        COut.print_console_msg(msg, verbose=verbose)
+        check_yaml_file = FileChecking.check_file(yaml_path, verbose)
+        if check_yaml_file:
             file_extension = ".{0}".format(cls.__FORMAT)
-            check_cfg_file_format = FileChecking.check_format(
-                yml_path, file_extension, verbose
+            check_yaml_file_format = FileChecking.check_format(
+                yaml_path, file_extension, verbose
             )
-            if check_cfg_file_format:
+            if check_yaml_file_format:
                 try:
-                    with ConfigFile(yml_path, 'w') as configuration_file:
+                    with ConfigFile(yaml_path, 'w') as configuration_file:
                         dump(
                             configuration, configuration_file,
                             default_flow_style=False
@@ -92,25 +88,24 @@ class Object2Yaml(BaseWriteConfig):
                     print(e)
                 else:
                     status = True
-                    if verbose:
-                        msg = "{0} {1}".format(cls.VERBOSE, 'Done')
-                        print(msg)
+                    msg = "{0}".format('Done')
+                    COut.print_console_msg(msg, verbose=verbose)
         return True if status else False
 
     def __str__(self):
         """
         Return human readable string (Object2Yaml).
         :return: String representation of Object2Yaml
-        :rtype: str
+        :rtype: <str>
         """
         file_path = self.get_file_path()
-        return 'File path {0}'.format(file_path)
+        return "File path {0}".format(file_path)
 
     def __repr__(self):
         """
         Return unambiguous string (Object2Yaml).
         :return: String representation of Object2Yaml
-        :rtype: str
+        :rtype: <str>
         """
         file_path = self.get_file_path()
-        return '{0}(\'{1}\')'.format(type(self).__name__, file_path)
+        return "{0}(\'{1}\')".format(type(self).__name__, file_path)

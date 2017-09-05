@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+import sys
 from re import match
 
 try:
@@ -8,10 +9,10 @@ try:
     from ats_utilities.config.config_context_manager import ConfigFile
     from ats_utilities.error.ats_value_error import ATSValueError
     from ats_utilities.text.stdout_text import DBG, RST
+    from ats_utilities.text import COut
 except ImportError as e:
     msg = "\n{0}\n".format(e)
-    print(msg)
-    exit(-1)  # Force close python module #####################################
+    sys.exit(msg)  # Force close python ATS ###################################
 
 __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2017, Free software to use and distributed it.'
@@ -40,22 +41,20 @@ class Cfg2Object(BaseReadConfig):
     """
 
     __FORMAT = 'cfg'
-    VERBOSE = '[CFG_TO_OBJECT]'
+    VERBOSE = 'CFG_TO_OBJECT'
 
     def __init__(self, configuration_file, verbose=False):
         """
         Setting configuration file path.
         :param configuration_file: Absolute configuration file path
-        :type configuration_file: str
+        :type configuration_file: <str>
         :param verbose: Enable/disable verbose option
-        :type verbose: bool
+        :type verbose: <bool>
         """
-        cls = self.__class__
-        if verbose:
-            msg = "{0} {1}{2}{3}".format(
-                cls.VERBOSE, DBG, 'Setting interface', RST
-            )
-            print(msg)
+        cls, cout = self.__class__, COut()
+        cout.set_ats_phase_process(cls.VERBOSE)
+        msg = "{0}".format(cls.VERBOSE, DBG, 'Setting interface')
+        COut.print_console_msg(msg, verbose=verbose)
         super(Cfg2Object, self).__init__(verbose)
         self.set_file_path(configuration_file)
 
@@ -63,17 +62,14 @@ class Cfg2Object(BaseReadConfig):
         """
         Read configuration from file.
         :param verbose: Enable/disable verbose option
-        :type verbose: bool
+        :type verbose: <bool>
         :return: Configuration object
-        :rtype: dict | NoneType
+        :rtype: <dict> | <NoneType>
         """
         cls = self.__class__
         cfg_path, content = self.get_file_path(), None
-        if verbose:
-            msg = "{0} {1}{2}\n{3}{4}".format(
-                cls.VERBOSE, DBG, 'Read configuration from file', cfg_path, RST
-            )
-            print(msg)
+        msg = "{0}\n{1}".format('Read configuration from file', cfg_path)
+        COut.print_console_msg(msg, verbose=verbose)
         check_cfg_file = FileChecking.check_file(cfg_path, verbose)
         if check_cfg_file:
             file_extension = ".{0}".format(cls.__FORMAT)
@@ -95,9 +91,8 @@ class Cfg2Object(BaseReadConfig):
                             if not regex_match:
                                 pairs = line.split('=')
                                 config[pairs[0].strip()] = pairs[1].strip()
-                        if verbose:
-                            msg = "{0} {1}".format(cls.VERBOSE, 'Done')
-                            print(msg)
+                        msg = "{0}".format('Done')
+                        COut.print_console_msg(msg, verbose=verbose)
                         return config
         return None
 
@@ -105,7 +100,7 @@ class Cfg2Object(BaseReadConfig):
         """
         Return human readable string (Cfg2Object).
         :return: String representation of Cfg2Object
-        :rtype: str
+        :rtype: <str>
         """
         file_path = self.get_file_path()
         return 'File path {0}'.format(file_path)
@@ -114,7 +109,7 @@ class Cfg2Object(BaseReadConfig):
         """
         Return unambiguous string (Cfg2Object).
         :return: String representation of Cfg2Object
-        :rtype: str
+        :rtype: <str>
         """
         file_path = self.get_file_path()
         return '{0}(\'{1}\')'.format(type(self).__name__, file_path)

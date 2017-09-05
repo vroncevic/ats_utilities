@@ -1,14 +1,16 @@
 # -*- coding: utf-8 -*-
 
+import sys
 from os.path import exists, isfile, splitext
 
 try:
     from ats_utilities.error.ats_file_error import ATSFileError
+    from ats_utilities.error.ats_value_error import ATSValueError
     from ats_utilities.text.stdout_text import DBG, ERR, RST
+    from ats_utilities.text import COut
 except ImportError as e:
     msg = "\n{0}\n".format(e)
-    print(msg)
-    exit(-1)  # Force close python module #####################################
+    sys.exit(msg)  # Force close python ATS ###################################
 
 __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2017, Free software to use and distributed it.'
@@ -43,25 +45,23 @@ class FileChecking(object):
     """
 
     __MODES = ['r', 'w', 'a', 'b', 'x', 't', '+']
-    VERBOSE = '[FILE_CONFIG]'
+    VERBOSE = 'FILE_CONFIG'
 
     @classmethod
     def check_file(cls, file_path, verbose=False):
         """
         Check config file path.
         :param file_path: Absolute config file path
-        :type: str
+        :type file_path: <str>
         :param verbose: Enable/disable verbose option
-        :type verbose: bool
+        :type verbose: <bool>
         :return: True (exist and regular) | False
-        :rtype: bool
+        :rtype: <bool>
         """
-        file_path_exist, file_path_regular = False, False
-        if verbose:
-            msg = "{0} {1}{2} \n{3}{4}".format(
-                cls.VERBOSE, DBG, 'Checking configuration file', file_path, RST
-            )
-            print(msg)
+        file_path_exist, file_path_regular, cout = False, False, COut()
+        cout.set_ats_phase_process(cls.VERBOSE)
+        msg = "{0}\n{1}".format('Checking configuration file', file_path)
+        COut.print_console_msg(msg, verbose=verbose)
         try:
             file_path_exist = exists(file_path)
             file_path_regular = isfile(file_path)
@@ -84,20 +84,18 @@ class FileChecking(object):
         """
         Check config file format by extension.
         :param file_path: Absolute config file path
-        :type: str
+        :type file_path: <str>
         :param file_extension: File format (file extension)
-        :type: str
+        :type file_extension: <str>
         :param verbose: Enable/disable verbose option
-        :type verbose: bool
-        :return: Boolean status
-        :rtype: bool
+        :type verbose: <bool>
+        :return: True (correct format) | False
+        :rtype: <bool>
         """
-        if verbose:
-            msg = "{0} {1}{2}\n{3}{4}".format(
-                cls.VERBOSE, DBG, 'Checking file extension', file_path, RST
-            )
-            print(msg)
-        status = False
+        status, cout = False, COut()
+        cout.set_ats_phase_process(cls.VERBOSE)
+        msg = "{0}\n{1}".format('Checking file extension', file_path)
+        COut.print_console_msg(msg, verbose=verbose)
         try:
             ext = splitext(file_path)[-1].lower()
             status = ext == file_extension
@@ -116,29 +114,27 @@ class FileChecking(object):
         """
         Checking operation mode for configuration file.
         :param mode: File mode
-        :type mode: str
+        :type mode: <str>
         :param verbose: Enable/disable verbose option
-        :type verbose: bool
+        :type verbose: <bool>
         :return: True (regular mode) | False
-        :rtype: bool
+        :rtype: <bool>
         """
-        if verbose:
-            msg = "{0} {1}{2}{3}".format(
-                cls.VERBOSE, DBG, 'Checking operation mode', RST
-            )
-            print(msg)
-        split_mode = list(mode)
-        for item_mode in split_mode:
-            if item_mode not in cls.__MODES:
-                if verbose:
+        cout, split_mode, status = COut(), list(mode), False
+        cout.set_ats_phase_process(cls.VERBOSE)
+        msg = "{0}".format('Checking operation mode')
+        COut.print_console_msg(msg, verbose=verbose)
+        try:
+            for item_mode in split_mode:
+                if item_mode not in cls.__MODES:
                     msg = "\n{0} {1}{2} [{3}]{4}\n".format(
                         cls.VERBOSE, ERR, 'Not supported mode', mode, RST
                     )
-                    print(msg)
-                return False
-        if verbose:
-            msg = "{0} {1}{2}{3}".format(
-                cls.VERBOSE, DBG, 'Operation mode supported', RST
-            )
-            print(msg)
-        return True
+                    raise ATSValueError(msg)
+        except ATSValueError as e:
+            print(e)
+        else:
+            msg = "{0}".format('Operation mode supported')
+            COut.print_console_msg(msg, verbose=verbose)
+            status = True
+        return True if status else False

@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+import sys
 from os.path import exists
 from logging import (
     getLogger, basicConfig, DEBUG, WARNING, CRITICAL, ERROR, INFO
@@ -10,10 +11,10 @@ try:
     from ats_utilities.error.ats_value_error import ATSValueError
     from ats_utilities.error.ats_file_error import ATSFileError
     from ats_utilities.text.stdout_text import ATS, DBG, ERR, RST
+    from ats_utilities.text import COut
 except ImportError as e:
     msg = "\n{0}\n".format(e)
-    print(msg)
-    exit(-1)  # Force close python module #####################################
+    sys.exit(msg)  # Force close python ATS ###################################
 
 __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2017, Free software to use and distributed it.'
@@ -41,7 +42,7 @@ class ATSLogger(ATSBaseLogger):
             __repr__ - Dunder (magic) method
     """
 
-    VERBOSE = '[ATS_LOGGER]'
+    VERBOSE = 'ATS_LOGGER'
     LOG_MSG_FORMAT = '%(asctime)s - %(levelname)s - %(message)s'
     LOG_DATE_FORMAT = '%m/%d/%Y %I:%M:%S %p'
     ATS_DEBUG, ATS_WARNING, ATS_CRITICAL, ATS_ERROR, ATS_INFO = (
@@ -52,18 +53,16 @@ class ATSLogger(ATSBaseLogger):
         """
         Setting log file path, and default debug log level.
         :param ats_name: App/Tool/Script name
-        :type ats_name: str
+        :type ats_name: <str>
         :param ats_log_file: Log file path of App/Tool/Script
-        :type ats_log_file: str
+        :type ats_log_file: <str>
         :param verbose: Enable/disable verbose option
-        :type verbose: bool
+        :type verbose: <bool>
         """
-        cls = self.__class__
-        if verbose:
-            msg = "{0} {1}{2}{3}".format(
-                cls.VERBOSE, DBG, 'Initial logger', RST
-            )
-            print(msg)
+        cls, cout = self.__class__, COut()
+        cout.set_ats_phase_process(cls.VERBOSE)
+        msg = "{0}".format('Initial logger')
+        COut.print_console_msg(msg, verbose=verbose)
         super(ATSLogger, self).__init__(verbose)
         path_exists = exists(ats_log_file)
         if ats_log_file and path_exists and ats_name:
@@ -86,20 +85,17 @@ class ATSLogger(ATSBaseLogger):
         """
         Write message to log file.
         :param msg: Log message
-        :type: str
+        :type msg: <str>
         :param ctrl: Control flag (debug, warning, critical, error, info)
-        :type: int
+        :type ctrl: <int>
         :param verbose: Enable/disable verbose option
-        :type verbose: bool
+        :type verbose: <bool>
         :return: True (success) | False
-        :rtype: bool
+        :rtype: <bool>
         """
         cls, status = self.__class__, False
-        if verbose:
-            msg = "{0} {1}{2}{3}".format(
-                cls.VERBOSE, DBG, 'Write log message', RST
-            )
-            print(msg)
+        msg = "{0}".format('Write log message')
+        COut.print_console_msg(msg, verbose=verbose)
         try:
             switch_dict = {
                 cls.ATS_DEBUG: self.get_logger().debug,
@@ -130,7 +126,7 @@ class ATSLogger(ATSBaseLogger):
         """
         Return human readable string (ATSLogger).
         :return: String representation of ATSLogger
-        :rtype: str
+        :rtype: <str>
         """
         log_file_path = self.get_log_file()
         return "{0} log file \n{1}".format(ATS, log_file_path)
@@ -139,7 +135,7 @@ class ATSLogger(ATSBaseLogger):
         """
         Return unambiguous string (ATSLogger).
         :return: String representation of ATSLogger
-        :rtype: str
+        :rtype: <str>
         """
         logger_name = self.get_logger_name()
         log_file = self.get_log_file()

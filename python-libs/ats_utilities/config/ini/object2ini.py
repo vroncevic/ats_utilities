@@ -1,15 +1,17 @@
 # -*- coding: utf-8 -*-
 
+import sys
+
 try:
     from ats_utilities.config.base_write_config import BaseWriteConfig
     from ats_utilities.config.file_checking import FileChecking
     from ats_utilities.config.config_context_manager import ConfigFile
     from ats_utilities.error.ats_value_error import ATSValueError
     from ats_utilities.text.stdout_text import DBG, RST
+    from ats_utilities.text import COut
 except ImportError as e:
     msg = "\n{0}\n".format(e)
-    print(msg)
-    exit(-1)  # Force close python module #####################################
+    sys.exit(msg)  # Force close python ATS ###################################
 
 __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2017, Free software to use and distributed it.'
@@ -37,22 +39,20 @@ class Object2Ini(BaseWriteConfig):
     """
 
     __FORMAT = 'ini'
-    VERBOSE = '[OBJECT_TO_INI]'
+    VERBOSE = 'OBJECT_TO_INI'
 
     def __init__(self, configuration_file, verbose=False):
         """
         Setting configuration file path.
         :param configuration_file: Absolute configuration file path
-        :type configuration_file: str
+        :type configuration_file: <str>
         :param verbose: Enable/disable verbose option
-        :type verbose: bool
+        :type verbose: <bool>
         """
-        cls = self.__class__
-        if verbose:
-            msg = "{0} {1}{2}{3}".format(
-                cls.VERBOSE, DBG, 'Setting interface', RST
-            )
-            print(msg)
+        cls, cout = self.__class__, COut()
+        cout.set_ats_phase_process(cls.VERBOSE)
+        msg = "{0}".format('Setting interface')
+        COut.print_console_msg(msg, verbose=verbose)
         super(Object2Ini, self).__init__(verbose)
         self.set_file_path(configuration_file)
 
@@ -60,26 +60,22 @@ class Object2Ini(BaseWriteConfig):
         """
         Write configuration to an ini file.
         :param configuration: Configuration object
-        :type: ConfigParser
+        :type: <ConfigParser>
         :param verbose: Enable/disable verbose option
-        :type verbose: bool
+        :type verbose: <bool>
         :return: True (success) | False
-        :rtype: bool
+        :rtype: <bool>
         """
-        cls = self.__class__
         ini_path, status = self.get_file_path(), False
-        if verbose:
-            msg = "{0} {1}{2}\n{3}{4}".format(
-                cls.VERBOSE, DBG, 'Write configuration to file', ini_path, RST
-            )
-            print(msg)
+        msg = "{0}\n{1}".format('Write configuration to file', ini_path)
+        COut.print_console_msg(msg, verbose=verbose)
         check_ini_file = FileChecking.check_file(ini_path, verbose)
         if check_ini_file:
             file_extension = ".{0}".format(Object2Ini.__FORMAT)
-            check_cfg_file_format = FileChecking.check_format(
+            check_ini_file_format = FileChecking.check_format(
                 ini_path, file_extension, verbose
             )
-            if check_cfg_file_format:
+            if check_ini_file_format:
                 try:
                     with ConfigFile(ini_path, 'w') as configuration_file:
                         configuration.write(
@@ -89,16 +85,15 @@ class Object2Ini(BaseWriteConfig):
                     print(e)
                 else:
                     status = True
-                    if verbose:
-                        msg = "{0} {1}".format(cls.VERBOSE, 'Done')
-                        print(msg)
+                    msg = "{0}".format('Done')
+                    COut.print_console_msg(msg, verbose=verbose)
         return True if status else False
 
     def __str__(self):
         """
         Return human readable string (Object2Ini).
         :return: String representation of Object2Ini
-        :rtype: str
+        :rtype: <str>
         """
         file_path = self.get_file_path()
         return 'File path {0}'.format(file_path)
@@ -107,7 +102,7 @@ class Object2Ini(BaseWriteConfig):
         """
         Return unambiguous string (Object2Ini).
         :return: String representation of Object2Ini
-        :rtype: str
+        :rtype: <str>
         """
         file_path = self.get_file_path()
         return '{0}(\'{1}\')'.format(type(self).__name__, file_path)

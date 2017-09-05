@@ -1,13 +1,14 @@
 # -*- coding: utf-8 -*-
 
+import sys
 from abc import ABCMeta, abstractmethod
 
 try:
     from ats_utilities.text.stdout_text import DBG, RST
+    from ats_utilities.text import COut
 except ImportError as e:
     msg = "\n{0}\n".format(e)
-    print(msg)
-    exit(-1)  # Force close python module #####################################
+    sys.exit(msg)  # Force close python ATS ###################################
 
 __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2017, Free software to use and distributed it.'
@@ -41,20 +42,18 @@ class ATSBaseLogger(object):
     """
 
     __metaclass__ = ABCMeta
-    VERBOSE = '[ATS_BASE_LOGGER]'
+    VERBOSE = 'ATS_BASE_LOGGER'
 
     def __init__(self, verbose=False):
         """
         Initial constructor.
         :param verbose: Enable/disable verbose option
-        :type verbose: bool
+        :type verbose: <bool>
         """
-        cls = self.__class__
-        if verbose:
-            msg = "{0} {1}{2}{3}".format(
-                cls.VERBOSE, DBG, 'Initial base logger', RST
-            )
-            print(msg)
+        cls, cout = self.__class__, COut()
+        cout.set_ats_phase_process(cls.VERBOSE)
+        msg = "{0}".format('Initial base logger')
+        COut.print_console_msg(msg, verbose=verbose)
         self.__logger = None
         self.__log_file = None
         self.__name = None
@@ -63,98 +62,72 @@ class ATSBaseLogger(object):
         """
         Setting logger object.
         :param logger: Logger object
-        :type logger: Object logging.Logger
+        :type logger: <logging.Logger>
         :param verbose: Enable/disable verbose option
-        :type verbose: bool
+        :type verbose: <bool>
         """
-        cls = self.__class__
-        if verbose:
-            msg = "{0} {1}{2}{3}".format(
-                cls.VERBOSE, DBG, 'Setting logger object', RST
-            )
-            print(msg)
+        msg = "{0}".format('Setting logger object')
+        COut.print_console_msg(msg, verbose=verbose)
         self.__logger = logger
 
     def get_logger(self, verbose=False):
         """
         Getting logger object.
         :param verbose: Enable/disable verbose option
-        :type verbose: bool
+        :type verbose: <bool>
         :return: Logger object
-        :rtype: Object logging.Logger
+        :rtype: <logging.Logger>
         """
-        cls = self.__class__
-        if verbose:
-            msg = "{0} {1}{2}{3}".format(
-                cls.VERBOSE, DBG, 'Getting logger object', RST
-            )
-            print(msg)
+        msg = "{0}".format('Getting logger object')
+        COut.print_console_msg(msg, verbose=verbose)
         return self.__logger
 
     def set_log_file(self, log_file_path, verbose=False):
         """
         Setting log file path.
         :param log_file_path: Log file path
-        :type log_file_path: str
+        :type log_file_path: <str>
         :param verbose: Enable/disable verbose option
-        :type verbose: bool
+        :type verbose: <bool>
         """
-        cls = self.__class__
-        if verbose:
-            msg = "{0} {1}{2}{3}".format(
-                cls.VERBOSE, DBG, 'Setting log file path', RST
-            )
-            print(msg)
+        msg = "{0}".format('Setting log file path')
+        COut.print_console_msg(msg, verbose=verbose)
         self.__log_file = log_file_path
 
     def get_log_file(self, verbose=False):
         """
         Getting log file path.
         :param verbose: Enable/disable verbose option
-        :type verbose: bool
+        :type verbose: <bool>
         :return: Log file path
-        :rtype: str
+        :rtype: <str>
         """
-        cls = self.__class__
-        if verbose:
-            msg = "{0} {1}{2}{3}".format(
-                cls.VERBOSE, DBG, 'Getting log file path', RST
-            )
-            print(msg)
+        msg = "{0} {1}".format('Getting log file path', self.__log_file)
+        COut.print_console_msg(msg, verbose=verbose)
         return self.__log_file
 
     def set_logger_name(self, logger_name, verbose=False):
         """
         Setting logger name.
-        :param logger_name:
-        :type logger_name:
+        :param logger_name: Logger name
+        :type logger_name: <str>
         :param verbose: Enable/disable verbose option
-        :type verbose: bool
-        :return:
-        :rtype:
+        :type verbose: <bool>
         """
-        cls = self.__class__
-        if verbose:
-            msg = "{0} {1}{2}{3}".format(
-                cls.VERBOSE, DBG, 'Getting logger object', RST
-            )
-            print(msg)
+        msg = "{0}".format('Getting logger object')
+        COut.print_console_msg(msg, verbose=verbose)
         self.__name = logger_name
 
     def get_logger_name(self, verbose=False):
         """
         Getting logger name.
         :param verbose: Enable/disable verbose option
-        :type verbose: bool
-        :return:
-        :rtype:
+        :type verbose: <bool>
+        :return: Logger name
+        :rtype: <str>
         """
-        cls = self.__class__
-        if verbose:
-            msg = "{0} {1}{2}{3}".format(
-                cls.VERBOSE, DBG, 'Getting logger object', RST
-            )
-            print(msg)
+        msg = "{0} {1}".format('Getting logger object', self.__name)
+        COut.print_console_msg(msg, verbose=verbose)
         return self.__name
 
     @abstractmethod
@@ -162,12 +135,12 @@ class ATSBaseLogger(object):
         """
         Write message to log file (Abstract method).
         :param msg: Log message
-        :type: str
+        :type msg: <str>
         :param ctrl: Control flag (debug, warning, critical, error, info)
-        :type: int
+        :type ctrl: <int>
         :param verbose: Enable/disable verbose option
-        :type verbose: bool
+        :type verbose: <bool>
         :return: True (success) | False
-        :rtype: bool
+        :rtype: <bool>
         """
         pass

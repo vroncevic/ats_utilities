@@ -1,11 +1,13 @@
 # -*- coding: utf-8 -*-
 
+import sys
+
 try:
-    from ats_utilities.text.stdout_text import ATS, DBG, RST
+    from ats_utilities.text import COut
+    from ats_utilities.text.stdout_text import ATS
 except ImportError as e:
     msg = "\n{0}\n".format(e)
-    print(msg)
-    exit(-1)  # Force close python module #####################################
+    sys.exit(msg)  # Force close python ATS ###################################
 
 __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2017, Free software to use and distributed it.'
@@ -33,61 +35,51 @@ class ATSVersion(object):
             __repr__ - Dunder (magic) method
     """
 
-    VERBOSE = '[ATS_VERSION]'
+    VERBOSE = 'ATS_VERSION'
 
     def __init__(self, version=None, verbose=False):
         """
         Initial version number of App/Tool/Script.
-        :param version: App/Tool/Script version
-        :type version: str
+        :param version: App/Tool/Script version | None
+        :type version: <str> | <NoneType>
         :param verbose: Enable/disable verbose option
-        :type verbose: bool
+        :type verbose: <bool>
         """
-        cls = self.__class__
-        if verbose:
-            msg = "{0} {1}{2} [{3}]{4}".format(
-                cls.VERBOSE, DBG, 'Initial version', version, RST
-            )
-            print(msg)
+        cls, cout = self.__class__, COut()
+        cout.set_ats_phase_process(cls.VERBOSE)
+        msg = "{0} [{1}]".format('Initial version', version)
+        COut.print_console_msg(msg, verbose=verbose)
         self.__version = version
 
     def set_ats_version(self, version, verbose=False):
         """
         Setting version number of App/Tool/Script.
         :param version: App/Tool/Script version
-        :type version: str
+        :type version: <str>
         :param verbose: Enable/disable verbose option
-        :type verbose: bool
+        :type verbose: <bool>
         """
-        cls = self.__class__
-        if verbose:
-            msg = "{0} {1}{2} [{3}]{4}".format(
-                cls.VERBOSE, DBG, 'Setting version', version, RST
-            )
-            print(msg)
+        msg = "{0} [{1}]".format('Setting version', version)
+        COut.print_console_msg(msg, verbose=verbose)
         self.__version = version
 
     def get_ats_version(self, verbose=False):
         """
         Getting version number of App/Tool/Script.
         :param verbose: Enable/disable verbose option
-        :type verbose: bool
-        :return: App/Tool/Script version
-        :rtype: str
+        :type verbose: <bool>
+        :return: App/Tool/Script version | None
+        :rtype: <str> | <NoneType>
         """
-        cls = self.__class__
-        if verbose:
-            msg = "{0} {1}{2} [{3}]{4}".format(
-                cls.VERBOSE, DBG, 'Getting version', self.__version, RST
-            )
-            print(msg)
+        msg = "{0} [{1}]".format('Getting version', self.__version)
+        COut.print_console_msg(msg, verbose=verbose)
         return self.__version
 
     def __str__(self):
         """
         Return human readable string (ATSVersion).
         :return: String representation of ATSVersion
-        :rtype: str
+        :rtype: <str>
         """
         return "{0} version {1}".format(ATS, self.__version)
 
@@ -95,6 +87,6 @@ class ATSVersion(object):
         """
         Return unambiguous string (ATSVersion).
         :return: String representation of ATSVersion
-        :rtype: str
+        :rtype: <str>
         """
         return "{0}(\'{1}\')".format(type(self).__name__, self.__version)

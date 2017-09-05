@@ -1,13 +1,15 @@
 # -*- coding: utf-8 -*-
 
+import sys
+
 try:
     from ats_utilities.error.ats_value_error import ATSValueError
     from ats_utilities.config.file_checking import FileChecking
     from ats_utilities.text.stdout_text import DBG, ERR, RST
+    from ats_utilities.text import COut
 except ImportError as e:
     msg = "\n{0}\n".format(e)
-    print(msg)
-    exit(-1)  # Force close python module #####################################
+    sys.exit(msg)  # Force close python ATS ###################################
 
 __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2017, Free software to use and distributed it.'
@@ -36,25 +38,24 @@ class ConfigFile(object):
             __repr__ - Dunder (magic) method
     """
 
-    VERBOSE = '[CONTEXT_MANAGER]'
+    VERBOSE = 'CONTEXT_MANAGER'
 
     def __init__(self, file_path, mode, verbose=False):
         """
         Setting filename and open mode.
         :param file_path: Configuration file name
-        :type file_path: str
+        :type file_path: <str>
         :param mode: Open configuration file in mode
-        :type mode: str
+        :type mode: <str>
         :param verbose: Enable/disable verbose option
-        :type verbose: bool
+        :type verbose: <bool>
         """
-        cls = self.__class__
-        if verbose:
-            msg = "{0} {1}{2}\n{3}\n{4} [{5}]{6}".format(
-                cls.VERBOSE, DBG, 'Setting file path', file_path,
-                'Setting file mode', mode, RST
-            )
-            print(msg)
+        cls, cout = self.__class__, COut()
+        cout.set_ats_phase_process(cls.VERBOSE)
+        msg = "{0}\n{1}\n{2} [{3}]".format(
+            'Setting file path', file_path, 'Setting file mode', mode
+        )
+        COut.print_console_msg(msg, verbose=verbose)
         self.__file_path = file_path
         check_mode = FileChecking.check_mode(mode, verbose)
         if check_mode:
@@ -69,14 +70,14 @@ class ConfigFile(object):
         """
         Open configuration file in mode.
         :return: File object | None
-        :rtype: file | NoneType
+        :rtype: <file> | <NoneType>
         """
         cls = self.__class__
         try:
             self.__file = open(self.__file_path, self.__mode)
         except IOError as e:
             msg = "\n{0} {1}{2}{3}\n".format(cls.VERBOSE, ERR, e, RST)
-            print (msg)
+            COut.print_console_msg(msg, error=True)
             self.__file = None
         return self.__file
 
@@ -93,7 +94,7 @@ class ConfigFile(object):
         """
         Return human readable string (ConfigFile).
         :return: String representation of ConfigFile
-        :rtype: str
+        :rtype: <str>
         """
         return "File {0}".format(self.__file_path)
 
@@ -101,7 +102,7 @@ class ConfigFile(object):
         """
         Return unambiguous string (ConfigFile).
         :return: String representation of ConfigFile
-        :rtype: str
+        :rtype: <str>
         """
         return "{0}(\'{1}\', \'{2}\')".format(
             type(self).__name__, self.__file_path, self.__mode

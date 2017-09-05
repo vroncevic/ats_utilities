@@ -1,13 +1,14 @@
 # -*- coding: utf-8 -*-
 
+import sys
 from abc import ABCMeta, abstractmethod
 
 try:
     from ats_utilities.text.stdout_text import DBG, RST
+    from ats_utilities.text import COut
 except ImportError as e:
     msg = "\n{0}\n".format(e)
-    print(msg)
-    exit(-1)  # Force close python module #####################################
+    sys.exit(msg)  # Force close python ATS ###################################
 
 __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2017, Free software to use and distributed it.'
@@ -37,54 +38,44 @@ class BaseWriteConfig(object):
     """
 
     __metaclass__ = ABCMeta
-    VERBOSE = '[BASE_WRITE_CONFIG]'
+    VERBOSE = 'BASE_WRITE_CONFIG'
 
     def __init__(self, verbose=False):
         """
         Initial file path.
         :param verbose: Enable/disable verbose option
-        :type verbose: bool
+        :type verbose: <bool>
         """
-        cls = self.__class__
-        if verbose:
-            msg = "{0} {1}{2}{3}".format(
-                cls.VERBOSE, DBG, 'Initial configuration file path', RST
-            )
-            print(msg)
+        cls, cout = self.__class__, COut()
+        cout.set_ats_phase_process(cls.VERBOSE)
+        msg = "{0}".format('Initial configuration file path')
+        COut.print_console_msg(msg, verbose=verbose)
         self.__file_path = None
 
     def set_file_path(self, file_path, verbose=False):
         """
         Setting configuration file path.
         :param file_path: Configuration file path
-        :type file_path: str
+        :type file_path: <str>
         :param verbose: Enable/disable verbose option
-        :type verbose: bool
+        :type verbose: <bool>
         """
-        cls = self.__class__
-        if verbose:
-            msg = "{0} {1}{2}{3}\n{4}".format(
-                cls.VERBOSE, DBG, 'Setting configuration file path',
-                file_path, RST
-            )
-            print(msg)
+        msg = "{0}\n{1}".format('Setting configuration file path', file_path)
+        COut.print_console_msg(msg, verbose=verbose)
         self.__file_path = file_path
 
     def get_file_path(self, verbose=False):
         """
         Getting configuration file path.
         :param verbose: Enable/disable verbose option
-        :type verbose: bool
+        :type verbose: <bool>
         :return: Configuration file path | None
-        :rtype: str | NoneType
+        :rtype: <str> | <NoneType>
         """
-        cls = self.__class__
-        if verbose:
-            msg = "{0} {1}{2}\n{3}{4}".format(
-                cls.VERBOSE, DBG, 'Getting configuration file path',
-                self.__file_path, RST
-            )
-            print(msg)
+        msg = "{0}\n{1}".format(
+            'Getting configuration file path', self.__file_path
+        )
+        COut.print_console_msg(msg, verbose=verbose)
         return self.__file_path
 
     @abstractmethod
@@ -92,11 +83,11 @@ class BaseWriteConfig(object):
         """
         Write configuration to file (Abstract method).
         :param configuration: Configuration object
-        :type configuration: dict
+        :type configuration: <dict>
         :param verbose: Enable/disable verbose option
-        :type verbose: bool
-        :return: Boolean status
-        :rtype: bool
+        :type verbose: <bool>
+        :return: True (success) | False
+        :rtype: <bool>
         """
         pass
 
@@ -104,14 +95,14 @@ class BaseWriteConfig(object):
         """
         Return human readable string (BaseWriteConfig).
         :return: String representation of BaseWriteConfig
-        :rtype: str
+        :rtype: <str>
         """
-        return 'File path {0}'.format(self.__file_path)
+        return "File path {0}".format(self.__file_path)
 
     def __repr__(self):
         """
         Return unambiguous string (BaseWriteConfig).
         :return: String representation of BaseWriteConfig
-        :rtype: str
+        :rtype: <str>
         """
-        return '{0}()'.format(type(self).__name__)
+        return "{0}()".format(type(self).__name__)
