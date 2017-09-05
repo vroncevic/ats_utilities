@@ -10,10 +10,10 @@ __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
 
 
-class ATSFileError(IOError):
+class ATSAttributeError(AttributeError):
     """
-    Define class ATSFileError with attribute(s) and method(s).
-    Checking file mechanism.
+    Define class ATSAttributeError with attribute(s) and method(s).
+    Checking attribute mechanism.
     It defines:
         attribute:
             None

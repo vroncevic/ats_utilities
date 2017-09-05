@@ -54,7 +54,7 @@ class Yaml2Object(BaseReadConfig):
         """
         cls, cout = self.__class__, COut()
         cout.set_ats_phase_process(cls.VERBOSE)
-        msg = "{0}".format('Setting interface')
+        msg = "{0}".format('Setting YAML interface')
         COut.print_console_msg(msg, verbose=verbose)
         super(Yaml2Object, self).__init__(verbose)
         self.set_file_path(configuration_file)

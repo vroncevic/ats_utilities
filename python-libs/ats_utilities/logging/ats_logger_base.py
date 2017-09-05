@@ -4,6 +4,9 @@ import sys
 from abc import ABCMeta, abstractmethod
 
 try:
+    from ats_utilities.logging.ats_logger_status import ATSLoggerStatus
+    from ats_utilities.logging.ats_logger_file import ATSLoggerFile
+    from ats_utilities.logging.ats_logger_name import ATSLoggerName
     from ats_utilities.text.stdout_text import DBG, RST
     from ats_utilities.text import COut
 except ImportError as e:
@@ -20,24 +23,18 @@ __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
 
 
-class ATSBaseLogger(object):
+class ATSLoggerBase(ATSLoggerStatus, ATSLoggerFile, ATSLoggerName):
     """
-    Define class ATSBaseLogger with attribute(s) and method(s).
+    Define class ATSLoggerBase with attribute(s) and method(s).
     Base container for logging mechanism.
     It defines:
         attribute:
             VERBOSE - Verbose prefix console text
             __logger - Object logger
-            __log_file - Log file path
-            __name - Logger name
         method:
             __init__ - Initial constructor
             set_logger - Setting logger object
             get_logger - Getting logger object
-            set_log_file - Setting log file path
-            get_log_file - Getting log file path
-            set_logger_name - Setting logger name
-            get_logger_name - Getting logger name
             write_log - Write message to log file (Abstract method)
     """
 
@@ -54,9 +51,10 @@ class ATSBaseLogger(object):
         cout.set_ats_phase_process(cls.VERBOSE)
         msg = "{0}".format('Initial base logger')
         COut.print_console_msg(msg, verbose=verbose)
+        ATSLoggerStatus.__init__(self, False, verbose)
+        ATSLoggerFile.__init__(self, None, verbose)
+        ATSLoggerName.__init__(self, None, verbose)
         self.__logger = None
-        self.__log_file = None
-        self.__name = None
 
     def set_logger(self, logger, verbose=False):
         """
@@ -81,54 +79,6 @@ class ATSBaseLogger(object):
         msg = "{0}".format('Getting logger object')
         COut.print_console_msg(msg, verbose=verbose)
         return self.__logger
-
-    def set_log_file(self, log_file_path, verbose=False):
-        """
-        Setting log file path.
-        :param log_file_path: Log file path
-        :type log_file_path: <str>
-        :param verbose: Enable/disable verbose option
-        :type verbose: <bool>
-        """
-        msg = "{0}".format('Setting log file path')
-        COut.print_console_msg(msg, verbose=verbose)
-        self.__log_file = log_file_path
-
-    def get_log_file(self, verbose=False):
-        """
-        Getting log file path.
-        :param verbose: Enable/disable verbose option
-        :type verbose: <bool>
-        :return: Log file path
-        :rtype: <str>
-        """
-        msg = "{0} {1}".format('Getting log file path', self.__log_file)
-        COut.print_console_msg(msg, verbose=verbose)
-        return self.__log_file
-
-    def set_logger_name(self, logger_name, verbose=False):
-        """
-        Setting logger name.
-        :param logger_name: Logger name
-        :type logger_name: <str>
-        :param verbose: Enable/disable verbose option
-        :type verbose: <bool>
-        """
-        msg = "{0}".format('Getting logger object')
-        COut.print_console_msg(msg, verbose=verbose)
-        self.__name = logger_name
-
-    def get_logger_name(self, verbose=False):
-        """
-        Getting logger name.
-        :param verbose: Enable/disable verbose option
-        :type verbose: <bool>
-        :return: Logger name
-        :rtype: <str>
-        """
-        msg = "{0} {1}".format('Getting logger object', self.__name)
-        COut.print_console_msg(msg, verbose=verbose)
-        return self.__name
 
     @abstractmethod
     def write_log(self, msg, ctrl, verbose=False):

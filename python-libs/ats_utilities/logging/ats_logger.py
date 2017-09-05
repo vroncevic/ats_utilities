@@ -7,7 +7,7 @@ from logging import (
 )
 
 try:
-    from ats_utilities.logging.ats_base_logger import ATSBaseLogger
+    from ats_utilities.logging.ats_logger_base import ATSLoggerBase
     from ats_utilities.error.ats_value_error import ATSValueError
     from ats_utilities.error.ats_file_error import ATSFileError
     from ats_utilities.text.stdout_text import ATS, DBG, ERR, RST
@@ -26,7 +26,7 @@ __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
 
 
-class ATSLogger(ATSBaseLogger):
+class ATSLogger(ATSLoggerBase):
     """
     Define class ATSLogger with attribute(s) and method(s).
     Logging mechanism for App/Tool/Script.
@@ -35,6 +35,11 @@ class ATSLogger(ATSBaseLogger):
             VERBOSE - Verbose prefix console text
             LOG_MSG_FORMAT - Log message format
             LOG_DATE_FORMAT - Log date format
+            ATS_DEBUG - Debug log level
+            ATS_WARNING - Warning log level
+            ATS_CRITICAL - Critical log level
+            ATS_ERROR - Error log level
+            ATS_INFO - Info log level
         method:
             __init__ - Initial constructor
             write_log - Write message to log file
@@ -74,6 +79,7 @@ class ATSLogger(ATSBaseLogger):
             logger = getLogger(ats_name)
             self.set_logger(logger, verbose)
             self.set_logger_name(ats_name, verbose)
+            self.set_logger_status(True)
         else:
             msg = "\n{0} {1}{2} {3} \n{4}\n".format(
                 cls.VERBOSE, ERR, ATS, 'check log file path',
@@ -97,23 +103,30 @@ class ATSLogger(ATSBaseLogger):
         msg = "{0}".format('Write log message')
         COut.print_console_msg(msg, verbose=verbose)
         try:
-            switch_dict = {
-                cls.ATS_DEBUG: self.get_logger().debug,
-                cls.ATS_WARNING: self.get_logger().warning,
-                cls.ATS_CRITICAL: self.get_logger().critical,
-                cls.ATS_ERROR: self.get_logger().error,
-                cls.ATS_INFO: self.get_logger().info
-            }
-            ctrl_options = [
-                cls.ATS_DEBUG, cls.ATS_WARNING, cls.ATS_CRITICAL,
-                cls.ATS_ERROR, cls.ATS_INFO
-            ]
-            ctrl_is_int = isinstance(ctrl, int)
-            if ctrl_is_int and ctrl in ctrl_options:
-                switch_dict[ctrl](msg)
+            enabled_log = self.get_logger_status(verbose)
+            if enabled_log:
+                switch_dict = {
+                    cls.ATS_DEBUG: self.get_logger().debug,
+                    cls.ATS_WARNING: self.get_logger().warning,
+                    cls.ATS_CRITICAL: self.get_logger().critical,
+                    cls.ATS_ERROR: self.get_logger().error,
+                    cls.ATS_INFO: self.get_logger().info
+                }
+                ctrl_options = [
+                    cls.ATS_DEBUG, cls.ATS_WARNING, cls.ATS_CRITICAL,
+                    cls.ATS_ERROR, cls.ATS_INFO
+                ]
+                ctrl_is_int = isinstance(ctrl, int)
+                if ctrl_is_int and ctrl in ctrl_options:
+                    switch_dict[ctrl](msg)
+                else:
+                    msg = "\n{0} {1}{2} [{3}]{4}\n".format(
+                        cls.VERBOSE, ERR, 'Not supported log level', ctrl, RST
+                    )
+                    raise ATSValueError(msg)
             else:
                 msg = "\n{0} {1}{2} [{3}]{4}\n".format(
-                    cls.VERBOSE, ERR, 'Not implemented log level', ctrl, RST
+                    cls.VERBOSE, ERR, 'Not enabled logging', ctrl, RST
                 )
                 raise ATSValueError(msg)
         except ATSValueError as e:

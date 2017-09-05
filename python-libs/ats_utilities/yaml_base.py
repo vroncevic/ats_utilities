@@ -65,28 +65,32 @@ class YamlBase(ATSInfo, YamlSettings, ATSOptionParser):
             configuration, verbose
         )
         if configuration and check_configuration:
-            ATSInfo.__init__(self, configuration, verbose)
-            statuses = []
-            tool_version = self.get_ats_version()
-            statuses.append(tool_version)
-            tool_build_date = self.get_ats_build_date()
-            statuses.append(tool_build_date)
-            tool_name = self.get_ats_name()
-            statuses.append(tool_name)
-            tool_lic = self.get_ats_license()
-            statuses.append(tool_lic)
-            if all(status for status in statuses):
-                tool_info = "{0} {1}".format(tool_version, tool_build_date)
-                ATSOptionParser.__init__(
-                    self, tool_info, tool_name, tool_lic, verbose
-                )
-                self.__tool_operational = True
+            try:
+                ATSInfo.__init__(self, configuration, verbose)
+            except ATSValueError as e:
+                print(e)
             else:
-                msg = "\n{0} {1}{2} of {3} {4}\n".format(
-                    cls.VERBOSE, ERR,
-                    'Missing version/build_date/name or license', ATS, RST
-                )
-                raise ATSValueError(msg)
+                statuses = []
+                tool_version = self.get_ats_version()
+                statuses.append(tool_version)
+                tool_build_date = self.get_ats_build_date()
+                statuses.append(tool_build_date)
+                tool_name = self.get_ats_name()
+                statuses.append(tool_name)
+                tool_lic = self.get_ats_license()
+                statuses.append(tool_lic)
+                if all(status for status in statuses):
+                    tool_info = "{0} {1}".format(tool_version, tool_build_date)
+                    ATSOptionParser.__init__(
+                        self, tool_info, tool_name, tool_lic, verbose
+                    )
+                    self.__tool_operational = True
+                else:
+                    msg = "\n{0} {1}{2} of {3} {4}\n".format(
+                        cls.VERBOSE, ERR,
+                        'Missing version/build_date/name or license', ATS, RST
+                    )
+                    raise ATSValueError(msg)
         else:
             msg = "\n{0} {1}{2} of {3}{4}\n".format(
                 cls.VERBOSE, ERR, 'Wrong configuration structure', ATS, RST

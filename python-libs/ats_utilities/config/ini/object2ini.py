@@ -51,7 +51,7 @@ class Object2Ini(BaseWriteConfig):
         """
         cls, cout = self.__class__, COut()
         cout.set_ats_phase_process(cls.VERBOSE)
-        msg = "{0}".format('Setting interface')
+        msg = "{0}".format('Setting INI interface')
         COut.print_console_msg(msg, verbose=verbose)
         super(Object2Ini, self).__init__(verbose)
         self.set_file_path(configuration_file)
@@ -96,7 +96,7 @@ class Object2Ini(BaseWriteConfig):
         :rtype: <str>
         """
         file_path = self.get_file_path()
-        return 'File path {0}'.format(file_path)
+        return "File path {0}".format(file_path)
 
     def __repr__(self):
         """
@@ -105,4 +105,4 @@ class Object2Ini(BaseWriteConfig):
         :rtype: <str>
         """
         file_path = self.get_file_path()
-        return '{0}(\'{1}\')'.format(type(self).__name__, file_path)
+        return "{0}(\'{1}\')".format(type(self).__name__, file_path)

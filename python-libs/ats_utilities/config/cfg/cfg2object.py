@@ -53,7 +53,7 @@ class Cfg2Object(BaseReadConfig):
         """
         cls, cout = self.__class__, COut()
         cout.set_ats_phase_process(cls.VERBOSE)
-        msg = "{0}".format(cls.VERBOSE, DBG, 'Setting interface')
+        msg = "{0}".format(cls.VERBOSE, DBG, 'Setting CFG interface')
         COut.print_console_msg(msg, verbose=verbose)
         super(Cfg2Object, self).__init__(verbose)
         self.set_file_path(configuration_file)
@@ -103,7 +103,7 @@ class Cfg2Object(BaseReadConfig):
         :rtype: <str>
         """
         file_path = self.get_file_path()
-        return 'File path {0}'.format(file_path)
+        return "File path {0}".format(file_path)
 
     def __repr__(self):
         """
@@ -112,4 +112,4 @@ class Cfg2Object(BaseReadConfig):
         :rtype: <str>
         """
         file_path = self.get_file_path()
-        return '{0}(\'{1}\')'.format(type(self).__name__, file_path)
+        return "{0}(\'{1}\')".format(type(self).__name__, file_path)

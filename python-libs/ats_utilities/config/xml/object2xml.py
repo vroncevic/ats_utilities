@@ -51,7 +51,7 @@ class Object2Xml(BaseWriteConfig):
         """
         cls, cout = self.__class__, COut()
         cout.set_ats_phase_process(cls.VERBOSE)
-        msg = "{0}".format('Setting interface')
+        msg = "{0}".format('Setting XML interface')
         COut.print_console_msg(msg, verbose=verbose)
         super(Object2Xml, self).__init__(verbose)
         self.set_file_path(configuration_file)

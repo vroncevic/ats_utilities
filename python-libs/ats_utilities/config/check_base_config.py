@@ -21,7 +21,7 @@ __status__ = 'Updated'
 
 class CheckBaseConfig(object):
     """
-    Define class GenPyModule with attribute(s) and method(s).
+    Define class CheckBaseConfig with attribute(s) and method(s).
     Checking basic configuration structure.
     It defines:
         attribute:
