@@ -7,7 +7,6 @@ try:
 
     from ats_utilities.config.base_read_config import BaseReadConfig
     from ats_utilities.config.config_context_manager import ConfigFile
-    from ats_utilities.config.file_checking import FileChecking
     from ats_utilities.error.ats_value_error import ATSValueError
     from ats_utilities.text.stdout_text import DBG, RST
     from ats_utilities.text import COut
@@ -67,29 +66,22 @@ class Ini2Object(BaseReadConfig):
         :return: Configuration object | None
         :rtype: <ConfigParser> | <NoneType>
         """
-        ini_path, content = self.get_file_path(), None
+        cls, ini_path, content = self.__class__, self.get_file_path(), None
         msg = "{0}\n{1}".format(
             'Read configuration from file', ini_path
         )
         COut.print_console_msg(msg, verbose=verbose)
-        check_ini_file = FileChecking.check_file(ini_path, verbose)
-        if check_ini_file:
-            file_extension = ".{0}".format(Ini2Object.__FORMAT)
-            check_ini_file_format = FileChecking.check_format(
-                ini_path, file_extension, verbose
-            )
-            if check_ini_file_format:
-                try:
-                    with ConfigFile(ini_path, 'r') as configuration_file:
-                        content = ConfigParser()
-                        content.read_file(configuration_file)
-                except ATSValueError as e:
-                    print(e)
-                else:
-                    if content:
-                        msg = "{0}".format('Done')
-                        COut.print_console_msg(msg, verbose=verbose)
-                        return content
+        try:
+            with ConfigFile(ini_path, 'r', cls.__FORMAT) as ini_file:
+                content = ConfigParser()
+                content.read_file(ini_file)
+        except (ATSValueError, AttributeError) as e:
+            print(e)
+        else:
+            if content:
+                msg = "{0}".format('Done')
+                COut.print_console_msg(msg, verbose=verbose)
+                return content
         return None
 
     def __str__(self):

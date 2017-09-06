@@ -5,7 +5,6 @@ from json import dump
 
 try:
     from ats_utilities.config.base_write_config import BaseWriteConfig
-    from ats_utilities.config.file_checking import FileChecking
     from ats_utilities.config.config_context_manager import ConfigFile
     from ats_utilities.error.ats_value_error import ATSValueError
     from ats_utilities.text.stdout_text import DBG, RST
@@ -70,22 +69,15 @@ class Object2Json(BaseWriteConfig):
         cls, json_path, status = self.__class__, self.get_file_path(), False
         msg = "{0}\n{1}".format('Write configuration to file', json_path)
         COut.print_console_msg(msg, verbose=verbose)
-        check_json_file = FileChecking.check_file(json_path, verbose)
-        if check_json_file:
-            file_extension = ".{0}".format(cls.__FORMAT)
-            check_json_file_format = FileChecking.check_format(
-                json_path, file_extension, verbose
-            )
-            if check_json_file_format:
-                try:
-                    with ConfigFile(json_path, 'w') as configuration_file:
-                        dump(configuration, configuration_file)
-                except ATSValueError as e:
-                    print(e)
-                else:
-                    status = True
-                    msg = "{0}".format('Done')
-                    COut.print_console_msg(msg, verbose=verbose)
+        try:
+            with ConfigFile(json_path, 'w', cls.__FORMAT) as json_file:
+                dump(configuration, json_file)
+        except (ATSValueError, AttributeError) as e:
+            print(e)
+        else:
+            status = True
+            msg = "{0}".format('Done')
+            COut.print_console_msg(msg, verbose=verbose)
         return True if status else False
 
     def __str__(self):

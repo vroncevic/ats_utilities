@@ -5,7 +5,6 @@ from json import load
 
 try:
     from ats_utilities.config.base_read_config import BaseReadConfig
-    from ats_utilities.config.file_checking import FileChecking
     from ats_utilities.config.config_context_manager import ConfigFile
     from ats_utilities.error.ats_value_error import ATSValueError
     from ats_utilities.text.stdout_text import DBG, RST
@@ -68,22 +67,15 @@ class Json2Object(BaseReadConfig):
         cls, json_path, content = self.__class__, self.get_file_path(), None
         msg = "{0}\n{1}".format('Read configuration from file', json_path)
         COut.print_console_msg(msg, verbose=verbose)
-        check_json_file = FileChecking.check_file(json_path, verbose)
-        if check_json_file:
-            file_extension = ".{0}".format(cls.__FORMAT)
-            check_json_file_format = FileChecking.check_format(
-                json_path, file_extension, verbose
-            )
-            if check_json_file_format:
-                try:
-                    with ConfigFile(json_path, 'r') as configuration_file:
-                        content = load(configuration_file)
-                except ATSValueError as e:
-                    print(e)
-                else:
-                    if content:
-                        msg = "{0}".format('Done')
-                        COut.print_console_msg(msg, verbose=verbose)
+        try:
+            with ConfigFile(json_path, 'r', cls.__FORMAT) as json_file:
+                content = load(json_file)
+        except (ATSValueError, AttributeError) as e:
+            print(e)
+        else:
+            if content:
+                msg = "{0}".format('Done')
+                COut.print_console_msg(msg, verbose=verbose)
         return content
 
     def __str__(self):

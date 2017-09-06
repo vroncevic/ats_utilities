@@ -39,16 +39,27 @@ class FileChecking(object):
             __MODES - Mode options
             VERBOSE - Verbose prefix console text
         method:
+            __init__ - Initial constructor
             check_file - Check configuration file path
             check_format - Check configuration file format by extension
             check_mode -  Checking operation mode for configuration file
     """
 
     __MODES = ['r', 'w', 'a', 'b', 'x', 't', '+']
-    VERBOSE = 'FILE_CONFIG'
+    VERBOSE = 'FILE_CHECKING'
 
-    @classmethod
-    def check_file(cls, file_path, verbose=False):
+    def __init__(self, verbose=False):
+        """
+        Initial constructor.
+        :param verbose: Enable/disable verbose option
+        :type verbose: <bool>
+        """
+        cls, cout = self.__class__, COut()
+        cout.set_ats_phase_process(cls.VERBOSE)
+        msg = "{0}".format('Initial file checking interface')
+        COut.print_console_msg(msg, verbose=verbose)
+
+    def check_file(self, file_path, verbose=False):
         """
         Check config file path.
         :param file_path: Absolute config file path
@@ -58,6 +69,7 @@ class FileChecking(object):
         :return: True (exist and regular) | False
         :rtype: <bool>
         """
+        cls = self.__class__
         file_path_exist, file_path_regular, cout = False, False, COut()
         cout.set_ats_phase_process(cls.VERBOSE)
         msg = "{0}\n{1}".format('Checking configuration file', file_path)
@@ -79,8 +91,7 @@ class FileChecking(object):
             print(e)
         return True if file_path_exist and file_path_regular else False
 
-    @classmethod
-    def check_format(cls, file_path, file_extension, verbose=False):
+    def check_format(self, file_path, file_extension, verbose=False):
         """
         Check config file format by extension.
         :param file_path: Absolute config file path
@@ -92,7 +103,7 @@ class FileChecking(object):
         :return: True (correct format) | False
         :rtype: <bool>
         """
-        status, cout = False, COut()
+        cls, status, cout = self.__class__, False, COut()
         cout.set_ats_phase_process(cls.VERBOSE)
         msg = "{0}\n{1}".format('Checking file extension', file_path)
         COut.print_console_msg(msg, verbose=verbose)
@@ -109,8 +120,7 @@ class FileChecking(object):
             print(e)
         return True if status else False
 
-    @classmethod
-    def check_mode(cls, mode, verbose=False):
+    def check_mode(self, mode, verbose=False):
         """
         Checking operation mode for configuration file.
         :param mode: File mode
@@ -120,6 +130,7 @@ class FileChecking(object):
         :return: True (regular mode) | False
         :rtype: <bool>
         """
+        cls = self.__class__
         cout, split_mode, status = COut(), list(mode), False
         cout.set_ats_phase_process(cls.VERBOSE)
         msg = "{0}".format('Checking operation mode')

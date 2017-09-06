@@ -5,7 +5,6 @@ from re import match
 
 try:
     from ats_utilities.config.base_read_config import BaseReadConfig
-    from ats_utilities.config.file_checking import FileChecking
     from ats_utilities.config.config_context_manager import ConfigFile
     from ats_utilities.error.ats_value_error import ATSValueError
     from ats_utilities.text.stdout_text import DBG, RST
@@ -32,6 +31,7 @@ class Cfg2Object(BaseReadConfig):
     It defines:
         attribute:
             __FORMAT - Format of configuration content
+            __REGEX_MATCH_LINE - Regular expression for matching line
             VERBOSE - Verbose prefix console text
         method:
             __init__ - Initial constructor
@@ -41,6 +41,7 @@ class Cfg2Object(BaseReadConfig):
     """
 
     __FORMAT = 'cfg'
+    __REGEX_MATCH_LINE = r'^\s*$'
     VERBOSE = 'CFG_TO_OBJECT'
 
     def __init__(self, configuration_file, verbose=False):
@@ -66,34 +67,26 @@ class Cfg2Object(BaseReadConfig):
         :return: Configuration object
         :rtype: <dict> | <NoneType>
         """
-        cls = self.__class__
-        cfg_path, content = self.get_file_path(), None
+        cls, cfg_path, content = self.__class__, self.get_file_path(), None
         msg = "{0}\n{1}".format('Read configuration from file', cfg_path)
         COut.print_console_msg(msg, verbose=verbose)
-        check_cfg_file = FileChecking.check_file(cfg_path, verbose)
-        if check_cfg_file:
-            file_extension = ".{0}".format(cls.__FORMAT)
-            check_cfg_file_format = FileChecking.check_format(
-                cfg_path, file_extension, verbose
-            )
-            if check_cfg_file_format:
-                try:
-                    with ConfigFile(cfg_path, 'r') as configuration_file:
-                        content = configuration_file.read()
-                except ATSValueError as e:
-                    print(e)
-                else:
-                    if content:
-                        lines = content.splitlines()
-                        config = {}
-                        for line in lines:
-                            regex_match = match(r'^\s*$', line)
-                            if not regex_match:
-                                pairs = line.split('=')
-                                config[pairs[0].strip()] = pairs[1].strip()
-                        msg = "{0}".format('Done')
-                        COut.print_console_msg(msg, verbose=verbose)
-                        return config
+        try:
+            with ConfigFile(cfg_path, 'r', cls.__FORMAT) as cfg_file:
+                content = cfg_file.read()
+        except (ATSValueError, AttributeError) as e:
+            print(e)
+        else:
+            if content:
+                lines = content.splitlines()
+                config = {}
+                for line in lines:
+                    regex_match = match(cls.__REGEX_MATCH_LINE, line)
+                    if not regex_match:
+                        pairs = line.split('=')
+                        config[pairs[0].strip()] = pairs[1].strip()
+                msg = "{0}".format('Done')
+                COut.print_console_msg(msg, verbose=verbose)
+                return config
         return None
 
     def __str__(self):

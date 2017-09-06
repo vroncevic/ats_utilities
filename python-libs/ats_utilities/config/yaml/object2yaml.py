@@ -6,7 +6,6 @@ try:
     from yaml import dump
 
     from ats_utilities.config.base_write_config import BaseWriteConfig
-    from ats_utilities.config.file_checking import FileChecking
     from ats_utilities.config.config_context_manager import ConfigFile
     from ats_utilities.error.ats_value_error import ATSValueError
     from ats_utilities.text.stdout_text import DBG, RST
@@ -71,25 +70,18 @@ class Object2Yaml(BaseWriteConfig):
         cls, yaml_path, status = self.__class__, self.get_file_path(), False
         msg = "{0}\n{1}".format('Write configuration to file', yaml_path)
         COut.print_console_msg(msg, verbose=verbose)
-        check_yaml_file = FileChecking.check_file(yaml_path, verbose)
-        if check_yaml_file:
-            file_extension = ".{0}".format(cls.__FORMAT)
-            check_yaml_file_format = FileChecking.check_format(
-                yaml_path, file_extension, verbose
-            )
-            if check_yaml_file_format:
-                try:
-                    with ConfigFile(yaml_path, 'w') as configuration_file:
-                        dump(
-                            configuration, configuration_file,
-                            default_flow_style=False
-                        )
-                except ATSValueError as e:
-                    print(e)
-                else:
-                    status = True
-                    msg = "{0}".format('Done')
-                    COut.print_console_msg(msg, verbose=verbose)
+        try:
+            with ConfigFile(yaml_path, 'w', cls.__FORMAT) as yaml_file:
+                dump(
+                    configuration, yaml_file,
+                    default_flow_style=False
+                )
+        except (ATSValueError, AttributeError) as e:
+            print(e)
+        else:
+            status = True
+            msg = "{0}".format('Done')
+            COut.print_console_msg(msg, verbose=verbose)
         return True if status else False
 
     def __str__(self):
