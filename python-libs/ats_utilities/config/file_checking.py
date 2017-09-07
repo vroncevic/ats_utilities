@@ -61,8 +61,8 @@ class FileChecking(object):
 
     def check_file(self, file_path, verbose=False):
         """
-        Check config file path.
-        :param file_path: Absolute config file path
+        Check configuration file path.
+        :param file_path: Absolute configuration file path
         :type file_path: <str>
         :param verbose: Enable/disable verbose option
         :type verbose: <bool>
@@ -93,8 +93,8 @@ class FileChecking(object):
 
     def check_format(self, file_path, file_extension, verbose=False):
         """
-        Check config file format by extension.
-        :param file_path: Absolute config file path
+        Check configuration file format by extension.
+        :param file_path: Absolute configuration file path
         :type file_path: <str>
         :param file_extension: File format (file extension)
         :type file_extension: <str>
@@ -123,7 +123,7 @@ class FileChecking(object):
     def check_mode(self, mode, verbose=False):
         """
         Checking operation mode for configuration file.
-        :param mode: File mode
+        :param mode: File mode ('r', 'w', 'a', 'b', 'x', 't', '+')
         :type mode: <str>
         :param verbose: Enable/disable verbose option
         :type verbose: <bool>

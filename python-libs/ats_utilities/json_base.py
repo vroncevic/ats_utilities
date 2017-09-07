@@ -67,7 +67,7 @@ class JsonBase(ATSInfo, JsonSettings, ATSOptionParser):
         if configuration and check_configuration:
             try:
                 ATSInfo.__init__(self, configuration, verbose)
-            except ATSValueError as e:
+            except (ATSValueError, AttributeError) as e:
                 print(e)
             else:
                 statuses = []
