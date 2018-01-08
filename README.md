@@ -36,12 +36,12 @@ These modules requires other modules and libraries (Python 3):
 
 COPYRIGHT AND LICENCE
 
-Copyright (C) 2018 by https://vroncevic.github.io/py_util/
+Copyright (C) 2018 by https://vroncevic.github.io/ats_utilities/
 
 This tool is free software; you can redistribute it and/or modify
 it under the same terms as Python itself, either Python version 3.4.2 or,
 at your option, any later version of Python 3 you may have available.
 
-![alt tag](https://raw.githubusercontent.com/vroncevic/py_util/master/python_logo.png)
-![alt tag](https://raw.githubusercontent.com/vroncevic/py_util/master/linux_logo.png)
+![alt tag](https://raw.githubusercontent.com/vroncevic/ats_utilities/master/python_logo.png)
+![alt tag](https://raw.githubusercontent.com/vroncevic/ats_utilities/master/linux_logo.png)
 
