@@ -1,5 +1,5 @@
 # -*- coding: UTF-8 -*-
-# ats_key_error.py
+# ats_value_error.py
 # Copyright (C) 2018 Vladimir Roncevic <elektron.ronca@gmail.com>
 #
 # ats_utilities is free software: you can redistribute it and/or modify it
@@ -26,13 +26,13 @@ __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
 
 
-class ATSKeyError(KeyError):
+class ATSValueError(ValueError):
     """
-    Define class ATSKeyError with attribute(s) and method(s).
-    Checking attribute mechanism.
-    It defines:
-        attribute:
-            None
-        method:
-            None
+        Define class ATSValueError with attribute(s) and method(s).
+        Check value mechanism (raise error for not expected value).
+        It defines:
+            attribute:
+                None
+            method:
+                None
     """

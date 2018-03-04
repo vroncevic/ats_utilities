@@ -1,4 +1,4 @@
-# -*- coding: UTF-8 -*-
+# -*- coding: utf-8 -*-
 # ats_option_parser.py
 # Copyright (C) 2018 Vladimir Roncevic <elektron.ronca@gmail.com>
 #
@@ -17,12 +17,13 @@
 #
 
 import sys
+from inspect import stack
 from optparse import OptionParser
 
 try:
-    from ats_utilities.text import COut
-    from ats_utilities.text.stdout_text import DBG, ERR, RST
-    from ats_utilities.error.ats_value_error import ATSValueError
+    from ats_utilities.console_io.verbose import Verbose
+    from ats_utilities.exceptions.ats_type_error import ATSTypeError
+    from ats_utilities.exceptions.ats_bad_call_error import ATSBadCallError
 except ImportError as e:
     msg = "\n{0}\n".format(e)
     sys.exit(msg)  # Force close python ATS ###################################
@@ -39,64 +40,83 @@ __status__ = 'Updated'
 
 class ATSOptionParser(object):
     """
-    Define class ATSOptionParser with attribute(s) and method(s).
-    Create option parser and process arguments from start.
-    It defines:
-        attribute:
-            VERBOSE - Verbose prefix console text
-            __opt_parser - Options parser
-        method:
-            __init__ - Initial constructor
-            add_operation - Adding option to App/Tool/Script
-            parese_args - Process arguments from start
+        Define class ATSOptionParser with attribute(s) and method(s).
+        Create option parser and process arguments from start.
+        It defines:
+            attribute:
+                VERBOSE - Console text indicator for current process-phase
+                __opt_parser - Options parser
+            method:
+                __init__ - Initial constructor
+                add_operation - Adding option to App/Tool/Script
+                parse_args - Process arguments from start
     """
 
-    VERBOSE = 'ATS_OPTION_PARSER'
+    VERBOSE = '[ATS_OPTION_PARSER]'
 
     def __init__(self, version, epilog, description, verbose=False):
         """
-        Setting version, epilog and description of App/Tool/Script.
-        :param version: App/Tool/Script version and build date
-        :type version: <str>
-        :param epilog: App/Tool/Script long description
-        :type epilog: <str>
-        :param description: App/Tool/Script author and license
-        :type description: <str>
-        :param verbose: Enable/disable verbose option
-        :type verbose: <bool>
+            Setting version, epilog and description of App/Tool/Script.
+            :param version: App/Tool/Script version and build date
+            :type version: <str>
+            :param epilog: App/Tool/Script long description
+            :type epilog: <str>
+            :param description: App/Tool/Script author and license
+            :type description: <str>
+            :param verbose: Enable/disable verbose option
+            :type verbose: <bool>
+            :exceptions: ATSBadCallError | ATSTypeError
         """
-        cls, cout = self.__class__, COut()
-        cout.set_ats_phase_process(cls.VERBOSE)
-        msg = "{0}".format('Setting option parser')
-        COut.print_console_msg(msg, verbose=verbose)
-        if version and epilog and description:
-            self.__opt_parser = OptionParser(
-                version=version, epilog=epilog, description=description
-            )
-        else:
-            msg = "\n{0} {1}{2} {3}{4}\n".format(
-                cls.VERBOSE, ERR, 'Missing option parser argument(s)',
-                'version/epilog/description', RST
-            )
-            raise ATSValueError(msg)
+        cls, func, ver = self.__class__, stack()[0][3], Verbose()
+        if version is None:
+            txt = 'Argument: missing version <str> object'
+            msg = "{0} {1} {2}".format(cls.VERBOSE, func, txt)
+            raise ATSBadCallError(msg)
+        if not isinstance(version, str):
+            txt = 'Argument: expected version <str> object'
+            msg = "{0} {1} {2}".format(cls.VERBOSE, func, txt)
+            raise ATSTypeError(msg)
+        if epilog is None:
+            txt = 'Argument: missing epilog <str> object'
+            msg = "{0} {1} {2}".format(cls.VERBOSE, func, txt)
+            raise ATSBadCallError(msg)
+        if not isinstance(epilog, str):
+            txt = 'Argument: expected epilog <str> object'
+            msg = "{0} {1} {2}".format(cls.VERBOSE, func, txt)
+            raise ATSTypeError(msg)
+        if description is None:
+            txt = 'Argument: missing description <str> object'
+            msg = "{0} {1} {2}".format(cls.VERBOSE, func, txt)
+            raise ATSBadCallError(msg)
+        if not isinstance(description, str):
+            txt = 'Argument: expected description <str> object'
+            msg = "{0} {1} {2}".format(cls.VERBOSE, func, txt)
+            raise ATSTypeError(msg)
+        if verbose:
+            ver.message = 'Initial option parser'
+            msg = "{0} {1}".format(cls.VERBOSE, ver.message)
+            print(msg)
+        self.__opt_parser = OptionParser(
+            version=version, epilog=epilog, description=description
+        )
 
     def add_operation(self, *args, **kwargs):
         """
-        Adding option to App/Tool/Script.
-        :param args: List of arguments (objects)
-        :type args: <list>
-        :param kwargs: Arguments in shape of dictionary
-        :type kwargs: <dict>
+            Adding option to App/Tool/Script.
+            :param args: List of arguments (objects)
+            :type args: <list>
+            :param kwargs: Arguments in shape of dictionary
+            :type kwargs: <dict>
         """
         self.__opt_parser.add_option(*args, **kwargs)
 
     def parse_args(self, argv):
         """
-        Process arguments from start.
-        :param argv: Arguments
-        :type argv: <Python object(s)>
-        :return: Options and arguments
-        :rtype: <Python object(s)>
+            Process arguments from start.
+            :param argv: Arguments
+            :type argv: <Python object(s)>
+            :return: Options and arguments
+            :rtype: <Python object(s)>
         """
         (opts, args) = self.__opt_parser.parse_args(argv)
         return opts, args

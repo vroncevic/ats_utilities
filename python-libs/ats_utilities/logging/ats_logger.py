@@ -23,11 +23,13 @@ from logging import (
 )
 
 try:
+    from ats_utilities.console_io.error import Error
+    from ats_utilities.console_io.verbose import Verbose
+    from ats_utilities.exceptions.ats_file_error import ATSFileError
+    from ats_utilities.exceptions.ats_value_error import ATSValueError
+    from ats_utilities.exceptions.ats_type_error import ATSTypeError
     from ats_utilities.logging.ats_logger_base import ATSLoggerBase
-    from ats_utilities.error.ats_value_error import ATSValueError
-    from ats_utilities.error.ats_file_error import ATSFileError
-    from ats_utilities.text.stdout_text import ATS, DBG, ERR, RST
-    from ats_utilities.text import COut
+    from ats_utilities.exceptions.ats_bad_call_error import ATSBadCallError
 except ImportError as e:
     msg = "\n{0}\n".format(e)
     sys.exit(msg)  # Force close python ATS ###################################
@@ -44,26 +46,26 @@ __status__ = 'Updated'
 
 class ATSLogger(ATSLoggerBase):
     """
-    Define class ATSLogger with attribute(s) and method(s).
-    Logging mechanism for App/Tool/Script.
-    It defines:
-        attribute:
-            VERBOSE - Verbose prefix console text
-            LOG_MSG_FORMAT - Log message format
-            LOG_DATE_FORMAT - Log date format
-            ATS_DEBUG - Debug log level
-            ATS_WARNING - Warning log level
-            ATS_CRITICAL - Critical log level
-            ATS_ERROR - Error log level
-            ATS_INFO - Info log level
-        method:
-            __init__ - Initial constructor
-            write_log - Write message to log file
-            __str__ - Dunder (magic) method
-            __repr__ - Dunder (magic) method
+        Define class ATSLogger with attribute(s) and method(s).
+        Logging mechanism for App/Tool/Script.
+        It defines:
+            attribute:
+                VERBOSE - Console text indicator for current process-phase
+                LOG_MSG_FORMAT - Log message format
+                LOG_DATE_FORMAT - Log date format
+                ATS_DEBUG - Debug log level
+                ATS_WARNING - Warning log level
+                ATS_CRITICAL - Critical log level
+                ATS_ERROR - Error log level
+                ATS_INFO - Info log level
+            method:
+                __init__ - Initial constructor
+                write_log - Write message to log file
+                __str__ - Dunder (magic) method
+                __repr__ - Dunder (magic) method
     """
 
-    VERBOSE = 'ATS_LOGGER'
+    VERBOSE = '[ATS_UTILITIES::LOGGING::ATS_LOGGER]'
     LOG_MSG_FORMAT = '%(asctime)s - %(levelname)s - %(message)s'
     LOG_DATE_FORMAT = '%m/%d/%Y %I:%M:%S %p'
     ATS_DEBUG, ATS_WARNING, ATS_CRITICAL, ATS_ERROR, ATS_INFO = (
@@ -72,19 +74,38 @@ class ATSLogger(ATSLoggerBase):
 
     def __init__(self, ats_name, ats_log_file, verbose=False):
         """
-        Setting log file path, and default debug log level.
-        :param ats_name: App/Tool/Script name
-        :type ats_name: <str>
-        :param ats_log_file: Log file path of App/Tool/Script
-        :type ats_log_file: <str>
-        :param verbose: Enable/disable verbose option
-        :type verbose: <bool>
+            Setting log file path, and default debug log level.
+            :param ats_name: App/Tool/Script name
+            :type ats_name: <str>
+            :param ats_log_file: Log file path of App/Tool/Script
+            :type ats_log_file: <str>
+            :param verbose: Enable/disable verbose option
+            :type verbose: <bool>
+            :exceptions: ATSBadCallError | ATSTypeError | ATSFileError
         """
-        cls, cout = self.__class__, COut()
-        cout.set_ats_phase_process(cls.VERBOSE)
-        msg = "{0}".format('Initial logger')
-        COut.print_console_msg(msg, verbose=verbose)
-        super(ATSLogger, self).__init__(verbose)
+        cls, func = self.__class__, stack()[0][3]
+        err, ver = Error(), Verbose()
+        if ats_name is None:
+            txt = 'Argument: missing ats_name <str> object'
+            msg = "{0} {1} {2}".format(cls.VERBOSE, func, txt)
+            raise ATSBadCallError(msg)
+        if not isinstance(ats_name, str):
+            txt = 'Argument: expected ats_name <str> object'
+            msg = "{0} {1} {2}".format(cls.VERBOSE, func, txt)
+            raise ATSTypeError(msg)
+        if ats_log_file is None:
+            txt = 'Argument: missing ats_log_file <str> object'
+            msg = "{0} {1} {2}".format(cls.VERBOSE, func, txt)
+            raise ATSBadCallError(msg)
+        if not isinstance(ats_log_file, str):
+            txt = 'Argument: expected ats_log_file <str> object'
+            msg = "{0} {1} {2}".format(cls.VERBOSE, func, txt)
+            raise ATSTypeError(msg)
+        if verbose:
+            ver.message = 'Initial logger'
+            msg = "{0} {1}".format(cls.VERBOSE, ver.message)
+            print(msg)
+        super(ATSLogger, self).__init__(verbose=verbose)
         path_exists = exists(ats_log_file)
         if ats_log_file and path_exists and ats_name:
             self.set_log_file(ats_log_file, verbose)
@@ -97,29 +118,47 @@ class ATSLogger(ATSLoggerBase):
             self.set_logger_name(ats_name, verbose)
             self.set_logger_status(True)
         else:
-            msg = "\n{0} {1}{2} {3} \n{4}\n".format(
-                cls.VERBOSE, ERR, ATS, 'check log file path',
-                ats_log_file, RST
-            )
+            txt = "{0} {1}".format('Check log file path', ats_log_file)
+            msg = "{0} {1}".format(cls.VERBOSE, txt)
             raise ATSFileError(msg)
 
     def write_log(self, msg, ctrl, verbose=False):
         """
-        Write message to log file.
-        :param msg: Log message
-        :type msg: <str>
-        :param ctrl: Control flag (debug, warning, critical, error, info)
-        :type ctrl: <int>
-        :param verbose: Enable/disable verbose option
-        :type verbose: <bool>
-        :return: True (success) | False
-        :rtype: <bool>
+            Write message to log file.
+            :param msg: Log message
+            :type msg: <str>
+            :param ctrl: Control flag (debug, warning, critical, errors, info)
+            :type ctrl: <int>
+            :param verbose: Enable/disable verbose option
+            :type verbose: <bool>
+            :return: True (success) | False
+            :rtype: <bool>
+            :exceptions: ATSBadCallError | ATSTypeError
         """
-        cls, status = self.__class__, False
-        msg = "{0}".format('Write log message')
-        COut.print_console_msg(msg, verbose=verbose)
+        cls, func = self.__class__, stack()[0][3]
+        err, ver, status = Error(), Verbose(), False
+        if msg is None:
+            txt = 'Argument: missing msg <str> object'
+            msg = "{0} {1} {2}".format(cls.VERBOSE, func, txt)
+            raise ATSBadCallError(msg)
+        if not isinstance(msg, str):
+            txt = 'Argument: expected msg <str> object'
+            msg = "{0} {1} {2}".format(cls.VERBOSE, func, txt)
+            raise ATSTypeError(msg)
+        if ctrl is None:
+            txt = 'Argument: missing ctrl <int> object'
+            msg = "{0} {1} {2}".format(cls.VERBOSE, func, txt)
+            raise ATSBadCallError(msg)
+        if not isinstance(ctrl, int):
+            txt = 'Argument: expected ctrl <int> object'
+            msg = "{0} {1} {2}".format(cls.VERBOSE, func, txt)
+            raise ATSTypeError(msg)
+        if verbose:
+            ver.message = 'Write log message'
+            msg = "{0} {1}".format(cls.VERBOSE, ver.message)
+            print(msg)
         try:
-            enabled_log = self.get_logger_status(verbose)
+            enabled_log = self.get_logger_status(verbose=verbose)
             if enabled_log:
                 switch_dict = {
                     cls.ATS_DEBUG: self.get_logger().debug,
@@ -132,39 +171,33 @@ class ATSLogger(ATSLoggerBase):
                     cls.ATS_DEBUG, cls.ATS_WARNING, cls.ATS_CRITICAL,
                     cls.ATS_ERROR, cls.ATS_INFO
                 ]
-                ctrl_is_int = isinstance(ctrl, int)
-                if ctrl_is_int and ctrl in ctrl_options:
+                if ctrl in ctrl_options:
                     switch_dict[ctrl](msg)
                 else:
-                    msg = "\n{0} {1}{2} [{3}]{4}\n".format(
-                        cls.VERBOSE, ERR, 'Not supported log level', ctrl, RST
-                    )
+                    msg = "{0} [{1}]".format('Not supported log level', ctrl)
                     raise ATSValueError(msg)
-            else:
-                msg = "\n{0} {1}{2} [{3}]{4}\n".format(
-                    cls.VERBOSE, ERR, 'Not enabled logging', ctrl, RST
-                )
-                raise ATSValueError(msg)
         except ATSValueError as e:
-            print(e)
+            err.message = e
+            msg = "{0} {1}".format(cls.VERBOSE, err.message)
+            print(msg)
         else:
             status = True
         return True if status else False
 
     def __str__(self):
         """
-        Return human readable string (ATSLogger).
-        :return: String representation of ATSLogger
-        :rtype: <str>
+            Return human readable string (ATSLogger).
+            :return: String representation of ATSLogger
+            :rtype: <str>
         """
         log_file_path = self.get_log_file()
         return "{0} log file \n{1}".format(ATS, log_file_path)
 
     def __repr__(self):
         """
-        Return unambiguous string (ATSLogger).
-        :return: String representation of ATSLogger
-        :rtype: <str>
+            Return unambiguous string (ATSLogger).
+            :return: String representation of ATSLogger
+            :rtype: <str>
         """
         logger_name = self.get_logger_name()
         log_file = self.get_log_file()

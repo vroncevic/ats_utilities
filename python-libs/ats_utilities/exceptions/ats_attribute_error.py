@@ -28,11 +28,11 @@ __status__ = 'Updated'
 
 class ATSAttributeError(AttributeError):
     """
-    Define class ATSAttributeError with attribute(s) and method(s).
-    Checking attribute mechanism.
-    It defines:
-        attribute:
-            None
-        method:
-            None
+        Define class ATSAttributeError with attribute(s) and method(s).
+        Checking object attribute (raise error if attribute does not exist).
+        It defines:
+            attribute:
+                None
+            method:
+                None
     """

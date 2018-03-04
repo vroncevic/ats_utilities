@@ -19,10 +19,9 @@
 import sys
 
 try:
+    from ats_utilities.console_io.verbose import Verbose
     from ats_utilities.config.ini.ini2object import Ini2Object
     from ats_utilities.config.ini.object2ini import Object2Ini
-    from ats_utilities.text.stdout_text import ATS, DBG, RST
-    from ats_utilities.text import COut
 except ImportError as e:
     msg = "\n{0}\n".format(e)
     sys.exit(msg)  # Force close python ATS ###################################
@@ -39,48 +38,50 @@ __status__ = 'Updated'
 
 class IniSettings(Ini2Object, Object2Ini):
     """
-    Define class IniSettings with attribute(s) and method(s).
-    IniSettings class with ini type of configuration.
-    It defines:
-        attribute:
-            VERBOSE - Verbose prefix text
-        method:
-            __init__ - Initial constructor
-            __str__ - Dunder (magic) method
-            __repr__ - Dunder (magic) method
+        Define class IniSettings with attribute(s) and method(s).
+        IniSettings class with ini type of configuration.
+        It defines:
+            attribute:
+                VERBOSE - Console text indicator for current process-phase
+            method:
+                __init__ - Initial constructor
+                __str__ - Dunder (magic) method
+                __repr__ - Dunder (magic) method
     """
 
     VERBOSE = 'INI_SETTINGS'
 
     def __init__(self, base_config_file, verbose=False):
         """
-        Setting interfaces for ini object.
-        :param base_config_file: File config path
-        :type base_config_file: <str>
-        :param verbose: Enable/disable verbose option
-        :type verbose: <bool>
+            Setting interfaces for ini object.
+            :param base_config_file: File config path
+            :type base_config_file: <str>
+            :param verbose: Enable/disable verbose option
+            :type verbose: <bool>
         """
-        cls, cout = self.__class__, COut()
-        cout.set_ats_phase_process(cls.VERBOSE)
-        msg = "{0} for {1}".format('Setting INI interface', ATS)
-        COut.print_console_msg(msg, verbose=verbose)
-        Ini2Object.__init__(self, base_config_file, verbose)
-        Object2Ini.__init__(self, base_config_file, verbose)
+        cls = self.__class__
+        if verbose:
+            ver = Verbose()
+            ver.message = "{0}".format('Initial INI settings')
+            msg = "{0} {1}".format(cls.VERBOSE, ver.message)
+            print(msg)
+        Ini2Object.__init__(self, base_config_file, verbose=verbose)
+        Object2Ini.__init__(self, base_config_file, verbose=verbose)
 
     def __str__(self):
         """
-        Return human readable string (IniSettings).
-        :return: String representation of IniSettings
-        :rtype: <str>
+            Return human readable string (IniSettings).
+            :return: String representation of IniSettings
+            :rtype: <str>
         """
         file_path = self.get_file_path()
         return "File path {0}".format(file_path)
 
     def __repr__(self):
         """
-        Return unambiguous string (IniSettings).
-        :return: String representation of IniSettings
-        :rtype: <str>
+            Return unambiguous string (IniSettings).
+            :return: String representation of IniSettings
+            :rtype: <str>
         """
         file_path = self.get_file_path()
         return "{0}(\'{1}\')".format(type(self).__name__, file_path)

@@ -17,10 +17,13 @@
 #
 
 import sys
+from inspect import stack
 
 try:
-    from ats_utilities.text import COut
-    from ats_utilities.text.stdout_text import ATS
+    from ats_utilities.console_io.error import Error
+    from ats_utilities.console_io.verbose import Verbose
+    from ats_utilities.exceptions.ats_type_error import ATSTypeError
+    from ats_utilities.exceptions.ats_bad_call_error import ATSBadCallError
 except ImportError as e:
     msg = "\n{0}\n".format(e)
     sys.exit(msg)  # Force close python ATS ###################################
@@ -37,72 +40,80 @@ __status__ = 'Updated'
 
 class ATSBuildDate(object):
     """
-    Define class ATSBuildDate with attribute(s) and method(s).
-    Keep, set, get build date of App/Tool/Script.
-    It defines:
-        attribute:
-            VERBOSE - Verbose prefix console text
-            __build_date - Build date of App/Tool/Script
-        method:
-            __init__ - Initial constructor
-            set_ats_build_date - Setting build date of App/Tool/Script
-            get_ats_build_date - Getting build date of App/Tool/Script
-            __str__ - Dunder (magic) method
-            __repr__ - Dunder (magic) method
+        Define class ATSBuildDate with attribute(s) and method(s).
+        Keep, set, get build date of App/Tool/Script.
+        It defines:
+            attribute:
+                VERBOSE - Console text indicator for current process-phase
+                __build_date - Build date of App/Tool/Script
+            method:
+                __init__ - Initial constructor
+                set_ats_build_date - Setting build date of App/Tool/Script
+                get_ats_build_date - Getting build date of App/Tool/Script
+                __str__ - Dunder (magic) method
+                __repr__ - Dunder (magic) method
     """
 
-    VERBOSE = 'ATS_BUILD_DATE'
+    VERBOSE = '[ATS_UTILITIES::ATS_BUILD_DATE]'
 
     def __init__(self, build_date=None, verbose=False):
         """
-        Initial build date of App/Tool/Script.
-        :param build_date: Build date of App/Tool/Script | None
-        :type build_date: <str> | <NoneType>
-        :param verbose: Enable/disable verbose option
-        :type verbose: <bool>
+            Initial build date of App/Tool/Script.
+            :param build_date: Build date of App/Tool/Script | None
+            :type build_date: <str> | <NoneType>
+            :param verbose: Enable/disable verbose option
+            :type verbose: <bool>
         """
-        cls, cout = self.__class__, COut()
-        cout.set_ats_phase_process(cls.VERBOSE)
-        msg = "{0}".format('Initial build date')
-        COut.print_console_msg(msg, verbose=verbose)
+        cls = self.__class__
+        if verbose:
+            ver = Verbose()
+            ver.message = "{0}".format('Initial build date')
+            msg = "{0} {1}".format(cls.VERBOSE, ver.message)
+            print(msg)
         self.__build_date = build_date
 
     def set_ats_build_date(self, build_date, verbose=False):
         """
-        Setting build date of App/Tool/Script.
-        :param build_date: Build date of App/Tool/Script
-        :type build_date: <str>
-        :param verbose: Enable/disable verbose option
-        :type verbose: <bool>
+            Setting build date of App/Tool/Script.
+            :param build_date: Build date of App/Tool/Script
+            :type build_date: <str>
+            :param verbose: Enable/disable verbose option
+            :type verbose: <bool>
+            :exceptions: ATSBadCallError | ATSTypeError
         """
-        msg = "{0} [{1}]".format('Setting build date', build_date)
-        COut.print_console_msg(msg, verbose=verbose)
+        cls, func, status = self.__class__, stack()[0][3], False
+        if build_date is None:
+            txt = 'Argument: missing build_date <str> object'
+            msg = "{0} {1} {2}".format(cls.VERBOSE, func, txt)
+            raise ATSBadCallError(msg)
+        if not isinstance(build_date, str):
+            txt = 'Argument: expected build_date <str> object'
+            msg = "{0} {1} {2}".format(cls.VERBOSE, func, txt)
+            raise ATSTypeError(msg)
         self.__build_date = build_date
 
     def get_ats_build_date(self, verbose=False):
         """
-        Getting build date of App/Tool/Script.
-        :param verbose: Enable/disable verbose option
-        :type verbose: <bool>
-        :return: Build date of App/Tool/Script | None
-        :rtype: <str> | <NoneType>
+            Getting build date of App/Tool/Script.
+            :param verbose: Enable/disable verbose option
+            :type verbose: <bool>
+            :return: Build date of App/Tool/Script | None
+            :rtype: <str> | <NoneType>
         """
-        msg = "{0} [{1}]".format('Getting build date', self.__build_date)
-        COut.print_console_msg(msg, verbose=verbose)
         return self.__build_date
 
     def __str__(self):
         """
-        Return human readable string (ATSBuildDate).
-        :return: String representation of ATSBuildDate
-        :rtype: <str>
+            Return human readable string (ATSBuildDate).
+            :return: String representation of ATSBuildDate
+            :rtype: <str>
         """
         return "{0} build date {1}".format(ATS, self.__build_date)
 
     def __repr__(self):
         """
-        Return unambiguous string (ATSBuildDate).
-        :return: String representation of ATSBuildDate
-        :rtype: <str>
+            Return unambiguous string (ATSBuildDate).
+            :return: String representation of ATSBuildDate
+            :rtype: <str>
         """
         return "{0}(\'{1}\')".format(type(self).__name__, self.__build_date)

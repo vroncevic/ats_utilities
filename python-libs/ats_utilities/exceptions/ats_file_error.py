@@ -1,5 +1,5 @@
 # -*- coding: UTF-8 -*-
-# stdout_text.py
+# ats_file_error.py
 # Copyright (C) 2018 Vladimir Roncevic <elektron.ronca@gmail.com>
 #
 # ats_utilities is free software: you can redistribute it and/or modify it
@@ -16,14 +16,6 @@
 # with this program. If not, see <http://www.gnu.org/licenses/>.
 #
 
-import sys
-
-try:
-    from colorama import Fore
-except ImportError as e:
-    msg = "\n{0}\n".format(e)
-    sys.exit(msg)  # Force close python ATS ###################################
-
 __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2018, Free software to use and distributed it.'
 __credits__ = ['Vladimir Roncevic']
@@ -33,17 +25,15 @@ __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
 
-"""
-    ATS - Global stdout text part
-    ATS_PROCESS - ATS process key for kwargs
-    CON - Setting yellow console text
-    DBG - Setting blue console text
-    ERR - Setting red console text
-    RST - Reset color to default value
-"""
-ATS = 'App/Tool/Script'
-ATS_PROCESS = 'ats_process'
-CON = Fore.YELLOW
-DBG = Fore.BLUE
-ERR = Fore.RED
-RST = Fore.RESET
+
+class ATSFileError(IOError):
+    """
+        Define class ATSFileError with attribute(s) and method(s).
+        Checking file mechanism (raise error if something goes wrong with IO
+        file-operations).
+        It defines:
+            attribute:
+                None
+            method:
+                None
+    """

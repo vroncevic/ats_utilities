@@ -17,10 +17,12 @@
 #
 
 import sys
+from inspect import stack
 
 try:
-    from ats_utilities.text.stdout_text import ATS, DBG, RST
-    from ats_utilities.text import COut
+    from ats_utilities.console_io.verbose import Verbose
+    from ats_utilities.exceptions.ats_bad_call_error import ATSBadCallError
+    from ats_utilities.exceptions.ats_type_error import ATSTypeError
 except ImportError as e:
     msg = "\n{0}\n".format(e)
     sys.exit(msg)  # Force close python ATS ###################################
@@ -37,72 +39,79 @@ __status__ = 'Updated'
 
 class ATSLoggerName(object):
     """
-    Define class ATSLoggerName with attribute(s) and method(s).
-    Logging mechanism for App/Tool/Script.
-    It defines:
-        attribute:
-            VERBOSE - Verbose prefix console text
-            __logger_name - Logger name
-        method:
-            __init__ - Initial constructor
-            set_logger_name - Setting logger name
-            get_logger_name - Getting logger name
-            __str__ - Dunder (magic) method
-            __repr__ - Dunder (magic) method
+        Define class ATSLoggerName with attribute(s) and method(s).
+        Logging mechanism for App/Tool/Script.
+        It defines:
+            attribute:
+                VERBOSE - Console text indicator for current process-phase
+                __logger_name - Logger name
+            method:
+                __init__ - Initial constructor
+                set_logger_name - Setting logger name
+                get_logger_name - Getting logger name
+                __str__ - Dunder (magic) method
+                __repr__ - Dunder (magic) method
     """
 
-    VERBOSE = 'ATS_LOGGER_NAME'
+    VERBOSE = '[ATS_UTILITIES::LOGGING::ATS_LOGGER_NAME]'
 
     def __init__(self, logger_name=None, verbose=False):
         """
-        Initial constructor.
-        :param logger_name: Logger name
-        :type logger_name: <str>
-        :param verbose: Enable/disable verbose option
-        :type verbose: <bool>
+            Initial constructor.
+            :param logger_name: Logger name
+            :type logger_name: <str>
+            :param verbose: Enable/disable verbose option
+            :type verbose: <bool>
         """
-        cls, cout = self.__class__, COut()
-        cout.set_ats_phase_process(cls.VERBOSE)
-        msg = "{0}".format('Initial logger name')
-        COut.print_console_msg(msg, verbose=verbose)
+        cls, ver = self.__class__, Verbose()
+        if verbose:
+            ver.message = 'Initial logger name'
+            msg = "{0} {1}".format(cls.VERBOSE, ver.message)
+            print(msg)
         self.__logger_name = logger_name
 
     def set_logger_name(self, logger_name, verbose=False):
         """
-        Setting logger name.
-        :param logger_name: Logger name
-        :type logger_name: <str>
-        :param verbose: Enable/disable verbose option
-        :type verbose: <bool>
+            Setting logger name.
+            :param logger_name: Logger name
+            :type logger_name: <str>
+            :param verbose: Enable/disable verbose option
+            :type verbose: <bool>
+            :exceptions: ATSBadCallError | ATSTypeError
         """
-        msg = "{0}".format('Setting logger name')
-        COut.print_console_msg(msg, verbose=verbose)
+        cls, func = self.__class__, stack()[0][3]
+        if logger_name is None:
+            txt = 'Argument: missing logger_name <str> object'
+            msg = "{0} {1} {2}".format(cls.VERBOSE, func, txt)
+            raise ATSBadCallError(msg)
+        if not isinstance(logger_name, str):
+            txt = 'Argument: expected logger_name <str> object'
+            msg = "{0} {1} {2}".format(cls.VERBOSE, func, txt)
+            raise ATSTypeError(msg)
         self.__logger_name = logger_name
 
     def get_logger_name(self, verbose=False):
         """
-        Getting logger name.
-        :param verbose: Enable/disable verbose option
-        :type verbose: <bool>
-        :return: Logger name
-        :rtype: <str>
+            Getting logger name.
+            :param verbose: Enable/disable verbose option
+            :type verbose: <bool>
+            :return: Logger name
+            :rtype: <str>
         """
-        msg = "{0} {1}".format('Getting logger name', self.__logger_name)
-        COut.print_console_msg(msg, verbose=verbose)
         return self.__logger_name
 
     def __str__(self):
         """
-        Return human readable string (ATSLoggerName).
-        :return: String representation of ATSLoggerName
-        :rtype: <str>
+            Return human readable string (ATSLoggerName).
+            :return: String representation of ATSLoggerName
+            :rtype: <str>
         """
         return "{0} Logger name {1}".format(ATS, self.__logger_name)
 
     def __repr__(self):
         """
-        Return unambiguous string (ATSLoggerName).
-        :return: String representation of ATSLoggerName
-        :rtype: <str>
+            Return unambiguous string (ATSLoggerName).
+            :return: String representation of ATSLoggerName
+            :rtype: <str>
         """
         return "{0}(\'{1}\')".format(type(self).__name__, self.__logger_name)

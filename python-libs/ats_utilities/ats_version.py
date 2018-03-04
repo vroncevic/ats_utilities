@@ -17,10 +17,13 @@
 #
 
 import sys
+from inspect import stack
 
 try:
-    from ats_utilities.text import COut
-    from ats_utilities.text.stdout_text import ATS
+    from ats_utilities.console_io.error import Error
+    from ats_utilities.console_io.verbose import Verbose
+    from ats_utilities.exceptions.ats_type_error import ATSTypeError
+    from ats_utilities.exceptions.ats_bad_call_error import ATSBadCallError
 except ImportError as e:
     msg = "\n{0}\n".format(e)
     sys.exit(msg)  # Force close python ATS ###################################
@@ -37,72 +40,79 @@ __status__ = 'Updated'
 
 class ATSVersion(object):
     """
-    Define class ATSVersion with attribute(s) and method(s).
-    Keep, set, get version number of App/Tool/Script.
-    It defines:
-        attribute:
-            VERBOSE - Verbose prefix console text
-            __version - Version number of App/Tool/Script
-        method:
-            __init__ - Initial constructor
-            set_ats_version - Setting version number of App/Tool/Script
-            get_ats_version - Getting version number of App/Tool/Script
-            __str__ - Dunder (magic) method
-            __repr__ - Dunder (magic) method
+        Define class ATSVersion with attribute(s) and method(s).
+        Keep, set, get version number of App/Tool/Script.
+        It defines:
+            attribute:
+                VERBOSE - Console text indicator for current process-phase
+                __version - Version number of App/Tool/Script
+            method:
+                __init__ - Initial constructor
+                set_ats_version - Setting version number of App/Tool/Script
+                get_ats_version - Getting version number of App/Tool/Script
+                __str__ - Dunder (magic) method
+                __repr__ - Dunder (magic) method
     """
 
-    VERBOSE = 'ATS_VERSION'
+    VERBOSE = '[ATS_UTILITIES::ATS_VERSION]'
 
     def __init__(self, version=None, verbose=False):
         """
-        Initial version number of App/Tool/Script.
-        :param version: App/Tool/Script version | None
-        :type version: <str> | <NoneType>
-        :param verbose: Enable/disable verbose option
-        :type verbose: <bool>
+            Initial version number of App/Tool/Script.
+            :param version: App/Tool/Script version | None
+            :type version: <str> | <NoneType>
+            :param verbose: Enable/disable verbose option
+            :type verbose: <bool>
         """
-        cls, cout = self.__class__, COut()
-        cout.set_ats_phase_process(cls.VERBOSE)
-        msg = "{0} [{1}]".format('Initial version', version)
-        COut.print_console_msg(msg, verbose=verbose)
+        cls = self.__class__
+        if verbose:
+            ver = Verbose()
+            ver.message = "{0}".format('Initial program version')
+            msg = "{0} {1}".format(cls.VERBOSE, ver.message)
+            print(msg)
         self.__version = version
 
     def set_ats_version(self, version, verbose=False):
         """
-        Setting version number of App/Tool/Script.
-        :param version: App/Tool/Script version
-        :type version: <str>
-        :param verbose: Enable/disable verbose option
-        :type verbose: <bool>
+            Setting version number of App/Tool/Script.
+            :param version: App/Tool/Script version
+            :type version: <str>
+            :param verbose: Enable/disable verbose option
+            :type verbose: <bool>
         """
-        msg = "{0} [{1}]".format('Setting version', version)
-        COut.print_console_msg(msg, verbose=verbose)
+        cls, func, status = self.__class__, stack()[0][3], False
+        if version is None:
+            txt = 'Argument: missing version <str> object'
+            msg = "{0} {1} {2}".format(cls.VERBOSE, func, txt)
+            raise ATSBadCallError(msg)
+        if not isinstance(version, str):
+            txt = 'Argument: expected version <str> object'
+            msg = "{0} {1} {2}".format(cls.VERBOSE, func, txt)
+            raise ATSTypeError(msg)
         self.__version = version
 
     def get_ats_version(self, verbose=False):
         """
-        Getting version number of App/Tool/Script.
-        :param verbose: Enable/disable verbose option
-        :type verbose: <bool>
-        :return: App/Tool/Script version | None
-        :rtype: <str> | <NoneType>
+            Getting version number of App/Tool/Script.
+            :param verbose: Enable/disable verbose option
+            :type verbose: <bool>
+            :return: App/Tool/Script version | None
+            :rtype: <str> | <NoneType>
         """
-        msg = "{0} [{1}]".format('Getting version', self.__version)
-        COut.print_console_msg(msg, verbose=verbose)
         return self.__version
 
     def __str__(self):
         """
-        Return human readable string (ATSVersion).
-        :return: String representation of ATSVersion
-        :rtype: <str>
+            Return human readable string (ATSVersion).
+            :return: String representation of ATSVersion
+            :rtype: <str>
         """
         return "{0} version {1}".format(ATS, self.__version)
 
     def __repr__(self):
         """
-        Return unambiguous string (ATSVersion).
-        :return: String representation of ATSVersion
-        :rtype: <str>
+            Return unambiguous string (ATSVersion).
+            :return: String representation of ATSVersion
+            :rtype: <str>
         """
         return "{0}(\'{1}\')".format(type(self).__name__, self.__version)

@@ -1,5 +1,5 @@
 # -*- coding: UTF-8 -*-
-# ats_file_error.py
+# ats_type_error.py
 # Copyright (C) 2018 Vladimir Roncevic <elektron.ronca@gmail.com>
 #
 # ats_utilities is free software: you can redistribute it and/or modify it
@@ -26,13 +26,13 @@ __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
 
 
-class ATSFileError(IOError):
+class ATSTypeError(TypeError):
     """
-    Define class ATSFileError with attribute(s) and method(s).
-    Checking file mechanism.
-    It defines:
-        attribute:
-            None
-        method:
-            None
+        Define class ATSTypeError with attribute(s) and method(s).
+        Check type mechanism (raise error for not expected type).
+        It defines:
+            attribute:
+                None
+            method:
+                None
     """

@@ -17,12 +17,14 @@
 #
 
 import sys
+from inspect import stack
 
 try:
+    from ats_utilities.console_io.verbose import Verbose
+    from ats_utilities.console_io.error import Error
+    from ats_utilities.exceptions.ats_type_error import ATSTypeError
+    from ats_utilities.exceptions.ats_bad_call_error import ATSBadCallError
     from ats_utilities.config.file_checking import FileChecking
-    from ats_utilities.error.ats_value_error import ATSValueError
-    from ats_utilities.text.stdout_text import DBG, ERR, RST
-    from ats_utilities.text import COut
 except ImportError as e:
     msg = "\n{0}\n".format(e)
     sys.exit(msg)  # Force close python ATS ###################################
@@ -39,86 +41,107 @@ __status__ = 'Updated'
 
 class ConfigFile(FileChecking):
     """
-    Define class ConfigFile with attribute(s) and method(s).
-    Configuration context manager.
-    It defines:
-        attribute:
-            VERBOSE - Verbose prefix console text
-            __file_path - Configuration file name
-            __file_mode - File mode
-            __file_format - File format
-        method:
-            __init__ - Initial constructor
-            __enter__ - Open file and return object File
-            __exit__ - Close file
-            __str__ - Dunder (magic) method
-            __repr__ - Dunder (magic) method
+        Define class ConfigFile with attribute(s) and method(s).
+        Configuration context manager.
+        It defines:
+            attribute:
+                VERBOSE - Console text indicator for current process-phase
+                __file_path - Configuration file name
+                __file_mode - File mode
+                __file_format - File format
+            method:
+                __init__ - Initial constructor
+                __enter__ - Open file and return object File
+                __exit__ - Close file
+                __str__ - Dunder (magic) method
+                __repr__ - Dunder (magic) method
     """
 
-    VERBOSE = 'CONFIG_FILE'
+    VERBOSE = '[ATS_UTILITIES::CONFIG::CONFIG_FILE]'
 
     def __init__(self, file_path, file_mode, file_format, verbose=False):
         """
-        Setting filename and open mode.
-        :param file_path: Configuration file name
-        :type file_path: <str>
-        :param file_mode: Open configuration file in mode
-        :type file_mode: <str>
-        :param file_format: File format
-        :type file_format: <str>
-        :param verbose: Enable/disable verbose option
-        :type verbose: <bool>
+            Setting filename and open mode.
+            :param file_path: Configuration file name
+            :type file_path: <str>
+            :param file_mode: Open configuration file in mode
+            :type file_mode: <str>
+            :param file_format: File format
+            :type file_format: <str>
+            :param verbose: Enable/disable verbose option
+            :type verbose: <bool>
+            :exceptions: ATSBadCallError | ATSTypeError
         """
-        cls, cout = self.__class__, COut()
-        cout.set_ats_phase_process(cls.VERBOSE)
-        msg = "{0}\n{1}\n{2} [{3}]".format(
-            'Setting file path', file_path, 'Setting file mode', file_mode
-        )
-        COut.print_console_msg(msg, verbose=verbose)
+        cls, status, func = self.__class__, False, stack()[0][3]
+        if file_path is None:
+            txt = 'Argument: missing file_path <str> object'
+            msg = "{0} {1} {2}".format(cls.VERBOSE, func, txt)
+            raise ATSBadCallError(msg)
+        if not isinstance(file_path, str):
+            txt = 'Argument: expected file_path <str> object'
+            msg = "{0} {1} {2}".format(cls.VERBOSE, func, txt)
+            raise ATSTypeError(msg)
+        if file_mode is None:
+            txt = 'Argument: missing file_mode <str> object'
+            msg = "{0} {1} {2}".format(cls.VERBOSE, func, txt)
+            raise ATSBadCallError(msg)
+        if not isinstance(file_mode, str):
+            txt = 'Argument: expected file_mode <str> object'
+            msg = "{0} {1} {2}".format(cls.VERBOSE, func, txt)
+            raise ATSTypeError(msg)
+        if file_format is None:
+            txt = 'Argument: missing file_format <str> object'
+            msg = "{0} {1} {2}".format(cls.VERBOSE, func, txt)
+            raise ATSBadCallError(msg)
+        if not isinstance(file_format, str):
+            txt = 'Argument: expected file_format <str> object'
+            msg = "{0} {1} {2}".format(cls.VERBOSE, func, txt)
+            raise ATSTypeError(msg)
+        ver = Verbose()
+        if verbose:
+            ver.message = "{0}\n{1}\n{2} [{3}]".format(
+                'Setting file path', file_path, 'Setting file mode', file_mode
+            )
+            msg = "{0} {1}".format(cls.VERBOSE, ver.message)
+            print(msg)
         super(ConfigFile, verbose).__init__()
-        check_file = self.check_file(file_path, verbose)
+        check_file = self.check_file(file_path=file_path, verbose=verbose)
         if check_file:
             self.__file_path = file_path
-        else:
-            msg = "\n{0} {1}{2}\n{3} {4}\n".format(
-                cls.VERBOSE, ERR, 'Check file path', file_path, RST
-            )
-            raise ATSValueError(msg)
-        check_mode = self.check_mode(file_mode, verbose)
+        check_mode = self.check_mode(file_mode=file_mode, verbose=verbose)
         if check_mode:
             self.__file_mode = file_mode
-        else:
-            msg = "\n{0} {1}{2} [{3}] {4}\n".format(
-                cls.VERBOSE, ERR, 'Not supported mode', file_mode, RST
-            )
-            raise ATSValueError(msg)
-        check_format = self.check_format(file_path, file_format, verbose)
+        check_format = self.check_format(
+            file_path=file_path, file_extension=file_format, verbose=verbose
+        )
         if check_format:
             self.__file_format = file_format
-        else:
-            msg = "\n{0} {1}{2} [{3}] {4}\n".format(
-                cls.VERBOSE, ERR, 'Check file format', file_mode, RST
-            )
-            raise ATSValueError(msg)
 
     def __enter__(self):
         """
-        Open configuration file in mode.
-        :return: File object | None
-        :rtype: <file> | <NoneType>
+            Open configuration file in mode.
+            :return: File object | None
+            :rtype: <file> | <NoneType>
+            :exceptions: IOError
         """
-        cls = self.__class__
+        cls, err = self.__class__, Error()
         try:
-            self.__file = open(self.__file_path, self.__file_mode)
+            if self.is_file_ok():
+                self.__file = open(self.__file_path, self.__file_mode)
+            else:
+                msg = "{0} {1}".format('Check file', self.__file_path)
+                raise IOError(msg)
         except IOError as e:
-            msg = "\n{0} {1}{2}{3}\n".format(cls.VERBOSE, ERR, e, RST)
-            COut.print_console_msg(msg, error=True)
+            err.message = e
+            msg = "{0} {1}".format(cls.VERBOSE, err.message)
+            print(msg)
             self.__file = None
         return self.__file
 
     def __exit__(self, *args):
         """
-        Closing configuration file.
+            Closing configuration file.
+            :exceptions: AttributeError
         """
         try:
             self.__file.close()
@@ -127,17 +150,17 @@ class ConfigFile(FileChecking):
 
     def __str__(self):
         """
-        Return human readable string (ConfigFile).
-        :return: String representation of ConfigFile
-        :rtype: <str>
+            Return human readable string (ConfigFile).
+            :return: String representation of ConfigFile
+            :rtype: <str>
         """
         return "File {0}".format(self.__file_path)
 
     def __repr__(self):
         """
-        Return unambiguous string (ConfigFile).
-        :return: String representation of ConfigFile
-        :rtype: <str>
+            Return unambiguous string (ConfigFile).
+            :return: String representation of ConfigFile
+            :rtype: <str>
         """
         return "{0}(\'{1}\', \'{2}\', \'{3}\')".format(
             type(self).__name__, self.__file_path,

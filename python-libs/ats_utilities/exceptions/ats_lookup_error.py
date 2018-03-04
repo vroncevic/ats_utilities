@@ -1,6 +1,5 @@
-#!/usr/bin/env python
 # -*- coding: UTF-8 -*-
-# setup.py
+# ats_lookup_error.py
 # Copyright (C) 2018 Vladimir Roncevic <elektron.ronca@gmail.com>
 #
 # ats_utilities is free software: you can redistribute it and/or modify it
@@ -17,8 +16,6 @@
 # with this program. If not, see <http://www.gnu.org/licenses/>.
 #
 
-from distutils.core import setup
-
 __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2018, Free software to use and distributed it.'
 __credits__ = ['Vladimir Roncevic']
@@ -28,28 +25,14 @@ __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
 
-setup(
-    name='ats_utilities',
-    version='1.0',
-    description='Python ATS Utilities',
-    author='Vladimir Roncevic',
-    author_email='elektron.ronca@gmail.com',
-    url='https://vroncevic.github.io/py_util/',
-    license='GPL 2018 Free software to use and distributed it.',
-    long_description='Configuration ats_utilities for python App/Tool/Script.',
-    keywords='util, config, log, option, xml, cfg, ini, json, yaml',
-    platforms='POSIX',
-    packages=[
-        'ats_utilities',
-        'ats_utilities.config',
-        'ats_utilities.config.cfg',
-        'ats_utilities.config.ini',
-        'ats_utilities.config.json',
-        'ats_utilities.config.xml',
-        'ats_utilities.config.yaml',
-        'ats_utilities.console_io',
-        'ats_utilities.exceptions',
-        'ats_utilities.logging',
-        'ats_utilities.option'
-    ], requires=['colorama', 'bs4', 'yaml']
-)
+
+class ATSLookupError(LookupError):
+    """
+        Define class ATSLookupError with attribute(s) and method(s).
+        Lookup errors mechanism (raise error for not expected state/behavior).
+        It defines:
+            attribute:
+                None
+            method:
+                None
+    """

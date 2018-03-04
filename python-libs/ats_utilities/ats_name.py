@@ -17,10 +17,13 @@
 #
 
 import sys
+from inspect import stack
 
 try:
-    from ats_utilities.text import COut
-    from ats_utilities.text.stdout_text import ATS
+    from ats_utilities.console_io.error import Error
+    from ats_utilities.console_io.verbose import Verbose
+    from ats_utilities.exceptions.ats_type_error import ATSTypeError
+    from ats_utilities.exceptions.ats_bad_call_error import ATSBadCallError
 except ImportError as e:
     msg = "\n{0}\n".format(e)
     sys.exit(msg)  # Force close python ATS ###################################
@@ -37,74 +40,80 @@ __status__ = 'Updated'
 
 class ATSName(object):
     """
-    Define class ATSName with attribute(s) and method(s).
-    Keep, set, get App/Tool/Script name.
-    It defines:
-        attribute:
-            VERBOSE - Verbose prefix console text
-            __program_name - Name of App/Tool/Script
-        method:
-            __init__ - Initial constructor
-            set_ats_name - Setting name of App/Tool/Script
-            get_ats_name - Getting name of App/Tool/Script
-            __str__ - Dunder (magic) method
-            __repr__ - Dunder (magic) method
+        Define class ATSName with attribute(s) and method(s).
+        Keep, set, get App/Tool/Script name.
+        It defines:
+            attribute:
+                VERBOSE - Console text indicator for current process-phase
+                __program_name - Name of App/Tool/Script
+            method:
+                __init__ - Initial constructor
+                set_ats_name - Setting name of App/Tool/Script
+                get_ats_name - Getting name of App/Tool/Script
+                __str__ - Dunder (magic) method
+                __repr__ - Dunder (magic) method
     """
 
-    VERBOSE = 'ATS_NAME'
+    VERBOSE = '[ATS_UTILITIES::ATS_NAME]'
 
     def __init__(self, program_name=None, verbose=False):
         """
-        Initial name of App/Tool/Script.
-        :param program_name: App/Tool/Script name | None
-        :type program_name: <str> | <NoneType>
-        :param verbose: Enable/disable verbose option
-        :type verbose: <bool>
+            Initial name of App/Tool/Script.
+            :param program_name: App/Tool/Script name | None
+            :type program_name: <str> | <NoneType>
+            :param verbose: Enable/disable verbose option
+            :type verbose: <bool>
         """
-        cls, cout = self.__class__, COut()
-        cout.set_ats_phase_process(cls.VERBOSE)
-        msg = "{0} [{1}]".format('Initial program name', program_name)
-        COut.print_console_msg(msg, verbose=verbose)
+        cls = self.__class__
+        if verbose:
+            ver = Verbose()
+            ver.message = "{0}".format('Initial program name')
+            msg = "{0} {1}".format(cls.VERBOSE, ver.message)
+            print(msg)
         self.__program_name = program_name
 
     def set_ats_name(self, program_name, verbose=False):
         """
-        Setting name of App/Tool/Script.
-        :param program_name: App/Tool/Script name
-        :type program_name: <str>
-        :param verbose: Enable/disable verbose option
-        :type verbose: <bool>
+            Setting name of App/Tool/Script.
+            :param program_name: App/Tool/Script name
+            :type program_name: <str>
+            :param verbose: Enable/disable verbose option
+            :type verbose: <bool>
+            :exceptions: ATSBadCallError | ATSTypeError
         """
-        msg = "{0} [{1}]".format('Setting program name', program_name)
-        COut.print_console_msg(msg, verbose=verbose)
+        cls, func, status = self.__class__, stack()[0][3], False
+        if program_name is None:
+            txt = 'Argument: missing program_name <str> object'
+            msg = "{0} {1} {2}".format(cls.VERBOSE, func, txt)
+            raise ATSBadCallError(msg)
+        if not isinstance(program_name, str):
+            txt = 'Argument: expected program_name <str> object'
+            msg = "{0} {1} {2}".format(cls.VERBOSE, func, txt)
+            raise ATSTypeError(msg)
         self.__program_name = program_name
 
     def get_ats_name(self, verbose=False):
         """
-        Getting name of App/Tool/Script.
-        :param verbose: Enable/disable verbose option
-        :type verbose: <bool>
-        :return: App/Tool/Script name | None
-        :rtype: <str> | <NoneType>
+            Getting name of App/Tool/Script.
+            :param verbose: Enable/disable verbose option
+            :type verbose: <bool>
+            :return: App/Tool/Script name | None
+            :rtype: <str> | <NoneType>
         """
-        msg = "{0} [{1}]".format(
-            'Getting program name', self.__program_name
-        )
-        COut.print_console_msg(msg, verbose=verbose)
         return self.__program_name
 
     def __str__(self):
         """
-        Return human readable string (ATSName).
-        :return: String representation of ATSName
-        :rtype: <str>
+            Return human readable string (ATSName).
+            :return: String representation of ATSName
+            :rtype: <str>
         """
         return "{0} name {1}".format(ATS, self.__program_name)
 
     def __repr__(self):
         """
-        Return unambiguous string (ATSName).
-        :return: String representation of ATSName
-        :rtype: <str>
+            Return unambiguous string (ATSName).
+            :return: String representation of ATSName
+            :rtype: <str>
         """
         return "{0}(\'{1}\')".format(type(self).__name__, self.__program_name)

@@ -1,5 +1,5 @@
 # -*- coding: UTF-8 -*-
-# ats_value_error.py
+# __init__.py
 # Copyright (C) 2018 Vladimir Roncevic <elektron.ronca@gmail.com>
 #
 # ats_utilities is free software: you can redistribute it and/or modify it
@@ -26,13 +26,13 @@ __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
 
 
-class ATSValueError(ValueError):
+class ATSError(Exception):
     """
-    Define class ATSValueError with attribute(s) and method(s).
-    Check value mechanism.
-    It defines:
-        attribute:
-            None
-        method:
-            None
+        Define class ATSError with attribute(s) and method(s).
+        General exception (raise exception for wrong state/behavior).
+        It defines:
+            attribute:
+                None
+            method:
+                None
     """

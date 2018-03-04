@@ -1,40 +1,45 @@
-Python Utilities (Python Packages).
-===============================================================================
+# Python Utilities (Python Packages).
 
 The README is used to introduce the modules and provide instructions on
 how to install the modules, any machine dependencies it may have and any
 other information that should be provided before the modules are installed.
 
-INSTALLATION
+### INSTALLATION
 
 To install modules, locate and run setup.py, type the following:
 
+```
 python setup.py install
+```
 
-DEPENDENCIES
+### DEPENDENCIES
 
-These modules requires other modules and libraries (Python 3):
+These modules requires other modules and libraries (Python 2/3):
 
-    sys
-	abc
-	logging
-	distutils
-	os
-	yaml
-	bs4
-	json
-	configparser
-	optparse
-	re
-	ImportError
-	LookupError
-	IOError
-	ValueError
-	AttributeError
-	KeyError
-	colorama
+```
+sys
+abc
+logging
+distutils
+os
+yaml
+bs4
+json
+configparser
+optparse
+re
+Exception
+ImportError
+LookupError
+IOError
+TypeError
+ValueError
+AttributeError
+KeyError
+colorama
+```
 
-COPYRIGHT AND LICENCE
+### COPYRIGHT AND LICENCE
 
 Copyright (C) 2018 by https://vroncevic.github.io/ats_utilities/
 
@@ -42,6 +47,5 @@ This tool is free software; you can redistribute it and/or modify
 it under the same terms as Python itself, either Python version 3.4.2 or,
 at your option, any later version of Python 3 you may have available.
 
-![alt tag](https://raw.githubusercontent.com/vroncevic/ats_utilities/master/python_logo.png)
-![alt tag](https://raw.githubusercontent.com/vroncevic/ats_utilities/master/linux_logo.png)
+:sparkles:
 

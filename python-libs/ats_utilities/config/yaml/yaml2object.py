@@ -17,15 +17,18 @@
 #
 
 import sys
+from inspect import stack
 
 try:
     from yaml import load
 
+    from ats_utilities.console_io.error import Error
+    from ats_utilities.console_io.verbose import Verbose
     from ats_utilities.config.base_read_config import BaseReadConfig
     from ats_utilities.config.config_context_manager import ConfigFile
-    from ats_utilities.error.ats_value_error import ATSValueError
-    from ats_utilities.text.stdout_text import DBG, RST
-    from ats_utilities.text import COut
+    from ats_utilities.exceptions.ats_type_error import ATSTypeError
+    from ats_utilities.exceptions.ats_value_error import ATSValueError
+    from ats_utilities.exceptions.ats_bad_call_error import ATSBadCallError
 except ImportError as e:
     msg = "\n{0}\n".format(e)
     sys.exit(msg)  # Force close python ATS ###################################
@@ -42,74 +45,93 @@ __status__ = 'Updated'
 
 class Yaml2Object(BaseReadConfig):
     """
-    Define class Yaml2Object with attribute(s) and method(s).
-    Convert a yaml configuration file to an object with structure composed of
-    sections, properties, and values.
-    It defines:
-        attribute:
-            __FORMAT - Format of configuration content
-            VERBOSE - Verbose prefix console text
-        method:
-            __init__ - Initial constructor
-            get_configuration - Getting a configuration from file
-            __str__ - Dunder (magic) method
-            __repr__ - Dunder (magic) method
+        Define class Yaml2Object with attribute(s) and method(s).
+        Convert a yaml configuration file to an object.
+        It defines:
+            attribute:
+                __FORMAT - Format of configuration content
+                VERBOSE - Console text indicator for current process-phase
+            method:
+                __init__ - Initial constructor
+                get_configuration - Getting a configuration from file
+                __str__ - Dunder (magic) method
+                __repr__ - Dunder (magic) method
     """
 
     __FORMAT = 'yaml'
-    VERBOSE = 'YAML_TO_OBJECT'
+    VERBOSE = '[ATS_UTILITIES::CONFIG::YAML::YAML_TO_OBJECT]'
 
     def __init__(self, configuration_file, verbose=False):
         """
-        Setting configuration file path.
-        :param configuration_file: Absolute configuration file path
-        :type configuration_file: <str>
-        :param verbose: Enable/disable verbose option
-        :type verbose: <bool>
+            Setting configuration file path.
+            :param configuration_file: Absolute configuration file path
+            :type configuration_file: <str>
+            :param verbose: Enable/disable verbose option
+            :type verbose: <bool>
+            :exceptions: ATSBadCallError | ATSTypeError
         """
-        cls, cout = self.__class__, COut()
-        cout.set_ats_phase_process(cls.VERBOSE)
-        msg = "{0}".format('Setting YAML interface')
-        COut.print_console_msg(msg, verbose=verbose)
-        super(Yaml2Object, self).__init__(verbose)
-        self.set_file_path(configuration_file)
+        cls, func, status = self.__class__, stack()[0][3], False
+        if configuration_file is None:
+            txt = 'Argument: missing configuration_file <str> object'
+            msg = "{0} {1} {2}".format(cls.VERBOSE, func, txt)
+            raise ATSBadCallError(msg)
+        if not isinstance(configuration_file, str):
+            txt = 'Argument: expected configuration_file <str> object'
+            msg = "{0} {1} {2}".format(cls.VERBOSE, func, txt)
+            raise ATSTypeError(msg)
+        ver = Verbose()
+        if verbose:
+            ver.message = 'Setting YAML interface'
+            msg = "{0} {1}".format(cls.VERBOSE, ver.message)
+            print(msg)
+        super(Yaml2Object, self).__init__(verbose=verbose)
+        self.set_file_path(file_path=configuration_file, verbose=verbose)
 
     def read_configuration(self, verbose=False):
         """
-        Getting a configuration from file.
-        :param verbose: Enable/disable verbose option
-        :type verbose: <bool>
-        :return: Configuration object | None
-        :rtype: <Python object(s)> | <NoneType>
+            Getting a configuration from file.
+            :param verbose: Enable/disable verbose option
+            :type verbose: <bool>
+            :return: Configuration object | None
+            :rtype: <Python object(s)> | <NoneType>
         """
-        cls, yaml_path, content = self.__class__, self.get_file_path(), None
-        msg = "{0}\n{1}".format('Read configuration from file', yaml_path)
-        COut.print_console_msg(msg, verbose=verbose)
+        cls, content, config = self.__class__, None, None
+        ver, err = Verbose(), Error()
+        yaml_path = self.get_file_path(verbose=verbose)
+        if verbose:
+            ver.message = "{0} {1}".format(
+                'Read configuration from file', yaml_path
+            )
+            msg = "{0} {1}".format(cls.VERBOSE, ver.message)
+            print(msg)
         try:
             with ConfigFile(yaml_path, 'r', cls.__FORMAT) as yaml_file:
                 content = load(yaml_file)
-        except (ATSValueError, AttributeError) as e:
-            print(e)
+        except (ATSBadCallError, ATSTypeError) as e:
+            err.message = e
+            msg = "{0} {1}".format(cls.VERBOSE, err.message)
+            print(msg)
         else:
-            if content:
-                msg = "{0}".format('Done')
-                COut.print_console_msg(msg, verbose=verbose)
+            if verbose:
+                ver.message = 'Done'
+                msg = "{0} {1}".format(cls.VERBOSE, ver.message)
+                print(msg)
         return content
 
     def __str__(self):
         """
-        Return human readable string (Yaml2Object).
-        :return: String representation of Yaml2Object
-        :rtype: <str>
+            Return human readable string (Yaml2Object).
+            :return: String representation of Yaml2Object
+            :rtype: <str>
         """
         file_path = self.get_file_path()
         return "File path {0}".format(file_path)
 
     def __repr__(self):
         """
-        Return unambiguous string (Yaml2Object).
-        :return: String representation of Yaml2Object
-        :rtype: <str>
+            Return unambiguous string (Yaml2Object).
+            :return: String representation of Yaml2Object
+            :rtype: <str>
         """
         file_path = self.get_file_path()
         return "{0}(\'{1}\')".format(type(self).__name__, file_path)

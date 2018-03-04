@@ -1,5 +1,5 @@
 # -*- coding: UTF-8 -*-
-# ats_lookup_error.py
+# ats_bad_call_error.py
 # Copyright (C) 2018 Vladimir Roncevic <elektron.ronca@gmail.com>
 #
 # ats_utilities is free software: you can redistribute it and/or modify it
@@ -26,13 +26,14 @@ __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
 
 
-class ATSLookupError(LookupError):
+class ATSBadCallError(Exception):
     """
-    Define class ATSLookupError with attribute(s) and method(s).
-    Lookup error mechanism.
-    It defines:
-        attribute:
-            None
-        method:
-            None
+        Define class ATSBadCallError with attribute(s) and method(s).
+        Checking method/function argument(s) mechanism (raise error
+        for missing argument(s)).
+        It defines:
+            attribute:
+                None
+            method:
+                None
     """
