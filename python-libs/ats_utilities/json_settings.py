@@ -85,3 +85,4 @@ class JsonSettings(Json2Object, Object2Json):
         """
         file_path = self.get_file_path()
         return "{0}(\'{1}\')".format(type(self).__name__, file_path)
+

@@ -86,3 +86,4 @@ class Error(object):
             raise ATSTypeError(msg)
         init(autoreset=False)
         self.__message = "{0}{1}{2}".format(Fore.RED, message, Fore.RESET)
+

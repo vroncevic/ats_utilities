@@ -120,3 +120,4 @@ class ATSInfo(ATSName, ATSVersion, ATSBuildDate, ATSLicense):
             :rtype: <str>
         """
         return "{0}(info)".format(type(self).__name__)
+

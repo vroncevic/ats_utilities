@@ -205,3 +205,4 @@ class ATSLogger(ATSLoggerBase):
         return "{0}(\'{1}\', \'{2}\')".format(
             type(self).__name__, logger_name, log_file
         )
+

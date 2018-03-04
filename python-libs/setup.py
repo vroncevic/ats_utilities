@@ -53,3 +53,4 @@ setup(
         'ats_utilities.option'
     ], requires=['colorama', 'bs4', 'yaml']
 )
+

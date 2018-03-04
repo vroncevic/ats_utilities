@@ -114,3 +114,4 @@ class ATSLoggerFile(object):
             :rtype: <str>
         """
         return "{0}(\'{1}\')".format(type(self).__name__, self.__log_file)
+

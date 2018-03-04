@@ -86,3 +86,4 @@ class Warning(object):
             raise ATSTypeError(msg)
         init(autoreset=False)
         self.__message = "{0}{1}{2}".format(Fore.YELLOW, message, Fore.RESET)
+

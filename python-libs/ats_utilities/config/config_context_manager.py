@@ -166,3 +166,4 @@ class ConfigFile(FileChecking):
             type(self).__name__, self.__file_path,
             self.__file_mode, self.__file_format
         )
+

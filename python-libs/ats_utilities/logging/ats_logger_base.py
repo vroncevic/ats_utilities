@@ -120,3 +120,4 @@ class ATSLoggerBase(ATSLoggerStatus, ATSLoggerFile, ATSLoggerName):
             :rtype: <bool>
         """
         pass
+

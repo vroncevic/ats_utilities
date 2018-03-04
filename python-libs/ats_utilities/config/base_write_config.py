@@ -105,3 +105,4 @@ class BaseWriteConfig(object):
             :rtype: <str>
         """
         return "{0}()".format(type(self).__name__)
+
