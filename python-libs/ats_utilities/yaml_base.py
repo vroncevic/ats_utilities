@@ -22,6 +22,7 @@ from abc import ABCMeta, abstractmethod
 
 try:
     from ats_utilities.console_io.verbose import Verbose
+    from ats_utilities.console_io.error import Error
     from ats_utilities.ats_info import ATSInfo
     from ats_utilities.exceptions.ats_type_error import ATSTypeError
     from ats_utilities.exceptions.ats_bad_call_error import ATSBadCallError

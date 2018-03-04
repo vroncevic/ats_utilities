@@ -17,6 +17,7 @@
 #
 
 import sys
+from inspect import stack
 from os.path import exists
 from logging import (
     getLogger, basicConfig, DEBUG, WARNING, CRITICAL, ERROR, INFO

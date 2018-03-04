@@ -19,7 +19,7 @@
 import sys
 
 try:
-    from ats_utilities.ats_info import ATSInfo
+    from ats_utilities.console_io.verbose import Verbose
     from ats_utilities.config.yaml.yaml2object import Yaml2Object
     from ats_utilities.config.yaml.object2yaml import Object2Yaml
 except ImportError as e:
