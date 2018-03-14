@@ -49,7 +49,7 @@ class XmlSettings(Xml2Object, Object2Xml):
                 __repr__ - Dunder (magic) method
     """
 
-    VERBOSE = 'XML_SETTINGS'
+    VERBOSE = '[ATS_UTILITIES::XML_SETTINGS]'
 
     def __init__(self, base_config_file, verbose=False):
         """
@@ -85,4 +85,3 @@ class XmlSettings(Xml2Object, Object2Xml):
         """
         file_path = self.get_file_path()
         return "{0}(\'{1}\')".format(type(self).__name__, file_path)
-

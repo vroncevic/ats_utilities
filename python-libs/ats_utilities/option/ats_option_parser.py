@@ -120,4 +120,3 @@ class ATSOptionParser(object):
         """
         (opts, args) = self.__opt_parser.parse_args(argv)
         return opts, args
-

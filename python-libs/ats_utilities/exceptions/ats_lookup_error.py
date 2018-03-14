@@ -36,4 +36,3 @@ class ATSLookupError(LookupError):
             method:
                 None
     """
-

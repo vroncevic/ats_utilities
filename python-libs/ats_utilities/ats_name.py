@@ -108,7 +108,7 @@ class ATSName(object):
             :return: String representation of ATSName
             :rtype: <str>
         """
-        return "{0} name {1}".format(ATS, self.__program_name)
+        return "{0} name {1}".format(self.__class__, self.__program_name)
 
     def __repr__(self):
         """
@@ -117,4 +117,3 @@ class ATSName(object):
             :rtype: <str>
         """
         return "{0}(\'{1}\')".format(type(self).__name__, self.__program_name)
-

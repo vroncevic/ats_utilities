@@ -192,7 +192,7 @@ class ATSLogger(ATSLoggerBase):
             :rtype: <str>
         """
         log_file_path = self.get_log_file()
-        return "{0} log file \n{1}".format(ATS, log_file_path)
+        return "{0} log file \n{1}".format(self.__class__, log_file_path)
 
     def __repr__(self):
         """
@@ -205,4 +205,3 @@ class ATSLogger(ATSLoggerBase):
         return "{0}(\'{1}\', \'{2}\')".format(
             type(self).__name__, logger_name, log_file
         )
-

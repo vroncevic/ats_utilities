@@ -75,7 +75,7 @@ class ATSInfo(ATSName, ATSVersion, ATSBuildDate, ATSLicense):
             :type verbose: <bool>
             :exceptions: ATSBadCallError | ATSTypeError
         """
-        cls, ver = self.__class__, Verbose()
+        cls, ver, func = self.__class__, Verbose(), stack()[0][3]
         if info is None:
             txt = 'Argument: missing info <dict> object'
             msg = "{0} {1} {2}".format(cls.VERBOSE, func, txt)
@@ -120,4 +120,3 @@ class ATSInfo(ATSName, ATSVersion, ATSBuildDate, ATSLicense):
             :rtype: <str>
         """
         return "{0}(info)".format(type(self).__name__)
-

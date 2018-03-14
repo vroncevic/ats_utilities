@@ -108,7 +108,7 @@ class ATSLicense(object):
             :return: String representation of ATSLicense
             :rtype: <str>
         """
-        return "{0} license {1}".format(ATS, self.__license)
+        return "{0} license {1}".format(self.__class__, self.__license)
 
     def __repr__(self):
         """
@@ -117,4 +117,3 @@ class ATSLicense(object):
             :rtype: <str>
         """
         return "{0}(\'{1}\')".format(type(self).__name__, self.__license)
-

@@ -223,4 +223,3 @@ class FileChecking(object):
             self.__file_path_ok, self.__file_extension_ok, self.__file_mode_ok
         ])
         return True if status else False
-

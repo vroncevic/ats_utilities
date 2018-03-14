@@ -37,4 +37,3 @@ class ATSBadCallError(Exception):
             method:
                 None
     """
-

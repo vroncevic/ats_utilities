@@ -85,4 +85,3 @@ class YamlSettings(Yaml2Object, Object2Yaml):
         """
         file_path = self.get_file_path()
         return "{0}(\'{1}\')".format(type(self).__name__, file_path)
-

@@ -36,4 +36,3 @@ class ATSKeyError(KeyError):
             method:
                 None
     """
-

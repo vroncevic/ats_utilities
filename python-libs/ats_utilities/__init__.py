@@ -3,4 +3,3 @@
 """
     App/Tool/Script settings utilities.
 """
-

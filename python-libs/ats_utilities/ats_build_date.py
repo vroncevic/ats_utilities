@@ -108,7 +108,7 @@ class ATSBuildDate(object):
             :return: String representation of ATSBuildDate
             :rtype: <str>
         """
-        return "{0} build date {1}".format(ATS, self.__build_date)
+        return "{0} build date {1}".format(self.__class__, self.__build_date)
 
     def __repr__(self):
         """
@@ -117,4 +117,3 @@ class ATSBuildDate(object):
             :rtype: <str>
         """
         return "{0}(\'{1}\')".format(type(self).__name__, self.__build_date)
-

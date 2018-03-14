@@ -16,7 +16,6 @@
 # with this program. If not, see <http://www.gnu.org/licenses/>.
 #
 
-import sys
 from abc import ABCMeta, abstractmethod
 
 __author__ = 'Vladimir Roncevic'
@@ -105,4 +104,3 @@ class BaseWriteConfig(object):
             :rtype: <str>
         """
         return "{0}()".format(type(self).__name__)
-

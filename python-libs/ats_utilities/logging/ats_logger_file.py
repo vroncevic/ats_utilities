@@ -105,7 +105,7 @@ class ATSLoggerFile(object):
             :return: String representation of ATSLoggerFile
             :rtype: <str>
         """
-        return "{0} Logger file {1}".format(ATS, self.__log_file)
+        return "{0} Logger file {1}".format(self.__class__, self.__log_file)
 
     def __repr__(self):
         """
@@ -114,4 +114,3 @@ class ATSLoggerFile(object):
             :rtype: <str>
         """
         return "{0}(\'{1}\')".format(type(self).__name__, self.__log_file)
-

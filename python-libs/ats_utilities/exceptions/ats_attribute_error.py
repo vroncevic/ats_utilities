@@ -36,4 +36,3 @@ class ATSAttributeError(AttributeError):
             method:
                 None
     """
-

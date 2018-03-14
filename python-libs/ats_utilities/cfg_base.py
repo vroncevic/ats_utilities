@@ -146,7 +146,7 @@ class CfgBase(ATSInfo, CfgSettings, ATSOptionParser):
             msg = "{0} {1} {2}".format(cls.VERBOSE, func, txt)
             raise ATSTypeError(msg)
         if verbose:
-            if status:
+            if tool_status:
                 ver.message = "{0}".format('Set tool operative')
             else:
                 ver.message = "{0}".format('Set tool not operative')
@@ -180,4 +180,3 @@ class CfgBase(ATSInfo, CfgSettings, ATSOptionParser):
         """
         file_path = self.get_file_path()
         return "{0}(\'{1}\')".format(type(self).__name__, file_path)
-

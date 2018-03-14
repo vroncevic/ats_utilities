@@ -6,4 +6,3 @@
         * warning (Colorize text to yellow)
         * error (Colorize text to red)
 """
-

@@ -107,7 +107,7 @@ class ATSVersion(object):
             :return: String representation of ATSVersion
             :rtype: <str>
         """
-        return "{0} version {1}".format(ATS, self.__version)
+        return "{0} version {1}".format(self.__class__, self.__version)
 
     def __repr__(self):
         """
@@ -116,4 +116,3 @@ class ATSVersion(object):
             :rtype: <str>
         """
         return "{0}(\'{1}\')".format(type(self).__name__, self.__version)
-

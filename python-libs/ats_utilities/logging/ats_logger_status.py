@@ -106,7 +106,9 @@ class ATSLoggerStatus(object):
             :return: String representation of ATSLoggerStatus
             :rtype: <str>
         """
-        return "{0} Logger status {1}".format(ATS, self.__log_status)
+        return "{0} Logger status {1}".format(
+            self.__class__, self.__log_status
+        )
 
     def __repr__(self):
         """
@@ -115,4 +117,3 @@ class ATSLoggerStatus(object):
             :rtype: <str>
         """
         return "{0}(\'{1}\')".format(type(self).__name__, self.__log_status)
-

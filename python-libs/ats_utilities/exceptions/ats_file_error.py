@@ -37,4 +37,3 @@ class ATSFileError(IOError):
             method:
                 None
     """
-

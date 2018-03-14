@@ -62,7 +62,7 @@ class Verbose(object):
     def message(self):
         """
             Public property getter.
-            :return: Formated verbose message
+            :return: Formatted verbose message
             :rtype: <str>
         """
         return self.__message
@@ -86,4 +86,3 @@ class Verbose(object):
             raise ATSTypeError(msg)
         init(autoreset=False)
         self.__message = "{0}{1}{2}".format(Fore.BLUE, message, Fore.RESET)
-

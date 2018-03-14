@@ -100,4 +100,3 @@ class CheckBaseConfig(object):
                 statuses.append(True)
         status = all(status for status in statuses)
         return True if status else False
-
