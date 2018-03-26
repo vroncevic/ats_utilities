@@ -26,9 +26,9 @@ try:
     from ats_utilities.exceptions.ats_bad_call_error import ATSBadCallError
     from ats_utilities.exceptions.ats_file_error import ATSFileError
     from ats_utilities.console_io.error import Error
-    from ats_utilities.console_io.verbose import Verbose
+    from ats_utilities.console_io.verbose import ATSVerbose
 except ImportError as e:
-    msg = "\n{0}\n".format(e)
+    msg = "\n{0}\n{1}\n".format(__file__, e)
     sys.exit(msg)  # Force close python ATS ###################################
 
 __author__ = 'Vladimir Roncevic'
@@ -68,9 +68,8 @@ class FileChecking(object):
             :param verbose: Enable/disable verbose option
             :type verbose: <bool>
         """
-        cls = self.__class__
         if verbose:
-            ver = Verbose()
+            cls, ver = self.__class__, ATSVerbose()
             ver.message = "{0}".format('Initial file checking interface')
             msg = "{0} {1}".format(cls.VERBOSE, ver.message)
             print(msg)
@@ -99,7 +98,7 @@ class FileChecking(object):
             msg = "{0} {1} {2}".format(cls.VERBOSE, func, txt)
             raise ATSTypeError(msg)
         file_path_exist, file_path_regular = False, False
-        ver, err = Verbose(), Error()
+        ver, err = ATSVerbose(), Error()
         if verbose:
             ver.message = "{0} {1}".format('Checking file', file_path)
             msg = "{0} {1}".format(cls.VERBOSE, ver.message)
@@ -152,7 +151,7 @@ class FileChecking(object):
             txt = 'Argument: expected file_extension <str> object'
             msg = "{0} {1} {2}".format(cls.VERBOSE, func, txt)
             raise ATSTypeError(msg)
-        ver, err = Verbose(), Error()
+        ver, err = ATSVerbose(), Error()
         if verbose:
             ver.message = "{0} {1}".format('Checking file format', file_path)
             msg = "{0} {1}".format(cls.VERBOSE, ver.message)
@@ -194,7 +193,7 @@ class FileChecking(object):
             txt = 'Argument: expected mode <str> object'
             msg = "{0} {1} {2}".format(cls.VERBOSE, func, txt)
             raise ATSTypeError(msg)
-        ver, err = Verbose(), Error()
+        ver, err = ATSVerbose(), Error()
         if verbose:
             ver.message = "{0}".format('Checking operation mode')
             msg = "{0} {1}".format(cls.VERBOSE, ver.message)

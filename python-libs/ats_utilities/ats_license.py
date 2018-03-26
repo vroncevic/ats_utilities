@@ -20,12 +20,11 @@ import sys
 from inspect import stack
 
 try:
-    from ats_utilities.console_io.error import Error
-    from ats_utilities.console_io.verbose import Verbose
+    from ats_utilities.console_io.verbose import ATSVerbose
     from ats_utilities.exceptions.ats_type_error import ATSTypeError
     from ats_utilities.exceptions.ats_bad_call_error import ATSBadCallError
 except ImportError as e:
-    msg = "\n{0}\n".format(e)
+    msg = "\n{0}\n{1}\n".format(__file__, e)
     sys.exit(msg)  # Force close python ATS ###################################
 
 __author__ = 'Vladimir Roncevic'
@@ -64,10 +63,9 @@ class ATSLicense(object):
             :param verbose: Enable/disable verbose option
             :type verbose: <bool>
         """
-        cls = self.__class__
         if verbose:
-            ver = Verbose()
-            ver.message = "{0}".format('Initial program license')
+            cls, ver = self.__class__, ATSVerbose()
+            ver.message = "{0} {1}".format('Initial license', txt_license)
             msg = "{0} {1}".format(cls.VERBOSE, ver.message)
             print(msg)
         self.__license = txt_license
@@ -90,6 +88,11 @@ class ATSLicense(object):
             txt = 'Argument: expected txt_license <str> object'
             msg = "{0} {1} {2}".format(cls.VERBOSE, func, txt)
             raise ATSTypeError(msg)
+        if verbose:
+            ver = ATSVerbose()
+            ver.message = "{0} {1}".format('Setting license', txt_license)
+            msg = "{0} {1}".format(cls.VERBOSE, ver.message)
+            print(msg)
         self.__license = txt_license
 
     def get_ats_license(self, verbose=False):
@@ -97,9 +100,14 @@ class ATSLicense(object):
             Getting console_io license of App/Tool/Script.
             :param verbose: Enable/disable verbose option
             :type verbose: <bool>
-            :return: App/Tool/Script license console_io | None
+            :return: App/Tool/Script license text | None
             :rtype: <str> | <NoneType>
         """
+        if verbose:
+            cls, ver = self.__class__, ATSVerbose()
+            ver.message = "{0} {1}".format('License', self.__license)
+            msg = "{0} {1}".format(cls.VERBOSE, ver.message)
+            print(msg)
         return self.__license
 
     def __str__(self):

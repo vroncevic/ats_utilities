@@ -20,11 +20,11 @@ import sys
 from inspect import stack
 
 try:
-    from ats_utilities.console_io.verbose import Verbose
+    from ats_utilities.console_io.verbose import ATSVerbose
     from ats_utilities.exceptions.ats_bad_call_error import ATSBadCallError
     from ats_utilities.exceptions.ats_type_error import ATSTypeError
 except ImportError as e:
-    msg = "\n{0}\n".format(e)
+    msg = "\n{0}\n{1}\n".format(__file__, e)
     sys.exit(msg)  # Force close python ATS ###################################
 
 __author__ = 'Vladimir Roncevic'
@@ -63,8 +63,8 @@ class ATSLoggerStatus(object):
             :param verbose: Enable/disable verbose option
             :type verbose: <bool>
         """
-        cls, ver = self.__class__, Verbose()
         if verbose:
+            cls, ver = self.__class__, ATSVerbose()
             ver.message = 'Initial logger status'
             msg = "{0} {1}".format(cls.VERBOSE, ver.message)
             print(msg)
@@ -88,6 +88,11 @@ class ATSLoggerStatus(object):
             txt = 'Argument: expected status <bool> object'
             msg = "{0} {1} {2}".format(cls.VERBOSE, func, txt)
             raise ATSTypeError(msg)
+        if verbose:
+            ver = ATSVerbose()
+            ver.message = "{0} {1}".format('Setting status', status)
+            msg = "{0} {1}".format(cls.VERBOSE, ver.message)
+            print(msg)
         self.__log_status = status
 
     def get_logger_status(self, verbose=False):
@@ -98,6 +103,11 @@ class ATSLoggerStatus(object):
             :return: True (logger operative) | False
             :rtype: <bool>
         """
+        if verbose:
+            cls, ver = self.__class__, ATSVerbose()
+            ver.message = "{0} {1}".format('Log status', self.__log_status)
+            msg = "{0} {1}".format(cls.VERBOSE, ver.message)
+            print(msg)
         return self.__log_status
 
     def __str__(self):

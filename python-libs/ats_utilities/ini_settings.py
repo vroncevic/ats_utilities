@@ -19,11 +19,11 @@
 import sys
 
 try:
-    from ats_utilities.console_io.verbose import Verbose
+    from ats_utilities.console_io.verbose import ATSVerbose
     from ats_utilities.config.ini.ini2object import Ini2Object
     from ats_utilities.config.ini.object2ini import Object2Ini
 except ImportError as e:
-    msg = "\n{0}\n".format(e)
+    msg = "\n{0}\n{1}\n".format(__file__, e)
     sys.exit(msg)  # Force close python ATS ###################################
 
 __author__ = 'Vladimir Roncevic'
@@ -49,7 +49,7 @@ class IniSettings(Ini2Object, Object2Ini):
                 __repr__ - Dunder (magic) method
     """
 
-    VERBOSE = 'INI_SETTINGS'
+    VERBOSE = '[ATS_UTILITIES::INI_SETTINGS]'
 
     def __init__(self, base_config_file, verbose=False):
         """
@@ -59,9 +59,8 @@ class IniSettings(Ini2Object, Object2Ini):
             :param verbose: Enable/disable verbose option
             :type verbose: <bool>
         """
-        cls = self.__class__
         if verbose:
-            ver = Verbose()
+            cls, ver = self.__class__, ATSVerbose()
             ver.message = "{0}".format('Initial INI settings')
             msg = "{0} {1}".format(cls.VERBOSE, ver.message)
             print(msg)

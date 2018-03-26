@@ -21,7 +21,7 @@ from inspect import stack
 from optparse import OptionParser
 
 try:
-    from ats_utilities.console_io.verbose import Verbose
+    from ats_utilities.console_io.verbose import ATSVerbose
     from ats_utilities.exceptions.ats_type_error import ATSTypeError
     from ats_utilities.exceptions.ats_bad_call_error import ATSBadCallError
 except ImportError as e:
@@ -52,7 +52,7 @@ class ATSOptionParser(object):
                 parse_args - Process arguments from start
     """
 
-    VERBOSE = '[ATS_OPTION_PARSER]'
+    VERBOSE = '[ATS_UTILITIES::OPTION::ATS_OPTION_PARSER]'
 
     def __init__(self, version, epilog, description, verbose=False):
         """
@@ -67,7 +67,7 @@ class ATSOptionParser(object):
             :type verbose: <bool>
             :exceptions: ATSBadCallError | ATSTypeError
         """
-        cls, func, ver = self.__class__, stack()[0][3], Verbose()
+        cls, func = self.__class__, stack()[0][3]
         if version is None:
             txt = 'Argument: missing version <str> object'
             msg = "{0} {1} {2}".format(cls.VERBOSE, func, txt)
@@ -93,6 +93,7 @@ class ATSOptionParser(object):
             msg = "{0} {1} {2}".format(cls.VERBOSE, func, txt)
             raise ATSTypeError(msg)
         if verbose:
+            ver = ATSVerbose()
             ver.message = 'Initial option parser'
             msg = "{0} {1}".format(cls.VERBOSE, ver.message)
             print(msg)

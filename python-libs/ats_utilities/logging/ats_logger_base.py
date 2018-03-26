@@ -22,14 +22,14 @@ from inspect import stack
 from abc import ABCMeta, abstractmethod
 
 try:
-    from ats_utilities.console_io.verbose import Verbose
+    from ats_utilities.console_io.verbose import ATSVerbose
     from ats_utilities.exceptions.ats_bad_call_error import ATSBadCallError
     from ats_utilities.exceptions.ats_type_error import ATSTypeError
     from ats_utilities.logging.ats_logger_status import ATSLoggerStatus
     from ats_utilities.logging.ats_logger_file import ATSLoggerFile
     from ats_utilities.logging.ats_logger_name import ATSLoggerName
 except ImportError as e:
-    msg = "\n{0}\n".format(e)
+    msg = "\n{0}\n{1}\n".format(__file__, e)
     sys.exit(msg)  # Force close python ATS ###################################
 
 __author__ = 'Vladimir Roncevic'
@@ -66,8 +66,8 @@ class ATSLoggerBase(ATSLoggerStatus, ATSLoggerFile, ATSLoggerName):
             :param verbose: Enable/disable verbose option
             :type verbose: <bool>
         """
-        cls, ver = self.__class__, Verbose()
         if verbose:
+            cls, ver = self.__class__, ATSVerbose()
             ver.message = 'Initial logger status'
             msg = "{0} {1}".format(cls.VERBOSE, ver.message)
             print(msg)
@@ -94,6 +94,11 @@ class ATSLoggerBase(ATSLoggerStatus, ATSLoggerFile, ATSLoggerName):
             txt = 'Argument: expected logger <logging.Logger> object'
             msg = "{0} {1} {2}".format(cls.VERBOSE, func, txt)
             raise ATSTypeError(msg)
+        if verbose:
+            ver = ATSVerbose()
+            ver.message = "{0} {1}".format('Setting logger', logger)
+            msg = "{0} {1}".format(cls.VERBOSE, ver.message)
+            print(msg)
         self.__logger = logger
 
     def get_logger(self, verbose=False):
@@ -104,6 +109,11 @@ class ATSLoggerBase(ATSLoggerStatus, ATSLoggerFile, ATSLoggerName):
             :return: Logger object
             :rtype: <logging.Logger>
         """
+        if verbose:
+            cls, ver = self.__class__, ATSVerbose()
+            ver.message = "{0} {1}".format('Loger', self.__logger)
+            msg = "{0} {1}".format(cls.VERBOSE, ver.message)
+            print(msg)
         return self.__logger
 
     @abstractmethod

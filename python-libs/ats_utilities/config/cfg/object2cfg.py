@@ -20,15 +20,15 @@ import sys
 from inspect import stack
 
 try:
-    from ats_utilities.console_io.error import Error
-    from ats_utilities.console_io.verbose import Verbose
+    from ats_utilities.console_io.error import ATSError
+    from ats_utilities.console_io.verbose import ATSVerbose
     from ats_utilities.config.base_write_config import BaseWriteConfig
     from ats_utilities.config.config_context_manager import ConfigFile
     from ats_utilities.exceptions.ats_type_error import ATSTypeError
     from ats_utilities.exceptions.ats_value_error import ATSValueError
     from ats_utilities.exceptions.ats_bad_call_error import ATSBadCallError
 except ImportError as e:
-    msg = "\n{0}\n".format(e)
+    msg = "\n{0}\n{1}\n".format(__file__, e)
     sys.exit(msg)  # Force close python ATS ###################################
 
 __author__ = 'Vladimir Roncevic'
@@ -77,13 +77,13 @@ class Object2Cfg(BaseWriteConfig):
             txt = 'Argument: expected configuration_file <str> object'
             msg = "{0} {1} {2}".format(cls.VERBOSE, func, txt)
             raise ATSTypeError(msg)
-        ver = Verbose()
         if verbose:
+            ver = ATSVerbose()
             ver.message = 'Setting CFG interface'
             msg = "{0} {1}".format(cls.VERBOSE, ver.message)
             print(msg)
-        super(Object2Cfg, self).__init__(verbose=verbose)
-        self.set_file_path(file_path=configuration_file, verbose=verbose)
+        super(Object2Cfg, self).__init__()
+        self.set_file_path(file_path=configuration_file)
 
     def write_configuration(self, configuration, verbose=False):
         """
@@ -97,7 +97,7 @@ class Object2Cfg(BaseWriteConfig):
             :exceptions: ATSBadCallError | ATSTypeError
         """
         cls, func, status = self.__class__, stack()[0][3], False
-        err, ver = Error(), Verbose()
+        err, ver = ATSError(), ATSVerbose()
         if configuration is None:
             txt = 'Argument: missing configuration <Python> object'
             msg = "{0} {1} {2}".format(cls.VERBOSE, func, txt)
@@ -106,7 +106,7 @@ class Object2Cfg(BaseWriteConfig):
             txt = 'Argument: expected configuration <dict> object'
             msg = "{0} {1} {2}".format(cls.VERBOSE, func, txt)
             raise ATSTypeError(msg)
-        cfg_path = self.get_file_path(verbose=verbose)
+        cfg_path = self.get_file_path()
         if verbose:
             ver.message = "{0} {1}".format(
                 'Writing configuration to file', cfg_path

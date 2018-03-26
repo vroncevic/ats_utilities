@@ -21,10 +21,12 @@ from inspect import stack
 
 try:
     from colorama import init, Fore
+
+    from ats_utilities.console_io import ATSConsoleIO
     from ats_utilities.exceptions.ats_bad_call_error import ATSBadCallError
     from ats_utilities.exceptions.ats_type_error import ATSTypeError
 except ImportError as e:
-    msg = "\n{0}\n".format(e)
+    msg = "\n{0}\n{1}\n".format(__file__, e)
     sys.exit(msg)  # Force close python ATS ###################################
 
 __author__ = 'Vladimir Roncevic'
@@ -37,9 +39,9 @@ __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
 
 
-class Verbose(object):
+class ATSVerbose(ATSConsoleIO):
     """
-        Define class VerboseMessage with attribute(s) and method(s).
+        Define class ATSVerbose with attribute(s) and method(s).
         Define verbose message container for console log mechanism.
         It defines:
             attribute:

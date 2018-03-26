@@ -20,12 +20,11 @@ import sys
 from inspect import stack
 
 try:
-    from ats_utilities.console_io.error import Error
-    from ats_utilities.console_io.verbose import Verbose
+    from ats_utilities.console_io.verbose import ATSVerbose
     from ats_utilities.exceptions.ats_type_error import ATSTypeError
     from ats_utilities.exceptions.ats_bad_call_error import ATSBadCallError
 except ImportError as e:
-    msg = "\n{0}\n".format(e)
+    msg = "\n{0}\n{1}\n".format(__file__, e)
     sys.exit(msg)  # Force close python ATS ###################################
 
 __author__ = 'Vladimir Roncevic'
@@ -64,10 +63,9 @@ class ATSBuildDate(object):
             :param verbose: Enable/disable verbose option
             :type verbose: <bool>
         """
-        cls = self.__class__
         if verbose:
-            ver = Verbose()
-            ver.message = "{0}".format('Initial build date')
+            cls, ver = self.__class__, ATSVerbose()
+            ver.message = "{0} {1}".format('Initial build date', build_date)
             msg = "{0} {1}".format(cls.VERBOSE, ver.message)
             print(msg)
         self.__build_date = build_date
@@ -90,6 +88,11 @@ class ATSBuildDate(object):
             txt = 'Argument: expected build_date <str> object'
             msg = "{0} {1} {2}".format(cls.VERBOSE, func, txt)
             raise ATSTypeError(msg)
+        if verbose:
+            ver = ATSVerbose()
+            ver.message = "{0} {1}".format('Setting build date', build_date)
+            msg = "{0} {1}".format(cls.VERBOSE, ver.message)
+            print(msg)
         self.__build_date = build_date
 
     def get_ats_build_date(self, verbose=False):
@@ -100,6 +103,11 @@ class ATSBuildDate(object):
             :return: Build date of App/Tool/Script | None
             :rtype: <str> | <NoneType>
         """
+        if verbose:
+            cls, ver = self.__class__, ATSVerbose()
+            ver.message = "{0} {1}".format('Build date', self.__build_date)
+            msg = "{0} {1}".format(cls.VERBOSE, ver.message)
+            print(msg)
         return self.__build_date
 
     def __str__(self):

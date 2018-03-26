@@ -25,12 +25,11 @@ try:
     from ats_utilities.ats_build_date import ATSBuildDate
     from ats_utilities.ats_license import ATSLicense
     from ats_utilities.config.check_base_config import CheckBaseConfig
-    from ats_utilities.console_io.error import Error
-    from ats_utilities.console_io.verbose import Verbose
+    from ats_utilities.console_io.verbose import ATSVerbose
     from ats_utilities.exceptions.ats_type_error import ATSTypeError
     from ats_utilities.exceptions.ats_bad_call_error import ATSBadCallError
 except ImportError as e:
-    msg = "\n{0}\n".format(e)
+    msg = "\n{0}\n{1}\n".format(__file__, e)
     sys.exit(msg)  # Force close python ATS ###################################
 
 __author__ = 'Vladimir Roncevic'
@@ -75,7 +74,7 @@ class ATSInfo(ATSName, ATSVersion, ATSBuildDate, ATSLicense):
             :type verbose: <bool>
             :exceptions: ATSBadCallError | ATSTypeError
         """
-        cls, ver, func = self.__class__, Verbose(), stack()[0][3]
+        cls, func = self.__class__, stack()[0][3]
         if info is None:
             txt = 'Argument: missing info <dict> object'
             msg = "{0} {1} {2}".format(cls.VERBOSE, func, txt)
@@ -85,7 +84,8 @@ class ATSInfo(ATSName, ATSVersion, ATSBuildDate, ATSLicense):
             msg = "{0} {1} {2}".format(cls.VERBOSE, func, txt)
             raise ATSTypeError(msg)
         if verbose:
-            ver.message = "{0}".format('Initial program')
+            ver = ATSVerbose()
+            ver.message = "{0}".format('Initial ATS')
             msg = "{0} {1}".format(cls.VERBOSE, ver.message)
             print(msg)
         check_config = CheckBaseConfig.is_correct(info, verbose=verbose)

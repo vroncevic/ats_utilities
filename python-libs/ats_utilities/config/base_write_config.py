@@ -28,7 +28,7 @@ __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
 
 
-class BaseWriteConfig(object):
+class BaseWriteConfig:
     """
         Define class BaseWriteConfig with attribute(s) and method(s).
         Class for write operation (configuration).
@@ -48,29 +48,23 @@ class BaseWriteConfig(object):
     __metaclass__ = ABCMeta
     VERBOSE = '[ATS_UTILITIES::CONFIG::BASE_WRITE_CONFIG]'
 
-    def __init__(self, verbose=False):
+    def __init__(self):
         """
             Initial file path.
-            :param verbose: Enable/disable verbose option
-            :type verbose: <bool>
         """
         self.__file_path = ""
 
-    def set_file_path(self, file_path, verbose=False):
+    def set_file_path(self, file_path):
         """
             Setting configuration file path.
             :param file_path: Configuration file path
             :type file_path: <str>
-            :param verbose: Enable/disable verbose option
-            :type verbose: <bool>
         """
         self.__file_path = file_path
 
-    def get_file_path(self, verbose=False):
+    def get_file_path(self):
         """
             Getting configuration file path.
-            :param verbose: Enable/disable verbose option
-            :type verbose: <bool>
             :return: Configuration file path | None
             :rtype: <str> | <NoneType>
         """

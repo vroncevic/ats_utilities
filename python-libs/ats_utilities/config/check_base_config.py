@@ -20,12 +20,12 @@ import sys
 from inspect import stack
 
 try:
-    from ats_utilities.console_io.verbose import Verbose
-    from ats_utilities.console_io.error import Error
+    from ats_utilities.console_io.verbose import ATSVerbose
+    from ats_utilities.console_io.error import ATSError
     from ats_utilities.exceptions.ats_type_error import ATSTypeError
     from ats_utilities.exceptions.ats_bad_call_error import ATSBadCallError
 except ImportError as e:
-    msg = "\n{0}\n".format(e)
+    msg = "\n{0}\n{1}\n".format(__file__, e)
     sys.exit(msg)  # Force close python ATS ###################################
 
 __author__ = 'Vladimir Roncevic'
@@ -84,8 +84,8 @@ class CheckBaseConfig(object):
             txt = 'Argument: expected configuration <dict> object'
             msg = "{0} {1} {2}".format(cls.VERBOSE, func, txt)
             raise ATSTypeError(msg)
-        config_keys, ver = configuration.keys(), Verbose()
-        config_expected_keys, err = cls.__BASE_CONFIG.values(), Error()
+        config_keys, ver = configuration.keys(), ATSVerbose()
+        config_expected_keys, err = cls.__BASE_CONFIG.values(), ATSError()
         if verbose:
             ver.message = 'Checking configuration structure'
             msg = "{0} {1}".format(cls.VERBOSE, ver.message)

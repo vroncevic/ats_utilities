@@ -22,15 +22,15 @@ from inspect import stack
 try:
     from bs4 import BeautifulSoup
 
-    from ats_utilities.console_io.error import Error
-    from ats_utilities.console_io.verbose import Verbose
+    from ats_utilities.console_io.error import ATSError
+    from ats_utilities.console_io.verbose import ATSVerbose
     from ats_utilities.config.base_read_config import BaseReadConfig
     from ats_utilities.config.config_context_manager import ConfigFile
     from ats_utilities.exceptions.ats_type_error import ATSTypeError
     from ats_utilities.exceptions.ats_value_error import ATSValueError
     from ats_utilities.exceptions.ats_bad_call_error import ATSBadCallError
 except ImportError as e:
-    msg = "\n{0}\n".format(e)
+    msg = "\n{0}\n{1}\n".format(__file__, e)
     sys.exit(msg)  # Force close python ATS ###################################
 
 __author__ = 'Vladimir Roncevic'
@@ -79,13 +79,13 @@ class Xml2Object(BaseReadConfig):
             txt = 'Argument: expected configuration_file <str> object'
             msg = "{0} {1} {2}".format(cls.VERBOSE, func, txt)
             raise ATSTypeError(msg)
-        ver = Verbose()
         if verbose:
+            ver = ATSVerbose()
             ver.message = 'Setting XML interface'
             msg = "{0} {1}".format(cls.VERBOSE, ver.message)
             print(msg)
-        super(Xml2Object, self).__init__(verbose=verbose)
-        self.set_file_path(file_path=configuration_file, verbose=verbose)
+        super(Xml2Object, self).__init__()
+        self.set_file_path(file_path=configuration_file)
 
     def read_configuration(self, verbose=False):
         """
@@ -96,8 +96,8 @@ class Xml2Object(BaseReadConfig):
             :rtype: <BeautifulSoup> | <NoneType>
         """
         cls, content, config = self.__class__, None, None
-        ver, err = Verbose(), Error()
-        xml_path = self.get_file_path(verbose=verbose)
+        ver, err = ATSVerbose(), ATSError()
+        xml_path = self.get_file_path()
         if verbose:
             ver.message = "{0} {1}".format(
                 'Read configuration from file', xml_path

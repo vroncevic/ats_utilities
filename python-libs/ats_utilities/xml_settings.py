@@ -19,11 +19,11 @@
 import sys
 
 try:
-    from ats_utilities.console_io.verbose import Verbose
+    from ats_utilities.console_io.verbose import ATSVerbose
     from ats_utilities.config.xml.xml2object import Xml2Object
     from ats_utilities.config.xml.object2xml import Object2Xml
 except ImportError as e:
-    msg = "\n{0}\n".format(e)
+    msg = "\n{0}\n{1}\n".format(__file__, e)
     sys.exit(msg)  # Force close python ATS ###################################
 
 __author__ = 'Vladimir Roncevic'
@@ -59,9 +59,8 @@ class XmlSettings(Xml2Object, Object2Xml):
             :param verbose: Enable/disable verbose option
             :type verbose: <bool>
         """
-        cls = self.__class__
         if verbose:
-            ver = Verbose()
+            cls, ver = self.__class__, ATSVerbose()
             ver.message = "{0}".format('Initial XML settings')
             msg = "{0} {1}".format(cls.VERBOSE, ver.message)
             print(msg)

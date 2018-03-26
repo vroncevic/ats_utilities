@@ -24,15 +24,15 @@ from logging import (
 )
 
 try:
-    from ats_utilities.console_io.error import Error
-    from ats_utilities.console_io.verbose import Verbose
+    from ats_utilities.console_io.error import ATSError
+    from ats_utilities.console_io.verbose import ATSVerbose
     from ats_utilities.exceptions.ats_file_error import ATSFileError
     from ats_utilities.exceptions.ats_value_error import ATSValueError
     from ats_utilities.exceptions.ats_type_error import ATSTypeError
     from ats_utilities.logging.ats_logger_base import ATSLoggerBase
     from ats_utilities.exceptions.ats_bad_call_error import ATSBadCallError
 except ImportError as e:
-    msg = "\n{0}\n".format(e)
+    msg = "\n{0}\n{1}\n".format(__file__, e)
     sys.exit(msg)  # Force close python ATS ###################################
 
 __author__ = 'Vladimir Roncevic'
@@ -85,7 +85,6 @@ class ATSLogger(ATSLoggerBase):
             :exceptions: ATSBadCallError | ATSTypeError | ATSFileError
         """
         cls, func = self.__class__, stack()[0][3]
-        err, ver = Error(), Verbose()
         if ats_name is None:
             txt = 'Argument: missing ats_name <str> object'
             msg = "{0} {1} {2}".format(cls.VERBOSE, func, txt)
@@ -103,21 +102,22 @@ class ATSLogger(ATSLoggerBase):
             msg = "{0} {1} {2}".format(cls.VERBOSE, func, txt)
             raise ATSTypeError(msg)
         if verbose:
+            ver = ATSVerbose()
             ver.message = 'Initial logger'
             msg = "{0} {1}".format(cls.VERBOSE, ver.message)
             print(msg)
         super(ATSLogger, self).__init__(verbose=verbose)
         path_exists = exists(ats_log_file)
         if ats_log_file and path_exists and ats_name:
-            self.set_log_file(ats_log_file, verbose)
+            self.set_log_file(ats_log_file, verbose=verbose)
             basicConfig(
                 format=cls.LOG_MSG_FORMAT, datefmt=cls.LOG_DATE_FORMAT,
-                filename=self.get_log_file(verbose), level=DEBUG
+                filename=self.get_log_file(verbose=verbose), level=DEBUG
             )
             logger = getLogger(ats_name)
-            self.set_logger(logger, verbose)
-            self.set_logger_name(ats_name, verbose)
-            self.set_logger_status(True)
+            self.set_logger(logger, verbose=verbose)
+            self.set_logger_name(ats_name, verbose=verbose)
+            self.set_logger_status(True, verbose=verbose)
         else:
             txt = "{0} {1}".format('Check log file path', ats_log_file)
             msg = "{0} {1}".format(cls.VERBOSE, txt)
@@ -137,7 +137,7 @@ class ATSLogger(ATSLoggerBase):
             :exceptions: ATSBadCallError | ATSTypeError
         """
         cls, func = self.__class__, stack()[0][3]
-        err, ver, status = Error(), Verbose(), False
+        err, status = ATSError(), False
         if msg is None:
             txt = 'Argument: missing msg <str> object'
             msg = "{0} {1} {2}".format(cls.VERBOSE, func, txt)
@@ -155,6 +155,7 @@ class ATSLogger(ATSLoggerBase):
             msg = "{0} {1} {2}".format(cls.VERBOSE, func, txt)
             raise ATSTypeError(msg)
         if verbose:
+            ver = ATSVerbose()
             ver.message = 'Write log message'
             msg = "{0} {1}".format(cls.VERBOSE, ver.message)
             print(msg)

@@ -20,12 +20,11 @@ import sys
 from inspect import stack
 
 try:
-    from ats_utilities.console_io.error import Error
-    from ats_utilities.console_io.verbose import Verbose
+    from ats_utilities.console_io.verbose import ATSVerbose
     from ats_utilities.exceptions.ats_type_error import ATSTypeError
     from ats_utilities.exceptions.ats_bad_call_error import ATSBadCallError
 except ImportError as e:
-    msg = "\n{0}\n".format(e)
+    msg = "\n{0}\n{1}\n".format(__file__, e)
     sys.exit(msg)  # Force close python ATS ###################################
 
 __author__ = 'Vladimir Roncevic'
@@ -64,10 +63,9 @@ class ATSVersion(object):
             :param verbose: Enable/disable verbose option
             :type verbose: <bool>
         """
-        cls = self.__class__
         if verbose:
-            ver = Verbose()
-            ver.message = "{0}".format('Initial program version')
+            cls, ver = self.__class__, ATSVerbose()
+            ver.message = "{0} {1}".format('Initial version', version)
             msg = "{0} {1}".format(cls.VERBOSE, ver.message)
             print(msg)
         self.__version = version
@@ -89,6 +87,11 @@ class ATSVersion(object):
             txt = 'Argument: expected version <str> object'
             msg = "{0} {1} {2}".format(cls.VERBOSE, func, txt)
             raise ATSTypeError(msg)
+        if verbose:
+            ver = ATSVerbose()
+            ver.message = "{0} {1}".format('Setting version', version)
+            msg = "{0} {1}".format(cls.VERBOSE, ver.message)
+            print(msg)
         self.__version = version
 
     def get_ats_version(self, verbose=False):
@@ -99,6 +102,11 @@ class ATSVersion(object):
             :return: App/Tool/Script version | None
             :rtype: <str> | <NoneType>
         """
+        if verbose:
+            cls, ver = self.__class__, ATSVerbose()
+            ver.message = "{0} {1}".format('Version', self.__version)
+            msg = "{0} {1}".format(cls.VERBOSE, ver.message)
+            print(msg)
         return self.__version
 
     def __str__(self):

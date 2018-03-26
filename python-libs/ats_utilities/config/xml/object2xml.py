@@ -20,15 +20,15 @@ import sys
 from inspect import stack
 
 try:
-    from ats_utilities.console_io.error import Error
-    from ats_utilities.console_io.verbose import Verbose
+    from ats_utilities.console_io.error import ATSError
+    from ats_utilities.console_io.verbose import ATSVerbose
     from ats_utilities.config.base_write_config import BaseWriteConfig
     from ats_utilities.config.config_context_manager import ConfigFile
     from ats_utilities.exceptions.ats_type_error import ATSTypeError
     from ats_utilities.exceptions.ats_value_error import ATSValueError
     from ats_utilities.exceptions.ats_bad_call_error import ATSBadCallError
 except ImportError as e:
-    msg = "\n{0}\n".format(e)
+    msg = "\n{0}\n{1}\n".format(__file__, e)
     sys.exit(msg)  # Force close python ATS ###################################
 
 __author__ = 'Vladimir Roncevic'
@@ -77,13 +77,13 @@ class Object2Xml(BaseWriteConfig):
             txt = 'Argument: expected configuration_file <str> object'
             msg = "{0} {1} {2}".format(cls.VERBOSE, func, txt)
             raise ATSTypeError(msg)
-        ver = Verbose()
         if verbose:
+            ver = ATSVerbose()
             ver.message = 'Setting XML interface'
             msg = "{0} {1}".format(cls.VERBOSE, ver.message)
             print(msg)
-        super(Object2Xml, self).__init__(verbose=verbose)
-        self.set_file_path(file_path=configuration_file, verbose=verbose)
+        super(Object2Xml, self).__init__()
+        self.set_file_path(file_path=configuration_file)
 
     def write_configuration(self, configuration, verbose=False):
         """
@@ -96,8 +96,8 @@ class Object2Xml(BaseWriteConfig):
             :rtype: <bool>
         """
         cls, status = self.__class__, False
-        ver, err = Verbose(), Error()
-        xml_path = self.get_file_path(verbose=verbose)
+        ver, err = ATSVerbose(), ATSError()
+        xml_path = self.get_file_path()
         if verbose:
             ver.message = "{0} {1}".format(
                 'Write configuration to file', xml_path

@@ -20,13 +20,13 @@ import sys
 from inspect import stack
 
 try:
-    from ats_utilities.console_io.verbose import Verbose
+    from ats_utilities.console_io.verbose import ATSVerbose
     from ats_utilities.console_io.error import Error
     from ats_utilities.exceptions.ats_type_error import ATSTypeError
     from ats_utilities.exceptions.ats_bad_call_error import ATSBadCallError
     from ats_utilities.config.file_checking import FileChecking
 except ImportError as e:
-    msg = "\n{0}\n".format(e)
+    msg = "\n{0}\n{1}\n".format(__file__, e)
     sys.exit(msg)  # Force close python ATS ###################################
 
 __author__ = 'Vladimir Roncevic'
@@ -97,7 +97,7 @@ class ConfigFile(FileChecking):
             txt = 'Argument: expected file_format <str> object'
             msg = "{0} {1} {2}".format(cls.VERBOSE, func, txt)
             raise ATSTypeError(msg)
-        ver = Verbose()
+        ver = ATSVerbose()
         if verbose:
             ver.message = "{0}\n{1}\n{2} [{3}]".format(
                 'Setting file path', file_path, 'Setting file mode', file_mode

@@ -21,8 +21,8 @@ from inspect import stack
 from abc import ABCMeta, abstractmethod
 
 try:
-    from ats_utilities.console_io.verbose import Verbose
-    from ats_utilities.console_io.error import Error
+    from ats_utilities.console_io.verbose import ATSVerbose
+    from ats_utilities.console_io.error import ATSError
     from ats_utilities.ats_info import ATSInfo
     from ats_utilities.exceptions.ats_type_error import ATSTypeError
     from ats_utilities.exceptions.ats_bad_call_error import ATSBadCallError
@@ -30,7 +30,7 @@ try:
     from ats_utilities.option.ats_option_parser import ATSOptionParser
     from ats_utilities.config.check_base_config import CheckBaseConfig
 except ImportError as e:
-    msg = "\n{0}\n".format(e)
+    msg = "\n{0}\n{1}\n".format(__file__, e)
     sys.exit(msg)  # Force close python ATS ###################################
 
 __author__ = 'Vladimir Roncevic'
@@ -72,8 +72,9 @@ class IniBase(ATSInfo, IniSettings, ATSOptionParser):
             :param verbose: Enable/disable verbose option
             :type verbose: <bool>
         """
-        cls, ver, err = self.__class__, Verbose(), Error()
+        cls = self.__class__
         if verbose:
+            ver = ATSVerbose()
             ver.message = "{0}".format('Initial INI settings')
             msg = "{0} {1}".format(cls.VERBOSE, ver.message)
             print(msg)
@@ -87,18 +88,19 @@ class IniBase(ATSInfo, IniSettings, ATSOptionParser):
             try:
                 ATSInfo.__init__(self, configuration, verbose=verbose)
             except (ATSBadCallError, ATSTypeError) as e:
+                err = ATSError()
                 err.message = e
                 msg = "{0} {1}".format(cls.VERBOSE, err.message)
                 print(msg)
             else:
                 statuses = []
-                tool_version = self.get_ats_version()
+                tool_version = self.get_ats_version(verbose=verbose)
                 statuses.append(tool_version)
-                tool_build_date = self.get_ats_build_date()
+                tool_build_date = self.get_ats_build_date(verbose=verbose)
                 statuses.append(tool_build_date)
-                tool_name = self.get_ats_name()
+                tool_name = self.get_ats_name(verbose=verbose)
                 statuses.append(tool_name)
-                tool_lic = self.get_ats_license()
+                tool_lic = self.get_ats_license(verbose=verbose)
                 statuses.append(tool_lic)
                 if all(status for status in statuses):
                     tool_info = "{0} {1}".format(tool_version, tool_build_date)
@@ -125,6 +127,11 @@ class IniBase(ATSInfo, IniSettings, ATSOptionParser):
             :return: True (tool ready) | False
             :rtype: <bool>
         """
+        if verbose:
+            cls, ver = self.__class__, ATSVerbose()
+            ver.message = "{0} {1}".format('Status', self.__tool_operational)
+            msg = "{0} {1}".format(cls.VERBOSE, ver.message)
+            print(msg)
         return self.__tool_operational
 
     def set_tool_status(self, tool_status, verbose=False):
@@ -136,7 +143,7 @@ class IniBase(ATSInfo, IniSettings, ATSOptionParser):
             :type tool_status: <bool>
             :exceptions: ATSBadCallError | ATSTypeError
         """
-        cls, func, ver = self.__class__, stack()[0][3], Verbose()
+        cls, func = self.__class__, stack()[0][3],
         if tool_status is None:
             txt = 'Argument: missing tool_status <bool> object'
             msg = "{0} {1} {2}".format(cls.VERBOSE, func, txt)
@@ -146,6 +153,7 @@ class IniBase(ATSInfo, IniSettings, ATSOptionParser):
             msg = "{0} {1} {2}".format(cls.VERBOSE, func, txt)
             raise ATSTypeError(msg)
         if verbose:
+            ver = ATSVerbose()
             if tool_status:
                 ver.message = "{0}".format('Set tool operative')
             else:
