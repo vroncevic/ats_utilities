@@ -19,7 +19,7 @@
 import sys
 
 try:
-    from ats_utilities.console_io.verbose import ATSVerbose
+    from ats_utilities.console_io.verbose import verbose_message
     from ats_utilities.config.cfg.cfg2object import Cfg2Object
     from ats_utilities.config.cfg.object2cfg import Object2Cfg
 except ImportError as e:
@@ -59,11 +59,8 @@ class CfgSettings(Cfg2Object, Object2Cfg):
             :param verbose: Enable/disable verbose option
             :type verbose: <bool>
         """
-        if verbose:
-            cls, ver = self.__class__, ATSVerbose()
-            ver.message = "{0}".format('Initial CFG settings')
-            msg = "{0} {1}".format(cls.VERBOSE, ver.message)
-            print(msg)
+        cls = self.__class__
+        verbose_message(cls.VERBOSE, verbose, 'Initial CFG settings')
         Cfg2Object.__init__(self, base_config_file, verbose=verbose)
         Object2Cfg.__init__(self, base_config_file, verbose=verbose)
 

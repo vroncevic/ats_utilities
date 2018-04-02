@@ -19,7 +19,7 @@
 import sys
 
 try:
-    from ats_utilities.console_io.verbose import ATSVerbose
+    from ats_utilities.console_io.verbose import verbose_message
     from ats_utilities.config.json.json2object import Json2Object
     from ats_utilities.config.json.object2json import Object2Json
 except ImportError as e:
@@ -59,11 +59,8 @@ class JsonSettings(Json2Object, Object2Json):
             :param verbose: Enable/disable verbose option
             :type verbose: <bool>
         """
-        if verbose:
-            cls, ver = self.__class__, ATSVerbose()
-            ver.message = "{0}".format('Initial JSON settings')
-            msg = "{0} {1}".format(cls.VERBOSE, ver.message)
-            print(msg)
+        cls = self.__class__
+        verbose_message(cls.VERBOSE, verbose, 'Initial JSON settings')
         Json2Object.__init__(self, base_config_file, verbose=verbose)
         Object2Json.__init__(self, base_config_file, verbose=verbose)
 

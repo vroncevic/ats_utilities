@@ -78,13 +78,11 @@ class ATSVerbose(ATSConsoleIO):
             :exceptions: ATSBadCallError | ATSTypeError
         """
         cls, func = self.__class__, stack()[0][3]
+        txt = 'Argument: expected message <str> object'
+        msg = "{0} {1} {2}".format(cls.VERBOSE, func, txt)
         if message is None:
-            txt = 'Argument: missing message <str> object'
-            msg = "{0} {1} {2}".format(cls.VERBOSE, func, txt)
             raise ATSBadCallError(msg)
         if not isinstance(message, str):
-            txt = 'Argument: expected message <str> object'
-            msg = "{0} {1} {2}".format(cls.VERBOSE, func, txt)
             raise ATSTypeError(msg)
         init(autoreset=False)
         self.__message = "{0}{1}{2}".format(Fore.BLUE, message, Fore.RESET)

@@ -19,7 +19,7 @@
 import sys
 
 try:
-    from ats_utilities.console_io.verbose import ATSVerbose
+    from ats_utilities.console_io.verbose import verbose_message
     from ats_utilities.config.xml.xml2object import Xml2Object
     from ats_utilities.config.xml.object2xml import Object2Xml
 except ImportError as e:
@@ -59,11 +59,8 @@ class XmlSettings(Xml2Object, Object2Xml):
             :param verbose: Enable/disable verbose option
             :type verbose: <bool>
         """
-        if verbose:
-            cls, ver = self.__class__, ATSVerbose()
-            ver.message = "{0}".format('Initial XML settings')
-            msg = "{0} {1}".format(cls.VERBOSE, ver.message)
-            print(msg)
+        cls = self.__class__
+        verbose_message(cls.VERBOSE, verbose, 'Initial XML settings')
         Xml2Object.__init__(self, base_config_file, verbose=verbose)
         Object2Xml.__init__(self, base_config_file, verbose=verbose)
 

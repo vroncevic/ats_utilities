@@ -21,8 +21,8 @@ from inspect import stack
 from abc import ABCMeta, abstractmethod
 
 try:
-    from ats_utilities.console_io.verbose import ATSVerbose
-    from ats_utilities.console_io.error import ATSError
+    from ats_utilities.console_io.verbose import verbose_message
+    from ats_utilities.console_io.error import error_message
     from ats_utilities.ats_info import ATSInfo
     from ats_utilities.exceptions.ats_type_error import ATSTypeError
     from ats_utilities.exceptions.ats_bad_call_error import ATSBadCallError
@@ -73,11 +73,7 @@ class JsonBase(ATSInfo, JsonSettings, ATSOptionParser):
             :type verbose: <bool>
         """
         cls = self.__class__
-        if verbose:
-            ver = ATSVerbose()
-            ver.message = "{0}".format('Initial CFG settings')
-            msg = "{0} {1}".format(cls.VERBOSE, ver.message)
-            print(msg)
+        verbose_message(cls.VERBOSE, verbose, 'Initial CFG settings')
         self.__tool_operational = False  # App/Tool/Script not operative
         JsonSettings.__init__(self, base_config_file, verbose=verbose)
         configuration = self.read_configuration(verbose=verbose)
@@ -88,10 +84,7 @@ class JsonBase(ATSInfo, JsonSettings, ATSOptionParser):
             try:
                 ATSInfo.__init__(self, configuration, verbose=verbose)
             except (ATSBadCallError, ATSTypeError) as e:
-                err = ATSError()
-                err.message = e
-                msg = "{0} {1}".format(cls.VERBOSE, err.message)
-                print(msg)
+                error_message(cls.VERBOSE, e.message)
             else:
                 statuses = []
                 tool_version = self.get_ats_version(verbose=verbose)
@@ -127,11 +120,10 @@ class JsonBase(ATSInfo, JsonSettings, ATSOptionParser):
             :return: True (tool ready) | False
             :rtype: <bool>
         """
-        if verbose:
-            cls, ver = self.__class__, ATSVerbose()
-            ver.message = "{0} {1}".format('Status', self.__tool_operational)
-            msg = "{0} {1}".format(cls.VERBOSE, ver.message)
-            print(msg)
+        cls = self.__class__
+        verbose_message(
+            cls.VERBOSE, verbose, 'Status', self.__tool_operational
+        )
         return self.__tool_operational
 
     def set_tool_status(self, tool_status, verbose=False):
@@ -143,23 +135,20 @@ class JsonBase(ATSInfo, JsonSettings, ATSOptionParser):
             :type tool_status: <bool>
             :exceptions: ATSBadCallError | ATSTypeError
         """
-        cls, func = self.__class__, stack()[0][3],
+        cls, func = self.__class__, stack()[0][3]
+        tool_status_txt = 'Argument: expected tool_status <bool> object'
+        tool_status_msg = "{0} {1} {2}".format(
+            cls.VERBOSE, func, tool_status_txt
+        )
         if tool_status is None:
-            txt = 'Argument: missing tool_status <bool> object'
-            msg = "{0} {1} {2}".format(cls.VERBOSE, func, txt)
-            raise ATSBadCallError(msg)
+            raise ATSBadCallError(tool_status_msg)
         if not isinstance(tool_status, bool):
-            txt = 'Argument: expected tool_status <bool> object'
-            msg = "{0} {1} {2}".format(cls.VERBOSE, func, txt)
-            raise ATSTypeError(msg)
-        if verbose:
-            ver = ATSVerbose()
-            if tool_status:
-                ver.message = "{0}".format('Set tool operative')
-            else:
-                ver.message = "{0}".format('Set tool not operative')
-            msg = "{0} {1}".format(cls.VERBOSE, ver.message)
-            print(msg)
+            raise ATSTypeError(tool_status_msg)
+        if tool_status:
+            txt = "{0}".format('Set tool operative')
+        else:
+            txt = "{0}".format('Set tool not operative')
+        verbose_message(cls.VERBOSE, verbose, txt)
         self.__tool_operational = tool_status
 
     @abstractmethod

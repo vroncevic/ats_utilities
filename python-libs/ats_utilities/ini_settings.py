@@ -19,7 +19,7 @@
 import sys
 
 try:
-    from ats_utilities.console_io.verbose import ATSVerbose
+    from ats_utilities.console_io.verbose import verbose_message
     from ats_utilities.config.ini.ini2object import Ini2Object
     from ats_utilities.config.ini.object2ini import Object2Ini
 except ImportError as e:
@@ -59,11 +59,8 @@ class IniSettings(Ini2Object, Object2Ini):
             :param verbose: Enable/disable verbose option
             :type verbose: <bool>
         """
-        if verbose:
-            cls, ver = self.__class__, ATSVerbose()
-            ver.message = "{0}".format('Initial INI settings')
-            msg = "{0} {1}".format(cls.VERBOSE, ver.message)
-            print(msg)
+        cls = self.__class__
+        verbose_message(cls.VERBOSE, verbose, 'Initial INI settings')
         Ini2Object.__init__(self, base_config_file, verbose=verbose)
         Object2Ini.__init__(self, base_config_file, verbose=verbose)
 
