@@ -20,8 +20,8 @@ import sys
 from inspect import stack
 
 try:
-    from ats_utilities.console_io.verbose import ATSVerbose
-    from ats_utilities.console_io.error import ATSError
+    from ats_utilities.console_io.verbose import verbose_message
+    from ats_utilities.console_io.error import error_message
     from ats_utilities.exceptions.ats_type_error import ATSTypeError
     from ats_utilities.exceptions.ats_bad_call_error import ATSBadCallError
 except ImportError as e:
@@ -40,18 +40,18 @@ __status__ = 'Updated'
 
 class CheckBaseConfig(object):
     """
-    Define class CheckBaseConfig with attribute(s) and method(s).
-    Checking basic configuration structure.
-    It defines:
-        attribute:
-            __BASE_CONFIG - Basic config keys
-                1: 'ats_name'
-                2: 'ats_version'
-                3: 'ats_build_date'
-                4: 'ats_license'
-            VERBOSE - Console text indicator for current process-phase
-        method:
-            is_correct - Check basic configuration keys
+        Define class CheckBaseConfig with attribute(s) and method(s).
+        Checking basic configuration structure.
+        It defines:
+            attribute:
+                __BASE_CONFIG - Basic config keys
+                    1: 'ats_name'
+                    2: 'ats_version'
+                    3: 'ats_build_date'
+                    4: 'ats_license'
+                VERBOSE - Console text indicator for current process-phase
+            method:
+                is_correct - Check basic configuration keys
     """
 
     __BASE_CONFIG = {
@@ -76,25 +76,23 @@ class CheckBaseConfig(object):
             :exceptions: ATSBadCallError | ATSTypeError
         """
         func, status, statuses = stack()[0][3], False, []
+        configuration_txt = 'Argument: expected configuration <dict> object'
+        configuration_msg = "{0} {1} {2}".format(
+            cls.VERBOSE, func, configuration_txt
+        )
         if configuration is None:
-            txt = 'Argument: missing configuration <dict> object'
-            msg = "{0} {1} {2}".format(cls.VERBOSE, func, txt)
-            raise ATSBadCallError(msg)
+            raise ATSBadCallError(configuration_msg)
         if not isinstance(configuration, dict):
-            txt = 'Argument: expected configuration <dict> object'
-            msg = "{0} {1} {2}".format(cls.VERBOSE, func, txt)
-            raise ATSTypeError(msg)
-        config_keys, ver = configuration.keys(), ATSVerbose()
-        config_expected_keys, err = cls.__BASE_CONFIG.values(), ATSError()
-        if verbose:
-            ver.message = 'Checking configuration structure'
-            msg = "{0} {1}".format(cls.VERBOSE, ver.message)
-            print(msg)
+            raise ATSTypeError(configuration_msg)
+        config_keys = configuration.keys()
+        config_expected_keys = cls.__BASE_CONFIG.values()
+        verbose_message(
+            cls.VERBOSE, verbose, 'Checking configuration structure'
+        )
         for cfg_key in config_keys:
             if cfg_key not in config_expected_keys:
-                err.message = "{0} [{1}]".format('Key not expected', cfg_key)
-                msg = "{0} {1}".format(cls.VERBOSE, err.message)
-                print(msg)
+                msg = "{0} [{1}]".format('Key not expected', cfg_key)
+                error_message(cls.VERBOSE, msg)
                 statuses.append(False)
             else:
                 statuses.append(True)

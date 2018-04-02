@@ -25,8 +25,8 @@ try:
     from ats_utilities.exceptions.ats_value_error import ATSValueError
     from ats_utilities.exceptions.ats_bad_call_error import ATSBadCallError
     from ats_utilities.exceptions.ats_file_error import ATSFileError
-    from ats_utilities.console_io.error import Error
-    from ats_utilities.console_io.verbose import ATSVerbose
+    from ats_utilities.console_io.error import error_message
+    from ats_utilities.console_io.verbose import verbose_message
 except ImportError as e:
     msg = "\n{0}\n{1}\n".format(__file__, e)
     sys.exit(msg)  # Force close python ATS ###################################
@@ -49,9 +49,9 @@ class FileChecking(object):
             attribute:
                 __MODES - Mode file options
                 VERBOSE - Console text indicator for current process-phase
-                __file_path_ok -
-                __file_extension_ok -
-                __file_mode_ok -
+                __file_path_ok - File path exist
+                __file_extension_ok - File extension is correct
+                __file_mode_ok - Supported file mode
             method:
                 __init__ - Initial constructor
                 check_file - Check configuration file path
@@ -68,11 +68,10 @@ class FileChecking(object):
             :param verbose: Enable/disable verbose option
             :type verbose: <bool>
         """
-        if verbose:
-            cls, ver = self.__class__, ATSVerbose()
-            ver.message = "{0}".format('Initial file checking interface')
-            msg = "{0} {1}".format(cls.VERBOSE, ver.message)
-            print(msg)
+        cls = self.__class__
+        verbose_message(
+            cls.VERBOSE, verbose, 'Initial file checking interface'
+        )
         self.__file_path_ok = False
         self.__file_extension_ok = False
         self.__file_mode_ok = False
@@ -89,35 +88,21 @@ class FileChecking(object):
             :exceptions: ATSBadCallError | ATSTypeError | ATSFileError
         """
         cls, func, status = self.__class__, stack()[0][3], False
+        file_path_txt = 'Argument: expected file_path <str> object'
+        file_path_msg = "{0} {1} {2}".format(cls.VERBOSE, func, file_path_txt)
         if file_path is None:
-            txt = 'Argument: missing file_path <str> object'
-            msg = "{0} {1} {2}".format(cls.VERBOSE, func, txt)
-            raise ATSBadCallError(msg)
+            raise ATSBadCallError(file_path_msg)
         if not isinstance(file_path, str):
-            txt = 'Argument: expected file_path <str> object'
-            msg = "{0} {1} {2}".format(cls.VERBOSE, func, txt)
-            raise ATSTypeError(msg)
-        file_path_exist, file_path_regular = False, False
-        ver, err = ATSVerbose(), Error()
-        if verbose:
-            ver.message = "{0} {1}".format('Checking file', file_path)
-            msg = "{0} {1}".format(cls.VERBOSE, ver.message)
-            print(msg)
-        try:
-            file_path_exist = exists(file_path)
-            file_path_regular = isfile(file_path)
-            if not file_path_exist:
-                msg = "{0} {1}".format('Check file', file_path)
-                raise ATSFileError(msg)
-            if not file_path_regular:
-                msg = "{0} {1}".format('File is not regular', file_path)
-                raise ATSFileError(msg)
-            if file_path_exist and file_path_regular:
-                self.__file_path_ok = True
-        except ATSFileError as e:
-            err.message = e
-            msg = "{0} {1}".format(cls.VERBOSE, err.message)
-            print(msg)
+            raise ATSTypeError(file_path_msg)
+        verbose_message(cls.VERBOSE, verbose, 'Checking file', file_path)
+        file_path_exist = exists(file_path)
+        file_path_regular = isfile(file_path)
+        if not file_path_exist:
+            error_message(cls.VERBOSE, 'Check file', file_path)
+        if not file_path_regular:
+            error_message(cls.VERBOSE, 'File is not regular', file_path)
+        if file_path_exist and file_path_regular:
+            self.__file_path_ok = True
         status = all([file_path_exist, file_path_regular])
         return True if status else False
 
@@ -135,41 +120,34 @@ class FileChecking(object):
             :exceptions: ATSBadCallError | ATSTypeError | ATSFileError
         """
         cls, status, func = self.__class__, False, stack()[0][3]
+        file_path_txt = 'Argument: expected file_path <str> object'
+        file_path_msg = "{0} {1} {2}".format(cls.VERBOSE, func, file_path_txt)
+        file_extension_txt = 'Argument: expected file_extension <str> object'
+        file_extension_msg = "{0} {1} {2}".format(
+            cls.VERBOSE, func, file_extension_txt
+        )
         if file_path is None:
-            txt = 'Argument: missing file_path <str> object'
-            msg = "{0} {1} {2}".format(cls.VERBOSE, func, txt)
-            raise ATSBadCallError(msg)
+            raise ATSBadCallError(file_path_msg)
         if not isinstance(file_path, str):
-            txt = 'Argument: expected file_path <str> object'
-            msg = "{0} {1} {2}".format(cls.VERBOSE, func, txt)
-            raise ATSTypeError(msg)
+            raise ATSTypeError(file_path_msg)
         if file_extension is None:
-            txt = 'Argument: missing file_extension <str> object'
-            msg = "{0} {1} {2}".format(cls.VERBOSE, func, txt)
-            raise ATSBadCallError(msg)
+            raise ATSBadCallError(file_extension_msg)
         if not isinstance(file_extension, str):
-            txt = 'Argument: expected file_extension <str> object'
-            msg = "{0} {1} {2}".format(cls.VERBOSE, func, txt)
-            raise ATSTypeError(msg)
-        ver, err = ATSVerbose(), Error()
-        if verbose:
-            ver.message = "{0} {1}".format('Checking file format', file_path)
-            msg = "{0} {1}".format(cls.VERBOSE, ver.message)
-            print(msg)
-        try:
-            extension = splitext(file_path)[-1].lower()
-            status = extension == file_extension
-            if not status:
-                msg = "{0} [{1}] {2}".format(
-                    'Not matched file extension', file_extension, file_path
-                )
-                raise ATSFileError(msg)
-            else:
-                self.__file_extension_ok = True
-        except ATSFileError as e:
-            err.message = e
-            msg = "{0} {1}".format(cls.VERBOSE, err.message)
-            print(msg)
+            raise ATSTypeError(file_extension_msg)
+        verbose_message(
+            cls.VERBOSE, verbose, 'Checking file format', file_path
+        )
+        extension = splitext(file_path)[-1].lower()
+        status = extension == file_extension
+        if not status:
+            msg = "{0} [{1}] {2}".format(
+                'Not matched file extension', file_extension, file_path
+            )
+            error_message(cls.VERBOSE, msg)
+            self.__file_extension_ok = False
+        else:
+            self.__file_extension_ok = True
+            status = True
         return True if status else False
 
     def check_mode(self, file_mode, verbose=False):
@@ -183,34 +161,22 @@ class FileChecking(object):
             :rtype: <bool>
             :exceptions: ATSBadCallError | ATSTypeError | ATSFileError
         """
-        cls, split_mode = self.__class__, list(file_mode)
-        status, func = False, stack()[0][3]
+        cls, split_mode, func = self.__class__, list(file_mode), stack()[0][3]
+        file_mode_txt = 'Argument: expected mode <str> object'
+        file_mode_msg = "{0} {1} {2}".format(cls.VERBOSE, func, file_mode_txt)
         if file_mode is None:
-            txt = 'Argument: missing mode <str> object'
-            msg = "{0} {1} {2}".format(cls.VERBOSE, func, txt)
-            raise ATSBadCallError(msg)
+            raise ATSBadCallError(file_mode_msg)
         if not isinstance(file_mode, str):
-            txt = 'Argument: expected mode <str> object'
-            msg = "{0} {1} {2}".format(cls.VERBOSE, func, txt)
-            raise ATSTypeError(msg)
-        ver, err = ATSVerbose(), Error()
-        if verbose:
-            ver.message = "{0}".format('Checking operation mode')
-            msg = "{0} {1}".format(cls.VERBOSE, ver.message)
-            print(msg)
-        try:
-            for item_mode in split_mode:
-                if item_mode not in cls.__MODES:
-                    msg = "{0} [{1}]".format('Not supported mode', file_mode)
-                    raise ATSValueError(msg)
-        except ATSValueError as e:
-            err.message = e
-            msg = "{0} {1}".format(cls.VERBOSE, err.message)
-            print(msg)
-        else:
-            self.__file_mode_ok = True
-            status = True
-        return True if status else False
+            raise ATSTypeError(file_mode_msg)
+        verbose_message(cls.VERBOSE, verbose, 'Checking operation mode')
+        for item_mode in split_mode:
+            if item_mode not in cls.__MODES:
+                msg = "{0} [{1}]".format('Not supported mode', file_mode)
+                error_message(cls.VERBOSE, msg)
+                self.__file_mode_ok = False
+                return False
+        self.__file_mode_ok = True
+        return True
 
     def is_file_ok(self):
         """

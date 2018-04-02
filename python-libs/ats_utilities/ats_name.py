@@ -20,7 +20,7 @@ import sys
 from inspect import stack
 
 try:
-    from ats_utilities.console_io.verbose import ATSVerbose
+    from ats_utilities.console_io.verbose import verbose_message
     from ats_utilities.exceptions.ats_type_error import ATSTypeError
     from ats_utilities.exceptions.ats_bad_call_error import ATSBadCallError
 except ImportError as e:
@@ -63,11 +63,8 @@ class ATSName(object):
             :param verbose: Enable/disable verbose option
             :type verbose: <bool>
         """
-        if verbose:
-            cls, ver = self.__class__, ATSVerbose()
-            ver.message = "{0} {1}".format('Initial name', program_name)
-            msg = "{0} {1}".format(cls.VERBOSE, ver.message)
-            print(msg)
+        cls = self.__class__
+        verbose_message(cls.VERBOSE, verbose, 'Initial name')
         self.__program_name = program_name
 
     def set_ats_name(self, program_name, verbose=False):
@@ -80,19 +77,13 @@ class ATSName(object):
             :exceptions: ATSBadCallError | ATSTypeError
         """
         cls, func, status = self.__class__, stack()[0][3], False
+        expected_txt = 'Argument: expected program_name <str> object'
+        expected_msg = "{0} {1} {2}".format(cls.VERBOSE, func, expected_txt)
         if program_name is None:
-            txt = 'Argument: missing program_name <str> object'
-            msg = "{0} {1} {2}".format(cls.VERBOSE, func, txt)
-            raise ATSBadCallError(msg)
+            raise ATSBadCallError(expected_msg)
         if not isinstance(program_name, str):
-            txt = 'Argument: expected program_name <str> object'
-            msg = "{0} {1} {2}".format(cls.VERBOSE, func, txt)
-            raise ATSTypeError(msg)
-        if verbose:
-            ver = ATSVerbose()
-            ver.message = "{0} {1}".format('Setting name', program_name)
-            msg = "{0} {1}".format(cls.VERBOSE, ver.message)
-            print(msg)
+            raise ATSTypeError(expected_msg)
+        verbose_message(cls.VERBOSE, verbose, 'Setting name', program_name)
         self.__program_name = program_name
 
     def get_ats_name(self, verbose=False):
@@ -103,11 +94,8 @@ class ATSName(object):
             :return: App/Tool/Script name | None
             :rtype: <str> | <NoneType>
         """
-        if verbose:
-            cls, ver = self.__class__, ATSVerbose()
-            ver.message = "{0} {1}".format('Name', self.__program_name)
-            msg = "{0} {1}".format(cls.VERBOSE, ver.message)
-            print(msg)
+        cls = self.__class__
+        verbose_message(cls.VERBOSE, verbose, 'Name', self.__program_name)
         return self.__program_name
 
     def __str__(self):

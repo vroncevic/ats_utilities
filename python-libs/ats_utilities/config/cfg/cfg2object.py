@@ -21,8 +21,7 @@ from inspect import stack
 from re import match
 
 try:
-    from ats_utilities.console_io.error import ATSError
-    from ats_utilities.console_io.verbose import ATSVerbose
+    from ats_utilities.console_io.verbose import verbose_message
     from ats_utilities.config.base_read_config import BaseReadConfig
     from ats_utilities.config.config_context_manager import ConfigFile
     from ats_utilities.exceptions.ats_type_error import ATSTypeError
@@ -72,19 +71,13 @@ class Cfg2Object(BaseReadConfig):
             :exceptions: ATSBadCallError | ATSTypeError
         """
         cls, func, status = self.__class__, stack()[0][3], False
+        cfg_file_txt = 'Argument: expected configuration_file <str> object'
+        cfg_file_msg = "{0} {1} {2}".format(cls.VERBOSE, func, cfg_file_txt)
         if configuration_file is None:
-            txt = 'Argument: missing configuration_file <str> object'
-            msg = "{0} {1} {2}".format(cls.VERBOSE, func, txt)
-            raise ATSBadCallError(msg)
+            raise ATSBadCallError(cfg_file_msg)
         if not isinstance(configuration_file, str):
-            txt = 'Argument: expected configuration_file <str> object'
-            msg = "{0} {1} {2}".format(cls.VERBOSE, func, txt)
-            raise ATSTypeError(msg)
-        if verbose:
-            ver = ATSVerbose()
-            ver.message = 'Setting CFG interface'
-            msg = "{0} {1}".format(cls.VERBOSE, ver.message)
-            print(msg)
+            raise ATSTypeError(cfg_file_msg)
+        verbose_message(cls.VERBOSE, verbose, 'Setting CFG interface')
         super(Cfg2Object, self).__init__()
         self.set_file_path(file_path=configuration_file)
 
@@ -96,33 +89,19 @@ class Cfg2Object(BaseReadConfig):
             :return: Configuration object | None
             :rtype: <dict> | <NoneType>
         """
-        cls, cfg_path, content = self.__class__, self.get_file_path(), None
-        ver, err, config = ATSVerbose(), ATSError(), None
-        if verbose:
-            ver.message = "{0} {1}".format(
-                'Read configuration from file', cfg_path
-            )
-            msg = "{0} {1}".format(cls.VERBOSE, ver.message)
-            print(msg)
-        try:
-            with ConfigFile(cfg_path, 'r', cls.__FORMAT) as cfg_file:
-                content = cfg_file.read()
-        except (ATSTypeError, ATSBadCallError) as e:
-            err.message = e
-            msg = "{0} {1}".format(cls.VERBOSE, err.message)
-            print(msg)
-        else:
-            if content:
-                config, lines = {}, content.splitlines()
-                for line in lines:
-                    regex_match = match(cls.__REGEX_MATCH_LINE, line)
-                    if not regex_match:
-                        pairs = line.split('=')
-                        config[pairs[0].strip()] = pairs[1].strip()
-                if verbose:
-                    ver.message = 'Done'
-                    msg = "{0} {1}".format(cls.VERBOSE, ver.message)
-                    print(msg)
+        cls, cfg_path = self.__class__, self.get_file_path()
+        verbose_message(
+            cls.VERBOSE, verbose, 'Read configuration from file', cfg_path
+        )
+        with ConfigFile(cfg_path, 'r', cls.__FORMAT) as cfg_file:
+            content = cfg_file.read()
+            config, lines = {}, content.splitlines()
+            for line in lines:
+                regex_match = match(cls.__REGEX_MATCH_LINE, line)
+                if not regex_match:
+                    pairs = line.split('=')
+                    config[pairs[0].strip()] = pairs[1].strip()
+        verbose_message(cls.VERBOSE, verbose, 'Done')
         return config
 
     def __str__(self):

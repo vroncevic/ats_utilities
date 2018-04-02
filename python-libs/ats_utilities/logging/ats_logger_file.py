@@ -20,7 +20,7 @@ import sys
 from inspect import stack
 
 try:
-    from ats_utilities.console_io.verbose import ATSVerbose
+    from ats_utilities.console_io.verbose import verbose_message
     from ats_utilities.exceptions.ats_bad_call_error import ATSBadCallError
     from ats_utilities.exceptions.ats_type_error import ATSTypeError
 except ImportError as e:
@@ -63,11 +63,8 @@ class ATSLoggerFile(object):
             :param verbose: Enable/disable verbose option
             :type verbose: <bool>
         """
-        if verbose:
-            cls, ver = self.__class__, ATSVerbose()
-            ver.message = 'Initial logger file path'
-            msg = "{0} {1}".format(cls.VERBOSE, ver.message)
-            print(msg)
+        cls = self.__class__
+        verbose_message(cls.VERBOSE, verbose, 'Initial log')
         self.__log_file = logger_file
 
     def set_log_file(self, log_file_path, verbose=False):
@@ -79,19 +76,13 @@ class ATSLoggerFile(object):
             :type verbose: <bool>
         """
         cls, func = self.__class__, stack()[0][3]
+        log_file_txt = 'Argument: expected log_file_path <str> object'
+        log_file_msg = "{0} {1} {2}".format(cls.VERBOSE, func, log_file_txt)
         if log_file_path is None:
-            txt = 'Argument: missing log_file_path <str> object'
-            msg = "{0} {1} {2}".format(cls.VERBOSE, func, txt)
-            raise ATSBadCallError(msg)
+            raise ATSBadCallError(log_file_msg)
         if not isinstance(log_file_path, str):
-            txt = 'Argument: expected log_file_path <str> object'
-            msg = "{0} {1} {2}".format(cls.VERBOSE, func, txt)
-            raise ATSTypeError(msg)
-        if verbose:
-            ver = ATSVerbose()
-            ver.message = "{0} {1}".format('Initial Log file', log_file_path)
-            msg = "{0} {1}".format(cls.VERBOSE, ver.message)
-            print(msg)
+            raise ATSTypeError(log_file_msg)
+        verbose_message(cls.VERBOSE, verbose, 'Initial log', log_file_path)
         self.__log_file = log_file_path
 
     def get_log_file(self, verbose=False):
@@ -102,11 +93,8 @@ class ATSLoggerFile(object):
             :return: Log file path
             :rtype: <str>
         """
-        if verbose:
-            cls, ver = self.__class__, ATSVerbose()
-            ver.message = "{0} {1}".format('Log file', self.__log_file)
-            msg = "{0} {1}".format(cls.VERBOSE, ver.message)
-            print(msg)
+        cls = self.__class__
+        verbose_message(cls.VERBOSE, verbose, 'Log file', self.__log_file)
         return self.__log_file
 
     def __str__(self):

@@ -88,3 +88,29 @@ class ATSError(ATSConsoleIO):
             raise ATSTypeError(msg)
         init(autoreset=False)
         self.__message = "{0}{1}{2}".format(Fore.RED, message, Fore.RESET)
+
+
+def error_message(error_path, *message):
+    """
+        Show error message.
+        :param error_path: Error prefix message
+        :type error_path: <str>
+        :param message: Message parts
+        :type message: <tuple>
+    """
+    func, error = stack()[0][3], ATSError()
+    error_path_txt = 'First argument: missing error_path <str> object'
+    error_path_msg = "{0} {1}".format(func, error_path_txt)
+    message_txt = 'Second argument: missing message <tuple> object'
+    message_msg = "{0} {1}".format(func, message_txt)
+    if error_path is None:
+        raise ATSBadCallError(error_path_msg)
+    if message is None:
+        raise ATSBadCallError(message_msg)
+    if not isinstance(error_path, str):
+        raise ATSTypeError(error_path_msg)
+    if not isinstance(message, tuple):
+        raise ATSTypeError(message_msg)
+    error.message = ' '.join(message)
+    error_message_log = "{0} {1}".format(error_path, error.message)
+    print(error_message_log)

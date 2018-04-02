@@ -21,8 +21,7 @@ from inspect import stack
 from json import dump
 
 try:
-    from ats_utilities.console_io.error import ATSError
-    from ats_utilities.console_io.verbose import ATSVerbose
+    from ats_utilities.console_io.verbose import verbose_message
     from ats_utilities.config.base_write_config import BaseWriteConfig
     from ats_utilities.config.config_context_manager import ConfigFile
     from ats_utilities.exceptions.ats_type_error import ATSTypeError
@@ -70,19 +69,13 @@ class Object2Json(BaseWriteConfig):
             :exceptions: ATSBadCallError | ATSTypeError
         """
         cls, func, status = self.__class__, stack()[0][3], False
+        cfg_file_txt = 'Argument: expected configuration_file <str> object'
+        cfg_file_msg = "{0} {1} {2}".format(cls.VERBOSE, func, cfg_file_txt)
         if configuration_file is None:
-            txt = 'Argument: missing configuration_file <str> object'
-            msg = "{0} {1} {2}".format(cls.VERBOSE, func, txt)
-            raise ATSBadCallError(msg)
+            raise ATSBadCallError(cfg_file_msg)
         if not isinstance(configuration_file, str):
-            txt = 'Argument: expected configuration_file <str> object'
-            msg = "{0} {1} {2}".format(cls.VERBOSE, func, txt)
-            raise ATSTypeError(msg)
-        if verbose:
-            ver = ATSVerbose()
-            ver.message = 'Setting JSON interface'
-            msg = "{0} {1}".format(cls.VERBOSE, ver.message)
-            print(msg)
+            raise ATSTypeError(cfg_file_msg)
+        verbose_message(cls.VERBOSE, verbose, 'Setting JSON interface')
         super(Object2Json, self).__init__()
         self.set_file_path(file_path=configuration_file)
 
@@ -97,27 +90,14 @@ class Object2Json(BaseWriteConfig):
             :rtype: <bool>
         """
         cls, status = self.__class__, False
-        ver, err = ATSVerbose(), ATSError()
         json_path = self.get_file_path()
-        if verbose:
-            ver.message = "{0} {1}".format(
-                'Write configuration to file', json_path
-            )
-            msg = "{0} {1}".format(cls.VERBOSE, ver.message)
-            print(msg)
-        try:
-            with ConfigFile(json_path, 'w', cls.__FORMAT) as json_file:
-                dump(configuration, json_file)
-        except (ATSBadCallError, ATSTypeError) as e:
-            err.message = e
-            msg = "{0} {1}".format(cls.VERBOSE, err.message)
-            print(msg)
-        else:
+        verbose_message(
+            cls.VERBOSE, verbose, 'Write configuration to file', json_path
+        )
+        with ConfigFile(json_path, 'w', cls.__FORMAT) as json_file:
+            dump(configuration, json_file)
             status = True
-            if verbose:
-                ver.message = 'Done'
-                msg = "{0} {1}".format(cls.VERBOSE, ver.message)
-                print(msg)
+        verbose_message(cls.VERBOSE, verbose, 'Done')
         return True if status else False
 
     def __str__(self):

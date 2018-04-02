@@ -22,7 +22,7 @@ from inspect import stack
 from abc import ABCMeta, abstractmethod
 
 try:
-    from ats_utilities.console_io.verbose import ATSVerbose
+    from ats_utilities.console_io.verbose import verbose_message
     from ats_utilities.exceptions.ats_bad_call_error import ATSBadCallError
     from ats_utilities.exceptions.ats_type_error import ATSTypeError
     from ats_utilities.logging.ats_logger_status import ATSLoggerStatus
@@ -66,11 +66,8 @@ class ATSLoggerBase(ATSLoggerStatus, ATSLoggerFile, ATSLoggerName):
             :param verbose: Enable/disable verbose option
             :type verbose: <bool>
         """
-        if verbose:
-            cls, ver = self.__class__, ATSVerbose()
-            ver.message = 'Initial logger status'
-            msg = "{0} {1}".format(cls.VERBOSE, ver.message)
-            print(msg)
+        cls = self.__class__
+        verbose_message(cls.VERBOSE, verbose, 'Initial logger status')
         ATSLoggerStatus.__init__(self, False, verbose=verbose)
         ATSLoggerFile.__init__(self, None, verbose=verbose)
         ATSLoggerName.__init__(self, None, verbose=verbose)
@@ -86,19 +83,13 @@ class ATSLoggerBase(ATSLoggerStatus, ATSLoggerFile, ATSLoggerName):
             :exceptions: ATSBadCallError | ATSTypeError
         """
         cls, func = self.__class__, stack()[0][3]
+        logger_txt = 'Argument: expected logger <logging.Logger> object'
+        logger_msg = "{0} {1} {2}".format(cls.VERBOSE, func, logger_txt)
         if logger is None:
-            txt = 'Argument: missing logger <logging.Logger> object'
-            msg = "{0} {1} {2}".format(cls.VERBOSE, func, txt)
-            raise ATSBadCallError(msg)
+            raise ATSBadCallError(logger_msg)
         if not isinstance(logger, Logger):
-            txt = 'Argument: expected logger <logging.Logger> object'
-            msg = "{0} {1} {2}".format(cls.VERBOSE, func, txt)
-            raise ATSTypeError(msg)
-        if verbose:
-            ver = ATSVerbose()
-            ver.message = "{0} {1}".format('Setting logger', logger)
-            msg = "{0} {1}".format(cls.VERBOSE, ver.message)
-            print(msg)
+            raise ATSTypeError(logger_msg)
+        verbose_message(cls.VERBOSE, verbose, 'Setting logger', logger)
         self.__logger = logger
 
     def get_logger(self, verbose=False):
@@ -109,11 +100,8 @@ class ATSLoggerBase(ATSLoggerStatus, ATSLoggerFile, ATSLoggerName):
             :return: Logger object
             :rtype: <logging.Logger>
         """
-        if verbose:
-            cls, ver = self.__class__, ATSVerbose()
-            ver.message = "{0} {1}".format('Loger', self.__logger)
-            msg = "{0} {1}".format(cls.VERBOSE, ver.message)
-            print(msg)
+        cls = self.__class__
+        verbose_message(cls.VERBOSE, verbose, 'Logger', self.__logger)
         return self.__logger
 
     @abstractmethod

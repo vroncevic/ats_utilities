@@ -20,7 +20,7 @@ import sys
 from inspect import stack
 
 try:
-    from ats_utilities.console_io.verbose import ATSVerbose
+    from ats_utilities.console_io.verbose import verbose_message
     from ats_utilities.exceptions.ats_type_error import ATSTypeError
     from ats_utilities.exceptions.ats_bad_call_error import ATSBadCallError
 except ImportError as e:
@@ -63,11 +63,8 @@ class ATSBuildDate(object):
             :param verbose: Enable/disable verbose option
             :type verbose: <bool>
         """
-        if verbose:
-            cls, ver = self.__class__, ATSVerbose()
-            ver.message = "{0} {1}".format('Initial build date', build_date)
-            msg = "{0} {1}".format(cls.VERBOSE, ver.message)
-            print(msg)
+        cls = self.__class__
+        verbose_message(cls.VERBOSE, verbose, 'Initial build date')
         self.__build_date = build_date
 
     def set_ats_build_date(self, build_date, verbose=False):
@@ -80,19 +77,13 @@ class ATSBuildDate(object):
             :exceptions: ATSBadCallError | ATSTypeError
         """
         cls, func, status = self.__class__, stack()[0][3], False
+        expected_txt = 'Argument: expected build_date <str> object'
+        expected_msg = "{0} {1} {2}".format(cls.VERBOSE, func, expected_txt)
         if build_date is None:
-            txt = 'Argument: missing build_date <str> object'
-            msg = "{0} {1} {2}".format(cls.VERBOSE, func, txt)
-            raise ATSBadCallError(msg)
+            raise ATSBadCallError(expected_msg)
         if not isinstance(build_date, str):
-            txt = 'Argument: expected build_date <str> object'
-            msg = "{0} {1} {2}".format(cls.VERBOSE, func, txt)
-            raise ATSTypeError(msg)
-        if verbose:
-            ver = ATSVerbose()
-            ver.message = "{0} {1}".format('Setting build date', build_date)
-            msg = "{0} {1}".format(cls.VERBOSE, ver.message)
-            print(msg)
+            raise ATSTypeError(expected_msg)
+        verbose_message(cls.VERBOSE, verbose, 'Setting build date', build_date)
         self.__build_date = build_date
 
     def get_ats_build_date(self, verbose=False):
@@ -103,11 +94,8 @@ class ATSBuildDate(object):
             :return: Build date of App/Tool/Script | None
             :rtype: <str> | <NoneType>
         """
-        if verbose:
-            cls, ver = self.__class__, ATSVerbose()
-            ver.message = "{0} {1}".format('Build date', self.__build_date)
-            msg = "{0} {1}".format(cls.VERBOSE, ver.message)
-            print(msg)
+        cls = self.__class__
+        verbose_message(cls.VERBOSE, verbose, 'Build date', self.__build_date)
         return self.__build_date
 
     def __str__(self):

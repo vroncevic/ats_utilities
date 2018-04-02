@@ -24,8 +24,8 @@ from logging import (
 )
 
 try:
-    from ats_utilities.console_io.error import ATSError
-    from ats_utilities.console_io.verbose import ATSVerbose
+    from ats_utilities.console_io.error import error_message
+    from ats_utilities.console_io.verbose import verbose_message
     from ats_utilities.exceptions.ats_file_error import ATSFileError
     from ats_utilities.exceptions.ats_value_error import ATSValueError
     from ats_utilities.exceptions.ats_type_error import ATSTypeError
@@ -85,27 +85,19 @@ class ATSLogger(ATSLoggerBase):
             :exceptions: ATSBadCallError | ATSTypeError | ATSFileError
         """
         cls, func = self.__class__, stack()[0][3]
+        ats_name_txt = 'First argument: expected ats_name <str> object'
+        ats_name_msg = "{0} {1} {2}".format(cls.VERBOSE, func, ats_name_txt)
+        ats_log_txt = 'Second argument: expected ats_log_file <str> object'
+        ats_log_msg = "{0} {1} {2}".format(cls.VERBOSE, func, ats_log_txt)
         if ats_name is None:
-            txt = 'Argument: missing ats_name <str> object'
-            msg = "{0} {1} {2}".format(cls.VERBOSE, func, txt)
-            raise ATSBadCallError(msg)
+            raise ATSBadCallError(ats_name_msg)
         if not isinstance(ats_name, str):
-            txt = 'Argument: expected ats_name <str> object'
-            msg = "{0} {1} {2}".format(cls.VERBOSE, func, txt)
-            raise ATSTypeError(msg)
+            raise ATSTypeError(ats_name_msg)
         if ats_log_file is None:
-            txt = 'Argument: missing ats_log_file <str> object'
-            msg = "{0} {1} {2}".format(cls.VERBOSE, func, txt)
-            raise ATSBadCallError(msg)
+            raise ATSBadCallError(ats_log_msg)
         if not isinstance(ats_log_file, str):
-            txt = 'Argument: expected ats_log_file <str> object'
-            msg = "{0} {1} {2}".format(cls.VERBOSE, func, txt)
-            raise ATSTypeError(msg)
-        if verbose:
-            ver = ATSVerbose()
-            ver.message = 'Initial logger'
-            msg = "{0} {1}".format(cls.VERBOSE, ver.message)
-            print(msg)
+            raise ATSTypeError(ats_log_msg)
+        verbose_message(cls.VERBOSE, verbose, 'Initial logger')
         super(ATSLogger, self).__init__(verbose=verbose)
         path_exists = exists(ats_log_file)
         if ats_log_file and path_exists and ats_name:
@@ -136,54 +128,39 @@ class ATSLogger(ATSLoggerBase):
             :rtype: <bool>
             :exceptions: ATSBadCallError | ATSTypeError
         """
-        cls, func = self.__class__, stack()[0][3]
-        err, status = ATSError(), False
+        cls, func, status = self.__class__, stack()[0][3], False
+        msg_txt = 'First argument: expected msg <str> object'
+        msg_msg = "{0} {1} {2}".format(cls.VERBOSE, func, msg_txt)
+        ctrl_txt = 'Second argument: expected ctrl <int> object'
+        ctrl_msg = "{0} {1} {2}".format(cls.VERBOSE, func, ctrl_txt)
         if msg is None:
-            txt = 'Argument: missing msg <str> object'
-            msg = "{0} {1} {2}".format(cls.VERBOSE, func, txt)
-            raise ATSBadCallError(msg)
+            raise ATSBadCallError(msg_msg)
         if not isinstance(msg, str):
-            txt = 'Argument: expected msg <str> object'
-            msg = "{0} {1} {2}".format(cls.VERBOSE, func, txt)
-            raise ATSTypeError(msg)
+            raise ATSTypeError(msg_msg)
         if ctrl is None:
-            txt = 'Argument: missing ctrl <int> object'
-            msg = "{0} {1} {2}".format(cls.VERBOSE, func, txt)
-            raise ATSBadCallError(msg)
+            raise ATSBadCallError(ctrl_msg)
         if not isinstance(ctrl, int):
-            txt = 'Argument: expected ctrl <int> object'
-            msg = "{0} {1} {2}".format(cls.VERBOSE, func, txt)
-            raise ATSTypeError(msg)
-        if verbose:
-            ver = ATSVerbose()
-            ver.message = 'Write log message'
-            msg = "{0} {1}".format(cls.VERBOSE, ver.message)
-            print(msg)
-        try:
-            enabled_log = self.get_logger_status(verbose=verbose)
-            if enabled_log:
-                switch_dict = {
-                    cls.ATS_DEBUG: self.get_logger().debug,
-                    cls.ATS_WARNING: self.get_logger().warning,
-                    cls.ATS_CRITICAL: self.get_logger().critical,
-                    cls.ATS_ERROR: self.get_logger().error,
-                    cls.ATS_INFO: self.get_logger().info
-                }
-                ctrl_options = [
-                    cls.ATS_DEBUG, cls.ATS_WARNING, cls.ATS_CRITICAL,
-                    cls.ATS_ERROR, cls.ATS_INFO
-                ]
-                if ctrl in ctrl_options:
-                    switch_dict[ctrl](msg)
-                else:
-                    msg = "{0} [{1}]".format('Not supported log level', ctrl)
-                    raise ATSValueError(msg)
-        except ATSValueError as e:
-            err.message = e
-            msg = "{0} {1}".format(cls.VERBOSE, err.message)
-            print(msg)
-        else:
-            status = True
+            raise ATSTypeError(ctrl_msg)
+        verbose_message(cls.VERBOSE, verbose, 'Write log message')
+        enabled_log = self.get_logger_status(verbose=verbose)
+        if enabled_log:
+            switch_dict = {
+                cls.ATS_DEBUG: self.get_logger().debug,
+                cls.ATS_WARNING: self.get_logger().warning,
+                cls.ATS_CRITICAL: self.get_logger().critical,
+                cls.ATS_ERROR: self.get_logger().error,
+                cls.ATS_INFO: self.get_logger().info
+            }
+            ctrl_options = [
+                cls.ATS_DEBUG, cls.ATS_WARNING, cls.ATS_CRITICAL,
+                cls.ATS_ERROR, cls.ATS_INFO
+            ]
+            if ctrl in ctrl_options:
+                switch_dict[ctrl](msg)
+                status = True
+            else:
+                msg = "{0} [{1}]".format('Not supported log level', ctrl)
+                error_message(cls.VERBOSE, msg)
         return True if status else False
 
     def __str__(self):

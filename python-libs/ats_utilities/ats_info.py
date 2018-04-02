@@ -25,7 +25,7 @@ try:
     from ats_utilities.ats_build_date import ATSBuildDate
     from ats_utilities.ats_license import ATSLicense
     from ats_utilities.config.check_base_config import CheckBaseConfig
-    from ats_utilities.console_io.verbose import ATSVerbose
+    from ats_utilities.console_io.verbose import verbose_message
     from ats_utilities.exceptions.ats_type_error import ATSTypeError
     from ats_utilities.exceptions.ats_bad_call_error import ATSBadCallError
 except ImportError as e:
@@ -75,19 +75,13 @@ class ATSInfo(ATSName, ATSVersion, ATSBuildDate, ATSLicense):
             :exceptions: ATSBadCallError | ATSTypeError
         """
         cls, func = self.__class__, stack()[0][3]
+        info_txt = 'Argument: expected info <dict> object'
+        info_msg = "{0} {1} {2}".format(cls.VERBOSE, func, info_txt)
         if info is None:
-            txt = 'Argument: missing info <dict> object'
-            msg = "{0} {1} {2}".format(cls.VERBOSE, func, txt)
-            raise ATSBadCallError(msg)
+            raise ATSBadCallError(info_msg)
         if not isinstance(info, dict):
-            txt = 'Argument: expected info <dict> object'
-            msg = "{0} {1} {2}".format(cls.VERBOSE, func, txt)
-            raise ATSTypeError(msg)
-        if verbose:
-            ver = ATSVerbose()
-            ver.message = "{0}".format('Initial ATS')
-            msg = "{0} {1}".format(cls.VERBOSE, ver.message)
-            print(msg)
+            raise ATSTypeError(info_msg)
+        verbose_message(cls.VERBOSE, verbose, 'Initial tool info')
         check_config = CheckBaseConfig.is_correct(info, verbose=verbose)
         if check_config:
             app_name = info.get(cls.ATS_NAME)

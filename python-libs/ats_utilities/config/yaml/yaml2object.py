@@ -22,8 +22,7 @@ from inspect import stack
 try:
     from yaml import load
 
-    from ats_utilities.console_io.error import ATSError
-    from ats_utilities.console_io.verbose import ATSVerbose
+    from ats_utilities.console_io.verbose import verbose_message
     from ats_utilities.config.base_read_config import BaseReadConfig
     from ats_utilities.config.config_context_manager import ConfigFile
     from ats_utilities.exceptions.ats_type_error import ATSTypeError
@@ -71,19 +70,13 @@ class Yaml2Object(BaseReadConfig):
             :exceptions: ATSBadCallError | ATSTypeError
         """
         cls, func, status = self.__class__, stack()[0][3], False
+        cfg_file_txt = 'Argument: expected configuration_file <str> object'
+        cfg_file_msg = "{0} {1} {2}".format(cls.VERBOSE, func, cfg_file_txt)
         if configuration_file is None:
-            txt = 'Argument: missing configuration_file <str> object'
-            msg = "{0} {1} {2}".format(cls.VERBOSE, func, txt)
-            raise ATSBadCallError(msg)
+            raise ATSBadCallError(cfg_file_msg)
         if not isinstance(configuration_file, str):
-            txt = 'Argument: expected configuration_file <str> object'
-            msg = "{0} {1} {2}".format(cls.VERBOSE, func, txt)
-            raise ATSTypeError(msg)
-        if verbose:
-            ver = ATSVerbose()
-            ver.message = 'Setting YAML interface'
-            msg = "{0} {1}".format(cls.VERBOSE, ver.message)
-            print(msg)
+            raise ATSTypeError(cfg_file_msg)
+        verbose_message(cls.VERBOSE, verbose, 'Setting YAML interface')
         super(Yaml2Object, self).__init__()
         self.set_file_path(file_path=configuration_file)
 
@@ -96,26 +89,13 @@ class Yaml2Object(BaseReadConfig):
             :rtype: <Python object(s)> | <NoneType>
         """
         cls, content, config = self.__class__, None, None
-        ver, err = ATSVerbose(), ATSError()
         yaml_path = self.get_file_path()
-        if verbose:
-            ver.message = "{0} {1}".format(
-                'Read configuration from file', yaml_path
-            )
-            msg = "{0} {1}".format(cls.VERBOSE, ver.message)
-            print(msg)
-        try:
-            with ConfigFile(yaml_path, 'r', cls.__FORMAT) as yaml_file:
-                content = load(yaml_file)
-        except (ATSBadCallError, ATSTypeError) as e:
-            err.message = e
-            msg = "{0} {1}".format(cls.VERBOSE, err.message)
-            print(msg)
-        else:
-            if verbose:
-                ver.message = 'Done'
-                msg = "{0} {1}".format(cls.VERBOSE, ver.message)
-                print(msg)
+        verbose_message(
+            cls.VERBOSE, verbose, 'Read configuration from file', yaml_path
+        )
+        with ConfigFile(yaml_path, 'r', cls.__FORMAT) as yaml_file:
+            content = load(yaml_file)
+        verbose_message(cls.VERBOSE, verbose, 'Done')
         return content
 
     def __str__(self):

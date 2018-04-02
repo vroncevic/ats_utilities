@@ -20,8 +20,8 @@ import sys
 from inspect import stack
 
 try:
-    from ats_utilities.console_io.verbose import ATSVerbose
-    from ats_utilities.console_io.error import Error
+    from ats_utilities.console_io.verbose import verbose_message
+    from ats_utilities.console_io.error import error_message
     from ats_utilities.exceptions.ats_type_error import ATSTypeError
     from ats_utilities.exceptions.ats_bad_call_error import ATSBadCallError
     from ats_utilities.config.file_checking import FileChecking
@@ -73,38 +73,31 @@ class ConfigFile(FileChecking):
             :exceptions: ATSBadCallError | ATSTypeError
         """
         cls, status, func = self.__class__, False, stack()[0][3]
+        file_path_txt = 'Argument: expected file_path <str> object'
+        file_path_msg = "{0} {1} {2}".format(cls.VERBOSE, func, file_path_txt)
+        file_mode_txt = 'Argument: expected file_mode <str> object'
+        file_mode_msg = "{0} {1} {2}".format(cls.VERBOSE, func, file_mode_txt)
+        file_format_txt = 'Argument: expected file_format <str> object'
+        file_format_msg = "{0} {1} {2}".format(
+            cls.VERBOSE, func, file_format_txt
+        )
         if file_path is None:
-            txt = 'Argument: missing file_path <str> object'
-            msg = "{0} {1} {2}".format(cls.VERBOSE, func, txt)
-            raise ATSBadCallError(msg)
+            raise ATSBadCallError(file_path_msg)
         if not isinstance(file_path, str):
-            txt = 'Argument: expected file_path <str> object'
-            msg = "{0} {1} {2}".format(cls.VERBOSE, func, txt)
-            raise ATSTypeError(msg)
+            raise ATSTypeError(file_path_msg)
         if file_mode is None:
-            txt = 'Argument: missing file_mode <str> object'
-            msg = "{0} {1} {2}".format(cls.VERBOSE, func, txt)
-            raise ATSBadCallError(msg)
+            raise ATSBadCallError(file_mode_msg)
         if not isinstance(file_mode, str):
-            txt = 'Argument: expected file_mode <str> object'
-            msg = "{0} {1} {2}".format(cls.VERBOSE, func, txt)
-            raise ATSTypeError(msg)
+            raise ATSTypeError(file_mode_msg)
         if file_format is None:
-            txt = 'Argument: missing file_format <str> object'
-            msg = "{0} {1} {2}".format(cls.VERBOSE, func, txt)
-            raise ATSBadCallError(msg)
+            raise ATSBadCallError(file_format_msg)
         if not isinstance(file_format, str):
-            txt = 'Argument: expected file_format <str> object'
-            msg = "{0} {1} {2}".format(cls.VERBOSE, func, txt)
-            raise ATSTypeError(msg)
-        ver = ATSVerbose()
-        if verbose:
-            ver.message = "{0}\n{1}\n{2} [{3}]".format(
-                'Setting file path', file_path, 'Setting file mode', file_mode
-            )
-            msg = "{0} {1}".format(cls.VERBOSE, ver.message)
-            print(msg)
-        super(ConfigFile, verbose).__init__()
+            raise ATSTypeError(file_format_msg)
+        msg = "{0}\n{1}\n{2} [{3}]".format(
+            'Setting file path', file_path, 'Setting file mode', file_mode
+        )
+        verbose_message(cls.VERBOSE, verbose, msg)
+        super(ConfigFile, self).__init__()
         check_file = self.check_file(file_path=file_path, verbose=verbose)
         if check_file:
             self.__file_path = file_path
@@ -122,26 +115,19 @@ class ConfigFile(FileChecking):
             Open configuration file in mode.
             :return: File object | None
             :rtype: <file> | <NoneType>
-            :exceptions: IOError
         """
-        cls, err = self.__class__, Error()
-        try:
-            if self.is_file_ok():
-                self.__file = open(self.__file_path, self.__file_mode)
-            else:
-                msg = "{0} {1}".format('Check file', self.__file_path)
-                raise IOError(msg)
-        except IOError as e:
-            err.message = e
-            msg = "{0} {1}".format(cls.VERBOSE, err.message)
-            print(msg)
+        cls = self.__class__
+        if self.is_file_ok():
+            self.__file = open(self.__file_path, self.__file_mode)
+        else:
+            msg = "{0} {1}".format('Check file', self.__file_path)
+            error_message(cls.VERBOSE, msg)
             self.__file = None
         return self.__file
 
     def __exit__(self, *args):
         """
             Closing configuration file.
-            :exceptions: AttributeError
         """
         try:
             self.__file.close()

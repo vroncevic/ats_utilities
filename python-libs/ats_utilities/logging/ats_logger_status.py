@@ -20,7 +20,7 @@ import sys
 from inspect import stack
 
 try:
-    from ats_utilities.console_io.verbose import ATSVerbose
+    from ats_utilities.console_io.verbose import verbose_message
     from ats_utilities.exceptions.ats_bad_call_error import ATSBadCallError
     from ats_utilities.exceptions.ats_type_error import ATSTypeError
 except ImportError as e:
@@ -63,11 +63,8 @@ class ATSLoggerStatus(object):
             :param verbose: Enable/disable verbose option
             :type verbose: <bool>
         """
-        if verbose:
-            cls, ver = self.__class__, ATSVerbose()
-            ver.message = 'Initial logger status'
-            msg = "{0} {1}".format(cls.VERBOSE, ver.message)
-            print(msg)
+        cls = self.__class__
+        verbose_message(cls.VERBOSE, verbose, 'Initial logger status')
         self.__log_status = log_status
 
     def set_logger_status(self, status, verbose=False):
@@ -80,19 +77,13 @@ class ATSLoggerStatus(object):
             :exceptions: ATSBadCallError | ATSTypeError
         """
         cls, func = self.__class__, stack()[0][3]
+        status_txt = 'Argument: expected status <bool> object'
+        status_msg = "{0} {1} {2}".format(cls.VERBOSE, func, status_txt)
         if status is None:
-            txt = 'Argument: missing status <bool> object'
-            msg = "{0} {1} {2}".format(cls.VERBOSE, func, txt)
-            raise ATSBadCallError(msg)
+            raise ATSBadCallError(status_msg)
         if not isinstance(status, bool):
-            txt = 'Argument: expected status <bool> object'
-            msg = "{0} {1} {2}".format(cls.VERBOSE, func, txt)
-            raise ATSTypeError(msg)
-        if verbose:
-            ver = ATSVerbose()
-            ver.message = "{0} {1}".format('Setting status', status)
-            msg = "{0} {1}".format(cls.VERBOSE, ver.message)
-            print(msg)
+            raise ATSTypeError(status_msg)
+        verbose_message(cls.VERBOSE, verbose, 'Set logger status', status)
         self.__log_status = status
 
     def get_logger_status(self, verbose=False):
@@ -103,11 +94,10 @@ class ATSLoggerStatus(object):
             :return: True (logger operative) | False
             :rtype: <bool>
         """
-        if verbose:
-            cls, ver = self.__class__, ATSVerbose()
-            ver.message = "{0} {1}".format('Log status', self.__log_status)
-            msg = "{0} {1}".format(cls.VERBOSE, ver.message)
-            print(msg)
+        cls = self.__class__
+        verbose_message(
+            cls.VERBOSE, verbose, 'Logger status', self.__log_status
+        )
         return self.__log_status
 
     def __str__(self):

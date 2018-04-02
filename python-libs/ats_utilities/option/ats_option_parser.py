@@ -21,7 +21,7 @@ from inspect import stack
 from optparse import OptionParser
 
 try:
-    from ats_utilities.console_io.verbose import ATSVerbose
+    from ats_utilities.console_io.verbose import verbose_message
     from ats_utilities.exceptions.ats_type_error import ATSTypeError
     from ats_utilities.exceptions.ats_bad_call_error import ATSBadCallError
 except ImportError as e:
@@ -68,35 +68,27 @@ class ATSOptionParser(object):
             :exceptions: ATSBadCallError | ATSTypeError
         """
         cls, func = self.__class__, stack()[0][3]
+        version_txt = 'Argument: expected version <str> object'
+        version_msg = "{0} {1} {2}".format(cls.VERBOSE, func, version_txt)
+        epilog_txt = 'Argument: expected epilog <str> object'
+        epilog_msg = "{0} {1} {2}".format(cls.VERBOSE, func, epilog_txt)
+        description_txt = 'Argument: expected description <str> object'
+        description_msg = "{0} {1} {2}".format(
+            cls.VERBOSE, func, description_txt
+        )
         if version is None:
-            txt = 'Argument: missing version <str> object'
-            msg = "{0} {1} {2}".format(cls.VERBOSE, func, txt)
-            raise ATSBadCallError(msg)
+            raise ATSBadCallError(version_msg)
         if not isinstance(version, str):
-            txt = 'Argument: expected version <str> object'
-            msg = "{0} {1} {2}".format(cls.VERBOSE, func, txt)
-            raise ATSTypeError(msg)
+            raise ATSTypeError(version_msg)
         if epilog is None:
-            txt = 'Argument: missing epilog <str> object'
-            msg = "{0} {1} {2}".format(cls.VERBOSE, func, txt)
-            raise ATSBadCallError(msg)
+            raise ATSBadCallError(epilog_msg)
         if not isinstance(epilog, str):
-            txt = 'Argument: expected epilog <str> object'
-            msg = "{0} {1} {2}".format(cls.VERBOSE, func, txt)
-            raise ATSTypeError(msg)
+            raise ATSTypeError(epilog_msg)
         if description is None:
-            txt = 'Argument: missing description <str> object'
-            msg = "{0} {1} {2}".format(cls.VERBOSE, func, txt)
-            raise ATSBadCallError(msg)
+            raise ATSBadCallError(description_msg)
         if not isinstance(description, str):
-            txt = 'Argument: expected description <str> object'
-            msg = "{0} {1} {2}".format(cls.VERBOSE, func, txt)
-            raise ATSTypeError(msg)
-        if verbose:
-            ver = ATSVerbose()
-            ver.message = 'Initial option parser'
-            msg = "{0} {1}".format(cls.VERBOSE, ver.message)
-            print(msg)
+            raise ATSTypeError(description_msg)
+        verbose_message(cls.VERBOSE, verbose, 'Initial option parser')
         self.__opt_parser = OptionParser(
             version=version, epilog=epilog, description=description
         )

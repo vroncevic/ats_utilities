@@ -88,3 +88,32 @@ class ATSVerbose(ATSConsoleIO):
             raise ATSTypeError(msg)
         init(autoreset=False)
         self.__message = "{0}{1}{2}".format(Fore.BLUE, message, Fore.RESET)
+
+
+def verbose_message(verbose_path, verbose=False, *message):
+    """
+        Show verbose message.
+        :param verbose_path: Verbose prefix message
+        :type verbose_path: <str>
+        :param verbose: Enable/disable verbose option
+        :type verbose: <bool>
+        :param message: Message parts
+        :type message: <tuple>
+    """
+    if verbose:
+        func, ver = stack()[0][3], ATSVerbose()
+        verbose_path_txt = 'First argument: missing success_path <str> object'
+        verbose_path_msg = "{0} {1}".format(func, verbose_path_txt)
+        message_txt = 'Second argument: missing message <tuple> object'
+        message_msg = "{0} {1}".format(func, message_txt)
+        if verbose_path is None:
+            raise ATSBadCallError(verbose_path_msg)
+        if message is None:
+            raise ATSBadCallError(message_msg)
+        if not isinstance(verbose_path, str):
+            raise ATSTypeError(verbose_path_msg)
+        if not isinstance(message, tuple):
+            raise ATSTypeError(message_msg)
+        ver.message = ' '.join(message)
+        msg = "{0} {1}".format(verbose_path, ver.message)
+        print(msg)

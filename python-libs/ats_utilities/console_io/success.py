@@ -1,5 +1,5 @@
 # -*- coding: UTF-8 -*-
-# warning.py
+# success.py
 # Copyright (C) 2018 Vladimir Roncevic <elektron.ronca@gmail.com>
 #
 # ats_utilities is free software: you can redistribute it and/or modify it
@@ -39,20 +39,20 @@ __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
 
 
-class ATSWarning(ATSConsoleIO):
+class ATSSuccess(ATSConsoleIO):
     """
-        Define class ATSWarning with attribute(s) and method(s).
-        Define warning message container for console log mechanism.
+        Define class ATSSuccess with attribute(s) and method(s).
+        Define verbose message container for console log mechanism.
         It defines:
             attribute:
                 VERBOSE - Console text indicator for current process-phase
-                __message - Warning message container
+                __message - Success message container
             method:
                 __init__ - Initial constructor
                 message - Public setter/getter
     """
 
-    VERBOSE = '[ATS_UTILITIES::CONSOLE_IO::WARNING]'
+    VERBOSE = '[ATS_UTILITIES::CONSOLE_IO::SUCCESS]'
 
     def __init__(self):
         """
@@ -64,7 +64,7 @@ class ATSWarning(ATSConsoleIO):
     def message(self):
         """
             Public property getter.
-            :return: Formatted warning message
+            :return: Formatted verbose message
             :rtype: <str>
         """
         return self.__message
@@ -73,7 +73,7 @@ class ATSWarning(ATSConsoleIO):
     def message(self, message):
         """
             Public property setter.
-            :param message: Warning message
+            :param message: Verbose message
             :type message: <str>
             :exceptions: ATSBadCallError | ATSTypeError
         """
@@ -87,30 +87,30 @@ class ATSWarning(ATSConsoleIO):
             msg = "{0} {1} {2}".format(cls.VERBOSE, func, txt)
             raise ATSTypeError(msg)
         init(autoreset=False)
-        self.__message = "{0}{1}{2}".format(Fore.YELLOW, message, Fore.RESET)
+        self.__message = "{0}{1}{2}".format(Fore.GREEN, message, Fore.RESET)
 
 
-def warning_message(warning_path, *message):
+def success_message(success_path, *message):
     """
-        Show warning message.
-        :param warning_path: Warning prefix message
-        :type warning_path: <str>
+        Show success message.
+        :param success_path: Success prefix message
+        :type success_path: <str>
         :param message: Message parts
         :type message: <tuple>
     """
-    func, warning = stack()[0][3], ATSWarning()
-    warning_path_txt = 'First argument: missing warning_path <str> object'
-    warning_path_msg = "{0} {1}".format(func, warning_path_txt)
+    func, success = stack()[0][3], ATSSuccess()
+    success_path_txt = 'First argument: missing success_path <str> object'
+    success_path_msg = "{0} {1}".format(func, success_path_txt)
     message_txt = 'Second argument: missing message <tuple> object'
     message_msg = "{0} {1}".format(func, message_txt)
-    if warning_path is None:
-        raise ATSBadCallError(warning_path_msg)
+    if success_path is None:
+        raise ATSBadCallError(success_path_msg)
     if message is None:
         raise ATSBadCallError(message_msg)
-    if not isinstance(warning_path, str):
-        raise ATSTypeError(warning_path_msg)
+    if not isinstance(success_path, str):
+        raise ATSTypeError(success_path_msg)
     if not isinstance(message, tuple):
         raise ATSTypeError(message_msg)
-    warning.message = ' '.join(message)
-    msg = "{0} {1}".format(warning_path, warning.message)
+    success.message = ' '.join(message)
+    msg = "{0} {1}".format(success_path, success.message)
     print(msg)

@@ -20,7 +20,7 @@ import sys
 from inspect import stack
 
 try:
-    from ats_utilities.console_io.verbose import ATSVerbose
+    from ats_utilities.console_io.verbose import verbose_message
     from ats_utilities.exceptions.ats_bad_call_error import ATSBadCallError
     from ats_utilities.exceptions.ats_type_error import ATSTypeError
 except ImportError as e:
@@ -63,11 +63,8 @@ class ATSLoggerName(object):
             :param verbose: Enable/disable verbose option
             :type verbose: <bool>
         """
-        if verbose:
-            cls, ver = self.__class__, ATSVerbose()
-            ver.message = 'Initial logger name'
-            msg = "{0} {1}".format(cls.VERBOSE, ver.message)
-            print(msg)
+        cls = self.__class__
+        verbose_message(cls.VERBOSE, verbose, 'Initial logger name')
         self.__logger_name = logger_name
 
     def set_logger_name(self, logger_name, verbose=False):
@@ -80,19 +77,15 @@ class ATSLoggerName(object):
             :exceptions: ATSBadCallError | ATSTypeError
         """
         cls, func = self.__class__, stack()[0][3]
+        logger_name_txt = 'Argument: expected logger_name <str> object'
+        logger_name_msg = "{0} {1} {2}".format(
+            cls.VERBOSE, func, logger_name_txt
+        )
         if logger_name is None:
-            txt = 'Argument: missing logger_name <str> object'
-            msg = "{0} {1} {2}".format(cls.VERBOSE, func, txt)
-            raise ATSBadCallError(msg)
+            raise ATSBadCallError(logger_name_msg)
         if not isinstance(logger_name, str):
-            txt = 'Argument: expected logger_name <str> object'
-            msg = "{0} {1} {2}".format(cls.VERBOSE, func, txt)
-            raise ATSTypeError(msg)
-        if verbose:
-            ver = ATSVerbose()
-            ver.message = "{0} {1}".format('Setting Log name', logger_name)
-            msg = "{0} {1}".format(cls.VERBOSE, ver.message)
-            print(msg)
+            raise ATSTypeError(logger_name_msg)
+        verbose_message(cls.VERBOSE, verbose, 'Set logger name', logger_name)
         self.__logger_name = logger_name
 
     def get_logger_name(self, verbose=False):
@@ -103,11 +96,10 @@ class ATSLoggerName(object):
             :return: Logger name
             :rtype: <str>
         """
-        if verbose:
-            cls, ver = self.__class__, ATSVerbose()
-            ver.message = "{0} {1}".format('Log name', self.__logger_name)
-            msg = "{0} {1}".format(cls.VERBOSE, ver.message)
-            print(msg)
+        cls = self.__class__
+        verbose_message(
+            cls.VERBOSE, verbose, 'Logger name', self.__logger_name
+        )
         return self.__logger_name
 
     def __str__(self):
