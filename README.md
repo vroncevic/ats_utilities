@@ -39,6 +39,12 @@ KeyError
 colorama
 ```
 
+## Testing framework
+
+```
+unittest
+```
+
 ### COPYRIGHT AND LICENCE
 
 Copyright (C) 2018 by https://vroncevic.github.io/ats_utilities/
