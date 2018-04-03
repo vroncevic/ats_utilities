@@ -74,11 +74,12 @@ class ATSLoggerFile(object):
             :type log_file_path: <str>
             :param verbose: Enable/disable verbose option
             :type verbose: <bool>
+            :exceptions: ATSBadCallError | ATSTypeError
         """
         cls, func = self.__class__, stack()[0][3]
         log_file_txt = 'Argument: expected log_file_path <str> object'
         log_file_msg = "{0} {1} {2}".format(cls.VERBOSE, func, log_file_txt)
-        if log_file_path is None:
+        if log_file_path is None or not log_file_path:
             raise ATSBadCallError(log_file_msg)
         if not isinstance(log_file_path, str):
             raise ATSTypeError(log_file_msg)

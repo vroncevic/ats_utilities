@@ -140,7 +140,7 @@ class JsonBase(ATSInfo, JsonSettings, ATSOptionParser):
         tool_status_msg = "{0} {1} {2}".format(
             cls.VERBOSE, func, tool_status_txt
         )
-        if tool_status is None:
+        if tool_status is None or not tool_status:
             raise ATSBadCallError(tool_status_msg)
         if not isinstance(tool_status, bool):
             raise ATSTypeError(tool_status_msg)

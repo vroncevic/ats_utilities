@@ -95,20 +95,22 @@ def success_message(success_path, *message):
         :type success_path: <str>
         :param message: Message parts
         :type message: <tuple>
+        :exceptions: ATSBadCallError | ATSTypeError
     """
     func, success = stack()[0][3], ATSSuccess()
     success_path_txt = 'First argument: missing success_path <str> object'
     success_path_msg = "{0} {1}".format(func, success_path_txt)
     message_txt = 'Second argument: missing message <tuple> object'
     message_msg = "{0} {1}".format(func, message_txt)
-    if success_path is None:
+    if success_path is None or not success_path:
         raise ATSBadCallError(success_path_msg)
-    if message is None:
+    if message is None or not message:
         raise ATSBadCallError(message_msg)
     if not isinstance(success_path, str):
         raise ATSTypeError(success_path_msg)
     if not isinstance(message, tuple):
         raise ATSTypeError(message_msg)
+	message = tuple([str(item) for item in message])
     success.message = ' '.join(message)
-    msg = "{0} {1}".format(success_path, success.message)
-    print(msg)
+    success_message_log = "{0} {1}".format(success_path, success.message)
+    print(success_message_log)

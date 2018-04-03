@@ -76,15 +76,15 @@ class ATSOptionParser(object):
         description_msg = "{0} {1} {2}".format(
             cls.VERBOSE, func, description_txt
         )
-        if version is None:
+        if version is None or not version:
             raise ATSBadCallError(version_msg)
         if not isinstance(version, str):
             raise ATSTypeError(version_msg)
-        if epilog is None:
+        if epilog is None or not epilog:
             raise ATSBadCallError(epilog_msg)
         if not isinstance(epilog, str):
             raise ATSTypeError(epilog_msg)
-        if description is None:
+        if description is None or not description:
             raise ATSBadCallError(description_msg)
         if not isinstance(description, str):
             raise ATSTypeError(description_msg)

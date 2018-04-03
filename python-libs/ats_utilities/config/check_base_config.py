@@ -80,7 +80,7 @@ class CheckBaseConfig(object):
         configuration_msg = "{0} {1} {2}".format(
             cls.VERBOSE, func, configuration_txt
         )
-        if configuration is None:
+        if configuration is None or not configuration:
             raise ATSBadCallError(configuration_msg)
         if not isinstance(configuration, dict):
             raise ATSTypeError(configuration_msg)

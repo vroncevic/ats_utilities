@@ -81,7 +81,7 @@ class ATSLoggerName(object):
         logger_name_msg = "{0} {1} {2}".format(
             cls.VERBOSE, func, logger_name_txt
         )
-        if logger_name is None:
+        if logger_name is None or not logger_name:
             raise ATSBadCallError(logger_name_msg)
         if not isinstance(logger_name, str):
             raise ATSTypeError(logger_name_msg)

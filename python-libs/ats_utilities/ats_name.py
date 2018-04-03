@@ -79,7 +79,7 @@ class ATSName(object):
         cls, func, status = self.__class__, stack()[0][3], False
         expected_txt = 'Argument: expected program_name <str> object'
         expected_msg = "{0} {1} {2}".format(cls.VERBOSE, func, expected_txt)
-        if program_name is None:
+        if program_name is None or not program_name:
             raise ATSBadCallError(expected_msg)
         if not isinstance(program_name, str):
             raise ATSTypeError(expected_msg)

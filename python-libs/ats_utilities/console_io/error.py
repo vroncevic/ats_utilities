@@ -95,20 +95,22 @@ def error_message(error_path, *message):
         :type error_path: <str>
         :param message: Message parts
         :type message: <tuple>
+        :exceptions: ATSBadCallError | ATSTypeError
     """
     func, error = stack()[0][3], ATSError()
     error_path_txt = 'First argument: missing error_path <str> object'
     error_path_msg = "{0} {1}".format(func, error_path_txt)
     message_txt = 'Second argument: missing message <tuple> object'
     message_msg = "{0} {1}".format(func, message_txt)
-    if error_path is None:
+    if error_path is None or not error_path:
         raise ATSBadCallError(error_path_msg)
-    if message is None:
+    if message is None or not message:
         raise ATSBadCallError(message_msg)
     if not isinstance(error_path, str):
         raise ATSTypeError(error_path_msg)
     if not isinstance(message, tuple):
         raise ATSTypeError(message_msg)
+    message = tuple([str(item) for item in message])
     error.message = ' '.join(message)
     error_message_log = "{0} {1}".format(error_path, error.message)
     print(error_message_log)

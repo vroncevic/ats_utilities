@@ -79,7 +79,7 @@ class ATSLoggerStatus(object):
         cls, func = self.__class__, stack()[0][3]
         status_txt = 'Argument: expected status <bool> object'
         status_msg = "{0} {1} {2}".format(cls.VERBOSE, func, status_txt)
-        if status is None:
+        if status is None or not status:
             raise ATSBadCallError(status_msg)
         if not isinstance(status, bool):
             raise ATSTypeError(status_msg)

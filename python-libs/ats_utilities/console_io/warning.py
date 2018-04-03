@@ -95,20 +95,22 @@ def warning_message(warning_path, *message):
         :type warning_path: <str>
         :param message: Message parts
         :type message: <tuple>
+        :exceptions: ATSBadCallError | ATSTypeError
     """
     func, warning = stack()[0][3], ATSWarning()
     warning_path_txt = 'First argument: missing warning_path <str> object'
     warning_path_msg = "{0} {1}".format(func, warning_path_txt)
     message_txt = 'Second argument: missing message <tuple> object'
     message_msg = "{0} {1}".format(func, message_txt)
-    if warning_path is None:
+    if warning_path is None or not warning_path:
         raise ATSBadCallError(warning_path_msg)
-    if message is None:
+    if message is None or not message:
         raise ATSBadCallError(message_msg)
     if not isinstance(warning_path, str):
         raise ATSTypeError(warning_path_msg)
     if not isinstance(message, tuple):
         raise ATSTypeError(message_msg)
+	message = tuple([str(item) for item in message])
     warning.message = ' '.join(message)
-    msg = "{0} {1}".format(warning_path, warning.message)
-    print(msg)
+    warning_message_log = "{0} {1}".format(warning_path, warning.message)
+    print(warning_message_log)

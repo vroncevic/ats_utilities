@@ -70,7 +70,7 @@ class Object2Xml(BaseWriteConfig):
         cls, func, status = self.__class__, stack()[0][3], False
         cfg_file_txt = 'Argument: expected configuration_file <str> object'
         cfg_file_msg = "{0} {1} {2}".format(cls.VERBOSE, func, cfg_file_txt)
-        if configuration_file is None:
+        if configuration_file is None or not configuration_file:
             raise ATSBadCallError(cfg_file_msg)
         if not isinstance(configuration_file, str):
             raise ATSTypeError(cfg_file_msg)
@@ -87,8 +87,13 @@ class Object2Xml(BaseWriteConfig):
             :type verbose: <bool>
             :return: True (success) | False
             :rtype: <bool>
+            :exception: ATSBadCallError
         """
         cls, status = self.__class__, False
+        cfg_txt = 'Argument: expected configuration <Python> object'
+        cfg_msg = "{0} {1} {2}".format(cls.VERBOSE, func, cfg_txt)
+        if configuration is None or not configuration:
+            raise ATSBadCallError(cfg_msg)
         xml_path = self.get_file_path()
         verbose_message(
             cls.VERBOSE, verbose, 'Write configuration to file', xml_path

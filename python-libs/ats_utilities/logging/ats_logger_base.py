@@ -85,7 +85,7 @@ class ATSLoggerBase(ATSLoggerStatus, ATSLoggerFile, ATSLoggerName):
         cls, func = self.__class__, stack()[0][3]
         logger_txt = 'Argument: expected logger <logging.Logger> object'
         logger_msg = "{0} {1} {2}".format(cls.VERBOSE, func, logger_txt)
-        if logger is None:
+        if logger is None or not logger:
             raise ATSBadCallError(logger_msg)
         if not isinstance(logger, Logger):
             raise ATSTypeError(logger_msg)

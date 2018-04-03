@@ -97,6 +97,7 @@ def verbose_message(verbose_path, verbose=False, *message):
         :type verbose: <bool>
         :param message: Message parts
         :type message: <tuple>
+        :exceptions: ATSBadCallError | ATSTypeError
     """
     if verbose:
         func, ver = stack()[0][3], ATSVerbose()
@@ -104,14 +105,15 @@ def verbose_message(verbose_path, verbose=False, *message):
         verbose_path_msg = "{0} {1}".format(func, verbose_path_txt)
         message_txt = 'Second argument: missing message <tuple> object'
         message_msg = "{0} {1}".format(func, message_txt)
-        if verbose_path is None:
+        if verbose_path is None or not verbose_path:
             raise ATSBadCallError(verbose_path_msg)
-        if message is None:
+        if message is None or not message:
             raise ATSBadCallError(message_msg)
         if not isinstance(verbose_path, str):
             raise ATSTypeError(verbose_path_msg)
         if not isinstance(message, tuple):
             raise ATSTypeError(message_msg)
+		message = tuple([str(item) for item in message])
         ver.message = ' '.join(message)
-        msg = "{0} {1}".format(verbose_path, ver.message)
-        print(msg)
+        verbose_message_log = "{0} {1}".format(verbose_path, ver.message)
+        print(verbose_message_log)
