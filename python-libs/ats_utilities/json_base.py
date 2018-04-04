@@ -56,6 +56,7 @@ class JsonBase(ATSInfo, JsonSettings, ATSOptionParser):
                 add_new_option - Adding new option for CL interface
                 get_tool_status - Getting tool status
                 set_tool_status - Setting tool status
+                show_tool_info - Show tool info
                 process - Process and run tool operation (Abstract method)
                 __str__ - Dunder (magic) method
                 __repr__ - Dunder (magic) method
@@ -150,6 +151,19 @@ class JsonBase(ATSInfo, JsonSettings, ATSOptionParser):
             txt = "{0}".format('Set tool not operative')
         verbose_message(cls.VERBOSE, verbose, txt)
         self.__tool_operational = tool_status
+
+    def show_tool_info(self, verbose=False):
+        """
+            Show tool info (Format: [TOOL_NAME] version ver.1.0 05-Apr-2018).
+            :param verbose: Enable/disable verbose option
+            :type verbose: <bool>
+        """
+        info_msg = "\n[{0}] version {1} {2}".format(
+            self.get_ats_name(verbose=verbose),
+            self.get_ats_version(verbose=verbose),
+            datetime.now().date()
+        )
+        print(info_msg)
 
     @abstractmethod
     def process(self, verbose=False):
