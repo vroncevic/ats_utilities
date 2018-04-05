@@ -21,8 +21,8 @@ from inspect import stack
 
 try:
     from ats_utilities.console_io.verbose import verbose_message
-    from ats_utilities.exceptions.ats_bad_call_error import ATSBadCallError
     from ats_utilities.exceptions.ats_type_error import ATSTypeError
+    from ats_utilities.exceptions.ats_bad_call_error import ATSBadCallError
 except ImportError as e:
     msg = "\n{0}\n{1}\n".format(__file__, e)
     sys.exit(msg)  # Force close python ATS ###################################
@@ -64,7 +64,7 @@ class ATSLoggerStatus(object):
             :type verbose: <bool>
         """
         cls = self.__class__
-        verbose_message(cls.VERBOSE, verbose, 'Initial logger status')
+        verbose_message(cls.VERBOSE, verbose, 'Initial Logger Status')
         self.__log_status = log_status
 
     def set_logger_status(self, status, verbose=False):
@@ -79,7 +79,7 @@ class ATSLoggerStatus(object):
         cls, func = self.__class__, stack()[0][3]
         status_txt = 'Argument: expected status <bool> object'
         status_msg = "{0} {1} {2}".format(cls.VERBOSE, func, status_txt)
-        if status is None or not status:
+        if status is None:
             raise ATSBadCallError(status_msg)
         if not isinstance(status, bool):
             raise ATSTypeError(status_msg)

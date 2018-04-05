@@ -23,8 +23,8 @@ try:
     from colorama import init, Fore
 
     from ats_utilities.console_io import ATSConsoleIO
-    from ats_utilities.exceptions.ats_bad_call_error import ATSBadCallError
     from ats_utilities.exceptions.ats_type_error import ATSTypeError
+    from ats_utilities.exceptions.ats_bad_call_error import ATSBadCallError
 except ImportError as e:
     msg = "\n{0}\n{1}\n".format(__file__, e)
     sys.exit(msg)  # Force close python ATS ###################################
@@ -110,7 +110,7 @@ def warning_message(warning_path, *message):
         raise ATSTypeError(warning_path_msg)
     if not isinstance(message, tuple):
         raise ATSTypeError(message_msg)
-	message = tuple([str(item) for item in message])
+    message = tuple([str(item) for item in message])
     warning.message = ' '.join(message)
     warning_message_log = "{0} {1}".format(warning_path, warning.message)
     print(warning_message_log)

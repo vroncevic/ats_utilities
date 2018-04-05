@@ -31,7 +31,7 @@ __status__ = 'Updated'
 setup(
     name='ats_utilities',
     version='1.0',
-    description='Python ATS Utilities',
+    description='Python App/Tool/Script Utilities',
     author='Vladimir Roncevic',
     author_email='elektron.ronca@gmail.com',
     url='https://vroncevic.github.io/py_util/',
@@ -51,5 +51,5 @@ setup(
         'ats_utilities.exceptions',
         'ats_utilities.logging',
         'ats_utilities.option'
-    ], requires=['colorama', 'bs4', 'yaml']
+    ], requires=['colorama', 'bs4', 'yaml', 'configparser', 'pathlib']
 )

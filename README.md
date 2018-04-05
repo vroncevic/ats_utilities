@@ -28,6 +28,7 @@ json
 configparser
 optparse
 re
+inspect
 Exception
 ImportError
 LookupError
@@ -37,6 +38,8 @@ ValueError
 AttributeError
 KeyError
 colorama
+datetime
+pathlib
 ```
 
 ## Testing framework

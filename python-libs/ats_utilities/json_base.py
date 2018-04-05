@@ -18,17 +18,16 @@
 
 import sys
 from inspect import stack
-from datetime import datetime
 from abc import ABCMeta, abstractmethod
 
 try:
-    from ats_utilities.console_io.verbose import verbose_message
-    from ats_utilities.console_io.error import error_message
     from ats_utilities.ats_info import ATSInfo
-    from ats_utilities.exceptions.ats_type_error import ATSTypeError
-    from ats_utilities.exceptions.ats_bad_call_error import ATSBadCallError
     from ats_utilities.json_settings import JsonSettings
     from ats_utilities.option.ats_option_parser import ATSOptionParser
+    from ats_utilities.console_io.verbose import verbose_message
+    from ats_utilities.console_io.error import error_message
+    from ats_utilities.exceptions.ats_type_error import ATSTypeError
+    from ats_utilities.exceptions.ats_bad_call_error import ATSBadCallError
     from ats_utilities.config.check_base_config import CheckBaseConfig
 except ImportError as e:
     msg = "\n{0}\n{1}\n".format(__file__, e)
@@ -57,7 +56,6 @@ class JsonBase(ATSInfo, JsonSettings, ATSOptionParser):
                 add_new_option - Adding new option for CL interface
                 get_tool_status - Getting tool status
                 set_tool_status - Setting tool status
-                show_tool_info - Show tool info
                 process - Process and run tool operation (Abstract method)
                 __str__ - Dunder (magic) method
                 __repr__ - Dunder (magic) method
@@ -83,26 +81,21 @@ class JsonBase(ATSInfo, JsonSettings, ATSOptionParser):
             configuration, verbose=verbose
         )
         if configuration and check_configuration:
-            try:
-                ATSInfo.__init__(self, configuration, verbose=verbose)
-            except (ATSBadCallError, ATSTypeError) as e:
-                error_message(cls.VERBOSE, e.message)
-            else:
-                statuses = []
-                tool_version = self.get_ats_version(verbose=verbose)
-                statuses.append(tool_version)
-                tool_build_date = self.get_ats_build_date(verbose=verbose)
-                statuses.append(tool_build_date)
-                tool_name = self.get_ats_name(verbose=verbose)
-                statuses.append(tool_name)
-                tool_lic = self.get_ats_license(verbose=verbose)
-                statuses.append(tool_lic)
-                if all(status for status in statuses):
-                    tool_info = "{0} {1}".format(tool_version, tool_build_date)
-                    ATSOptionParser.__init__(
-                        self, tool_info, tool_name, tool_lic, verbose=verbose
-                    )
-                    self.__tool_operational = True  # App/Tool/Script operative
+            ATSInfo.__init__(self, configuration, verbose=verbose)
+            tool_version = self.get_ats_version(verbose=verbose)
+            tool_build_date = self.get_ats_build_date(verbose=verbose)
+            tool_name = self.get_ats_name(verbose=verbose)
+            tool_lic = self.get_ats_license(verbose=verbose)
+            status = all([
+                bool(tool_version), bool(tool_build_date),
+                bool(tool_name), bool(tool_lic)
+            ])
+            if status:
+                tool_info = "{0} {1}".format(tool_version, tool_build_date)
+                ATSOptionParser.__init__(
+                    self, tool_info, tool_name, tool_lic, verbose=verbose
+                )
+                self.__tool_operational = True  # App/Tool/Script operative
 
     def add_new_option(self, *args, **kwargs):
         """
@@ -142,7 +135,7 @@ class JsonBase(ATSInfo, JsonSettings, ATSOptionParser):
         tool_status_msg = "{0} {1} {2}".format(
             cls.VERBOSE, func, tool_status_txt
         )
-        if tool_status is None or not tool_status:
+        if tool_status is None:
             raise ATSBadCallError(tool_status_msg)
         if not isinstance(tool_status, bool):
             raise ATSTypeError(tool_status_msg)
@@ -152,19 +145,6 @@ class JsonBase(ATSInfo, JsonSettings, ATSOptionParser):
             txt = "{0}".format('Set tool not operative')
         verbose_message(cls.VERBOSE, verbose, txt)
         self.__tool_operational = tool_status
-
-    def show_tool_info(self, verbose=False):
-        """
-            Show tool info (Format: [TOOL_NAME] version ver.1.0 05-Apr-2018).
-            :param verbose: Enable/disable verbose option
-            :type verbose: <bool>
-        """
-        info_msg = "\n[{0}] version {1} {2}".format(
-            self.get_ats_name(verbose=verbose),
-            self.get_ats_version(verbose=verbose),
-            datetime.now().date()
-        )
-        print(info_msg)
 
     @abstractmethod
     def process(self, verbose=False):

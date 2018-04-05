@@ -20,11 +20,11 @@ import sys
 from inspect import stack
 
 try:
+    from ats_utilities.config.file_checking import FileChecking
     from ats_utilities.console_io.verbose import verbose_message
     from ats_utilities.console_io.error import error_message
     from ats_utilities.exceptions.ats_type_error import ATSTypeError
     from ats_utilities.exceptions.ats_bad_call_error import ATSBadCallError
-    from ats_utilities.config.file_checking import FileChecking
 except ImportError as e:
     msg = "\n{0}\n{1}\n".format(__file__, e)
     sys.exit(msg)  # Force close python ATS ###################################
@@ -81,22 +81,23 @@ class ConfigFile(FileChecking):
         file_format_msg = "{0} {1} {2}".format(
             cls.VERBOSE, func, file_format_txt
         )
-        if file_path is None:
+        if file_path is None or not file_path:
             raise ATSBadCallError(file_path_msg)
         if not isinstance(file_path, str):
             raise ATSTypeError(file_path_msg)
-        if file_mode is None:
+        if file_mode is None or not file_mode:
             raise ATSBadCallError(file_mode_msg)
         if not isinstance(file_mode, str):
             raise ATSTypeError(file_mode_msg)
-        if file_format is None:
+        if file_format is None or not file_format:
             raise ATSBadCallError(file_format_msg)
         if not isinstance(file_format, str):
             raise ATSTypeError(file_format_msg)
-        msg = "{0}\n{1}\n{2} [{3}]".format(
-            'Setting file path', file_path, 'Setting file mode', file_mode
+        verbose_message(
+            cls.VERBOSE, verbose, "{0}\n{1}\n{2} [{3}]".format(
+                'Setting file path', file_path, 'Setting file mode', file_mode
+            )
         )
-        verbose_message(cls.VERBOSE, verbose, msg)
         super(ConfigFile, self).__init__()
         check_file = self.check_file(file_path=file_path, verbose=verbose)
         if check_file:
@@ -120,8 +121,7 @@ class ConfigFile(FileChecking):
         if self.is_file_ok():
             self.__file = open(self.__file_path, self.__file_mode)
         else:
-            msg = "{0} {1}".format('Check file', self.__file_path)
-            error_message(cls.VERBOSE, msg)
+            error_message(cls.VERBOSE, 'Check file', self.__file_path)
             self.__file = None
         return self.__file
 

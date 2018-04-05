@@ -17,6 +17,7 @@
 #
 
 import sys
+from datetime import datetime
 from inspect import stack
 
 try:
@@ -55,6 +56,8 @@ class ATSInfo(ATSName, ATSVersion, ATSBuildDate, ATSLicense):
                 VERBOSE - Console text indicator for current process-phase
             method:
                 __init__ - Initial constructor
+                show_base_info - Show tool info
+                get_ats_info - Return ats info status
                 __str__ - Dunder (magic) method
                 __repr__ - Dunder (magic) method
     """
@@ -84,6 +87,7 @@ class ATSInfo(ATSName, ATSVersion, ATSBuildDate, ATSLicense):
         verbose_message(cls.VERBOSE, verbose, 'Initial tool info')
         check_config = CheckBaseConfig.is_correct(info, verbose=verbose)
         if check_config:
+            self.__ats_info_ok = True
             app_name = info.get(cls.ATS_NAME)
             ATSName.__init__(self, app_name, verbose=verbose)
             app_version = info.get(cls.ATS_VERSION)
@@ -92,6 +96,30 @@ class ATSInfo(ATSName, ATSVersion, ATSBuildDate, ATSLicense):
             ATSBuildDate.__init__(self, app_build_date, verbose=verbose)
             app_license = info.get(cls.ATS_LICENSE)
             ATSLicense.__init__(self, app_license, verbose=verbose)
+        else:
+            self.__ats_info_ok = False
+
+    def show_base_info(self, verbose=False):
+        """
+            Show tool info (Format: [TOOL_NAME] version ver.1.0 05-Apr-2018).
+            :param verbose: Enable/disable verbose option
+            :type verbose: <bool>
+        """
+        if self.__ats_info_ok is True:
+            info_msg = "\n[{0}] version {1} {2}".format(
+                self.get_ats_name(verbose=verbose),
+                self.get_ats_version(verbose=verbose),
+                datetime.now().date()
+            )
+            print(info_msg)
+
+    def get_ats_info(self):
+        """
+            Return ats info status.
+            :return: Boolean status
+            :rtype: <bool>
+        """
+        return self.__ats_info_ok
 
     def __str__(self):
         """

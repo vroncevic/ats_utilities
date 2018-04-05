@@ -21,8 +21,8 @@ from inspect import stack
 
 try:
     from ats_utilities.console_io.verbose import verbose_message
-    from ats_utilities.exceptions.ats_bad_call_error import ATSBadCallError
     from ats_utilities.exceptions.ats_type_error import ATSTypeError
+    from ats_utilities.exceptions.ats_bad_call_error import ATSBadCallError
 except ImportError as e:
     msg = "\n{0}\n{1}\n".format(__file__, e)
     sys.exit(msg)  # Force close python ATS ###################################
@@ -64,7 +64,7 @@ class ATSLoggerName(object):
             :type verbose: <bool>
         """
         cls = self.__class__
-        verbose_message(cls.VERBOSE, verbose, 'Initial logger name')
+        verbose_message(cls.VERBOSE, verbose, 'Initial Logger Name')
         self.__logger_name = logger_name
 
     def set_logger_name(self, logger_name, verbose=False):

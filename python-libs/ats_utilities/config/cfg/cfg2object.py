@@ -21,11 +21,10 @@ from inspect import stack
 from re import match
 
 try:
-    from ats_utilities.console_io.verbose import verbose_message
     from ats_utilities.config.base_read_config import BaseReadConfig
+    from ats_utilities.console_io.verbose import verbose_message
     from ats_utilities.config.config_context_manager import ConfigFile
     from ats_utilities.exceptions.ats_type_error import ATSTypeError
-    from ats_utilities.exceptions.ats_value_error import ATSValueError
     from ats_utilities.exceptions.ats_bad_call_error import ATSBadCallError
 except ImportError as e:
     msg = "\n{0}\n{1}\n".format(__file__, e)
@@ -89,19 +88,22 @@ class Cfg2Object(BaseReadConfig):
             :return: Configuration object | None
             :rtype: <dict> | <NoneType>
         """
-        cls, cfg_path = self.__class__, self.get_file_path()
+        cls, cfg_path, config = self.__class__, self.get_file_path(), None
         verbose_message(
             cls.VERBOSE, verbose, 'Read configuration from file', cfg_path
         )
-        with ConfigFile(cfg_path, 'r', cls.__FORMAT) as cfg_file:
-            content = cfg_file.read()
-            config, lines = {}, content.splitlines()
-            for line in lines:
-                regex_match = match(cls.__REGEX_MATCH_LINE, line)
-                if not regex_match:
-                    pairs = line.split('=')
-                    config[pairs[0].strip()] = pairs[1].strip()
-        verbose_message(cls.VERBOSE, verbose, 'Done')
+        try:
+            with ConfigFile(cfg_path, 'r', cls.__FORMAT) as cfg_file:
+                content = cfg_file.read()
+                config, lines = {}, content.splitlines()
+                for line in lines:
+                    regex_match = match(cls.__REGEX_MATCH_LINE, line)
+                    if not regex_match:
+                        pairs = line.split('=')
+                        config[pairs[0].strip()] = pairs[1].strip()
+            verbose_message(cls.VERBOSE, verbose, 'Done')
+        except AttributeError:
+            pass
         return config
 
     def __str__(self):

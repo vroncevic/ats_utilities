@@ -21,11 +21,10 @@ from inspect import stack
 from json import load
 
 try:
-    from ats_utilities.console_io.verbose import verbose_message
     from ats_utilities.config.base_read_config import BaseReadConfig
+    from ats_utilities.console_io.verbose import verbose_message
     from ats_utilities.config.config_context_manager import ConfigFile
     from ats_utilities.exceptions.ats_type_error import ATSTypeError
-    from ats_utilities.exceptions.ats_value_error import ATSValueError
     from ats_utilities.exceptions.ats_bad_call_error import ATSBadCallError
 except ImportError as e:
     msg = "\n{0}\n{1}\n".format(__file__, e)

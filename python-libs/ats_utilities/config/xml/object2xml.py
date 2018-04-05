@@ -20,11 +20,10 @@ import sys
 from inspect import stack
 
 try:
-    from ats_utilities.console_io.verbose import verbose_message
     from ats_utilities.config.base_write_config import BaseWriteConfig
+    from ats_utilities.console_io.verbose import verbose_message
     from ats_utilities.config.config_context_manager import ConfigFile
     from ats_utilities.exceptions.ats_type_error import ATSTypeError
-    from ats_utilities.exceptions.ats_value_error import ATSValueError
     from ats_utilities.exceptions.ats_bad_call_error import ATSBadCallError
 except ImportError as e:
     msg = "\n{0}\n{1}\n".format(__file__, e)
@@ -89,7 +88,7 @@ class Object2Xml(BaseWriteConfig):
             :rtype: <bool>
             :exception: ATSBadCallError
         """
-        cls, status = self.__class__, False
+        cls, func, status = self.__class__, stack()[0][3], False
         cfg_txt = 'Argument: expected configuration <Python> object'
         cfg_msg = "{0} {1} {2}".format(cls.VERBOSE, func, cfg_txt)
         if configuration is None or not configuration:

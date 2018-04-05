@@ -18,18 +18,18 @@
 
 import sys
 from inspect import stack
-from os.path import exists
 from logging import (
     getLogger, basicConfig, DEBUG, WARNING, CRITICAL, ERROR, INFO
 )
 
 try:
+    from pathlib import Path
+
+    from ats_utilities.logging.ats_logger_base import ATSLoggerBase
     from ats_utilities.console_io.error import error_message
     from ats_utilities.console_io.verbose import verbose_message
     from ats_utilities.exceptions.ats_file_error import ATSFileError
-    from ats_utilities.exceptions.ats_value_error import ATSValueError
     from ats_utilities.exceptions.ats_type_error import ATSTypeError
-    from ats_utilities.logging.ats_logger_base import ATSLoggerBase
     from ats_utilities.exceptions.ats_bad_call_error import ATSBadCallError
 except ImportError as e:
     msg = "\n{0}\n{1}\n".format(__file__, e)
@@ -99,7 +99,7 @@ class ATSLogger(ATSLoggerBase):
             raise ATSTypeError(ats_log_msg)
         verbose_message(cls.VERBOSE, verbose, 'Initial logger')
         super(ATSLogger, self).__init__(verbose=verbose)
-        path_exists = exists(ats_log_file)
+        path_exists = Path(ats_log_file).is_file()
         if ats_log_file and path_exists and ats_name:
             self.set_log_file(ats_log_file, verbose=verbose)
             basicConfig(
@@ -115,11 +115,11 @@ class ATSLogger(ATSLoggerBase):
             msg = "{0} {1}".format(cls.VERBOSE, txt)
             raise ATSFileError(msg)
 
-    def write_log(self, msg, ctrl, verbose=False):
+    def write_log(self, message, ctrl, verbose=False):
         """
             Write message to log file.
-            :param msg: Log message
-            :type msg: <str>
+            :param message: Log message
+            :type message: <str>
             :param ctrl: Control flag (debug, warning, critical, errors, info)
             :type ctrl: <int>
             :param verbose: Enable/disable verbose option
@@ -133,9 +133,9 @@ class ATSLogger(ATSLoggerBase):
         msg_msg = "{0} {1} {2}".format(cls.VERBOSE, func, msg_txt)
         ctrl_txt = 'Second argument: expected ctrl <int> object'
         ctrl_msg = "{0} {1} {2}".format(cls.VERBOSE, func, ctrl_txt)
-        if msg is None or not msg:
+        if message is None or not message:
             raise ATSBadCallError(msg_msg)
-        if not isinstance(msg, str):
+        if not isinstance(message, str):
             raise ATSTypeError(msg_msg)
         if ctrl is None or not ctrl:
             raise ATSBadCallError(ctrl_msg)
@@ -156,11 +156,11 @@ class ATSLogger(ATSLoggerBase):
                 cls.ATS_ERROR, cls.ATS_INFO
             ]
             if ctrl in ctrl_options:
-                switch_dict[ctrl](msg)
+                switch_dict[ctrl](message)
                 status = True
             else:
-                msg = "{0} [{1}]".format('Not supported log level', ctrl)
-                error_message(cls.VERBOSE, msg)
+                message = "{0} [{1}]".format('Not supported log level', ctrl)
+                error_message(cls.VERBOSE, message)
         return True if status else False
 
     def __str__(self):

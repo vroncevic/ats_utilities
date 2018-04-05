@@ -18,15 +18,14 @@
 
 import sys
 from inspect import stack
-from os.path import exists, isfile, splitext
 
 try:
-    from ats_utilities.exceptions.ats_type_error import ATSTypeError
-    from ats_utilities.exceptions.ats_value_error import ATSValueError
-    from ats_utilities.exceptions.ats_bad_call_error import ATSBadCallError
-    from ats_utilities.exceptions.ats_file_error import ATSFileError
+    from pathlib import Path
+
     from ats_utilities.console_io.error import error_message
     from ats_utilities.console_io.verbose import verbose_message
+    from ats_utilities.exceptions.ats_type_error import ATSTypeError
+    from ats_utilities.exceptions.ats_bad_call_error import ATSBadCallError
 except ImportError as e:
     msg = "\n{0}\n{1}\n".format(__file__, e)
     sys.exit(msg)  # Force close python ATS ###################################
@@ -47,10 +46,10 @@ class FileChecking(object):
         Operations with configuration files.
         It defines:
             attribute:
-                __MODES - Mode file options
+                __MODES - Mode file operations
                 VERBOSE - Console text indicator for current process-phase
                 __file_path_ok - File path exist
-                __file_extension_ok - File extension is correct
+                __file_extension_ok - File extension is expected
                 __file_mode_ok - Supported file mode
             method:
                 __init__ - Initial constructor
@@ -69,9 +68,7 @@ class FileChecking(object):
             :type verbose: <bool>
         """
         cls = self.__class__
-        verbose_message(
-            cls.VERBOSE, verbose, 'Initial file checking interface'
-        )
+        verbose_message(cls.VERBOSE, verbose, 'File checking interface')
         self.__file_path_ok = False
         self.__file_extension_ok = False
         self.__file_mode_ok = False
@@ -85,7 +82,7 @@ class FileChecking(object):
             :type verbose: <bool>
             :return: True (exist and regular file) | False
             :rtype: <bool>
-            :exceptions: ATSBadCallError | ATSTypeError | ATSFileError
+            :exceptions: ATSBadCallError | ATSTypeError
         """
         cls, func, status = self.__class__, stack()[0][3], False
         file_path_txt = 'Argument: expected file_path <str> object'
@@ -95,16 +92,13 @@ class FileChecking(object):
         if not isinstance(file_path, str):
             raise ATSTypeError(file_path_msg)
         verbose_message(cls.VERBOSE, verbose, 'Checking file', file_path)
-        file_path_exist = exists(file_path)
-        file_path_regular = isfile(file_path)
+        configuration_file_path = Path(file_path)
+        file_path_exist = configuration_file_path.is_file()
         if not file_path_exist:
             error_message(cls.VERBOSE, 'Check file', file_path)
-        if not file_path_regular:
-            error_message(cls.VERBOSE, 'File is not regular', file_path)
-        if file_path_exist and file_path_regular:
+        if file_path_exist:
             self.__file_path_ok = True
-        status = all([file_path_exist, file_path_regular])
-        return True if status else False
+        return True if file_path_exist else False
 
     def check_format(self, file_path, file_extension, verbose=False):
         """
@@ -117,7 +111,7 @@ class FileChecking(object):
             :type verbose: <bool>
             :return: True (correct file format) | False
             :rtype: <bool>
-            :exceptions: ATSBadCallError | ATSTypeError | ATSFileError
+            :exceptions: ATSBadCallError | ATSTypeError
         """
         cls, status, func = self.__class__, False, stack()[0][3]
         file_path_txt = 'Argument: expected file_path <str> object'
@@ -137,13 +131,14 @@ class FileChecking(object):
         verbose_message(
             cls.VERBOSE, verbose, 'Checking file format', file_path
         )
-        extension = splitext(file_path)[-1].lower()
+        extension = Path(file_path).suffix.lower()
         status = extension == file_extension
         if not status:
-            msg = "{0} [{1}] {2}".format(
-                'Not matched file extension', file_extension, file_path
+            error_message(
+                cls.VERBOSE, "{0} [{1}] {2}".format(
+                    'Not matched file extension', file_extension, file_path
+                )
             )
-            error_message(cls.VERBOSE, msg)
             self.__file_extension_ok = False
         else:
             self.__file_extension_ok = True
@@ -159,7 +154,7 @@ class FileChecking(object):
             :type verbose: <bool>
             :return: True (regular file mode) | False
             :rtype: <bool>
-            :exceptions: ATSBadCallError | ATSTypeError | ATSFileError
+            :exceptions: ATSBadCallError | ATSTypeError
         """
         cls, split_mode, func = self.__class__, list(file_mode), stack()[0][3]
         file_mode_txt = 'Argument: expected mode <str> object'
@@ -171,8 +166,11 @@ class FileChecking(object):
         verbose_message(cls.VERBOSE, verbose, 'Checking operation mode')
         for item_mode in split_mode:
             if item_mode not in cls.__MODES:
-                msg = "{0} [{1}]".format('Not supported mode', file_mode)
-                error_message(cls.VERBOSE, msg)
+                error_message(
+                    cls.VERBOSE, "{0} [{1}]".format(
+                        'Not supported mode', file_mode
+                    )
+                )
                 self.__file_mode_ok = False
                 return False
         self.__file_mode_ok = True
@@ -180,7 +178,7 @@ class FileChecking(object):
 
     def is_file_ok(self):
         """
-            Return final status of file.
+            Return final status of configuration file.
             :return: True (correct file) | False
             :rtype: <bool>
         """

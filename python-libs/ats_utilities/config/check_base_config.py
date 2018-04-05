@@ -91,8 +91,8 @@ class CheckBaseConfig(object):
         )
         for cfg_key in config_keys:
             if cfg_key not in config_expected_keys:
-                msg = "{0} [{1}]".format('Key not expected', cfg_key)
-                error_message(cls.VERBOSE, msg)
+                message = "{0} [{1}]".format('Key not expected', cfg_key)
+                error_message(cls.VERBOSE, message)
                 statuses.append(False)
             else:
                 statuses.append(True)

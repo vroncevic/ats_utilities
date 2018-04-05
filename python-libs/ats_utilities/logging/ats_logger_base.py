@@ -22,12 +22,12 @@ from inspect import stack
 from abc import ABCMeta, abstractmethod
 
 try:
-    from ats_utilities.console_io.verbose import verbose_message
-    from ats_utilities.exceptions.ats_bad_call_error import ATSBadCallError
-    from ats_utilities.exceptions.ats_type_error import ATSTypeError
     from ats_utilities.logging.ats_logger_status import ATSLoggerStatus
     from ats_utilities.logging.ats_logger_file import ATSLoggerFile
     from ats_utilities.logging.ats_logger_name import ATSLoggerName
+    from ats_utilities.console_io.verbose import verbose_message
+    from ats_utilities.exceptions.ats_type_error import ATSTypeError
+    from ats_utilities.exceptions.ats_bad_call_error import ATSBadCallError
 except ImportError as e:
     msg = "\n{0}\n{1}\n".format(__file__, e)
     sys.exit(msg)  # Force close python ATS ###################################
@@ -67,7 +67,7 @@ class ATSLoggerBase(ATSLoggerStatus, ATSLoggerFile, ATSLoggerName):
             :type verbose: <bool>
         """
         cls = self.__class__
-        verbose_message(cls.VERBOSE, verbose, 'Initial logger status')
+        verbose_message(cls.VERBOSE, verbose, 'Initial logger base')
         ATSLoggerStatus.__init__(self, False, verbose=verbose)
         ATSLoggerFile.__init__(self, None, verbose=verbose)
         ATSLoggerName.__init__(self, None, verbose=verbose)
@@ -105,11 +105,11 @@ class ATSLoggerBase(ATSLoggerStatus, ATSLoggerFile, ATSLoggerName):
         return self.__logger
 
     @abstractmethod
-    def write_log(self, msg, ctrl, verbose=False):
+    def write_log(self, message, ctrl, verbose=False):
         """
             Write message to log file (Abstract method).
-            :param msg: Log message
-            :type msg: <str>
+            :param message: Log message
+            :type message: <str>
             :param ctrl: Control flag (debug, warning, critical, errors, info)
             :type ctrl: <int>
             :param verbose: Enable/disable verbose option
