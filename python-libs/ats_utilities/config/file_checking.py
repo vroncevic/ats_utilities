@@ -86,7 +86,7 @@ class FileChecking(object):
         """
         cls, func, status = FileChecking, stack()[0][3], False
         file_path_txt = 'Argument: expected file_path <str> object'
-        file_path_msg = "{0} {1} {2}".format(cls.VERBOSE, func, file_path_txt)
+        file_path_msg = "{0} {1} {2}".format('def', func, file_path_txt)
         if file_path is None or not file_path:
             raise ATSBadCallError(file_path_msg)
         if not isinstance(file_path, str):
@@ -115,10 +115,10 @@ class FileChecking(object):
         """
         cls, status, func = FileChecking, False, stack()[0][3]
         file_path_txt = 'Argument: expected file_path <str> object'
-        file_path_msg = "{0} {1} {2}".format(cls.VERBOSE, func, file_path_txt)
+        file_path_msg = "{0} {1} {2}".format('def', func, file_path_txt)
         file_extension_txt = 'Argument: expected file_extension <str> object'
         file_extension_msg = "{0} {1} {2}".format(
-            cls.VERBOSE, func, file_extension_txt
+            'def', func, file_extension_txt
         )
         if file_path is None or not file_path:
             raise ATSBadCallError(file_path_msg)
@@ -158,7 +158,7 @@ class FileChecking(object):
         """
         cls, split_mode, func = FileChecking, list(file_mode), stack()[0][3]
         file_mode_txt = 'Argument: expected mode <str> object'
-        file_mode_msg = "{0} {1} {2}".format(cls.VERBOSE, func, file_mode_txt)
+        file_mode_msg = "{0} {1} {2}".format('def', func, file_mode_txt)
         if file_mode is None or not file_mode:
             raise ATSBadCallError(file_mode_msg)
         if not isinstance(file_mode, str):

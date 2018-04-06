@@ -133,7 +133,7 @@ class YamlBase(ATSInfo, YamlSettings, ATSOptionParser):
         cls, func = self.__class__, stack()[0][3]
         tool_status_txt = 'Argument: expected tool_status <bool> object'
         tool_status_msg = "{0} {1} {2}".format(
-            cls.VERBOSE, func, tool_status_txt
+            'def', func, tool_status_txt
         )
         if tool_status is None:
             raise ATSBadCallError(tool_status_msg)

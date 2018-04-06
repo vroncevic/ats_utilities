@@ -79,7 +79,7 @@ class ATSInfo(ATSName, ATSVersion, ATSBuildDate, ATSLicense):
         """
         cls, func = self.__class__, stack()[0][3]
         info_txt = 'Argument: expected info <dict> object'
-        info_msg = "{0} {1} {2}".format(cls.VERBOSE, func, info_txt)
+        info_msg = "{0} {1} {2}".format('def', func, info_txt)
         if info is None or not info:
             raise ATSBadCallError(info_msg)
         if not isinstance(info, dict):

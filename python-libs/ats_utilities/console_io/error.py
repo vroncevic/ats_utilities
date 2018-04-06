@@ -79,7 +79,7 @@ class ATSError(ATSConsoleIO):
         """
         cls, func = ATSError, stack()[0][3]
         txt = 'Argument: expected message <str> object'
-        msg = "{0} {1} {2}".format(cls.VERBOSE, func, txt)
+        msg = "{0} {1} {2}".format('def', func, txt)
         if message is None:
             raise ATSBadCallError(msg)
         if not isinstance(message, str):
@@ -99,9 +99,9 @@ def error_message(error_path, *message):
     """
     func, error = stack()[0][3], ATSError()
     error_path_txt = 'First argument: missing error_path <str> object'
-    error_path_msg = "{0} {1}".format(func, error_path_txt)
+    error_path_msg = "{0} {1} {2}".format('def', func, error_path_txt)
     message_txt = 'Second argument: missing message <tuple> object'
-    message_msg = "{0} {1}".format(func, message_txt)
+    message_msg = "{0} {1} {2}".format('def', func, message_txt)
     if error_path is None or not error_path:
         raise ATSBadCallError(error_path_msg)
     if message is None or not message:

@@ -78,9 +78,7 @@ class ATSLoggerName(object):
         """
         cls, func = ATSLoggerName, stack()[0][3]
         logger_name_txt = 'Argument: expected logger_name <str> object'
-        logger_name_msg = "{0} {1} {2}".format(
-            cls.VERBOSE, func, logger_name_txt
-        )
+        logger_name_msg = "{0} {1} {2}".format('def', func, logger_name_txt)
         if logger_name is None or not logger_name:
             raise ATSBadCallError(logger_name_msg)
         if not isinstance(logger_name, str):

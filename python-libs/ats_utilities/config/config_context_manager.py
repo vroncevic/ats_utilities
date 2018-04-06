@@ -74,13 +74,11 @@ class ConfigFile(FileChecking):
         """
         cls, status, func = ConfigFile, False, stack()[0][3]
         file_path_txt = 'Argument: expected file_path <str> object'
-        file_path_msg = "{0} {1} {2}".format(cls.VERBOSE, func, file_path_txt)
+        file_path_msg = "{0} {1} {2}".format('def', func, file_path_txt)
         file_mode_txt = 'Argument: expected file_mode <str> object'
-        file_mode_msg = "{0} {1} {2}".format(cls.VERBOSE, func, file_mode_txt)
+        file_mode_msg = "{0} {1} {2}".format('def', func, file_mode_txt)
         file_format_txt = 'Argument: expected file_format <str> object'
-        file_format_msg = "{0} {1} {2}".format(
-            cls.VERBOSE, func, file_format_txt
-        )
+        file_format_msg = "{0} {1} {2}".format('def', func, file_format_txt)
         if file_path is None or not file_path:
             raise ATSBadCallError(file_path_msg)
         if not isinstance(file_path, str):

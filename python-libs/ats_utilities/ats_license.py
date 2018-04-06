@@ -78,7 +78,7 @@ class ATSLicense(object):
         """
         cls, func, status = ATSLicense, stack()[0][3], False
         expected_txt = 'Argument: expected txt_license <str> object'
-        expected_msg = "{0} {1} {2}".format(cls.VERBOSE, func, expected_txt)
+        expected_msg = "{0} {1} {2}".format('def', func, expected_txt)
         if txt_license is None or not txt_license:
             raise ATSBadCallError(expected_msg)
         if not isinstance(txt_license, str):

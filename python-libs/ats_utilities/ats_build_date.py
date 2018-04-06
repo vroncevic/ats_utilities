@@ -78,7 +78,7 @@ class ATSBuildDate(object):
         """
         cls, func, status = ATSBuildDate, stack()[0][3], False
         expected_txt = 'Argument: expected build_date <str> object'
-        expected_msg = "{0} {1} {2}".format(cls.VERBOSE, func, expected_txt)
+        expected_msg = "{0} {1} {2}".format('def', func, expected_txt)
         if build_date is None or not build_date:
             raise ATSBadCallError(expected_msg)
         if not isinstance(build_date, str):

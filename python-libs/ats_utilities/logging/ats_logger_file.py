@@ -78,7 +78,7 @@ class ATSLoggerFile(object):
         """
         cls, func = ATSLoggerFile, stack()[0][3]
         log_file_txt = 'Argument: expected log_file_path <str> object'
-        log_file_msg = "{0} {1} {2}".format(cls.VERBOSE, func, log_file_txt)
+        log_file_msg = "{0} {1} {2}".format('def', func, log_file_txt)
         if log_file_path is None or not log_file_path:
             raise ATSBadCallError(log_file_msg)
         if not isinstance(log_file_path, str):

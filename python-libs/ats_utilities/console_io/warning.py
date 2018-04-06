@@ -79,7 +79,7 @@ class ATSWarning(ATSConsoleIO):
         """
         cls, func = ATSWarning, stack()[0][3]
         txt = 'Argument: expected message <str> object'
-        msg = "{0} {1} {2}".format(cls.VERBOSE, func, txt)
+        msg = "{0} {1} {2}".format('def', func, txt)
         if message is None:
             raise ATSBadCallError(msg)
         if not isinstance(message, str):
@@ -99,9 +99,9 @@ def warning_message(warning_path, *message):
     """
     func, warning = stack()[0][3], ATSWarning()
     warning_path_txt = 'First argument: missing warning_path <str> object'
-    warning_path_msg = "{0} {1}".format(func, warning_path_txt)
+    warning_path_msg = "{0} {1} {2}".format('def', func, warning_path_txt)
     message_txt = 'Second argument: missing message <tuple> object'
-    message_msg = "{0} {1}".format(func, message_txt)
+    message_msg = "{0} {1} {2}".format('def', func, message_txt)
     if warning_path is None or not warning_path:
         raise ATSBadCallError(warning_path_msg)
     if message is None or not message:

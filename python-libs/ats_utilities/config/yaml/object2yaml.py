@@ -70,7 +70,7 @@ class Object2Yaml(BaseWriteConfig):
         """
         cls, func, status = Object2Yaml, stack()[0][3], False
         cfg_file_txt = 'Argument: expected configuration_file <str> object'
-        cfg_file_msg = "{0} {1} {2}".format(cls.VERBOSE, func, cfg_file_txt)
+        cfg_file_msg = "{0} {1} {2}".format('def', func, cfg_file_txt)
         if configuration_file is None or not configuration_file:
             raise ATSBadCallError(cfg_file_msg)
         if not isinstance(configuration_file, str):
@@ -92,7 +92,7 @@ class Object2Yaml(BaseWriteConfig):
         """
         cls, func, status = Object2Yaml, stack()[0][3], False
         cfg_txt = 'Argument: expected configuration <Python> object'
-        cfg_msg = "{0} {1} {2}".format(cls.VERBOSE, func, cfg_txt)
+        cfg_msg = "{0} {1} {2}".format('def', func, cfg_txt)
         if configuration is None or not configuration:
             raise ATSBadCallError(cfg_msg)
         yaml_path = self.get_file_path()

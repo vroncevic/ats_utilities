@@ -78,7 +78,7 @@ class ATSVersion(object):
         """
         cls, func, status = ATSVersion, stack()[0][3], False
         expected_txt = 'Argument: expected version <str> object'
-        expected_msg = "{0} {1} {2}".format(cls.VERBOSE, func, expected_txt)
+        expected_msg = "{0} {1} {2}".format('def', func, expected_txt)
         if version is None or not version:
             raise ATSBadCallError(expected_msg)
         if not isinstance(version, str):

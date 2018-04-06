@@ -69,13 +69,11 @@ class ATSOptionParser(object):
         """
         cls, func = ATSOptionParser, stack()[0][3]
         version_txt = 'Argument: expected version <str> object'
-        version_msg = "{0} {1} {2}".format(cls.VERBOSE, func, version_txt)
+        version_msg = "{0} {1} {2}".format('def', func, version_txt)
         epilog_txt = 'Argument: expected epilog <str> object'
-        epilog_msg = "{0} {1} {2}".format(cls.VERBOSE, func, epilog_txt)
+        epilog_msg = "{0} {1} {2}".format('def', func, epilog_txt)
         description_txt = 'Argument: expected description <str> object'
-        description_msg = "{0} {1} {2}".format(
-            cls.VERBOSE, func, description_txt
-        )
+        description_msg = "{0} {1} {2}".format('def', func, description_txt)
         if version is None or not version:
             raise ATSBadCallError(version_msg)
         if not isinstance(version, str):

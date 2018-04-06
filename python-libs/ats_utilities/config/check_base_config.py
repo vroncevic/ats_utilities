@@ -78,7 +78,7 @@ class CheckBaseConfig(object):
         func, status, statuses = stack()[0][3], False, []
         configuration_txt = 'Argument: expected configuration <dict> object'
         configuration_msg = "{0} {1} {2}".format(
-            cls.VERBOSE, func, configuration_txt
+            'def', func, configuration_txt
         )
         if configuration is None or not configuration:
             raise ATSBadCallError(configuration_msg)

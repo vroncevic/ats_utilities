@@ -86,9 +86,9 @@ class ATSLogger(ATSLoggerBase):
         """
         cls, func = ATSLogger, stack()[0][3]
         ats_name_txt = 'First argument: expected ats_name <str> object'
-        ats_name_msg = "{0} {1} {2}".format(cls.VERBOSE, func, ats_name_txt)
+        ats_name_msg = "{0} {1} {2}".format('def', func, ats_name_txt)
         ats_log_txt = 'Second argument: expected ats_log_file <str> object'
-        ats_log_msg = "{0} {1} {2}".format(cls.VERBOSE, func, ats_log_txt)
+        ats_log_msg = "{0} {1} {2}".format('def', func, ats_log_txt)
         if ats_name is None or not ats_name:
             raise ATSBadCallError(ats_name_msg)
         if not isinstance(ats_name, str):
@@ -130,9 +130,9 @@ class ATSLogger(ATSLoggerBase):
         """
         cls, func, status = ATSLogger, stack()[0][3], False
         msg_txt = 'First argument: expected msg <str> object'
-        msg_msg = "{0} {1} {2}".format(cls.VERBOSE, func, msg_txt)
+        msg_msg = "{0} {1} {2}".format('def', func, msg_txt)
         ctrl_txt = 'Second argument: expected ctrl <int> object'
-        ctrl_msg = "{0} {1} {2}".format(cls.VERBOSE, func, ctrl_txt)
+        ctrl_msg = "{0} {1} {2}".format('def', func, ctrl_txt)
         if message is None or not message:
             raise ATSBadCallError(msg_msg)
         if not isinstance(message, str):
