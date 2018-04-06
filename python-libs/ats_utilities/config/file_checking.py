@@ -131,7 +131,7 @@ class FileChecking(object):
         verbose_message(
             cls.VERBOSE, verbose, 'Checking file format', file_path
         )
-        extension = Path(file_path).suffix.lower()
+        extension = Path(file_path).suffix.lower().replace('.', '')
         status = extension == file_extension
         if not status:
             error_message(
