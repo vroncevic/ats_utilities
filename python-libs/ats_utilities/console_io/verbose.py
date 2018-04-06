@@ -115,5 +115,5 @@ def verbose_message(verbose_path, verbose=False, *message):
             raise ATSTypeError(message_msg)
         message = tuple([str(item) for item in message])
         ver.message = ' '.join(message)
-        verbose_message_log = "{0} {1}".format(verbose_path, ver.message)
+        verbose_message_log = "[{0}] {1}".format(verbose_path, ver.message)
         print(verbose_message_log)

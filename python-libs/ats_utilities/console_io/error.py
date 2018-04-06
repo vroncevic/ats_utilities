@@ -112,5 +112,5 @@ def error_message(error_path, *message):
         raise ATSTypeError(message_msg)
     message = tuple([str(item) for item in message])
     error.message = ' '.join(message)
-    error_message_log = "{0} {1}".format(error_path, error.message)
+    error_message_log = "[{0}] {1}".format(error_path, error.message)
     print(error_message_log)

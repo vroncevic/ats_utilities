@@ -112,5 +112,5 @@ def warning_message(warning_path, *message):
         raise ATSTypeError(message_msg)
     message = tuple([str(item) for item in message])
     warning.message = ' '.join(message)
-    warning_message_log = "{0} {1}".format(warning_path, warning.message)
+    warning_message_log = "[{0}] {1}".format(warning_path, warning.message)
     print(warning_message_log)

@@ -112,5 +112,5 @@ def success_message(success_path, *message):
         raise ATSTypeError(message_msg)
     message = tuple([str(item) for item in message])
     success.message = ' '.join(message)
-    success_message_log = "{0} {1}".format(success_path, success.message)
+    success_message_log = "[{0}] {1}".format(success_path, success.message)
     print(success_message_log)
