@@ -64,7 +64,7 @@ class ATSLoggerStatus(object):
             :type verbose: <bool>
         """
         cls = ATSLoggerStatus
-        verbose_message(cls.VERBOSE, verbose, 'Initial Tool logger Status')
+        verbose_message(cls.VERBOSE, verbose, 'Initial ATS logger Status')
         self.__log_status = log_status
 
     def set_logger_status(self, status, verbose=False):
@@ -83,7 +83,7 @@ class ATSLoggerStatus(object):
             raise ATSBadCallError(status_msg)
         if not isinstance(status, bool):
             raise ATSTypeError(status_msg)
-        verbose_message(cls.VERBOSE, verbose, 'Set tool logger status', status)
+        verbose_message(cls.VERBOSE, verbose, 'Set ATS logger status', status)
         self.__log_status = status
 
     def get_logger_status(self, verbose=False):
@@ -96,7 +96,7 @@ class ATSLoggerStatus(object):
         """
         cls = ATSLoggerStatus
         verbose_message(
-            cls.VERBOSE, verbose, 'Tool logger status', self.__log_status
+            cls.VERBOSE, verbose, 'ATS logger status', self.__log_status
         )
         return self.__log_status
 

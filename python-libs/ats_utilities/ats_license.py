@@ -84,7 +84,7 @@ class ATSLicense(object):
         if not isinstance(txt_license, str):
             raise ATSTypeError(expected_msg)
         verbose_message(
-            cls.VERBOSE, verbose, 'Setting tool license', txt_license
+            cls.VERBOSE, verbose, 'Setting ATS license', txt_license
         )
         self.__license = txt_license
 
@@ -97,7 +97,7 @@ class ATSLicense(object):
             :rtype: <str> | <NoneType>
         """
         cls = ATSLicense
-        verbose_message(cls.VERBOSE, verbose, 'Tool license', self.__license)
+        verbose_message(cls.VERBOSE, verbose, 'ATS license', self.__license)
         return self.__license
 
     def __str__(self):

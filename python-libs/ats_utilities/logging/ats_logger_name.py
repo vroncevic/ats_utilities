@@ -64,7 +64,7 @@ class ATSLoggerName(object):
             :type verbose: <bool>
         """
         cls = ATSLoggerName
-        verbose_message(cls.VERBOSE, verbose, 'Initial tool logger Name')
+        verbose_message(cls.VERBOSE, verbose, 'Initial ATS logger Name')
         self.__logger_name = logger_name
 
     def set_logger_name(self, logger_name, verbose=False):
@@ -86,7 +86,7 @@ class ATSLoggerName(object):
         if not isinstance(logger_name, str):
             raise ATSTypeError(logger_name_msg)
         verbose_message(
-            cls.VERBOSE, verbose, 'Set tool logger name', logger_name
+            cls.VERBOSE, verbose, 'Set ATS logger name', logger_name
         )
         self.__logger_name = logger_name
 
@@ -100,7 +100,7 @@ class ATSLoggerName(object):
         """
         cls = ATSLoggerName
         verbose_message(
-            cls.VERBOSE, verbose, 'Tool logger name', self.__logger_name
+            cls.VERBOSE, verbose, 'ATS logger name', self.__logger_name
         )
         return self.__logger_name
 

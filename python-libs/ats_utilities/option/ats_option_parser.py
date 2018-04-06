@@ -88,7 +88,7 @@ class ATSOptionParser(object):
             raise ATSBadCallError(description_msg)
         if not isinstance(description, str):
             raise ATSTypeError(description_msg)
-        verbose_message(cls.VERBOSE, verbose, 'Initial tool option parser')
+        verbose_message(cls.VERBOSE, verbose, 'Initial ATS option parser')
         self.__opt_parser = OptionParser(
             version=version, epilog=epilog, description=description
         )

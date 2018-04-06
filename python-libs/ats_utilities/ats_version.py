@@ -64,7 +64,7 @@ class ATSVersion(object):
             :type verbose: <bool>
         """
         cls = ATSVersion
-        verbose_message(cls.VERBOSE, verbose, 'Initial tool version')
+        verbose_message(cls.VERBOSE, verbose, 'Initial ATS version')
         self.__version = version
 
     def set_ats_version(self, version, verbose=False):
@@ -83,7 +83,7 @@ class ATSVersion(object):
             raise ATSBadCallError(expected_msg)
         if not isinstance(version, str):
             raise ATSTypeError(expected_msg)
-        verbose_message(cls.VERBOSE, verbose, 'Setting tool version', version)
+        verbose_message(cls.VERBOSE, verbose, 'Setting ATS version', version)
         self.__version = version
 
     def get_ats_version(self, verbose=False):
@@ -95,7 +95,7 @@ class ATSVersion(object):
             :rtype: <str> | <NoneType>
         """
         cls = ATSVersion
-        verbose_message(cls.VERBOSE, verbose, 'Tool version', self.__version)
+        verbose_message(cls.VERBOSE, verbose, 'ATS version', self.__version)
         return self.__version
 
     def __str__(self):

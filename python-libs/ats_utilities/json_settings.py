@@ -60,7 +60,7 @@ class JsonSettings(Json2Object, Object2Json):
             :type verbose: <bool>
         """
         cls = self.__class__
-        verbose_message(cls.VERBOSE, verbose, 'Initial JSON settings')
+        verbose_message(cls.VERBOSE, verbose, 'Initial ATS JSON settings')
         Json2Object.__init__(self, base_config_file, verbose=verbose)
         Object2Json.__init__(self, base_config_file, verbose=verbose)
 

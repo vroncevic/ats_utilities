@@ -60,7 +60,7 @@ class XmlSettings(Xml2Object, Object2Xml):
             :type verbose: <bool>
         """
         cls = self.__class__
-        verbose_message(cls.VERBOSE, verbose, 'Initial XML settings')
+        verbose_message(cls.VERBOSE, verbose, 'Initial ATS XML settings')
         Xml2Object.__init__(self, base_config_file, verbose=verbose)
         Object2Xml.__init__(self, base_config_file, verbose=verbose)
 

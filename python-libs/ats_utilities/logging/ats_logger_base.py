@@ -67,7 +67,7 @@ class ATSLoggerBase(ATSLoggerStatus, ATSLoggerFile, ATSLoggerName):
             :type verbose: <bool>
         """
         cls = ATSLoggerBase
-        verbose_message(cls.VERBOSE, verbose, 'Initial tool logger base')
+        verbose_message(cls.VERBOSE, verbose, 'Initial ATS logger base')
         ATSLoggerStatus.__init__(self, False, verbose=verbose)
         ATSLoggerFile.__init__(self, None, verbose=verbose)
         ATSLoggerName.__init__(self, None, verbose=verbose)
@@ -89,7 +89,7 @@ class ATSLoggerBase(ATSLoggerStatus, ATSLoggerFile, ATSLoggerName):
             raise ATSBadCallError(logger_msg)
         if not isinstance(logger, Logger):
             raise ATSTypeError(logger_msg)
-        verbose_message(cls.VERBOSE, verbose, 'Setting tool logger', logger)
+        verbose_message(cls.VERBOSE, verbose, 'Setting ATS logger', logger)
         self.__logger = logger
 
     def get_logger(self, verbose=False):
@@ -101,7 +101,7 @@ class ATSLoggerBase(ATSLoggerStatus, ATSLoggerFile, ATSLoggerName):
             :rtype: <logging.Logger>
         """
         cls = ATSLoggerBase
-        verbose_message(cls.VERBOSE, verbose, 'Tool logger', self.__logger)
+        verbose_message(cls.VERBOSE, verbose, 'ATS logger', self.__logger)
         return self.__logger
 
     @abstractmethod

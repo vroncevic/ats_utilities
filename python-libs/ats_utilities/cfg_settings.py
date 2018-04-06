@@ -60,7 +60,7 @@ class CfgSettings(Cfg2Object, Object2Cfg):
             :type verbose: <bool>
         """
         cls = self.__class__
-        verbose_message(cls.VERBOSE, verbose, 'Initial CFG settings')
+        verbose_message(cls.VERBOSE, verbose, 'Initial ATS CFG settings')
         Cfg2Object.__init__(self, base_config_file, verbose=verbose)
         Object2Cfg.__init__(self, base_config_file, verbose=verbose)
 

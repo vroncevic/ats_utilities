@@ -97,7 +97,7 @@ class ATSLogger(ATSLoggerBase):
             raise ATSBadCallError(ats_log_msg)
         if not isinstance(ats_log_file, str):
             raise ATSTypeError(ats_log_msg)
-        verbose_message(cls.VERBOSE, verbose, 'Initial tool logger')
+        verbose_message(cls.VERBOSE, verbose, 'Initial ATS logger')
         super(ATSLogger, self).__init__(verbose=verbose)
         path_exists = Path(ats_log_file).is_file()
         if ats_log_file and path_exists and ats_name:

@@ -60,7 +60,7 @@ class YamlSettings(Yaml2Object, Object2Yaml):
             :type verbose: <bool>
         """
         cls = self.__class__
-        verbose_message(cls.VERBOSE, verbose, 'Initial YAML settings')
+        verbose_message(cls.VERBOSE, verbose, 'Initial ATS YAML settings')
         Yaml2Object.__init__(self, base_config_file, verbose=verbose)
         Object2Yaml.__init__(self, base_config_file, verbose=verbose)
 

@@ -73,7 +73,7 @@ class JsonBase(ATSInfo, JsonSettings, ATSOptionParser):
             :type verbose: <bool>
         """
         cls = self.__class__
-        verbose_message(cls.VERBOSE, verbose, 'Initial CFG settings')
+        verbose_message(cls.VERBOSE, verbose, 'Initial ATS base settings')
         self.__tool_operational = False  # App/Tool/Script not operative
         JsonSettings.__init__(self, base_config_file, verbose=verbose)
         configuration = self.read_configuration(verbose=verbose)
@@ -117,7 +117,7 @@ class JsonBase(ATSInfo, JsonSettings, ATSOptionParser):
         """
         cls = self.__class__
         verbose_message(
-            cls.VERBOSE, verbose, 'Status', self.__tool_operational
+            cls.VERBOSE, verbose, 'ATS Status', self.__tool_operational
         )
         return self.__tool_operational
 
@@ -140,9 +140,9 @@ class JsonBase(ATSInfo, JsonSettings, ATSOptionParser):
         if not isinstance(tool_status, bool):
             raise ATSTypeError(tool_status_msg)
         if tool_status:
-            txt = "{0}".format('Set tool operative')
+            txt = "{0}".format('Set ATS operative')
         else:
-            txt = "{0}".format('Set tool not operative')
+            txt = "{0}".format('Set ATS not operative')
         verbose_message(cls.VERBOSE, verbose, txt)
         self.__tool_operational = tool_status
 

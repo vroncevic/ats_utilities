@@ -84,7 +84,7 @@ class ATSInfo(ATSName, ATSVersion, ATSBuildDate, ATSLicense):
             raise ATSBadCallError(info_msg)
         if not isinstance(info, dict):
             raise ATSTypeError(info_msg)
-        verbose_message(cls.VERBOSE, verbose, 'Initial tool info')
+        verbose_message(cls.VERBOSE, verbose, 'Initial ATS info')
         check_config = CheckBaseConfig.is_correct(info, verbose=verbose)
         if check_config:
             self.__ats_info_ok = True

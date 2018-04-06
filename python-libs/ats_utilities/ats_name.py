@@ -64,7 +64,7 @@ class ATSName(object):
             :type verbose: <bool>
         """
         cls = ATSName
-        verbose_message(cls.VERBOSE, verbose, 'Initial tool name')
+        verbose_message(cls.VERBOSE, verbose, 'Initial ATS name')
         self.__program_name = program_name
 
     def set_ats_name(self, program_name, verbose=False):
@@ -84,7 +84,7 @@ class ATSName(object):
         if not isinstance(program_name, str):
             raise ATSTypeError(expected_msg)
         verbose_message(
-            cls.VERBOSE, verbose, 'Setting tool name', program_name
+            cls.VERBOSE, verbose, 'Setting ATS name', program_name
         )
         self.__program_name = program_name
 
@@ -97,7 +97,7 @@ class ATSName(object):
             :rtype: <str> | <NoneType>
         """
         cls = ATSName
-        verbose_message(cls.VERBOSE, verbose, 'Tool name', self.__program_name)
+        verbose_message(cls.VERBOSE, verbose, 'ATS name', self.__program_name)
         return self.__program_name
 
     def __str__(self):

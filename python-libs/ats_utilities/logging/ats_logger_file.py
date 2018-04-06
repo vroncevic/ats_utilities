@@ -64,7 +64,7 @@ class ATSLoggerFile(object):
             :type verbose: <bool>
         """
         cls = ATSLoggerFile
-        verbose_message(cls.VERBOSE, verbose, 'Initial tool logger file')
+        verbose_message(cls.VERBOSE, verbose, 'Initial ATS logger file')
         self.__log_file = logger_file
 
     def set_log_file(self, log_file_path, verbose=False):
@@ -84,7 +84,7 @@ class ATSLoggerFile(object):
         if not isinstance(log_file_path, str):
             raise ATSTypeError(log_file_msg)
         verbose_message(
-            cls.VERBOSE, verbose, 'Initial tool log', log_file_path
+            cls.VERBOSE, verbose, 'Initial ATS log', log_file_path
         )
         self.__log_file = log_file_path
 
@@ -97,7 +97,7 @@ class ATSLoggerFile(object):
             :rtype: <str>
         """
         cls = ATSLoggerFile
-        verbose_message(cls.VERBOSE, verbose, 'Tool log file', self.__log_file)
+        verbose_message(cls.VERBOSE, verbose, 'ATS log file', self.__log_file)
         return self.__log_file
 
     def __str__(self):

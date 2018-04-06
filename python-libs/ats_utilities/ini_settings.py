@@ -60,7 +60,7 @@ class IniSettings(Ini2Object, Object2Ini):
             :type verbose: <bool>
         """
         cls = self.__class__
-        verbose_message(cls.VERBOSE, verbose, 'Initial INI settings')
+        verbose_message(cls.VERBOSE, verbose, 'Initial ATS INI settings')
         Ini2Object.__init__(self, base_config_file, verbose=verbose)
         Object2Ini.__init__(self, base_config_file, verbose=verbose)
 
