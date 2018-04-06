@@ -49,7 +49,7 @@ class CfgSettings(Cfg2Object, Object2Cfg):
                 __repr__ - Dunder (magic) method
     """
 
-    VERBOSE = '[ATS_UTILITIES::CFG_SETTINGS]'
+    VERBOSE = 'ATS_UTILITIES::CFG_SETTINGS'
 
     def __init__(self, base_config_file, verbose=False):
         """

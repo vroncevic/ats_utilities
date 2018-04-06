@@ -52,7 +52,7 @@ class ATSOptionParser(object):
                 parse_args - Process arguments from start
     """
 
-    VERBOSE = '[ATS_UTILITIES::OPTION::ATS_OPTION_PARSER]'
+    VERBOSE = 'ATS_UTILITIES::OPTION::ATS_OPTION_PARSER'
 
     def __init__(self, version, epilog, description, verbose=False):
         """
@@ -67,7 +67,7 @@ class ATSOptionParser(object):
             :type verbose: <bool>
             :exceptions: ATSBadCallError | ATSTypeError
         """
-        cls, func = self.__class__, stack()[0][3]
+        cls, func = ATSOptionParser, stack()[0][3]
         version_txt = 'Argument: expected version <str> object'
         version_msg = "{0} {1} {2}".format(cls.VERBOSE, func, version_txt)
         epilog_txt = 'Argument: expected epilog <str> object'
@@ -88,7 +88,7 @@ class ATSOptionParser(object):
             raise ATSBadCallError(description_msg)
         if not isinstance(description, str):
             raise ATSTypeError(description_msg)
-        verbose_message(cls.VERBOSE, verbose, 'Initial option parser')
+        verbose_message(cls.VERBOSE, verbose, 'Initial tool option parser')
         self.__opt_parser = OptionParser(
             version=version, epilog=epilog, description=description
         )

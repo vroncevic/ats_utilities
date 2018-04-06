@@ -52,7 +52,7 @@ class ATSError(ATSConsoleIO):
                 message - Public setter/getter
     """
 
-    VERBOSE = '[ATS_UTILITIES::CONSOLE_IO::ERROR]'
+    VERBOSE = 'ATS_UTILITIES::CONSOLE_IO::ERROR'
 
     def __init__(self):
         """
@@ -77,7 +77,7 @@ class ATSError(ATSConsoleIO):
             :type message: <str>
             :exceptions: ATSBadCallError | ATSTypeError
         """
-        cls, func = self.__class__, stack()[0][3]
+        cls, func = ATSError, stack()[0][3]
         txt = 'Argument: expected message <str> object'
         msg = "{0} {1} {2}".format(cls.VERBOSE, func, txt)
         if message is None:

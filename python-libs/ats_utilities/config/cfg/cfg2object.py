@@ -58,7 +58,7 @@ class Cfg2Object(BaseReadConfig):
 
     __FORMAT = 'cfg'
     __REGEX_MATCH_LINE = r'^\s*$'
-    VERBOSE = '[ATS_UTILITIES::CONFIG::CFG::CFG_TO_OBJECT]'
+    VERBOSE = 'ATS_UTILITIES::CONFIG::CFG::CFG_TO_OBJECT'
 
     def __init__(self, configuration_file, verbose=False):
         """
@@ -69,7 +69,7 @@ class Cfg2Object(BaseReadConfig):
             :type verbose: <bool>
             :exceptions: ATSBadCallError | ATSTypeError
         """
-        cls, func, status = self.__class__, stack()[0][3], False
+        cls, func, status = Cfg2Object, stack()[0][3], False
         cfg_file_txt = 'Argument: expected configuration_file <str> object'
         cfg_file_msg = "{0} {1} {2}".format(cls.VERBOSE, func, cfg_file_txt)
         if configuration_file is None or not configuration_file:
@@ -88,7 +88,7 @@ class Cfg2Object(BaseReadConfig):
             :return: Configuration object | None
             :rtype: <dict> | <NoneType>
         """
-        cls, cfg_path, config = self.__class__, self.get_file_path(), None
+        cls, cfg_path, config = Cfg2Object, self.get_file_path(), None
         verbose_message(
             cls.VERBOSE, verbose, 'Read configuration from file', cfg_path
         )
@@ -121,5 +121,5 @@ class Cfg2Object(BaseReadConfig):
             :return: String representation of Cfg2Object
             :rtype: <str>
         """
-        file_path = self.get_file_path()
-        return "{0}(\'{1}\')".format(type(self).__name__, file_path)
+        cls, file_path = Cfg2Object, self.get_file_path()
+        return "{0}(\'{1}\')".format(cls.__name__, file_path)

@@ -62,7 +62,7 @@ class JsonBase(ATSInfo, JsonSettings, ATSOptionParser):
     """
 
     __metaclass__ = ABCMeta
-    VERBOSE = '[ATS_UTILITIES::JSON_BASE]'
+    VERBOSE = 'ATS_UTILITIES::JSON_BASE'
 
     def __init__(self, base_config_file, verbose=False):
         """

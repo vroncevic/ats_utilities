@@ -59,7 +59,7 @@ class FileChecking(object):
     """
 
     __MODES = ['r', 'w', 'a', 'b', 'x', 't', '+']
-    VERBOSE = '[ATS_UTILITIES::CONFIG::FILE_CHECKING]'
+    VERBOSE = 'ATS_UTILITIES::CONFIG::FILE_CHECKING'
 
     def __init__(self, verbose=False):
         """
@@ -67,7 +67,7 @@ class FileChecking(object):
             :param verbose: Enable/disable verbose option
             :type verbose: <bool>
         """
-        cls = self.__class__
+        cls = FileChecking
         verbose_message(cls.VERBOSE, verbose, 'File checking interface')
         self.__file_path_ok = False
         self.__file_extension_ok = False
@@ -84,7 +84,7 @@ class FileChecking(object):
             :rtype: <bool>
             :exceptions: ATSBadCallError | ATSTypeError
         """
-        cls, func, status = self.__class__, stack()[0][3], False
+        cls, func, status = FileChecking, stack()[0][3], False
         file_path_txt = 'Argument: expected file_path <str> object'
         file_path_msg = "{0} {1} {2}".format(cls.VERBOSE, func, file_path_txt)
         if file_path is None or not file_path:
@@ -113,7 +113,7 @@ class FileChecking(object):
             :rtype: <bool>
             :exceptions: ATSBadCallError | ATSTypeError
         """
-        cls, status, func = self.__class__, False, stack()[0][3]
+        cls, status, func = FileChecking, False, stack()[0][3]
         file_path_txt = 'Argument: expected file_path <str> object'
         file_path_msg = "{0} {1} {2}".format(cls.VERBOSE, func, file_path_txt)
         file_extension_txt = 'Argument: expected file_extension <str> object'
@@ -156,7 +156,7 @@ class FileChecking(object):
             :rtype: <bool>
             :exceptions: ATSBadCallError | ATSTypeError
         """
-        cls, split_mode, func = self.__class__, list(file_mode), stack()[0][3]
+        cls, split_mode, func = FileChecking, list(file_mode), stack()[0][3]
         file_mode_txt = 'Argument: expected mode <str> object'
         file_mode_msg = "{0} {1} {2}".format(cls.VERBOSE, func, file_mode_txt)
         if file_mode is None or not file_mode:

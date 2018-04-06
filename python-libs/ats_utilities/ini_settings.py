@@ -49,7 +49,7 @@ class IniSettings(Ini2Object, Object2Ini):
                 __repr__ - Dunder (magic) method
     """
 
-    VERBOSE = '[ATS_UTILITIES::INI_SETTINGS]'
+    VERBOSE = 'ATS_UTILITIES::INI_SETTINGS'
 
     def __init__(self, base_config_file, verbose=False):
         """

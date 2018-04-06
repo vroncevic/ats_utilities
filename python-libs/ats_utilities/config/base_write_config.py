@@ -46,7 +46,7 @@ class BaseWriteConfig:
     """
 
     __metaclass__ = ABCMeta
-    VERBOSE = '[ATS_UTILITIES::CONFIG::BASE_WRITE_CONFIG]'
+    VERBOSE = 'ATS_UTILITIES::CONFIG::BASE_WRITE_CONFIG'
 
     def __init__(self):
         """
@@ -97,4 +97,5 @@ class BaseWriteConfig:
             :return: String representation of BaseWriteConfig
             :rtype: <str>
         """
-        return "{0}()".format(type(self).__name__)
+        cls = BaseWriteConfig
+        return "{0}()".format(cls.__name__)

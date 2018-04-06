@@ -53,7 +53,7 @@ class ATSBuildDate(object):
                 __repr__ - Dunder (magic) method
     """
 
-    VERBOSE = '[ATS_UTILITIES::ATS_BUILD_DATE]'
+    VERBOSE = 'ATS_UTILITIES::ATS_BUILD_DATE'
 
     def __init__(self, build_date=None, verbose=False):
         """
@@ -63,8 +63,8 @@ class ATSBuildDate(object):
             :param verbose: Enable/disable verbose option
             :type verbose: <bool>
         """
-        cls = self.__class__
-        verbose_message(cls.VERBOSE, verbose, 'Initial build date')
+        cls = ATSBuildDate
+        verbose_message(cls.VERBOSE, verbose, 'Initial ATS build date')
         self.__build_date = build_date
 
     def set_ats_build_date(self, build_date, verbose=False):
@@ -76,14 +76,16 @@ class ATSBuildDate(object):
             :type verbose: <bool>
             :exceptions: ATSBadCallError | ATSTypeError
         """
-        cls, func, status = self.__class__, stack()[0][3], False
+        cls, func, status = ATSBuildDate, stack()[0][3], False
         expected_txt = 'Argument: expected build_date <str> object'
         expected_msg = "{0} {1} {2}".format(cls.VERBOSE, func, expected_txt)
         if build_date is None or not build_date:
             raise ATSBadCallError(expected_msg)
         if not isinstance(build_date, str):
             raise ATSTypeError(expected_msg)
-        verbose_message(cls.VERBOSE, verbose, 'Setting build date', build_date)
+        verbose_message(
+            cls.VERBOSE, verbose, 'Setting ATS build date', build_date
+        )
         self.__build_date = build_date
 
     def get_ats_build_date(self, verbose=False):
@@ -94,8 +96,10 @@ class ATSBuildDate(object):
             :return: Build date of App/Tool/Script | None
             :rtype: <str> | <NoneType>
         """
-        cls = self.__class__
-        verbose_message(cls.VERBOSE, verbose, 'Build date', self.__build_date)
+        cls = ATSBuildDate
+        verbose_message(
+            cls.VERBOSE, verbose, 'ATS build date', self.__build_date
+        )
         return self.__build_date
 
     def __str__(self):
@@ -104,7 +108,8 @@ class ATSBuildDate(object):
             :return: String representation of ATSBuildDate
             :rtype: <str>
         """
-        return "{0} build date {1}".format(self.__class__, self.__build_date)
+        cls = ATSBuildDate
+        return "{0} build date {1}".format(cls.__name__, self.__build_date)
 
     def __repr__(self):
         """
@@ -112,4 +117,5 @@ class ATSBuildDate(object):
             :return: String representation of ATSBuildDate
             :rtype: <str>
         """
-        return "{0}(\'{1}\')".format(type(self).__name__, self.__build_date)
+        cls = ATSBuildDate
+        return "{0}(\'{1}\')".format(cls.__name__, self.__build_date)

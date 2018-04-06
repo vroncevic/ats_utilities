@@ -53,7 +53,7 @@ class ATSLoggerFile(object):
                 __repr__ - Dunder (magic) method
     """
 
-    VERBOSE = '[ATS_UTILITIES::LOGGING::ATS_LOGGER_FILE]'
+    VERBOSE = 'ATS_UTILITIES::LOGGING::ATS_LOGGER_FILE'
 
     def __init__(self, logger_file=None, verbose=False):
         """
@@ -63,8 +63,8 @@ class ATSLoggerFile(object):
             :param verbose: Enable/disable verbose option
             :type verbose: <bool>
         """
-        cls = self.__class__
-        verbose_message(cls.VERBOSE, verbose, 'Initial Logger File')
+        cls = ATSLoggerFile
+        verbose_message(cls.VERBOSE, verbose, 'Initial tool logger file')
         self.__log_file = logger_file
 
     def set_log_file(self, log_file_path, verbose=False):
@@ -76,14 +76,16 @@ class ATSLoggerFile(object):
             :type verbose: <bool>
             :exceptions: ATSBadCallError | ATSTypeError
         """
-        cls, func = self.__class__, stack()[0][3]
+        cls, func = ATSLoggerFile, stack()[0][3]
         log_file_txt = 'Argument: expected log_file_path <str> object'
         log_file_msg = "{0} {1} {2}".format(cls.VERBOSE, func, log_file_txt)
         if log_file_path is None or not log_file_path:
             raise ATSBadCallError(log_file_msg)
         if not isinstance(log_file_path, str):
             raise ATSTypeError(log_file_msg)
-        verbose_message(cls.VERBOSE, verbose, 'Initial log', log_file_path)
+        verbose_message(
+            cls.VERBOSE, verbose, 'Initial tool log', log_file_path
+        )
         self.__log_file = log_file_path
 
     def get_log_file(self, verbose=False):
@@ -94,8 +96,8 @@ class ATSLoggerFile(object):
             :return: Log file path
             :rtype: <str>
         """
-        cls = self.__class__
-        verbose_message(cls.VERBOSE, verbose, 'Log file', self.__log_file)
+        cls = ATSLoggerFile
+        verbose_message(cls.VERBOSE, verbose, 'Tool log file', self.__log_file)
         return self.__log_file
 
     def __str__(self):
@@ -104,7 +106,8 @@ class ATSLoggerFile(object):
             :return: String representation of ATSLoggerFile
             :rtype: <str>
         """
-        return "{0} Logger file {1}".format(self.__class__, self.__log_file)
+        cls = ATSLoggerFile
+        return "{0} Logger file {1}".format(cls.__name__, self.__log_file)
 
     def __repr__(self):
         """
@@ -112,4 +115,5 @@ class ATSLoggerFile(object):
             :return: String representation of ATSLoggerFile
             :rtype: <str>
         """
-        return "{0}(\'{1}\')".format(type(self).__name__, self.__log_file)
+        cls = ATSLoggerFile
+        return "{0}(\'{1}\')".format(cls.__name__, self.__log_file)

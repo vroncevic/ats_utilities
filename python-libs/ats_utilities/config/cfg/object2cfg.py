@@ -55,7 +55,7 @@ class Object2Cfg(BaseWriteConfig):
     """
 
     __FORMAT = 'cfg'
-    VERBOSE = '[ATS_UTILITIES::CONFIG::CFG::OBJECT_TO_CFG]'
+    VERBOSE = 'ATS_UTILITIES::CONFIG::CFG::OBJECT_TO_CFG'
 
     def __init__(self, configuration_file, verbose=False):
         """
@@ -66,7 +66,7 @@ class Object2Cfg(BaseWriteConfig):
             :type verbose: <bool>
             :exceptions: ATSBadCallError | ATSTypeError
         """
-        cls, func, status = self.__class__, stack()[0][3], False
+        cls, func, status = Object2Cfg, stack()[0][3], False
         cfg_file_txt = 'Argument: expected configuration_file <str> object'
         cfg_file_msg = "{0} {1} {2}".format(cls.VERBOSE, func, cfg_file_txt)
         if configuration_file is None or not configuration_file:
@@ -88,7 +88,7 @@ class Object2Cfg(BaseWriteConfig):
             :rtype: <bool>
             :exceptions: ATSBadCallError | ATSTypeError
         """
-        cls, func, status = self.__class__, stack()[0][3], False
+        cls, func, status = Object2Cfg, stack()[0][3], False
         cfg_txt = 'Argument: expected configuration <dict> object'
         cfg_msg = "{0} {1} {2}".format(cls.VERBOSE, func, cfg_txt)
         if configuration is None or not configuration:
@@ -123,5 +123,5 @@ class Object2Cfg(BaseWriteConfig):
             :return: String representation of Object2Cfg
             :rtype: <str>
         """
-        file_path = self.get_file_path()
-        return "{0}(\'{1}\')".format(type(self).__name__, file_path)
+        cls, file_path = Object2Cfg, self.get_file_path()
+        return "{0}(\'{1}\')".format(cls.__name__, file_path)

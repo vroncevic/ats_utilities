@@ -57,7 +57,7 @@ class ConfigFile(FileChecking):
                 __repr__ - Dunder (magic) method
     """
 
-    VERBOSE = '[ATS_UTILITIES::CONFIG::CONFIG_FILE]'
+    VERBOSE = 'ATS_UTILITIES::CONFIG::CONFIG_FILE'
 
     def __init__(self, file_path, file_mode, file_format, verbose=False):
         """
@@ -72,7 +72,7 @@ class ConfigFile(FileChecking):
             :type verbose: <bool>
             :exceptions: ATSBadCallError | ATSTypeError
         """
-        cls, status, func = self.__class__, False, stack()[0][3]
+        cls, status, func = ConfigFile, False, stack()[0][3]
         file_path_txt = 'Argument: expected file_path <str> object'
         file_path_msg = "{0} {1} {2}".format(cls.VERBOSE, func, file_path_txt)
         file_mode_txt = 'Argument: expected file_mode <str> object'
@@ -117,7 +117,7 @@ class ConfigFile(FileChecking):
             :return: File object | None
             :rtype: <file> | <NoneType>
         """
-        cls = self.__class__
+        cls = ConfigFile
         if self.is_file_ok():
             self.__file = open(self.__file_path, self.__file_mode)
         else:
@@ -148,7 +148,8 @@ class ConfigFile(FileChecking):
             :return: String representation of ConfigFile
             :rtype: <str>
         """
+        cls = ConfigFile
         return "{0}(\'{1}\', \'{2}\', \'{3}\')".format(
-            type(self).__name__, self.__file_path,
+            cls.__name__, self.__file_path,
             self.__file_mode, self.__file_format
         )

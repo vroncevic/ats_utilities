@@ -53,7 +53,7 @@ class ATSLoggerName(object):
                 __repr__ - Dunder (magic) method
     """
 
-    VERBOSE = '[ATS_UTILITIES::LOGGING::ATS_LOGGER_NAME]'
+    VERBOSE = 'ATS_UTILITIES::LOGGING::ATS_LOGGER_NAME'
 
     def __init__(self, logger_name=None, verbose=False):
         """
@@ -63,8 +63,8 @@ class ATSLoggerName(object):
             :param verbose: Enable/disable verbose option
             :type verbose: <bool>
         """
-        cls = self.__class__
-        verbose_message(cls.VERBOSE, verbose, 'Initial Logger Name')
+        cls = ATSLoggerName
+        verbose_message(cls.VERBOSE, verbose, 'Initial tool logger Name')
         self.__logger_name = logger_name
 
     def set_logger_name(self, logger_name, verbose=False):
@@ -76,7 +76,7 @@ class ATSLoggerName(object):
             :type verbose: <bool>
             :exceptions: ATSBadCallError | ATSTypeError
         """
-        cls, func = self.__class__, stack()[0][3]
+        cls, func = ATSLoggerName, stack()[0][3]
         logger_name_txt = 'Argument: expected logger_name <str> object'
         logger_name_msg = "{0} {1} {2}".format(
             cls.VERBOSE, func, logger_name_txt
@@ -85,7 +85,9 @@ class ATSLoggerName(object):
             raise ATSBadCallError(logger_name_msg)
         if not isinstance(logger_name, str):
             raise ATSTypeError(logger_name_msg)
-        verbose_message(cls.VERBOSE, verbose, 'Set logger name', logger_name)
+        verbose_message(
+            cls.VERBOSE, verbose, 'Set tool logger name', logger_name
+        )
         self.__logger_name = logger_name
 
     def get_logger_name(self, verbose=False):
@@ -96,9 +98,9 @@ class ATSLoggerName(object):
             :return: Logger name
             :rtype: <str>
         """
-        cls = self.__class__
+        cls = ATSLoggerName
         verbose_message(
-            cls.VERBOSE, verbose, 'Logger name', self.__logger_name
+            cls.VERBOSE, verbose, 'Tool logger name', self.__logger_name
         )
         return self.__logger_name
 
@@ -108,7 +110,8 @@ class ATSLoggerName(object):
             :return: String representation of ATSLoggerName
             :rtype: <str>
         """
-        return "{0} Logger name {1}".format(self.__class__, self.__logger_name)
+        cls = ATSLoggerName
+        return "{0} Logger name {1}".format(cls.__name__, self.__logger_name)
 
     def __repr__(self):
         """
@@ -116,4 +119,5 @@ class ATSLoggerName(object):
             :return: String representation of ATSLoggerName
             :rtype: <str>
         """
-        return "{0}(\'{1}\')".format(type(self).__name__, self.__logger_name)
+        cls = ATSLoggerName
+        return "{0}(\'{1}\')".format(cls.__name__, self.__logger_name)

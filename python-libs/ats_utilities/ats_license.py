@@ -53,7 +53,7 @@ class ATSLicense(object):
                 __repr__ - Dunder (magic) method
     """
 
-    VERBOSE = '[ATS_UTILITIES::ATS_LICENSE]'
+    VERBOSE = 'ATS_UTILITIES::ATS_LICENSE'
 
     def __init__(self, txt_license=None, verbose=False):
         """
@@ -63,8 +63,8 @@ class ATSLicense(object):
             :param verbose: Enable/disable verbose option
             :type verbose: <bool>
         """
-        cls = self.__class__
-        verbose_message(cls.VERBOSE, verbose, 'Initial license')
+        cls = ATSLicense
+        verbose_message(cls.VERBOSE, verbose, 'Initial tool license')
         self.__license = txt_license
 
     def set_ats_license(self, txt_license, verbose=False):
@@ -76,14 +76,16 @@ class ATSLicense(object):
             :type verbose: <bool>
             :exceptions: ATSBadCallError | ATSTypeError
         """
-        cls, func, status = self.__class__, stack()[0][3], False
+        cls, func, status = ATSLicense, stack()[0][3], False
         expected_txt = 'Argument: expected txt_license <str> object'
         expected_msg = "{0} {1} {2}".format(cls.VERBOSE, func, expected_txt)
         if txt_license is None or not txt_license:
             raise ATSBadCallError(expected_msg)
         if not isinstance(txt_license, str):
             raise ATSTypeError(expected_msg)
-        verbose_message(cls.VERBOSE, verbose, 'Setting license', txt_license)
+        verbose_message(
+            cls.VERBOSE, verbose, 'Setting tool license', txt_license
+        )
         self.__license = txt_license
 
     def get_ats_license(self, verbose=False):
@@ -94,8 +96,8 @@ class ATSLicense(object):
             :return: App/Tool/Script license text | None
             :rtype: <str> | <NoneType>
         """
-        cls = self.__class__
-        verbose_message(cls.VERBOSE, verbose, 'License', self.__license)
+        cls = ATSLicense
+        verbose_message(cls.VERBOSE, verbose, 'Tool license', self.__license)
         return self.__license
 
     def __str__(self):
@@ -104,7 +106,8 @@ class ATSLicense(object):
             :return: String representation of ATSLicense
             :rtype: <str>
         """
-        return "{0} license {1}".format(self.__class__, self.__license)
+        cls = ATSLicense
+        return "{0} license {1}".format(cls.__name__, self.__license)
 
     def __repr__(self):
         """
@@ -112,4 +115,5 @@ class ATSLicense(object):
             :return: String representation of ATSLicense
             :rtype: <str>
         """
-        return "{0}(\'{1}\')".format(type(self).__name__, self.__license)
+        cls = ATSLicense
+        return "{0}(\'{1}\')".format(cls.__name__, self.__license)

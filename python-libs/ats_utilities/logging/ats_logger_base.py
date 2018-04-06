@@ -58,7 +58,7 @@ class ATSLoggerBase(ATSLoggerStatus, ATSLoggerFile, ATSLoggerName):
     """
 
     __metaclass__ = ABCMeta
-    VERBOSE = '[ATS_UTILITIES::LOGGING::ATS_BASE_LOGGER]'
+    VERBOSE = 'ATS_UTILITIES::LOGGING::ATS_BASE_LOGGER'
 
     def __init__(self, verbose=False):
         """
@@ -66,8 +66,8 @@ class ATSLoggerBase(ATSLoggerStatus, ATSLoggerFile, ATSLoggerName):
             :param verbose: Enable/disable verbose option
             :type verbose: <bool>
         """
-        cls = self.__class__
-        verbose_message(cls.VERBOSE, verbose, 'Initial logger base')
+        cls = ATSLoggerBase
+        verbose_message(cls.VERBOSE, verbose, 'Initial tool logger base')
         ATSLoggerStatus.__init__(self, False, verbose=verbose)
         ATSLoggerFile.__init__(self, None, verbose=verbose)
         ATSLoggerName.__init__(self, None, verbose=verbose)
@@ -82,14 +82,14 @@ class ATSLoggerBase(ATSLoggerStatus, ATSLoggerFile, ATSLoggerName):
             :type verbose: <bool>
             :exceptions: ATSBadCallError | ATSTypeError
         """
-        cls, func = self.__class__, stack()[0][3]
+        cls, func = ATSLoggerBase, stack()[0][3]
         logger_txt = 'Argument: expected logger <logging.Logger> object'
         logger_msg = "{0} {1} {2}".format(cls.VERBOSE, func, logger_txt)
         if logger is None or not logger:
             raise ATSBadCallError(logger_msg)
         if not isinstance(logger, Logger):
             raise ATSTypeError(logger_msg)
-        verbose_message(cls.VERBOSE, verbose, 'Setting logger', logger)
+        verbose_message(cls.VERBOSE, verbose, 'Setting tool logger', logger)
         self.__logger = logger
 
     def get_logger(self, verbose=False):
@@ -100,8 +100,8 @@ class ATSLoggerBase(ATSLoggerStatus, ATSLoggerFile, ATSLoggerName):
             :return: Logger object
             :rtype: <logging.Logger>
         """
-        cls = self.__class__
-        verbose_message(cls.VERBOSE, verbose, 'Logger', self.__logger)
+        cls = ATSLoggerBase
+        verbose_message(cls.VERBOSE, verbose, 'Tool logger', self.__logger)
         return self.__logger
 
     @abstractmethod

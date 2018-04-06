@@ -49,7 +49,7 @@ class JsonSettings(Json2Object, Object2Json):
                 __repr__ - Dunder (magic) method
     """
 
-    VERBOSE = '[ATS_UTILITIES::JSON_SETTINGS]'
+    VERBOSE = 'ATS_UTILITIES::JSON_SETTINGS'
 
     def __init__(self, base_config_file, verbose=False):
         """

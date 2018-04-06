@@ -56,7 +56,7 @@ class Json2Object(BaseReadConfig):
     """
 
     __FORMAT = 'json'
-    VERBOSE = '[ATS_UTILITIES::CONFIG::JSON::JSON_TO_OBJECT]'
+    VERBOSE = 'ATS_UTILITIES::CONFIG::JSON::JSON_TO_OBJECT'
 
     def __init__(self, configuration_file, verbose=False):
         """
@@ -67,7 +67,7 @@ class Json2Object(BaseReadConfig):
             :type verbose: <bool>
             :exceptions: ATSBadCallError | ATSTypeError
         """
-        cls, func, status = self.__class__, stack()[0][3], False
+        cls, func, status = Json2Object, stack()[0][3], False
         cfg_file_txt = 'Argument: expected configuration_file <str> object'
         cfg_file_msg = "{0} {1} {2}".format(cls.VERBOSE, func, cfg_file_txt)
         if configuration_file is None or not configuration_file:
@@ -86,7 +86,7 @@ class Json2Object(BaseReadConfig):
             :return: Configuration object | None
             :rtype: <Python object(s)> | <NoneType>
         """
-        cls, content = self.__class__, None
+        cls, content = Json2Object, None
         json_path = self.get_file_path()
         verbose_message(
             cls.VERBOSE, verbose, 'Read configuration from file', json_path
@@ -111,5 +111,5 @@ class Json2Object(BaseReadConfig):
             :return: String representation of Json2Object
             :rtype: <str>
         """
-        file_path = self.get_file_path()
-        return "{0}(\'{1}\')".format(type(self).__name__, file_path)
+        cls, file_path = Json2Object, self.get_file_path()
+        return "{0}(\'{1}\')".format(cls.__name__, file_path)

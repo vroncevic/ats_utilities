@@ -46,7 +46,7 @@ class BaseReadConfig:
     """
 
     __metaclass__ = ABCMeta
-    VERBOSE = '[ATS_UTILITIES::CONFIG::BASE_READ_CONFIG]'
+    VERBOSE = 'ATS_UTILITIES::CONFIG::BASE_READ_CONFIG'
 
     def __init__(self):
         """
@@ -95,4 +95,5 @@ class BaseReadConfig:
             :return: String representation of BaseReadConfig
             :rtype: <str>
         """
-        return "{0}()".format(type(self).__name__)
+        cls = BaseReadConfig
+        return "{0}()".format(cls.__name__)

@@ -62,7 +62,7 @@ class IniBase(ATSInfo, IniSettings, ATSOptionParser):
     """
 
     __metaclass__ = ABCMeta
-    VERBOSE = '[ATS_UTILITIES::INI_BASE]'
+    VERBOSE = 'ATS_UTILITIES::INI_BASE'
 
     def __init__(self, base_config_file, verbose=False):
         """

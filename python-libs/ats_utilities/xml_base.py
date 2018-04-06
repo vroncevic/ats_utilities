@@ -62,7 +62,7 @@ class XmlBase(ATSInfo, XmlSettings, ATSOptionParser):
     """
 
     __metaclass__ = ABCMeta
-    VERBOSE = '[ATS_UTILITIES::XML_BASE]'
+    VERBOSE = 'ATS_UTILITIES::XML_BASE'
 
     def __init__(self, base_config_file, verbose=False):
         """

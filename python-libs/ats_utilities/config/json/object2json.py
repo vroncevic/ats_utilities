@@ -56,7 +56,7 @@ class Object2Json(BaseWriteConfig):
     """
 
     __FORMAT = 'json'
-    VERBOSE = '[ATS_UTILITIES::CONFIG::JSON::OBJECT_TO_JSON]'
+    VERBOSE = 'ATS_UTILITIES::CONFIG::JSON::OBJECT_TO_JSON'
 
     def __init__(self, configuration_file, verbose=False):
         """
@@ -67,7 +67,7 @@ class Object2Json(BaseWriteConfig):
             :type verbose: <bool>
             :exceptions: ATSBadCallError | ATSTypeError
         """
-        cls, func, status = self.__class__, stack()[0][3], False
+        cls, func, status = Object2Json, stack()[0][3], False
         cfg_file_txt = 'Argument: expected configuration_file <str> object'
         cfg_file_msg = "{0} {1} {2}".format(cls.VERBOSE, func, cfg_file_txt)
         if configuration_file is None or not configuration_file:
@@ -89,7 +89,7 @@ class Object2Json(BaseWriteConfig):
             :rtype: <bool>
             :exception: ATSBadCallError
         """
-        cls, func, status = self.__class__, stack()[0][3], False
+        cls, func, status = Object2Json, stack()[0][3], False
         cfg_txt = 'Argument: expected configuration <Python> object'
         cfg_msg = "{0} {1} {2}".format(cls.VERBOSE, func, cfg_txt)
         if configuration is None or not configuration:
@@ -119,5 +119,5 @@ class Object2Json(BaseWriteConfig):
             :return: String representation of Object2Json
             :rtype: <str>
         """
-        file_path = self.get_file_path()
-        return "{0}(\'{1}\')".format(type(self).__name__, file_path)
+        cls, file_path = Object2Json, self.get_file_path()
+        return "{0}(\'{1}\')".format(cls.__name__, file_path)

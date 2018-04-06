@@ -66,7 +66,7 @@ class ATSLogger(ATSLoggerBase):
                 __repr__ - Dunder (magic) method
     """
 
-    VERBOSE = '[ATS_UTILITIES::LOGGING::ATS_LOGGER]'
+    VERBOSE = 'ATS_UTILITIES::LOGGING::ATS_LOGGER'
     LOG_MSG_FORMAT = '%(asctime)s - %(levelname)s - %(message)s'
     LOG_DATE_FORMAT = '%m/%d/%Y %I:%M:%S %p'
     ATS_DEBUG, ATS_WARNING, ATS_CRITICAL, ATS_ERROR, ATS_INFO = (
@@ -84,7 +84,7 @@ class ATSLogger(ATSLoggerBase):
             :type verbose: <bool>
             :exceptions: ATSBadCallError | ATSTypeError | ATSFileError
         """
-        cls, func = self.__class__, stack()[0][3]
+        cls, func = ATSLogger, stack()[0][3]
         ats_name_txt = 'First argument: expected ats_name <str> object'
         ats_name_msg = "{0} {1} {2}".format(cls.VERBOSE, func, ats_name_txt)
         ats_log_txt = 'Second argument: expected ats_log_file <str> object'
@@ -97,7 +97,7 @@ class ATSLogger(ATSLoggerBase):
             raise ATSBadCallError(ats_log_msg)
         if not isinstance(ats_log_file, str):
             raise ATSTypeError(ats_log_msg)
-        verbose_message(cls.VERBOSE, verbose, 'Initial logger')
+        verbose_message(cls.VERBOSE, verbose, 'Initial tool logger')
         super(ATSLogger, self).__init__(verbose=verbose)
         path_exists = Path(ats_log_file).is_file()
         if ats_log_file and path_exists and ats_name:
@@ -112,8 +112,8 @@ class ATSLogger(ATSLoggerBase):
             self.set_logger_status(True, verbose=verbose)
         else:
             txt = "{0} {1}".format('Check log file path', ats_log_file)
-            msg = "{0} {1}".format(cls.VERBOSE, txt)
-            raise ATSFileError(msg)
+            message = "{0} {1}".format(cls.VERBOSE, txt)
+            raise ATSFileError(message)
 
     def write_log(self, message, ctrl, verbose=False):
         """
@@ -128,7 +128,7 @@ class ATSLogger(ATSLoggerBase):
             :rtype: <bool>
             :exceptions: ATSBadCallError | ATSTypeError
         """
-        cls, func, status = self.__class__, stack()[0][3], False
+        cls, func, status = ATSLogger, stack()[0][3], False
         msg_txt = 'First argument: expected msg <str> object'
         msg_msg = "{0} {1} {2}".format(cls.VERBOSE, func, msg_txt)
         ctrl_txt = 'Second argument: expected ctrl <int> object'
@@ -169,8 +169,8 @@ class ATSLogger(ATSLoggerBase):
             :return: String representation of ATSLogger
             :rtype: <str>
         """
-        log_file_path = self.get_log_file()
-        return "{0} log file \n{1}".format(self.__class__, log_file_path)
+        cls, log_file_path = ATSLogger, self.get_log_file()
+        return "{0} log file \n{1}".format(cls.__name__, log_file_path)
 
     def __repr__(self):
         """
@@ -178,8 +178,8 @@ class ATSLogger(ATSLoggerBase):
             :return: String representation of ATSLogger
             :rtype: <str>
         """
-        logger_name = self.get_logger_name()
+        cls, logger_name = ATSLogger, self.get_logger_name()
         log_file = self.get_log_file()
         return "{0}(\'{1}\', \'{2}\')".format(
-            type(self).__name__, logger_name, log_file
+            cls.__name__, logger_name, log_file
         )

@@ -53,7 +53,7 @@ class ATSVersion(object):
                 __repr__ - Dunder (magic) method
     """
 
-    VERBOSE = '[ATS_UTILITIES::ATS_VERSION]'
+    VERBOSE = 'ATS_UTILITIES::ATS_VERSION'
 
     def __init__(self, version=None, verbose=False):
         """
@@ -63,8 +63,8 @@ class ATSVersion(object):
             :param verbose: Enable/disable verbose option
             :type verbose: <bool>
         """
-        cls = self.__class__
-        verbose_message(cls.VERBOSE, verbose, 'Initial version')
+        cls = ATSVersion
+        verbose_message(cls.VERBOSE, verbose, 'Initial tool version')
         self.__version = version
 
     def set_ats_version(self, version, verbose=False):
@@ -76,14 +76,14 @@ class ATSVersion(object):
             :type verbose: <bool>
             :exceptions: ATSBadCallError | ATSTypeError
         """
-        cls, func, status = self.__class__, stack()[0][3], False
+        cls, func, status = ATSVersion, stack()[0][3], False
         expected_txt = 'Argument: expected version <str> object'
         expected_msg = "{0} {1} {2}".format(cls.VERBOSE, func, expected_txt)
         if version is None or not version:
             raise ATSBadCallError(expected_msg)
         if not isinstance(version, str):
             raise ATSTypeError(expected_msg)
-        verbose_message(cls.VERBOSE, verbose, 'Setting version', version)
+        verbose_message(cls.VERBOSE, verbose, 'Setting tool version', version)
         self.__version = version
 
     def get_ats_version(self, verbose=False):
@@ -94,8 +94,8 @@ class ATSVersion(object):
             :return: App/Tool/Script version | None
             :rtype: <str> | <NoneType>
         """
-        cls = self.__class__
-        verbose_message(cls.VERBOSE, verbose, 'Version', self.__version)
+        cls = ATSVersion
+        verbose_message(cls.VERBOSE, verbose, 'Tool version', self.__version)
         return self.__version
 
     def __str__(self):
@@ -104,7 +104,8 @@ class ATSVersion(object):
             :return: String representation of ATSVersion
             :rtype: <str>
         """
-        return "{0} version {1}".format(self.__class__, self.__version)
+        cls = ATSVersion
+        return "{0} version {1}".format(cls.__name__, self.__version)
 
     def __repr__(self):
         """
@@ -112,4 +113,5 @@ class ATSVersion(object):
             :return: String representation of ATSVersion
             :rtype: <str>
         """
-        return "{0}(\'{1}\')".format(type(self).__name__, self.__version)
+        cls = ATSVersion
+        return "{0}(\'{1}\')".format(cls.__name__, self.__version)

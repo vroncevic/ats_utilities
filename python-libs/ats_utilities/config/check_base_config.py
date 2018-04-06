@@ -61,7 +61,7 @@ class CheckBaseConfig(object):
         4: 'ats_license'
     }
 
-    VERBOSE = '[ATS_UTILITIES::CONFIG::CHECK_BASE_CONFIG]'
+    VERBOSE = 'ATS_UTILITIES::CONFIG::CHECK_BASE_CONFIG'
 
     @classmethod
     def is_correct(cls, configuration, verbose=False):

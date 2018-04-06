@@ -66,7 +66,7 @@ class ATSInfo(ATSName, ATSVersion, ATSBuildDate, ATSLicense):
     ATS_NAME = 'ats_name'
     ATS_BUILD_DATE = 'ats_build_date'
     ATS_LICENSE = 'ats_license'
-    VERBOSE = '[ATS_UTILITIES::ATS_INFO]'
+    VERBOSE = 'ATS_UTILITIES::ATS_INFO'
 
     def __init__(self, info, verbose=False):
         """
@@ -106,8 +106,8 @@ class ATSInfo(ATSName, ATSVersion, ATSBuildDate, ATSLicense):
             :type verbose: <bool>
         """
         if self.__ats_info_ok is True:
-            info_msg = "\n[{0}] version {1} {2}".format(
-                self.get_ats_name(verbose=verbose),
+            info_msg = "\n{0} version {1} {2}".format(
+                "[{0}]".format(self.get_ats_name(verbose=verbose)),
                 self.get_ats_version(verbose=verbose),
                 datetime.now().date()
             )

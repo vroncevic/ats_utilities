@@ -52,7 +52,7 @@ class ATSSuccess(ATSConsoleIO):
                 message - Public setter/getter
     """
 
-    VERBOSE = '[ATS_UTILITIES::CONSOLE_IO::SUCCESS]'
+    VERBOSE = 'ATS_UTILITIES::CONSOLE_IO::SUCCESS'
 
     def __init__(self):
         """
@@ -77,7 +77,7 @@ class ATSSuccess(ATSConsoleIO):
             :type message: <str>
             :exceptions: ATSBadCallError | ATSTypeError
         """
-        cls, func = self.__class__, stack()[0][3]
+        cls, func = ATSSuccess, stack()[0][3]
         txt = 'Argument: expected message <str> object'
         msg = "{0} {1} {2}".format(cls.VERBOSE, func, txt)
         if message is None:

@@ -53,7 +53,7 @@ class ATSLoggerStatus(object):
                 __repr__ - Dunder (magic) method
     """
 
-    VERBOSE = '[ATS_UTILITIES::LOGGING::ATS_LOGGER_STATUS]'
+    VERBOSE = 'ATS_UTILITIES::LOGGING::ATS_LOGGER_STATUS'
 
     def __init__(self, log_status=False, verbose=False):
         """
@@ -63,8 +63,8 @@ class ATSLoggerStatus(object):
             :param verbose: Enable/disable verbose option
             :type verbose: <bool>
         """
-        cls = self.__class__
-        verbose_message(cls.VERBOSE, verbose, 'Initial Logger Status')
+        cls = ATSLoggerStatus
+        verbose_message(cls.VERBOSE, verbose, 'Initial Tool logger Status')
         self.__log_status = log_status
 
     def set_logger_status(self, status, verbose=False):
@@ -76,14 +76,14 @@ class ATSLoggerStatus(object):
             :type verbose: <bool>
             :exceptions: ATSBadCallError | ATSTypeError
         """
-        cls, func = self.__class__, stack()[0][3]
+        cls, func = ATSLoggerStatus, stack()[0][3]
         status_txt = 'Argument: expected status <bool> object'
         status_msg = "{0} {1} {2}".format(cls.VERBOSE, func, status_txt)
         if status is None:
             raise ATSBadCallError(status_msg)
         if not isinstance(status, bool):
             raise ATSTypeError(status_msg)
-        verbose_message(cls.VERBOSE, verbose, 'Set logger status', status)
+        verbose_message(cls.VERBOSE, verbose, 'Set tool logger status', status)
         self.__log_status = status
 
     def get_logger_status(self, verbose=False):
@@ -94,9 +94,9 @@ class ATSLoggerStatus(object):
             :return: True (logger operative) | False
             :rtype: <bool>
         """
-        cls = self.__class__
+        cls = ATSLoggerStatus
         verbose_message(
-            cls.VERBOSE, verbose, 'Logger status', self.__log_status
+            cls.VERBOSE, verbose, 'Tool logger status', self.__log_status
         )
         return self.__log_status
 
@@ -106,9 +106,8 @@ class ATSLoggerStatus(object):
             :return: String representation of ATSLoggerStatus
             :rtype: <str>
         """
-        return "{0} Logger status {1}".format(
-            self.__class__, self.__log_status
-        )
+        cls = ATSLoggerStatus
+        return "{0} Logger status {1}".format(cls.__name__, self.__log_status)
 
     def __repr__(self):
         """
@@ -116,4 +115,5 @@ class ATSLoggerStatus(object):
             :return: String representation of ATSLoggerStatus
             :rtype: <str>
         """
-        return "{0}(\'{1}\')".format(type(self).__name__, self.__log_status)
+        cls = ATSLoggerStatus
+        return "{0}(\'{1}\')".format(cls.__name__, self.__log_status)

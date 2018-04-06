@@ -53,7 +53,7 @@ class ATSName(object):
                 __repr__ - Dunder (magic) method
     """
 
-    VERBOSE = '[ATS_UTILITIES::ATS_NAME]'
+    VERBOSE = 'ATS_UTILITIES::ATS_NAME'
 
     def __init__(self, program_name=None, verbose=False):
         """
@@ -63,8 +63,8 @@ class ATSName(object):
             :param verbose: Enable/disable verbose option
             :type verbose: <bool>
         """
-        cls = self.__class__
-        verbose_message(cls.VERBOSE, verbose, 'Initial name')
+        cls = ATSName
+        verbose_message(cls.VERBOSE, verbose, 'Initial tool name')
         self.__program_name = program_name
 
     def set_ats_name(self, program_name, verbose=False):
@@ -76,14 +76,16 @@ class ATSName(object):
             :type verbose: <bool>
             :exceptions: ATSBadCallError | ATSTypeError
         """
-        cls, func, status = self.__class__, stack()[0][3], False
+        cls, func, status = ATSName, stack()[0][3], False
         expected_txt = 'Argument: expected program_name <str> object'
         expected_msg = "{0} {1} {2}".format(cls.VERBOSE, func, expected_txt)
         if program_name is None or not program_name:
             raise ATSBadCallError(expected_msg)
         if not isinstance(program_name, str):
             raise ATSTypeError(expected_msg)
-        verbose_message(cls.VERBOSE, verbose, 'Setting name', program_name)
+        verbose_message(
+            cls.VERBOSE, verbose, 'Setting tool name', program_name
+        )
         self.__program_name = program_name
 
     def get_ats_name(self, verbose=False):
@@ -94,8 +96,8 @@ class ATSName(object):
             :return: App/Tool/Script name | None
             :rtype: <str> | <NoneType>
         """
-        cls = self.__class__
-        verbose_message(cls.VERBOSE, verbose, 'Name', self.__program_name)
+        cls = ATSName
+        verbose_message(cls.VERBOSE, verbose, 'Tool name', self.__program_name)
         return self.__program_name
 
     def __str__(self):
@@ -104,7 +106,8 @@ class ATSName(object):
             :return: String representation of ATSName
             :rtype: <str>
         """
-        return "{0} name {1}".format(self.__class__, self.__program_name)
+        cls = ATSName
+        return "{0} name {1}".format(cls.__name__, self.__program_name)
 
     def __repr__(self):
         """
@@ -112,4 +115,5 @@ class ATSName(object):
             :return: String representation of ATSName
             :rtype: <str>
         """
-        return "{0}(\'{1}\')".format(type(self).__name__, self.__program_name)
+        cls = ATSName
+        return "{0}(\'{1}\')".format(cls.__name__, self.__program_name)

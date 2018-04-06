@@ -49,7 +49,7 @@ class YamlSettings(Yaml2Object, Object2Yaml):
                 __repr__ - Dunder (magic) method
     """
 
-    VERBOSE = '[ATS_UTILITIES::YAML_SETTINGS]'
+    VERBOSE = 'ATS_UTILITIES::YAML_SETTINGS'
 
     def __init__(self, base_config_file, verbose=False):
         """
