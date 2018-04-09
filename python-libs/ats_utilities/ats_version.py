@@ -43,6 +43,7 @@ class ATSVersion(object):
         Keep, set, get version number of App/Tool/Script.
         It defines:
             attribute:
+                __slots__ - Setting class slots
                 VERBOSE - Console text indicator for current process-phase
                 __version - Version number of App/Tool/Script
             method:
@@ -53,13 +54,17 @@ class ATSVersion(object):
                 __repr__ - Dunder (magic) method
     """
 
+    __slots__ = (
+        'VERBOSE',  # Read-Only
+        '__version'
+    )
     VERBOSE = 'ATS_UTILITIES::ATS_VERSION'
 
     def __init__(self, version=None, verbose=False):
         """
             Initial version number of App/Tool/Script.
-            :param version: App/Tool/Script version | None
-            :type version: <str> | <NoneType>
+            :param version: App/Tool/Script version
+            :type version: <str>
             :param verbose: Enable/disable verbose option
             :type verbose: <bool>
         """
@@ -76,7 +81,7 @@ class ATSVersion(object):
             :type verbose: <bool>
             :exceptions: ATSBadCallError | ATSTypeError
         """
-        cls, func, status = ATSVersion, stack()[0][3], False
+        cls, func = ATSVersion, stack()[0][3]
         expected_txt = 'Argument: expected version <str> object'
         expected_msg = "{0} {1} {2}".format('def', func, expected_txt)
         if version is None or not version:

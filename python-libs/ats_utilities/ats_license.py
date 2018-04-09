@@ -40,43 +40,48 @@ __status__ = 'Updated'
 class ATSLicense(object):
     """
         Define class ATSLicense with attribute(s) and method(s).
-        Keep, set, get console_io license of App/Tool/Script.
+        Keep, set, get license of App/Tool/Script.
         It defines:
             attribute:
+                __slots__ - Setting class slots
                 VERBOSE - Console text indicator for current process-phase
-                __license - Text with license
+                __license - Text with license for App/Tool/Script
             method:
                 __init__ - Initial constructor
-                set_ats_license - Setting App/Tool/Script console_io license
-                get_ats_license - Getting App/Tool/Script console_io license
+                set_ats_license - Setting App/Tool/Script license
+                get_ats_license - Getting App/Tool/Script license
                 __str__ - Dunder (magic) method
                 __repr__ - Dunder (magic) method
     """
 
+    __slots__ = (
+        'VERBOSE',  # Read-Only
+        '__license'
+    )
     VERBOSE = 'ATS_UTILITIES::ATS_LICENSE'
 
     def __init__(self, txt_license=None, verbose=False):
         """
             Initial console_io license of App/Tool/Script.
-            :param txt_license: App/Tool/Script console_io license | None
-            :type txt_license: <str> | <NoneType>
+            :param txt_license: App/Tool/Script license
+            :type txt_license: <str>
             :param verbose: Enable/disable verbose option
             :type verbose: <bool>
         """
         cls = ATSLicense
-        verbose_message(cls.VERBOSE, verbose, 'Initial tool license')
+        verbose_message(cls.VERBOSE, verbose, 'Initial ATS license')
         self.__license = txt_license
 
     def set_ats_license(self, txt_license, verbose=False):
         """
             Setting console_io license of App/Tool/Script.
-            :param txt_license: App/Tool/Script console_io license
+            :param txt_license: App/Tool/Script license
             :type txt_license: <str>
             :param verbose: Enable/disable verbose option
             :type verbose: <bool>
             :exceptions: ATSBadCallError | ATSTypeError
         """
-        cls, func, status = ATSLicense, stack()[0][3], False
+        cls, func = ATSLicense, stack()[0][3]
         expected_txt = 'Argument: expected txt_license <str> object'
         expected_msg = "{0} {1} {2}".format('def', func, expected_txt)
         if txt_license is None or not txt_license:

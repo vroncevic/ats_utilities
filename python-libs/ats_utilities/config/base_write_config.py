@@ -28,12 +28,13 @@ __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
 
 
-class BaseWriteConfig:
+class BaseWriteConfig(object):
     """
         Define class BaseWriteConfig with attribute(s) and method(s).
         Class for write operation (configuration).
         It defines:
             attribute:
+                __metaclass__ - Setting metaclass
                 VERBOSE - Console text indicator for current process-phase
                 __file_path - Configuration file path
             method:

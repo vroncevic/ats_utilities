@@ -40,9 +40,10 @@ __status__ = 'Updated'
 class ATSLoggerFile(object):
     """
         Define class ATSLoggerFile with attribute(s) and method(s).
-        Logging mechanism for App/Tool/Script.
+        Logging mechanism for App/Tool/Script, keep, set, get logger file path.
         It defines:
             attribute:
+                __slots__ - Setting class slots
                 VERBOSE - Console text indicator for current process-phase
                 __log_file - Log file path
             method:
@@ -53,6 +54,10 @@ class ATSLoggerFile(object):
                 __repr__ - Dunder (magic) method
     """
 
+    __slots__ = (
+        'VERBOSE',  # Read-Only
+        '__log_file'
+    )
     VERBOSE = 'ATS_UTILITIES::LOGGING::ATS_LOGGER_FILE'
 
     def __init__(self, logger_file=None, verbose=False):
@@ -84,7 +89,7 @@ class ATSLoggerFile(object):
         if not isinstance(log_file_path, str):
             raise ATSTypeError(log_file_msg)
         verbose_message(
-            cls.VERBOSE, verbose, 'Initial ATS log', log_file_path
+            cls.VERBOSE, verbose, 'Initial ATS log file', log_file_path
         )
         self.__log_file = log_file_path
 

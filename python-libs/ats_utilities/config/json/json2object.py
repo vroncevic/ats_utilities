@@ -46,8 +46,9 @@ class Json2Object(BaseReadConfig):
         Convert a configuration from json file to an object config.
         It defines:
             attribute:
-                __FORMAT - Format of configuration content
+                __slots__ -Setting class slots
                 VERBOSE - Console text indicator for current process-phase
+                __FORMAT - Format of configuration content
             method:
                 __init__ - Initial constructor
                 read_configuration - Read configuration from file
@@ -55,8 +56,11 @@ class Json2Object(BaseReadConfig):
                 __repr__ - Dunder (magic) method
     """
 
-    __FORMAT = 'json'
+    __slots__ = (
+        'VERBOSE', '__FORMAT'  # Read-Only
+    )
     VERBOSE = 'ATS_UTILITIES::CONFIG::JSON::JSON_TO_OBJECT'
+    __FORMAT = 'json'
 
     def __init__(self, configuration_file, verbose=False):
         """
@@ -67,7 +71,7 @@ class Json2Object(BaseReadConfig):
             :type verbose: <bool>
             :exceptions: ATSBadCallError | ATSTypeError
         """
-        cls, func, status = Json2Object, stack()[0][3], False
+        cls, func = Json2Object, stack()[0][3]
         cfg_file_txt = 'Argument: expected configuration_file <str> object'
         cfg_file_msg = "{0} {1} {2}".format('def', func, cfg_file_txt)
         if configuration_file is None or not configuration_file:

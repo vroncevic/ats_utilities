@@ -34,11 +34,17 @@ __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
 
 
-class ATSConsoleIO:
+class ATSConsoleIO(object):
     """
+        Define class ATSConsoleIO with attribute(s) and method(s).
         Define message container for console log mechanism.
             * verbose (Colorize text to blue)
             * warning (Colorize text to yellow)
             * error (Colorize text to red)
+        It defines:
+            attribute:
+                __metaclass__ - Setting metaclass
+            method:
+                None
     """
     __metaclass__ = ATSRegister

@@ -45,10 +45,12 @@ class ConfigFile(FileChecking):
         Configuration context manager.
         It defines:
             attribute:
+                __slots__ - Setting class slots
                 VERBOSE - Console text indicator for current process-phase
                 __file_path - Configuration file name
                 __file_mode - File mode
                 __file_format - File format
+                __file - File object
             method:
                 __init__ - Initial constructor
                 __enter__ - Open file and return object File
@@ -57,6 +59,13 @@ class ConfigFile(FileChecking):
                 __repr__ - Dunder (magic) method
     """
 
+    __slots__ = (
+        'VERBOSE',  # Read-Only
+        '__file_path',
+        '__file_mode',
+        '__file_format',
+        '__file'
+    )
     VERBOSE = 'ATS_UTILITIES::CONFIG::CONFIG_FILE'
 
     def __init__(self, file_path, file_mode, file_format, verbose=False):

@@ -49,6 +49,7 @@ class YamlBase(ATSInfo, YamlSettings, ATSOptionParser):
         Load a settings, create a CL interface and run operation.
         It defines:
             attribute:
+                __metaclass__ - Setting metaclass
                 VERBOSE - Console text indicator for current process-phase
                 __tool_operational - Control operational flag
             method:
@@ -72,7 +73,7 @@ class YamlBase(ATSInfo, YamlSettings, ATSOptionParser):
             :param verbose: Enable/disable verbose option
             :type verbose: <bool>
         """
-        cls = self.__class__
+        cls = YamlBase
         verbose_message(cls.VERBOSE, verbose, 'Initial ATS base settings')
         self.__tool_operational = False  # App/Tool/Script not operative
         YamlSettings.__init__(self, base_config_file, verbose=verbose)
@@ -115,7 +116,7 @@ class YamlBase(ATSInfo, YamlSettings, ATSOptionParser):
             :return: True (tool ready) | False
             :rtype: <bool>
         """
-        cls = self.__class__
+        cls = YamlBase
         verbose_message(
             cls.VERBOSE, verbose, 'ATS Status', self.__tool_operational
         )
@@ -130,7 +131,7 @@ class YamlBase(ATSInfo, YamlSettings, ATSOptionParser):
             :type tool_status: <bool>
             :exceptions: ATSBadCallError | ATSTypeError
         """
-        cls, func = self.__class__, stack()[0][3]
+        cls, func = YamlBase, stack()[0][3]
         tool_status_txt = 'Argument: expected tool_status <bool> object'
         tool_status_msg = "{0} {1} {2}".format(
             'def', func, tool_status_txt
@@ -170,5 +171,5 @@ class YamlBase(ATSInfo, YamlSettings, ATSOptionParser):
             :return: String representation of YamlBase
             :rtype: <str>
         """
-        file_path = self.get_file_path()
-        return "{0}(\'{1}\')".format(type(self).__name__, file_path)
+        cls, file_path = YamlBase, self.get_file_path()
+        return "{0}(\'{1}\')".format(cls.__name__, file_path)

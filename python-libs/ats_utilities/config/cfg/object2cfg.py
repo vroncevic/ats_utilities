@@ -45,8 +45,9 @@ class Object2Cfg(BaseWriteConfig):
         Convert a configuration object to cfg format and write to a file.
         It defines:
             attribute:
-                __FORMAT - Format of configuration content
+                __slots__ - Setting class slots
                 VERBOSE - Console text indicator for current process-phase
+                __FORMAT - Format of configuration content
             method:
                 __init__ - Initial constructor
                 write_configuration - Write config to a cfg file
@@ -54,8 +55,11 @@ class Object2Cfg(BaseWriteConfig):
                 __repr__ - Dunder (magic) method
     """
 
-    __FORMAT = 'cfg'
+    __slots__ = (
+        'VERBOSE', '__FORMAT'  # Read-Only
+    )
     VERBOSE = 'ATS_UTILITIES::CONFIG::CFG::OBJECT_TO_CFG'
+    __FORMAT = 'cfg'
 
     def __init__(self, configuration_file, verbose=False):
         """
@@ -66,7 +70,7 @@ class Object2Cfg(BaseWriteConfig):
             :type verbose: <bool>
             :exceptions: ATSBadCallError | ATSTypeError
         """
-        cls, func, status = Object2Cfg, stack()[0][3], False
+        cls, func = Object2Cfg, stack()[0][3]
         cfg_file_txt = 'Argument: expected configuration_file <str> object'
         cfg_file_msg = "{0} {1} {2}".format('def', func, cfg_file_txt)
         if configuration_file is None or not configuration_file:

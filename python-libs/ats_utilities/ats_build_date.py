@@ -43,6 +43,7 @@ class ATSBuildDate(object):
         Keep, set, get build date of App/Tool/Script.
         It defines:
             attribute:
+                __slots__ - Setting class slots
                 VERBOSE - Console text indicator for current process-phase
                 __build_date - Build date of App/Tool/Script
             method:
@@ -53,13 +54,17 @@ class ATSBuildDate(object):
                 __repr__ - Dunder (magic) method
     """
 
+    __slots__ = (
+        'VERBOSE',  # Read-Only
+        '__build_date'
+    )
     VERBOSE = 'ATS_UTILITIES::ATS_BUILD_DATE'
 
     def __init__(self, build_date=None, verbose=False):
         """
             Initial build date of App/Tool/Script.
-            :param build_date: Build date of App/Tool/Script | None
-            :type build_date: <str> | <NoneType>
+            :param build_date: Build date of App/Tool/Script
+            :type build_date: <str>
             :param verbose: Enable/disable verbose option
             :type verbose: <bool>
         """
@@ -76,7 +81,7 @@ class ATSBuildDate(object):
             :type verbose: <bool>
             :exceptions: ATSBadCallError | ATSTypeError
         """
-        cls, func, status = ATSBuildDate, stack()[0][3], False
+        cls, func = ATSBuildDate, stack()[0][3]
         expected_txt = 'Argument: expected build_date <str> object'
         expected_msg = "{0} {1} {2}".format('def', func, expected_txt)
         if build_date is None or not build_date:

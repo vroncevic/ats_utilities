@@ -44,6 +44,7 @@ class ATSOptionParser(object):
         Create option parser and process arguments from start.
         It defines:
             attribute:
+                __slots__ - Setting class slots
                 VERBOSE - Console text indicator for current process-phase
                 __opt_parser - Options parser
             method:
@@ -52,6 +53,10 @@ class ATSOptionParser(object):
                 parse_args - Process arguments from start
     """
 
+    __slots__ = (
+        'VERBOSE',  # Read-Only
+        '__opt_parser'
+    )
     VERBOSE = 'ATS_UTILITIES::OPTION::ATS_OPTION_PARSER'
 
     def __init__(self, version, epilog, description, verbose=False):

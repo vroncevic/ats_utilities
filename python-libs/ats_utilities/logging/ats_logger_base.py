@@ -48,6 +48,7 @@ class ATSLoggerBase(ATSLoggerStatus, ATSLoggerFile, ATSLoggerName):
         Base container for logging mechanism.
         It defines:
             attribute:
+                __metaclass__ - Setting metaclass
                 VERBOSE - Console text indicator for current process-phase
                 __logger - Object logger
             method:

@@ -46,9 +46,10 @@ class Cfg2Object(BaseReadConfig):
         Convert configuration from a cfg file to an object.
         It defines:
             attribute:
+                __slots__ - Setting class slots
+                VERBOSE - Console text indicator for current process-phase
                 __FORMAT - Format of configuration content
                 __REGEX_MATCH_LINE - Regular expression for matching line
-                VERBOSE - Console text indicator for current process-phase
             method:
                 __init__ - Initial constructor
                 read_configuration - Read configuration from file
@@ -56,9 +57,12 @@ class Cfg2Object(BaseReadConfig):
                 __repr__ - Dunder (magic) method
     """
 
+    __slots__ = (
+        'VERBOSE', '__FORMAT', '__REGEX_MATCH_LINE'  # Read-Only
+    )
+    VERBOSE = 'ATS_UTILITIES::CONFIG::CFG::CFG_TO_OBJECT'
     __FORMAT = 'cfg'
     __REGEX_MATCH_LINE = r'^\s*$'
-    VERBOSE = 'ATS_UTILITIES::CONFIG::CFG::CFG_TO_OBJECT'
 
     def __init__(self, configuration_file, verbose=False):
         """
@@ -69,7 +73,7 @@ class Cfg2Object(BaseReadConfig):
             :type verbose: <bool>
             :exceptions: ATSBadCallError | ATSTypeError
         """
-        cls, func, status = Cfg2Object, stack()[0][3], False
+        cls, func = Cfg2Object, stack()[0][3]
         cfg_file_txt = 'Argument: expected configuration_file <str> object'
         cfg_file_msg = "{0} {1} {2}".format('def', func, cfg_file_txt)
         if configuration_file is None or not configuration_file:

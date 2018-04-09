@@ -42,6 +42,7 @@ class YamlSettings(Yaml2Object, Object2Yaml):
         YamlSettings class with yaml type of config.
         It defines:
             attribute:
+                __slots__ - Setting class slots
                 VERBOSE - Console text indicator for current process-phase
             method:
                 __init__ - Initial constructor
@@ -49,6 +50,9 @@ class YamlSettings(Yaml2Object, Object2Yaml):
                 __repr__ - Dunder (magic) method
     """
 
+    __slots__ = (
+        'VERBOSE'  # Read-Only
+    )
     VERBOSE = 'ATS_UTILITIES::YAML_SETTINGS'
 
     def __init__(self, base_config_file, verbose=False):
@@ -59,7 +63,7 @@ class YamlSettings(Yaml2Object, Object2Yaml):
             :param verbose: Enable/disable verbose option
             :type verbose: <bool>
         """
-        cls = self.__class__
+        cls = YamlSettings
         verbose_message(cls.VERBOSE, verbose, 'Initial ATS YAML settings')
         Yaml2Object.__init__(self, base_config_file, verbose=verbose)
         Object2Yaml.__init__(self, base_config_file, verbose=verbose)
@@ -79,5 +83,5 @@ class YamlSettings(Yaml2Object, Object2Yaml):
             :return: String representation of YamlSettings
             :rtype: <str>
         """
-        file_path = self.get_file_path()
+        cls, file_path = YamlSettings, self.get_file_path()
         return "{0}(\'{1}\')".format(type(self).__name__, file_path)

@@ -49,24 +49,34 @@ class ATSInfo(ATSName, ATSVersion, ATSBuildDate, ATSLicense):
         Keep App/Tool/Script information in one container object.
         It defines:
             attribute:
+                __slots__ - Setting class slots
+                VERBOSE - Console text indicator for current process-phase
                 ATS_VERSION - ATS version key
                 ATS_NAME - ATS name key
                 ATS_BUILD_DATE - ATS build date key
                 ATS_LICENSE - ATS license key
-                VERBOSE - Console text indicator for current process-phase
+                __ats_info_ok - Initialisation of ATS info is ok/not ok
             method:
                 __init__ - Initial constructor
-                show_base_info - Show tool info
-                get_ats_info - Return ats info status
+                show_base_info - Show ATS info
+                get_ats_info - Return ATS info status
                 __str__ - Dunder (magic) method
                 __repr__ - Dunder (magic) method
     """
 
-    ATS_VERSION = 'ats_version'
+    __slots__ = (
+        'VERBOSE',  # Read-Only
+        'ATS_NAME',  # Read-Only
+        'ATS_VERSION',  # Read-Only
+        'ATS_BUILD_DATE',  # Read-Only
+        'ATS_LICENSE',  # Read-Only
+        '__ats_info_ok'
+    )
+    VERBOSE = 'ATS_UTILITIES::ATS_INFO'
     ATS_NAME = 'ats_name'
+    ATS_VERSION = 'ats_version'
     ATS_BUILD_DATE = 'ats_build_date'
     ATS_LICENSE = 'ats_license'
-    VERBOSE = 'ATS_UTILITIES::ATS_INFO'
 
     def __init__(self, info, verbose=False):
         """
@@ -77,7 +87,7 @@ class ATSInfo(ATSName, ATSVersion, ATSBuildDate, ATSLicense):
             :type verbose: <bool>
             :exceptions: ATSBadCallError | ATSTypeError
         """
-        cls, func = self.__class__, stack()[0][3]
+        cls, func = ATSInfo, stack()[0][3]
         info_txt = 'Argument: expected info <dict> object'
         info_msg = "{0} {1} {2}".format('def', func, info_txt)
         if info is None or not info:
@@ -87,7 +97,6 @@ class ATSInfo(ATSName, ATSVersion, ATSBuildDate, ATSLicense):
         verbose_message(cls.VERBOSE, verbose, 'Initial ATS info')
         check_config = CheckBaseConfig.is_correct(info, verbose=verbose)
         if check_config:
-            self.__ats_info_ok = True
             app_name = info.get(cls.ATS_NAME)
             ATSName.__init__(self, app_name, verbose=verbose)
             app_version = info.get(cls.ATS_VERSION)
@@ -96,12 +105,13 @@ class ATSInfo(ATSName, ATSVersion, ATSBuildDate, ATSLicense):
             ATSBuildDate.__init__(self, app_build_date, verbose=verbose)
             app_license = info.get(cls.ATS_LICENSE)
             ATSLicense.__init__(self, app_license, verbose=verbose)
+            self.__ats_info_ok = True
         else:
             self.__ats_info_ok = False
 
     def show_base_info(self, verbose=False):
         """
-            Show tool info (Format: [TOOL_NAME] version ver.1.0 05-Apr-2018).
+            Show ATS info (Ex: [TOOL_NAME] version ver.1.0 05-Apr-2018).
             :param verbose: Enable/disable verbose option
             :type verbose: <bool>
         """
@@ -115,8 +125,8 @@ class ATSInfo(ATSName, ATSVersion, ATSBuildDate, ATSLicense):
 
     def get_ats_info(self):
         """
-            Return ats info status.
-            :return: Boolean status
+            Return ATS info status.
+            :return: Boolean status (initialisation of ATS info is ok)
             :rtype: <bool>
         """
         return self.__ats_info_ok
@@ -141,4 +151,5 @@ class ATSInfo(ATSName, ATSVersion, ATSBuildDate, ATSLicense):
             :return: String representation of ATSInfo
             :rtype: <str>
         """
-        return "{0}(info)".format(type(self).__name__)
+        cls = ATSInfo
+        return "{0}(info)".format(cls.__name__)

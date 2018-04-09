@@ -40,9 +40,10 @@ __status__ = 'Updated'
 class ATSLoggerStatus(object):
     """
         Define class ATSLoggerStatus with attribute(s) and method(s).
-        Logging mechanism for App/Tool/Script.
+        Logging mechanism for App/Tool/Script, keep, set, get logger status.
         It defines:
             attribute:
+                __slots__ - Setting class slots
                 VERBOSE - Console text indicator for current process-phase
                 __log_status - Logger operative (enabled/disabled)
             method:
@@ -53,6 +54,10 @@ class ATSLoggerStatus(object):
                 __repr__ - Dunder (magic) method
     """
 
+    __slots__ = (
+        'VERBOSE',  # Read-Only
+        '__log_status'
+    )
     VERBOSE = 'ATS_UTILITIES::LOGGING::ATS_LOGGER_STATUS'
 
     def __init__(self, log_status=False, verbose=False):

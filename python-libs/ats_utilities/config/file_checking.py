@@ -46,8 +46,9 @@ class FileChecking(object):
         Operations with configuration files.
         It defines:
             attribute:
-                __MODES - Mode file operations
+                __slots__ - Setting class slots
                 VERBOSE - Console text indicator for current process-phase
+                __MODES - Mode file operations
                 __file_path_ok - File path exist
                 __file_extension_ok - File extension is expected
                 __file_mode_ok - Supported file mode
@@ -58,8 +59,15 @@ class FileChecking(object):
                 check_mode -  Checking operation mode for configuration file
     """
 
-    __MODES = ['r', 'w', 'a', 'b', 'x', 't', '+']
+    __slots__ = (
+        'VERBOSE',  # Read-Only
+        '__MODES',  # Read-Only
+        '__file_path_ok',
+        '__file_extension_ok',
+        '__file_mode_ok'
+    )
     VERBOSE = 'ATS_UTILITIES::CONFIG::FILE_CHECKING'
+    __MODES = ['r', 'w', 'a', 'b', 'x', 't', '+']
 
     def __init__(self, verbose=False):
         """
@@ -68,7 +76,7 @@ class FileChecking(object):
             :type verbose: <bool>
         """
         cls = FileChecking
-        verbose_message(cls.VERBOSE, verbose, 'File checking interface')
+        verbose_message(cls.VERBOSE, verbose, 'ATS file checking interface')
         self.__file_path_ok = False
         self.__file_extension_ok = False
         self.__file_mode_ok = False
@@ -91,7 +99,7 @@ class FileChecking(object):
             raise ATSBadCallError(file_path_msg)
         if not isinstance(file_path, str):
             raise ATSTypeError(file_path_msg)
-        verbose_message(cls.VERBOSE, verbose, 'Checking file', file_path)
+        verbose_message(cls.VERBOSE, verbose, 'Checking ATS file', file_path)
         configuration_file_path = Path(file_path)
         file_path_exist = configuration_file_path.is_file()
         if not file_path_exist:
@@ -129,7 +137,7 @@ class FileChecking(object):
         if not isinstance(file_extension, str):
             raise ATSTypeError(file_extension_msg)
         verbose_message(
-            cls.VERBOSE, verbose, 'Checking file format', file_path
+            cls.VERBOSE, verbose, 'Checking ATS file format', file_path
         )
         extension = Path(file_path).suffix.lower().replace('.', '')
         status = extension == file_extension
@@ -163,7 +171,7 @@ class FileChecking(object):
             raise ATSBadCallError(file_mode_msg)
         if not isinstance(file_mode, str):
             raise ATSTypeError(file_mode_msg)
-        verbose_message(cls.VERBOSE, verbose, 'Checking operation mode')
+        verbose_message(cls.VERBOSE, verbose, 'Checking ATS operation mode')
         for item_mode in split_mode:
             if item_mode not in cls.__MODES:
                 error_message(
@@ -179,7 +187,7 @@ class FileChecking(object):
     def is_file_ok(self):
         """
             Return final status of configuration file.
-            :return: True (correct file) | False
+            :return: Boolean value (correct file)
             :rtype: <bool>
         """
         status = all([

@@ -43,6 +43,7 @@ class ATSName(object):
         Keep, set, get App/Tool/Script name.
         It defines:
             attribute:
+                __slots__ - Setting class slots
                 VERBOSE - Console text indicator for current process-phase
                 __program_name - Name of App/Tool/Script
             method:
@@ -53,13 +54,17 @@ class ATSName(object):
                 __repr__ - Dunder (magic) method
     """
 
+    __slots__ = (
+        'VERBOSE',  # Read-Only
+        '__program_name'
+    )
     VERBOSE = 'ATS_UTILITIES::ATS_NAME'
 
     def __init__(self, program_name=None, verbose=False):
         """
             Initial name of App/Tool/Script.
-            :param program_name: App/Tool/Script name | None
-            :type program_name: <str> | <NoneType>
+            :param program_name: App/Tool/Script name
+            :type program_name: <str>
             :param verbose: Enable/disable verbose option
             :type verbose: <bool>
         """
@@ -76,7 +81,7 @@ class ATSName(object):
             :type verbose: <bool>
             :exceptions: ATSBadCallError | ATSTypeError
         """
-        cls, func, status = ATSName, stack()[0][3], False
+        cls, func = ATSName, stack()[0][3]
         expected_txt = 'Argument: expected program_name <str> object'
         expected_msg = "{0} {1} {2}".format('def', func, expected_txt)
         if program_name is None or not program_name:

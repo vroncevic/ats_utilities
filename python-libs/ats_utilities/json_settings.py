@@ -42,6 +42,7 @@ class JsonSettings(Json2Object, Object2Json):
         JsonSettings class with json type of config.
         It defines:
             attribute:
+                __slots__ - Setting class slots
                 VERBOSE - Console text indicator for current process-phase
             method:
                 __init__ - Initial constructor
@@ -49,6 +50,9 @@ class JsonSettings(Json2Object, Object2Json):
                 __repr__ - Dunder (magic) method
     """
 
+    __slots__ = (
+        'VERBOSE'  # Read-Only
+    )
     VERBOSE = 'ATS_UTILITIES::JSON_SETTINGS'
 
     def __init__(self, base_config_file, verbose=False):
@@ -59,7 +63,7 @@ class JsonSettings(Json2Object, Object2Json):
             :param verbose: Enable/disable verbose option
             :type verbose: <bool>
         """
-        cls = self.__class__
+        cls = JsonSettings
         verbose_message(cls.VERBOSE, verbose, 'Initial ATS JSON settings')
         Json2Object.__init__(self, base_config_file, verbose=verbose)
         Object2Json.__init__(self, base_config_file, verbose=verbose)
@@ -79,5 +83,5 @@ class JsonSettings(Json2Object, Object2Json):
             :return: String representation of JsonSettings
             :rtype: <str>
         """
-        file_path = self.get_file_path()
-        return "{0}(\'{1}\')".format(type(self).__name__, file_path)
+        cls, file_path = JsonSettings, self.get_file_path()
+        return "{0}(\'{1}\')".format(cls.__name__, file_path)

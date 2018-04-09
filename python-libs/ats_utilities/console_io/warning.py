@@ -45,6 +45,7 @@ class ATSWarning(ATSConsoleIO):
         Define warning message container for console log mechanism.
         It defines:
             attribute:
+                __slots__ - Setting class slots
                 VERBOSE - Console text indicator for current process-phase
                 __message - Warning message container
             method:
@@ -52,6 +53,10 @@ class ATSWarning(ATSConsoleIO):
                 message - Public setter/getter
     """
 
+    __slots__ = (
+        'VERBOSE',  # Read-Only
+        '__message'
+    )
     VERBOSE = 'ATS_UTILITIES::CONSOLE_IO::WARNING'
 
     def __init__(self):
@@ -80,7 +85,7 @@ class ATSWarning(ATSConsoleIO):
         cls, func = ATSWarning, stack()[0][3]
         txt = 'Argument: expected message <str> object'
         msg = "{0} {1} {2}".format('def', func, txt)
-        if message is None:
+        if message is None or not message:
             raise ATSBadCallError(msg)
         if not isinstance(message, str):
             raise ATSTypeError(msg)

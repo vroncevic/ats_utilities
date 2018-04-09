@@ -44,24 +44,27 @@ class CheckBaseConfig(object):
         Checking basic configuration structure.
         It defines:
             attribute:
+                __slots__ - Setting class slots
+                VERBOSE - Console text indicator for current process-phase
                 __BASE_CONFIG - Basic config keys
                     1: 'ats_name'
                     2: 'ats_version'
                     3: 'ats_build_date'
                     4: 'ats_license'
-                VERBOSE - Console text indicator for current process-phase
             method:
                 is_correct - Check basic configuration keys
     """
 
+    __slots__ = (
+        'VERBOSE', '__BASE_CONFIG'  # Read-Only
+    )
+    VERBOSE = 'ATS_UTILITIES::CONFIG::CHECK_BASE_CONFIG'
     __BASE_CONFIG = {
         1: 'ats_name',
         2: 'ats_version',
         3: 'ats_build_date',
         4: 'ats_license'
     }
-
-    VERBOSE = 'ATS_UTILITIES::CONFIG::CHECK_BASE_CONFIG'
 
     @classmethod
     def is_correct(cls, configuration, verbose=False):
@@ -87,7 +90,7 @@ class CheckBaseConfig(object):
         config_keys = configuration.keys()
         config_expected_keys = cls.__BASE_CONFIG.values()
         verbose_message(
-            cls.VERBOSE, verbose, 'Checking configuration structure'
+            cls.VERBOSE, verbose, 'Checking ATS configuration structure'
         )
         for cfg_key in config_keys:
             if cfg_key not in config_expected_keys:

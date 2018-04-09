@@ -51,6 +51,7 @@ class ATSLogger(ATSLoggerBase):
         Logging mechanism for App/Tool/Script.
         It defines:
             attribute:
+                __slots__ - Setting class slots
                 VERBOSE - Console text indicator for current process-phase
                 LOG_MSG_FORMAT - Log message format
                 LOG_DATE_FORMAT - Log date format
@@ -66,6 +67,10 @@ class ATSLogger(ATSLoggerBase):
                 __repr__ - Dunder (magic) method
     """
 
+    __slots__ = (
+        'VERBOSE', 'LOG_MSG_FORMAT', 'LOG_DATE_FORMAT', 'ATS_DEBUG',
+        'ATS_WARNING', 'ATS_CRITICAL', 'ATS_ERROR', 'ATS_INFO'  # Read-Only
+    )
     VERBOSE = 'ATS_UTILITIES::LOGGING::ATS_LOGGER'
     LOG_MSG_FORMAT = '%(asctime)s - %(levelname)s - %(message)s'
     LOG_DATE_FORMAT = '%m/%d/%Y %I:%M:%S %p'
@@ -111,13 +116,13 @@ class ATSLogger(ATSLoggerBase):
             self.set_logger_name(ats_name, verbose=verbose)
             self.set_logger_status(True, verbose=verbose)
         else:
-            txt = "{0} {1}".format('Check log file path', ats_log_file)
+            txt = "{0} {1}".format('Check ATS log file path', ats_log_file)
             message = "{0} {1}".format(cls.VERBOSE, txt)
             raise ATSFileError(message)
 
     def write_log(self, message, ctrl, verbose=False):
         """
-            Write message to log file.
+            Write log message to log file.
             :param message: Log message
             :type message: <str>
             :param ctrl: Control flag (debug, warning, critical, errors, info)
@@ -141,7 +146,7 @@ class ATSLogger(ATSLoggerBase):
             raise ATSBadCallError(ctrl_msg)
         if not isinstance(ctrl, int):
             raise ATSTypeError(ctrl_msg)
-        verbose_message(cls.VERBOSE, verbose, 'Write log message')
+        verbose_message(cls.VERBOSE, verbose, 'Write ATS log message')
         enabled_log = self.get_logger_status(verbose=verbose)
         if enabled_log:
             switch_dict = {

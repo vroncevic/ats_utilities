@@ -40,9 +40,10 @@ __status__ = 'Updated'
 class ATSLoggerName(object):
     """
         Define class ATSLoggerName with attribute(s) and method(s).
-        Logging mechanism for App/Tool/Script.
+        Logging mechanism for App/Tool/Script, keep, set, get logger name.
         It defines:
             attribute:
+                __slots__ - Setting class slots
                 VERBOSE - Console text indicator for current process-phase
                 __logger_name - Logger name
             method:
@@ -53,6 +54,10 @@ class ATSLoggerName(object):
                 __repr__ - Dunder (magic) method
     """
 
+    __slots__ = (
+        'VERBOSE',  # Read-Only
+        '__logger_name'
+    )
     VERBOSE = 'ATS_UTILITIES::LOGGING::ATS_LOGGER_NAME'
 
     def __init__(self, logger_name=None, verbose=False):
