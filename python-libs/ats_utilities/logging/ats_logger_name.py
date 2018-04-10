@@ -20,6 +20,7 @@ import sys
 from inspect import stack
 
 try:
+    from ats_utilities.slots import BaseSlots
     from ats_utilities.console_io.verbose import verbose_message
     from ats_utilities.exceptions.ats_type_error import ATSTypeError
     from ats_utilities.exceptions.ats_bad_call_error import ATSBadCallError
@@ -37,13 +38,13 @@ __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
 
 
-class ATSLoggerName(object):
+class ATSLoggerName(BaseSlots):
     """
         Define class ATSLoggerName with attribute(s) and method(s).
         Logging mechanism for App/Tool/Script, keep, set, get logger name.
         It defines:
             attribute:
-                __slots__ - Setting class slots
+                __CLASS_SLOTS__ - Setting class slots
                 VERBOSE - Console text indicator for current process-phase
                 __logger_name - Logger name
             method:
@@ -54,7 +55,7 @@ class ATSLoggerName(object):
                 __repr__ - Dunder (magic) method
     """
 
-    __slots__ = (
+    __CLASS_SLOTS__ = (
         'VERBOSE',  # Read-Only
         '__logger_name'
     )
@@ -70,6 +71,7 @@ class ATSLoggerName(object):
         """
         cls = ATSLoggerName
         verbose_message(cls.VERBOSE, verbose, 'Initial ATS logger Name')
+        BaseSlots.__init__(self)
         self.__logger_name = logger_name
 
     def set_logger_name(self, logger_name, verbose=False):

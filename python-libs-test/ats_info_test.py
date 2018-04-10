@@ -1,5 +1,5 @@
 # -*- coding: UTF-8 -*-
-# __init__.py
+# ats_info_test.py
 # Copyright (C) 2018 Vladimir Roncevic <elektron.ronca@gmail.com>
 #
 # ats_utilities is free software: you can redistribute it and/or modify it
@@ -19,10 +19,12 @@
 import sys
 
 try:
-    from ats_utilities.register import ATSRegister
+    from unittest import TestCase, main
+
+    from ats_utilities.ats_info import ATSInfo
 except ImportError as e:
     msg = "\n{0}\n{1}\n".format(__file__, e)
-    sys.exit(msg)  # Force close python ATS ###################################
+    sys.exit(msg)  # Force close python Test Case #############################
 
 __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2018, Free software to use and distributed it.'
@@ -34,17 +36,18 @@ __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
 
 
-class ATSConsoleIO(object):
-    """
-        Define class ATSConsoleIO with attribute(s) and method(s).
-        Define message container for console log mechanism.
-            * verbose (Colorize text to blue)
-            * warning (Colorize text to yellow)
-            * error (Colorize text to red)
-        It defines:
-            attribute:
-                __metaclass__ - Setting metaclass
-            method:
-                None
-    """
-    __metaclass__ = ATSRegister
+class TestATSInfo(TestCase):
+
+    def test_initial(self):
+        info = {
+            'ats_name': 'Simple Test',
+            'ats_version': 'ver.1.0',
+            'ats_build_date': '10-Apr-2018',
+            'ats_license': 'GPLv3'
+        }
+        ats = ATSInfo(info)
+        self.assertTrue(ats.get_ats_info())
+
+
+if __name__ == '__main__':
+    main()

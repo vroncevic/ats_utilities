@@ -51,7 +51,7 @@ class ATSLogger(ATSLoggerBase):
         Logging mechanism for App/Tool/Script.
         It defines:
             attribute:
-                __slots__ - Setting class slots
+                __CLASS_SLOTS__ - Setting class slots
                 VERBOSE - Console text indicator for current process-phase
                 LOG_MSG_FORMAT - Log message format
                 LOG_DATE_FORMAT - Log date format
@@ -67,7 +67,7 @@ class ATSLogger(ATSLoggerBase):
                 __repr__ - Dunder (magic) method
     """
 
-    __slots__ = (
+    __CLASS_SLOTS__ = (
         'VERBOSE', 'LOG_MSG_FORMAT', 'LOG_DATE_FORMAT', 'ATS_DEBUG',
         'ATS_WARNING', 'ATS_CRITICAL', 'ATS_ERROR', 'ATS_INFO'  # Read-Only
     )
@@ -103,7 +103,7 @@ class ATSLogger(ATSLoggerBase):
         if not isinstance(ats_log_file, str):
             raise ATSTypeError(ats_log_msg)
         verbose_message(cls.VERBOSE, verbose, 'Initial ATS logger')
-        super(ATSLogger, self).__init__(verbose=verbose)
+        ATSLoggerBase.__init__(self, verbose=verbose)
         path_exists = Path(ats_log_file).is_file()
         if ats_log_file and path_exists and ats_name:
             self.set_log_file(ats_log_file, verbose=verbose)

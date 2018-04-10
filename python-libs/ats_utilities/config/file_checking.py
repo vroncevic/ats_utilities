@@ -22,6 +22,7 @@ from inspect import stack
 try:
     from pathlib import Path
 
+    from ats_utilities.slots import BaseSlots
     from ats_utilities.console_io.error import error_message
     from ats_utilities.console_io.verbose import verbose_message
     from ats_utilities.exceptions.ats_type_error import ATSTypeError
@@ -40,13 +41,13 @@ __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
 
 
-class FileChecking(object):
+class FileChecking(BaseSlots):
     """
         Define class FileChecking with attribute(s) and method(s).
         Operations with configuration files.
         It defines:
             attribute:
-                __slots__ - Setting class slots
+                __CLASS_SLOTS__ - Setting class slots
                 VERBOSE - Console text indicator for current process-phase
                 __MODES - Mode file operations
                 __file_path_ok - File path exist
@@ -59,7 +60,7 @@ class FileChecking(object):
                 check_mode -  Checking operation mode for configuration file
     """
 
-    __slots__ = (
+    __CLASS_SLOTS__ = (
         'VERBOSE',  # Read-Only
         '__MODES',  # Read-Only
         '__file_path_ok',
@@ -77,6 +78,7 @@ class FileChecking(object):
         """
         cls = FileChecking
         verbose_message(cls.VERBOSE, verbose, 'ATS file checking interface')
+        BaseSlots.__init__(self)
         self.__file_path_ok = False
         self.__file_extension_ok = False
         self.__file_mode_ok = False

@@ -21,6 +21,7 @@ from inspect import stack
 from optparse import OptionParser
 
 try:
+    from ats_utilities.slots import BaseSlots
     from ats_utilities.console_io.verbose import verbose_message
     from ats_utilities.exceptions.ats_type_error import ATSTypeError
     from ats_utilities.exceptions.ats_bad_call_error import ATSBadCallError
@@ -38,13 +39,13 @@ __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
 
 
-class ATSOptionParser(object):
+class ATSOptionParser(BaseSlots):
     """
         Define class ATSOptionParser with attribute(s) and method(s).
         Create option parser and process arguments from start.
         It defines:
             attribute:
-                __slots__ - Setting class slots
+                __CLASS_SLOTS__ - Setting class slots
                 VERBOSE - Console text indicator for current process-phase
                 __opt_parser - Options parser
             method:
@@ -53,7 +54,7 @@ class ATSOptionParser(object):
                 parse_args - Process arguments from start
     """
 
-    __slots__ = (
+    __CLASS_SLOTS__ = (
         'VERBOSE',  # Read-Only
         '__opt_parser'
     )
@@ -92,6 +93,7 @@ class ATSOptionParser(object):
         if not isinstance(description, str):
             raise ATSTypeError(description_msg)
         verbose_message(cls.VERBOSE, verbose, 'Initial ATS option parser')
+        BaseSlots.__init__(self)
         self.__opt_parser = OptionParser(
             version=version, epilog=epilog, description=description
         )

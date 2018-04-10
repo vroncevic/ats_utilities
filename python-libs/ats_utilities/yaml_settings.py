@@ -50,7 +50,7 @@ class YamlSettings(Yaml2Object, Object2Yaml):
                 __repr__ - Dunder (magic) method
     """
 
-    __slots__ = (
+    __CLASS_SLOTS__ = (
         'VERBOSE'  # Read-Only
     )
     VERBOSE = 'ATS_UTILITIES::YAML_SETTINGS'

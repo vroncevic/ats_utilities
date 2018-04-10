@@ -45,7 +45,7 @@ class ConfigFile(FileChecking):
         Configuration context manager.
         It defines:
             attribute:
-                __slots__ - Setting class slots
+                __CLASS_SLOTS__ - Setting class slots
                 VERBOSE - Console text indicator for current process-phase
                 __file_path - Configuration file name
                 __file_mode - File mode
@@ -59,7 +59,7 @@ class ConfigFile(FileChecking):
                 __repr__ - Dunder (magic) method
     """
 
-    __slots__ = (
+    __CLASS_SLOTS__ = (
         'VERBOSE',  # Read-Only
         '__file_path',
         '__file_mode',
@@ -105,7 +105,7 @@ class ConfigFile(FileChecking):
                 'Setting file path', file_path, 'Setting file mode', file_mode
             )
         )
-        super(ConfigFile, self).__init__()
+        FileChecking.__init__(self)
         check_file = self.check_file(file_path=file_path, verbose=verbose)
         if check_file:
             self.__file_path = file_path

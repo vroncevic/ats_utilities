@@ -16,14 +16,6 @@
 # with this program. If not, see <http://www.gnu.org/licenses/>.
 #
 
-import sys
-
-try:
-    from ats_utilities.register import ATSRegister
-except ImportError as e:
-    msg = "\n{0}\n{1}\n".format(__file__, e)
-    sys.exit(msg)  # Force close python ATS ###################################
-
 __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2018, Free software to use and distributed it.'
 __credits__ = ['Vladimir Roncevic']
@@ -34,17 +26,31 @@ __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
 
 
-class ATSConsoleIO(object):
+class BaseSlots:
     """
-        Define class ATSConsoleIO with attribute(s) and method(s).
-        Define message container for console log mechanism.
-            * verbose (Colorize text to blue)
-            * warning (Colorize text to yellow)
-            * error (Colorize text to red)
+        Define class BaseSlots with attribute(s) and method(s).
+        App/Tool/Script settings utilities, property for class slots.
         It defines:
             attribute:
-                __metaclass__ - Setting metaclass
+                __CLASS_SLOTS__ - Tuple for collecting class slots
             method:
-                None
+                __init__ - Initial constructor
+                __slots__ - Property for class slots
     """
-    __metaclass__ = ATSRegister
+
+    __CLASS_SLOTS__ = ()
+
+    def __init__(self):
+        """
+            Initial constructor.
+        """
+        pass
+
+    @property
+    def __slots__(self):
+        """
+            Getting class slots.
+            :return: Tuple with class slots
+            :rtype: <tuple>
+        """
+        return self.__CLASS_SLOTS__

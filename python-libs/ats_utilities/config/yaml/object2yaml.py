@@ -22,6 +22,7 @@ from inspect import stack
 try:
     from yaml import dump
 
+    from ats_utilities.slots import BaseSlots
     from ats_utilities.config.base_write_config import BaseWriteConfig
     from ats_utilities.console_io.verbose import verbose_message
     from ats_utilities.config.config_context_manager import ConfigFile
@@ -41,13 +42,13 @@ __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
 
 
-class Object2Yaml(BaseWriteConfig):
+class Object2Yaml(BaseSlots, BaseWriteConfig):
     """
         Define class Object2Yaml with attribute(s) and method(s).
         Convert a configuration object to a yaml format and write to file.
         It defines:
             attribute:
-                __slots__ - Setting class slots
+                __CLASS_SLOTS__ - Setting class slots
                 VERBOSE - Console text indicator for current process-phase
                 __FORMAT - Format of configuration content
             method:
@@ -57,7 +58,7 @@ class Object2Yaml(BaseWriteConfig):
                 __repr__ - Dunder (magic) method
     """
 
-    __slots__ = (
+    __CLASS_SLOTS__ = (
         'VERBOSE', '__FORMAT'  # Read-Only
     )
     VERBOSE = 'ATS_UTILITIES::CONFIG::YAML::OBJECT_TO_YAML'
@@ -80,7 +81,8 @@ class Object2Yaml(BaseWriteConfig):
         if not isinstance(configuration_file, str):
             raise ATSTypeError(cfg_file_msg)
         verbose_message(cls.VERBOSE, verbose, 'Setting YAML interface')
-        super(Object2Yaml, self).__init__()
+        BaseSlots.__init__(self)
+        BaseWriteConfig.__init__(self)
         self.set_file_path(file_path=configuration_file)
 
     def write_configuration(self, configuration, verbose=False):

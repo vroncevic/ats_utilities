@@ -50,7 +50,7 @@ class IniSettings(Ini2Object, Object2Ini):
                 __repr__ - Dunder (magic) method
     """
 
-    __slots__ = (
+    __CLASS_SLOTS__ = (
         'VERBOSE'  # Read-Only
     )
     VERBOSE = 'ATS_UTILITIES::INI_SETTINGS'

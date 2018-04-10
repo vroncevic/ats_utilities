@@ -42,7 +42,7 @@ class XmlSettings(Xml2Object, Object2Xml):
         XmlSettings class with xml type of config.
         It defines:
             attribute:
-                __slots__ - Setting class slots
+                __CLASS_SLOTS__ - Setting class slots
                 VERBOSE - Console text indicator for current process-phase
             method:
                 __init__ - Initial constructor
@@ -50,7 +50,7 @@ class XmlSettings(Xml2Object, Object2Xml):
                 __repr__ - Dunder (magic) method
     """
 
-    __slots__ = (
+    __CLASS_SLOTS__ = (
         'VERBOSE'  # Read-Only
     )
     VERBOSE = 'ATS_UTILITIES::XML_SETTINGS'

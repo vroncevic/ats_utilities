@@ -64,7 +64,7 @@ class ATSInfo(ATSName, ATSVersion, ATSBuildDate, ATSLicense):
                 __repr__ - Dunder (magic) method
     """
 
-    __slots__ = (
+    __CLASS_SLOTS__ = (
         'VERBOSE',  # Read-Only
         'ATS_NAME',  # Read-Only
         'ATS_VERSION',  # Read-Only

@@ -19,7 +19,6 @@
 import sys
 from logging import Logger
 from inspect import stack
-from abc import ABCMeta, abstractmethod
 
 try:
     from ats_utilities.logging.ats_logger_status import ATSLoggerStatus
@@ -48,7 +47,7 @@ class ATSLoggerBase(ATSLoggerStatus, ATSLoggerFile, ATSLoggerName):
         Base container for logging mechanism.
         It defines:
             attribute:
-                __metaclass__ - Setting metaclass
+                __CLASS_SLOTS__ - Setting class slots
                 VERBOSE - Console text indicator for current process-phase
                 __logger - Object logger
             method:
@@ -58,7 +57,9 @@ class ATSLoggerBase(ATSLoggerStatus, ATSLoggerFile, ATSLoggerName):
                 write_log - Write message to log file (Abstract method)
     """
 
-    __metaclass__ = ABCMeta
+    __CLASS_SLOTS__ = (
+        'VERBOSE'  # Read-Only
+    )
     VERBOSE = 'ATS_UTILITIES::LOGGING::ATS_BASE_LOGGER'
 
     def __init__(self, verbose=False):
@@ -105,7 +106,6 @@ class ATSLoggerBase(ATSLoggerStatus, ATSLoggerFile, ATSLoggerName):
         verbose_message(cls.VERBOSE, verbose, 'ATS logger', self.__logger)
         return self.__logger
 
-    @abstractmethod
     def write_log(self, message, ctrl, verbose=False):
         """
             Write message to log file (Abstract method).
@@ -117,5 +117,8 @@ class ATSLoggerBase(ATSLoggerStatus, ATSLoggerFile, ATSLoggerName):
             :type verbose: <bool>
             :return: True (success) | False
             :rtype: <bool>
+            :exception: NotImplementedError
         """
-        pass
+        func = stack()[0][3]
+        abstract_msg = "{0} {1} {2}".format('def', func, 'not implemented !')
+        raise NotImplementedError(abstract_msg)

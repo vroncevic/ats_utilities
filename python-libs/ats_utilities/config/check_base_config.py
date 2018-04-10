@@ -20,6 +20,7 @@ import sys
 from inspect import stack
 
 try:
+    from ats_utilities.slots import BaseSlots
     from ats_utilities.console_io.verbose import verbose_message
     from ats_utilities.console_io.error import error_message
     from ats_utilities.exceptions.ats_type_error import ATSTypeError
@@ -38,13 +39,13 @@ __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
 
 
-class CheckBaseConfig(object):
+class CheckBaseConfig(BaseSlots):
     """
         Define class CheckBaseConfig with attribute(s) and method(s).
         Checking basic configuration structure.
         It defines:
             attribute:
-                __slots__ - Setting class slots
+                __CLASS_SLOTS__ - Setting class slots
                 VERBOSE - Console text indicator for current process-phase
                 __BASE_CONFIG - Basic config keys
                     1: 'ats_name'
@@ -52,10 +53,11 @@ class CheckBaseConfig(object):
                     3: 'ats_build_date'
                     4: 'ats_license'
             method:
+                __init__ - Initial constructor
                 is_correct - Check basic configuration keys
     """
 
-    __slots__ = (
+    __CLASS_SLOTS__ = (
         'VERBOSE', '__BASE_CONFIG'  # Read-Only
     )
     VERBOSE = 'ATS_UTILITIES::CONFIG::CHECK_BASE_CONFIG'
@@ -65,6 +67,12 @@ class CheckBaseConfig(object):
         3: 'ats_build_date',
         4: 'ats_license'
     }
+
+    def __init__(self):
+        """
+            Initial constructor.
+        """
+        BaseSlots.__init__(self)
 
     @classmethod
     def is_correct(cls, configuration, verbose=False):

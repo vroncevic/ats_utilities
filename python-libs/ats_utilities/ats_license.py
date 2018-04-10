@@ -20,6 +20,7 @@ import sys
 from inspect import stack
 
 try:
+    from ats_utilities.slots import BaseSlots
     from ats_utilities.console_io.verbose import verbose_message
     from ats_utilities.exceptions.ats_type_error import ATSTypeError
     from ats_utilities.exceptions.ats_bad_call_error import ATSBadCallError
@@ -37,7 +38,7 @@ __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
 
 
-class ATSLicense(object):
+class ATSLicense(BaseSlots):
     """
         Define class ATSLicense with attribute(s) and method(s).
         Keep, set, get license of App/Tool/Script.
@@ -54,7 +55,7 @@ class ATSLicense(object):
                 __repr__ - Dunder (magic) method
     """
 
-    __slots__ = (
+    __CLASS_SLOTS__ = (
         'VERBOSE',  # Read-Only
         '__license'
     )
@@ -70,6 +71,7 @@ class ATSLicense(object):
         """
         cls = ATSLicense
         verbose_message(cls.VERBOSE, verbose, 'Initial ATS license')
+        BaseSlots.__init__(self)
         self.__license = txt_license
 
     def set_ats_license(self, txt_license, verbose=False):

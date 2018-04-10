@@ -21,6 +21,7 @@ from inspect import stack
 from json import load
 
 try:
+    from ats_utilities.slots import BaseSlots
     from ats_utilities.config.base_read_config import BaseReadConfig
     from ats_utilities.console_io.verbose import verbose_message
     from ats_utilities.config.config_context_manager import ConfigFile
@@ -40,13 +41,13 @@ __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
 
 
-class Json2Object(BaseReadConfig):
+class Json2Object(BaseSlots, BaseReadConfig):
     """
         Define class Json2Object with attribute(s) and method(s).
         Convert a configuration from json file to an object config.
         It defines:
             attribute:
-                __slots__ -Setting class slots
+                __CLASS_SLOTS__ -Setting class slots
                 VERBOSE - Console text indicator for current process-phase
                 __FORMAT - Format of configuration content
             method:
@@ -56,7 +57,7 @@ class Json2Object(BaseReadConfig):
                 __repr__ - Dunder (magic) method
     """
 
-    __slots__ = (
+    __CLASS_SLOTS__ = (
         'VERBOSE', '__FORMAT'  # Read-Only
     )
     VERBOSE = 'ATS_UTILITIES::CONFIG::JSON::JSON_TO_OBJECT'
@@ -79,7 +80,8 @@ class Json2Object(BaseReadConfig):
         if not isinstance(configuration_file, str):
             raise ATSTypeError(cfg_file_msg)
         verbose_message(cls.VERBOSE, verbose, 'Setting JSON interface')
-        super(Json2Object, self).__init__()
+        BaseSlots.__init__(self)
+        BaseReadConfig.__init__(self)
         self.set_file_path(file_path=configuration_file)
 
     def read_configuration(self, verbose=False):

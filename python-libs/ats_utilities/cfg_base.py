@@ -18,7 +18,6 @@
 
 import sys
 from inspect import stack
-from abc import ABCMeta, abstractmethod
 
 try:
     from ats_utilities.ats_info import ATSInfo
@@ -49,7 +48,7 @@ class CfgBase(ATSInfo, CfgSettings, ATSOptionParser):
         Load a settings, info and run operation.
         It defines:
             attribute:
-                __metaclass__ - Setting metaclass
+                __CLASS_SLOTS__ - Setting class slots
                 VERBOSE - Console text indicator for current process-phase
                 __tool_operational - Control operational flag
             method:
@@ -62,7 +61,9 @@ class CfgBase(ATSInfo, CfgSettings, ATSOptionParser):
                 __repr__ - Dunder (magic) method
     """
 
-    __metaclass__ = ABCMeta
+    __CLASS_SLOTS__ = (
+        'VERBOSE'  # Read-Only
+    )
     VERBOSE = 'ATS_UTILITIES::CFG_BASE'
 
     def __init__(self, base_config_file, verbose=False):
@@ -147,14 +148,16 @@ class CfgBase(ATSInfo, CfgSettings, ATSOptionParser):
         verbose_message(cls.VERBOSE, verbose, txt)
         self.__tool_operational = tool_status
 
-    @abstractmethod
     def process(self, verbose=False):
         """
             Process and run tool operation (Abstract method).
             :param verbose: Enable/disable verbose option
             :type verbose: <bool>
+            :exception: NotImplementedError
         """
-        pass
+        func = stack()[0][3]
+        abstract_msg = "{0} {1} {2}".format('def', func, 'not implemented !')
+        raise NotImplementedError(abstract_msg)
 
     def __str__(self):
         """

@@ -22,6 +22,7 @@ from inspect import stack
 try:
     from colorama import init, Fore
 
+    from ats_utilities.slots import BaseSlots
     from ats_utilities.console_io import ATSConsoleIO
     from ats_utilities.exceptions.ats_type_error import ATSTypeError
     from ats_utilities.exceptions.ats_bad_call_error import ATSBadCallError
@@ -39,13 +40,13 @@ __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
 
 
-class ATSSuccess(ATSConsoleIO):
+class ATSSuccess(BaseSlots, ATSConsoleIO):
     """
         Define class ATSSuccess with attribute(s) and method(s).
         Define verbose message container for console log mechanism.
         It defines:
             attribute:
-                __slots__ - Setting class slots
+                __CLASS_SLOTS__ - Setting class slots
                 VERBOSE - Console text indicator for current process-phase
                 __message - Success message container
             method:
@@ -53,7 +54,7 @@ class ATSSuccess(ATSConsoleIO):
                 message - Public setter/getter
     """
 
-    __slots__ = (
+    __CLASS_SLOTS__ = (
         'VERBOSE',  # Read-Only
         '__message'
     )
@@ -63,6 +64,7 @@ class ATSSuccess(ATSConsoleIO):
         """
             Initial constructor.
         """
+        BaseSlots.__init__(self)
         self.__message = ""
 
     @property

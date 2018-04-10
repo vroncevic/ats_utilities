@@ -20,6 +20,7 @@ import sys
 from inspect import stack
 
 try:
+    from ats_utilities.slots import BaseSlots
     from ats_utilities.console_io.verbose import verbose_message
     from ats_utilities.exceptions.ats_type_error import ATSTypeError
     from ats_utilities.exceptions.ats_bad_call_error import ATSBadCallError
@@ -37,13 +38,13 @@ __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
 
 
-class ATSLoggerFile(object):
+class ATSLoggerFile(BaseSlots):
     """
         Define class ATSLoggerFile with attribute(s) and method(s).
         Logging mechanism for App/Tool/Script, keep, set, get logger file path.
         It defines:
             attribute:
-                __slots__ - Setting class slots
+                __CLASS_SLOTS__ - Setting class slots
                 VERBOSE - Console text indicator for current process-phase
                 __log_file - Log file path
             method:
@@ -54,7 +55,7 @@ class ATSLoggerFile(object):
                 __repr__ - Dunder (magic) method
     """
 
-    __slots__ = (
+    __CLASS_SLOTS__ = (
         'VERBOSE',  # Read-Only
         '__log_file'
     )
@@ -70,6 +71,7 @@ class ATSLoggerFile(object):
         """
         cls = ATSLoggerFile
         verbose_message(cls.VERBOSE, verbose, 'Initial ATS logger file')
+        BaseSlots.__init__(self)
         self.__log_file = logger_file
 
     def set_log_file(self, log_file_path, verbose=False):

@@ -21,6 +21,7 @@ from inspect import stack
 from json import dump
 
 try:
+    from ats_utilities.slots import BaseSlots
     from ats_utilities.config.base_write_config import BaseWriteConfig
     from ats_utilities.console_io.verbose import verbose_message
     from ats_utilities.config.config_context_manager import ConfigFile
@@ -40,13 +41,13 @@ __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
 
 
-class Object2Json(BaseWriteConfig):
+class Object2Json(BaseSlots, BaseWriteConfig):
     """
         Define class Object2Json with attribute(s) and method(s).
         Convert a configuration object to a json format and write to file.
         It defines:
             attribute:
-                __slots__ - Setting class slots
+                __CLASS_SLOTS__ - Setting class slots
                 VERBOSE - Console text indicator for current process-phase
                 __FORMAT - Format of configuration content
             method:
@@ -56,7 +57,7 @@ class Object2Json(BaseWriteConfig):
                 __repr__ - Dunder (magic) method
     """
 
-    __slots__ = (
+    __CLASS_SLOTS__ = (
         'VERBOSE', '__FORMAT'  # Read-Only
     )
     VERBOSE = 'ATS_UTILITIES::CONFIG::JSON::OBJECT_TO_JSON'
@@ -79,7 +80,8 @@ class Object2Json(BaseWriteConfig):
         if not isinstance(configuration_file, str):
             raise ATSTypeError(cfg_file_msg)
         verbose_message(cls.VERBOSE, verbose, 'Setting JSON interface')
-        super(Object2Json, self).__init__()
+        BaseSlots.__init__(self)
+        BaseWriteConfig.__init__(self)
         self.set_file_path(file_path=configuration_file)
 
     def write_configuration(self, configuration, verbose=False):

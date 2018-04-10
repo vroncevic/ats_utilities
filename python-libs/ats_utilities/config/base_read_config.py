@@ -16,7 +16,14 @@
 # with this program. If not, see <http://www.gnu.org/licenses/>.
 #
 
-from abc import ABCMeta, abstractmethod
+import sys
+from inspect import stack
+
+try:
+    from ats_utilities.slots import BaseSlots
+except ImportError as e:
+    msg = "\n{0}\n{1}\n".format(__file__, e)
+    sys.exit(msg)  # Force close python ATS ###################################
 
 __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2018, Free software to use and distributed it.'
@@ -28,31 +35,35 @@ __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
 
 
-class BaseReadConfig(object):
+class BaseReadConfig(BaseSlots):
     """
         Define class BaseReadConfig with attribute(s) and method(s).
         Class for read operation (configuration).
         It defines:
             attribute:
-                __metaclass__ - Setting metaclass
+                __CLASS_SLOTS__ - Setting class slots
                 VERBOSE - Console text indicator for current process-phase
                 __file_path - Configuration file path
             method:
                 __init__ - Initial constructor
                 set_file_path - Setting configuration file path
                 get_file_path - Getting configuration file path
-                read_configuration - Read configuration from file
+                read_configuration - Read configuration (Abstract method)
                 __str__ - Dunder (magic) method
                 __repr__ - Dunder (magic) method
     """
 
-    __metaclass__ = ABCMeta
+    __CLASS_SLOTS__ = (
+        'VERBOSE',  # Read-Only
+        '__file_path'
+    )
     VERBOSE = 'ATS_UTILITIES::CONFIG::BASE_READ_CONFIG'
 
     def __init__(self):
         """
             Initial file path.
         """
+        BaseSlots.__init__(self)
         self.__file_path = ""
 
     def set_file_path(self, file_path):
@@ -71,7 +82,6 @@ class BaseReadConfig(object):
         """
         return self.__file_path
 
-    @abstractmethod
     def read_configuration(self, verbose=False):
         """
             Read configuration from file (Abstract method).
@@ -79,8 +89,11 @@ class BaseReadConfig(object):
             :type verbose: <bool>
             :return: Configuration object
             :rtype: <Python object(s)> | <NoneType>
+            :exception: NotImplementedError
         """
-        pass
+        func = stack()[0][3]
+        abstract_msg = "{0} {1} {2}".format('def', func, 'not implemented !')
+        raise NotImplementedError(abstract_msg)
 
     def __str__(self):
         """

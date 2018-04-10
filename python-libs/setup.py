@@ -50,6 +50,8 @@ setup(
         'ats_utilities.console_io',
         'ats_utilities.exceptions',
         'ats_utilities.logging',
-        'ats_utilities.option'
+        'ats_utilities.option',
+        'ats_utilities.register',
+        'ats_utilities.slots'
     ], requires=['colorama', 'bs4', 'yaml', 'configparser', 'pathlib']
 )
