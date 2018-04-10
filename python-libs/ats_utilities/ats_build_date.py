@@ -44,7 +44,7 @@ class ATSBuildDate(BaseSlots):
         Keep, set, get build date of App/Tool/Script.
         It defines:
             attribute:
-                __slots__ - Setting class slots
+                __CLASS_SLOTS__ - Setting class slots
                 VERBOSE - Console text indicator for current process-phase
                 __build_date - Build date of App/Tool/Script
             method:

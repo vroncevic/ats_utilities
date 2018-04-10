@@ -44,7 +44,7 @@ class ATSLicense(BaseSlots):
         Keep, set, get license of App/Tool/Script.
         It defines:
             attribute:
-                __slots__ - Setting class slots
+                __CLASS_SLOTS__ - Setting class slots
                 VERBOSE - Console text indicator for current process-phase
                 __license - Text with license for App/Tool/Script
             method:

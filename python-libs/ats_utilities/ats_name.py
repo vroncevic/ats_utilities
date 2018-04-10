@@ -44,7 +44,7 @@ class ATSName(BaseSlots):
         Keep, set, get App/Tool/Script name.
         It defines:
             attribute:
-                __slots__ - Setting class slots
+                __CLASS_SLOTS__ - Setting class slots
                 VERBOSE - Console text indicator for current process-phase
                 __program_name - Name of App/Tool/Script
             method:

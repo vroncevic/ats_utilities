@@ -49,7 +49,7 @@ class ATSInfo(ATSName, ATSVersion, ATSBuildDate, ATSLicense):
         Keep App/Tool/Script information in one container object.
         It defines:
             attribute:
-                __slots__ - Setting class slots
+                __CLASS_SLOTS__ - Setting class slots
                 VERBOSE - Console text indicator for current process-phase
                 ATS_VERSION - ATS version key
                 ATS_NAME - ATS name key
