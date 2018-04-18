@@ -17,10 +17,10 @@
 #
 
 import sys
-from inspect import stack
 
 try:
     from ats_utilities.slots import BaseSlots
+    from ats_utilities.abstract import abstract_method
 except ImportError as e:
     msg = "\n{0}\n{1}\n".format(__file__, e)
     sys.exit(msg)  # Force close python ATS ###################################
@@ -82,6 +82,7 @@ class BaseWriteConfig(BaseSlots):
         """
         return self.__file_path
 
+    @abstract_method
     def write_configuration(self, configuration, verbose=False):
         """
             Write configuration to file (Abstract method).
@@ -93,9 +94,7 @@ class BaseWriteConfig(BaseSlots):
             :rtype: <bool>
             :exception: NotImplementedError
         """
-        func = stack()[0][3]
-        abstract_msg = "{0} {1} {2}".format('def', func, 'not implemented !')
-        raise NotImplementedError(abstract_msg)
+        pass
 
     def __str__(self):
         """

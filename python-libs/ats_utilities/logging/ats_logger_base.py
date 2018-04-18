@@ -24,6 +24,7 @@ try:
     from ats_utilities.logging.ats_logger_status import ATSLoggerStatus
     from ats_utilities.logging.ats_logger_file import ATSLoggerFile
     from ats_utilities.logging.ats_logger_name import ATSLoggerName
+    from ats_utilities.abstract import abstract_method
     from ats_utilities.console_io.verbose import verbose_message
     from ats_utilities.exceptions.ats_type_error import ATSTypeError
     from ats_utilities.exceptions.ats_bad_call_error import ATSBadCallError
@@ -106,6 +107,7 @@ class ATSLoggerBase(ATSLoggerStatus, ATSLoggerFile, ATSLoggerName):
         verbose_message(cls.VERBOSE, verbose, 'ATS logger', self.__logger)
         return self.__logger
 
+    @abstract_method
     def write_log(self, message, ctrl, verbose=False):
         """
             Write message to log file (Abstract method).
@@ -119,6 +121,4 @@ class ATSLoggerBase(ATSLoggerStatus, ATSLoggerFile, ATSLoggerName):
             :rtype: <bool>
             :exception: NotImplementedError
         """
-        func = stack()[0][3]
-        abstract_msg = "{0} {1} {2}".format('def', func, 'not implemented !')
-        raise NotImplementedError(abstract_msg)
+        pass

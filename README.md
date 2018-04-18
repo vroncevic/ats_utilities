@@ -18,7 +18,6 @@ These modules requires other modules and libraries (Python 2/3):
 
 ```
 sys
-abc
 logging
 distutils
 os
