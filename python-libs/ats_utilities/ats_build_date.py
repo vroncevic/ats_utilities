@@ -70,8 +70,8 @@ class ATSBuildDate(BaseSlots):
             :type verbose: <bool>
         """
         cls = ATSBuildDate
-        verbose_message(cls.VERBOSE, verbose, 'Initial ATS build date')
         BaseSlots.__init__(self)
+        verbose_message(cls.VERBOSE, verbose, 'Initial ATS build date')
         self.__build_date = build_date
 
     def set_ats_build_date(self, build_date, verbose=False):
