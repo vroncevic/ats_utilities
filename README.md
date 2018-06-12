@@ -53,7 +53,7 @@ Copyright (C) 2018 by https://vroncevic.github.io/ats_utilities/
 
 This tool is free software; you can redistribute it and/or modify
 it under the same terms as Python itself, either Python version 3.4.2 or,
-at your option, any later version of Python 3 you may have available.
+at your option, any later version of Python 2.x/3.x you may have available.
 
 :sparkles:
 
