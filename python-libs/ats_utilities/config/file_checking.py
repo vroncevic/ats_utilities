@@ -22,14 +22,13 @@ from inspect import stack
 try:
     from pathlib import Path
 
-    from ats_utilities.slots import BaseSlots
     from ats_utilities.console_io.error import error_message
     from ats_utilities.console_io.verbose import verbose_message
     from ats_utilities.exceptions.ats_type_error import ATSTypeError
     from ats_utilities.exceptions.ats_bad_call_error import ATSBadCallError
 except ImportError as e:
     msg = "\n{0}\n{1}\n".format(__file__, e)
-    sys.exit(msg)  # Force close python ATS ###################################
+    sys.exit(msg)  # Force close python ATS ##################################
 
 __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2018, Free software to use and distributed it.'
@@ -41,13 +40,13 @@ __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
 
 
-class FileChecking(BaseSlots):
+class FileChecking(object):
     """
         Define class FileChecking with attribute(s) and method(s).
         Operations with configuration files.
         It defines:
             attribute:
-                __CLASS_SLOTS__ - Setting class slots
+                __slots__ - Setting class slots
                 VERBOSE - Console text indicator for current process-phase
                 __MODES - Mode file operations
                 __file_path_ok - File path exist
@@ -60,9 +59,9 @@ class FileChecking(BaseSlots):
                 check_mode -  Checking operation mode for configuration file
     """
 
-    __CLASS_SLOTS__ = (
-        'VERBOSE',  # Read-Only
-        '__MODES',  # Read-Only
+    __slots__ = (
+        'VERBOSE',
+        '__MODES',
         '__file_path_ok',
         '__file_extension_ok',
         '__file_mode_ok'
@@ -75,10 +74,11 @@ class FileChecking(BaseSlots):
             Initial constructor.
             :param verbose: Enable/disable verbose option
             :type verbose: <bool>
+            :exceptions: None
         """
-        cls = FileChecking
-        verbose_message(cls.VERBOSE, verbose, 'ATS file checking interface')
-        BaseSlots.__init__(self)
+        verbose_message(
+            FileChecking.VERBOSE, verbose, 'ATS file checking interface'
+        )
         self.__file_path_ok = False
         self.__file_extension_ok = False
         self.__file_mode_ok = False
@@ -94,18 +94,20 @@ class FileChecking(BaseSlots):
             :rtype: <bool>
             :exceptions: ATSBadCallError | ATSTypeError
         """
-        cls, func, status = FileChecking, stack()[0][3], False
+        func, status = stack()[0][3], False
         file_path_txt = 'Argument: expected file_path <str> object'
         file_path_msg = "{0} {1} {2}".format('def', func, file_path_txt)
         if file_path is None or not file_path:
             raise ATSBadCallError(file_path_msg)
         if not isinstance(file_path, str):
             raise ATSTypeError(file_path_msg)
-        verbose_message(cls.VERBOSE, verbose, 'Checking ATS file', file_path)
+        verbose_message(
+            FileChecking.VERBOSE, verbose, 'Checking ATS file', file_path
+        )
         configuration_file_path = Path(file_path)
         file_path_exist = configuration_file_path.is_file()
         if not file_path_exist:
-            error_message(cls.VERBOSE, 'Check file', file_path)
+            error_message(FileChecking.VERBOSE, 'Check file', file_path)
         if file_path_exist:
             self.__file_path_ok = True
         return True if file_path_exist else False
@@ -123,7 +125,7 @@ class FileChecking(BaseSlots):
             :rtype: <bool>
             :exceptions: ATSBadCallError | ATSTypeError
         """
-        cls, status, func = FileChecking, False, stack()[0][3]
+        status, func = False, stack()[0][3]
         file_path_txt = 'Argument: expected file_path <str> object'
         file_path_msg = "{0} {1} {2}".format('def', func, file_path_txt)
         file_extension_txt = 'Argument: expected file_extension <str> object'
@@ -139,13 +141,13 @@ class FileChecking(BaseSlots):
         if not isinstance(file_extension, str):
             raise ATSTypeError(file_extension_msg)
         verbose_message(
-            cls.VERBOSE, verbose, 'Checking ATS file format', file_path
+            FileChecking.VERBOSE, verbose, 'Checking file format', file_path
         )
         extension = Path(file_path).suffix.lower().replace('.', '')
         status = extension == file_extension
         if not status:
             error_message(
-                cls.VERBOSE, "{0} [{1}] {2}".format(
+                FileChecking.VERBOSE, "{0} [{1}] {2}".format(
                     'Not matched file extension', file_extension, file_path
                 )
             )
@@ -166,18 +168,20 @@ class FileChecking(BaseSlots):
             :rtype: <bool>
             :exceptions: ATSBadCallError | ATSTypeError
         """
-        cls, split_mode, func = FileChecking, list(file_mode), stack()[0][3]
+        split_mode, func = list(file_mode), stack()[0][3]
         file_mode_txt = 'Argument: expected mode <str> object'
         file_mode_msg = "{0} {1} {2}".format('def', func, file_mode_txt)
         if file_mode is None or not file_mode:
             raise ATSBadCallError(file_mode_msg)
         if not isinstance(file_mode, str):
             raise ATSTypeError(file_mode_msg)
-        verbose_message(cls.VERBOSE, verbose, 'Checking ATS operation mode')
+        verbose_message(
+            FileChecking.VERBOSE, verbose, 'Checking ATS operation mode'
+        )
         for item_mode in split_mode:
             if item_mode not in cls.__MODES:
                 error_message(
-                    cls.VERBOSE, "{0} [{1}]".format(
+                    FileChecking.VERBOSE, "{0} [{1}]".format(
                         'Not supported mode', file_mode
                     )
                 )
@@ -191,8 +195,10 @@ class FileChecking(BaseSlots):
             Return final status of configuration file.
             :return: Boolean value (correct file)
             :rtype: <bool>
+            :exceptions: None
         """
         status = all([
             self.__file_path_ok, self.__file_extension_ok, self.__file_mode_ok
         ])
         return True if status else False
+

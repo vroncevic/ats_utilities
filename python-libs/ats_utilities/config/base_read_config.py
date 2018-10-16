@@ -19,11 +19,10 @@
 import sys
 
 try:
-    from ats_utilities.slots import BaseSlots
     from ats_utilities.abstract import abstract_method
 except ImportError as e:
     msg = "\n{0}\n{1}\n".format(__file__, e)
-    sys.exit(msg)  # Force close python ATS ###################################
+    sys.exit(msg)  # Force close python ATS ##################################
 
 __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2018, Free software to use and distributed it.'
@@ -35,13 +34,13 @@ __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
 
 
-class BaseReadConfig(BaseSlots):
+class BaseReadConfig(object):
     """
         Define class BaseReadConfig with attribute(s) and method(s).
         Class for read operation (configuration).
         It defines:
             attribute:
-                __CLASS_SLOTS__ - Setting class slots
+                __slots__ - Setting class slots
                 VERBOSE - Console text indicator for current process-phase
                 __file_path - Configuration file path
             method:
@@ -53,17 +52,14 @@ class BaseReadConfig(BaseSlots):
                 __repr__ - Dunder (magic) method
     """
 
-    __CLASS_SLOTS__ = (
-        'VERBOSE',  # Read-Only
-        '__file_path'
-    )
+    __slots__ = ('VERBOSE','__file_path')
     VERBOSE = 'ATS_UTILITIES::CONFIG::BASE_READ_CONFIG'
 
     def __init__(self):
         """
             Initial file path.
+            :exceptions: None
         """
-        BaseSlots.__init__(self)
         self.__file_path = ""
 
     def set_file_path(self, file_path):
@@ -79,6 +75,7 @@ class BaseReadConfig(BaseSlots):
             Getting configuration file path.
             :return: Configuration file path | None
             :rtype: <str> | <NoneType>
+            :exception: None
         """
         return self.__file_path
 
@@ -99,6 +96,7 @@ class BaseReadConfig(BaseSlots):
             Return human readable string (BaseReadConfig).
             :return: String representation of BaseReadConfig
             :rtype: <str>
+            :exception: None
         """
         return "File path {0}".format(self.__file_path)
 
@@ -107,6 +105,8 @@ class BaseReadConfig(BaseSlots):
             Return unambiguous string (BaseReadConfig).
             :return: String representation of BaseReadConfig
             :rtype: <str>
+            :exception: None
         """
         cls = BaseReadConfig
         return "{0}()".format(cls.__name__)
+

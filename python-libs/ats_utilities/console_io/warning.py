@@ -22,13 +22,12 @@ from inspect import stack
 try:
     from colorama import init, Fore
 
-    from ats_utilities.slots import BaseSlots
     from ats_utilities.console_io import ATSConsoleIO
     from ats_utilities.exceptions.ats_type_error import ATSTypeError
     from ats_utilities.exceptions.ats_bad_call_error import ATSBadCallError
 except ImportError as e:
     msg = "\n{0}\n{1}\n".format(__file__, e)
-    sys.exit(msg)  # Force close python ATS ###################################
+    sys.exit(msg)  # Force close python ATS ##################################
 
 __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2018, Free software to use and distributed it.'
@@ -40,13 +39,13 @@ __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
 
 
-class ATSWarning(BaseSlots, ATSConsoleIO):
+class ATSWarning(ATSConsoleIO):
     """
         Define class ATSWarning with attribute(s) and method(s).
         Define warning message container for console log mechanism.
         It defines:
             attribute:
-                __CLASS_SLOTS__ - Setting class slots
+                __slots__ - Setting class slots
                 VERBOSE - Console text indicator for current process-phase
                 __message - Warning message container
             method:
@@ -54,15 +53,13 @@ class ATSWarning(BaseSlots, ATSConsoleIO):
                 message - Public setter/getter
     """
 
-    __CLASS_SLOTS__ = (
-        'VERBOSE',  # Read-Only
-        '__message'
-    )
+    __slots__ = ('VERBOSE', '__message')
     VERBOSE = 'ATS_UTILITIES::CONSOLE_IO::WARNING'
 
     def __init__(self):
         """
             Initial constructor.
+            :exceptions: None
         """
         BaseSlots.__init__(self)
         self.__message = ""
@@ -84,7 +81,7 @@ class ATSWarning(BaseSlots, ATSConsoleIO):
             :type message: <str>
             :exceptions: ATSBadCallError | ATSTypeError
         """
-        cls, func = ATSWarning, stack()[0][3]
+        func = stack()[0][3]
         txt = 'Argument: expected message <str> object'
         msg = "{0} {1} {2}".format('def', func, txt)
         if message is None or not message:

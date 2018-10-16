@@ -20,11 +20,10 @@ import sys
 from inspect import stack
 
 try:
-    from ats_utilities.slots import BaseSlots
     from ats_utilities.console_io.verbose import verbose_message
 except ImportError as e:
     msg = "\n{0}\n{1}\n".format(__file__, e)
-    sys.exit(msg)  # Force close python ATS ###################################
+    sys.exit(msg)  # Force close python ATS ##################################
 
 __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2018, Free software to use and distributed it.'
@@ -36,13 +35,13 @@ __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
 
 
-class abstract_method(BaseSlots):
+class abstract_method(object):
     """
         Define class abstract_method with attribute(s) and method(s).
         Creating custom decorator for class methods.
         It defines:
             attribute:
-                __CLASS_SLOTS__ - Setting class slots
+                __slots__ - Setting class slots
                 VERBOSE - Console text indicator for current process-phase
                 method_name - Class method name
                 method_class_name - Method class name
@@ -54,8 +53,8 @@ class abstract_method(BaseSlots):
                            (mark as abstract method)
     """
 
-    __CLASS_SLOTS__ = (
-        'VERBOSE',  # Read-Only
+    __slots__ = (
+        'VERBOSE',
         'method_name',
         'method_class_name'
         'method_type',
@@ -70,10 +69,10 @@ class abstract_method(BaseSlots):
             :type method_to_abstract: <function>
             :param verbose: Enable/disable verbose option
             :type verbose: <bool>
+            :exceptions: None
         """
         cls = abstract_method
         verbose_message(cls.VERBOSE, verbose, 'Initial decorator')
-        BaseSlots.__init__(self)
         self.method_name = method_to_abstract.__name__  # Getting method name
         self.method_class_name = stack()[1][3]  # Getting class name
         self.method_type = type(method_to_abstract)  # Getting method type
@@ -97,3 +96,4 @@ class abstract_method(BaseSlots):
             self.method_name, 'method not implemented !'
         )
         raise NotImplementedError(abstract_msg)
+

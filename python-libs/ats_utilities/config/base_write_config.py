@@ -19,11 +19,10 @@
 import sys
 
 try:
-    from ats_utilities.slots import BaseSlots
     from ats_utilities.abstract import abstract_method
 except ImportError as e:
     msg = "\n{0}\n{1}\n".format(__file__, e)
-    sys.exit(msg)  # Force close python ATS ###################################
+    sys.exit(msg)  # Force close python ATS ##################################
 
 __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2018, Free software to use and distributed it.'
@@ -35,13 +34,13 @@ __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
 
 
-class BaseWriteConfig(BaseSlots):
+class BaseWriteConfig(object):
     """
         Define class BaseWriteConfig with attribute(s) and method(s).
         Class for write operation (configuration).
         It defines:
             attribute:
-                __CLASS_SLOTS__ - Setting class slots
+                __slots__ - Setting class slots
                 VERBOSE - Console text indicator for current process-phase
                 __file_path - Configuration file path
             method:
@@ -53,17 +52,14 @@ class BaseWriteConfig(BaseSlots):
                 __repr__ - Dunder (magic) method
     """
 
-    __CLASS_SLOTS__ = (
-        'VERBOSE',  # Read-Only
-        '__file_path'
-    )
+    __slots__ = ('VERBOSE', '__file_path')
     VERBOSE = 'ATS_UTILITIES::CONFIG::BASE_WRITE_CONFIG'
 
     def __init__(self):
         """
             Initial file path.
+            :exceptions: None
         """
-        BaseSlots.__init__(self)
         self.__file_path = ""
 
     def set_file_path(self, file_path):
@@ -71,6 +67,7 @@ class BaseWriteConfig(BaseSlots):
             Setting configuration file path.
             :param file_path: Configuration file path
             :type file_path: <str>
+            :exceptions: None
         """
         self.__file_path = file_path
 
@@ -79,6 +76,7 @@ class BaseWriteConfig(BaseSlots):
             Getting configuration file path.
             :return: Configuration file path | None
             :rtype: <str> | <NoneType>
+            :exceptions: None
         """
         return self.__file_path
 
@@ -101,6 +99,7 @@ class BaseWriteConfig(BaseSlots):
             Return human readable string (BaseWriteConfig).
             :return: String representation of BaseWriteConfig
             :rtype: <str>
+            :exceptions: None
         """
         return "File path {0}".format(self.__file_path)
 
@@ -109,6 +108,8 @@ class BaseWriteConfig(BaseSlots):
             Return unambiguous string (BaseWriteConfig).
             :return: String representation of BaseWriteConfig
             :rtype: <str>
+            :exceptions: None
         """
         cls = BaseWriteConfig
         return "{0}()".format(cls.__name__)
+

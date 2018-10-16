@@ -31,7 +31,7 @@ try:
     from ats_utilities.exceptions.ats_bad_call_error import ATSBadCallError
 except ImportError as e:
     msg = "\n{0}\n{1}\n".format(__file__, e)
-    sys.exit(msg)  # Force close python ATS ###################################
+    sys.exit(msg)  # Force close python ATS ##################################
 
 __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2018, Free software to use and distributed it.'
@@ -43,18 +43,22 @@ __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
 
 
-class ATSInfo(ATSName, ATSVersion, ATSBuildDate, ATSLicense):
+class ATSInfo(object):
     """
         Define class ATSInfo with attribute(s) and method(s).
         Keep App/Tool/Script information in one container object.
         It defines:
             attribute:
-                __CLASS_SLOTS__ - Setting class slots
+                __slots__ - Setting class slots
                 VERBOSE - Console text indicator for current process-phase
                 ATS_VERSION - ATS version key
                 ATS_NAME - ATS name key
                 ATS_BUILD_DATE - ATS build date key
                 ATS_LICENSE - ATS license key
+                __name - ATS name
+                __version - ATS version
+                __license - ATS license
+                __build_date - ATS build date
                 __ats_info_ok - Initialisation of ATS info is ok/not ok
             method:
                 __init__ - Initial constructor
@@ -64,14 +68,19 @@ class ATSInfo(ATSName, ATSVersion, ATSBuildDate, ATSLicense):
                 __repr__ - Dunder (magic) method
     """
 
-    __CLASS_SLOTS__ = (
-        'VERBOSE',  # Read-Only
-        'ATS_NAME',  # Read-Only
-        'ATS_VERSION',  # Read-Only
-        'ATS_BUILD_DATE',  # Read-Only
-        'ATS_LICENSE',  # Read-Only
+    __slots__ = (
+        'VERBOSE',
+        'ATS_NAME',
+        'ATS_VERSION',
+        'ATS_BUILD_DATE',
+        'ATS_LICENSE',
+        '__name',
+        '__version',
+        '__license',
+        '__build_date',
         '__ats_info_ok'
     )
+
     VERBOSE = 'ATS_UTILITIES::ATS_INFO'
     ATS_NAME = 'ats_name'
     ATS_VERSION = 'ats_version'
@@ -87,24 +96,24 @@ class ATSInfo(ATSName, ATSVersion, ATSBuildDate, ATSLicense):
             :type verbose: <bool>
             :exceptions: ATSBadCallError | ATSTypeError
         """
-        cls, func = ATSInfo, stack()[0][3]
+        func = stack()[0][3]
         info_txt = 'Argument: expected info <dict> object'
         info_msg = "{0} {1} {2}".format('def', func, info_txt)
         if info is None or not info:
             raise ATSBadCallError(info_msg)
         if not isinstance(info, dict):
             raise ATSTypeError(info_msg)
-        verbose_message(cls.VERBOSE, verbose, 'Initial ATS info')
+        verbose_message(ATSInfo.VERBOSE, verbose, 'Initial ATS info')
         check_config = CheckBaseConfig.is_correct(info, verbose=verbose)
+        self.__name = ATSName(verbose=verbose)
+        self.__version = ATSVersion(verbose=verbose)
+        self.__license = ATSLicense(verbose=verbose)
+        self.__build_date = ATSBuildDate(verbose=verbose)
         if check_config:
-            app_name = info.get(cls.ATS_NAME)
-            ATSName.__init__(self, app_name, verbose=verbose)
-            app_version = info.get(cls.ATS_VERSION)
-            ATSVersion.__init__(self, app_version, verbose=verbose)
-            app_build_date = info.get(cls.ATS_BUILD_DATE)
-            ATSBuildDate.__init__(self, app_build_date, verbose=verbose)
-            app_license = info.get(cls.ATS_LICENSE)
-            ATSLicense.__init__(self, app_license, verbose=verbose)
+            self.__name = info.get(ATSInfo.ATS_NAME)
+            self.__version = info.get(ATSInfo.ATS_VERSION)
+            self.__license = info.get(ATSInfo.ATS_LICENSE)
+            self.__build_date = info.get(ATSInfo.ATS_BUILD_DATE)
             self.__ats_info_ok = True
         else:
             self.__ats_info_ok = False
@@ -114,11 +123,12 @@ class ATSInfo(ATSName, ATSVersion, ATSBuildDate, ATSLicense):
             Show ATS info (Ex: [TOOL_NAME] version ver.1.0 05-Apr-2018).
             :param verbose: Enable/disable verbose option
             :type verbose: <bool>
+            :exceptions: None
         """
         if self.__ats_info_ok is True:
             info_msg = "\n{0} version {1} {2}".format(
-                "[{0}]".format(self.get_ats_name(verbose=verbose)),
-                self.get_ats_version(verbose=verbose),
+                "[{0}]".format(self.__name),
+                self.__version,
                 datetime.now().date()
             )
             print(info_msg)
@@ -128,6 +138,7 @@ class ATSInfo(ATSName, ATSVersion, ATSBuildDate, ATSLicense):
             Return ATS info status.
             :return: Boolean status (initialisation of ATS info is ok)
             :rtype: <bool>
+            :exceptions: None
         """
         return self.__ats_info_ok
 
@@ -136,13 +147,10 @@ class ATSInfo(ATSName, ATSVersion, ATSBuildDate, ATSLicense):
             Return human readable string (ATSInfo).
             :return: String representation of ATSInfo
             :rtype: <str>
+            :exceptions: None
         """
-        ats_name = self.get_ats_name()
-        ats_version = self.get_ats_version()
-        ats_build_date = self.get_ats_build_date()
-        ats_license = self.get_ats_license()
         return "Info \n{0} \n{1} \n{2} \n{3}".format(
-            ats_name, ats_version, ats_build_date, ats_license
+            self.__name, self.__version, self.__build_date, self.__license
         )
 
     def __repr__(self):
@@ -150,6 +158,7 @@ class ATSInfo(ATSName, ATSVersion, ATSBuildDate, ATSLicense):
             Return unambiguous string (ATSInfo).
             :return: String representation of ATSInfo
             :rtype: <str>
+            :exceptions: None
         """
-        cls = ATSInfo
-        return "{0}(info)".format(cls.__name__)
+        return "{0}(info)".format(ATSInfo.__name__)
+

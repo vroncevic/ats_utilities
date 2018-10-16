@@ -20,13 +20,12 @@ import sys
 from inspect import stack
 
 try:
-    from ats_utilities.slots import BaseSlots
     from ats_utilities.console_io.verbose import verbose_message
     from ats_utilities.exceptions.ats_type_error import ATSTypeError
     from ats_utilities.exceptions.ats_bad_call_error import ATSBadCallError
 except ImportError as e:
     msg = "\n{0}\n{1}\n".format(__file__, e)
-    sys.exit(msg)  # Force close python ATS ###################################
+    sys.exit(msg)  # Force close python ATS ##################################
 
 __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2018, Free software to use and distributed it.'
@@ -38,27 +37,21 @@ __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
 
 
-class ATSBuildDate(BaseSlots):
+class ATSBuildDate(object):
     """
         Define class ATSBuildDate with attribute(s) and method(s).
         Keep, set, get build date of App/Tool/Script.
         It defines:
             attribute:
-                __CLASS_SLOTS__ - Setting class slots
+                __slots__ - Setting class slots
                 VERBOSE - Console text indicator for current process-phase
                 __build_date - Build date of App/Tool/Script
             method:
                 __init__ - Initial constructor
-                set_ats_build_date - Setting build date of App/Tool/Script
-                get_ats_build_date - Getting build date of App/Tool/Script
-                __str__ - Dunder (magic) method
-                __repr__ - Dunder (magic) method
+                build_date - Getting/Setting build date of App/Tool/Script
     """
 
-    __CLASS_SLOTS__ = (
-        'VERBOSE',  # Read-Only
-        '__build_date'
-    )
+    __slots__ = ('VERBOSE', '__build_date')
     VERBOSE = 'ATS_UTILITIES::ATS_BUILD_DATE'
 
     def __init__(self, build_date=None, verbose=False):
@@ -68,61 +61,37 @@ class ATSBuildDate(BaseSlots):
             :type build_date: <str>
             :param verbose: Enable/disable verbose option
             :type verbose: <bool>
+            :exceptions: None
         """
-        cls = ATSBuildDate
-        BaseSlots.__init__(self)
-        verbose_message(cls.VERBOSE, verbose, 'Initial ATS build date')
+        verbose_message(
+            ATSBuildDate.VERBOSE, verbose, 'Initial ATS build date'
+        )
         self.__build_date = build_date
 
-    def set_ats_build_date(self, build_date, verbose=False):
+    @property
+    def build_date(self):
+        """
+            Getting build date of App/Tool/Script.
+            :return: Build date of App/Tool/Script | None
+            :rtype: <str> | <NoneType>
+            :exceptions: None
+        """
+        return self.__build_date
+
+    @build_date.setter
+    def build_date(self, build_date):
         """
             Setting build date of App/Tool/Script.
             :param build_date: Build date of App/Tool/Script
             :type build_date: <str>
-            :param verbose: Enable/disable verbose option
-            :type verbose: <bool>
             :exceptions: ATSBadCallError | ATSTypeError
         """
-        cls, func = ATSBuildDate, stack()[0][3]
+        func = stack()[0][3]
         expected_txt = 'Argument: expected build_date <str> object'
         expected_msg = "{0} {1} {2}".format('def', func, expected_txt)
         if build_date is None or not build_date:
             raise ATSBadCallError(expected_msg)
         if not isinstance(build_date, str):
             raise ATSTypeError(expected_msg)
-        verbose_message(
-            cls.VERBOSE, verbose, 'Setting ATS build date', build_date
-        )
         self.__build_date = build_date
 
-    def get_ats_build_date(self, verbose=False):
-        """
-            Getting build date of App/Tool/Script.
-            :param verbose: Enable/disable verbose option
-            :type verbose: <bool>
-            :return: Build date of App/Tool/Script | None
-            :rtype: <str> | <NoneType>
-        """
-        cls = ATSBuildDate
-        verbose_message(
-            cls.VERBOSE, verbose, 'ATS build date', self.__build_date
-        )
-        return self.__build_date
-
-    def __str__(self):
-        """
-            Return human readable string (ATSBuildDate).
-            :return: String representation of ATSBuildDate
-            :rtype: <str>
-        """
-        cls = ATSBuildDate
-        return "{0} build date {1}".format(cls.__name__, self.__build_date)
-
-    def __repr__(self):
-        """
-            Return unambiguous string (ATSBuildDate).
-            :return: String representation of ATSBuildDate
-            :rtype: <str>
-        """
-        cls = ATSBuildDate
-        return "{0}(\'{1}\')".format(cls.__name__, self.__build_date)

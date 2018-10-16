@@ -38,6 +38,7 @@ class ATSRegister(type):
                 __iter__ - Iter representation
                 __str__ - String representation
     """
+
     def __init__(cls, name, bases, nmspc):
         """
             Initial constructor, register class.
@@ -47,6 +48,7 @@ class ATSRegister(type):
             :type bases: <tuple>
             :param nmspc: Class namespace
             :type nmspc: <dict>
+            :exceptions: None
         """
         super(ATSRegister, cls).__init__(name, bases, nmspc)
         if not hasattr(cls, 'registry'):
@@ -59,6 +61,7 @@ class ATSRegister(type):
             Getting iterator of set.
             :return: Iterator of set
             :rtype: <setiterator>
+            :exceptions: None
         """
         return iter(cls.registry)
 
@@ -67,9 +70,11 @@ class ATSRegister(type):
             String representation of LogRegister.
             :return: Return human readable string (LogRegister)
             :rtype: <str>
+            :exceptions: None
         """
         if cls in cls.registry:
             return cls.__name__
         return "{0}{1}{2}".format(
             cls.__name__, ': ', ', '.join([sc.__name__ for sc in cls])
         )
+

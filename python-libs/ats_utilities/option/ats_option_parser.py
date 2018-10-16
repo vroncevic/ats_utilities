@@ -21,13 +21,12 @@ from inspect import stack
 from optparse import OptionParser
 
 try:
-    from ats_utilities.slots import BaseSlots
     from ats_utilities.console_io.verbose import verbose_message
     from ats_utilities.exceptions.ats_type_error import ATSTypeError
     from ats_utilities.exceptions.ats_bad_call_error import ATSBadCallError
 except ImportError as e:
     msg = "\n{0}\n".format(e)
-    sys.exit(msg)  # Force close python ATS ###################################
+    sys.exit(msg)  # Force close python ATS ##################################
 
 __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2018, Free software to use and distributed it.'
@@ -45,7 +44,7 @@ class ATSOptionParser(BaseSlots):
         Create option parser and process arguments from start.
         It defines:
             attribute:
-                __CLASS_SLOTS__ - Setting class slots
+                __slots__ - Setting class slots
                 VERBOSE - Console text indicator for current process-phase
                 __opt_parser - Options parser
             method:
@@ -54,10 +53,7 @@ class ATSOptionParser(BaseSlots):
                 parse_args - Process arguments from start
     """
 
-    __CLASS_SLOTS__ = (
-        'VERBOSE',  # Read-Only
-        '__opt_parser'
-    )
+    __slots__ = ('VERBOSE', '__opt_parser')
     VERBOSE = 'ATS_UTILITIES::OPTION::ATS_OPTION_PARSER'
 
     def __init__(self, version, epilog, description, verbose=False):
@@ -73,7 +69,7 @@ class ATSOptionParser(BaseSlots):
             :type verbose: <bool>
             :exceptions: ATSBadCallError | ATSTypeError
         """
-        cls, func = ATSOptionParser, stack()[0][3]
+        func = stack()[0][3]
         version_txt = 'Argument: expected version <str> object'
         version_msg = "{0} {1} {2}".format('def', func, version_txt)
         epilog_txt = 'Argument: expected epilog <str> object'
@@ -92,8 +88,9 @@ class ATSOptionParser(BaseSlots):
             raise ATSBadCallError(description_msg)
         if not isinstance(description, str):
             raise ATSTypeError(description_msg)
-        verbose_message(cls.VERBOSE, verbose, 'Initial ATS option parser')
-        BaseSlots.__init__(self)
+        verbose_message(
+            ATSOptionParser.VERBOSE, verbose, 'Initial ATS option parser'
+        )
         self.__opt_parser = OptionParser(
             version=version, epilog=epilog, description=description
         )
@@ -105,6 +102,7 @@ class ATSOptionParser(BaseSlots):
             :type args: <list>
             :param kwargs: Arguments in shape of dictionary
             :type kwargs: <dict>
+            :exceptions: None
         """
         self.__opt_parser.add_option(*args, **kwargs)
 
@@ -115,6 +113,8 @@ class ATSOptionParser(BaseSlots):
             :type argv: <Python object(s)>
             :return: Options and arguments
             :rtype: <Python object(s)>
+            :exceptions: None
         """
         (opts, args) = self.__opt_parser.parse_args(argv)
         return opts, args
+

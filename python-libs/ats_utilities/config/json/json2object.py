@@ -21,7 +21,6 @@ from inspect import stack
 from json import load
 
 try:
-    from ats_utilities.slots import BaseSlots
     from ats_utilities.config.base_read_config import BaseReadConfig
     from ats_utilities.console_io.verbose import verbose_message
     from ats_utilities.config.config_context_manager import ConfigFile
@@ -29,7 +28,7 @@ try:
     from ats_utilities.exceptions.ats_bad_call_error import ATSBadCallError
 except ImportError as e:
     msg = "\n{0}\n{1}\n".format(__file__, e)
-    sys.exit(msg)  # Force close python ATS ###################################
+    sys.exit(msg)  # Force close python ATS ##################################
 
 __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2018, Free software to use and distributed it.'
@@ -41,13 +40,13 @@ __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
 
 
-class Json2Object(BaseSlots, BaseReadConfig):
+class Json2Object(BaseReadConfig):
     """
         Define class Json2Object with attribute(s) and method(s).
         Convert a configuration from json file to an object config.
         It defines:
             attribute:
-                __CLASS_SLOTS__ -Setting class slots
+                __slots__ -Setting class slots
                 VERBOSE - Console text indicator for current process-phase
                 __FORMAT - Format of configuration content
             method:
@@ -57,9 +56,7 @@ class Json2Object(BaseSlots, BaseReadConfig):
                 __repr__ - Dunder (magic) method
     """
 
-    __CLASS_SLOTS__ = (
-        'VERBOSE', '__FORMAT'  # Read-Only
-    )
+    __slots__ = ('VERBOSE', '__FORMAT')
     VERBOSE = 'ATS_UTILITIES::CONFIG::JSON::JSON_TO_OBJECT'
     __FORMAT = 'json'
 
@@ -72,15 +69,14 @@ class Json2Object(BaseSlots, BaseReadConfig):
             :type verbose: <bool>
             :exceptions: ATSBadCallError | ATSTypeError
         """
-        cls, func = Json2Object, stack()[0][3]
+        cls, func = , stack()[0][3]
         cfg_file_txt = 'Argument: expected configuration_file <str> object'
         cfg_file_msg = "{0} {1} {2}".format('def', func, cfg_file_txt)
         if configuration_file is None or not configuration_file:
             raise ATSBadCallError(cfg_file_msg)
         if not isinstance(configuration_file, str):
             raise ATSTypeError(cfg_file_msg)
-        verbose_message(cls.VERBOSE, verbose, 'Setting JSON interface')
-        BaseSlots.__init__(self)
+        verbose_message(Json2Object.VERBOSE, verbose, 'Setting JSON interface')
         BaseReadConfig.__init__(self)
         self.set_file_path(file_path=configuration_file)
 
@@ -91,15 +87,15 @@ class Json2Object(BaseSlots, BaseReadConfig):
             :type verbose: <bool>
             :return: Configuration object | None
             :rtype: <Python object(s)> | <NoneType>
+            :exceptions: None
         """
-        cls, content = Json2Object, None
-        json_path = self.get_file_path()
+        json_path, content = self.get_file_path(), None
         verbose_message(
-            cls.VERBOSE, verbose, 'Read configuration from file', json_path
+            Json2Object.VERBOSE, verbose, 'Read configuration from', json_path
         )
         with ConfigFile(json_path, 'r', cls.__FORMAT) as json_file:
             content = load(json_file)
-        verbose_message(cls.VERBOSE, verbose, 'Done')
+        verbose_message(Json2Object.VERBOSE, verbose, 'Done')
         return content
 
     def __str__(self):
@@ -107,6 +103,7 @@ class Json2Object(BaseSlots, BaseReadConfig):
             Return human readable string (Json2Object).
             :return: String representation of Json2Object
             :rtype: <str>
+            :exceptions: None
         """
         file_path = self.get_file_path()
         return "File path {0}".format(file_path)
@@ -116,6 +113,8 @@ class Json2Object(BaseSlots, BaseReadConfig):
             Return unambiguous string (Json2Object).
             :return: String representation of Json2Object
             :rtype: <str>
+            :exceptions: None
         """
-        cls, file_path = Json2Object, self.get_file_path()
-        return "{0}(\'{1}\')".format(cls.__name__, file_path)
+        file_path = self.get_file_path()
+        return "{0}(\'{1}\')".format(Json2Object.__name__, file_path)
+

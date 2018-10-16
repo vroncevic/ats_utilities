@@ -20,7 +20,6 @@ import sys
 from inspect import stack
 
 try:
-    from ats_utilities.slots import BaseSlots
     from ats_utilities.config.base_write_config import BaseWriteConfig
     from ats_utilities.console_io.verbose import verbose_message
     from ats_utilities.config.config_context_manager import ConfigFile
@@ -28,7 +27,7 @@ try:
     from ats_utilities.exceptions.ats_bad_call_error import ATSBadCallError
 except ImportError as e:
     msg = "\n{0}\n{1}\n".format(__file__, e)
-    sys.exit(msg)  # Force close python ATS ###################################
+    sys.exit(msg)  # Force close python ATS ##################################
 
 __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2018, Free software to use and distributed it.'
@@ -40,13 +39,13 @@ __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
 
 
-class Object2Xml(BaseSlots, BaseWriteConfig):
+class Object2Xml(BaseWriteConfig):
     """
         Define class Object2Xml with attribute(s) and method(s).
         Convert a configuration object to a xml format and write to file.
         It defines:
             attribute:
-                __CLASS_SLOTS__ -Setting class slots
+                __slots__ -Setting class slots
                 VERBOSE - Console text indicator for current process-phase
                 __FORMAT - Format of configuration content
             method:
@@ -56,9 +55,7 @@ class Object2Xml(BaseSlots, BaseWriteConfig):
                 __repr__ - Dunder (magic) method
     """
 
-    __CLASS_SLOTS__ = (
-        'VERBOSE', '__FORMAT'  # Read-Only
-    )
+    __slots__ = ('VERBOSE', '__FORMAT')
     VERBOSE = 'ATS_UTILITIES::CONFIG::XML::OBJECT_TO_XML'
     __FORMAT = 'xml'
 
@@ -71,15 +68,14 @@ class Object2Xml(BaseSlots, BaseWriteConfig):
             :type verbose: <bool>
             :exceptions: ATSBadCallError | ATSTypeError
         """
-        cls, func = Object2Xml, stack()[0][3]
+        func = stack()[0][3]
         cfg_file_txt = 'Argument: expected configuration_file <str> object'
         cfg_file_msg = "{0} {1} {2}".format('def', func, cfg_file_txt)
         if configuration_file is None or not configuration_file:
             raise ATSBadCallError(cfg_file_msg)
         if not isinstance(configuration_file, str):
             raise ATSTypeError(cfg_file_msg)
-        verbose_message(cls.VERBOSE, verbose, 'Setting XML interface')
-        BaseSlots.__init__(self)
+        verbose_message(Object2Xml.VERBOSE, verbose, 'Setting XML interface')
         BaseWriteConfig.__init__(self)
         self.set_file_path(file_path=configuration_file)
 
@@ -94,19 +90,19 @@ class Object2Xml(BaseSlots, BaseWriteConfig):
             :rtype: <bool>
             :exception: ATSBadCallError
         """
-        cls, func, status = Object2Xml, stack()[0][3], False
+        func, status = stack()[0][3], False
         cfg_txt = 'Argument: expected configuration <Python> object'
         cfg_msg = "{0} {1} {2}".format('def', func, cfg_txt)
         if configuration is None or not configuration:
             raise ATSBadCallError(cfg_msg)
         xml_path = self.get_file_path()
         verbose_message(
-            cls.VERBOSE, verbose, 'Write configuration to file', xml_path
+            Object2Xml.VERBOSE, verbose, 'Write configuration to', xml_path
         )
         with ConfigFile(xml_path, 'w', cls.__FORMAT) as xml_file:
             xml_file.write("{0}".format(configuration))
             status = True
-        verbose_message(cls.VERBOSE, verbose, 'Done')
+        verbose_message(Object2Xml.VERBOSE, verbose, 'Done')
         return True if status else False
 
     def __str__(self):
@@ -114,6 +110,7 @@ class Object2Xml(BaseSlots, BaseWriteConfig):
             Return human readable string (Object2Xml).
             :return: String representation of Object2Xml
             :rtype: <str>
+            :exceptions: None
         """
         file_path = self.get_file_path()
         return "File path {0}".format(file_path)
@@ -123,6 +120,8 @@ class Object2Xml(BaseSlots, BaseWriteConfig):
             Return unambiguous string (Object2Xml).
             :return: String representation of Object2Xml
             :rtype: <str>
+            :exceptions: None
         """
-        cls, file_path = Object2Xml, self.get_file_path()
-        return "{0}(\'{1}\')".format(cls.__name__, file_path)
+        file_path = self.get_file_path()
+        return "{0}(\'{1}\')".format(Object2Xml.__name__, file_path)
+

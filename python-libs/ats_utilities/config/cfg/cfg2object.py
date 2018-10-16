@@ -21,7 +21,6 @@ from inspect import stack
 from re import match
 
 try:
-    from ats_utilities.slots import BaseSlots
     from ats_utilities.config.base_read_config import BaseReadConfig
     from ats_utilities.console_io.verbose import verbose_message
     from ats_utilities.config.config_context_manager import ConfigFile
@@ -29,7 +28,7 @@ try:
     from ats_utilities.exceptions.ats_bad_call_error import ATSBadCallError
 except ImportError as e:
     msg = "\n{0}\n{1}\n".format(__file__, e)
-    sys.exit(msg)  # Force close python ATS ###################################
+    sys.exit(msg)  # Force close python ATS ##################################
 
 __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2018, Free software to use and distributed it.'
@@ -41,13 +40,13 @@ __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
 
 
-class Cfg2Object(BaseSlots, BaseReadConfig):
+class Cfg2Object(BaseReadConfig):
     """
         Define class Cfg2Object with attribute(s) and method(s).
         Convert configuration from a cfg file to an object.
         It defines:
             attribute:
-                __CLASS_SLOTS__ - Setting class slots
+                __slots__ - Setting class slots
                 VERBOSE - Console text indicator for current process-phase
                 __FORMAT - Format of configuration content
                 __REGEX_MATCH_LINE - Regular expression for matching line
@@ -58,8 +57,8 @@ class Cfg2Object(BaseSlots, BaseReadConfig):
                 __repr__ - Dunder (magic) method
     """
 
-    __CLASS_SLOTS__ = (
-        'VERBOSE', '__FORMAT', '__REGEX_MATCH_LINE'  # Read-Only
+    __slots__ = (
+        'VERBOSE', '__FORMAT', '__REGEX_MATCH_LINE'
     )
     VERBOSE = 'ATS_UTILITIES::CONFIG::CFG::CFG_TO_OBJECT'
     __FORMAT = 'cfg'
@@ -74,15 +73,14 @@ class Cfg2Object(BaseSlots, BaseReadConfig):
             :type verbose: <bool>
             :exceptions: ATSBadCallError | ATSTypeError
         """
-        cls, func = Cfg2Object, stack()[0][3]
+        func = stack()[0][3]
         cfg_file_txt = 'Argument: expected configuration_file <str> object'
         cfg_file_msg = "{0} {1} {2}".format('def', func, cfg_file_txt)
         if configuration_file is None or not configuration_file:
             raise ATSBadCallError(cfg_file_msg)
         if not isinstance(configuration_file, str):
             raise ATSTypeError(cfg_file_msg)
-        verbose_message(cls.VERBOSE, verbose, 'Setting CFG interface')
-        BaseSlots.__init__(self)
+        verbose_message(Cfg2Object.VERBOSE, verbose, 'Setting CFG interface')
         BaseReadConfig.__init__(self)
         self.set_file_path(file_path=configuration_file)
 
@@ -93,10 +91,11 @@ class Cfg2Object(BaseSlots, BaseReadConfig):
             :type verbose: <bool>
             :return: Configuration object | None
             :rtype: <dict> | <NoneType>
+            :exceptions: None
         """
-        cls, cfg_path, config = Cfg2Object, self.get_file_path(), None
+        cfg_path, config = self.get_file_path(), None
         verbose_message(
-            cls.VERBOSE, verbose, 'Read configuration from file', cfg_path
+            Cfg2Object.VERBOSE, verbose, 'Read configuration from', cfg_path
         )
         try:
             with ConfigFile(cfg_path, 'r', cls.__FORMAT) as cfg_file:
@@ -107,7 +106,7 @@ class Cfg2Object(BaseSlots, BaseReadConfig):
                     if not regex_match:
                         pairs = line.split('=')
                         config[pairs[0].strip()] = pairs[1].strip()
-            verbose_message(cls.VERBOSE, verbose, 'Done')
+            verbose_message(Cfg2Object.VERBOSE, verbose, 'Done')
         except AttributeError:
             pass
         return config
@@ -117,6 +116,7 @@ class Cfg2Object(BaseSlots, BaseReadConfig):
             Return human readable string (Cfg2Object).
             :return: String representation of Cfg2Object
             :rtype: <str>
+            :exceptions: None
         """
         file_path = self.get_file_path()
         return "File path {0}".format(file_path)
@@ -126,6 +126,8 @@ class Cfg2Object(BaseSlots, BaseReadConfig):
             Return unambiguous string (Cfg2Object).
             :return: String representation of Cfg2Object
             :rtype: <str>
+            :exceptions: None
         """
-        cls, file_path = Cfg2Object, self.get_file_path()
-        return "{0}(\'{1}\')".format(cls.__name__, file_path)
+        file_path = self.get_file_path()
+        return "{0}(\'{1}\')".format(Cfg2Object.__name__, file_path)
+
