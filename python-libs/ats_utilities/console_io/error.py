@@ -118,3 +118,4 @@ def error_message(error_path, *message):
     error.message = ' '.join(message)
     error_message_log = "[{0}] {1}".format(error_path, error.message)
     print(error_message_log)
+

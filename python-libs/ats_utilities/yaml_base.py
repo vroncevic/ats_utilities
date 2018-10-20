@@ -21,16 +21,17 @@ from inspect import stack
 
 try:
     from ats_utilities.ats_info import ATSInfo
-    from ats_utilities.yaml_settings import YamlSettings
+    from ats_utilities.config.yaml.yaml2object import Yaml2Object
+    from ats_utilities.config.yaml.object2yaml import Object2Yaml
     from ats_utilities.option.ats_option_parser import ATSOptionParser
+    from ats_utilities.abstract import abstract_method
     from ats_utilities.console_io.verbose import verbose_message
     from ats_utilities.console_io.error import error_message
     from ats_utilities.exceptions.ats_type_error import ATSTypeError
     from ats_utilities.exceptions.ats_bad_call_error import ATSBadCallError
-    from ats_utilities.config.check_base_config import CheckBaseConfig
 except ImportError as e:
     msg = "\n{0}\n{1}\n".format(__file__, e)
-    sys.exit(msg)  # Force close python ATS ###################################
+    sys.exit(msg)  # Force close python ATS ##################################
 
 __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2018, Free software to use and distributed it.'
@@ -42,27 +43,29 @@ __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
 
 
-class YamlBase(ATSInfo, YamlSettings, ATSOptionParser):
+class YamlBase(ATSInfo):
     """
         Define class YamlBase with attribute(s) and method(s).
         Load a settings, create a CL interface and run operation.
         It defines:
             attribute:
-                __CLASS_SLOTS__ - Setting class slots
+                __slots__ - Setting class slots
                 VERBOSE - Console text indicator for current process-phase
                 __tool_operational - Control operational flag
+                __yaml2obj - In API for configuration
+                __obj2yaml - Out API for configuration
             method:
                 __init__ - Initial constructor
                 add_new_option - Adding new option for CL interface
-                get_tool_status - Getting tool status
-                set_tool_status - Setting tool status
+                tool_status - Getting/Setting tool status
                 process - Process and run tool operation (Abstract method)
-                __str__ - Dunder (magic) method
-                __repr__ - Dunder (magic) method
     """
 
-    __CLASS_SLOTS__ = (
-        'VERBOSE'  # Read-Only
+    __slots__ = (
+        'VERBOSE',
+        '__tool_operational',
+        '__yaml2obj',
+        '__obj2yaml'
     )
     VERBOSE = 'ATS_UTILITIES::YAML_BASE'
 
@@ -73,31 +76,24 @@ class YamlBase(ATSInfo, YamlSettings, ATSOptionParser):
             :type base_config_file: <str>
             :param verbose: Enable/disable verbose option
             :type verbose: <bool>
+            :exceptions: None
         """
-        cls = YamlBase
-        verbose_message(cls.VERBOSE, verbose, 'Initial ATS base settings')
+        configuration = None
+        verbose_message(YamlBase.VERBOSE, verbose, 'Initial ATS base settings')
         self.__tool_operational = False  # App/Tool/Script not operative
-        YamlSettings.__init__(self, base_config_file, verbose=verbose)
-        configuration = self.read_configuration(verbose=verbose)
-        check_configuration = CheckBaseConfig.is_correct(
-            configuration, verbose=verbose
-        )
-        if configuration and check_configuration:
+        self.__yaml2obj = Yaml2Object(base_config_file, verbose=verbose)
+        self.__obj2yaml = Object2Yaml(base_config_file, verbose=verbose)
+        if all([self.__yaml2obj, self.__obj2yaml]):
+            configuration = self.__yaml2obj.read_configuration(verbose=verbose)
+        if configuration:
             ATSInfo.__init__(self, configuration, verbose=verbose)
-            tool_version = self.get_ats_version(verbose=verbose)
-            tool_build_date = self.get_ats_build_date(verbose=verbose)
-            tool_name = self.get_ats_name(verbose=verbose)
-            tool_lic = self.get_ats_license(verbose=verbose)
-            status = all([
-                bool(tool_version), bool(tool_build_date),
-                bool(tool_name), bool(tool_lic)
-            ])
-            if status:
-                tool_info = "{0} {1}".format(tool_version, tool_build_date)
-                ATSOptionParser.__init__(
-                    self, tool_info, tool_name, tool_lic, verbose=verbose
+            if self.is_ats_info_ok():
+                tool_info = "{0} {1}".format(self.name, self.build_date)
+                self.__option_parser = ATSOptionParser(
+                    tool_info, self.version, self.license, verbose=verbose
                 )
                 self.__tool_operational = True  # App/Tool/Script operative
+                self.show_base_info(verbose=verbose)
 
     def add_new_option(self, *args, **kwargs):
         """
@@ -106,48 +102,38 @@ class YamlBase(ATSInfo, YamlSettings, ATSOptionParser):
             :type args: <list>
             :param kwargs: Arguments in shape of dictionary
             :type kwargs: <dict>
+            :exceptions: None
         """
-        self.add_operation(*args, **kwargs)
+        self.__option_parser.add_operation(*args, **kwargs)
 
-    def get_tool_status(self, verbose=False):
+    @property
+    def tool_status(self):
         """
             Getting tool status.
-            :param verbose: Enable/disable verbose option
-            :type verbose: <bool>
             :return: True (tool ready) | False
             :rtype: <bool>
+            :exceptions: None
         """
-        cls = YamlBase
-        verbose_message(
-            cls.VERBOSE, verbose, 'ATS Status', self.__tool_operational
-        )
         return self.__tool_operational
 
-    def set_tool_status(self, tool_status, verbose=False):
+    @tool_status.setter
+    def tool_status(self, tool_status):
         """
             Setting tool status.
-            :param verbose: Enable/disable verbose option
-            :type verbose: <bool>
             :param tool_status: Tool status (boolean)
             :type tool_status: <bool>
             :exceptions: ATSBadCallError | ATSTypeError
         """
-        cls, func = YamlBase, stack()[0][3]
+        func = stack()[0][3]
         tool_status_txt = 'Argument: expected tool_status <bool> object'
-        tool_status_msg = "{0} {1} {2}".format(
-            'def', func, tool_status_txt
-        )
+        tool_status_msg = "{0} {1} {2}".format('def', func, tool_status_txt)
         if tool_status is None:
             raise ATSBadCallError(tool_status_msg)
         if not isinstance(tool_status, bool):
             raise ATSTypeError(tool_status_msg)
-        if tool_status:
-            txt = "{0}".format('Set ATS operative')
-        else:
-            txt = "{0}".format('Set ATS not operative')
-        verbose_message(cls.VERBOSE, verbose, txt)
         self.__tool_operational = tool_status
 
+    @abstract_method
     def process(self, verbose=False):
         """
             Process and run tool operation (Abstract method).
@@ -155,24 +141,5 @@ class YamlBase(ATSInfo, YamlSettings, ATSOptionParser):
             :type verbose: <bool>
             :exception: NotImplementedError
         """
-        func = stack()[0][3]
-        abstract_msg = "{0} {1} {2}".format('def', func, 'not implemented !')
-        raise NotImplementedError(abstract_msg)
+        pass
 
-    def __str__(self):
-        """
-            Return human readable string (YamlBase).
-            :return: String representation of YamlBase
-            :rtype: <str>
-        """
-        file_path = self.get_file_path()
-        return "File path {0}".format(file_path)
-
-    def __repr__(self):
-        """
-            Return unambiguous string (YamlBase).
-            :return: String representation of YamlBase
-            :rtype: <str>
-        """
-        cls, file_path = YamlBase, self.get_file_path()
-        return "{0}(\'{1}\')".format(cls.__name__, file_path)

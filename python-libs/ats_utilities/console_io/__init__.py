@@ -48,3 +48,4 @@ class ATSConsoleIO(object):
                 None
     """
     __metaclass__ = ATSRegister
+

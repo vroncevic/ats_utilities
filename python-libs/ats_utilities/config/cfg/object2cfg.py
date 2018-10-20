@@ -51,8 +51,6 @@ class Object2Cfg(BaseWriteConfig):
             method:
                 __init__ - Initial constructor
                 write_configuration - Write config to a cfg file
-                __str__ - Dunder (magic) method
-                __repr__ - Dunder (magic) method
     """
 
     __slots__ = ('VERBOSE', '__FORMAT')
@@ -77,7 +75,7 @@ class Object2Cfg(BaseWriteConfig):
             raise ATSTypeError(cfg_file_msg)
         verbose_message(Object2Cfg.VERBOSE, verbose, 'Setting CFG interface')
         BaseWriteConfig.__init__(self)
-        self.set_file_path(file_path=configuration_file)
+        self.file_path = configuration_file
 
     def write_configuration(self, configuration, verbose=False):
         """
@@ -97,36 +95,16 @@ class Object2Cfg(BaseWriteConfig):
             raise ATSBadCallError(cfg_msg)
         if not isinstance(configuration, dict):
             raise ATSTypeError(cfg_msg)
-        cfg_path = self.get_file_path()
         verbose_message(
-            Object2Cfg.VERBOSE, verbose, 'Writing configuration to', cfg_path
+            Object2Cfg.VERBOSE, verbose,
+            'Writing configuration to file', self.file_path
         )
-        with ConfigFile(cfg_path, 'w', cls.__FORMAT) as cfg_file:
+        with ConfigFile(self.file_path, 'w', Object2Cfg.__FORMAT) as cfg:
             for key in configuration:
                 config_value = configuration.get(key)
                 line = "{0} = {1}\n".format(key, config_value)
-                cfg_file.write(line)
+                cfg.write(line)
             status = True
         verbose_message(Object2Cfg.VERBOSE, verbose, 'Done')
         return True if status else False
-
-    def __str__(self):
-        """
-            Return human readable string (Object2Cfg).
-            :return: String representation of Object2Cfg
-            :rtype: <str>
-            :exceptions: None
-        """
-        file_path = self.get_file_path()
-        return "File path {0}".format(file_path)
-
-    def __repr__(self):
-        """
-            Return unambiguous string (Object2Cfg).
-            :return: String representation of Object2Cfg
-            :rtype: <str>
-            :exceptions: None
-        """
-        file_path = self.get_file_path()
-        return "{0}(\'{1}\')".format(Object2Cfg.__name__, file_path)
 

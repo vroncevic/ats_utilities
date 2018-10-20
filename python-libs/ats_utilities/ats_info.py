@@ -21,10 +21,6 @@ from datetime import datetime
 from inspect import stack
 
 try:
-    from ats_utilities.ats_name import ATSName
-    from ats_utilities.ats_version import ATSVersion
-    from ats_utilities.ats_build_date import ATSBuildDate
-    from ats_utilities.ats_license import ATSLicense
     from ats_utilities.config.check_base_config import CheckBaseConfig
     from ats_utilities.console_io.verbose import verbose_message
     from ats_utilities.exceptions.ats_type_error import ATSTypeError
@@ -62,10 +58,12 @@ class ATSInfo(object):
                 __ats_info_ok - Initialisation of ATS info is ok/not ok
             method:
                 __init__ - Initial constructor
+                name - Getting ATS name
+                version - Getting ATS version
+                license - Getting ATS license
+                build_date - Getting ATS build date
                 show_base_info - Show ATS info
-                get_ats_info - Return ATS info status
-                __str__ - Dunder (magic) method
-                __repr__ - Dunder (magic) method
+                is_ats_info_ok - Return ATS info status
     """
 
     __slots__ = (
@@ -103,20 +101,60 @@ class ATSInfo(object):
             raise ATSBadCallError(info_msg)
         if not isinstance(info, dict):
             raise ATSTypeError(info_msg)
-        verbose_message(ATSInfo.VERBOSE, verbose, 'Initial ATS info')
         check_config = CheckBaseConfig.is_correct(info, verbose=verbose)
-        self.__name = ATSName(verbose=verbose)
-        self.__version = ATSVersion(verbose=verbose)
-        self.__license = ATSLicense(verbose=verbose)
-        self.__build_date = ATSBuildDate(verbose=verbose)
         if check_config:
+            verbose_message(ATSInfo.VERBOSE, verbose, 'Initial ATS info')
             self.__name = info.get(ATSInfo.ATS_NAME)
             self.__version = info.get(ATSInfo.ATS_VERSION)
             self.__license = info.get(ATSInfo.ATS_LICENSE)
             self.__build_date = info.get(ATSInfo.ATS_BUILD_DATE)
             self.__ats_info_ok = True
         else:
+            self.__name = None
+            self.__version = None
+            self.__license = None
+            self.__build_date = None
             self.__ats_info_ok = False
+
+    @property
+    def name(self):
+        """
+            Getting ATS name
+            :return: App/Tool/Script name
+            :rtype: <str>
+            :exceptions: None
+        """
+        return self.__name
+
+    @property
+    def version(self):
+        """
+            Getting ATS version number
+            :return: App/Tool/Script version number
+            :rtype: <str>
+            :exceptions: None
+        """
+        return self.__version
+
+    @property
+    def license(self):
+        """
+            Getting ATS license text
+            :return: App/Tool/Script license text
+            :rtype: <str>
+            :exceptions: None
+        """
+        return self.__license
+
+    @property
+    def build_date(self):
+        """
+            Getting ATS build date
+            :return: App/Tool/Script build date
+            :rtype: <str>
+            :exceptions: None
+        """
+        return self.__build_date
 
     def show_base_info(self, verbose=False):
         """
@@ -133,7 +171,7 @@ class ATSInfo(object):
             )
             print(info_msg)
 
-    def get_ats_info(self):
+    def is_ats_info_ok(self):
         """
             Return ATS info status.
             :return: Boolean status (initialisation of ATS info is ok)
@@ -141,24 +179,4 @@ class ATSInfo(object):
             :exceptions: None
         """
         return self.__ats_info_ok
-
-    def __str__(self):
-        """
-            Return human readable string (ATSInfo).
-            :return: String representation of ATSInfo
-            :rtype: <str>
-            :exceptions: None
-        """
-        return "Info \n{0} \n{1} \n{2} \n{3}".format(
-            self.__name, self.__version, self.__build_date, self.__license
-        )
-
-    def __repr__(self):
-        """
-            Return unambiguous string (ATSInfo).
-            :return: String representation of ATSInfo
-            :rtype: <str>
-            :exceptions: None
-        """
-        return "{0}(info)".format(ATSInfo.__name__)
 

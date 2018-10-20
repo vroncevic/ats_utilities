@@ -52,8 +52,6 @@ class Object2Json(BaseWriteConfig):
             method:
                 __init__ - Initial constructor
                 write_configuration - Write configuration to a json file
-                __str__ - Dunder (magic) method
-                __repr__ - Dunder (magic) method
     """
 
     __slots__ = ('VERBOSE', '__FORMAT')
@@ -78,7 +76,7 @@ class Object2Json(BaseWriteConfig):
             raise ATSTypeError(cfg_file_msg)
         verbose_message(Object2Json.VERBOSE, verbose, 'Setting JSON interface')
         BaseWriteConfig.__init__(self)
-        self.set_file_path(file_path=configuration_file)
+        self.file_path = configuration_file
 
     def write_configuration(self, configuration, verbose=False):
         """
@@ -96,33 +94,13 @@ class Object2Json(BaseWriteConfig):
         cfg_msg = "{0} {1} {2}".format('def', func, cfg_txt)
         if configuration is None or not configuration:
             raise ATSBadCallError(cfg_msg)
-        json_path = self.get_file_path()
         verbose_message(
-            Object2Json.VERBOSE, verbose, 'Write configuration to', json_path
+            Object2Json.VERBOSE, verbose,
+            'Write configuration to file', self.file_path
         )
-        with ConfigFile(json_path, 'w', cls.__FORMAT) as json_file:
-            dump(configuration, json_file)
+        with ConfigFile(self.file_path, 'w', Object2Json.__FORMAT) as json:
+            dump(configuration, json)
             status = True
         verbose_message(Object2Json.VERBOSE, verbose, 'Done')
         return True if status else False
-
-    def __str__(self):
-        """
-            Return human readable string (Object2Json).
-            :return: String representation of Object2Json
-            :rtype: <str>
-            :exceptions: None
-        """
-        file_path = self.get_file_path()
-        return "File path {0}".format(file_path)
-
-    def __repr__(self):
-        """
-            Return unambiguous string (Object2Json).
-            :return: String representation of Object2Json
-            :rtype: <str>
-            :exceptions: None
-        """
-        file_path = self.get_file_path()
-        return "{0}(\'{1}\')".format(Object2Json.__name__, file_path)
 

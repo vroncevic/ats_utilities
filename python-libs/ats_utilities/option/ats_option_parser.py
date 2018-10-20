@@ -38,7 +38,7 @@ __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
 
 
-class ATSOptionParser(BaseSlots):
+class ATSOptionParser(object):
     """
         Define class ATSOptionParser with attribute(s) and method(s).
         Create option parser and process arguments from start.

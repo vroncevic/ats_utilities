@@ -53,8 +53,6 @@ class Yaml2Object(BaseReadConfig):
             method:
                 __init__ - Initial constructor
                 get_configuration - Getting a configuration from file
-                __str__ - Dunder (magic) method
-                __repr__ - Dunder (magic) method
     """
 
     __slots__ = ('VERBOSE', '__FORMAT')
@@ -79,7 +77,7 @@ class Yaml2Object(BaseReadConfig):
             raise ATSTypeError(cfg_file_msg)
         verbose_message(Yaml2Object.VERBOSE, verbose, 'Setting YAML interface')
         BaseReadConfig.__init__(self)
-        self.set_file_path(file_path=configuration_file)
+        self.file_path = configuration_file
 
     def read_configuration(self, verbose=False):
         """
@@ -90,32 +88,13 @@ class Yaml2Object(BaseReadConfig):
             :rtype: <Python object(s)> | <NoneType>
             :exceptions: None
         """
-        yaml_path, content, config = self.get_file_path(), None, None
+        config = None
         verbose_message(
-            Yaml2Object.VERBOSE, verbose, 'Read configuration from', yaml_path
+            Yaml2Object.VERBOSE, verbose,
+            'Read configuration from file', self.file_path
         )
-        with ConfigFile(yaml_path, 'r', cls.__FORMAT) as yaml_file:
-            content = load(yaml_file)
+        with ConfigFile(self.file_path, 'r', Yaml2Object.__FORMAT) as yaml:
+            config = load(yaml)
         verbose_message(Yaml2Object.VERBOSE, verbose, 'Done')
-        return content
-
-    def __str__(self):
-        """
-            Return human readable string (Yaml2Object).
-            :return: String representation of Yaml2Object
-            :rtype: <str>
-            :exceptions: None
-        """
-        file_path = self.get_file_path()
-        return "File path {0}".format(file_path)
-
-    def __repr__(self):
-        """
-            Return unambiguous string (Yaml2Object).
-            :return: String representation of Yaml2Object
-            :rtype: <str>
-            :exceptions: None
-        """
-        file_path = self.get_file_path()
-        return "{0}(\'{1}\')".format(Yaml2Object.__name__, file_path)
+        return config
 

@@ -29,7 +29,7 @@ try:
     from ats_utilities.console_io.warning import ATSWarning, warning_message
 except ImportError as e:
     msg = "\n{0}\n{1}\n".format(__file__, e)
-    sys.exit(msg)  # Force close python Test Case #############################
+    sys.exit(msg)  # Force close python Test Case ############################
 
 __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2018, Free software to use and distributed it.'
@@ -67,3 +67,4 @@ class TestATSWarning(TestCase):
 
 if __name__ == '__main__':
     main()
+

@@ -24,7 +24,7 @@ try:
     from ats_utilities.ats_info import ATSInfo
 except ImportError as e:
     msg = "\n{0}\n{1}\n".format(__file__, e)
-    sys.exit(msg)  # Force close python Test Case #############################
+    sys.exit(msg)  # Force close python Test Case ############################
 
 __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2018, Free software to use and distributed it.'
@@ -46,8 +46,9 @@ class TestATSInfo(TestCase):
             'ats_license': 'GPLv3'
         }
         ats = ATSInfo(info)
-        self.assertTrue(ats.get_ats_info())
+        self.assertTrue(ats.is_ats_info_ok())
 
 
 if __name__ == '__main__':
     main()
+

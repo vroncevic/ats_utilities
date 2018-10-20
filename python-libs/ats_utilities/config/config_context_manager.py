@@ -55,8 +55,6 @@ class ConfigFile(FileChecking):
                 __init__ - Initial constructor
                 __enter__ - Open file and return object File
                 __exit__ - Close file
-                __str__ - Dunder (magic) method
-                __repr__ - Dunder (magic) method
     """
 
     __slots__ = (
@@ -107,16 +105,18 @@ class ConfigFile(FileChecking):
         )
         FileChecking.__init__(self)
         check_file = self.check_file(file_path=file_path, verbose=verbose)
-        if check_file:
-            self.__file_path = file_path
         check_mode = self.check_mode(file_mode=file_mode, verbose=verbose)
-        if check_mode:
-            self.__file_mode = file_mode
         check_format = self.check_format(
             file_path=file_path, file_extension=file_format, verbose=verbose
         )
-        if check_format:
+        if all([check_file, check_mode, check_format]):
+            self.__file_path = file_path
+            self.__file_mode = file_mode
             self.__file_format = file_format
+        else:
+            self.__file_path = None
+            self.__file_mode = None
+            self.__file_format = None
 
     def __enter__(self):
         """
@@ -141,25 +141,4 @@ class ConfigFile(FileChecking):
             self.__file.close()
         except AttributeError:
             pass
-
-    def __str__(self):
-        """
-            Return human readable string (ConfigFile).
-            :return: String representation of ConfigFile
-            :rtype: <str>
-            :exceptions: None
-        """
-        return "File {0}".format(self.__file_path)
-
-    def __repr__(self):
-        """
-            Return unambiguous string (ConfigFile).
-            :return: String representation of ConfigFile
-            :rtype: <str>
-            :exceptions: None
-        """
-        return "{0}(\'{1}\', \'{2}\', \'{3}\')".format(
-            ConfigFile.__name__, self.__file_path,
-            self.__file_mode, self.__file_format
-        )
 

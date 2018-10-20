@@ -52,8 +52,6 @@ class Json2Object(BaseReadConfig):
             method:
                 __init__ - Initial constructor
                 read_configuration - Read configuration from file
-                __str__ - Dunder (magic) method
-                __repr__ - Dunder (magic) method
     """
 
     __slots__ = ('VERBOSE', '__FORMAT')
@@ -78,7 +76,7 @@ class Json2Object(BaseReadConfig):
             raise ATSTypeError(cfg_file_msg)
         verbose_message(Json2Object.VERBOSE, verbose, 'Setting JSON interface')
         BaseReadConfig.__init__(self)
-        self.set_file_path(file_path=configuration_file)
+        self.file_path = configuration_file
 
     def read_configuration(self, verbose=False):
         """
@@ -89,32 +87,13 @@ class Json2Object(BaseReadConfig):
             :rtype: <Python object(s)> | <NoneType>
             :exceptions: None
         """
-        json_path, content = self.get_file_path(), None
+        content = None
         verbose_message(
-            Json2Object.VERBOSE, verbose, 'Read configuration from', json_path
+            Json2Object.VERBOSE, verbose,
+            'Read configuration from file', self.file_path
         )
-        with ConfigFile(json_path, 'r', cls.__FORMAT) as json_file:
-            content = load(json_file)
+        with ConfigFile(self.file_path, 'r', Json2Object.__FORMAT) as json:
+            content = load(json)
         verbose_message(Json2Object.VERBOSE, verbose, 'Done')
         return content
-
-    def __str__(self):
-        """
-            Return human readable string (Json2Object).
-            :return: String representation of Json2Object
-            :rtype: <str>
-            :exceptions: None
-        """
-        file_path = self.get_file_path()
-        return "File path {0}".format(file_path)
-
-    def __repr__(self):
-        """
-            Return unambiguous string (Json2Object).
-            :return: String representation of Json2Object
-            :rtype: <str>
-            :exceptions: None
-        """
-        file_path = self.get_file_path()
-        return "{0}(\'{1}\')".format(Json2Object.__name__, file_path)
 

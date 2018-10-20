@@ -53,8 +53,6 @@ class Cfg2Object(BaseReadConfig):
             method:
                 __init__ - Initial constructor
                 read_configuration - Read configuration from file
-                __str__ - Dunder (magic) method
-                __repr__ - Dunder (magic) method
     """
 
     __slots__ = (
@@ -82,7 +80,7 @@ class Cfg2Object(BaseReadConfig):
             raise ATSTypeError(cfg_file_msg)
         verbose_message(Cfg2Object.VERBOSE, verbose, 'Setting CFG interface')
         BaseReadConfig.__init__(self)
-        self.set_file_path(file_path=configuration_file)
+        self.file_path = configuration_file
 
     def read_configuration(self, verbose=False):
         """
@@ -93,16 +91,17 @@ class Cfg2Object(BaseReadConfig):
             :rtype: <dict> | <NoneType>
             :exceptions: None
         """
-        cfg_path, config = self.get_file_path(), None
+        config = None
         verbose_message(
-            Cfg2Object.VERBOSE, verbose, 'Read configuration from', cfg_path
+            Cfg2Object.VERBOSE, verbose,
+            'Read configuration from file', self.file_path
         )
         try:
-            with ConfigFile(cfg_path, 'r', cls.__FORMAT) as cfg_file:
-                content = cfg_file.read()
+            with ConfigFile(self.file_path, 'r', Cfg2Object.__FORMAT) as cfg:
+                content = cfg.read()
                 config, lines = {}, content.splitlines()
                 for line in lines:
-                    regex_match = match(cls.__REGEX_MATCH_LINE, line)
+                    regex_match = match(Cfg2Object.__REGEX_MATCH_LINE, line)
                     if not regex_match:
                         pairs = line.split('=')
                         config[pairs[0].strip()] = pairs[1].strip()
@@ -110,24 +109,4 @@ class Cfg2Object(BaseReadConfig):
         except AttributeError:
             pass
         return config
-
-    def __str__(self):
-        """
-            Return human readable string (Cfg2Object).
-            :return: String representation of Cfg2Object
-            :rtype: <str>
-            :exceptions: None
-        """
-        file_path = self.get_file_path()
-        return "File path {0}".format(file_path)
-
-    def __repr__(self):
-        """
-            Return unambiguous string (Cfg2Object).
-            :return: String representation of Cfg2Object
-            :rtype: <str>
-            :exceptions: None
-        """
-        file_path = self.get_file_path()
-        return "{0}(\'{1}\')".format(Cfg2Object.__name__, file_path)
 

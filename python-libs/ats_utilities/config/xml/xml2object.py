@@ -53,8 +53,6 @@ class Xml2Object(BaseReadConfig):
             method:
                 __init__ - Initial constructor
                 read_configuration - Read a configuration from file
-                __str__ - Dunder (magic) method
-                __repr__ - Dunder (magic) method
     """
 
     __slots__ = ('VERBOSE', '__FORMAT')
@@ -79,7 +77,7 @@ class Xml2Object(BaseReadConfig):
             raise ATSTypeError(cfg_file_msg)
         verbose_message(Xml2Object.VERBOSE, verbose, 'Setting XML interface')
         BaseReadConfig.__init__(self)
-        self.set_file_path(file_path=configuration_file)
+        self.file_path = configuration_file
 
     def read_configuration(self, verbose=False):
         """
@@ -90,36 +88,17 @@ class Xml2Object(BaseReadConfig):
             :rtype: <BeautifulSoup> | <NoneType>
             :exceptions: None
         """
-        xml_path, content, config = self.get_file_path(), None, None
+        content, config = None, None
         verbose_message(
-            Xml2Object.VERBOSE, verbose, 'Read configuration from', xml_path
+            Xml2Object.VERBOSE, verbose,
+            'Read configuration from file', self.file_path
         )
         try:
-            with ConfigFile(xml_path, 'r', cls.__FORMAT) as xml_file:
-                content = xml_file.read()
-                config = BeautifulSoup(content, cls.__FORMAT)
+            with ConfigFile(self.file_path, 'r', Xml2Object.__FORMAT) as xml:
+                content = xml.read()
+                config = BeautifulSoup(content, Xml2Object.__FORMAT)
         except AttributeError:
             pass
         verbose_message(Xml2Object.VERBOSE, verbose, 'Done')
         return config
-
-    def __str__(self):
-        """
-            Return human readable string (Xml2Object).
-            :return: String representation of Xml2Object
-            :rtype: <str>
-            :exceptions: None
-        """
-        file_path = self.get_file_path()
-        return "File path {0}".format(file_path)
-
-    def __repr__(self):
-        """
-            Return unambiguous string (Xml2Object).
-            :return: String representation of Xml2Object
-            :rtype: <str>
-            :exceptions: None
-        """
-        file_path = self.get_file_path()
-        return "{0}(\'{1}\')".format(Xml2Object.__name__, file_path)
 

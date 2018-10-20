@@ -53,8 +53,6 @@ class Ini2Object(BaseReadConfig):
             method:
                 __init__ - Initial constructor
                 read_configuration - Read configuration from file
-                __str__ - Dunder (magic) method
-                __repr__ - Dunder (magic) method
     """
 
     __slots__ = ('VERBOSE', '__FORMAT')
@@ -79,7 +77,7 @@ class Ini2Object(BaseReadConfig):
             raise ATSTypeError(cfg_file_msg)
         verbose_message(Ini2Object.VERBOSE, verbose, 'Setting INI interface')
         BaseReadConfig.__init__(self)
-        self.set_file_path(file_path=configuration_file)
+        self.file_path = configuration_file
 
     def read_configuration(self, verbose=False):
         """
@@ -89,33 +87,14 @@ class Ini2Object(BaseReadConfig):
             :return: Configuration object | None
             :rtype: <ConfigParser> | <NoneType>
         """
-        content, ini_path = None, self.get_file_path()
+        content = None
         verbose_message(
-            Ini2Object.VERBOSE, verbose, 'Read configuration from', ini_path
+            Ini2Object.VERBOSE, verbose,
+            'Read configuration from file', self.file_path
         )
-        with ConfigFile(ini_path, 'r', cls.__FORMAT) as ini_file:
+        with ConfigFile(self.file_path, 'r', Ini2Object.__FORMAT) as ini:
             content = ConfigParser()
-            content.read_file(ini_file)
+            content.read_file(ini)
         verbose_message(Ini2Object.VERBOSE, verbose, 'Done')
         return content
-
-    def __str__(self):
-        """
-            Return human readable string (Ini2Object).
-            :return: String representation of Ini2Object
-            :rtype: <str>
-            :exceptions: None
-        """
-        file_path = self.get_file_path()
-        return "File path {0}".format(file_path)
-
-    def __repr__(self):
-        """
-            Return unambiguous string (Ini2Object).
-            :return: String representation of Ini2Object
-            :rtype: <str>
-            :exceptions: None
-        """
-        file_path = self.get_file_path()
-        return "{0}(\'{1}\')".format(Ini2Object.__name__, file_path)
 

@@ -61,7 +61,6 @@ class ATSWarning(ATSConsoleIO):
             Initial constructor.
             :exceptions: None
         """
-        BaseSlots.__init__(self)
         self.__message = ""
 
     @property
@@ -70,6 +69,7 @@ class ATSWarning(ATSConsoleIO):
             Public property getter.
             :return: Formatted warning message
             :rtype: <str>
+            :exceptions: None
         """
         return self.__message
 
@@ -118,3 +118,4 @@ def warning_message(warning_path, *message):
     warning.message = ' '.join(message)
     warning_message_log = "[{0}] {1}".format(warning_path, warning.message)
     print(warning_message_log)
+

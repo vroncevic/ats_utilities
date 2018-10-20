@@ -51,8 +51,6 @@ class Object2Ini(BaseWriteConfig):
             method:
                 __init__ - Initial constructor
                 write_configuration - Write configuration to an ini file
-                __str__ - Dunder (magic) method
-                __repr__ - Dunder (magic) method
     """
 
     __slots__ = ('VERBOSE', '__FORMAT')
@@ -77,7 +75,7 @@ class Object2Ini(BaseWriteConfig):
             raise ATSTypeError(cfg_file_msg)
         verbose_message(Object2Ini.VERBOSE, verbose, 'Setting INI interface')
         BaseWriteConfig.__init__(self)
-        self.set_file_path(file_path=configuration_file)
+        self.file_path = configuration_file
 
     def write_configuration(self, configuration, verbose=False):
         """
@@ -95,35 +93,15 @@ class Object2Ini(BaseWriteConfig):
         cfg_msg = "{0} {1} {2}".format('def', func, cfg_txt)
         if configuration is None or not configuration:
             raise ATSBadCallError(cfg_msg)
-        ini_path = self.get_file_path()
         verbose_message(
-            Object2Ini.VERBOSE, verbose, 'Write configuration to', ini_path
+            Object2Ini.VERBOSE, verbose,
+            'Write configuration to file', self.file_path
         )
-        with ConfigFile(ini_path, 'w', cls.__FORMAT) as ini_file:
+        with ConfigFile(self.file_path, 'w', Object2Ini.__FORMAT) as ini:
             configuration.write(
-                ini_file, space_around_delimiters=True
+                ini, space_around_delimiters=True
             )
             status = True
         verbose_message(Object2Ini.VERBOSE, verbose, 'Done')
         return True if status else False
-
-    def __str__(self):
-        """
-            Return human readable string (Object2Ini).
-            :return: String representation of Object2Ini
-            :rtype: <str>
-            :exceptions: None
-        """
-        file_path = self.get_file_path()
-        return "File path {0}".format(file_path)
-
-    def __repr__(self):
-        """
-            Return unambiguous string (Object2Ini).
-            :return: String representation of Object2Ini
-            :rtype: <str>
-            :exceptions: None
-        """
-        file_path = self.get_file_path()
-        return "{0}(\'{1}\')".format(Object2Ini.__name__, file_path)
 

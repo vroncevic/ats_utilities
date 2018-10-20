@@ -63,8 +63,6 @@ class ATSLogger(ATSLoggerBase):
             method:
                 __init__ - Initial constructor
                 write_log - Write message to log file
-                __str__ - Dunder (magic) method
-                __repr__ - Dunder (magic) method
     """
 
     __slots__ = (
@@ -171,26 +169,4 @@ class ATSLogger(ATSLoggerBase):
                 message = "{0} [{1}]".format('Not supported log level', ctrl)
                 error_message(ATSLogger.VERBOSE, message)
         return True if status else False
-
-    def __str__(self):
-        """
-            Return human readable string (ATSLogger).
-            :return: String representation of ATSLogger
-            :rtype: <str>
-            :exceptions: None
-        """
-        return "{0} log file \n{1}".format(
-            ATSLogger.__name__, self.logger_file
-        )
-
-    def __repr__(self):
-        """
-            Return unambiguous string (ATSLogger).
-            :return: String representation of ATSLogger
-            :rtype: <str>
-            :exceptions: None
-        """
-        return "{0}(\'{1}\', \'{2}\')".format(
-            ATSLogger.__name__, self.logger_name, self.logger_file
-        )
 

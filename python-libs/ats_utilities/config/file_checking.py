@@ -57,6 +57,7 @@ class FileChecking(object):
                 check_file - Check configuration file path
                 check_format - Check configuration file format by extension
                 check_mode -  Checking operation mode for configuration file
+                is_file_ok - final status of configuration file
     """
 
     __slots__ = (
@@ -179,7 +180,7 @@ class FileChecking(object):
             FileChecking.VERBOSE, verbose, 'Checking ATS operation mode'
         )
         for item_mode in split_mode:
-            if item_mode not in cls.__MODES:
+            if item_mode not in FileChecking.__MODES:
                 error_message(
                     FileChecking.VERBOSE, "{0} [{1}]".format(
                         'Not supported mode', file_mode

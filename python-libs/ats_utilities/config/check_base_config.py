@@ -68,6 +68,7 @@ class CheckBaseConfig(object):
     def __init__(self):
         """
             Initial constructor.
+            :exceptions: None
         """
         pass
 

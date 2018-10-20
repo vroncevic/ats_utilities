@@ -45,11 +45,8 @@ class BaseReadConfig(object):
                 __file_path - Configuration file path
             method:
                 __init__ - Initial constructor
-                set_file_path - Setting configuration file path
-                get_file_path - Getting configuration file path
+                file_path - Getting/Setting configuration file path
                 read_configuration - Read configuration (Abstract method)
-                __str__ - Dunder (magic) method
-                __repr__ - Dunder (magic) method
     """
 
     __slots__ = ('VERBOSE','__file_path')
@@ -62,15 +59,8 @@ class BaseReadConfig(object):
         """
         self.__file_path = ""
 
-    def set_file_path(self, file_path):
-        """
-            Setting configuration file path.
-            :param file_path: Configuration file path
-            :type file_path: <str>
-        """
-        self.__file_path = file_path
-
-    def get_file_path(self):
+    @property
+    def file_path(self):
         """
             Getting configuration file path.
             :return: Configuration file path | None
@@ -78,6 +68,16 @@ class BaseReadConfig(object):
             :exception: None
         """
         return self.__file_path
+
+    @file_path.setter
+    def file_path(self, file_path):
+        """
+            Setting configuration file path.
+            :param file_path: Configuration file path
+            :type file_path: <str>
+            :exceptions: None
+        """
+        self.__file_path = file_path
 
     @abstract_method
     def read_configuration(self, verbose=False):
@@ -90,23 +90,4 @@ class BaseReadConfig(object):
             :exception: NotImplementedError
         """
         pass
-
-    def __str__(self):
-        """
-            Return human readable string (BaseReadConfig).
-            :return: String representation of BaseReadConfig
-            :rtype: <str>
-            :exception: None
-        """
-        return "File path {0}".format(self.__file_path)
-
-    def __repr__(self):
-        """
-            Return unambiguous string (BaseReadConfig).
-            :return: String representation of BaseReadConfig
-            :rtype: <str>
-            :exception: None
-        """
-        cls = BaseReadConfig
-        return "{0}()".format(cls.__name__)
 

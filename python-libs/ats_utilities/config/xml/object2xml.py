@@ -51,8 +51,6 @@ class Object2Xml(BaseWriteConfig):
             method:
                 __init__ - Initial constructor
                 write_configuration - Write configuration to a xml file
-                __str__ - Dunder (magic) method
-                __repr__ - Dunder (magic) method
     """
 
     __slots__ = ('VERBOSE', '__FORMAT')
@@ -77,7 +75,7 @@ class Object2Xml(BaseWriteConfig):
             raise ATSTypeError(cfg_file_msg)
         verbose_message(Object2Xml.VERBOSE, verbose, 'Setting XML interface')
         BaseWriteConfig.__init__(self)
-        self.set_file_path(file_path=configuration_file)
+        self.file_path = configuration_file
 
     def write_configuration(self, configuration, verbose=False):
         """
@@ -95,33 +93,13 @@ class Object2Xml(BaseWriteConfig):
         cfg_msg = "{0} {1} {2}".format('def', func, cfg_txt)
         if configuration is None or not configuration:
             raise ATSBadCallError(cfg_msg)
-        xml_path = self.get_file_path()
         verbose_message(
-            Object2Xml.VERBOSE, verbose, 'Write configuration to', xml_path
+            Object2Xml.VERBOSE, verbose,
+            'Write configuration to file', self.file_path
         )
-        with ConfigFile(xml_path, 'w', cls.__FORMAT) as xml_file:
-            xml_file.write("{0}".format(configuration))
+        with ConfigFile(self.file_path, 'w', Object2Xml.__FORMAT) as xml:
+            xml.write("{0}".format(configuration))
             status = True
         verbose_message(Object2Xml.VERBOSE, verbose, 'Done')
         return True if status else False
-
-    def __str__(self):
-        """
-            Return human readable string (Object2Xml).
-            :return: String representation of Object2Xml
-            :rtype: <str>
-            :exceptions: None
-        """
-        file_path = self.get_file_path()
-        return "File path {0}".format(file_path)
-
-    def __repr__(self):
-        """
-            Return unambiguous string (Object2Xml).
-            :return: String representation of Object2Xml
-            :rtype: <str>
-            :exceptions: None
-        """
-        file_path = self.get_file_path()
-        return "{0}(\'{1}\')".format(Object2Xml.__name__, file_path)
 
