@@ -52,6 +52,6 @@ setup(
         'ats_utilities.logging',
         'ats_utilities.option',
         'ats_utilities.register',
-        'ats_utilities.slots'
     ], requires=['colorama', 'bs4', 'yaml', 'configparser', 'pathlib']
 )
+
