@@ -27,7 +27,7 @@ try:
     from ats_utilities.exceptions.ats_bad_call_error import ATSBadCallError
 except ImportError as e:
     msg = "\n{0}\n{1}\n".format(__file__, e)
-    sys.exit(msg)  # Force close python ATS ###################################
+    sys.exit(msg)  # Force close python ATS ##################################
 
 __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2018, Free software to use and distributed it.'
@@ -45,7 +45,7 @@ class ConfigFile(FileChecking):
         Configuration context manager.
         It defines:
             attribute:
-                __CLASS_SLOTS__ - Setting class slots
+                __slots__ - Setting class slots
                 VERBOSE - Console text indicator for current process-phase
                 __file_path - Configuration file name
                 __file_mode - File mode
@@ -55,12 +55,10 @@ class ConfigFile(FileChecking):
                 __init__ - Initial constructor
                 __enter__ - Open file and return object File
                 __exit__ - Close file
-                __str__ - Dunder (magic) method
-                __repr__ - Dunder (magic) method
     """
 
-    __CLASS_SLOTS__ = (
-        'VERBOSE',  # Read-Only
+    __slots__ = (
+        'VERBOSE',
         '__file_path',
         '__file_mode',
         '__file_format',
@@ -81,7 +79,7 @@ class ConfigFile(FileChecking):
             :type verbose: <bool>
             :exceptions: ATSBadCallError | ATSTypeError
         """
-        cls, status, func = ConfigFile, False, stack()[0][3]
+        status, func = False, stack()[0][3]
         file_path_txt = 'Argument: expected file_path <str> object'
         file_path_msg = "{0} {1} {2}".format('def', func, file_path_txt)
         file_mode_txt = 'Argument: expected file_mode <str> object'
@@ -101,62 +99,46 @@ class ConfigFile(FileChecking):
         if not isinstance(file_format, str):
             raise ATSTypeError(file_format_msg)
         verbose_message(
-            cls.VERBOSE, verbose, "{0}\n{1}\n{2} [{3}]".format(
+            ConfigFile.VERBOSE, verbose, "{0}\n{1}\n{2} [{3}]".format(
                 'Setting file path', file_path, 'Setting file mode', file_mode
             )
         )
         FileChecking.__init__(self)
         check_file = self.check_file(file_path=file_path, verbose=verbose)
-        if check_file:
-            self.__file_path = file_path
         check_mode = self.check_mode(file_mode=file_mode, verbose=verbose)
-        if check_mode:
-            self.__file_mode = file_mode
         check_format = self.check_format(
             file_path=file_path, file_extension=file_format, verbose=verbose
         )
-        if check_format:
+        if all([check_file, check_mode, check_format]):
+            self.__file_path = file_path
+            self.__file_mode = file_mode
             self.__file_format = file_format
+        else:
+            self.__file_path = None
+            self.__file_mode = None
+            self.__file_format = None
 
     def __enter__(self):
         """
             Open configuration file in mode.
             :return: File object | None
             :rtype: <file> | <NoneType>
+            :exceptions: None
         """
-        cls = ConfigFile
         if self.is_file_ok():
             self.__file = open(self.__file_path, self.__file_mode)
         else:
-            error_message(cls.VERBOSE, 'Check file', self.__file_path)
+            error_message(ConfigFile.VERBOSE, 'Check file', self.__file_path)
             self.__file = None
         return self.__file
 
     def __exit__(self, *args):
         """
             Closing configuration file.
+            :exceptions: None
         """
         try:
             self.__file.close()
         except AttributeError:
             pass
 
-    def __str__(self):
-        """
-            Return human readable string (ConfigFile).
-            :return: String representation of ConfigFile
-            :rtype: <str>
-        """
-        return "File {0}".format(self.__file_path)
-
-    def __repr__(self):
-        """
-            Return unambiguous string (ConfigFile).
-            :return: String representation of ConfigFile
-            :rtype: <str>
-        """
-        cls = ConfigFile
-        return "{0}(\'{1}\', \'{2}\', \'{3}\')".format(
-            cls.__name__, self.__file_path,
-            self.__file_mode, self.__file_format
-        )

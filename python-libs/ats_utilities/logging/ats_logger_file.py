@@ -20,13 +20,12 @@ import sys
 from inspect import stack
 
 try:
-    from ats_utilities.slots import BaseSlots
     from ats_utilities.console_io.verbose import verbose_message
     from ats_utilities.exceptions.ats_type_error import ATSTypeError
     from ats_utilities.exceptions.ats_bad_call_error import ATSBadCallError
 except ImportError as e:
     msg = "\n{0}\n{1}\n".format(__file__, e)
-    sys.exit(msg)  # Force close python ATS ###################################
+    sys.exit(msg)  # Force close python ATS ##################################
 
 __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2018, Free software to use and distributed it.'
@@ -38,27 +37,21 @@ __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
 
 
-class ATSLoggerFile(BaseSlots):
+class ATSLoggerFile(object):
     """
         Define class ATSLoggerFile with attribute(s) and method(s).
         Logging mechanism for App/Tool/Script, keep, set, get logger file path.
         It defines:
             attribute:
-                __CLASS_SLOTS__ - Setting class slots
+                __slots__ - Setting class slots
                 VERBOSE - Console text indicator for current process-phase
                 __log_file - Log file path
             method:
                 __init__ - Initial constructor
-                set_log_file - Setting log file path
-                get_log_file - Getting log file path
-                __str__ - Dunder (magic) method
-                __repr__ - Dunder (magic) method
+                log_file - Getting/Setting log file path
     """
 
-    __CLASS_SLOTS__ = (
-        'VERBOSE',  # Read-Only
-        '__log_file'
-    )
+    __slots__ = ('VERBOSE', '__log_file')
     VERBOSE = 'ATS_UTILITIES::LOGGING::ATS_LOGGER_FILE'
 
     def __init__(self, logger_file=None, verbose=False):
@@ -68,59 +61,37 @@ class ATSLoggerFile(BaseSlots):
             :type logger_file: <str>
             :param verbose: Enable/disable verbose option
             :type verbose: <bool>
+            :exceptions: None
         """
-        cls = ATSLoggerFile
-        verbose_message(cls.VERBOSE, verbose, 'Initial ATS logger file')
-        BaseSlots.__init__(self)
+        verbose_message(
+            ATSLoggerFile.VERBOSE, verbose, 'Initial ATS logger file'
+        )
         self.__log_file = logger_file
 
-    def set_log_file(self, log_file_path, verbose=False):
+    @property
+    def log_file(self, verbose=False):
+        """
+            Getting log file path.
+            :return: Log file path
+            :rtype: <str>
+            :exceptions: None
+        """
+        return self.__log_file
+
+    @log_file.setter
+    def log_file(self, log_file_path, verbose=False):
         """
             Setting log file path.
             :param log_file_path: Log file path
             :type log_file_path: <str>
-            :param verbose: Enable/disable verbose option
-            :type verbose: <bool>
             :exceptions: ATSBadCallError | ATSTypeError
         """
-        cls, func = ATSLoggerFile, stack()[0][3]
+        func = stack()[0][3]
         log_file_txt = 'Argument: expected log_file_path <str> object'
         log_file_msg = "{0} {1} {2}".format('def', func, log_file_txt)
         if log_file_path is None or not log_file_path:
             raise ATSBadCallError(log_file_msg)
         if not isinstance(log_file_path, str):
             raise ATSTypeError(log_file_msg)
-        verbose_message(
-            cls.VERBOSE, verbose, 'Initial ATS log file', log_file_path
-        )
         self.__log_file = log_file_path
 
-    def get_log_file(self, verbose=False):
-        """
-            Getting log file path.
-            :param verbose: Enable/disable verbose option
-            :type verbose: <bool>
-            :return: Log file path
-            :rtype: <str>
-        """
-        cls = ATSLoggerFile
-        verbose_message(cls.VERBOSE, verbose, 'ATS log file', self.__log_file)
-        return self.__log_file
-
-    def __str__(self):
-        """
-            Return human readable string (ATSLoggerFile).
-            :return: String representation of ATSLoggerFile
-            :rtype: <str>
-        """
-        cls = ATSLoggerFile
-        return "{0} Logger file {1}".format(cls.__name__, self.__log_file)
-
-    def __repr__(self):
-        """
-            Return unambiguous string (ATSLoggerFile).
-            :return: String representation of ATSLoggerFile
-            :rtype: <str>
-        """
-        cls = ATSLoggerFile
-        return "{0}(\'{1}\')".format(cls.__name__, self.__log_file)

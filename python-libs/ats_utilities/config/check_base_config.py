@@ -20,14 +20,13 @@ import sys
 from inspect import stack
 
 try:
-    from ats_utilities.slots import BaseSlots
     from ats_utilities.console_io.verbose import verbose_message
     from ats_utilities.console_io.error import error_message
     from ats_utilities.exceptions.ats_type_error import ATSTypeError
     from ats_utilities.exceptions.ats_bad_call_error import ATSBadCallError
 except ImportError as e:
     msg = "\n{0}\n{1}\n".format(__file__, e)
-    sys.exit(msg)  # Force close python ATS ###################################
+    sys.exit(msg)  # Force close python ATS ##################################
 
 __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2018, Free software to use and distributed it.'
@@ -39,13 +38,13 @@ __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
 
 
-class CheckBaseConfig(BaseSlots):
+class CheckBaseConfig(object):
     """
         Define class CheckBaseConfig with attribute(s) and method(s).
         Checking basic configuration structure.
         It defines:
             attribute:
-                __CLASS_SLOTS__ - Setting class slots
+                __slots__ - Setting class slots
                 VERBOSE - Console text indicator for current process-phase
                 __BASE_CONFIG - Basic config keys
                     1: 'ats_name'
@@ -57,9 +56,7 @@ class CheckBaseConfig(BaseSlots):
                 is_correct - Check basic configuration keys
     """
 
-    __CLASS_SLOTS__ = (
-        'VERBOSE', '__BASE_CONFIG'  # Read-Only
-    )
+    __slots__ = ('VERBOSE', '__BASE_CONFIG')
     VERBOSE = 'ATS_UTILITIES::CONFIG::CHECK_BASE_CONFIG'
     __BASE_CONFIG = {
         1: 'ats_name',
@@ -71,8 +68,9 @@ class CheckBaseConfig(BaseSlots):
     def __init__(self):
         """
             Initial constructor.
+            :exceptions: None
         """
-        BaseSlots.__init__(self)
+        pass
 
     @classmethod
     def is_correct(cls, configuration, verbose=False):
@@ -109,3 +107,4 @@ class CheckBaseConfig(BaseSlots):
                 statuses.append(True)
         status = all(status for status in statuses)
         return True if status else False
+

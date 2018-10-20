@@ -20,13 +20,12 @@ import sys
 from inspect import stack
 
 try:
-    from ats_utilities.slots import BaseSlots
     from ats_utilities.console_io.verbose import verbose_message
     from ats_utilities.exceptions.ats_type_error import ATSTypeError
     from ats_utilities.exceptions.ats_bad_call_error import ATSBadCallError
 except ImportError as e:
     msg = "\n{0}\n{1}\n".format(__file__, e)
-    sys.exit(msg)  # Force close python ATS ###################################
+    sys.exit(msg)  # Force close python ATS ##################################
 
 __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2018, Free software to use and distributed it.'
@@ -38,27 +37,21 @@ __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
 
 
-class ATSLoggerName(BaseSlots):
+class ATSLoggerName(object):
     """
         Define class ATSLoggerName with attribute(s) and method(s).
         Logging mechanism for App/Tool/Script, keep, set, get logger name.
         It defines:
             attribute:
-                __CLASS_SLOTS__ - Setting class slots
+                __slots__ - Setting class slots
                 VERBOSE - Console text indicator for current process-phase
                 __logger_name - Logger name
             method:
                 __init__ - Initial constructor
-                set_logger_name - Setting logger name
-                get_logger_name - Getting logger name
-                __str__ - Dunder (magic) method
-                __repr__ - Dunder (magic) method
+                logger_name - Getting/Setting logger name
     """
 
-    __CLASS_SLOTS__ = (
-        'VERBOSE',  # Read-Only
-        '__logger_name'
-    )
+    __slots__ = ('VERBOSE', '__logger_name')
     VERBOSE = 'ATS_UTILITIES::LOGGING::ATS_LOGGER_NAME'
 
     def __init__(self, logger_name=None, verbose=False):
@@ -68,61 +61,37 @@ class ATSLoggerName(BaseSlots):
             :type logger_name: <str>
             :param verbose: Enable/disable verbose option
             :type verbose: <bool>
+            :exceptions: None
         """
-        cls = ATSLoggerName
-        verbose_message(cls.VERBOSE, verbose, 'Initial ATS logger Name')
-        BaseSlots.__init__(self)
+        verbose_message(
+            ATSLoggerName.VERBOSE, verbose, 'Initial ATS logger Name'
+        )
         self.__logger_name = logger_name
 
-    def set_logger_name(self, logger_name, verbose=False):
+    @property
+    def logger_name(self):
+        """
+            Getting logger name.
+            :return: Logger name
+            :rtype: <str>
+            :exceptions: None
+        """
+        return self.__logger_name
+
+    @logger_name.setter
+    def logger_name(self, logger_name):
         """
             Setting logger name.
             :param logger_name: Logger name
             :type logger_name: <str>
-            :param verbose: Enable/disable verbose option
-            :type verbose: <bool>
             :exceptions: ATSBadCallError | ATSTypeError
         """
-        cls, func = ATSLoggerName, stack()[0][3]
+        func = stack()[0][3]
         logger_name_txt = 'Argument: expected logger_name <str> object'
         logger_name_msg = "{0} {1} {2}".format('def', func, logger_name_txt)
         if logger_name is None or not logger_name:
             raise ATSBadCallError(logger_name_msg)
         if not isinstance(logger_name, str):
             raise ATSTypeError(logger_name_msg)
-        verbose_message(
-            cls.VERBOSE, verbose, 'Set ATS logger name', logger_name
-        )
         self.__logger_name = logger_name
 
-    def get_logger_name(self, verbose=False):
-        """
-            Getting logger name.
-            :param verbose: Enable/disable verbose option
-            :type verbose: <bool>
-            :return: Logger name
-            :rtype: <str>
-        """
-        cls = ATSLoggerName
-        verbose_message(
-            cls.VERBOSE, verbose, 'ATS logger name', self.__logger_name
-        )
-        return self.__logger_name
-
-    def __str__(self):
-        """
-            Return human readable string (ATSLoggerName).
-            :return: String representation of ATSLoggerName
-            :rtype: <str>
-        """
-        cls = ATSLoggerName
-        return "{0} Logger name {1}".format(cls.__name__, self.__logger_name)
-
-    def __repr__(self):
-        """
-            Return unambiguous string (ATSLoggerName).
-            :return: String representation of ATSLoggerName
-            :rtype: <str>
-        """
-        cls = ATSLoggerName
-        return "{0}(\'{1}\')".format(cls.__name__, self.__logger_name)

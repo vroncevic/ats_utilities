@@ -30,7 +30,7 @@ try:
     from ats_utilities.exceptions.ats_bad_call_error import ATSBadCallError
 except ImportError as e:
     msg = "\n{0}\n{1}\n".format(__file__, e)
-    sys.exit(msg)  # Force close python ATS ###################################
+    sys.exit(msg)  # Force close python ATS ##################################
 
 __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2018, Free software to use and distributed it.'
@@ -42,24 +42,30 @@ __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
 
 
-class ATSLoggerBase(ATSLoggerStatus, ATSLoggerFile, ATSLoggerName):
+class ATSLoggerBase(object):
     """
         Define class ATSLoggerBase with attribute(s) and method(s).
         Base container for logging mechanism.
         It defines:
             attribute:
-                __CLASS_SLOTS__ - Setting class slots
+                __slots__ - Setting class slots
                 VERBOSE - Console text indicator for current process-phase
+                __logger_name - Logger name
+                __logger_status - Logger info status
+                __logger_file - Logger file path
                 __logger - Object logger
             method:
                 __init__ - Initial constructor
-                set_logger - Setting logger object
-                get_logger - Getting logger object
+                logger - Getting/Setting logger object
                 write_log - Write message to log file (Abstract method)
     """
 
-    __CLASS_SLOTS__ = (
-        'VERBOSE'  # Read-Only
+    __slots__ = (
+        'VERBOSE',
+        'logger_name',
+        'logger_status',
+        'logger_file',
+        '__logger'
     )
     VERBOSE = 'ATS_UTILITIES::LOGGING::ATS_BASE_LOGGER'
 
@@ -68,44 +74,42 @@ class ATSLoggerBase(ATSLoggerStatus, ATSLoggerFile, ATSLoggerName):
             Initial constructor.
             :param verbose: Enable/disable verbose option
             :type verbose: <bool>
+            :exceptions: None
         """
-        cls = ATSLoggerBase
-        verbose_message(cls.VERBOSE, verbose, 'Initial ATS logger base')
-        ATSLoggerStatus.__init__(self, False, verbose=verbose)
-        ATSLoggerFile.__init__(self, None, verbose=verbose)
-        ATSLoggerName.__init__(self, None, verbose=verbose)
+        verbose_message(
+            ATSLoggerBase.VERBOSE, verbose, 'Initial ATS logger base'
+        )
+        self.logger_name = ATSLoggerName(verbose=verbose)
+        self.logger_status = ATSLoggerStatus(verbose=verbose)
+        self.logger_file = ATSLoggerFile(verbose=verbose)
         self.__logger = None
 
-    def set_logger(self, logger, verbose=False):
+    @property
+    def logger(self, verbose=False):
+        """
+            Getting logger object.
+            :return: Logger object
+            :rtype: <logging.Logger>
+            :exceptions: None
+        """
+        return self.__logger
+
+    @logger.setter
+    def logger(self, logger):
         """
             Setting logger object.
             :param logger: Logger object
             :type logger: <logging.Logger>
-            :param verbose: Enable/disable verbose option
-            :type verbose: <bool>
             :exceptions: ATSBadCallError | ATSTypeError
         """
-        cls, func = ATSLoggerBase, stack()[0][3]
+        func = stack()[0][3]
         logger_txt = 'Argument: expected logger <logging.Logger> object'
         logger_msg = "{0} {1} {2}".format('def', func, logger_txt)
         if logger is None or not logger:
             raise ATSBadCallError(logger_msg)
         if not isinstance(logger, Logger):
             raise ATSTypeError(logger_msg)
-        verbose_message(cls.VERBOSE, verbose, 'Setting ATS logger', logger)
         self.__logger = logger
-
-    def get_logger(self, verbose=False):
-        """
-            Getting logger object.
-            :param verbose: Enable/disable verbose option
-            :type verbose: <bool>
-            :return: Logger object
-            :rtype: <logging.Logger>
-        """
-        cls = ATSLoggerBase
-        verbose_message(cls.VERBOSE, verbose, 'ATS logger', self.__logger)
-        return self.__logger
 
     @abstract_method
     def write_log(self, message, ctrl, verbose=False):
@@ -122,3 +126,4 @@ class ATSLoggerBase(ATSLoggerStatus, ATSLoggerFile, ATSLoggerName):
             :exception: NotImplementedError
         """
         pass
+

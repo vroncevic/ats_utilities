@@ -22,7 +22,6 @@ from inspect import stack
 try:
     from bs4 import BeautifulSoup
 
-    from ats_utilities.slots import BaseSlots
     from ats_utilities.config.base_read_config import BaseReadConfig
     from ats_utilities.console_io.verbose import verbose_message
     from ats_utilities.config.config_context_manager import ConfigFile
@@ -30,7 +29,7 @@ try:
     from ats_utilities.exceptions.ats_bad_call_error import ATSBadCallError
 except ImportError as e:
     msg = "\n{0}\n{1}\n".format(__file__, e)
-    sys.exit(msg)  # Force close python ATS ###################################
+    sys.exit(msg)  # Force close python ATS ##################################
 
 __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2018, Free software to use and distributed it.'
@@ -42,25 +41,21 @@ __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
 
 
-class Xml2Object(BaseSlots, BaseReadConfig):
+class Xml2Object(BaseReadConfig):
     """
         Define class Xml2Object with attribute(s) and method(s).
         Convert a xml configuration file (xml tags) to an object.
         It defines:
             attribute:
-                __CLASS_SLOTS__ - Setting class slots
+                __slots__ - Setting class slots
                 VERBOSE - Console text indicator for current process-phase
                 __FORMAT - Format of configuration content
             method:
                 __init__ - Initial constructor
                 read_configuration - Read a configuration from file
-                __str__ - Dunder (magic) method
-                __repr__ - Dunder (magic) method
     """
 
-    __CLASS_SLOTS__ = (
-        'VERBOSE', '__FORMAT'  # Read-Only
-    )
+    __slots__ = ('VERBOSE', '__FORMAT')
     VERBOSE = 'ATS_UTILITIES::CONFIG::XML::XML_TO_OBJECT'
     __FORMAT = 'xml'
 
@@ -73,17 +68,16 @@ class Xml2Object(BaseSlots, BaseReadConfig):
             :type verbose: <bool>
             :exceptions: ATSBadCallError | ATSTypeError
         """
-        cls, func = Xml2Object, stack()[0][3]
+        func = stack()[0][3]
         cfg_file_txt = 'Argument: expected configuration_file <str> object'
         cfg_file_msg = "{0} {1} {2}".format('def', func, cfg_file_txt)
         if configuration_file is None or not configuration_file:
             raise ATSBadCallError(cfg_file_msg)
         if not isinstance(configuration_file, str):
             raise ATSTypeError(cfg_file_msg)
-        verbose_message(cls.VERBOSE, verbose, 'Setting XML interface')
-        BaseSlots.__init__(self)
+        verbose_message(Xml2Object.VERBOSE, verbose, 'Setting XML interface')
         BaseReadConfig.__init__(self)
-        self.set_file_path(file_path=configuration_file)
+        self.file_path = configuration_file
 
     def read_configuration(self, verbose=False):
         """
@@ -92,35 +86,19 @@ class Xml2Object(BaseSlots, BaseReadConfig):
             :type verbose: <bool>
             :return: Configuration object | None
             :rtype: <BeautifulSoup> | <NoneType>
+            :exceptions: None
         """
-        cls, content, config = Xml2Object, None, None
-        xml_path = self.get_file_path()
+        content, config = None, None
         verbose_message(
-            cls.VERBOSE, verbose, 'Read configuration from file', xml_path
+            Xml2Object.VERBOSE, verbose,
+            'Read configuration from file', self.file_path
         )
         try:
-            with ConfigFile(xml_path, 'r', cls.__FORMAT) as xml_file:
-                content = xml_file.read()
-                config = BeautifulSoup(content, cls.__FORMAT)
+            with ConfigFile(self.file_path, 'r', Xml2Object.__FORMAT) as xml:
+                content = xml.read()
+                config = BeautifulSoup(content, Xml2Object.__FORMAT)
         except AttributeError:
             pass
-        verbose_message(cls.VERBOSE, verbose, 'Done')
+        verbose_message(Xml2Object.VERBOSE, verbose, 'Done')
         return config
 
-    def __str__(self):
-        """
-            Return human readable string (Xml2Object).
-            :return: String representation of Xml2Object
-            :rtype: <str>
-        """
-        file_path = self.get_file_path()
-        return "File path {0}".format(file_path)
-
-    def __repr__(self):
-        """
-            Return unambiguous string (Xml2Object).
-            :return: String representation of Xml2Object
-            :rtype: <str>
-        """
-        cls, file_path = Xml2Object, self.get_file_path()
-        return "{0}(\'{1}\')".format(cls.__name__, file_path)
