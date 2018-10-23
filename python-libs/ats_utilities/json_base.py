@@ -57,6 +57,7 @@ class JsonBase(ATSInfo):
             method:
                 __init__ - Initial constructor
                 add_new_option - Adding new option for CL interface
+                parse_args - Parse arguments
                 tool_status - Getting/Setting tool status
                 process - Process and run tool operation (Abstract method)
     """
@@ -105,6 +106,18 @@ class JsonBase(ATSInfo):
             :exceptions: None
         """
         self.__option_parser.add_operation(*args, **kwargs)
+
+    def parse_args(self, argv):
+        """
+            Process arguments from start.
+            :param argv: Arguments
+            :type argv: <Python object(s)>
+            :return: Options and arguments
+            :rtype: <Python object(s)>
+            :exceptions: None
+        """
+        (opts, args) = self.__option_parser.parse_args(argv)
+        return opts, args
 
     @property
     def tool_status(self):
