@@ -95,7 +95,7 @@ class FileChecking(object):
             :rtype: <bool>
             :exceptions: ATSBadCallError | ATSTypeError
         """
-        func, status = stack()[0][3], False
+        func = stack()[0][3]
         file_path_txt = 'Argument: expected file_path <str> object'
         file_path_msg = "{0} {1} {2}".format('def', func, file_path_txt)
         if file_path is None or not file_path:
@@ -194,7 +194,7 @@ class FileChecking(object):
     def is_file_ok(self):
         """
             Return final status of configuration file.
-            :return: Boolean value (correct file)
+            :return: Boolean value (correct file) True, else False
             :rtype: <bool>
             :exceptions: None
         """

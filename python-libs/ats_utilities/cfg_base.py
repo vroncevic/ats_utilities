@@ -54,6 +54,7 @@ class CfgBase(ATSInfo):
                 __tool_operational - Control operational flag
                 __cfg2obj - In API for configuration
                 __obj2cfg - Out API for configuration
+                __option_parser - Option parser
             method:
                 __init__ - Initial constructor
                 add_new_option - Adding new option
@@ -66,7 +67,8 @@ class CfgBase(ATSInfo):
         'VERBOSE',
         '__tool_operational',
         '__cfg2obj',
-        '__obj2cfg'
+        '__obj2cfg',
+        '__option_parser'
     )
     VERBOSE = 'ATS_UTILITIES::CFG_BASE'
 
@@ -84,7 +86,7 @@ class CfgBase(ATSInfo):
         self.__tool_operational = False  # App/Tool/Script not operative
         self.__cfg2obj = Cfg2Object(base_config_file, verbose=verbose)
         self.__obj2cfg = Object2Cfg(base_config_file, verbose=verbose)
-        if all([self.__cfg2obj, self.__obj2cg]):
+        if all([self.__cfg2obj, self.__obj2cfg]):
             configuration = self.__cfg2obj.read_configuration(verbose=verbose)
         if configuration:
             ATSInfo.__init__(self, configuration, verbose=verbose)

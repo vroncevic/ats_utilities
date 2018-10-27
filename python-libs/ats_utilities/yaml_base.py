@@ -54,6 +54,7 @@ class YamlBase(ATSInfo):
                 __tool_operational - Control operational flag
                 __yaml2obj - In API for configuration
                 __obj2yaml - Out API for configuration
+                __option_parser - Option parser
             method:
                 __init__ - Initial constructor
                 add_new_option - Adding new option for CL interface
@@ -66,7 +67,8 @@ class YamlBase(ATSInfo):
         'VERBOSE',
         '__tool_operational',
         '__yaml2obj',
-        '__obj2yaml'
+        '__obj2yaml',
+        '__option_parser'
     )
     VERBOSE = 'ATS_UTILITIES::YAML_BASE'
 

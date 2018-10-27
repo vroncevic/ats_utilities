@@ -56,7 +56,7 @@ class abstract_method(object):
     __slots__ = (
         'VERBOSE',
         'method_name',
-        'method_class_name'
+        'method_class_name',
         'method_type',
         'method'
     )
@@ -73,10 +73,10 @@ class abstract_method(object):
         """
         cls = abstract_method
         verbose_message(cls.VERBOSE, verbose, 'Initial decorator')
-        self.method_name = method_to_abstract.__name__  # Getting method name
-        self.method_class_name = stack()[1][3]  # Getting class name
-        self.method_type = type(method_to_abstract)  # Getting method type
-        self.method = method_to_abstract  # Getting method object
+        self.method_name = method_to_abstract.__name__
+        self.method_class_name = stack()[1][3]
+        self.method_type = type(method_to_abstract)
+        self.method = method_to_abstract
 
     def __call__(self, verbose=False, *args, **kwargs):
         """

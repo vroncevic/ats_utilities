@@ -41,6 +41,7 @@ setup(
     platforms='POSIX',
     packages=[
         'ats_utilities',
+        'ats_utilities.abstract',
         'ats_utilities.config',
         'ats_utilities.config.cfg',
         'ats_utilities.config.ini',
