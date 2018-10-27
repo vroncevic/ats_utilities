@@ -54,6 +54,7 @@ class IniBase(ATSInfo):
                 __tool_operational - Control operational flag
                 __ini2obj - In API for configuration
                 __obj2ini - Out API for configuration
+                __option_parser - Option parser
             method:
                 __init__ - Initial constructor
                 add_new_option - Adding new option for CL interface
@@ -66,7 +67,8 @@ class IniBase(ATSInfo):
         'VERBOSE',
         '__tool_operational',
         '__ini2obj',
-        '__obj2ini'
+        '__obj2ini',
+        '__option_parser'
     )
     VERBOSE = 'ATS_UTILITIES::INI_BASE'
 

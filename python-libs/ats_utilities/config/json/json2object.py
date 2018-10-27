@@ -67,7 +67,7 @@ class Json2Object(BaseReadConfig):
             :type verbose: <bool>
             :exceptions: ATSBadCallError | ATSTypeError
         """
-        cls, func = , stack()[0][3]
+        func = stack()[0][3]
         cfg_file_txt = 'Argument: expected configuration_file <str> object'
         cfg_file_msg = "{0} {1} {2}".format('def', func, cfg_file_txt)
         if configuration_file is None or not configuration_file:

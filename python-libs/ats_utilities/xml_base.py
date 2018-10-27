@@ -54,6 +54,7 @@ class XmlBase(ATSInfo):
                 __tool_operational - Control operational flag
                 __xml2obj - In API for configuration
                 __obj2xml - Out API for configuration
+                __option_parser - Option parser
             method:
                 __init__ - Initial constructor
                 add_new_option - Adding new option for CL interface
@@ -66,7 +67,8 @@ class XmlBase(ATSInfo):
         'VERBOSE',
         '__tool_operational',
         '__xml2obj',
-        '__obj2xml'
+        '__obj2xml',
+        '__option_parser'
     )
     VERBOSE = 'ATS_UTILITIES::XML_BASE'
 

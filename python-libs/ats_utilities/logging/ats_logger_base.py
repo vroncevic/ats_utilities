@@ -85,7 +85,7 @@ class ATSLoggerBase(object):
         self.__logger = None
 
     @property
-    def logger(self, verbose=False):
+    def logger(self):
         """
             Getting logger object.
             :return: Logger object

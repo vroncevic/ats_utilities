@@ -69,7 +69,7 @@ class ATSLoggerFile(object):
         self.__log_file = logger_file
 
     @property
-    def log_file(self, verbose=False):
+    def log_file(self):
         """
             Getting log file path.
             :return: Log file path
@@ -79,7 +79,7 @@ class ATSLoggerFile(object):
         return self.__log_file
 
     @log_file.setter
-    def log_file(self, log_file_path, verbose=False):
+    def log_file(self, log_file_path):
         """
             Setting log file path.
             :param log_file_path: Log file path

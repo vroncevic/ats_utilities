@@ -11,10 +11,11 @@ To install modules, locate and run setup.py, type the following:
 ```
 python setup.py install
 ```
+:sparkles:
 
 ### DEPENDENCIES
 
-These modules requires other modules and libraries (Python 2/3):
+These modules requires other modules and libraries (Python 2.x/3.x):
 
 ```
 sys
@@ -47,17 +48,9 @@ pathlib
 unittest
 ```
 
-### COPYRIGHT AND LICENCE
-
-Copyright (C) 2018 by https://vroncevic.github.io/ats_utilities/
-
-This tool is free software; you can redistribute it and/or modify
-it under the same terms as Python itself, either Python version 2.7/3.4 or,
-at your option, any later version of Python 3 you may have available.
-
-:sparkles:
-
 ### Library structure
+
+![alt tag](https://raw.githubusercontent.com/vroncevic/ats_utilities/dev/python-libs-docs/arch_flow_usage.png)
 
 ```
 .
@@ -127,4 +120,14 @@ at your option, any later version of Python 3 you may have available.
 │   └── yaml_base.py
 └── setup.py
 ```
+
+### COPYRIGHT AND LICENCE
+
+Copyright (C) 2018 by https://vroncevic.github.io/ats_utilities/
+
+This tool is free software; you can redistribute it and/or modify
+it under the same terms as Python itself, either Python version 2.7/3.4 or,
+at your option, any later version of Python 3 you may have available.
+
+:sparkles:
 
