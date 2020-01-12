@@ -96,7 +96,6 @@ class XmlBase(ATSInfo):
                     tool_info, self.version, self.license, verbose=verbose
                 )
                 self.__tool_operational = True  # App/Tool/Script operative
-                self.show_base_info(verbose=verbose)
 
     def add_new_option(self, *args, **kwargs):
         """
