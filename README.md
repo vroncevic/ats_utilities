@@ -1,5 +1,9 @@
 # Python Utilities
 
+ats_utilities is framework for building Apps/Tools/Scripts.
+
+Developed in python code: 100%.
+
 The README is used to introduce the modules and provide instructions on
 how to install the modules, any machine dependencies it may have and any
 other information that should be provided before the modules are installed.
@@ -42,15 +46,19 @@ datetime
 pathlib
 ```
 
-### Testing framework
+### TESTING FRAMEWORK
 
 ```
 unittest
 ```
 
-### Library structure
+### LIBRARY STRUCTURE
+
+ats_utilities is based on OOP:
 
 ![alt tag](https://raw.githubusercontent.com/vroncevic/ats_utilities/dev/python-libs-docs/arch_flow_usage.png)
+
+Framework structure:
 
 ```
 .
