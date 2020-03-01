@@ -86,7 +86,7 @@ class XmlBase(ATSInfo):
         """
         configuration = None
         verbose_message(XmlBase.VERBOSE, verbose, 'Initial ATS base settings')
-        self.__tool_operational = False # App/Tool/Script not operative
+        self.__tool_operational = False  # App/Tool/Script not operative
         self.__xml2obj = Xml2Object(base_config_file, verbose=verbose)
         self.__obj2xml = Object2Xml(base_config_file, verbose=verbose)
         if all([self.__xml2obj, self.__obj2xml]):
@@ -98,7 +98,7 @@ class XmlBase(ATSInfo):
                 self.__option_parser = ATSOptionParser(
                     tool_info, self.version, self.license, verbose=verbose
                 )
-                self.__tool_operational = True # App/Tool/Script operative
+                self.__tool_operational = True  # App/Tool/Script operative
 
     def add_new_option(self, *args, **kwargs):
         """

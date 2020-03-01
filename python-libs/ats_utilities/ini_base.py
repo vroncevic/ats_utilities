@@ -86,7 +86,7 @@ class IniBase(ATSInfo):
         """
         configuration = None
         verbose_message(IniBase.VERBOSE, verbose, 'Initial ATS base settings')
-        self.__tool_operational = False # App/Tool/Script not operative
+        self.__tool_operational = False  # App/Tool/Script not operative
         self.__ini2obj = Ini2Object(base_config_file, verbose=verbose)
         self.__obj2ini = Object2Ini(base_config_file, verbose=verbose)
         if all([self.__ini2obj, self.__obj2ini]):
@@ -98,7 +98,7 @@ class IniBase(ATSInfo):
                 self.__option_parser = ATSOptionParser(
                     tool_info, self.version, self.license, verbose=verbose
                 )
-                self.__tool_operational = True # App/Tool/Script operative
+                self.__tool_operational = True  # App/Tool/Script operative
 
     def add_new_option(self, *args, **kwargs):
         """
