@@ -31,5 +31,5 @@ jobs:
       run: |
         pip install -r requirements.txt
         pip install pytest
-        python ../setup.py install
+        python ./python-libs/setup.py install
         pytest
