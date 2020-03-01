@@ -1,3 +1,5 @@
 PyYAML==4.2b1
 bs4==0.0.1
 pathlib==1.0.1
+colorama==0.3.9
+configparser==3.5.0b2
