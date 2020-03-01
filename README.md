@@ -11,11 +11,13 @@ other information that should be provided before the modules are installed.
 ![Python package](https://github.com/vroncevic/ats_utilities/workflows/Python%20package/badge.svg)
 
 ### INSTALLATION
+Navigate to release [page](https://github.com/vroncevic/ats_utilities/releases/tag/v1.0) download and extract release archive.
 
 To install modules, locate and run setup.py, type the following:
 
 ```
-cd python-libs
+tar xvzf ats_utilities-1.0.tar.gz
+cd ats_utilities-1.0/python-libs
 python setup.py install
 ```
 :sparkles:
