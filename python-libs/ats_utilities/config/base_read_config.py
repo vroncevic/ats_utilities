@@ -53,7 +53,7 @@ class BaseReadConfig(object):
                 read_configuration - Read configuration (Abstract method)
     """
 
-    __slots__ = ('VERBOSE','__file_path')
+    __slots__ = ('VERBOSE', '__file_path')
     VERBOSE = 'ATS_UTILITIES::CONFIG::BASE_READ_CONFIG'
 
     def __init__(self):

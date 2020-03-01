@@ -59,9 +59,7 @@ class Cfg2Object(BaseReadConfig):
                 read_configuration - Read configuration from file
     """
 
-    __slots__ = (
-        'VERBOSE', '__FORMAT', '__REGEX_MATCH_LINE'
-    )
+    __slots__ = ('VERBOSE', '__FORMAT', '__REGEX_MATCH_LINE')
     VERBOSE = 'ATS_UTILITIES::CONFIG::CFG::CFG_TO_OBJECT'
     __FORMAT = 'cfg'
     __REGEX_MATCH_LINE = r'^\s*$'

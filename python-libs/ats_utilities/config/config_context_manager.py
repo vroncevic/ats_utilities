@@ -83,7 +83,7 @@ class ConfigFile(FileChecking):
             :type verbose: <bool>
             :exceptions: ATSBadCallError | ATSTypeError
         """
-        status, func = False, stack()[0][3]
+        func = stack()[0][3]
         file_path_txt = 'Argument: expected file_path <str> object'
         file_path_msg = "{0} {1} {2}".format('def', func, file_path_txt)
         file_mode_txt = 'Argument: expected file_mode <str> object'

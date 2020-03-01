@@ -30,7 +30,6 @@ try:
     from ats_utilities.option.ats_option_parser import ATSOptionParser
     from ats_utilities.abstract import abstract_method
     from ats_utilities.console_io.verbose import verbose_message
-    from ats_utilities.console_io.error import error_message
     from ats_utilities.exceptions.ats_type_error import ATSTypeError
     from ats_utilities.exceptions.ats_bad_call_error import ATSBadCallError
 except ImportError as error:
