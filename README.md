@@ -13,6 +13,7 @@ other information that should be provided before the modules are installed.
 To install modules, locate and run setup.py, type the following:
 
 ```
+cd python-libs
 python setup.py install
 ```
 :sparkles:
@@ -31,16 +32,6 @@ ats_utilities:
     configparser
     colorama
     pathlib
-test:
-    unittest
-```
-
-### TESTING FRAMEWORK
-
-Used test framework:
-
-```
-unittest
 ```
 
 ### LIBRARY STRUCTURE
