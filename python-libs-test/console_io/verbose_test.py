@@ -1,20 +1,24 @@
 # -*- coding: UTF-8 -*-
-# verbose_test.py
-# Copyright (C) 2018 Vladimir Roncevic <elektron.ronca@gmail.com>
-#
-# ats_utilities is free software: you can redistribute it and/or modify it
-# under the terms of the GNU General Public License as published by the
-# Free Software Foundation, either version 3 of the License, or
-# (at your option) any later version.
-#
-# ats_utilities is distributed in the hope that it will be useful, but
-# WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-# See the GNU General Public License for more details.
-#
-# You should have received a copy of the GNU General Public License along
-# with this program. If not, see <http://www.gnu.org/licenses/>.
-#
+
+"""
+ Module
+     verbose_test.py
+ Copyright
+     Copyright (C) 2018 Vladimir Roncevic <elektron.ronca@gmail.com>
+     ats_utilities is free software: you can redistribute it and/or modify it
+     under the terms of the GNU General Public License as published by the
+     Free Software Foundation, either version 3 of the License, or
+     (at your option) any later version.
+     ats_utilities is distributed in the hope that it will be useful, but
+     WITHOUT ANY WARRANTY; without even the implied warranty of
+     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+     See the GNU General Public License for more details.
+     You should have received a copy of the GNU General Public License along
+     with this program. If not, see <http://www.gnu.org/licenses/>.
+ Info
+     Define class TestATSVerbose with attribute(s) and method(s).
+     Test TestATSVerbose attributes.
+"""
 
 import sys
 
@@ -27,9 +31,9 @@ try:
     from ats_utilities.exceptions.ats_bad_call_error import ATSBadCallError
     from ats_utilities.exceptions.ats_type_error import ATSTypeError
     from ats_utilities.console_io.verbose import ATSVerbose, verbose_message
-except ImportError as e:
-    msg = "\n{0}\n{1}\n".format(__file__, e)
-    sys.exit(msg)  # Force close python Test Case ############################
+except ImportError as error:
+    MESSAGE = "\n{0}\n{1}\n".format(__file__, error)
+    sys.exit(MESSAGE) # Force close python ATS ###############################
 
 __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2018, Free software to use and distributed it.'
@@ -42,6 +46,17 @@ __status__ = 'Updated'
 
 
 class TestATSVerbose(TestCase):
+    """
+        Define class TestATSVerbose with attribute(s) and method(s).
+        Test TestATSVerbose attributes.
+        It defines:
+            attribute:
+                None
+            method:
+                test_initial - Initial test
+                test_verbose_message_bad_call - Test bad call
+                test_verbose_message_type_error - Test error message
+    """
 
     def test_initial(self):
         atsv = ATSVerbose()
@@ -69,4 +84,3 @@ class TestATSVerbose(TestCase):
 
 if __name__ == '__main__':
     main()
-
