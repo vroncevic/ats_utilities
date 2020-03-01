@@ -34,7 +34,7 @@ try:
     from ats_utilities.exceptions.ats_bad_call_error import ATSBadCallError
 except ImportError as error:
     MESSAGE = "\n{0}\n{1}\n".format(__file__, error)
-    sys.exit(MESSAGE) # Force close python ATS ###############################
+    sys.exit(MESSAGE)  # Force close python ATS ##############################
 
 __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2018, Free software to use and distributed it.'
