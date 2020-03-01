@@ -16,8 +16,8 @@
      You should have received a copy of the GNU General Public License along
      with this program. If not, see <http://www.gnu.org/licenses/>.
  Info
-     Define class GenAVR8 with attribute(s) and method(s).
-     Load a settings, create an interface and run operation(s).
+     Define class JsonBase with attribute(s) and method(s).
+     Load a settings, create a CL interface and run operation.
 """
 
 import sys
