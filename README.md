@@ -22,31 +22,22 @@ python setup.py install
 These modules requires other modules and libraries (Python 2.x/3.x):
 
 ```
-sys
-logging
-distutils
-os
-yaml
-bs4
-json
-configparser
-optparse
-re
-inspect
-Exception
-ImportError
-LookupError
-IOError
-TypeError
-ValueError
-AttributeError
-KeyError
-colorama
-datetime
-pathlib
+setup.py:
+    distutils
+
+ats_utilities:
+    yaml
+    bs4
+    configparser
+    colorama
+    pathlib
+test:
+    unittest
 ```
 
 ### TESTING FRAMEWORK
+
+Used test framework:
 
 ```
 unittest
