@@ -33,7 +33,7 @@ try:
     from ats_utilities.console_io.error import ATSError, error_message
 except ImportError as error:
     MESSAGE = "\n{0}\n{1}\n".format(__file__, error)
-    sys.exit(MESSAGE) # Force close python ATS ###############################
+    sys.exit(MESSAGE)  # Force close python ATS ##############################
 
 __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2018, Free software to use and distributed it.'

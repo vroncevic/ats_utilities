@@ -34,7 +34,7 @@ try:
     from ats_utilities.exceptions.ats_bad_call_error import ATSBadCallError
 except ImportError as error:
     MESSAGE = "\n{0}\n{1}\n".format(__file__, error)
-    sys.exit(MESSAGE) # Force close python ATS ###############################
+    sys.exit(MESSAGE)  # Force close python ATS ##############################
 
 __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2018, Free software to use and distributed it.'
@@ -86,7 +86,7 @@ class CfgBase(ATSInfo):
         """
         configuration = None
         verbose_message(CfgBase.VERBOSE, verbose, 'Initial ATS base settings')
-        self.__tool_operational = False # App/Tool/Script not operative
+        self.__tool_operational = False  # App/Tool/Script not operative
         self.__cfg2obj = Cfg2Object(base_config_file, verbose=verbose)
         self.__obj2cfg = Object2Cfg(base_config_file, verbose=verbose)
         if all([self.__cfg2obj, self.__obj2cfg]):
@@ -98,7 +98,7 @@ class CfgBase(ATSInfo):
                 self.__option_parser = ATSOptionParser(
                     tool_info, self.version, self.license, verbose=verbose
                 )
-                self.__tool_operational = True # App/Tool/Script operative
+                self.__tool_operational = True  # App/Tool/Script operative
 
     def add_new_option(self, *args, **kwargs):
         """
