@@ -1,20 +1,24 @@
 # -*- coding: UTF-8 -*-
-# ini_base.py
-# Copyright (C) 2018 Vladimir Roncevic <elektron.ronca@gmail.com>
-#
-# ats_utilities is free software: you can redistribute it and/or modify it
-# under the terms of the GNU General Public License as published by the
-# Free Software Foundation, either version 3 of the License, or
-# (at your option) any later version.
-#
-# ats_utilities is distributed in the hope that it will be useful, but
-# WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-# See the GNU General Public License for more details.
-#
-# You should have received a copy of the GNU General Public License along
-# with this program. If not, see <http://www.gnu.org/licenses/>.
-#
+
+"""
+ Module
+     ini_base.py
+ Copyright
+     Copyright (C) 2019 Vladimir Roncevic <elektron.ronca@gmail.com>
+     ats_utilities is free software: you can redistribute it and/or modify it
+     under the terms of the GNU General Public License as published by the
+     Free Software Foundation, either version 3 of the License, or
+     (at your option) any later version.
+     ats_utilities is distributed in the hope that it will be useful, but
+     WITHOUT ANY WARRANTY; without even the implied warranty of
+     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+     See the GNU General Public License for more details.
+     You should have received a copy of the GNU General Public License along
+     with this program. If not, see <http://www.gnu.org/licenses/>.
+ Info
+     Define class IniBase with attribute(s) and method(s).
+     Load a settings, create a CL interface and run operation.
+"""
 
 import sys
 from inspect import stack
@@ -29,9 +33,9 @@ try:
     from ats_utilities.console_io.error import error_message
     from ats_utilities.exceptions.ats_type_error import ATSTypeError
     from ats_utilities.exceptions.ats_bad_call_error import ATSBadCallError
-except ImportError as e:
-    msg = "\n{0}\n{1}\n".format(__file__, e)
-    sys.exit(msg)  # Force close python ATS ##################################
+except ImportError as error:
+    MESSAGE = "\n{0}\n{1}\n".format(__file__, error)
+    sys.exit(MESSAGE) # Force close python ATS ###############################
 
 __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2018, Free software to use and distributed it.'
@@ -83,7 +87,7 @@ class IniBase(ATSInfo):
         """
         configuration = None
         verbose_message(IniBase.VERBOSE, verbose, 'Initial ATS base settings')
-        self.__tool_operational = False  # App/Tool/Script not operative
+        self.__tool_operational = False # App/Tool/Script not operative
         self.__ini2obj = Ini2Object(base_config_file, verbose=verbose)
         self.__obj2ini = Object2Ini(base_config_file, verbose=verbose)
         if all([self.__ini2obj, self.__obj2ini]):
@@ -95,7 +99,7 @@ class IniBase(ATSInfo):
                 self.__option_parser = ATSOptionParser(
                     tool_info, self.version, self.license, verbose=verbose
                 )
-                self.__tool_operational = True  # App/Tool/Script operative
+                self.__tool_operational = True # App/Tool/Script operative
 
     def add_new_option(self, *args, **kwargs):
         """
@@ -156,4 +160,3 @@ class IniBase(ATSInfo):
             :exception: NotImplementedError
         """
         pass
-
