@@ -30,7 +30,6 @@ try:
     from ats_utilities.option.ats_option_parser import ATSOptionParser
     from ats_utilities.abstract import abstract_method
     from ats_utilities.console_io.verbose import verbose_message
-    from ats_utilities.console_io.error import error_message
     from ats_utilities.exceptions.ats_type_error import ATSTypeError
     from ats_utilities.exceptions.ats_bad_call_error import ATSBadCallError
 except ImportError as error:
@@ -142,7 +141,7 @@ class XmlBase(ATSInfo):
             :type tool_status: <bool>
             :exceptions: ATSBadCallError | ATSTypeError
         """
-        cls, func = XmlBase, stack()[0][3]
+        func = stack()[0][3]
         tool_status_txt = 'Argument: expected tool_status <bool> object'
         tool_status_msg = "{0} {1} {2}".format('def', func, tool_status_txt)
         if tool_status is None:
