@@ -39,7 +39,7 @@ __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2018, Free software to use and distributed it.'
 __credits__ = ['Vladimir Roncevic']
 __license__ = 'GNU General Public License (GPL)'
-__version__ = '1.0.0'
+__version__ = '1.0.1'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
@@ -99,8 +99,9 @@ class Xml2Object(BaseReadConfig):
         )
         try:
             with ConfigFile(self.file_path, 'r', Xml2Object.__FORMAT) as xml:
-                content = xml.read()
-                config = BeautifulSoup(content, Xml2Object.__FORMAT)
+                if bool(xml):
+                    content = xml.read()
+                    config = BeautifulSoup(content, Xml2Object.__FORMAT)
         except AttributeError:
             pass
         verbose_message(Xml2Object.VERBOSE, verbose, 'Done')

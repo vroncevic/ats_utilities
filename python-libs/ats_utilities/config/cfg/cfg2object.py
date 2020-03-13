@@ -38,7 +38,7 @@ __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2018, Free software to use and distributed it.'
 __credits__ = ['Vladimir Roncevic']
 __license__ = 'GNU General Public License (GPL)'
-__version__ = '1.0.0'
+__version__ = '1.0.1'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
@@ -100,13 +100,14 @@ class Cfg2Object(BaseReadConfig):
         )
         try:
             with ConfigFile(self.file_path, 'r', Cfg2Object.__FORMAT) as cfg:
-                content = cfg.read()
-                config, lines = {}, content.splitlines()
-                for line in lines:
-                    regex_match = match(Cfg2Object.__REGEX_MATCH_LINE, line)
-                    if not regex_match:
-                        pairs = line.split('=')
-                        config[pairs[0].strip()] = pairs[1].strip()
+                if bool(cfg):
+                    content = cfg.read()
+                    config, lines = {}, content.splitlines()
+                    for line in lines:
+                        regex_match = match(Cfg2Object.__REGEX_MATCH_LINE, line)
+                        if not regex_match:
+                            pairs = line.split('=')
+                            config[pairs[0].strip()] = pairs[1].strip()
             verbose_message(Cfg2Object.VERBOSE, verbose, 'Done')
         except AttributeError:
             pass

@@ -37,7 +37,7 @@ __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2018, Free software to use and distributed it.'
 __credits__ = ['Vladimir Roncevic']
 __license__ = 'GNU General Public License (GPL)'
-__version__ = '1.0.0'
+__version__ = '1.0.1'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
@@ -102,7 +102,8 @@ class Object2Xml(BaseWriteConfig):
             'Write configuration to file', self.file_path
         )
         with ConfigFile(self.file_path, 'w', Object2Xml.__FORMAT) as xml:
-            xml.write("{0}".format(configuration))
-            status = True
+            if bool(xml):
+                xml.write("{0}".format(configuration))
+                status = True
         verbose_message(Object2Xml.VERBOSE, verbose, 'Done')
         return True if status else False

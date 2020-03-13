@@ -37,7 +37,7 @@ __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2018, Free software to use and distributed it.'
 __credits__ = ['Vladimir Roncevic']
 __license__ = 'GNU General Public License (GPL)'
-__version__ = '1.0.0'
+__version__ = '1.0.1'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
@@ -113,12 +113,11 @@ class ConfigFile(FileChecking):
         check_format = self.check_format(
             file_path=file_path, file_extension=file_format, verbose=verbose
         )
+        self.__file_path = file_path
         if all([check_file, check_mode, check_format]):
-            self.__file_path = file_path
             self.__file_mode = file_mode
             self.__file_format = file_format
         else:
-            self.__file_path = None
             self.__file_mode = None
             self.__file_format = None
 
