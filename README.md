@@ -9,6 +9,8 @@ how to install the modules, any machine dependencies it may have and any
 other information that should be provided before the modules are installed.
 
 ![Python package](https://github.com/vroncevic/ats_utilities/workflows/Python%20package/badge.svg)
+ [![GitHub issues open](https://img.shields.io/github/issues/vroncevic/ats_utilities.svg)](https://github.com/vroncevic/ats_utilities/issues)
+ [![GitHub contributors](https://img.shields.io/github/contributors/vroncevic/ats_utilities.svg)](https://github.com/vroncevic/ats_utilities/graphs/contributors)
 
 ### INSTALLATION
 Navigate to release [page](https://github.com/vroncevic/ats_utilities/releases) download and extract release archive.
@@ -116,6 +118,8 @@ Framework structure:
 ```
 
 ### COPYRIGHT AND LICENCE
+
+[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 
 Copyright (C) 2018 by https://vroncevic.github.io/ats_utilities/
 
