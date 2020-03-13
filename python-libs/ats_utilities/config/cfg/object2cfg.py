@@ -37,7 +37,7 @@ __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2018, Free software to use and distributed it.'
 __credits__ = ['Vladimir Roncevic']
 __license__ = 'GNU General Public License (GPL)'
-__version__ = '1.0.0'
+__version__ = '1.0.1'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
@@ -104,10 +104,11 @@ class Object2Cfg(BaseWriteConfig):
             'Writing configuration to file', self.file_path
         )
         with ConfigFile(self.file_path, 'w', Object2Cfg.__FORMAT) as cfg:
-            for key in configuration:
-                config_value = configuration.get(key)
-                line = "{0} = {1}\n".format(key, config_value)
-                cfg.write(line)
-            status = True
+            if bool(cfg):
+                for key in configuration:
+                    config_value = configuration.get(key)
+                    line = "{0} = {1}\n".format(key, config_value)
+                    cfg.write(line)
+                status = True
         verbose_message(Object2Cfg.VERBOSE, verbose, 'Done')
         return True if status else False

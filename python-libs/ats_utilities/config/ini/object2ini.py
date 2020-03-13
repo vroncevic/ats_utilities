@@ -37,7 +37,7 @@ __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2018, Free software to use and distributed it.'
 __credits__ = ['Vladimir Roncevic']
 __license__ = 'GNU General Public License (GPL)'
-__version__ = '1.0.0'
+__version__ = '1.0.1'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
@@ -102,9 +102,8 @@ class Object2Ini(BaseWriteConfig):
             'Write configuration to file', self.file_path
         )
         with ConfigFile(self.file_path, 'w', Object2Ini.__FORMAT) as ini:
-            configuration.write(
-                ini, space_around_delimiters=True
-            )
-            status = True
+            if bool(ini):
+                configuration.write(ini, space_around_delimiters=True)
+                status = True
         verbose_message(Object2Ini.VERBOSE, verbose, 'Done')
         return True if status else False

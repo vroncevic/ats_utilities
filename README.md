@@ -13,13 +13,13 @@ other information that should be provided before the modules are installed.
  [![GitHub contributors](https://img.shields.io/github/contributors/vroncevic/ats_utilities.svg)](https://github.com/vroncevic/ats_utilities/graphs/contributors)
 
 ### INSTALLATION
-Navigate to release [page](https://github.com/vroncevic/ats_utilities/releases/tag/v1.0) download and extract release archive.
+Navigate to release [page](https://github.com/vroncevic/ats_utilities/releases) download and extract release archive.
 
 To install modules, locate and run setup.py, type the following:
 
 ```
-tar xvzf ats_utilities-1.0.tar.gz
-cd ats_utilities-1.0/python-libs
+tar xvzf ats_utilities-x.y.z.tar.gz
+cd ats_utilities-x.y.z/python-libs
 python setup.py install
 ```
 :sparkles:
@@ -124,7 +124,7 @@ Framework structure:
 Copyright (C) 2018 by https://vroncevic.github.io/ats_utilities/
 
 This tool is free software; you can redistribute it and/or modify
-it under the same terms as Python itself, either Python version 2.7/3.4 or,
+it under the same terms as Python itself, either Python version 2.x/3.x or,
 at your option, any later version of Python 3 you may have available.
 
 :sparkles:
