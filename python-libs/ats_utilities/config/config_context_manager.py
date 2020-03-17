@@ -48,17 +48,18 @@ class ConfigFile(FileChecking):
         Define class ConfigFile with attribute(s) and method(s).
         Configuration context manager.
         It defines:
-            attribute:
-                __slots__ - Setting class slots
-                VERBOSE - Console text indicator for current process-phase
-                __file_path - Configuration file name
-                __file_mode - File mode
-                __file_format - File format
-                __file - File object
-            method:
-                __init__ - Initial constructor
-                __enter__ - Open file and return object File
-                __exit__ - Close file
+
+            :attributes:
+                | __slots__ - Setting class slots
+                | VERBOSE - Console text indicator for current process-phase
+                | __file_path - Configuration file name
+                | __file_mode - File mode
+                | __file_format - File format
+                | __file - File object
+            :methods:
+                | __init__ - Initial constructor
+                | __enter__ - Open file and return object File
+                | __exit__ - Close file
     """
 
     __slots__ = (
@@ -73,6 +74,7 @@ class ConfigFile(FileChecking):
     def __init__(self, file_path, file_mode, file_format, verbose=False):
         """
             Setting filename and open mode.
+
             :param file_path: Configuration file name
             :type file_path: <str>
             :param file_mode: Open configuration file in mode
@@ -124,6 +126,7 @@ class ConfigFile(FileChecking):
     def __enter__(self):
         """
             Open configuration file in mode.
+
             :return: File object | None
             :rtype: <file> | <NoneType>
             :exceptions: None
@@ -138,6 +141,7 @@ class ConfigFile(FileChecking):
     def __exit__(self, *args):
         """
             Closing configuration file.
+
             :exceptions: None
         """
         try:

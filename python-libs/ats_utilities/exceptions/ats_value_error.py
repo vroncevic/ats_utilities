@@ -35,8 +35,9 @@ class ATSValueError(ValueError):
         Define class ATSValueError with attribute(s) and method(s).
         Check value mechanism (raise error for not expected value).
         It defines:
-            attribute:
-                None
-            method:
-                None
+
+            :attributes:
+                | None
+            :methods:
+                | None
     """

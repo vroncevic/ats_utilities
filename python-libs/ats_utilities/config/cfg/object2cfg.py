@@ -48,13 +48,14 @@ class Object2Cfg(BaseWriteConfig):
         Define class Object2Cfg with attribute(s) and method(s).
         Convert a configuration object to cfg format and write to a file.
         It defines:
-            attribute:
-                __slots__ - Setting class slots
-                VERBOSE - Console text indicator for current process-phase
-                __FORMAT - Format of configuration content
-            method:
-                __init__ - Initial constructor
-                write_configuration - Write config to a cfg file
+
+            :attributes:
+                | __slots__ - Setting class slots
+                | VERBOSE - Console text indicator for current process-phase
+                | __FORMAT - Format of configuration content
+            :methods:
+                | __init__ - Initial constructor
+                | write_configuration - Write config to a cfg file
     """
 
     __slots__ = ('VERBOSE', '__FORMAT')
@@ -64,6 +65,7 @@ class Object2Cfg(BaseWriteConfig):
     def __init__(self, configuration_file, verbose=False):
         """
             Setting configuration file path.
+
             :param configuration_file: Absolute configuration file path
             :type configuration_file: <str>
             :param verbose: Enable/disable verbose option
@@ -84,6 +86,7 @@ class Object2Cfg(BaseWriteConfig):
     def write_configuration(self, configuration, verbose=False):
         """
             Write configuration to file.
+
             :param configuration: Configuration object
             :type configuration: <dict>
             :param verbose: Enable/disable verbose option

@@ -35,8 +35,9 @@ class ATSTypeError(TypeError):
         Define class ATSTypeError with attribute(s) and method(s).
         Check type mechanism (raise error for not expected type).
         It defines:
-            attribute:
-                None
-            method:
-                None
+
+            :attributes:
+                | None
+            :methods:
+                | None
     """

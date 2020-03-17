@@ -43,14 +43,15 @@ class BaseWriteConfig(object):
         Define class BaseWriteConfig with attribute(s) and method(s).
         Class for write operation (configuration).
         It defines:
-            attribute:
-                __slots__ - Setting class slots
-                VERBOSE - Console text indicator for current process-phase
-                __file_path - Configuration file path
-            method:
-                __init__ - Initial constructor
-                file_path - Getting/Setting configuration file path
-                write_configuration - Write configuration (Abstract method)
+
+            :attributes:
+                | __slots__ - Setting class slots
+                | VERBOSE - Console text indicator for current process-phase
+                | __file_path - Configuration file path
+            :methods:
+                | __init__ - Initial constructor
+                | file_path - Getting/Setting configuration file path
+                | write_configuration - Write configuration (Abstract method)
     """
 
     __slots__ = ('VERBOSE', '__file_path')
@@ -59,6 +60,7 @@ class BaseWriteConfig(object):
     def __init__(self):
         """
             Initial file path.
+
             :exceptions: None
         """
         self.__file_path = ""
@@ -67,6 +69,7 @@ class BaseWriteConfig(object):
     def file_path(self):
         """
             Getting configuration file path.
+
             :return: Configuration file path | None
             :rtype: <str> | <NoneType>
             :exceptions: None
@@ -77,6 +80,7 @@ class BaseWriteConfig(object):
     def file_path(self, file_path):
         """
             Setting configuration file path.
+
             :param file_path: Configuration file path
             :type file_path: <str>
             :exceptions: None
@@ -87,6 +91,7 @@ class BaseWriteConfig(object):
     def write_configuration(self, configuration, verbose=False):
         """
             Write configuration to file (Abstract method).
+
             :param configuration: Configuration object
             :type configuration: <dict>
             :param verbose: Enable/disable verbose option

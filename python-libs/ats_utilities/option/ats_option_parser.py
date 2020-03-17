@@ -47,14 +47,15 @@ class ATSOptionParser(object):
         Define class ATSOptionParser with attribute(s) and method(s).
         Create option parser and process arguments from start.
         It defines:
-            attribute:
-                __slots__ - Setting class slots
-                VERBOSE - Console text indicator for current process-phase
-                __opt_parser - Options parser
-            method:
-                __init__ - Initial constructor
-                add_operation - Adding option to App/Tool/Script
-                parse_args - Process arguments from start
+
+            :attributes:
+                | __slots__ - Setting class slots
+                | VERBOSE - Console text indicator for current process-phase
+                | __opt_parser - Options parser
+            :methods:
+                | __init__ - Initial constructor
+                | add_operation - Adding option to App/Tool/Script
+                | parse_args - Process arguments from start
     """
 
     __slots__ = ('VERBOSE', '__opt_parser')
@@ -63,6 +64,7 @@ class ATSOptionParser(object):
     def __init__(self, version, epilog, description, verbose=False):
         """
             Setting version, epilog and description of App/Tool/Script.
+
             :param version: App/Tool/Script version and build date
             :type version: <str>
             :param epilog: App/Tool/Script long description
@@ -102,6 +104,7 @@ class ATSOptionParser(object):
     def add_operation(self, *args, **kwargs):
         """
             Adding option to App/Tool/Script.
+
             :param args: List of arguments (objects)
             :type args: <list>
             :param kwargs: Arguments in shape of dictionary
@@ -113,6 +116,7 @@ class ATSOptionParser(object):
     def parse_args(self, argv):
         """
             Process arguments from start.
+
             :param argv: Arguments
             :type argv: <Python object(s)>
             :return: Options and arguments

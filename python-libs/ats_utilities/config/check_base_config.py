@@ -47,17 +47,18 @@ class CheckBaseConfig(object):
         Define class CheckBaseConfig with attribute(s) and method(s).
         Checking basic configuration structure.
         It defines:
-            attribute:
-                __slots__ - Setting class slots
-                VERBOSE - Console text indicator for current process-phase
-                __BASE_CONFIG - Basic config keys
-                    1: 'ats_name'
-                    2: 'ats_version'
-                    3: 'ats_build_date'
-                    4: 'ats_license'
-            method:
-                __init__ - Initial constructor
-                is_correct - Check basic configuration keys
+ 
+            :attributes:
+                | __slots__ - Setting class slots
+                | VERBOSE - Console text indicator for current process-phase
+                | __BASE_CONFIG - Basic config keys
+                    | 1: 'ats_name',
+                    | 2: 'ats_version',
+                    | 3: 'ats_build_date',
+                    | 4: 'ats_license'
+            :methods:
+                | __init__ - Initial constructor
+                | is_correct - Check basic configuration keys
     """
 
     __slots__ = ('VERBOSE', '__BASE_CONFIG')
@@ -72,6 +73,7 @@ class CheckBaseConfig(object):
     def __init__(self):
         """
             Initial constructor.
+ 
             :exceptions: None
         """
         pass
@@ -80,6 +82,7 @@ class CheckBaseConfig(object):
     def is_correct(cls, configuration, verbose=False):
         """
             Check basic configuration structure.
+ 
             :param configuration: Base configuration
             :type configuration: <dict>
             :param verbose: Enable/disable verbose option

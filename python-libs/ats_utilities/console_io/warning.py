@@ -48,13 +48,14 @@ class ATSWarning(ATSConsoleIO):
         Define class ATSWarning with attribute(s) and method(s).
         Define warning message container for console log mechanism.
         It defines:
-            attribute:
-                __slots__ - Setting class slots
-                VERBOSE - Console text indicator for current process-phase
-                __message - Warning message container
-            method:
-                __init__ - Initial constructor
-                message - Public setter/getter
+
+            :attributes:
+                | __slots__ - Setting class slots
+                | VERBOSE - Console text indicator for current process-phase
+                | __message - Warning message container
+            :methods:
+                | __init__ - Initial constructor
+                | message - Public setter/getter
     """
 
     __slots__ = ('VERBOSE', '__message')
@@ -63,6 +64,7 @@ class ATSWarning(ATSConsoleIO):
     def __init__(self):
         """
             Initial constructor.
+
             :exceptions: None
         """
         self.__message = ""
@@ -71,6 +73,7 @@ class ATSWarning(ATSConsoleIO):
     def message(self):
         """
             Public property getter.
+
             :return: Formatted warning message
             :rtype: <str>
             :exceptions: None
@@ -81,6 +84,7 @@ class ATSWarning(ATSConsoleIO):
     def message(self, message):
         """
             Public property setter.
+
             :param message: Warning message
             :type message: <str>
             :exceptions: ATSBadCallError | ATSTypeError
@@ -99,6 +103,7 @@ class ATSWarning(ATSConsoleIO):
 def warning_message(warning_path, *message):
     """
         Show warning message.
+
         :param warning_path: Warning prefix message
         :type warning_path: <str>
         :param message: Message parts

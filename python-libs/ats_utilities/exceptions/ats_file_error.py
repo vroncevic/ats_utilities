@@ -37,8 +37,9 @@ class ATSFileError(IOError):
         Checking file mechanism (raise error if something goes wrong with IO
         file-operations).
         It defines:
-            attribute:
-                None
-            method:
-                None
+
+            :attributes:
+                | None
+            :methods:
+                | None
     """

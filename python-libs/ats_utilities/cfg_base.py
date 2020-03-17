@@ -51,19 +51,20 @@ class CfgBase(ATSInfo):
         Define class CfgBase with attribute(s) and method(s).
         Load a settings, info and run operation.
         It defines:
-            attribute:
-                __slots__ - Setting class slots
-                VERBOSE - Console text indicator for current process-phase
-                __tool_operational - Control operational flag
-                __cfg2obj - In API for configuration
-                __obj2cfg - Out API for configuration
-                __option_parser - Option parser
-            method:
-                __init__ - Initial constructor
-                add_new_option - Adding new option
-                parse_args - Parse arguments
-                tool_status - Getting/Setting tool status
-                process - Process and run tool operation (Abstract method)
+
+            :attributes:
+                | __slots__ - Setting class slots
+                | VERBOSE - Console text indicator for current process-phase
+                | __tool_operational - Control operational flag
+                | __cfg2obj - In API for configuration
+                | __obj2cfg - Out API for configuration
+                | __option_parser - Option parser
+            :methods:
+                | __init__ - Initial constructor
+                | add_new_option - Adding new option
+                | parse_args - Parse arguments
+                | tool_status - Getting/Setting tool status
+                | process - Process and run tool operation (Abstract method)
     """
 
     __slots__ = (
@@ -78,6 +79,7 @@ class CfgBase(ATSInfo):
     def __init__(self, base_config_file, verbose=False):
         """
             Setting version, build date, name and license of App/Tool/Script.
+
             :param base_config_file: Configuration file path
             :type base_config_file: <str>
             :param verbose: Enable/disable verbose option
@@ -103,6 +105,7 @@ class CfgBase(ATSInfo):
     def add_new_option(self, *args, **kwargs):
         """
             Adding new option.
+
             :param args: List of arguments (objects)
             :type args: <list>
             :param kwargs: Arguments in shape of dictionary
@@ -114,6 +117,7 @@ class CfgBase(ATSInfo):
     def parse_args(self, argv):
         """
             Process arguments from start.
+
             :param argv: Arguments
             :type argv: <Python object(s)>
             :return: Options and arguments
@@ -127,6 +131,7 @@ class CfgBase(ATSInfo):
     def tool_status(self):
         """
             Getting tool status.
+
             :return: True (tool ready) | False
             :rtype: <bool>
             :exceptions: None
@@ -137,6 +142,7 @@ class CfgBase(ATSInfo):
     def tool_status(self, tool_status):
         """
             Setting tool status.
+
             :param tool_status: Tool status (boolean)
             :type tool_status: <bool>
             :exceptions: ATSBadCallError | ATSTypeError
@@ -154,6 +160,7 @@ class CfgBase(ATSInfo):
     def process(self, verbose=False):
         """
             Process and run tool operation (Abstract method).
+
             :param verbose: Enable/disable verbose option
             :type verbose: <bool>
             :exception: NotImplementedError

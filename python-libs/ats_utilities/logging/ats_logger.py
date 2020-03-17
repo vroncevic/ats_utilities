@@ -54,19 +54,20 @@ class ATSLogger(ATSLoggerBase):
         Define class ATSLogger with attribute(s) and method(s).
         Logging mechanism for App/Tool/Script.
         It defines:
-            attribute:
-                __slots__ - Setting class slots
-                VERBOSE - Console text indicator for current process-phase
-                LOG_MSG_FORMAT - Log message format
-                LOG_DATE_FORMAT - Log date format
-                ATS_DEBUG - Debug log level
-                ATS_WARNING - Warning log level
-                ATS_CRITICAL - Critical log level
-                ATS_ERROR - Error log level
-                ATS_INFO - Info log level
-            method:
-                __init__ - Initial constructor
-                write_log - Write message to log file
+
+            :attributes:
+                | __slots__ - Setting class slots
+                | VERBOSE - Console text indicator for current process-phase
+                | LOG_MSG_FORMAT - Log message format
+                | LOG_DATE_FORMAT - Log date format
+                | ATS_DEBUG - Debug log level
+                | ATS_WARNING - Warning log level
+                | ATS_CRITICAL - Critical log level
+                | ATS_ERROR - Error log level
+                | ATS_INFO - Info log level
+            :methods:
+                | __init__ - Initial constructor
+                | write_log - Write message to log file
     """
 
     __slots__ = (
@@ -83,6 +84,7 @@ class ATSLogger(ATSLoggerBase):
     def __init__(self, ats_name, ats_log_file, verbose=False):
         """
             Setting log file path, and default debug log level.
+
             :param ats_name: App/Tool/Script name
             :type ats_name: <str>
             :param ats_log_file: Log file path of App/Tool/Script
@@ -127,6 +129,7 @@ class ATSLogger(ATSLoggerBase):
     def write_log(self, message, ctrl, verbose=False):
         """
             Write log message to log file.
+
             :param message: Log message
             :type message: <str>
             :param ctrl: Control flag (debug, warning, critical, errors, info)

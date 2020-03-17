@@ -48,13 +48,14 @@ class ATSVerbose(ATSConsoleIO):
         Define class ATSVerbose with attribute(s) and method(s).
         Define verbose message container for console log mechanism.
         It defines:
-            attribute:
-                __slots__ - Setting class slots
-                VERBOSE - Console text indicator for current process-phase
-                __message - Verbose message container
-            method:
-                __init__ - Initial constructor
-                message - Public setter/getter
+
+            :attributes:
+                | __slots__ - Setting class slots
+                | VERBOSE - Console text indicator for current process-phase
+                | __message - Verbose message container
+            :methods:
+                | __init__ - Initial constructor
+                | message - Public setter/getter
     """
 
     __slots__ = ('VERBOSE', '__message')
@@ -63,6 +64,7 @@ class ATSVerbose(ATSConsoleIO):
     def __init__(self):
         """
             Initial constructor.
+
             :exceptions: None
         """
         self.__message = ""
@@ -71,6 +73,7 @@ class ATSVerbose(ATSConsoleIO):
     def message(self):
         """
             Public property getter.
+
             :return: Formatted verbose message
             :rtype: <str>
         """
@@ -80,6 +83,7 @@ class ATSVerbose(ATSConsoleIO):
     def message(self, message):
         """
             Public property setter.
+
             :param message: Verbose message
             :type message: <str>
             :exceptions: ATSBadCallError | ATSTypeError
@@ -98,6 +102,7 @@ class ATSVerbose(ATSConsoleIO):
 def verbose_message(verbose_path, verbose=False, *message):
     """
         Show verbose message.
+
         :param verbose_path: Verbose prefix message
         :type verbose_path: <str>
         :param verbose: Enable/disable verbose option

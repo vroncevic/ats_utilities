@@ -46,13 +46,14 @@ class ATSLoggerFile(object):
         Define class ATSLoggerFile with attribute(s) and method(s).
         Logging mechanism for App/Tool/Script, keep, set, get logger file path.
         It defines:
-            attribute:
-                __slots__ - Setting class slots
-                VERBOSE - Console text indicator for current process-phase
-                __log_file - Log file path
-            method:
-                __init__ - Initial constructor
-                log_file - Getting/Setting log file path
+
+            :attributes:
+                | __slots__ - Setting class slots
+                | VERBOSE - Console text indicator for current process-phase
+                | __log_file - Log file path
+            :methods:
+                | __init__ - Initial constructor
+                | log_file - Getting/Setting log file path
     """
 
     __slots__ = ('VERBOSE', '__log_file')
@@ -61,6 +62,7 @@ class ATSLoggerFile(object):
     def __init__(self, logger_file=None, verbose=False):
         """
             Initial constructor.
+
             :param logger_file: Log file path
             :type logger_file: <str>
             :param verbose: Enable/disable verbose option
@@ -76,6 +78,7 @@ class ATSLoggerFile(object):
     def log_file(self):
         """
             Getting log file path.
+
             :return: Log file path
             :rtype: <str>
             :exceptions: None
@@ -86,6 +89,7 @@ class ATSLoggerFile(object):
     def log_file(self, log_file_path):
         """
             Setting log file path.
+
             :param log_file_path: Log file path
             :type log_file_path: <str>
             :exceptions: ATSBadCallError | ATSTypeError

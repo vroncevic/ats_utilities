@@ -35,8 +35,9 @@ class ATSKeyError(KeyError):
         Define class ATSKeyError with attribute(s) and method(s).
         Checking key mechanism (raise error for missing key).
         It defines:
-            attribute:
-                None
-            method:
-                None
+
+            :attributes:
+                | None
+            :methods:
+                | None
     """

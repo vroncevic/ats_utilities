@@ -51,17 +51,18 @@ class ATSLoggerBase(object):
         Define class ATSLoggerBase with attribute(s) and method(s).
         Base container for logging mechanism.
         It defines:
-            attribute:
-                __slots__ - Setting class slots
-                VERBOSE - Console text indicator for current process-phase
-                __logger_name - Logger name
-                __logger_status - Logger info status
-                __logger_file - Logger file path
-                __logger - Object logger
-            method:
-                __init__ - Initial constructor
-                logger - Getting/Setting logger object
-                write_log - Write message to log file (Abstract method)
+
+            :attributes:
+                | __slots__ - Setting class slots
+                | VERBOSE - Console text indicator for current process-phase
+                | __logger_name - Logger name
+                | __logger_status - Logger info status
+                | __logger_file - Logger file path
+                | __logger - Object logger
+            :methods:
+                | __init__ - Initial constructor
+                | logger - Getting/Setting logger object
+                | write_log - Write message to log file (Abstract method)
     """
 
     __slots__ = (
@@ -76,6 +77,7 @@ class ATSLoggerBase(object):
     def __init__(self, verbose=False):
         """
             Initial constructor.
+
             :param verbose: Enable/disable verbose option
             :type verbose: <bool>
             :exceptions: None
@@ -92,6 +94,7 @@ class ATSLoggerBase(object):
     def logger(self):
         """
             Getting logger object.
+
             :return: Logger object
             :rtype: <logging.Logger>
             :exceptions: None
@@ -102,6 +105,7 @@ class ATSLoggerBase(object):
     def logger(self, logger):
         """
             Setting logger object.
+
             :param logger: Logger object
             :type logger: <logging.Logger>
             :exceptions: ATSBadCallError | ATSTypeError
@@ -119,6 +123,7 @@ class ATSLoggerBase(object):
     def write_log(self, message, ctrl, verbose=False):
         """
             Write message to log file (Abstract method).
+
             :param message: Log message
             :type message: <str>
             :param ctrl: Control flag (debug, warning, critical, errors, info)

@@ -35,8 +35,9 @@ class ATSLookupError(LookupError):
         Define class ATSLookupError with attribute(s) and method(s).
         Lookup errors mechanism (raise error for not expected state/behavior).
         It defines:
-            attribute:
-                None
-            method:
-                None
+
+            :attributes:
+                | None
+            :methods:
+                | None
     """

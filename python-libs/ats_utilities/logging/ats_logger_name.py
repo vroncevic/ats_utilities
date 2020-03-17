@@ -46,13 +46,14 @@ class ATSLoggerName(object):
         Define class ATSLoggerName with attribute(s) and method(s).
         Logging mechanism for App/Tool/Script, keep, set, get logger name.
         It defines:
-            attribute:
-                __slots__ - Setting class slots
-                VERBOSE - Console text indicator for current process-phase
-                __logger_name - Logger name
-            method:
-                __init__ - Initial constructor
-                logger_name - Getting/Setting logger name
+
+            :attributes:
+                | __slots__ - Setting class slots
+                | VERBOSE - Console text indicator for current process-phase
+                | __logger_name - Logger name
+            :methods:
+                | __init__ - Initial constructor
+                | logger_name - Getting/Setting logger name
     """
 
     __slots__ = ('VERBOSE', '__logger_name')
@@ -61,6 +62,7 @@ class ATSLoggerName(object):
     def __init__(self, logger_name=None, verbose=False):
         """
             Initial constructor.
+
             :param logger_name: Logger name
             :type logger_name: <str>
             :param verbose: Enable/disable verbose option
@@ -76,6 +78,7 @@ class ATSLoggerName(object):
     def logger_name(self):
         """
             Getting logger name.
+
             :return: Logger name
             :rtype: <str>
             :exceptions: None
@@ -86,6 +89,7 @@ class ATSLoggerName(object):
     def logger_name(self, logger_name):
         """
             Setting logger name.
+
             :param logger_name: Logger name
             :type logger_name: <str>
             :exceptions: ATSBadCallError | ATSTypeError
