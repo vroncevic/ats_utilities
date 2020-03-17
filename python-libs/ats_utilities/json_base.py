@@ -51,19 +51,20 @@ class JsonBase(ATSInfo):
         Define class JsonBase with attribute(s) and method(s).
         Load a settings, create a CL interface and run operation.
         It defines:
-            attribute:
-                __slots__ - Setting class slots
-                VERBOSE - Console text indicator for current process-phase
-                __tool_operational - Control operational flag
-                __json2obj - In API for configuration
-                __obj2json - Out API for configuration
-                __option_parser - Option parser
-            method:
-                __init__ - Initial constructor
-                add_new_option - Adding new option for CL interface
-                parse_args - Parse arguments
-                tool_status - Getting/Setting tool status
-                process - Process and run tool operation (Abstract method)
+
+            :attributes:
+                | __slots__ - Setting class slots
+                | VERBOSE - Console text indicator for current process-phase
+                | __tool_operational - Control operational flag
+                | __json2obj - In API for configuration
+                | __obj2json - Out API for configuration
+                | __option_parser - Option parser
+            :methods:
+                | __init__ - Initial constructor
+                | add_new_option - Adding new option for CL interface
+                | parse_args - Parse arguments
+                | tool_status - Getting/Setting tool status
+                | process - Process and run tool operation (Abstract method)
     """
 
     __slots__ = (
@@ -78,6 +79,7 @@ class JsonBase(ATSInfo):
     def __init__(self, base_config_file, verbose=False):
         """
             Setting version, build date, name and license of App/Tool/Script.
+
             :param base_config_file: Configuration file path
             :type base_config_file: <str>
             :param verbose: Enable/disable verbose option
@@ -103,6 +105,7 @@ class JsonBase(ATSInfo):
     def add_new_option(self, *args, **kwargs):
         """
             Adding new option for CL interface.
+
             :param args: List of arguments (objects)
             :type args: <list>
             :param kwargs: Arguments in shape of dictionary
@@ -114,6 +117,7 @@ class JsonBase(ATSInfo):
     def parse_args(self, argv):
         """
             Process arguments from start.
+
             :param argv: Arguments
             :type argv: <Python object(s)>
             :return: Options and arguments
@@ -127,6 +131,7 @@ class JsonBase(ATSInfo):
     def tool_status(self):
         """
             Getting tool status.
+
             :return: True (tool ready) | False
             :rtype: <bool>
             :exceptions: None
@@ -137,6 +142,7 @@ class JsonBase(ATSInfo):
     def tool_status(self, tool_status):
         """
             Setting tool status.
+
             :param tool_status: True (tool ready) | False
             :type tool_status: <bool>
             :exceptions: ATSBadCallError | ATSTypeError
@@ -154,6 +160,7 @@ class JsonBase(ATSInfo):
     def process(self, verbose=False):
         """
             Process and run tool operation (Abstract method).
+
             :param verbose: Enable/disable verbose option
             :type verbose: <bool>
             :exception: NotImplementedError

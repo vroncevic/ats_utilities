@@ -35,8 +35,9 @@ class ATSError(Exception):
         Define class ATSError with attribute(s) and method(s).
         General exception (raise exception for wrong state/behavior).
         It defines:
-            attribute:
-                None
-            method:
-                None
+
+            :attributes:
+                | None
+            :methods:
+                | None
     """

@@ -48,13 +48,14 @@ class ATSError(ATSConsoleIO):
         Define class ATSError with attribute(s) and method(s).
         Define error message container for console log mechanism.
         It defines:
-            attribute:
-                __slots__ - Setting class slots
-                VERBOSE - Console text indicator for current process-phase
-                __message - Error message container
-            method:
-                __init__ - Initial constructor
-                message - Public setter/getter
+
+            :attributes:
+                | __slots__ - Setting class slots
+                | VERBOSE - Console text indicator for current process-phase
+                | __message - Error message container
+            :methods:
+                | __init__ - Initial constructor
+                | message - Public setter/getter
     """
 
     __slots__ = ('VERBOSE', '__message')
@@ -63,6 +64,7 @@ class ATSError(ATSConsoleIO):
     def __init__(self):
         """
             Initial constructor.
+
             :exceptions: None
         """
         self.__message = ""
@@ -71,6 +73,7 @@ class ATSError(ATSConsoleIO):
     def message(self):
         """
             Public property getter.
+
             :return: Formatted errors message
             :rtype: <str>
             :exceptions: None
@@ -81,6 +84,7 @@ class ATSError(ATSConsoleIO):
     def message(self, message):
         """
             Public property setter.
+
             :param message: Error message
             :type message: <str>
             :exceptions: ATSBadCallError | ATSTypeError
@@ -99,6 +103,7 @@ class ATSError(ATSConsoleIO):
 def error_message(error_path, *message):
     """
         Show error message.
+
         :param error_path: Error prefix message
         :type error_path: <str>
         :param message: Message parts

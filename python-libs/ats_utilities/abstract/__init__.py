@@ -44,17 +44,18 @@ class abstract_method(object):
         Define class abstract_method with attribute(s) and method(s).
         Creating custom decorator for class methods.
         It defines:
-            attribute:
-                __slots__ - Setting class slots
-                VERBOSE - Console text indicator for current process-phase
-                method_name - Class method name
-                method_class_name - Method class name
-                method_type - Class method type
-                method - Class method
-            method:
-                __init__ - Initial constructor
-                __call__ - Raise exception NotImplementedError
-                           (mark as abstract method)
+
+            :attributes:
+                | __slots__ - Setting class slots
+                | VERBOSE - Console text indicator for current process-phase
+                | method_name - Class method name
+                | method_class_name - Method class name
+                | method_type - Class method type
+                | method - Class method
+            :methods:
+                | __init__ - Initial constructor
+                | __call__ - Raise exception NotImplementedError
+                             (mark as abstract method)
     """
 
     __slots__ = (
@@ -69,6 +70,7 @@ class abstract_method(object):
     def __init__(self, method_to_abstract, verbose=False):
         """
             Initial constructor
+
             :param method_to_abstract: Method from some class
             :type method_to_abstract: <function>
             :param verbose: Enable/disable verbose option
@@ -85,6 +87,7 @@ class abstract_method(object):
     def __call__(self, verbose=False, *args, **kwargs):
         """
             Raise exception NotImplementedError (mark as abstract method)
+
             :param verbose: Enable/disable verbose option
             :type verbose: <bool>
             :param *args: Iteration object

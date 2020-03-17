@@ -48,26 +48,27 @@ class ATSInfo(object):
         Define class ATSInfo with attribute(s) and method(s).
         Keep App/Tool/Script information in one container object.
         It defines:
-            attribute:
-                __slots__ - Setting class slots
-                VERBOSE - Console text indicator for current process-phase
-                ATS_VERSION - ATS version key
-                ATS_NAME - ATS name key
-                ATS_BUILD_DATE - ATS build date key
-                ATS_LICENSE - ATS license key
-                __name - ATS name
-                __version - ATS version
-                __license - ATS license
-                __build_date - ATS build date
-                __ats_info_ok - Initialisation of ATS info is ok/not ok
-            method:
-                __init__ - Initial constructor
-                name - Getting ATS name
-                version - Getting ATS version
-                license - Getting ATS license
-                build_date - Getting ATS build date
-                show_base_info - Show ATS info
-                is_ats_info_ok - Return ATS info status
+
+            :attributes:
+                | __slots__ - Setting class slots
+                | VERBOSE - Console text indicator for current process-phase
+                | ATS_VERSION - ATS version key
+                | ATS_NAME - ATS name key
+                | ATS_BUILD_DATE - ATS build date key
+                | ATS_LICENSE - ATS license key
+                | __name - ATS name
+                | __version - ATS version
+                | __license - ATS license
+                | __build_date - ATS build date
+                | __ats_info_ok - Initialisation of ATS info is ok/not ok
+            :methods:
+                | __init__ - Initial constructor,
+                | name - Getting ATS name,
+                | version - Getting ATS version,
+                | license - Getting ATS license,
+                | build_date - Getting ATS build date,
+                | show_base_info - Show ATS info,
+                | is_ats_info_ok - Return ATS info status,
     """
 
     __slots__ = (
@@ -91,6 +92,7 @@ class ATSInfo(object):
     def __init__(self, info, verbose=False):
         """
             Setting container info for App/Tool/Script.
+
             :param info: App/Tool/Script basic information
             :type info: <dict>
             :param verbose: Enable/disable verbose option
@@ -123,6 +125,7 @@ class ATSInfo(object):
     def name(self):
         """
             Getting ATS name
+
             :return: App/Tool/Script name
             :rtype: <str>
             :exceptions: None
@@ -133,6 +136,7 @@ class ATSInfo(object):
     def version(self):
         """
             Getting ATS version number
+
             :return: App/Tool/Script version number
             :rtype: <str>
             :exceptions: None
@@ -143,6 +147,7 @@ class ATSInfo(object):
     def license(self):
         """
             Getting ATS license text
+
             :return: App/Tool/Script license text
             :rtype: <str>
             :exceptions: None
@@ -153,6 +158,7 @@ class ATSInfo(object):
     def build_date(self):
         """
             Getting ATS build date
+
             :return: App/Tool/Script build date
             :rtype: <str>
             :exceptions: None
@@ -162,6 +168,7 @@ class ATSInfo(object):
     def show_base_info(self, verbose=False):
         """
             Show ATS info (Ex: [TOOL_NAME] version ver.1.0 05-Apr-2018).
+
             :param verbose: Enable/disable verbose option
             :type verbose: <bool>
             :exceptions: None
@@ -177,6 +184,7 @@ class ATSInfo(object):
     def is_ats_info_ok(self):
         """
             Return ATS info status.
+
             :return: Boolean status (initialisation of ATS info is ok)
             :rtype: <bool>
             :exceptions: None

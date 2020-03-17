@@ -50,13 +50,14 @@ class Object2Yaml(BaseWriteConfig):
         Define class Object2Yaml with attribute(s) and method(s).
         Convert a configuration object to a yaml format and write to file.
         It defines:
-            attribute:
-                __slots__ - Setting class slots
-                VERBOSE - Console text indicator for current process-phase
-                __FORMAT - Format of configuration content
-            method:
-                __init__ - Initial constructor
-                write_configuration - Write configuration to a yaml file
+
+            :attributes:
+                | __slots__ - Setting class slots
+                | VERBOSE - Console text indicator for current process-phase
+                | __FORMAT - Format of configuration content
+            :methods:
+                | __init__ - Initial constructor
+                | write_configuration - Write configuration to a yaml file
     """
 
     __slots__ = ('VERBOSE', '__FORMAT')
@@ -66,6 +67,7 @@ class Object2Yaml(BaseWriteConfig):
     def __init__(self, configuration_file, verbose=False):
         """
             Setting configuration file path.
+
             :param configuration_file: Absolute configuration file path
             :type configuration_file: <str>
             :param verbose: Enable/disable verbose option
@@ -86,6 +88,7 @@ class Object2Yaml(BaseWriteConfig):
     def write_configuration(self, configuration, verbose=False):
         """
             Write configuration to a yaml file.
+
             :param configuration: Configuration object
             :type configuration: <Python object(s)>
             :param verbose: Enable/disable verbose option

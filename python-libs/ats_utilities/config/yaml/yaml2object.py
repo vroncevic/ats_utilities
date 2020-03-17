@@ -50,13 +50,14 @@ class Yaml2Object(BaseReadConfig):
         Define class Yaml2Object with attribute(s) and method(s).
         Convert a yaml configuration file to an object.
         It defines:
-            attribute:
-                __slots__ - Setting class slots
-                VERBOSE - Console text indicator for current process-phase
-                __FORMAT - Format of configuration content
-            method:
-                __init__ - Initial constructor
-                get_configuration - Getting a configuration from file
+
+            :attributes:
+                | __slots__ - Setting class slots
+                | VERBOSE - Console text indicator for current process-phase
+                | __FORMAT - Format of configuration content
+            :methods:
+                | __init__ - Initial constructor
+                | get_configuration - Getting a configuration from file
     """
 
     __slots__ = ('VERBOSE', '__FORMAT')
@@ -66,6 +67,7 @@ class Yaml2Object(BaseReadConfig):
     def __init__(self, configuration_file, verbose=False):
         """
             Setting configuration file path.
+
             :param configuration_file: Absolute configuration file path
             :type configuration_file: <str>
             :param verbose: Enable/disable verbose option
@@ -86,6 +88,7 @@ class Yaml2Object(BaseReadConfig):
     def read_configuration(self, verbose=False):
         """
             Getting a configuration from file.
+
             :param verbose: Enable/disable verbose option
             :type verbose: <bool>
             :return: Configuration object | None

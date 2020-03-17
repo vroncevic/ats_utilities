@@ -48,13 +48,14 @@ class ATSSuccess(ATSConsoleIO):
         Define class ATSSuccess with attribute(s) and method(s).
         Define verbose message container for console log mechanism.
         It defines:
-            attribute:
-                __slots__ - Setting class slots
-                VERBOSE - Console text indicator for current process-phase
-                __message - Success message container
-            method:
-                __init__ - Initial constructor
-                message - Public setter/getter
+
+            :attributes:
+                | __slots__ - Setting class slots
+                | VERBOSE - Console text indicator for current process-phase
+                | __message - Success message container
+            :methods:
+                | __init__ - Initial constructor
+                | message - Public setter/getter
     """
 
     __slots__ = ('VERBOSE', '__message')
@@ -63,6 +64,7 @@ class ATSSuccess(ATSConsoleIO):
     def __init__(self):
         """
             Initial constructor.
+
             :exceptions: None
         """
         self.__message = ""
@@ -71,6 +73,7 @@ class ATSSuccess(ATSConsoleIO):
     def message(self):
         """
             Public property getter.
+
             :return: Formatted verbose message
             :rtype: <str>
             :exceptions: None
@@ -81,6 +84,7 @@ class ATSSuccess(ATSConsoleIO):
     def message(self, message):
         """
             Public property setter.
+
             :param message: Verbose message
             :type message: <str>
             :exceptions: ATSBadCallError | ATSTypeError
@@ -99,6 +103,7 @@ class ATSSuccess(ATSConsoleIO):
 def success_message(success_path, *message):
     """
         Show success message.
+
         :param success_path: Success prefix message
         :type success_path: <str>
         :param message: Message parts

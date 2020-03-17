@@ -46,13 +46,14 @@ class ATSLoggerStatus(object):
         Define class ATSLoggerStatus with attribute(s) and method(s).
         Logging mechanism for App/Tool/Script, keep, set, get logger status.
         It defines:
-            attribute:
-                __slots__ - Setting class slots
-                VERBOSE - Console text indicator for current process-phase
-                __log_status - Logger operative (enabled/disabled)
-            method:
-                __init__ - Initial constructor
-                logger_status - Getting/Setting logger status
+
+            :attribute:
+                | __slots__ - Setting class slots
+                | VERBOSE - Console text indicator for current process-phase
+                | __log_status - Logger operative (enabled/disabled)
+            :methods:
+                | __init__ - Initial constructor
+                | logger_status - Getting/Setting logger status
     """
 
     __slots__ = ('VERBOSE', '__log_status')
@@ -61,6 +62,7 @@ class ATSLoggerStatus(object):
     def __init__(self, log_status=False, verbose=False):
         """
             Initial constructor.
+
             :param log_status: Logger status
             :type log_status: <bool>
             :param verbose: Enable/disable verbose option
@@ -76,6 +78,7 @@ class ATSLoggerStatus(object):
     def logger_status(self):
         """
             Getting logger status.
+
             :return: True (logger operative) | False
             :rtype: <bool>
             :exceptions: None
@@ -86,6 +89,7 @@ class ATSLoggerStatus(object):
     def logger_status(self, status):
         """
             Setting logger status.
+
             :param status: Logger status (enable/disable logging mechanism)
             :type status: <bool>
             :exceptions: ATSBadCallError | ATSTypeError

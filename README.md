@@ -29,9 +29,6 @@ python setup.py install
 These modules requires other modules and libraries (Python 2.x/3.x):
 
 ```
-setup.py:
-    distutils
-
 ats_utilities:
     yaml
     bs4
@@ -44,7 +41,7 @@ ats_utilities:
 
 ats_utilities is based on OOP:
 
-![alt tag](https://raw.githubusercontent.com/vroncevic/ats_utilities/dev/python-libs-docs/arch_flow_usage.png)
+![alt tag](https://raw.githubusercontent.com/vroncevic/ats_utilities/dev/docs/arch_flow_usage.png)
 
 Framework structure:
 
@@ -116,6 +113,12 @@ Framework structure:
 │   └── yaml_base.py
 └── setup.py
 ```
+
+### DOCS
+
+More documentation and info at:
+
+* https://ats-utilities.readthedocs.io/en/latest/
 
 ### COPYRIGHT AND LICENCE
 

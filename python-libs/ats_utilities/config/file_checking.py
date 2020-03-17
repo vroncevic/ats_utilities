@@ -49,19 +49,20 @@ class FileChecking(object):
         Define class FileChecking with attribute(s) and method(s).
         Operations with configuration files.
         It defines:
-            attribute:
-                __slots__ - Setting class slots
-                VERBOSE - Console text indicator for current process-phase
-                __MODES - Mode file operations
-                __file_path_ok - File path exist
-                __file_extension_ok - File extension is expected
-                __file_mode_ok - Supported file mode
-            method:
-                __init__ - Initial constructor
-                check_file - Check configuration file path
-                check_format - Check configuration file format by extension
-                check_mode -  Checking operation mode for configuration file
-                is_file_ok - final status of configuration file
+
+            :attributes:
+                | __slots__ - Setting class slots
+                | VERBOSE - Console text indicator for current process-phase
+                | __MODES - Mode file operations
+                | __file_path_ok - File path exist
+                | __file_extension_ok - File extension is expected
+                | __file_mode_ok - Supported file mode
+            :methods:
+                | __init__ - Initial constructor
+                | check_file - Check configuration file path
+                | check_format - Check configuration file format by extension
+                | check_mode -  Checking operation mode for configuration file
+                | is_file_ok - final status of configuration file
     """
 
     __slots__ = (
@@ -77,6 +78,7 @@ class FileChecking(object):
     def __init__(self, verbose=False):
         """
             Initial constructor.
+
             :param verbose: Enable/disable verbose option
             :type verbose: <bool>
             :exceptions: None
@@ -91,6 +93,7 @@ class FileChecking(object):
     def check_file(self, file_path, verbose=False):
         """
             Check configuration file path.
+
             :param file_path: Absolute configuration file path
             :type file_path: <str>
             :param verbose: Enable/disable verbose option
@@ -120,6 +123,7 @@ class FileChecking(object):
     def check_format(self, file_path, file_extension, verbose=False):
         """
             Check configuration file format by extension.
+
             :param file_path: Absolute configuration file path
             :type file_path: <str>
             :param file_extension: File format (file extension)
@@ -165,6 +169,7 @@ class FileChecking(object):
     def check_mode(self, file_mode, verbose=False):
         """
             Checking operation mode for configuration file.
+
             :param file_mode: File mode ('r', 'w', 'a', 'b', 'x', 't', '+')
             :type file_mode: <str>
             :param verbose: Enable/disable verbose option
@@ -198,6 +203,7 @@ class FileChecking(object):
     def is_file_ok(self):
         """
             Return final status of configuration file.
+
             :return: Boolean value (correct file) True, else False
             :rtype: <bool>
             :exceptions: None

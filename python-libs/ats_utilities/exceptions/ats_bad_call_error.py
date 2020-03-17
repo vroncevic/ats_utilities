@@ -37,8 +37,9 @@ class ATSBadCallError(Exception):
         Checking method/function argument(s) mechanism (raise error
         for missing argument(s)).
         It defines:
-            attribute:
-                None
-            method:
-                None
+
+            :attributes:
+                | None
+            :methods:
+                | None
     """

@@ -35,17 +35,19 @@ class ATSRegister(type):
         Define class ATSRegister with attribute(s) and method(s).
         App/Tool/Script settings utilities, auto-register class.
         It defines:
-            attribute:
-                registry - List of classes
-            method:
-                __init__ - Initial constructor
-                __iter__ - Iter representation
-                __str__ - String representation
+
+            :attributes:
+                | registry - List of classes
+            :methods:
+                | __init__ - Initial constructor
+                | __iter__ - Iter representation
+                | __str__ - String representation
     """
 
     def __init__(cls, name, bases, nmspc):
         """
             Initial constructor, register class.
+
             :param name: class name
             :type name: <str>
             :param bases: Class bases
@@ -63,6 +65,7 @@ class ATSRegister(type):
     def __iter__(cls):
         """
             Getting iterator of set.
+
             :return: Iterator of set
             :rtype: <setiterator>
             :exceptions: None
@@ -72,6 +75,7 @@ class ATSRegister(type):
     def __str__(cls):
         """
             String representation of LogRegister.
+
             :return: Return human readable string (LogRegister)
             :rtype: <str>
             :exceptions: None
