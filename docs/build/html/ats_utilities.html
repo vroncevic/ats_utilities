@@ -1,0 +1,1170 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>ats_utilities package &mdash; ats_utilities https://github.com/vroncevic/ats_utilities/releases documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="ats_utilities.abstract package" href="ats_utilities.abstract.html" />
+    <link rel="prev" title="ats_utilities" href="modules.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> ats_utilities
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="index.html">Python Utilities</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">ats_utilities</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">ats_utilities package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#subpackages">Subpackages</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ats_utilities.abstract.html">ats_utilities.abstract package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ats_utilities.config.html">ats_utilities.config package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ats_utilities.console_io.html">ats_utilities.console_io package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ats_utilities.exceptions.html">ats_utilities.exceptions package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ats_utilities.logging.html">ats_utilities.logging package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ats_utilities.option.html">ats_utilities.option package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ats_utilities.register.html">ats_utilities.register package</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-ats_utilities.ats_info">ats_utilities.ats_info module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-ats_utilities.cfg_base">ats_utilities.cfg_base module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-ats_utilities.ini_base">ats_utilities.ini_base module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-ats_utilities.json_base">ats_utilities.json_base module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-ats_utilities.xml_base">ats_utilities.xml_base module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-ats_utilities.yaml_base">ats_utilities.yaml_base module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-ats_utilities">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">ats_utilities</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="modules.html">ats_utilities</a> &raquo;</li>
+        
+      <li>ats_utilities package</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/ats_utilities.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="ats-utilities-package">
+<h1>ats_utilities package<a class="headerlink" href="#ats-utilities-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="subpackages">
+<h2>Subpackages<a class="headerlink" href="#subpackages" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="ats_utilities.abstract.html">ats_utilities.abstract package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="ats_utilities.abstract.html#module-ats_utilities.abstract">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="ats_utilities.config.html">ats_utilities.config package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="ats_utilities.config.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="ats_utilities.config.cfg.html">ats_utilities.config.cfg package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ats_utilities.config.cfg.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ats_utilities.config.cfg.html#module-ats_utilities.config.cfg.cfg2object">ats_utilities.config.cfg.cfg2object module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ats_utilities.config.cfg.html#module-ats_utilities.config.cfg.object2cfg">ats_utilities.config.cfg.object2cfg module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ats_utilities.config.cfg.html#module-ats_utilities.config.cfg">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="ats_utilities.config.ini.html">ats_utilities.config.ini package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ats_utilities.config.ini.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ats_utilities.config.ini.html#module-ats_utilities.config.ini.ini2object">ats_utilities.config.ini.ini2object module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ats_utilities.config.ini.html#module-ats_utilities.config.ini.object2ini">ats_utilities.config.ini.object2ini module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ats_utilities.config.ini.html#module-ats_utilities.config.ini">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="ats_utilities.config.json.html">ats_utilities.config.json package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ats_utilities.config.json.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ats_utilities.config.json.html#module-ats_utilities.config.json.json2object">ats_utilities.config.json.json2object module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ats_utilities.config.json.html#module-ats_utilities.config.json.object2json">ats_utilities.config.json.object2json module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ats_utilities.config.json.html#module-ats_utilities.config.json">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="ats_utilities.config.xml.html">ats_utilities.config.xml package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ats_utilities.config.xml.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ats_utilities.config.xml.html#module-ats_utilities.config.xml.object2xml">ats_utilities.config.xml.object2xml module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ats_utilities.config.xml.html#module-ats_utilities.config.xml.xml2object">ats_utilities.config.xml.xml2object module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ats_utilities.config.xml.html#module-ats_utilities.config.xml">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="ats_utilities.config.yaml.html">ats_utilities.config.yaml package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ats_utilities.config.yaml.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ats_utilities.config.yaml.html#module-ats_utilities.config.yaml.object2yaml">ats_utilities.config.yaml.object2yaml module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ats_utilities.config.yaml.html#module-ats_utilities.config.yaml.yaml2object">ats_utilities.config.yaml.yaml2object module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ats_utilities.config.yaml.html#module-ats_utilities.config.yaml">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="ats_utilities.config.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ats_utilities.config.html#module-ats_utilities.config.base_read_config">ats_utilities.config.base_read_config module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ats_utilities.config.html#module-ats_utilities.config.base_write_config">ats_utilities.config.base_write_config module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ats_utilities.config.html#module-ats_utilities.config.check_base_config">ats_utilities.config.check_base_config module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ats_utilities.config.html#module-ats_utilities.config.config_context_manager">ats_utilities.config.config_context_manager module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ats_utilities.config.html#module-ats_utilities.config.file_checking">ats_utilities.config.file_checking module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ats_utilities.config.html#module-ats_utilities.config">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="ats_utilities.console_io.html">ats_utilities.console_io package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="ats_utilities.console_io.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ats_utilities.console_io.html#module-ats_utilities.console_io.error">ats_utilities.console_io.error module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ats_utilities.console_io.html#module-ats_utilities.console_io.success">ats_utilities.console_io.success module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ats_utilities.console_io.html#module-ats_utilities.console_io.verbose">ats_utilities.console_io.verbose module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ats_utilities.console_io.html#module-ats_utilities.console_io.warning">ats_utilities.console_io.warning module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ats_utilities.console_io.html#module-ats_utilities.console_io">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="ats_utilities.exceptions.html">ats_utilities.exceptions package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="ats_utilities.exceptions.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ats_utilities.exceptions.html#module-ats_utilities.exceptions.ats_attribute_error">ats_utilities.exceptions.ats_attribute_error module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ats_utilities.exceptions.html#module-ats_utilities.exceptions.ats_bad_call_error">ats_utilities.exceptions.ats_bad_call_error module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ats_utilities.exceptions.html#module-ats_utilities.exceptions.ats_file_error">ats_utilities.exceptions.ats_file_error module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ats_utilities.exceptions.html#module-ats_utilities.exceptions.ats_key_error">ats_utilities.exceptions.ats_key_error module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ats_utilities.exceptions.html#module-ats_utilities.exceptions.ats_lookup_error">ats_utilities.exceptions.ats_lookup_error module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ats_utilities.exceptions.html#module-ats_utilities.exceptions.ats_type_error">ats_utilities.exceptions.ats_type_error module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ats_utilities.exceptions.html#module-ats_utilities.exceptions.ats_value_error">ats_utilities.exceptions.ats_value_error module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ats_utilities.exceptions.html#module-ats_utilities.exceptions">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="ats_utilities.logging.html">ats_utilities.logging package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="ats_utilities.logging.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ats_utilities.logging.html#module-ats_utilities.logging.ats_logger">ats_utilities.logging.ats_logger module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ats_utilities.logging.html#module-ats_utilities.logging.ats_logger_base">ats_utilities.logging.ats_logger_base module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ats_utilities.logging.html#module-ats_utilities.logging.ats_logger_file">ats_utilities.logging.ats_logger_file module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ats_utilities.logging.html#module-ats_utilities.logging.ats_logger_name">ats_utilities.logging.ats_logger_name module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ats_utilities.logging.html#module-ats_utilities.logging.ats_logger_status">ats_utilities.logging.ats_logger_status module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ats_utilities.logging.html#module-ats_utilities.logging">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="ats_utilities.option.html">ats_utilities.option package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="ats_utilities.option.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ats_utilities.option.html#module-ats_utilities.option.ats_option_parser">ats_utilities.option.ats_option_parser module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ats_utilities.option.html#module-ats_utilities.option">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="ats_utilities.register.html">ats_utilities.register package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="ats_utilities.register.html#module-ats_utilities.register">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-ats_utilities.ats_info">
+<span id="ats-utilities-ats-info-module"></span><h2>ats_utilities.ats_info module<a class="headerlink" href="#module-ats_utilities.ats_info" title="Permalink to this headline">¶</a></h2>
+<dl class="docutils">
+<dt>Module</dt>
+<dd>ats_info.py</dd>
+<dt>Copyright</dt>
+<dd>Copyright (C) 2018 Vladimir Roncevic &lt;<a class="reference external" href="mailto:elektron&#46;ronca&#37;&#52;&#48;gmail&#46;com">elektron<span>&#46;</span>ronca<span>&#64;</span>gmail<span>&#46;</span>com</a>&gt;
+ats_utilities is free software: you can redistribute it and/or modify it
+under the terms of the GNU General Public License as published by the
+Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+ats_utilities is distributed in the hope that it will be useful, but
+WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+See the GNU General Public License for more details.
+You should have received a copy of the GNU General Public License along
+with this program. If not, see &lt;<a class="reference external" href="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</a>&gt;.</dd>
+<dt>Info</dt>
+<dd>Define class ATSInfo with attribute(s) and method(s).
+Keep App/Tool/Script information in one container object.</dd>
+</dl>
+<dl class="class">
+<dt id="ats_utilities.ats_info.ATSInfo">
+<em class="property">class </em><code class="descclassname">ats_utilities.ats_info.</code><code class="descname">ATSInfo</code><span class="sig-paren">(</span><em>info</em>, <em>verbose=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ats_utilities/ats_info.html#ATSInfo"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ats_utilities.ats_info.ATSInfo" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Define class ATSInfo with attribute(s) and method(s).
+Keep App/Tool/Script information in one container object.
+It defines:</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">attributes:</th><td class="field-body"><div class="first last line-block">
+<div class="line">__slots__ - Setting class slots</div>
+<div class="line">VERBOSE - Console text indicator for current process-phase</div>
+<div class="line">ATS_VERSION - ATS version key</div>
+<div class="line">ATS_NAME - ATS name key</div>
+<div class="line">ATS_BUILD_DATE - ATS build date key</div>
+<div class="line">ATS_LICENSE - ATS license key</div>
+<div class="line">__name - ATS name</div>
+<div class="line">__version - ATS version</div>
+<div class="line">__license - ATS license</div>
+<div class="line">__build_date - ATS build date</div>
+<div class="line">__ats_info_ok - Initialisation of ATS info is ok/not ok</div>
+</div>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">methods:</th><td class="field-body"><div class="first last line-block">
+<div class="line">__init__ - Initial constructor,</div>
+<div class="line">name - Getting ATS name,</div>
+<div class="line">version - Getting ATS version,</div>
+<div class="line">license - Getting ATS license,</div>
+<div class="line">build_date - Getting ATS build date,</div>
+<div class="line">show_base_info - Show ATS info,</div>
+<div class="line">is_ats_info_ok - Return ATS info status,</div>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+<dl class="attribute">
+<dt id="ats_utilities.ats_info.ATSInfo.ATS_BUILD_DATE">
+<code class="descname">ATS_BUILD_DATE</code><em class="property"> = 'ats_build_date'</em><a class="headerlink" href="#ats_utilities.ats_info.ATSInfo.ATS_BUILD_DATE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="ats_utilities.ats_info.ATSInfo.ATS_LICENSE">
+<code class="descname">ATS_LICENSE</code><em class="property"> = 'ats_license'</em><a class="headerlink" href="#ats_utilities.ats_info.ATSInfo.ATS_LICENSE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="ats_utilities.ats_info.ATSInfo.ATS_NAME">
+<code class="descname">ATS_NAME</code><em class="property"> = 'ats_name'</em><a class="headerlink" href="#ats_utilities.ats_info.ATSInfo.ATS_NAME" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="ats_utilities.ats_info.ATSInfo.ATS_VERSION">
+<code class="descname">ATS_VERSION</code><em class="property"> = 'ats_version'</em><a class="headerlink" href="#ats_utilities.ats_info.ATSInfo.ATS_VERSION" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="ats_utilities.ats_info.ATSInfo.VERBOSE">
+<code class="descname">VERBOSE</code><em class="property"> = 'ATS_UTILITIES::ATS_INFO'</em><a class="headerlink" href="#ats_utilities.ats_info.ATSInfo.VERBOSE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="ats_utilities.ats_info.ATSInfo.build_date">
+<code class="descname">build_date</code><a class="headerlink" href="#ats_utilities.ats_info.ATSInfo.build_date" title="Permalink to this definition">¶</a></dt>
+<dd><p>Getting ATS build date</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">App/Tool/Script build date</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">&lt;str&gt;</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Exceptions:</th><td class="field-body">None</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="ats_utilities.ats_info.ATSInfo.is_ats_info_ok">
+<code class="descname">is_ats_info_ok</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/ats_utilities/ats_info.html#ATSInfo.is_ats_info_ok"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ats_utilities.ats_info.ATSInfo.is_ats_info_ok" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return ATS info status.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Boolean status (initialisation of ATS info is ok)</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">&lt;bool&gt;</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Exceptions:</th><td class="field-body">None</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="ats_utilities.ats_info.ATSInfo.license">
+<code class="descname">license</code><a class="headerlink" href="#ats_utilities.ats_info.ATSInfo.license" title="Permalink to this definition">¶</a></dt>
+<dd><p>Getting ATS license text</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">App/Tool/Script license text</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">&lt;str&gt;</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Exceptions:</th><td class="field-body">None</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="ats_utilities.ats_info.ATSInfo.name">
+<code class="descname">name</code><a class="headerlink" href="#ats_utilities.ats_info.ATSInfo.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Getting ATS name</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">App/Tool/Script name</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">&lt;str&gt;</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Exceptions:</th><td class="field-body">None</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="ats_utilities.ats_info.ATSInfo.show_base_info">
+<code class="descname">show_base_info</code><span class="sig-paren">(</span><em>verbose=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ats_utilities/ats_info.html#ATSInfo.show_base_info"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ats_utilities.ats_info.ATSInfo.show_base_info" title="Permalink to this definition">¶</a></dt>
+<dd><p>Show ATS info (Ex: [TOOL_NAME] version ver.1.0 05-Apr-2018).</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>verbose</strong> (<em>&lt;bool&gt;</em>) – Enable/disable verbose option</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Exceptions:</th><td class="field-body">None</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="ats_utilities.ats_info.ATSInfo.version">
+<code class="descname">version</code><a class="headerlink" href="#ats_utilities.ats_info.ATSInfo.version" title="Permalink to this definition">¶</a></dt>
+<dd><p>Getting ATS version number</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">App/Tool/Script version number</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">&lt;str&gt;</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Exceptions:</th><td class="field-body">None</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-ats_utilities.cfg_base">
+<span id="ats-utilities-cfg-base-module"></span><h2>ats_utilities.cfg_base module<a class="headerlink" href="#module-ats_utilities.cfg_base" title="Permalink to this headline">¶</a></h2>
+<dl class="docutils">
+<dt>Module</dt>
+<dd>cfg_base.py</dd>
+<dt>Copyright</dt>
+<dd>Copyright (C) 2018 Vladimir Roncevic &lt;<a class="reference external" href="mailto:elektron&#46;ronca&#37;&#52;&#48;gmail&#46;com">elektron<span>&#46;</span>ronca<span>&#64;</span>gmail<span>&#46;</span>com</a>&gt;
+ats_utilities is free software: you can redistribute it and/or modify it
+under the terms of the GNU General Public License as published by the
+Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+ats_utilities is distributed in the hope that it will be useful, but
+WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+See the GNU General Public License for more details.
+You should have received a copy of the GNU General Public License along
+with this program. If not, see &lt;<a class="reference external" href="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</a>&gt;.</dd>
+<dt>Info</dt>
+<dd>Define class CfgBase with attribute(s) and method(s).
+Load a settings, info and run operation.</dd>
+</dl>
+<dl class="class">
+<dt id="ats_utilities.cfg_base.CfgBase">
+<em class="property">class </em><code class="descclassname">ats_utilities.cfg_base.</code><code class="descname">CfgBase</code><span class="sig-paren">(</span><em>base_config_file</em>, <em>verbose=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ats_utilities/cfg_base.html#CfgBase"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ats_utilities.cfg_base.CfgBase" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#ats_utilities.ats_info.ATSInfo" title="ats_utilities.ats_info.ATSInfo"><code class="xref py py-class docutils literal notranslate"><span class="pre">ats_utilities.ats_info.ATSInfo</span></code></a></p>
+<p>Define class CfgBase with attribute(s) and method(s).
+Load a settings, info and run operation.
+It defines:</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">attributes:</th><td class="field-body"><div class="first last line-block">
+<div class="line">__slots__ - Setting class slots</div>
+<div class="line">VERBOSE - Console text indicator for current process-phase</div>
+<div class="line">__tool_operational - Control operational flag</div>
+<div class="line">__cfg2obj - In API for configuration</div>
+<div class="line">__obj2cfg - Out API for configuration</div>
+<div class="line">__option_parser - Option parser</div>
+</div>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">methods:</th><td class="field-body"><div class="first last line-block">
+<div class="line">__init__ - Initial constructor</div>
+<div class="line">add_new_option - Adding new option</div>
+<div class="line">parse_args - Parse arguments</div>
+<div class="line">tool_status - Getting/Setting tool status</div>
+<div class="line">process - Process and run tool operation (Abstract method)</div>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+<dl class="attribute">
+<dt id="ats_utilities.cfg_base.CfgBase.VERBOSE">
+<code class="descname">VERBOSE</code><em class="property"> = 'ATS_UTILITIES::CFG_BASE'</em><a class="headerlink" href="#ats_utilities.cfg_base.CfgBase.VERBOSE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="ats_utilities.cfg_base.CfgBase.add_new_option">
+<code class="descname">add_new_option</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ats_utilities/cfg_base.html#CfgBase.add_new_option"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ats_utilities.cfg_base.CfgBase.add_new_option" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adding new option.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>args</strong> (<em>&lt;list&gt;</em>) – List of arguments (objects)</li>
+<li><strong>kwargs</strong> (<em>&lt;dict&gt;</em>) – Arguments in shape of dictionary</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Exceptions:</th><td class="field-body"><p class="first last">None</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="ats_utilities.cfg_base.CfgBase.parse_args">
+<code class="descname">parse_args</code><span class="sig-paren">(</span><em>argv</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ats_utilities/cfg_base.html#CfgBase.parse_args"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ats_utilities.cfg_base.CfgBase.parse_args" title="Permalink to this definition">¶</a></dt>
+<dd><p>Process arguments from start.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>argv</strong> (<em>&lt;Python object</em><em>(</em><em>s</em><em>)</em><em>&gt;</em>) – Arguments</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Options and arguments</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">&lt;Python object(s)&gt;</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Exceptions:</th><td class="field-body">None</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="ats_utilities.cfg_base.CfgBase.process">
+<code class="descname">process</code><em class="property"> = &lt;ats_utilities.abstract.abstract_method object&gt;</em><a class="headerlink" href="#ats_utilities.cfg_base.CfgBase.process" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="ats_utilities.cfg_base.CfgBase.tool_status">
+<code class="descname">tool_status</code><a class="headerlink" href="#ats_utilities.cfg_base.CfgBase.tool_status" title="Permalink to this definition">¶</a></dt>
+<dd><p>Getting tool status.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">True (tool ready) | False</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">&lt;bool&gt;</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Exceptions:</th><td class="field-body">None</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-ats_utilities.ini_base">
+<span id="ats-utilities-ini-base-module"></span><h2>ats_utilities.ini_base module<a class="headerlink" href="#module-ats_utilities.ini_base" title="Permalink to this headline">¶</a></h2>
+<dl class="docutils">
+<dt>Module</dt>
+<dd>ini_base.py</dd>
+<dt>Copyright</dt>
+<dd>Copyright (C) 2019 Vladimir Roncevic &lt;<a class="reference external" href="mailto:elektron&#46;ronca&#37;&#52;&#48;gmail&#46;com">elektron<span>&#46;</span>ronca<span>&#64;</span>gmail<span>&#46;</span>com</a>&gt;
+ats_utilities is free software: you can redistribute it and/or modify it
+under the terms of the GNU General Public License as published by the
+Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+ats_utilities is distributed in the hope that it will be useful, but
+WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+See the GNU General Public License for more details.
+You should have received a copy of the GNU General Public License along
+with this program. If not, see &lt;<a class="reference external" href="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</a>&gt;.</dd>
+<dt>Info</dt>
+<dd>Define class IniBase with attribute(s) and method(s).
+Load a settings, create a CL interface and run operation.</dd>
+</dl>
+<dl class="class">
+<dt id="ats_utilities.ini_base.IniBase">
+<em class="property">class </em><code class="descclassname">ats_utilities.ini_base.</code><code class="descname">IniBase</code><span class="sig-paren">(</span><em>base_config_file</em>, <em>verbose=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ats_utilities/ini_base.html#IniBase"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ats_utilities.ini_base.IniBase" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#ats_utilities.ats_info.ATSInfo" title="ats_utilities.ats_info.ATSInfo"><code class="xref py py-class docutils literal notranslate"><span class="pre">ats_utilities.ats_info.ATSInfo</span></code></a></p>
+<p>Define class IniBase with attribute(s) and method(s).
+Load a settings, create a CL interface and run operation.
+It defines:</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">attributes:</th><td class="field-body"><div class="first last line-block">
+<div class="line">__slots__ - Setting class slots</div>
+<div class="line">VERBOSE - Console text indicator for current process-phase</div>
+<div class="line">__tool_operational - Control operational flag</div>
+<div class="line">__ini2obj - In API for configuration</div>
+<div class="line">__obj2ini - Out API for configuration</div>
+<div class="line">__option_parser - Option parser</div>
+</div>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">methods:</th><td class="field-body"><div class="first last line-block">
+<div class="line">__init__ - Initial constructor</div>
+<div class="line">add_new_option - Adding new option for CL interface</div>
+<div class="line">parse_args - Parse arguments</div>
+<div class="line">tool_status - Getting/Setting tool status</div>
+<div class="line">process - Process and run tool operation (Abstract method)</div>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+<dl class="attribute">
+<dt id="ats_utilities.ini_base.IniBase.VERBOSE">
+<code class="descname">VERBOSE</code><em class="property"> = 'ATS_UTILITIES::INI_BASE'</em><a class="headerlink" href="#ats_utilities.ini_base.IniBase.VERBOSE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="ats_utilities.ini_base.IniBase.add_new_option">
+<code class="descname">add_new_option</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ats_utilities/ini_base.html#IniBase.add_new_option"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ats_utilities.ini_base.IniBase.add_new_option" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adding new option for CL interface.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>args</strong> (<em>&lt;list&gt;</em>) – List of arguments (objects)</li>
+<li><strong>kwargs</strong> (<em>&lt;dict&gt;</em>) – Arguments in shape of dictionary</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Exceptions:</th><td class="field-body"><p class="first last">None</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="ats_utilities.ini_base.IniBase.parse_args">
+<code class="descname">parse_args</code><span class="sig-paren">(</span><em>argv</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ats_utilities/ini_base.html#IniBase.parse_args"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ats_utilities.ini_base.IniBase.parse_args" title="Permalink to this definition">¶</a></dt>
+<dd><p>Process arguments from start.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>argv</strong> (<em>&lt;Python object</em><em>(</em><em>s</em><em>)</em><em>&gt;</em>) – Arguments</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Options and arguments</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">&lt;Python object(s)&gt;</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Exceptions:</th><td class="field-body">None</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="ats_utilities.ini_base.IniBase.process">
+<code class="descname">process</code><em class="property"> = &lt;ats_utilities.abstract.abstract_method object&gt;</em><a class="headerlink" href="#ats_utilities.ini_base.IniBase.process" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="ats_utilities.ini_base.IniBase.tool_status">
+<code class="descname">tool_status</code><a class="headerlink" href="#ats_utilities.ini_base.IniBase.tool_status" title="Permalink to this definition">¶</a></dt>
+<dd><p>Getting tool status.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">True (tool ready) | False</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">&lt;bool&gt;</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Exceptions:</th><td class="field-body">None</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-ats_utilities.json_base">
+<span id="ats-utilities-json-base-module"></span><h2>ats_utilities.json_base module<a class="headerlink" href="#module-ats_utilities.json_base" title="Permalink to this headline">¶</a></h2>
+<dl class="docutils">
+<dt>Module</dt>
+<dd>json_base.py</dd>
+<dt>Copyright</dt>
+<dd>Copyright (C) 2018 Vladimir Roncevic &lt;<a class="reference external" href="mailto:elektron&#46;ronca&#37;&#52;&#48;gmail&#46;com">elektron<span>&#46;</span>ronca<span>&#64;</span>gmail<span>&#46;</span>com</a>&gt;
+ats_utilities is free software: you can redistribute it and/or modify it
+under the terms of the GNU General Public License as published by the
+Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+ats_utilities is distributed in the hope that it will be useful, but
+WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+See the GNU General Public License for more details.
+You should have received a copy of the GNU General Public License along
+with this program. If not, see &lt;<a class="reference external" href="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</a>&gt;.</dd>
+<dt>Info</dt>
+<dd>Define class JsonBase with attribute(s) and method(s).
+Load a settings, create a CL interface and run operation.</dd>
+</dl>
+<dl class="class">
+<dt id="ats_utilities.json_base.JsonBase">
+<em class="property">class </em><code class="descclassname">ats_utilities.json_base.</code><code class="descname">JsonBase</code><span class="sig-paren">(</span><em>base_config_file</em>, <em>verbose=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ats_utilities/json_base.html#JsonBase"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ats_utilities.json_base.JsonBase" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#ats_utilities.ats_info.ATSInfo" title="ats_utilities.ats_info.ATSInfo"><code class="xref py py-class docutils literal notranslate"><span class="pre">ats_utilities.ats_info.ATSInfo</span></code></a></p>
+<p>Define class JsonBase with attribute(s) and method(s).
+Load a settings, create a CL interface and run operation.
+It defines:</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">attributes:</th><td class="field-body"><div class="first last line-block">
+<div class="line">__slots__ - Setting class slots</div>
+<div class="line">VERBOSE - Console text indicator for current process-phase</div>
+<div class="line">__tool_operational - Control operational flag</div>
+<div class="line">__json2obj - In API for configuration</div>
+<div class="line">__obj2json - Out API for configuration</div>
+<div class="line">__option_parser - Option parser</div>
+</div>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">methods:</th><td class="field-body"><div class="first last line-block">
+<div class="line">__init__ - Initial constructor</div>
+<div class="line">add_new_option - Adding new option for CL interface</div>
+<div class="line">parse_args - Parse arguments</div>
+<div class="line">tool_status - Getting/Setting tool status</div>
+<div class="line">process - Process and run tool operation (Abstract method)</div>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+<dl class="attribute">
+<dt id="ats_utilities.json_base.JsonBase.VERBOSE">
+<code class="descname">VERBOSE</code><em class="property"> = 'ATS_UTILITIES::JSON_BASE'</em><a class="headerlink" href="#ats_utilities.json_base.JsonBase.VERBOSE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="ats_utilities.json_base.JsonBase.add_new_option">
+<code class="descname">add_new_option</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ats_utilities/json_base.html#JsonBase.add_new_option"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ats_utilities.json_base.JsonBase.add_new_option" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adding new option for CL interface.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>args</strong> (<em>&lt;list&gt;</em>) – List of arguments (objects)</li>
+<li><strong>kwargs</strong> (<em>&lt;dict&gt;</em>) – Arguments in shape of dictionary</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Exceptions:</th><td class="field-body"><p class="first last">None</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="ats_utilities.json_base.JsonBase.parse_args">
+<code class="descname">parse_args</code><span class="sig-paren">(</span><em>argv</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ats_utilities/json_base.html#JsonBase.parse_args"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ats_utilities.json_base.JsonBase.parse_args" title="Permalink to this definition">¶</a></dt>
+<dd><p>Process arguments from start.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>argv</strong> (<em>&lt;Python object</em><em>(</em><em>s</em><em>)</em><em>&gt;</em>) – Arguments</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Options and arguments</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">&lt;Python object(s)&gt;</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Exceptions:</th><td class="field-body">None</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="ats_utilities.json_base.JsonBase.process">
+<code class="descname">process</code><em class="property"> = &lt;ats_utilities.abstract.abstract_method object&gt;</em><a class="headerlink" href="#ats_utilities.json_base.JsonBase.process" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="ats_utilities.json_base.JsonBase.tool_status">
+<code class="descname">tool_status</code><a class="headerlink" href="#ats_utilities.json_base.JsonBase.tool_status" title="Permalink to this definition">¶</a></dt>
+<dd><p>Getting tool status.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">True (tool ready) | False</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">&lt;bool&gt;</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Exceptions:</th><td class="field-body">None</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-ats_utilities.xml_base">
+<span id="ats-utilities-xml-base-module"></span><h2>ats_utilities.xml_base module<a class="headerlink" href="#module-ats_utilities.xml_base" title="Permalink to this headline">¶</a></h2>
+<dl class="docutils">
+<dt>Module</dt>
+<dd>xml_base.py</dd>
+<dt>Copyright</dt>
+<dd>Copyright (C) 2018 Vladimir Roncevic &lt;<a class="reference external" href="mailto:elektron&#46;ronca&#37;&#52;&#48;gmail&#46;com">elektron<span>&#46;</span>ronca<span>&#64;</span>gmail<span>&#46;</span>com</a>&gt;
+ats_utilities is free software: you can redistribute it and/or modify it
+under the terms of the GNU General Public License as published by the
+Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+ats_utilities is distributed in the hope that it will be useful, but
+WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+See the GNU General Public License for more details.
+You should have received a copy of the GNU General Public License along
+with this program. If not, see &lt;<a class="reference external" href="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</a>&gt;.</dd>
+<dt>Info</dt>
+<dd>Define class XmlBase with attribute(s) and method(s).
+Load a settings, create a CL interface and run operation.</dd>
+</dl>
+<dl class="class">
+<dt id="ats_utilities.xml_base.XmlBase">
+<em class="property">class </em><code class="descclassname">ats_utilities.xml_base.</code><code class="descname">XmlBase</code><span class="sig-paren">(</span><em>base_config_file</em>, <em>verbose=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ats_utilities/xml_base.html#XmlBase"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ats_utilities.xml_base.XmlBase" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#ats_utilities.ats_info.ATSInfo" title="ats_utilities.ats_info.ATSInfo"><code class="xref py py-class docutils literal notranslate"><span class="pre">ats_utilities.ats_info.ATSInfo</span></code></a></p>
+<p>Define class XmlBase with attribute(s) and method(s).
+Load a settings, create a CL interface and run operation.
+It defines:</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">attributes:</th><td class="field-body"><div class="first last line-block">
+<div class="line">__slots__ - Setting class slots</div>
+<div class="line">VERBOSE - Console text indicator for current process-phase</div>
+<div class="line">__tool_operational - Control operational flag</div>
+<div class="line">__xml2obj - In API for configuration</div>
+<div class="line">__obj2xml - Out API for configuration</div>
+<div class="line">__option_parser - Option parser</div>
+</div>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">methods:</th><td class="field-body"><div class="first last line-block">
+<div class="line">__init__ - Initial constructor</div>
+<div class="line">add_new_option - Adding new option for CL interface</div>
+<div class="line">parse_args - Parse arguments</div>
+<div class="line">tool_status - Getting/Setting tool status</div>
+<div class="line">process - Process and run tool operation (Abstract method)</div>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+<dl class="attribute">
+<dt id="ats_utilities.xml_base.XmlBase.VERBOSE">
+<code class="descname">VERBOSE</code><em class="property"> = 'ATS_UTILITIES::XML_BASE'</em><a class="headerlink" href="#ats_utilities.xml_base.XmlBase.VERBOSE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="ats_utilities.xml_base.XmlBase.add_new_option">
+<code class="descname">add_new_option</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ats_utilities/xml_base.html#XmlBase.add_new_option"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ats_utilities.xml_base.XmlBase.add_new_option" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adding new option for CL interface.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>args</strong> (<em>&lt;list&gt;</em>) – List of arguments (objects)</li>
+<li><strong>kwargs</strong> (<em>&lt;dict&gt;</em>) – Arguments in shape of dictionary</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Exceptions:</th><td class="field-body"><p class="first last">None</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="ats_utilities.xml_base.XmlBase.parse_args">
+<code class="descname">parse_args</code><span class="sig-paren">(</span><em>argv</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ats_utilities/xml_base.html#XmlBase.parse_args"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ats_utilities.xml_base.XmlBase.parse_args" title="Permalink to this definition">¶</a></dt>
+<dd><p>Process arguments from start.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>argv</strong> (<em>&lt;Python object</em><em>(</em><em>s</em><em>)</em><em>&gt;</em>) – Arguments</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Options and arguments</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">&lt;Python object(s)&gt;</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Exceptions:</th><td class="field-body">None</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="ats_utilities.xml_base.XmlBase.process">
+<code class="descname">process</code><em class="property"> = &lt;ats_utilities.abstract.abstract_method object&gt;</em><a class="headerlink" href="#ats_utilities.xml_base.XmlBase.process" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="ats_utilities.xml_base.XmlBase.tool_status">
+<code class="descname">tool_status</code><a class="headerlink" href="#ats_utilities.xml_base.XmlBase.tool_status" title="Permalink to this definition">¶</a></dt>
+<dd><p>Getting tool status.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">True (tool ready) | False</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">&lt;bool&gt;</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Exceptions:</th><td class="field-body">None</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-ats_utilities.yaml_base">
+<span id="ats-utilities-yaml-base-module"></span><h2>ats_utilities.yaml_base module<a class="headerlink" href="#module-ats_utilities.yaml_base" title="Permalink to this headline">¶</a></h2>
+<dl class="docutils">
+<dt>Module</dt>
+<dd>yaml_base.py</dd>
+<dt>Copyright</dt>
+<dd>Copyright (C) 2019 Vladimir Roncevic &lt;<a class="reference external" href="mailto:elektron&#46;ronca&#37;&#52;&#48;gmail&#46;com">elektron<span>&#46;</span>ronca<span>&#64;</span>gmail<span>&#46;</span>com</a>&gt;
+ats_utilities is free software: you can redistribute it and/or modify it
+under the terms of the GNU General Public License as published by the
+Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+ats_utilities is distributed in the hope that it will be useful, but
+WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+See the GNU General Public License for more details.
+You should have received a copy of the GNU General Public License along
+with this program. If not, see &lt;<a class="reference external" href="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</a>&gt;.</dd>
+<dt>Info</dt>
+<dd>Define class YamlBase with attribute(s) and method(s).
+Load a settings, create a CL interface and run operation.</dd>
+</dl>
+<dl class="class">
+<dt id="ats_utilities.yaml_base.YamlBase">
+<em class="property">class </em><code class="descclassname">ats_utilities.yaml_base.</code><code class="descname">YamlBase</code><span class="sig-paren">(</span><em>base_config_file</em>, <em>verbose=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ats_utilities/yaml_base.html#YamlBase"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ats_utilities.yaml_base.YamlBase" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#ats_utilities.ats_info.ATSInfo" title="ats_utilities.ats_info.ATSInfo"><code class="xref py py-class docutils literal notranslate"><span class="pre">ats_utilities.ats_info.ATSInfo</span></code></a></p>
+<p>Define class YamlBase with attribute(s) and method(s).
+Load a settings, create a CL interface and run operation.
+It defines:</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">attributes:</th><td class="field-body"><div class="first last line-block">
+<div class="line">__slots__ - Setting class slots</div>
+<div class="line">VERBOSE - Console text indicator for current process-phase</div>
+<div class="line">__tool_operational - Control operational flag</div>
+<div class="line">__yaml2obj - In API for configuration</div>
+<div class="line">__obj2yaml - Out API for configuration</div>
+<div class="line">__option_parser - Option parser</div>
+</div>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">methods:</th><td class="field-body"><div class="first last line-block">
+<div class="line">__init__ - Initial constructor</div>
+<div class="line">add_new_option - Adding new option for CL interface</div>
+<div class="line">parse_args - Parse arguments</div>
+<div class="line">tool_status - Getting/Setting tool status</div>
+<div class="line">process - Process and run tool operation (Abstract method)</div>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+<dl class="attribute">
+<dt id="ats_utilities.yaml_base.YamlBase.VERBOSE">
+<code class="descname">VERBOSE</code><em class="property"> = 'ATS_UTILITIES::YAML_BASE'</em><a class="headerlink" href="#ats_utilities.yaml_base.YamlBase.VERBOSE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="ats_utilities.yaml_base.YamlBase.add_new_option">
+<code class="descname">add_new_option</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ats_utilities/yaml_base.html#YamlBase.add_new_option"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ats_utilities.yaml_base.YamlBase.add_new_option" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adding new option for CL interface.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>args</strong> (<em>&lt;list&gt;</em>) – List of arguments (objects)</li>
+<li><strong>kwargs</strong> (<em>&lt;dict&gt;</em>) – Arguments in shape of dictionary</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Exceptions:</th><td class="field-body"><p class="first last">None</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="ats_utilities.yaml_base.YamlBase.parse_args">
+<code class="descname">parse_args</code><span class="sig-paren">(</span><em>argv</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ats_utilities/yaml_base.html#YamlBase.parse_args"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ats_utilities.yaml_base.YamlBase.parse_args" title="Permalink to this definition">¶</a></dt>
+<dd><p>Process arguments from start.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>argv</strong> (<em>&lt;Python object</em><em>(</em><em>s</em><em>)</em><em>&gt;</em>) – Arguments</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Options and arguments</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">&lt;Python object(s)&gt;</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Exceptions:</th><td class="field-body">None</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="ats_utilities.yaml_base.YamlBase.process">
+<code class="descname">process</code><em class="property"> = &lt;ats_utilities.abstract.abstract_method object&gt;</em><a class="headerlink" href="#ats_utilities.yaml_base.YamlBase.process" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="ats_utilities.yaml_base.YamlBase.tool_status">
+<code class="descname">tool_status</code><a class="headerlink" href="#ats_utilities.yaml_base.YamlBase.tool_status" title="Permalink to this definition">¶</a></dt>
+<dd><p>Getting tool status.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">True (tool ready) | False</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">&lt;bool&gt;</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Exceptions:</th><td class="field-body">None</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-ats_utilities">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-ats_utilities" title="Permalink to this headline">¶</a></h2>
+<p>App/Tool/Script utilities.</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="ats_utilities.abstract.html" class="btn btn-neutral float-right" title="ats_utilities.abstract package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="modules.html" class="btn btn-neutral float-left" title="ats_utilities" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, Vladimir Roncevic &lt;elektron.ronca@gmail.com&gt;
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
