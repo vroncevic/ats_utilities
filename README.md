@@ -19,7 +19,7 @@ To install modules, locate and run setup.py, type the following:
 
 ```
 tar xvzf ats_utilities-x.y.z.tar.gz
-cd ats_utilities-x.y.z/python-libs
+cd ats_utilities-x.y.z
 python setup.py install
 ```
 :sparkles:
