@@ -26,7 +26,7 @@ To install this set of modules type the following:
 .. code-block:: bash
 
     tar xvzf ats_utilities-x.y.z.tar.gz
-    cd ats_utilities-x.y.z/python-libs
+    cd ats_utilities-x.y.z/
     python setup.py install
 
 DEPENDENCIES
