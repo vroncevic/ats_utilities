@@ -23,7 +23,7 @@ cd ats_utilities-x.y.z
 python setup.py install
 ```
 
-Or You can use docker to to create image/container.
+Or You can use docker to create image/container.
 
 :sparkles:
 
