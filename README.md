@@ -22,6 +22,9 @@ tar xvzf ats_utilities-x.y.z.tar.gz
 cd ats_utilities-x.y.z
 python setup.py install
 ```
+
+Or You can use docker to to create image/container.
+
 :sparkles:
 
 ### DEPENDENCIES
@@ -119,6 +122,8 @@ Framework structure:
 More documentation and info at:
 
 * https://ats-utilities.readthedocs.io/en/latest/
+
+:sparkles:
 
 ### COPYRIGHT AND LICENCE
 
