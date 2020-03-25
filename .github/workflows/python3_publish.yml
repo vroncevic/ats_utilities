@@ -1,7 +1,7 @@
 # This workflows will upload a Python Package using Twine when a release is created
 # For more information see: https://help.github.com/en/actions/language-and-framework-guides/using-python-with-github-actions#publishing-to-package-registries
 
-name: Update Python 3 Package ats_utilities
+name: Update Python3 Package ats_utilities
 
 on: [push]
 
