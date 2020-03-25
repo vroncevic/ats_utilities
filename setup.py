@@ -20,7 +20,7 @@
      Define setup for ats_utilities package.
 """
 
-from distutils.core import setup
+from setuptools import setup
 
 __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2018, Free software to use and distributed it.'
@@ -37,11 +37,20 @@ setup(
     description='Python App/Tool/Script Utilities',
     author='Vladimir Roncevic',
     author_email='elektron.ronca@gmail.com',
-    url='https://vroncevic.github.io/py_util/',
+    url='https://vroncevic.github.io/ats_utilities/',
     license='GPL 2018 Free software to use and distributed it.',
     long_description='Configuration ats_utilities for python App/Tool/Script.',
     keywords='util, config, log, option, xml, cfg, ini, json, yaml',
     platforms='POSIX',
+    classifiers=[
+        'Programming Language :: Python :: 2.7',
+        'Programming Language :: Python :: 3',
+        'Programming Language :: Python :: 3.2',
+        'Programming Language :: Python :: 3.3',
+        'Programming Language :: Python :: 3.4',
+        'License :: OSI Approved :: GPL',
+        'Operating System :: OS Independent',
+    ],
     packages=[
         'ats_utilities',
         'ats_utilities.abstract',
@@ -56,5 +65,5 @@ setup(
         'ats_utilities.logging',
         'ats_utilities.option',
         'ats_utilities.register',
-    ], requires=['colorama', 'bs4', 'yaml', 'configparser', 'pathlib', 'wheel']
+    ], requires=['colorama', 'bs4', 'yaml', 'configparser', 'pathlib']
 )
