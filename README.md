@@ -119,6 +119,8 @@ Framework structure:
 
 ### DOCS
 
+[![Documentation Status](https://readthedocs.org/projects/ats-utilities/badge/?version=latest)](https://gen-avr8.readthedocs.io/projects/ats-utilities/en/latest/?badge=latest)
+
 More documentation and info at:
 
 * https://ats-utilities.readthedocs.io/en/latest/
