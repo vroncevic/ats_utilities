@@ -1,12 +1,16 @@
-name: Triage
+name: Triage ats_utilities
 on:
   issues:
     types: [opened]
 jobs:
-  applyTriageLabel:
-    name: Apply Triage Label
+  commentOnNewIssues:
+    name: Comment On New Issues
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: Apply Triage Label
+      - name: Comment On New Issues
         uses: actions/github@v1.0.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          args: comment "[ats_utilities] should be supported for Python 2.7, 3.5, 3.6, 3.7, 3.8"
