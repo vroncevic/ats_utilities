@@ -26,12 +26,8 @@ other information that should be provided before the modules are installed.
  [![GitHub issues open](https://img.shields.io/github/issues/vroncevic/ats_utilities.svg)](https://github.com/vroncevic/ats_utilities/issues)
  [![GitHub contributors](https://img.shields.io/github/contributors/vroncevic/ats_utilities.svg)](https://github.com/vroncevic/ats_utilities/graphs/contributors)
 
-### Table of contents
-- [Installation](https://github.com/vroncevic/ats_utilities#installation)
-- [Dependencies](https://github.com/vroncevic/ats_utilities#dependencies)
-- [Library structure](https://github.com/vroncevic/ats_utilities#library-structure)
-- [Docs](https://github.com/vroncevic/ats_utilities#docs)
-- [Copyright and Licence](https://github.com/vroncevic/ats_utilities#copyright-and-licence)
+<!-- START doctoc -->
+<!-- END doctoc -->
 
 :sparkles:
 
