@@ -44,7 +44,6 @@ Or You can use docker to create image/container.
 
 These modules requires other modules and libraries (Python 2.x/3.x):
 ```
-ats_utilities:
     yaml
     bs4
     configparser
