@@ -40,11 +40,11 @@ Or You can use docker to create image/container.
 
 These modules requires other modules and libraries (Python 2.x/3.x):
 ```
-    yaml
-    bs4
-    configparser
-    colorama
-    pathlib
+yaml
+bs4
+configparser
+colorama
+pathlib
 ```
 
 ### Library structure
