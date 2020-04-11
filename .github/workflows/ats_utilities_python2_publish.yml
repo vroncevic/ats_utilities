@@ -1,4 +1,4 @@
-name: Install Python2 Package ats_utilities
+name: Install Python2 Package
 
 on:
   push:
