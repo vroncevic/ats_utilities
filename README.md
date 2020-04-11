@@ -1,8 +1,8 @@
 # Python Utilities
 
-ats_utilities is framework for building Apps/Tools/Scripts.
+**ats_utilities** is framework for building Apps/Tools/Scripts.
 
-Developed in python code: 100%.
+Developed in python code: **100%**.
 
 The README is used to introduce the modules and provide instructions on
 how to install the modules, any machine dependencies it may have and any
@@ -12,11 +12,19 @@ other information that should be provided before the modules are installed.
  [![GitHub issues open](https://img.shields.io/github/issues/vroncevic/ats_utilities.svg)](https://github.com/vroncevic/ats_utilities/issues)
  [![GitHub contributors](https://img.shields.io/github/contributors/vroncevic/ats_utilities.svg)](https://github.com/vroncevic/ats_utilities/graphs/contributors)
 
-### INSTALLATION
-Navigate to release [page](https://github.com/vroncevic/ats_utilities/releases) download and extract release archive.
+### Table of contents
+- [Installation](https://github.com/vroncevic/ats_utilities#installation)
+- [Dependencies](https://github.com/vroncevic/ats_utilities#dependencies)
+- [Library structure](https://github.com/vroncevic/ats_utilities#library-structure)
+- [Docs](https://github.com/vroncevic/ats_utilities#docs)
+- [Copyright and Licence](https://github.com/vroncevic/ats_utilities#copyright-and-licence)
+
+:sparkles:
+
+### Installation
+Navigate to **[release page](https://github.com/vroncevic/ats_utilities/releases)** download and extract release archive.
 
 To install modules, locate and run setup.py, type the following:
-
 ```
 tar xvzf ats_utilities-x.y.z.tar.gz
 cd ats_utilities-x.y.z
@@ -27,10 +35,9 @@ Or You can use docker to create image/container.
 
 :sparkles:
 
-### DEPENDENCIES
+### Dependencies
 
 These modules requires other modules and libraries (Python 2.x/3.x):
-
 ```
 ats_utilities:
     yaml
@@ -39,15 +46,15 @@ ats_utilities:
     colorama
     pathlib
 ```
+:sparkles:
 
-### LIBRARY STRUCTURE
+### Library structure
 
-ats_utilities is based on OOP:
+**ats_utilities** is based on OOP:
 
 ![alt tag](https://raw.githubusercontent.com/vroncevic/ats_utilities/dev/docs/arch_flow_usage.png)
 
-Framework structure:
-
+Library structure:
 ```
 .
 ├── ats_utilities/
@@ -116,8 +123,9 @@ Framework structure:
 │   └── yaml_base.py
 └── setup.py
 ```
+:sparkles:
 
-### DOCS
+### Docs
 
 [![Documentation Status](https://readthedocs.org/projects/ats-utilities/badge/?version=latest)](https://gen-avr8.readthedocs.io/projects/ats-utilities/en/latest/?badge=latest)
 
@@ -127,7 +135,7 @@ More documentation and info at:
 
 :sparkles:
 
-### COPYRIGHT AND LICENCE
+### Copyright and Licence
 
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0) [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
