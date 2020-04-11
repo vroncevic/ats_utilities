@@ -39,13 +39,12 @@ Or You can use docker to create image/container.
 ### Dependencies
 
 These modules requires other modules and libraries (Python 2.x/3.x):
-```
-yaml
-bs4
-configparser
-colorama
-pathlib
-```
+* [yaml - YAML parser and emitter for Python](https://pypi.org/project/PyYAML/)
+* [bs4 - Screen-scraping library](https://pypi.org/project/beautifulsoup4/)
+* [configparser - Configuration parser library](https://pypi.org/project/configparser/)
+* [colorama - Cross-platform colored terminal text](https://pypi.org/project/colorama/)
+* [pathlib - Object-oriented filesystem paths](https://pypi.org/project/pathlib/)
+
 
 ### Library structure
 
