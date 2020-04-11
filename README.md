@@ -3,7 +3,6 @@
 **Table of Contents**
 
 - [Python Utilities](#python-utilities)
-    - [Table of contents](#table-of-contents)
     - [Installation](#installation)
     - [Dependencies](#dependencies)
     - [Library structure](#library-structure)
