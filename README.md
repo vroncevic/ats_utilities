@@ -125,7 +125,7 @@ Library structure:
 
 ### Docs
 
-[![Documentation Status](https://readthedocs.org/projects/ats-utilities/badge/?version=latest)](https://gen-avr8.readthedocs.io/projects/ats-utilities/en/latest/?badge=latest)
+[![Documentation Status](https://readthedocs.org/projects/ats-utilities/badge/?version=latest)](https://ats-utilities.readthedocs.io/projects/ats-utilities/en/latest/?badge=latest)
 
 More documentation and info at:
 
