@@ -1,4 +1,4 @@
-name: Install Python3 Package
+name: Install Python3 Package ats_utilities
 
 on:
   push:
