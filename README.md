@@ -1,3 +1,17 @@
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+**Table of Contents**
+
+- [Python Utilities](#python-utilities)
+    - [Table of contents](#table-of-contents)
+    - [Installation](#installation)
+    - [Dependencies](#dependencies)
+    - [Library structure](#library-structure)
+    - [Docs](#docs)
+    - [Copyright and Licence](#copyright-and-licence)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 # Python Utilities
 
 **ats_utilities** is framework for building Apps/Tools/Scripts.
