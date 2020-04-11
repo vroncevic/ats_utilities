@@ -24,8 +24,6 @@ other information that should be provided before the modules are installed.
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
-:sparkles:
-
 ### Installation
 Navigate to **[release page](https://github.com/vroncevic/ats_utilities/releases)** download and extract release archive.
 
@@ -38,8 +36,6 @@ python setup.py install
 
 Or You can use docker to create image/container.
 
-:sparkles:
-
 ### Dependencies
 
 These modules requires other modules and libraries (Python 2.x/3.x):
@@ -50,7 +46,6 @@ These modules requires other modules and libraries (Python 2.x/3.x):
     colorama
     pathlib
 ```
-:sparkles:
 
 ### Library structure
 
@@ -127,7 +122,6 @@ Library structure:
 │   └── yaml_base.py
 └── setup.py
 ```
-:sparkles:
 
 ### Docs
 
@@ -135,19 +129,14 @@ Library structure:
 
 More documentation and info at:
 
-* https://ats-utilities.readthedocs.io/en/latest/
-
-:sparkles:
+* [ats-utilities.readthedocs.io](https://ats-utilities.readthedocs.io/en/latest/)
 
 ### Copyright and Licence
 
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0) [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
-Copyright (C) 2018 by https://vroncevic.github.io/ats_utilities/
+Copyright (C) 2018 by [vroncevic.github.io/ats_utilities](https://vroncevic.github.io/ats_utilities/)
 
 This tool is free software; you can redistribute it and/or modify
 it under the same terms as Python itself, either Python version 2.x/3.x or,
 at your option, any later version of Python 3 you may have available.
-
-:sparkles:
-
