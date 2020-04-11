@@ -1,6 +1,10 @@
-name: Python package
+name: Python package ats_utilities
 
-on: [push]
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
 
 jobs:
   build:
