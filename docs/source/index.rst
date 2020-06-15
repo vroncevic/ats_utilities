@@ -1,9 +1,9 @@
 Python Utilities
 -----------------
 
-ats_utilities is framework for building Apps/Tools/Scripts.
+**ats_utilities** is framework for building Apps/Tools/Scripts.
 
-Developed in python code: 100%.
+Developed in python code: **100%**.
 
 The README is used to introduce the modules and provide instructions on
 how to install the modules, any machine dependencies it may have and any
@@ -42,11 +42,12 @@ To install this set of modules type the following:
 
     tar xvzf ats_utilities-x.y.z.tar.gz
     cd ats_utilities-x.y.z/
-    python setup.py install
+    python setup.py install_lib
+    python setup.py install_egg_info
 
 DEPENDENCIES
 -------------
-ats_utilities requires other modules and libraries:
+**ats_utilities** requires other modules and libraries:
 
 .. code-block:: bash
 
@@ -58,11 +59,11 @@ ats_utilities requires other modules and libraries:
 
 LIBRARY STRUCTURE
 ------------------
-ats_utilities is based on OOP:
+**ats_utilities** is based on OOP:
 
 .. image:: https://raw.githubusercontent.com/vroncevic/ats_utilities/dev/docs/arch_flow_usage.png
 
-Framework structure:
+Code structure:
 
 .. code-block:: bash
 
@@ -146,7 +147,7 @@ COPYRIGHT AND LICENCE
 
 Copyright (C) 2018 by https://vroncevic.github.io/ats_utilities/
 
-This tool is free software; you can redistribute it and/or modify
+**ats_utilities** is free software; you can redistribute it and/or modify
 it under the same terms as Python itself, either Python version 2.x/3.x or,
 at your option, any later version of Python 3 you may have available.
 
