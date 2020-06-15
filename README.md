@@ -32,11 +32,15 @@ To install modules, locate and run setup.py, type the following:
 ```
 tar xvzf ats_utilities-x.y.z.tar.gz
 cd ats_utilities-x.y.z
+```
+
+```
 python setup.py install_lib
 ```
 <details>
   <summary>install lib process</summary>
 
+```bash
     root@debtux:/data/dev/python/ats_utilities/github/ats_utilities# python setup.py install_lib
     running install_lib
     running build_py
@@ -107,6 +111,7 @@ python setup.py install_lib
     creating build/lib.linux-x86_64-2.7/ats_utilities/register
     copying ats_utilities/register/__init__.py -> build/lib.linux-x86_64-2.7/ats_utilities/register
     root@debtux:/data/dev/python/ats_utilities/github/ats_utilities#
+```
 </details>
 
 ```
@@ -115,6 +120,7 @@ python setup.py install_egg_info
 <details>
   <summary>install lib egg info</summary>
 
+```bash
     root@debtux:/data/dev/python/ats_utilities/github/ats_utilities# python setup.py install_egg_info
     running install_egg_info
     running egg_info
@@ -128,6 +134,7 @@ python setup.py install_egg_info
     removing '/usr/local/lib/python2.7/dist-packages/ats_utilities-1.0.2.egg-info' (and everything under it)
     Copying ats_utilities.egg-info to /usr/local/lib/python2.7/dist-packages/ats_utilities-1.0.2.egg-info
     root@debtux:/data/dev/python/ats_utilities/github/ats_utilities#
+```
 </details>
 
 Or You can use docker to create image/container.
