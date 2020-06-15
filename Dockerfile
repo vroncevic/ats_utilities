@@ -15,13 +15,21 @@
 
 FROM debian:10
 RUN apt-get update
-RUN DEBIAN_FRONTEND=noninteractive apt-get install -yq --no-install-recommends python python-pip tree
+RUN DEBIAN_FRONTEND=noninteractive apt-get install -yq --no-install-recommends \
+ tree \
+ htop \
+ python \
+ python-pip
+
+RUN pip install --upgrade setuptools
 RUN mkdir /ats_utilities/
 COPY ats_utilities /ats_utilities/
 COPY setup.py /
 RUN find /ats_utilities/ -name "*.editorconfig" -type f -exec rm -Rf {} \;
-RUN python setup.py install
+RUN python setup.py install_lib
+RUN python setup.py install_egg_info
 RUN rm -rf /ats_utilities/
 RUN rm -f setup.py
-RUN chmod -R 755 /usr/local/lib/python2.7/dist-packages/
+RUN chmod -R 755 /usr/local/lib/python2.7/dist-packages/ats_utilities/
+RUN chmod -R 644 /usr/local/lib/python2.7/dist-packages/ats_utilities-1.0.2.egg-info/
 RUN tree /usr/local/lib/python2.7/dist-packages/ats_utilities/
