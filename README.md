@@ -40,76 +40,78 @@ python setup.py install_lib
 <details>
   <summary>install lib process</summary>
 
-    <p>root@debtux:/data/dev/python/ats_utilities/github/ats_utilities# python setup.py install_lib</p>
-    <p>running install_lib</p>
-    <p>running build_py</p>
-    <p>creating build</p>
-    <p>creating build/lib.linux-x86_64-2.7</p>
-    <p>creating build/lib.linux-x86_64-2.7/ats_utilities</p>
-    <p>copying ats_utilities/__init__.py -> build/lib.linux-x86_64-2.7/ats_utilities</p>
-    <p>copying ats_utilities/xml_base.py -> build/lib.linux-x86_64-2.7/ats_utilities</p>
-    <p>copying ats_utilities/yaml_base.py -> build/lib.linux-x86_64-2.7/ats_utilities</p>
-    <p>copying ats_utilities/ini_base.py -> build/lib.linux-x86_64-2.7/ats_utilities</p>
-    <p>copying ats_utilities/cfg_base.py -> build/lib.linux-x86_64-2.7/ats_utilities</p>
-    <p>copying ats_utilities/json_base.py -> build/lib.linux-x86_64-2.7/ats_utilities</p>
-    <p>copying ats_utilities/ats_info.py -> build/lib.linux-x86_64-2.7/ats_utilities</p>
-    <p>creating build/lib.linux-x86_64-2.7/ats_utilities/abstract</p>
-    <p>copying ats_utilities/abstract/__init__.py -> build/lib.linux-x86_64-2.7/ats_utilities/abstract</p>
-    <p>creating build/lib.linux-x86_64-2.7/ats_utilities/config</p>
-    <p>copying ats_utilities/config/base_read_config.py -> build/lib.linux-x86_64-2.7/ats_utilities/config</p>
-    <p>copying ats_utilities/config/check_base_config.py -> build/lib.linux-x86_64-2.7/ats_utilities/config</p>
-    <p>copying ats_utilities/config/config_context_manager.py -> build/lib.linux-x86_64-2.7/ats_utilities/config</p>
-    <p>copying ats_utilities/config/__init__.py -> build/lib.linux-x86_64-2.7/ats_utilities/config</p>
-    <p>copying ats_utilities/config/file_checking.py -> build/lib.linux-x86_64-2.7/ats_utilities/config</p>
-    <p>copying ats_utilities/config/base_write_config.py -> build/lib.linux-x86_64-2.7/ats_utilities/config</p>
-    <p>creating build/lib.linux-x86_64-2.7/ats_utilities/config/cfg</p>
-    <p>copying ats_utilities/config/cfg/object2cfg.py -> build/lib.linux-x86_64-2.7/ats_utilities/config/cfg</p>
-    <p>copying ats_utilities/config/cfg/cfg2object.py -> build/lib.linux-x86_64-2.7/ats_utilities/config/cfg</p>
-    <p>copying ats_utilities/config/cfg/__init__.py -> build/lib.linux-x86_64-2.7/ats_utilities/config/cfg</p>
-    <p>creating build/lib.linux-x86_64-2.7/ats_utilities/config/ini</p>
-    <p>copying ats_utilities/config/ini/ini2object.py -> build/lib.linux-x86_64-2.7/ats_utilities/config/ini</p>
-    <p>copying ats_utilities/config/ini/object2ini.py -> build/lib.linux-x86_64-2.7/ats_utilities/config/ini</p>
-    <p>copying ats_utilities/config/ini/__init__.py -> build/lib.linux-x86_64-2.7/ats_utilities/config/ini</p>
-    <p>creating build/lib.linux-x86_64-2.7/ats_utilities/config/json</p>
-    <p>copying ats_utilities/config/json/object2json.py -> build/lib.linux-x86_64-2.7/ats_utilities/config/json</p>
-    <p>copying ats_utilities/config/json/__init__.py -> build/lib.linux-x86_64-2.7/ats_utilities/config/json</p>
-    <p>copying ats_utilities/config/json/json2object.py -> build/lib.linux-x86_64-2.7/ats_utilities/config/json</p>
-    <p>creating build/lib.linux-x86_64-2.7/ats_utilities/config/xml</p>
-    <p>copying ats_utilities/config/xml/xml2object.py -> build/lib.linux-x86_64-2.7/ats_utilities/config/xml</p>
-    <p>copying ats_utilities/config/xml/object2xml.py -> build/lib.linux-x86_64-2.7/ats_utilities/config/xml</p>
-    <p>copying ats_utilities/config/xml/__init__.py -> build/lib.linux-x86_64-2.7/ats_utilities/config/xml</p>
-    <p>creating build/lib.linux-x86_64-2.7/ats_utilities/config/yaml</p>
-    <p>copying ats_utilities/config/yaml/__init__.py -> build/lib.linux-x86_64-2.7/ats_utilities/config/yaml</p>
-    <p>copying ats_utilities/config/yaml/yaml2object.py -> build/lib.linux-x86_64-2.7/ats_utilities/config/yaml</p>
-    <p>copying ats_utilities/config/yaml/object2yaml.py -> build/lib.linux-x86_64-2.7/ats_utilities/config/yaml</p>
-    <p>creating build/lib.linux-x86_64-2.7/ats_utilities/console_io</p>
-    <p>copying ats_utilities/console_io/warning.py -> build/lib.linux-x86_64-2.7/ats_utilities/console_io</p>
-    <p>copying ats_utilities/console_io/verbose.py -> build/lib.linux-x86_64-2.7/ats_utilities/console_io</p>
-    <p>copying ats_utilities/console_io/__init__.py -> build/lib.linux-x86_64-2.7/ats_utilities/console_io</p>
-    <p>copying ats_utilities/console_io/success.py -> build/lib.linux-x86_64-2.7/ats_utilities/console_io</p>
-    <p>copying ats_utilities/console_io/error.py -> build/lib.linux-x86_64-2.7/ats_utilities/console_io</p>
-    <p>creating build/lib.linux-x86_64-2.7/ats_utilities/exceptions</p>
-    <p>copying ats_utilities/exceptions/ats_lookup_error.py -> build/lib.linux-x86_64-2.7/ats_utilities/exceptions</p>
-    <p>copying ats_utilities/exceptions/__init__.py -> build/lib.linux-x86_64-2.7/ats_utilities/exceptions</p>
-    <p>copying ats_utilities/exceptions/ats_bad_call_error.py -> build/lib.linux-x86_64-2.7/ats_utilities/exceptions</p>
-    <p>copying ats_utilities/exceptions/ats_value_error.py -> build/lib.linux-x86_64-2.7/ats_utilities/exceptions</p>
-    <p>copying ats_utilities/exceptions/ats_type_error.py -> build/lib.linux-x86_64-2.7/ats_utilities/exceptions</p>
-    <p>copying ats_utilities/exceptions/ats_key_error.py -> build/lib.linux-x86_64-2.7/ats_utilities/exceptions</p>
-    <p>copying ats_utilities/exceptions/ats_attribute_error.py -> build/lib.linux-x86_64-2.7/ats_utilities/exceptions</p>
-    <p>copying ats_utilities/exceptions/ats_file_error.py -> build/lib.linux-x86_64-2.7/ats_utilities/exceptions</p>
-    <p>creating build/lib.linux-x86_64-2.7/ats_utilities/logging</p>
-    <p>copying ats_utilities/logging/ats_logger_status.py -> build/lib.linux-x86_64-2.7/ats_utilities/logging</p>
-    <p>copying ats_utilities/logging/__init__.py -> build/lib.linux-x86_64-2.7/ats_utilities/logging</p>
-    <p>copying ats_utilities/logging/ats_logger.py -> build/lib.linux-x86_64-2.7/ats_utilities/logging</p>
-    <p>copying ats_utilities/logging/ats_logger_name.py -> build/lib.linux-x86_64-2.7/ats_utilities/logging</p>
-    <p>copying ats_utilities/logging/ats_logger_file.py -> build/lib.linux-x86_64-2.7/ats_utilities/logging</p>
-    <p>copying ats_utilities/logging/ats_logger_base.py -> build/lib.linux-x86_64-2.7/ats_utilities/logging</p>
-    <p>creating build/lib.linux-x86_64-2.7/ats_utilities/option</p>
-    <p>copying ats_utilities/option/ats_option_parser.py -> build/lib.linux-x86_64-2.7/ats_utilities/option</p>
-    <p>copying ats_utilities/option/__init__.py -> build/lib.linux-x86_64-2.7/ats_utilities/option</p>
-    <p>creating build/lib.linux-x86_64-2.7/ats_utilities/register</p>
-    <p>copying ats_utilities/register/__init__.py -> build/lib.linux-x86_64-2.7/ats_utilities/register</p>
-    <p>root@debtux:/data/dev/python/ats_utilities/github/ats_utilities#</p>
+```bash
+    root@debtux:/data/dev/python/ats_utilities/github/ats_utilities# python setup.py install_lib
+    running install_lib
+    running build_py
+    creating build
+    creating build/lib.linux-x86_64-2.7
+    creating build/lib.linux-x86_64-2.7/ats_utilities
+    copying ats_utilities/__init__.py -> build/lib.linux-x86_64-2.7/ats_utilities
+    copying ats_utilities/xml_base.py -> build/lib.linux-x86_64-2.7/ats_utilities
+    copying ats_utilities/yaml_base.py -> build/lib.linux-x86_64-2.7/ats_utilities
+    copying ats_utilities/ini_base.py -> build/lib.linux-x86_64-2.7/ats_utilities
+    copying ats_utilities/cfg_base.py -> build/lib.linux-x86_64-2.7/ats_utilities
+    copying ats_utilities/json_base.py -> build/lib.linux-x86_64-2.7/ats_utilities
+    copying ats_utilities/ats_info.py -> build/lib.linux-x86_64-2.7/ats_utilities
+    creating build/lib.linux-x86_64-2.7/ats_utilities/abstract
+    copying ats_utilities/abstract/__init__.py -> build/lib.linux-x86_64-2.7/ats_utilities/abstract
+    creating build/lib.linux-x86_64-2.7/ats_utilities/config
+    copying ats_utilities/config/base_read_config.py -> build/lib.linux-x86_64-2.7/ats_utilities/config
+    copying ats_utilities/config/check_base_config.py -> build/lib.linux-x86_64-2.7/ats_utilities/config
+    copying ats_utilities/config/config_context_manager.py -> build/lib.linux-x86_64-2.7/ats_utilities/config
+    copying ats_utilities/config/__init__.py -> build/lib.linux-x86_64-2.7/ats_utilities/config
+    copying ats_utilities/config/file_checking.py -> build/lib.linux-x86_64-2.7/ats_utilities/config
+    copying ats_utilities/config/base_write_config.py -> build/lib.linux-x86_64-2.7/ats_utilities/config
+    creating build/lib.linux-x86_64-2.7/ats_utilities/config/cfg
+    copying ats_utilities/config/cfg/object2cfg.py -> build/lib.linux-x86_64-2.7/ats_utilities/config/cfg
+    copying ats_utilities/config/cfg/cfg2object.py -> build/lib.linux-x86_64-2.7/ats_utilities/config/cfg
+    copying ats_utilities/config/cfg/__init__.py -> build/lib.linux-x86_64-2.7/ats_utilities/config/cfg
+    creating build/lib.linux-x86_64-2.7/ats_utilities/config/ini
+    copying ats_utilities/config/ini/ini2object.py -> build/lib.linux-x86_64-2.7/ats_utilities/config/ini
+    copying ats_utilities/config/ini/object2ini.py -> build/lib.linux-x86_64-2.7/ats_utilities/config/ini
+    copying ats_utilities/config/ini/__init__.py -> build/lib.linux-x86_64-2.7/ats_utilities/config/ini
+    creating build/lib.linux-x86_64-2.7/ats_utilities/config/json
+    copying ats_utilities/config/json/object2json.py -> build/lib.linux-x86_64-2.7/ats_utilities/config/json
+    copying ats_utilities/config/json/__init__.py -> build/lib.linux-x86_64-2.7/ats_utilities/config/json
+    copying ats_utilities/config/json/json2object.py -> build/lib.linux-x86_64-2.7/ats_utilities/config/json
+    creating build/lib.linux-x86_64-2.7/ats_utilities/config/xml
+    copying ats_utilities/config/xml/xml2object.py -> build/lib.linux-x86_64-2.7/ats_utilities/config/xml
+    copying ats_utilities/config/xml/object2xml.py -> build/lib.linux-x86_64-2.7/ats_utilities/config/xml
+    copying ats_utilities/config/xml/__init__.py -> build/lib.linux-x86_64-2.7/ats_utilities/config/xml
+    creating build/lib.linux-x86_64-2.7/ats_utilities/config/yaml
+    copying ats_utilities/config/yaml/__init__.py -> build/lib.linux-x86_64-2.7/ats_utilities/config/yaml
+    copying ats_utilities/config/yaml/yaml2object.py -> build/lib.linux-x86_64-2.7/ats_utilities/config/yaml
+    copying ats_utilities/config/yaml/object2yaml.py -> build/lib.linux-x86_64-2.7/ats_utilities/config/yaml
+    creating build/lib.linux-x86_64-2.7/ats_utilities/console_io
+    copying ats_utilities/console_io/warning.py -> build/lib.linux-x86_64-2.7/ats_utilities/console_io
+    copying ats_utilities/console_io/verbose.py -> build/lib.linux-x86_64-2.7/ats_utilities/console_io
+    copying ats_utilities/console_io/__init__.py -> build/lib.linux-x86_64-2.7/ats_utilities/console_io
+    copying ats_utilities/console_io/success.py -> build/lib.linux-x86_64-2.7/ats_utilities/console_io
+    copying ats_utilities/console_io/error.py -> build/lib.linux-x86_64-2.7/ats_utilities/console_io
+    creating build/lib.linux-x86_64-2.7/ats_utilities/exceptions
+    copying ats_utilities/exceptions/ats_lookup_error.py -> build/lib.linux-x86_64-2.7/ats_utilities/exceptions
+    copying ats_utilities/exceptions/__init__.py -> build/lib.linux-x86_64-2.7/ats_utilities/exceptions
+    copying ats_utilities/exceptions/ats_bad_call_error.py -> build/lib.linux-x86_64-2.7/ats_utilities/exceptions
+    copying ats_utilities/exceptions/ats_value_error.py -> build/lib.linux-x86_64-2.7/ats_utilities/exceptions
+    copying ats_utilities/exceptions/ats_type_error.py -> build/lib.linux-x86_64-2.7/ats_utilities/exceptions
+    copying ats_utilities/exceptions/ats_key_error.py -> build/lib.linux-x86_64-2.7/ats_utilities/exceptions
+    copying ats_utilities/exceptions/ats_attribute_error.py -> build/lib.linux-x86_64-2.7/ats_utilities/exceptions
+    copying ats_utilities/exceptions/ats_file_error.py -> build/lib.linux-x86_64-2.7/ats_utilities/exceptions
+    creating build/lib.linux-x86_64-2.7/ats_utilities/logging
+    copying ats_utilities/logging/ats_logger_status.py -> build/lib.linux-x86_64-2.7/ats_utilities/logging
+    copying ats_utilities/logging/__init__.py -> build/lib.linux-x86_64-2.7/ats_utilities/logging
+    copying ats_utilities/logging/ats_logger.py -> build/lib.linux-x86_64-2.7/ats_utilities/logging
+    copying ats_utilities/logging/ats_logger_name.py -> build/lib.linux-x86_64-2.7/ats_utilities/logging
+    copying ats_utilities/logging/ats_logger_file.py -> build/lib.linux-x86_64-2.7/ats_utilities/logging
+    copying ats_utilities/logging/ats_logger_base.py -> build/lib.linux-x86_64-2.7/ats_utilities/logging
+    creating build/lib.linux-x86_64-2.7/ats_utilities/option
+    copying ats_utilities/option/ats_option_parser.py -> build/lib.linux-x86_64-2.7/ats_utilities/option
+    copying ats_utilities/option/__init__.py -> build/lib.linux-x86_64-2.7/ats_utilities/option
+    creating build/lib.linux-x86_64-2.7/ats_utilities/register
+    copying ats_utilities/register/__init__.py -> build/lib.linux-x86_64-2.7/ats_utilities/register
+    root@debtux:/data/dev/python/ats_utilities/github/ats_utilities#
+```
 </details>
 
 ```
@@ -118,19 +120,21 @@ python setup.py install_egg_info
 <details>
   <summary>install lib egg info</summary>
 
-    <p>root@debtux:/data/dev/python/ats_utilities/github/ats_utilities# python setup.py install_egg_info</p>
-    <p>running install_egg_info</p>
-    <p>running egg_info</p>
-    <p>creating ats_utilities.egg-info</p>
-    <p>writing ats_utilities.egg-info/PKG-INFO</p>
-    <p>writing top-level names to ats_utilities.egg-info/top_level.txt</p>
-    <p>writing dependency_links to ats_utilities.egg-info/dependency_links.txt</p>
-    <p>writing manifest file 'ats_utilities.egg-info/SOURCES.txt'</p>
-    <p>reading manifest file 'ats_utilities.egg-info/SOURCES.txt'</p>
-    <p>writing manifest file 'ats_utilities.egg-info/SOURCES.txt'</p>
-    <p>removing '/usr/local/lib/python2.7/dist-packages/ats_utilities-1.0.2.egg-info' (and everything under it)</p>
-    <p>Copying ats_utilities.egg-info to /usr/local/lib/python2.7/dist-packages/ats_utilities-1.0.2.egg-info</p>
-    <p>root@debtux:/data/dev/python/ats_utilities/github/ats_utilities#</p>
+```bash
+    root@debtux:/data/dev/python/ats_utilities/github/ats_utilities# python setup.py install_egg_info
+    running install_egg_info
+    running egg_info
+    creating ats_utilities.egg-info
+    writing ats_utilities.egg-info/PKG-INFO
+    writing top-level names to ats_utilities.egg-info/top_level.txt
+    writing dependency_links to ats_utilities.egg-info/dependency_links.txt
+    writing manifest file 'ats_utilities.egg-info/SOURCES.txt'
+    reading manifest file 'ats_utilities.egg-info/SOURCES.txt'
+    writing manifest file 'ats_utilities.egg-info/SOURCES.txt'
+    removing '/usr/local/lib/python2.7/dist-packages/ats_utilities-1.0.2.egg-info' (and everything under it)
+    Copying ats_utilities.egg-info to /usr/local/lib/python2.7/dist-packages/ats_utilities-1.0.2.egg-info
+    root@debtux:/data/dev/python/ats_utilities/github/ats_utilities#
+```
 </details>
 
 Or You can use docker to create image/container.
