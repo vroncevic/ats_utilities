@@ -121,7 +121,6 @@ reading manifest file 'ats_utilities.egg-info/SOURCES.txt'
 writing manifest file 'ats_utilities.egg-info/SOURCES.txt'
 removing '/usr/local/lib/python2.7/dist-packages/ats_utilities-1.0.2.egg-info' (and everything under it)
 Copying ats_utilities.egg-info to /usr/local/lib/python2.7/dist-packages/ats_utilities-1.0.2.egg-info
-root@debtux:/data/dev/python/ats_utilities/github/ats_utilities#
 ```
 
 Or You can use docker to create image/container.
@@ -134,7 +133,6 @@ These modules requires other modules and libraries (Python 2.x/3.x):
 * [configparser - Configuration parser library](https://pypi.org/project/configparser/)
 * [colorama - Cross-platform colored terminal text](https://pypi.org/project/colorama/)
 * [pathlib - Object-oriented filesystem paths](https://pypi.org/project/pathlib/)
-
 
 ### Library structure
 
