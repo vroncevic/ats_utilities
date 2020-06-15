@@ -33,7 +33,7 @@ __status__ = 'Updated'
 
 setup(
     name='ats_utilities',
-    version='1.0.1',
+    version='1.0.2',
     description='Python App/Tool/Script Utilities',
     author='Vladimir Roncevic',
     author_email='elektron.ronca@gmail.com',
