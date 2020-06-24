@@ -3,7 +3,7 @@ Python Utilities
 
 **ats_utilities** is framework for building Apps/Tools/Scripts.
 
-Developed in python code: **100%**.
+Developed in `python <https://www.python.org/>`_ code: **100%**.
 
 The README is used to introduce the modules and provide instructions on
 how to install the modules, any machine dependencies it may have and any
@@ -24,7 +24,7 @@ other information that should be provided before the modules are installed.
    :target: https://ats_utilities.readthedocs.io/projects/ats_utilities/en/latest/?badge=latest
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 4
    :caption: Contents:
 
    self
@@ -32,6 +32,7 @@ other information that should be provided before the modules are installed.
 
 INSTALLATION
 -------------
+
 Navigate to release `page`_ download and extract release archive.
 
 .. _page: https://github.com/vroncevic/ats_utilities/releases
@@ -47,18 +48,18 @@ To install this set of modules type the following:
 
 DEPENDENCIES
 -------------
-**ats_utilities** requires other modules and libraries:
 
-.. code-block:: bash
+**ats_utilities** requires next modules and libraries:
 
-    yaml
-    bs4
-    configparser
-    colorama
-    pathlib
+* `yaml - YAML parser and emitter for Python <https://pypi.org/project/PyYAML/>`_
+* `bs4 - Screen-scraping library <https://pypi.org/project/beautifulsoup4/>`_
+* `configparser - Configuration parser library <https://pypi.org/project/configparser/>`_
+* `colorama - Cross-platform colored terminal text <https://pypi.org/project/colorama/>`_
+* `pathlib - Object-oriented filesystem paths <https://pypi.org/project/pathlib/>`_
 
 LIBRARY STRUCTURE
 ------------------
+
 **ats_utilities** is based on OOP:
 
 .. image:: https://raw.githubusercontent.com/vroncevic/ats_utilities/dev/docs/arch_flow_usage.png
@@ -145,7 +146,7 @@ COPYRIGHT AND LICENCE
 .. |License: Apache 2.0| image:: https://img.shields.io/badge/License-Apache%202.0-blue.svg
    :target: https://opensource.org/licenses/Apache-2.0
 
-Copyright (C) 2018 by https://vroncevic.github.io/ats_utilities/
+Copyright (C) 2017 by `vroncevic.github.io/ats_utilities <https://vroncevic.github.io/ats_utilities>`_
 
 **ats_utilities** is free software; you can redistribute it and/or modify
 it under the same terms as Python itself, either Python version 2.x/3.x or,
