@@ -1,8 +1,8 @@
 # Python Utilities
 
-**ats_utilities** is framework for building Apps/Tools/Scripts.
+**ats_utilities** is framework for creating/building Apps/Tools/Scripts.
 
-Developed in python code: **100%**.
+Developed in [python](https://www.python.org/) code: **100%**.
 
 The README is used to introduce the modules and provide instructions on
 how to install the modules, any machine dependencies it may have and any
@@ -215,14 +215,14 @@ Library structure:
 [![Documentation Status](https://readthedocs.org/projects/ats-utilities/badge/?version=latest)](https://ats-utilities.readthedocs.io/projects/ats-utilities/en/latest/?badge=latest)
 
 More documentation and info at:
-
 * [ats-utilities.readthedocs.io](https://ats-utilities.readthedocs.io/en/latest/)
+* [www.python.org](https://www.python.org/)
 
 ### Copyright and Licence
 
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0) [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
-Copyright (C) 2018 by [vroncevic.github.io/ats_utilities](https://vroncevic.github.io/ats_utilities/)
+Copyright (C) 2017 by [vroncevic.github.io/ats_utilities](https://vroncevic.github.io/ats_utilities/)
 
 This tool is free software; you can redistribute it and/or modify
 it under the same terms as Python itself, either Python version 2.x/3.x or,
