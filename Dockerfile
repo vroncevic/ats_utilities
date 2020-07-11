@@ -19,9 +19,11 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get install -yq --no-install-recommends \
  tree \
  htop \
  python \
- python-pip
+ python-pip \
+ python-wheel
 
 RUN pip install --upgrade setuptools
+RUN pip install wheel colorama bs4 PyYAML configparser pathlib
 RUN mkdir /ats_utilities/
 COPY ats_utilities /ats_utilities/
 COPY setup.py /
