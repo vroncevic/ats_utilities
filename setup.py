@@ -65,5 +65,6 @@ setup(
         'ats_utilities.logging',
         'ats_utilities.option',
         'ats_utilities.register',
-    ], requires=['colorama', 'bs4', 'yaml', 'configparser', 'pathlib']
+    ],
+    install_requires=['colorama', 'bs4', 'PyYAML', 'configparser', 'pathlib']
 )
