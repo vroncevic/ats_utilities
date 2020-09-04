@@ -43,6 +43,7 @@ To install this set of modules type the following:
 
     tar xvzf ats_utilities-x.y.z.tar.gz
     cd ats_utilities-x.y.z/
+    pip install -r requirements.txt
     python setup.py install_lib
     python setup.py install_egg_info
 
