@@ -20,18 +20,20 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get install -yq --no-install-recommends \
  htop \
  python \
  python-pip \
- python-wheel
+ python-wheel \
+ libyaml-dev
 
 RUN pip install --upgrade setuptools
-RUN pip install wheel colorama bs4 PyYAML configparser pathlib
 RUN mkdir /ats_utilities/
 COPY ats_utilities /ats_utilities/
 COPY setup.py /
+COPY requirements.txt /
+RUN pip install -r requirements.txt
+RUN rm -f requirements.txt
 RUN find /ats_utilities/ -name "*.editorconfig" -type f -exec rm -Rf {} \;
 RUN python setup.py install_lib
 RUN python setup.py install_egg_info
 RUN rm -rf /ats_utilities/
 RUN rm -f setup.py
 RUN chmod -R 755 /usr/local/lib/python2.7/dist-packages/ats_utilities/
-RUN chmod -R 644 /usr/local/lib/python2.7/dist-packages/ats_utilities-1.0.2.egg-info/
 RUN tree /usr/local/lib/python2.7/dist-packages/ats_utilities/
