@@ -30,7 +30,7 @@ other information that should be provided before the modules are installed.
    self
    modules
 
-INSTALLATION
+Installation
 -------------
 
 Navigate to release `page`_ download and extract release archive.
@@ -47,7 +47,7 @@ To install this set of modules type the following:
     python setup.py install_lib
     python setup.py install_egg_info
 
-DEPENDENCIES
+Dependencies
 -------------
 
 **ats_utilities** requires next modules and libraries:
@@ -58,7 +58,7 @@ DEPENDENCIES
 * `colorama - Cross-platform colored terminal text <https://pypi.org/project/colorama/>`_
 * `pathlib - Object-oriented filesystem paths <https://pypi.org/project/pathlib/>`_
 
-LIBRARY STRUCTURE
+Library structure
 ------------------
 
 **ats_utilities** is based on OOP:
@@ -136,7 +136,7 @@ Code structure:
     │   └── yaml_base.py
     └── setup.py
 
-COPYRIGHT AND LICENCE
+Copyright and licence
 ----------------------
 
 |License: GPL v3| |License: Apache 2.0|
