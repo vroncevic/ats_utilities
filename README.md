@@ -2,7 +2,7 @@
 
 **ats_utilities** is framework for creating/building Apps/Tools/Scripts.
 
-Developed in [python](https://www.python.org/) code: **100%**.
+Developed in **[python](https://www.python.org/)** code: **100%**.
 
 The README is used to introduce the modules and provide instructions on
 how to install the modules, any machine dependencies it may have and any
@@ -126,6 +126,8 @@ Copying ats_utilities.egg-info to /usr/local/lib/python2.7/dist-packages/ats_uti
 
 Or You can use docker to create image/container.
 
+[![ats_utilities docker checker](https://github.com/vroncevic/ats_utilities/workflows/ats_utilities%20docker%20checker/badge.svg)](https://github.com/vroncevic/ats_utilities/actions?query=workflow%3A%22ats_utilities+docker+checker%22)
+
 ### Dependencies
 
 These modules requires other modules and libraries (Python 2.x/3.x):
@@ -225,6 +227,6 @@ More documentation and info at:
 
 Copyright (C) 2017 by [vroncevic.github.io/ats_utilities](https://vroncevic.github.io/ats_utilities/)
 
-This tool is free software; you can redistribute it and/or modify
+**ats_utilities** is free software; you can redistribute it and/or modify
 it under the same terms as Python itself, either Python version 2.x/3.x or,
 at your option, any later version of Python 3 you may have available.
