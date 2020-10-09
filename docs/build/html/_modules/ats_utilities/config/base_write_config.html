@@ -177,7 +177,7 @@
 <span class="kn">import</span> <span class="nn">sys</span>
 
 <span class="k">try</span><span class="p">:</span>
-    <span class="kn">from</span> <span class="nn">ats_utilities.abstract</span> <span class="k">import</span> <span class="n">abstract_method</span>
+    <span class="kn">from</span> <span class="nn">ats_utilities.abstract</span> <span class="kn">import</span> <span class="n">abstract_method</span>
 <span class="k">except</span> <span class="ne">ImportError</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
     <span class="n">MESSAGE</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="si">{0}</span><span class="se">\n</span><span class="si">{1}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="vm">__file__</span><span class="p">,</span> <span class="n">error</span><span class="p">)</span>
     <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="n">MESSAGE</span><span class="p">)</span>  <span class="c1"># Force close python ATS ##############################</span>
@@ -211,7 +211,7 @@
     <span class="vm">__slots__</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;VERBOSE&#39;</span><span class="p">,</span> <span class="s1">&#39;__file_path&#39;</span><span class="p">)</span>
     <span class="n">VERBOSE</span> <span class="o">=</span> <span class="s1">&#39;ATS_UTILITIES::CONFIG::BASE_WRITE_CONFIG&#39;</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">            Initial file path.</span>
 
