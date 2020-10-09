@@ -175,16 +175,16 @@
 <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="kn">import</span> <span class="nn">sys</span>
-<span class="kn">from</span> <span class="nn">inspect</span> <span class="k">import</span> <span class="n">stack</span>
+<span class="kn">from</span> <span class="nn">inspect</span> <span class="kn">import</span> <span class="n">stack</span>
 
 <span class="k">try</span><span class="p">:</span>
-    <span class="kn">from</span> <span class="nn">bs4</span> <span class="k">import</span> <span class="n">BeautifulSoup</span>
+    <span class="kn">from</span> <span class="nn">bs4</span> <span class="kn">import</span> <span class="n">BeautifulSoup</span>
 
-    <span class="kn">from</span> <span class="nn">ats_utilities.config.base_read_config</span> <span class="k">import</span> <span class="n">BaseReadConfig</span>
-    <span class="kn">from</span> <span class="nn">ats_utilities.console_io.verbose</span> <span class="k">import</span> <span class="n">verbose_message</span>
-    <span class="kn">from</span> <span class="nn">ats_utilities.config.config_context_manager</span> <span class="k">import</span> <span class="n">ConfigFile</span>
-    <span class="kn">from</span> <span class="nn">ats_utilities.exceptions.ats_type_error</span> <span class="k">import</span> <span class="n">ATSTypeError</span>
-    <span class="kn">from</span> <span class="nn">ats_utilities.exceptions.ats_bad_call_error</span> <span class="k">import</span> <span class="n">ATSBadCallError</span>
+    <span class="kn">from</span> <span class="nn">ats_utilities.config.base_read_config</span> <span class="kn">import</span> <span class="n">BaseReadConfig</span>
+    <span class="kn">from</span> <span class="nn">ats_utilities.console_io.verbose</span> <span class="kn">import</span> <span class="n">verbose_message</span>
+    <span class="kn">from</span> <span class="nn">ats_utilities.config.config_context_manager</span> <span class="kn">import</span> <span class="n">ConfigFile</span>
+    <span class="kn">from</span> <span class="nn">ats_utilities.exceptions.ats_type_error</span> <span class="kn">import</span> <span class="n">ATSTypeError</span>
+    <span class="kn">from</span> <span class="nn">ats_utilities.exceptions.ats_bad_call_error</span> <span class="kn">import</span> <span class="n">ATSBadCallError</span>
 <span class="k">except</span> <span class="ne">ImportError</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
     <span class="n">MESSAGE</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="si">{0}</span><span class="se">\n</span><span class="si">{1}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="vm">__file__</span><span class="p">,</span> <span class="n">error</span><span class="p">)</span>
     <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="n">MESSAGE</span><span class="p">)</span>  <span class="c1"># Force close python ATS ##############################</span>
@@ -218,7 +218,7 @@
     <span class="n">VERBOSE</span> <span class="o">=</span> <span class="s1">&#39;ATS_UTILITIES::CONFIG::XML::XML_TO_OBJECT&#39;</span>
     <span class="n">__FORMAT</span> <span class="o">=</span> <span class="s1">&#39;xml&#39;</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">configuration_file</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">configuration_file</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">            Setting configuration file path.</span>
 
