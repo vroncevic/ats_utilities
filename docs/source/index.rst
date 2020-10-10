@@ -33,6 +33,14 @@ other information that should be provided before the modules are installed.
 Installation
 -------------
 
+|Install Python2 Package| |Install Python3 Package|
+
+.. |Install Python2 Package| image:: https://github.com/vroncevic/ats_utilities/workflows/Install%20Python2%20Package%20ats_utilities/badge.svg
+   :target: https://github.com/vroncevic/ats_utilities/workflows/Install%20Python2%20Package%20ats_utilities/badge.svg?branch=master
+
+.. |Install Python3 Package| image:: https://github.com/vroncevic/ats_utilities/workflows/Install%20Python3%20Package%20ats_utilities/badge.svg
+   :target: https://github.com/vroncevic/ats_utilities/workflows/Install%20Python3%20Package%20ats_utilities/badge.svg?branch=master
+
 Navigate to release `page`_ download and extract release archive.
 
 .. _page: https://github.com/vroncevic/ats_utilities/releases
@@ -46,6 +54,13 @@ To install this set of modules type the following:
     pip install -r requirements.txt
     python setup.py install_lib
     python setup.py install_egg_info
+
+You can use Docker to create image/container.
+
+|GitHub docker checker|
+
+.. |GitHub docker checker| image:: https://github.com/vroncevic/ats_utilities/workflows/ats_utilities%20docker%20checker/badge.svg
+   :target: https://github.com/vroncevic/ats_utilities/actions?query=workflow%3A%22ats_utilities+docker+checker%22
 
 Dependencies
 -------------
@@ -157,7 +172,7 @@ Lets help and support PSF.
 
 |Python Software Foundation|
 
-.. |Python Software Foundation| IMAGE:: https://raw.githubusercontent.com/vroncevic/ats_utilities/dev/docs/psf-logo-alpha.png
+.. |Python Software Foundation| image:: https://raw.githubusercontent.com/vroncevic/ats_utilities/dev/docs/psf-logo-alpha.png
    :target: https://www.python.org/psf/
 
 |Donate|
