@@ -20,26 +20,32 @@
      Define setup for ats_utilities package.
 """
 
+from os.path import abspath, dirname, join
 from setuptools import setup
 
 __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2018, Free software to use and distributed it.'
 __credits__ = ['Vladimir Roncevic']
 __license__ = 'GNU General Public License (GPL)'
-__version__ = '1.0.0'
+__version__ = '1.1.2'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
 
+THIS_DIR, LONG_DESCRIPTION = abspath(dirname(__file__)), None
+with open(join(THIS_DIR, 'README.md')) as readme:
+    LONG_DESCRIPTION = readme.read()
+
 setup(
     name='ats_utilities',
-    version='1.0.2',
+    version='1.1.2',
     description='Python App/Tool/Script Utilities',
     author='Vladimir Roncevic',
     author_email='elektron.ronca@gmail.com',
     url='https://vroncevic.github.io/ats_utilities/',
     license='GPL 2018 Free software to use and distributed it.',
-    long_description='Configuration ats_utilities for python App/Tool/Script.',
+    long_description=LONG_DESCRIPTION,
+    long_description_content_type='text/markdown',
     keywords='util, config, log, option, xml, cfg, ini, json, yaml',
     platforms='POSIX',
     classifiers=[
