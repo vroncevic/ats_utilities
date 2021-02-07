@@ -17,54 +17,15 @@ Subpackages
 Submodules
 ----------
 
-ats\_utilities.ats\_info module
--------------------------------
+.. toctree::
 
-.. automodule:: ats_utilities.ats_info
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
-ats\_utilities.cfg\_base module
--------------------------------
-
-.. automodule:: ats_utilities.cfg_base
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
-ats\_utilities.ini\_base module
--------------------------------
-
-.. automodule:: ats_utilities.ini_base
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
-ats\_utilities.json\_base module
---------------------------------
-
-.. automodule:: ats_utilities.json_base
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
-ats\_utilities.xml\_base module
--------------------------------
-
-.. automodule:: ats_utilities.xml_base
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
-ats\_utilities.yaml\_base module
---------------------------------
-
-.. automodule:: ats_utilities.yaml_base
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
+   ats_utilities.ats_info
+   ats_utilities.cfg_base
+   ats_utilities.checker
+   ats_utilities.ini_base
+   ats_utilities.json_base
+   ats_utilities.xml_base
+   ats_utilities.yaml_base
 
 Module contents
 ---------------

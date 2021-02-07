@@ -22,28 +22,28 @@
 
 import sys
 from datetime import datetime
-from inspect import stack
 
 try:
+    from ats_utilities.checker import ATSChecker
     from ats_utilities.config.check_base_config import CheckBaseConfig
     from ats_utilities.console_io.verbose import verbose_message
     from ats_utilities.exceptions.ats_type_error import ATSTypeError
     from ats_utilities.exceptions.ats_bad_call_error import ATSBadCallError
-except ImportError as error:
-    MESSAGE = "\n{0}\n{1}\n".format(__file__, error)
+except ImportError as error_message:
+    MESSAGE = "\n{0}\n{1}\n".format(__file__, error_message)
     sys.exit(MESSAGE)  # Force close python ATS ##############################
 
 __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2018, Free software to use and distributed it.'
 __credits__ = ['Vladimir Roncevic']
 __license__ = 'GNU General Public License (GPL)'
-__version__ = '1.0.0'
+__version__ = '1.2.2'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
 
 
-class ATSInfo(object):
+class ATSInfo(CheckBaseConfig):
     """
         Define class ATSInfo with attribute(s) and method(s).
         Keep App/Tool/Script information in one container object.
@@ -56,6 +56,7 @@ class ATSInfo(object):
                 | ATS_NAME - ATS name key
                 | ATS_BUILD_DATE - ATS build date key
                 | ATS_LICENSE - ATS license key
+                | __checker - ATS checker for parameters
                 | __name - ATS name
                 | __version - ATS version
                 | __license - ATS license
@@ -77,6 +78,7 @@ class ATSInfo(object):
         'ATS_VERSION',
         'ATS_BUILD_DATE',
         'ATS_LICENSE',
+        '__checker',
         '__name',
         '__version',
         '__license',
@@ -97,16 +99,14 @@ class ATSInfo(object):
             :type info: <dict>
             :param verbose: Enable/disable verbose option
             :type verbose: <bool>
-            :exceptions: ATSBadCallError | ATSTypeError
+            :exceptions: ATSTypeError | ATSBadCallError
         """
-        func = stack()[0][3]
-        info_txt = 'Argument: expected info <dict> object'
-        info_msg = "{0} {1} {2}".format('def', func, info_txt)
-        if info is None or not info:
-            raise ATSBadCallError(info_msg)
-        if not isinstance(info, dict):
-            raise ATSTypeError(info_msg)
-        check_config = CheckBaseConfig.is_correct(info, verbose=verbose)
+        self.__checker = ATSChecker()
+        error, status = self.__checker.check_params([('dict:info', info)])
+        if status == ATSChecker.TYPE_ERROR: raise ATSTypeError(error)
+        if status == ATSChecker.VALUE_ERROR: raise ATSBadCallError(error)
+        CheckBaseConfig.__init__(self)
+        check_config = self.is_correct(info, verbose=verbose)
         if check_config:
             verbose_message(ATSInfo.VERBOSE, verbose, 'Initial ATS info')
             self.__name = info.get(ATSInfo.ATS_NAME)

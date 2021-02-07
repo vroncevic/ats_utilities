@@ -36,8 +36,8 @@
     
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="ats_utilities.exceptions package" href="ats_utilities.exceptions.html" />
-    <link rel="prev" title="ats_utilities.config.yaml package" href="ats_utilities.config.yaml.html" /> 
+    <link rel="next" title="ats_utilities.console_io.error module" href="ats_utilities.console_io.error.html" />
+    <link rel="prev" title="ats_utilities.config.file_checking module" href="ats_utilities.config.file_checking.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -61,7 +61,7 @@
             
             
               <div class="version">
-                1.0.1
+                1.2.2
               </div>
             
           
@@ -102,12 +102,6 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="ats_utilities.html#submodules">Submodules</a></li>
-<li class="toctree-l3"><a class="reference internal" href="ats_utilities.html#module-ats_utilities.ats_info">ats_utilities.ats_info module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="ats_utilities.html#module-ats_utilities.cfg_base">ats_utilities.cfg_base module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="ats_utilities.html#module-ats_utilities.ini_base">ats_utilities.ini_base module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="ats_utilities.html#module-ats_utilities.json_base">ats_utilities.json_base module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="ats_utilities.html#module-ats_utilities.xml_base">ats_utilities.xml_base module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="ats_utilities.html#module-ats_utilities.yaml_base">ats_utilities.yaml_base module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="ats_utilities.html#module-ats_utilities">Module contents</a></li>
 </ul>
 </li>
@@ -186,409 +180,14 @@
 <h1>ats_utilities.console_io package<a class="headerlink" href="#ats-utilities-console-io-package" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="submodules">
 <h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
-</div>
-<div class="section" id="module-ats_utilities.console_io.error">
-<span id="ats-utilities-console-io-error-module"></span><h2>ats_utilities.console_io.error module<a class="headerlink" href="#module-ats_utilities.console_io.error" title="Permalink to this headline">¶</a></h2>
-<dl class="docutils">
-<dt>Module</dt>
-<dd>error.py</dd>
-<dt>Copyright</dt>
-<dd>Copyright (C) 2018 Vladimir Roncevic &lt;<a class="reference external" href="mailto:elektron&#46;ronca&#37;&#52;&#48;gmail&#46;com">elektron<span>&#46;</span>ronca<span>&#64;</span>gmail<span>&#46;</span>com</a>&gt;
-ats_utilities is free software: you can redistribute it and/or modify it
-under the terms of the GNU General Public License as published by the
-Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-ats_utilities is distributed in the hope that it will be useful, but
-WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-See the GNU General Public License for more details.
-You should have received a copy of the GNU General Public License along
-with this program. If not, see &lt;<a class="reference external" href="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</a>&gt;.</dd>
-<dt>Info</dt>
-<dd>Define class ATSError with attribute(s) and method(s).
-Define error message container for console log mechanism.</dd>
-</dl>
-<dl class="class">
-<dt id="ats_utilities.console_io.error.ATSError">
-<em class="property">class </em><code class="descclassname">ats_utilities.console_io.error.</code><code class="descname">ATSError</code><a class="reference internal" href="_modules/ats_utilities/console_io/error.html#ATSError"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ats_utilities.console_io.error.ATSError" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#ats_utilities.console_io.ATSConsoleIO" title="ats_utilities.console_io.ATSConsoleIO"><code class="xref py py-class docutils literal notranslate"><span class="pre">ats_utilities.console_io.ATSConsoleIO</span></code></a></p>
-<p>Define class ATSError with attribute(s) and method(s).
-Define error message container for console log mechanism.
-It defines:</p>
-<blockquote>
-<div><table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">attributes:</th><td class="field-body"><div class="first last line-block">
-<div class="line">__slots__ - Setting class slots</div>
-<div class="line">VERBOSE - Console text indicator for current process-phase</div>
-<div class="line">__message - Error message container</div>
-</div>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">methods:</th><td class="field-body"><div class="first last line-block">
-<div class="line">__init__ - Initial constructor</div>
-<div class="line">message - Public setter/getter</div>
-</div>
-</td>
-</tr>
-</tbody>
-</table>
-</div></blockquote>
-<dl class="attribute">
-<dt id="ats_utilities.console_io.error.ATSError.VERBOSE">
-<code class="descname">VERBOSE</code><em class="property"> = 'ATS_UTILITIES::CONSOLE_IO::ERROR'</em><a class="headerlink" href="#ats_utilities.console_io.error.ATSError.VERBOSE" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="ats_utilities.console_io.error.ATSError.message">
-<code class="descname">message</code><a class="headerlink" href="#ats_utilities.console_io.error.ATSError.message" title="Permalink to this definition">¶</a></dt>
-<dd><p>Public property getter.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Formatted errors message</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">&lt;str&gt;</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Exceptions:</th><td class="field-body">None</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="ats_utilities.console_io.error.ATSError.registry">
-<code class="descname">registry</code><em class="property"> = set([&lt;class 'ats_utilities.console_io.error.ATSError'&gt;, &lt;class 'ats_utilities.console_io.verbose.ATSVerbose'&gt;])</em><a class="headerlink" href="#ats_utilities.console_io.error.ATSError.registry" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="function">
-<dt id="ats_utilities.console_io.error.error_message">
-<code class="descclassname">ats_utilities.console_io.error.</code><code class="descname">error_message</code><span class="sig-paren">(</span><em>error_path</em>, <em>*message</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ats_utilities/console_io/error.html#error_message"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ats_utilities.console_io.error.error_message" title="Permalink to this definition">¶</a></dt>
-<dd><p>Show error message.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>error_path</strong> (<em>&lt;str&gt;</em>) – Error prefix message</li>
-<li><strong>message</strong> (<em>&lt;tuple&gt;</em>) – Message parts</li>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="ats_utilities.console_io.error.html">ats_utilities.console_io.error module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ats_utilities.console_io.success.html">ats_utilities.console_io.success module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ats_utilities.console_io.verbose.html">ats_utilities.console_io.verbose module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ats_utilities.console_io.warning.html">ats_utilities.console_io.warning module</a></li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Exceptions:</th><td class="field-body"><p class="first last">ATSBadCallError | ATSTypeError</p>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
 </div>
-<div class="section" id="module-ats_utilities.console_io.success">
-<span id="ats-utilities-console-io-success-module"></span><h2>ats_utilities.console_io.success module<a class="headerlink" href="#module-ats_utilities.console_io.success" title="Permalink to this headline">¶</a></h2>
-<dl class="docutils">
-<dt>Module</dt>
-<dd>success.py</dd>
-<dt>Copyright</dt>
-<dd>Copyright (C) 2018 Vladimir Roncevic &lt;<a class="reference external" href="mailto:elektron&#46;ronca&#37;&#52;&#48;gmail&#46;com">elektron<span>&#46;</span>ronca<span>&#64;</span>gmail<span>&#46;</span>com</a>&gt;
-ats_utilities is free software: you can redistribute it and/or modify it
-under the terms of the GNU General Public License as published by the
-Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-ats_utilities is distributed in the hope that it will be useful, but
-WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-See the GNU General Public License for more details.
-You should have received a copy of the GNU General Public License along
-with this program. If not, see &lt;<a class="reference external" href="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</a>&gt;.</dd>
-<dt>Info</dt>
-<dd>Define class ATSSuccess with attribute(s) and method(s).
-Define verbose message container for console log mechanism.</dd>
-</dl>
-<dl class="class">
-<dt id="ats_utilities.console_io.success.ATSSuccess">
-<em class="property">class </em><code class="descclassname">ats_utilities.console_io.success.</code><code class="descname">ATSSuccess</code><a class="reference internal" href="_modules/ats_utilities/console_io/success.html#ATSSuccess"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ats_utilities.console_io.success.ATSSuccess" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#ats_utilities.console_io.ATSConsoleIO" title="ats_utilities.console_io.ATSConsoleIO"><code class="xref py py-class docutils literal notranslate"><span class="pre">ats_utilities.console_io.ATSConsoleIO</span></code></a></p>
-<p>Define class ATSSuccess with attribute(s) and method(s).
-Define verbose message container for console log mechanism.
-It defines:</p>
-<blockquote>
-<div><table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">attributes:</th><td class="field-body"><div class="first last line-block">
-<div class="line">__slots__ - Setting class slots</div>
-<div class="line">VERBOSE - Console text indicator for current process-phase</div>
-<div class="line">__message - Success message container</div>
-</div>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">methods:</th><td class="field-body"><div class="first last line-block">
-<div class="line">__init__ - Initial constructor</div>
-<div class="line">message - Public setter/getter</div>
-</div>
-</td>
-</tr>
-</tbody>
-</table>
-</div></blockquote>
-<dl class="attribute">
-<dt id="ats_utilities.console_io.success.ATSSuccess.VERBOSE">
-<code class="descname">VERBOSE</code><em class="property"> = 'ATS_UTILITIES::CONSOLE_IO::SUCCESS'</em><a class="headerlink" href="#ats_utilities.console_io.success.ATSSuccess.VERBOSE" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="ats_utilities.console_io.success.ATSSuccess.message">
-<code class="descname">message</code><a class="headerlink" href="#ats_utilities.console_io.success.ATSSuccess.message" title="Permalink to this definition">¶</a></dt>
-<dd><p>Public property getter.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Formatted verbose message</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">&lt;str&gt;</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Exceptions:</th><td class="field-body">None</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="ats_utilities.console_io.success.ATSSuccess.registry">
-<code class="descname">registry</code><em class="property"> = set([&lt;class 'ats_utilities.console_io.error.ATSError'&gt;, &lt;class 'ats_utilities.console_io.verbose.ATSVerbose'&gt;, &lt;class 'ats_utilities.console_io.success.ATSSuccess'&gt;])</em><a class="headerlink" href="#ats_utilities.console_io.success.ATSSuccess.registry" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="function">
-<dt id="ats_utilities.console_io.success.success_message">
-<code class="descclassname">ats_utilities.console_io.success.</code><code class="descname">success_message</code><span class="sig-paren">(</span><em>success_path</em>, <em>*message</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ats_utilities/console_io/success.html#success_message"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ats_utilities.console_io.success.success_message" title="Permalink to this definition">¶</a></dt>
-<dd><p>Show success message.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>success_path</strong> (<em>&lt;str&gt;</em>) – Success prefix message</li>
-<li><strong>message</strong> (<em>&lt;tuple&gt;</em>) – Message parts</li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Exceptions:</th><td class="field-body"><p class="first last">ATSBadCallError | ATSTypeError</p>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-</div>
-<div class="section" id="module-ats_utilities.console_io.verbose">
-<span id="ats-utilities-console-io-verbose-module"></span><h2>ats_utilities.console_io.verbose module<a class="headerlink" href="#module-ats_utilities.console_io.verbose" title="Permalink to this headline">¶</a></h2>
-<dl class="docutils">
-<dt>Module</dt>
-<dd>verbose.py</dd>
-<dt>Copyright</dt>
-<dd>Copyright (C) 2018 Vladimir Roncevic &lt;<a class="reference external" href="mailto:elektron&#46;ronca&#37;&#52;&#48;gmail&#46;com">elektron<span>&#46;</span>ronca<span>&#64;</span>gmail<span>&#46;</span>com</a>&gt;
-ats_utilities is free software: you can redistribute it and/or modify it
-under the terms of the GNU General Public License as published by the
-Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-ats_utilities is distributed in the hope that it will be useful, but
-WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-See the GNU General Public License for more details.
-You should have received a copy of the GNU General Public License along
-with this program. If not, see &lt;<a class="reference external" href="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</a>&gt;.</dd>
-<dt>Info</dt>
-<dd>Define class ATSVerbose with attribute(s) and method(s).
-Define verbose message container for console log mechanism.</dd>
-</dl>
-<dl class="class">
-<dt id="ats_utilities.console_io.verbose.ATSVerbose">
-<em class="property">class </em><code class="descclassname">ats_utilities.console_io.verbose.</code><code class="descname">ATSVerbose</code><a class="reference internal" href="_modules/ats_utilities/console_io/verbose.html#ATSVerbose"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ats_utilities.console_io.verbose.ATSVerbose" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#ats_utilities.console_io.ATSConsoleIO" title="ats_utilities.console_io.ATSConsoleIO"><code class="xref py py-class docutils literal notranslate"><span class="pre">ats_utilities.console_io.ATSConsoleIO</span></code></a></p>
-<p>Define class ATSVerbose with attribute(s) and method(s).
-Define verbose message container for console log mechanism.
-It defines:</p>
-<blockquote>
-<div><table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">attributes:</th><td class="field-body"><div class="first last line-block">
-<div class="line">__slots__ - Setting class slots</div>
-<div class="line">VERBOSE - Console text indicator for current process-phase</div>
-<div class="line">__message - Verbose message container</div>
-</div>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">methods:</th><td class="field-body"><div class="first last line-block">
-<div class="line">__init__ - Initial constructor</div>
-<div class="line">message - Public setter/getter</div>
-</div>
-</td>
-</tr>
-</tbody>
-</table>
-</div></blockquote>
-<dl class="attribute">
-<dt id="ats_utilities.console_io.verbose.ATSVerbose.VERBOSE">
-<code class="descname">VERBOSE</code><em class="property"> = 'ATS_UTILITIES::CONSOLE_IO::VERBOSE'</em><a class="headerlink" href="#ats_utilities.console_io.verbose.ATSVerbose.VERBOSE" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="ats_utilities.console_io.verbose.ATSVerbose.message">
-<code class="descname">message</code><a class="headerlink" href="#ats_utilities.console_io.verbose.ATSVerbose.message" title="Permalink to this definition">¶</a></dt>
-<dd><p>Public property getter.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Formatted verbose message</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">&lt;str&gt;</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="ats_utilities.console_io.verbose.ATSVerbose.registry">
-<code class="descname">registry</code><em class="property"> = set([&lt;class 'ats_utilities.console_io.error.ATSError'&gt;, &lt;class 'ats_utilities.console_io.verbose.ATSVerbose'&gt;, &lt;class 'ats_utilities.console_io.success.ATSSuccess'&gt;])</em><a class="headerlink" href="#ats_utilities.console_io.verbose.ATSVerbose.registry" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="function">
-<dt id="ats_utilities.console_io.verbose.verbose_message">
-<code class="descclassname">ats_utilities.console_io.verbose.</code><code class="descname">verbose_message</code><span class="sig-paren">(</span><em>verbose_path</em>, <em>verbose=False</em>, <em>*message</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ats_utilities/console_io/verbose.html#verbose_message"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ats_utilities.console_io.verbose.verbose_message" title="Permalink to this definition">¶</a></dt>
-<dd><p>Show verbose message.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>verbose_path</strong> (<em>&lt;str&gt;</em>) – Verbose prefix message</li>
-<li><strong>verbose</strong> (<em>&lt;bool&gt;</em>) – Enable/disable verbose option</li>
-<li><strong>message</strong> (<em>&lt;tuple&gt;</em>) – Message parts</li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Exceptions:</th><td class="field-body"><p class="first last">ATSBadCallError | ATSTypeError</p>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-</div>
-<div class="section" id="module-ats_utilities.console_io.warning">
-<span id="ats-utilities-console-io-warning-module"></span><h2>ats_utilities.console_io.warning module<a class="headerlink" href="#module-ats_utilities.console_io.warning" title="Permalink to this headline">¶</a></h2>
-<dl class="docutils">
-<dt>Module</dt>
-<dd>warning.py</dd>
-<dt>Copyright</dt>
-<dd>Copyright (C) 2018 Vladimir Roncevic &lt;<a class="reference external" href="mailto:elektron&#46;ronca&#37;&#52;&#48;gmail&#46;com">elektron<span>&#46;</span>ronca<span>&#64;</span>gmail<span>&#46;</span>com</a>&gt;
-ats_utilities is free software: you can redistribute it and/or modify it
-under the terms of the GNU General Public License as published by the
-Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-ats_utilities is distributed in the hope that it will be useful, but
-WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-See the GNU General Public License for more details.
-You should have received a copy of the GNU General Public License along
-with this program. If not, see &lt;<a class="reference external" href="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</a>&gt;.</dd>
-<dt>Info</dt>
-<dd>Define class ATSWarning with attribute(s) and method(s).
-Define warning message container for console log mechanism.</dd>
-</dl>
-<dl class="class">
-<dt id="ats_utilities.console_io.warning.ATSWarning">
-<em class="property">class </em><code class="descclassname">ats_utilities.console_io.warning.</code><code class="descname">ATSWarning</code><a class="reference internal" href="_modules/ats_utilities/console_io/warning.html#ATSWarning"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ats_utilities.console_io.warning.ATSWarning" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#ats_utilities.console_io.ATSConsoleIO" title="ats_utilities.console_io.ATSConsoleIO"><code class="xref py py-class docutils literal notranslate"><span class="pre">ats_utilities.console_io.ATSConsoleIO</span></code></a></p>
-<p>Define class ATSWarning with attribute(s) and method(s).
-Define warning message container for console log mechanism.
-It defines:</p>
-<blockquote>
-<div><table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">attributes:</th><td class="field-body"><div class="first last line-block">
-<div class="line">__slots__ - Setting class slots</div>
-<div class="line">VERBOSE - Console text indicator for current process-phase</div>
-<div class="line">__message - Warning message container</div>
-</div>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">methods:</th><td class="field-body"><div class="first last line-block">
-<div class="line">__init__ - Initial constructor</div>
-<div class="line">message - Public setter/getter</div>
-</div>
-</td>
-</tr>
-</tbody>
-</table>
-</div></blockquote>
-<dl class="attribute">
-<dt id="ats_utilities.console_io.warning.ATSWarning.VERBOSE">
-<code class="descname">VERBOSE</code><em class="property"> = 'ATS_UTILITIES::CONSOLE_IO::WARNING'</em><a class="headerlink" href="#ats_utilities.console_io.warning.ATSWarning.VERBOSE" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="ats_utilities.console_io.warning.ATSWarning.message">
-<code class="descname">message</code><a class="headerlink" href="#ats_utilities.console_io.warning.ATSWarning.message" title="Permalink to this definition">¶</a></dt>
-<dd><p>Public property getter.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Formatted warning message</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">&lt;str&gt;</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Exceptions:</th><td class="field-body">None</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="ats_utilities.console_io.warning.ATSWarning.registry">
-<code class="descname">registry</code><em class="property"> = set([&lt;class 'ats_utilities.console_io.error.ATSError'&gt;, &lt;class 'ats_utilities.console_io.verbose.ATSVerbose'&gt;, &lt;class 'ats_utilities.console_io.success.ATSSuccess'&gt;, &lt;class 'ats_utilities.console_io.warning.ATSWarning'&gt;])</em><a class="headerlink" href="#ats_utilities.console_io.warning.ATSWarning.registry" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="function">
-<dt id="ats_utilities.console_io.warning.warning_message">
-<code class="descclassname">ats_utilities.console_io.warning.</code><code class="descname">warning_message</code><span class="sig-paren">(</span><em>warning_path</em>, <em>*message</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ats_utilities/console_io/warning.html#warning_message"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ats_utilities.console_io.warning.warning_message" title="Permalink to this definition">¶</a></dt>
-<dd><p>Show warning message.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>warning_path</strong> (<em>&lt;str&gt;</em>) – Warning prefix message</li>
-<li><strong>message</strong> (<em>&lt;tuple&gt;</em>) – Message parts</li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Exceptions:</th><td class="field-body"><p class="first last">ATSBadCallError | ATSTypeError</p>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
 </div>
 <div class="section" id="module-ats_utilities.console_io">
 <span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-ats_utilities.console_io" title="Permalink to this headline">¶</a></h2>
@@ -645,7 +244,7 @@ Define message container for console log mechanism.</p>
 </div></blockquote>
 <dl class="attribute">
 <dt id="ats_utilities.console_io.ATSConsoleIO.registry">
-<code class="descname">registry</code><em class="property"> = set([&lt;class 'ats_utilities.console_io.error.ATSError'&gt;, &lt;class 'ats_utilities.console_io.verbose.ATSVerbose'&gt;, &lt;class 'ats_utilities.console_io.success.ATSSuccess'&gt;, &lt;class 'ats_utilities.console_io.warning.ATSWarning'&gt;])</em><a class="headerlink" href="#ats_utilities.console_io.ATSConsoleIO.registry" title="Permalink to this definition">¶</a></dt>
+<code class="descname">registry</code><em class="property"> = set([&lt;class 'ats_utilities.console_io.verbose.ATSVerbose'&gt;, &lt;class 'ats_utilities.console_io.error.ATSError'&gt;])</em><a class="headerlink" href="#ats_utilities.console_io.ATSConsoleIO.registry" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -661,10 +260,10 @@ Define message container for console log mechanism.</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="ats_utilities.exceptions.html" class="btn btn-neutral float-right" title="ats_utilities.exceptions package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="ats_utilities.console_io.error.html" class="btn btn-neutral float-right" title="ats_utilities.console_io.error module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="ats_utilities.config.yaml.html" class="btn btn-neutral float-left" title="ats_utilities.config.yaml package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="ats_utilities.config.file_checking.html" class="btn btn-neutral float-left" title="ats_utilities.config.file_checking module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

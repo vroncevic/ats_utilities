@@ -59,7 +59,7 @@
             
             
               <div class="version">
-                1.0.1
+                1.2.2
               </div>
             
           
@@ -175,27 +175,27 @@
 <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="kn">import</span> <span class="nn">sys</span>
-<span class="kn">from</span> <span class="nn">inspect</span> <span class="kn">import</span> <span class="n">stack</span>
 
 <span class="k">try</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">ats_utilities.checker</span> <span class="kn">import</span> <span class="n">ATSChecker</span>
     <span class="kn">from</span> <span class="nn">ats_utilities.console_io.verbose</span> <span class="kn">import</span> <span class="n">verbose_message</span>
     <span class="kn">from</span> <span class="nn">ats_utilities.exceptions.ats_type_error</span> <span class="kn">import</span> <span class="n">ATSTypeError</span>
     <span class="kn">from</span> <span class="nn">ats_utilities.exceptions.ats_bad_call_error</span> <span class="kn">import</span> <span class="n">ATSBadCallError</span>
-<span class="k">except</span> <span class="ne">ImportError</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
-    <span class="n">MESSAGE</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="si">{0}</span><span class="se">\n</span><span class="si">{1}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="vm">__file__</span><span class="p">,</span> <span class="n">error</span><span class="p">)</span>
+<span class="k">except</span> <span class="ne">ImportError</span> <span class="k">as</span> <span class="n">error_message</span><span class="p">:</span>
+    <span class="n">MESSAGE</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="si">{0}</span><span class="se">\n</span><span class="si">{1}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="vm">__file__</span><span class="p">,</span> <span class="n">error_message</span><span class="p">)</span>
     <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="n">MESSAGE</span><span class="p">)</span>  <span class="c1"># Force close python ATS ##############################</span>
 
 <span class="n">__author__</span> <span class="o">=</span> <span class="s1">&#39;Vladimir Roncevic&#39;</span>
 <span class="n">__copyright__</span> <span class="o">=</span> <span class="s1">&#39;Copyright 2018, Free software to use and distributed it.&#39;</span>
 <span class="n">__credits__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Vladimir Roncevic&#39;</span><span class="p">]</span>
 <span class="n">__license__</span> <span class="o">=</span> <span class="s1">&#39;GNU General Public License (GPL)&#39;</span>
-<span class="n">__version__</span> <span class="o">=</span> <span class="s1">&#39;1.0.0&#39;</span>
+<span class="n">__version__</span> <span class="o">=</span> <span class="s1">&#39;1.2.2&#39;</span>
 <span class="n">__maintainer__</span> <span class="o">=</span> <span class="s1">&#39;Vladimir Roncevic&#39;</span>
 <span class="n">__email__</span> <span class="o">=</span> <span class="s1">&#39;elektron.ronca@gmail.com&#39;</span>
 <span class="n">__status__</span> <span class="o">=</span> <span class="s1">&#39;Updated&#39;</span>
 
 
-<div class="viewcode-block" id="ATSLoggerStatus"><a class="viewcode-back" href="../../../ats_utilities.logging.html#ats_utilities.logging.ats_logger_status.ATSLoggerStatus">[docs]</a><span class="k">class</span> <span class="nc">ATSLoggerStatus</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<div class="viewcode-block" id="ATSLoggerStatus"><a class="viewcode-back" href="../../../ats_utilities.logging.ats_logger_status.html#ats_utilities.logging.ats_logger_status.ATSLoggerStatus">[docs]</a><span class="k">class</span> <span class="nc">ATSLoggerStatus</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Define class ATSLoggerStatus with attribute(s) and method(s).</span>
 <span class="sd">        Logging mechanism for App/Tool/Script, keep, set, get logger status.</span>
@@ -204,13 +204,14 @@
 <span class="sd">            :attribute:</span>
 <span class="sd">                | __slots__ - Setting class slots</span>
 <span class="sd">                | VERBOSE - Console text indicator for current process-phase</span>
+<span class="sd">                | __checker - ATS checker for parameters</span>
 <span class="sd">                | __log_status - Logger operative (enabled/disabled)</span>
 <span class="sd">            :methods:</span>
 <span class="sd">                | __init__ - Initial constructor</span>
 <span class="sd">                | logger_status - Getting/Setting logger status</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="vm">__slots__</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;VERBOSE&#39;</span><span class="p">,</span> <span class="s1">&#39;__log_status&#39;</span><span class="p">)</span>
+    <span class="vm">__slots__</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;VERBOSE&#39;</span><span class="p">,</span> <span class="s1">&#39;__log_status&#39;</span><span class="p">,</span> <span class="s1">&#39;__checker&#39;</span><span class="p">)</span>
     <span class="n">VERBOSE</span> <span class="o">=</span> <span class="s1">&#39;ATS_UTILITIES::LOGGING::ATS_LOGGER_STATUS&#39;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">log_status</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
@@ -221,8 +222,14 @@
 <span class="sd">            :type log_status: &lt;bool&gt;</span>
 <span class="sd">            :param verbose: Enable/disable verbose option</span>
 <span class="sd">            :type verbose: &lt;bool&gt;</span>
-<span class="sd">            :exceptions: None</span>
+<span class="sd">            :exceptions: ATSTypeError | ATSBadCallError</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__checker</span> <span class="o">=</span> <span class="n">ATSChecker</span><span class="p">()</span>
+        <span class="n">error</span><span class="p">,</span> <span class="n">status</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__checker</span><span class="o">.</span><span class="n">check_params</span><span class="p">(</span>
+            <span class="p">[(</span><span class="s1">&#39;bool:log_status&#39;</span><span class="p">,</span> <span class="n">log_status</span><span class="p">)]</span>
+        <span class="p">)</span>
+        <span class="k">if</span> <span class="n">status</span> <span class="o">==</span> <span class="n">ATSChecker</span><span class="o">.</span><span class="n">TYPE_ERROR</span><span class="p">:</span> <span class="k">raise</span> <span class="n">ATSTypeError</span><span class="p">(</span><span class="n">error</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">status</span> <span class="o">==</span> <span class="n">ATSChecker</span><span class="o">.</span><span class="n">VALUE_ERROR</span><span class="p">:</span> <span class="k">raise</span> <span class="n">ATSBadCallError</span><span class="p">(</span><span class="n">error</span><span class="p">)</span>
         <span class="n">verbose_message</span><span class="p">(</span>
             <span class="n">ATSLoggerStatus</span><span class="o">.</span><span class="n">VERBOSE</span><span class="p">,</span> <span class="n">verbose</span><span class="p">,</span> <span class="s1">&#39;Initial ATS logger Status&#39;</span>
         <span class="p">)</span>
@@ -240,22 +247,20 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__log_status</span>
 
     <span class="nd">@logger_status</span><span class="o">.</span><span class="n">setter</span>
-    <span class="k">def</span> <span class="nf">logger_status</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">status</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">logger_status</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">log_status</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">            Setting logger status.</span>
 
-<span class="sd">            :param status: Logger status (enable/disable logging mechanism)</span>
-<span class="sd">            :type status: &lt;bool&gt;</span>
-<span class="sd">            :exceptions: ATSBadCallError | ATSTypeError</span>
+<span class="sd">            :param log_status: Logger status (enable/disable logging mechanism)</span>
+<span class="sd">            :type log_status: &lt;bool&gt;</span>
+<span class="sd">            :exceptions: ATSTypeError | ATSBadCallError</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">func</span> <span class="o">=</span> <span class="n">stack</span><span class="p">()[</span><span class="mi">0</span><span class="p">][</span><span class="mi">3</span><span class="p">]</span>
-        <span class="n">status_txt</span> <span class="o">=</span> <span class="s1">&#39;Argument: expected status &lt;bool&gt; object&#39;</span>
-        <span class="n">status_msg</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{0}</span><span class="s2"> </span><span class="si">{1}</span><span class="s2"> </span><span class="si">{2}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s1">&#39;def&#39;</span><span class="p">,</span> <span class="n">func</span><span class="p">,</span> <span class="n">status_txt</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">status</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="n">ATSBadCallError</span><span class="p">(</span><span class="n">status_msg</span><span class="p">)</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">status</span><span class="p">,</span> <span class="nb">bool</span><span class="p">):</span>
-            <span class="k">raise</span> <span class="n">ATSTypeError</span><span class="p">(</span><span class="n">status_msg</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">__log_status</span> <span class="o">=</span> <span class="n">status</span></div>
+        <span class="n">error</span><span class="p">,</span> <span class="n">status</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__checker</span><span class="o">.</span><span class="n">check_params</span><span class="p">(</span>
+            <span class="p">[(</span><span class="s1">&#39;bool:log_status&#39;</span><span class="p">,</span> <span class="n">log_status</span><span class="p">)]</span>
+        <span class="p">)</span>
+        <span class="k">if</span> <span class="n">status</span> <span class="o">==</span> <span class="n">ATSChecker</span><span class="o">.</span><span class="n">TYPE_ERROR</span><span class="p">:</span> <span class="k">raise</span> <span class="n">ATSTypeError</span><span class="p">(</span><span class="n">error</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">status</span> <span class="o">==</span> <span class="n">ATSChecker</span><span class="o">.</span><span class="n">VALUE_ERROR</span><span class="p">:</span> <span class="k">raise</span> <span class="n">ATSBadCallError</span><span class="p">(</span><span class="n">error</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__log_status</span> <span class="o">=</span> <span class="n">log_status</span></div>
 </pre></div>
 
            </div>

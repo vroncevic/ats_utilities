@@ -4,22 +4,10 @@ ats\_utilities.config.json package
 Submodules
 ----------
 
-ats\_utilities.config.json.json2object module
----------------------------------------------
+.. toctree::
 
-.. automodule:: ats_utilities.config.json.json2object
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
-ats\_utilities.config.json.object2json module
----------------------------------------------
-
-.. automodule:: ats_utilities.config.json.object2json
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
+   ats_utilities.config.json.json2object
+   ats_utilities.config.json.object2json
 
 Module contents
 ---------------

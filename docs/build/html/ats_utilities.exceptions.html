@@ -36,8 +36,8 @@
     
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="ats_utilities.logging package" href="ats_utilities.logging.html" />
-    <link rel="prev" title="ats_utilities.console_io package" href="ats_utilities.console_io.html" /> 
+    <link rel="next" title="ats_utilities.exceptions.ats_attribute_error module" href="ats_utilities.exceptions.ats_attribute_error.html" />
+    <link rel="prev" title="ats_utilities.console_io.warning module" href="ats_utilities.console_io.warning.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -61,7 +61,7 @@
             
             
               <div class="version">
-                1.0.1
+                1.2.2
               </div>
             
           
@@ -102,12 +102,6 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="ats_utilities.html#submodules">Submodules</a></li>
-<li class="toctree-l3"><a class="reference internal" href="ats_utilities.html#module-ats_utilities.ats_info">ats_utilities.ats_info module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="ats_utilities.html#module-ats_utilities.cfg_base">ats_utilities.cfg_base module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="ats_utilities.html#module-ats_utilities.ini_base">ats_utilities.ini_base module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="ats_utilities.html#module-ats_utilities.json_base">ats_utilities.json_base module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="ats_utilities.html#module-ats_utilities.xml_base">ats_utilities.xml_base module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="ats_utilities.html#module-ats_utilities.yaml_base">ats_utilities.yaml_base module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="ats_utilities.html#module-ats_utilities">Module contents</a></li>
 </ul>
 </li>
@@ -186,353 +180,17 @@
 <h1>ats_utilities.exceptions package<a class="headerlink" href="#ats-utilities-exceptions-package" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="submodules">
 <h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="ats_utilities.exceptions.ats_attribute_error.html">ats_utilities.exceptions.ats_attribute_error module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ats_utilities.exceptions.ats_bad_call_error.html">ats_utilities.exceptions.ats_bad_call_error module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ats_utilities.exceptions.ats_file_error.html">ats_utilities.exceptions.ats_file_error module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ats_utilities.exceptions.ats_key_error.html">ats_utilities.exceptions.ats_key_error module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ats_utilities.exceptions.ats_lookup_error.html">ats_utilities.exceptions.ats_lookup_error module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ats_utilities.exceptions.ats_type_error.html">ats_utilities.exceptions.ats_type_error module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ats_utilities.exceptions.ats_value_error.html">ats_utilities.exceptions.ats_value_error module</a></li>
+</ul>
 </div>
-<div class="section" id="module-ats_utilities.exceptions.ats_attribute_error">
-<span id="ats-utilities-exceptions-ats-attribute-error-module"></span><h2>ats_utilities.exceptions.ats_attribute_error module<a class="headerlink" href="#module-ats_utilities.exceptions.ats_attribute_error" title="Permalink to this headline">¶</a></h2>
-<dl class="docutils">
-<dt>Module</dt>
-<dd>ats_attribute_error.py</dd>
-<dt>Copyright</dt>
-<dd>Copyright (C) 2018 Vladimir Roncevic &lt;<a class="reference external" href="mailto:elektron&#46;ronca&#37;&#52;&#48;gmail&#46;com">elektron<span>&#46;</span>ronca<span>&#64;</span>gmail<span>&#46;</span>com</a>&gt;
-ats_utilities is free software: you can redistribute it and/or modify it
-under the terms of the GNU General Public License as published by the
-Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-ats_utilities is distributed in the hope that it will be useful, but
-WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-See the GNU General Public License for more details.
-You should have received a copy of the GNU General Public License along
-with this program. If not, see &lt;<a class="reference external" href="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</a>&gt;.</dd>
-<dt>Info</dt>
-<dd>Define class ATSAttributeError with attribute(s) and method(s).
-Checking object attribute (raise error if attribute does not exist).</dd>
-</dl>
-<dl class="exception">
-<dt id="ats_utilities.exceptions.ats_attribute_error.ATSAttributeError">
-<em class="property">exception </em><code class="descclassname">ats_utilities.exceptions.ats_attribute_error.</code><code class="descname">ATSAttributeError</code><a class="reference internal" href="_modules/ats_utilities/exceptions/ats_attribute_error.html#ATSAttributeError"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ats_utilities.exceptions.ats_attribute_error.ATSAttributeError" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">exceptions.AttributeError</span></code></p>
-<p>Define class ATSAttributeError with attribute(s) and method(s).
-Checking object attribute (raise error if attribute does not exist).
-It defines:</p>
-<blockquote>
-<div><table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">attributes:</th><td class="field-body"><div class="first last line-block">
-<div class="line">None</div>
-</div>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">methods:</th><td class="field-body"><div class="first last line-block">
-<div class="line">None</div>
-</div>
-</td>
-</tr>
-</tbody>
-</table>
-</div></blockquote>
-</dd></dl>
-
-</div>
-<div class="section" id="module-ats_utilities.exceptions.ats_bad_call_error">
-<span id="ats-utilities-exceptions-ats-bad-call-error-module"></span><h2>ats_utilities.exceptions.ats_bad_call_error module<a class="headerlink" href="#module-ats_utilities.exceptions.ats_bad_call_error" title="Permalink to this headline">¶</a></h2>
-<dl class="docutils">
-<dt>Module</dt>
-<dd>ats_bad_call_error.py</dd>
-<dt>Copyright</dt>
-<dd>Copyright (C) 2018 Vladimir Roncevic &lt;<a class="reference external" href="mailto:elektron&#46;ronca&#37;&#52;&#48;gmail&#46;com">elektron<span>&#46;</span>ronca<span>&#64;</span>gmail<span>&#46;</span>com</a>&gt;
-ats_utilities is free software: you can redistribute it and/or modify it
-under the terms of the GNU General Public License as published by the
-Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-ats_utilities is distributed in the hope that it will be useful, but
-WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-See the GNU General Public License for more details.
-You should have received a copy of the GNU General Public License along
-with this program. If not, see &lt;<a class="reference external" href="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</a>&gt;.</dd>
-<dt>Info</dt>
-<dd>Define class ATSBadCallError with attribute(s) and method(s).
-Checking method/function argument(s) mechanism (raise error
-for missing argument(s)).</dd>
-</dl>
-<dl class="exception">
-<dt id="ats_utilities.exceptions.ats_bad_call_error.ATSBadCallError">
-<em class="property">exception </em><code class="descclassname">ats_utilities.exceptions.ats_bad_call_error.</code><code class="descname">ATSBadCallError</code><a class="reference internal" href="_modules/ats_utilities/exceptions/ats_bad_call_error.html#ATSBadCallError"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ats_utilities.exceptions.ats_bad_call_error.ATSBadCallError" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">exceptions.Exception</span></code></p>
-<p>Define class ATSBadCallError with attribute(s) and method(s).
-Checking method/function argument(s) mechanism (raise error
-for missing argument(s)).
-It defines:</p>
-<blockquote>
-<div><table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">attributes:</th><td class="field-body"><div class="first last line-block">
-<div class="line">None</div>
-</div>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">methods:</th><td class="field-body"><div class="first last line-block">
-<div class="line">None</div>
-</div>
-</td>
-</tr>
-</tbody>
-</table>
-</div></blockquote>
-</dd></dl>
-
-</div>
-<div class="section" id="module-ats_utilities.exceptions.ats_file_error">
-<span id="ats-utilities-exceptions-ats-file-error-module"></span><h2>ats_utilities.exceptions.ats_file_error module<a class="headerlink" href="#module-ats_utilities.exceptions.ats_file_error" title="Permalink to this headline">¶</a></h2>
-<dl class="docutils">
-<dt>Module</dt>
-<dd>ats_file_error.py</dd>
-<dt>Copyright</dt>
-<dd>Copyright (C) 2018 Vladimir Roncevic &lt;<a class="reference external" href="mailto:elektron&#46;ronca&#37;&#52;&#48;gmail&#46;com">elektron<span>&#46;</span>ronca<span>&#64;</span>gmail<span>&#46;</span>com</a>&gt;
-ats_utilities is free software: you can redistribute it and/or modify it
-under the terms of the GNU General Public License as published by the
-Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-ats_utilities is distributed in the hope that it will be useful, but
-WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-See the GNU General Public License for more details.
-You should have received a copy of the GNU General Public License along
-with this program. If not, see &lt;<a class="reference external" href="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</a>&gt;.</dd>
-<dt>Info</dt>
-<dd>Define class ATSFileError with attribute(s) and method(s).
-Checking file mechanism (raise error if something goes wrong with IO
-file-operations).</dd>
-</dl>
-<dl class="exception">
-<dt id="ats_utilities.exceptions.ats_file_error.ATSFileError">
-<em class="property">exception </em><code class="descclassname">ats_utilities.exceptions.ats_file_error.</code><code class="descname">ATSFileError</code><a class="reference internal" href="_modules/ats_utilities/exceptions/ats_file_error.html#ATSFileError"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ats_utilities.exceptions.ats_file_error.ATSFileError" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">exceptions.IOError</span></code></p>
-<p>Define class ATSFileError with attribute(s) and method(s).
-Checking file mechanism (raise error if something goes wrong with IO
-file-operations).
-It defines:</p>
-<blockquote>
-<div><table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">attributes:</th><td class="field-body"><div class="first last line-block">
-<div class="line">None</div>
-</div>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">methods:</th><td class="field-body"><div class="first last line-block">
-<div class="line">None</div>
-</div>
-</td>
-</tr>
-</tbody>
-</table>
-</div></blockquote>
-</dd></dl>
-
-</div>
-<div class="section" id="module-ats_utilities.exceptions.ats_key_error">
-<span id="ats-utilities-exceptions-ats-key-error-module"></span><h2>ats_utilities.exceptions.ats_key_error module<a class="headerlink" href="#module-ats_utilities.exceptions.ats_key_error" title="Permalink to this headline">¶</a></h2>
-<dl class="docutils">
-<dt>Module</dt>
-<dd>ats_key_error.py</dd>
-<dt>Copyright</dt>
-<dd>Copyright (C) 2018 Vladimir Roncevic &lt;<a class="reference external" href="mailto:elektron&#46;ronca&#37;&#52;&#48;gmail&#46;com">elektron<span>&#46;</span>ronca<span>&#64;</span>gmail<span>&#46;</span>com</a>&gt;
-ats_utilities is free software: you can redistribute it and/or modify it
-under the terms of the GNU General Public License as published by the
-Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-ats_utilities is distributed in the hope that it will be useful, but
-WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-See the GNU General Public License for more details.
-You should have received a copy of the GNU General Public License along
-with this program. If not, see &lt;<a class="reference external" href="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</a>&gt;.</dd>
-<dt>Info</dt>
-<dd>Define class ATSKeyError with attribute(s) and method(s).
-Checking key mechanism (raise error for missing key).</dd>
-</dl>
-<dl class="exception">
-<dt id="ats_utilities.exceptions.ats_key_error.ATSKeyError">
-<em class="property">exception </em><code class="descclassname">ats_utilities.exceptions.ats_key_error.</code><code class="descname">ATSKeyError</code><a class="reference internal" href="_modules/ats_utilities/exceptions/ats_key_error.html#ATSKeyError"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ats_utilities.exceptions.ats_key_error.ATSKeyError" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">exceptions.KeyError</span></code></p>
-<p>Define class ATSKeyError with attribute(s) and method(s).
-Checking key mechanism (raise error for missing key).
-It defines:</p>
-<blockquote>
-<div><table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">attributes:</th><td class="field-body"><div class="first last line-block">
-<div class="line">None</div>
-</div>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">methods:</th><td class="field-body"><div class="first last line-block">
-<div class="line">None</div>
-</div>
-</td>
-</tr>
-</tbody>
-</table>
-</div></blockquote>
-</dd></dl>
-
-</div>
-<div class="section" id="module-ats_utilities.exceptions.ats_lookup_error">
-<span id="ats-utilities-exceptions-ats-lookup-error-module"></span><h2>ats_utilities.exceptions.ats_lookup_error module<a class="headerlink" href="#module-ats_utilities.exceptions.ats_lookup_error" title="Permalink to this headline">¶</a></h2>
-<dl class="docutils">
-<dt>Module</dt>
-<dd>ats_lookup_error.py</dd>
-<dt>Copyright</dt>
-<dd>Copyright (C) 2018 Vladimir Roncevic &lt;<a class="reference external" href="mailto:elektron&#46;ronca&#37;&#52;&#48;gmail&#46;com">elektron<span>&#46;</span>ronca<span>&#64;</span>gmail<span>&#46;</span>com</a>&gt;
-ats_utilities is free software: you can redistribute it and/or modify it
-under the terms of the GNU General Public License as published by the
-Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-ats_utilities is distributed in the hope that it will be useful, but
-WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-See the GNU General Public License for more details.
-You should have received a copy of the GNU General Public License along
-with this program. If not, see &lt;<a class="reference external" href="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</a>&gt;.</dd>
-<dt>Info</dt>
-<dd>Define class ATSLookupError with attribute(s) and method(s).
-Lookup errors mechanism (raise error for not expected state/behavior).</dd>
-</dl>
-<dl class="exception">
-<dt id="ats_utilities.exceptions.ats_lookup_error.ATSLookupError">
-<em class="property">exception </em><code class="descclassname">ats_utilities.exceptions.ats_lookup_error.</code><code class="descname">ATSLookupError</code><a class="reference internal" href="_modules/ats_utilities/exceptions/ats_lookup_error.html#ATSLookupError"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ats_utilities.exceptions.ats_lookup_error.ATSLookupError" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">exceptions.LookupError</span></code></p>
-<p>Define class ATSLookupError with attribute(s) and method(s).
-Lookup errors mechanism (raise error for not expected state/behavior).
-It defines:</p>
-<blockquote>
-<div><table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">attributes:</th><td class="field-body"><div class="first last line-block">
-<div class="line">None</div>
-</div>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">methods:</th><td class="field-body"><div class="first last line-block">
-<div class="line">None</div>
-</div>
-</td>
-</tr>
-</tbody>
-</table>
-</div></blockquote>
-</dd></dl>
-
-</div>
-<div class="section" id="module-ats_utilities.exceptions.ats_type_error">
-<span id="ats-utilities-exceptions-ats-type-error-module"></span><h2>ats_utilities.exceptions.ats_type_error module<a class="headerlink" href="#module-ats_utilities.exceptions.ats_type_error" title="Permalink to this headline">¶</a></h2>
-<dl class="docutils">
-<dt>Module</dt>
-<dd>ats_type_error.py</dd>
-<dt>Copyright</dt>
-<dd>Copyright (C) 2018 Vladimir Roncevic &lt;<a class="reference external" href="mailto:elektron&#46;ronca&#37;&#52;&#48;gmail&#46;com">elektron<span>&#46;</span>ronca<span>&#64;</span>gmail<span>&#46;</span>com</a>&gt;
-ats_utilities is free software: you can redistribute it and/or modify it
-under the terms of the GNU General Public License as published by the
-Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-ats_utilities is distributed in the hope that it will be useful, but
-WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-See the GNU General Public License for more details.
-You should have received a copy of the GNU General Public License along
-with this program. If not, see &lt;<a class="reference external" href="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</a>&gt;.</dd>
-<dt>Info</dt>
-<dd>Define class ATSTypeError with attribute(s) and method(s).
-Check type mechanism (raise error for not expected type).</dd>
-</dl>
-<dl class="exception">
-<dt id="ats_utilities.exceptions.ats_type_error.ATSTypeError">
-<em class="property">exception </em><code class="descclassname">ats_utilities.exceptions.ats_type_error.</code><code class="descname">ATSTypeError</code><a class="reference internal" href="_modules/ats_utilities/exceptions/ats_type_error.html#ATSTypeError"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ats_utilities.exceptions.ats_type_error.ATSTypeError" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">exceptions.TypeError</span></code></p>
-<p>Define class ATSTypeError with attribute(s) and method(s).
-Check type mechanism (raise error for not expected type).
-It defines:</p>
-<blockquote>
-<div><table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">attributes:</th><td class="field-body"><div class="first last line-block">
-<div class="line">None</div>
-</div>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">methods:</th><td class="field-body"><div class="first last line-block">
-<div class="line">None</div>
-</div>
-</td>
-</tr>
-</tbody>
-</table>
-</div></blockquote>
-</dd></dl>
-
-</div>
-<div class="section" id="module-ats_utilities.exceptions.ats_value_error">
-<span id="ats-utilities-exceptions-ats-value-error-module"></span><h2>ats_utilities.exceptions.ats_value_error module<a class="headerlink" href="#module-ats_utilities.exceptions.ats_value_error" title="Permalink to this headline">¶</a></h2>
-<dl class="docutils">
-<dt>Module</dt>
-<dd>ats_value_error.py</dd>
-<dt>Copyright</dt>
-<dd>Copyright (C) 2018 Vladimir Roncevic &lt;<a class="reference external" href="mailto:elektron&#46;ronca&#37;&#52;&#48;gmail&#46;com">elektron<span>&#46;</span>ronca<span>&#64;</span>gmail<span>&#46;</span>com</a>&gt;
-ats_utilities is free software: you can redistribute it and/or modify it
-under the terms of the GNU General Public License as published by the
-Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-ats_utilities is distributed in the hope that it will be useful, but
-WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-See the GNU General Public License for more details.
-You should have received a copy of the GNU General Public License along
-with this program. If not, see &lt;<a class="reference external" href="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</a>&gt;.</dd>
-<dt>Info</dt>
-<dd>Define class ATSValueError with attribute(s) and method(s).
-Check value mechanism (raise error for not expected value).</dd>
-</dl>
-<dl class="exception">
-<dt id="ats_utilities.exceptions.ats_value_error.ATSValueError">
-<em class="property">exception </em><code class="descclassname">ats_utilities.exceptions.ats_value_error.</code><code class="descname">ATSValueError</code><a class="reference internal" href="_modules/ats_utilities/exceptions/ats_value_error.html#ATSValueError"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ats_utilities.exceptions.ats_value_error.ATSValueError" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">exceptions.ValueError</span></code></p>
-<p>Define class ATSValueError with attribute(s) and method(s).
-Check value mechanism (raise error for not expected value).
-It defines:</p>
-<blockquote>
-<div><table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">attributes:</th><td class="field-body"><div class="first last line-block">
-<div class="line">None</div>
-</div>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">methods:</th><td class="field-body"><div class="first last line-block">
-<div class="line">None</div>
-</div>
-</td>
-</tr>
-</tbody>
-</table>
-</div></blockquote>
-</dd></dl>
-
 </div>
 <div class="section" id="module-ats_utilities.exceptions">
 <span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-ats_utilities.exceptions" title="Permalink to this headline">¶</a></h2>
@@ -593,10 +251,10 @@ It defines:</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="ats_utilities.logging.html" class="btn btn-neutral float-right" title="ats_utilities.logging package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="ats_utilities.exceptions.ats_attribute_error.html" class="btn btn-neutral float-right" title="ats_utilities.exceptions.ats_attribute_error module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="ats_utilities.console_io.html" class="btn btn-neutral float-left" title="ats_utilities.console_io package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="ats_utilities.console_io.warning.html" class="btn btn-neutral float-left" title="ats_utilities.console_io.warning module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

@@ -23,16 +23,17 @@
 import sys
 
 try:
+    from ats_utilities.checker import ATSChecker
     from ats_utilities.abstract import abstract_method
-except ImportError as error:
-    MESSAGE = "\n{0}\n{1}\n".format(__file__, error)
+except ImportError as error_message:
+    MESSAGE = "\n{0}\n{1}\n".format(__file__, error_message)
     sys.exit(MESSAGE)  # Force close python ATS ##############################
 
 __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2018, Free software to use and distributed it.'
 __credits__ = ['Vladimir Roncevic']
 __license__ = 'GNU General Public License (GPL)'
-__version__ = '1.0.0'
+__version__ = '1.2.2'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
@@ -47,6 +48,7 @@ class BaseReadConfig(object):
             :attributes:
                 | __slots__ - Setting class slots
                 | VERBOSE - Console text indicator for current process-phase
+                | __checker - ATS checker for parameters
                 | __file_path - Configuration file path
             :methods:
                 | __init__ - Initial constructor
@@ -54,7 +56,7 @@ class BaseReadConfig(object):
                 | read_configuration - Read configuration (Abstract method)
     """
 
-    __slots__ = ('VERBOSE', '__file_path')
+    __slots__ = ('VERBOSE', '__file_path', '__checker')
     VERBOSE = 'ATS_UTILITIES::CONFIG::BASE_READ_CONFIG'
 
     def __init__(self):
@@ -63,6 +65,7 @@ class BaseReadConfig(object):
 
             :exceptions: None
         """
+        self.__checker = ATSChecker()
         self.__file_path = ""
 
     @property
@@ -83,8 +86,13 @@ class BaseReadConfig(object):
 
             :param file_path: Configuration file path
             :type file_path: <str>
-            :exceptions: None
+            :exceptions: ATSTypeError | ATSBadCallError
         """
+        error, status = self.__checker.check_params(
+            [('str:file_path', file_path)]
+        )
+        if status == ATSChecker.TYPE_ERROR: raise ATSTypeError(error)
+        if status == ATSChecker.VALUE_ERROR: raise ATSBadCallError(error)
         self.__file_path = file_path
 
     @abstract_method

@@ -60,7 +60,7 @@
             
             
               <div class="version">
-                1.0.1
+                1.2.2
               </div>
             
           
@@ -178,13 +178,16 @@ other information that should be provided before the modules are installed.</p>
 <li class="toctree-l4"><a class="reference internal" href="ats_utilities.register.html">ats_utilities.register package</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="ats_utilities.html#submodules">Submodules</a></li>
-<li class="toctree-l3"><a class="reference internal" href="ats_utilities.html#module-ats_utilities.ats_info">ats_utilities.ats_info module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="ats_utilities.html#module-ats_utilities.cfg_base">ats_utilities.cfg_base module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="ats_utilities.html#module-ats_utilities.ini_base">ats_utilities.ini_base module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="ats_utilities.html#module-ats_utilities.json_base">ats_utilities.json_base module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="ats_utilities.html#module-ats_utilities.xml_base">ats_utilities.xml_base module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="ats_utilities.html#module-ats_utilities.yaml_base">ats_utilities.yaml_base module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ats_utilities.html#submodules">Submodules</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ats_utilities.ats_info.html">ats_utilities.ats_info module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ats_utilities.cfg_base.html">ats_utilities.cfg_base module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ats_utilities.checker.html">ats_utilities.checker module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ats_utilities.ini_base.html">ats_utilities.ini_base module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ats_utilities.json_base.html">ats_utilities.json_base module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ats_utilities.xml_base.html">ats_utilities.xml_base module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ats_utilities.yaml_base.html">ats_utilities.yaml_base module</a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="ats_utilities.html#module-ats_utilities">Module contents</a></li>
 </ul>
 </li>
@@ -224,72 +227,71 @@ python setup.py install_egg_info
 <p><strong>ats_utilities</strong> is based on OOP:</p>
 <img alt="https://raw.githubusercontent.com/vroncevic/ats_utilities/dev/docs/arch_flow_usage.png" src="https://raw.githubusercontent.com/vroncevic/ats_utilities/dev/docs/arch_flow_usage.png" />
 <p>Code structure:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>.
-├── ats_utilities/
-│   ├── abstract/
-│   │   └── __init__.py
-│   ├── ats_info.py
-│   ├── cfg_base.py
-│   ├── config/
-│   │   ├── base_read_config.py
-│   │   ├── base_write_config.py
-│   │   ├── cfg/
-│   │   │   ├── cfg2object.py
-│   │   │   ├── __init__.py
-│   │   │   └── object2cfg.py
-│   │   ├── check_base_config.py
-│   │   ├── config_context_manager.py
-│   │   ├── file_checking.py
-│   │   ├── ini/
-│   │   │   ├── ini2object.py
-│   │   │   ├── __init__.py
-│   │   │   └── object2ini.py
-│   │   ├── __init__.py
-│   │   ├── json/
-│   │   │   ├── __init__.py
-│   │   │   ├── json2object.py
-│   │   │   └── object2json.py
-│   │   ├── xml/
-│   │   │   ├── __init__.py
-│   │   │   ├── object2xml.py
-│   │   │   └── xml2object.py
-│   │   └── yaml/
-│   │       ├── __init__.py
-│   │       ├── object2yaml.py
-│   │       └── yaml2object.py
-│   ├── console_io/
-│   │   ├── error.py
-│   │   ├── __init__.py
-│   │   ├── success.py
-│   │   ├── verbose.py
-│   │   └── warning.py
-│   ├── exceptions/
-│   │   ├── ats_attribute_error.py
-│   │   ├── ats_bad_call_error.py
-│   │   ├── ats_file_error.py
-│   │   ├── ats_key_error.py
-│   │   ├── ats_lookup_error.py
-│   │   ├── ats_type_error.py
-│   │   ├── ats_value_error.py
-│   │   └── __init__.py
-│   ├── ini_base.py
-│   ├── __init__.py
-│   ├── json_base.py
-│   ├── logging/
-│   │   ├── ats_logger_base.py
-│   │   ├── ats_logger_file.py
-│   │   ├── ats_logger_name.py
-│   │   ├── ats_logger.py
-│   │   ├── ats_logger_status.py
-│   │   └── __init__.py
-│   ├── option/
-│   │   ├── ats_option_parser.py
-│   │   └── __init__.py
-│   ├── register/
-│   │   └── __init__.py
-│   ├── xml_base.py
-│   └── yaml_base.py
-└── setup.py
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ats_utilities/
+├── abstract/
+│   └── __init__.py
+├── ats_info.py
+├── cfg_base.py
+├── checker.py
+├── config/
+│   ├── base_read_config.py
+│   ├── base_write_config.py
+│   ├── cfg/
+│   │   ├── cfg2object.py
+│   │   ├── __init__.py
+│   │   └── object2cfg.py
+│   ├── check_base_config.py
+│   ├── config_context_manager.py
+│   ├── file_checking.py
+│   ├── ini/
+│   │   ├── ini2object.py
+│   │   ├── __init__.py
+│   │   └── object2ini.py
+│   ├── __init__.py
+│   ├── json/
+│   │   ├── __init__.py
+│   │   ├── json2object.py
+│   │   └── object2json.py
+│   ├── xml/
+│   │   ├── __init__.py
+│   │   ├── object2xml.py
+│   │   └── xml2object.py
+│   └── yaml/
+│       ├── __init__.py
+│       ├── object2yaml.py
+│       └── yaml2object.py
+├── console_io/
+│   ├── error.py
+│   ├── __init__.py
+│   ├── success.py
+│   ├── verbose.py
+│   └── warning.py
+├── exceptions/
+│   ├── ats_attribute_error.py
+│   ├── ats_bad_call_error.py
+│   ├── ats_file_error.py
+│   ├── ats_key_error.py
+│   ├── ats_lookup_error.py
+│   ├── ats_type_error.py
+│   ├── ats_value_error.py
+│   └── __init__.py
+├── ini_base.py
+├── __init__.py
+├── json_base.py
+├── logging/
+│   ├── ats_logger_base.py
+│   ├── ats_logger_file.py
+│   ├── ats_logger_name.py
+│   ├── ats_logger.py
+│   ├── ats_logger_status.py
+│   └── __init__.py
+├── option/
+│   ├── ats_option_parser.py
+│   └── __init__.py
+├── register/
+│   └── __init__.py
+├── xml_base.py
+└── yaml_base.py
 </pre></div>
 </div>
 </div>

@@ -4,22 +4,10 @@ ats\_utilities.config.yaml package
 Submodules
 ----------
 
-ats\_utilities.config.yaml.object2yaml module
----------------------------------------------
+.. toctree::
 
-.. automodule:: ats_utilities.config.yaml.object2yaml
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
-ats\_utilities.config.yaml.yaml2object module
----------------------------------------------
-
-.. automodule:: ats_utilities.config.yaml.yaml2object
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
+   ats_utilities.config.yaml.object2yaml
+   ats_utilities.config.yaml.yaml2object
 
 Module contents
 ---------------

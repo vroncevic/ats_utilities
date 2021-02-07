@@ -21,9 +21,9 @@
 """
 
 import sys
-from inspect import stack
 
 try:
+    from ats_utilities.checker import ATSChecker
     from ats_utilities.ats_info import ATSInfo
     from ats_utilities.config.ini.ini2object import Ini2Object
     from ats_utilities.config.ini.object2ini import Object2Ini
@@ -32,15 +32,15 @@ try:
     from ats_utilities.console_io.verbose import verbose_message
     from ats_utilities.exceptions.ats_type_error import ATSTypeError
     from ats_utilities.exceptions.ats_bad_call_error import ATSBadCallError
-except ImportError as error:
-    MESSAGE = "\n{0}\n{1}\n".format(__file__, error)
+except ImportError as error_message:
+    MESSAGE = "\n{0}\n{1}\n".format(__file__, error_message)
     sys.exit(MESSAGE)  # Force close python ATS ##############################
 
 __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2018, Free software to use and distributed it.'
 __credits__ = ['Vladimir Roncevic']
 __license__ = 'GNU General Public License (GPL)'
-__version__ = '1.0.0'
+__version__ = '1.2.2'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
@@ -55,6 +55,7 @@ class IniBase(ATSInfo):
             :attributes:
                 | __slots__ - Setting class slots
                 | VERBOSE - Console text indicator for current process-phase
+                | __checker - ATS checker for parameters
                 | __tool_operational - Control operational flag
                 | __ini2obj - In API for configuration
                 | __obj2ini - Out API for configuration
@@ -69,6 +70,7 @@ class IniBase(ATSInfo):
 
     __slots__ = (
         'VERBOSE',
+        '__checker',
         '__tool_operational',
         '__ini2obj',
         '__obj2ini',
@@ -84,8 +86,14 @@ class IniBase(ATSInfo):
             :type base_config_file: <str>
             :param verbose: Enable/disable verbose option
             :type verbose: <bool>
-            :exceptions: None
+            :exceptions: ATSTypeError | ATSBadCallError
         """
+        self.__checker = ATSChecker()
+        error, status = self.__checker.check_params(
+            [('str:base_config_file', base_config_file)]
+        )
+        if status == ATSChecker.TYPE_ERROR: raise ATSTypeError(error)
+        if status == ATSChecker.VALUE_ERROR: raise ATSBadCallError(error)
         configuration = None
         verbose_message(IniBase.VERBOSE, verbose, 'Initial ATS base settings')
         self.__tool_operational = False  # App/Tool/Script not operative
@@ -145,15 +153,13 @@ class IniBase(ATSInfo):
 
             :param tool_status: True (tool ready) | False
             :type tool_status: <bool>
-            :exceptions: ATSBadCallError | ATSTypeError
+            :exceptions: ATSTypeError | ATSBadCallError
         """
-        func = stack()[0][3]
-        tool_status_txt = 'Argument: expected tool_status <bool> object'
-        tool_status_msg = "{0} {1} {2}".format('def', func, tool_status_txt)
-        if tool_status is None:
-            raise ATSBadCallError(tool_status_msg)
-        if not isinstance(tool_status, bool):
-            raise ATSTypeError(tool_status_msg)
+        error, status = self.__checker.check_params(
+            [('bool:tool_status', tool_status)]
+        )
+        if status == ATSChecker.TYPE_ERROR: raise ATSTypeError(error)
+        if status == ATSChecker.VALUE_ERROR: raise ATSBadCallError(error)
         self.__tool_operational = tool_status
 
     @abstract_method

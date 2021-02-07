@@ -21,25 +21,24 @@
 """
 
 import sys
-from inspect import stack
 
 try:
     from yaml import dump
-
+    from ats_utilities.checker import ATSChecker
     from ats_utilities.config.base_write_config import BaseWriteConfig
     from ats_utilities.console_io.verbose import verbose_message
     from ats_utilities.config.config_context_manager import ConfigFile
     from ats_utilities.exceptions.ats_type_error import ATSTypeError
     from ats_utilities.exceptions.ats_bad_call_error import ATSBadCallError
-except ImportError as error:
-    MESSAGE = "\n{0}\n{1}\n".format(__file__, error)
+except ImportError as error_message:
+    MESSAGE = "\n{0}\n{1}\n".format(__file__, error_message)
     sys.exit(MESSAGE)  # Force close python ATS ##############################
 
 __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2018, Free software to use and distributed it.'
 __credits__ = ['Vladimir Roncevic']
 __license__ = 'GNU General Public License (GPL)'
-__version__ = '1.0.1'
+__version__ = '1.2.2'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
@@ -55,12 +54,13 @@ class Object2Yaml(BaseWriteConfig):
                 | __slots__ - Setting class slots
                 | VERBOSE - Console text indicator for current process-phase
                 | __FORMAT - Format of configuration content
+                | __checker - ATS checker for parameters
             :methods:
                 | __init__ - Initial constructor
                 | write_configuration - Write configuration to a yaml file
     """
 
-    __slots__ = ('VERBOSE', '__FORMAT')
+    __slots__ = ('VERBOSE', '__FORMAT', '__checker')
     VERBOSE = 'ATS_UTILITIES::CONFIG::YAML::OBJECT_TO_YAML'
     __FORMAT = 'yaml'
 
@@ -72,15 +72,14 @@ class Object2Yaml(BaseWriteConfig):
             :type configuration_file: <str>
             :param verbose: Enable/disable verbose option
             :type verbose: <bool>
-            :exceptions: ATSBadCallError | ATSTypeError
+            :exceptions: ATSTypeError | ATSBadCallError
         """
-        func = stack()[0][3]
-        cfg_file_txt = 'Argument: expected configuration_file <str> object'
-        cfg_file_msg = "{0} {1} {2}".format('def', func, cfg_file_txt)
-        if configuration_file is None or not configuration_file:
-            raise ATSBadCallError(cfg_file_msg)
-        if not isinstance(configuration_file, str):
-            raise ATSTypeError(cfg_file_msg)
+        self.__checker = ATSChecker()
+        error, status = self.__checker.check_params(
+            [('str:configuration_file', configuration_file)]
+        )
+        if status == ATSChecker.TYPE_ERROR: raise ATSTypeError(error)
+        if status == ATSChecker.VALUE_ERROR: raise ATSBadCallError(error)
         verbose_message(Object2Yaml.VERBOSE, verbose, 'Setting YAML interface')
         BaseWriteConfig.__init__(self)
         self.file_path = configuration_file
@@ -95,13 +94,11 @@ class Object2Yaml(BaseWriteConfig):
             :type verbose: <bool>
             :return: True (success) | False
             :rtype: <bool>
-            :exception: ATSBadCallError
+            :exception: None
         """
-        func, status = stack()[0][3], False
-        cfg_txt = 'Argument: expected configuration <Python> object'
-        cfg_msg = "{0} {1} {2}".format('def', func, cfg_txt)
-        if configuration is None or not configuration:
-            raise ATSBadCallError(cfg_msg)
+        status = False
+        if configuration is None:
+            return status
         verbose_message(
             Object2Yaml.VERBOSE, verbose,
             'Write configuration to file', self.file_path

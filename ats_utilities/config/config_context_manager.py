@@ -21,23 +21,23 @@
 """
 
 import sys
-from inspect import stack
 
 try:
+    from ats_utilities.checker import ATSChecker
     from ats_utilities.config.file_checking import FileChecking
     from ats_utilities.console_io.verbose import verbose_message
     from ats_utilities.console_io.error import error_message
     from ats_utilities.exceptions.ats_type_error import ATSTypeError
     from ats_utilities.exceptions.ats_bad_call_error import ATSBadCallError
-except ImportError as error:
-    MESSAGE = "\n{0}\n{1}\n".format(__file__, error)
+except ImportError as error_message:
+    MESSAGE = "\n{0}\n{1}\n".format(__file__, error_message)
     sys.exit(MESSAGE)  # Force close python ATS ##############################
 
 __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2018, Free software to use and distributed it.'
 __credits__ = ['Vladimir Roncevic']
 __license__ = 'GNU General Public License (GPL)'
-__version__ = '1.0.1'
+__version__ = '1.2.2'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
@@ -52,6 +52,7 @@ class ConfigFile(FileChecking):
             :attributes:
                 | __slots__ - Setting class slots
                 | VERBOSE - Console text indicator for current process-phase
+                | __checker - ATS checker for parameters
                 | __file_path - Configuration file name
                 | __file_mode - File mode
                 | __file_format - File format
@@ -64,6 +65,7 @@ class ConfigFile(FileChecking):
 
     __slots__ = (
         'VERBOSE',
+        '__checker',
         '__file_path',
         '__file_mode',
         '__file_format',
@@ -85,31 +87,20 @@ class ConfigFile(FileChecking):
             :type verbose: <bool>
             :exceptions: ATSBadCallError | ATSTypeError
         """
-        func = stack()[0][3]
-        file_path_txt = 'Argument: expected file_path <str> object'
-        file_path_msg = "{0} {1} {2}".format('def', func, file_path_txt)
-        file_mode_txt = 'Argument: expected file_mode <str> object'
-        file_mode_msg = "{0} {1} {2}".format('def', func, file_mode_txt)
-        file_format_txt = 'Argument: expected file_format <str> object'
-        file_format_msg = "{0} {1} {2}".format('def', func, file_format_txt)
-        if file_path is None or not file_path:
-            raise ATSBadCallError(file_path_msg)
-        if not isinstance(file_path, str):
-            raise ATSTypeError(file_path_msg)
-        if file_mode is None or not file_mode:
-            raise ATSBadCallError(file_mode_msg)
-        if not isinstance(file_mode, str):
-            raise ATSTypeError(file_mode_msg)
-        if file_format is None or not file_format:
-            raise ATSBadCallError(file_format_msg)
-        if not isinstance(file_format, str):
-            raise ATSTypeError(file_format_msg)
+        self.__checker = ATSChecker()
+        error, status = self.__checker.check_params([
+            ('str:file_path', file_path),
+            ('str:file_mode', file_mode),
+            ('str:file_format', file_format)
+        ])
+        if status == ATSChecker.TYPE_ERROR: raise ATSTypeError(error)
+        if status == ATSChecker.VALUE_ERROR: raise ATSBadCallError(error)
+        FileChecking.__init__(self)
         verbose_message(
             ConfigFile.VERBOSE, verbose, "{0}\n{1}\n{2} [{3}]".format(
                 'Setting file path', file_path, 'Setting file mode', file_mode
             )
         )
-        FileChecking.__init__(self)
         check_file = self.check_file(file_path=file_path, verbose=verbose)
         check_mode = self.check_mode(file_mode=file_mode, verbose=verbose)
         check_format = self.check_format(

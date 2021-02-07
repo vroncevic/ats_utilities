@@ -21,22 +21,22 @@
 """
 
 import sys
-from inspect import stack
 from optparse import OptionParser
 
 try:
+    from ats_utilities.checker import ATSChecker
     from ats_utilities.console_io.verbose import verbose_message
     from ats_utilities.exceptions.ats_type_error import ATSTypeError
     from ats_utilities.exceptions.ats_bad_call_error import ATSBadCallError
-except ImportError as error:
-    MESSAGE = "\n{0}\n{1}\n".format(__file__, error)
+except ImportError as error_message:
+    MESSAGE = "\n{0}\n{1}\n".format(__file__, error_message)
     sys.exit(MESSAGE)  # Force close python ATS ##############################
 
 __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2018, Free software to use and distributed it.'
 __credits__ = ['Vladimir Roncevic']
 __license__ = 'GNU General Public License (GPL)'
-__version__ = '1.0.0'
+__version__ = '1.2.2'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
@@ -51,6 +51,7 @@ class ATSOptionParser(object):
             :attributes:
                 | __slots__ - Setting class slots
                 | VERBOSE - Console text indicator for current process-phase
+                | __checker - ATS checker for parameters
                 | __opt_parser - Options parser
             :methods:
                 | __init__ - Initial constructor
@@ -58,7 +59,7 @@ class ATSOptionParser(object):
                 | parse_args - Process arguments from start
     """
 
-    __slots__ = ('VERBOSE', '__opt_parser')
+    __slots__ = ('VERBOSE', '__opt_parser', '__checker')
     VERBOSE = 'ATS_UTILITIES::OPTION::ATS_OPTION_PARSER'
 
     def __init__(self, version, epilog, description, verbose=False):
@@ -73,27 +74,16 @@ class ATSOptionParser(object):
             :type description: <str>
             :param verbose: Enable/disable verbose option
             :type verbose: <bool>
-            :exceptions: ATSBadCallError | ATSTypeError
+            :exceptions: ATSTypeError | ATSBadCallError
         """
-        func = stack()[0][3]
-        version_txt = 'Argument: expected version <str> object'
-        version_msg = "{0} {1} {2}".format('def', func, version_txt)
-        epilog_txt = 'Argument: expected epilog <str> object'
-        epilog_msg = "{0} {1} {2}".format('def', func, epilog_txt)
-        description_txt = 'Argument: expected description <str> object'
-        description_msg = "{0} {1} {2}".format('def', func, description_txt)
-        if version is None or not version:
-            raise ATSBadCallError(version_msg)
-        if not isinstance(version, str):
-            raise ATSTypeError(version_msg)
-        if epilog is None or not epilog:
-            raise ATSBadCallError(epilog_msg)
-        if not isinstance(epilog, str):
-            raise ATSTypeError(epilog_msg)
-        if description is None or not description:
-            raise ATSBadCallError(description_msg)
-        if not isinstance(description, str):
-            raise ATSTypeError(description_msg)
+        self.__checker = ATSChecker()
+        error, status = self.__checker.check_params([
+            ('str:version', version),
+            ('str:epilog', epilog),
+            ('str:description', description)
+        ])
+        if status == ATSChecker.TYPE_ERROR: raise ATSTypeError(error)
+        if status == ATSChecker.VALUE_ERROR: raise ATSBadCallError(error)
         verbose_message(
             ATSOptionParser.VERBOSE, verbose, 'Initial ATS option parser'
         )

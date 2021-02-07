@@ -59,7 +59,7 @@
             
             
               <div class="version">
-                1.0.1
+                1.2.2
               </div>
             
           
@@ -175,30 +175,30 @@
 <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="kn">import</span> <span class="nn">sys</span>
-<span class="kn">from</span> <span class="nn">inspect</span> <span class="kn">import</span> <span class="n">stack</span>
 <span class="kn">from</span> <span class="nn">re</span> <span class="kn">import</span> <span class="n">match</span>
 
 <span class="k">try</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">ats_utilities.checker</span> <span class="kn">import</span> <span class="n">ATSChecker</span>
     <span class="kn">from</span> <span class="nn">ats_utilities.config.base_read_config</span> <span class="kn">import</span> <span class="n">BaseReadConfig</span>
     <span class="kn">from</span> <span class="nn">ats_utilities.console_io.verbose</span> <span class="kn">import</span> <span class="n">verbose_message</span>
     <span class="kn">from</span> <span class="nn">ats_utilities.config.config_context_manager</span> <span class="kn">import</span> <span class="n">ConfigFile</span>
     <span class="kn">from</span> <span class="nn">ats_utilities.exceptions.ats_type_error</span> <span class="kn">import</span> <span class="n">ATSTypeError</span>
     <span class="kn">from</span> <span class="nn">ats_utilities.exceptions.ats_bad_call_error</span> <span class="kn">import</span> <span class="n">ATSBadCallError</span>
-<span class="k">except</span> <span class="ne">ImportError</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
-    <span class="n">MESSAGE</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="si">{0}</span><span class="se">\n</span><span class="si">{1}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="vm">__file__</span><span class="p">,</span> <span class="n">error</span><span class="p">)</span>
+<span class="k">except</span> <span class="ne">ImportError</span> <span class="k">as</span> <span class="n">error_message</span><span class="p">:</span>
+    <span class="n">MESSAGE</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="si">{0}</span><span class="se">\n</span><span class="si">{1}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="vm">__file__</span><span class="p">,</span> <span class="n">error_message</span><span class="p">)</span>
     <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="n">MESSAGE</span><span class="p">)</span>  <span class="c1"># Force close python ATS ##############################</span>
 
 <span class="n">__author__</span> <span class="o">=</span> <span class="s1">&#39;Vladimir Roncevic&#39;</span>
 <span class="n">__copyright__</span> <span class="o">=</span> <span class="s1">&#39;Copyright 2018, Free software to use and distributed it.&#39;</span>
 <span class="n">__credits__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Vladimir Roncevic&#39;</span><span class="p">]</span>
 <span class="n">__license__</span> <span class="o">=</span> <span class="s1">&#39;GNU General Public License (GPL)&#39;</span>
-<span class="n">__version__</span> <span class="o">=</span> <span class="s1">&#39;1.0.1&#39;</span>
+<span class="n">__version__</span> <span class="o">=</span> <span class="s1">&#39;1.2.2&#39;</span>
 <span class="n">__maintainer__</span> <span class="o">=</span> <span class="s1">&#39;Vladimir Roncevic&#39;</span>
 <span class="n">__email__</span> <span class="o">=</span> <span class="s1">&#39;elektron.ronca@gmail.com&#39;</span>
 <span class="n">__status__</span> <span class="o">=</span> <span class="s1">&#39;Updated&#39;</span>
 
 
-<div class="viewcode-block" id="Cfg2Object"><a class="viewcode-back" href="../../../../ats_utilities.config.cfg.html#ats_utilities.config.cfg.cfg2object.Cfg2Object">[docs]</a><span class="k">class</span> <span class="nc">Cfg2Object</span><span class="p">(</span><span class="n">BaseReadConfig</span><span class="p">):</span>
+<div class="viewcode-block" id="Cfg2Object"><a class="viewcode-back" href="../../../../ats_utilities.config.cfg.cfg2object.html#ats_utilities.config.cfg.cfg2object.Cfg2Object">[docs]</a><span class="k">class</span> <span class="nc">Cfg2Object</span><span class="p">(</span><span class="n">BaseReadConfig</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Define class Cfg2Object with attribute(s) and method(s).</span>
 <span class="sd">        Convert configuration from a cfg file to an object.</span>
@@ -209,12 +209,13 @@
 <span class="sd">                | VERBOSE - Console text indicator for current process-phase</span>
 <span class="sd">                | __FORMAT - Format of configuration content</span>
 <span class="sd">                | __REGEX_MATCH_LINE - Regular expression for matching line</span>
+<span class="sd">                | __checker - ATS checker for parameters</span>
 <span class="sd">            :methods:</span>
 <span class="sd">                | __init__ - Initial constructor</span>
 <span class="sd">                | read_configuration - Read configuration from file</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="vm">__slots__</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;VERBOSE&#39;</span><span class="p">,</span> <span class="s1">&#39;__FORMAT&#39;</span><span class="p">,</span> <span class="s1">&#39;__REGEX_MATCH_LINE&#39;</span><span class="p">)</span>
+    <span class="vm">__slots__</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;VERBOSE&#39;</span><span class="p">,</span> <span class="s1">&#39;__FORMAT&#39;</span><span class="p">,</span> <span class="s1">&#39;__REGEX_MATCH_LINE&#39;</span><span class="p">,</span> <span class="s1">&#39;__checker&#39;</span><span class="p">)</span>
     <span class="n">VERBOSE</span> <span class="o">=</span> <span class="s1">&#39;ATS_UTILITIES::CONFIG::CFG::CFG_TO_OBJECT&#39;</span>
     <span class="n">__FORMAT</span> <span class="o">=</span> <span class="s1">&#39;cfg&#39;</span>
     <span class="n">__REGEX_MATCH_LINE</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;^\s*$&#39;</span>
@@ -227,20 +228,19 @@
 <span class="sd">            :type configuration_file: &lt;str&gt;</span>
 <span class="sd">            :param verbose: Enable/disable verbose option</span>
 <span class="sd">            :type verbose: &lt;bool&gt;</span>
-<span class="sd">            :exceptions: ATSBadCallError | ATSTypeError</span>
+<span class="sd">            :exceptions: ATSTypeError | ATSBadCallError</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">func</span> <span class="o">=</span> <span class="n">stack</span><span class="p">()[</span><span class="mi">0</span><span class="p">][</span><span class="mi">3</span><span class="p">]</span>
-        <span class="n">cfg_file_txt</span> <span class="o">=</span> <span class="s1">&#39;Argument: expected configuration_file &lt;str&gt; object&#39;</span>
-        <span class="n">cfg_file_msg</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{0}</span><span class="s2"> </span><span class="si">{1}</span><span class="s2"> </span><span class="si">{2}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s1">&#39;def&#39;</span><span class="p">,</span> <span class="n">func</span><span class="p">,</span> <span class="n">cfg_file_txt</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">configuration_file</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">configuration_file</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="n">ATSBadCallError</span><span class="p">(</span><span class="n">cfg_file_msg</span><span class="p">)</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">configuration_file</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
-            <span class="k">raise</span> <span class="n">ATSTypeError</span><span class="p">(</span><span class="n">cfg_file_msg</span><span class="p">)</span>
-        <span class="n">verbose_message</span><span class="p">(</span><span class="n">Cfg2Object</span><span class="o">.</span><span class="n">VERBOSE</span><span class="p">,</span> <span class="n">verbose</span><span class="p">,</span> <span class="s1">&#39;Setting CFG interface&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__checker</span> <span class="o">=</span> <span class="n">ATSChecker</span><span class="p">()</span>
+        <span class="n">error</span><span class="p">,</span> <span class="n">status</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__checker</span><span class="o">.</span><span class="n">check_params</span><span class="p">(</span>
+            <span class="p">[(</span><span class="s1">&#39;str:configuration_file&#39;</span><span class="p">,</span> <span class="n">configuration_file</span><span class="p">)]</span>
+        <span class="p">)</span>
+        <span class="k">if</span> <span class="n">status</span> <span class="o">==</span> <span class="n">ATSChecker</span><span class="o">.</span><span class="n">TYPE_ERROR</span><span class="p">:</span> <span class="k">raise</span> <span class="n">ATSTypeError</span><span class="p">(</span><span class="n">error</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">status</span> <span class="o">==</span> <span class="n">ATSChecker</span><span class="o">.</span><span class="n">VALUE_ERROR</span><span class="p">:</span> <span class="k">raise</span> <span class="n">ATSBadCallError</span><span class="p">(</span><span class="n">error</span><span class="p">)</span>
         <span class="n">BaseReadConfig</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="n">verbose_message</span><span class="p">(</span><span class="n">Cfg2Object</span><span class="o">.</span><span class="n">VERBOSE</span><span class="p">,</span> <span class="n">verbose</span><span class="p">,</span> <span class="s1">&#39;Setting CFG interface&#39;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">file_path</span> <span class="o">=</span> <span class="n">configuration_file</span>
 
-<div class="viewcode-block" id="Cfg2Object.read_configuration"><a class="viewcode-back" href="../../../../ats_utilities.config.cfg.html#ats_utilities.config.cfg.cfg2object.Cfg2Object.read_configuration">[docs]</a>    <span class="k">def</span> <span class="nf">read_configuration</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<div class="viewcode-block" id="Cfg2Object.read_configuration"><a class="viewcode-back" href="../../../../ats_utilities.config.cfg.cfg2object.html#ats_utilities.config.cfg.cfg2object.Cfg2Object.read_configuration">[docs]</a>    <span class="k">def</span> <span class="nf">read_configuration</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">            Read configuration from file.</span>
 

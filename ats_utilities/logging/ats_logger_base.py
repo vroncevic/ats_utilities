@@ -22,9 +22,9 @@
 
 import sys
 from logging import Logger
-from inspect import stack
 
 try:
+    from ats_utilities.checker import ATSChecker
     from ats_utilities.logging.ats_logger_status import ATSLoggerStatus
     from ats_utilities.logging.ats_logger_file import ATSLoggerFile
     from ats_utilities.logging.ats_logger_name import ATSLoggerName
@@ -32,15 +32,15 @@ try:
     from ats_utilities.console_io.verbose import verbose_message
     from ats_utilities.exceptions.ats_type_error import ATSTypeError
     from ats_utilities.exceptions.ats_bad_call_error import ATSBadCallError
-except ImportError as error:
-    MESSAGE = "\n{0}\n{1}\n".format(__file__, error)
+except ImportError as error_message:
+    MESSAGE = "\n{0}\n{1}\n".format(__file__, error_message)
     sys.exit(MESSAGE)  # Force close python ATS ##############################
 
 __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2018, Free software to use and distributed it.'
 __credits__ = ['Vladimir Roncevic']
 __license__ = 'GNU General Public License (GPL)'
-__version__ = '1.0.0'
+__version__ = '1.2.2'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
@@ -55,6 +55,7 @@ class ATSLoggerBase(object):
             :attributes:
                 | __slots__ - Setting class slots
                 | VERBOSE - Console text indicator for current process-phase
+                | __checker - ATS checker for parameters
                 | __logger_name - Logger name
                 | __logger_status - Logger info status
                 | __logger_file - Logger file path
@@ -67,6 +68,7 @@ class ATSLoggerBase(object):
 
     __slots__ = (
         'VERBOSE',
+        '__checker',
         'logger_name',
         'logger_status',
         'logger_file',
@@ -85,6 +87,7 @@ class ATSLoggerBase(object):
         verbose_message(
             ATSLoggerBase.VERBOSE, verbose, 'Initial ATS logger base'
         )
+        self.__checker = ATSChecker()
         self.logger_name = ATSLoggerName(verbose=verbose)
         self.logger_status = ATSLoggerStatus(verbose=verbose)
         self.logger_file = ATSLoggerFile(verbose=verbose)
@@ -110,13 +113,11 @@ class ATSLoggerBase(object):
             :type logger: <logging.Logger>
             :exceptions: ATSBadCallError | ATSTypeError
         """
-        func = stack()[0][3]
-        logger_txt = 'Argument: expected logger <logging.Logger> object'
-        logger_msg = "{0} {1} {2}".format('def', func, logger_txt)
-        if logger is None or not logger:
-            raise ATSBadCallError(logger_msg)
-        if not isinstance(logger, Logger):
-            raise ATSTypeError(logger_msg)
+        error, status = self.__checker.check_params(
+            [('logging.Logger:logger', logger)]
+        )
+        if status == ATSChecker.TYPE_ERROR: raise ATSTypeError(error)
+        if status == ATSChecker.VALUE_ERROR: raise ATSBadCallError(error)
         self.__logger = logger
 
     @abstract_method
