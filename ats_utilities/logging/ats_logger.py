@@ -138,6 +138,7 @@ class ATSLogger(ATSLoggerBase):
         )
         if status == ATSChecker.TYPE_ERROR: raise ATSTypeError(error)
         if status == ATSChecker.VALUE_ERROR: raise ATSBadCallError(error)
+        status = False
         verbose_message(ATSLogger.VERBOSE, verbose, 'Write ATS log message')
         if self.logger_status:
             switch_dict = {
