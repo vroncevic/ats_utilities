@@ -1,3 +1,5 @@
+<img align="right" src="https://raw.githubusercontent.com/vroncevic/ats_utilities/dev/docs/ats_utilities_logo.png" width="25%">
+
 # Python Utilities
 
 **ats_utilities** is framework for creating/building Apps/Tools/Scripts.
