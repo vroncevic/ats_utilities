@@ -24,7 +24,7 @@ __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2018, Free software to use and distributed it.'
 __credits__ = ['Vladimir Roncevic']
 __license__ = 'GNU General Public License (GPL)'
-__version__ = '1.0.0'
+__version__ = '1.2.2'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
@@ -37,22 +37,22 @@ class ATSRegister(type):
         It defines:
 
             :attributes:
-                | registry - List of classes
+                | registry - List of classes.
             :methods:
-                | __init__ - Initial constructor
-                | __iter__ - Iter representation
-                | __str__ - String representation
+                | __init__ - Initial constructor.
+                | __iter__ - Getting iterator of set.
+                | __str__ - String representation of LogRegister.
     """
 
     def __init__(cls, name, bases, nmspc):
         """
             Initial constructor, register class.
 
-            :param name: class name
+            :param name: class name.
             :type name: <str>
-            :param bases: Class bases
+            :param bases: Class bases.
             :type bases: <tuple>
-            :param nmspc: Class namespace
+            :param nmspc: Class namespace.
             :type nmspc: <dict>
             :exceptions: None
         """
@@ -66,7 +66,7 @@ class ATSRegister(type):
         """
             Getting iterator of set.
 
-            :return: Iterator of set
+            :return: Iterator of set.
             :rtype: <setiterator>
             :exceptions: None
         """
@@ -76,7 +76,7 @@ class ATSRegister(type):
         """
             String representation of LogRegister.
 
-            :return: Return human readable string (LogRegister)
+            :return: Return human readable string (LogRegister).
             :rtype: <str>
             :exceptions: None
         """

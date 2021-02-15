@@ -27,7 +27,7 @@ __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2018, Free software to use and distributed it.'
 __credits__ = ['Vladimir Roncevic']
 __license__ = 'GNU General Public License (GPL)'
-__version__ = '1.1.2'
+__version__ = '1.2.2'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
@@ -38,7 +38,7 @@ with open(join(THIS_DIR, 'README.md')) as readme:
 
 setup(
     name='ats_utilities',
-    version='1.1.2',
+    version='1.2.2',
     description='Python App/Tool/Script Utilities',
     author='Vladimir Roncevic',
     author_email='elektron.ronca@gmail.com',
@@ -63,14 +63,17 @@ setup(
     packages=[
         'ats_utilities',
         'ats_utilities.abstract',
-        'ats_utilities.config',
-        'ats_utilities.config.cfg',
-        'ats_utilities.config.ini',
-        'ats_utilities.config.json',
-        'ats_utilities.config.xml',
-        'ats_utilities.config.yaml',
+        'ats_utilities.checker',
+        'ats_utilities.cli',
+        'ats_utilities.config_io',
+        'ats_utilities.config_io.cfg',
+        'ats_utilities.config_io.ini',
+        'ats_utilities.config_io.json',
+        'ats_utilities.config_io.xml',
+        'ats_utilities.config_io.yaml',
         'ats_utilities.console_io',
         'ats_utilities.exceptions',
+        'ats_utilities.info',
         'ats_utilities.logging',
         'ats_utilities.option',
         'ats_utilities.register',

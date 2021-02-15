@@ -36,8 +36,8 @@
     
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="ats_utilities.option package" href="ats_utilities.option.html" />
-    <link rel="prev" title="ats_utilities.exceptions package" href="ats_utilities.exceptions.html" /> 
+    <link rel="next" title="ats_utilities.logging.ats_logger_file module" href="ats_utilities.logging.ats_logger_file.html" />
+    <link rel="prev" title="ats_utilities.info.ats_version module" href="ats_utilities.info.ats_version.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -61,7 +61,7 @@
             
             
               <div class="version">
-                1.0.1
+                1.2.2
               </div>
             
           
@@ -88,26 +88,22 @@
             
               <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="index.html">Python Utilities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html">ATS Utilities</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="modules.html">ats_utilities</a><ul class="current">
 <li class="toctree-l2 current"><a class="reference internal" href="ats_utilities.html">ats_utilities package</a><ul class="current">
 <li class="toctree-l3 current"><a class="reference internal" href="ats_utilities.html#subpackages">Subpackages</a><ul class="current">
 <li class="toctree-l4"><a class="reference internal" href="ats_utilities.abstract.html">ats_utilities.abstract package</a></li>
-<li class="toctree-l4"><a class="reference internal" href="ats_utilities.config.html">ats_utilities.config package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ats_utilities.checker.html">ats_utilities.checker package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ats_utilities.cli.html">ats_utilities.cli package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ats_utilities.config_io.html">ats_utilities.config_io package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ats_utilities.console_io.html">ats_utilities.console_io package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ats_utilities.exceptions.html">ats_utilities.exceptions package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ats_utilities.info.html">ats_utilities.info package</a></li>
 <li class="toctree-l4 current"><a class="current reference internal" href="#">ats_utilities.logging package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ats_utilities.option.html">ats_utilities.option package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ats_utilities.register.html">ats_utilities.register package</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="ats_utilities.html#submodules">Submodules</a></li>
-<li class="toctree-l3"><a class="reference internal" href="ats_utilities.html#module-ats_utilities.ats_info">ats_utilities.ats_info module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="ats_utilities.html#module-ats_utilities.cfg_base">ats_utilities.cfg_base module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="ats_utilities.html#module-ats_utilities.ini_base">ats_utilities.ini_base module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="ats_utilities.html#module-ats_utilities.json_base">ats_utilities.json_base module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="ats_utilities.html#module-ats_utilities.xml_base">ats_utilities.xml_base module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="ats_utilities.html#module-ats_utilities.yaml_base">ats_utilities.yaml_base module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="ats_utilities.html#module-ats_utilities">Module contents</a></li>
 </ul>
 </li>
@@ -186,12 +182,19 @@
 <h1>ats_utilities.logging package<a class="headerlink" href="#ats-utilities-logging-package" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="submodules">
 <h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="ats_utilities.logging.ats_logger_file.html">ats_utilities.logging.ats_logger_file module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ats_utilities.logging.ats_logger_name.html">ats_utilities.logging.ats_logger_name module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ats_utilities.logging.ats_logger_status.html">ats_utilities.logging.ats_logger_status module</a></li>
+</ul>
 </div>
-<div class="section" id="module-ats_utilities.logging.ats_logger">
-<span id="ats-utilities-logging-ats-logger-module"></span><h2>ats_utilities.logging.ats_logger module<a class="headerlink" href="#module-ats_utilities.logging.ats_logger" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-ats_utilities.logging">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-ats_utilities.logging" title="Permalink to this headline">¶</a></h2>
 <dl class="docutils">
 <dt>Module</dt>
-<dd>ats_logger.py</dd>
+<dd>__init__.py</dd>
 <dt>Copyright</dt>
 <dd>Copyright (C) 2018 Vladimir Roncevic &lt;<a class="reference external" href="mailto:elektron&#46;ronca&#37;&#52;&#48;gmail&#46;com">elektron<span>&#46;</span>ronca<span>&#64;</span>gmail<span>&#46;</span>com</a>&gt;
 ats_utilities is free software: you can redistribute it and/or modify it
@@ -209,9 +212,9 @@ with this program. If not, see &lt;<a class="reference external" href="http://ww
 Logging mechanism for App/Tool/Script.</dd>
 </dl>
 <dl class="class">
-<dt id="ats_utilities.logging.ats_logger.ATSLogger">
-<em class="property">class </em><code class="descclassname">ats_utilities.logging.ats_logger.</code><code class="descname">ATSLogger</code><span class="sig-paren">(</span><em>ats_name</em>, <em>ats_log_file</em>, <em>verbose=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ats_utilities/logging/ats_logger.html#ATSLogger"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ats_utilities.logging.ats_logger.ATSLogger" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#ats_utilities.logging.ats_logger_base.ATSLoggerBase" title="ats_utilities.logging.ats_logger_base.ATSLoggerBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">ats_utilities.logging.ats_logger_base.ATSLoggerBase</span></code></a></p>
+<dt id="ats_utilities.logging.ATSLogger">
+<em class="property">class </em><code class="descclassname">ats_utilities.logging.</code><code class="descname">ATSLogger</code><span class="sig-paren">(</span><em>ats_name</em>, <em>ats_log_file</em>, <em>verbose=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ats_utilities/logging.html#ATSLogger"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ats_utilities.logging.ATSLogger" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="ats_utilities.logging.ats_logger_name.html#ats_utilities.logging.ats_logger_name.ATSLoggerName" title="ats_utilities.logging.ats_logger_name.ATSLoggerName"><code class="xref py py-class docutils literal notranslate"><span class="pre">ats_utilities.logging.ats_logger_name.ATSLoggerName</span></code></a>, <a class="reference internal" href="ats_utilities.logging.ats_logger_file.html#ats_utilities.logging.ats_logger_file.ATSLoggerFile" title="ats_utilities.logging.ats_logger_file.ATSLoggerFile"><code class="xref py py-class docutils literal notranslate"><span class="pre">ats_utilities.logging.ats_logger_file.ATSLoggerFile</span></code></a>, <a class="reference internal" href="ats_utilities.logging.ats_logger_status.html#ats_utilities.logging.ats_logger_status.ATSLoggerStatus" title="ats_utilities.logging.ats_logger_status.ATSLoggerStatus"><code class="xref py py-class docutils literal notranslate"><span class="pre">ats_utilities.logging.ats_logger_status.ATSLoggerStatus</span></code></a></p>
 <p>Define class ATSLogger with attribute(s) and method(s).
 Logging mechanism for App/Tool/Script.
 It defines:</p>
@@ -221,21 +224,21 @@ It defines:</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">attributes:</th><td class="field-body"><div class="first last line-block">
-<div class="line">__slots__ - Setting class slots</div>
-<div class="line">VERBOSE - Console text indicator for current process-phase</div>
-<div class="line">LOG_MSG_FORMAT - Log message format</div>
-<div class="line">LOG_DATE_FORMAT - Log date format</div>
-<div class="line">ATS_DEBUG - Debug log level</div>
-<div class="line">ATS_WARNING - Warning log level</div>
-<div class="line">ATS_CRITICAL - Critical log level</div>
-<div class="line">ATS_ERROR - Error log level</div>
-<div class="line">ATS_INFO - Info log level</div>
+<div class="line">__slots__ - Setting class slots.</div>
+<div class="line">VERBOSE - Console text indicator for current process-phase.</div>
+<div class="line">LOG_MSG_FORMAT - Log message format.</div>
+<div class="line">LOG_DATE_FORMAT - Log date format.</div>
+<div class="line">ATS_DEBUG - Debug log level.</div>
+<div class="line">ATS_WARNING - Warning log level.</div>
+<div class="line">ATS_CRITICAL - Critical log level.</div>
+<div class="line">ATS_ERROR - Error log level.</div>
+<div class="line">ATS_INFO - Info log level.</div>
 </div>
 </td>
 </tr>
 <tr class="field-even field"><th class="field-name">methods:</th><td class="field-body"><div class="first last line-block">
-<div class="line">__init__ - Initial constructor</div>
-<div class="line">write_log - Write message to log file</div>
+<div class="line">__init__ - Initial constructor.</div>
+<div class="line">write_log - Write message to log file.</div>
 </div>
 </td>
 </tr>
@@ -243,145 +246,66 @@ It defines:</p>
 </table>
 </div></blockquote>
 <dl class="attribute">
-<dt id="ats_utilities.logging.ats_logger.ATSLogger.ATS_CRITICAL">
-<code class="descname">ATS_CRITICAL</code><em class="property"> = 50</em><a class="headerlink" href="#ats_utilities.logging.ats_logger.ATSLogger.ATS_CRITICAL" title="Permalink to this definition">¶</a></dt>
+<dt id="ats_utilities.logging.ATSLogger.ATS_CRITICAL">
+<code class="descname">ATS_CRITICAL</code><em class="property"> = 50</em><a class="headerlink" href="#ats_utilities.logging.ATSLogger.ATS_CRITICAL" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
-<dt id="ats_utilities.logging.ats_logger.ATSLogger.ATS_DEBUG">
-<code class="descname">ATS_DEBUG</code><em class="property"> = 10</em><a class="headerlink" href="#ats_utilities.logging.ats_logger.ATSLogger.ATS_DEBUG" title="Permalink to this definition">¶</a></dt>
+<dt id="ats_utilities.logging.ATSLogger.ATS_DEBUG">
+<code class="descname">ATS_DEBUG</code><em class="property"> = 10</em><a class="headerlink" href="#ats_utilities.logging.ATSLogger.ATS_DEBUG" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
-<dt id="ats_utilities.logging.ats_logger.ATSLogger.ATS_ERROR">
-<code class="descname">ATS_ERROR</code><em class="property"> = 40</em><a class="headerlink" href="#ats_utilities.logging.ats_logger.ATSLogger.ATS_ERROR" title="Permalink to this definition">¶</a></dt>
+<dt id="ats_utilities.logging.ATSLogger.ATS_ERROR">
+<code class="descname">ATS_ERROR</code><em class="property"> = 40</em><a class="headerlink" href="#ats_utilities.logging.ATSLogger.ATS_ERROR" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
-<dt id="ats_utilities.logging.ats_logger.ATSLogger.ATS_INFO">
-<code class="descname">ATS_INFO</code><em class="property"> = 20</em><a class="headerlink" href="#ats_utilities.logging.ats_logger.ATSLogger.ATS_INFO" title="Permalink to this definition">¶</a></dt>
+<dt id="ats_utilities.logging.ATSLogger.ATS_INFO">
+<code class="descname">ATS_INFO</code><em class="property"> = 20</em><a class="headerlink" href="#ats_utilities.logging.ATSLogger.ATS_INFO" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
-<dt id="ats_utilities.logging.ats_logger.ATSLogger.ATS_WARNING">
-<code class="descname">ATS_WARNING</code><em class="property"> = 30</em><a class="headerlink" href="#ats_utilities.logging.ats_logger.ATSLogger.ATS_WARNING" title="Permalink to this definition">¶</a></dt>
+<dt id="ats_utilities.logging.ATSLogger.ATS_WARNING">
+<code class="descname">ATS_WARNING</code><em class="property"> = 30</em><a class="headerlink" href="#ats_utilities.logging.ATSLogger.ATS_WARNING" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
-<dt id="ats_utilities.logging.ats_logger.ATSLogger.LOG_DATE_FORMAT">
-<code class="descname">LOG_DATE_FORMAT</code><em class="property"> = '%m/%d/%Y %I:%M:%S %p'</em><a class="headerlink" href="#ats_utilities.logging.ats_logger.ATSLogger.LOG_DATE_FORMAT" title="Permalink to this definition">¶</a></dt>
+<dt id="ats_utilities.logging.ATSLogger.LOG_DATE_FORMAT">
+<code class="descname">LOG_DATE_FORMAT</code><em class="property"> = '%m/%d/%Y %I:%M:%S %p'</em><a class="headerlink" href="#ats_utilities.logging.ATSLogger.LOG_DATE_FORMAT" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
-<dt id="ats_utilities.logging.ats_logger.ATSLogger.LOG_MSG_FORMAT">
-<code class="descname">LOG_MSG_FORMAT</code><em class="property"> = '%(asctime)s - %(levelname)s - %(message)s'</em><a class="headerlink" href="#ats_utilities.logging.ats_logger.ATSLogger.LOG_MSG_FORMAT" title="Permalink to this definition">¶</a></dt>
+<dt id="ats_utilities.logging.ATSLogger.LOG_MSG_FORMAT">
+<code class="descname">LOG_MSG_FORMAT</code><em class="property"> = '%(asctime)s - %(levelname)s - %(message)s'</em><a class="headerlink" href="#ats_utilities.logging.ATSLogger.LOG_MSG_FORMAT" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
-<dt id="ats_utilities.logging.ats_logger.ATSLogger.VERBOSE">
-<code class="descname">VERBOSE</code><em class="property"> = 'ATS_UTILITIES::LOGGING::ATS_LOGGER'</em><a class="headerlink" href="#ats_utilities.logging.ats_logger.ATSLogger.VERBOSE" title="Permalink to this definition">¶</a></dt>
+<dt id="ats_utilities.logging.ATSLogger.VERBOSE">
+<code class="descname">VERBOSE</code><em class="property"> = 'ATS_UTILITIES::LOGGING::ATS_LOGGER'</em><a class="headerlink" href="#ats_utilities.logging.ATSLogger.VERBOSE" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="method">
-<dt id="ats_utilities.logging.ats_logger.ATSLogger.write_log">
-<code class="descname">write_log</code><span class="sig-paren">(</span><em>message</em>, <em>ctrl</em>, <em>verbose=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ats_utilities/logging/ats_logger.html#ATSLogger.write_log"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ats_utilities.logging.ats_logger.ATSLogger.write_log" title="Permalink to this definition">¶</a></dt>
-<dd><p>Write log message to log file.</p>
+<dl class="attribute">
+<dt id="ats_utilities.logging.ATSLogger.logger">
+<code class="descname">logger</code><a class="headerlink" href="#ats_utilities.logging.ATSLogger.logger" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="ats_utilities.logging.ATSLogger.logger_file">
+<code class="descname">logger_file</code><a class="headerlink" href="#ats_utilities.logging.ATSLogger.logger_file" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="ats_utilities.logging.ATSLogger.logger_name">
+<code class="descname">logger_name</code><a class="headerlink" href="#ats_utilities.logging.ATSLogger.logger_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Property method for getting logger name.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>message</strong> (<em>&lt;str&gt;</em>) – Log message</li>
-<li><strong>ctrl</strong> (<em>&lt;int&gt;</em>) – Control flag (debug, warning, critical, errors, info)</li>
-<li><strong>verbose</strong> (<em>&lt;bool&gt;</em>) – Enable/disable verbose option</li>
-</ul>
-</td>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Logger name | None.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">True (success) | False</p>
-</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first">&lt;bool&gt;</p>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Exceptions:</th><td class="field-body"><p class="first last">ATSBadCallError | ATSTypeError</p>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-</dd></dl>
-
-</div>
-<div class="section" id="module-ats_utilities.logging.ats_logger_base">
-<span id="ats-utilities-logging-ats-logger-base-module"></span><h2>ats_utilities.logging.ats_logger_base module<a class="headerlink" href="#module-ats_utilities.logging.ats_logger_base" title="Permalink to this headline">¶</a></h2>
-<dl class="docutils">
-<dt>Module</dt>
-<dd>ats_logger_base.py</dd>
-<dt>Copyright</dt>
-<dd>Copyright (C) 2018 Vladimir Roncevic &lt;<a class="reference external" href="mailto:elektron&#46;ronca&#37;&#52;&#48;gmail&#46;com">elektron<span>&#46;</span>ronca<span>&#64;</span>gmail<span>&#46;</span>com</a>&gt;
-ats_utilities is free software: you can redistribute it and/or modify it
-under the terms of the GNU General Public License as published by the
-Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-ats_utilities is distributed in the hope that it will be useful, but
-WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-See the GNU General Public License for more details.
-You should have received a copy of the GNU General Public License along
-with this program. If not, see &lt;<a class="reference external" href="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</a>&gt;.</dd>
-<dt>Info</dt>
-<dd>Define class ATSLoggerBase with attribute(s) and method(s).
-Base container for logging mechanism.</dd>
-</dl>
-<dl class="class">
-<dt id="ats_utilities.logging.ats_logger_base.ATSLoggerBase">
-<em class="property">class </em><code class="descclassname">ats_utilities.logging.ats_logger_base.</code><code class="descname">ATSLoggerBase</code><span class="sig-paren">(</span><em>verbose=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ats_utilities/logging/ats_logger_base.html#ATSLoggerBase"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ats_utilities.logging.ats_logger_base.ATSLoggerBase" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>Define class ATSLoggerBase with attribute(s) and method(s).
-Base container for logging mechanism.
-It defines:</p>
-<blockquote>
-<div><table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">attributes:</th><td class="field-body"><div class="first last line-block">
-<div class="line">__slots__ - Setting class slots</div>
-<div class="line">VERBOSE - Console text indicator for current process-phase</div>
-<div class="line">__logger_name - Logger name</div>
-<div class="line">__logger_status - Logger info status</div>
-<div class="line">__logger_file - Logger file path</div>
-<div class="line">__logger - Object logger</div>
-</div>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">methods:</th><td class="field-body"><div class="first last line-block">
-<div class="line">__init__ - Initial constructor</div>
-<div class="line">logger - Getting/Setting logger object</div>
-<div class="line">write_log - Write message to log file (Abstract method)</div>
-</div>
-</td>
-</tr>
-</tbody>
-</table>
-</div></blockquote>
-<dl class="attribute">
-<dt id="ats_utilities.logging.ats_logger_base.ATSLoggerBase.VERBOSE">
-<code class="descname">VERBOSE</code><em class="property"> = 'ATS_UTILITIES::LOGGING::ATS_BASE_LOGGER'</em><a class="headerlink" href="#ats_utilities.logging.ats_logger_base.ATSLoggerBase.VERBOSE" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="ats_utilities.logging.ats_logger_base.ATSLoggerBase.logger">
-<code class="descname">logger</code><a class="headerlink" href="#ats_utilities.logging.ats_logger_base.ATSLoggerBase.logger" title="Permalink to this definition">¶</a></dt>
-<dd><p>Getting logger object.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Logger object</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">&lt;logging.Logger&gt;</td>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">&lt;str&gt; | &lt;NoneType&gt;</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Exceptions:</th><td class="field-body">None</td>
 </tr>
@@ -390,241 +314,14 @@ It defines:</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="ats_utilities.logging.ats_logger_base.ATSLoggerBase.logger_file">
-<code class="descname">logger_file</code><a class="headerlink" href="#ats_utilities.logging.ats_logger_base.ATSLoggerBase.logger_file" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="ats_utilities.logging.ats_logger_base.ATSLoggerBase.logger_name">
-<code class="descname">logger_name</code><a class="headerlink" href="#ats_utilities.logging.ats_logger_base.ATSLoggerBase.logger_name" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="ats_utilities.logging.ats_logger_base.ATSLoggerBase.logger_status">
-<code class="descname">logger_status</code><a class="headerlink" href="#ats_utilities.logging.ats_logger_base.ATSLoggerBase.logger_status" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="ats_utilities.logging.ats_logger_base.ATSLoggerBase.write_log">
-<code class="descname">write_log</code><em class="property"> = &lt;ats_utilities.abstract.abstract_method object&gt;</em><a class="headerlink" href="#ats_utilities.logging.ats_logger_base.ATSLoggerBase.write_log" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-</div>
-<div class="section" id="module-ats_utilities.logging.ats_logger_file">
-<span id="ats-utilities-logging-ats-logger-file-module"></span><h2>ats_utilities.logging.ats_logger_file module<a class="headerlink" href="#module-ats_utilities.logging.ats_logger_file" title="Permalink to this headline">¶</a></h2>
-<dl class="docutils">
-<dt>Module</dt>
-<dd>ats_logger_file.py</dd>
-<dt>Copyright</dt>
-<dd>Copyright (C) 2018 Vladimir Roncevic &lt;<a class="reference external" href="mailto:elektron&#46;ronca&#37;&#52;&#48;gmail&#46;com">elektron<span>&#46;</span>ronca<span>&#64;</span>gmail<span>&#46;</span>com</a>&gt;
-ats_utilities is free software: you can redistribute it and/or modify it
-under the terms of the GNU General Public License as published by the
-Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-ats_utilities is distributed in the hope that it will be useful, but
-WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-See the GNU General Public License for more details.
-You should have received a copy of the GNU General Public License along
-with this program. If not, see &lt;<a class="reference external" href="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</a>&gt;.</dd>
-<dt>Info</dt>
-<dd>Define class ATSLoggerFile with attribute(s) and method(s).
-Logging mechanism for App/Tool/Script, keep, set, get logger file path.</dd>
-</dl>
-<dl class="class">
-<dt id="ats_utilities.logging.ats_logger_file.ATSLoggerFile">
-<em class="property">class </em><code class="descclassname">ats_utilities.logging.ats_logger_file.</code><code class="descname">ATSLoggerFile</code><span class="sig-paren">(</span><em>logger_file=None</em>, <em>verbose=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ats_utilities/logging/ats_logger_file.html#ATSLoggerFile"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ats_utilities.logging.ats_logger_file.ATSLoggerFile" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>Define class ATSLoggerFile with attribute(s) and method(s).
-Logging mechanism for App/Tool/Script, keep, set, get logger file path.
-It defines:</p>
-<blockquote>
-<div><table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">attributes:</th><td class="field-body"><div class="first last line-block">
-<div class="line">__slots__ - Setting class slots</div>
-<div class="line">VERBOSE - Console text indicator for current process-phase</div>
-<div class="line">__log_file - Log file path</div>
-</div>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">methods:</th><td class="field-body"><div class="first last line-block">
-<div class="line">__init__ - Initial constructor</div>
-<div class="line">log_file - Getting/Setting log file path</div>
-</div>
-</td>
-</tr>
-</tbody>
-</table>
-</div></blockquote>
-<dl class="attribute">
-<dt id="ats_utilities.logging.ats_logger_file.ATSLoggerFile.VERBOSE">
-<code class="descname">VERBOSE</code><em class="property"> = 'ATS_UTILITIES::LOGGING::ATS_LOGGER_FILE'</em><a class="headerlink" href="#ats_utilities.logging.ats_logger_file.ATSLoggerFile.VERBOSE" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="ats_utilities.logging.ats_logger_file.ATSLoggerFile.log_file">
-<code class="descname">log_file</code><a class="headerlink" href="#ats_utilities.logging.ats_logger_file.ATSLoggerFile.log_file" title="Permalink to this definition">¶</a></dt>
-<dd><p>Getting log file path.</p>
+<dt id="ats_utilities.logging.ATSLogger.logger_status">
+<code class="descname">logger_status</code><a class="headerlink" href="#ats_utilities.logging.ATSLogger.logger_status" title="Permalink to this definition">¶</a></dt>
+<dd><p>Property method for getting logger status.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Log file path</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">&lt;str&gt;</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Exceptions:</th><td class="field-body">None</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-</dd></dl>
-
-</div>
-<div class="section" id="module-ats_utilities.logging.ats_logger_name">
-<span id="ats-utilities-logging-ats-logger-name-module"></span><h2>ats_utilities.logging.ats_logger_name module<a class="headerlink" href="#module-ats_utilities.logging.ats_logger_name" title="Permalink to this headline">¶</a></h2>
-<dl class="docutils">
-<dt>Module</dt>
-<dd>ats_logger_name.py</dd>
-<dt>Copyright</dt>
-<dd>Copyright (C) 2018 Vladimir Roncevic &lt;<a class="reference external" href="mailto:elektron&#46;ronca&#37;&#52;&#48;gmail&#46;com">elektron<span>&#46;</span>ronca<span>&#64;</span>gmail<span>&#46;</span>com</a>&gt;
-ats_utilities is free software: you can redistribute it and/or modify it
-under the terms of the GNU General Public License as published by the
-Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-ats_utilities is distributed in the hope that it will be useful, but
-WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-See the GNU General Public License for more details.
-You should have received a copy of the GNU General Public License along
-with this program. If not, see &lt;<a class="reference external" href="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</a>&gt;.</dd>
-<dt>Info</dt>
-<dd>Define class ATSLoggerName with attribute(s) and method(s).
-Logging mechanism for App/Tool/Script, keep, set, get logger name.</dd>
-</dl>
-<dl class="class">
-<dt id="ats_utilities.logging.ats_logger_name.ATSLoggerName">
-<em class="property">class </em><code class="descclassname">ats_utilities.logging.ats_logger_name.</code><code class="descname">ATSLoggerName</code><span class="sig-paren">(</span><em>logger_name=None</em>, <em>verbose=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ats_utilities/logging/ats_logger_name.html#ATSLoggerName"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ats_utilities.logging.ats_logger_name.ATSLoggerName" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>Define class ATSLoggerName with attribute(s) and method(s).
-Logging mechanism for App/Tool/Script, keep, set, get logger name.
-It defines:</p>
-<blockquote>
-<div><table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">attributes:</th><td class="field-body"><div class="first last line-block">
-<div class="line">__slots__ - Setting class slots</div>
-<div class="line">VERBOSE - Console text indicator for current process-phase</div>
-<div class="line">__logger_name - Logger name</div>
-</div>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">methods:</th><td class="field-body"><div class="first last line-block">
-<div class="line">__init__ - Initial constructor</div>
-<div class="line">logger_name - Getting/Setting logger name</div>
-</div>
-</td>
-</tr>
-</tbody>
-</table>
-</div></blockquote>
-<dl class="attribute">
-<dt id="ats_utilities.logging.ats_logger_name.ATSLoggerName.VERBOSE">
-<code class="descname">VERBOSE</code><em class="property"> = 'ATS_UTILITIES::LOGGING::ATS_LOGGER_NAME'</em><a class="headerlink" href="#ats_utilities.logging.ats_logger_name.ATSLoggerName.VERBOSE" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="ats_utilities.logging.ats_logger_name.ATSLoggerName.logger_name">
-<code class="descname">logger_name</code><a class="headerlink" href="#ats_utilities.logging.ats_logger_name.ATSLoggerName.logger_name" title="Permalink to this definition">¶</a></dt>
-<dd><p>Getting logger name.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Logger name</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">&lt;str&gt;</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Exceptions:</th><td class="field-body">None</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-</dd></dl>
-
-</div>
-<div class="section" id="module-ats_utilities.logging.ats_logger_status">
-<span id="ats-utilities-logging-ats-logger-status-module"></span><h2>ats_utilities.logging.ats_logger_status module<a class="headerlink" href="#module-ats_utilities.logging.ats_logger_status" title="Permalink to this headline">¶</a></h2>
-<dl class="docutils">
-<dt>Module</dt>
-<dd>ats_logger_status.py</dd>
-<dt>Copyright</dt>
-<dd>Copyright (C) 2018 Vladimir Roncevic &lt;<a class="reference external" href="mailto:elektron&#46;ronca&#37;&#52;&#48;gmail&#46;com">elektron<span>&#46;</span>ronca<span>&#64;</span>gmail<span>&#46;</span>com</a>&gt;
-ats_utilities is free software: you can redistribute it and/or modify it
-under the terms of the GNU General Public License as published by the
-Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-ats_utilities is distributed in the hope that it will be useful, but
-WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-See the GNU General Public License for more details.
-You should have received a copy of the GNU General Public License along
-with this program. If not, see &lt;<a class="reference external" href="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</a>&gt;.</dd>
-<dt>Info</dt>
-<dd>Define class ATSLoggerStatus with attribute(s) and method(s).
-Logging mechanism for App/Tool/Script, keep, set, get logger status.</dd>
-</dl>
-<dl class="class">
-<dt id="ats_utilities.logging.ats_logger_status.ATSLoggerStatus">
-<em class="property">class </em><code class="descclassname">ats_utilities.logging.ats_logger_status.</code><code class="descname">ATSLoggerStatus</code><span class="sig-paren">(</span><em>log_status=False</em>, <em>verbose=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ats_utilities/logging/ats_logger_status.html#ATSLoggerStatus"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ats_utilities.logging.ats_logger_status.ATSLoggerStatus" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>Define class ATSLoggerStatus with attribute(s) and method(s).
-Logging mechanism for App/Tool/Script, keep, set, get logger status.
-It defines:</p>
-<blockquote>
-<div><table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">attribute:</th><td class="field-body"><div class="first last line-block">
-<div class="line">__slots__ - Setting class slots</div>
-<div class="line">VERBOSE - Console text indicator for current process-phase</div>
-<div class="line">__log_status - Logger operative (enabled/disabled)</div>
-</div>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">methods:</th><td class="field-body"><div class="first last line-block">
-<div class="line">__init__ - Initial constructor</div>
-<div class="line">logger_status - Getting/Setting logger status</div>
-</div>
-</td>
-</tr>
-</tbody>
-</table>
-</div></blockquote>
-<dl class="attribute">
-<dt id="ats_utilities.logging.ats_logger_status.ATSLoggerStatus.VERBOSE">
-<code class="descname">VERBOSE</code><em class="property"> = 'ATS_UTILITIES::LOGGING::ATS_LOGGER_STATUS'</em><a class="headerlink" href="#ats_utilities.logging.ats_logger_status.ATSLoggerStatus.VERBOSE" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="ats_utilities.logging.ats_logger_status.ATSLoggerStatus.logger_status">
-<code class="descname">logger_status</code><a class="headerlink" href="#ats_utilities.logging.ats_logger_status.ATSLoggerStatus.logger_status" title="Permalink to this definition">¶</a></dt>
-<dd><p>Getting logger status.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">True (logger operative) | False</td>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">True (logger operative) | False.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">&lt;bool&gt;</td>
 </tr>
@@ -634,12 +331,36 @@ It defines:</p>
 </table>
 </dd></dl>
 
+<dl class="method">
+<dt id="ats_utilities.logging.ATSLogger.write_log">
+<code class="descname">write_log</code><span class="sig-paren">(</span><em>message</em>, <em>ctrl</em>, <em>verbose=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ats_utilities/logging.html#ATSLogger.write_log"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ats_utilities.logging.ATSLogger.write_log" title="Permalink to this definition">¶</a></dt>
+<dd><p>Write message to log file.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>message</strong> (<em>&lt;str&gt;</em>) – Log message.</li>
+<li><strong>ctrl</strong> (<em>&lt;int&gt;</em>) – Control flag (debug, warning, critical, errors, info).</li>
+<li><strong>verbose</strong> (<em>&lt;bool&gt;</em>) – Enable/disable verbose option.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">True (success) | False.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first">&lt;bool&gt;</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Exceptions:</th><td class="field-body"><p class="first last">ATSTypeError | ATSBadCallError</p>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
-</div>
-<div class="section" id="module-ats_utilities.logging">
-<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-ats_utilities.logging" title="Permalink to this headline">¶</a></h2>
-<p>Logging mechanism for App/Tool/Scripts.</p>
+</dd></dl>
+
 </div>
 </div>
 
@@ -651,10 +372,10 @@ It defines:</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="ats_utilities.option.html" class="btn btn-neutral float-right" title="ats_utilities.option package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="ats_utilities.logging.ats_logger_file.html" class="btn btn-neutral float-right" title="ats_utilities.logging.ats_logger_file module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="ats_utilities.exceptions.html" class="btn btn-neutral float-left" title="ats_utilities.exceptions package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="ats_utilities.info.ats_version.html" class="btn btn-neutral float-left" title="ats_utilities.info.ats_version module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

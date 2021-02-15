@@ -17,25 +17,14 @@
      with this program. If not, see <http://www.gnu.org/licenses/>.
  Info
      Define class ATSLoggerName with attribute(s) and method(s).
-     Logging mechanism for App/Tool/Script, keep, set, get logger name.
+     Keep App/Tool/Script logger name in one propery object.
 """
-
-import sys
-from inspect import stack
-
-try:
-    from ats_utilities.console_io.verbose import verbose_message
-    from ats_utilities.exceptions.ats_type_error import ATSTypeError
-    from ats_utilities.exceptions.ats_bad_call_error import ATSBadCallError
-except ImportError as error:
-    MESSAGE = "\n{0}\n{1}\n".format(__file__, error)
-    sys.exit(MESSAGE)  # Force close python ATS ##############################
 
 __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2018, Free software to use and distributed it.'
 __credits__ = ['Vladimir Roncevic']
 __license__ = 'GNU General Public License (GPL)'
-__version__ = '1.0.0'
+__version__ = '1.2.2'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
@@ -44,43 +33,31 @@ __status__ = 'Updated'
 class ATSLoggerName(object):
     """
         Define class ATSLoggerName with attribute(s) and method(s).
-        Logging mechanism for App/Tool/Script, keep, set, get logger name.
+        Keep App/Tool/Script logger name in one propery object.
         It defines:
 
             :attributes:
-                | __slots__ - Setting class slots
-                | VERBOSE - Console text indicator for current process-phase
-                | __logger_name - Logger name
+                | __logger_name - Logger name.
             :methods:
-                | __init__ - Initial constructor
-                | logger_name - Getting/Setting logger name
+                | __init__ - Initial constructor.
+                | logger_name - Property methods for set/get operations.
     """
 
-    __slots__ = ('VERBOSE', '__logger_name')
-    VERBOSE = 'ATS_UTILITIES::LOGGING::ATS_LOGGER_NAME'
-
-    def __init__(self, logger_name=None, verbose=False):
+    def __init__(self):
         """
             Initial constructor.
 
-            :param logger_name: Logger name
-            :type logger_name: <str>
-            :param verbose: Enable/disable verbose option
-            :type verbose: <bool>
             :exceptions: None
         """
-        verbose_message(
-            ATSLoggerName.VERBOSE, verbose, 'Initial ATS logger Name'
-        )
-        self.__logger_name = logger_name
+        self.__logger_name = None
 
     @property
     def logger_name(self):
         """
-            Getting logger name.
+            Property method for getting logger name.
 
-            :return: Logger name
-            :rtype: <str>
+            :return: Logger name | None.
+            :rtype: <str> | <NoneType>
             :exceptions: None
         """
         return self.__logger_name
@@ -88,17 +65,10 @@ class ATSLoggerName(object):
     @logger_name.setter
     def logger_name(self, logger_name):
         """
-            Setting logger name.
+            Property method for setting logger name.
 
-            :param logger_name: Logger name
+            :param logger_name: Logger name.
             :type logger_name: <str>
-            :exceptions: ATSBadCallError | ATSTypeError
+            :exceptions: None
         """
-        func = stack()[0][3]
-        logger_name_txt = 'Argument: expected logger_name <str> object'
-        logger_name_msg = "{0} {1} {2}".format('def', func, logger_name_txt)
-        if logger_name is None or not logger_name:
-            raise ATSBadCallError(logger_name_msg)
-        if not isinstance(logger_name, str):
-            raise ATSTypeError(logger_name_msg)
         self.__logger_name = logger_name

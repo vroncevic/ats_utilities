@@ -17,25 +17,14 @@
      with this program. If not, see <http://www.gnu.org/licenses/>.
  Info
      Define class ATSLoggerFile with attribute(s) and method(s).
-     Logging mechanism for App/Tool/Script, keep, set, get logger file path.
+     Keep App/Tool/Script logger file path in one propery object.
 """
-
-import sys
-from inspect import stack
-
-try:
-    from ats_utilities.console_io.verbose import verbose_message
-    from ats_utilities.exceptions.ats_type_error import ATSTypeError
-    from ats_utilities.exceptions.ats_bad_call_error import ATSBadCallError
-except ImportError as error:
-    MESSAGE = "\n{0}\n{1}\n".format(__file__, error)
-    sys.exit(MESSAGE)  # Force close python ATS ##############################
 
 __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2018, Free software to use and distributed it.'
 __credits__ = ['Vladimir Roncevic']
 __license__ = 'GNU General Public License (GPL)'
-__version__ = '1.0.0'
+__version__ = '1.2.2'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
@@ -44,61 +33,42 @@ __status__ = 'Updated'
 class ATSLoggerFile(object):
     """
         Define class ATSLoggerFile with attribute(s) and method(s).
-        Logging mechanism for App/Tool/Script, keep, set, get logger file path.
+        Keep App/Tool/Script logger file path in one propery object.
         It defines:
 
             :attributes:
-                | __slots__ - Setting class slots
-                | VERBOSE - Console text indicator for current process-phase
-                | __log_file - Log file path
+                | __log_file - Log file path.
             :methods:
-                | __init__ - Initial constructor
-                | log_file - Getting/Setting log file path
+                | __init__ - Initial constructor.
+                | log_file - Property methods for set/get operations.
     """
 
-    __slots__ = ('VERBOSE', '__log_file')
-    VERBOSE = 'ATS_UTILITIES::LOGGING::ATS_LOGGER_FILE'
-
-    def __init__(self, logger_file=None, verbose=False):
+    def __init__(self):
         """
             Initial constructor.
 
-            :param logger_file: Log file path
-            :type logger_file: <str>
-            :param verbose: Enable/disable verbose option
-            :type verbose: <bool>
             :exceptions: None
         """
-        verbose_message(
-            ATSLoggerFile.VERBOSE, verbose, 'Initial ATS logger file'
-        )
-        self.__log_file = logger_file
+        self.__log_file = None
 
     @property
     def log_file(self):
         """
-            Getting log file path.
+            Property method for getting log file path.
 
-            :return: Log file path
-            :rtype: <str>
+            :return: Log file path | None.
+            :rtype: <str> | <NoneType>
             :exceptions: None
         """
         return self.__log_file
 
     @log_file.setter
-    def log_file(self, log_file_path):
+    def log_file(self, log_file):
         """
-            Setting log file path.
+            Property method for setting log file path.
 
-            :param log_file_path: Log file path
-            :type log_file_path: <str>
-            :exceptions: ATSBadCallError | ATSTypeError
+            :param log_file: Log file path.
+            :type log_file: <str>
+            :exceptions: None
         """
-        func = stack()[0][3]
-        log_file_txt = 'Argument: expected log_file_path <str> object'
-        log_file_msg = "{0} {1} {2}".format('def', func, log_file_txt)
-        if log_file_path is None or not log_file_path:
-            raise ATSBadCallError(log_file_msg)
-        if not isinstance(log_file_path, str):
-            raise ATSTypeError(log_file_msg)
-        self.__log_file = log_file_path
+        self.__log_file = log_file

@@ -1,0 +1,419 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html4" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>ats_utilities.checker package &mdash; ats_utilities https://github.com/vroncevic/ats_utilities/releases documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="ats_utilities.cli package" href="ats_utilities.cli.html" />
+    <link rel="prev" title="ats_utilities.abstract package" href="ats_utilities.abstract.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home" alt="Documentation Home"> ats_utilities
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.2.2
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="index.html">ATS Utilities</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">ats_utilities</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="ats_utilities.html">ats_utilities package</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="ats_utilities.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="ats_utilities.abstract.html">ats_utilities.abstract package</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">ats_utilities.checker package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ats_utilities.cli.html">ats_utilities.cli package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ats_utilities.config_io.html">ats_utilities.config_io package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ats_utilities.console_io.html">ats_utilities.console_io package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ats_utilities.exceptions.html">ats_utilities.exceptions package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ats_utilities.info.html">ats_utilities.info package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ats_utilities.logging.html">ats_utilities.logging package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ats_utilities.option.html">ats_utilities.option package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ats_utilities.register.html">ats_utilities.register package</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="ats_utilities.html#module-ats_utilities">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">ats_utilities</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="modules.html">ats_utilities</a> &raquo;</li>
+        
+          <li><a href="ats_utilities.html">ats_utilities package</a> &raquo;</li>
+        
+      <li>ats_utilities.checker package</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/ats_utilities.checker.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="ats-utilities-checker-package">
+<h1>ats_utilities.checker package<a class="headerlink" href="#ats-utilities-checker-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="module-ats_utilities.checker">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-ats_utilities.checker" title="Permalink to this headline">¶</a></h2>
+<dl class="docutils">
+<dt>Module</dt>
+<dd>__init__.py</dd>
+<dt>Copyright</dt>
+<dd>Copyright (C) 2021 Vladimir Roncevic &lt;<a class="reference external" href="mailto:elektron&#46;ronca&#37;&#52;&#48;gmail&#46;com">elektron<span>&#46;</span>ronca<span>&#64;</span>gmail<span>&#46;</span>com</a>&gt;
+ats_utilities is free software: you can redistribute it and/or modify it
+under the terms of the GNU General Public License as published by the
+Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+ats_utilities is distributed in the hope that it will be useful, but
+WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+See the GNU General Public License for more details.
+You should have received a copy of the GNU General Public License along
+with this program. If not, see &lt;<a class="reference external" href="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</a>&gt;.</dd>
+<dt>Info</dt>
+<dd>Define class ATSChecker with attribute(s) and method(s).
+Checking parameters for class methods and functions (types, values).</dd>
+</dl>
+<dl class="class">
+<dt id="ats_utilities.checker.ATSChecker">
+<em class="property">class </em><code class="descclassname">ats_utilities.checker.</code><code class="descname">ATSChecker</code><a class="reference internal" href="_modules/ats_utilities/checker.html#ATSChecker"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ats_utilities.checker.ATSChecker" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Define class ATSChecker with attribute(s) and method(s).
+Checking parameters for class methods and functions (types, values).
+It defines:</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">attributes:</th><td class="field-body"><div class="first last line-block">
+<div class="line">__slots__ - Setting class slots.</div>
+<div class="line">VERBOSE - Console text indicator for current process-phase.</div>
+<div class="line">TYPE_ERROR - Type error id (1).</div>
+<div class="line">VALUE_ERROR - Value error id (2).</div>
+<div class="line">__start_message - Start segment of usage message.</div>
+<div class="line">__list_of_params - List of parameters for method/function.</div>
+<div class="line">__error_type - List of mapped errors.</div>
+<div class="line">__error_type_index - Error type index.</div>
+<div class="line">__error_value_index - Error value index.</div>
+</div>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">methods:</th><td class="field-body"><div class="first last line-block">
+<div class="line">__init__ - Initial constructor.</div>
+<div class="line">collect_params - Collect all parameters in one list.</div>
+<div class="line">usage_message - Prepare usage message for method/function.</div>
+<div class="line">check_types - Check parameters (types) for method/function.</div>
+<div class="line">check_values - Check parameters (values) for method/function.</div>
+<div class="line">priority_error - Set priority error id.</div>
+<div class="line">check_params - Check parameters for method/function.</div>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+<dl class="attribute">
+<dt id="ats_utilities.checker.ATSChecker.TYPE_ERROR">
+<code class="descname">TYPE_ERROR</code><em class="property"> = 1</em><a class="headerlink" href="#ats_utilities.checker.ATSChecker.TYPE_ERROR" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="ats_utilities.checker.ATSChecker.VALUE_ERROR">
+<code class="descname">VALUE_ERROR</code><em class="property"> = 2</em><a class="headerlink" href="#ats_utilities.checker.ATSChecker.VALUE_ERROR" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="ats_utilities.checker.ATSChecker.VERBOSE">
+<code class="descname">VERBOSE</code><em class="property"> = 'ATS_UTILITIES::CHECKER::ATS_CHECKER'</em><a class="headerlink" href="#ats_utilities.checker.ATSChecker.VERBOSE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="ats_utilities.checker.ATSChecker.check_params">
+<code class="descname">check_params</code><span class="sig-paren">(</span><em>params_descript</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ats_utilities/checker.html#ATSChecker.check_params"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ats_utilities.checker.ATSChecker.check_params" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check parameters for method/function.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>params_descript</strong> (<em>&lt;list&gt;</em>) – Parameters description.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Usage message, status (TYPE_ERROR | VALUE_ERROR | 0).</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">&lt;str&gt;, &lt;int&gt;</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Exceptions:</th><td class="field-body">None</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="ats_utilities.checker.ATSChecker.check_types">
+<code class="descname">check_types</code><span class="sig-paren">(</span><em>params_descript</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ats_utilities/checker.html#ATSChecker.check_types"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ats_utilities.checker.ATSChecker.check_types" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check parameters (types) for method/function.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>params_descript</strong> (<em>&lt;OrderedDict&gt;</em>) – Parameters description.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Exceptions:</th><td class="field-body">None</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="ats_utilities.checker.ATSChecker.check_values">
+<code class="descname">check_values</code><span class="sig-paren">(</span><em>params_descript</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ats_utilities/checker.html#ATSChecker.check_values"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ats_utilities.checker.ATSChecker.check_values" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check parameters (values) for method/function.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>params_descript</strong> (<em>&lt;OrderedDict&gt;</em>) – Parameters description.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Exceptions:</th><td class="field-body">None</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="ats_utilities.checker.ATSChecker.collect_params">
+<code class="descname">collect_params</code><span class="sig-paren">(</span><em>params_descript</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ats_utilities/checker.html#ATSChecker.collect_params"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ats_utilities.checker.ATSChecker.collect_params" title="Permalink to this definition">¶</a></dt>
+<dd><p>Collect all parameters in one list.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>params_descript</strong> (<em>&lt;OrderedDict&gt;</em>) – Description for parameters.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Exceptions:</th><td class="field-body">None</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="ats_utilities.checker.ATSChecker.priority_error">
+<code class="descname">priority_error</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/ats_utilities/checker.html#ATSChecker.priority_error"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ats_utilities.checker.ATSChecker.priority_error" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set priority error id.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Priority error id (TYPE_ERROR | VALUE_ERROR | 0).</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">&lt;int&gt;</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Exceptions:</th><td class="field-body">None</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="ats_utilities.checker.ATSChecker.usage_message">
+<code class="descname">usage_message</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/ats_utilities/checker.html#ATSChecker.usage_message"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ats_utilities.checker.ATSChecker.usage_message" title="Permalink to this definition">¶</a></dt>
+<dd><p>Prepare usage message for method/function.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Exceptions:</th><td class="field-body">None</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="ats_utilities.cli.html" class="btn btn-neutral float-right" title="ats_utilities.cli package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="ats_utilities.abstract.html" class="btn btn-neutral float-left" title="ats_utilities.abstract package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2020, Vladimir Roncevic &lt;elektron.ronca@gmail.com&gt;
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

@@ -37,7 +37,7 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="ats_utilities.register package" href="ats_utilities.register.html" />
-    <link rel="prev" title="ats_utilities.logging package" href="ats_utilities.logging.html" /> 
+    <link rel="prev" title="ats_utilities.logging.ats_logger_status module" href="ats_utilities.logging.ats_logger_status.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -61,7 +61,7 @@
             
             
               <div class="version">
-                1.0.1
+                1.2.2
               </div>
             
           
@@ -88,26 +88,22 @@
             
               <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="index.html">Python Utilities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html">ATS Utilities</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="modules.html">ats_utilities</a><ul class="current">
 <li class="toctree-l2 current"><a class="reference internal" href="ats_utilities.html">ats_utilities package</a><ul class="current">
 <li class="toctree-l3 current"><a class="reference internal" href="ats_utilities.html#subpackages">Subpackages</a><ul class="current">
 <li class="toctree-l4"><a class="reference internal" href="ats_utilities.abstract.html">ats_utilities.abstract package</a></li>
-<li class="toctree-l4"><a class="reference internal" href="ats_utilities.config.html">ats_utilities.config package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ats_utilities.checker.html">ats_utilities.checker package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ats_utilities.cli.html">ats_utilities.cli package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ats_utilities.config_io.html">ats_utilities.config_io package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ats_utilities.console_io.html">ats_utilities.console_io package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ats_utilities.exceptions.html">ats_utilities.exceptions package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ats_utilities.info.html">ats_utilities.info package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ats_utilities.logging.html">ats_utilities.logging package</a></li>
 <li class="toctree-l4 current"><a class="current reference internal" href="#">ats_utilities.option package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ats_utilities.register.html">ats_utilities.register package</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="ats_utilities.html#submodules">Submodules</a></li>
-<li class="toctree-l3"><a class="reference internal" href="ats_utilities.html#module-ats_utilities.ats_info">ats_utilities.ats_info module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="ats_utilities.html#module-ats_utilities.cfg_base">ats_utilities.cfg_base module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="ats_utilities.html#module-ats_utilities.ini_base">ats_utilities.ini_base module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="ats_utilities.html#module-ats_utilities.json_base">ats_utilities.json_base module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="ats_utilities.html#module-ats_utilities.xml_base">ats_utilities.xml_base module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="ats_utilities.html#module-ats_utilities.yaml_base">ats_utilities.yaml_base module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="ats_utilities.html#module-ats_utilities">Module contents</a></li>
 </ul>
 </li>
@@ -184,14 +180,11 @@
             
   <div class="section" id="ats-utilities-option-package">
 <h1>ats_utilities.option package<a class="headerlink" href="#ats-utilities-option-package" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="submodules">
-<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
-</div>
-<div class="section" id="module-ats_utilities.option.ats_option_parser">
-<span id="ats-utilities-option-ats-option-parser-module"></span><h2>ats_utilities.option.ats_option_parser module<a class="headerlink" href="#module-ats_utilities.option.ats_option_parser" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-ats_utilities.option">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-ats_utilities.option" title="Permalink to this headline">¶</a></h2>
 <dl class="docutils">
 <dt>Module</dt>
-<dd>ats_option_parser.py</dd>
+<dd>__init__.py</dd>
 <dt>Copyright</dt>
 <dd>Copyright (C) 2018 Vladimir Roncevic &lt;<a class="reference external" href="mailto:elektron&#46;ronca&#37;&#52;&#48;gmail&#46;com">elektron<span>&#46;</span>ronca<span>&#64;</span>gmail<span>&#46;</span>com</a>&gt;
 ats_utilities is free software: you can redistribute it and/or modify it
@@ -209,8 +202,8 @@ with this program. If not, see &lt;<a class="reference external" href="http://ww
 Create option parser and process arguments from start.</dd>
 </dl>
 <dl class="class">
-<dt id="ats_utilities.option.ats_option_parser.ATSOptionParser">
-<em class="property">class </em><code class="descclassname">ats_utilities.option.ats_option_parser.</code><code class="descname">ATSOptionParser</code><span class="sig-paren">(</span><em>version</em>, <em>epilog</em>, <em>description</em>, <em>verbose=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ats_utilities/option/ats_option_parser.html#ATSOptionParser"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ats_utilities.option.ats_option_parser.ATSOptionParser" title="Permalink to this definition">¶</a></dt>
+<dt id="ats_utilities.option.ATSOptionParser">
+<em class="property">class </em><code class="descclassname">ats_utilities.option.</code><code class="descname">ATSOptionParser</code><span class="sig-paren">(</span><em>version</em>, <em>epilog</em>, <em>description</em>, <em>verbose=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ats_utilities/option.html#ATSOptionParser"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ats_utilities.option.ATSOptionParser" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Define class ATSOptionParser with attribute(s) and method(s).
 Create option parser and process arguments from start.
@@ -221,16 +214,16 @@ It defines:</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">attributes:</th><td class="field-body"><div class="first last line-block">
-<div class="line">__slots__ - Setting class slots</div>
-<div class="line">VERBOSE - Console text indicator for current process-phase</div>
-<div class="line">__opt_parser - Options parser</div>
+<div class="line">__slots__ - Setting class slots.</div>
+<div class="line">VERBOSE - Console text indicator for current process-phase.</div>
+<div class="line">__opt_parser - Options parser.</div>
 </div>
 </td>
 </tr>
 <tr class="field-even field"><th class="field-name">methods:</th><td class="field-body"><div class="first last line-block">
-<div class="line">__init__ - Initial constructor</div>
-<div class="line">add_operation - Adding option to App/Tool/Script</div>
-<div class="line">parse_args - Process arguments from start</div>
+<div class="line">__init__ - Initial constructor.</div>
+<div class="line">add_operation - Add option to App/Tool/Script.</div>
+<div class="line">parse_args - Process arguments from start.</div>
 </div>
 </td>
 </tr>
@@ -238,21 +231,21 @@ It defines:</p>
 </table>
 </div></blockquote>
 <dl class="attribute">
-<dt id="ats_utilities.option.ats_option_parser.ATSOptionParser.VERBOSE">
-<code class="descname">VERBOSE</code><em class="property"> = 'ATS_UTILITIES::OPTION::ATS_OPTION_PARSER'</em><a class="headerlink" href="#ats_utilities.option.ats_option_parser.ATSOptionParser.VERBOSE" title="Permalink to this definition">¶</a></dt>
+<dt id="ats_utilities.option.ATSOptionParser.VERBOSE">
+<code class="descname">VERBOSE</code><em class="property"> = 'ATS_UTILITIES::OPTION::ATS_OPTION_PARSER'</em><a class="headerlink" href="#ats_utilities.option.ATSOptionParser.VERBOSE" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
-<dt id="ats_utilities.option.ats_option_parser.ATSOptionParser.add_operation">
-<code class="descname">add_operation</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ats_utilities/option/ats_option_parser.html#ATSOptionParser.add_operation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ats_utilities.option.ats_option_parser.ATSOptionParser.add_operation" title="Permalink to this definition">¶</a></dt>
-<dd><p>Adding option to App/Tool/Script.</p>
+<dt id="ats_utilities.option.ATSOptionParser.add_operation">
+<code class="descname">add_operation</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ats_utilities/option.html#ATSOptionParser.add_operation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ats_utilities.option.ATSOptionParser.add_operation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add option to App/Tool/Script.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>args</strong> (<em>&lt;list&gt;</em>) – List of arguments (objects)</li>
-<li><strong>kwargs</strong> (<em>&lt;dict&gt;</em>) – Arguments in shape of dictionary</li>
+<li><strong>args</strong> (<em>&lt;list&gt;</em>) – List of arguments (objects).</li>
+<li><strong>kwargs</strong> (<em>&lt;dict&gt;</em>) – Arguments in shape of dictionary.</li>
 </ul>
 </td>
 </tr>
@@ -264,16 +257,16 @@ It defines:</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="ats_utilities.option.ats_option_parser.ATSOptionParser.parse_args">
-<code class="descname">parse_args</code><span class="sig-paren">(</span><em>argv</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ats_utilities/option/ats_option_parser.html#ATSOptionParser.parse_args"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ats_utilities.option.ats_option_parser.ATSOptionParser.parse_args" title="Permalink to this definition">¶</a></dt>
+<dt id="ats_utilities.option.ATSOptionParser.parse_args">
+<code class="descname">parse_args</code><span class="sig-paren">(</span><em>argv</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ats_utilities/option.html#ATSOptionParser.parse_args"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ats_utilities.option.ATSOptionParser.parse_args" title="Permalink to this definition">¶</a></dt>
 <dd><p>Process arguments from start.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>argv</strong> (<em>&lt;Python object</em><em>(</em><em>s</em><em>)</em><em>&gt;</em>) – Arguments</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>argv</strong> (<em>&lt;Python object</em><em>(</em><em>s</em><em>)</em><em>&gt;</em>) – Arguments.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Options and arguments</td>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Options and arguments.</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">&lt;Python object(s)&gt;</td>
 </tr>
@@ -285,10 +278,6 @@ It defines:</p>
 
 </dd></dl>
 
-</div>
-<div class="section" id="module-ats_utilities.option">
-<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-ats_utilities.option" title="Permalink to this headline">¶</a></h2>
-<p>Argument processing mechanism for App/Tool/Scripts.</p>
 </div>
 </div>
 
@@ -303,7 +292,7 @@ It defines:</p>
         <a href="ats_utilities.register.html" class="btn btn-neutral float-right" title="ats_utilities.register package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="ats_utilities.logging.html" class="btn btn-neutral float-left" title="ats_utilities.logging package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="ats_utilities.logging.ats_logger_status.html" class="btn btn-neutral float-left" title="ats_utilities.logging.ats_logger_status module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
