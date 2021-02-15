@@ -17,19 +17,8 @@
      with this program. If not, see <http://www.gnu.org/licenses/>.
  Info
      Define class ATSLoggerFile with attribute(s) and method(s).
-     Logging mechanism for App/Tool/Script, keep, set, get logger file path.
+     Keep App/Tool/Script logger file path in one propery object.
 """
-
-import sys
-
-try:
-    from ats_utilities.checker import ATSChecker
-    from ats_utilities.console_io.verbose import verbose_message
-    from ats_utilities.exceptions.ats_type_error import ATSTypeError
-    from ats_utilities.exceptions.ats_bad_call_error import ATSBadCallError
-except ImportError as error_message:
-    MESSAGE = "\n{0}\n{1}\n".format(__file__, error_message)
-    sys.exit(MESSAGE)  # Force close python ATS ##############################
 
 __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2018, Free software to use and distributed it.'
@@ -44,50 +33,31 @@ __status__ = 'Updated'
 class ATSLoggerFile(object):
     """
         Define class ATSLoggerFile with attribute(s) and method(s).
-        Logging mechanism for App/Tool/Script, keep, set, get logger file path.
+        Keep App/Tool/Script logger file path in one propery object.
         It defines:
 
             :attributes:
-                | __slots__ - Setting class slots
-                | VERBOSE - Console text indicator for current process-phase
-                | __checker - ATS checker for parameters
-                | __log_file - Log file path
+                | __log_file - Log file path.
             :methods:
-                | __init__ - Initial constructor
-                | log_file - Getting/Setting log file path
+                | __init__ - Initial constructor.
+                | log_file - Property methods for set/get operations.
     """
 
-    __slots__ = ('VERBOSE', '__log_file', '__checker')
-    VERBOSE = 'ATS_UTILITIES::LOGGING::ATS_LOGGER_FILE'
-
-    def __init__(self, log_file=None, verbose=False):
+    def __init__(self):
         """
             Initial constructor.
 
-            :param log_file: Log file path
-            :type log_file: <str>
-            :param verbose: Enable/disable verbose option
-            :type verbose: <bool>
-            :exceptions: ATSTypeError | ATSBadCallError
+            :exceptions: None
         """
-        self.__checker = ATSChecker()
-        error, status = self.__checker.check_params(
-            [('str:log_file', log_file)]
-        )
-        if status == ATSChecker.TYPE_ERROR: raise ATSTypeError(error)
-        if status == ATSChecker.VALUE_ERROR: raise ATSBadCallError(error)
-        verbose_message(
-            ATSLoggerFile.VERBOSE, verbose, 'Initial ATS logger file'
-        )
-        self.__log_file = log_file
+        self.__log_file = None
 
     @property
     def log_file(self):
         """
-            Getting log file path.
+            Property method for getting log file path.
 
-            :return: Log file path
-            :rtype: <str>
+            :return: Log file path | None.
+            :rtype: <str> | <NoneType>
             :exceptions: None
         """
         return self.__log_file
@@ -95,15 +65,10 @@ class ATSLoggerFile(object):
     @log_file.setter
     def log_file(self, log_file):
         """
-            Setting log file path.
+            Property method for setting log file path.
 
-            :param log_file: Log file path
+            :param log_file: Log file path.
             :type log_file: <str>
-            :exceptions: ATSTypeError | ATSBadCallError
+            :exceptions: None
         """
-        error, status = self.__checker.check_params(
-            [('str:log_file', log_file)]
-        )
-        if status == ATSChecker.TYPE_ERROR: raise ATSTypeError(error)
-        if status == ATSChecker.VALUE_ERROR: raise ATSBadCallError(error)
         self.__log_file = log_file

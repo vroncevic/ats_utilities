@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Python Utilities &mdash; ats_utilities https://github.com/vroncevic/ats_utilities/releases documentation</title>
+  <title>ATS Utilities &mdash; ats_utilities https://github.com/vroncevic/ats_utilities/releases documentation</title>
   
 
   
@@ -87,7 +87,7 @@
             
               <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Python Utilities</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">ATS Utilities</a></li>
 <li class="toctree-l1"><a class="reference internal" href="modules.html">ats_utilities</a></li>
 </ul>
 
@@ -135,7 +135,7 @@
     
       <li><a href="#" class="icon icon-home"></a> &raquo;</li>
         
-      <li>Python Utilities</li>
+      <li>ATS Utilities</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -154,8 +154,8 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="python-utilities">
-<h1>Python Utilities<a class="headerlink" href="#python-utilities" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="ats-utilities">
+<h1>ATS Utilities<a class="headerlink" href="#ats-utilities" title="Permalink to this headline">¶</a></h1>
 <p><strong>ats_utilities</strong> is framework for building Apps/Tools/Scripts.</p>
 <p>Developed in <a class="reference external" href="https://www.python.org/">python</a> code: <strong>100%</strong>.</p>
 <p>The README is used to introduce the modules and provide instructions on
@@ -165,27 +165,20 @@ other information that should be provided before the modules are installed.</p>
 <div class="toctree-wrapper compound">
 <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Python Utilities</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">ATS Utilities</a></li>
 <li class="toctree-l1"><a class="reference internal" href="modules.html">ats_utilities</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="ats_utilities.html">ats_utilities package</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="ats_utilities.html#subpackages">Subpackages</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="ats_utilities.abstract.html">ats_utilities.abstract package</a></li>
-<li class="toctree-l4"><a class="reference internal" href="ats_utilities.config.html">ats_utilities.config package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ats_utilities.checker.html">ats_utilities.checker package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ats_utilities.cli.html">ats_utilities.cli package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ats_utilities.config_io.html">ats_utilities.config_io package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ats_utilities.console_io.html">ats_utilities.console_io package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ats_utilities.exceptions.html">ats_utilities.exceptions package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ats_utilities.info.html">ats_utilities.info package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ats_utilities.logging.html">ats_utilities.logging package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ats_utilities.option.html">ats_utilities.option package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ats_utilities.register.html">ats_utilities.register package</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="ats_utilities.html#submodules">Submodules</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="ats_utilities.ats_info.html">ats_utilities.ats_info module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="ats_utilities.cfg_base.html">ats_utilities.cfg_base module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="ats_utilities.checker.html">ats_utilities.checker module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="ats_utilities.ini_base.html">ats_utilities.ini_base module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="ats_utilities.json_base.html">ats_utilities.json_base module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="ats_utilities.xml_base.html">ats_utilities.xml_base module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="ats_utilities.yaml_base.html">ats_utilities.yaml_base module</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="ats_utilities.html#module-ats_utilities">Module contents</a></li>
@@ -230,19 +223,23 @@ python setup.py install_egg_info
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ats_utilities/
 ├── abstract/
 │   └── __init__.py
-├── ats_info.py
-├── cfg_base.py
-├── checker.py
-├── config/
-│   ├── base_read_config.py
-│   ├── base_write_config.py
+├── checker/
+│   └── __init__.py
+├── cli/
+│   ├── cfg_cli.py
+│   ├── ini_cli.py
+│   ├── __init__.py
+│   ├── json_cli.py
+│   ├── xml_cli.py
+│   └── yaml_cli.py
+├── config_io/
+│   ├── base_check.py
+│   ├── base_read.py
+│   ├── base_write.py
 │   ├── cfg/
 │   │   ├── cfg2object.py
 │   │   ├── __init__.py
 │   │   └── object2cfg.py
-│   ├── check_base_config.py
-│   ├── config_context_manager.py
-│   ├── file_checking.py
 │   ├── ini/
 │   │   ├── ini2object.py
 │   │   ├── __init__.py
@@ -275,23 +272,23 @@ python setup.py install_egg_info
 │   ├── ats_type_error.py
 │   ├── ats_value_error.py
 │   └── __init__.py
-├── ini_base.py
+├── info/
+│   ├── ats_build_date.py
+│   ├── ats_info_ok.py
+│   ├── ats_license.py
+│   ├── ats_name.py
+│   ├── ats_version.py
+│   └── __init__.py
 ├── __init__.py
-├── json_base.py
 ├── logging/
-│   ├── ats_logger_base.py
 │   ├── ats_logger_file.py
 │   ├── ats_logger_name.py
-│   ├── ats_logger.py
 │   ├── ats_logger_status.py
 │   └── __init__.py
 ├── option/
-│   ├── ats_option_parser.py
 │   └── __init__.py
-├── register/
-│   └── __init__.py
-├── xml_base.py
-└── yaml_base.py
+└── register/
+    └── __init__.py
 </pre></div>
 </div>
 </div>

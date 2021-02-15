@@ -17,7 +17,7 @@
      with this program. If not, see <http://www.gnu.org/licenses/>.
  Info
      Define class ATSSuccess with attribute(s) and method(s).
-     Define verbose message container for console log mechanism.
+     Define success message container for console log mechanism.
 """
 
 import sys
@@ -45,21 +45,15 @@ __status__ = 'Updated'
 class ATSSuccess(ATSConsoleIO):
     """
         Define class ATSSuccess with attribute(s) and method(s).
-        Define verbose message container for console log mechanism.
+        Define success message container for console log mechanism.
         It defines:
 
             :attributes:
-                | __slots__ - Setting class slots
-                | VERBOSE - Console text indicator for current process-phase
-                | __checker - ATS checker for parameters
-                | __message - Success message container
+                | __message - Success message container.
             :methods:
-                | __init__ - Initial constructor
-                | message - Public setter/getter
+                | __init__ - Initial constructor.
+                | message - Property methods for set/get operations.
     """
-
-    __slots__ = ('VERBOSE', '__message', '__checker')
-    VERBOSE = 'ATS_UTILITIES::CONSOLE_IO::SUCCESS'
 
     def __init__(self):
         """
@@ -67,15 +61,14 @@ class ATSSuccess(ATSConsoleIO):
 
             :exceptions: None
         """
-        self.__checker = ATSChecker()
         self.__message = ""
 
     @property
     def message(self):
         """
-            Public property getter.
+            Property method for getting message.
 
-            :return: Formatted verbose message
+            :return: Formatted success message.
             :rtype: <str>
             :exceptions: None
         """
@@ -84,30 +77,28 @@ class ATSSuccess(ATSConsoleIO):
     @message.setter
     def message(self, message):
         """
-            Public property setter.
+            Property method for setting message.
 
-            :param message: Verbose message
+            :param message: Verbose message.
             :type message: <str>
-            :exceptions: ATSTypeError | ATSBadCallError
+            :exceptions: None
         """
-        error, status = self.__checker.check_params([('str:message', message)])
-        if status == ATSChecker.TYPE_ERROR: raise ATSTypeError(error)
-        if status == ATSChecker.VALUE_ERROR: raise ATSBadCallError(error)
-        init(autoreset=False)
-        self.__message = "{0}{1}{2}".format(Fore.GREEN, message, Fore.RESET)
+        self.__message = "{0}{1}{2}".format(
+            Fore.GREEN, message, Fore.RESET
+        )
 
 
 def success_message(success_path, *message):
     """
         Show success message.
 
-        :param success_path: Success prefix message
+        :param success_path: Success prefix message.
         :type success_path: <str>
-        :param message: Message parts
+        :param message: Message parts.
         :type message: <tuple>
         :exceptions: ATSTypeError | ATSBadCallError
     """
-    checker = ATSChecker()
+    checker, error, status = ATSChecker(), None, False
     error, status = checker.check_params(
         [('str:success_path', success_path), ('tuple:message', message)]
     )

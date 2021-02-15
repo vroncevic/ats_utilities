@@ -49,17 +49,11 @@ class ATSWarning(ATSConsoleIO):
         It defines:
 
             :attributes:
-                | __slots__ - Setting class slots
-                | VERBOSE - Console text indicator for current process-phase
-                | __checker - ATS checker for parameters
-                | __message - Warning message container
+                | __message - Warning message container.
             :methods:
-                | __init__ - Initial constructor
-                | message - Public setter/getter
+                | __init__ - Initial constructor.
+                | message - Property methods for set/get operations.
     """
-
-    __slots__ = ('VERBOSE', '__message', '__checker')
-    VERBOSE = 'ATS_UTILITIES::CONSOLE_IO::WARNING'
 
     def __init__(self):
         """
@@ -67,15 +61,14 @@ class ATSWarning(ATSConsoleIO):
 
             :exceptions: None
         """
-        self.__checker = ATSChecker()
         self.__message = ""
 
     @property
     def message(self):
         """
-            Public property getter.
+            Property method for getting message.
 
-            :return: Formatted warning message
+            :return: Formatted warning message.
             :rtype: <str>
             :exceptions: None
         """
@@ -84,30 +77,29 @@ class ATSWarning(ATSConsoleIO):
     @message.setter
     def message(self, message):
         """
-            Public property setter.
+            Property method for setting message.
 
-            :param message: Warning message
+            :param message: Warning message.
             :type message: <str>
-            :exceptions: ATSTypeError | ATSBadCallError
+            :exceptions: None
         """
-        error, status = self.__checker.check_params([('str:message', message)])
-        if status == ATSChecker.TYPE_ERROR: raise ATSTypeError(error)
-        if status == ATSChecker.VALUE_ERROR: raise ATSBadCallError(error)
         init(autoreset=False)
-        self.__message = "{0}{1}{2}".format(Fore.YELLOW, message, Fore.RESET)
+        self.__message = "{0}{1}{2}".format(
+            Fore.YELLOW, message, Fore.RESET
+        )
 
 
 def warning_message(warning_path, *message):
     """
         Show warning message.
 
-        :param warning_path: Warning prefix message
+        :param warning_path: Warning prefix message.
         :type warning_path: <str>
-        :param message: Message parts
+        :param message: Message parts.
         :type message: <tuple>
         :exceptions: ATSTypeError | ATSBadCallError
     """
-    checker = ATSChecker()
+    checker, error, status = ATSChecker(), None, False
     error, status = checker.check_params(
         [('str:warning_path', warning_path), ('tuple:message', message)]
     )

@@ -43,14 +43,14 @@ class ATSConsoleIO(object):
         Define class ATSConsoleIO with attribute(s) and method(s).
         Define message container for console log mechanism.
 
-            * verbose (Colorize text to blue)
-            * warning (Colorize text to yellow)
-            * error (Colorize text to red)
+            | * Verbose messages (Colorize text to blue).
+            | * Warning messages (Colorize text to yellow).
+            | * Error messages (Colorize text to red).
 
         It defines:
 
             :attributes:
-                | __metaclass__ - Setting metaclass
+                | __metaclass__ - Setting metaclass.
             :methods:
                 | None
     """

@@ -49,17 +49,11 @@ class ATSVerbose(ATSConsoleIO):
         It defines:
 
             :attributes:
-                | __slots__ - Setting class slots
-                | VERBOSE - Console text indicator for current process-phase
-                | __checker - ATS checker for parameters
-                | __message - Verbose message container
+                | __message - Verbose message container.
             :methods:
-                | __init__ - Initial constructor
-                | message - Public setter/getter
+                | __init__ - Initial constructor.
+                | message - Property methods for set/get operations.
     """
-
-    __slots__ = ('VERBOSE', '__message', '__checker')
-    VERBOSE = 'ATS_UTILITIES::CONSOLE_IO::VERBOSE'
 
     def __init__(self):
         """
@@ -67,15 +61,14 @@ class ATSVerbose(ATSConsoleIO):
 
             :exceptions: None
         """
-        self.__checker = ATSChecker()
         self.__message = ""
 
     @property
     def message(self):
         """
-            Public property getter.
+            Property method for getting message.
 
-            :return: Formatted verbose message
+            :return: Formatted verbose message.
             :rtype: <str>
         """
         return self.__message
@@ -83,33 +76,31 @@ class ATSVerbose(ATSConsoleIO):
     @message.setter
     def message(self, message):
         """
-            Public property setter.
+            Property method for setting message.
 
-            :param message: Verbose message
+            :param message: Verbose message.
             :type message: <str>
-            :exceptions: ATSTypeError | ATSBadCallError
+            :exceptions: None
         """
-        error, status = self.__checker.check_params([('str:message', message)])
-        if status == ATSChecker.TYPE_ERROR: raise ATSTypeError(error)
-        if status == ATSChecker.VALUE_ERROR: raise ATSBadCallError(error)
-        init(autoreset=False)
-        self.__message = "{0}{1}{2}".format(Fore.BLUE, message, Fore.RESET)
+        self.__message = "{0}{1}{2}".format(
+            Fore.BLUE, message, Fore.RESET
+        )
 
 
 def verbose_message(verbose_path, verbose=False, *message):
     """
         Show verbose message.
 
-        :param verbose_path: Verbose prefix message
+        :param verbose_path: Verbose prefix message.
         :type verbose_path: <str>
-        :param verbose: Enable/disable verbose option
+        :param verbose: Enable/disable verbose option.
         :type verbose: <bool>
-        :param message: Message parts
+        :param message: Message parts.
         :type message: <tuple>
         :exceptions: ATSTypeError | ATSBadCallError
     """
     if verbose:
-        checker = ATSChecker()
+        checker, error, status = ATSChecker(), None, False
         error, status = checker.check_params(
             [('str:verbose_path', verbose_path), ('tuple:message', message)]
         )

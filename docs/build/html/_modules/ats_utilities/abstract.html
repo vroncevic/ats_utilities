@@ -86,7 +86,7 @@
             
               <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../index.html">Python Utilities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../index.html">ATS Utilities</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../modules.html">ats_utilities</a></li>
 </ul>
 
@@ -200,39 +200,36 @@
 <span class="sd">        It defines:</span>
 
 <span class="sd">            :attributes:</span>
-<span class="sd">                | __slots__ - Setting class slots</span>
-<span class="sd">                | VERBOSE - Console text indicator for current process-phase</span>
-<span class="sd">                | method_name - Class method name</span>
-<span class="sd">                | method_class_name - Method class name</span>
-<span class="sd">                | method_type - Class method type</span>
-<span class="sd">                | method - Class method</span>
+<span class="sd">                | __slots__ - Setting class slots.</span>
+<span class="sd">                | VERBOSE - Console text indicator for current process-phase.</span>
+<span class="sd">                | method_name - Class method name.</span>
+<span class="sd">                | method_class_name - Method class name.</span>
+<span class="sd">                | method_type - Class method type.</span>
+<span class="sd">                | method - Class method.</span>
 <span class="sd">            :methods:</span>
-<span class="sd">                | __init__ - Initial constructor</span>
+<span class="sd">                | __init__ - Initial constructor.</span>
 <span class="sd">                | __call__ - Raise exception NotImplementedError</span>
-<span class="sd">                             (mark as abstract method)</span>
+<span class="sd">                             (mark as abstract method).</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="vm">__slots__</span> <span class="o">=</span> <span class="p">(</span>
-        <span class="s1">&#39;VERBOSE&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;method_name&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;method_class_name&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;method_type&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;method&#39;</span>
+        <span class="s1">&#39;VERBOSE&#39;</span><span class="p">,</span> <span class="s1">&#39;method_name&#39;</span><span class="p">,</span> <span class="s1">&#39;method_class_name&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;method_type&#39;</span><span class="p">,</span> <span class="s1">&#39;method&#39;</span>
     <span class="p">)</span>
-    <span class="n">VERBOSE</span> <span class="o">=</span> <span class="s1">&#39;ATS_UTILITIES::ABSTRACT_METHOD&#39;</span>
+    <span class="n">VERBOSE</span> <span class="o">=</span> <span class="s1">&#39;ATS_UTILITIES::ABSTRACT::ABSTRACT_METHOD&#39;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">method_to_abstract</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">            Initial constructor</span>
+<span class="sd">            Initial constructor.</span>
 
-<span class="sd">            :param method_to_abstract: Method from some class</span>
+<span class="sd">            :param method_to_abstract: Method from some class.</span>
 <span class="sd">            :type method_to_abstract: &lt;function&gt;</span>
-<span class="sd">            :param verbose: Enable/disable verbose option</span>
+<span class="sd">            :param verbose: Enable/disable verbose option.</span>
 <span class="sd">            :type verbose: &lt;bool&gt;</span>
 <span class="sd">            :exceptions: None</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">cls</span> <span class="o">=</span> <span class="n">abstract_method</span>
-        <span class="n">verbose_message</span><span class="p">(</span><span class="bp">cls</span><span class="o">.</span><span class="n">VERBOSE</span><span class="p">,</span> <span class="n">verbose</span><span class="p">,</span> <span class="s1">&#39;Initial decorator&#39;</span><span class="p">)</span>
+        <span class="n">verbose_message</span><span class="p">(</span><span class="bp">cls</span><span class="o">.</span><span class="n">VERBOSE</span><span class="p">,</span> <span class="n">verbose</span><span class="p">,</span> <span class="s1">&#39;Init decorator.&#39;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">method_name</span> <span class="o">=</span> <span class="n">method_to_abstract</span><span class="o">.</span><span class="vm">__name__</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">method_class_name</span> <span class="o">=</span> <span class="n">stack</span><span class="p">()[</span><span class="mi">1</span><span class="p">][</span><span class="mi">3</span><span class="p">]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">method_type</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span><span class="n">method_to_abstract</span><span class="p">)</span>
@@ -240,18 +237,18 @@
 
     <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">            Raise exception NotImplementedError (mark as abstract method)</span>
+<span class="sd">            Raise exception NotImplementedError (mark as abstract method).</span>
 
-<span class="sd">            :param verbose: Enable/disable verbose option</span>
+<span class="sd">            :param verbose: Enable/disable verbose option.</span>
 <span class="sd">            :type verbose: &lt;bool&gt;</span>
-<span class="sd">            :param *args: Iteration object</span>
+<span class="sd">            :param *args: Iteration object.</span>
 <span class="sd">            :type *args: &lt;iter&gt;</span>
-<span class="sd">            :param **kwargs: Iteration object</span>
+<span class="sd">            :param **kwargs: Iteration object.</span>
 <span class="sd">            :type **kwargs: &lt;dict&gt;</span>
 <span class="sd">            :exception: NotImplementedError</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">cls</span> <span class="o">=</span> <span class="n">abstract_method</span>
-        <span class="n">verbose_message</span><span class="p">(</span><span class="bp">cls</span><span class="o">.</span><span class="n">VERBOSE</span><span class="p">,</span> <span class="n">verbose</span><span class="p">,</span> <span class="s1">&#39;Raise abstract protection&#39;</span><span class="p">)</span>
+        <span class="n">verbose_message</span><span class="p">(</span><span class="bp">cls</span><span class="o">.</span><span class="n">VERBOSE</span><span class="p">,</span> <span class="n">verbose</span><span class="p">,</span> <span class="s1">&#39;Raise abstract protection.&#39;</span><span class="p">)</span>
         <span class="n">abstract_msg</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{0}</span><span class="s2"> </span><span class="si">{1}</span><span class="s2">::</span><span class="si">{2}</span><span class="s2">() </span><span class="si">{3}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
             <span class="s1">&#39;from class&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">method_class_name</span><span class="p">,</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">method_name</span><span class="p">,</span> <span class="s1">&#39;method not implemented !&#39;</span>

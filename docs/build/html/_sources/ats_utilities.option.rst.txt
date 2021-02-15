@@ -1,13 +1,6 @@
 ats\_utilities.option package
 =============================
 
-Submodules
-----------
-
-.. toctree::
-
-   ats_utilities.option.ats_option_parser
-
 Module contents
 ---------------
 

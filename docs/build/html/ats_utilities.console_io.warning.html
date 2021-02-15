@@ -88,20 +88,22 @@
             
               <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="index.html">Python Utilities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html">ATS Utilities</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="modules.html">ats_utilities</a><ul class="current">
 <li class="toctree-l2 current"><a class="reference internal" href="ats_utilities.html">ats_utilities package</a><ul class="current">
 <li class="toctree-l3 current"><a class="reference internal" href="ats_utilities.html#subpackages">Subpackages</a><ul class="current">
 <li class="toctree-l4"><a class="reference internal" href="ats_utilities.abstract.html">ats_utilities.abstract package</a></li>
-<li class="toctree-l4"><a class="reference internal" href="ats_utilities.config.html">ats_utilities.config package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ats_utilities.checker.html">ats_utilities.checker package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ats_utilities.cli.html">ats_utilities.cli package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ats_utilities.config_io.html">ats_utilities.config_io package</a></li>
 <li class="toctree-l4 current"><a class="reference internal" href="ats_utilities.console_io.html">ats_utilities.console_io package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ats_utilities.exceptions.html">ats_utilities.exceptions package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ats_utilities.info.html">ats_utilities.info package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ats_utilities.logging.html">ats_utilities.logging package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ats_utilities.option.html">ats_utilities.option package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ats_utilities.register.html">ats_utilities.register package</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="ats_utilities.html#submodules">Submodules</a></li>
 <li class="toctree-l3"><a class="reference internal" href="ats_utilities.html#module-ats_utilities">Module contents</a></li>
 </ul>
 </li>
@@ -212,16 +214,13 @@ It defines:</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">attributes:</th><td class="field-body"><div class="first last line-block">
-<div class="line">__slots__ - Setting class slots</div>
-<div class="line">VERBOSE - Console text indicator for current process-phase</div>
-<div class="line">__checker - ATS checker for parameters</div>
-<div class="line">__message - Warning message container</div>
+<div class="line">__message - Warning message container.</div>
 </div>
 </td>
 </tr>
 <tr class="field-even field"><th class="field-name">methods:</th><td class="field-body"><div class="first last line-block">
-<div class="line">__init__ - Initial constructor</div>
-<div class="line">message - Public setter/getter</div>
+<div class="line">__init__ - Initial constructor.</div>
+<div class="line">message - Property methods for set/get operations.</div>
 </div>
 </td>
 </tr>
@@ -229,19 +228,14 @@ It defines:</p>
 </table>
 </div></blockquote>
 <dl class="attribute">
-<dt id="ats_utilities.console_io.warning.ATSWarning.VERBOSE">
-<code class="descname">VERBOSE</code><em class="property"> = 'ATS_UTILITIES::CONSOLE_IO::WARNING'</em><a class="headerlink" href="#ats_utilities.console_io.warning.ATSWarning.VERBOSE" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
 <dt id="ats_utilities.console_io.warning.ATSWarning.message">
 <code class="descname">message</code><a class="headerlink" href="#ats_utilities.console_io.warning.ATSWarning.message" title="Permalink to this definition">¶</a></dt>
-<dd><p>Public property getter.</p>
+<dd><p>Property method for getting message.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Formatted warning message</td>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Formatted warning message.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">&lt;str&gt;</td>
 </tr>
@@ -253,7 +247,7 @@ It defines:</p>
 
 <dl class="attribute">
 <dt id="ats_utilities.console_io.warning.ATSWarning.registry">
-<code class="descname">registry</code><em class="property"> = set([&lt;class 'ats_utilities.console_io.verbose.ATSVerbose'&gt;, &lt;class 'ats_utilities.console_io.error.ATSError'&gt;, &lt;class 'ats_utilities.console_io.success.ATSSuccess'&gt;, &lt;class 'ats_utilities.console_io.warning.ATSWarning'&gt;])</em><a class="headerlink" href="#ats_utilities.console_io.warning.ATSWarning.registry" title="Permalink to this definition">¶</a></dt>
+<code class="descname">registry</code><em class="property"> = set([&lt;class 'ats_utilities.console_io.error.ATSError'&gt;, &lt;class 'ats_utilities.console_io.warning.ATSWarning'&gt;, &lt;class 'ats_utilities.console_io.verbose.ATSVerbose'&gt;, &lt;class 'ats_utilities.console_io.success.ATSSuccess'&gt;])</em><a class="headerlink" href="#ats_utilities.console_io.warning.ATSWarning.registry" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -267,8 +261,8 @@ It defines:</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>warning_path</strong> (<em>&lt;str&gt;</em>) – Warning prefix message</li>
-<li><strong>message</strong> (<em>&lt;tuple&gt;</em>) – Message parts</li>
+<li><strong>warning_path</strong> (<em>&lt;str&gt;</em>) – Warning prefix message.</li>
+<li><strong>message</strong> (<em>&lt;tuple&gt;</em>) – Message parts.</li>
 </ul>
 </td>
 </tr>

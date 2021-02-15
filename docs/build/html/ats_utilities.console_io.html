@@ -37,7 +37,7 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="ats_utilities.console_io.error module" href="ats_utilities.console_io.error.html" />
-    <link rel="prev" title="ats_utilities.config.file_checking module" href="ats_utilities.config.file_checking.html" /> 
+    <link rel="prev" title="ats_utilities.config_io.base_write module" href="ats_utilities.config_io.base_write.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -88,20 +88,22 @@
             
               <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="index.html">Python Utilities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html">ATS Utilities</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="modules.html">ats_utilities</a><ul class="current">
 <li class="toctree-l2 current"><a class="reference internal" href="ats_utilities.html">ats_utilities package</a><ul class="current">
 <li class="toctree-l3 current"><a class="reference internal" href="ats_utilities.html#subpackages">Subpackages</a><ul class="current">
 <li class="toctree-l4"><a class="reference internal" href="ats_utilities.abstract.html">ats_utilities.abstract package</a></li>
-<li class="toctree-l4"><a class="reference internal" href="ats_utilities.config.html">ats_utilities.config package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ats_utilities.checker.html">ats_utilities.checker package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ats_utilities.cli.html">ats_utilities.cli package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ats_utilities.config_io.html">ats_utilities.config_io package</a></li>
 <li class="toctree-l4 current"><a class="current reference internal" href="#">ats_utilities.console_io package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ats_utilities.exceptions.html">ats_utilities.exceptions package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ats_utilities.info.html">ats_utilities.info package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ats_utilities.logging.html">ats_utilities.logging package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ats_utilities.option.html">ats_utilities.option package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ats_utilities.register.html">ats_utilities.register package</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="ats_utilities.html#submodules">Submodules</a></li>
 <li class="toctree-l3"><a class="reference internal" href="ats_utilities.html#module-ats_utilities">Module contents</a></li>
 </ul>
 </li>
@@ -217,11 +219,11 @@ Define message container for console log mechanism.</dd>
 <p>Define class ATSConsoleIO with attribute(s) and method(s).
 Define message container for console log mechanism.</p>
 <blockquote>
-<div><ul class="simple">
-<li>verbose (Colorize text to blue)</li>
-<li>warning (Colorize text to yellow)</li>
-<li>error (Colorize text to red)</li>
-</ul>
+<div><div class="line-block">
+<div class="line">* Verbose messages (Colorize text to blue).</div>
+<div class="line">* Warning messages (Colorize text to yellow).</div>
+<div class="line">* Error messages (Colorize text to red).</div>
+</div>
 </div></blockquote>
 <p>It defines:</p>
 <blockquote>
@@ -230,7 +232,7 @@ Define message container for console log mechanism.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">attributes:</th><td class="field-body"><div class="first last line-block">
-<div class="line">__metaclass__ - Setting metaclass</div>
+<div class="line">__metaclass__ - Setting metaclass.</div>
 </div>
 </td>
 </tr>
@@ -244,7 +246,7 @@ Define message container for console log mechanism.</p>
 </div></blockquote>
 <dl class="attribute">
 <dt id="ats_utilities.console_io.ATSConsoleIO.registry">
-<code class="descname">registry</code><em class="property"> = set([&lt;class 'ats_utilities.console_io.verbose.ATSVerbose'&gt;, &lt;class 'ats_utilities.console_io.error.ATSError'&gt;])</em><a class="headerlink" href="#ats_utilities.console_io.ATSConsoleIO.registry" title="Permalink to this definition">¶</a></dt>
+<code class="descname">registry</code><em class="property"> = set([&lt;class 'ats_utilities.console_io.error.ATSError'&gt;, &lt;class 'ats_utilities.console_io.verbose.ATSVerbose'&gt;])</em><a class="headerlink" href="#ats_utilities.console_io.ATSConsoleIO.registry" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -263,7 +265,7 @@ Define message container for console log mechanism.</p>
         <a href="ats_utilities.console_io.error.html" class="btn btn-neutral float-right" title="ats_utilities.console_io.error module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="ats_utilities.config.file_checking.html" class="btn btn-neutral float-left" title="ats_utilities.config.file_checking module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="ats_utilities.config_io.base_write.html" class="btn btn-neutral float-left" title="ats_utilities.config_io.base_write module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

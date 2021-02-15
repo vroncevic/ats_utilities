@@ -37,22 +37,22 @@ class ATSRegister(type):
         It defines:
 
             :attributes:
-                | registry - List of classes
+                | registry - List of classes.
             :methods:
-                | __init__ - Initial constructor
-                | __iter__ - Iter representation
-                | __str__ - String representation
+                | __init__ - Initial constructor.
+                | __iter__ - Getting iterator of set.
+                | __str__ - String representation of LogRegister.
     """
 
     def __init__(cls, name, bases, nmspc):
         """
             Initial constructor, register class.
 
-            :param name: class name
+            :param name: class name.
             :type name: <str>
-            :param bases: Class bases
+            :param bases: Class bases.
             :type bases: <tuple>
-            :param nmspc: Class namespace
+            :param nmspc: Class namespace.
             :type nmspc: <dict>
             :exceptions: None
         """
@@ -66,7 +66,7 @@ class ATSRegister(type):
         """
             Getting iterator of set.
 
-            :return: Iterator of set
+            :return: Iterator of set.
             :rtype: <setiterator>
             :exceptions: None
         """
@@ -76,7 +76,7 @@ class ATSRegister(type):
         """
             String representation of LogRegister.
 
-            :return: Return human readable string (LogRegister)
+            :return: Return human readable string (LogRegister).
             :rtype: <str>
             :exceptions: None
         """
