@@ -55,7 +55,12 @@ To install this set of modules type the following:
     python setup.py install_lib
     python setup.py install_egg_info
 
-You can use Docker to create image/container.
+You can use Docker to create image/container, or You can use pip to install:
+
+.. code-block:: bash
+
+    pip install ats-utilities
+
 
 |GitHub docker checker|
 

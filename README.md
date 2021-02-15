@@ -17,6 +17,9 @@ other information that should be provided before the modules are installed.
 **Table of Contents**
 
 - [Installation](#installation)
+    - [Install using pip](#install-using-pip)
+    - [Install using setuptools](#install-using-setuptools)
+    - [Install using docker](#install-using-docker)
 - [Dependencies](#dependencies)
 - [Package structure](#package-structure)
 - [Docs](#docs)
@@ -28,26 +31,36 @@ other information that should be provided before the modules are installed.
 
 ![Install Python2 Package](https://github.com/vroncevic/ats_utilities/workflows/Install%20Python2%20Package%20ats_utilities/badge.svg?branch=master) ![Install Python3 Package](https://github.com/vroncevic/ats_utilities/workflows/Install%20Python3%20Package%20ats_utilities/badge.svg?branch=master)
 
+Currently there are three ways to install framework:
+* Install process based on using pip
+* Install process based on setup.py (setuptools)
+* Install process based on docker mechanism
+
+##### Install using pip
+
+Python package is located at **[pypi.org](https://pypi.org/project/ats-utilities/)**.
+
+You can install by using pip
+```
+pip install ats-utilities
+```
+
+##### Install using setuptools
+
 Navigate to **[release page](https://github.com/vroncevic/ats_utilities/releases)** download and extract release archive.
 
-To install modules, locate and run setup.py
+To install modules, locate and run setup.py with arguments
 ```
 tar xvzf ats_utilities-x.y.z.tar.gz
 cd ats_utilities-x.y.z
 pip install -r requirements.txt
-```
-
-Install lib process
-```
 python setup.py install_lib
-```
-
-Install lib egg info
-```
 python setup.py install_egg_info
 ```
 
-Or You can use docker to create image/container.
+##### Install using docker
+
+You can use Dockerfile to create image/container.
 
 [![ats_utilities docker checker](https://github.com/vroncevic/ats_utilities/workflows/ats_utilities%20docker%20checker/badge.svg)](https://github.com/vroncevic/ats_utilities/actions?query=workflow%3A%22ats_utilities+docker+checker%22)
 
