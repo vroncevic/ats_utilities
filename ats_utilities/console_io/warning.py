@@ -36,7 +36,7 @@ __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2018, Free software to use and distributed it.'
 __credits__ = ['Vladimir Roncevic']
 __license__ = 'GNU General Public License (GPL)'
-__version__ = '1.2.2'
+__version__ = '1.3.2'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
@@ -107,5 +107,7 @@ def warning_message(warning_path, *message):
     if status == ATSChecker.VALUE_ERROR: raise ATSBadCallError(error)
     message, warning = tuple([str(item) for item in message]), ATSWarning()
     warning.message = ' '.join(message)
-    warning_message_log = "[{0}] {1}".format(warning_path, warning.message)
+    warning_message_log = "[{0}] {1}".format(
+        warning_path.lower(), warning.message
+    )
     print(warning_message_log)
