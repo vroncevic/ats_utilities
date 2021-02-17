@@ -106,5 +106,5 @@ def error_message(error_path, *message):
     if status == ATSChecker.VALUE_ERROR: raise ATSBadCallError(error)
     message, error = tuple([str(item) for item in message]), ATSError()
     error.message = ' '.join(message)
-    error_message_log = "[{0}] {1}".format(error_path, error.message)
+    error_message_log = "[{0}] {1}".format(error_path.lower(), error.message)
     print(error_message_log)

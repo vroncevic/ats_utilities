@@ -108,5 +108,7 @@ def verbose_message(verbose_path, verbose=False, *message):
         if status == ATSChecker.VALUE_ERROR: raise ATSBadCallError(error)
         message, ver = tuple([str(item) for item in message]), ATSVerbose()
         ver.message = ' '.join(message)
-        verbose_message_log = "[{0}] {1}".format(verbose_path, ver.message)
+        verbose_message_log = "[{0}] {1}".format(
+            verbose_path.lower(), ver.message
+        )
         print(verbose_message_log)

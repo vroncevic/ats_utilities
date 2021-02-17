@@ -107,5 +107,7 @@ def warning_message(warning_path, *message):
     if status == ATSChecker.VALUE_ERROR: raise ATSBadCallError(error)
     message, warning = tuple([str(item) for item in message]), ATSWarning()
     warning.message = ' '.join(message)
-    warning_message_log = "[{0}] {1}".format(warning_path, warning.message)
+    warning_message_log = "[{0}] {1}".format(
+        warning_path.lower(), warning.message
+    )
     print(warning_message_log)
