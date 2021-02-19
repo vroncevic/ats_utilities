@@ -42,7 +42,7 @@ __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2021, Free software to use and distributed it.'
 __credits__ = ['Vladimir Roncevic']
 __license__ = 'GNU General Public License (GPL)'
-__version__ = '1.3.2'
+__version__ = '1.4.2'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
@@ -104,7 +104,7 @@ class ATSInfo(ATSName, ATSVersion, ATSLicense, ATSBuildDate, ATSInfoOk):
         ATSLicense.__init__(self)
         ATSBuildDate.__init__(self)
         if ATSInfo.is_correct(info, verbose=verbose):
-            verbose_message(ATSInfo.VERBOSE, verbose, 'Load ATS informations.')
+            verbose_message(ATSInfo.VERBOSE, verbose, 'load ATS informations')
             self.name = info.get(ATSInfo.ATS_NAME)
             self.version = info.get(ATSInfo.ATS_VERSION)
             self.license = info.get(ATSInfo.ATS_LICENSE)
@@ -144,10 +144,10 @@ class ATSInfo(ATSName, ATSVersion, ATSLicense, ATSBuildDate, ATSInfoOk):
         )
         if status == ATSChecker.TYPE_ERROR: raise ATSTypeError(error)
         if status == ATSChecker.VALUE_ERROR: raise ATSBadCallError(error)
-        verbose_message(cls.VERBOSE, verbose, 'Check ATS informations.')
+        verbose_message(cls.VERBOSE, verbose, 'check ATS informations')
         for info_key in informations.keys():
             if info_key not in cls.ATS_BASE_INFO.values():
-                message = "{0} [{1}]".format('Key not expected', info_key)
+                message = "{0} [{1}]".format('key not expected', info_key)
                 error_message(cls.VERBOSE, message)
                 statuses.append(False)
             else:

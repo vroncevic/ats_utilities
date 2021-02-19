@@ -18,5 +18,5 @@
  Info
      Define ats_utilities.cli.
  Version
-     1.3.2
+     1.4.2
 """

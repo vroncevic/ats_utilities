@@ -44,7 +44,7 @@ __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2018, Free software to use and distributed it.'
 __credits__ = ['Vladimir Roncevic']
 __license__ = 'GNU General Public License (GPL)'
-__version__ = '1.3.2'
+__version__ = '1.4.2'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
@@ -104,7 +104,7 @@ class ATSLogger(ATSLoggerName, ATSLoggerFile, ATSLoggerStatus):
         )
         if status == ATSChecker.TYPE_ERROR: raise ATSTypeError(error)
         if status == ATSChecker.VALUE_ERROR: raise ATSBadCallError(error)
-        verbose_message(ATSLogger.VERBOSE, verbose, 'Init ATS logger.')
+        verbose_message(ATSLogger.VERBOSE, verbose, 'init ATS logger')
         if Path(ats_log_file).is_file():
             self.logger_file = ats_log_file
             basicConfig(
@@ -121,7 +121,7 @@ class ATSLogger(ATSLoggerName, ATSLoggerFile, ATSLoggerStatus):
             error = "{0} {1}".format(
                 ATSLogger.VERBOSE,
                 "{0} {1}".format(
-                    'Check ATS log file path', ats_log_file
+                    'check ATS log file path', ats_log_file
                 )
             )
             raise ATSFileError(error)
@@ -147,7 +147,7 @@ class ATSLogger(ATSLoggerName, ATSLoggerFile, ATSLoggerStatus):
         if status == ATSChecker.TYPE_ERROR: raise ATSTypeError(error)
         if status == ATSChecker.VALUE_ERROR: raise ATSBadCallError(error)
         status = False
-        verbose_message(ATSLogger.VERBOSE, verbose, 'Write ATS log message.')
+        verbose_message(ATSLogger.VERBOSE, verbose, 'write ATS log message')
         if self.logger_status:
             switch_dict = {
                 ATSLogger.ATS_DEBUG: self.logger.debug,
