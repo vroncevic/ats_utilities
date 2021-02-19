@@ -34,7 +34,7 @@ __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2018, Free software to use and distributed it.'
 __credits__ = ['Vladimir Roncevic']
 __license__ = 'GNU General Public License (GPL)'
-__version__ = '1.3.2'
+__version__ = '1.4.2'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
@@ -72,7 +72,7 @@ class FileChecking(object):
             :exceptions: None
         """
         verbose_message(
-            FileChecking.VERBOSE, verbose, 'ATS init check file.'
+            FileChecking.VERBOSE, verbose, 'init ATS check file'
         )
         self.file_path_ok = False
         self.file_mode_ok = False
@@ -89,10 +89,10 @@ class FileChecking(object):
             :exceptions: None
         """
         verbose_message(
-            FileChecking.VERBOSE, verbose, 'ATS Check file path', file_path
+            FileChecking.VERBOSE, verbose, 'check ATS file path', file_path
         )
         if not Path(file_path).is_file():
-            error_message(FileChecking.VERBOSE, 'Check file', file_path)
+            error_message(FileChecking.VERBOSE, 'check file', file_path)
         else:
             self.file_path_ok = True
 
@@ -109,7 +109,7 @@ class FileChecking(object):
             :exceptions: None
         """
         verbose_message(
-            FileChecking.VERBOSE, verbose, 'Check ATS operation mode'
+            FileChecking.VERBOSE, verbose, 'check ATS operation mode'
         )
         modes, mode_checks = list(file_mode), []
         for mode in modes:
@@ -120,13 +120,13 @@ class FileChecking(object):
         if all(mode_checks):
             self.file_mode_ok = True
             verbose_message(
-                FileChecking.VERBOSE, verbose, 'Supported mode', file_mode
+                FileChecking.VERBOSE, verbose, 'supported mode', file_mode
             )
         else:
             self.file_mode_ok = False
             error_message(
                 FileChecking.VERBOSE, "{0} [{1}]".format(
-                    'Not supported mode', file_mode
+                    'not supported mode', file_mode
                 )
             )
 
@@ -143,14 +143,14 @@ class FileChecking(object):
             :exceptions: None
         """
         verbose_message(
-            FileChecking.VERBOSE, verbose, 'ATS Check file format', file_path
+            FileChecking.VERBOSE, verbose, 'check ATS file format', file_path
         )
         extension = Path(file_path).suffix.lower().replace('.', '')
         status = extension == file_format
         if not status:
             error_message(
                 FileChecking.VERBOSE, "{0} [{1}] {2}".format(
-                    'Not matched file extension', file_format, file_path
+                    'not matched file extension', file_format, file_path
                 )
             )
             self.file_format_ok = False

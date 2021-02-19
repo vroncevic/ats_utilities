@@ -37,7 +37,7 @@ __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2021, Free software to use and distributed it.'
 __credits__ = ['Vladimir Roncevic']
 __license__ = 'GNU General Public License (GPL)'
-__version__ = '1.3.2'
+__version__ = '1.4.2'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
@@ -81,7 +81,7 @@ class XmlCLI(XmlBase):
         ])
         if status == ATSChecker.TYPE_ERROR: raise ATSTypeError(error)
         if status == ATSChecker.VALUE_ERROR: raise ATSBadCallError(error)
-        verbose_message(XmlCLI.VERBOSE, verbose, 'Init ATS cli.')
+        verbose_message(XmlCLI.VERBOSE, verbose, 'init ATS cli')
         XmlBase.__init__(self, informations_file, verbose=verbose)
 
     def add_new_option(self, *args, **kwargs):

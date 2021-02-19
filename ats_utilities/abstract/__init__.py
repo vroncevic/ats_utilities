@@ -33,7 +33,7 @@ __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2018, Free software to use and distributed it.'
 __credits__ = ['Vladimir Roncevic']
 __license__ = 'GNU General Public License (GPL)'
-__version__ = '1.3.2'
+__version__ = '1.4.2'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
@@ -75,7 +75,7 @@ class abstract_method(object):
             :exceptions: None
         """
         cls = abstract_method
-        verbose_message(cls.VERBOSE, verbose, 'Init decorator.')
+        verbose_message(cls.VERBOSE, verbose, 'init decorator')
         self.method_name = method_to_abstract.__name__
         self.method_class_name = stack()[1][3]
         self.method_type = type(method_to_abstract)
@@ -94,9 +94,9 @@ class abstract_method(object):
             :exception: NotImplementedError
         """
         cls = abstract_method
-        verbose_message(cls.VERBOSE, verbose, 'Raise abstract protection.')
+        verbose_message(cls.VERBOSE, verbose, 'raise abstract protection')
         abstract_msg = "{0} {1}::{2}() {3}".format(
             'from class', self.method_class_name,
-            self.method_name, 'method not implemented !'
+            self.method_name, 'method not implemented'
         )
         raise NotImplementedError(abstract_msg)

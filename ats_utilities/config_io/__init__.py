@@ -37,7 +37,7 @@ __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2018, Free software to use and distributed it.'
 __credits__ = ['Vladimir Roncevic']
 __license__ = 'GNU General Public License (GPL)'
-__version__ = '1.3.2'
+__version__ = '1.4.2'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
@@ -100,7 +100,7 @@ class ConfigFile(FileChecking):
         FileChecking.__init__(self, verbose=verbose)
         verbose_message(
             ConfigFile.VERBOSE, verbose, "{0}\n{1}\n{2} [{3}]".format(
-                'Setting file path', file_path, 'Setting file mode', file_mode
+                'setting file path', file_path, 'setting file mode', file_mode
             )
         )
         self.check_path(file_path=file_path, verbose=verbose)
@@ -128,7 +128,7 @@ class ConfigFile(FileChecking):
         if self.is_file_ok():
             self.__file = open(self.__file_path, self.__file_mode)
         else:
-            error_message(ConfigFile.VERBOSE, 'Check file', self.__file_path)
+            error_message(ConfigFile.VERBOSE, 'check file', self.__file_path)
             self.__file = None
         return self.__file
 

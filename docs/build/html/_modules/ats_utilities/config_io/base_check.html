@@ -59,7 +59,7 @@
             
             
               <div class="version">
-                1.3.2
+                1.4.2
               </div>
             
           
@@ -190,7 +190,7 @@
 <span class="n">__copyright__</span> <span class="o">=</span> <span class="s1">&#39;Copyright 2018, Free software to use and distributed it.&#39;</span>
 <span class="n">__credits__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Vladimir Roncevic&#39;</span><span class="p">]</span>
 <span class="n">__license__</span> <span class="o">=</span> <span class="s1">&#39;GNU General Public License (GPL)&#39;</span>
-<span class="n">__version__</span> <span class="o">=</span> <span class="s1">&#39;1.3.2&#39;</span>
+<span class="n">__version__</span> <span class="o">=</span> <span class="s1">&#39;1.4.2&#39;</span>
 <span class="n">__maintainer__</span> <span class="o">=</span> <span class="s1">&#39;Vladimir Roncevic&#39;</span>
 <span class="n">__email__</span> <span class="o">=</span> <span class="s1">&#39;elektron.ronca@gmail.com&#39;</span>
 <span class="n">__status__</span> <span class="o">=</span> <span class="s1">&#39;Updated&#39;</span>
@@ -228,7 +228,7 @@
 <span class="sd">            :exceptions: None</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">verbose_message</span><span class="p">(</span>
-            <span class="n">FileChecking</span><span class="o">.</span><span class="n">VERBOSE</span><span class="p">,</span> <span class="n">verbose</span><span class="p">,</span> <span class="s1">&#39;ATS init check file.&#39;</span>
+            <span class="n">FileChecking</span><span class="o">.</span><span class="n">VERBOSE</span><span class="p">,</span> <span class="n">verbose</span><span class="p">,</span> <span class="s1">&#39;init ATS check file&#39;</span>
         <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">file_path_ok</span> <span class="o">=</span> <span class="kc">False</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">file_mode_ok</span> <span class="o">=</span> <span class="kc">False</span>
@@ -245,10 +245,10 @@
 <span class="sd">            :exceptions: None</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">verbose_message</span><span class="p">(</span>
-            <span class="n">FileChecking</span><span class="o">.</span><span class="n">VERBOSE</span><span class="p">,</span> <span class="n">verbose</span><span class="p">,</span> <span class="s1">&#39;ATS Check file path&#39;</span><span class="p">,</span> <span class="n">file_path</span>
+            <span class="n">FileChecking</span><span class="o">.</span><span class="n">VERBOSE</span><span class="p">,</span> <span class="n">verbose</span><span class="p">,</span> <span class="s1">&#39;check ATS file path&#39;</span><span class="p">,</span> <span class="n">file_path</span>
         <span class="p">)</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">Path</span><span class="p">(</span><span class="n">file_path</span><span class="p">)</span><span class="o">.</span><span class="n">is_file</span><span class="p">():</span>
-            <span class="n">error_message</span><span class="p">(</span><span class="n">FileChecking</span><span class="o">.</span><span class="n">VERBOSE</span><span class="p">,</span> <span class="s1">&#39;Check file&#39;</span><span class="p">,</span> <span class="n">file_path</span><span class="p">)</span>
+            <span class="n">error_message</span><span class="p">(</span><span class="n">FileChecking</span><span class="o">.</span><span class="n">VERBOSE</span><span class="p">,</span> <span class="s1">&#39;check file&#39;</span><span class="p">,</span> <span class="n">file_path</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">file_path_ok</span> <span class="o">=</span> <span class="kc">True</span></div>
 
@@ -265,7 +265,7 @@
 <span class="sd">            :exceptions: None</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">verbose_message</span><span class="p">(</span>
-            <span class="n">FileChecking</span><span class="o">.</span><span class="n">VERBOSE</span><span class="p">,</span> <span class="n">verbose</span><span class="p">,</span> <span class="s1">&#39;Check ATS operation mode&#39;</span>
+            <span class="n">FileChecking</span><span class="o">.</span><span class="n">VERBOSE</span><span class="p">,</span> <span class="n">verbose</span><span class="p">,</span> <span class="s1">&#39;check ATS operation mode&#39;</span>
         <span class="p">)</span>
         <span class="n">modes</span><span class="p">,</span> <span class="n">mode_checks</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">file_mode</span><span class="p">),</span> <span class="p">[]</span>
         <span class="k">for</span> <span class="n">mode</span> <span class="ow">in</span> <span class="n">modes</span><span class="p">:</span>
@@ -276,13 +276,13 @@
         <span class="k">if</span> <span class="nb">all</span><span class="p">(</span><span class="n">mode_checks</span><span class="p">):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">file_mode_ok</span> <span class="o">=</span> <span class="kc">True</span>
             <span class="n">verbose_message</span><span class="p">(</span>
-                <span class="n">FileChecking</span><span class="o">.</span><span class="n">VERBOSE</span><span class="p">,</span> <span class="n">verbose</span><span class="p">,</span> <span class="s1">&#39;Supported mode&#39;</span><span class="p">,</span> <span class="n">file_mode</span>
+                <span class="n">FileChecking</span><span class="o">.</span><span class="n">VERBOSE</span><span class="p">,</span> <span class="n">verbose</span><span class="p">,</span> <span class="s1">&#39;supported mode&#39;</span><span class="p">,</span> <span class="n">file_mode</span>
             <span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">file_mode_ok</span> <span class="o">=</span> <span class="kc">False</span>
             <span class="n">error_message</span><span class="p">(</span>
                 <span class="n">FileChecking</span><span class="o">.</span><span class="n">VERBOSE</span><span class="p">,</span> <span class="s2">&quot;</span><span class="si">{0}</span><span class="s2"> [</span><span class="si">{1}</span><span class="s2">]&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-                    <span class="s1">&#39;Not supported mode&#39;</span><span class="p">,</span> <span class="n">file_mode</span>
+                    <span class="s1">&#39;not supported mode&#39;</span><span class="p">,</span> <span class="n">file_mode</span>
                 <span class="p">)</span>
             <span class="p">)</span></div>
 
@@ -299,14 +299,14 @@
 <span class="sd">            :exceptions: None</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">verbose_message</span><span class="p">(</span>
-            <span class="n">FileChecking</span><span class="o">.</span><span class="n">VERBOSE</span><span class="p">,</span> <span class="n">verbose</span><span class="p">,</span> <span class="s1">&#39;ATS Check file format&#39;</span><span class="p">,</span> <span class="n">file_path</span>
+            <span class="n">FileChecking</span><span class="o">.</span><span class="n">VERBOSE</span><span class="p">,</span> <span class="n">verbose</span><span class="p">,</span> <span class="s1">&#39;check ATS file format&#39;</span><span class="p">,</span> <span class="n">file_path</span>
         <span class="p">)</span>
         <span class="n">extension</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">file_path</span><span class="p">)</span><span class="o">.</span><span class="n">suffix</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
         <span class="n">status</span> <span class="o">=</span> <span class="n">extension</span> <span class="o">==</span> <span class="n">file_format</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">status</span><span class="p">:</span>
             <span class="n">error_message</span><span class="p">(</span>
                 <span class="n">FileChecking</span><span class="o">.</span><span class="n">VERBOSE</span><span class="p">,</span> <span class="s2">&quot;</span><span class="si">{0}</span><span class="s2"> [</span><span class="si">{1}</span><span class="s2">] </span><span class="si">{2}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-                    <span class="s1">&#39;Not matched file extension&#39;</span><span class="p">,</span> <span class="n">file_format</span><span class="p">,</span> <span class="n">file_path</span>
+                    <span class="s1">&#39;not matched file extension&#39;</span><span class="p">,</span> <span class="n">file_format</span><span class="p">,</span> <span class="n">file_path</span>
                 <span class="p">)</span>
             <span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">file_format_ok</span> <span class="o">=</span> <span class="kc">False</span>
