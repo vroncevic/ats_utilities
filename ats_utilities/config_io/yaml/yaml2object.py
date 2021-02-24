@@ -23,7 +23,7 @@
 import sys
 
 try:
-    from yaml import load
+    from yaml import load, FullLoader
     from ats_utilities.config_io import ConfigFile
     from ats_utilities.config_io.base_read import BaseReadConfig
 except ImportError as error_message:
@@ -34,7 +34,7 @@ __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2018, Free software to use and distributed it.'
 __credits__ = ['Vladimir Roncevic']
 __license__ = 'GNU General Public License (GPL)'
-__version__ = '1.4.2'
+__version__ = '1.4.3'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
@@ -77,5 +77,5 @@ class Yaml2Object(BaseReadConfig):
         config = None
         with ConfigFile(self.file_path, 'r', Yaml2Object.__FORMAT) as yaml:
             if bool(yaml):
-                config = load(yaml)
+                config = load(yaml, Loader=FullLoader)
         return config
