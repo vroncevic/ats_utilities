@@ -1,6 +1,6 @@
 # -*- coding: UTF-8 -*-
 
-"""
+'''
  Module
      __init__.py
  Copyright
@@ -18,20 +18,20 @@
  Info
      Define class ATSError with attribute(s) and method(s).
      General exception (raise exception for wrong state/behavior).
-"""
+'''
 
 __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2018, Free software to use and distributed it.'
 __credits__ = ['Vladimir Roncevic']
 __license__ = 'GNU General Public License (GPL)'
-__version__ = '1.4.3'
+__version__ = '1.4.4'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
 
 
 class ATSError(Exception):
-    """
+    '''
         Define class ATSError with attribute(s) and method(s).
         General exception (raise exception for wrong state/behavior).
         It defines:
@@ -40,4 +40,4 @@ class ATSError(Exception):
                 | None
             :methods:
                 | None
-    """
+    '''

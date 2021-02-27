@@ -1,6 +1,6 @@
 # -*- coding: UTF-8 -*-
 
-"""
+'''
  Module
      ats_version.py
  Copyright
@@ -18,20 +18,20 @@
  Info
      Define class ATSVersion with attribute(s) and method(s).
      Keep App/Tool/Script version in one property object.
-"""
+'''
 
 __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2021, Free software to use and distributed it.'
 __credits__ = ['Vladimir Roncevic']
 __license__ = 'GNU General Public License (GPL)'
-__version__ = '1.4.3'
+__version__ = '1.4.4'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
 
 
 class ATSVersion(object):
-    """
+    '''
         Define class ATSVersion with attribute(s) and method(s).
         Keep App/Tool/Script version in one property object.
         It defines:
@@ -41,34 +41,34 @@ class ATSVersion(object):
             :methods:
                 | __init__ - Initial constructor.
                 | version - Property methods for set/get operations.
-    """
+    '''
 
     def __init__(self):
-        """
+        '''
             Initial constructor.
 
             :exceptions: None
-        """
+        '''
         self.__version = None
 
     @property
     def version(self):
-        """
+        '''
             Property method for getting App/Tool/Script version.
 
             :return: App/Tool/Script version | None.
             :rtype: <str> | <NoneType>
             :exceptions: None
-        """
+        '''
         return self.__version
 
     @version.setter
     def version(self, version):
-        """
+        '''
             Property method for setting App/Tool/Script version.
 
             :param version: App/Tool/Script version.
             :type version: <str>
             :exceptions: None
-        """
+        '''
         self.__version = version

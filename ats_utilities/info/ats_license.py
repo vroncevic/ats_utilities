@@ -1,6 +1,6 @@
 # -*- coding: UTF-8 -*-
 
-"""
+'''
  Module
      ats_license.py
  Copyright
@@ -18,20 +18,20 @@
  Info
      Define class ATSLicense with attribute(s) and method(s).
      Keep App/Tool/Script license in one property object.
-"""
+'''
 
 __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2021, Free software to use and distributed it.'
 __credits__ = ['Vladimir Roncevic']
 __license__ = 'GNU General Public License (GPL)'
-__version__ = '1.4.3'
+__version__ = '1.4.4'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
 
 
 class ATSLicense(object):
-    """
+    '''
         Define class ATSLicense with attribute(s) and method(s).
         Keep App/Tool/Script license in one property object.
         It defines:
@@ -41,34 +41,34 @@ class ATSLicense(object):
             :methods:
                 | __init__ - Initial constructor.
                 | name - Property methods for set/get operations.
-    """
+    '''
 
     def __init__(self):
-        """
+        '''
             Initial constructor.
 
             :exceptions: None
-        """
+        '''
         self.__license = None
 
     @property
     def license(self):
-        """
+        '''
             Property method for getting App/Tool/Script license.
 
             :return: App/Tool/Script license | None.
             :rtype: <str> | <NoneType>
             :exceptions: None
-        """
+        '''
         return self.__license
 
     @license.setter
     def license(self, license):
-        """
+        '''
             Property method for setting App/Tool/Script license.
 
             :param license: App/Tool/Script license.
             :type license: <str>
             :exceptions: None
-        """
+        '''
         self.__license = license

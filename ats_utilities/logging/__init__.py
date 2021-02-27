@@ -1,6 +1,6 @@
 # -*- coding: UTF-8 -*-
 
-"""
+'''
  Module
      __init__.py
  Copyright
@@ -18,7 +18,7 @@
  Info
      Define class ATSLogger with attribute(s) and method(s).
      Logging mechanism for App/Tool/Script.
-"""
+'''
 
 import sys
 from logging import (
@@ -37,21 +37,21 @@ try:
     from ats_utilities.logging.ats_logger_status import ATSLoggerStatus
     from ats_utilities.exceptions.ats_bad_call_error import ATSBadCallError
 except ImportError as error_message:
-    MESSAGE = "\n{0}\n{1}\n".format(__file__, error_message)
+    MESSAGE = '\n{0}\n{1}\n'.format(__file__, error_message)
     sys.exit(MESSAGE)  # Force close python ATS ##############################
 
 __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2018, Free software to use and distributed it.'
 __credits__ = ['Vladimir Roncevic']
 __license__ = 'GNU General Public License (GPL)'
-__version__ = '1.4.3'
+__version__ = '1.4.4'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
 
 
 class ATSLogger(ATSLoggerName, ATSLoggerFile, ATSLoggerStatus):
-    """
+    '''
         Define class ATSLogger with attribute(s) and method(s).
         Logging mechanism for App/Tool/Script.
         It defines:
@@ -69,7 +69,7 @@ class ATSLogger(ATSLoggerName, ATSLoggerFile, ATSLoggerStatus):
             :methods:
                 | __init__ - Initial constructor.
                 | write_log - Write message to log file.
-    """
+    '''
 
     __slots__ = (
         'VERBOSE', 'LOG_MSG_FORMAT', 'LOG_DATE_FORMAT', 'ATS_DEBUG',
@@ -84,7 +84,7 @@ class ATSLogger(ATSLoggerName, ATSLoggerFile, ATSLoggerStatus):
     )
 
     def __init__(self, ats_name, ats_log_file, verbose=False):
-        """
+        '''
             Initial constructor.
 
             :param ats_name: App/Tool/Script name.
@@ -94,7 +94,7 @@ class ATSLogger(ATSLoggerName, ATSLoggerFile, ATSLoggerStatus):
             :param verbose: Enable/disable verbose option.
             :type verbose: <bool>
             :exceptions: ATSTypeError | ATSBadCallError | ATSFileError
-        """
+        '''
         ATSLoggerName.__init__(self)
         ATSLoggerFile.__init__(self)
         ATSLoggerStatus.__init__(self)
@@ -118,16 +118,16 @@ class ATSLogger(ATSLoggerName, ATSLoggerFile, ATSLoggerStatus):
             self.logger_name = ats_name
             self.logger_status = True
         else:
-            error = "{0} {1}".format(
+            error = '{0} {1}'.format(
                 ATSLogger.VERBOSE,
-                "{0} {1}".format(
+                '{0} {1}'.format(
                     'check ATS log file path', ats_log_file
                 )
             )
             raise ATSFileError(error)
 
     def write_log(self, message, ctrl, verbose=False):
-        """
+        '''
             Write message to log file.
 
             :param message: Log message.
@@ -139,7 +139,7 @@ class ATSLogger(ATSLoggerName, ATSLoggerFile, ATSLoggerStatus):
             :return: True (success) | False.
             :rtype: <bool>
             :exceptions: ATSTypeError | ATSBadCallError
-        """
+        '''
         checker, error, status = ATSChecker(), None, False
         error, status = checker.check_params(
             [('str:message', message), ('int:ctrl', ctrl)]
@@ -165,6 +165,6 @@ class ATSLogger(ATSLoggerName, ATSLoggerFile, ATSLoggerStatus):
                 switch_dict[ctrl](message)
                 status = True
             else:
-                message = "{0} [{1}]".format('Not supported log level', ctrl)
+                message = '{0} [{1}]'.format('Not supported log level', ctrl)
                 error_message(ATSLogger.VERBOSE, message)
         return True if status else False

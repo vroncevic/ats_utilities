@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-"""
+'''
  Module
      __init__.py
  Copyright
@@ -18,7 +18,7 @@
  Info
      Define class ATSInfo with attribute(s) and method(s).
      Keep App/Tool/Script informations in one container object.
-"""
+'''
 
 import sys
 from datetime import datetime
@@ -35,21 +35,21 @@ try:
     from ats_utilities.exceptions.ats_type_error import ATSTypeError
     from ats_utilities.exceptions.ats_bad_call_error import ATSBadCallError
 except ImportError as error_message:
-    MESSAGE = "\n{0}\n{1}\n".format(__file__, error_message)
+    MESSAGE = '\n{0}\n{1}\n'.format(__file__, error_message)
     sys.exit(MESSAGE)  # Force close python ATS ##############################
 
 __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2021, Free software to use and distributed it.'
 __credits__ = ['Vladimir Roncevic']
 __license__ = 'GNU General Public License (GPL)'
-__version__ = '1.4.3'
+__version__ = '1.4.4'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
 
 
 class ATSInfo(ATSName, ATSVersion, ATSLicense, ATSBuildDate, ATSInfoOk):
-    """
+    '''
         Define class ATSInfo with attribute(s) and method(s).
         Keep App/Tool/Script informations in one container object.
         It defines:
@@ -66,7 +66,7 @@ class ATSInfo(ATSName, ATSVersion, ATSLicense, ATSBuildDate, ATSInfoOk):
                 | __init__ - Initial constructor.
                 | show_base_info - Show ATS informations.
                 | is_correct - Check information structure.
-    """
+    '''
 
     __slots__ = (
         'VERBOSE', 'ATS_NAME', 'ATS_VERSION', 'ATS_LICENSE',
@@ -86,7 +86,7 @@ class ATSInfo(ATSName, ATSVersion, ATSLicense, ATSBuildDate, ATSInfoOk):
     }
 
     def __init__(self, info, verbose=False):
-        """
+        '''
             Initial constructor.
 
             :param info: App/Tool/Script basic informations.
@@ -94,7 +94,7 @@ class ATSInfo(ATSName, ATSVersion, ATSLicense, ATSBuildDate, ATSInfoOk):
             :param verbose: Enable/disable verbose option.
             :type verbose: <bool>
             :exceptions: ATSTypeError | ATSBadCallError
-        """
+        '''
         checker, error, status = ATSChecker(), None, False
         error, status = checker.check_params([('dict:info', info)])
         if status == ATSChecker.TYPE_ERROR: raise ATSTypeError(error)
@@ -112,22 +112,22 @@ class ATSInfo(ATSName, ATSVersion, ATSLicense, ATSBuildDate, ATSInfoOk):
             self.ats_info_ok = True
 
     def show_base_info(self):
-        """
+        '''
             Show ATS informations.
 
             :exceptions: None
-        """
+        '''
         if self.ats_info_ok:
             print(
-                "\n{0} version {1} {2}".format(
-                    "[{0}]".format(self.__name), self.__version,
+                '\n{0} version {1} {2}'.format(
+                    '[{0}]'.format(self.__name), self.__version,
                     datetime.now().date()
                 )
             )
 
     @classmethod
     def is_correct(cls, informations, verbose=False):
-        """
+        '''
             Check information structure.
 
             :param informations: ATS base informations.
@@ -137,7 +137,7 @@ class ATSInfo(ATSName, ATSVersion, ATSLicense, ATSBuildDate, ATSInfoOk):
             :return: True (correct information structure) | False.
             :rtype: <bool>
             :exceptions: ATSTypeError | ATSBadCallError
-        """
+        '''
         checker, error, status, statuses = ATSChecker(), None, False, []
         error, status = checker.check_params(
             [('dict:informations', informations)]
@@ -147,7 +147,7 @@ class ATSInfo(ATSName, ATSVersion, ATSLicense, ATSBuildDate, ATSInfoOk):
         verbose_message(cls.VERBOSE, verbose, 'check ATS informations')
         for info_key in informations.keys():
             if info_key not in cls.ATS_BASE_INFO.values():
-                message = "{0} [{1}]".format('key not expected', info_key)
+                message = '{0} [{1}]'.format('key not expected', info_key)
                 error_message(cls.VERBOSE, message)
                 statuses.append(False)
             else:

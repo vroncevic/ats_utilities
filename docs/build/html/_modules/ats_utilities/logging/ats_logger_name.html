@@ -59,7 +59,7 @@
             
             
               <div class="version">
-                1.4.3
+                1.4.4
               </div>
             
           
@@ -156,7 +156,7 @@
   <h1>Source code for ats_utilities.logging.ats_logger_name</h1><div class="highlight"><pre>
 <span></span><span class="c1"># -*- coding: UTF-8 -*-</span>
 
-<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">&#39;&#39;&#39;</span>
 <span class="sd"> Module</span>
 <span class="sd">     ats_logger_name.py</span>
 <span class="sd"> Copyright</span>
@@ -174,20 +174,20 @@
 <span class="sd"> Info</span>
 <span class="sd">     Define class ATSLoggerName with attribute(s) and method(s).</span>
 <span class="sd">     Keep App/Tool/Script logger name in one propery object.</span>
-<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">&#39;&#39;&#39;</span>
 
 <span class="n">__author__</span> <span class="o">=</span> <span class="s1">&#39;Vladimir Roncevic&#39;</span>
 <span class="n">__copyright__</span> <span class="o">=</span> <span class="s1">&#39;Copyright 2018, Free software to use and distributed it.&#39;</span>
 <span class="n">__credits__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Vladimir Roncevic&#39;</span><span class="p">]</span>
 <span class="n">__license__</span> <span class="o">=</span> <span class="s1">&#39;GNU General Public License (GPL)&#39;</span>
-<span class="n">__version__</span> <span class="o">=</span> <span class="s1">&#39;1.4.3&#39;</span>
+<span class="n">__version__</span> <span class="o">=</span> <span class="s1">&#39;1.4.4&#39;</span>
 <span class="n">__maintainer__</span> <span class="o">=</span> <span class="s1">&#39;Vladimir Roncevic&#39;</span>
 <span class="n">__email__</span> <span class="o">=</span> <span class="s1">&#39;elektron.ronca@gmail.com&#39;</span>
 <span class="n">__status__</span> <span class="o">=</span> <span class="s1">&#39;Updated&#39;</span>
 
 
 <div class="viewcode-block" id="ATSLoggerName"><a class="viewcode-back" href="../../../ats_utilities.logging.ats_logger_name.html#ats_utilities.logging.ats_logger_name.ATSLoggerName">[docs]</a><span class="k">class</span> <span class="nc">ATSLoggerName</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+    <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Define class ATSLoggerName with attribute(s) and method(s).</span>
 <span class="sd">        Keep App/Tool/Script logger name in one propery object.</span>
 <span class="sd">        It defines:</span>
@@ -197,36 +197,36 @@
 <span class="sd">            :methods:</span>
 <span class="sd">                | __init__ - Initial constructor.</span>
 <span class="sd">                | logger_name - Property methods for set/get operations.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    &#39;&#39;&#39;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+        <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Initial constructor.</span>
 
 <span class="sd">            :exceptions: None</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        &#39;&#39;&#39;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__logger_name</span> <span class="o">=</span> <span class="kc">None</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">logger_name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+        <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Property method for getting logger name.</span>
 
 <span class="sd">            :return: Logger name | None.</span>
 <span class="sd">            :rtype: &lt;str&gt; | &lt;NoneType&gt;</span>
 <span class="sd">            :exceptions: None</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        &#39;&#39;&#39;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__logger_name</span>
 
     <span class="nd">@logger_name</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span> <span class="nf">logger_name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">logger_name</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+        <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Property method for setting logger name.</span>
 
 <span class="sd">            :param logger_name: Logger name.</span>
 <span class="sd">            :type logger_name: &lt;str&gt;</span>
 <span class="sd">            :exceptions: None</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        &#39;&#39;&#39;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__logger_name</span> <span class="o">=</span> <span class="n">logger_name</span></div>
 </pre></div>
 

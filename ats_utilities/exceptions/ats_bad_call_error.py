@@ -1,6 +1,6 @@
 # -*- coding: UTF-8 -*-
 
-"""
+'''
  Module
      ats_bad_call_error.py
  Copyright
@@ -19,20 +19,20 @@
      Define class ATSBadCallError with attribute(s) and method(s).
      Checking method/function argument(s) mechanism (raise error
      for missing argument(s)).
-"""
+'''
 
 __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2018, Free software to use and distributed it.'
 __credits__ = ['Vladimir Roncevic']
 __license__ = 'GNU General Public License (GPL)'
-__version__ = '1.4.3'
+__version__ = '1.4.4'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
 
 
 class ATSBadCallError(Exception):
-    """
+    '''
         Define class ATSBadCallError with attribute(s) and method(s).
         Checking method/function argument(s) mechanism (raise error
         for missing argument(s)).
@@ -42,4 +42,4 @@ class ATSBadCallError(Exception):
                 | None
             :methods:
                 | None
-    """
+    '''

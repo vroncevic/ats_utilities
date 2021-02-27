@@ -1,6 +1,6 @@
 # -*- coding: UTF-8 -*-
 
-"""
+'''
  Module
      xml2object.py
  Copyright
@@ -18,7 +18,7 @@
  Info
      Define class Xml2Object with attribute(s) and method(s).
      Convert a xml configuration file (xml tags) to an object.
-"""
+'''
 
 import sys
 
@@ -27,21 +27,21 @@ try:
     from ats_utilities.config_io import ConfigFile
     from ats_utilities.config_io.base_read import BaseReadConfig
 except ImportError as error_message:
-    MESSAGE = "\n{0}\n{1}\n".format(__file__, error_message)
+    MESSAGE = '\n{0}\n{1}\n'.format(__file__, error_message)
     sys.exit(MESSAGE)  # Force close python ATS ##############################
 
 __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2018, Free software to use and distributed it.'
 __credits__ = ['Vladimir Roncevic']
 __license__ = 'GNU General Public License (GPL)'
-__version__ = '1.4.3'
+__version__ = '1.4.4'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
 
 
 class Xml2Object(BaseReadConfig):
-    """
+    '''
         Define class Xml2Object with attribute(s) and method(s).
         Convert a xml configuration file (xml tags) to an object.
         It defines:
@@ -51,29 +51,29 @@ class Xml2Object(BaseReadConfig):
             :methods:
                 | __init__ - Initial constructor.
                 | read_configuration - Read a configuration from file
-    """
+    '''
 
     __FORMAT = 'xml'
 
     def __init__(self, configuration_file):
-        """
+        '''
             Initial constructor.
 
             :param configuration_file: Configuration file path.
             :type configuration_file: <str>
             :exceptions: None
-        """
+        '''
         BaseReadConfig.__init__(self)
         self.file_path = configuration_file
 
     def read_configuration(self):
-        """
+        '''
             Read a configuration from file.
 
             :return: Configuration object | None.
             :rtype: <BeautifulSoup> | <NoneType>
             :exceptions: None
-        """
+        '''
         content, config = None, None
         try:
             with ConfigFile(self.file_path, 'r', Xml2Object.__FORMAT) as xml:

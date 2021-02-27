@@ -1,6 +1,6 @@
 # -*- coding: UTF-8 -*-
 
-"""
+'''
  Module
      ats_info_ok.py
  Copyright
@@ -18,20 +18,20 @@
  Info
      Define class ATSInfoOk with attribute(s) and method(s).
      Keep App/Tool/Script information status in one property object.
-"""
+'''
 
 __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2021, Free software to use and distributed it.'
 __credits__ = ['Vladimir Roncevic']
 __license__ = 'GNU General Public License (GPL)'
-__version__ = '1.4.3'
+__version__ = '1.4.4'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
 
 
 class ATSInfoOk(object):
-    """
+    '''
         Define class ATSInfoOk with attribute(s) and method(s).
         Keep App/Tool/Script information status in one property object.
         It defines:
@@ -41,34 +41,34 @@ class ATSInfoOk(object):
             :methods:
                 | __init__ - Initial constructor.
                 | ats_info_ok - Property methods for set/get operations.
-    """
+    '''
 
     def __init__(self):
-       """
+       '''
             Initial constructor.
 
             :exceptions: None
-       """
+       '''
        self.__ats_info_ok = True
 
     @property
     def ats_info_ok(self):
-        """
+        '''
             Property method for getting App/Tool/Script information status.
 
             :return: App/Tool/Script information status | None.
             :rtype: <str> | <NoneType>
             :exceptions: None
-        """
+        '''
         return self.__ats_info_ok
 
     @ats_info_ok.setter
     def ats_info_ok(self, ats_info_ok):
-        """
+        '''
             Property method for setting App/Tool/Script information status.
 
             :param ats_info_ok: App/Tool/Script information status.
             :type ats_info_ok: <str>
             :exceptions: None
-        """
+        '''
         self.__ats_info_ok = ats_info_ok

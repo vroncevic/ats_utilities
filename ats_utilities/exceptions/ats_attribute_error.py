@@ -1,6 +1,6 @@
 # -*- coding: UTF-8 -*-
 
-"""
+'''
  Module
      ats_attribute_error.py
  Copyright
@@ -18,20 +18,20 @@
  Info
      Define class ATSAttributeError with attribute(s) and method(s).
      Checking object attribute (raise error if attribute does not exist).
-"""
+'''
 
 __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2018, Free software to use and distributed it.'
 __credits__ = ['Vladimir Roncevic']
 __license__ = 'GNU General Public License (GPL)'
-__version__ = '1.4.3'
+__version__ = '1.4.4'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
 
 
 class ATSAttributeError(AttributeError):
-    """
+    '''
         Define class ATSAttributeError with attribute(s) and method(s).
         Checking object attribute (raise error if attribute does not exist).
         It defines:
@@ -40,4 +40,4 @@ class ATSAttributeError(AttributeError):
                 | None
             :methods:
                 | None
-    """
+    '''

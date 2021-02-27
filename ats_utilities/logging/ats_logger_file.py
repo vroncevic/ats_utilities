@@ -1,6 +1,6 @@
 # -*- coding: UTF-8 -*-
 
-"""
+'''
  Module
      ats_logger_file.py
  Copyright
@@ -18,20 +18,20 @@
  Info
      Define class ATSLoggerFile with attribute(s) and method(s).
      Keep App/Tool/Script logger file path in one propery object.
-"""
+'''
 
 __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2018, Free software to use and distributed it.'
 __credits__ = ['Vladimir Roncevic']
 __license__ = 'GNU General Public License (GPL)'
-__version__ = '1.4.3'
+__version__ = '1.4.4'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
 
 
 class ATSLoggerFile(object):
-    """
+    '''
         Define class ATSLoggerFile with attribute(s) and method(s).
         Keep App/Tool/Script logger file path in one propery object.
         It defines:
@@ -41,34 +41,34 @@ class ATSLoggerFile(object):
             :methods:
                 | __init__ - Initial constructor.
                 | log_file - Property methods for set/get operations.
-    """
+    '''
 
     def __init__(self):
-        """
+        '''
             Initial constructor.
 
             :exceptions: None
-        """
+        '''
         self.__log_file = None
 
     @property
     def log_file(self):
-        """
+        '''
             Property method for getting log file path.
 
             :return: Log file path | None.
             :rtype: <str> | <NoneType>
             :exceptions: None
-        """
+        '''
         return self.__log_file
 
     @log_file.setter
     def log_file(self, log_file):
-        """
+        '''
             Property method for setting log file path.
 
             :param log_file: Log file path.
             :type log_file: <str>
             :exceptions: None
-        """
+        '''
         self.__log_file = log_file

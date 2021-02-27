@@ -27,7 +27,7 @@ __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2018, Free software to use and distributed it.'
 __credits__ = ['Vladimir Roncevic']
 __license__ = 'GNU General Public License (GPL)'
-__version__ = '1.4.3'
+__version__ = '1.4.4'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
@@ -36,9 +36,29 @@ THIS_DIR, LONG_DESCRIPTION = abspath(dirname(__file__)), None
 with open(join(THIS_DIR, 'README.md')) as readme:
     LONG_DESCRIPTION = readme.read()
 
+PROGRAMMING_LANG = 'Programming Language :: Python ::'
+VERSIONS = ['2.7', '3', '3.2', '3.3', '3.4']
+SUPPORTED_PY_VERSIONS = [
+    '{0} {1}'.format(PROGRAMMING_LANG, VERSION) for VERSION in VERSIONS
+]
+
+LICENSE_PREFIX = 'License :: OSI Approved ::'
+LICENSES = [
+    'GNU Lesser General Public License v2 (LGPLv2)',
+    'GNU Lesser General Public License v2 or later (LGPLv2+)',
+    'GNU Lesser General Public License v3 (LGPLv3)',
+    'GNU Lesser General Public License v3 or later (LGPLv3+)',
+    'GNU Library or Lesser General Public License (LGPL)'
+]
+APPROVED_LICENSES = [
+    '{0} {1}'.format(LICENSE_PREFIX, LICENSE) for LICENSE in LICENSES
+]
+
+PYP_CLASSIFIERS = SUPPORTED_PY_VERSIONS + APPROVED_LICENSES
+
 setup(
     name='ats_utilities',
-    version='1.4.3',
+    version='1.4.4',
     description='Python App/Tool/Script Utilities',
     author='Vladimir Roncevic',
     author_email='elektron.ronca@gmail.com',
@@ -48,18 +68,7 @@ setup(
     long_description_content_type='text/markdown',
     keywords='util, config, log, option, xml, cfg, ini, json, yaml',
     platforms='POSIX',
-    classifiers=[
-        'Programming Language :: Python :: 2.7',
-        'Programming Language :: Python :: 3',
-        'Programming Language :: Python :: 3.2',
-        'Programming Language :: Python :: 3.3',
-        'Programming Language :: Python :: 3.4',
-        'License :: OSI Approved :: GNU Lesser General Public License v2 (LGPLv2)',
-        'License :: OSI Approved :: GNU Lesser General Public License v2 or later (LGPLv2+)',
-        'License :: OSI Approved :: GNU Lesser General Public License v3 (LGPLv3)',
-        'License :: OSI Approved :: GNU Lesser General Public License v3 or later (LGPLv3+)',
-        'License :: OSI Approved :: GNU Library or Lesser General Public License (LGPL)'
-    ],
+    classifiers=PYP_CLASSIFIERS,
     packages=[
         'ats_utilities',
         'ats_utilities.abstract',

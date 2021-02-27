@@ -1,6 +1,6 @@
 # -*- coding: UTF-8 -*-
 
-"""
+'''
  Module
      object2yaml.py
  Copyright
@@ -18,7 +18,7 @@
  Info
      Define class Object2Yaml with attribute(s) and method(s).
      Convert a configuration object to a yaml format and write to file.
-"""
+'''
 
 import sys
 
@@ -27,21 +27,21 @@ try:
     from ats_utilities.config_io import ConfigFile
     from ats_utilities.config_io.base_write import BaseWriteConfig
 except ImportError as error_message:
-    MESSAGE = "\n{0}\n{1}\n".format(__file__, error_message)
+    MESSAGE = '\n{0}\n{1}\n'.format(__file__, error_message)
     sys.exit(MESSAGE)  # Force close python ATS ##############################
 
 __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2018, Free software to use and distributed it.'
 __credits__ = ['Vladimir Roncevic']
 __license__ = 'GNU General Public License (GPL)'
-__version__ = '1.4.3'
+__version__ = '1.4.4'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
 
 
 class Object2Yaml(BaseWriteConfig):
-    """
+    '''
         Define class Object2Yaml with attribute(s) and method(s).
         Convert a configuration object to a yaml format and write to file.
         It defines:
@@ -51,23 +51,23 @@ class Object2Yaml(BaseWriteConfig):
             :methods:
                 | __init__ - Initial constructor.
                 | write_configuration - Write configuration to a yaml file
-    """
+    '''
 
     __FORMAT = 'yaml'
 
     def __init__(self, configuration_file):
-        """
+        '''
             Initial constructor.
 
             :param configuration_file: Absolute configuration file path
             :type configuration_file: <str>
             :exceptions: None
-        """
+        '''
         BaseWriteConfig.__init__(self)
         self.file_path = configuration_file
 
     def write_configuration(self, configuration):
-        """
+        '''
             Write configuration to a yaml file.
 
             :param configuration: Configuration object.
@@ -75,7 +75,7 @@ class Object2Yaml(BaseWriteConfig):
             :return: True (success) | False.
             :rtype: <bool>
             :exception: None
-        """
+        '''
         status = False
         if configuration is None:
             return status

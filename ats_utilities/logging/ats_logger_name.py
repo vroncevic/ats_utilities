@@ -1,6 +1,6 @@
 # -*- coding: UTF-8 -*-
 
-"""
+'''
  Module
      ats_logger_name.py
  Copyright
@@ -18,20 +18,20 @@
  Info
      Define class ATSLoggerName with attribute(s) and method(s).
      Keep App/Tool/Script logger name in one propery object.
-"""
+'''
 
 __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2018, Free software to use and distributed it.'
 __credits__ = ['Vladimir Roncevic']
 __license__ = 'GNU General Public License (GPL)'
-__version__ = '1.4.3'
+__version__ = '1.4.4'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
 
 
 class ATSLoggerName(object):
-    """
+    '''
         Define class ATSLoggerName with attribute(s) and method(s).
         Keep App/Tool/Script logger name in one propery object.
         It defines:
@@ -41,34 +41,34 @@ class ATSLoggerName(object):
             :methods:
                 | __init__ - Initial constructor.
                 | logger_name - Property methods for set/get operations.
-    """
+    '''
 
     def __init__(self):
-        """
+        '''
             Initial constructor.
 
             :exceptions: None
-        """
+        '''
         self.__logger_name = None
 
     @property
     def logger_name(self):
-        """
+        '''
             Property method for getting logger name.
 
             :return: Logger name | None.
             :rtype: <str> | <NoneType>
             :exceptions: None
-        """
+        '''
         return self.__logger_name
 
     @logger_name.setter
     def logger_name(self, logger_name):
-        """
+        '''
             Property method for setting logger name.
 
             :param logger_name: Logger name.
             :type logger_name: <str>
             :exceptions: None
-        """
+        '''
         self.__logger_name = logger_name

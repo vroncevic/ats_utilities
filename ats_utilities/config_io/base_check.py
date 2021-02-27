@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-"""
+'''
  Module
      base_check.py
  Copyright
@@ -18,7 +18,7 @@
  Info
      Define class FileChecking with attribute(s) and method(s).
      Check operations with configuration files.
-"""
+'''
 
 import sys
 
@@ -27,21 +27,21 @@ try:
     from ats_utilities.console_io.error import error_message
     from ats_utilities.console_io.verbose import verbose_message
 except ImportError as error_message:
-    MESSAGE = "\n{0}\n{1}\n".format(__file__, error_message)
+    MESSAGE = '\n{0}\n{1}\n'.format(__file__, error_message)
     sys.exit(MESSAGE)  # Force close python ATS ##############################
 
 __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2018, Free software to use and distributed it.'
 __credits__ = ['Vladimir Roncevic']
 __license__ = 'GNU General Public License (GPL)'
-__version__ = '1.4.3'
+__version__ = '1.4.4'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
 
 
 class FileChecking(object):
-    """
+    '''
         Define class FileChecking with attribute(s) and method(s).
         Check operations with configuration files.
         It defines:
@@ -58,19 +58,19 @@ class FileChecking(object):
                 | check_mode -  Check operation mode for configuration file.
                 | check_format - Check configuration file format by extension.
                 | is_file_ok - Status of configuration file.
-    """
+    '''
 
     VERBOSE = 'ATS_UTILITIES::CONFIG_IO::FILE_CHECKING'
     MODES = ['r', 'w', 'a', 'b', 'x', 't', '+']
 
     def __init__(self, verbose=False):
-        """
+        '''
             Initial constructor.
 
             :param verbose: Enable/disable verbose option.
             :type verbose: <bool>
             :exceptions: None
-        """
+        '''
         verbose_message(
             FileChecking.VERBOSE, verbose, 'init ATS check file'
         )
@@ -79,7 +79,7 @@ class FileChecking(object):
         self.file_format_ok = False
 
     def check_path(self, file_path, verbose=False):
-        """
+        '''
             Check configuration file path.
 
             :param file_path: Configuration file path.
@@ -87,7 +87,7 @@ class FileChecking(object):
             :param verbose: Enable/disable verbose option.
             :type verbose: <bool>
             :exceptions: None
-        """
+        '''
         verbose_message(
             FileChecking.VERBOSE, verbose, 'check ATS file path', file_path
         )
@@ -97,7 +97,7 @@ class FileChecking(object):
             self.file_path_ok = True
 
     def check_mode(self, file_mode, verbose=False):
-        """
+        '''
             Check operation mode for configuration file.
 
             :param file_mode: File mode ('r', 'w', 'a', 'b', 'x', 't', '+').
@@ -107,7 +107,7 @@ class FileChecking(object):
             :return: True (regular file mode) | False.
             :rtype: <bool>
             :exceptions: None
-        """
+        '''
         verbose_message(
             FileChecking.VERBOSE, verbose, 'check ATS operation mode'
         )
@@ -125,13 +125,13 @@ class FileChecking(object):
         else:
             self.file_mode_ok = False
             error_message(
-                FileChecking.VERBOSE, "{0} [{1}]".format(
+                FileChecking.VERBOSE, '{0} [{1}]'.format(
                     'not supported mode', file_mode
                 )
             )
 
     def check_format(self, file_path, file_format, verbose=False):
-        """
+        '''
             Check configuration file format by extension.
 
             :param file_path: Absolute configuration file path.
@@ -141,7 +141,7 @@ class FileChecking(object):
             :param verbose: Enable/disable verbose option.
             :type verbose: <bool>
             :exceptions: None
-        """
+        '''
         verbose_message(
             FileChecking.VERBOSE, verbose, 'check ATS file format', file_path
         )
@@ -149,7 +149,7 @@ class FileChecking(object):
         status = extension == file_format
         if not status:
             error_message(
-                FileChecking.VERBOSE, "{0} [{1}] {2}".format(
+                FileChecking.VERBOSE, '{0} [{1}] {2}'.format(
                     'not matched file extension', file_format, file_path
                 )
             )
@@ -158,11 +158,11 @@ class FileChecking(object):
             self.file_format_ok = True
 
     def is_file_ok(self):
-        """
+        '''
             Status of configuration file.
 
             :return: True (correct file), else False.
             :rtype: <bool>
             :exceptions: None
-        """
+        '''
         return all([self.file_path_ok, self.file_mode_ok, self.file_format_ok])

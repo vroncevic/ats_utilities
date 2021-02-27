@@ -1,6 +1,6 @@
 # -*- coding: UTF-8 -*-
 
-"""
+'''
  Module
      __init__.py
  Copyright
@@ -18,7 +18,7 @@
  Info
      Define class ConfigFile with attribute(s) and method(s).
      Configuration context manager.
-"""
+'''
 
 import sys
 
@@ -30,21 +30,21 @@ try:
     from ats_utilities.exceptions.ats_type_error import ATSTypeError
     from ats_utilities.exceptions.ats_bad_call_error import ATSBadCallError
 except ImportError as error_message:
-    MESSAGE = "\n{0}\n{1}\n".format(__file__, error_message)
+    MESSAGE = '\n{0}\n{1}\n'.format(__file__, error_message)
     sys.exit(MESSAGE)  # Force close python ATS ##############################
 
 __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2018, Free software to use and distributed it.'
 __credits__ = ['Vladimir Roncevic']
 __license__ = 'GNU General Public License (GPL)'
-__version__ = '1.4.3'
+__version__ = '1.4.4'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
 
 
 class ConfigFile(FileChecking):
-    """
+    '''
         Define class ConfigFile with attribute(s) and method(s).
         Configuration context manager.
         It defines:
@@ -60,7 +60,7 @@ class ConfigFile(FileChecking):
                 | __init__ - Initial constructor.
                 | __enter__ - Open configuration file in mode.
                 | __exit__ - Close configuration file.
-    """
+    '''
 
     __slots__ = (
         'VERBOSE',
@@ -76,7 +76,7 @@ class ConfigFile(FileChecking):
     VERBOSE = 'ATS_UTILITIES::CONFIG_IO'
 
     def __init__(self, file_path, file_mode, file_format, verbose=False):
-        """
+        '''
             Initial constructor.
 
             :param file_path: Configuration file name.
@@ -88,7 +88,7 @@ class ConfigFile(FileChecking):
             :param verbose: Enable/disable verbose option.
             :type verbose: <bool>
             :exceptions: ATSTypeError | ATSBadCallError
-        """
+        '''
         checker, error, status = ATSChecker(), None, False
         error, status = checker.check_params([
             ('str:file_path', file_path),
@@ -99,7 +99,7 @@ class ConfigFile(FileChecking):
         if status == ATSChecker.VALUE_ERROR: raise ATSBadCallError(error)
         FileChecking.__init__(self, verbose=verbose)
         verbose_message(
-            ConfigFile.VERBOSE, verbose, "{0}\n{1}\n{2} [{3}]".format(
+            ConfigFile.VERBOSE, verbose, '{0}\n{1}\n{2} [{3}]'.format(
                 'setting file path', file_path, 'setting file mode', file_mode
             )
         )
@@ -118,13 +118,13 @@ class ConfigFile(FileChecking):
             self.__file_format = None
 
     def __enter__(self):
-        """
+        '''
             Open configuration file in mode.
 
             :return: File object | None.
             :rtype: <file> | <NoneType>
             :exceptions: None
-        """
+        '''
         if self.is_file_ok():
             self.__file = open(self.__file_path, self.__file_mode)
         else:
@@ -133,11 +133,11 @@ class ConfigFile(FileChecking):
         return self.__file
 
     def __exit__(self, *args):
-        """
+        '''
             Close configuration file.
 
             :exceptions: None
-        """
+        '''
         try:
             self.__file.close()
         except AttributeError:

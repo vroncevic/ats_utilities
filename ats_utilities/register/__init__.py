@@ -1,6 +1,6 @@
 # -*- coding: UTF-8 -*-
 
-"""
+'''
  Module
      __init__.py
  Copyright
@@ -18,20 +18,20 @@
  Info
      Define class ATSRegister with attribute(s) and method(s).
      App/Tool/Script settings utilities, auto-register class.
-"""
+'''
 
 __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2018, Free software to use and distributed it.'
 __credits__ = ['Vladimir Roncevic']
 __license__ = 'GNU General Public License (GPL)'
-__version__ = '1.4.3'
+__version__ = '1.4.4'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
 
 
 class ATSRegister(type):
-    """
+    '''
         Define class ATSRegister with attribute(s) and method(s).
         App/Tool/Script settings utilities, auto-register class.
         It defines:
@@ -42,10 +42,10 @@ class ATSRegister(type):
                 | __init__ - Initial constructor.
                 | __iter__ - Getting iterator of set.
                 | __str__ - String representation of LogRegister.
-    """
+    '''
 
     def __init__(cls, name, bases, nmspc):
-        """
+        '''
             Initial constructor, register class.
 
             :param name: class name.
@@ -55,7 +55,7 @@ class ATSRegister(type):
             :param nmspc: Class namespace.
             :type nmspc: <dict>
             :exceptions: None
-        """
+        '''
         super(ATSRegister, cls).__init__(name, bases, nmspc)
         if not hasattr(cls, 'registry'):
             cls.registry = set()
@@ -63,25 +63,25 @@ class ATSRegister(type):
         cls.registry -= set(bases)
 
     def __iter__(cls):
-        """
+        '''
             Getting iterator of set.
 
             :return: Iterator of set.
             :rtype: <setiterator>
             :exceptions: None
-        """
+        '''
         return iter(cls.registry)
 
     def __str__(cls):
-        """
+        '''
             String representation of LogRegister.
 
             :return: Return human readable string (LogRegister).
             :rtype: <str>
             :exceptions: None
-        """
+        '''
         if cls in cls.registry:
             return cls.__name__
-        return "{0}{1}{2}".format(
+        return '{0}{1}{2}'.format(
             cls.__name__, ': ', ', '.join([sc.__name__ for sc in cls])
         )

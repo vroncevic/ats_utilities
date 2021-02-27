@@ -1,6 +1,6 @@
 # -*- coding: UTF-8 -*-
 
-"""
+'''
  Module
      object2xml.py
  Copyright
@@ -18,7 +18,7 @@
  Info
      Define class Object2Xml with attribute(s) and method(s).
      Convert a configuration object to a xml format and write to file.
-"""
+'''
 
 import sys
 
@@ -26,21 +26,21 @@ try:
     from ats_utilities.config_io import ConfigFile
     from ats_utilities.config_io.base_write import BaseWriteConfig
 except ImportError as error_message:
-    MESSAGE = "\n{0}\n{1}\n".format(__file__, error_message)
+    MESSAGE = '\n{0}\n{1}\n'.format(__file__, error_message)
     sys.exit(MESSAGE)  # Force close python ATS ##############################
 
 __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2018, Free software to use and distributed it.'
 __credits__ = ['Vladimir Roncevic']
 __license__ = 'GNU General Public License (GPL)'
-__version__ = '1.4.3'
+__version__ = '1.4.4'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
 
 
 class Object2Xml(BaseWriteConfig):
-    """
+    '''
         Define class Object2Xml with attribute(s) and method(s).
         Convert a configuration object to a xml format and write to file.
         It defines:
@@ -50,23 +50,23 @@ class Object2Xml(BaseWriteConfig):
             :methods:
                 | __init__ - Initial constructor.
                 | write_configuration - Write configuration to a xml file.
-    """
+    '''
 
     __FORMAT = 'xml'
 
     def __init__(self, configuration_file):
-        """
+        '''
             Initial constructor.
 
             :param configuration_file: Configuration file path.
             :type configuration_file: <str>
             :exceptions: None
-        """
+        '''
         BaseWriteConfig.__init__(self)
         self.file_path = configuration_file
 
     def write_configuration(self, configuration):
-        """
+        '''
             Write configuration to a xml file.
 
             :param configuration: Configuration object.
@@ -74,12 +74,12 @@ class Object2Xml(BaseWriteConfig):
             :return: True (success) | False.
             :rtype: <bool>
             :exception: None
-        """
+        '''
         status = False
         if configuration is None:
             return status
         with ConfigFile(self.file_path, 'w', Object2Xml.__FORMAT) as xml:
             if bool(xml):
-                xml.write("{0}".format(configuration))
+                xml.write('{0}'.format(configuration))
                 status = True
         return True if status else False
