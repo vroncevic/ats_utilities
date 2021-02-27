@@ -1,6 +1,6 @@
 # -*- coding: UTF-8 -*-
 
-"""
+'''
  Module
      ats_key_error.py
  Copyright
@@ -18,20 +18,20 @@
  Info
      Define class ATSKeyError with attribute(s) and method(s).
      Checking key mechanism (raise error for missing key).
-"""
+'''
 
 __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2018, Free software to use and distributed it.'
 __credits__ = ['Vladimir Roncevic']
 __license__ = 'GNU General Public License (GPL)'
-__version__ = '1.4.3'
+__version__ = '1.4.4'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
 
 
 class ATSKeyError(KeyError):
-    """
+    '''
         Define class ATSKeyError with attribute(s) and method(s).
         Checking key mechanism (raise error for missing key).
         It defines:
@@ -40,4 +40,4 @@ class ATSKeyError(KeyError):
                 | None
             :methods:
                 | None
-    """
+    '''

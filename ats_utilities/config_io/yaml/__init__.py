@@ -1,6 +1,6 @@
 # -*- coding: UTF-8 -*-
 
-"""
+'''
  Module
      __init__.py
  Copyright
@@ -18,7 +18,7 @@
  Info
      Define class YamlBase with attribute(s) and method(s).
      Load ATS informations, setup ATS CL interface.
-"""
+'''
 
 import sys
 
@@ -28,21 +28,21 @@ try:
     from ats_utilities.config_io.yaml.yaml2object import Yaml2Object
     from ats_utilities.config_io.yaml.object2yaml import Object2Yaml
 except ImportError as error_message:
-    MESSAGE = "\n{0}\n{1}\n".format(__file__, error_message)
+    MESSAGE = '\n{0}\n{1}\n'.format(__file__, error_message)
     sys.exit(MESSAGE)  # Force close python ATS ##############################
 
 __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2021, Free software to use and distributed it.'
 __credits__ = ['Vladimir Roncevic']
 __license__ = 'GNU General Public License (GPL)'
-__version__ = '1.4.3'
+__version__ = '1.4.4'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
 
 
 class YamlBase(ATSInfo):
-    """
+    '''
         Define class YamlBase with attribute(s) and method(s).
         Load ATS informations, setup ATS CL interface.
         It defines:
@@ -54,10 +54,10 @@ class YamlBase(ATSInfo):
                 | option_parser - Option parser for ATS.
             :methods:
                 | __init__ - Initial constructor.
-    """
+    '''
 
     def __init__(self, informations_file, verbose=False):
-        """
+        '''
             Initial constructor.
 
             :param informations_file: Informations file path.
@@ -65,7 +65,7 @@ class YamlBase(ATSInfo):
             :param verbose: Enable/disable verbose option.
             :type verbose: <bool>
             :exceptions: None
-        """
+        '''
         informations, tool_info = None, None
         self.tool_operational = False  # App/Tool/Script not operational
         self.yaml2obj = Yaml2Object(informations_file)
@@ -75,7 +75,7 @@ class YamlBase(ATSInfo):
         if informations:
             ATSInfo.__init__(self, informations, verbose=verbose)
             if self.ats_info_ok:
-                tool_info = "{0} {1}".format(self.name, self.build_date)
+                tool_info = '{0} {1}'.format(self.name, self.build_date)
                 self.option_parser = ATSOptionParser(
                     tool_info, self.version, self.license, verbose=verbose
                 )

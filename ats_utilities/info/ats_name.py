@@ -1,6 +1,6 @@
 # -*- coding: UTF-8 -*-
 
-"""
+'''
  Module
      ats_name.py
  Copyright
@@ -18,20 +18,20 @@
  Info
      Define class ATSName with attribute(s) and method(s).
      Keep App/Tool/Script name in one propery object.
-"""
+'''
 
 __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2021, Free software to use and distributed it.'
 __credits__ = ['Vladimir Roncevic']
 __license__ = 'GNU General Public License (GPL)'
-__version__ = '1.4.3'
+__version__ = '1.4.4'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
 
 
 class ATSName(object):
-    """
+    '''
         Define class ATSName with attribute(s) and method(s).
         Keep App/Tool/Script name in one propery object.
         It defines:
@@ -41,34 +41,34 @@ class ATSName(object):
             :methods:
                 | __init__ - Initial constructor.
                 | name - Property methods for set/get operations.
-    """
+    '''
 
     def __init__(self):
-        """
+        '''
             Initial constructor.
 
             :exceptions: None
-        """
+        '''
         self.__name = None
 
     @property
     def name(self):
-        """
+        '''
             Property method for getting App/Tool/Script name.
 
             :return: App/Tool/Script name | None.
             :rtype: <str> | <NoneType>
             :exceptions: None
-        """
+        '''
         return self.__name
 
     @name.setter
     def name(self, name):
-        """
+        '''
             Property method for setting App/Tool/Script name.
 
             :param name: App/Tool/Script name.
             :type name: <str>
             :exceptions: None
-        """
+        '''
         self.__name = name

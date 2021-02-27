@@ -1,6 +1,6 @@
 # -*- coding: UTF-8 -*-
 
-"""
+'''
  Module
      error.py
  Copyright
@@ -18,7 +18,7 @@
  Info
      Define class ATSError with attribute(s) and method(s).
      Define error message container for console log mechanism.
-"""
+'''
 
 import sys
 
@@ -29,21 +29,21 @@ try:
     from ats_utilities.exceptions.ats_type_error import ATSTypeError
     from ats_utilities.exceptions.ats_bad_call_error import ATSBadCallError
 except ImportError as error_message:
-    MESSAGE = "\n{0}\n{1}\n".format(__file__, error_message)
+    MESSAGE = '\n{0}\n{1}\n'.format(__file__, error_message)
     sys.exit(MESSAGE)  # Force close python ATS ##############################
 
 __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2018, Free software to use and distributed it.'
 __credits__ = ['Vladimir Roncevic']
 __license__ = 'GNU General Public License (GPL)'
-__version__ = '1.4.3'
+__version__ = '1.4.4'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
 
 
 class ATSError(ATSConsoleIO):
-    """
+    '''
         Define class ATSError with attribute(s) and method(s).
         Define error message container for console log mechanism.
         It defines:
@@ -53,43 +53,43 @@ class ATSError(ATSConsoleIO):
             :methods:
                 | __init__ - Initial constructor.
                 | message - Property methods for set/get operations.
-    """
+    '''
 
     def __init__(self):
-        """
+        '''
             Initial constructor.
 
             :exceptions: None
-        """
-        self.__message = ""
+        '''
+        self.__message = ''
 
     @property
     def message(self):
-        """
+        '''
             Property method for getting message.
 
             :return: Formatted errors message.
             :rtype: <str>
             :exceptions: None
-        """
+        '''
         return self.__message
 
     @message.setter
     def message(self, message):
-        """
+        '''
             Property method for setting message.
 
             :param message: Error message.
             :type message: <str>
             :exceptions: None
-        """
-        self.__message = "{0}{1}{2}".format(
+        '''
+        self.__message = '{0}{1}{2}'.format(
             Fore.RED, message, Fore.RESET
         )
 
 
 def error_message(error_path, *message):
-    """
+    '''
         Show error message.
 
         :param error_path: Error prefix message.
@@ -97,7 +97,7 @@ def error_message(error_path, *message):
         :param message: Message parts.
         :type message: <tuple>
         :exceptions: ATSTypeError | ATSBadCallError
-    """
+    '''
     checker, error, status = ATSChecker(), None, False
     error, status = checker.check_params(
         [('str:error_path', error_path), ('tuple:message', message)]
@@ -106,5 +106,5 @@ def error_message(error_path, *message):
     if status == ATSChecker.VALUE_ERROR: raise ATSBadCallError(error)
     message, error = tuple([str(item) for item in message]), ATSError()
     error.message = ' '.join(message)
-    error_message_log = "[{0}] {1}".format(error_path.lower(), error.message)
+    error_message_log = '[{0}] {1}'.format(error_path.lower(), error.message)
     print(error_message_log)

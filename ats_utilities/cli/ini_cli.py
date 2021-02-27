@@ -1,6 +1,6 @@
 # -*- coding: UTF-8 -*-
 
-"""
+'''
  Module
      ini_cli.py
  Copyright
@@ -18,7 +18,7 @@
  Info
      Define class IniCLI with attribute(s) and method(s).
      Check and load informations, setup arguments parser.
-"""
+'''
 
 import sys
 
@@ -30,21 +30,21 @@ try:
     from ats_utilities.exceptions.ats_type_error import ATSTypeError
     from ats_utilities.exceptions.ats_bad_call_error import ATSBadCallError
 except ImportError as error_message:
-    MESSAGE = "\n{0}\n{1}\n".format(__file__, error_message)
+    MESSAGE = '\n{0}\n{1}\n'.format(__file__, error_message)
     sys.exit(MESSAGE)  # Force close python ATS ##############################
 
 __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2021, Free software to use and distributed it.'
 __credits__ = ['Vladimir Roncevic']
 __license__ = 'GNU General Public License (GPL)'
-__version__ = '1.4.3'
+__version__ = '1.4.4'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
 
 
 class IniCLI(IniBase):
-    """
+    '''
         Define class IniCLI with attribute(s) and method(s).
         Check and load informations, setup arguments parser.
         It defines:
@@ -57,7 +57,7 @@ class IniCLI(IniBase):
                 | add_new_option - Adding new option for CL interface.
                 | parse_args - Parse arguments.
                 | process - Process and run tool operation (Abstract method).
-    """
+    '''
 
     __slots__ = (
         'VERBOSE', 'tool_operational', 'ini2obj',
@@ -66,7 +66,7 @@ class IniCLI(IniBase):
     VERBOSE = 'ATS_UTILITIES::CLI::INI_CLI'
 
     def __init__(self, informations_file, verbose=False):
-        """
+        '''
             Initial constructor.
 
             :param informations_file: Informations file path.
@@ -74,7 +74,7 @@ class IniCLI(IniBase):
             :param verbose: Enable/disable verbose option.
             :type verbose: <bool>
             :exceptions: ATSTypeError | ATSBadCallError
-        """
+        '''
         checker, error, status = ATSChecker(), None, False
         error, status = checker.check_params([
             ('str:informations_file', informations_file)
@@ -85,7 +85,7 @@ class IniCLI(IniBase):
         IniBase.__init__(self, informations_file, verbose=verbose)
 
     def add_new_option(self, *args, **kwargs):
-        """
+        '''
             Adding new option for CL interface.
 
             :param args: List of arguments (objects).
@@ -93,11 +93,11 @@ class IniCLI(IniBase):
             :param kwargs: Arguments in shape of dictionary.
             :type kwargs: <dict>
             :exceptions: None
-        """
+        '''
         self.option_parser.add_operation(*args, **kwargs)
 
     def parse_args(self, argv):
-        """
+        '''
             Process arguments from start.
 
             :param argv: Arguments.
@@ -105,17 +105,17 @@ class IniCLI(IniBase):
             :return: Options and arguments.
             :rtype: <Python object(s)>
             :exceptions: None
-        """
+        '''
         (opts, args) = self.option_parser.parse_args(argv)
         return opts, args
 
     @abstract_method
     def process(self, verbose=False):
-        """
+        '''
             Process and run tool operation (Abstract method).
 
             :param verbose: Enable/disable verbose option.
             :type verbose: <bool>
             :exception: NotImplementedError
-        """
+        '''
         pass

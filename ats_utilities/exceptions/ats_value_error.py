@@ -1,6 +1,6 @@
 # -*- coding: UTF-8 -*-
 
-"""
+'''
  Module
      ats_value_error.py
  Copyright
@@ -18,20 +18,20 @@
  Info
      Define class ATSValueError with attribute(s) and method(s).
      Check value mechanism (raise error for not expected value).
-"""
+'''
 
 __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2018, Free software to use and distributed it.'
 __credits__ = ['Vladimir Roncevic']
 __license__ = 'GNU General Public License (GPL)'
-__version__ = '1.4.3'
+__version__ = '1.4.4'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
 
 
 class ATSValueError(ValueError):
-    """
+    '''
         Define class ATSValueError with attribute(s) and method(s).
         Check value mechanism (raise error for not expected value).
         It defines:
@@ -40,4 +40,4 @@ class ATSValueError(ValueError):
                 | None
             :methods:
                 | None
-    """
+    '''

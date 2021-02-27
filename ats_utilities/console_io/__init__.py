@@ -1,6 +1,6 @@
 # -*- coding: UTF-8 -*-
 
-"""
+'''
  Module
      __init__.py
  Copyright
@@ -18,28 +18,28 @@
  Info
      Define class ATSConsoleIO with attribute(s) and method(s).
      Define message container for console log mechanism.
-"""
+'''
 
 import sys
 
 try:
     from ats_utilities.register import ATSRegister
 except ImportError as error_message:
-    MESSAGE = "\n{0}\n{1}\n".format(__file__, error_message)
+    MESSAGE = '\n{0}\n{1}\n'.format(__file__, error_message)
     sys.exit(MESSAGE)  # Force close python ATS ##############################
 
 __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2018, Free software to use and distributed it.'
 __credits__ = ['Vladimir Roncevic']
 __license__ = 'GNU General Public License (GPL)'
-__version__ = '1.4.3'
+__version__ = '1.4.4'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
 
 
 class ATSConsoleIO(object):
-    """
+    '''
         Define class ATSConsoleIO with attribute(s) and method(s).
         Define message container for console log mechanism.
 
@@ -53,5 +53,5 @@ class ATSConsoleIO(object):
                 | __metaclass__ - Setting metaclass.
             :methods:
                 | None
-    """
+    '''
     __metaclass__ = ATSRegister

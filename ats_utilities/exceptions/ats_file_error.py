@@ -1,6 +1,6 @@
 # -*- coding: UTF-8 -*-
 
-"""
+'''
  Module
      ats_file_error.py
  Copyright
@@ -19,20 +19,20 @@
      Define class ATSFileError with attribute(s) and method(s).
      Checking file mechanism (raise error if something goes wrong with IO
      file-operations).
-"""
+'''
 
 __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2018, Free software to use and distributed it.'
 __credits__ = ['Vladimir Roncevic']
 __license__ = 'GNU General Public License (GPL)'
-__version__ = '1.4.3'
+__version__ = '1.4.4'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
 
 
 class ATSFileError(IOError):
-    """
+    '''
         Define class ATSFileError with attribute(s) and method(s).
         Checking file mechanism (raise error if something goes wrong with IO
         file-operations).
@@ -42,4 +42,4 @@ class ATSFileError(IOError):
                 | None
             :methods:
                 | None
-    """
+    '''

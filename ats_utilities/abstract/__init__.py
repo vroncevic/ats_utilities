@@ -1,6 +1,6 @@
 # -*- coding: UTF-8 -*-
 
-"""
+'''
  Module
      __init__.py
  Copyright
@@ -18,7 +18,7 @@
  Info
      Define class abstract_method with attribute(s) and method(s).
      Creating custom decorator for class methods.
-"""
+'''
 
 import sys
 from inspect import stack
@@ -26,21 +26,21 @@ from inspect import stack
 try:
     from ats_utilities.console_io.verbose import verbose_message
 except ImportError as error_message:
-    MESSAGE = "\n{0}\n{1}\n".format(__file__, error_message)
+    MESSAGE = '\n{0}\n{1}\n'.format(__file__, error_message)
     sys.exit(MESSAGE)  # Force close python ATS ##############################
 
 __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2018, Free software to use and distributed it.'
 __credits__ = ['Vladimir Roncevic']
 __license__ = 'GNU General Public License (GPL)'
-__version__ = '1.4.3'
+__version__ = '1.4.4'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
 
 
 class abstract_method(object):
-    """
+    '''
         Define class abstract_method with attribute(s) and method(s).
         Creating custom decorator for class methods.
         It defines:
@@ -56,7 +56,7 @@ class abstract_method(object):
                 | __init__ - Initial constructor.
                 | __call__ - Raise exception NotImplementedError
                              (mark as abstract method).
-    """
+    '''
 
     __slots__ = (
         'VERBOSE', 'method_name', 'method_class_name',
@@ -65,7 +65,7 @@ class abstract_method(object):
     VERBOSE = 'ATS_UTILITIES::ABSTRACT::ABSTRACT_METHOD'
 
     def __init__(self, method_to_abstract, verbose=False):
-        """
+        '''
             Initial constructor.
 
             :param method_to_abstract: Method from some class.
@@ -73,7 +73,7 @@ class abstract_method(object):
             :param verbose: Enable/disable verbose option.
             :type verbose: <bool>
             :exceptions: None
-        """
+        '''
         cls = abstract_method
         verbose_message(cls.VERBOSE, verbose, 'init decorator')
         self.method_name = method_to_abstract.__name__
@@ -82,7 +82,7 @@ class abstract_method(object):
         self.method = method_to_abstract
 
     def __call__(self, verbose=False, *args, **kwargs):
-        """
+        '''
             Raise exception NotImplementedError (mark as abstract method).
 
             :param verbose: Enable/disable verbose option.
@@ -92,10 +92,10 @@ class abstract_method(object):
             :param **kwargs: Iteration object.
             :type **kwargs: <dict>
             :exception: NotImplementedError
-        """
+        '''
         cls = abstract_method
         verbose_message(cls.VERBOSE, verbose, 'raise abstract protection')
-        abstract_msg = "{0} {1}::{2}() {3}".format(
+        abstract_msg = '{0} {1}::{2}() {3}'.format(
             'from class', self.method_class_name,
             self.method_name, 'method not implemented'
         )

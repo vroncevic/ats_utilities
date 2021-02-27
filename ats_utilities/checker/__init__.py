@@ -1,6 +1,6 @@
 # -*- coding: UTF-8 -*-
 
-"""
+'''
  Module
      __init__.py
  Copyright
@@ -18,7 +18,7 @@
  Info
      Define class ATSChecker with attribute(s) and method(s).
      Checking parameters for class methods and functions (types, values).
-"""
+'''
 
 from inspect import stack
 from collections import OrderedDict
@@ -27,14 +27,14 @@ __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2021, Free software to use and distributed it.'
 __credits__ = ['Vladimir Roncevic']
 __license__ = 'GNU General Public License (GPL)'
-__version__ = '1.4.3'
+__version__ = '1.4.4'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
 
 
 class ATSChecker(object):
-    """
+    '''
         Define class ATSChecker with attribute(s) and method(s).
         Checking parameters for class methods and functions (types, values).
         It defines:
@@ -57,7 +57,7 @@ class ATSChecker(object):
                 | check_values - Check parameters (values) for method/function.
                 | priority_error - Set priority error id.
                 | check_params - Check parameters for method/function.
-    """
+    '''
 
     __slots__ = (
         'VERBOSE', 'TYPE_ERROR', 'VALUE_ERROR', '__start_message',
@@ -68,11 +68,11 @@ class ATSChecker(object):
     TYPE_ERROR, VALUE_ERROR = 1, 2
 
     def __init__(self):
-        """
+        '''
             Initial constructor.
 
             :exceptions: None
-        """
+        '''
         self.__start_message = None
         self.__list_of_params = []
         self.__error_type = [0, 0]
@@ -80,16 +80,16 @@ class ATSChecker(object):
         self.__error_value_index = []
 
     def collect_params(self, params_descript):
-        """
+        '''
             Collect all parameters in one list.
 
             :param params_descript: Description for parameters.
             :type params_descript: <OrderedDict>
             :exceptions: None
-        """
+        '''
         for type_expect, inst in params_descript.items():
             self.__list_of_params.append(
-                "\n    expected parameter {0} <{1}> object at {2}".format(
+                '\n    expected parameter {0} <{1}> object at {2}'.format(
                     type_expect.split(':')[1],
                     type_expect.split(':')[0],
                     hex(id(inst))
@@ -97,41 +97,41 @@ class ATSChecker(object):
             )
 
     def usage_message(self):
-        """
+        '''
             Prepare usage message for method/function.
 
             :exceptions: None
-        """
+        '''
         message = self.__start_message
         for index, param in enumerate(self.__list_of_params):
             message += param
             if index in self.__error_type_index:
-                message += " wrong type"
+                message += ' wrong type'
             if index in self.__error_value_index:
-                message += " wrong value"
+                message += ' wrong value'
         return message
 
     def check_types(self, params_descript):
-        """
+        '''
             Check parameters (types) for method/function.
 
             :param params_descript: Parameters description.
             :type params_descript: <OrderedDict>
             :exceptions: None
-        """
+        '''
         for index, (type_expect, inst) in enumerate(params_descript.items()):
             if type(inst).__name__ != type_expect.split(':')[0]:
                 self.__error_type[0] = ATSChecker.TYPE_ERROR
                 self.__error_type_index.append(index)
 
     def check_values(self, params_descript):
-        """
+        '''
             Check parameters (values) for method/function.
 
             :param params_descript: Parameters description.
             :type params_descript: <OrderedDict>
             :exceptions: None
-        """
+        '''
         for index, (type_expect, inst) in enumerate(params_descript.items()):
             if inst == None:
                 self.__error_type[1] = ATSChecker.VALUE_ERROR
@@ -151,13 +151,13 @@ class ATSChecker(object):
                     self.__error_value_index.append(index)
 
     def priority_error(self):
-        """
+        '''
             Set priority error id.
 
             :return: Priority error id (TYPE_ERROR | VALUE_ERROR | 0).
             :rtype: <int>
             :exceptions: None
-        """
+        '''
         if self.__error_type[0] == ATSChecker.TYPE_ERROR:
             return ATSChecker.TYPE_ERROR
         if self.__error_type[1] == ATSChecker.VALUE_ERROR:
@@ -166,7 +166,7 @@ class ATSChecker(object):
             return 0
 
     def check_params(self, params_descript):
-        """
+        '''
             Check parameters for method/function.
 
             :param params_descript: Parameters description.
@@ -174,9 +174,9 @@ class ATSChecker(object):
             :return: Usage message, status (TYPE_ERROR | VALUE_ERROR | 0).
             :rtype: <str>, <int>
             :exceptions: None
-        """
+        '''
         func, module, error_id = stack()[1][3], stack()[1][1], 0
-        error_message, header = None, "\nmod: {0}\n  def: {1}()"
+        error_message, header = None, '\nmod: {0}\n  def: {1}()'
         self.__start_message = header.format(module, func)
         self.collect_params(OrderedDict(params_descript))
         self.check_types(OrderedDict(params_descript))

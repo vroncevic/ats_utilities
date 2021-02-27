@@ -1,6 +1,6 @@
 # -*- coding: UTF-8 -*-
 
-"""
+'''
  Module
      ats_logger_status.py
  Copyright
@@ -18,20 +18,20 @@
  Info
      Define class ATSLoggerStatus with attribute(s) and method(s).
      Keep App/Tool/Script logger status in one propery object.
-"""
+'''
 
 __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2018, Free software to use and distributed it.'
 __credits__ = ['Vladimir Roncevic']
 __license__ = 'GNU General Public License (GPL)'
-__version__ = '1.4.3'
+__version__ = '1.4.4'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
 
 
 class ATSLoggerStatus(object):
-    """
+    '''
         Define class ATSLoggerStatus with attribute(s) and method(s).
         Keep App/Tool/Script logger status in one propery object.
         It defines:
@@ -41,34 +41,34 @@ class ATSLoggerStatus(object):
             :methods:
                 | __init__ - Initial constructor.
                 | logger_status - Property methods for set/get operations.
-    """
+    '''
 
     def __init__(self):
-        """
+        '''
             Initial constructor.
 
             :exceptions: None
-        """
+        '''
         self.__log_status = None
 
     @property
     def logger_status(self):
-        """
+        '''
             Property method for getting logger status.
 
             :return: True (logger operative) | False.
             :rtype: <bool>
             :exceptions: None
-        """
+        '''
         return self.__log_status
 
     @logger_status.setter
     def logger_status(self, log_status):
-        """
+        '''
             Property method for setting logger status.
 
             :param log_status: Logger status (enable/disable logging).
             :type log_status: <bool>
             :exceptions: None
-        """
+        '''
         self.__log_status = log_status
