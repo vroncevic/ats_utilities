@@ -16,23 +16,23 @@
      You should have received a copy of the GNU General Public License along
      with this program. If not, see <http://www.gnu.org/licenses/>.
  Info
-     Define class ATSConsoleIO with attribute(s) and method(s).
-     Define message container for console log mechanism.
+     Defined class ATSConsoleIO with attribute(s) and method(s).
+     Created glue-metaclass API console log mechanism.
 '''
 
 import sys
 
 try:
     from ats_utilities.register import ATSRegister
-except ImportError as error_message:
-    MESSAGE = '\n{0}\n{1}\n'.format(__file__, error_message)
+except ImportError as ATS_ERROR_MESSAGE:
+    MESSAGE = '\n{0}\n{1}\n'.format(__file__, ATS_ERROR_MESSAGE)
     sys.exit(MESSAGE)  # Force close python ATS ##############################
 
 __author__ = 'Vladimir Roncevic'
-__copyright__ = 'Copyright 2018, Free software to use and distributed it.'
+__copyright__ = 'Copyright 2017, https://vroncevic.github.io/ats_utilities'
 __credits__ = ['Vladimir Roncevic']
-__license__ = 'GNU General Public License (GPL)'
-__version__ = '1.4.4'
+__license__ = 'https://github.com/vroncevic/ats_utilities/blob/master/LICENSE'
+__version__ = '1.5.4'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
@@ -40,9 +40,10 @@ __status__ = 'Updated'
 
 class ATSConsoleIO(object):
     '''
-        Define class ATSConsoleIO with attribute(s) and method(s).
-        Define message container for console log mechanism.
+        Defined class ATSConsoleIO with attribute(s) and method(s).
+        Created glue-metaclass API console log mechanism.
 
+            | * Success messages (Colorize text to green).
             | * Verbose messages (Colorize text to blue).
             | * Warning messages (Colorize text to yellow).
             | * Error messages (Colorize text to red).
@@ -52,6 +53,16 @@ class ATSConsoleIO(object):
             :attributes:
                 | __metaclass__ - Setting metaclass.
             :methods:
-                | None
+                | __str__ - Dunder method for object ATSConsoleIO.
     '''
     __metaclass__ = ATSRegister
+
+    def __str__(self):
+        '''
+            Dunder method for object ATSConsoleIO.
+
+            :return: Object in a human-readable format.
+            :rtype: <str>
+            :exceptions: None
+        '''
+        return '{0}'.format(self.__class__.__name__)

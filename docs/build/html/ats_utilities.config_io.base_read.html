@@ -61,7 +61,7 @@
             
             
               <div class="version">
-                1.4.4
+                1.5.4
               </div>
             
           
@@ -186,7 +186,7 @@
 <dt>Module</dt>
 <dd>base_read.py</dd>
 <dt>Copyright</dt>
-<dd>Copyright (C) 2018 Vladimir Roncevic &lt;<a class="reference external" href="mailto:elektron&#46;ronca&#37;&#52;&#48;gmail&#46;com">elektron<span>&#46;</span>ronca<span>&#64;</span>gmail<span>&#46;</span>com</a>&gt;
+<dd>Copyright (C) 2017 Vladimir Roncevic &lt;<a class="reference external" href="mailto:elektron&#46;ronca&#37;&#52;&#48;gmail&#46;com">elektron<span>&#46;</span>ronca<span>&#64;</span>gmail<span>&#46;</span>com</a>&gt;
 ats_utilities is free software: you can redistribute it and/or modify it
 under the terms of the GNU General Public License as published by the
 Free Software Foundation, either version 3 of the License, or
@@ -198,15 +198,15 @@ See the GNU General Public License for more details.
 You should have received a copy of the GNU General Public License along
 with this program. If not, see &lt;<a class="reference external" href="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</a>&gt;.</dd>
 <dt>Info</dt>
-<dd>Define class BaseReadConfig with attribute(s) and method(s).
-Read operation for configuration files.</dd>
+<dd>Defined class BaseReadConfig with attribute(s) and method(s).
+Created API for read operation for configuration files.</dd>
 </dl>
 <dl class="class">
 <dt id="ats_utilities.config_io.base_read.BaseReadConfig">
 <em class="property">class </em><code class="descclassname">ats_utilities.config_io.base_read.</code><code class="descname">BaseReadConfig</code><a class="reference internal" href="_modules/ats_utilities/config_io/base_read.html#BaseReadConfig"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ats_utilities.config_io.base_read.BaseReadConfig" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>Define class BaseReadConfig with attribute(s) and method(s).
-Read operation for configuration files.
+<p>Defined class BaseReadConfig with attribute(s) and method(s).
+Created API for read operation for configuration files.
 It defines:</p>
 <blockquote>
 <div><table class="docutils field-list" frame="void" rules="none">
@@ -221,7 +221,9 @@ It defines:</p>
 <tr class="field-even field"><th class="field-name">methods:</th><td class="field-body"><div class="first last line-block">
 <div class="line">__init__ - Initial constructor.</div>
 <div class="line">file_path - Property methods for set/get operations.</div>
+<div class="line">is_not_none - Checking is file path None.</div>
 <div class="line">read_configuration - Read configuration (Abstract method).</div>
+<div class="line">__str__ - Dunder method for BaseReadConfig.</div>
 </div>
 </td>
 </tr>
@@ -241,6 +243,24 @@ It defines:</p>
 <tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">&lt;str&gt; | &lt;NoneType&gt;</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Exception:</th><td class="field-body">None</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="ats_utilities.config_io.base_read.BaseReadConfig.is_not_none">
+<code class="descname">is_not_none</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/ats_utilities/config_io/base_read.html#BaseReadConfig.is_not_none"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ats_utilities.config_io.base_read.BaseReadConfig.is_not_none" title="Permalink to this definition">¶</a></dt>
+<dd><p>Checking is file path None.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">True (file path) | False.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">&lt;bool&gt;</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Exceptions:</th><td class="field-body">None</td>
 </tr>
 </tbody>
 </table>
@@ -276,7 +296,7 @@ It defines:</p>
   <div role="contentinfo">
     <p>
         
-        &copy; Copyright 2020, Vladimir Roncevic &lt;elektron.ronca@gmail.com&gt;
+        &copy; Copyright 2017, https://vroncevic.github.io/ats_utilities
 
     </p>
   </div>

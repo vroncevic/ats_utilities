@@ -4,7 +4,7 @@
  Module
      cfg2object.py
  Copyright
-     Copyright (C) 2018 Vladimir Roncevic <elektron.ronca@gmail.com>
+     Copyright (C) 2017 Vladimir Roncevic <elektron.ronca@gmail.com>
      ats_utilities is free software: you can redistribute it and/or modify it
      under the terms of the GNU General Public License as published by the
      Free Software Foundation, either version 3 of the License, or
@@ -16,8 +16,8 @@
      You should have received a copy of the GNU General Public License along
      with this program. If not, see <http://www.gnu.org/licenses/>.
  Info
-     Define class Cfg2Object with attribute(s) and method(s).
-     Convert configuration from a cfg file to an object.
+     Defined class Cfg2Object with attribute(s) and method(s).
+     Created API for reading configuration from a cfg file.
 '''
 
 import sys
@@ -26,15 +26,15 @@ from re import match
 try:
     from ats_utilities.config_io import ConfigFile
     from ats_utilities.config_io.base_read import BaseReadConfig
-except ImportError as error_message:
-    MESSAGE = '\n{0}\n{1}\n'.format(__file__, error_message)
+except ImportError as ATS_ERROR_MESSAGE:
+    MESSAGE = '\n{0}\n{1}\n'.format(__file__, ATS_ERROR_MESSAGE)
     sys.exit(MESSAGE)  # Force close python ATS ##############################
 
 __author__ = 'Vladimir Roncevic'
-__copyright__ = 'Copyright 2018, Free software to use and distributed it.'
+__copyright__ = 'Copyright 2017, https://vroncevic.github.io/ats_utilities'
 __credits__ = ['Vladimir Roncevic']
-__license__ = 'GNU General Public License (GPL)'
-__version__ = '1.4.4'
+__license__ = 'https://github.com/vroncevic/ats_utilities/blob/master/LICENSE'
+__version__ = '1.5.4'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
@@ -42,8 +42,8 @@ __status__ = 'Updated'
 
 class Cfg2Object(BaseReadConfig):
     '''
-        Define class Cfg2Object with attribute(s) and method(s).
-        Convert configuration from a cfg file to an object.
+        Defined class Cfg2Object with attribute(s) and method(s).
+        Created API for read configuration from a cfg file.
         It defines:
 
             :attributes:
@@ -52,6 +52,7 @@ class Cfg2Object(BaseReadConfig):
             :methods:
                 | __init__ - Initial constructor.
                 | read_configuration - Read configuration from file.
+                | __str__ - Dunder method for object Cfg2Object.
     '''
 
     __FORMAT = 'cfg'
@@ -92,3 +93,15 @@ class Cfg2Object(BaseReadConfig):
         except AttributeError:
             pass
         return config
+
+    def __str__(self):
+        '''
+            Dunder method for Cfg2Object.
+
+            :return: Object in a human-readable format.
+            :rtype: <str>
+            :exceptions: None
+        '''
+        return '{0} ({1})'.format(
+            self.__class__.__name__, BaseReadConfig.__str__(self)
+        )

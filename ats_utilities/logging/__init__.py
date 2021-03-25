@@ -4,7 +4,7 @@
  Module
      __init__.py
  Copyright
-     Copyright (C) 2018 Vladimir Roncevic <elektron.ronca@gmail.com>
+     Copyright (C) 2017 Vladimir Roncevic <elektron.ronca@gmail.com>
      ats_utilities is free software: you can redistribute it and/or modify it
      under the terms of the GNU General Public License as published by the
      Free Software Foundation, either version 3 of the License, or
@@ -16,8 +16,8 @@
      You should have received a copy of the GNU General Public License along
      with this program. If not, see <http://www.gnu.org/licenses/>.
  Info
-     Define class ATSLogger with attribute(s) and method(s).
-     Logging mechanism for App/Tool/Script.
+     Defined class ATSLogger with attribute(s) and method(s).
+     Created logging mechanism for App/Tool/Script.
 '''
 
 import sys
@@ -36,15 +36,15 @@ try:
     from ats_utilities.exceptions.ats_type_error import ATSTypeError
     from ats_utilities.logging.ats_logger_status import ATSLoggerStatus
     from ats_utilities.exceptions.ats_bad_call_error import ATSBadCallError
-except ImportError as error_message:
-    MESSAGE = '\n{0}\n{1}\n'.format(__file__, error_message)
+except ImportError as ATS_ERROR_MESSAGE:
+    MESSAGE = '\n{0}\n{1}\n'.format(__file__, ATS_ERROR_MESSAGE)
     sys.exit(MESSAGE)  # Force close python ATS ##############################
 
 __author__ = 'Vladimir Roncevic'
-__copyright__ = 'Copyright 2018, Free software to use and distributed it.'
+__copyright__ = 'Copyright 2017, https://vroncevic.github.io/ats_utilities'
 __credits__ = ['Vladimir Roncevic']
-__license__ = 'GNU General Public License (GPL)'
-__version__ = '1.4.4'
+__license__ = 'https://github.com/vroncevic/ats_utilities/blob/master/LICENSE'
+__version__ = '1.5.4'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
@@ -52,8 +52,8 @@ __status__ = 'Updated'
 
 class ATSLogger(ATSLoggerName, ATSLoggerFile, ATSLoggerStatus):
     '''
-        Define class ATSLogger with attribute(s) and method(s).
-        Logging mechanism for App/Tool/Script.
+        Defined class ATSLogger with attribute(s) and method(s).
+        Created logging mechanism for App/Tool/Script.
         It defines:
 
             :attributes:
@@ -69,6 +69,7 @@ class ATSLogger(ATSLoggerName, ATSLoggerFile, ATSLoggerStatus):
             :methods:
                 | __init__ - Initial constructor.
                 | write_log - Write message to log file.
+                | __str__ - Dunder method for ATSLogger.
     '''
 
     __slots__ = (
@@ -95,15 +96,17 @@ class ATSLogger(ATSLoggerName, ATSLoggerFile, ATSLoggerStatus):
             :type verbose: <bool>
             :exceptions: ATSTypeError | ATSBadCallError | ATSFileError
         '''
+        checker, error, status = ATSChecker(), None, False
+        error, status = checker.check_params([
+            ('str:ats_name', ats_name), ('str:ats_log_file', ats_log_file)
+        ])
+        if status == ATSChecker.TYPE_ERROR:
+            raise ATSTypeError(error)
+        if status == ATSChecker.VALUE_ERROR:
+            raise ATSBadCallError(error)
         ATSLoggerName.__init__(self)
         ATSLoggerFile.__init__(self)
         ATSLoggerStatus.__init__(self)
-        checker, error, status = ATSChecker(), None, False
-        error, status = self.__checker.check_params(
-            [('str:ats_name', ats_name), ('str:ats_log_file', ats_log_file)]
-        )
-        if status == ATSChecker.TYPE_ERROR: raise ATSTypeError(error)
-        if status == ATSChecker.VALUE_ERROR: raise ATSBadCallError(error)
         verbose_message(ATSLogger.VERBOSE, verbose, 'init ATS logger')
         if Path(ats_log_file).is_file():
             self.logger_file = ats_log_file
@@ -119,8 +122,7 @@ class ATSLogger(ATSLoggerName, ATSLoggerFile, ATSLoggerStatus):
             self.logger_status = True
         else:
             error = '{0} {1}'.format(
-                ATSLogger.VERBOSE,
-                '{0} {1}'.format(
+                ATSLogger.VERBOSE, '{0} {1}'.format(
                     'check ATS log file path', ats_log_file
                 )
             )
@@ -141,11 +143,13 @@ class ATSLogger(ATSLoggerName, ATSLoggerFile, ATSLoggerStatus):
             :exceptions: ATSTypeError | ATSBadCallError
         '''
         checker, error, status = ATSChecker(), None, False
-        error, status = checker.check_params(
-            [('str:message', message), ('int:ctrl', ctrl)]
-        )
-        if status == ATSChecker.TYPE_ERROR: raise ATSTypeError(error)
-        if status == ATSChecker.VALUE_ERROR: raise ATSBadCallError(error)
+        error, status = checker.check_params([
+            ('str:message', message), ('int:ctrl', ctrl)
+        ])
+        if status == ATSChecker.TYPE_ERROR:
+            raise ATSTypeError(error)
+        if status == ATSChecker.VALUE_ERROR:
+            raise ATSBadCallError(error)
         status = False
         verbose_message(ATSLogger.VERBOSE, verbose, 'write ATS log message')
         if self.logger_status:
@@ -165,6 +169,22 @@ class ATSLogger(ATSLoggerName, ATSLoggerFile, ATSLoggerStatus):
                 switch_dict[ctrl](message)
                 status = True
             else:
-                message = '{0} [{1}]'.format('Not supported log level', ctrl)
+                message = '{0} [{1}]'.format('not supported log level', ctrl)
                 error_message(ATSLogger.VERBOSE, message)
         return True if status else False
+
+    def __str__(self):
+        '''
+            Dunder method for ATSLogger.
+
+            :return: Object in a human-readable format.
+            :rtype: <str>
+            :exceptions: None
+        '''
+        return '{0} ({1}, {2}, {3}, {4})'.format(
+            self.__class__.__name__,
+            ATSLoggerName.__str__(self),
+            ATSLoggerFile.__str__(self),
+            ATSLoggerStatus.__str__(self),
+            str(self.logger)
+        )

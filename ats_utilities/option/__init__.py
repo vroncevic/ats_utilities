@@ -4,7 +4,7 @@
  Module
      __init__.py
  Copyright
-     Copyright (C) 2018 Vladimir Roncevic <elektron.ronca@gmail.com>
+     Copyright (C) 2017 Vladimir Roncevic <elektron.ronca@gmail.com>
      ats_utilities is free software: you can redistribute it and/or modify it
      under the terms of the GNU General Public License as published by the
      Free Software Foundation, either version 3 of the License, or
@@ -16,8 +16,8 @@
      You should have received a copy of the GNU General Public License along
      with this program. If not, see <http://www.gnu.org/licenses/>.
  Info
-     Define class ATSOptionParser with attribute(s) and method(s).
-     Create option parser and process arguments from start.
+     Defined class ATSOptionParser with attribute(s) and method(s).
+     Created option parser and process arguments from start.
 '''
 
 import sys
@@ -28,15 +28,15 @@ try:
     from ats_utilities.console_io.verbose import verbose_message
     from ats_utilities.exceptions.ats_type_error import ATSTypeError
     from ats_utilities.exceptions.ats_bad_call_error import ATSBadCallError
-except ImportError as error_message:
-    MESSAGE = '\n{0}\n{1}\n'.format(__file__, error_message)
+except ImportError as ATS_ERROR_MESSAGE:
+    MESSAGE = '\n{0}\n{1}\n'.format(__file__, ATS_ERROR_MESSAGE)
     sys.exit(MESSAGE)  # Force close python ATS ##############################
 
 __author__ = 'Vladimir Roncevic'
-__copyright__ = 'Copyright 2018, Free software to use and distributed it.'
+__copyright__ = 'Copyright 2017, https://vroncevic.github.io/ats_utilities'
 __credits__ = ['Vladimir Roncevic']
-__license__ = 'GNU General Public License (GPL)'
-__version__ = '1.4.4'
+__license__ = 'https://github.com/vroncevic/ats_utilities/blob/master/LICENSE'
+__version__ = '1.5.4'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
@@ -44,8 +44,8 @@ __status__ = 'Updated'
 
 class ATSOptionParser(object):
     '''
-        Define class ATSOptionParser with attribute(s) and method(s).
-        Create option parser and process arguments from start.
+        Defined class ATSOptionParser with attribute(s) and method(s).
+        Created option parser and process arguments from start.
         It defines:
 
             :attributes:
@@ -56,6 +56,7 @@ class ATSOptionParser(object):
                 | __init__ - Initial constructor.
                 | add_operation - Add option to App/Tool/Script.
                 | parse_args - Process arguments from start.
+                | __str__ - Dunder method for ATSOptionParser.
     '''
 
     __slots__ = ('VERBOSE', '__opt_parser')
@@ -81,8 +82,10 @@ class ATSOptionParser(object):
             ('str:epilog', epilog),
             ('str:description', description)
         ])
-        if status == ATSChecker.TYPE_ERROR: raise ATSTypeError(error)
-        if status == ATSChecker.VALUE_ERROR: raise ATSBadCallError(error)
+        if status == ATSChecker.TYPE_ERROR:
+            raise ATSTypeError(error)
+        if status == ATSChecker.VALUE_ERROR:
+            raise ATSBadCallError(error)
         verbose_message(
             ATSOptionParser.VERBOSE, verbose, 'init ATS option parser'
         )
@@ -114,3 +117,15 @@ class ATSOptionParser(object):
         '''
         (opts, args) = self.__opt_parser.parse_args(argv)
         return opts, args
+
+    def __str__(self):
+        '''
+            Dunder method for ATSOptionParser.
+
+            :return: Object in a human-readable format.
+            :rtype: <str>
+            :exceptions: None
+        '''
+        return '{0} ({1})'.format(
+            self.__class__.__name__, str(self.__opt_parser)
+        )

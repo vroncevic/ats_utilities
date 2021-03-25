@@ -6,11 +6,11 @@ import sys
 sys.path.insert(0, os.path.abspath('../../'))
 
 project = u'ats_utilities'
-copyright = u'2020, Vladimir Roncevic <elektron.ronca@gmail.com>'
+copyright = u'2017, https://vroncevic.github.io/ats_utilities'
 author = u'Vladimir Roncevic <elektron.ronca@gmail.com>'
-version = u'1.4.4'
+version = u'1.5.4'
 release = u'https://github.com/vroncevic/ats_utilities/releases'
-extensions = ['sphinx.ext.viewcode', 'sphinx.ext.autodoc']
+extensions = ['sphinx.ext.autodoc', 'sphinx.ext.viewcode',]
 templates_path = ['_templates']
 source_suffix = '.rst'
 master_doc = 'index'

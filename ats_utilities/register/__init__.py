@@ -4,7 +4,7 @@
  Module
      __init__.py
  Copyright
-     Copyright (C) 2018 Vladimir Roncevic <elektron.ronca@gmail.com>
+     Copyright (C) 2017 Vladimir Roncevic <elektron.ronca@gmail.com>
      ats_utilities is free software: you can redistribute it and/or modify it
      under the terms of the GNU General Public License as published by the
      Free Software Foundation, either version 3 of the License, or
@@ -16,15 +16,15 @@
      You should have received a copy of the GNU General Public License along
      with this program. If not, see <http://www.gnu.org/licenses/>.
  Info
-     Define class ATSRegister with attribute(s) and method(s).
-     App/Tool/Script settings utilities, auto-register class.
+     Defined class ATSRegister with attribute(s) and method(s).
+     Created API for App/Tool/Script utilities, auto-register class.
 '''
 
 __author__ = 'Vladimir Roncevic'
-__copyright__ = 'Copyright 2018, Free software to use and distributed it.'
+__copyright__ = 'Copyright 2017, https://vroncevic.github.io/ats_utilities'
 __credits__ = ['Vladimir Roncevic']
-__license__ = 'GNU General Public License (GPL)'
-__version__ = '1.4.4'
+__license__ = 'https://github.com/vroncevic/ats_utilities/blob/master/LICENSE'
+__version__ = '1.5.4'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
@@ -32,31 +32,31 @@ __status__ = 'Updated'
 
 class ATSRegister(type):
     '''
-        Define class ATSRegister with attribute(s) and method(s).
-        App/Tool/Script settings utilities, auto-register class.
+        Defined class ATSRegister with attribute(s) and method(s).
+        Created API for App/Tool/Script utilities, auto-register class.
         It defines:
 
             :attributes:
-                | registry - List of classes.
+                | registry - Set of classes.
             :methods:
                 | __init__ - Initial constructor.
                 | __iter__ - Getting iterator of set.
-                | __str__ - String representation of LogRegister.
+                | __str__ - Dunder method for ATSRegister.
     '''
 
-    def __init__(cls, name, bases, nmspc):
+    def __init__(cls, name, bases, namespace):
         '''
-            Initial constructor, register class.
+            Initial constructor.
 
             :param name: class name.
             :type name: <str>
             :param bases: Class bases.
             :type bases: <tuple>
-            :param nmspc: Class namespace.
-            :type nmspc: <dict>
+            :param namespace: Class namespace.
+            :type namespace: <dict>
             :exceptions: None
         '''
-        super(ATSRegister, cls).__init__(name, bases, nmspc)
+        super(ATSRegister, cls).__init__(name, bases, namespace)
         if not hasattr(cls, 'registry'):
             cls.registry = set()
         cls.registry.add(cls)
@@ -74,14 +74,14 @@ class ATSRegister(type):
 
     def __str__(cls):
         '''
-            String representation of LogRegister.
+            Dunder method for ATSRegister.
 
-            :return: Return human readable string (LogRegister).
+            :return: Object in a human-readable format.
             :rtype: <str>
             :exceptions: None
         '''
         if cls in cls.registry:
             return cls.__name__
-        return '{0}{1}{2}'.format(
-            cls.__name__, ': ', ', '.join([sc.__name__ for sc in cls])
+        return '{0} ({1})'.format(
+            cls.__name__, ', '.join([sc.__name__ for sc in cls])
         )

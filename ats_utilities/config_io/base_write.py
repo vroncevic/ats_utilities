@@ -4,7 +4,7 @@
  Module
      base_write.py
  Copyright
-     Copyright (C) 2018 Vladimir Roncevic <elektron.ronca@gmail.com>
+     Copyright (C) 2017 Vladimir Roncevic <elektron.ronca@gmail.com>
      ats_utilities is free software: you can redistribute it and/or modify it
      under the terms of the GNU General Public License as published by the
      Free Software Foundation, either version 3 of the License, or
@@ -16,23 +16,23 @@
      You should have received a copy of the GNU General Public License along
      with this program. If not, see <http://www.gnu.org/licenses/>.
  Info
-     Define class BaseWriteConfig with attribute(s) and method(s).
-     Write operation for configuration files.
+     Defined class BaseWriteConfig with attribute(s) and method(s).
+     Created API for write operation for configuration files.
 '''
 
 import sys
 
 try:
     from ats_utilities.abstract import abstract_method
-except ImportError as error_message:
-    MESSAGE = '\n{0}\n{1}\n'.format(__file__, error_message)
+except ImportError as ATS_ERROR_MESSAGE:
+    MESSAGE = '\n{0}\n{1}\n'.format(__file__, ATS_ERROR_MESSAGE)
     sys.exit(MESSAGE)  # Force close python ATS ##############################
 
 __author__ = 'Vladimir Roncevic'
-__copyright__ = 'Copyright 2018, Free software to use and distributed it.'
+__copyright__ = 'Copyright 2017, https://vroncevic.github.io/ats_utilities'
 __credits__ = ['Vladimir Roncevic']
-__license__ = 'GNU General Public License (GPL)'
-__version__ = '1.4.4'
+__license__ = 'https://github.com/vroncevic/ats_utilities/blob/master/LICENSE'
+__version__ = '1.5.4'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
@@ -40,8 +40,8 @@ __status__ = 'Updated'
 
 class BaseWriteConfig(object):
     '''
-        Define class BaseWriteConfig with attribute(s) and method(s).
-        Write operation for configuration files.
+        Defined class BaseWriteConfig with attribute(s) and method(s).
+        Created API for write operation for configuration files.
         It defines:
 
             :attributes:
@@ -49,7 +49,9 @@ class BaseWriteConfig(object):
             :methods:
                 | __init__ - Initial constructor.
                 | file_path - Property methods for set/get operations.
+                | is_not_none - Checking is file path None.
                 | write_configuration - Write configuration (Abstract method).
+                | __str__ - Dunder method for BaseWriteConfig.
     '''
 
     def __init__(self):
@@ -58,7 +60,7 @@ class BaseWriteConfig(object):
 
             :exceptions: None
         '''
-        self.__file_path = ''
+        self.__file_path = None
 
     @property
     def file_path(self):
@@ -82,15 +84,33 @@ class BaseWriteConfig(object):
         '''
         self.__file_path = file_path
 
+    def is_not_none(self):
+        '''
+            Checking is file path None.
+
+            :return: True (file path) | False.
+            :rtype: <bool>
+            :exceptions: None
+        '''
+        return True if self.__file_path is not None else False
+
     @abstract_method
-    def write_configuration(self, configuration, verbose=False):
+    def write_configuration(self, configuration):
         '''
             Write configuration to file (Abstract method).
 
             :param configuration: Configuration object.
             :type configuration: <dict>
-            :param verbose: Enable/disable verbose option.
-            :type verbose: <bool>
             :exception: NotImplementedError
         '''
         pass
+
+    def __str__(self):
+        '''
+            Dunder method for BaseWriteConfig.
+
+            :return: Object in a human-readable format.
+            :rtype: <str>
+            :exceptions: None
+        '''
+        return '{0} ({1})'.format(self.__class__.__name__, self.__file_path)

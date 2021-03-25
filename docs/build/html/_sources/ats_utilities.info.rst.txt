@@ -8,7 +8,7 @@ Submodules
 
    ats_utilities.info.ats_build_date
    ats_utilities.info.ats_info_ok
-   ats_utilities.info.ats_license
+   ats_utilities.info.ats_licence
    ats_utilities.info.ats_name
    ats_utilities.info.ats_version
 

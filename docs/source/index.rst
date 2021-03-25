@@ -138,13 +138,14 @@ Code structure:
     │   ├── ats_file_error.py
     │   ├── ats_key_error.py
     │   ├── ats_lookup_error.py
+    │   ├── ats_parameter_error.py
     │   ├── ats_type_error.py
     │   ├── ats_value_error.py
     │   └── __init__.py
     ├── info/
     │   ├── ats_build_date.py
     │   ├── ats_info_ok.py
-    │   ├── ats_license.py
+    │   ├── ats_licence.py
     │   ├── ats_name.py
     │   ├── ats_version.py
     │   └── __init__.py

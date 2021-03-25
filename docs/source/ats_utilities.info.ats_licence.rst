@@ -1,7 +1,7 @@
-ats\_utilities.info.ats\_license module
+ats\_utilities.info.ats\_licence module
 =======================================
 
-.. automodule:: ats_utilities.info.ats_license
+.. automodule:: ats_utilities.info.ats_licence
     :members:
     :undoc-members:
     :show-inheritance:
