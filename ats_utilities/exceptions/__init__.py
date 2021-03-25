@@ -4,7 +4,7 @@
  Module
      __init__.py
  Copyright
-     Copyright (C) 2018 Vladimir Roncevic <elektron.ronca@gmail.com>
+     Copyright (C) 2017 Vladimir Roncevic <elektron.ronca@gmail.com>
      ats_utilities is free software: you can redistribute it and/or modify it
      under the terms of the GNU General Public License as published by the
      Free Software Foundation, either version 3 of the License, or
@@ -16,15 +16,15 @@
      You should have received a copy of the GNU General Public License along
      with this program. If not, see <http://www.gnu.org/licenses/>.
  Info
-     Define class ATSError with attribute(s) and method(s).
-     General exception (raise exception for wrong state/behavior).
+     Defined class ATSError with attribute(s) and method(s).
+     Created general exception (raise exception for wrong state/behavior).
 '''
 
 __author__ = 'Vladimir Roncevic'
-__copyright__ = 'Copyright 2018, Free software to use and distributed it.'
+__copyright__ = 'Copyright 2017, https://vroncevic.github.io/ats_utilities'
 __credits__ = ['Vladimir Roncevic']
-__license__ = 'GNU General Public License (GPL)'
-__version__ = '1.4.4'
+__license__ = 'https://github.com/vroncevic/ats_utilities/blob/master/LICENSE'
+__version__ = '1.5.4'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
@@ -32,8 +32,8 @@ __status__ = 'Updated'
 
 class ATSError(Exception):
     '''
-        Define class ATSError with attribute(s) and method(s).
-        General exception (raise exception for wrong state/behavior).
+        Defined class ATSError with attribute(s) and method(s).
+        Created general exception (raise exception for wrong state/behavior).
         It defines:
 
             :attributes:

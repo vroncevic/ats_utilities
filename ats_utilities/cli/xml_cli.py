@@ -4,7 +4,7 @@
  Module
      xml_cli.py
  Copyright
-     Copyright (C) 2021 Vladimir Roncevic <elektron.ronca@gmail.com>
+     Copyright (C) 2017 Vladimir Roncevic <elektron.ronca@gmail.com>
      ats_utilities is free software: you can redistribute it and/or modify it
      under the terms of the GNU General Public License as published by the
      Free Software Foundation, either version 3 of the License, or
@@ -16,8 +16,8 @@
      You should have received a copy of the GNU General Public License along
      with this program. If not, see <http://www.gnu.org/licenses/>.
  Info
-     Define class XmlCLI with attribute(s) and method(s).
-     Check and load informations, setup arguments parser.
+     Defined class XmlCLI with attribute(s) and method(s).
+     Created API for check and load informations, setup arguments parser.
 '''
 
 import sys
@@ -29,15 +29,15 @@ try:
     from ats_utilities.console_io.verbose import verbose_message
     from ats_utilities.exceptions.ats_type_error import ATSTypeError
     from ats_utilities.exceptions.ats_bad_call_error import ATSBadCallError
-except ImportError as error_message:
-    MESSAGE = '\n{0}\n{1}\n'.format(__file__, error_message)
+except ImportError as ATS_ERROR_MESSAGE:
+    MESSAGE = '\n{0}\n{1}\n'.format(__file__, ATS_ERROR_MESSAGE)
     sys.exit(MESSAGE)  # Force close python ATS ##############################
 
 __author__ = 'Vladimir Roncevic'
-__copyright__ = 'Copyright 2021, Free software to use and distributed it.'
+__copyright__ = 'Copyright 2017, https://vroncevic.github.io/ats_utilities'
 __credits__ = ['Vladimir Roncevic']
-__license__ = 'GNU General Public License (GPL)'
-__version__ = '1.4.4'
+__license__ = 'https://github.com/vroncevic/ats_utilities/blob/master/LICENSE'
+__version__ = '1.5.4'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
@@ -45,8 +45,8 @@ __status__ = 'Updated'
 
 class XmlCLI(XmlBase):
     '''
-        Define class XmlCLI with attribute(s) and method(s).
-        Check and load informations, setup arguments parser.
+        Defined class XmlCLI with attribute(s) and method(s).
+        Created API for check and load informations, setup arguments parser.
         It defines:
 
             :attributes:
@@ -57,11 +57,11 @@ class XmlCLI(XmlBase):
                 | add_new_option - Adding new option for CL interface.
                 | parse_args - Parse arguments.
                 | process - Process and run tool operation (Abstract method).
+                | __str__ - Dunder method for XmlCLI.
     '''
 
     __slots__ = (
-        'VERBOSE', 'tool_operational', 'xml2obj',
-        'obj2xml', 'option_parser'
+        'VERBOSE', 'tool_operational', 'xml2obj', 'obj2xml', 'option_parser'
     )
     VERBOSE = 'ATS_UTILITIES::CLI::XML_CLI'
 
@@ -79,8 +79,10 @@ class XmlCLI(XmlBase):
         error, status = checker.check_params([
             ('str:informations_file', informations_file)
         ])
-        if status == ATSChecker.TYPE_ERROR: raise ATSTypeError(error)
-        if status == ATSChecker.VALUE_ERROR: raise ATSBadCallError(error)
+        if status == ATSChecker.TYPE_ERROR:
+            raise ATSTypeError(error)
+        if status == ATSChecker.VALUE_ERROR:
+            raise ATSBadCallError(error)
         verbose_message(XmlCLI.VERBOSE, verbose, 'init ATS cli')
         XmlBase.__init__(self, informations_file, verbose=verbose)
 
@@ -119,3 +121,15 @@ class XmlCLI(XmlBase):
             :exception: NotImplementedError
         '''
         pass
+
+    def __str__(self):
+        '''
+            Dunder method for XmlCLI.
+
+            :return: Object in a human-readable format.
+            :rtype: <str>
+            :exceptions: None
+        '''
+        return '{0}({1})'.format(
+            self.__class__.__name__, XmlBase.__str__(self)
+        )

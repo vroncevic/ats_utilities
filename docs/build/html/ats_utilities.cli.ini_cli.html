@@ -61,7 +61,7 @@
             
             
               <div class="version">
-                1.4.4
+                1.5.4
               </div>
             
           
@@ -186,7 +186,7 @@
 <dt>Module</dt>
 <dd>ini_cli.py</dd>
 <dt>Copyright</dt>
-<dd>Copyright (C) 2021 Vladimir Roncevic &lt;<a class="reference external" href="mailto:elektron&#46;ronca&#37;&#52;&#48;gmail&#46;com">elektron<span>&#46;</span>ronca<span>&#64;</span>gmail<span>&#46;</span>com</a>&gt;
+<dd>Copyright (C) 2017 Vladimir Roncevic &lt;<a class="reference external" href="mailto:elektron&#46;ronca&#37;&#52;&#48;gmail&#46;com">elektron<span>&#46;</span>ronca<span>&#64;</span>gmail<span>&#46;</span>com</a>&gt;
 ats_utilities is free software: you can redistribute it and/or modify it
 under the terms of the GNU General Public License as published by the
 Free Software Foundation, either version 3 of the License, or
@@ -198,15 +198,15 @@ See the GNU General Public License for more details.
 You should have received a copy of the GNU General Public License along
 with this program. If not, see &lt;<a class="reference external" href="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</a>&gt;.</dd>
 <dt>Info</dt>
-<dd>Define class IniCLI with attribute(s) and method(s).
-Check and load informations, setup arguments parser.</dd>
+<dd>Defined class IniCLI with attribute(s) and method(s).
+Created API for check and load informations, setup arguments parser.</dd>
 </dl>
 <dl class="class">
 <dt id="ats_utilities.cli.ini_cli.IniCLI">
 <em class="property">class </em><code class="descclassname">ats_utilities.cli.ini_cli.</code><code class="descname">IniCLI</code><span class="sig-paren">(</span><em>informations_file</em>, <em>verbose=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ats_utilities/cli/ini_cli.html#IniCLI"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ats_utilities.cli.ini_cli.IniCLI" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="ats_utilities.config_io.ini.html#ats_utilities.config_io.ini.IniBase" title="ats_utilities.config_io.ini.IniBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">ats_utilities.config_io.ini.IniBase</span></code></a></p>
-<p>Define class IniCLI with attribute(s) and method(s).
-Check and load informations, setup arguments parser.
+<p>Defined class IniCLI with attribute(s) and method(s).
+Created API for check and load informations, setup arguments parser.
 It defines:</p>
 <blockquote>
 <div><table class="docutils field-list" frame="void" rules="none">
@@ -224,6 +224,7 @@ It defines:</p>
 <div class="line">add_new_option - Adding new option for CL interface.</div>
 <div class="line">parse_args - Parse arguments.</div>
 <div class="line">process - Process and run tool operation (Abstract method).</div>
+<div class="line">__str__ - Dunder method for IniCLI.</div>
 </div>
 </td>
 </tr>
@@ -326,7 +327,7 @@ It defines:</p>
   <div role="contentinfo">
     <p>
         
-        &copy; Copyright 2020, Vladimir Roncevic &lt;elektron.ronca@gmail.com&gt;
+        &copy; Copyright 2017, https://vroncevic.github.io/ats_utilities
 
     </p>
   </div>

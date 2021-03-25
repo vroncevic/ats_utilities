@@ -61,7 +61,7 @@
             
             
               <div class="version">
-                1.4.4
+                1.5.4
               </div>
             
           
@@ -248,7 +248,7 @@
 <dt>Module</dt>
 <dd>__init__.py</dd>
 <dt>Copyright</dt>
-<dd>Copyright (C) 2018 Vladimir Roncevic &lt;<a class="reference external" href="mailto:elektron&#46;ronca&#37;&#52;&#48;gmail&#46;com">elektron<span>&#46;</span>ronca<span>&#64;</span>gmail<span>&#46;</span>com</a>&gt;
+<dd>Copyright (C) 2017 Vladimir Roncevic &lt;<a class="reference external" href="mailto:elektron&#46;ronca&#37;&#52;&#48;gmail&#46;com">elektron<span>&#46;</span>ronca<span>&#64;</span>gmail<span>&#46;</span>com</a>&gt;
 ats_utilities is free software: you can redistribute it and/or modify it
 under the terms of the GNU General Public License as published by the
 Free Software Foundation, either version 3 of the License, or
@@ -260,15 +260,15 @@ See the GNU General Public License for more details.
 You should have received a copy of the GNU General Public License along
 with this program. If not, see &lt;<a class="reference external" href="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</a>&gt;.</dd>
 <dt>Info</dt>
-<dd>Define class ConfigFile with attribute(s) and method(s).
-Configuration context manager.</dd>
+<dd>Defined class ConfigFile with attribute(s) and method(s).
+Created API for configuration context manager.</dd>
 </dl>
 <dl class="class">
 <dt id="ats_utilities.config_io.ConfigFile">
 <em class="property">class </em><code class="descclassname">ats_utilities.config_io.</code><code class="descname">ConfigFile</code><span class="sig-paren">(</span><em>file_path</em>, <em>file_mode</em>, <em>file_format</em>, <em>verbose=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ats_utilities/config_io.html#ConfigFile"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ats_utilities.config_io.ConfigFile" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="ats_utilities.config_io.base_check.html#ats_utilities.config_io.base_check.FileChecking" title="ats_utilities.config_io.base_check.FileChecking"><code class="xref py py-class docutils literal notranslate"><span class="pre">ats_utilities.config_io.base_check.FileChecking</span></code></a></p>
-<p>Define class ConfigFile with attribute(s) and method(s).
-Configuration context manager.
+<p>Defined class ConfigFile with attribute(s) and method(s).
+Created API for configuration context manager.
 It defines:</p>
 <blockquote>
 <div><table class="docutils field-list" frame="void" rules="none">
@@ -289,6 +289,7 @@ It defines:</p>
 <div class="line">__init__ - Initial constructor.</div>
 <div class="line">__enter__ - Open configuration file in mode.</div>
 <div class="line">__exit__ - Close configuration file.</div>
+<div class="line">__str__ - Dunder method for ConfigFile.</div>
 </div>
 </td>
 </tr>
@@ -348,7 +349,7 @@ list(iterable) -&gt; new list initialized from iterable’s items</p>
   <div role="contentinfo">
     <p>
         
-        &copy; Copyright 2020, Vladimir Roncevic &lt;elektron.ronca@gmail.com&gt;
+        &copy; Copyright 2017, https://vroncevic.github.io/ats_utilities
 
     </p>
   </div>

@@ -61,7 +61,7 @@
             
             
               <div class="version">
-                1.4.4
+                1.5.4
               </div>
             
           
@@ -209,17 +209,18 @@ See the GNU General Public License for more details.
 You should have received a copy of the GNU General Public License along
 with this program. If not, see &lt;<a class="reference external" href="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</a>&gt;.</dd>
 <dt>Info</dt>
-<dd>Define class ATSConsoleIO with attribute(s) and method(s).
-Define message container for console log mechanism.</dd>
+<dd>Defined class ATSConsoleIO with attribute(s) and method(s).
+Created glue-metaclass API console log mechanism.</dd>
 </dl>
 <dl class="class">
 <dt id="ats_utilities.console_io.ATSConsoleIO">
 <em class="property">class </em><code class="descclassname">ats_utilities.console_io.</code><code class="descname">ATSConsoleIO</code><a class="reference internal" href="_modules/ats_utilities/console_io.html#ATSConsoleIO"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ats_utilities.console_io.ATSConsoleIO" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>Define class ATSConsoleIO with attribute(s) and method(s).
-Define message container for console log mechanism.</p>
+<p>Defined class ATSConsoleIO with attribute(s) and method(s).
+Created glue-metaclass API console log mechanism.</p>
 <blockquote>
 <div><div class="line-block">
+<div class="line">* Success messages (Colorize text to green).</div>
 <div class="line">* Verbose messages (Colorize text to blue).</div>
 <div class="line">* Warning messages (Colorize text to yellow).</div>
 <div class="line">* Error messages (Colorize text to red).</div>
@@ -237,7 +238,7 @@ Define message container for console log mechanism.</p>
 </td>
 </tr>
 <tr class="field-even field"><th class="field-name">methods:</th><td class="field-body"><div class="first last line-block">
-<div class="line">None</div>
+<div class="line">__str__ - Dunder method for object ATSConsoleIO.</div>
 </div>
 </td>
 </tr>
@@ -246,7 +247,7 @@ Define message container for console log mechanism.</p>
 </div></blockquote>
 <dl class="attribute">
 <dt id="ats_utilities.console_io.ATSConsoleIO.registry">
-<code class="descname">registry</code><em class="property"> = set([&lt;class 'ats_utilities.console_io.error.ATSError'&gt;, &lt;class 'ats_utilities.console_io.verbose.ATSVerbose'&gt;])</em><a class="headerlink" href="#ats_utilities.console_io.ATSConsoleIO.registry" title="Permalink to this definition">¶</a></dt>
+<code class="descname">registry</code><em class="property"> = set([&lt;class 'ats_utilities.console_io.verbose.ATSVerbose'&gt;, &lt;class 'ats_utilities.console_io.error.ATSError'&gt;])</em><a class="headerlink" href="#ats_utilities.console_io.ATSConsoleIO.registry" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -275,7 +276,7 @@ Define message container for console log mechanism.</p>
   <div role="contentinfo">
     <p>
         
-        &copy; Copyright 2020, Vladimir Roncevic &lt;elektron.ronca@gmail.com&gt;
+        &copy; Copyright 2017, https://vroncevic.github.io/ats_utilities
 
     </p>
   </div>

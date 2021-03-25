@@ -61,7 +61,7 @@
             
             
               <div class="version">
-                1.4.4
+                1.5.4
               </div>
             
           
@@ -186,7 +186,7 @@
 <dt>Module</dt>
 <dd>base_check.py</dd>
 <dt>Copyright</dt>
-<dd>Copyright (C) 2018 Vladimir Roncevic &lt;<a class="reference external" href="mailto:elektron&#46;ronca&#37;&#52;&#48;gmail&#46;com">elektron<span>&#46;</span>ronca<span>&#64;</span>gmail<span>&#46;</span>com</a>&gt;
+<dd>Copyright (C) 2017 Vladimir Roncevic &lt;<a class="reference external" href="mailto:elektron&#46;ronca&#37;&#52;&#48;gmail&#46;com">elektron<span>&#46;</span>ronca<span>&#64;</span>gmail<span>&#46;</span>com</a>&gt;
 ats_utilities is free software: you can redistribute it and/or modify it
 under the terms of the GNU General Public License as published by the
 Free Software Foundation, either version 3 of the License, or
@@ -198,15 +198,15 @@ See the GNU General Public License for more details.
 You should have received a copy of the GNU General Public License along
 with this program. If not, see &lt;<a class="reference external" href="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</a>&gt;.</dd>
 <dt>Info</dt>
-<dd>Define class FileChecking with attribute(s) and method(s).
-Check operations with configuration files.</dd>
+<dd>Defined class FileChecking with attribute(s) and method(s).
+Created API for checking operations with files.</dd>
 </dl>
 <dl class="class">
 <dt id="ats_utilities.config_io.base_check.FileChecking">
 <em class="property">class </em><code class="descclassname">ats_utilities.config_io.base_check.</code><code class="descname">FileChecking</code><span class="sig-paren">(</span><em>verbose=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ats_utilities/config_io/base_check.html#FileChecking"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ats_utilities.config_io.base_check.FileChecking" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>Define class FileChecking with attribute(s) and method(s).
-Check operations with configuration files.
+<p>Defined class FileChecking with attribute(s) and method(s).
+Created API for checking operations with files.
 It defines:</p>
 <blockquote>
 <div><table class="docutils field-list" frame="void" rules="none">
@@ -224,10 +224,11 @@ It defines:</p>
 </tr>
 <tr class="field-even field"><th class="field-name">methods:</th><td class="field-body"><div class="first last line-block">
 <div class="line">__init__ - Initial constructor.</div>
-<div class="line">check_path - Check configuration file path.</div>
-<div class="line">check_mode -  Check operation mode for configuration file.</div>
-<div class="line">check_format - Check configuration file format by extension.</div>
-<div class="line">is_file_ok - Status of configuration file.</div>
+<div class="line">check_path - Check file path.</div>
+<div class="line">check_mode -  Check operation mode for file.</div>
+<div class="line">check_format - Check file format by extension.</div>
+<div class="line">is_file_ok - Status of file.</div>
+<div class="line">__str__ - Dunder method for FileChecking.</div>
 </div>
 </td>
 </tr>
@@ -247,13 +248,13 @@ It defines:</p>
 <dl class="method">
 <dt id="ats_utilities.config_io.base_check.FileChecking.check_format">
 <code class="descname">check_format</code><span class="sig-paren">(</span><em>file_path</em>, <em>file_format</em>, <em>verbose=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ats_utilities/config_io/base_check.html#FileChecking.check_format"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ats_utilities.config_io.base_check.FileChecking.check_format" title="Permalink to this definition">¶</a></dt>
-<dd><p>Check configuration file format by extension.</p>
+<dd><p>Check file format by extension.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>file_path</strong> (<em>&lt;str&gt;</em>) – Absolute configuration file path.</li>
+<li><strong>file_path</strong> (<em>&lt;str&gt;</em>) – File path.</li>
 <li><strong>file_format</strong> (<em>&lt;str&gt;</em>) – File format (file extension).</li>
 <li><strong>verbose</strong> (<em>&lt;bool&gt;</em>) – Enable/disable verbose option.</li>
 </ul>
@@ -269,7 +270,7 @@ It defines:</p>
 <dl class="method">
 <dt id="ats_utilities.config_io.base_check.FileChecking.check_mode">
 <code class="descname">check_mode</code><span class="sig-paren">(</span><em>file_mode</em>, <em>verbose=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ats_utilities/config_io/base_check.html#FileChecking.check_mode"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ats_utilities.config_io.base_check.FileChecking.check_mode" title="Permalink to this definition">¶</a></dt>
-<dd><p>Check operation mode for configuration file.</p>
+<dd><p>Check operation mode for file.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -296,13 +297,13 @@ It defines:</p>
 <dl class="method">
 <dt id="ats_utilities.config_io.base_check.FileChecking.check_path">
 <code class="descname">check_path</code><span class="sig-paren">(</span><em>file_path</em>, <em>verbose=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ats_utilities/config_io/base_check.html#FileChecking.check_path"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ats_utilities.config_io.base_check.FileChecking.check_path" title="Permalink to this definition">¶</a></dt>
-<dd><p>Check configuration file path.</p>
+<dd><p>Check file path.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>file_path</strong> (<em>&lt;str&gt;</em>) – Configuration file path.</li>
+<li><strong>file_path</strong> (<em>&lt;str&gt;</em>) – File path.</li>
 <li><strong>verbose</strong> (<em>&lt;bool&gt;</em>) – Enable/disable verbose option.</li>
 </ul>
 </td>
@@ -317,7 +318,7 @@ It defines:</p>
 <dl class="method">
 <dt id="ats_utilities.config_io.base_check.FileChecking.is_file_ok">
 <code class="descname">is_file_ok</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/ats_utilities/config_io/base_check.html#FileChecking.is_file_ok"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ats_utilities.config_io.base_check.FileChecking.is_file_ok" title="Permalink to this definition">¶</a></dt>
-<dd><p>Status of configuration file.</p>
+<dd><p>Status of file.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -357,7 +358,7 @@ It defines:</p>
   <div role="contentinfo">
     <p>
         
-        &copy; Copyright 2020, Vladimir Roncevic &lt;elektron.ronca@gmail.com&gt;
+        &copy; Copyright 2017, https://vroncevic.github.io/ats_utilities
 
     </p>
   </div>

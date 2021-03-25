@@ -61,7 +61,7 @@
             
             
               <div class="version">
-                1.4.4
+                1.5.4
               </div>
             
           
@@ -186,7 +186,7 @@
 <dt>Module</dt>
 <dd>success.py</dd>
 <dt>Copyright</dt>
-<dd>Copyright (C) 2018 Vladimir Roncevic &lt;<a class="reference external" href="mailto:elektron&#46;ronca&#37;&#52;&#48;gmail&#46;com">elektron<span>&#46;</span>ronca<span>&#64;</span>gmail<span>&#46;</span>com</a>&gt;
+<dd>Copyright (C) 2017 Vladimir Roncevic &lt;<a class="reference external" href="mailto:elektron&#46;ronca&#37;&#52;&#48;gmail&#46;com">elektron<span>&#46;</span>ronca<span>&#64;</span>gmail<span>&#46;</span>com</a>&gt;
 ats_utilities is free software: you can redistribute it and/or modify it
 under the terms of the GNU General Public License as published by the
 Free Software Foundation, either version 3 of the License, or
@@ -198,15 +198,15 @@ See the GNU General Public License for more details.
 You should have received a copy of the GNU General Public License along
 with this program. If not, see &lt;<a class="reference external" href="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</a>&gt;.</dd>
 <dt>Info</dt>
-<dd>Define class ATSSuccess with attribute(s) and method(s).
-Define success message container for console log mechanism.</dd>
+<dd>Defined class ATSSuccess with attribute(s) and method(s).
+Created success message container for console log mechanism.</dd>
 </dl>
 <dl class="class">
 <dt id="ats_utilities.console_io.success.ATSSuccess">
 <em class="property">class </em><code class="descclassname">ats_utilities.console_io.success.</code><code class="descname">ATSSuccess</code><a class="reference internal" href="_modules/ats_utilities/console_io/success.html#ATSSuccess"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ats_utilities.console_io.success.ATSSuccess" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="ats_utilities.console_io.html#ats_utilities.console_io.ATSConsoleIO" title="ats_utilities.console_io.ATSConsoleIO"><code class="xref py py-class docutils literal notranslate"><span class="pre">ats_utilities.console_io.ATSConsoleIO</span></code></a></p>
-<p>Define class ATSSuccess with attribute(s) and method(s).
-Define success message container for console log mechanism.
+<p>Defined class ATSSuccess with attribute(s) and method(s).
+Created success message container for console log mechanism.
 It defines:</p>
 <blockquote>
 <div><table class="docutils field-list" frame="void" rules="none">
@@ -221,12 +221,32 @@ It defines:</p>
 <tr class="field-even field"><th class="field-name">methods:</th><td class="field-body"><div class="first last line-block">
 <div class="line">__init__ - Initial constructor.</div>
 <div class="line">message - Property methods for set/get operations.</div>
+<div class="line">is_not_none - Checking is message None or not.</div>
+<div class="line">__str__ - Dunder method for ATSSuccess.</div>
 </div>
 </td>
 </tr>
 </tbody>
 </table>
 </div></blockquote>
+<dl class="method">
+<dt id="ats_utilities.console_io.success.ATSSuccess.is_not_none">
+<code class="descname">is_not_none</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/ats_utilities/console_io/success.html#ATSSuccess.is_not_none"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ats_utilities.console_io.success.ATSSuccess.is_not_none" title="Permalink to this definition">¶</a></dt>
+<dd><p>Checking is message None or not.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">True | False.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">&lt;bool&gt;</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Exceptions:</th><td class="field-body">None</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
 <dl class="attribute">
 <dt id="ats_utilities.console_io.success.ATSSuccess.message">
 <code class="descname">message</code><a class="headerlink" href="#ats_utilities.console_io.success.ATSSuccess.message" title="Permalink to this definition">¶</a></dt>
@@ -247,7 +267,7 @@ It defines:</p>
 
 <dl class="attribute">
 <dt id="ats_utilities.console_io.success.ATSSuccess.registry">
-<code class="descname">registry</code><em class="property"> = set([&lt;class 'ats_utilities.console_io.error.ATSError'&gt;, &lt;class 'ats_utilities.console_io.verbose.ATSVerbose'&gt;, &lt;class 'ats_utilities.console_io.success.ATSSuccess'&gt;])</em><a class="headerlink" href="#ats_utilities.console_io.success.ATSSuccess.registry" title="Permalink to this definition">¶</a></dt>
+<code class="descname">registry</code><em class="property"> = set([&lt;class 'ats_utilities.console_io.verbose.ATSVerbose'&gt;, &lt;class 'ats_utilities.console_io.error.ATSError'&gt;, &lt;class 'ats_utilities.console_io.success.ATSSuccess'&gt;])</em><a class="headerlink" href="#ats_utilities.console_io.success.ATSSuccess.registry" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -296,7 +316,7 @@ It defines:</p>
   <div role="contentinfo">
     <p>
         
-        &copy; Copyright 2020, Vladimir Roncevic &lt;elektron.ronca@gmail.com&gt;
+        &copy; Copyright 2017, https://vroncevic.github.io/ats_utilities
 
     </p>
   </div>

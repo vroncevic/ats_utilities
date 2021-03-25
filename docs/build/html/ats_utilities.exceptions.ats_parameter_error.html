@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>ats_utilities.info.ats_license module &mdash; ats_utilities https://github.com/vroncevic/ats_utilities/releases documentation</title>
+  <title>ats_utilities.exceptions.ats_parameter_error module &mdash; ats_utilities https://github.com/vroncevic/ats_utilities/releases documentation</title>
   
 
   
@@ -36,8 +36,8 @@
     
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="ats_utilities.info.ats_name module" href="ats_utilities.info.ats_name.html" />
-    <link rel="prev" title="ats_utilities.info.ats_info_ok module" href="ats_utilities.info.ats_info_ok.html" /> 
+    <link rel="next" title="ats_utilities.exceptions.ats_type_error module" href="ats_utilities.exceptions.ats_type_error.html" />
+    <link rel="prev" title="ats_utilities.exceptions.ats_lookup_error module" href="ats_utilities.exceptions.ats_lookup_error.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -61,7 +61,7 @@
             
             
               <div class="version">
-                1.4.4
+                1.5.4
               </div>
             
           
@@ -97,8 +97,8 @@
 <li class="toctree-l4"><a class="reference internal" href="ats_utilities.cli.html">ats_utilities.cli package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ats_utilities.config_io.html">ats_utilities.config_io package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ats_utilities.console_io.html">ats_utilities.console_io package</a></li>
-<li class="toctree-l4"><a class="reference internal" href="ats_utilities.exceptions.html">ats_utilities.exceptions package</a></li>
-<li class="toctree-l4 current"><a class="reference internal" href="ats_utilities.info.html">ats_utilities.info package</a></li>
+<li class="toctree-l4 current"><a class="reference internal" href="ats_utilities.exceptions.html">ats_utilities.exceptions package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ats_utilities.info.html">ats_utilities.info package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ats_utilities.logging.html">ats_utilities.logging package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ats_utilities.option.html">ats_utilities.option package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ats_utilities.register.html">ats_utilities.register package</a></li>
@@ -159,15 +159,15 @@
         
           <li><a href="ats_utilities.html">ats_utilities package</a> &raquo;</li>
         
-          <li><a href="ats_utilities.info.html">ats_utilities.info package</a> &raquo;</li>
+          <li><a href="ats_utilities.exceptions.html">ats_utilities.exceptions package</a> &raquo;</li>
         
-      <li>ats_utilities.info.ats_license module</li>
+      <li>ats_utilities.exceptions.ats_parameter_error module</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="_sources/ats_utilities.info.ats_license.rst.txt" rel="nofollow"> View page source</a>
+            <a href="_sources/ats_utilities.exceptions.ats_parameter_error.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -180,13 +180,13 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="module-ats_utilities.info.ats_license">
-<span id="ats-utilities-info-ats-license-module"></span><h1>ats_utilities.info.ats_license module<a class="headerlink" href="#module-ats_utilities.info.ats_license" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="module-ats_utilities.exceptions.ats_parameter_error">
+<span id="ats-utilities-exceptions-ats-parameter-error-module"></span><h1>ats_utilities.exceptions.ats_parameter_error module<a class="headerlink" href="#module-ats_utilities.exceptions.ats_parameter_error" title="Permalink to this headline">¶</a></h1>
 <dl class="docutils">
 <dt>Module</dt>
-<dd>ats_license.py</dd>
+<dd>ats_parameter_error.py</dd>
 <dt>Copyright</dt>
-<dd>Copyright (C) 2021 Vladimir Roncevic &lt;<a class="reference external" href="mailto:elektron&#46;ronca&#37;&#52;&#48;gmail&#46;com">elektron<span>&#46;</span>ronca<span>&#64;</span>gmail<span>&#46;</span>com</a>&gt;
+<dd>Copyright (C) 2017 Vladimir Roncevic &lt;<a class="reference external" href="mailto:elektron&#46;ronca&#37;&#52;&#48;gmail&#46;com">elektron<span>&#46;</span>ronca<span>&#64;</span>gmail<span>&#46;</span>com</a>&gt;
 ats_utilities is free software: you can redistribute it and/or modify it
 under the terms of the GNU General Public License as published by the
 Free Software Foundation, either version 3 of the License, or
@@ -198,15 +198,15 @@ See the GNU General Public License for more details.
 You should have received a copy of the GNU General Public License along
 with this program. If not, see &lt;<a class="reference external" href="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</a>&gt;.</dd>
 <dt>Info</dt>
-<dd>Define class ATSLicense with attribute(s) and method(s).
-Keep App/Tool/Script license in one property object.</dd>
+<dd>Defined class ATSParameterError with attribute(s) and method(s).
+Created exception mechanism (raise error for not expected format).</dd>
 </dl>
-<dl class="class">
-<dt id="ats_utilities.info.ats_license.ATSLicense">
-<em class="property">class </em><code class="descclassname">ats_utilities.info.ats_license.</code><code class="descname">ATSLicense</code><a class="reference internal" href="_modules/ats_utilities/info/ats_license.html#ATSLicense"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ats_utilities.info.ats_license.ATSLicense" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>Define class ATSLicense with attribute(s) and method(s).
-Keep App/Tool/Script license in one property object.
+<dl class="exception">
+<dt id="ats_utilities.exceptions.ats_parameter_error.ATSParameterError">
+<em class="property">exception </em><code class="descclassname">ats_utilities.exceptions.ats_parameter_error.</code><code class="descname">ATSParameterError</code><a class="reference internal" href="_modules/ats_utilities/exceptions/ats_parameter_error.html#ATSParameterError"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ats_utilities.exceptions.ats_parameter_error.ATSParameterError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">exceptions.Exception</span></code></p>
+<p>Defined class ATSParameterError with attribute(s) and method(s).
+Created exception mechanism (raise error for not expected format).
 It defines:</p>
 <blockquote>
 <div><table class="docutils field-list" frame="void" rules="none">
@@ -214,37 +214,18 @@ It defines:</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">attributes:</th><td class="field-body"><div class="first last line-block">
-<div class="line">__license - App/Tool/Script license.</div>
+<div class="line">None</div>
 </div>
 </td>
 </tr>
 <tr class="field-even field"><th class="field-name">methods:</th><td class="field-body"><div class="first last line-block">
-<div class="line">__init__ - Initial constructor.</div>
-<div class="line">name - Property methods for set/get operations.</div>
+<div class="line">None</div>
 </div>
 </td>
 </tr>
 </tbody>
 </table>
 </div></blockquote>
-<dl class="attribute">
-<dt id="ats_utilities.info.ats_license.ATSLicense.license">
-<code class="descname">license</code><a class="headerlink" href="#ats_utilities.info.ats_license.ATSLicense.license" title="Permalink to this definition">¶</a></dt>
-<dd><p>Property method for getting App/Tool/Script license.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">App/Tool/Script license | None.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">&lt;str&gt; | &lt;NoneType&gt;</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Exceptions:</th><td class="field-body">None</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
 </dd></dl>
 
 </div>
@@ -257,10 +238,10 @@ It defines:</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="ats_utilities.info.ats_name.html" class="btn btn-neutral float-right" title="ats_utilities.info.ats_name module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="ats_utilities.exceptions.ats_type_error.html" class="btn btn-neutral float-right" title="ats_utilities.exceptions.ats_type_error module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="ats_utilities.info.ats_info_ok.html" class="btn btn-neutral float-left" title="ats_utilities.info.ats_info_ok module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="ats_utilities.exceptions.ats_lookup_error.html" class="btn btn-neutral float-left" title="ats_utilities.exceptions.ats_lookup_error module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -270,7 +251,7 @@ It defines:</p>
   <div role="contentinfo">
     <p>
         
-        &copy; Copyright 2020, Vladimir Roncevic &lt;elektron.ronca@gmail.com&gt;
+        &copy; Copyright 2017, https://vroncevic.github.io/ats_utilities
 
     </p>
   </div>

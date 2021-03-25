@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>ats_utilities.info.ats_license &mdash; ats_utilities https://github.com/vroncevic/ats_utilities/releases documentation</title>
+  <title>ats_utilities.info.ats_licence &mdash; ats_utilities https://github.com/vroncevic/ats_utilities/releases documentation</title>
   
 
   
@@ -59,7 +59,7 @@
             
             
               <div class="version">
-                1.4.4
+                1.5.4
               </div>
             
           
@@ -138,7 +138,7 @@
         
           <li><a href="../info.html">ats_utilities.info</a> &raquo;</li>
         
-      <li>ats_utilities.info.ats_license</li>
+      <li>ats_utilities.info.ats_licence</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -153,14 +153,14 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <h1>Source code for ats_utilities.info.ats_license</h1><div class="highlight"><pre>
+  <h1>Source code for ats_utilities.info.ats_licence</h1><div class="highlight"><pre>
 <span></span><span class="c1"># -*- coding: UTF-8 -*-</span>
 
 <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd"> Module</span>
-<span class="sd">     ats_license.py</span>
+<span class="sd">     ats_licence.py</span>
 <span class="sd"> Copyright</span>
-<span class="sd">     Copyright (C) 2021 Vladimir Roncevic &lt;elektron.ronca@gmail.com&gt;</span>
+<span class="sd">     Copyright (C) 2017 Vladimir Roncevic &lt;elektron.ronca@gmail.com&gt;</span>
 <span class="sd">     ats_utilities is free software: you can redistribute it and/or modify it</span>
 <span class="sd">     under the terms of the GNU General Public License as published by the</span>
 <span class="sd">     Free Software Foundation, either version 3 of the License, or</span>
@@ -172,31 +172,33 @@
 <span class="sd">     You should have received a copy of the GNU General Public License along</span>
 <span class="sd">     with this program. If not, see &lt;http://www.gnu.org/licenses/&gt;.</span>
 <span class="sd"> Info</span>
-<span class="sd">     Define class ATSLicense with attribute(s) and method(s).</span>
-<span class="sd">     Keep App/Tool/Script license in one property object.</span>
+<span class="sd">     Defined class ATSLicence with attribute(s) and method(s).</span>
+<span class="sd">     Created API for App/Tool/Script licence in one property object.</span>
 <span class="sd">&#39;&#39;&#39;</span>
 
 <span class="n">__author__</span> <span class="o">=</span> <span class="s1">&#39;Vladimir Roncevic&#39;</span>
-<span class="n">__copyright__</span> <span class="o">=</span> <span class="s1">&#39;Copyright 2021, Free software to use and distributed it.&#39;</span>
+<span class="n">__copyright__</span> <span class="o">=</span> <span class="s1">&#39;Copyright 2017, https://vroncevic.github.io/ats_utilities&#39;</span>
 <span class="n">__credits__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Vladimir Roncevic&#39;</span><span class="p">]</span>
-<span class="n">__license__</span> <span class="o">=</span> <span class="s1">&#39;GNU General Public License (GPL)&#39;</span>
-<span class="n">__version__</span> <span class="o">=</span> <span class="s1">&#39;1.4.4&#39;</span>
+<span class="n">__license__</span> <span class="o">=</span> <span class="s1">&#39;https://github.com/vroncevic/ats_utilities/blob/master/LICENSE&#39;</span>
+<span class="n">__version__</span> <span class="o">=</span> <span class="s1">&#39;1.5.4&#39;</span>
 <span class="n">__maintainer__</span> <span class="o">=</span> <span class="s1">&#39;Vladimir Roncevic&#39;</span>
 <span class="n">__email__</span> <span class="o">=</span> <span class="s1">&#39;elektron.ronca@gmail.com&#39;</span>
 <span class="n">__status__</span> <span class="o">=</span> <span class="s1">&#39;Updated&#39;</span>
 
 
-<div class="viewcode-block" id="ATSLicense"><a class="viewcode-back" href="../../../ats_utilities.info.ats_license.html#ats_utilities.info.ats_license.ATSLicense">[docs]</a><span class="k">class</span> <span class="nc">ATSLicense</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<div class="viewcode-block" id="ATSLicence"><a class="viewcode-back" href="../../../ats_utilities.info.ats_licence.html#ats_utilities.info.ats_licence.ATSLicence">[docs]</a><span class="k">class</span> <span class="nc">ATSLicence</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">        Define class ATSLicense with attribute(s) and method(s).</span>
-<span class="sd">        Keep App/Tool/Script license in one property object.</span>
+<span class="sd">        Defined class ATSLicence with attribute(s) and method(s).</span>
+<span class="sd">        Created API for App/Tool/Script licence in one property object.</span>
 <span class="sd">        It defines:</span>
 
 <span class="sd">            :attributes:</span>
-<span class="sd">                | __license - App/Tool/Script license.</span>
+<span class="sd">                | __licence - App/Tool/Script licence.</span>
 <span class="sd">            :methods:</span>
 <span class="sd">                | __init__ - Initial constructor.</span>
 <span class="sd">                | name - Property methods for set/get operations.</span>
+<span class="sd">                | is_not_none - Checking is App/Tool/Script licence None.</span>
+<span class="sd">                | __str__ - Dunder method for ATSLicence.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -205,29 +207,49 @@
 
 <span class="sd">            :exceptions: None</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">__license</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__licence</span> <span class="o">=</span> <span class="kc">None</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">license</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">licence</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">            Property method for getting App/Tool/Script license.</span>
+<span class="sd">            Property method for getting App/Tool/Script licence.</span>
 
-<span class="sd">            :return: App/Tool/Script license | None.</span>
+<span class="sd">            :return: App/Tool/Script licence | None.</span>
 <span class="sd">            :rtype: &lt;str&gt; | &lt;NoneType&gt;</span>
 <span class="sd">            :exceptions: None</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__license</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__licence</span>
 
-    <span class="nd">@license</span><span class="o">.</span><span class="n">setter</span>
-    <span class="k">def</span> <span class="nf">license</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">license</span><span class="p">):</span>
+    <span class="nd">@licence</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">licence</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">licence</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">            Property method for setting App/Tool/Script license.</span>
+<span class="sd">            Property method for setting App/Tool/Script licence.</span>
 
-<span class="sd">            :param license: App/Tool/Script license.</span>
-<span class="sd">            :type license: &lt;str&gt;</span>
+<span class="sd">            :param licence: App/Tool/Script licence.</span>
+<span class="sd">            :type licence: &lt;str&gt;</span>
 <span class="sd">            :exceptions: None</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">__license</span> <span class="o">=</span> <span class="n">license</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__licence</span> <span class="o">=</span> <span class="n">licence</span>
+
+<div class="viewcode-block" id="ATSLicence.is_not_none"><a class="viewcode-back" href="../../../ats_utilities.info.ats_licence.html#ats_utilities.info.ats_licence.ATSLicence.is_not_none">[docs]</a>    <span class="k">def</span> <span class="nf">is_not_none</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">            Checking is App/Tool/Script licence None.</span>
+
+<span class="sd">            :return: True | False.</span>
+<span class="sd">            :rtype: &lt;bool&gt;</span>
+<span class="sd">            :exceptions: None</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="kc">True</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__licence</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="kc">False</span></div>
+
+    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">            Dunder method for ATSLicence.</span>
+
+<span class="sd">            :return: Object in a human-readable format.</span>
+<span class="sd">            :rtype: &lt;str&gt;</span>
+<span class="sd">            :exceptions: None</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="s1">&#39;</span><span class="si">{0}</span><span class="s1"> (</span><span class="si">{1}</span><span class="s1">)&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">__licence</span><span class="p">)</span></div>
 </pre></div>
 
            </div>
@@ -241,7 +263,7 @@
   <div role="contentinfo">
     <p>
         
-        &copy; Copyright 2020, Vladimir Roncevic &lt;elektron.ronca@gmail.com&gt;
+        &copy; Copyright 2017, https://vroncevic.github.io/ats_utilities
 
     </p>
   </div>

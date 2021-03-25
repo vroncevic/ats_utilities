@@ -61,7 +61,7 @@
             
             
               <div class="version">
-                1.4.4
+                1.5.4
               </div>
             
           
@@ -186,7 +186,7 @@
 <dt>Module</dt>
 <dd>__init__.py</dd>
 <dt>Copyright</dt>
-<dd>Copyright (C) 2021 Vladimir Roncevic &lt;<a class="reference external" href="mailto:elektron&#46;ronca&#37;&#52;&#48;gmail&#46;com">elektron<span>&#46;</span>ronca<span>&#64;</span>gmail<span>&#46;</span>com</a>&gt;
+<dd>Copyright (C) 2017 Vladimir Roncevic &lt;<a class="reference external" href="mailto:elektron&#46;ronca&#37;&#52;&#48;gmail&#46;com">elektron<span>&#46;</span>ronca<span>&#64;</span>gmail<span>&#46;</span>com</a>&gt;
 ats_utilities is free software: you can redistribute it and/or modify it
 under the terms of the GNU General Public License as published by the
 Free Software Foundation, either version 3 of the License, or
@@ -198,15 +198,15 @@ See the GNU General Public License for more details.
 You should have received a copy of the GNU General Public License along
 with this program. If not, see &lt;<a class="reference external" href="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</a>&gt;.</dd>
 <dt>Info</dt>
-<dd>Define class ATSChecker with attribute(s) and method(s).
-Checking parameters for class methods and functions (types, values).</dd>
+<dd>Defined class ATSChecker with attribute(s) and method(s).
+Created API fo checking parameters for object methods and functions.</dd>
 </dl>
 <dl class="class">
 <dt id="ats_utilities.checker.ATSChecker">
 <em class="property">class </em><code class="descclassname">ats_utilities.checker.</code><code class="descname">ATSChecker</code><a class="reference internal" href="_modules/ats_utilities/checker.html#ATSChecker"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ats_utilities.checker.ATSChecker" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>Define class ATSChecker with attribute(s) and method(s).
-Checking parameters for class methods and functions (types, values).
+<p>Defined class ATSChecker with attribute(s) and method(s).
+Created API fo checking parameters for object methods and functions.
 It defines:</p>
 <blockquote>
 <div><table class="docutils field-list" frame="void" rules="none">
@@ -216,8 +216,10 @@ It defines:</p>
 <tr class="field-odd field"><th class="field-name">attributes:</th><td class="field-body"><div class="first last line-block">
 <div class="line">__slots__ - Setting class slots.</div>
 <div class="line">VERBOSE - Console text indicator for current process-phase.</div>
-<div class="line">TYPE_ERROR - Type error id (1).</div>
-<div class="line">VALUE_ERROR - Value error id (2).</div>
+<div class="line">NO_ERROR - No error, error id (0).</div>
+<div class="line">TYPE_ERROR - Type param error id (1).</div>
+<div class="line">VALUE_ERROR - Value param error id (2).</div>
+<div class="line">FORMAT_ERROR - Wrong format error id (3).</div>
 <div class="line">__start_message - Start segment of usage message.</div>
 <div class="line">__list_of_params - List of parameters for method/function.</div>
 <div class="line">__error_type - List of mapped errors.</div>
@@ -232,14 +234,25 @@ It defines:</p>
 <div class="line">usage_message - Prepare usage message for method/function.</div>
 <div class="line">check_types - Check parameters (types) for method/function.</div>
 <div class="line">check_values - Check parameters (values) for method/function.</div>
-<div class="line">priority_error - Set priority error id.</div>
+<div class="line">priority_error - Set priority error id (TYPE_ERROR).</div>
 <div class="line">check_params - Check parameters for method/function.</div>
+<div class="line">__str__ - Dunder method for object ATSChecker.</div>
 </div>
 </td>
 </tr>
 </tbody>
 </table>
 </div></blockquote>
+<dl class="attribute">
+<dt id="ats_utilities.checker.ATSChecker.FORMAT_ERROR">
+<code class="descname">FORMAT_ERROR</code><em class="property"> = 3</em><a class="headerlink" href="#ats_utilities.checker.ATSChecker.FORMAT_ERROR" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="ats_utilities.checker.ATSChecker.NO_ERROR">
+<code class="descname">NO_ERROR</code><em class="property"> = 0</em><a class="headerlink" href="#ats_utilities.checker.ATSChecker.NO_ERROR" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 <dl class="attribute">
 <dt id="ats_utilities.checker.ATSChecker.TYPE_ERROR">
 <code class="descname">TYPE_ERROR</code><em class="property"> = 1</em><a class="headerlink" href="#ats_utilities.checker.ATSChecker.TYPE_ERROR" title="Permalink to this definition">¶</a></dt>
@@ -257,15 +270,15 @@ It defines:</p>
 
 <dl class="method">
 <dt id="ats_utilities.checker.ATSChecker.check_params">
-<code class="descname">check_params</code><span class="sig-paren">(</span><em>params_descript</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ats_utilities/checker.html#ATSChecker.check_params"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ats_utilities.checker.ATSChecker.check_params" title="Permalink to this definition">¶</a></dt>
+<code class="descname">check_params</code><span class="sig-paren">(</span><em>params_description</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ats_utilities/checker.html#ATSChecker.check_params"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ats_utilities.checker.ATSChecker.check_params" title="Permalink to this definition">¶</a></dt>
 <dd><p>Check parameters for method/function.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>params_descript</strong> (<em>&lt;list&gt;</em>) – Parameters description.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>params_description</strong> (<em>&lt;list&gt;</em>) – Parameters description.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Usage message, status (TYPE_ERROR | VALUE_ERROR | 0).</td>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Usage message, status (0 | 1 | 2 | 3).</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">&lt;str&gt;, &lt;int&gt;</td>
 </tr>
@@ -277,13 +290,17 @@ It defines:</p>
 
 <dl class="method">
 <dt id="ats_utilities.checker.ATSChecker.check_types">
-<code class="descname">check_types</code><span class="sig-paren">(</span><em>params_descript</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ats_utilities/checker.html#ATSChecker.check_types"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ats_utilities.checker.ATSChecker.check_types" title="Permalink to this definition">¶</a></dt>
+<code class="descname">check_types</code><span class="sig-paren">(</span><em>params_description</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ats_utilities/checker.html#ATSChecker.check_types"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ats_utilities.checker.ATSChecker.check_types" title="Permalink to this definition">¶</a></dt>
 <dd><p>Check parameters (types) for method/function.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>params_descript</strong> (<em>&lt;OrderedDict&gt;</em>) – Parameters description.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>params_description</strong> (<em>&lt;OrderedDict&gt;</em>) – Parameters description.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">True (format for params ok) | False.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">&lt;bool&gt;</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Exceptions:</th><td class="field-body">None</td>
 </tr>
@@ -293,13 +310,17 @@ It defines:</p>
 
 <dl class="method">
 <dt id="ats_utilities.checker.ATSChecker.check_values">
-<code class="descname">check_values</code><span class="sig-paren">(</span><em>params_descript</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ats_utilities/checker.html#ATSChecker.check_values"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ats_utilities.checker.ATSChecker.check_values" title="Permalink to this definition">¶</a></dt>
+<code class="descname">check_values</code><span class="sig-paren">(</span><em>params_description</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ats_utilities/checker.html#ATSChecker.check_values"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ats_utilities.checker.ATSChecker.check_values" title="Permalink to this definition">¶</a></dt>
 <dd><p>Check parameters (values) for method/function.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>params_descript</strong> (<em>&lt;OrderedDict&gt;</em>) – Parameters description.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>params_description</strong> (<em>&lt;OrderedDict&gt;</em>) – Parameters description.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">True (format for params ok) | False.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">&lt;bool&gt;</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Exceptions:</th><td class="field-body">None</td>
 </tr>
@@ -309,13 +330,17 @@ It defines:</p>
 
 <dl class="method">
 <dt id="ats_utilities.checker.ATSChecker.collect_params">
-<code class="descname">collect_params</code><span class="sig-paren">(</span><em>params_descript</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ats_utilities/checker.html#ATSChecker.collect_params"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ats_utilities.checker.ATSChecker.collect_params" title="Permalink to this definition">¶</a></dt>
+<code class="descname">collect_params</code><span class="sig-paren">(</span><em>params_description</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ats_utilities/checker.html#ATSChecker.collect_params"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ats_utilities.checker.ATSChecker.collect_params" title="Permalink to this definition">¶</a></dt>
 <dd><p>Collect all parameters in one list.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>params_descript</strong> (<em>&lt;OrderedDict&gt;</em>) – Description for parameters.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>params_description</strong> (<em>&lt;OrderedDict&gt;</em>) – Description for parameters.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">True (format for params ok) | False.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">&lt;bool&gt;</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Exceptions:</th><td class="field-body">None</td>
 </tr>
@@ -326,14 +351,14 @@ It defines:</p>
 <dl class="method">
 <dt id="ats_utilities.checker.ATSChecker.priority_error">
 <code class="descname">priority_error</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/ats_utilities/checker.html#ATSChecker.priority_error"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ats_utilities.checker.ATSChecker.priority_error" title="Permalink to this definition">¶</a></dt>
-<dd><p>Set priority error id.</p>
+<dd><p>Set priority error id (TYPE_ERROR).</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Priority error id (TYPE_ERROR | VALUE_ERROR | 0).</td>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Priority error id (0 | 1 | 2 | 3) | None.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">&lt;int&gt;</td>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">&lt;int&gt; | &lt;NoneType&gt;</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Exceptions:</th><td class="field-body">None</td>
 </tr>
@@ -349,6 +374,10 @@ It defines:</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Usage message for method/function.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">&lt;str&gt;</td>
+</tr>
 <tr class="field-odd field"><th class="field-name">Exceptions:</th><td class="field-body">None</td>
 </tr>
 </tbody>
@@ -381,7 +410,7 @@ It defines:</p>
   <div role="contentinfo">
     <p>
         
-        &copy; Copyright 2020, Vladimir Roncevic &lt;elektron.ronca@gmail.com&gt;
+        &copy; Copyright 2017, https://vroncevic.github.io/ats_utilities
 
     </p>
   </div>

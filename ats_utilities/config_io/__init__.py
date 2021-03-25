@@ -4,7 +4,7 @@
  Module
      __init__.py
  Copyright
-     Copyright (C) 2018 Vladimir Roncevic <elektron.ronca@gmail.com>
+     Copyright (C) 2017 Vladimir Roncevic <elektron.ronca@gmail.com>
      ats_utilities is free software: you can redistribute it and/or modify it
      under the terms of the GNU General Public License as published by the
      Free Software Foundation, either version 3 of the License, or
@@ -16,8 +16,8 @@
      You should have received a copy of the GNU General Public License along
      with this program. If not, see <http://www.gnu.org/licenses/>.
  Info
-     Define class ConfigFile with attribute(s) and method(s).
-     Configuration context manager.
+     Defined class ConfigFile with attribute(s) and method(s).
+     Created API for configuration context manager.
 '''
 
 import sys
@@ -29,15 +29,15 @@ try:
     from ats_utilities.console_io.verbose import verbose_message
     from ats_utilities.exceptions.ats_type_error import ATSTypeError
     from ats_utilities.exceptions.ats_bad_call_error import ATSBadCallError
-except ImportError as error_message:
-    MESSAGE = '\n{0}\n{1}\n'.format(__file__, error_message)
+except ImportError as ATS_ERROR_MESSAGE:
+    MESSAGE = '\n{0}\n{1}\n'.format(__file__, ATS_ERROR_MESSAGE)
     sys.exit(MESSAGE)  # Force close python ATS ##############################
 
 __author__ = 'Vladimir Roncevic'
-__copyright__ = 'Copyright 2018, Free software to use and distributed it.'
+__copyright__ = 'Copyright 2017, https://vroncevic.github.io/ats_utilities'
 __credits__ = ['Vladimir Roncevic']
-__license__ = 'GNU General Public License (GPL)'
-__version__ = '1.4.4'
+__license__ = 'https://github.com/vroncevic/ats_utilities/blob/master/LICENSE'
+__version__ = '1.5.4'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
@@ -45,8 +45,8 @@ __status__ = 'Updated'
 
 class ConfigFile(FileChecking):
     '''
-        Define class ConfigFile with attribute(s) and method(s).
-        Configuration context manager.
+        Defined class ConfigFile with attribute(s) and method(s).
+        Created API for configuration context manager.
         It defines:
 
             :attributes:
@@ -60,18 +60,12 @@ class ConfigFile(FileChecking):
                 | __init__ - Initial constructor.
                 | __enter__ - Open configuration file in mode.
                 | __exit__ - Close configuration file.
+                | __str__ - Dunder method for ConfigFile.
     '''
 
     __slots__ = (
-        'VERBOSE',
-        'MODES',
-        'file_path_ok',
-        'file_mode_ok',
-        'file_format_ok',
-        '__file_path',
-        '__file_mode',
-        '__file_format',
-        '__file'
+        'VERBOSE', 'MODES', 'file_path_ok', 'file_mode_ok', 'file_format_ok',
+        '__file_path', '__file_mode', '__file_format', '__file'
     )
     VERBOSE = 'ATS_UTILITIES::CONFIG_IO'
 
@@ -95,9 +89,15 @@ class ConfigFile(FileChecking):
             ('str:file_mode', file_mode),
             ('str:file_format', file_format)
         ])
-        if status == ATSChecker.TYPE_ERROR: raise ATSTypeError(error)
-        if status == ATSChecker.VALUE_ERROR: raise ATSBadCallError(error)
+        if status == ATSChecker.TYPE_ERROR:
+            raise ATSTypeError(error)
+        if status == ATSChecker.VALUE_ERROR:
+            raise ATSBadCallError(error)
         FileChecking.__init__(self, verbose=verbose)
+        self.__file = None
+        self.__file_path = None
+        self.__file_mode = None
+        self.__file_format = None
         verbose_message(
             ConfigFile.VERBOSE, verbose, '{0}\n{1}\n{2} [{3}]'.format(
                 'setting file path', file_path, 'setting file mode', file_mode
@@ -112,10 +112,6 @@ class ConfigFile(FileChecking):
             self.__file_path = file_path
             self.__file_mode = file_mode
             self.__file_format = file_format
-        else:
-            self.__file_path = None
-            self.__file_mode = None
-            self.__file_format = None
 
     def __enter__(self):
         '''
@@ -142,3 +138,15 @@ class ConfigFile(FileChecking):
             self.__file.close()
         except AttributeError:
             pass
+
+    def __str__(self):
+        '''
+            Dunder method for ConfigFile.
+
+            :return: Object in a human-readable format.
+            :rtype: <str>
+            :exceptions: None
+        '''
+        return '{0} ({1})'.format(
+            self.__class__.__name__, FileChecking.__str__(self)
+        )

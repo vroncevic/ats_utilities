@@ -4,7 +4,7 @@
  Module
      base_check.py
  Copyright
-     Copyright (C) 2018 Vladimir Roncevic <elektron.ronca@gmail.com>
+     Copyright (C) 2017 Vladimir Roncevic <elektron.ronca@gmail.com>
      ats_utilities is free software: you can redistribute it and/or modify it
      under the terms of the GNU General Public License as published by the
      Free Software Foundation, either version 3 of the License, or
@@ -16,8 +16,8 @@
      You should have received a copy of the GNU General Public License along
      with this program. If not, see <http://www.gnu.org/licenses/>.
  Info
-     Define class FileChecking with attribute(s) and method(s).
-     Check operations with configuration files.
+     Defined class FileChecking with attribute(s) and method(s).
+     Created API for checking operations with files.
 '''
 
 import sys
@@ -26,15 +26,15 @@ try:
     from pathlib import Path
     from ats_utilities.console_io.error import error_message
     from ats_utilities.console_io.verbose import verbose_message
-except ImportError as error_message:
-    MESSAGE = '\n{0}\n{1}\n'.format(__file__, error_message)
+except ImportError as ATS_ERROR_MESSAGE:
+    MESSAGE = '\n{0}\n{1}\n'.format(__file__, ATS_ERROR_MESSAGE)
     sys.exit(MESSAGE)  # Force close python ATS ##############################
 
 __author__ = 'Vladimir Roncevic'
-__copyright__ = 'Copyright 2018, Free software to use and distributed it.'
+__copyright__ = 'Copyright 2017, https://vroncevic.github.io/ats_utilities'
 __credits__ = ['Vladimir Roncevic']
-__license__ = 'GNU General Public License (GPL)'
-__version__ = '1.4.4'
+__license__ = 'https://github.com/vroncevic/ats_utilities/blob/master/LICENSE'
+__version__ = '1.5.4'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
@@ -42,8 +42,8 @@ __status__ = 'Updated'
 
 class FileChecking(object):
     '''
-        Define class FileChecking with attribute(s) and method(s).
-        Check operations with configuration files.
+        Defined class FileChecking with attribute(s) and method(s).
+        Created API for checking operations with files.
         It defines:
 
             :attributes:
@@ -54,10 +54,11 @@ class FileChecking(object):
                 | file_format_ok - File format is (not) expected.
             :methods:
                 | __init__ - Initial constructor.
-                | check_path - Check configuration file path.
-                | check_mode -  Check operation mode for configuration file.
-                | check_format - Check configuration file format by extension.
-                | is_file_ok - Status of configuration file.
+                | check_path - Check file path.
+                | check_mode -  Check operation mode for file.
+                | check_format - Check file format by extension.
+                | is_file_ok - Status of file.
+                | __str__ - Dunder method for FileChecking.
     '''
 
     VERBOSE = 'ATS_UTILITIES::CONFIG_IO::FILE_CHECKING'
@@ -71,18 +72,16 @@ class FileChecking(object):
             :type verbose: <bool>
             :exceptions: None
         '''
-        verbose_message(
-            FileChecking.VERBOSE, verbose, 'init ATS check file'
-        )
+        verbose_message(FileChecking.VERBOSE, verbose, 'init ATS check file')
         self.file_path_ok = False
         self.file_mode_ok = False
         self.file_format_ok = False
 
     def check_path(self, file_path, verbose=False):
         '''
-            Check configuration file path.
+            Check file path.
 
-            :param file_path: Configuration file path.
+            :param file_path: File path.
             :type file_path: <str>
             :param verbose: Enable/disable verbose option.
             :type verbose: <bool>
@@ -98,7 +97,7 @@ class FileChecking(object):
 
     def check_mode(self, file_mode, verbose=False):
         '''
-            Check operation mode for configuration file.
+            Check operation mode for file.
 
             :param file_mode: File mode ('r', 'w', 'a', 'b', 'x', 't', '+').
             :type file_mode: <str>
@@ -132,9 +131,9 @@ class FileChecking(object):
 
     def check_format(self, file_path, file_format, verbose=False):
         '''
-            Check configuration file format by extension.
+            Check file format by extension.
 
-            :param file_path: Absolute configuration file path.
+            :param file_path: File path.
             :type file_path: <str>
             :param file_format: File format (file extension).
             :type file_format: <str>
@@ -159,10 +158,23 @@ class FileChecking(object):
 
     def is_file_ok(self):
         '''
-            Status of configuration file.
+            Status of file.
 
             :return: True (correct file), else False.
             :rtype: <bool>
             :exceptions: None
         '''
         return all([self.file_path_ok, self.file_mode_ok, self.file_format_ok])
+
+    def __str__(self):
+        '''
+            Dunder method for FileChecking.
+
+            :return: Object in a human-readable format.
+            :rtype: <str>
+            :exceptions: None
+        '''
+        return '{0} ({1}, {2}, {3})'.format(
+            self.__class__.__name__, self.file_path_ok,
+            self.file_mode_ok, self.file_format_ok
+        )

@@ -4,7 +4,7 @@
  Module
      success.py
  Copyright
-     Copyright (C) 2018 Vladimir Roncevic <elektron.ronca@gmail.com>
+     Copyright (C) 2017 Vladimir Roncevic <elektron.ronca@gmail.com>
      ats_utilities is free software: you can redistribute it and/or modify it
      under the terms of the GNU General Public License as published by the
      Free Software Foundation, either version 3 of the License, or
@@ -16,8 +16,8 @@
      You should have received a copy of the GNU General Public License along
      with this program. If not, see <http://www.gnu.org/licenses/>.
  Info
-     Define class ATSSuccess with attribute(s) and method(s).
-     Define success message container for console log mechanism.
+     Defined class ATSSuccess with attribute(s) and method(s).
+     Created success message container for console log mechanism.
 '''
 
 import sys
@@ -28,15 +28,15 @@ try:
     from ats_utilities.console_io import ATSConsoleIO
     from ats_utilities.exceptions.ats_type_error import ATSTypeError
     from ats_utilities.exceptions.ats_bad_call_error import ATSBadCallError
-except ImportError as error_message:
-    MESSAGE = '\n{0}\n{1}\n'.format(__file__, error_message)
+except ImportError as ATS_ERROR_MESSAGE:
+    MESSAGE = '\n{0}\n{1}\n'.format(__file__, ATS_ERROR_MESSAGE)
     sys.exit(MESSAGE)  # Force close python ATS ##############################
 
 __author__ = 'Vladimir Roncevic'
-__copyright__ = 'Copyright 2018, Free software to use and distributed it.'
+__copyright__ = 'Copyright 2017, https://vroncevic.github.io/ats_utilities'
 __credits__ = ['Vladimir Roncevic']
-__license__ = 'GNU General Public License (GPL)'
-__version__ = '1.4.4'
+__license__ = 'https://github.com/vroncevic/ats_utilities/blob/master/LICENSE'
+__version__ = '1.5.4'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
@@ -44,8 +44,8 @@ __status__ = 'Updated'
 
 class ATSSuccess(ATSConsoleIO):
     '''
-        Define class ATSSuccess with attribute(s) and method(s).
-        Define success message container for console log mechanism.
+        Defined class ATSSuccess with attribute(s) and method(s).
+        Created success message container for console log mechanism.
         It defines:
 
             :attributes:
@@ -53,6 +53,8 @@ class ATSSuccess(ATSConsoleIO):
             :methods:
                 | __init__ - Initial constructor.
                 | message - Property methods for set/get operations.
+                | is_not_none - Checking is message None or not.
+                | __str__ - Dunder method for ATSSuccess.
     '''
 
     def __init__(self):
@@ -61,7 +63,7 @@ class ATSSuccess(ATSConsoleIO):
 
             :exceptions: None
         '''
-        self.__message = ''
+        self.__message = None
 
     @property
     def message(self):
@@ -87,6 +89,28 @@ class ATSSuccess(ATSConsoleIO):
             Fore.GREEN, message, Fore.RESET
         )
 
+    def is_not_none(self):
+        '''
+            Checking is message None or not.
+
+            :return: True | False.
+            :rtype: <bool>
+            :exceptions: None
+        '''
+        return True if self.__message is not None else False
+
+    def __str__(self):
+        '''
+            Dunder method for ATSSuccess.
+
+            :return: Object in a human-readable format.
+            :rtype: <str>
+            :exceptions: None
+        '''
+        return '{0} ({1})'.format(
+            self.__class__.__name__, self.__message
+        )
+
 
 def success_message(success_path, *message):
     '''
@@ -102,8 +126,10 @@ def success_message(success_path, *message):
     error, status = checker.check_params(
         [('str:success_path', success_path), ('tuple:message', message)]
     )
-    if status == ATSChecker.TYPE_ERROR: raise ATSTypeError(error)
-    if status == ATSChecker.VALUE_ERROR: raise ATSBadCallError(error)
+    if status == ATSChecker.TYPE_ERROR:
+        raise ATSTypeError(error)
+    if status == ATSChecker.VALUE_ERROR:
+        raise ATSBadCallError(error)
     message, success = tuple([str(item) for item in message]), ATSSuccess()
     success.message = ' '.join(message)
     success_message_log = '[{0}] {1}'.format(
