@@ -61,7 +61,7 @@
             
             
               <div class="version">
-                1.5.4
+                1.6.4
               </div>
             
           
@@ -98,6 +98,7 @@
 <li class="toctree-l4"><a class="reference internal" href="ats_utilities.config_io.html">ats_utilities.config_io package</a></li>
 <li class="toctree-l4 current"><a class="reference internal" href="ats_utilities.console_io.html">ats_utilities.console_io package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ats_utilities.exceptions.html">ats_utilities.exceptions package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ats_utilities.final.html">ats_utilities.final package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ats_utilities.info.html">ats_utilities.info package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ats_utilities.logging.html">ats_utilities.logging package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ats_utilities.option.html">ats_utilities.option package</a></li>
@@ -204,7 +205,7 @@ Created warning message container for console log mechanism.</dd>
 <dl class="class">
 <dt id="ats_utilities.console_io.warning.ATSWarning">
 <em class="property">class </em><code class="descclassname">ats_utilities.console_io.warning.</code><code class="descname">ATSWarning</code><a class="reference internal" href="_modules/ats_utilities/console_io/warning.html#ATSWarning"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ats_utilities.console_io.warning.ATSWarning" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="ats_utilities.console_io.html#ats_utilities.console_io.ATSConsoleIO" title="ats_utilities.console_io.ATSConsoleIO"><code class="xref py py-class docutils literal notranslate"><span class="pre">ats_utilities.console_io.ATSConsoleIO</span></code></a></p>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Defined class ATSWarning with attribute(s) and method(s).
 Created warning message container for console log mechanism.
 It defines:</p>
@@ -214,6 +215,7 @@ It defines:</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">attributes:</th><td class="field-body"><div class="first last line-block">
+<div class="line">__metaclass__ - Setting class ATSWarning as final.</div>
 <div class="line">__message - Warning message container.</div>
 </div>
 </td>
@@ -264,11 +266,6 @@ It defines:</p>
 </tbody>
 </table>
 </dd></dl>
-
-<dl class="attribute">
-<dt id="ats_utilities.console_io.warning.ATSWarning.registry">
-<code class="descname">registry</code><em class="property"> = set([&lt;class 'ats_utilities.console_io.verbose.ATSVerbose'&gt;, &lt;class 'ats_utilities.console_io.error.ATSError'&gt;, &lt;class 'ats_utilities.console_io.success.ATSSuccess'&gt;, &lt;class 'ats_utilities.console_io.warning.ATSWarning'&gt;])</em><a class="headerlink" href="#ats_utilities.console_io.warning.ATSWarning.registry" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
 
 </dd></dl>
 

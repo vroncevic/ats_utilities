@@ -4,7 +4,7 @@
  Module
      ini2object.py
  Copyright
-     Copyright (C) 2019 Vladimir Roncevic <elektron.ronca@gmail.com>
+     Copyright (C) 2017 Vladimir Roncevic <elektron.ronca@gmail.com>
      ats_utilities is free software: you can redistribute it and/or modify it
      under the terms of the GNU General Public License as published by the
      Free Software Foundation, either version 3 of the License, or
@@ -26,15 +26,15 @@ from configparser import ConfigParser
 try:
     from ats_utilities.config_io import ConfigFile
     from ats_utilities.config_io.base_read import BaseReadConfig
-except ImportError as ATS_ERROR_MESSAGE:
-    MESSAGE = '\n{0}\n{1}\n'.format(__file__, ATS_ERROR_MESSAGE)
+except ImportError as ats_error_message:
+    MESSAGE = '\n{0}\n{1}\n'.format(__file__, ats_error_message)
     sys.exit(MESSAGE)  # Force close python ATS ##############################
 
 __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2017, https://vroncevic.github.io/ats_utilities'
 __credits__ = ['Vladimir Roncevic']
 __license__ = 'https://github.com/vroncevic/ats_utilities/blob/master/LICENSE'
-__version__ = '1.5.4'
+__version__ = '1.6.4'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'

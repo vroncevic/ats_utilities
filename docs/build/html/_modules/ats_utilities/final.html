@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>ats_utilities.console_io &mdash; ats_utilities https://github.com/vroncevic/ats_utilities/releases documentation</title>
+  <title>ats_utilities.final &mdash; ats_utilities https://github.com/vroncevic/ats_utilities/releases documentation</title>
   
 
   
@@ -59,7 +59,7 @@
             
             
               <div class="version">
-                1.5.4
+                1.6.4
               </div>
             
           
@@ -136,7 +136,7 @@
         
           <li><a href="../index.html">Module code</a> &raquo;</li>
         
-      <li>ats_utilities.console_io</li>
+      <li>ats_utilities.final</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -151,14 +151,14 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <h1>Source code for ats_utilities.console_io</h1><div class="highlight"><pre>
+  <h1>Source code for ats_utilities.final</h1><div class="highlight"><pre>
 <span></span><span class="c1"># -*- coding: UTF-8 -*-</span>
 
 <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd"> Module</span>
 <span class="sd">     __init__.py</span>
 <span class="sd"> Copyright</span>
-<span class="sd">     Copyright (C) 2019 Vladimir Roncevic &lt;elektron.ronca@gmail.com&gt;</span>
+<span class="sd">     Copyright (C) 2017 Vladimir Roncevic &lt;elektron.ronca@gmail.com&gt;</span>
 <span class="sd">     ats_utilities is free software: you can redistribute it and/or modify it</span>
 <span class="sd">     under the terms of the GNU General Public License as published by the</span>
 <span class="sd">     Free Software Foundation, either version 3 of the License, or</span>
@@ -170,56 +170,62 @@
 <span class="sd">     You should have received a copy of the GNU General Public License along</span>
 <span class="sd">     with this program. If not, see &lt;http://www.gnu.org/licenses/&gt;.</span>
 <span class="sd"> Info</span>
-<span class="sd">     Defined class ATSConsoleIO with attribute(s) and method(s).</span>
-<span class="sd">     Created glue-metaclass API console log mechanism.</span>
+<span class="sd">     Defined class ATSFinal with attribute(s) and method(s).</span>
+<span class="sd">     Created API for App/Tool/Script utilities, final class.</span>
 <span class="sd">&#39;&#39;&#39;</span>
-
-<span class="kn">import</span> <span class="nn">sys</span>
-
-<span class="k">try</span><span class="p">:</span>
-    <span class="kn">from</span> <span class="nn">ats_utilities.register</span> <span class="kn">import</span> <span class="n">ATSRegister</span>
-<span class="k">except</span> <span class="ne">ImportError</span> <span class="k">as</span> <span class="n">ATS_ERROR_MESSAGE</span><span class="p">:</span>
-    <span class="n">MESSAGE</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="si">{0}</span><span class="se">\n</span><span class="si">{1}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="vm">__file__</span><span class="p">,</span> <span class="n">ATS_ERROR_MESSAGE</span><span class="p">)</span>
-    <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="n">MESSAGE</span><span class="p">)</span>  <span class="c1"># Force close python ATS ##############################</span>
 
 <span class="n">__author__</span> <span class="o">=</span> <span class="s1">&#39;Vladimir Roncevic&#39;</span>
 <span class="n">__copyright__</span> <span class="o">=</span> <span class="s1">&#39;Copyright 2017, https://vroncevic.github.io/ats_utilities&#39;</span>
 <span class="n">__credits__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Vladimir Roncevic&#39;</span><span class="p">]</span>
 <span class="n">__license__</span> <span class="o">=</span> <span class="s1">&#39;https://github.com/vroncevic/ats_utilities/blob/master/LICENSE&#39;</span>
-<span class="n">__version__</span> <span class="o">=</span> <span class="s1">&#39;1.5.4&#39;</span>
+<span class="n">__version__</span> <span class="o">=</span> <span class="s1">&#39;1.6.4&#39;</span>
 <span class="n">__maintainer__</span> <span class="o">=</span> <span class="s1">&#39;Vladimir Roncevic&#39;</span>
 <span class="n">__email__</span> <span class="o">=</span> <span class="s1">&#39;elektron.ronca@gmail.com&#39;</span>
 <span class="n">__status__</span> <span class="o">=</span> <span class="s1">&#39;Updated&#39;</span>
 
 
-<div class="viewcode-block" id="ATSConsoleIO"><a class="viewcode-back" href="../../ats_utilities.console_io.html#ats_utilities.console_io.ATSConsoleIO">[docs]</a><span class="k">class</span> <span class="nc">ATSConsoleIO</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<div class="viewcode-block" id="ATSFinal"><a class="viewcode-back" href="../../ats_utilities.final.html#ats_utilities.final.ATSFinal">[docs]</a><span class="k">class</span> <span class="nc">ATSFinal</span><span class="p">(</span><span class="nb">type</span><span class="p">):</span>
     <span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">        Defined class ATSConsoleIO with attribute(s) and method(s).</span>
-<span class="sd">        Created glue-metaclass API console log mechanism.</span>
-
-<span class="sd">            | * Success messages (Colorize text to green).</span>
-<span class="sd">            | * Verbose messages (Colorize text to blue).</span>
-<span class="sd">            | * Warning messages (Colorize text to yellow).</span>
-<span class="sd">            | * Error messages (Colorize text to red).</span>
-
+<span class="sd">        Defined class ATSFinal with attribute(s) and method(s).</span>
+<span class="sd">        Created API for App/Tool/Script utilities, final class.</span>
 <span class="sd">        It defines:</span>
 
 <span class="sd">            :attributes:</span>
-<span class="sd">                | __metaclass__ - Setting metaclass.</span>
+<span class="sd">                | registry - Set of classes.</span>
 <span class="sd">            :methods:</span>
-<span class="sd">                | __str__ - Dunder method for object ATSConsoleIO.</span>
+<span class="sd">                | __init__ - Initial constructor.</span>
+<span class="sd">                | __str__ - Dunder method for ATSFinal.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
-    <span class="n">__metaclass__</span> <span class="o">=</span> <span class="n">ATSRegister</span>
 
-    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">bases</span><span class="p">,</span> <span class="n">namespace</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">            Dunder method for object ATSConsoleIO.</span>
+<span class="sd">            Initial constructor.</span>
+
+<span class="sd">            :param name: class name.</span>
+<span class="sd">            :type name: &lt;str&gt;</span>
+<span class="sd">            :param bases: Class bases.</span>
+<span class="sd">            :type bases: &lt;tuple&gt;</span>
+<span class="sd">            :param namespace: Class namespace.</span>
+<span class="sd">            :type namespace: &lt;dict&gt;</span>
+<span class="sd">            :exceptions: TypeError</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">ATSFinal</span><span class="p">,</span> <span class="bp">cls</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">bases</span><span class="p">,</span> <span class="n">namespace</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">class_base</span> <span class="ow">in</span> <span class="n">bases</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">class_base</span><span class="p">,</span> <span class="n">ATSFinal</span><span class="p">):</span>
+                <span class="n">type_error_message</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{0}</span><span class="s1"> is final&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                    <span class="nb">str</span><span class="p">(</span><span class="n">class_base</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)</span>
+                <span class="p">)</span>
+                <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="n">type_error_message</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">            Dunder method for ATSFinal.</span>
 
 <span class="sd">            :return: Object in a human-readable format.</span>
 <span class="sd">            :rtype: &lt;str&gt;</span>
 <span class="sd">            :exceptions: None</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="k">return</span> <span class="s1">&#39;</span><span class="si">{0}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)</span></div>
+        <span class="k">return</span> <span class="s1">&#39;</span><span class="si">{0}</span><span class="s1"> ()&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">cls</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)</span></div>
 </pre></div>
 
            </div>

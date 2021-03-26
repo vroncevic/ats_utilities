@@ -21,21 +21,26 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get install -yq --no-install-recommends \
  python \
  python-pip \
  python-wheel \
+ python3 \
+ python3-pip \
+ python3-wheel \
  libyaml-dev
 
 RUN pip install --upgrade setuptools
+RUN pip3 install --upgrade setuptools
 RUN mkdir /ats_utilities/
 COPY ats_utilities /ats_utilities/
 COPY setup.py /
 COPY README.md /
 COPY requirements.txt /
 RUN pip install -r requirements.txt
+RUN pip3 install -r requirements.txt
 RUN rm -f requirements.txt
 RUN find /ats_utilities/ -name "*.editorconfig" -type f -exec rm -Rf {} \;
 RUN python setup.py install_lib
 RUN python setup.py install_egg_info
+RUN python3 setup.py install_lib
+RUN python3 setup.py install_egg_info
 RUN rm -rf /ats_utilities/
 RUN rm -f setup.py
 RUN rm -f README.md
-RUN chmod -R 755 /usr/local/lib/python2.7/dist-packages/ats_utilities/
-RUN tree /usr/local/lib/python2.7/dist-packages/ats_utilities/

@@ -12,6 +12,7 @@ Subpackages
     ats_utilities.config_io
     ats_utilities.console_io
     ats_utilities.exceptions
+    ats_utilities.final
     ats_utilities.info
     ats_utilities.logging
     ats_utilities.option

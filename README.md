@@ -42,7 +42,10 @@ Python package is located at **[pypi.org](https://pypi.org/project/ats-utilities
 
 You can install by using pip
 ```
+# python2
 pip install ats-utilities
+# python3
+pip3 install ats-utilities
 ```
 
 ##### Install using setuptools
@@ -53,9 +56,14 @@ To install modules, locate and run setup.py with arguments
 ```
 tar xvzf ats_utilities-x.y.z.tar.gz
 cd ats_utilities-x.y.z
+# python2
 pip install -r requirements.txt
 python setup.py install_lib
 python setup.py install_egg_info
+# python3
+pip3 install -r requirements.txt
+python3 setup.py install_lib
+python3 setup.py install_egg_info
 ```
 
 ##### Install using docker
@@ -133,6 +141,8 @@ ats_utilities/
 │   ├── ats_parameter_error.py
 │   ├── ats_type_error.py
 │   ├── ats_value_error.py
+│   └── __init__.py
+├── final/
 │   └── __init__.py
 ├── info/
 │   ├── ats_build_date.py

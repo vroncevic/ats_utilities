@@ -60,7 +60,7 @@
             
             
               <div class="version">
-                1.5.4
+                1.6.4
               </div>
             
           
@@ -175,6 +175,7 @@ other information that should be provided before the modules are installed.</p>
 <li class="toctree-l4"><a class="reference internal" href="ats_utilities.config_io.html">ats_utilities.config_io package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ats_utilities.console_io.html">ats_utilities.console_io package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ats_utilities.exceptions.html">ats_utilities.exceptions package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ats_utilities.final.html">ats_utilities.final package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ats_utilities.info.html">ats_utilities.info package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ats_utilities.logging.html">ats_utilities.logging package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ats_utilities.option.html">ats_utilities.option package</a></li>
@@ -196,13 +197,21 @@ other information that should be provided before the modules are installed.</p>
 <p>To install this set of modules type the following:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>tar xvzf ats_utilities-x.y.z.tar.gz
 <span class="nb">cd</span> ats_utilities-x.y.z/
+<span class="c1"># python2</span>
 pip install -r requirements.txt
 python setup.py install_lib
 python setup.py install_egg_info
+<span class="c1"># pyton3</span>
+pip3 install -r requirements.txt
+python3 setup.py install_lib
+python3 setup.py install_egg_info
 </pre></div>
 </div>
 <p>You can use Docker to create image/container, or You can use pip to install:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip install ats-utilities
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># python2</span>
+pip install ats-utilities
+<span class="c1"># python3</span>
+pip3 install ats-utilities
 </pre></div>
 </div>
 <p><a class="reference external" href="https://github.com/vroncevic/ats_utilities/actions?query=workflow%3A%22ats_utilities+docker+checker%22"><img alt="GitHub docker checker" src="https://github.com/vroncevic/ats_utilities/workflows/ats_utilities%20docker%20checker/badge.svg" /></a></p>
@@ -275,6 +284,8 @@ python setup.py install_egg_info
 │   ├── ats_parameter_error.py
 │   ├── ats_type_error.py
 │   ├── ats_value_error.py
+│   └── __init__.py
+├── final/
 │   └── __init__.py
 ├── info/
 │   ├── ats_build_date.py
