@@ -20,14 +20,21 @@
      Created API fo checking parameters for object methods and functions.
 '''
 
+import sys
 from inspect import stack
 from collections import OrderedDict
+
+try:
+    from ats_utilities.final import ATSFinal
+except ImportError as ats_error_message:
+    MESSAGE = '\n{0}\n{1}\n'.format(__file__, ats_error_message)
+    sys.exit(MESSAGE)  # Force close python ATS ##############################
 
 __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2017, https://vroncevic.github.io/ats_utilities'
 __credits__ = ['Vladimir Roncevic']
 __license__ = 'https://github.com/vroncevic/ats_utilities/blob/master/LICENSE'
-__version__ = '1.5.4'
+__version__ = '1.6.4'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
@@ -40,6 +47,7 @@ class ATSChecker(object):
         It defines:
 
             :attributes:
+                | __metaclass__ - Setting class ATSChecker as final.
                 | __slots__ - Setting class slots.
                 | VERBOSE - Console text indicator for current process-phase.
                 | NO_ERROR - No error, error id (0).
@@ -62,6 +70,7 @@ class ATSChecker(object):
                 | __str__ - Dunder method for object ATSChecker.
     '''
 
+    __metaclass__ = ATSFinal
     __slots__ = (
         'VERBOSE', 'TYPE_ERROR', 'VALUE_ERROR', 'FORMAT_ERROR',
         '__start_message', '__list_of_params', '__error_type',

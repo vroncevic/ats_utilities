@@ -24,31 +24,32 @@ import sys
 
 try:
     from colorama import init, Fore
+    from ats_utilities.final import ATSFinal
     from ats_utilities.checker import ATSChecker
-    from ats_utilities.console_io import ATSConsoleIO
     from ats_utilities.exceptions.ats_type_error import ATSTypeError
     from ats_utilities.exceptions.ats_bad_call_error import ATSBadCallError
-except ImportError as ATS_ERROR_MESSAGE:
-    MESSAGE = '\n{0}\n{1}\n'.format(__file__, ATS_ERROR_MESSAGE)
+except ImportError as ats_error_message:
+    MESSAGE = '\n{0}\n{1}\n'.format(__file__, ats_error_message)
     sys.exit(MESSAGE)  # Force close python ATS ##############################
 
 __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2017, https://vroncevic.github.io/ats_utilities'
 __credits__ = ['Vladimir Roncevic']
 __license__ = 'https://github.com/vroncevic/ats_utilities/blob/master/LICENSE'
-__version__ = '1.5.4'
+__version__ = '1.6.4'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
 
 
-class ATSWarning(ATSConsoleIO):
+class ATSWarning(object):
     '''
         Defined class ATSWarning with attribute(s) and method(s).
         Created warning message container for console log mechanism.
         It defines:
 
             :attributes:
+                | __metaclass__ - Setting class ATSWarning as final.
                 | __message - Warning message container.
             :methods:
                 | __init__ - Initial constructor.
@@ -56,6 +57,8 @@ class ATSWarning(ATSConsoleIO):
                 | is_not_none - Checking is message None or not.
                 | __str__ - Dunder method for ATSWarning.
     '''
+
+    __metaclass__ = ATSFinal
 
     def __init__(self):
         '''

@@ -17,6 +17,4 @@
      with this program. If not, see <http://www.gnu.org/licenses/>.
  Info
      Defined package ats_utilities.cli.
- Version
-     1.5.4
 '''

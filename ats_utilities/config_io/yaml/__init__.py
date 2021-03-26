@@ -27,15 +27,15 @@ try:
     from ats_utilities.option import ATSOptionParser
     from ats_utilities.config_io.yaml.yaml2object import Yaml2Object
     from ats_utilities.config_io.yaml.object2yaml import Object2Yaml
-except ImportError as ATS_ERROR_MESSAGE:
-    MESSAGE = '\n{0}\n{1}\n'.format(__file__, ATS_ERROR_MESSAGE)
+except ImportError as ats_error_message:
+    MESSAGE = '\n{0}\n{1}\n'.format(__file__, ats_error_message)
     sys.exit(MESSAGE)  # Force close python ATS ##############################
 
 __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2017, https://vroncevic.github.io/ats_utilities'
 __credits__ = ['Vladimir Roncevic']
 __license__ = 'https://github.com/vroncevic/ats_utilities/blob/master/LICENSE'
-__version__ = '1.5.4'
+__version__ = '1.6.4'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
