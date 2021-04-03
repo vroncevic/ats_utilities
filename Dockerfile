@@ -24,6 +24,7 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get install -yq --no-install-recommends \
  python3 \
  python3-pip \
  python3-wheel \
+ python3-setuptools \
  libyaml-dev
 
 RUN pip install --upgrade setuptools
