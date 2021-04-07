@@ -85,14 +85,14 @@ Dependencies
 * `colorama - Cross-platform colored terminal text <https://pypi.org/project/colorama/>`_
 * `pathlib - Object-oriented filesystem paths <https://pypi.org/project/pathlib/>`_
 
-Library structure
-------------------
+Framework structure
+--------------------
 
 **ats_utilities** is based on OOP:
 
 .. image:: https://raw.githubusercontent.com/vroncevic/ats_utilities/dev/docs/arch_flow_usage.png
 
-Code structure:
+Framework structure:
 
 .. code-block:: bash
 

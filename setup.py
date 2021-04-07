@@ -17,7 +17,7 @@
      You should have received a copy of the GNU General Public License along
      with this program. If not, see <http://www.gnu.org/licenses/>.
  Info
-     Defined setup for ats_utilities package.
+     Defined setup for package ats_utilities.
 """
 
 from os.path import abspath, dirname, join
@@ -26,8 +26,8 @@ from setuptools import setup
 __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2017, https://vroncevic.github.io/ats_utilities'
 __credits__ = ['Vladimir Roncevic']
-__license__ = 'https://github.com/vroncevic/ats_utilities/blob/master/LICENSE'
-__version__ = '1.6.4'
+__license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = '1.6.5'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
@@ -58,15 +58,15 @@ PYP_CLASSIFIERS = SUPPORTED_PY_VERSIONS + APPROVED_LICENSES
 
 setup(
     name='ats_utilities',
-    version='1.6.4',
+    version='1.6.5',
     description='Python App/Tool/Script Utilities',
     author='Vladimir Roncevic',
     author_email='elektron.ronca@gmail.com',
     url='https://vroncevic.github.io/ats_utilities',
-    license='https://github.com/vroncevic/ats_utilities/blob/master/LICENSE',
+    license='GPL 2017 Free software to use and distributed it.',
     long_description=LONG_DESCRIPTION,
     long_description_content_type='text/markdown',
-    keywords='util, config, log, option, xml, cfg, ini, json, yaml',
+    keywords='util, config, log, option, xml, cfg, ini, json, yml, cli',
     platforms='POSIX',
     classifiers=PYP_CLASSIFIERS,
     packages=[
