@@ -21,7 +21,7 @@ other information that should be provided before the modules are installed.
     - [Install using setuptools](#install-using-setuptools)
     - [Install using docker](#install-using-docker)
 - [Dependencies](#dependencies)
-- [Package structure](#package-structure)
+- [Framework structure](#framework-structure)
 - [Docs](#docs)
 - [Copyright and Licence](#copyright-and-licence)
 
@@ -81,13 +81,13 @@ These modules requires other modules and libraries (Python 2.x/3.x):
 * [colorama - Cross-platform colored terminal text](https://pypi.org/project/colorama/)
 * [pathlib - Object-oriented filesystem paths](https://pypi.org/project/pathlib/)
 
-### Package structure
+### Framework structure
 
 **ats_utilities** is based on OOP:
 
 ![alt tag](https://raw.githubusercontent.com/vroncevic/ats_utilities/dev/docs/arch_flow_usage.png)
 
-Package structure:
+Framework structure:
 ```
 ats_utilities/
 ├── abstract/

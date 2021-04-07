@@ -16,5 +16,5 @@
      You should have received a copy of the GNU General Public License along
      with this program. If not, see <http://www.gnu.org/licenses/>.
  Info
-     Defined package ats_utilities.
+     Defined root package for framework ats_utilities.
 '''
