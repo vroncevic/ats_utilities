@@ -1,3 +1,3 @@
-[**.{py,txt,yml}]
+[**.{py,txt,yml,md}]
 indent_style = tab
 tab_width = 4

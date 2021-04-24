@@ -16,5 +16,64 @@
      You should have received a copy of the GNU General Public License along
      with this program. If not, see <http://www.gnu.org/licenses/>.
  Info
-     Defined root package for framework ats_utilities.
+     Defined class VerboseRoot with attribute(s) and method(s).
+     Created API for setup verbose class path from metaclass.
 '''
+
+__author__ = 'Vladimir Roncevic'
+__copyright__ = 'Copyright 2017, https://vroncevic.github.io/ats_utilities'
+__credits__ = ['Vladimir Roncevic']
+__license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = '1.7.5'
+__maintainer__ = 'Vladimir Roncevic'
+__email__ = 'elektron.ronca@gmail.com'
+__status__ = 'Updated'
+
+
+class VerboseRoot(type):
+    '''
+        Defined class VerboseRoot with attribute(s) and method(s).
+        Created API for setup verbose class path from metaclass.
+        It defines:
+
+            :attributes:
+                | ROOT_PACKAGE_NAME - Root package name of framework.
+            :methods:
+                | __new__ - New constructor.
+                | __str__ - Dunder method for VerboseRoot.
+    '''
+
+    ROOT_PACKAGE_NAME = 'ATS_UTILITIES'
+
+    def __new__(cls, name, bases, dct):
+        '''
+            New constructor.
+
+            :param name: class name.
+            :type name: <str>
+            :param bases: Class bases.
+            :type bases: <tuple>
+            :param namespace: Class namespace.
+            :type namespace: <dict>
+            :return: Root Class Type.
+            :rtype: <type>
+            :exceptions: None
+        '''
+        root_type = type.__new__(cls, name, bases, dct)
+        root_type_path = root_type.__module__.replace('.', '::')
+        root_package = root_type_path.split('::')[0]
+        if root_package.upper() == cls.ROOT_PACKAGE_NAME:
+            root_type.VERBOSE = '{0}'.format(root_type_path)
+        else:
+            root_type.VERBOSE = cls.ROOT_PACKAGE_NAME
+        return root_type
+
+    def __str__(cls):
+        '''
+            Dunder method for VerboseRoot.
+
+            :return: Object in a human-readable format.
+            :rtype: <str>
+            :exceptions: None
+        '''
+        return '{0} ()'.format(cls.__name__)

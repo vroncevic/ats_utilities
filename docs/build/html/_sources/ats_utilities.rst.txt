@@ -11,6 +11,7 @@ Subpackages
     ats_utilities.cli
     ats_utilities.config_io
     ats_utilities.console_io
+    ats_utilities.cooperative
     ats_utilities.exceptions
     ats_utilities.final
     ats_utilities.info

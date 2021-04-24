@@ -61,7 +61,7 @@
             
             
               <div class="version">
-                1.6.5
+                1.7.5
               </div>
             
           
@@ -97,6 +97,7 @@
 <li class="toctree-l4"><a class="reference internal" href="ats_utilities.cli.html">ats_utilities.cli package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ats_utilities.config_io.html">ats_utilities.config_io package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ats_utilities.console_io.html">ats_utilities.console_io package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ats_utilities.cooperative.html">ats_utilities.cooperative package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ats_utilities.exceptions.html">ats_utilities.exceptions package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ats_utilities.final.html">ats_utilities.final package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ats_utilities.info.html">ats_utilities.info package</a></li>
@@ -204,7 +205,7 @@ Created API for App/Tool/Script logger file path in one propery object.</dd>
 </dl>
 <dl class="class">
 <dt id="ats_utilities.logging.ats_logger_file.ATSLoggerFile">
-<em class="property">class </em><code class="descclassname">ats_utilities.logging.ats_logger_file.</code><code class="descname">ATSLoggerFile</code><a class="reference internal" href="_modules/ats_utilities/logging/ats_logger_file.html#ATSLoggerFile"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ats_utilities.logging.ats_logger_file.ATSLoggerFile" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">ats_utilities.logging.ats_logger_file.</code><code class="descname">ATSLoggerFile</code><span class="sig-paren">(</span><em>verbose=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ats_utilities/logging/ats_logger_file.html#ATSLoggerFile"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ats_utilities.logging.ats_logger_file.ATSLoggerFile" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Defined class ATSLoggerFile with attribute(s) and method(s).
 Created API for App/Tool/Script logger file path in one propery object.
@@ -215,13 +216,15 @@ It defines:</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">attributes:</th><td class="field-body"><div class="first last line-block">
-<div class="line">__log_file - Log file path.</div>
+<div class="line">__metaclass__ - Setting verbose root for ATSLoggerFile.</div>
+<div class="line">__verbose - Enable/disable verbose option.</div>
+<div class="line">__logger_file - Log file path.</div>
 </div>
 </td>
 </tr>
 <tr class="field-even field"><th class="field-name">methods:</th><td class="field-body"><div class="first last line-block">
 <div class="line">__init__ - Initial constructor.</div>
-<div class="line">log_file - Property methods for set/get operations.</div>
+<div class="line">logger_file - Property methods for set/get operations.</div>
 <div class="line">__str__ - Dunder method for ATSLoggerFile.</div>
 </div>
 </td>
@@ -230,8 +233,13 @@ It defines:</p>
 </table>
 </div></blockquote>
 <dl class="attribute">
-<dt id="ats_utilities.logging.ats_logger_file.ATSLoggerFile.log_file">
-<code class="descname">log_file</code><a class="headerlink" href="#ats_utilities.logging.ats_logger_file.ATSLoggerFile.log_file" title="Permalink to this definition">¶</a></dt>
+<dt id="ats_utilities.logging.ats_logger_file.ATSLoggerFile.VERBOSE">
+<code class="descname">VERBOSE</code><em class="property"> = 'ats_utilities::logging::ats_logger_file'</em><a class="headerlink" href="#ats_utilities.logging.ats_logger_file.ATSLoggerFile.VERBOSE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="ats_utilities.logging.ats_logger_file.ATSLoggerFile.logger_file">
+<code class="descname">logger_file</code><a class="headerlink" href="#ats_utilities.logging.ats_logger_file.ATSLoggerFile.logger_file" title="Permalink to this definition">¶</a></dt>
 <dd><p>Property method for getting log file path.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />

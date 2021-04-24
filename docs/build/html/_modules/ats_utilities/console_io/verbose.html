@@ -59,7 +59,7 @@
             
             
               <div class="version">
-                1.6.5
+                1.7.5
               </div>
             
           
@@ -136,6 +136,8 @@
         
           <li><a href="../../index.html">Module code</a> &raquo;</li>
         
+          <li><a href="../../ats_utilities.html">ats_utilities</a> &raquo;</li>
+        
       <li>ats_utilities.console_io.verbose</li>
     
     
@@ -190,13 +192,13 @@
 <span class="n">__copyright__</span> <span class="o">=</span> <span class="s1">&#39;Copyright 2017, https://vroncevic.github.io/ats_utilities&#39;</span>
 <span class="n">__credits__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Vladimir Roncevic&#39;</span><span class="p">]</span>
 <span class="n">__license__</span> <span class="o">=</span> <span class="s1">&#39;https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE&#39;</span>
-<span class="n">__version__</span> <span class="o">=</span> <span class="s1">&#39;1.6.5&#39;</span>
+<span class="n">__version__</span> <span class="o">=</span> <span class="s1">&#39;1.7.5&#39;</span>
 <span class="n">__maintainer__</span> <span class="o">=</span> <span class="s1">&#39;Vladimir Roncevic&#39;</span>
 <span class="n">__email__</span> <span class="o">=</span> <span class="s1">&#39;elektron.ronca@gmail.com&#39;</span>
 <span class="n">__status__</span> <span class="o">=</span> <span class="s1">&#39;Updated&#39;</span>
 
 
-<div class="viewcode-block" id="ATSVerbose"><a class="viewcode-back" href="../../../ats_utilities.console_io.verbose.html#ats_utilities.console_io.verbose.ATSVerbose">[docs]</a><span class="k">class</span> <span class="nc">ATSVerbose</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<div class="viewcode-block" id="ATSVerbose"><a class="viewcode-back" href="../../../ats_utilities.console_io.verbose.html#ats_utilities.console_io.verbose.ATSVerbose">[docs]</a><span class="k">class</span> <span class="nc">ATSVerbose</span><span class="p">:</span>
     <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Defined class ATSVerbose with attribute(s) and method(s).</span>
 <span class="sd">        Created verbose message container for console log mechanism.</span>
@@ -241,6 +243,7 @@
 <span class="sd">            :type message: &lt;str&gt;</span>
 <span class="sd">            :exceptions: None</span>
 <span class="sd">        &#39;&#39;&#39;</span>
+        <span class="n">init</span><span class="p">(</span><span class="n">autoreset</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__message</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{0}{1}{2}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
             <span class="n">Fore</span><span class="o">.</span><span class="n">BLUE</span><span class="p">,</span> <span class="n">message</span><span class="p">,</span> <span class="n">Fore</span><span class="o">.</span><span class="n">RESET</span>
         <span class="p">)</span>
@@ -253,7 +256,7 @@
 <span class="sd">            :rtype: &lt;bool&gt;</span>
 <span class="sd">            :exceptions: None</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="k">return</span> <span class="kc">True</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__message</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="kc">False</span></div>
+        <span class="k">return</span> <span class="nb">bool</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__message</span><span class="p">)</span></div>
 
     <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;</span>

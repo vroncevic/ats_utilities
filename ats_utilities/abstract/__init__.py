@@ -16,7 +16,7 @@
      You should have received a copy of the GNU General Public License along
      with this program. If not, see <http://www.gnu.org/licenses/>.
  Info
-     Defined class abstract_method with attribute(s) and method(s).
+     Defined class AbstractMethod with attribute(s) and method(s).
      Created abstract decorator for object methods.
 '''
 
@@ -26,21 +26,19 @@ __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2017, https://vroncevic.github.io/ats_utilities'
 __credits__ = ['Vladimir Roncevic']
 __license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = '1.6.5'
+__version__ = '1.7.5'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
 
 
-class abstract_method(object):
+class AbstractMethod:
     '''
-        Defined class abstract_method with attribute(s) and method(s).
+        Defined class AbstractMethod with attribute(s) and method(s).
         Created abstract decorator for object methods.
         It defines:
 
             :attributes:
-                | __slots__ - Setting class slots.
-                | VERBOSE - Console text indicator for current process-phase.
                 | method_name - Object method name.
                 | method_class_name - Class name of method.
                 | method_type - Type of object method.
@@ -48,13 +46,8 @@ class abstract_method(object):
             :methods:
                 | __init__ - Initial constructor.
                 | __call__ - Raise exception NotImplementedError on call.
-                | __str__ - Dunder method for abstract_method.
+                | __str__ - Dunder method for AbstractMethod.
     '''
-
-    __slots__ = (
-        'VERBOSE', 'method_name', 'method_class_name', 'method_type', 'method'
-    )
-    VERBOSE = 'ATS_UTILITIES::ABSTRACT::ABSTRACT_METHOD'
 
     def __init__(self, method_to_abstract):
         '''
@@ -86,7 +79,7 @@ class abstract_method(object):
 
     def __str__(self):
         '''
-            Dunder method for abstract_method.
+            Dunder method for AbstractMethod.
 
             :return: Object in a human-readable format.
             :rtype: <str>

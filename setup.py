@@ -27,7 +27,7 @@ __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2017, https://vroncevic.github.io/ats_utilities'
 __credits__ = ['Vladimir Roncevic']
 __license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = '1.6.5'
+__version__ = '1.7.5'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
@@ -35,13 +35,11 @@ __status__ = 'Updated'
 THIS_DIR, LONG_DESCRIPTION = abspath(dirname(__file__)), None
 with open(join(THIS_DIR, 'README.md')) as readme:
     LONG_DESCRIPTION = readme.read()
-
 PROGRAMMING_LANG = 'Programming Language :: Python ::'
 VERSIONS = ['2.7', '3', '3.2', '3.3', '3.4']
 SUPPORTED_PY_VERSIONS = [
     '{0} {1}'.format(PROGRAMMING_LANG, VERSION) for VERSION in VERSIONS
 ]
-
 LICENSE_PREFIX = 'License :: OSI Approved ::'
 LICENSES = [
     'GNU Lesser General Public License v2 (LGPLv2)',
@@ -53,12 +51,10 @@ LICENSES = [
 APPROVED_LICENSES = [
     '{0} {1}'.format(LICENSE_PREFIX, LICENSE) for LICENSE in LICENSES
 ]
-
 PYP_CLASSIFIERS = SUPPORTED_PY_VERSIONS + APPROVED_LICENSES
-
 setup(
     name='ats_utilities',
-    version='1.6.5',
+    version='1.7.5',
     description='Python App/Tool/Script Utilities',
     author='Vladimir Roncevic',
     author_email='elektron.ronca@gmail.com',
@@ -66,7 +62,7 @@ setup(
     license='GPL 2017 Free software to use and distributed it.',
     long_description=LONG_DESCRIPTION,
     long_description_content_type='text/markdown',
-    keywords='util, config, log, option, xml, cfg, ini, json, yml, cli',
+    keywords='util, config, log, option, xml, cfg, ini, json, yml, cli, meta',
     platforms='POSIX',
     classifiers=PYP_CLASSIFIERS,
     packages=[
@@ -81,6 +77,7 @@ setup(
         'ats_utilities.config_io.xml',
         'ats_utilities.config_io.yaml',
         'ats_utilities.console_io',
+        'ats_utilities.cooperative',
         'ats_utilities.exceptions',
         'ats_utilities.final',
         'ats_utilities.info',

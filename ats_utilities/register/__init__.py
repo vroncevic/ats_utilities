@@ -24,7 +24,7 @@ __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2017, https://vroncevic.github.io/ats_utilities'
 __credits__ = ['Vladimir Roncevic']
 __license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = '1.6.5'
+__version__ = '1.7.5'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
@@ -83,5 +83,7 @@ class ATSRegister(type):
         if cls in cls.registry:
             return cls.__name__
         return '{0} ({1})'.format(
-            cls.__name__, ', '.join([sc.__name__ for sc in cls])
+            cls.__name__, ', '.join([
+                reg_class.__name__ for reg_class in cls.registry
+            ])
         )

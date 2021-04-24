@@ -132,6 +132,8 @@ ats_utilities/
 │   ├── success.py
 │   ├── verbose.py
 │   └── warning.py
+├── cooperative/
+│   └── __init__.py
 ├── exceptions/
 │   ├── ats_attribute_error.py
 │   ├── ats_bad_call_error.py

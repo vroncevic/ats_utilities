@@ -59,7 +59,7 @@
             
             
               <div class="version">
-                1.6.5
+                1.7.5
               </div>
             
           
@@ -136,6 +136,8 @@
         
           <li><a href="../index.html">Module code</a> &raquo;</li>
         
+          <li><a href="../ats_utilities.html">ats_utilities</a> &raquo;</li>
+        
       <li>ats_utilities.abstract</li>
     
     
@@ -170,7 +172,7 @@
 <span class="sd">     You should have received a copy of the GNU General Public License along</span>
 <span class="sd">     with this program. If not, see &lt;http://www.gnu.org/licenses/&gt;.</span>
 <span class="sd"> Info</span>
-<span class="sd">     Defined class abstract_method with attribute(s) and method(s).</span>
+<span class="sd">     Defined class AbstractMethod with attribute(s) and method(s).</span>
 <span class="sd">     Created abstract decorator for object methods.</span>
 <span class="sd">&#39;&#39;&#39;</span>
 
@@ -180,21 +182,19 @@
 <span class="n">__copyright__</span> <span class="o">=</span> <span class="s1">&#39;Copyright 2017, https://vroncevic.github.io/ats_utilities&#39;</span>
 <span class="n">__credits__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Vladimir Roncevic&#39;</span><span class="p">]</span>
 <span class="n">__license__</span> <span class="o">=</span> <span class="s1">&#39;https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE&#39;</span>
-<span class="n">__version__</span> <span class="o">=</span> <span class="s1">&#39;1.6.5&#39;</span>
+<span class="n">__version__</span> <span class="o">=</span> <span class="s1">&#39;1.7.5&#39;</span>
 <span class="n">__maintainer__</span> <span class="o">=</span> <span class="s1">&#39;Vladimir Roncevic&#39;</span>
 <span class="n">__email__</span> <span class="o">=</span> <span class="s1">&#39;elektron.ronca@gmail.com&#39;</span>
 <span class="n">__status__</span> <span class="o">=</span> <span class="s1">&#39;Updated&#39;</span>
 
 
-<div class="viewcode-block" id="abstract_method"><a class="viewcode-back" href="../../ats_utilities.abstract.html#ats_utilities.abstract.abstract_method">[docs]</a><span class="k">class</span> <span class="nc">abstract_method</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<div class="viewcode-block" id="AbstractMethod"><a class="viewcode-back" href="../../ats_utilities.abstract.html#ats_utilities.abstract.AbstractMethod">[docs]</a><span class="k">class</span> <span class="nc">AbstractMethod</span><span class="p">:</span>
     <span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">        Defined class abstract_method with attribute(s) and method(s).</span>
+<span class="sd">        Defined class AbstractMethod with attribute(s) and method(s).</span>
 <span class="sd">        Created abstract decorator for object methods.</span>
 <span class="sd">        It defines:</span>
 
 <span class="sd">            :attributes:</span>
-<span class="sd">                | __slots__ - Setting class slots.</span>
-<span class="sd">                | VERBOSE - Console text indicator for current process-phase.</span>
 <span class="sd">                | method_name - Object method name.</span>
 <span class="sd">                | method_class_name - Class name of method.</span>
 <span class="sd">                | method_type - Type of object method.</span>
@@ -202,13 +202,8 @@
 <span class="sd">            :methods:</span>
 <span class="sd">                | __init__ - Initial constructor.</span>
 <span class="sd">                | __call__ - Raise exception NotImplementedError on call.</span>
-<span class="sd">                | __str__ - Dunder method for abstract_method.</span>
+<span class="sd">                | __str__ - Dunder method for AbstractMethod.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
-
-    <span class="vm">__slots__</span> <span class="o">=</span> <span class="p">(</span>
-        <span class="s1">&#39;VERBOSE&#39;</span><span class="p">,</span> <span class="s1">&#39;method_name&#39;</span><span class="p">,</span> <span class="s1">&#39;method_class_name&#39;</span><span class="p">,</span> <span class="s1">&#39;method_type&#39;</span><span class="p">,</span> <span class="s1">&#39;method&#39;</span>
-    <span class="p">)</span>
-    <span class="n">VERBOSE</span> <span class="o">=</span> <span class="s1">&#39;ATS_UTILITIES::ABSTRACT::ABSTRACT_METHOD&#39;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">method_to_abstract</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;</span>
@@ -240,7 +235,7 @@
 
     <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">            Dunder method for abstract_method.</span>
+<span class="sd">            Dunder method for AbstractMethod.</span>
 
 <span class="sd">            :return: Object in a human-readable format.</span>
 <span class="sd">            :rtype: &lt;str&gt;</span>

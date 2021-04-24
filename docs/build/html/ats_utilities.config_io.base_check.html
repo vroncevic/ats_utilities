@@ -61,7 +61,7 @@
             
             
               <div class="version">
-                1.6.5
+                1.7.5
               </div>
             
           
@@ -97,6 +97,7 @@
 <li class="toctree-l4"><a class="reference internal" href="ats_utilities.cli.html">ats_utilities.cli package</a></li>
 <li class="toctree-l4 current"><a class="reference internal" href="ats_utilities.config_io.html">ats_utilities.config_io package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ats_utilities.console_io.html">ats_utilities.console_io package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ats_utilities.cooperative.html">ats_utilities.cooperative package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ats_utilities.exceptions.html">ats_utilities.exceptions package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ats_utilities.final.html">ats_utilities.final package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ats_utilities.info.html">ats_utilities.info package</a></li>
@@ -215,11 +216,12 @@ It defines:</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">attributes:</th><td class="field-body"><div class="first last line-block">
-<div class="line">VERBOSE - Console text indicator for current process-phase.</div>
+<div class="line">__metaclass__ - Setting verbose root for FileChecking.</div>
 <div class="line">MODES - Mode file operations.</div>
-<div class="line">file_path_ok - File exist, path ok.</div>
-<div class="line">file_mode_ok - Supported file mode.</div>
-<div class="line">file_format_ok - File format is (not) expected.</div>
+<div class="line">__verbose - Enable/disable verbose option.</div>
+<div class="line">__file_path_ok - File exist, path ok.</div>
+<div class="line">__file_mode_ok - Supported file mode.</div>
+<div class="line">__file_format_ok - File format is (not) expected.</div>
 </div>
 </td>
 </tr>
@@ -243,7 +245,7 @@ It defines:</p>
 
 <dl class="attribute">
 <dt id="ats_utilities.config_io.base_check.FileChecking.VERBOSE">
-<code class="descname">VERBOSE</code><em class="property"> = 'ATS_UTILITIES::CONFIG_IO::FILE_CHECKING'</em><a class="headerlink" href="#ats_utilities.config_io.base_check.FileChecking.VERBOSE" title="Permalink to this definition">¶</a></dt>
+<code class="descname">VERBOSE</code><em class="property"> = 'ats_utilities::config_io::base_check'</em><a class="headerlink" href="#ats_utilities.config_io.base_check.FileChecking.VERBOSE" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">

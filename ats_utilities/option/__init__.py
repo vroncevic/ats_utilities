@@ -17,14 +17,14 @@
      with this program. If not, see <http://www.gnu.org/licenses/>.
  Info
      Defined class ATSOptionParser with attribute(s) and method(s).
-     Created option parser and process arguments from start.
+     Created option parser and argument processor.
 '''
 
 import sys
-from optparse import OptionParser
+from argparse import ArgumentParser
 
 try:
-    from ats_utilities.final import ATSFinal
+    from ats_utilities import VerboseRoot
     from ats_utilities.checker import ATSChecker
     from ats_utilities.console_io.verbose import verbose_message
     from ats_utilities.exceptions.ats_type_error import ATSTypeError
@@ -37,22 +37,22 @@ __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2017, https://vroncevic.github.io/ats_utilities'
 __credits__ = ['Vladimir Roncevic']
 __license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = '1.6.5'
+__version__ = '1.7.5'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
 
 
-class ATSOptionParser(object):
+class ATSOptionParser:
     '''
         Defined class ATSOptionParser with attribute(s) and method(s).
-        Created option parser and process arguments from start.
+        Created option parser and argument processor.
+
         It defines:
 
             :attributes:
-                | __metaclass__ - Setting class ATSOptionParser as final.
-                | __slots__ - Setting class slots.
-                | VERBOSE - Console text indicator for current process-phase.
+                | __metaclass__ - Setting verbose root for ATSOptionParser.
+                | __verbose - Enable/disable verbose option.
                 | __opt_parser - Options parser.
             :methods:
                 | __init__ - Initial constructor.
@@ -61,9 +61,7 @@ class ATSOptionParser(object):
                 | __str__ - Dunder method for ATSOptionParser.
     '''
 
-    __metaclass__ = ATSFinal
-    __slots__ = ('VERBOSE', '__opt_parser')
-    VERBOSE = 'ATS_UTILITIES::OPTION::ATS_OPTION_PARSER'
+    __metaclass__ = VerboseRoot
 
     def __init__(self, version, epilog, description, verbose=False):
         '''
@@ -88,11 +86,11 @@ class ATSOptionParser(object):
             raise ATSTypeError(error)
         if status == ATSChecker.VALUE_ERROR:
             raise ATSBadCallError(error)
+        self.__verbose = verbose
+        self.__opt_parser = ArgumentParser(version, epilog, description)
         verbose_message(
-            ATSOptionParser.VERBOSE, verbose, 'init ATS option parser'
-        )
-        self.__opt_parser = OptionParser(
-            version=version, epilog=epilog, description=description
+            ATSOptionParser.VERBOSE, self.__verbose or verbose,
+            version, epilog, description
         )
 
     def add_operation(self, *args, **kwargs):
@@ -105,20 +103,25 @@ class ATSOptionParser(object):
             :type kwargs: <dict>
             :exceptions: None
         '''
-        self.__opt_parser.add_option(*args, **kwargs)
+        self.__opt_parser.add_argument(*args, **kwargs)
 
-    def parse_args(self, argv):
+    def parse_args(self, arguments, verbose=False):
         '''
             Process arguments from start.
 
-            :param argv: Arguments.
-            :type argv: <Python object(s)>
-            :return: Options and arguments.
-            :rtype: <Python object(s)>
+            :param arguments: Arguments.
+            :type arguments: <list>
+            :param verbose: Enable/disable verbose option.
+            :type verbose: <bool>
+            :return: Namespace object.
+            :rtype: <argparse.Namespace>
             :exceptions: None
         '''
-        (opts, args) = self.__opt_parser.parse_args(argv)
-        return opts, args
+        args = self.__opt_parser.parse_args(arguments)
+        verbose_message(
+            ATSOptionParser.VERBOSE, self.__verbose or verbose, arguments
+        )
+        return args
 
     def __str__(self):
         '''
@@ -128,6 +131,7 @@ class ATSOptionParser(object):
             :rtype: <str>
             :exceptions: None
         '''
-        return '{0} ({1})'.format(
-            self.__class__.__name__, str(self.__opt_parser)
+        return '{0} ({1}, {2})'.format(
+            self.__class__.__name__, str(self.__verbose),
+            str(self.__opt_parser)
         )

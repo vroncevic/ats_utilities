@@ -59,7 +59,7 @@
             
             
               <div class="version">
-                1.6.5
+                1.7.5
               </div>
             
           
@@ -136,6 +136,8 @@
         
           <li><a href="../index.html">Module code</a> &raquo;</li>
         
+          <li><a href="../ats_utilities.html">ats_utilities</a> &raquo;</li>
+        
       <li>ats_utilities.info</li>
     
     
@@ -183,6 +185,7 @@
     <span class="kn">from</span> <span class="nn">ats_utilities.info.ats_info_ok</span> <span class="kn">import</span> <span class="n">ATSInfoOk</span>
     <span class="kn">from</span> <span class="nn">ats_utilities.info.ats_version</span> <span class="kn">import</span> <span class="n">ATSVersion</span>
     <span class="kn">from</span> <span class="nn">ats_utilities.info.ats_licence</span> <span class="kn">import</span> <span class="n">ATSLicence</span>
+    <span class="kn">from</span> <span class="nn">ats_utilities.cooperative</span> <span class="kn">import</span> <span class="n">CooperativeMeta</span>
     <span class="kn">from</span> <span class="nn">ats_utilities.console_io.error</span> <span class="kn">import</span> <span class="n">error_message</span>
     <span class="kn">from</span> <span class="nn">ats_utilities.info.ats_build_date</span> <span class="kn">import</span> <span class="n">ATSBuildDate</span>
     <span class="kn">from</span> <span class="nn">ats_utilities.console_io.verbose</span> <span class="kn">import</span> <span class="n">verbose_message</span>
@@ -196,7 +199,7 @@
 <span class="n">__copyright__</span> <span class="o">=</span> <span class="s1">&#39;Copyright 2017, https://vroncevic.github.io/ats_utilities&#39;</span>
 <span class="n">__credits__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Vladimir Roncevic&#39;</span><span class="p">]</span>
 <span class="n">__license__</span> <span class="o">=</span> <span class="s1">&#39;https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE&#39;</span>
-<span class="n">__version__</span> <span class="o">=</span> <span class="s1">&#39;1.6.5&#39;</span>
+<span class="n">__version__</span> <span class="o">=</span> <span class="s1">&#39;1.7.5&#39;</span>
 <span class="n">__maintainer__</span> <span class="o">=</span> <span class="s1">&#39;Vladimir Roncevic&#39;</span>
 <span class="n">__email__</span> <span class="o">=</span> <span class="s1">&#39;elektron.ronca@gmail.com&#39;</span>
 <span class="n">__status__</span> <span class="o">=</span> <span class="s1">&#39;Updated&#39;</span>
@@ -209,13 +212,13 @@
 <span class="sd">        It defines:</span>
 
 <span class="sd">            :attributes:</span>
-<span class="sd">                | __slots__ - Setting class slots.</span>
-<span class="sd">                | VERBOSE - Console text indicator for current process-phase.</span>
+<span class="sd">                | __metaclass__ - Setting cooperative metaclasses.</span>
 <span class="sd">                | ATS_NAME - ATS name key.</span>
 <span class="sd">                | ATS_VERSION - ATS version key.</span>
 <span class="sd">                | ATS_LICENCE - ATS licence key.</span>
 <span class="sd">                | ATS_BUILD_DATE - ATS build date key.</span>
 <span class="sd">                | ATS_BASE_INFO - ATS base information dict.</span>
+<span class="sd">                | __verbose - Enable/disable verbose option.</span>
 <span class="sd">            :methods:</span>
 <span class="sd">                | __init__ - Initial constructor.</span>
 <span class="sd">                | show_base_info - Show ATS informations.</span>
@@ -223,12 +226,7 @@
 <span class="sd">                | __str__ - Dunder method for ATSInfo.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
 
-    <span class="vm">__slots__</span> <span class="o">=</span> <span class="p">(</span>
-        <span class="s1">&#39;VERBOSE&#39;</span><span class="p">,</span> <span class="s1">&#39;ATS_NAME&#39;</span><span class="p">,</span> <span class="s1">&#39;ATS_VERSION&#39;</span><span class="p">,</span> <span class="s1">&#39;ATS_LICENCE&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;ATS_BUILD_DATE&#39;</span><span class="p">,</span> <span class="s1">&#39;ATS_BASE_INFO&#39;</span><span class="p">,</span> <span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="s1">&#39;version&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;licence&#39;</span><span class="p">,</span> <span class="s1">&#39;build_date&#39;</span><span class="p">,</span> <span class="s1">&#39;ats_info_ok&#39;</span>
-    <span class="p">)</span>
-    <span class="n">VERBOSE</span> <span class="o">=</span> <span class="s1">&#39;ATS_UTILITIES::INFO::ATS_INFO&#39;</span>
+    <span class="n">__metaclass__</span> <span class="o">=</span> <span class="n">CooperativeMeta</span>
     <span class="n">ATS_NAME</span> <span class="o">=</span> <span class="s1">&#39;ats_name&#39;</span>
     <span class="n">ATS_VERSION</span> <span class="o">=</span> <span class="s1">&#39;ats_version&#39;</span>
     <span class="n">ATS_LICENCE</span> <span class="o">=</span> <span class="s1">&#39;ats_licence&#39;</span>
@@ -261,7 +259,10 @@
         <span class="n">ATSLicence</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
         <span class="n">ATSBuildDate</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
         <span class="n">ATSInfoOk</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">ATSInfo</span><span class="o">.</span><span class="n">is_correct</span><span class="p">(</span><span class="n">info</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="n">verbose</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__verbose</span> <span class="o">=</span> <span class="n">verbose</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__statuses</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">is_correct</span><span class="p">(</span><span class="n">info</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="n">verbose</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">all</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__statuses</span><span class="p">):</span>
             <span class="n">verbose_message</span><span class="p">(</span><span class="n">ATSInfo</span><span class="o">.</span><span class="n">VERBOSE</span><span class="p">,</span> <span class="n">verbose</span><span class="p">,</span> <span class="s1">&#39;load ATS informations&#39;</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">info</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">ATSInfo</span><span class="o">.</span><span class="n">ATS_NAME</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">version</span> <span class="o">=</span> <span class="n">info</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">ATSInfo</span><span class="o">.</span><span class="n">ATS_VERSION</span><span class="p">)</span>
@@ -283,8 +284,7 @@
                 <span class="p">)</span>
             <span class="p">)</span></div>
 
-<div class="viewcode-block" id="ATSInfo.is_correct"><a class="viewcode-back" href="../../ats_utilities.info.html#ats_utilities.info.ATSInfo.is_correct">[docs]</a>    <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">is_correct</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">informations</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<div class="viewcode-block" id="ATSInfo.is_correct"><a class="viewcode-back" href="../../ats_utilities.info.html#ats_utilities.info.ATSInfo.is_correct">[docs]</a>    <span class="k">def</span> <span class="nf">is_correct</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">informations</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Check information structure.</span>
 
@@ -292,28 +292,26 @@
 <span class="sd">            :type informations: &lt;dict&gt;</span>
 <span class="sd">            :param verbose: Enable/disable verbose option.</span>
 <span class="sd">            :type verbose: &lt;bool&gt;</span>
-<span class="sd">            :return: True (correct information structure) | False.</span>
-<span class="sd">            :rtype: &lt;bool&gt;</span>
 <span class="sd">            :exceptions: ATSTypeError | ATSBadCallError</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="n">checker</span><span class="p">,</span> <span class="n">error</span><span class="p">,</span> <span class="n">status</span><span class="p">,</span> <span class="n">statuses</span> <span class="o">=</span> <span class="n">ATSChecker</span><span class="p">(),</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="p">[]</span>
-        <span class="n">error</span><span class="p">,</span> <span class="n">status</span> <span class="o">=</span> <span class="n">checker</span><span class="o">.</span><span class="n">check_params</span><span class="p">(</span>
-            <span class="p">[(</span><span class="s1">&#39;dict:informations&#39;</span><span class="p">,</span> <span class="n">informations</span><span class="p">)]</span>
-        <span class="p">)</span>
+        <span class="n">checker</span><span class="p">,</span> <span class="n">error</span><span class="p">,</span> <span class="n">status</span> <span class="o">=</span> <span class="n">ATSChecker</span><span class="p">(),</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">False</span>
+        <span class="n">error</span><span class="p">,</span> <span class="n">status</span> <span class="o">=</span> <span class="n">checker</span><span class="o">.</span><span class="n">check_params</span><span class="p">([</span>
+            <span class="p">(</span><span class="s1">&#39;dict:informations&#39;</span><span class="p">,</span> <span class="n">informations</span><span class="p">)</span>
+        <span class="p">])</span>
         <span class="k">if</span> <span class="n">status</span> <span class="o">==</span> <span class="n">ATSChecker</span><span class="o">.</span><span class="n">TYPE_ERROR</span><span class="p">:</span>
             <span class="k">raise</span> <span class="n">ATSTypeError</span><span class="p">(</span><span class="n">error</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">status</span> <span class="o">==</span> <span class="n">ATSChecker</span><span class="o">.</span><span class="n">VALUE_ERROR</span><span class="p">:</span>
             <span class="k">raise</span> <span class="n">ATSBadCallError</span><span class="p">(</span><span class="n">error</span><span class="p">)</span>
-        <span class="n">verbose_message</span><span class="p">(</span><span class="bp">cls</span><span class="o">.</span><span class="n">VERBOSE</span><span class="p">,</span> <span class="n">verbose</span><span class="p">,</span> <span class="s1">&#39;check ATS informations&#39;</span><span class="p">)</span>
+        <span class="n">verbose_message</span><span class="p">(</span>
+            <span class="n">ATSInfo</span><span class="o">.</span><span class="n">VERBOSE</span><span class="p">,</span> <span class="n">verbose</span><span class="p">,</span> <span class="s1">&#39;check ATS informations&#39;</span><span class="p">,</span> <span class="n">informations</span>
+        <span class="p">)</span>
         <span class="k">for</span> <span class="n">info_key</span> <span class="ow">in</span> <span class="n">informations</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
-            <span class="k">if</span> <span class="n">info_key</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">cls</span><span class="o">.</span><span class="n">ATS_BASE_INFO</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">info_key</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">ATSInfo</span><span class="o">.</span><span class="n">ATS_BASE_INFO</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
                 <span class="n">message</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{0}</span><span class="s1"> [</span><span class="si">{1}</span><span class="s1">]&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s1">&#39;key not expected&#39;</span><span class="p">,</span> <span class="n">info_key</span><span class="p">)</span>
-                <span class="n">error_message</span><span class="p">(</span><span class="bp">cls</span><span class="o">.</span><span class="n">VERBOSE</span><span class="p">,</span> <span class="n">message</span><span class="p">)</span>
-                <span class="n">statuses</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+                <span class="n">error_message</span><span class="p">(</span><span class="n">ATSInfo</span><span class="o">.</span><span class="n">VERBOSE</span><span class="p">,</span> <span class="n">message</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">__statuses</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="n">statuses</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
-        <span class="n">status</span> <span class="o">=</span> <span class="nb">all</span><span class="p">(</span><span class="n">statuses</span><span class="p">)</span>
-        <span class="k">return</span> <span class="kc">True</span> <span class="k">if</span> <span class="n">status</span> <span class="k">else</span> <span class="kc">False</span></div>
+                <span class="bp">self</span><span class="o">.</span><span class="n">__statuses</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span></div>
 
     <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;</span>
@@ -323,10 +321,11 @@
 <span class="sd">            :rtype: &lt;str&gt;</span>
 <span class="sd">            :exceptions: None</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="k">return</span> <span class="s1">&#39;</span><span class="si">{0}</span><span class="s1"> (</span><span class="si">{1}</span><span class="s1">, </span><span class="si">{2}</span><span class="s1">, </span><span class="si">{3}</span><span class="s1">, </span><span class="si">{4}</span><span class="s1">, </span><span class="si">{5}</span><span class="s1">)&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+        <span class="k">return</span> <span class="s1">&#39;</span><span class="si">{0}</span><span class="s1"> (</span><span class="si">{1}</span><span class="s1">, </span><span class="si">{2}</span><span class="s1">, </span><span class="si">{3}</span><span class="s1">, </span><span class="si">{4}</span><span class="s1">, </span><span class="si">{5}</span><span class="s1">, </span><span class="si">{6}</span><span class="s1">, </span><span class="si">{7}</span><span class="s1">)&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="n">ATSName</span><span class="o">.</span><span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">),</span>
             <span class="n">ATSVersion</span><span class="o">.</span><span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">),</span> <span class="n">ATSLicence</span><span class="o">.</span><span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">),</span>
-            <span class="n">ATSBuildDate</span><span class="o">.</span><span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">),</span> <span class="n">ATSInfoOk</span><span class="o">.</span><span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+            <span class="n">ATSBuildDate</span><span class="o">.</span><span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">),</span> <span class="n">ATSInfoOk</span><span class="o">.</span><span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">),</span>
+            <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__verbose</span><span class="p">),</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__statuses</span><span class="p">)</span>
         <span class="p">)</span></div>
 </pre></div>
 

@@ -17,12 +17,13 @@
      with this program. If not, see <http://www.gnu.org/licenses/>.
  Info
      Defined class ConfigFile with attribute(s) and method(s).
-     Created API for configuration context manager.
+     Created API for information/configuration context manager.
 '''
 
 import sys
 
 try:
+    from ats_utilities import VerboseRoot
     from ats_utilities.checker import ATSChecker
     from ats_utilities.console_io.error import error_message
     from ats_utilities.config_io.base_check import FileChecking
@@ -37,7 +38,7 @@ __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2017, https://vroncevic.github.io/ats_utilities'
 __credits__ = ['Vladimir Roncevic']
 __license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = '1.6.5'
+__version__ = '1.7.5'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
@@ -46,12 +47,12 @@ __status__ = 'Updated'
 class ConfigFile(FileChecking):
     '''
         Defined class ConfigFile with attribute(s) and method(s).
-        Created API for configuration context manager.
+        Created API for information/configuration context manager.
         It defines:
 
             :attributes:
-                | __slots__ - Setting class slots.
-                | VERBOSE - Console text indicator for current process-phase.
+                | __metaclass__ - Setting verbose root for ConfigFile.
+                | __verbose - Enable/disable verbose option.
                 | __file_path - Configuration file name.
                 | __file_mode - File mode.
                 | __file_format - File format.
@@ -63,11 +64,7 @@ class ConfigFile(FileChecking):
                 | __str__ - Dunder method for ConfigFile.
     '''
 
-    __slots__ = (
-        'VERBOSE', 'MODES', 'file_path_ok', 'file_mode_ok', 'file_format_ok',
-        '__file_path', '__file_mode', '__file_format', '__file'
-    )
-    VERBOSE = 'ATS_UTILITIES::CONFIG_IO'
+    __metaclass__ = VerboseRoot
 
     def __init__(self, file_path, file_mode, file_format, verbose=False):
         '''
@@ -85,8 +82,7 @@ class ConfigFile(FileChecking):
         '''
         checker, error, status = ATSChecker(), None, False
         error, status = checker.check_params([
-            ('str:file_path', file_path),
-            ('str:file_mode', file_mode),
+            ('str:file_path', file_path), ('str:file_mode', file_mode),
             ('str:file_format', file_format)
         ])
         if status == ATSChecker.TYPE_ERROR:
@@ -94,15 +90,11 @@ class ConfigFile(FileChecking):
         if status == ATSChecker.VALUE_ERROR:
             raise ATSBadCallError(error)
         FileChecking.__init__(self, verbose=verbose)
+        self.__verbose = verbose
         self.__file = None
         self.__file_path = None
         self.__file_mode = None
         self.__file_format = None
-        verbose_message(
-            ConfigFile.VERBOSE, verbose, '{0}\n{1}\n{2} [{3}]'.format(
-                'setting file path', file_path, 'setting file mode', file_mode
-            )
-        )
         self.check_path(file_path=file_path, verbose=verbose)
         self.check_mode(file_mode=file_mode, verbose=verbose)
         self.check_format(
@@ -112,6 +104,7 @@ class ConfigFile(FileChecking):
             self.__file_path = file_path
             self.__file_mode = file_mode
             self.__file_format = file_format
+        verbose_message(ConfigFile.VERBOSE, verbose, file_path, file_mode)
 
     def __enter__(self):
         '''
@@ -147,6 +140,8 @@ class ConfigFile(FileChecking):
             :rtype: <str>
             :exceptions: None
         '''
-        return '{0} ({1})'.format(
-            self.__class__.__name__, FileChecking.__str__(self)
+        return '{0} ({1}, {2}, {3}, {4}, {5}, {6})'.format(
+            self.__class__.__name__, FileChecking.__str__(self),
+            str(self.__verbose),self.__file_path, self.__file_mode,
+            self.__file_format, self.__file,
         )
