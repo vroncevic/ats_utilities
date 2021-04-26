@@ -123,7 +123,7 @@ class ATSInfo(ATSName, ATSVersion, ATSLicence, ATSBuildDate, ATSInfoOk):
         if self.ats_info_ok:
             print(
                 '\n{0} version {1} {2}'.format(
-                    '[{0}]'.format(self.__name), self.__version,
+                    '[{0}]'.format(self.name), self.version,
                     datetime.now().date()
                 )
             )
