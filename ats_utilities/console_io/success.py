@@ -49,13 +49,13 @@ class ATSSuccess:
         It defines:
 
             :attributes:
-                | __metaclass__ - Setting class ATSSuccess as final.
-                | __message - Success message container.
+                | __metaclass__ - setting class ATSSuccess as final.
+                | __message - success message container.
             :methods:
-                | __init__ - Initial constructor.
-                | message - Property methods for set/get operations.
-                | is_not_none - Checking is message None or not.
-                | __str__ - Dunder method for ATSSuccess.
+                | __init__ - initial constructor.
+                | message - property methods for set/get operations.
+                | is_not_none - checking is message None or not.
+                | __str__ - dunder method for ATSSuccess.
     '''
 
     __metaclass__ = ATSFinal
@@ -73,7 +73,7 @@ class ATSSuccess:
         '''
             Property method for getting message.
 
-            :return: Formatted success message.
+            :return: formatted success message.
             :rtype: <str>
             :exceptions: None
         '''
@@ -84,7 +84,7 @@ class ATSSuccess:
         '''
             Property method for setting message.
 
-            :param message: Verbose message.
+            :param message: verbose message.
             :type message: <str>
             :exceptions: None
         '''
@@ -107,7 +107,7 @@ class ATSSuccess:
         '''
             Dunder method for ATSSuccess.
 
-            :return: Object in a human-readable format.
+            :return: object in a human-readable format.
             :rtype: <str>
             :exceptions: None
         '''
@@ -118,9 +118,9 @@ def success_message(success_path, *message):
     '''
         Show success message.
 
-        :param success_path: Success prefix message.
+        :param success_path: success prefix message.
         :type success_path: <str>
-        :param message: Message parts.
+        :param message: message parts.
         :type message: <tuple>
         :exceptions: ATSTypeError | ATSBadCallError
     '''

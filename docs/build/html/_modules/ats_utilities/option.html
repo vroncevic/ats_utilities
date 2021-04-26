@@ -207,14 +207,14 @@
 <span class="sd">        It defines:</span>
 
 <span class="sd">            :attributes:</span>
-<span class="sd">                | __metaclass__ - Setting verbose root for ATSOptionParser.</span>
-<span class="sd">                | __verbose - Enable/disable verbose option.</span>
-<span class="sd">                | __opt_parser - Options parser.</span>
+<span class="sd">                | __metaclass__ - setting verbose root for ATSOptionParser.</span>
+<span class="sd">                | __verbose - enable/disable verbose option.</span>
+<span class="sd">                | __opt_parser - options parser.</span>
 <span class="sd">            :methods:</span>
-<span class="sd">                | __init__ - Initial constructor.</span>
-<span class="sd">                | add_operation - Add option to App/Tool/Script.</span>
-<span class="sd">                | parse_args - Process arguments from start.</span>
-<span class="sd">                | __str__ - Dunder method for ATSOptionParser.</span>
+<span class="sd">                | __init__ - initial constructor.</span>
+<span class="sd">                | add_operation - add option to ATS.</span>
+<span class="sd">                | parse_args - process arguments from start.</span>
+<span class="sd">                | __str__ - dunder method for ATSOptionParser.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
 
     <span class="n">__metaclass__</span> <span class="o">=</span> <span class="n">VerboseRoot</span>
@@ -223,13 +223,13 @@
         <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Initial constructor.</span>
 
-<span class="sd">            :param version: App/Tool/Script version and build date.</span>
+<span class="sd">            :param version: ATS version and build date.</span>
 <span class="sd">            :type version: &lt;str&gt;</span>
-<span class="sd">            :param epilog: App/Tool/Script long description.</span>
+<span class="sd">            :param epilog: ATS long description.</span>
 <span class="sd">            :type epilog: &lt;str&gt;</span>
-<span class="sd">            :param description: App/Tool/Script author and license.</span>
+<span class="sd">            :param description: ATS author and license.</span>
 <span class="sd">            :type description: &lt;str&gt;</span>
-<span class="sd">            :param verbose: Enable/disable verbose option.</span>
+<span class="sd">            :param verbose: enable/disable verbose option.</span>
 <span class="sd">            :type verbose: &lt;bool&gt;</span>
 <span class="sd">            :exceptions: ATSTypeError | ATSBadCallError</span>
 <span class="sd">        &#39;&#39;&#39;</span>
@@ -251,11 +251,11 @@
 
 <div class="viewcode-block" id="ATSOptionParser.add_operation"><a class="viewcode-back" href="../../ats_utilities.option.html#ats_utilities.option.ATSOptionParser.add_operation">[docs]</a>    <span class="k">def</span> <span class="nf">add_operation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">            Add option to App/Tool/Script.</span>
+<span class="sd">            Add option to ATS.</span>
 
-<span class="sd">            :param args: List of arguments (objects).</span>
+<span class="sd">            :param args: list of arguments (objects).</span>
 <span class="sd">            :type args: &lt;list&gt;</span>
-<span class="sd">            :param kwargs: Arguments in shape of dictionary.</span>
+<span class="sd">            :param kwargs: arguments in shape of dictionary.</span>
 <span class="sd">            :type kwargs: &lt;dict&gt;</span>
 <span class="sd">            :exceptions: None</span>
 <span class="sd">        &#39;&#39;&#39;</span>
@@ -265,11 +265,11 @@
         <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Process arguments from start.</span>
 
-<span class="sd">            :param arguments: Arguments.</span>
+<span class="sd">            :param arguments: arguments.</span>
 <span class="sd">            :type arguments: &lt;list&gt;</span>
-<span class="sd">            :param verbose: Enable/disable verbose option.</span>
+<span class="sd">            :param verbose: enable/disable verbose option.</span>
 <span class="sd">            :type verbose: &lt;bool&gt;</span>
-<span class="sd">            :return: Namespace object.</span>
+<span class="sd">            :return: namespace object.</span>
 <span class="sd">            :rtype: &lt;argparse.Namespace&gt;</span>
 <span class="sd">            :exceptions: None</span>
 <span class="sd">        &#39;&#39;&#39;</span>
@@ -283,7 +283,7 @@
         <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Dunder method for ATSOptionParser.</span>
 
-<span class="sd">            :return: Object in a human-readable format.</span>
+<span class="sd">            :return: object in a human-readable format.</span>
 <span class="sd">            :rtype: &lt;str&gt;</span>
 <span class="sd">            :exceptions: None</span>
 <span class="sd">        &#39;&#39;&#39;</span>

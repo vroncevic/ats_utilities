@@ -37,10 +37,10 @@ class VerboseRoot(type):
         It defines:
 
             :attributes:
-                | ROOT_PACKAGE_NAME - Root package name of framework.
+                | ROOT_PACKAGE_NAME - root package name of framework.
             :methods:
-                | __new__ - New constructor.
-                | __str__ - Dunder method for VerboseRoot.
+                | __new__ - new constructor.
+                | __str__ - dunder method for VerboseRoot.
     '''
 
     ROOT_PACKAGE_NAME = 'ATS_UTILITIES'
@@ -51,11 +51,11 @@ class VerboseRoot(type):
 
             :param name: class name.
             :type name: <str>
-            :param bases: Class bases.
+            :param bases: class bases.
             :type bases: <tuple>
-            :param namespace: Class namespace.
+            :param namespace: class namespace.
             :type namespace: <dict>
-            :return: Root Class Type.
+            :return: root class type.
             :rtype: <type>
             :exceptions: None
         '''
@@ -72,7 +72,7 @@ class VerboseRoot(type):
         '''
             Dunder method for VerboseRoot.
 
-            :return: Object in a human-readable format.
+            :return: object in a human-readable format.
             :rtype: <str>
             :exceptions: None
         '''

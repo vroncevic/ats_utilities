@@ -52,13 +52,13 @@ class Object2Yaml(BaseWriteConfig):
         It defines:
 
             :attributes:
-                | __metaclass__ - Setting verbose root for Object2Yaml.
-                | __FORMAT - Format of configuration content.
-                | __verbose - Enable/disable verbose option.
+                | __metaclass__ - setting verbose root for Object2Yaml.
+                | __FORMAT - format of configuration content.
+                | __verbose - enable/disable verbose option.
             :methods:
-                | __init__ - Initial constructor.
-                | write_configuration - Write configuration to a yaml file.
-                | __str__ - Dunder method for object Object2Yaml.
+                | __init__ - initial constructor.
+                | write_configuration - write configuration to a yaml file.
+                | __str__ - dunder method for object Object2Yaml.
     '''
 
     __metaclass__ = VerboseRoot
@@ -68,9 +68,9 @@ class Object2Yaml(BaseWriteConfig):
         '''
             Initial constructor.
 
-            :param configuration_file: Configuration file path.
+            :param configuration_file: configuration file path.
             :type configuration_file: <str>
-            :param verbose: Enable/disable verbose option.
+            :param verbose: enable/disable verbose option.
             :type verbose: <bool>
             :exceptions: ATSTypeError | ATSBadCallError
         '''
@@ -91,9 +91,9 @@ class Object2Yaml(BaseWriteConfig):
         '''
             Write configuration to a yaml file.
 
-            :param configuration: Configuration object | None.
+            :param configuration: configuration object | None.
             :type configuration: <Python object(s)> | <NoneType>
-            :param verbose: Enable/disable verbose option.
+            :param verbose: enable/disable verbose option.
             :type verbose: <bool>
             :return: True (success) | False.
             :rtype: <bool>
@@ -113,7 +113,7 @@ class Object2Yaml(BaseWriteConfig):
         '''
             Dunder method for Object2Yaml.
 
-            :return: Object in a human-readable format.
+            :return: object in a human-readable format.
             :rtype: <str>
             :exceptions: None
         '''

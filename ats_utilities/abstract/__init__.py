@@ -39,21 +39,21 @@ class AbstractMethod:
         It defines:
 
             :attributes:
-                | method_name - Object method name.
-                | method_class_name - Class name of method.
-                | method_type - Type of object method.
-                | method - Method object-reference.
+                | method_name - object method name.
+                | method_class_name - class name of method.
+                | method_type - type of object method.
+                | method - method object-reference.
             :methods:
-                | __init__ - Initial constructor.
-                | __call__ - Raise exception NotImplementedError on call.
-                | __str__ - Dunder method for AbstractMethod.
+                | __init__ - initial constructor.
+                | __call__ - raise exception NotImplementedError on call.
+                | __str__ - dunder method for AbstractMethod.
     '''
 
     def __init__(self, method_to_abstract):
         '''
             Initial constructor.
 
-            :param method_to_abstract: Method object-reference.
+            :param method_to_abstract: method object-reference.
             :type method_to_abstract: <function>
             :exceptions: None
         '''
@@ -66,9 +66,9 @@ class AbstractMethod:
         '''
             Raise exception NotImplementedError on call.
 
-            :param *args: Iteration object.
+            :param *args: iteration object.
             :type *args: <iter>
-            :param **kwargs: Iteration object.
+            :param **kwargs: iteration object.
             :type **kwargs: <dict>
             :exception: NotImplementedError
         '''
@@ -81,7 +81,7 @@ class AbstractMethod:
         '''
             Dunder method for AbstractMethod.
 
-            :return: Object in a human-readable format.
+            :return: object in a human-readable format.
             :rtype: <str>
             :exceptions: None
         '''

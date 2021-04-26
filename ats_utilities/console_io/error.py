@@ -49,13 +49,13 @@ class ATSError:
         It defines:
 
             :attributes:
-                | __metaclass__ - Setting class ATSError as final.
-                | __message - Error message container.
+                | __metaclass__ - setting class ATSError as final.
+                | __message - error message container.
             :methods:
-                | __init__ - Initial constructor.
-                | message - Property methods for set/get operations.
-                | is_not_none - Checking is message None or not.
-                | __str__ - Dunder method for ATSError.
+                | __init__ - initial constructor.
+                | message - property methods for set/get operations.
+                | is_not_none - checking is message None or not.
+                | __str__ - dunder method for ATSError.
     '''
 
     __metaclass__ = ATSFinal
@@ -73,7 +73,7 @@ class ATSError:
         '''
             Property method for getting message.
 
-            :return: Formatted errors message.
+            :return: formatted errors message.
             :rtype: <str>
             :exceptions: None
         '''
@@ -84,7 +84,7 @@ class ATSError:
         '''
             Property method for setting message.
 
-            :param message: Error message.
+            :param message: error message.
             :type message: <str>
             :exceptions: None
         '''
@@ -107,7 +107,7 @@ class ATSError:
         '''
             Dunder method for ATSError.
 
-            :return: Object in a human-readable format.
+            :return: object in a human-readable format.
             :rtype: <str>
             :exceptions: None
         '''
@@ -118,9 +118,9 @@ def error_message(error_path, *message):
     '''
         Show error message.
 
-        :param error_path: Error prefix message.
+        :param error_path: error prefix message.
         :type error_path: <str>
-        :param message: Message parts.
+        :param message: message parts.
         :type message: <tuple>
         :exceptions: ATSTypeError | ATSBadCallError
     '''

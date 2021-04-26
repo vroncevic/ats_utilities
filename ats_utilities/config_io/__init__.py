@@ -51,17 +51,17 @@ class ConfigFile(FileChecking):
         It defines:
 
             :attributes:
-                | __metaclass__ - Setting verbose root for ConfigFile.
-                | __verbose - Enable/disable verbose option.
-                | __file_path - Configuration file name.
-                | __file_mode - File mode.
-                | __file_format - File format.
-                | __file - File object.
+                | __metaclass__ - setting verbose root for ConfigFile.
+                | __verbose - enable/disable verbose option.
+                | __file_path - configuration file name.
+                | __file_mode - file mode.
+                | __file_format - file format.
+                | __file - file object.
             :methods:
-                | __init__ - Initial constructor.
-                | __enter__ - Open configuration file in mode.
-                | __exit__ - Close configuration file.
-                | __str__ - Dunder method for ConfigFile.
+                | __init__ - initial constructor.
+                | __enter__ - open configuration file in mode.
+                | __exit__ - close configuration file.
+                | __str__ - dunder method for ConfigFile.
     '''
 
     __metaclass__ = VerboseRoot
@@ -70,13 +70,13 @@ class ConfigFile(FileChecking):
         '''
             Initial constructor.
 
-            :param file_path: Configuration file name.
+            :param file_path: configuration file name.
             :type file_path: <str>
-            :param file_mode: Open configuration file in mode.
+            :param file_mode: open configuration file in mode.
             :type file_mode: <str>
-            :param file_format: File format.
+            :param file_format: file format.
             :type file_format: <str>
-            :param verbose: Enable/disable verbose option.
+            :param verbose: enable/disable verbose option.
             :type verbose: <bool>
             :exceptions: ATSTypeError | ATSBadCallError
         '''
@@ -110,7 +110,7 @@ class ConfigFile(FileChecking):
         '''
             Open configuration file in mode.
 
-            :return: File object | None.
+            :return: file object | None.
             :rtype: <file> | <NoneType>
             :exceptions: None
         '''
@@ -136,7 +136,7 @@ class ConfigFile(FileChecking):
         '''
             Dunder method for ConfigFile.
 
-            :return: Object in a human-readable format.
+            :return: object in a human-readable format.
             :rtype: <str>
             :exceptions: None
         '''

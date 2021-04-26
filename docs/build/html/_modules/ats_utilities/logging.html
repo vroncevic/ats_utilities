@@ -173,7 +173,7 @@
 <span class="sd">     with this program. If not, see &lt;http://www.gnu.org/licenses/&gt;.</span>
 <span class="sd"> Info</span>
 <span class="sd">     Defined class ATSLogger with attribute(s) and method(s).</span>
-<span class="sd">     Created API for logging mechanism - App/Tool/Script.</span>
+<span class="sd">     Created API for ATS logging mechanism.</span>
 <span class="sd">&#39;&#39;&#39;</span>
 
 <span class="kn">import</span> <span class="nn">sys</span>
@@ -210,23 +210,23 @@
 <div class="viewcode-block" id="ATSLogger"><a class="viewcode-back" href="../../ats_utilities.logging.html#ats_utilities.logging.ATSLogger">[docs]</a><span class="k">class</span> <span class="nc">ATSLogger</span><span class="p">(</span><span class="n">ATSLoggerName</span><span class="p">,</span> <span class="n">ATSLoggerFile</span><span class="p">,</span> <span class="n">ATSLoggerStatus</span><span class="p">):</span>
     <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Defined class ATSLogger with attribute(s) and method(s).</span>
-<span class="sd">        Created API for logging mechanism - App/Tool/Script.</span>
+<span class="sd">        Created API for ATS logging mechanism.</span>
 <span class="sd">        It defines:</span>
 
 <span class="sd">            :attributes:</span>
-<span class="sd">                | __metaclass__ - Setting cooperative metaclasses.</span>
-<span class="sd">                | LOG_MSG_FORMAT - Log message format.</span>
-<span class="sd">                | LOG_DATE_FORMAT - Log date format.</span>
-<span class="sd">                | ATS_DEBUG - Debug log level.</span>
-<span class="sd">                | ATS_WARNING - Warning log level.</span>
-<span class="sd">                | ATS_CRITICAL - Critical log level.</span>
-<span class="sd">                | ATS_ERROR - Error log level.</span>
-<span class="sd">                | ATS_INFO - Info log level.</span>
-<span class="sd">                | __verbose - Enable/disable verbose option.</span>
+<span class="sd">                | __metaclass__ - setting cooperative metaclasses.</span>
+<span class="sd">                | LOG_MSG_FORMAT - log message format.</span>
+<span class="sd">                | LOG_DATE_FORMAT - log date format.</span>
+<span class="sd">                | ATS_DEBUG - debug log level.</span>
+<span class="sd">                | ATS_WARNING - warning log level.</span>
+<span class="sd">                | ATS_CRITICAL - critical log level.</span>
+<span class="sd">                | ATS_ERROR - error log level.</span>
+<span class="sd">                | ATS_INFO - info log level.</span>
+<span class="sd">                | __verbose - enable/disable verbose option.</span>
 <span class="sd">            :methods:</span>
-<span class="sd">                | __init__ - Initial constructor.</span>
-<span class="sd">                | write_log - Write message to log file.</span>
-<span class="sd">                | __str__ - Dunder method for ATSLogger.</span>
+<span class="sd">                | __init__ - initial constructor.</span>
+<span class="sd">                | write_log - write message to log file.</span>
+<span class="sd">                | __str__ - dunder method for ATSLogger.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
 
     <span class="n">__metaclass__</span> <span class="o">=</span> <span class="n">CooperativeMeta</span>
@@ -240,11 +240,11 @@
         <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Initial constructor.</span>
 
-<span class="sd">            :param ats_name: App/Tool/Script name.</span>
+<span class="sd">            :param ats_name: ATS name.</span>
 <span class="sd">            :type ats_name: &lt;str&gt;</span>
-<span class="sd">            :param ats_log_file: Log file path of App/Tool/Script.</span>
+<span class="sd">            :param ats_log_file: log file path of ATS.</span>
 <span class="sd">            :type ats_log_file: &lt;str&gt;</span>
-<span class="sd">            :param verbose: Enable/disable verbose option.</span>
+<span class="sd">            :param verbose: enable/disable verbose option.</span>
 <span class="sd">            :type verbose: &lt;bool&gt;</span>
 <span class="sd">            :exceptions: ATSTypeError | ATSBadCallError | ATSFileError</span>
 <span class="sd">        &#39;&#39;&#39;</span>
@@ -285,11 +285,11 @@
         <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Write message to log file.</span>
 
-<span class="sd">            :param message: Log message.</span>
+<span class="sd">            :param message: log message.</span>
 <span class="sd">            :type message: &lt;str&gt;</span>
-<span class="sd">            :param ctrl: Control flag (debug, warning, critical, errors, info).</span>
+<span class="sd">            :param ctrl: control flag (debug, warning, critical, errors, info).</span>
 <span class="sd">            :type ctrl: &lt;int&gt;</span>
-<span class="sd">            :param verbose: Enable/disable verbose option.</span>
+<span class="sd">            :param verbose: enable/disable verbose option.</span>
 <span class="sd">            :type verbose: &lt;bool&gt;</span>
 <span class="sd">            :return: True (success) | False.</span>
 <span class="sd">            :rtype: &lt;bool&gt;</span>
@@ -332,7 +332,7 @@
         <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Dunder method for ATSLogger.</span>
 
-<span class="sd">            :return: Object in a human-readable format.</span>
+<span class="sd">            :return: object in a human-readable format.</span>
 <span class="sd">            :rtype: &lt;str&gt;</span>
 <span class="sd">            :exceptions: None</span>
 <span class="sd">        &#39;&#39;&#39;</span>

@@ -17,7 +17,7 @@
      with this program. If not, see <http://www.gnu.org/licenses/>.
  Info
      Defined class ATSVersion with attribute(s) and method(s).
-     Created API for App/Tool/Script version in one property object.
+     Created API for ATS version in one property object.
 '''
 
 import sys
@@ -45,18 +45,18 @@ __status__ = 'Updated'
 class ATSVersion:
     '''
         Defined class ATSVersion with attribute(s) and method(s).
-        Created API for App/Tool/Script version in one property object.
+        Created API for ATS version in one property object.
         It defines:
 
             :attributes:
-                | __metaclass__ - Setting verbose root for ATSVersion.
-                | __verbose - Enable/disable verbose option.
-                | __version - App/Tool/Script version.
+                | __metaclass__ - setting verbose root for ATSVersion.
+                | __verbose - enable/disable verbose option.
+                | __version - ATS version.
             :methods:
-                | __init__ - Initial constructor.
-                | version - Property methods for set/get operations.
-                | is_not_none - Checking is App/Tool/Script version None.
-                | __str__ - Dunder method for ATSVersion.
+                | __init__ - initial constructor.
+                | version - property methods for set/get operations.
+                | is_not_none - checking is ATS version None.
+                | __str__ - dunder method for ATSVersion.
     '''
 
     __metaclass__ = VerboseRoot
@@ -65,7 +65,7 @@ class ATSVersion:
         '''
             Initial constructor.
 
-            :param verbose: Enable/disable verbose option.
+            :param verbose: enable/disable verbose option.
             :type verbose: <bool>
             :exceptions: None
         '''
@@ -75,9 +75,9 @@ class ATSVersion:
     @property
     def version(self):
         '''
-            Property method for getting App/Tool/Script version.
+            Property method for getting ATS version.
 
-            :return: App/Tool/Script version | None.
+            :return: ATS version | None.
             :rtype: <str> | <NoneType>
             :exceptions: None
         '''
@@ -86,9 +86,9 @@ class ATSVersion:
     @version.setter
     def version(self, version):
         '''
-            Property method for setting App/Tool/Script version.
+            Property method for setting ATS version.
 
-            :param version: App/Tool/Script version.
+            :param version: ATS version.
             :type version: <str>
             :exceptions: ATSTypeError | ATSBadCallError
         '''
@@ -103,7 +103,7 @@ class ATSVersion:
 
     def is_not_none(self):
         '''
-            Checking is App/Tool/Script version None.
+            Checking is ATS version None.
 
             :return: True | False.
             :rtype: <bool>
@@ -115,7 +115,7 @@ class ATSVersion:
         '''
             Dunder method for ATSVersion.
 
-            :return: Object in a human-readable format.
+            :return: object in a human-readable format.
             :rtype: <str>
             :exceptions: None
         '''

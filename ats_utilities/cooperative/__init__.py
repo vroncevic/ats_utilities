@@ -37,18 +37,18 @@ class CooperativeMeta(type):
         It defines:
 
             :attributes:
-                | combined_metas - Combined metaclasses in form of dictionary.
+                | combined_metas - combined metaclasses in form of dictionary.
             :methods:
-                | __new__ - New constructor.
-                | __init__ - Initial constructor.
-                | __str__ - Dunder method for CooperativeMeta.
+                | __new__ - new constructor.
+                | __init__ - initial constructor.
+                | __str__ - dunder method for CooperativeMeta.
     '''
 
     def __new__(cls, name, bases, members):
         '''
             New constructor.
 
-            :param method_to_abstract: Method object-reference.
+            :param method_to_abstract: method object-reference.
             :type method_to_abstract: <function>
             :exceptions: None
         '''
@@ -65,7 +65,7 @@ class CooperativeMeta(type):
         '''
             Initial constructor.
 
-            :param method_to_abstract: Method object-reference.
+            :param method_to_abstract: method object-reference.
             :type method_to_abstract: <function>
             :exceptions: None
         '''
@@ -76,7 +76,7 @@ class CooperativeMeta(type):
         '''
             Dunder method for CooperativeMeta.
 
-            :return: Object in a human-readable format.
+            :return: object in a human-readable format.
             :rtype: <str>
             :exceptions: None
         '''

@@ -17,7 +17,7 @@
      with this program. If not, see <http://www.gnu.org/licenses/>.
  Info
      Defined class ATSLoggerStatus with attribute(s) and method(s).
-     Created API for App/Tool/Script logger status in one propery object.
+     Created API for ATS logger status in one propery object.
 '''
 
 import sys
@@ -45,17 +45,17 @@ __status__ = 'Updated'
 class ATSLoggerStatus:
     '''
         Defined class ATSLoggerStatus with attribute(s) and method(s).
-        Created API for App/Tool/Script logger status in one propery object.
+        Created API for ATS logger status in one propery object.
         It defines:
 
             :attributes:
-                | __metaclass__ - Setting verbose root for ATSLoggerStatus.
-                | __verbose - Enable/disable verbose option.
-                | __log_status - Logger status (enabled/disabled).
+                | __metaclass__ - setting verbose root for ATSLoggerStatus.
+                | __verbose - enable/disable verbose option.
+                | __log_status - logger status (enabled/disabled).
             :methods:
-                | __init__ - Initial constructor.
-                | logger_status - Property methods for set/get operations.
-                | __str__ - Dunder method for ATSLoggerStatus.
+                | __init__ - initial constructor.
+                | logger_status - property methods for set/get operations.
+                | __str__ - dunder method for ATSLoggerStatus.
     '''
 
     __metaclass__ = VerboseRoot
@@ -64,7 +64,7 @@ class ATSLoggerStatus:
         '''
             Initial constructor.
 
-            :param verbose: Enable/disable verbose option.
+            :param verbose: enable/disable verbose option.
             :type verbose: <bool>
             :exceptions: None
         '''
@@ -87,7 +87,7 @@ class ATSLoggerStatus:
         '''
             Property method for setting logger status.
 
-            :param log_status: Logger status (enable/disable logging).
+            :param log_status: logger status (enable/disable logging).
             :type log_status: <bool>
             :exceptions: ATSTypeError | ATSBadCallError
         '''
@@ -104,7 +104,7 @@ class ATSLoggerStatus:
         '''
             Dunder method for ATSLoggerStatus.
 
-            :return: String representaiton of ATSLoggerStatus.
+            :return: string representaiton of ATSLoggerStatus.
             :rtype: <str>
             :exceptions: None
         '''

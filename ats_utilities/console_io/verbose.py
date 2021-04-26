@@ -49,13 +49,13 @@ class ATSVerbose:
         It defines:
 
             :attributes:
-                | __metaclass__ - Setting class ATSVerbose as final.
-                | __message - Verbose message container.
+                | __metaclass__ - setting class ATSVerbose as final.
+                | __message - verbose message container.
             :methods:
-                | __init__ - Initial constructor.
-                | message - Property methods for set/get operations.
-                | is_not_none - Checking is message None or not.
-                | __str__ - Dunder method for ATSVerbose.
+                | __init__ - initial constructor.
+                | message - property methods for set/get operations.
+                | is_not_none - checking is message None or not.
+                | __str__ - dunder method for ATSVerbose.
     '''
 
     __metaclass__ = ATSFinal
@@ -73,7 +73,7 @@ class ATSVerbose:
         '''
             Property method for getting message.
 
-            :return: Formatted verbose message.
+            :return: formatted verbose message.
             :rtype: <str>
         '''
         return self.__message
@@ -83,7 +83,7 @@ class ATSVerbose:
         '''
             Property method for setting message.
 
-            :param message: Verbose message.
+            :param message: verbose message.
             :type message: <str>
             :exceptions: None
         '''
@@ -106,7 +106,7 @@ class ATSVerbose:
         '''
             Dunder method for ATSVerbose.
 
-            :return: Object in a human-readable format.
+            :return: object in a human-readable format.
             :rtype: <str>
             :exceptions: None
         '''
@@ -117,11 +117,11 @@ def verbose_message(verbose_path, verbose=False, *message):
     '''
         Show verbose message.
 
-        :param verbose_path: Verbose prefix message.
+        :param verbose_path: verbose prefix message.
         :type verbose_path: <str>
-        :param verbose: Enable/disable verbose option.
+        :param verbose: enable/disable verbose option.
         :type verbose: <bool>
-        :param message: Message parts.
+        :param message: message parts.
         :type message: <tuple>
         :exceptions: ATSTypeError | ATSBadCallError
     '''

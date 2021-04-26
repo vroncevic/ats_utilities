@@ -37,11 +37,11 @@ class ATSRegister(type):
         It defines:
 
             :attributes:
-                | registry - Set of classes.
+                | registry - set of classes.
             :methods:
-                | __init__ - Initial constructor.
-                | __iter__ - Getting iterator of set.
-                | __str__ - Dunder method for ATSRegister.
+                | __init__ - initial constructor.
+                | __iter__ - getting iterator of set.
+                | __str__ - dunder method for ATSRegister.
     '''
 
     def __init__(cls, name, bases, namespace):
@@ -50,9 +50,9 @@ class ATSRegister(type):
 
             :param name: class name.
             :type name: <str>
-            :param bases: Class bases.
+            :param bases: class bases.
             :type bases: <tuple>
-            :param namespace: Class namespace.
+            :param namespace: class namespace.
             :type namespace: <dict>
             :exceptions: None
         '''
@@ -66,7 +66,7 @@ class ATSRegister(type):
         '''
             Getting iterator of set.
 
-            :return: Iterator of set.
+            :return: iterator of set.
             :rtype: <setiterator>
             :exceptions: None
         '''
@@ -76,7 +76,7 @@ class ATSRegister(type):
         '''
             Dunder method for ATSRegister.
 
-            :return: Object in a human-readable format.
+            :return: object in a human-readable format.
             :rtype: <str>
             :exceptions: None
         '''

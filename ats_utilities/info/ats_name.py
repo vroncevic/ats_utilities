@@ -17,7 +17,7 @@
      with this program. If not, see <http://www.gnu.org/licenses/>.
  Info
      Defined class ATSName with attribute(s) and method(s).
-     Created API for App/Tool/Script name in one propery object.
+     Created API for ATS name in one propery object.
 '''
 
 import sys
@@ -45,18 +45,18 @@ __status__ = 'Updated'
 class ATSName:
     '''
         Defined class ATSName with attribute(s) and method(s).
-        Created API for App/Tool/Script name in one propery object.
+        Created API for ATS name in one propery object.
         It defines:
 
             :attributes:
-                | __metaclass__ - Setting verbose root for ATSName.
-                | __verbose - Enable/disable verbose option.
-                | __name - App/Tool/Script name.
+                | __metaclass__ - setting verbose root for ATSName.
+                | __verbose - enable/disable verbose option.
+                | __name - ATS name.
             :methods:
-                | __init__ - Initial constructor.
-                | name - Property methods for set/get operations.
-                | is_not_none - Checking is App/Tool/Script name None.
-                | __str__ - Dunder method for ATSName.
+                | __init__ - initial constructor.
+                | name - property methods for set/get operations.
+                | is_not_none - checking is ATS name None.
+                | __str__ - dunder method for ATSName.
     '''
 
     __metaclass__ = VerboseRoot
@@ -65,7 +65,7 @@ class ATSName:
         '''
             Initial constructor.
 
-            :param verbose: Enable/disable verbose option.
+            :param verbose: enable/disable verbose option.
             :type verbose: <bool>
             :exceptions: None
         '''
@@ -75,9 +75,9 @@ class ATSName:
     @property
     def name(self):
         '''
-            Property method for getting App/Tool/Script name.
+            Property method for getting ATS name.
 
-            :return: App/Tool/Script name | None.
+            :return: ATS name | None.
             :rtype: <str> | <NoneType>
             :exceptions: None
         '''
@@ -86,9 +86,9 @@ class ATSName:
     @name.setter
     def name(self, name):
         '''
-            Property method for setting App/Tool/Script name.
+            Property method for setting ATS name.
 
-            :param name: App/Tool/Script name.
+            :param name: ATS name.
             :type name: <str>
             :exceptions: ATSTypeError | ATSBadCallError
         '''
@@ -103,7 +103,7 @@ class ATSName:
 
     def is_not_none(self):
         '''
-            Checking is App/Tool/Script name None.
+            Checking is ATS name None.
 
             :return: True | False.
             :rtype: <bool>
@@ -115,7 +115,7 @@ class ATSName:
         '''
             Dunder method for ATSName.
 
-            :return: Object in a human-readable format.
+            :return: object in a human-readable format.
             :rtype: <str>
             :exceptions: None
         '''

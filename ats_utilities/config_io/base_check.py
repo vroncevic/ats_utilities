@@ -48,19 +48,19 @@ class FileChecking:
         It defines:
 
             :attributes:
-                | __metaclass__ - Setting verbose root for FileChecking.
-                | MODES - Mode file operations.
-                | __verbose - Enable/disable verbose option.
-                | __file_path_ok - File exist, path ok.
-                | __file_mode_ok - Supported file mode.
-                | __file_format_ok - File format is (not) expected.
+                | __metaclass__ - setting verbose root for FileChecking.
+                | MODES - mode file operations.
+                | __verbose - enable/disable verbose option.
+                | __file_path_ok - file exist, path ok.
+                | __file_mode_ok - supported file mode.
+                | __file_format_ok - file format is (not) expected.
             :methods:
-                | __init__ - Initial constructor.
-                | check_path - Check file path.
-                | check_mode -  Check operation mode for file.
-                | check_format - Check file format by extension.
-                | is_file_ok - Status of file.
-                | __str__ - Dunder method for FileChecking.
+                | __init__ - initial constructor.
+                | check_path - check file path.
+                | check_mode -  check operation mode for file.
+                | check_format - check file format by extension.
+                | is_file_ok - status of file.
+                | __str__ - dunder method for FileChecking.
     '''
 
     __metaclass__ = VerboseRoot
@@ -70,7 +70,7 @@ class FileChecking:
         '''
             Initial constructor.
 
-            :param verbose: Enable/disable verbose option.
+            :param verbose: enable/disable verbose option.
             :type verbose: <bool>
             :exceptions: None
         '''
@@ -84,9 +84,9 @@ class FileChecking:
         '''
             Check file path.
 
-            :param file_path: File path.
+            :param file_path: file path.
             :type file_path: <str>
-            :param verbose: Enable/disable verbose option.
+            :param verbose: enable/disable verbose option.
             :type verbose: <bool>
             :exceptions: None
         '''
@@ -102,9 +102,9 @@ class FileChecking:
         '''
             Check operation mode for file.
 
-            :param file_mode: File mode ('r', 'w', 'a', 'b', 'x', 't', '+').
+            :param file_mode: file mode ('r', 'w', 'a', 'b', 'x', 't', '+').
             :type file_mode: <str>
-            :param verbose: Enable/disable verbose option.
+            :param verbose: enable/disable verbose option.
             :type verbose: <bool>
             :return: True (regular file mode) | False.
             :rtype: <bool>
@@ -133,11 +133,11 @@ class FileChecking:
         '''
             Check file format by extension.
 
-            :param file_path: File path.
+            :param file_path: file path.
             :type file_path: <str>
-            :param file_format: File format (file extension).
+            :param file_format: file format (file extension).
             :type file_format: <str>
-            :param verbose: Enable/disable verbose option.
+            :param verbose: enable/disable verbose option.
             :type verbose: <bool>
             :exceptions: None
         '''
@@ -172,7 +172,7 @@ class FileChecking:
         '''
             Dunder method for FileChecking.
 
-            :return: Object in a human-readable format.
+            :return: object in a human-readable format.
             :rtype: <str>
             :exceptions: None
         '''

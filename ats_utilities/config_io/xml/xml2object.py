@@ -52,13 +52,13 @@ class Xml2Object(BaseReadConfig):
         It defines:
 
             :attributes:
-                | __metaclass__ - Setting verbose root for Xml2Object.
-                | __FORMAT - Format of configuration content.
-                | __verbose - Enable/disable verbose option.
+                | __metaclass__ - setting verbose root for Xml2Object.
+                | __FORMAT - format of configuration content.
+                | __verbose - enable/disable verbose option.
             :methods:
-                | __init__ - Initial constructor.
-                | read_configuration - Read a configuration from file.
-                | __str__ - Dunder method for object Xml2Object.
+                | __init__ - initial constructor.
+                | read_configuration - read a configuration from file.
+                | __str__ - dunder method for object Xml2Object.
     '''
 
     __metaclass__ = VerboseRoot
@@ -68,9 +68,9 @@ class Xml2Object(BaseReadConfig):
         '''
             Initial constructor.
 
-            :param configuration_file: Configuration file path.
+            :param configuration_file: configuration file path.
             :type configuration_file: <str>
-            :param verbose: Enable/disable verbose option.
+            :param verbose: enable/disable verbose option.
             :type verbose: <bool>
             :exceptions: ATSTypeError | ATSBadCallError
         '''
@@ -91,9 +91,9 @@ class Xml2Object(BaseReadConfig):
         '''
             Read a configuration from a xml file.
 
-            :param verbose: Enable/disable verbose option.
+            :param verbose: enable/disable verbose option.
             :type verbose: <bool>
-            :return: Configuration object | None.
+            :return: configuration object | None.
             :rtype: <BeautifulSoup> | <NoneType>
             :exceptions: None
         '''
@@ -112,7 +112,7 @@ class Xml2Object(BaseReadConfig):
         '''
             Dunder method for Xml2Object.
 
-            :return: Object in a human-readable format.
+            :return: object in a human-readable format.
             :rtype: <str>
             :exceptions: None
         '''

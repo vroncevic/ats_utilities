@@ -175,7 +175,7 @@
 <span class="sd">     with this program. If not, see &lt;http://www.gnu.org/licenses/&gt;.</span>
 <span class="sd"> Info</span>
 <span class="sd">     Defined class ATSName with attribute(s) and method(s).</span>
-<span class="sd">     Created API for App/Tool/Script name in one propery object.</span>
+<span class="sd">     Created API for ATS name in one propery object.</span>
 <span class="sd">&#39;&#39;&#39;</span>
 
 <span class="kn">import</span> <span class="nn">sys</span>
@@ -203,18 +203,18 @@
 <div class="viewcode-block" id="ATSName"><a class="viewcode-back" href="../../../ats_utilities.info.ats_name.html#ats_utilities.info.ats_name.ATSName">[docs]</a><span class="k">class</span> <span class="nc">ATSName</span><span class="p">:</span>
     <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Defined class ATSName with attribute(s) and method(s).</span>
-<span class="sd">        Created API for App/Tool/Script name in one propery object.</span>
+<span class="sd">        Created API for ATS name in one propery object.</span>
 <span class="sd">        It defines:</span>
 
 <span class="sd">            :attributes:</span>
-<span class="sd">                | __metaclass__ - Setting verbose root for ATSName.</span>
-<span class="sd">                | __verbose - Enable/disable verbose option.</span>
-<span class="sd">                | __name - App/Tool/Script name.</span>
+<span class="sd">                | __metaclass__ - setting verbose root for ATSName.</span>
+<span class="sd">                | __verbose - enable/disable verbose option.</span>
+<span class="sd">                | __name - ATS name.</span>
 <span class="sd">            :methods:</span>
-<span class="sd">                | __init__ - Initial constructor.</span>
-<span class="sd">                | name - Property methods for set/get operations.</span>
-<span class="sd">                | is_not_none - Checking is App/Tool/Script name None.</span>
-<span class="sd">                | __str__ - Dunder method for ATSName.</span>
+<span class="sd">                | __init__ - initial constructor.</span>
+<span class="sd">                | name - property methods for set/get operations.</span>
+<span class="sd">                | is_not_none - checking is ATS name None.</span>
+<span class="sd">                | __str__ - dunder method for ATSName.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
 
     <span class="n">__metaclass__</span> <span class="o">=</span> <span class="n">VerboseRoot</span>
@@ -223,7 +223,7 @@
         <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Initial constructor.</span>
 
-<span class="sd">            :param verbose: Enable/disable verbose option.</span>
+<span class="sd">            :param verbose: enable/disable verbose option.</span>
 <span class="sd">            :type verbose: &lt;bool&gt;</span>
 <span class="sd">            :exceptions: None</span>
 <span class="sd">        &#39;&#39;&#39;</span>
@@ -233,9 +233,9 @@
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">            Property method for getting App/Tool/Script name.</span>
+<span class="sd">            Property method for getting ATS name.</span>
 
-<span class="sd">            :return: App/Tool/Script name | None.</span>
+<span class="sd">            :return: ATS name | None.</span>
 <span class="sd">            :rtype: &lt;str&gt; | &lt;NoneType&gt;</span>
 <span class="sd">            :exceptions: None</span>
 <span class="sd">        &#39;&#39;&#39;</span>
@@ -244,9 +244,9 @@
     <span class="nd">@name</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span> <span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">            Property method for setting App/Tool/Script name.</span>
+<span class="sd">            Property method for setting ATS name.</span>
 
-<span class="sd">            :param name: App/Tool/Script name.</span>
+<span class="sd">            :param name: ATS name.</span>
 <span class="sd">            :type name: &lt;str&gt;</span>
 <span class="sd">            :exceptions: ATSTypeError | ATSBadCallError</span>
 <span class="sd">        &#39;&#39;&#39;</span>
@@ -261,7 +261,7 @@
 
 <div class="viewcode-block" id="ATSName.is_not_none"><a class="viewcode-back" href="../../../ats_utilities.info.ats_name.html#ats_utilities.info.ats_name.ATSName.is_not_none">[docs]</a>    <span class="k">def</span> <span class="nf">is_not_none</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">            Checking is App/Tool/Script name None.</span>
+<span class="sd">            Checking is ATS name None.</span>
 
 <span class="sd">            :return: True | False.</span>
 <span class="sd">            :rtype: &lt;bool&gt;</span>
@@ -273,7 +273,7 @@
         <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Dunder method for ATSName.</span>
 
-<span class="sd">            :return: Object in a human-readable format.</span>
+<span class="sd">            :return: object in a human-readable format.</span>
 <span class="sd">            :rtype: &lt;str&gt;</span>
 <span class="sd">            :exceptions: None</span>
 <span class="sd">        &#39;&#39;&#39;</span>

@@ -17,7 +17,7 @@
      with this program. If not, see <http://www.gnu.org/licenses/>.
  Info
      Defined class ATSLicence with attribute(s) and method(s).
-     Created API for App/Tool/Script licence in one property object.
+     Created API for ATS licence in one property object.
 '''
 
 import sys
@@ -45,18 +45,18 @@ __status__ = 'Updated'
 class ATSLicence:
     '''
         Defined class ATSLicence with attribute(s) and method(s).
-        Created API for App/Tool/Script licence in one property object.
+        Created API for ATS licence in one property object.
         It defines:
 
             :attributes:
-                | __metaclass__ - Setting verbose root for ATSLicence.
-                | __verbose - Enable/disable verbose option.
-                | __licence - App/Tool/Script licence.
+                | __metaclass__ - setting verbose root for ATSLicence.
+                | __verbose - enable/disable verbose option.
+                | __licence - ATS licence.
             :methods:
-                | __init__ - Initial constructor.
-                | name - Property methods for set/get operations.
-                | is_not_none - Checking is App/Tool/Script licence None.
-                | __str__ - Dunder method for ATSLicence.
+                | __init__ - initial constructor.
+                | name - property methods for set/get operations.
+                | is_not_none - checking is ATS licence None.
+                | __str__ - dunder method for ATSLicence.
     '''
 
     __metaclass__ = VerboseRoot
@@ -65,7 +65,7 @@ class ATSLicence:
         '''
             Initial constructor.
 
-            :param verbose: Enable/disable verbose option.
+            :param verbose: enable/disable verbose option.
             :type verbose: <bool>
             :exceptions: None
         '''
@@ -75,9 +75,9 @@ class ATSLicence:
     @property
     def licence(self):
         '''
-            Property method for getting App/Tool/Script licence.
+            Property method for getting ATS licence.
 
-            :return: App/Tool/Script licence | None.
+            :return: ATS licence | None.
             :rtype: <str> | <NoneType>
             :exceptions: None
         '''
@@ -86,9 +86,9 @@ class ATSLicence:
     @licence.setter
     def licence(self, licence):
         '''
-            Property method for setting App/Tool/Script licence.
+            Property method for setting ATS licence.
 
-            :param licence: App/Tool/Script licence.
+            :param licence: ATS licence.
             :type licence: <str>
             :exceptions: ATSTypeError | ATSBadCallError
         '''
@@ -103,7 +103,7 @@ class ATSLicence:
 
     def is_not_none(self):
         '''
-            Checking is App/Tool/Script licence None.
+            Checking is ATS licence None.
 
             :return: True | False.
             :rtype: <bool>
@@ -115,7 +115,7 @@ class ATSLicence:
         '''
             Dunder method for ATSLicence.
 
-            :return: Object in a human-readable format.
+            :return: object in a human-readable format.
             :rtype: <str>
             :exceptions: None
         '''

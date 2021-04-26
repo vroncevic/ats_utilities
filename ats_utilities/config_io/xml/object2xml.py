@@ -51,13 +51,13 @@ class Object2Xml(BaseWriteConfig):
         It defines:
 
             :attributes:
-                | __metaclass__ - Setting verbose root for Object2Xml.
-                | __FORMAT - Format of configuration content.
-                | __verbose - Enable/disable verbose option.
+                | __metaclass__ - setting verbose root for Object2Xml.
+                | __FORMAT - format of configuration content.
+                | __verbose - enable/disable verbose option.
             :methods:
-                | __init__ - Initial constructor.
-                | write_configuration - Write configuration to a xml file.
-                | __str__ - Dunder method for object Object2Xml.
+                | __init__ - initial constructor.
+                | write_configuration - write configuration to a xml file.
+                | __str__ - dunder method for object Object2Xml.
     '''
 
     __metaclass__ = VerboseRoot
@@ -67,9 +67,9 @@ class Object2Xml(BaseWriteConfig):
         '''
             Initial constructor.
 
-            :param configuration_file: Configuration file path.
+            :param configuration_file: configuration file path.
             :type configuration_file: <str>
-            :param verbose: Enable/disable verbose option.
+            :param verbose: enable/disable verbose option.
             :type verbose: <bool>
             :exceptions: ATSTypeError | ATSBadCallError
         '''
@@ -90,9 +90,9 @@ class Object2Xml(BaseWriteConfig):
         '''
             Write configuration to a xml file.
 
-            :param configuration: Configuration object.
+            :param configuration: configuration object.
             :type: <BeautifulSoup>
-            :param verbose: Enable/disable verbose option.
+            :param verbose: enable/disable verbose option.
             :type verbose: <bool>
             :return: True (success) | False.
             :rtype: <bool>
@@ -112,7 +112,7 @@ class Object2Xml(BaseWriteConfig):
         '''
             Dunder method for Object2Xml.
 
-            :return: Object in a human-readable format.
+            :return: object in a human-readable format.
             :rtype: <str>
             :exceptions: None
         '''

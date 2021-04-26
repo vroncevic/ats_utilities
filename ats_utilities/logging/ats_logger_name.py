@@ -17,7 +17,7 @@
      with this program. If not, see <http://www.gnu.org/licenses/>.
  Info
      Defined class ATSLoggerName with attribute(s) and method(s).
-     Created API for App/Tool/Script logger name in one propery object.
+     Created API for ATS logger name in one propery object.
 '''
 
 import sys
@@ -45,17 +45,17 @@ __status__ = 'Updated'
 class ATSLoggerName:
     '''
         Defined class ATSLoggerName with attribute(s) and method(s).
-        Created API for App/Tool/Script logger name in one propery object.
+        Created API for ATS logger name in one propery object.
         It defines:
 
             :attributes:
-                | __metaclass__ - Setting verbose root for ATSLoggerName.
-                | __verbose - Enable/disable verbose option.
-                | __logger_name - Logger name.
+                | __metaclass__ - setting verbose root for ATSLoggerName.
+                | __verbose - enable/disable verbose option.
+                | __logger_name - logger name.
             :methods:
-                | __init__ - Initial constructor.
-                | logger_name - Property methods for set/get operations.
-                | __str__ - Dunder method for ATSLoggerName.
+                | __init__ - initial constructor.
+                | logger_name - property methods for set/get operations.
+                | __str__ - dunder method for ATSLoggerName.
     '''
 
     __metaclass__ = VerboseRoot
@@ -64,7 +64,7 @@ class ATSLoggerName:
         '''
             Initial constructor.
 
-            :param verbose: Enable/disable verbose option.
+            :param verbose: enable/disable verbose option.
             :type verbose: <bool>
             :exceptions: None
         '''
@@ -76,7 +76,7 @@ class ATSLoggerName:
         '''
             Property method for getting logger name.
 
-            :return: Logger name | None.
+            :return: logger name | None.
             :rtype: <str> | <NoneType>
             :exceptions: None
         '''
@@ -87,7 +87,7 @@ class ATSLoggerName:
         '''
             Property method for setting logger name.
 
-            :param logger_name: Logger name.
+            :param logger_name: logger name.
             :type logger_name: <str>
             :exceptions: ATSTypeError | ATSBadCallError
         '''
@@ -106,7 +106,7 @@ class ATSLoggerName:
         '''
             Dunder method for ATSLoggerName.
 
-            :return: String representaiton of ATSLoggerName.
+            :return: string representaiton of ATSLoggerName.
             :rtype: <str>
             :exceptions: None
         '''

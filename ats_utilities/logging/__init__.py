@@ -17,7 +17,7 @@
      with this program. If not, see <http://www.gnu.org/licenses/>.
  Info
      Defined class ATSLogger with attribute(s) and method(s).
-     Created API for logging mechanism - App/Tool/Script.
+     Created API for ATS logging mechanism.
 '''
 
 import sys
@@ -54,23 +54,23 @@ __status__ = 'Updated'
 class ATSLogger(ATSLoggerName, ATSLoggerFile, ATSLoggerStatus):
     '''
         Defined class ATSLogger with attribute(s) and method(s).
-        Created API for logging mechanism - App/Tool/Script.
+        Created API for ATS logging mechanism.
         It defines:
 
             :attributes:
-                | __metaclass__ - Setting cooperative metaclasses.
-                | LOG_MSG_FORMAT - Log message format.
-                | LOG_DATE_FORMAT - Log date format.
-                | ATS_DEBUG - Debug log level.
-                | ATS_WARNING - Warning log level.
-                | ATS_CRITICAL - Critical log level.
-                | ATS_ERROR - Error log level.
-                | ATS_INFO - Info log level.
-                | __verbose - Enable/disable verbose option.
+                | __metaclass__ - setting cooperative metaclasses.
+                | LOG_MSG_FORMAT - log message format.
+                | LOG_DATE_FORMAT - log date format.
+                | ATS_DEBUG - debug log level.
+                | ATS_WARNING - warning log level.
+                | ATS_CRITICAL - critical log level.
+                | ATS_ERROR - error log level.
+                | ATS_INFO - info log level.
+                | __verbose - enable/disable verbose option.
             :methods:
-                | __init__ - Initial constructor.
-                | write_log - Write message to log file.
-                | __str__ - Dunder method for ATSLogger.
+                | __init__ - initial constructor.
+                | write_log - write message to log file.
+                | __str__ - dunder method for ATSLogger.
     '''
 
     __metaclass__ = CooperativeMeta
@@ -84,11 +84,11 @@ class ATSLogger(ATSLoggerName, ATSLoggerFile, ATSLoggerStatus):
         '''
             Initial constructor.
 
-            :param ats_name: App/Tool/Script name.
+            :param ats_name: ATS name.
             :type ats_name: <str>
-            :param ats_log_file: Log file path of App/Tool/Script.
+            :param ats_log_file: log file path of ATS.
             :type ats_log_file: <str>
-            :param verbose: Enable/disable verbose option.
+            :param verbose: enable/disable verbose option.
             :type verbose: <bool>
             :exceptions: ATSTypeError | ATSBadCallError | ATSFileError
         '''
@@ -129,11 +129,11 @@ class ATSLogger(ATSLoggerName, ATSLoggerFile, ATSLoggerStatus):
         '''
             Write message to log file.
 
-            :param message: Log message.
+            :param message: log message.
             :type message: <str>
-            :param ctrl: Control flag (debug, warning, critical, errors, info).
+            :param ctrl: control flag (debug, warning, critical, errors, info).
             :type ctrl: <int>
-            :param verbose: Enable/disable verbose option.
+            :param verbose: enable/disable verbose option.
             :type verbose: <bool>
             :return: True (success) | False.
             :rtype: <bool>
@@ -176,7 +176,7 @@ class ATSLogger(ATSLoggerName, ATSLoggerFile, ATSLoggerStatus):
         '''
             Dunder method for ATSLogger.
 
-            :return: Object in a human-readable format.
+            :return: object in a human-readable format.
             :rtype: <str>
             :exceptions: None
         '''

@@ -175,7 +175,7 @@
 <span class="sd">     with this program. If not, see &lt;http://www.gnu.org/licenses/&gt;.</span>
 <span class="sd"> Info</span>
 <span class="sd">     Defined class ATSInfoOk with attribute(s) and method(s).</span>
-<span class="sd">     Created API for App/Tool/Script info status in one property object.</span>
+<span class="sd">     Created API for ATS info status in one property object.</span>
 <span class="sd">&#39;&#39;&#39;</span>
 
 <span class="kn">import</span> <span class="nn">sys</span>
@@ -203,17 +203,17 @@
 <div class="viewcode-block" id="ATSInfoOk"><a class="viewcode-back" href="../../../ats_utilities.info.ats_info_ok.html#ats_utilities.info.ats_info_ok.ATSInfoOk">[docs]</a><span class="k">class</span> <span class="nc">ATSInfoOk</span><span class="p">:</span>
     <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Defined class ATSInfoOk with attribute(s) and method(s).</span>
-<span class="sd">        Created API for App/Tool/Script info status in one property object.</span>
+<span class="sd">        Created API for ATS info status in one property object.</span>
 <span class="sd">        It defines:</span>
 
 <span class="sd">            :attributes:</span>
-<span class="sd">                | __metaclass__ - Setting verbose root for ATSInfoOk.</span>
-<span class="sd">                | __verbose - Enable/disable verbose option.</span>
-<span class="sd">                | __ats_info_ok - App/Tool/Script information status.</span>
+<span class="sd">                | __metaclass__ - setting verbose root for ATSInfoOk.</span>
+<span class="sd">                | __verbose - enable/disable verbose option.</span>
+<span class="sd">                | __ats_info_ok - ATS information status.</span>
 <span class="sd">            :methods:</span>
-<span class="sd">                | __init__ - Initial constructor.</span>
-<span class="sd">                | ats_info_ok - Property methods for set/get operations.</span>
-<span class="sd">                | __str__ - Dunder method for ATSInfoOk.</span>
+<span class="sd">                | __init__ - initial constructor.</span>
+<span class="sd">                | ats_info_ok - property methods for set/get operations.</span>
+<span class="sd">                | __str__ - dunder method for ATSInfoOk.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
 
     <span class="n">__metaclass__</span> <span class="o">=</span> <span class="n">VerboseRoot</span>
@@ -222,7 +222,7 @@
         <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Initial constructor.</span>
 
-<span class="sd">            :param verbose: Enable/disable verbose option.</span>
+<span class="sd">            :param verbose: enable/disable verbose option.</span>
 <span class="sd">            :type verbose: &lt;bool&gt;</span>
 <span class="sd">            :exceptions: None</span>
 <span class="sd">        &#39;&#39;&#39;</span>
@@ -232,9 +232,9 @@
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">ats_info_ok</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">            Property method for getting App/Tool/Script information status.</span>
+<span class="sd">            Property method for getting ATS information status.</span>
 
-<span class="sd">            :return: App/Tool/Script information status.</span>
+<span class="sd">            :return: ATS information status.</span>
 <span class="sd">            :rtype: &lt;bool&gt;</span>
 <span class="sd">            :exceptions: None</span>
 <span class="sd">        &#39;&#39;&#39;</span>
@@ -243,9 +243,9 @@
     <span class="nd">@ats_info_ok</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span> <span class="nf">ats_info_ok</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ats_info_ok</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">            Property method for setting App/Tool/Script information status.</span>
+<span class="sd">            Property method for setting ATS information status.</span>
 
-<span class="sd">            :param ats_info_ok: App/Tool/Script information status.</span>
+<span class="sd">            :param ats_info_ok: ATS information status.</span>
 <span class="sd">            :type ats_info_ok: &lt;bool&gt;</span>
 <span class="sd">            :exceptions: ATSTypeError | ATSBadCallError</span>
 <span class="sd">        &#39;&#39;&#39;</span>
@@ -264,7 +264,7 @@
         <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Dunder method for ATSInfoOk.</span>
 
-<span class="sd">            :return: Object in a human-readable format.</span>
+<span class="sd">            :return: object in a human-readable format.</span>
 <span class="sd">            :rtype: &lt;str&gt;</span>
 <span class="sd">            :exceptions: None</span>
 <span class="sd">        &#39;&#39;&#39;</span>
