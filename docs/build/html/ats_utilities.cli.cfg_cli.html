@@ -61,7 +61,7 @@
             
             
               <div class="version">
-                1.6.5
+                1.7.5
               </div>
             
           
@@ -97,6 +97,7 @@
 <li class="toctree-l4 current"><a class="reference internal" href="ats_utilities.cli.html">ats_utilities.cli package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ats_utilities.config_io.html">ats_utilities.config_io package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ats_utilities.console_io.html">ats_utilities.console_io package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ats_utilities.cooperative.html">ats_utilities.cooperative package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ats_utilities.exceptions.html">ats_utilities.exceptions package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ats_utilities.final.html">ats_utilities.final package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ats_utilities.info.html">ats_utilities.info package</a></li>
@@ -200,7 +201,7 @@ You should have received a copy of the GNU General Public License along
 with this program. If not, see &lt;<a class="reference external" href="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</a>&gt;.</dd>
 <dt>Info</dt>
 <dd>Defined class CfgCLI with attribute(s) and method(s).
-Created API for check and load informations, setup arguments parser.</dd>
+Created API for check and load informations, setup argument parser.</dd>
 </dl>
 <dl class="class">
 <dt id="ats_utilities.cli.cfg_cli.CfgCLI">
@@ -215,8 +216,8 @@ It defines:</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">attributes:</th><td class="field-body"><div class="first last line-block">
-<div class="line">__slots__ - Setting class slots.</div>
-<div class="line">VERBOSE - Console text indicator for current process-phase.</div>
+<div class="line">__metaclass__ - Setting verbose root for CfgCLI.</div>
+<div class="line">__verbose - Enable/disable verbose option.</div>
 </div>
 </td>
 </tr>
@@ -234,7 +235,7 @@ It defines:</p>
 </div></blockquote>
 <dl class="attribute">
 <dt id="ats_utilities.cli.cfg_cli.CfgCLI.VERBOSE">
-<code class="descname">VERBOSE</code><em class="property"> = 'ATS_UTILITIES::CLI::CFG_CLI'</em><a class="headerlink" href="#ats_utilities.cli.cfg_cli.CfgCLI.VERBOSE" title="Permalink to this definition">¶</a></dt>
+<code class="descname">VERBOSE</code><em class="property"> = 'ats_utilities::cli::cfg_cli'</em><a class="headerlink" href="#ats_utilities.cli.cfg_cli.CfgCLI.VERBOSE" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -258,21 +259,6 @@ It defines:</p>
 </table>
 </dd></dl>
 
-<dl class="attribute">
-<dt id="ats_utilities.cli.cfg_cli.CfgCLI.cfg2obj">
-<code class="descname">cfg2obj</code><a class="headerlink" href="#ats_utilities.cli.cfg_cli.CfgCLI.cfg2obj" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="ats_utilities.cli.cfg_cli.CfgCLI.obj2cfg">
-<code class="descname">obj2cfg</code><a class="headerlink" href="#ats_utilities.cli.cfg_cli.CfgCLI.obj2cfg" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="ats_utilities.cli.cfg_cli.CfgCLI.option_parser">
-<code class="descname">option_parser</code><a class="headerlink" href="#ats_utilities.cli.cfg_cli.CfgCLI.option_parser" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
 <dl class="method">
 <dt id="ats_utilities.cli.cfg_cli.CfgCLI.parse_args">
 <code class="descname">parse_args</code><span class="sig-paren">(</span><em>argv</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ats_utilities/cli/cfg_cli.html#CfgCLI.parse_args"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ats_utilities.cli.cfg_cli.CfgCLI.parse_args" title="Permalink to this definition">¶</a></dt>
@@ -295,12 +281,7 @@ It defines:</p>
 
 <dl class="attribute">
 <dt id="ats_utilities.cli.cfg_cli.CfgCLI.process">
-<code class="descname">process</code><em class="property"> = &lt;ats_utilities.abstract.abstract_method object&gt;</em><a class="headerlink" href="#ats_utilities.cli.cfg_cli.CfgCLI.process" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="ats_utilities.cli.cfg_cli.CfgCLI.tool_operational">
-<code class="descname">tool_operational</code><a class="headerlink" href="#ats_utilities.cli.cfg_cli.CfgCLI.tool_operational" title="Permalink to this definition">¶</a></dt>
+<code class="descname">process</code><em class="property"> = &lt;ats_utilities.abstract.AbstractMethod instance&gt;</em><a class="headerlink" href="#ats_utilities.cli.cfg_cli.CfgCLI.process" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>

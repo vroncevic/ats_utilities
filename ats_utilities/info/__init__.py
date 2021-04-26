@@ -29,6 +29,7 @@ try:
     from ats_utilities.info.ats_info_ok import ATSInfoOk
     from ats_utilities.info.ats_version import ATSVersion
     from ats_utilities.info.ats_licence import ATSLicence
+    from ats_utilities.cooperative import CooperativeMeta
     from ats_utilities.console_io.error import error_message
     from ats_utilities.info.ats_build_date import ATSBuildDate
     from ats_utilities.console_io.verbose import verbose_message
@@ -42,7 +43,7 @@ __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2017, https://vroncevic.github.io/ats_utilities'
 __credits__ = ['Vladimir Roncevic']
 __license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = '1.6.5'
+__version__ = '1.7.5'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
@@ -55,13 +56,13 @@ class ATSInfo(ATSName, ATSVersion, ATSLicence, ATSBuildDate, ATSInfoOk):
         It defines:
 
             :attributes:
-                | __slots__ - Setting class slots.
-                | VERBOSE - Console text indicator for current process-phase.
+                | __metaclass__ - Setting cooperative metaclasses.
                 | ATS_NAME - ATS name key.
                 | ATS_VERSION - ATS version key.
                 | ATS_LICENCE - ATS licence key.
                 | ATS_BUILD_DATE - ATS build date key.
                 | ATS_BASE_INFO - ATS base information dict.
+                | __verbose - Enable/disable verbose option.
             :methods:
                 | __init__ - Initial constructor.
                 | show_base_info - Show ATS informations.
@@ -69,12 +70,7 @@ class ATSInfo(ATSName, ATSVersion, ATSLicence, ATSBuildDate, ATSInfoOk):
                 | __str__ - Dunder method for ATSInfo.
     '''
 
-    __slots__ = (
-        'VERBOSE', 'ATS_NAME', 'ATS_VERSION', 'ATS_LICENCE',
-        'ATS_BUILD_DATE', 'ATS_BASE_INFO', 'name', 'version',
-        'licence', 'build_date', 'ats_info_ok'
-    )
-    VERBOSE = 'ATS_UTILITIES::INFO::ATS_INFO'
+    __metaclass__ = CooperativeMeta
     ATS_NAME = 'ats_name'
     ATS_VERSION = 'ats_version'
     ATS_LICENCE = 'ats_licence'
@@ -107,12 +103,15 @@ class ATSInfo(ATSName, ATSVersion, ATSLicence, ATSBuildDate, ATSInfoOk):
         ATSLicence.__init__(self)
         ATSBuildDate.__init__(self)
         ATSInfoOk.__init__(self)
-        if ATSInfo.is_correct(info, verbose=verbose):
+        self.__verbose = verbose
+        self.__statuses = []
+        self.is_correct(info, verbose=verbose)
+        if all(self.__statuses):
             verbose_message(ATSInfo.VERBOSE, verbose, 'load ATS informations')
-            self.name = info.get(ATSInfo.ATS_NAME)
-            self.version = info.get(ATSInfo.ATS_VERSION)
-            self.licence = info.get(ATSInfo.ATS_LICENCE)
-            self.build_date = info.get(ATSInfo.ATS_BUILD_DATE)
+            self.name = str(info.get(ATSInfo.ATS_NAME))
+            self.version = str(info.get(ATSInfo.ATS_VERSION))
+            self.licence = str(info.get(ATSInfo.ATS_LICENCE))
+            self.build_date = str(info.get(ATSInfo.ATS_BUILD_DATE))
             self.ats_info_ok = True
 
     def show_base_info(self):
@@ -124,13 +123,12 @@ class ATSInfo(ATSName, ATSVersion, ATSLicence, ATSBuildDate, ATSInfoOk):
         if self.ats_info_ok:
             print(
                 '\n{0} version {1} {2}'.format(
-                    '[{0}]'.format(self.__name), self.__version,
+                    '[{0}]'.format(self.name), self.version,
                     datetime.now().date()
                 )
             )
 
-    @classmethod
-    def is_correct(cls, informations, verbose=False):
+    def is_correct(self, informations, verbose=False):
         '''
             Check information structure.
 
@@ -138,28 +136,26 @@ class ATSInfo(ATSName, ATSVersion, ATSLicence, ATSBuildDate, ATSInfoOk):
             :type informations: <dict>
             :param verbose: Enable/disable verbose option.
             :type verbose: <bool>
-            :return: True (correct information structure) | False.
-            :rtype: <bool>
             :exceptions: ATSTypeError | ATSBadCallError
         '''
-        checker, error, status, statuses = ATSChecker(), None, False, []
-        error, status = checker.check_params(
-            [('dict:informations', informations)]
-        )
+        checker, error, status = ATSChecker(), None, False
+        error, status = checker.check_params([
+            ('dict:informations', informations)
+        ])
         if status == ATSChecker.TYPE_ERROR:
             raise ATSTypeError(error)
         if status == ATSChecker.VALUE_ERROR:
             raise ATSBadCallError(error)
-        verbose_message(cls.VERBOSE, verbose, 'check ATS informations')
+        verbose_message(
+            ATSInfo.VERBOSE, verbose, 'check ATS informations', informations
+        )
         for info_key in informations.keys():
-            if info_key not in cls.ATS_BASE_INFO.values():
+            if info_key not in ATSInfo.ATS_BASE_INFO.values():
                 message = '{0} [{1}]'.format('key not expected', info_key)
-                error_message(cls.VERBOSE, message)
-                statuses.append(False)
+                error_message(ATSInfo.VERBOSE, message)
+                self.__statuses.append(False)
             else:
-                statuses.append(True)
-        status = all(statuses)
-        return True if status else False
+                self.__statuses.append(True)
 
     def __str__(self):
         '''
@@ -169,8 +165,9 @@ class ATSInfo(ATSName, ATSVersion, ATSLicence, ATSBuildDate, ATSInfoOk):
             :rtype: <str>
             :exceptions: None
         '''
-        return '{0} ({1}, {2}, {3}, {4}, {5})'.format(
+        return '{0} ({1}, {2}, {3}, {4}, {5}, {6}, {7})'.format(
             self.__class__.__name__, ATSName.__str__(self),
             ATSVersion.__str__(self), ATSLicence.__str__(self),
-            ATSBuildDate.__str__(self), ATSInfoOk.__str__(self)
+            ATSBuildDate.__str__(self), ATSInfoOk.__str__(self),
+            str(self.__verbose), str(self.__statuses)
         )

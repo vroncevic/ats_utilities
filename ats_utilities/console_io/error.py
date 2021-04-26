@@ -36,13 +36,13 @@ __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2017, https://vroncevic.github.io/ats_utilities'
 __credits__ = ['Vladimir Roncevic']
 __license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = '1.6.5'
+__version__ = '1.7.5'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
 
 
-class ATSError(object):
+class ATSError:
     '''
         Defined class ATSError with attribute(s) and method(s).
         Created error message container for console log mechanism.
@@ -88,6 +88,7 @@ class ATSError(object):
             :type message: <str>
             :exceptions: None
         '''
+        init(autoreset=False)
         self.__message = '{0}{1}{2}'.format(
             Fore.RED, message, Fore.RESET
         )
@@ -100,7 +101,7 @@ class ATSError(object):
             :rtype: <bool>
             :exceptions: None
         '''
-        return True if self.__message is not None else False
+        return bool(self.__message)
 
     def __str__(self):
         '''

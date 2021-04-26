@@ -17,15 +17,16 @@
      with this program. If not, see <http://www.gnu.org/licenses/>.
  Info
      Defined class IniCLI with attribute(s) and method(s).
-     Created API for check and load informations, setup arguments parser.
+     Created API for check and load informations, setup argument parser.
 '''
 
 import sys
 
 try:
+    from ats_utilities import VerboseRoot
     from ats_utilities.checker import ATSChecker
     from ats_utilities.config_io.ini import IniBase
-    from ats_utilities.abstract import abstract_method
+    from ats_utilities.abstract import AbstractMethod
     from ats_utilities.console_io.verbose import verbose_message
     from ats_utilities.exceptions.ats_type_error import ATSTypeError
     from ats_utilities.exceptions.ats_bad_call_error import ATSBadCallError
@@ -37,7 +38,7 @@ __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2017, https://vroncevic.github.io/ats_utilities'
 __credits__ = ['Vladimir Roncevic']
 __license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = '1.6.5'
+__version__ = '1.7.5'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
@@ -46,12 +47,12 @@ __status__ = 'Updated'
 class IniCLI(IniBase):
     '''
         Defined class IniCLI with attribute(s) and method(s).
-        Created API for check and load informations, setup arguments parser.
+        Created API for check and load informations, setup argument parser.
         It defines:
 
             :attributes:
-                | __slots__ - Setting class slots.
-                | VERBOSE - Console text indicator for current process-phase.
+                | __metaclass__ - Setting verbose root for IniCLI.
+                | __verbose - Enable/disable verbose option.
             :methods:
                 | __init__ - Initial constructor.
                 | add_new_option - Adding new option for CL interface.
@@ -60,10 +61,7 @@ class IniCLI(IniBase):
                 | __str__ - Dunder method for IniCLI.
     '''
 
-    __slots__ = (
-        'VERBOSE', 'tool_operational', 'ini2obj', 'obj2ini', 'option_parser'
-    )
-    VERBOSE = 'ATS_UTILITIES::CLI::INI_CLI'
+    __metaclass__ = VerboseRoot
 
     def __init__(self, informations_file, verbose=False):
         '''
@@ -83,8 +81,9 @@ class IniCLI(IniBase):
             raise ATSTypeError(error)
         if status == ATSChecker.VALUE_ERROR:
             raise ATSBadCallError(error)
-        verbose_message(IniCLI.VERBOSE, verbose, 'init ATS cli')
         IniBase.__init__(self, informations_file, verbose=verbose)
+        self.__verbose = verbose
+        verbose_message(IniCLI.VERBOSE, verbose, 'init ATS ini cli')
 
     def add_new_option(self, *args, **kwargs):
         '''
@@ -111,7 +110,7 @@ class IniCLI(IniBase):
         (opts, args) = self.option_parser.parse_args(argv)
         return opts, args
 
-    @abstract_method
+    @AbstractMethod
     def process(self, verbose=False):
         '''
             Process and run tool operation (Abstract method).
@@ -120,7 +119,6 @@ class IniCLI(IniBase):
             :type verbose: <bool>
             :exception: NotImplementedError
         '''
-        pass
 
     def __str__(self):
         '''
@@ -130,6 +128,6 @@ class IniCLI(IniBase):
             :rtype: <str>
             :exceptions: None
         '''
-        return '{0} ({1})'.format(
-            self.__class__.__name__, IniBase.__str__(self)
+        return '{0} ({1}, {2})'.format(
+            self.__class__.__name__, IniBase.__str__(self), str(self.__verbose)
         )

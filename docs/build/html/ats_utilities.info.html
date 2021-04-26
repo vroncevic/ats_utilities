@@ -61,7 +61,7 @@
             
             
               <div class="version">
-                1.6.5
+                1.7.5
               </div>
             
           
@@ -97,6 +97,7 @@
 <li class="toctree-l4"><a class="reference internal" href="ats_utilities.cli.html">ats_utilities.cli package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ats_utilities.config_io.html">ats_utilities.config_io package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ats_utilities.console_io.html">ats_utilities.console_io package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ats_utilities.cooperative.html">ats_utilities.cooperative package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ats_utilities.exceptions.html">ats_utilities.exceptions package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ats_utilities.final.html">ats_utilities.final package</a></li>
 <li class="toctree-l4 current"><a class="current reference internal" href="#">ats_utilities.info package</a></li>
@@ -227,13 +228,13 @@ It defines:</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">attributes:</th><td class="field-body"><div class="first last line-block">
-<div class="line">__slots__ - Setting class slots.</div>
-<div class="line">VERBOSE - Console text indicator for current process-phase.</div>
+<div class="line">__metaclass__ - Setting cooperative metaclasses.</div>
 <div class="line">ATS_NAME - ATS name key.</div>
 <div class="line">ATS_VERSION - ATS version key.</div>
 <div class="line">ATS_LICENCE - ATS licence key.</div>
 <div class="line">ATS_BUILD_DATE - ATS build date key.</div>
 <div class="line">ATS_BASE_INFO - ATS base information dict.</div>
+<div class="line">__verbose - Enable/disable verbose option.</div>
 </div>
 </td>
 </tr>
@@ -275,48 +276,12 @@ It defines:</p>
 
 <dl class="attribute">
 <dt id="ats_utilities.info.ATSInfo.VERBOSE">
-<code class="descname">VERBOSE</code><em class="property"> = 'ATS_UTILITIES::INFO::ATS_INFO'</em><a class="headerlink" href="#ats_utilities.info.ATSInfo.VERBOSE" title="Permalink to this definition">¶</a></dt>
+<code class="descname">VERBOSE</code><em class="property"> = 'ats_utilities::info'</em><a class="headerlink" href="#ats_utilities.info.ATSInfo.VERBOSE" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="attribute">
-<dt id="ats_utilities.info.ATSInfo.ats_info_ok">
-<code class="descname">ats_info_ok</code><a class="headerlink" href="#ats_utilities.info.ATSInfo.ats_info_ok" title="Permalink to this definition">¶</a></dt>
-<dd><p>Property method for getting App/Tool/Script information status.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">App/Tool/Script information status.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">&lt;bool&gt;</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Exceptions:</th><td class="field-body">None</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="ats_utilities.info.ATSInfo.build_date">
-<code class="descname">build_date</code><a class="headerlink" href="#ats_utilities.info.ATSInfo.build_date" title="Permalink to this definition">¶</a></dt>
-<dd><p>Property method for getting App/Tool/Script build date.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">App/Tool/Script build date | None.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">&lt;str&gt; | &lt;NoneType&gt;</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Exceptions:</th><td class="field-body">None</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="classmethod">
+<dl class="method">
 <dt id="ats_utilities.info.ATSInfo.is_correct">
-<em class="property">classmethod </em><code class="descname">is_correct</code><span class="sig-paren">(</span><em>informations</em>, <em>verbose=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ats_utilities/info.html#ATSInfo.is_correct"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ats_utilities.info.ATSInfo.is_correct" title="Permalink to this definition">¶</a></dt>
+<code class="descname">is_correct</code><span class="sig-paren">(</span><em>informations</em>, <em>verbose=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ats_utilities/info.html#ATSInfo.is_correct"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ats_utilities.info.ATSInfo.is_correct" title="Permalink to this definition">¶</a></dt>
 <dd><p>Check information structure.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -328,50 +293,8 @@ It defines:</p>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">True (correct information structure) | False.</p>
-</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first">&lt;bool&gt;</p>
-</td>
-</tr>
 <tr class="field-even field"><th class="field-name">Exceptions:</th><td class="field-body"><p class="first last">ATSTypeError | ATSBadCallError</p>
 </td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="ats_utilities.info.ATSInfo.licence">
-<code class="descname">licence</code><a class="headerlink" href="#ats_utilities.info.ATSInfo.licence" title="Permalink to this definition">¶</a></dt>
-<dd><p>Property method for getting App/Tool/Script licence.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">App/Tool/Script licence | None.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">&lt;str&gt; | &lt;NoneType&gt;</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Exceptions:</th><td class="field-body">None</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="ats_utilities.info.ATSInfo.name">
-<code class="descname">name</code><a class="headerlink" href="#ats_utilities.info.ATSInfo.name" title="Permalink to this definition">¶</a></dt>
-<dd><p>Property method for getting App/Tool/Script name.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">App/Tool/Script name | None.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">&lt;str&gt; | &lt;NoneType&gt;</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Exceptions:</th><td class="field-body">None</td>
 </tr>
 </tbody>
 </table>
@@ -385,24 +308,6 @@ It defines:</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Exceptions:</th><td class="field-body">None</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="ats_utilities.info.ATSInfo.version">
-<code class="descname">version</code><a class="headerlink" href="#ats_utilities.info.ATSInfo.version" title="Permalink to this definition">¶</a></dt>
-<dd><p>Property method for getting App/Tool/Script version.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">App/Tool/Script version | None.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">&lt;str&gt; | &lt;NoneType&gt;</td>
-</tr>
 <tr class="field-odd field"><th class="field-name">Exceptions:</th><td class="field-body">None</td>
 </tr>
 </tbody>

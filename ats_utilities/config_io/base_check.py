@@ -24,6 +24,7 @@ import sys
 
 try:
     from pathlib import Path
+    from ats_utilities import VerboseRoot
     from ats_utilities.console_io.error import error_message
     from ats_utilities.console_io.verbose import verbose_message
 except ImportError as ats_error_message:
@@ -34,24 +35,25 @@ __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2017, https://vroncevic.github.io/ats_utilities'
 __credits__ = ['Vladimir Roncevic']
 __license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = '1.6.5'
+__version__ = '1.7.5'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
 
 
-class FileChecking(object):
+class FileChecking:
     '''
         Defined class FileChecking with attribute(s) and method(s).
         Created API for checking operations with files.
         It defines:
 
             :attributes:
-                | VERBOSE - Console text indicator for current process-phase.
+                | __metaclass__ - Setting verbose root for FileChecking.
                 | MODES - Mode file operations.
-                | file_path_ok - File exist, path ok.
-                | file_mode_ok - Supported file mode.
-                | file_format_ok - File format is (not) expected.
+                | __verbose - Enable/disable verbose option.
+                | __file_path_ok - File exist, path ok.
+                | __file_mode_ok - Supported file mode.
+                | __file_format_ok - File format is (not) expected.
             :methods:
                 | __init__ - Initial constructor.
                 | check_path - Check file path.
@@ -61,7 +63,7 @@ class FileChecking(object):
                 | __str__ - Dunder method for FileChecking.
     '''
 
-    VERBOSE = 'ATS_UTILITIES::CONFIG_IO::FILE_CHECKING'
+    __metaclass__ = VerboseRoot
     MODES = ['r', 'w', 'a', 'b', 'x', 't', '+']
 
     def __init__(self, verbose=False):
@@ -72,10 +74,11 @@ class FileChecking(object):
             :type verbose: <bool>
             :exceptions: None
         '''
+        self.__verbose = verbose
+        self.__file_path_ok = False
+        self.__file_mode_ok = False
+        self.__file_format_ok = False
         verbose_message(FileChecking.VERBOSE, verbose, 'init ATS check file')
-        self.file_path_ok = False
-        self.file_mode_ok = False
-        self.file_format_ok = False
 
     def check_path(self, file_path, verbose=False):
         '''
@@ -87,13 +90,13 @@ class FileChecking(object):
             :type verbose: <bool>
             :exceptions: None
         '''
-        verbose_message(
-            FileChecking.VERBOSE, verbose, 'check ATS file path', file_path
-        )
         if not Path(file_path).is_file():
             error_message(FileChecking.VERBOSE, 'check file', file_path)
         else:
-            self.file_path_ok = True
+            self.__file_path_ok = True
+        verbose_message(
+            FileChecking.VERBOSE, self.__verbose or verbose, file_path
+        )
 
     def check_mode(self, file_mode, verbose=False):
         '''
@@ -107,9 +110,6 @@ class FileChecking(object):
             :rtype: <bool>
             :exceptions: None
         '''
-        verbose_message(
-            FileChecking.VERBOSE, verbose, 'check ATS operation mode'
-        )
         modes, mode_checks = list(file_mode), []
         for mode in modes:
             if mode not in FileChecking.MODES:
@@ -117,12 +117,12 @@ class FileChecking(object):
             else:
                 mode_checks.append(True)
         if all(mode_checks):
-            self.file_mode_ok = True
+            self.__file_mode_ok = True
             verbose_message(
-                FileChecking.VERBOSE, verbose, 'supported mode', file_mode
+                FileChecking.VERBOSE, self.__verbose or verbose, file_mode
             )
         else:
-            self.file_mode_ok = False
+            self.__file_mode_ok = False
             error_message(
                 FileChecking.VERBOSE, '{0} [{1}]'.format(
                     'not supported mode', file_mode
@@ -141,9 +141,6 @@ class FileChecking(object):
             :type verbose: <bool>
             :exceptions: None
         '''
-        verbose_message(
-            FileChecking.VERBOSE, verbose, 'check ATS file format', file_path
-        )
         extension = Path(file_path).suffix.lower().replace('.', '')
         status = extension == file_format
         if not status:
@@ -152,9 +149,12 @@ class FileChecking(object):
                     'not matched file extension', file_format, file_path
                 )
             )
-            self.file_format_ok = False
+            self.__file_format_ok = False
         else:
-            self.file_format_ok = True
+            self.__file_format_ok = True
+        verbose_message(
+            FileChecking.VERBOSE, self.__verbose or verbose, file_path
+        )
 
     def is_file_ok(self):
         '''
@@ -164,7 +164,9 @@ class FileChecking(object):
             :rtype: <bool>
             :exceptions: None
         '''
-        return all([self.file_path_ok, self.file_mode_ok, self.file_format_ok])
+        return all([
+            self.__file_path_ok, self.__file_mode_ok, self.__file_format_ok
+        ])
 
     def __str__(self):
         '''
@@ -174,7 +176,8 @@ class FileChecking(object):
             :rtype: <str>
             :exceptions: None
         '''
-        return '{0} ({1}, {2}, {3})'.format(
-            self.__class__.__name__, self.file_path_ok,
-            self.file_mode_ok, self.file_format_ok
+        return '{0} ({1}, {2}, {3}, {4})'.format(
+            self.__class__.__name__, str(self.__verbose),
+            str(self.__file_path_ok), str(self.__file_mode_ok),
+            str(self.__file_format_ok)
         )

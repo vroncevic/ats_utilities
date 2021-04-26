@@ -34,13 +34,13 @@ __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2017, https://vroncevic.github.io/ats_utilities'
 __credits__ = ['Vladimir Roncevic']
 __license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = '1.6.5'
+__version__ = '1.7.5'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
 
 
-class ATSChecker(object):
+class ATSChecker:
     '''
         Defined class ATSChecker with attribute(s) and method(s).
         Created API fo checking parameters for object methods and functions.
@@ -48,8 +48,6 @@ class ATSChecker(object):
 
             :attributes:
                 | __metaclass__ - Setting class ATSChecker as final.
-                | __slots__ - Setting class slots.
-                | VERBOSE - Console text indicator for current process-phase.
                 | NO_ERROR - No error, error id (0).
                 | TYPE_ERROR - Type param error id (1).
                 | VALUE_ERROR - Value param error id (2).
@@ -71,12 +69,6 @@ class ATSChecker(object):
     '''
 
     __metaclass__ = ATSFinal
-    __slots__ = (
-        'VERBOSE', 'TYPE_ERROR', 'VALUE_ERROR', 'FORMAT_ERROR',
-        '__start_message', '__list_of_params', '__error_type',
-        '__error_type_index', '__error_value_index'
-    )
-    VERBOSE = 'ATS_UTILITIES::CHECKER::ATS_CHECKER'
     NO_ERROR, TYPE_ERROR, VALUE_ERROR, FORMAT_ERROR = 0, 1, 2, 3
 
     def __init__(self):
@@ -98,6 +90,8 @@ class ATSChecker(object):
             :param params_description: Description for parameters.
             :type params_description: <OrderedDict>
             :return: True (format for params ok) | False.
+            :param verbose: Enable/disable verbose option.
+            :type verbose: <bool>
             :rtype: <bool>
             :exceptions: None
         '''
@@ -111,11 +105,10 @@ class ATSChecker(object):
         for exp_type, inst in params_description.items():
             parameter_name = exp_type.split(':')[1]
             parameter_type = exp_type.split(':')[0]
-            self.__list_of_params.append(
-                '\n    expected parameter {0} <{1}> object at {2}'.format(
-                    parameter_name, parameter_type, hex(id(inst))
-                )
+            param_check = '\n    expected {0} <{1}> object at {2}'.format(
+                parameter_name, parameter_type, hex(id(inst))
             )
+            self.__list_of_params.append(param_check)
         return True
 
     def usage_message(self):
@@ -191,13 +184,10 @@ class ATSChecker(object):
                 self.__error_type[1] = ATSChecker.VALUE_ERROR
                 self.__error_value_index.append(index)
             any_base_type = any([
-                isinstance(inst, dict),
-                isinstance(inst, list),
-                isinstance(inst, tuple),
-                isinstance(inst, set),
-                isinstance(inst, frozenset),
-                isinstance(inst, bytearray),
-                isinstance(inst, bytes),
+                isinstance(inst, dict), isinstance(inst, list),
+                isinstance(inst, tuple), isinstance(inst, set),
+                isinstance(inst, frozenset), isinstance(inst, bytearray),
+                isinstance(inst, bytes)
             ])
             if any_base_type:
                 if not bool(inst):
@@ -220,7 +210,7 @@ class ATSChecker(object):
             priority_error_id = ATSChecker.VALUE_ERROR
         if self.__error_type[0] == ATSChecker.TYPE_ERROR:
             priority_error_id = ATSChecker.TYPE_ERROR
-        if not all(self.__error_type):
+        if all(error_type == 0 for error_type in self.__error_type):
             priority_error_id = ATSChecker.NO_ERROR
         return priority_error_id
 
@@ -238,15 +228,15 @@ class ATSChecker(object):
         param_error_message, header = None, '\nmod: {0}\n  def: {1}()'
         self.__start_message = header.format(module, func)
         fail_any_check = any([
-            self.collect_params(OrderedDict(params_description)),
-            self.check_types(OrderedDict(params_description)),
-            self.check_values(OrderedDict(params_description))
+            not self.collect_params(OrderedDict(params_description)),
+            not self.check_types(OrderedDict(params_description)),
+            not self.check_values(OrderedDict(params_description))
         ])
         param_error_message = self.usage_message()
         error_id = self.priority_error()
         if any([error_id is None, fail_any_check]):
             param_error_message = '{0} {1}'.format(
-                param_error_message, 'format wrong for checking parameters'
+                param_error_message, 'format wrong during checking params'
             )
             error_id = ATSChecker.FORMAT_ERROR
         return param_error_message, error_id

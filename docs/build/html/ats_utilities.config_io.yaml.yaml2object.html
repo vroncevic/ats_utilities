@@ -61,7 +61,7 @@
             
             
               <div class="version">
-                1.6.5
+                1.7.5
               </div>
             
           
@@ -97,6 +97,7 @@
 <li class="toctree-l4"><a class="reference internal" href="ats_utilities.cli.html">ats_utilities.cli package</a></li>
 <li class="toctree-l4 current"><a class="reference internal" href="ats_utilities.config_io.html">ats_utilities.config_io package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ats_utilities.console_io.html">ats_utilities.console_io package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ats_utilities.cooperative.html">ats_utilities.cooperative package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ats_utilities.exceptions.html">ats_utilities.exceptions package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ats_utilities.final.html">ats_utilities.final package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ats_utilities.info.html">ats_utilities.info package</a></li>
@@ -202,14 +203,14 @@ You should have received a copy of the GNU General Public License along
 with this program. If not, see &lt;<a class="reference external" href="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</a>&gt;.</dd>
 <dt>Info</dt>
 <dd>Defined class Yaml2Object with attribute(s) and method(s).
-Created API for reading a configuration from a yaml file.</dd>
+Created API for reading a configuration/information from a yaml file.</dd>
 </dl>
 <dl class="class">
 <dt id="ats_utilities.config_io.yaml.yaml2object.Yaml2Object">
-<em class="property">class </em><code class="descclassname">ats_utilities.config_io.yaml.yaml2object.</code><code class="descname">Yaml2Object</code><span class="sig-paren">(</span><em>configuration_file</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ats_utilities/config_io/yaml/yaml2object.html#Yaml2Object"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ats_utilities.config_io.yaml.yaml2object.Yaml2Object" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">ats_utilities.config_io.yaml.yaml2object.</code><code class="descname">Yaml2Object</code><span class="sig-paren">(</span><em>configuration_file</em>, <em>verbose=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ats_utilities/config_io/yaml/yaml2object.html#Yaml2Object"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ats_utilities.config_io.yaml.yaml2object.Yaml2Object" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="ats_utilities.config_io.base_read.html#ats_utilities.config_io.base_read.BaseReadConfig" title="ats_utilities.config_io.base_read.BaseReadConfig"><code class="xref py py-class docutils literal notranslate"><span class="pre">ats_utilities.config_io.base_read.BaseReadConfig</span></code></a></p>
 <p>Defined class Yaml2Object with attribute(s) and method(s).
-Created API for reading a configuration from a yaml file.
+Created API for reading a configuration/information from a yaml file.
 It defines:</p>
 <blockquote>
 <div><table class="docutils field-list" frame="void" rules="none">
@@ -217,7 +218,9 @@ It defines:</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">attributes:</th><td class="field-body"><div class="first last line-block">
+<div class="line">__metaclass__ - Setting verbose root for Yaml2Object.</div>
 <div class="line">__FORMAT - Format of configuration content.</div>
+<div class="line">__verbose - Enable/disable verbose option.</div>
 </div>
 </td>
 </tr>
@@ -231,19 +234,26 @@ It defines:</p>
 </tbody>
 </table>
 </div></blockquote>
+<dl class="attribute">
+<dt id="ats_utilities.config_io.yaml.yaml2object.Yaml2Object.VERBOSE">
+<code class="descname">VERBOSE</code><em class="property"> = 'ats_utilities::config_io::yaml::yaml2object'</em><a class="headerlink" href="#ats_utilities.config_io.yaml.yaml2object.Yaml2Object.VERBOSE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 <dl class="method">
 <dt id="ats_utilities.config_io.yaml.yaml2object.Yaml2Object.read_configuration">
-<code class="descname">read_configuration</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/ats_utilities/config_io/yaml/yaml2object.html#Yaml2Object.read_configuration"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ats_utilities.config_io.yaml.yaml2object.Yaml2Object.read_configuration" title="Permalink to this definition">¶</a></dt>
-<dd><p>Getting a configuration from file.</p>
+<code class="descname">read_configuration</code><span class="sig-paren">(</span><em>verbose=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ats_utilities/config_io/yaml/yaml2object.html#Yaml2Object.read_configuration"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ats_utilities.config_io.yaml.yaml2object.Yaml2Object.read_configuration" title="Permalink to this definition">¶</a></dt>
+<dd><p>Getting a configuration from yaml file.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Configuration object | None.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>verbose</strong> (<em>&lt;bool&gt;</em>) – Enable/disable verbose option.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">&lt;Python object(s)&gt; | &lt;NoneType&gt;</td>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Configuration object | None.</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Exceptions:</th><td class="field-body">None</td>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">&lt;Python object(s)&gt; | &lt;NoneType&gt;</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Exceptions:</th><td class="field-body">None</td>
 </tr>
 </tbody>
 </table>

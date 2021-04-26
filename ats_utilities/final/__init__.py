@@ -17,14 +17,14 @@
      with this program. If not, see <http://www.gnu.org/licenses/>.
  Info
      Defined class ATSFinal with attribute(s) and method(s).
-     Created API for App/Tool/Script utilities, final class.
+     Created API for App/Tool/Script utilities, set final class.
 '''
 
 __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2017, https://vroncevic.github.io/ats_utilities'
 __credits__ = ['Vladimir Roncevic']
 __license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = '1.6.5'
+__version__ = '1.7.5'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
@@ -33,7 +33,7 @@ __status__ = 'Updated'
 class ATSFinal(type):
     '''
         Defined class ATSFinal with attribute(s) and method(s).
-        Created API for App/Tool/Script utilities, final class.
+        Created API for App/Tool/Script utilities, set final class.
         It defines:
 
             :attributes:

@@ -59,7 +59,7 @@
             
             
               <div class="version">
-                1.6.5
+                1.7.5
               </div>
             
           
@@ -136,6 +136,8 @@
         
           <li><a href="../../index.html">Module code</a> &raquo;</li>
         
+          <li><a href="../../ats_utilities.html">ats_utilities</a> &raquo;</li>
+        
       <li>ats_utilities.cli.ini_cli</li>
     
     
@@ -171,15 +173,16 @@
 <span class="sd">     with this program. If not, see &lt;http://www.gnu.org/licenses/&gt;.</span>
 <span class="sd"> Info</span>
 <span class="sd">     Defined class IniCLI with attribute(s) and method(s).</span>
-<span class="sd">     Created API for check and load informations, setup arguments parser.</span>
+<span class="sd">     Created API for check and load informations, setup argument parser.</span>
 <span class="sd">&#39;&#39;&#39;</span>
 
 <span class="kn">import</span> <span class="nn">sys</span>
 
 <span class="k">try</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">ats_utilities</span> <span class="kn">import</span> <span class="n">VerboseRoot</span>
     <span class="kn">from</span> <span class="nn">ats_utilities.checker</span> <span class="kn">import</span> <span class="n">ATSChecker</span>
     <span class="kn">from</span> <span class="nn">ats_utilities.config_io.ini</span> <span class="kn">import</span> <span class="n">IniBase</span>
-    <span class="kn">from</span> <span class="nn">ats_utilities.abstract</span> <span class="kn">import</span> <span class="n">abstract_method</span>
+    <span class="kn">from</span> <span class="nn">ats_utilities.abstract</span> <span class="kn">import</span> <span class="n">AbstractMethod</span>
     <span class="kn">from</span> <span class="nn">ats_utilities.console_io.verbose</span> <span class="kn">import</span> <span class="n">verbose_message</span>
     <span class="kn">from</span> <span class="nn">ats_utilities.exceptions.ats_type_error</span> <span class="kn">import</span> <span class="n">ATSTypeError</span>
     <span class="kn">from</span> <span class="nn">ats_utilities.exceptions.ats_bad_call_error</span> <span class="kn">import</span> <span class="n">ATSBadCallError</span>
@@ -191,7 +194,7 @@
 <span class="n">__copyright__</span> <span class="o">=</span> <span class="s1">&#39;Copyright 2017, https://vroncevic.github.io/ats_utilities&#39;</span>
 <span class="n">__credits__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Vladimir Roncevic&#39;</span><span class="p">]</span>
 <span class="n">__license__</span> <span class="o">=</span> <span class="s1">&#39;https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE&#39;</span>
-<span class="n">__version__</span> <span class="o">=</span> <span class="s1">&#39;1.6.5&#39;</span>
+<span class="n">__version__</span> <span class="o">=</span> <span class="s1">&#39;1.7.5&#39;</span>
 <span class="n">__maintainer__</span> <span class="o">=</span> <span class="s1">&#39;Vladimir Roncevic&#39;</span>
 <span class="n">__email__</span> <span class="o">=</span> <span class="s1">&#39;elektron.ronca@gmail.com&#39;</span>
 <span class="n">__status__</span> <span class="o">=</span> <span class="s1">&#39;Updated&#39;</span>
@@ -200,12 +203,12 @@
 <div class="viewcode-block" id="IniCLI"><a class="viewcode-back" href="../../../ats_utilities.cli.ini_cli.html#ats_utilities.cli.ini_cli.IniCLI">[docs]</a><span class="k">class</span> <span class="nc">IniCLI</span><span class="p">(</span><span class="n">IniBase</span><span class="p">):</span>
     <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Defined class IniCLI with attribute(s) and method(s).</span>
-<span class="sd">        Created API for check and load informations, setup arguments parser.</span>
+<span class="sd">        Created API for check and load informations, setup argument parser.</span>
 <span class="sd">        It defines:</span>
 
 <span class="sd">            :attributes:</span>
-<span class="sd">                | __slots__ - Setting class slots.</span>
-<span class="sd">                | VERBOSE - Console text indicator for current process-phase.</span>
+<span class="sd">                | __metaclass__ - Setting verbose root for IniCLI.</span>
+<span class="sd">                | __verbose - Enable/disable verbose option.</span>
 <span class="sd">            :methods:</span>
 <span class="sd">                | __init__ - Initial constructor.</span>
 <span class="sd">                | add_new_option - Adding new option for CL interface.</span>
@@ -214,10 +217,7 @@
 <span class="sd">                | __str__ - Dunder method for IniCLI.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
 
-    <span class="vm">__slots__</span> <span class="o">=</span> <span class="p">(</span>
-        <span class="s1">&#39;VERBOSE&#39;</span><span class="p">,</span> <span class="s1">&#39;tool_operational&#39;</span><span class="p">,</span> <span class="s1">&#39;ini2obj&#39;</span><span class="p">,</span> <span class="s1">&#39;obj2ini&#39;</span><span class="p">,</span> <span class="s1">&#39;option_parser&#39;</span>
-    <span class="p">)</span>
-    <span class="n">VERBOSE</span> <span class="o">=</span> <span class="s1">&#39;ATS_UTILITIES::CLI::INI_CLI&#39;</span>
+    <span class="n">__metaclass__</span> <span class="o">=</span> <span class="n">VerboseRoot</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">informations_file</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;</span>
@@ -237,8 +237,9 @@
             <span class="k">raise</span> <span class="n">ATSTypeError</span><span class="p">(</span><span class="n">error</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">status</span> <span class="o">==</span> <span class="n">ATSChecker</span><span class="o">.</span><span class="n">VALUE_ERROR</span><span class="p">:</span>
             <span class="k">raise</span> <span class="n">ATSBadCallError</span><span class="p">(</span><span class="n">error</span><span class="p">)</span>
-        <span class="n">verbose_message</span><span class="p">(</span><span class="n">IniCLI</span><span class="o">.</span><span class="n">VERBOSE</span><span class="p">,</span> <span class="n">verbose</span><span class="p">,</span> <span class="s1">&#39;init ATS cli&#39;</span><span class="p">)</span>
         <span class="n">IniBase</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">informations_file</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="n">verbose</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__verbose</span> <span class="o">=</span> <span class="n">verbose</span>
+        <span class="n">verbose_message</span><span class="p">(</span><span class="n">IniCLI</span><span class="o">.</span><span class="n">VERBOSE</span><span class="p">,</span> <span class="n">verbose</span><span class="p">,</span> <span class="s1">&#39;init ATS ini cli&#39;</span><span class="p">)</span>
 
 <div class="viewcode-block" id="IniCLI.add_new_option"><a class="viewcode-back" href="../../../ats_utilities.cli.ini_cli.html#ats_utilities.cli.ini_cli.IniCLI.add_new_option">[docs]</a>    <span class="k">def</span> <span class="nf">add_new_option</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;</span>
@@ -265,7 +266,7 @@
         <span class="p">(</span><span class="n">opts</span><span class="p">,</span> <span class="n">args</span><span class="p">)</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">option_parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">(</span><span class="n">argv</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">opts</span><span class="p">,</span> <span class="n">args</span></div>
 
-    <span class="nd">@abstract_method</span>
+    <span class="nd">@AbstractMethod</span>
     <span class="k">def</span> <span class="nf">process</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Process and run tool operation (Abstract method).</span>
@@ -274,7 +275,6 @@
 <span class="sd">            :type verbose: &lt;bool&gt;</span>
 <span class="sd">            :exception: NotImplementedError</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="k">pass</span>
 
     <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;</span>
@@ -284,8 +284,8 @@
 <span class="sd">            :rtype: &lt;str&gt;</span>
 <span class="sd">            :exceptions: None</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="k">return</span> <span class="s1">&#39;</span><span class="si">{0}</span><span class="s1"> (</span><span class="si">{1}</span><span class="s1">)&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="n">IniBase</span><span class="o">.</span><span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="k">return</span> <span class="s1">&#39;</span><span class="si">{0}</span><span class="s1"> (</span><span class="si">{1}</span><span class="s1">, </span><span class="si">{2}</span><span class="s1">)&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="n">IniBase</span><span class="o">.</span><span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">),</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__verbose</span><span class="p">)</span>
         <span class="p">)</span></div>
 </pre></div>
 

@@ -59,7 +59,7 @@
             
             
               <div class="version">
-                1.6.5
+                1.7.5
               </div>
             
           
@@ -136,6 +136,8 @@
         
           <li><a href="../../index.html">Module code</a> &raquo;</li>
         
+          <li><a href="../../ats_utilities.html">ats_utilities</a> &raquo;</li>
+        
           <li><a href="../config_io.html">ats_utilities.config_io</a> &raquo;</li>
         
       <li>ats_utilities.config_io.yaml</li>
@@ -173,16 +175,21 @@
 <span class="sd">     with this program. If not, see &lt;http://www.gnu.org/licenses/&gt;.</span>
 <span class="sd"> Info</span>
 <span class="sd">     Defined class YamlBase with attribute(s) and method(s).</span>
-<span class="sd">     Load ATS informations, setup ATS CL interface.</span>
+<span class="sd">     Load ATS information/configuration, setup ATS CL interface.</span>
 <span class="sd">&#39;&#39;&#39;</span>
 
 <span class="kn">import</span> <span class="nn">sys</span>
 
 <span class="k">try</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">ats_utilities</span> <span class="kn">import</span> <span class="n">VerboseRoot</span>
     <span class="kn">from</span> <span class="nn">ats_utilities.info</span> <span class="kn">import</span> <span class="n">ATSInfo</span>
+    <span class="kn">from</span> <span class="nn">ats_utilities.checker</span> <span class="kn">import</span> <span class="n">ATSChecker</span>
     <span class="kn">from</span> <span class="nn">ats_utilities.option</span> <span class="kn">import</span> <span class="n">ATSOptionParser</span>
+    <span class="kn">from</span> <span class="nn">ats_utilities.console_io.verbose</span> <span class="kn">import</span> <span class="n">verbose_message</span>
     <span class="kn">from</span> <span class="nn">ats_utilities.config_io.yaml.yaml2object</span> <span class="kn">import</span> <span class="n">Yaml2Object</span>
     <span class="kn">from</span> <span class="nn">ats_utilities.config_io.yaml.object2yaml</span> <span class="kn">import</span> <span class="n">Object2Yaml</span>
+    <span class="kn">from</span> <span class="nn">ats_utilities.exceptions.ats_type_error</span> <span class="kn">import</span> <span class="n">ATSTypeError</span>
+    <span class="kn">from</span> <span class="nn">ats_utilities.exceptions.ats_bad_call_error</span> <span class="kn">import</span> <span class="n">ATSBadCallError</span>
 <span class="k">except</span> <span class="ne">ImportError</span> <span class="k">as</span> <span class="n">ats_error_message</span><span class="p">:</span>
     <span class="n">MESSAGE</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="si">{0}</span><span class="se">\n</span><span class="si">{1}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="vm">__file__</span><span class="p">,</span> <span class="n">ats_error_message</span><span class="p">)</span>
     <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="n">MESSAGE</span><span class="p">)</span>  <span class="c1"># Force close python ATS ##############################</span>
@@ -191,27 +198,32 @@
 <span class="n">__copyright__</span> <span class="o">=</span> <span class="s1">&#39;Copyright 2017, https://vroncevic.github.io/ats_utilities&#39;</span>
 <span class="n">__credits__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Vladimir Roncevic&#39;</span><span class="p">]</span>
 <span class="n">__license__</span> <span class="o">=</span> <span class="s1">&#39;https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE&#39;</span>
-<span class="n">__version__</span> <span class="o">=</span> <span class="s1">&#39;1.6.5&#39;</span>
+<span class="n">__version__</span> <span class="o">=</span> <span class="s1">&#39;1.7.5&#39;</span>
 <span class="n">__maintainer__</span> <span class="o">=</span> <span class="s1">&#39;Vladimir Roncevic&#39;</span>
 <span class="n">__email__</span> <span class="o">=</span> <span class="s1">&#39;elektron.ronca@gmail.com&#39;</span>
 <span class="n">__status__</span> <span class="o">=</span> <span class="s1">&#39;Updated&#39;</span>
 
 
-<div class="viewcode-block" id="YamlBase"><a class="viewcode-back" href="../../../ats_utilities.config_io.yaml.html#ats_utilities.config_io.yaml.YamlBase">[docs]</a><span class="k">class</span> <span class="nc">YamlBase</span><span class="p">(</span><span class="n">ATSInfo</span><span class="p">):</span>
+<div class="viewcode-block" id="YamlBase"><a class="viewcode-back" href="../../../ats_utilities.config_io.yaml.html#ats_utilities.config_io.yaml.YamlBase">[docs]</a><span class="k">class</span> <span class="nc">YamlBase</span><span class="p">:</span>
     <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Defined class YamlBase with attribute(s) and method(s).</span>
-<span class="sd">        Load ATS informations, setup ATS CL interface.</span>
+<span class="sd">        Load ATS information/configuration, setup ATS CL interface.</span>
 <span class="sd">        It defines:</span>
 
 <span class="sd">            :attributes:</span>
+<span class="sd">                | __metaclass__ - Setting verbose root for YamlBase.</span>
+<span class="sd">                | __verbose - Enable/disable verbose option.</span>
 <span class="sd">                | tool_operational - Control ATS operational functionality.</span>
 <span class="sd">                | yaml2obj - In API for informations.</span>
 <span class="sd">                | obj2yaml - Out API for informations.</span>
 <span class="sd">                | option_parser - Option parser for ATS.</span>
 <span class="sd">            :methods:</span>
 <span class="sd">                | __init__ - Initial constructor.</span>
+<span class="sd">                | is_tool_ok - Checking is tool operational.</span>
 <span class="sd">                | __str__ - Dunder method for object YamlBase.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
+
+    <span class="n">__metaclass__</span> <span class="o">=</span> <span class="n">VerboseRoot</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">informations_file</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;</span>
@@ -221,22 +233,44 @@
 <span class="sd">            :type informations_file: &lt;str&gt;</span>
 <span class="sd">            :param verbose: Enable/disable verbose option.</span>
 <span class="sd">            :type verbose: &lt;bool&gt;</span>
-<span class="sd">            :exceptions: None</span>
+<span class="sd">            :exceptions: ATSTypeError | ATSBadCallError</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="n">informations</span><span class="p">,</span> <span class="n">tool_info</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span>
+        <span class="n">checker</span><span class="p">,</span> <span class="n">error</span><span class="p">,</span> <span class="n">status</span> <span class="o">=</span> <span class="n">ATSChecker</span><span class="p">(</span><span class="n">verbose</span><span class="o">=</span><span class="n">verbose</span><span class="p">),</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">False</span>
+        <span class="n">error</span><span class="p">,</span> <span class="n">status</span> <span class="o">=</span> <span class="n">checker</span><span class="o">.</span><span class="n">check_params</span><span class="p">([</span>
+            <span class="p">(</span><span class="s1">&#39;str:informations_file&#39;</span><span class="p">,</span> <span class="n">informations_file</span><span class="p">)</span>
+        <span class="p">])</span>
+        <span class="k">if</span> <span class="n">status</span> <span class="o">==</span> <span class="n">ATSChecker</span><span class="o">.</span><span class="n">TYPE_ERROR</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">ATSTypeError</span><span class="p">(</span><span class="n">error</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">status</span> <span class="o">==</span> <span class="n">ATSChecker</span><span class="o">.</span><span class="n">VALUE_ERROR</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">ATSBadCallError</span><span class="p">(</span><span class="n">error</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__verbose</span> <span class="o">=</span> <span class="n">verbose</span>
+        <span class="n">informations</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">tool_operational</span> <span class="o">=</span> <span class="kc">False</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">yaml2obj</span> <span class="o">=</span> <span class="n">Yaml2Object</span><span class="p">(</span><span class="n">informations_file</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">obj2yaml</span> <span class="o">=</span> <span class="n">Object2Yaml</span><span class="p">(</span><span class="n">informations_file</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">yaml2obj</span> <span class="o">=</span> <span class="n">Yaml2Object</span><span class="p">(</span><span class="n">informations_file</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="n">verbose</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">obj2yaml</span> <span class="o">=</span> <span class="n">Object2Yaml</span><span class="p">(</span><span class="n">informations_file</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="n">verbose</span><span class="p">)</span>
         <span class="k">if</span> <span class="nb">all</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">yaml2obj</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">obj2yaml</span><span class="p">]):</span>
-            <span class="n">informations</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">yaml2obj</span><span class="o">.</span><span class="n">read_configuration</span><span class="p">()</span>
+            <span class="n">informations</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">yaml2obj</span><span class="o">.</span><span class="n">read_configuration</span><span class="p">(</span><span class="n">verbose</span><span class="o">=</span><span class="n">verbose</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">informations</span><span class="p">:</span>
-            <span class="n">ATSInfo</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">informations</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="n">verbose</span><span class="p">)</span>
-            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">ats_info_ok</span><span class="p">:</span>
-                <span class="n">tool_info</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{0}</span><span class="s1"> </span><span class="si">{1}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">build_date</span><span class="p">)</span>
+            <span class="n">info</span> <span class="o">=</span> <span class="n">ATSInfo</span><span class="p">(</span><span class="n">informations</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="n">verbose</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">info</span><span class="o">.</span><span class="n">ats_info_ok</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">option_parser</span> <span class="o">=</span> <span class="n">ATSOptionParser</span><span class="p">(</span>
-                    <span class="n">tool_info</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">version</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">licence</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="n">verbose</span>
+                    <span class="s1">&#39;</span><span class="si">{0}</span><span class="s1"> </span><span class="si">{1}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">info</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">info</span><span class="o">.</span><span class="n">build_date</span><span class="p">),</span>
+                    <span class="n">info</span><span class="o">.</span><span class="n">version</span><span class="p">,</span> <span class="n">info</span><span class="o">.</span><span class="n">licence</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="n">verbose</span>
                 <span class="p">)</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">tool_operational</span> <span class="o">=</span> <span class="kc">True</span>
+                <span class="n">verbose_message</span><span class="p">(</span>
+                    <span class="n">YamlBase</span><span class="o">.</span><span class="n">VERBOSE</span><span class="p">,</span> <span class="n">verbose</span><span class="p">,</span> <span class="s1">&#39;loaded ATS YAML base info&#39;</span>
+                <span class="p">)</span>
+
+<div class="viewcode-block" id="YamlBase.is_tool_ok"><a class="viewcode-back" href="../../../ats_utilities.config_io.yaml.html#ats_utilities.config_io.yaml.YamlBase.is_tool_ok">[docs]</a>    <span class="k">def</span> <span class="nf">is_tool_ok</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">            Checking is tool operational.</span>
+
+<span class="sd">            :return: True (yes) | False.</span>
+<span class="sd">            :rtype: &lt;bool&gt;</span>
+<span class="sd">            :exceptions: None</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">tool_operational</span></div>
 
     <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;</span>
@@ -246,8 +280,9 @@
 <span class="sd">            :rtype: &lt;str&gt;</span>
 <span class="sd">            :exceptions: None</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="k">return</span> <span class="s1">&#39;</span><span class="si">{0}</span><span class="s1"> (</span><span class="si">{1}</span><span class="s1">)&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="n">ATSInfo</span><span class="o">.</span><span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="k">return</span> <span class="s1">&#39;</span><span class="si">{0}</span><span class="s1"> (</span><span class="si">{1}</span><span class="s1">, </span><span class="si">{2}</span><span class="s1">, </span><span class="si">{3}</span><span class="s1">, </span><span class="si">{4}</span><span class="s1">)&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__verbose</span><span class="p">),</span>
+            <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tool_operational</span><span class="p">),</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">yaml2obj</span><span class="p">),</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">obj2yaml</span><span class="p">)</span>
         <span class="p">)</span></div>
 </pre></div>
 

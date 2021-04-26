@@ -61,7 +61,7 @@
             
             
               <div class="version">
-                1.6.5
+                1.7.5
               </div>
             
           
@@ -97,6 +97,7 @@
 <li class="toctree-l4"><a class="reference internal" href="ats_utilities.cli.html">ats_utilities.cli package</a></li>
 <li class="toctree-l4 current"><a class="current reference internal" href="#">ats_utilities.config_io package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ats_utilities.console_io.html">ats_utilities.console_io package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ats_utilities.cooperative.html">ats_utilities.cooperative package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ats_utilities.exceptions.html">ats_utilities.exceptions package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ats_utilities.final.html">ats_utilities.final package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ats_utilities.info.html">ats_utilities.info package</a></li>
@@ -262,14 +263,14 @@ You should have received a copy of the GNU General Public License along
 with this program. If not, see &lt;<a class="reference external" href="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</a>&gt;.</dd>
 <dt>Info</dt>
 <dd>Defined class ConfigFile with attribute(s) and method(s).
-Created API for configuration context manager.</dd>
+Created API for information/configuration context manager.</dd>
 </dl>
 <dl class="class">
 <dt id="ats_utilities.config_io.ConfigFile">
 <em class="property">class </em><code class="descclassname">ats_utilities.config_io.</code><code class="descname">ConfigFile</code><span class="sig-paren">(</span><em>file_path</em>, <em>file_mode</em>, <em>file_format</em>, <em>verbose=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ats_utilities/config_io.html#ConfigFile"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ats_utilities.config_io.ConfigFile" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="ats_utilities.config_io.base_check.html#ats_utilities.config_io.base_check.FileChecking" title="ats_utilities.config_io.base_check.FileChecking"><code class="xref py py-class docutils literal notranslate"><span class="pre">ats_utilities.config_io.base_check.FileChecking</span></code></a></p>
 <p>Defined class ConfigFile with attribute(s) and method(s).
-Created API for configuration context manager.
+Created API for information/configuration context manager.
 It defines:</p>
 <blockquote>
 <div><table class="docutils field-list" frame="void" rules="none">
@@ -277,8 +278,8 @@ It defines:</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">attributes:</th><td class="field-body"><div class="first last line-block">
-<div class="line">__slots__ - Setting class slots.</div>
-<div class="line">VERBOSE - Console text indicator for current process-phase.</div>
+<div class="line">__metaclass__ - Setting verbose root for ConfigFile.</div>
+<div class="line">__verbose - Enable/disable verbose option.</div>
 <div class="line">__file_path - Configuration file name.</div>
 <div class="line">__file_mode - File mode.</div>
 <div class="line">__file_format - File format.</div>
@@ -298,30 +299,8 @@ It defines:</p>
 </table>
 </div></blockquote>
 <dl class="attribute">
-<dt id="ats_utilities.config_io.ConfigFile.MODES">
-<code class="descname">MODES</code><a class="headerlink" href="#ats_utilities.config_io.ConfigFile.MODES" title="Permalink to this definition">¶</a></dt>
-<dd><p>list() -&gt; new empty list
-list(iterable) -&gt; new list initialized from iterable’s items</p>
-</dd></dl>
-
-<dl class="attribute">
 <dt id="ats_utilities.config_io.ConfigFile.VERBOSE">
-<code class="descname">VERBOSE</code><em class="property"> = 'ATS_UTILITIES::CONFIG_IO'</em><a class="headerlink" href="#ats_utilities.config_io.ConfigFile.VERBOSE" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="ats_utilities.config_io.ConfigFile.file_format_ok">
-<code class="descname">file_format_ok</code><a class="headerlink" href="#ats_utilities.config_io.ConfigFile.file_format_ok" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="ats_utilities.config_io.ConfigFile.file_mode_ok">
-<code class="descname">file_mode_ok</code><a class="headerlink" href="#ats_utilities.config_io.ConfigFile.file_mode_ok" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="ats_utilities.config_io.ConfigFile.file_path_ok">
-<code class="descname">file_path_ok</code><a class="headerlink" href="#ats_utilities.config_io.ConfigFile.file_path_ok" title="Permalink to this definition">¶</a></dt>
+<code class="descname">VERBOSE</code><em class="property"> = 'ats_utilities::config_io'</em><a class="headerlink" href="#ats_utilities.config_io.ConfigFile.VERBOSE" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>

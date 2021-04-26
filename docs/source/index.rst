@@ -139,13 +139,15 @@ Framework structure:
     │   ├── success.py
     │   ├── verbose.py
     │   └── warning.py
+    ├── cooperative/
+    │   └── __init__.py
     ├── exceptions/
     │   ├── ats_attribute_error.py
     │   ├── ats_bad_call_error.py
     │   ├── ats_file_error.py
     │   ├── ats_key_error.py
     │   ├── ats_lookup_error.py
-    │   ├── ats_parameter_error.py
+    │   ├── ats_parameter_error.py
     │   ├── ats_type_error.py
     │   ├── ats_value_error.py
     │   └── __init__.py

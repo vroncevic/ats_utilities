@@ -61,7 +61,7 @@
             
             
               <div class="version">
-                1.6.5
+                1.7.5
               </div>
             
           
@@ -97,6 +97,7 @@
 <li class="toctree-l4"><a class="reference internal" href="ats_utilities.cli.html">ats_utilities.cli package</a></li>
 <li class="toctree-l4 current"><a class="reference internal" href="ats_utilities.config_io.html">ats_utilities.config_io package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ats_utilities.console_io.html">ats_utilities.console_io package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ats_utilities.cooperative.html">ats_utilities.cooperative package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ats_utilities.exceptions.html">ats_utilities.exceptions package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ats_utilities.final.html">ats_utilities.final package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ats_utilities.info.html">ats_utilities.info package</a></li>
@@ -211,14 +212,14 @@ You should have received a copy of the GNU General Public License along
 with this program. If not, see &lt;<a class="reference external" href="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</a>&gt;.</dd>
 <dt>Info</dt>
 <dd>Defined class CfgBase with attribute(s) and method(s).
-Load ATS informations, setup ATS CL interface.</dd>
+Load ATS configuration/information, setup ATS CL interface.</dd>
 </dl>
 <dl class="class">
 <dt id="ats_utilities.config_io.cfg.CfgBase">
 <em class="property">class </em><code class="descclassname">ats_utilities.config_io.cfg.</code><code class="descname">CfgBase</code><span class="sig-paren">(</span><em>informations_file</em>, <em>verbose=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ats_utilities/config_io/cfg.html#CfgBase"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ats_utilities.config_io.cfg.CfgBase" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="ats_utilities.info.html#ats_utilities.info.ATSInfo" title="ats_utilities.info.ATSInfo"><code class="xref py py-class docutils literal notranslate"><span class="pre">ats_utilities.info.ATSInfo</span></code></a></p>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Defined class CfgBase with attribute(s) and method(s).
-Load ATS informations, setup ATS CL interface.
+Load ATS configuration/information, setup ATS CL interface.
 It defines:</p>
 <blockquote>
 <div><table class="docutils field-list" frame="void" rules="none">
@@ -226,6 +227,8 @@ It defines:</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">attributes:</th><td class="field-body"><div class="first last line-block">
+<div class="line">__metaclass__ - Setting verbose root for CfgBase.</div>
+<div class="line">__verbose - Enable/disable verbose option.</div>
 <div class="line">tool_operational - Control ATS operational functionality.</div>
 <div class="line">cfg2obj - In API for informations.</div>
 <div class="line">obj2cfg - Out API for informations.</div>
@@ -235,6 +238,7 @@ It defines:</p>
 </tr>
 <tr class="field-even field"><th class="field-name">methods:</th><td class="field-body"><div class="first last line-block">
 <div class="line">__init__ - Initial constructor.</div>
+<div class="line">is_tool_ok - Checking is tool operational.</div>
 <div class="line">__str__ - Dunder method for object CfgBase.</div>
 </div>
 </td>
@@ -242,6 +246,29 @@ It defines:</p>
 </tbody>
 </table>
 </div></blockquote>
+<dl class="attribute">
+<dt id="ats_utilities.config_io.cfg.CfgBase.VERBOSE">
+<code class="descname">VERBOSE</code><em class="property"> = 'ats_utilities::config_io::cfg'</em><a class="headerlink" href="#ats_utilities.config_io.cfg.CfgBase.VERBOSE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="ats_utilities.config_io.cfg.CfgBase.is_tool_ok">
+<code class="descname">is_tool_ok</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/ats_utilities/config_io/cfg.html#CfgBase.is_tool_ok"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ats_utilities.config_io.cfg.CfgBase.is_tool_ok" title="Permalink to this definition">¶</a></dt>
+<dd><p>Checking is tool operational.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">True (yes) | False.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">&lt;bool&gt;</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Exceptions:</th><td class="field-body">None</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
 </dd></dl>
 
 </div>

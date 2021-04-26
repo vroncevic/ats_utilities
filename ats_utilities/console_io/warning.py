@@ -36,13 +36,13 @@ __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2017, https://vroncevic.github.io/ats_utilities'
 __credits__ = ['Vladimir Roncevic']
 __license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = '1.6.5'
+__version__ = '1.7.5'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
 
 
-class ATSWarning(object):
+class ATSWarning:
     '''
         Defined class ATSWarning with attribute(s) and method(s).
         Created warning message container for console log mechanism.
@@ -101,7 +101,7 @@ class ATSWarning(object):
             :rtype: <bool>
             :exceptions: None
         '''
-        return True if self.__message is not None else False
+        return bool(self.__message)
 
     def __str__(self):
         '''
