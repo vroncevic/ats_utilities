@@ -50,15 +50,15 @@ class BaseWriteConfig:
         It defines:
 
             :attributes:
-                | __metaclass__ - Setting verbose root for BaseWriteConfig.
-                | __verbose - Enable/disable verbose option.
-                | __file_path - Configuration file path.
+                | __metaclass__ - setting verbose root for BaseWriteConfig.
+                | __verbose - enable/disable verbose option.
+                | __file_path - configuration file path.
             :methods:
-                | __init__ - Initial constructor.
-                | file_path - Property methods for set/get operations.
-                | is_not_none - Checking is file path None.
-                | write_configuration - Write configuration (Abstract method).
-                | __str__ - Dunder method for BaseWriteConfig.
+                | __init__ - initial constructor.
+                | file_path - property methods for set/get operations.
+                | is_not_none - checking is file path None.
+                | write_configuration - write configuration (Abstract method).
+                | __str__ - dunder method for BaseWriteConfig.
     '''
 
     __metaclass__ = VerboseRoot
@@ -67,7 +67,7 @@ class BaseWriteConfig:
         '''
             Initial constructor.
 
-            :param verbose: Enable/disable verbose option.
+            :param verbose: enable/disable verbose option.
             :type verbose: <bool>
             :exceptions: None
         '''
@@ -79,7 +79,7 @@ class BaseWriteConfig:
         '''
             Property method for getting file path.
 
-            :return: Configuration file path | None.
+            :return: configuration file path | None.
             :rtype: <str> | <NoneType>
             :exceptions: None
         '''
@@ -90,7 +90,7 @@ class BaseWriteConfig:
         '''
             Property method for setting file path.
 
-            :param file_path: Configuration file path.
+            :param file_path: configuration file path.
             :type file_path: <str>
             :exceptions: None
         '''
@@ -118,9 +118,9 @@ class BaseWriteConfig:
         '''
             Write configuration to file (Abstract method).
 
-            :param configuration: Configuration object.
+            :param configuration: configuration object.
             :type configuration: <dict>
-            :param verbose: Enable/disable verbose option.
+            :param verbose: enable/disable verbose option.
             :type verbose: <bool>
             :exception: NotImplementedError
         '''
@@ -129,7 +129,7 @@ class BaseWriteConfig:
         '''
             Dunder method for BaseWriteConfig.
 
-            :return: Object in a human-readable format.
+            :return: object in a human-readable format.
             :rtype: <str>
             :exceptions: None
         '''

@@ -216,28 +216,28 @@ It defines:</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">attributes:</th><td class="field-body"><div class="first last line-block">
-<div class="line">__metaclass__ - Setting class ATSChecker as final.</div>
-<div class="line">NO_ERROR - No error, error id (0).</div>
-<div class="line">TYPE_ERROR - Type param error id (1).</div>
-<div class="line">VALUE_ERROR - Value param error id (2).</div>
-<div class="line">FORMAT_ERROR - Wrong format error id (3).</div>
-<div class="line">__start_message - Start segment of usage message.</div>
-<div class="line">__list_of_params - List of parameters for method/function.</div>
-<div class="line">__error_type - List of mapped errors.</div>
-<div class="line">__error_type_index - Error type index.</div>
-<div class="line">__error_value_index - Error value index.</div>
+<div class="line">__metaclass__ - setting class ATSChecker as final.</div>
+<div class="line">NO_ERROR - no error, error id (0).</div>
+<div class="line">TYPE_ERROR - type param error id (1).</div>
+<div class="line">VALUE_ERROR - value param error id (2).</div>
+<div class="line">FORMAT_ERROR - wrong format error id (3).</div>
+<div class="line">__start_message - start segment of usage message.</div>
+<div class="line">__list_of_params - list of parameters for method/function.</div>
+<div class="line">__error_type - list of mapped errors.</div>
+<div class="line">__error_type_index - error type index.</div>
+<div class="line">__error_value_index - error value index.</div>
 </div>
 </td>
 </tr>
 <tr class="field-even field"><th class="field-name">methods:</th><td class="field-body"><div class="first last line-block">
-<div class="line">__init__ - Initial constructor.</div>
-<div class="line">collect_params - Collect all parameters in one list.</div>
-<div class="line">usage_message - Prepare usage message for method/function.</div>
-<div class="line">check_types - Check parameters (types) for method/function.</div>
-<div class="line">check_values - Check parameters (values) for method/function.</div>
-<div class="line">priority_error - Set priority error id (TYPE_ERROR).</div>
-<div class="line">check_params - Check parameters for method/function.</div>
-<div class="line">__str__ - Dunder method for object ATSChecker.</div>
+<div class="line">__init__ - initial constructor.</div>
+<div class="line">collect_params - collect all parameters in one list.</div>
+<div class="line">usage_message - prepare usage message for method/function.</div>
+<div class="line">check_types - check parameters (types) for method/function.</div>
+<div class="line">check_values - check parameters (values) for method/function.</div>
+<div class="line">priority_error - set priority error id (TYPE_ERROR).</div>
+<div class="line">check_params - check parameters for method/function.</div>
+<div class="line">__str__ - dunder method for object ATSChecker.</div>
 </div>
 </td>
 </tr>
@@ -272,9 +272,9 @@ It defines:</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>params_description</strong> (<em>&lt;list&gt;</em>) – Parameters description.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>params_description</strong> (<em>&lt;list&gt;</em>) – parameters description.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Usage message, status (0 | 1 | 2 | 3).</td>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">usage message, status (0 | 1 | 2 | 3).</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">&lt;str&gt;, &lt;int&gt;</td>
 </tr>
@@ -292,7 +292,7 @@ It defines:</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>params_description</strong> (<em>&lt;OrderedDict&gt;</em>) – Parameters description.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>params_description</strong> (<em>&lt;OrderedDict&gt;</em>) – parameters description.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">True (format for params ok) | False.</td>
 </tr>
@@ -312,7 +312,7 @@ It defines:</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>params_description</strong> (<em>&lt;OrderedDict&gt;</em>) – Parameters description.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>params_description</strong> (<em>&lt;OrderedDict&gt;</em>) – parameters description.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">True (format for params ok) | False.</td>
 </tr>
@@ -333,8 +333,8 @@ It defines:</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>params_description</strong> (<em>&lt;OrderedDict&gt;</em>) – Description for parameters.</li>
-<li><strong>verbose</strong> (<em>&lt;bool&gt;</em>) – Enable/disable verbose option.</li>
+<li><strong>params_description</strong> (<em>&lt;OrderedDict&gt;</em>) – description for parameters.</li>
+<li><strong>verbose</strong> (<em>&lt;bool&gt;</em>) – enable/disable verbose option.</li>
 </ul>
 </td>
 </tr>
@@ -359,7 +359,7 @@ It defines:</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Priority error id (0 | 1 | 2 | 3) | None.</td>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">priority error id (0 | 1 | 2 | 3) | None.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">&lt;int&gt; | &lt;NoneType&gt;</td>
 </tr>
@@ -377,7 +377,7 @@ It defines:</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Usage message for method/function.</td>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">usage message for method/function.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">&lt;str&gt;</td>
 </tr>

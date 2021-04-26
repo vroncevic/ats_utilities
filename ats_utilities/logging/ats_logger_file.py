@@ -17,7 +17,7 @@
      with this program. If not, see <http://www.gnu.org/licenses/>.
  Info
      Defined class ATSLoggerFile with attribute(s) and method(s).
-     Created API for App/Tool/Script logger file path in one propery object.
+     Created API for ATS logger file path in one propery object.
 '''
 
 import sys
@@ -45,17 +45,17 @@ __status__ = 'Updated'
 class ATSLoggerFile:
     '''
         Defined class ATSLoggerFile with attribute(s) and method(s).
-        Created API for App/Tool/Script logger file path in one propery object.
+        Created API for ATS logger file path in one propery object.
         It defines:
 
             :attributes:
-                | __metaclass__ - Setting verbose root for ATSLoggerFile.
-                | __verbose - Enable/disable verbose option.
-                | __logger_file - Log file path.
+                | __metaclass__ - setting verbose root for ATSLoggerFile.
+                | __verbose - enable/disable verbose option.
+                | __logger_file - log file path.
             :methods:
-                | __init__ - Initial constructor.
-                | logger_file - Property methods for set/get operations.
-                | __str__ - Dunder method for ATSLoggerFile.
+                | __init__ - initial constructor.
+                | logger_file - property methods for set/get operations.
+                | __str__ - dunder method for ATSLoggerFile.
     '''
 
     __metaclass__ = VerboseRoot
@@ -64,7 +64,7 @@ class ATSLoggerFile:
         '''
             Initial constructor.
 
-            :param verbose: Enable/disable verbose option.
+            :param verbose: enable/disable verbose option.
             :type verbose: <bool>
             :exceptions: None
         '''
@@ -76,7 +76,7 @@ class ATSLoggerFile:
         '''
             Property method for getting log file path.
 
-            :return: Log file path | None.
+            :return: log file path | None.
             :rtype: <str> | <NoneType>
             :exceptions: None
         '''
@@ -87,7 +87,7 @@ class ATSLoggerFile:
         '''
             Property method for setting log file path.
 
-            :param logger_file: Log file path.
+            :param logger_file: log file path.
             :type logger_file: <str>
             :exceptions: ATSTypeError | ATSBadCallError
         '''
@@ -106,7 +106,7 @@ class ATSLoggerFile:
         '''
             Dunder method for ATSLoggerFile.
 
-            :return: String representaiton of ATSLoggerFile.
+            :return: string representaiton of ATSLoggerFile.
             :rtype: <str>
             :exceptions: None
         '''

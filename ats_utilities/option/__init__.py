@@ -51,14 +51,14 @@ class ATSOptionParser:
         It defines:
 
             :attributes:
-                | __metaclass__ - Setting verbose root for ATSOptionParser.
-                | __verbose - Enable/disable verbose option.
-                | __opt_parser - Options parser.
+                | __metaclass__ - setting verbose root for ATSOptionParser.
+                | __verbose - enable/disable verbose option.
+                | __opt_parser - options parser.
             :methods:
-                | __init__ - Initial constructor.
-                | add_operation - Add option to App/Tool/Script.
-                | parse_args - Process arguments from start.
-                | __str__ - Dunder method for ATSOptionParser.
+                | __init__ - initial constructor.
+                | add_operation - add option to ATS.
+                | parse_args - process arguments from start.
+                | __str__ - dunder method for ATSOptionParser.
     '''
 
     __metaclass__ = VerboseRoot
@@ -67,13 +67,13 @@ class ATSOptionParser:
         '''
             Initial constructor.
 
-            :param version: App/Tool/Script version and build date.
+            :param version: ATS version and build date.
             :type version: <str>
-            :param epilog: App/Tool/Script long description.
+            :param epilog: ATS long description.
             :type epilog: <str>
-            :param description: App/Tool/Script author and license.
+            :param description: ATS author and license.
             :type description: <str>
-            :param verbose: Enable/disable verbose option.
+            :param verbose: enable/disable verbose option.
             :type verbose: <bool>
             :exceptions: ATSTypeError | ATSBadCallError
         '''
@@ -95,11 +95,11 @@ class ATSOptionParser:
 
     def add_operation(self, *args, **kwargs):
         '''
-            Add option to App/Tool/Script.
+            Add option to ATS.
 
-            :param args: List of arguments (objects).
+            :param args: list of arguments (objects).
             :type args: <list>
-            :param kwargs: Arguments in shape of dictionary.
+            :param kwargs: arguments in shape of dictionary.
             :type kwargs: <dict>
             :exceptions: None
         '''
@@ -109,11 +109,11 @@ class ATSOptionParser:
         '''
             Process arguments from start.
 
-            :param arguments: Arguments.
+            :param arguments: arguments.
             :type arguments: <list>
-            :param verbose: Enable/disable verbose option.
+            :param verbose: enable/disable verbose option.
             :type verbose: <bool>
-            :return: Namespace object.
+            :return: namespace object.
             :rtype: <argparse.Namespace>
             :exceptions: None
         '''
@@ -127,7 +127,7 @@ class ATSOptionParser:
         '''
             Dunder method for ATSOptionParser.
 
-            :return: Object in a human-readable format.
+            :return: object in a human-readable format.
             :rtype: <str>
             :exceptions: None
         '''

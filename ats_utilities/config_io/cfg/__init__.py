@@ -53,16 +53,16 @@ class CfgBase:
         It defines:
 
             :attributes:
-                | __metaclass__ - Setting verbose root for CfgBase.
-                | __verbose - Enable/disable verbose option.
-                | tool_operational - Control ATS operational functionality.
-                | cfg2obj - In API for informations.
-                | obj2cfg - Out API for informations.
-                | option_parser - Option parser for ATS.
+                | __metaclass__ - setting verbose root for CfgBase.
+                | __verbose - enable/disable verbose option.
+                | tool_operational - control ATS operational functionality.
+                | cfg2obj - in API for informations.
+                | obj2cfg - out API for informations.
+                | option_parser - option parser for ATS.
             :methods:
-                | __init__ - Initial constructor.
-                | is_tool_ok - Checking is tool operational.
-                | __str__ - Dunder method for object CfgBase.
+                | __init__ - initial constructor.
+                | is_tool_ok - checking is tool operational.
+                | __str__ - dunder method for object CfgBase.
     '''
 
     __metaclass__ = VerboseRoot
@@ -71,9 +71,9 @@ class CfgBase:
         '''
             Initial constructor.
 
-            :param informations_file: Informations file path.
+            :param informations_file: informations file path.
             :type informations_file: <str>
-            :param verbose: Enable/disable verbose option.
+            :param verbose: enable/disable verbose option.
             :type verbose: <bool>
             :exceptions: ATSTypeError | ATSBadCallError
         '''
@@ -118,7 +118,7 @@ class CfgBase:
         '''
             Dunder method for CfgBase.
 
-            :return: Object in a human-readable format.
+            :return: object in a human-readable format.
             :rtype: <str>
             :exceptions: None
         '''

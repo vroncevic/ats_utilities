@@ -17,7 +17,7 @@
      with this program. If not, see <http://www.gnu.org/licenses/>.
  Info
      Defined class ATSInfoOk with attribute(s) and method(s).
-     Created API for App/Tool/Script info status in one property object.
+     Created API for ATS info status in one property object.
 '''
 
 import sys
@@ -45,17 +45,17 @@ __status__ = 'Updated'
 class ATSInfoOk:
     '''
         Defined class ATSInfoOk with attribute(s) and method(s).
-        Created API for App/Tool/Script info status in one property object.
+        Created API for ATS info status in one property object.
         It defines:
 
             :attributes:
-                | __metaclass__ - Setting verbose root for ATSInfoOk.
-                | __verbose - Enable/disable verbose option.
-                | __ats_info_ok - App/Tool/Script information status.
+                | __metaclass__ - setting verbose root for ATSInfoOk.
+                | __verbose - enable/disable verbose option.
+                | __ats_info_ok - ATS information status.
             :methods:
-                | __init__ - Initial constructor.
-                | ats_info_ok - Property methods for set/get operations.
-                | __str__ - Dunder method for ATSInfoOk.
+                | __init__ - initial constructor.
+                | ats_info_ok - property methods for set/get operations.
+                | __str__ - dunder method for ATSInfoOk.
     '''
 
     __metaclass__ = VerboseRoot
@@ -64,7 +64,7 @@ class ATSInfoOk:
         '''
             Initial constructor.
 
-            :param verbose: Enable/disable verbose option.
+            :param verbose: enable/disable verbose option.
             :type verbose: <bool>
             :exceptions: None
         '''
@@ -74,9 +74,9 @@ class ATSInfoOk:
     @property
     def ats_info_ok(self):
         '''
-            Property method for getting App/Tool/Script information status.
+            Property method for getting ATS information status.
 
-            :return: App/Tool/Script information status.
+            :return: ATS information status.
             :rtype: <bool>
             :exceptions: None
         '''
@@ -85,9 +85,9 @@ class ATSInfoOk:
     @ats_info_ok.setter
     def ats_info_ok(self, ats_info_ok):
         '''
-            Property method for setting App/Tool/Script information status.
+            Property method for setting ATS information status.
 
-            :param ats_info_ok: App/Tool/Script information status.
+            :param ats_info_ok: ATS information status.
             :type ats_info_ok: <bool>
             :exceptions: ATSTypeError | ATSBadCallError
         '''
@@ -106,7 +106,7 @@ class ATSInfoOk:
         '''
             Dunder method for ATSInfoOk.
 
-            :return: Object in a human-readable format.
+            :return: object in a human-readable format.
             :rtype: <str>
             :exceptions: None
         '''

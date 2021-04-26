@@ -17,7 +17,7 @@
      with this program. If not, see <http://www.gnu.org/licenses/>.
  Info
      Defined class ATSBuildDate with attribute(s) and method(s).
-     Created API for App/Tool/Script build date in one property object.
+     Created API for ATS build date in one property object.
 '''
 
 import sys
@@ -45,18 +45,18 @@ __status__ = 'Updated'
 class ATSBuildDate:
     '''
         Defined class ATSBuildDate with attribute(s) and method(s).
-        Created API for App/Tool/Script build date in one property object.
+        Created API for ATS build date in one property object.
         It defines:
 
             :attributes:
-                | __metaclass__ - Setting verbose root for ATSBuildDate.
-                | __verbose - Enable/disable verbose option.
-                | __build_date - App/Tool/Script build date.
+                | __metaclass__ - setting verbose root for ATSBuildDate.
+                | __verbose - enable/disable verbose option.
+                | __build_date - ATS build date.
             :methods:
-                | __init__ - Initial constructor.
-                | build_date - Property methods for set/get operations.
-                | is_not_none - Checking is App/Tool/Script build date None.
-                | __str__ - Dunder method for ATSBuildDate.
+                | __init__ - initial constructor.
+                | build_date - property methods for set/get operations.
+                | is_not_none - checking is ATS build date None.
+                | __str__ - dunder method for ATSBuildDate.
     '''
 
     __metaclass__ = VerboseRoot
@@ -65,7 +65,7 @@ class ATSBuildDate:
         '''
             Initial constructor.
 
-            :param verbose: Enable/disable verbose option.
+            :param verbose: enable/disable verbose option.
             :type verbose: <bool>
             :exceptions: None
         '''
@@ -75,9 +75,9 @@ class ATSBuildDate:
     @property
     def build_date(self):
         '''
-            Property method for getting App/Tool/Script build date.
+            Property method for getting ATS build date.
 
-            :return: App/Tool/Script build date | None.
+            :return: ATS build date | None.
             :rtype: <str> | <NoneType>
             :exceptions: None
         '''
@@ -86,9 +86,9 @@ class ATSBuildDate:
     @build_date.setter
     def build_date(self, build_date):
         '''
-            Property method for setting App/Tool/Script build date.
+            Property method for setting ATS build date.
 
-            :param build_date: App/Tool/Script build date.
+            :param build_date: ATS build date.
             :type build_date: <str>
             :exceptions: ATSTypeError | ATSBadCallError
         '''
@@ -103,7 +103,7 @@ class ATSBuildDate:
 
     def is_not_none(self):
         '''
-            Checking is App/Tool/Script build date None.
+            Checking is ATS build date None.
 
             :return: True | False.
             :rtype: <bool>
@@ -115,7 +115,7 @@ class ATSBuildDate:
         '''
             Dunder method for ATSBuildDate.
 
-            :return: Object in a human-readable format.
+            :return: object in a human-readable format.
             :rtype: <str>
             :exceptions: None
         '''

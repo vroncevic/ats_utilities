@@ -47,25 +47,25 @@ class ATSChecker:
         It defines:
 
             :attributes:
-                | __metaclass__ - Setting class ATSChecker as final.
-                | NO_ERROR - No error, error id (0).
-                | TYPE_ERROR - Type param error id (1).
-                | VALUE_ERROR - Value param error id (2).
-                | FORMAT_ERROR - Wrong format error id (3).
-                | __start_message - Start segment of usage message.
-                | __list_of_params - List of parameters for method/function.
-                | __error_type - List of mapped errors.
-                | __error_type_index - Error type index.
-                | __error_value_index - Error value index.
+                | __metaclass__ - setting class ATSChecker as final.
+                | NO_ERROR - no error, error id (0).
+                | TYPE_ERROR - type param error id (1).
+                | VALUE_ERROR - value param error id (2).
+                | FORMAT_ERROR - wrong format error id (3).
+                | __start_message - start segment of usage message.
+                | __list_of_params - list of parameters for method/function.
+                | __error_type - list of mapped errors.
+                | __error_type_index - error type index.
+                | __error_value_index - error value index.
             :methods:
-                | __init__ - Initial constructor.
-                | collect_params - Collect all parameters in one list.
-                | usage_message - Prepare usage message for method/function.
-                | check_types - Check parameters (types) for method/function.
-                | check_values - Check parameters (values) for method/function.
-                | priority_error - Set priority error id (TYPE_ERROR).
-                | check_params - Check parameters for method/function.
-                | __str__ - Dunder method for object ATSChecker.
+                | __init__ - initial constructor.
+                | collect_params - collect all parameters in one list.
+                | usage_message - prepare usage message for method/function.
+                | check_types - check parameters (types) for method/function.
+                | check_values - check parameters (values) for method/function.
+                | priority_error - set priority error id (TYPE_ERROR).
+                | check_params - check parameters for method/function.
+                | __str__ - dunder method for object ATSChecker.
     '''
 
     __metaclass__ = ATSFinal
@@ -87,10 +87,10 @@ class ATSChecker:
         '''
             Collect all parameters in one list.
 
-            :param params_description: Description for parameters.
+            :param params_description: description for parameters.
             :type params_description: <OrderedDict>
             :return: True (format for params ok) | False.
-            :param verbose: Enable/disable verbose option.
+            :param verbose: enable/disable verbose option.
             :type verbose: <bool>
             :rtype: <bool>
             :exceptions: None
@@ -115,7 +115,7 @@ class ATSChecker:
         '''
             Prepare usage message for method/function.
 
-            :return: Usage message for method/function.
+            :return: usage message for method/function.
             :rtype: <str>
             :exceptions: None
         '''
@@ -137,7 +137,7 @@ class ATSChecker:
         '''
             Check parameters (types) for method/function.
 
-            :param params_description: Parameters description.
+            :param params_description: parameters description.
             :type params_description: <OrderedDict>
             :return: True (format for params ok) | False.
             :rtype: <bool>
@@ -166,7 +166,7 @@ class ATSChecker:
         '''
             Check parameters (values) for method/function.
 
-            :param params_description: Parameters description.
+            :param params_description: parameters description.
             :type params_description: <OrderedDict>
             :return: True (format for params ok) | False.
             :rtype: <bool>
@@ -199,7 +199,7 @@ class ATSChecker:
         '''
             Set priority error id (TYPE_ERROR).
 
-            :return: Priority error id (0 | 1 | 2 | 3) | None.
+            :return: priority error id (0 | 1 | 2 | 3) | None.
             :rtype: <int> | <NoneType>
             :exceptions: None
         '''
@@ -218,9 +218,9 @@ class ATSChecker:
         '''
             Check parameters for method/function.
 
-            :param params_description: Parameters description.
+            :param params_description: parameters description.
             :type params_description: <list>
-            :return: Usage message, status (0 | 1 | 2 | 3).
+            :return: usage message, status (0 | 1 | 2 | 3).
             :rtype: <str>, <int>
             :exceptions: None
         '''
@@ -245,7 +245,7 @@ class ATSChecker:
         '''
             Dunder method for object ATSChecker.
 
-            :return: Object in a human-readable format.
+            :return: object in a human-readable format.
             :rtype: <str>
             :exceptions: None
         '''

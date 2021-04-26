@@ -203,25 +203,25 @@
 <span class="sd">        It defines:</span>
 
 <span class="sd">            :attributes:</span>
-<span class="sd">                | __metaclass__ - Setting class ATSChecker as final.</span>
-<span class="sd">                | NO_ERROR - No error, error id (0).</span>
-<span class="sd">                | TYPE_ERROR - Type param error id (1).</span>
-<span class="sd">                | VALUE_ERROR - Value param error id (2).</span>
-<span class="sd">                | FORMAT_ERROR - Wrong format error id (3).</span>
-<span class="sd">                | __start_message - Start segment of usage message.</span>
-<span class="sd">                | __list_of_params - List of parameters for method/function.</span>
-<span class="sd">                | __error_type - List of mapped errors.</span>
-<span class="sd">                | __error_type_index - Error type index.</span>
-<span class="sd">                | __error_value_index - Error value index.</span>
+<span class="sd">                | __metaclass__ - setting class ATSChecker as final.</span>
+<span class="sd">                | NO_ERROR - no error, error id (0).</span>
+<span class="sd">                | TYPE_ERROR - type param error id (1).</span>
+<span class="sd">                | VALUE_ERROR - value param error id (2).</span>
+<span class="sd">                | FORMAT_ERROR - wrong format error id (3).</span>
+<span class="sd">                | __start_message - start segment of usage message.</span>
+<span class="sd">                | __list_of_params - list of parameters for method/function.</span>
+<span class="sd">                | __error_type - list of mapped errors.</span>
+<span class="sd">                | __error_type_index - error type index.</span>
+<span class="sd">                | __error_value_index - error value index.</span>
 <span class="sd">            :methods:</span>
-<span class="sd">                | __init__ - Initial constructor.</span>
-<span class="sd">                | collect_params - Collect all parameters in one list.</span>
-<span class="sd">                | usage_message - Prepare usage message for method/function.</span>
-<span class="sd">                | check_types - Check parameters (types) for method/function.</span>
-<span class="sd">                | check_values - Check parameters (values) for method/function.</span>
-<span class="sd">                | priority_error - Set priority error id (TYPE_ERROR).</span>
-<span class="sd">                | check_params - Check parameters for method/function.</span>
-<span class="sd">                | __str__ - Dunder method for object ATSChecker.</span>
+<span class="sd">                | __init__ - initial constructor.</span>
+<span class="sd">                | collect_params - collect all parameters in one list.</span>
+<span class="sd">                | usage_message - prepare usage message for method/function.</span>
+<span class="sd">                | check_types - check parameters (types) for method/function.</span>
+<span class="sd">                | check_values - check parameters (values) for method/function.</span>
+<span class="sd">                | priority_error - set priority error id (TYPE_ERROR).</span>
+<span class="sd">                | check_params - check parameters for method/function.</span>
+<span class="sd">                | __str__ - dunder method for object ATSChecker.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
 
     <span class="n">__metaclass__</span> <span class="o">=</span> <span class="n">ATSFinal</span>
@@ -243,10 +243,10 @@
         <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Collect all parameters in one list.</span>
 
-<span class="sd">            :param params_description: Description for parameters.</span>
+<span class="sd">            :param params_description: description for parameters.</span>
 <span class="sd">            :type params_description: &lt;OrderedDict&gt;</span>
 <span class="sd">            :return: True (format for params ok) | False.</span>
-<span class="sd">            :param verbose: Enable/disable verbose option.</span>
+<span class="sd">            :param verbose: enable/disable verbose option.</span>
 <span class="sd">            :type verbose: &lt;bool&gt;</span>
 <span class="sd">            :rtype: &lt;bool&gt;</span>
 <span class="sd">            :exceptions: None</span>
@@ -271,7 +271,7 @@
         <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Prepare usage message for method/function.</span>
 
-<span class="sd">            :return: Usage message for method/function.</span>
+<span class="sd">            :return: usage message for method/function.</span>
 <span class="sd">            :rtype: &lt;str&gt;</span>
 <span class="sd">            :exceptions: None</span>
 <span class="sd">        &#39;&#39;&#39;</span>
@@ -293,7 +293,7 @@
         <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Check parameters (types) for method/function.</span>
 
-<span class="sd">            :param params_description: Parameters description.</span>
+<span class="sd">            :param params_description: parameters description.</span>
 <span class="sd">            :type params_description: &lt;OrderedDict&gt;</span>
 <span class="sd">            :return: True (format for params ok) | False.</span>
 <span class="sd">            :rtype: &lt;bool&gt;</span>
@@ -322,7 +322,7 @@
         <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Check parameters (values) for method/function.</span>
 
-<span class="sd">            :param params_description: Parameters description.</span>
+<span class="sd">            :param params_description: parameters description.</span>
 <span class="sd">            :type params_description: &lt;OrderedDict&gt;</span>
 <span class="sd">            :return: True (format for params ok) | False.</span>
 <span class="sd">            :rtype: &lt;bool&gt;</span>
@@ -355,7 +355,7 @@
         <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Set priority error id (TYPE_ERROR).</span>
 
-<span class="sd">            :return: Priority error id (0 | 1 | 2 | 3) | None.</span>
+<span class="sd">            :return: priority error id (0 | 1 | 2 | 3) | None.</span>
 <span class="sd">            :rtype: &lt;int&gt; | &lt;NoneType&gt;</span>
 <span class="sd">            :exceptions: None</span>
 <span class="sd">        &#39;&#39;&#39;</span>
@@ -374,9 +374,9 @@
         <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Check parameters for method/function.</span>
 
-<span class="sd">            :param params_description: Parameters description.</span>
+<span class="sd">            :param params_description: parameters description.</span>
 <span class="sd">            :type params_description: &lt;list&gt;</span>
-<span class="sd">            :return: Usage message, status (0 | 1 | 2 | 3).</span>
+<span class="sd">            :return: usage message, status (0 | 1 | 2 | 3).</span>
 <span class="sd">            :rtype: &lt;str&gt;, &lt;int&gt;</span>
 <span class="sd">            :exceptions: None</span>
 <span class="sd">        &#39;&#39;&#39;</span>
@@ -401,7 +401,7 @@
         <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Dunder method for object ATSChecker.</span>
 
-<span class="sd">            :return: Object in a human-readable format.</span>
+<span class="sd">            :return: object in a human-readable format.</span>
 <span class="sd">            :rtype: &lt;str&gt;</span>
 <span class="sd">            :exceptions: None</span>
 <span class="sd">        &#39;&#39;&#39;</span>

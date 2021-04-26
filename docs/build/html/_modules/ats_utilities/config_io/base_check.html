@@ -206,19 +206,19 @@
 <span class="sd">        It defines:</span>
 
 <span class="sd">            :attributes:</span>
-<span class="sd">                | __metaclass__ - Setting verbose root for FileChecking.</span>
-<span class="sd">                | MODES - Mode file operations.</span>
-<span class="sd">                | __verbose - Enable/disable verbose option.</span>
-<span class="sd">                | __file_path_ok - File exist, path ok.</span>
-<span class="sd">                | __file_mode_ok - Supported file mode.</span>
-<span class="sd">                | __file_format_ok - File format is (not) expected.</span>
+<span class="sd">                | __metaclass__ - setting verbose root for FileChecking.</span>
+<span class="sd">                | MODES - mode file operations.</span>
+<span class="sd">                | __verbose - enable/disable verbose option.</span>
+<span class="sd">                | __file_path_ok - file exist, path ok.</span>
+<span class="sd">                | __file_mode_ok - supported file mode.</span>
+<span class="sd">                | __file_format_ok - file format is (not) expected.</span>
 <span class="sd">            :methods:</span>
-<span class="sd">                | __init__ - Initial constructor.</span>
-<span class="sd">                | check_path - Check file path.</span>
-<span class="sd">                | check_mode -  Check operation mode for file.</span>
-<span class="sd">                | check_format - Check file format by extension.</span>
-<span class="sd">                | is_file_ok - Status of file.</span>
-<span class="sd">                | __str__ - Dunder method for FileChecking.</span>
+<span class="sd">                | __init__ - initial constructor.</span>
+<span class="sd">                | check_path - check file path.</span>
+<span class="sd">                | check_mode -  check operation mode for file.</span>
+<span class="sd">                | check_format - check file format by extension.</span>
+<span class="sd">                | is_file_ok - status of file.</span>
+<span class="sd">                | __str__ - dunder method for FileChecking.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
 
     <span class="n">__metaclass__</span> <span class="o">=</span> <span class="n">VerboseRoot</span>
@@ -228,7 +228,7 @@
         <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Initial constructor.</span>
 
-<span class="sd">            :param verbose: Enable/disable verbose option.</span>
+<span class="sd">            :param verbose: enable/disable verbose option.</span>
 <span class="sd">            :type verbose: &lt;bool&gt;</span>
 <span class="sd">            :exceptions: None</span>
 <span class="sd">        &#39;&#39;&#39;</span>
@@ -242,9 +242,9 @@
         <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Check file path.</span>
 
-<span class="sd">            :param file_path: File path.</span>
+<span class="sd">            :param file_path: file path.</span>
 <span class="sd">            :type file_path: &lt;str&gt;</span>
-<span class="sd">            :param verbose: Enable/disable verbose option.</span>
+<span class="sd">            :param verbose: enable/disable verbose option.</span>
 <span class="sd">            :type verbose: &lt;bool&gt;</span>
 <span class="sd">            :exceptions: None</span>
 <span class="sd">        &#39;&#39;&#39;</span>
@@ -260,9 +260,9 @@
         <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Check operation mode for file.</span>
 
-<span class="sd">            :param file_mode: File mode (&#39;r&#39;, &#39;w&#39;, &#39;a&#39;, &#39;b&#39;, &#39;x&#39;, &#39;t&#39;, &#39;+&#39;).</span>
+<span class="sd">            :param file_mode: file mode (&#39;r&#39;, &#39;w&#39;, &#39;a&#39;, &#39;b&#39;, &#39;x&#39;, &#39;t&#39;, &#39;+&#39;).</span>
 <span class="sd">            :type file_mode: &lt;str&gt;</span>
-<span class="sd">            :param verbose: Enable/disable verbose option.</span>
+<span class="sd">            :param verbose: enable/disable verbose option.</span>
 <span class="sd">            :type verbose: &lt;bool&gt;</span>
 <span class="sd">            :return: True (regular file mode) | False.</span>
 <span class="sd">            :rtype: &lt;bool&gt;</span>
@@ -291,11 +291,11 @@
         <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Check file format by extension.</span>
 
-<span class="sd">            :param file_path: File path.</span>
+<span class="sd">            :param file_path: file path.</span>
 <span class="sd">            :type file_path: &lt;str&gt;</span>
-<span class="sd">            :param file_format: File format (file extension).</span>
+<span class="sd">            :param file_format: file format (file extension).</span>
 <span class="sd">            :type file_format: &lt;str&gt;</span>
-<span class="sd">            :param verbose: Enable/disable verbose option.</span>
+<span class="sd">            :param verbose: enable/disable verbose option.</span>
 <span class="sd">            :type verbose: &lt;bool&gt;</span>
 <span class="sd">            :exceptions: None</span>
 <span class="sd">        &#39;&#39;&#39;</span>
@@ -330,7 +330,7 @@
         <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Dunder method for FileChecking.</span>
 
-<span class="sd">            :return: Object in a human-readable format.</span>
+<span class="sd">            :return: object in a human-readable format.</span>
 <span class="sd">            :rtype: &lt;str&gt;</span>
 <span class="sd">            :exceptions: None</span>
 <span class="sd">        &#39;&#39;&#39;</span>

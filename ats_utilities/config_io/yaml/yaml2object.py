@@ -52,13 +52,13 @@ class Yaml2Object(BaseReadConfig):
         It defines:
 
             :attributes:
-                | __metaclass__ - Setting verbose root for Yaml2Object.
-                | __FORMAT - Format of configuration content.
-                | __verbose - Enable/disable verbose option.
+                | __metaclass__ - setting verbose root for Yaml2Object.
+                | __FORMAT - format of configuration content.
+                | __verbose - enable/disable verbose option.
             :methods:
-                | __init__ - Initial constructor.
-                | read_configuration - Getting a configuration from file.
-                | __str__ - Dunder method for object Yaml2Object.
+                | __init__ - initial constructor.
+                | read_configuration - getting a configuration from file.
+                | __str__ - dunder method for object Yaml2Object.
     '''
 
     __metaclass__ = VerboseRoot
@@ -68,9 +68,9 @@ class Yaml2Object(BaseReadConfig):
         '''
             Initial constructor.
 
-            :param configuration_file: Configuration file path.
+            :param configuration_file: configuration file path.
             :type configuration_file: <str>
-            :param verbose: Enable/disable verbose option.
+            :param verbose: enable/disable verbose option.
             :type verbose: <bool>
             :exceptions: ATSTypeError | ATSBadCallError
         '''
@@ -91,9 +91,9 @@ class Yaml2Object(BaseReadConfig):
         '''
             Getting a configuration from yaml file.
 
-            :param verbose: Enable/disable verbose option.
+            :param verbose: enable/disable verbose option.
             :type verbose: <bool>
-            :return: Configuration object | None.
+            :return: configuration object | None.
             :rtype: <Python object(s)> | <NoneType>
             :exceptions: None
         '''
@@ -110,7 +110,7 @@ class Yaml2Object(BaseReadConfig):
         '''
             Dunder method for Yaml2Object.
 
-            :return: Object in a human-readable format.
+            :return: object in a human-readable format.
             :rtype: <str>
             :exceptions: None
         '''

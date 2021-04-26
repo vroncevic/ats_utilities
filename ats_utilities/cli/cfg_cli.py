@@ -51,14 +51,14 @@ class CfgCLI(CfgBase):
         It defines:
 
             :attributes:
-                | __metaclass__ - Setting verbose root for CfgCLI.
-                | __verbose - Enable/disable verbose option.
+                | __metaclass__ - setting verbose root for CfgCLI.
+                | __verbose - enable/disable verbose option.
             :methods:
-                | __init__ - Initial constructor.
-                | add_new_option - Adding new option for CL interface.
-                | parse_args - Parse arguments.
-                | process - Process and run tool operation (Abstract method).
-                | __str__ - Dunder method for CfgCLI.
+                | __init__ - initial constructor.
+                | add_new_option - adding new option for CL interface.
+                | parse_args - parse arguments.
+                | process - process and run tool operation (Abstract method).
+                | __str__ - dunder method for CfgCLI.
     '''
 
     __metaclass__ = VerboseRoot
@@ -67,9 +67,9 @@ class CfgCLI(CfgBase):
         '''
             Initial constructor.
 
-            :param informations_file: Informations file path.
+            :param informations_file: informations file path.
             :type informations_file: <str>
-            :param verbose: Enable/disable verbose option.
+            :param verbose: enable/disable verbose option.
             :type verbose: <bool>
             :exceptions: ATSTypeError | ATSBadCallError
         '''
@@ -89,9 +89,9 @@ class CfgCLI(CfgBase):
         '''
             Adding new option for CL interface.
 
-            :param args: List of arguments (objects).
+            :param args: list of arguments (objects).
             :type args: <list>
-            :param kwargs: Arguments in shape of dictionary.
+            :param kwargs: arguments in shape of dictionary.
             :type kwargs: <dict>
             :exceptions: None
         '''
@@ -101,21 +101,21 @@ class CfgCLI(CfgBase):
         '''
             Process arguments from start.
 
-            :param argv: Arguments.
-            :type argv: <Python object(s)>
-            :return: Options and arguments.
+            :param argv: arguments.
+            :type argv: <list>
+            :return: options and arguments.
             :rtype: <Python object(s)>
             :exceptions: None
         '''
-        (opts, args) = self.option_parser.parse_args(argv)
-        return opts, args
+        args = self.option_parser.parse_args(argv)
+        return args
 
     @AbstractMethod
     def process(self, verbose=False):
         '''
             Process and run tool operation (Abstract method).
 
-            :param verbose: Enable/disable verbose option.
+            :param verbose: enable/disable verbose option.
             :type verbose: <bool>
             :exception: NotImplementedError
         '''
@@ -124,7 +124,7 @@ class CfgCLI(CfgBase):
         '''
             Dunder method for CfgCLI.
 
-            :return: Object in a human-readable format.
+            :return: object in a human-readable format.
             :rtype: <str>
             :exceptions: None
         '''

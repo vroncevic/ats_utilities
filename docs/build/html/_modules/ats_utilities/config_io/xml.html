@@ -211,16 +211,16 @@
 <span class="sd">        It defines:</span>
 
 <span class="sd">            :attributes:</span>
-<span class="sd">                | __metaclass__ - Setting verbose root for XmlBase.</span>
-<span class="sd">                | __verbose - Enable/disable verbose option.</span>
-<span class="sd">                | tool_operational - Control ATS operational functionality.</span>
-<span class="sd">                | xml2obj - In API for informations.</span>
-<span class="sd">                | obj2xml - Out API for informations.</span>
-<span class="sd">                | option_parser - Option parser for ATS.</span>
+<span class="sd">                | __metaclass__ - setting verbose root for XmlBase.</span>
+<span class="sd">                | __verbose - enable/disable verbose option.</span>
+<span class="sd">                | tool_operational - control ATS operational functionality.</span>
+<span class="sd">                | xml2obj - in API for informations.</span>
+<span class="sd">                | obj2xml - out API for informations.</span>
+<span class="sd">                | option_parser - option parser for ATS.</span>
 <span class="sd">            :methods:</span>
-<span class="sd">                | __init__ - Initial constructor.</span>
-<span class="sd">                | is_tool_ok - Checking is tool operational.</span>
-<span class="sd">                | __str__ - Dunder method for object XmlBase.</span>
+<span class="sd">                | __init__ - initial constructor.</span>
+<span class="sd">                | is_tool_ok - checking is tool operational.</span>
+<span class="sd">                | __str__ - dunder method for object XmlBase.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
 
     <span class="n">__metaclass__</span> <span class="o">=</span> <span class="n">VerboseRoot</span>
@@ -229,9 +229,9 @@
         <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Initial constructor.</span>
 
-<span class="sd">            :param informations_file: Informations file path.</span>
+<span class="sd">            :param informations_file: informations file path.</span>
 <span class="sd">            :type informations_file: &lt;str&gt;</span>
-<span class="sd">            :param verbose: Enable/disable verbose option.</span>
+<span class="sd">            :param verbose: enable/disable verbose option.</span>
 <span class="sd">            :type verbose: &lt;bool&gt;</span>
 <span class="sd">            :exceptions: ATSTypeError | ATSBadCallError</span>
 <span class="sd">        &#39;&#39;&#39;</span>
@@ -244,13 +244,23 @@
         <span class="k">if</span> <span class="n">status</span> <span class="o">==</span> <span class="n">ATSChecker</span><span class="o">.</span><span class="n">VALUE_ERROR</span><span class="p">:</span>
             <span class="k">raise</span> <span class="n">ATSBadCallError</span><span class="p">(</span><span class="n">error</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__verbose</span> <span class="o">=</span> <span class="n">verbose</span>
-        <span class="n">informations</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="n">informations</span><span class="p">,</span> <span class="n">info_dict</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="nb">dict</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">tool_operational</span> <span class="o">=</span> <span class="kc">False</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">xml2obj</span> <span class="o">=</span> <span class="n">Xml2Object</span><span class="p">(</span><span class="n">informations_file</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="n">verbose</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">obj2xml</span> <span class="o">=</span> <span class="n">Object2Xml</span><span class="p">(</span><span class="n">informations_file</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="n">verbose</span><span class="p">)</span>
         <span class="k">if</span> <span class="nb">all</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">xml2obj</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">obj2xml</span><span class="p">]):</span>
             <span class="n">informations</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">xml2obj</span><span class="o">.</span><span class="n">read_configuration</span><span class="p">(</span><span class="n">verbose</span><span class="o">=</span><span class="n">verbose</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">informations</span><span class="p">:</span>
+            <span class="n">info_dict</span><span class="p">[</span><span class="s1">&#39;ats_name&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">informations</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;ats_name&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
+            <span class="n">info_dict</span><span class="p">[</span><span class="s1">&#39;ats_version&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span>
+                <span class="n">informations</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;ats_version&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">text</span>
+            <span class="p">)</span>
+            <span class="n">info_dict</span><span class="p">[</span><span class="s1">&#39;ats_build_date&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span>
+                <span class="n">informations</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;ats_build_date&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">text</span>
+            <span class="p">)</span>
+            <span class="n">info_dict</span><span class="p">[</span><span class="s1">&#39;ats_licence&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span>
+                <span class="n">informations</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;ats_licence&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">text</span>
+            <span class="p">)</span>
             <span class="n">info</span> <span class="o">=</span> <span class="n">ATSInfo</span><span class="p">(</span><span class="n">informations</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="n">verbose</span><span class="p">)</span>
             <span class="k">if</span> <span class="n">info</span><span class="o">.</span><span class="n">ats_info_ok</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">option_parser</span> <span class="o">=</span> <span class="n">ATSOptionParser</span><span class="p">(</span>
@@ -276,7 +286,7 @@
         <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Dunder method for XmlBase.</span>
 
-<span class="sd">            :return: Object in a human-readable format.</span>
+<span class="sd">            :return: object in a human-readable format.</span>
 <span class="sd">            :rtype: &lt;str&gt;</span>
 <span class="sd">            :exceptions: None</span>
 <span class="sd">        &#39;&#39;&#39;</span>

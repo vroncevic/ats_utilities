@@ -37,10 +37,10 @@ class ATSFinal(type):
         It defines:
 
             :attributes:
-                | registry - Set of classes.
+                | registry - set of classes.
             :methods:
-                | __init__ - Initial constructor.
-                | __str__ - Dunder method for ATSFinal.
+                | __init__ - initial constructor.
+                | __str__ - dunder method for ATSFinal.
     '''
 
     def __init__(cls, name, bases, namespace):
@@ -49,9 +49,9 @@ class ATSFinal(type):
 
             :param name: class name.
             :type name: <str>
-            :param bases: Class bases.
+            :param bases: class bases.
             :type bases: <tuple>
-            :param namespace: Class namespace.
+            :param namespace: class namespace.
             :type namespace: <dict>
             :exceptions: TypeError
         '''
@@ -67,7 +67,7 @@ class ATSFinal(type):
         '''
             Dunder method for ATSFinal.
 
-            :return: Object in a human-readable format.
+            :return: object in a human-readable format.
             :rtype: <str>
             :exceptions: None
         '''

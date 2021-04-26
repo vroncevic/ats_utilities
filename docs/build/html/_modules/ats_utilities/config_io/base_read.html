@@ -208,15 +208,15 @@
 <span class="sd">        It defines:</span>
 
 <span class="sd">            :attributes:</span>
-<span class="sd">                | __metaclass__ - Setting verbose root for BaseReadConfig.</span>
-<span class="sd">                | __verbose - Enable/disable verbose option.</span>
-<span class="sd">                | __file_path - Configuration file path.</span>
+<span class="sd">                | __metaclass__ - setting verbose root for BaseReadConfig.</span>
+<span class="sd">                | __verbose - enable/disable verbose option.</span>
+<span class="sd">                | __file_path - configuration file path.</span>
 <span class="sd">            :methods:</span>
-<span class="sd">                | __init__ - Initial constructor.</span>
-<span class="sd">                | file_path - Property methods for set/get operations.</span>
-<span class="sd">                | is_not_none - Checking is file path None.</span>
-<span class="sd">                | read_configuration - Read configuration (Abstract method).</span>
-<span class="sd">                | __str__ - Dunder method for BaseReadConfig.</span>
+<span class="sd">                | __init__ - initial constructor.</span>
+<span class="sd">                | file_path - property methods for set/get operations.</span>
+<span class="sd">                | is_not_none - checking is file path None.</span>
+<span class="sd">                | read_configuration - read configuration (Abstract method).</span>
+<span class="sd">                | __str__ - dunder method for BaseReadConfig.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
 
     <span class="n">__metaclass__</span> <span class="o">=</span> <span class="n">VerboseRoot</span>
@@ -225,7 +225,7 @@
         <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Initial constructor.</span>
 
-<span class="sd">            :param verbose: Enable/disable verbose option.</span>
+<span class="sd">            :param verbose: enable/disable verbose option.</span>
 <span class="sd">            :type verbose: &lt;bool&gt;</span>
 <span class="sd">            :exceptions: None</span>
 <span class="sd">        &#39;&#39;&#39;</span>
@@ -237,7 +237,7 @@
         <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Property method for getting file path.</span>
 
-<span class="sd">            :return: Configuration file path | None.</span>
+<span class="sd">            :return: configuration file path | None.</span>
 <span class="sd">            :rtype: &lt;str&gt; | &lt;NoneType&gt;</span>
 <span class="sd">            :exception: None</span>
 <span class="sd">        &#39;&#39;&#39;</span>
@@ -248,11 +248,11 @@
         <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Property method for setting file path.</span>
 
-<span class="sd">            :param file_path: Configuration file path.</span>
+<span class="sd">            :param file_path: configuration file path.</span>
 <span class="sd">            :type file_path: &lt;str&gt;</span>
 <span class="sd">            :exceptions: None</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="n">checker</span><span class="p">,</span> <span class="n">error</span><span class="p">,</span> <span class="n">status</span> <span class="o">=</span> <span class="n">ATSChecker</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__verbose</span><span class="p">),</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">False</span>
+        <span class="n">checker</span><span class="p">,</span> <span class="n">error</span><span class="p">,</span> <span class="n">status</span> <span class="o">=</span> <span class="n">ATSChecker</span><span class="p">(),</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">False</span>
         <span class="n">error</span><span class="p">,</span> <span class="n">status</span> <span class="o">=</span> <span class="n">checker</span><span class="o">.</span><span class="n">check_params</span><span class="p">([(</span><span class="s1">&#39;str:file_path&#39;</span><span class="p">,</span> <span class="n">file_path</span><span class="p">)])</span>
         <span class="k">if</span> <span class="n">status</span> <span class="o">==</span> <span class="n">ATSChecker</span><span class="o">.</span><span class="n">TYPE_ERROR</span><span class="p">:</span>
             <span class="k">raise</span> <span class="n">ATSTypeError</span><span class="p">(</span><span class="n">error</span><span class="p">)</span>
@@ -276,7 +276,7 @@
         <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Read configuration from file (Abstract method).</span>
 
-<span class="sd">            :param verbose: Enable/disable verbose option.</span>
+<span class="sd">            :param verbose: enable/disable verbose option.</span>
 <span class="sd">            :type verbose: &lt;bool&gt;</span>
 <span class="sd">            :exception: NotImplementedError</span>
 <span class="sd">        &#39;&#39;&#39;</span>
@@ -285,7 +285,7 @@
         <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Dunder method for BaseReadConfig.</span>
 
-<span class="sd">            :return: Object in a human-readable format.</span>
+<span class="sd">            :return: object in a human-readable format.</span>
 <span class="sd">            :rtype: &lt;str&gt;</span>
 <span class="sd">            :exceptions: None</span>
 <span class="sd">        &#39;&#39;&#39;</span>

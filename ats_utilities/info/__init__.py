@@ -17,7 +17,7 @@
      with this program. If not, see <http://www.gnu.org/licenses/>.
  Info
      Defined class ATSInfo with attribute(s) and method(s).
-     Created API for App/Tool/Script informations in one container object.
+     Created API for ATS informations in one container object.
 '''
 
 import sys
@@ -52,22 +52,22 @@ __status__ = 'Updated'
 class ATSInfo(ATSName, ATSVersion, ATSLicence, ATSBuildDate, ATSInfoOk):
     '''
         Defined class ATSInfo with attribute(s) and method(s).
-        Created API for App/Tool/Script informations in one container object.
+        Created API for ATS informations in one container object.
         It defines:
 
             :attributes:
-                | __metaclass__ - Setting cooperative metaclasses.
+                | __metaclass__ - setting cooperative metaclasses.
                 | ATS_NAME - ATS name key.
                 | ATS_VERSION - ATS version key.
                 | ATS_LICENCE - ATS licence key.
                 | ATS_BUILD_DATE - ATS build date key.
                 | ATS_BASE_INFO - ATS base information dict.
-                | __verbose - Enable/disable verbose option.
+                | __verbose - enable/disable verbose option.
             :methods:
-                | __init__ - Initial constructor.
-                | show_base_info - Show ATS informations.
-                | is_correct - Check information structure.
-                | __str__ - Dunder method for ATSInfo.
+                | __init__ - initial constructor.
+                | show_base_info - show ATS informations.
+                | is_correct - check information structure.
+                | __str__ - dunder method for ATSInfo.
     '''
 
     __metaclass__ = CooperativeMeta
@@ -86,9 +86,9 @@ class ATSInfo(ATSName, ATSVersion, ATSLicence, ATSBuildDate, ATSInfoOk):
         '''
             Initial constructor.
 
-            :param info: App/Tool/Script basic informations.
+            :param info: ATS basic informations.
             :type info: <dict>
-            :param verbose: Enable/disable verbose option.
+            :param verbose: enable/disable verbose option.
             :type verbose: <bool>
             :exceptions: ATSTypeError | ATSBadCallError
         '''
@@ -134,7 +134,7 @@ class ATSInfo(ATSName, ATSVersion, ATSLicence, ATSBuildDate, ATSInfoOk):
 
             :param informations: ATS base informations.
             :type informations: <dict>
-            :param verbose: Enable/disable verbose option.
+            :param verbose: enable/disable verbose option.
             :type verbose: <bool>
             :exceptions: ATSTypeError | ATSBadCallError
         '''
@@ -161,7 +161,7 @@ class ATSInfo(ATSName, ATSVersion, ATSLicence, ATSBuildDate, ATSInfoOk):
         '''
             Dunder method for ATSInfo.
 
-            :return: Object in a human-readable format.
+            :return: object in a human-readable format.
             :rtype: <str>
             :exceptions: None
         '''
