@@ -35,7 +35,7 @@ __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2017, https://vroncevic.github.io/ats_utilities'
 __credits__ = ['Vladimir Roncevic']
 __license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = '1.7.5'
+__version__ = '1.8.5'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
@@ -59,7 +59,7 @@ class FileChecking:
                 | check_path - check file path.
                 | check_mode -  check operation mode for file.
                 | check_format - check file format by extension.
-                | is_file_ok - status of file.
+                | is_file_ok - status of file for processing.
                 | __str__ - dunder method for FileChecking.
     '''
 
@@ -158,9 +158,9 @@ class FileChecking:
 
     def is_file_ok(self):
         '''
-            Status of file.
+            Status of file for processing.
 
-            :return: True (correct file), else False.
+            :return: boolean status, True (correct file) | False.
             :rtype: <bool>
             :exceptions: None
         '''

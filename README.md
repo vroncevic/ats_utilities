@@ -161,8 +161,14 @@ ats_utilities/
 │   └── __init__.py
 ├── option/
 │   └── __init__.py
-└── register/
-    └── __init__.py
+├── register/
+│   └── __init__.py
+└── singleton/
+    ├── base.py
+    ├── functional.py
+    ├── __init__.py
+    ├── meta.py
+    └── meta_thread.py
 ```
 
 ### Docs
