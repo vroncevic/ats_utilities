@@ -38,7 +38,7 @@ __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2017, https://vroncevic.github.io/ats_utilities'
 __credits__ = ['Vladimir Roncevic']
 __license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = '1.7.5'
+__version__ = '1.8.5'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
@@ -94,7 +94,7 @@ class Object2Xml(BaseWriteConfig):
             :type: <BeautifulSoup>
             :param verbose: enable/disable verbose option.
             :type verbose: <bool>
-            :return: True (success) | False.
+            :return: boolean status, True (success) | False.
             :rtype: <bool>
             :exception: None
         '''

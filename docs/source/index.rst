@@ -45,7 +45,7 @@ Navigate to release `page`_ download and extract release archive.
 
 .. _page: https://github.com/vroncevic/ats_utilities/releases
 
-To install this set of modules type the following:
+To install package type the following:
 
 .. code-block:: bash
 
@@ -168,8 +168,14 @@ Framework structure:
     │   └── __init__.py
     ├── option/
     │   └── __init__.py
-    └── register/
-        └── __init__.py
+    ├── register/
+    │   └── __init__.py
+    └── singleton/
+        ├── base.py
+        ├── functional.py
+        ├── __init__.py
+        ├── meta.py
+        └── meta_thread.py
 
 Copyright and licence
 ----------------------

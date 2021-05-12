@@ -18,6 +18,7 @@ Subpackages
     ats_utilities.logging
     ats_utilities.option
     ats_utilities.register
+    ats_utilities.singleton
 
 Module contents
 ---------------

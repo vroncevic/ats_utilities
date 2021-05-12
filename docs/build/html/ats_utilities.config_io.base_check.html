@@ -61,7 +61,7 @@
             
             
               <div class="version">
-                1.7.5
+                1.8.5
               </div>
             
           
@@ -104,6 +104,7 @@
 <li class="toctree-l4"><a class="reference internal" href="ats_utilities.logging.html">ats_utilities.logging package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ats_utilities.option.html">ats_utilities.option package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ats_utilities.register.html">ats_utilities.register package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ats_utilities.singleton.html">ats_utilities.singleton package</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="ats_utilities.html#module-ats_utilities">Module contents</a></li>
@@ -230,7 +231,7 @@ It defines:</p>
 <div class="line">check_path - check file path.</div>
 <div class="line">check_mode -  check operation mode for file.</div>
 <div class="line">check_format - check file format by extension.</div>
-<div class="line">is_file_ok - status of file.</div>
+<div class="line">is_file_ok - status of file for processing.</div>
 <div class="line">__str__ - dunder method for FileChecking.</div>
 </div>
 </td>
@@ -321,12 +322,12 @@ It defines:</p>
 <dl class="method">
 <dt id="ats_utilities.config_io.base_check.FileChecking.is_file_ok">
 <code class="descname">is_file_ok</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/ats_utilities/config_io/base_check.html#FileChecking.is_file_ok"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ats_utilities.config_io.base_check.FileChecking.is_file_ok" title="Permalink to this definition">¶</a></dt>
-<dd><p>Status of file.</p>
+<dd><p>Status of file for processing.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">True (correct file), else False.</td>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">boolean status, True (correct file) | False.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">&lt;bool&gt;</td>
 </tr>

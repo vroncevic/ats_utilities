@@ -60,7 +60,7 @@
             
             
               <div class="version">
-                1.7.5
+                1.8.5
               </div>
             
           
@@ -181,6 +181,7 @@ other information that should be provided before the modules are installed.</p>
 <li class="toctree-l4"><a class="reference internal" href="ats_utilities.logging.html">ats_utilities.logging package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ats_utilities.option.html">ats_utilities.option package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ats_utilities.register.html">ats_utilities.register package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ats_utilities.singleton.html">ats_utilities.singleton package</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="ats_utilities.html#module-ats_utilities">Module contents</a></li>
@@ -195,7 +196,7 @@ other information that should be provided before the modules are installed.</p>
 <h1>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h1>
 <p><a class="reference external" href="https://github.com/vroncevic/ats_utilities/workflows/Install%20Python2%20Package%20ats_utilities/badge.svg?branch=master"><img alt="Install Python2 Package" src="https://github.com/vroncevic/ats_utilities/workflows/Install%20Python2%20Package%20ats_utilities/badge.svg" /></a> <a class="reference external" href="https://github.com/vroncevic/ats_utilities/workflows/Install%20Python3%20Package%20ats_utilities/badge.svg?branch=master"><img alt="Install Python3 Package" src="https://github.com/vroncevic/ats_utilities/workflows/Install%20Python3%20Package%20ats_utilities/badge.svg" /></a></p>
 <p>Navigate to release <a class="reference external" href="https://github.com/vroncevic/ats_utilities/releases">page</a> download and extract release archive.</p>
-<p>To install this set of modules type the following:</p>
+<p>To install package type the following:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>tar xvzf ats_utilities-x.y.z.tar.gz
 <span class="nb">cd</span> ats_utilities-x.y.z/
 <span class="c1"># python2</span>
@@ -305,8 +306,14 @@ pip3 install ats-utilities
 │   └── __init__.py
 ├── option/
 │   └── __init__.py
-└── register/
-    └── __init__.py
+├── register/
+│   └── __init__.py
+└── singleton/
+    ├── base.py
+    ├── functional.py
+    ├── __init__.py
+    ├── meta.py
+    └── meta_thread.py
 </pre></div>
 </div>
 </div>
