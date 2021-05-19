@@ -27,7 +27,7 @@ __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2017, https://vroncevic.github.io/ats_utilities'
 __credits__ = ['Vladimir Roncevic']
 __license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = '1.8.6'
+__version__ = '1.8.7'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
@@ -54,7 +54,7 @@ APPROVED_LICENSES = [
 PYP_CLASSIFIERS = SUPPORTED_PY_VERSIONS + APPROVED_LICENSES
 setup(
     name='ats_utilities',
-    version='1.8.6',
+    version='1.8.7',
     description='Python App/Tool/Script Utilities',
     author='Vladimir Roncevic',
     author_email='elektron.ronca@gmail.com',
