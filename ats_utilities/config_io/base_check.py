@@ -21,6 +21,7 @@
 '''
 
 import sys
+from os.path import splitext
 
 try:
     from pathlib import Path
@@ -35,7 +36,7 @@ __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2017, https://vroncevic.github.io/ats_utilities'
 __credits__ = ['Vladimir Roncevic']
 __license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = '1.8.5'
+__version__ = '1.8.6'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
@@ -141,9 +142,11 @@ class FileChecking:
             :type verbose: <bool>
             :exceptions: None
         '''
-        extension = Path(file_path).suffix.lower().replace('.', '')
-        status = extension == file_format
-        if not status:
+        file_name_path, extension = splitext(file_path)
+        extension = extension.replace('.', '')
+        if extension == '':
+            extension = file_format
+        if not extension == file_format:
             error_message(
                 FileChecking.VERBOSE, '{0} [{1}] {2}'.format(
                     'not matched file extension', file_format, file_path
@@ -152,6 +155,7 @@ class FileChecking:
             self.__file_format_ok = False
         else:
             self.__file_format_ok = True
+        print(file_name_path, extension, file_format)
         verbose_message(
             FileChecking.VERBOSE, self.__verbose or verbose, file_path
         )
