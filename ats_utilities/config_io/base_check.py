@@ -36,7 +36,7 @@ __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2017, https://vroncevic.github.io/ats_utilities'
 __credits__ = ['Vladimir Roncevic']
 __license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = '1.8.7'
+__version__ = '1.8.8'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
@@ -142,11 +142,17 @@ class FileChecking:
             :type verbose: <bool>
             :exceptions: None
         '''
-        file_name_path, extension = splitext(file_path)
-        extension = extension.replace('.', '')
-        if extension == '':
-            extension = file_format
-        if not extension == file_format:
+        if file_format != 'makefile':
+            file_name_path, extension = splitext(file_path)
+            extension = extension.replace('.', '')
+            if extension == '':
+                extension = file_format
+        else:
+            if file_format.capitalize() in file_path:
+                extension = 'makefile'
+            else:
+                extension = 'wrong_format'
+        if not extension == file_format or extension == 'wrong_format':
             error_message(
                 FileChecking.VERBOSE, '{0} [{1}] {2}'.format(
                     'not matched file extension', file_format, file_path
