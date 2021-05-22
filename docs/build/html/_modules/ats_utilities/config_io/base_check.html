@@ -59,7 +59,7 @@
             
             
               <div class="version">
-                1.8.7
+                1.8.8
               </div>
             
           
@@ -194,7 +194,7 @@
 <span class="n">__copyright__</span> <span class="o">=</span> <span class="s1">&#39;Copyright 2017, https://vroncevic.github.io/ats_utilities&#39;</span>
 <span class="n">__credits__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Vladimir Roncevic&#39;</span><span class="p">]</span>
 <span class="n">__license__</span> <span class="o">=</span> <span class="s1">&#39;https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE&#39;</span>
-<span class="n">__version__</span> <span class="o">=</span> <span class="s1">&#39;1.8.7&#39;</span>
+<span class="n">__version__</span> <span class="o">=</span> <span class="s1">&#39;1.8.8&#39;</span>
 <span class="n">__maintainer__</span> <span class="o">=</span> <span class="s1">&#39;Vladimir Roncevic&#39;</span>
 <span class="n">__email__</span> <span class="o">=</span> <span class="s1">&#39;elektron.ronca@gmail.com&#39;</span>
 <span class="n">__status__</span> <span class="o">=</span> <span class="s1">&#39;Updated&#39;</span>
@@ -300,11 +300,17 @@
 <span class="sd">            :type verbose: &lt;bool&gt;</span>
 <span class="sd">            :exceptions: None</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="n">file_name_path</span><span class="p">,</span> <span class="n">extension</span> <span class="o">=</span> <span class="n">splitext</span><span class="p">(</span><span class="n">file_path</span><span class="p">)</span>
-        <span class="n">extension</span> <span class="o">=</span> <span class="n">extension</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">extension</span> <span class="o">==</span> <span class="s1">&#39;&#39;</span><span class="p">:</span>
-            <span class="n">extension</span> <span class="o">=</span> <span class="n">file_format</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">extension</span> <span class="o">==</span> <span class="n">file_format</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">file_format</span> <span class="o">!=</span> <span class="s1">&#39;makefile&#39;</span><span class="p">:</span>
+            <span class="n">file_name_path</span><span class="p">,</span> <span class="n">extension</span> <span class="o">=</span> <span class="n">splitext</span><span class="p">(</span><span class="n">file_path</span><span class="p">)</span>
+            <span class="n">extension</span> <span class="o">=</span> <span class="n">extension</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">extension</span> <span class="o">==</span> <span class="s1">&#39;&#39;</span><span class="p">:</span>
+                <span class="n">extension</span> <span class="o">=</span> <span class="n">file_format</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">file_format</span><span class="o">.</span><span class="n">capitalize</span><span class="p">()</span> <span class="ow">in</span> <span class="n">file_path</span><span class="p">:</span>
+                <span class="n">extension</span> <span class="o">=</span> <span class="s1">&#39;makefile&#39;</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">extension</span> <span class="o">=</span> <span class="s1">&#39;wrong_format&#39;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">extension</span> <span class="o">==</span> <span class="n">file_format</span> <span class="ow">or</span> <span class="n">extension</span> <span class="o">==</span> <span class="s1">&#39;wrong_format&#39;</span><span class="p">:</span>
             <span class="n">error_message</span><span class="p">(</span>
                 <span class="n">FileChecking</span><span class="o">.</span><span class="n">VERBOSE</span><span class="p">,</span> <span class="s1">&#39;</span><span class="si">{0}</span><span class="s1"> [</span><span class="si">{1}</span><span class="s1">] </span><span class="si">{2}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
                     <span class="s1">&#39;not matched file extension&#39;</span><span class="p">,</span> <span class="n">file_format</span><span class="p">,</span> <span class="n">file_path</span>
