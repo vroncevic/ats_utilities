@@ -23,6 +23,7 @@
 import sys
 
 try:
+    from six import add_metaclass
     from ats_utilities import VerboseRoot
     from ats_utilities.info import ATSInfo
     from ats_utilities.checker import ATSChecker
@@ -40,12 +41,13 @@ __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2017, https://vroncevic.github.io/ats_utilities'
 __credits__ = ['Vladimir Roncevic']
 __license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = '1.8.8'
+__version__ = '1.8.9'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
 
 
+@add_metaclass(VerboseRoot)
 class IniBase:
     '''
         Defined class IniBase with attribute(s) and method(s).
@@ -53,7 +55,6 @@ class IniBase:
         It defines:
 
             :attributes:
-                | __metaclass__ - setting verbose root for IniBase.
                 | __verbose - enable/disable verbose option.
                 | tool_operational - control ATS operational functionality.
                 | ini2obj - in API for informations.
@@ -64,8 +65,6 @@ class IniBase:
                 | is_tool_ok - checking is tool operational.
                 | __str__ - dunder method for object IniBase.
     '''
-
-    __metaclass__ = VerboseRoot
 
     def __init__(self, informations_file, verbose=False):
         '''

@@ -26,7 +26,7 @@ __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2017, https://vroncevic.github.io/ats_utilities'
 __credits__ = ['Vladimir Roncevic']
 __license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = '1.8.8'
+__version__ = '1.8.9'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
@@ -70,7 +70,7 @@ class AbstractMethod:
             :type *args: <iter>
             :param **kwargs: iteration object.
             :type **kwargs: <dict>
-            :exception: NotImplementedError
+            :exceptions: NotImplementedError
         '''
         abstract_msg = 'from class {0}::{1}() not implemented'.format(
             self.method_class_name, self.method_name

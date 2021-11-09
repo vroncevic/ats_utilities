@@ -26,6 +26,7 @@ from logging import (
 )
 
 try:
+    from six import add_metaclass
     from pathlib import Path
     from ats_utilities.checker import ATSChecker
     from ats_utilities.cooperative import CooperativeMeta
@@ -45,12 +46,13 @@ __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2017, https://vroncevic.github.io/ats_utilities'
 __credits__ = ['Vladimir Roncevic']
 __license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = '1.8.8'
+__version__ = '1.8.9'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
 
 
+@add_metaclass(CooperativeMeta)
 class ATSLogger(ATSLoggerName, ATSLoggerFile, ATSLoggerStatus):
     '''
         Defined class ATSLogger with attribute(s) and method(s).
@@ -58,7 +60,6 @@ class ATSLogger(ATSLoggerName, ATSLoggerFile, ATSLoggerStatus):
         It defines:
 
             :attributes:
-                | __metaclass__ - setting cooperative metaclasses.
                 | LOG_MSG_FORMAT - log message format.
                 | LOG_DATE_FORMAT - log date format.
                 | ATS_DEBUG - debug log level.
@@ -73,7 +74,6 @@ class ATSLogger(ATSLoggerName, ATSLoggerFile, ATSLoggerStatus):
                 | __str__ - dunder method for ATSLogger.
     '''
 
-    __metaclass__ = CooperativeMeta
     LOG_MSG_FORMAT = '%(asctime)s - %(levelname)s - %(message)s'
     LOG_DATE_FORMAT = '%m/%d/%Y %I:%M:%S %p'
     ATS_DEBUG, ATS_WARNING, ATS_CRITICAL, ATS_ERROR, ATS_INFO = (

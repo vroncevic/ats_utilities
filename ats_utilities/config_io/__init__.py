@@ -23,6 +23,7 @@
 import sys
 
 try:
+    from six import add_metaclass
     from ats_utilities import VerboseRoot
     from ats_utilities.checker import ATSChecker
     from ats_utilities.console_io.error import error_message
@@ -38,12 +39,13 @@ __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2017, https://vroncevic.github.io/ats_utilities'
 __credits__ = ['Vladimir Roncevic']
 __license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = '1.8.8'
+__version__ = '1.8.9'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
 
 
+@add_metaclass(VerboseRoot)
 class ConfigFile(FileChecking):
     '''
         Defined class ConfigFile with attribute(s) and method(s).
@@ -51,7 +53,6 @@ class ConfigFile(FileChecking):
         It defines:
 
             :attributes:
-                | __metaclass__ - setting verbose root for ConfigFile.
                 | __verbose - enable/disable verbose option.
                 | __file_path - configuration file name.
                 | __file_mode - file mode.
@@ -63,8 +64,6 @@ class ConfigFile(FileChecking):
                 | __exit__ - close configuration file.
                 | __str__ - dunder method for ConfigFile.
     '''
-
-    __metaclass__ = VerboseRoot
 
     def __init__(self, file_path, file_mode, file_format, verbose=False):
         '''
@@ -142,6 +141,6 @@ class ConfigFile(FileChecking):
         '''
         return '{0} ({1}, {2}, {3}, {4}, {5}, {6})'.format(
             self.__class__.__name__, FileChecking.__str__(self),
-            str(self.__verbose),self.__file_path, self.__file_mode,
+            str(self.__verbose), self.__file_path, self.__file_mode,
             self.__file_format, self.__file,
         )

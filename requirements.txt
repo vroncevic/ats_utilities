@@ -1,3 +1,4 @@
+six==1.16.0
 wheel
 PyYAML
 bs4==0.0.1

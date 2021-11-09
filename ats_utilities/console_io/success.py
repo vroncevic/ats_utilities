@@ -23,6 +23,7 @@
 import sys
 
 try:
+    from six import add_metaclass
     from colorama import init, Fore
     from ats_utilities.final import ATSFinal
     from ats_utilities.checker import ATSChecker
@@ -36,12 +37,13 @@ __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2017, https://vroncevic.github.io/ats_utilities'
 __credits__ = ['Vladimir Roncevic']
 __license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = '1.8.8'
+__version__ = '1.8.9'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
 
 
+@add_metaclass(ATSFinal)
 class ATSSuccess:
     '''
         Defined class ATSSuccess with attribute(s) and method(s).
@@ -49,7 +51,6 @@ class ATSSuccess:
         It defines:
 
             :attributes:
-                | __metaclass__ - setting class ATSSuccess as final.
                 | __message - success message container.
             :methods:
                 | __init__ - initial constructor.
@@ -57,8 +58,6 @@ class ATSSuccess:
                 | is_not_none - checking is message None or not.
                 | __str__ - dunder method for ATSSuccess.
     '''
-
-    __metaclass__ = ATSFinal
 
     def __init__(self):
         '''

@@ -23,6 +23,7 @@
 import sys
 
 try:
+    from six import add_metaclass
     from ats_utilities import VerboseRoot
     from ats_utilities.checker import ATSChecker
     from ats_utilities.console_io.verbose import verbose_message
@@ -36,12 +37,13 @@ __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2017, https://vroncevic.github.io/ats_utilities'
 __credits__ = ['Vladimir Roncevic']
 __license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = '1.8.8'
+__version__ = '1.8.9'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
 
 
+@add_metaclass(VerboseRoot)
 class ATSLoggerFile:
     '''
         Defined class ATSLoggerFile with attribute(s) and method(s).
@@ -49,7 +51,6 @@ class ATSLoggerFile:
         It defines:
 
             :attributes:
-                | __metaclass__ - setting verbose root for ATSLoggerFile.
                 | __verbose - enable/disable verbose option.
                 | __logger_file - log file path.
             :methods:
@@ -57,8 +58,6 @@ class ATSLoggerFile:
                 | logger_file - property methods for set/get operations.
                 | __str__ - dunder method for ATSLoggerFile.
     '''
-
-    __metaclass__ = VerboseRoot
 
     def __init__(self, verbose=False):
         '''

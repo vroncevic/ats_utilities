@@ -23,6 +23,7 @@
 import sys
 
 try:
+    from six import add_metaclass
     from ats_utilities import VerboseRoot
     from ats_utilities.checker import ATSChecker
     from ats_utilities.config_io.json import JsonBase
@@ -38,12 +39,13 @@ __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2017, https://vroncevic.github.io/ats_utilities'
 __credits__ = ['Vladimir Roncevic']
 __license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = '1.8.8'
+__version__ = '1.8.9'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
 
 
+@add_metaclass(VerboseRoot)
 class JsonCLI(JsonBase):
     '''
         Defined class JsonCLI with attribute(s) and method(s).
@@ -51,7 +53,6 @@ class JsonCLI(JsonBase):
         It defines:
 
             :attributes:
-                | __metaclass__ - setting verbose root for JsonCLI.
                 | __verbose - enable/disable verbose option.
             :methods:
                 | __init__ - initial constructor.
@@ -60,8 +61,6 @@ class JsonCLI(JsonBase):
                 | process - process and run tool operation (Abstract method).
                 | __str__ - dunder method for JsonCLI.
     '''
-
-    __metaclass__ = VerboseRoot
 
     def __init__(self, informations_file, verbose=False):
         '''

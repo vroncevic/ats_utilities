@@ -23,6 +23,7 @@
 import sys
 
 try:
+    from six import add_metaclass
     from colorama import init, Fore
     from ats_utilities.final import ATSFinal
     from ats_utilities.checker import ATSChecker
@@ -36,12 +37,13 @@ __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2017, https://vroncevic.github.io/ats_utilities'
 __credits__ = ['Vladimir Roncevic']
 __license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = '1.8.8'
+__version__ = '1.8.9'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
 
 
+@add_metaclass(ATSFinal)
 class ATSVerbose:
     '''
         Defined class ATSVerbose with attribute(s) and method(s).
@@ -49,7 +51,6 @@ class ATSVerbose:
         It defines:
 
             :attributes:
-                | __metaclass__ - setting class ATSVerbose as final.
                 | __message - verbose message container.
             :methods:
                 | __init__ - initial constructor.
@@ -57,8 +58,6 @@ class ATSVerbose:
                 | is_not_none - checking is message None or not.
                 | __str__ - dunder method for ATSVerbose.
     '''
-
-    __metaclass__ = ATSFinal
 
     def __init__(self):
         '''

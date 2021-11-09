@@ -6,6 +6,8 @@
 
 Developed in **[python](https://www.python.org/)** code: **100%**.
 
+[![codecov](https://codecov.io/gh/vroncevic/ats_utilities/branch/master/graph/badge.svg?token=VNQOBXIHDB)](https://codecov.io/gh/vroncevic/ats_utilities)
+
 The README is used to introduce the modules and provide instructions on
 how to install the modules, any machine dependencies it may have and any
 other information that should be provided before the modules are installed.
