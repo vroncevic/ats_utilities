@@ -77,6 +77,7 @@ You can use Dockerfile to create image/container.
 ### Dependencies
 
 These modules requires other modules and libraries (Python 2.x/3.x):
+* [six - Python 2 and 3 compatibility library](https://pypi.org/project/six)
 * [yaml - YAML parser and emitter for Python](https://pypi.org/project/PyYAML/)
 * [bs4 - Screen-scraping library](https://pypi.org/project/beautifulsoup4/)
 * [configparser - Configuration parser library](https://pypi.org/project/configparser/)
