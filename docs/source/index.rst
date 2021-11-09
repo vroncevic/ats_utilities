@@ -79,6 +79,7 @@ Dependencies
 
 **ats_utilities** requires next modules and libraries:
 
+* `six - Python 2 and 3 compatibility library <https://pypi.org/project/six/>`_
 * `yaml - YAML parser and emitter for Python <https://pypi.org/project/PyYAML/>`_
 * `bs4 - Screen-scraping library <https://pypi.org/project/beautifulsoup4/>`_
 * `configparser - Configuration parser library <https://pypi.org/project/configparser/>`_
