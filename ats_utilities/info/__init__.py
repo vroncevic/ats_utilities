@@ -24,6 +24,7 @@ import sys
 from datetime import datetime
 
 try:
+    from six import add_metaclass
     from ats_utilities.checker import ATSChecker
     from ats_utilities.info.ats_name import ATSName
     from ats_utilities.info.ats_info_ok import ATSInfoOk
@@ -43,12 +44,13 @@ __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2017, https://vroncevic.github.io/ats_utilities'
 __credits__ = ['Vladimir Roncevic']
 __license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = '1.8.8'
+__version__ = '1.8.9'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
 
 
+@add_metaclass(CooperativeMeta)
 class ATSInfo(ATSName, ATSVersion, ATSLicence, ATSBuildDate, ATSInfoOk):
     '''
         Defined class ATSInfo with attribute(s) and method(s).
@@ -70,7 +72,6 @@ class ATSInfo(ATSName, ATSVersion, ATSLicence, ATSBuildDate, ATSInfoOk):
                 | __str__ - dunder method for ATSInfo.
     '''
 
-    __metaclass__ = CooperativeMeta
     ATS_NAME = 'ats_name'
     ATS_VERSION = 'ats_version'
     ATS_LICENCE = 'ats_licence'

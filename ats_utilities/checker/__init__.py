@@ -25,6 +25,7 @@ from inspect import stack
 from collections import OrderedDict
 
 try:
+    from six import add_metaclass
     from ats_utilities.final import ATSFinal
 except ImportError as ats_error_message:
     MESSAGE = '\n{0}\n{1}\n'.format(__file__, ats_error_message)
@@ -34,12 +35,13 @@ __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2017, https://vroncevic.github.io/ats_utilities'
 __credits__ = ['Vladimir Roncevic']
 __license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = '1.8.8'
+__version__ = '1.8.9'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
 
 
+@add_metaclass(ATSFinal)
 class ATSChecker:
     '''
         Defined class ATSChecker with attribute(s) and method(s).
@@ -47,7 +49,6 @@ class ATSChecker:
         It defines:
 
             :attributes:
-                | __metaclass__ - setting class ATSChecker as final.
                 | NO_ERROR - no error, error id (0).
                 | TYPE_ERROR - type param error id (1).
                 | VALUE_ERROR - value param error id (2).
@@ -68,7 +69,6 @@ class ATSChecker:
                 | __str__ - dunder method for object ATSChecker.
     '''
 
-    __metaclass__ = ATSFinal
     NO_ERROR, TYPE_ERROR, VALUE_ERROR, FORMAT_ERROR = 0, 1, 2, 3
 
     def __init__(self):

@@ -24,6 +24,7 @@ import sys
 from argparse import ArgumentParser
 
 try:
+    from six import add_metaclass
     from ats_utilities import VerboseRoot
     from ats_utilities.checker import ATSChecker
     from ats_utilities.console_io.verbose import verbose_message
@@ -37,12 +38,13 @@ __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2017, https://vroncevic.github.io/ats_utilities'
 __credits__ = ['Vladimir Roncevic']
 __license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = '1.8.8'
+__version__ = '1.8.9'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
 
 
+@add_metaclass(VerboseRoot)
 class ATSOptionParser:
     '''
         Defined class ATSOptionParser with attribute(s) and method(s).
@@ -51,7 +53,6 @@ class ATSOptionParser:
         It defines:
 
             :attributes:
-                | __metaclass__ - setting verbose root for ATSOptionParser.
                 | __verbose - enable/disable verbose option.
                 | __opt_parser - options parser.
             :methods:
@@ -60,8 +61,6 @@ class ATSOptionParser:
                 | parse_args - process arguments from start.
                 | __str__ - dunder method for ATSOptionParser.
     '''
-
-    __metaclass__ = VerboseRoot
 
     def __init__(self, version, epilog, description, verbose=False):
         '''

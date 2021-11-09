@@ -23,6 +23,7 @@
 import sys
 
 try:
+    from six import add_metaclass
     from ats_utilities import VerboseRoot
     from ats_utilities.checker import ATSChecker
     from ats_utilities.config_io import ConfigFile
@@ -38,12 +39,13 @@ __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2017, https://vroncevic.github.io/ats_utilities'
 __credits__ = ['Vladimir Roncevic']
 __license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = '1.8.8'
+__version__ = '1.8.9'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
 
 
+@add_metaclass(VerboseRoot)
 class Object2Cfg(BaseWriteConfig):
     '''
         Defined class Object2Cfg with attribute(s) and method(s).
@@ -51,7 +53,6 @@ class Object2Cfg(BaseWriteConfig):
         It defines:
 
             :attributes:
-                | __metaclass__ - setting verbose root for Object2Cfg.
                 | __FORMAT - format of configuration content.
                 | __verbose - enable/disable verbose option.
             :methods:
@@ -60,7 +61,6 @@ class Object2Cfg(BaseWriteConfig):
                 | __str__ - dunder method for object Object2Cfg.
     '''
 
-    __metaclass__ = VerboseRoot
     __FORMAT = 'cfg'
 
     def __init__(self, configuration_file, verbose=False):
