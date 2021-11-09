@@ -5,3 +5,5 @@ bs4
 pathlib
 colorama
 configparser
+sphinx>=4
+docutils<0.18
