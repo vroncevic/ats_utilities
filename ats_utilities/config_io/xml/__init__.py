@@ -41,7 +41,7 @@ __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2017, https://vroncevic.github.io/ats_utilities'
 __credits__ = ['Vladimir Roncevic']
 __license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = '1.9.0'
+__version__ = '1.9.1'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
@@ -102,7 +102,7 @@ class XmlBase:
             info_dict['ats_licence'] = str(
                 informations.find('ats_licence').text
             )
-            info = ATSInfo(informations, verbose=verbose)
+            info = ATSInfo(info_dict, verbose=verbose)
             if info.ats_info_ok:
                 self.option_parser = ATSOptionParser(
                     '{0} {1}'.format(info.name, info.build_date),

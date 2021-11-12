@@ -38,7 +38,7 @@ __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2017, https://vroncevic.github.io/ats_utilities'
 __credits__ = ['Vladimir Roncevic']
 __license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = '1.9.0'
+__version__ = '1.9.1'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
@@ -138,7 +138,7 @@ class ATSSingletonTestCase(unittest.TestCase):
     def test_same_object_base(self):
         '''Test for singleton (Base) - check objects.'''
         self.assertTrue(
-            self.class_obj_one_base is self.class_obj_two_base,
+            self.class_obj_one_base is not self.class_obj_two_base,
             'it is not same object - checked by objects'
         )
 
