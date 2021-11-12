@@ -62,7 +62,7 @@ class ATSVerboseTestCase(unittest.TestCase):
 
     def setUp(self):
         '''Call before test case.'''
-        self.verbose_path = 'ATS_CONSOLE_IO_VERBOSE_TEST_CASE'
+        self.verbose_path = 'ATS_VERBOSE_TEST_CASE'
         self.verbose = True
         self.message = 'Set verbose message'
 
