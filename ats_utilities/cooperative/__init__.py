@@ -24,7 +24,7 @@ __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2017, https://vroncevic.github.io/ats_utilities'
 __credits__ = ['Vladimir Roncevic']
 __license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = '1.8.9'
+__version__ = '1.9.0'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
@@ -41,7 +41,7 @@ class CooperativeMeta(type):
             :methods:
                 | __new__ - new constructor.
                 | __init__ - initial constructor.
-                | __str__ - dunder method for CooperativeMeta.
+                | __str__ - str dunder method for CooperativeMeta.
     '''
 
     def __new__(cls, name, bases, members):
@@ -56,9 +56,9 @@ class CooperativeMeta(type):
         metas = [
             meta for index, meta in enumerate(metas)
             if not [later for later in metas[index+1:]
-                if issubclass(later, meta)]
+                    if issubclass(later, meta)]
         ]
-        meta = type(name, tuple(metas), dict(combined_metas = metas))
+        meta = type(name, tuple(metas), dict(combined_metas=metas))
         return meta(name, bases, members)
 
     def __init__(self, name, bases, members):
@@ -74,7 +74,7 @@ class CooperativeMeta(type):
 
     def __str__(cls):
         '''
-            Dunder method for CooperativeMeta.
+            Dunder str method for CooperativeMeta.
 
             :return: object in a human-readable format.
             :rtype: <str>

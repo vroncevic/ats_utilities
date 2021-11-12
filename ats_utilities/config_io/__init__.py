@@ -39,7 +39,7 @@ __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2017, https://vroncevic.github.io/ats_utilities'
 __credits__ = ['Vladimir Roncevic']
 __license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = '1.8.9'
+__version__ = '1.9.0'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
@@ -62,7 +62,7 @@ class ConfigFile(FileChecking):
                 | __init__ - initial constructor.
                 | __enter__ - open configuration file in mode.
                 | __exit__ - close configuration file.
-                | __str__ - dunder method for ConfigFile.
+                | __str__ - str dunder method for ConfigFile.
     '''
 
     def __init__(self, file_path, file_mode, file_format, verbose=False):
@@ -133,7 +133,7 @@ class ConfigFile(FileChecking):
 
     def __str__(self):
         '''
-            Dunder method for ConfigFile.
+            Dunder str method for ConfigFile.
 
             :return: object in a human-readable format.
             :rtype: <str>

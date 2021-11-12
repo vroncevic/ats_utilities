@@ -24,7 +24,7 @@ __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2017, https://vroncevic.github.io/ats_utilities'
 __credits__ = ['Vladimir Roncevic']
 __license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = '1.8.9'
+__version__ = '1.9.0'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
@@ -40,7 +40,7 @@ class Singleton:
                 | __INSTANCES - class dictionary for collecting instances.
             :methods:
                 | __new__ - set class instance.
-                | __str__ - dunder method for Singleton.
+                | __str__ - str dunder method for Singleton.
     '''
 
     __INSTANCE = None
@@ -63,7 +63,7 @@ class Singleton:
 
     def __str__(self):
         '''
-            Dunder method for Singleton.
+            Dunder str method for Singleton.
 
             :return: object in a human-readable format.
             :rtype: <str>

@@ -26,7 +26,7 @@ __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2017, https://vroncevic.github.io/ats_utilities'
 __credits__ = ['Vladimir Roncevic']
 __license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = '1.8.9'
+__version__ = '1.9.0'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
@@ -46,7 +46,7 @@ class AbstractMethod:
             :methods:
                 | __init__ - initial constructor.
                 | __call__ - raise exception NotImplementedError on call.
-                | __str__ - dunder method for AbstractMethod.
+                | __str__ - str dunder method for AbstractMethod.
     '''
 
     def __init__(self, method_to_abstract):
@@ -79,7 +79,7 @@ class AbstractMethod:
 
     def __str__(self):
         '''
-            Dunder method for AbstractMethod.
+            Dunder str method for AbstractMethod.
 
             :return: object in a human-readable format.
             :rtype: <str>

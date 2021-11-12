@@ -35,7 +35,7 @@ __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2017, https://vroncevic.github.io/ats_utilities'
 __credits__ = ['Vladimir Roncevic']
 __license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = '1.8.9'
+__version__ = '1.9.0'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
@@ -66,7 +66,7 @@ class ATSChecker:
                 | check_values - check parameters (values) for method/function.
                 | priority_error - set priority error id (TYPE_ERROR).
                 | check_params - check parameters for method/function.
-                | __str__ - dunder method for object ATSChecker.
+                | __str__ - str dunder method for object ATSChecker.
     '''
 
     NO_ERROR, TYPE_ERROR, VALUE_ERROR, FORMAT_ERROR = 0, 1, 2, 3
@@ -244,7 +244,7 @@ class ATSChecker:
 
     def __str__(self):
         '''
-            Dunder method for object ATSChecker.
+            Dunder str method for object ATSChecker.
 
             :return: object in a human-readable format.
             :rtype: <str>

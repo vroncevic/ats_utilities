@@ -46,7 +46,7 @@ __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2017, https://vroncevic.github.io/ats_utilities'
 __credits__ = ['Vladimir Roncevic']
 __license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = '1.8.9'
+__version__ = '1.9.0'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
@@ -71,7 +71,7 @@ class ATSLogger(ATSLoggerName, ATSLoggerFile, ATSLoggerStatus):
             :methods:
                 | __init__ - initial constructor.
                 | write_log - write message to log file.
-                | __str__ - dunder method for ATSLogger.
+                | __str__ - str dunder method for ATSLogger.
     '''
 
     LOG_MSG_FORMAT = '%(asctime)s - %(levelname)s - %(message)s'
@@ -174,7 +174,7 @@ class ATSLogger(ATSLoggerName, ATSLoggerFile, ATSLoggerStatus):
 
     def __str__(self):
         '''
-            Dunder method for ATSLogger.
+            Dunder str method for ATSLogger.
 
             :return: object in a human-readable format.
             :rtype: <str>

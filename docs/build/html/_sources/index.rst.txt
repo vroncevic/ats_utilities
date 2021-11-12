@@ -1,7 +1,7 @@
 ATS Utilities
 --------------
 
-**ats_utilities** is framework for building Apps/Tools/Scripts.
+**ats_utilities** is framework for creating Apps/Tools/Scripts.
 
 Developed in `python <https://www.python.org/>`_ code: **100%**.
 
@@ -41,11 +41,15 @@ Installation
 .. |Install Python3 Package| image:: https://github.com/vroncevic/ats_utilities/workflows/Install%20Python3%20Package%20ats_utilities/badge.svg
    :target: https://github.com/vroncevic/ats_utilities/workflows/Install%20Python3%20Package%20ats_utilities/badge.svg?branch=master
 
+|Debian Linux OS|
+
+.. |Debian Linux OS| image:: https://raw.githubusercontent.com/vroncevic/ats_utilities/dev/docs/debtux.png
+
 Navigate to release `page`_ download and extract release archive.
 
 .. _page: https://github.com/vroncevic/ats_utilities/releases
 
-To install package type the following:
+To install package type the following
 
 .. code-block:: bash
 
@@ -60,7 +64,7 @@ To install package type the following:
     python3 setup.py install_lib
     python3 setup.py install_egg_info
 
-You can use Docker to create image/container, or You can use pip to install:
+You can use Docker to create image/container, or You can use pip to install
 
 .. code-block:: bash
 
@@ -77,7 +81,7 @@ You can use Docker to create image/container, or You can use pip to install:
 Dependencies
 -------------
 
-**ats_utilities** requires next modules and libraries:
+**ats_utilities** requires next modules and libraries
 
 * `six - Python 2 and 3 compatibility library <https://pypi.org/project/six/>`_
 * `yaml - YAML parser and emitter for Python <https://pypi.org/project/PyYAML/>`_
@@ -89,11 +93,11 @@ Dependencies
 Framework structure
 --------------------
 
-**ats_utilities** is based on OOP:
+**ats_utilities** is based on OOP.
 
 .. image:: https://raw.githubusercontent.com/vroncevic/ats_utilities/dev/docs/arch_flow_usage.png
 
-Framework structure:
+Framework structure
 
 .. code-block:: bash
 

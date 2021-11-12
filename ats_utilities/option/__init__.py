@@ -38,7 +38,7 @@ __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2017, https://vroncevic.github.io/ats_utilities'
 __credits__ = ['Vladimir Roncevic']
 __license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = '1.8.9'
+__version__ = '1.9.0'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
@@ -59,7 +59,7 @@ class ATSOptionParser:
                 | __init__ - initial constructor.
                 | add_operation - add option to ATS.
                 | parse_args - process arguments from start.
-                | __str__ - dunder method for ATSOptionParser.
+                | __str__ - str dunder method for ATSOptionParser.
     '''
 
     def __init__(self, version, epilog, description, verbose=False):
@@ -124,7 +124,7 @@ class ATSOptionParser:
 
     def __str__(self):
         '''
-            Dunder method for ATSOptionParser.
+            Dunder str method for ATSOptionParser.
 
             :return: object in a human-readable format.
             :rtype: <str>

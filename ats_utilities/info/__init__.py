@@ -44,7 +44,7 @@ __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2017, https://vroncevic.github.io/ats_utilities'
 __credits__ = ['Vladimir Roncevic']
 __license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = '1.8.9'
+__version__ = '1.9.0'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
@@ -69,7 +69,7 @@ class ATSInfo(ATSName, ATSVersion, ATSLicence, ATSBuildDate, ATSInfoOk):
                 | __init__ - initial constructor.
                 | show_base_info - show ATS informations.
                 | is_correct - check information structure.
-                | __str__ - dunder method for ATSInfo.
+                | __str__ - str dunder method for ATSInfo.
     '''
 
     ATS_NAME = 'ats_name'
@@ -160,7 +160,7 @@ class ATSInfo(ATSName, ATSVersion, ATSLicence, ATSBuildDate, ATSInfoOk):
 
     def __str__(self):
         '''
-            Dunder method for ATSInfo.
+            Dunder str method for ATSInfo.
 
             :return: object in a human-readable format.
             :rtype: <str>
