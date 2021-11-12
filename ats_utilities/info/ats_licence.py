@@ -37,7 +37,7 @@ __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2017, https://vroncevic.github.io/ats_utilities'
 __credits__ = ['Vladimir Roncevic']
 __license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = '1.8.9'
+__version__ = '1.9.0'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
@@ -57,7 +57,7 @@ class ATSLicence:
                 | __init__ - initial constructor.
                 | name - property methods for set/get operations.
                 | is_not_none - checking is ATS licence None.
-                | __str__ - dunder method for ATSLicence.
+                | __str__ - str dunder method for ATSLicence.
     '''
 
     def __init__(self, verbose=False):
@@ -112,7 +112,7 @@ class ATSLicence:
 
     def __str__(self):
         '''
-            Dunder method for ATSLicence.
+            Dunder str method for ATSLicence.
 
             :return: object in a human-readable format.
             :rtype: <str>

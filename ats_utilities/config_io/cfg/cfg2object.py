@@ -40,7 +40,7 @@ __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2017, https://vroncevic.github.io/ats_utilities'
 __credits__ = ['Vladimir Roncevic']
 __license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = '1.8.9'
+__version__ = '1.9.0'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
@@ -60,7 +60,7 @@ class Cfg2Object(BaseReadConfig):
             :methods:
                 | __init__ - initial constructor.
                 | read_configuration - read configuration from file.
-                | __str__ - dunder method for object Cfg2Object.
+                | __str__ - str dunder method for object Cfg2Object.
     '''
 
     __FORMAT = 'cfg'
@@ -119,7 +119,7 @@ class Cfg2Object(BaseReadConfig):
 
     def __str__(self):
         '''
-            Dunder method for Cfg2Object.
+            Dunder str method for Cfg2Object.
 
             :return: object in a human-readable format.
             :rtype: <str>

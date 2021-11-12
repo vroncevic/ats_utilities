@@ -41,7 +41,7 @@ __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2017, https://vroncevic.github.io/ats_utilities'
 __credits__ = ['Vladimir Roncevic']
 __license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = '1.8.9'
+__version__ = '1.9.0'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
@@ -63,7 +63,7 @@ class JsonBase:
             :methods:
                 | __init__ - initial constructor.
                 | is_tool_ok - checking is tool operational.
-                | __str__ - dunder method for object JsonBase.
+                | __str__ - str dunder method for object JsonBase.
     '''
 
     def __init__(self, informations_file, verbose=False):
@@ -115,7 +115,7 @@ class JsonBase:
 
     def __str__(self):
         '''
-            Dunder method for JsonBase.
+            Dunder str method for JsonBase.
 
             :return: object in a human-readable format.
             :rtype: <str>

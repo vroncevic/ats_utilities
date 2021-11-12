@@ -24,7 +24,7 @@ __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2017, https://vroncevic.github.io/ats_utilities'
 __credits__ = ['Vladimir Roncevic']
 __license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = '1.8.9'
+__version__ = '1.9.0'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
@@ -40,7 +40,7 @@ class VerboseRoot(type):
                 | ROOT_PACKAGE_NAME - root package name of framework.
             :methods:
                 | __new__ - new constructor.
-                | __str__ - dunder method for VerboseRoot.
+                | __str__ - str dunder method for VerboseRoot.
     '''
 
     ROOT_PACKAGE_NAME = 'ATS_UTILITIES'
@@ -70,7 +70,7 @@ class VerboseRoot(type):
 
     def __str__(cls):
         '''
-            Dunder method for VerboseRoot.
+            Dunder str method for VerboseRoot.
 
             :return: object in a human-readable format.
             :rtype: <str>

@@ -2,7 +2,7 @@
 
 # ATS Utilities
 
-**ats_utilities** is framework for creating/building Apps/Tools/Scripts.
+**ats_utilities** is framework for creating Apps/Tools/Scripts.
 
 Developed in **[python](https://www.python.org/)** code: **100%**.
 
@@ -33,7 +33,9 @@ other information that should be provided before the modules are installed.
 
 ![Install Python2 Package](https://github.com/vroncevic/ats_utilities/workflows/Install%20Python2%20Package%20ats_utilities/badge.svg?branch=master) ![Install Python3 Package](https://github.com/vroncevic/ats_utilities/workflows/Install%20Python3%20Package%20ats_utilities/badge.svg?branch=master)
 
-Currently there are three ways to install framework:
+![Debian Linux OS](https://raw.githubusercontent.com/vroncevic/ats_utilities/dev/docs/debtux.png)
+
+Currently there are three ways to install framework
 * Install process based on using pip
 * Install process based on setup.py (setuptools)
 * Install process based on docker mechanism
@@ -76,7 +78,7 @@ You can use Dockerfile to create image/container.
 
 ### Dependencies
 
-These modules requires other modules and libraries (Python 2.x/3.x):
+These modules requires other modules and libraries (Python 2.x/3.x)
 * [six - Python 2 and 3 compatibility library](https://pypi.org/project/six)
 * [yaml - YAML parser and emitter for Python](https://pypi.org/project/PyYAML/)
 * [bs4 - Screen-scraping library](https://pypi.org/project/beautifulsoup4/)
@@ -86,11 +88,11 @@ These modules requires other modules and libraries (Python 2.x/3.x):
 
 ### Framework structure
 
-**ats_utilities** is based on OOP:
+**ats_utilities** is based on OOP.
 
-![alt tag](https://raw.githubusercontent.com/vroncevic/ats_utilities/dev/docs/arch_flow_usage.png)
+![Framework structure](https://raw.githubusercontent.com/vroncevic/ats_utilities/dev/docs/arch_flow_usage.png)
 
-Framework structure:
+Framework structure
 ```
 ats_utilities/
 ├── abstract/
@@ -178,7 +180,7 @@ ats_utilities/
 
 [![Documentation Status](https://readthedocs.org/projects/ats-utilities/badge/?version=latest)](https://ats-utilities.readthedocs.io/projects/ats-utilities/en/latest/?badge=latest)
 
-More documentation and info at:
+More documentation and info at
 * [ats-utilities.readthedocs.io](https://ats-utilities.readthedocs.io/en/latest/)
 * [www.python.org](https://www.python.org/)
 

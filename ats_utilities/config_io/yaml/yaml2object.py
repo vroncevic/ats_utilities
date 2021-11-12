@@ -40,7 +40,7 @@ __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2017, https://vroncevic.github.io/ats_utilities'
 __credits__ = ['Vladimir Roncevic']
 __license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = '1.8.9'
+__version__ = '1.9.0'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
@@ -59,7 +59,7 @@ class Yaml2Object(BaseReadConfig):
             :methods:
                 | __init__ - initial constructor.
                 | read_configuration - getting a configuration from file.
-                | __str__ - dunder method for object Yaml2Object.
+                | __str__ - str dunder method for object Yaml2Object.
     '''
 
     __FORMAT = 'yaml'
@@ -108,7 +108,7 @@ class Yaml2Object(BaseReadConfig):
 
     def __str__(self):
         '''
-            Dunder method for Yaml2Object.
+            Dunder str method for Yaml2Object.
 
             :return: object in a human-readable format.
             :rtype: <str>

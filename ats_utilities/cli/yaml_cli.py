@@ -39,7 +39,7 @@ __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2017, https://vroncevic.github.io/ats_utilities'
 __credits__ = ['Vladimir Roncevic']
 __license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = '1.8.9'
+__version__ = '1.9.0'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
@@ -59,7 +59,7 @@ class YamlCLI(YamlBase):
                 | add_new_option - adding new option for CL interface.
                 | parse_args - parse arguments.
                 | process - process and run tool operation (Abstract method).
-                | __str__ - dunder method for YamlCLI.
+                | __str__ - str dunder method for YamlCLI.
     '''
 
     def __init__(self, informations_file, verbose=False):
@@ -121,7 +121,7 @@ class YamlCLI(YamlBase):
 
     def __str__(self):
         '''
-            Dunder method for YamlCLI.
+            Dunder str method for YamlCLI.
 
             :return: object in a human-readable format.
             :rtype: <str>

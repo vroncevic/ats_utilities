@@ -39,7 +39,7 @@ __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2017, https://vroncevic.github.io/ats_utilities'
 __credits__ = ['Vladimir Roncevic']
 __license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = '1.8.9'
+__version__ = '1.9.0'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
@@ -58,7 +58,7 @@ class Object2Cfg(BaseWriteConfig):
             :methods:
                 | __init__ - initial constructor.
                 | write_configuration - write config to a cfg file.
-                | __str__ - dunder method for object Object2Cfg.
+                | __str__ - str dunder method for object Object2Cfg.
     '''
 
     __FORMAT = 'cfg'
@@ -113,7 +113,7 @@ class Object2Cfg(BaseWriteConfig):
 
     def __str__(self):
         '''
-            Dunder method for Object2Cfg.
+            Dunder str method for Object2Cfg.
 
             :return: object in a human-readable format.
             :rtype: <str>
