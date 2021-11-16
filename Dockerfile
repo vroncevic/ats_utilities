@@ -16,36 +16,50 @@
 FROM debian:10
 RUN apt-get update
 RUN DEBIAN_FRONTEND=noninteractive \
- apt-get install -yq --no-install-recommends \
- tree \
- htop \
- wget \
- unzip \
- ca-certificates \
- openssl \
- python \
- python-pip \
- python-wheel \
- python3 \
- python3-pip \
- python3-wheel \
- libyaml-dev
+    apt-get install -yq --no-install-recommends \
+    tree \
+    htop \
+    wget \
+    unzip \
+    ca-certificates \
+    openssl \
+    python \
+    python-pip \
+    python-wheel \
+    python3 \
+    python3-pip \
+    python3-wheel \
+    python3-venv \
+    libyaml-dev
 
-RUN pip install --upgrade setuptools
-RUN pip3 install --upgrade setuptools
+RUN python2 -m pip install --upgrade setuptools
+RUN python2 -m pip install --upgrade pip
+RUN python2 -m pip install --upgrade build
+RUN python3 -m pip install --upgrade setuptools
+RUN python3 -m pip install --upgrade pip
+RUN python3 -m pip install --upgrade build
+RUN python3 -m venv env
 RUN mkdir /ats_utilities/
 COPY ats_utilities /ats_utilities/
+COPY setup.cfg /
+COPY pyproject.toml /
+COPY MANIFEST.in /
 COPY setup.py /
 COPY README.md /
+COPY LICENSE /
 COPY requirements.txt /
-RUN pip install -r requirements.txt
+RUN pip2 install -r requirements.txt
 RUN pip3 install -r requirements.txt
 RUN rm -f requirements.txt
-RUN find /ats_utilities/ -name "*.editorconfig" -type f -exec rm -Rf {} \;
-RUN python setup.py install_lib
-RUN python setup.py install_egg_info
-RUN python3 setup.py install_lib
-RUN python3 setup.py install_egg_info
-RUN rm -rf /ats_utilities/
+RUN python -m build
+RUN pip2 install /dist/ats_utilities-*-py2-none-any.whl
+RUN python3 -m build
+RUN pip3 install /dist/ats_utilities-*-py3-none-any.whl
+RUN rm -rf /ats_utilities*
+RUN rm -rf dist/ tests/
+RUN rm -f setup.cfg
+RUN rm -f pyproject.toml
+RUN rm -f MANIFEST.in
 RUN rm -f setup.py
 RUN rm -f README.md
+RUN rm -f LICENSE

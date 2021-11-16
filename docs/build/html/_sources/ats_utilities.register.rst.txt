@@ -5,6 +5,7 @@ Module contents
 ---------------
 
 .. automodule:: ats_utilities.register
-    :members:
-    :undoc-members:
-    :show-inheritance:
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :private-members:

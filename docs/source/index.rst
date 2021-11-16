@@ -49,7 +49,22 @@ Navigate to release `page`_ download and extract release archive.
 
 .. _page: https://github.com/vroncevic/ats_utilities/releases
 
-To install package type the following
+To install **ats_utilities** run
+
+.. code-block:: bash
+
+    tar xvzf ats_utilities-x.y.z.tar.gz
+    cd ats_utilities-x.y.z
+    # python2
+    pip install -r requirements.txt
+    python -m build
+    pip install dist/ats_utilities-x.y.z-py2-none-any.whl
+    # python3
+    pip3 install -r requirements.txt
+    python3 -m build
+    pip3 install dist/ats_utilities-x.y.z-py3-none-any.whl
+
+Or type the following
 
 .. code-block:: bash
 
@@ -69,9 +84,9 @@ You can use Docker to create image/container, or You can use pip to install
 .. code-block:: bash
 
     # python2
-    pip install ats-utilities
+    pip install ats_utilities
     # python3
-    pip3 install ats-utilities
+    pip3 install ats_utilities
 
 |GitHub docker checker|
 

@@ -5,6 +5,7 @@ Submodules
 ----------
 
 .. toctree::
+   :maxdepth: 4
 
    ats_utilities.exceptions.ats_attribute_error
    ats_utilities.exceptions.ats_bad_call_error
@@ -19,6 +20,7 @@ Module contents
 ---------------
 
 .. automodule:: ats_utilities.exceptions
-    :members:
-    :undoc-members:
-    :show-inheritance:
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :private-members:

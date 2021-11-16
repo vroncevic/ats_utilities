@@ -5,6 +5,7 @@ Submodules
 ----------
 
 .. toctree::
+   :maxdepth: 4
 
    ats_utilities.cli.cfg_cli
    ats_utilities.cli.ini_cli
@@ -16,6 +17,7 @@ Module contents
 ---------------
 
 .. automodule:: ats_utilities.cli
-    :members:
-    :undoc-members:
-    :show-inheritance:
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :private-members:

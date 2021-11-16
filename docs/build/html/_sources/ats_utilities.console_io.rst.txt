@@ -5,6 +5,7 @@ Submodules
 ----------
 
 .. toctree::
+   :maxdepth: 4
 
    ats_utilities.console_io.error
    ats_utilities.console_io.success
@@ -15,6 +16,7 @@ Module contents
 ---------------
 
 .. automodule:: ats_utilities.console_io
-    :members:
-    :undoc-members:
-    :show-inheritance:
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :private-members:
