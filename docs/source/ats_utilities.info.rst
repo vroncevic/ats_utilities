@@ -5,6 +5,7 @@ Submodules
 ----------
 
 .. toctree::
+   :maxdepth: 4
 
    ats_utilities.info.ats_build_date
    ats_utilities.info.ats_info_ok
@@ -16,6 +17,7 @@ Module contents
 ---------------
 
 .. automodule:: ats_utilities.info
-    :members:
-    :undoc-members:
-    :show-inheritance:
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :private-members:

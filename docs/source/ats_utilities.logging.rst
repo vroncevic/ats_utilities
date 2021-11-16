@@ -5,6 +5,7 @@ Submodules
 ----------
 
 .. toctree::
+   :maxdepth: 4
 
    ats_utilities.logging.ats_logger_file
    ats_utilities.logging.ats_logger_name
@@ -14,6 +15,7 @@ Module contents
 ---------------
 
 .. automodule:: ats_utilities.logging
-    :members:
-    :undoc-members:
-    :show-inheritance:
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :private-members:

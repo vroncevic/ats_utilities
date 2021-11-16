@@ -20,7 +20,8 @@ other information that should be provided before the modules are installed.
 
 - [Installation](#installation)
     - [Install using pip](#install-using-pip)
-    - [Install using setuptools](#install-using-setuptools)
+    - [Install using build](#install-using-build)
+    - [Install using py setup](#install-using-py-setup)
     - [Install using docker](#install-using-docker)
 - [Dependencies](#dependencies)
 - [Framework structure](#framework-structure)
@@ -37,6 +38,7 @@ other information that should be provided before the modules are installed.
 
 Currently there are three ways to install framework
 * Install process based on using pip
+* Install process based on build (setuptools)
 * Install process based on setup.py (setuptools)
 * Install process based on docker mechanism
 
@@ -52,14 +54,32 @@ pip install ats-utilities
 pip3 install ats-utilities
 ```
 
-##### Install using setuptools
+##### Install using build
 
-Navigate to **[release page](https://github.com/vroncevic/ats_utilities/releases)** download and extract release archive.
+Navigate to **[release page](https://github.com/vroncevic/ats-utilities/releases)** download and extract release archive.
 
-To install modules, locate and run setup.py with arguments
+To install **ats-utilities**, run
 ```
-tar xvzf ats_utilities-x.y.z.tar.gz
-cd ats_utilities-x.y.z
+tar xvzf ats-utilities-x.y.z.tar.gz
+cd ats-utilities-x.y.z
+# python2
+pip install -r requirements.txt
+python -m build
+pip install dist/ats-utilities-x.y.z-py2-none-any.whl
+# python3
+pip3 install -r requirements.txt
+python3 -m build
+pip3 install dist/ats-utilities-x.y.z-py3-none-any.whl
+```
+
+##### Install using py setup
+
+Navigate to **[release page](https://github.com/vroncevic/ats-utilities/releases)** download and extract release archive.
+
+To install **ats-utilities**, locate and run setup.py with arguments
+```
+tar xvzf ats-utilities-x.y.z.tar.gz
+cd ats-utilities-x.y.z
 # python2
 pip install -r requirements.txt
 python setup.py install_lib

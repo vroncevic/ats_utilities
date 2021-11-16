@@ -5,6 +5,7 @@ Submodules
 ----------
 
 .. toctree::
+   :maxdepth: 4
 
    ats_utilities.config_io.xml.object2xml
    ats_utilities.config_io.xml.xml2object
@@ -13,6 +14,7 @@ Module contents
 ---------------
 
 .. automodule:: ats_utilities.config_io.xml
-    :members:
-    :undoc-members:
-    :show-inheritance:
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :private-members:
