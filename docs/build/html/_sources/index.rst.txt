@@ -20,8 +20,8 @@ other information that should be provided before the modules are installed.
 .. |GitHub contributors| image:: https://img.shields.io/github/contributors/vroncevic/ats_utilities.svg
    :target: https://github.com/vroncevic/ats_utilities/graphs/contributors
 
-.. |Documentation Status| image:: https://readthedocs.org/projects/ats_utilities/badge/?version=latest
-   :target: https://ats_utilities.readthedocs.io/projects/ats_utilities/en/latest/?badge=latest
+.. |Documentation Status| image:: https://readthedocs.org/projects/ats_utilities/badge/?version=master
+   :target: https://ats_utilities.readthedocs.io/projects/ats_utilities/en/master/?badge=master
 
 .. toctree::
    :maxdepth: 4

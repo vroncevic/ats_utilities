@@ -198,10 +198,10 @@ ats_utilities/
 
 ### Docs
 
-[![Documentation Status](https://readthedocs.org/projects/ats-utilities/badge/?version=latest)](https://ats-utilities.readthedocs.io/projects/ats-utilities/en/latest/?badge=latest)
+[![Documentation Status](https://readthedocs.org/projects/ats-utilities/badge/?version=master)](https://ats-utilities.readthedocs.io/projects/ats-utilities/en/master/?badge=master)
 
 More documentation and info at
-* [ats-utilities.readthedocs.io](https://ats-utilities.readthedocs.io/en/latest/)
+* [ats-utilities.readthedocs.io](https://ats-utilities.readthedocs.io/en/master/)
 * [www.python.org](https://www.python.org/)
 
 ### Copyright and Licence
