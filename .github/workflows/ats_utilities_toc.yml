@@ -1,5 +1,8 @@
 name: TOC Generator ats_utilities
-on: push
+on:
+  push:
+    paths:
+      - '**.md'
 jobs:
   generateTOC:
     name: TOC Generator

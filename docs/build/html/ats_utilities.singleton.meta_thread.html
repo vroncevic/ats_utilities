@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>ats_utilities.singleton.meta_thread module &mdash; ats_utilities https://github.com/vroncevic/ats_utilities/releases documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -17,6 +18,7 @@
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="ats_utilities.splash package" href="ats_utilities.splash.html" />
     <link rel="prev" title="ats_utilities.singleton.meta module" href="ats_utilities.singleton.meta.html" /> 
 </head>
 
@@ -28,7 +30,7 @@
             <a href="index.html" class="icon icon-home"> ats_utilities
           </a>
               <div class="version">
-                1.9.4
+                2.0.4
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -57,6 +59,7 @@
 <li class="toctree-l4"><a class="reference internal" href="ats_utilities.option.html">ats_utilities.option package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ats_utilities.register.html">ats_utilities.register package</a></li>
 <li class="toctree-l4 current"><a class="reference internal" href="ats_utilities.singleton.html">ats_utilities.singleton package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ats_utilities.splash.html">ats_utilities.splash package</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="ats_utilities.html#module-ats_utilities">Module contents</a></li>
@@ -93,7 +96,7 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <div class="section" id="module-ats_utilities.singleton.meta_thread">
+  <section id="module-ats_utilities.singleton.meta_thread">
 <span id="ats-utilities-singleton-meta-thread-module"></span><h1>ats_utilities.singleton.meta_thread module<a class="headerlink" href="#module-ats_utilities.singleton.meta_thread" title="Permalink to this headline"></a></h1>
 <dl class="simple">
 <dt>Module</dt><dd><p>meta_thread.py</p>
@@ -116,7 +119,7 @@ Created API for auto-register singleton object.</p>
 </dl>
 <dl class="py class">
 <dt class="sig sig-object py" id="ats_utilities.singleton.meta_thread.ThreadSafeSingletonMeta">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">ats_utilities.singleton.meta_thread.</span></span><span class="sig-name descname"><span class="pre">ThreadSafeSingletonMeta</span></span><a class="reference internal" href="_modules/ats_utilities/singleton/meta_thread.html#ThreadSafeSingletonMeta"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.singleton.meta_thread.ThreadSafeSingletonMeta" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ats_utilities.singleton.meta_thread.</span></span><span class="sig-name descname"><span class="pre">ThreadSafeSingletonMeta</span></span><a class="reference internal" href="_modules/ats_utilities/singleton/meta_thread.html#ThreadSafeSingletonMeta"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.singleton.meta_thread.ThreadSafeSingletonMeta" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">type</span></code></p>
 <p>Defined class ThreadSafeSingletonMeta with attribute(s) and method(s).
 Created API for auto-register singleton object.
@@ -139,23 +142,24 @@ It defines:</p>
 </div></blockquote>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="ats_utilities.singleton.meta_thread.ThreadSafeSingletonMeta.__INSTANCES">
-<span class="sig-name descname"><span class="pre">__INSTANCES</span></span><em class="property"> <span class="pre">=</span> <span class="pre">{}</span></em><a class="headerlink" href="#ats_utilities.singleton.meta_thread.ThreadSafeSingletonMeta.__INSTANCES" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">__INSTANCES</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></em><a class="headerlink" href="#ats_utilities.singleton.meta_thread.ThreadSafeSingletonMeta.__INSTANCES" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="ats_utilities.singleton.meta_thread.ThreadSafeSingletonMeta.__LOCK">
-<span class="sig-name descname"><span class="pre">__LOCK</span></span><em class="property"> <span class="pre">=</span> <span class="pre">&lt;unlocked</span> <span class="pre">_thread.lock</span> <span class="pre">object&gt;</span></em><a class="headerlink" href="#ats_utilities.singleton.meta_thread.ThreadSafeSingletonMeta.__LOCK" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">__LOCK</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;unlocked</span> <span class="pre">_thread.lock</span> <span class="pre">object&gt;</span></em><a class="headerlink" href="#ats_utilities.singleton.meta_thread.ThreadSafeSingletonMeta.__LOCK" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
-</div>
+</section>
 
 
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="ats_utilities.singleton.meta.html" class="btn btn-neutral float-left" title="ats_utilities.singleton.meta module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="ats_utilities.splash.html" class="btn btn-neutral float-right" title="ats_utilities.splash package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

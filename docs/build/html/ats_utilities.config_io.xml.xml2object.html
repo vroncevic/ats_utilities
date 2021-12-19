@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>ats_utilities.config_io.xml.xml2object module &mdash; ats_utilities https://github.com/vroncevic/ats_utilities/releases documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -29,7 +30,7 @@
             <a href="index.html" class="icon icon-home"> ats_utilities
           </a>
               <div class="version">
-                1.9.4
+                2.0.4
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -58,6 +59,7 @@
 <li class="toctree-l4"><a class="reference internal" href="ats_utilities.option.html">ats_utilities.option package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ats_utilities.register.html">ats_utilities.register package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ats_utilities.singleton.html">ats_utilities.singleton package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ats_utilities.splash.html">ats_utilities.splash package</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="ats_utilities.html#module-ats_utilities">Module contents</a></li>
@@ -95,7 +97,7 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <div class="section" id="module-ats_utilities.config_io.xml.xml2object">
+  <section id="module-ats_utilities.config_io.xml.xml2object">
 <span id="ats-utilities-config-io-xml-xml2object-module"></span><h1>ats_utilities.config_io.xml.xml2object module<a class="headerlink" href="#module-ats_utilities.config_io.xml.xml2object" title="Permalink to this headline"></a></h1>
 <dl class="simple">
 <dt>Module</dt><dd><p>xml2object.py</p>
@@ -118,7 +120,7 @@ Created API for reading a configuration/information from a xml file.</p>
 </dl>
 <dl class="py class">
 <dt class="sig sig-object py" id="ats_utilities.config_io.xml.xml2object.Xml2Object">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">ats_utilities.config_io.xml.xml2object.</span></span><span class="sig-name descname"><span class="pre">Xml2Object</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">configuration_file</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ats_utilities/config_io/xml/xml2object.html#Xml2Object"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.config_io.xml.xml2object.Xml2Object" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ats_utilities.config_io.xml.xml2object.</span></span><span class="sig-name descname"><span class="pre">Xml2Object</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">configuration_file</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ats_utilities/config_io/xml/xml2object.html#Xml2Object"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.config_io.xml.xml2object.Xml2Object" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <a class="reference internal" href="ats_utilities.config_io.base_read.html#ats_utilities.config_io.base_read.BaseReadConfig" title="ats_utilities.config_io.base_read.BaseReadConfig"><code class="xref py py-class docutils literal notranslate"><span class="pre">ats_utilities.config_io.base_read.BaseReadConfig</span></code></a></p>
 <p>Defined class Xml2Object with attribute(s) and method(s).
 Created API for reading a configuration/information from a xml file.
@@ -142,12 +144,12 @@ It defines:</p>
 </div></blockquote>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="ats_utilities.config_io.xml.xml2object.Xml2Object.VERBOSE">
-<span class="sig-name descname"><span class="pre">VERBOSE</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'ats_utilities::config_io::xml::xml2object'</span></em><a class="headerlink" href="#ats_utilities.config_io.xml.xml2object.Xml2Object.VERBOSE" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">VERBOSE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'ats_utilities::config_io::xml::xml2object'</span></em><a class="headerlink" href="#ats_utilities.config_io.xml.xml2object.Xml2Object.VERBOSE" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="ats_utilities.config_io.xml.xml2object.Xml2Object.__FORMAT">
-<span class="sig-name descname"><span class="pre">__FORMAT</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'xml'</span></em><a class="headerlink" href="#ats_utilities.config_io.xml.xml2object.Xml2Object.__FORMAT" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">__FORMAT</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'xml'</span></em><a class="headerlink" href="#ats_utilities.config_io.xml.xml2object.Xml2Object.__FORMAT" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -172,7 +174,7 @@ It defines:</p>
 
 </dd></dl>
 
-</div>
+</section>
 
 
            </div>

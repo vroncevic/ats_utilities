@@ -36,10 +36,10 @@ other information that should be provided before the modules are installed.
 
 ![Debian Linux OS](https://raw.githubusercontent.com/vroncevic/ats_utilities/dev/docs/debtux.png)
 
-Currently there are three ways to install framework
-* Install process based on using pip
-* Install process based on build (setuptools)
-* Install process based on setup.py (setuptools)
+Currently there are four ways to install framework
+* Install process based on using pip mechanism
+* Install process based on build mechanism
+* Install process based on setup.py mechanism
 * Install process based on docker mechanism
 
 ##### Install using pip
@@ -49,7 +49,7 @@ Python package is located at **[pypi.org](https://pypi.org/project/ats-utilities
 You can install by using pip
 ```
 # python2
-pip install ats-utilities
+pip2 install ats-utilities
 # python3
 pip3 install ats-utilities
 ```
@@ -63,13 +63,25 @@ To install **ats-utilities**, run
 tar xvzf ats-utilities-x.y.z.tar.gz
 cd ats-utilities-x.y.z
 # python2
-pip install -r requirements.txt
-python -m build
-pip install dist/ats-utilities-x.y.z-py2-none-any.whl
+wget https://bootstrap.pypa.io/pip/2.7/get-pip.py
+python2 get-pip.py
+python2 -m pip install --upgrade setuptools
+python2 -m pip install --upgrade pip
+python2 -m pip install --upgrade build
+pip2 install -r requirements.txt
+python2 -m build --no-isolation --wheel
+pip2 install dist/ats-utilities-x.y.z-py2-none-any.whl
+rm -f get-pip.py
 # python3
+wget https://bootstrap.pypa.io/get-pip.py
+python3 get-pip.py 
+python3 -m pip install --upgrade setuptools
+python3 -m pip install --upgrade pip
+python3 -m pip install --upgrade build
 pip3 install -r requirements.txt
-python3 -m build
+python3 -m build --no-isolation --wheel
 pip3 install dist/ats-utilities-x.y.z-py3-none-any.whl
+rm -f get-pip.py
 ```
 
 ##### Install using py setup
@@ -81,13 +93,25 @@ To install **ats-utilities**, locate and run setup.py with arguments
 tar xvzf ats-utilities-x.y.z.tar.gz
 cd ats-utilities-x.y.z
 # python2
-pip install -r requirements.txt
-python setup.py install_lib
-python setup.py install_egg_info
+wget https://bootstrap.pypa.io/pip/2.7/get-pip.py
+python2 get-pip.py
+python2 -m pip install --upgrade setuptools
+python2 -m pip install --upgrade pip
+python2 -m pip install --upgrade build
+pip2 install -r requirements.txt
+python2 setup.py install_lib
+python2 setup.py install_egg_info
+rm -f get-pip.py
 # python3
+wget https://bootstrap.pypa.io/get-pip.py
+python3 get-pip.py
+python3 -m pip install --upgrade setuptools
+python3 -m pip install --upgrade pip
+python3 -m pip install --upgrade build
 pip3 install -r requirements.txt
 python3 setup.py install_lib
 python3 setup.py install_egg_info
+rm -f get-pip.py
 ```
 
 ##### Install using docker
@@ -188,12 +212,18 @@ ats_utilities/
 │   └── __init__.py
 ├── register/
 │   └── __init__.py
-└── singleton/
-    ├── base.py
-    ├── functional.py
+├── singleton/
+│   ├── base.py
+│   ├── functional.py
+│   ├── __init__.py
+│   ├── meta.py
+│   └── meta_thread.py
+└── splash/
     ├── __init__.py
-    ├── meta.py
-    └── meta_thread.py
+    ├── progress_bar.py
+    └── terminal_properties.py
+
+19 directories, 64 files
 ```
 
 ### Docs
