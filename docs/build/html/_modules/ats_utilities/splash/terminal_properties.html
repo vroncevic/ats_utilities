@@ -161,8 +161,8 @@
 <span class="sd">            :type file_descriptor: &lt;int&gt;</span>
 <span class="sd">            :param verbose: enable/disable verbose option.</span>
 <span class="sd">            :type verbose: &lt;bool&gt;</span>
-<span class="sd">            :return: status true window size checked else false.</span>
-<span class="sd">            :rtype: &lt;bool&gt;</span>
+<span class="sd">            :return: window size of terminal.</span>
+<span class="sd">            :rtype: &lt;tupple&gt;</span>
 <span class="sd">            :exceptions: ATSTypeError | ATSBadCallError</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="n">checker</span><span class="p">,</span> <span class="n">error</span><span class="p">,</span> <span class="n">status</span> <span class="o">=</span> <span class="n">ATSChecker</span><span class="p">(),</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">False</span>
@@ -183,7 +183,7 @@
             <span class="n">TerminalProperties</span><span class="o">.</span><span class="n">VERBOSE</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">__verbose</span> <span class="ow">or</span> <span class="n">verbose</span><span class="p">,</span>
             <span class="s1">&#39;terminal window size&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">__window_size</span>
         <span class="p">)</span>
-        <span class="k">return</span> <span class="nb">bool</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__window_size</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__window_size</span>
 
     <span class="k">def</span> <span class="nf">__ioctl_for_all_descriptors</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;</span>
