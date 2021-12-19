@@ -7,7 +7,10 @@ Submodules
 .. toctree::
    :maxdepth: 4
 
+   ats_utilities.splash.ext_infrastructure
+   ats_utilities.splash.github_infrastructure
    ats_utilities.splash.progress_bar
+   ats_utilities.splash.splash_property
    ats_utilities.splash.terminal_properties
 
 Module contents

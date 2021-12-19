@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ats_utilities.splash.splash_property &mdash; ats_utilities https://github.com/vroncevic/ats_utilities/releases documentation</title>
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../../index.html" class="icon icon-home"> ats_utilities
+          </a>
+              <div class="version">
+                2.1.4
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../index.html">ATS Utilities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules.html">ats_utilities</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">ats_utilities</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+          <li><a href="../../ats_utilities.html">ats_utilities</a> &raquo;</li>
+          <li><a href="../splash.html">ats_utilities.splash</a> &raquo;</li>
+      <li>ats_utilities.splash.splash_property</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for ats_utilities.splash.splash_property</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: UTF-8 -*-</span>
+
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd"> Module</span>
+<span class="sd">     splash_property.py</span>
+<span class="sd"> Copyright</span>
+<span class="sd">     Copyright (C) 2021 Vladimir Roncevic &lt;elektron.ronca@gmail.com&gt;</span>
+<span class="sd">     ats_utilities is free software: you can redistribute it and/or modify it</span>
+<span class="sd">     under the terms of the GNU General Public License as published by the</span>
+<span class="sd">     Free Software Foundation, either version 3 of the License, or</span>
+<span class="sd">     (at your option) any later version.</span>
+<span class="sd">     ats_utilities is distributed in the hope that it will be useful, but</span>
+<span class="sd">     WITHOUT ANY WARRANTY; without even the implied warranty of</span>
+<span class="sd">     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.</span>
+<span class="sd">     See the GNU General Public License for more details.</span>
+<span class="sd">     You should have received a copy of the GNU General Public License along</span>
+<span class="sd">     with this program. If not, see &lt;http://www.gnu.org/licenses/&gt;.</span>
+<span class="sd"> Info</span>
+<span class="sd">     Defined class SplashProperty with attribute(s) and method(s).</span>
+<span class="sd">     Created API for checking splash property.</span>
+<span class="sd">&#39;&#39;&#39;</span>
+
+<span class="kn">import</span> <span class="nn">sys</span>
+
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">six</span> <span class="kn">import</span> <span class="n">add_metaclass</span>
+    <span class="kn">from</span> <span class="nn">ats_utilities</span> <span class="kn">import</span> <span class="n">VerboseRoot</span>
+    <span class="kn">from</span> <span class="nn">ats_utilities.checker</span> <span class="kn">import</span> <span class="n">ATSChecker</span>
+    <span class="kn">from</span> <span class="nn">ats_utilities.console_io.verbose</span> <span class="kn">import</span> <span class="n">verbose_message</span>
+    <span class="kn">from</span> <span class="nn">ats_utilities.exceptions.ats_type_error</span> <span class="kn">import</span> <span class="n">ATSTypeError</span>
+    <span class="kn">from</span> <span class="nn">ats_utilities.exceptions.ats_bad_call_error</span> <span class="kn">import</span> <span class="n">ATSBadCallError</span>
+<span class="k">except</span> <span class="ne">ImportError</span> <span class="k">as</span> <span class="n">ats_error_message</span><span class="p">:</span>
+    <span class="n">MESSAGE</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="si">{0}</span><span class="se">\n</span><span class="si">{1}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="vm">__file__</span><span class="p">,</span> <span class="n">ats_error_message</span><span class="p">)</span>
+    <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="n">MESSAGE</span><span class="p">)</span>  <span class="c1"># Force close python ATS ##############################</span>
+
+<span class="n">__author__</span> <span class="o">=</span> <span class="s1">&#39;Vladimir Roncevic&#39;</span>
+<span class="n">__copyright__</span> <span class="o">=</span> <span class="s1">&#39;Copyright 2021, https://vroncevic.github.io/ats_utilities&#39;</span>
+<span class="n">__credits__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Vladimir Roncevic&#39;</span><span class="p">]</span>
+<span class="n">__license__</span> <span class="o">=</span> <span class="s1">&#39;https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE&#39;</span>
+<span class="n">__version__</span> <span class="o">=</span> <span class="s1">&#39;2.1.4&#39;</span>
+<span class="n">__maintainer__</span> <span class="o">=</span> <span class="s1">&#39;Vladimir Roncevic&#39;</span>
+<span class="n">__email__</span> <span class="o">=</span> <span class="s1">&#39;elektron.ronca@gmail.com&#39;</span>
+<span class="n">__status__</span> <span class="o">=</span> <span class="s1">&#39;Updated&#39;</span>
+
+
+<div class="viewcode-block" id="SplashProperty"><a class="viewcode-back" href="../../../ats_utilities.splash.splash_property.html#ats_utilities.splash.splash_property.SplashProperty">[docs]</a><span class="nd">@add_metaclass</span><span class="p">(</span><span class="n">VerboseRoot</span><span class="p">)</span>
+<span class="k">class</span> <span class="nc">SplashProperty</span><span class="p">:</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Defined class SplashProperty with attribute(s) and method(s).</span>
+<span class="sd">        Created API for checking splash property.</span>
+<span class="sd">        It defines:</span>
+
+<span class="sd">            :attributes:</span>
+<span class="sd">                | __EXPECTED_PROPERY_KEYS - expected property names.</span>
+<span class="sd">                | __verbose - enable/disable verbose option.</span>
+<span class="sd">                | __property - splash property in dict format.</span>
+<span class="sd">            :methods:</span>
+<span class="sd">                | __init__ - initial constructor.</span>
+<span class="sd">                | validation - validation of splash property.</span>
+<span class="sd">                | __str__ - dunder method for SplashProperty.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+
+    <span class="n">__EXPECTED_PROPERY_KEYS</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="s1">&#39;ats_organization&#39;</span><span class="p">,</span> <span class="s1">&#39;ats_repository&#39;</span><span class="p">,</span> <span class="s1">&#39;ats_name&#39;</span><span class="p">,</span> <span class="s1">&#39;ats_logo_path&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;ats_use_github_infrastructure&#39;</span>
+    <span class="p">]</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">property</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">            Initial constructor.</span>
+
+<span class="sd">            :param property: splash property in dict form.</span>
+<span class="sd">            :type property: &lt;dict&gt;</span>
+<span class="sd">            :param verbose: enable/disable verbose option.</span>
+<span class="sd">            :type verbose: &lt;bool&gt;</span>
+<span class="sd">            :exceptions: ATSTypeError | ATSBadCallError</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="n">checker</span><span class="p">,</span> <span class="n">error</span><span class="p">,</span> <span class="n">status</span> <span class="o">=</span> <span class="n">ATSChecker</span><span class="p">(),</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">False</span>
+        <span class="n">error</span><span class="p">,</span> <span class="n">status</span> <span class="o">=</span> <span class="n">checker</span><span class="o">.</span><span class="n">check_params</span><span class="p">([</span>
+            <span class="p">(</span><span class="s1">&#39;dict:property&#39;</span><span class="p">,</span> <span class="nb">property</span><span class="p">)</span>
+        <span class="p">])</span>
+        <span class="k">if</span> <span class="n">status</span> <span class="o">==</span> <span class="n">ATSChecker</span><span class="o">.</span><span class="n">TYPE_ERROR</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">ATSTypeError</span><span class="p">(</span><span class="n">error</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">status</span> <span class="o">==</span> <span class="n">ATSChecker</span><span class="o">.</span><span class="n">VALUE_ERROR</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">ATSBadCallError</span><span class="p">(</span><span class="n">error</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__verbose</span> <span class="o">=</span> <span class="n">verbose</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__property</span> <span class="o">=</span> <span class="nb">property</span>
+        <span class="n">verbose_message</span><span class="p">(</span><span class="n">SplashProperty</span><span class="o">.</span><span class="n">VERBOSE</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">__verbose</span><span class="p">,</span> <span class="nb">property</span><span class="p">)</span>
+
+<div class="viewcode-block" id="SplashProperty.validate"><a class="viewcode-back" href="../../../ats_utilities.splash.splash_property.html#ats_utilities.splash.splash_property.SplashProperty.validate">[docs]</a>    <span class="k">def</span> <span class="nf">validate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">            Validation of splash property.</span>
+
+<span class="sd">            :param verbose: enable/disable verbose option.</span>
+<span class="sd">            :type verbose: &lt;bool&gt;</span>
+<span class="sd">            :return: Boolean status True - property ok else False.</span>
+<span class="sd">            :rtype: &lt;bool&gt;</span>
+<span class="sd">            :exceptions: None</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__property</span><span class="o">.</span><span class="n">keys</span><span class="p">()):</span>
+            <span class="k">if</span> <span class="n">key</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">SplashProperty</span><span class="o">.</span><span class="n">__EXPECTED_PROPERY_KEYS</span><span class="p">:</span>
+                <span class="n">verbose_message</span><span class="p">(</span>
+                    <span class="n">SplashProperty</span><span class="o">.</span><span class="n">VERBOSE</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">__verbose</span> <span class="ow">or</span> <span class="n">verbose</span><span class="p">,</span>
+                    <span class="s1">&#39;property name </span><span class="si">{0}</span><span class="s1"> not expected&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+                <span class="p">)</span>
+                <span class="k">return</span> <span class="kc">False</span>
+        <span class="n">verbose_message</span><span class="p">(</span>
+            <span class="n">SplashProperty</span><span class="o">.</span><span class="n">VERBOSE</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">__verbose</span> <span class="ow">or</span> <span class="n">verbose</span><span class="p">,</span>
+            <span class="s1">&#39;property checked and all prepared&#39;</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="kc">True</span></div>
+
+    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">                Dunder method for SplashProperty.</span>
+
+<span class="sd">                :return: object in a human-readable format.</span>
+<span class="sd">                :rtype: &lt;str&gt;</span>
+<span class="sd">                :exceptions: None</span>
+<span class="sd">            &#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="s1">&#39;</span><span class="si">{0}</span><span class="s1"> (</span><span class="si">{1}</span><span class="s1">, </span><span class="si">{2}</span><span class="s1">)&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__verbose</span><span class="p">),</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__property</span><span class="p">)</span>
+        <span class="p">)</span></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2017, https://vroncevic.github.io/ats_utilities.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

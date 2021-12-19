@@ -27,7 +27,7 @@
             <a href="../../index.html" class="icon icon-home"> ats_utilities
           </a>
               <div class="version">
-                2.0.4
+                2.1.4
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
@@ -95,7 +95,6 @@
 <span class="kn">from</span> <span class="nn">time</span> <span class="kn">import</span> <span class="n">sleep</span>
 
 <span class="k">try</span><span class="p">:</span>
-    <span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
     <span class="kn">from</span> <span class="nn">six</span> <span class="kn">import</span> <span class="n">add_metaclass</span>
     <span class="kn">from</span> <span class="nn">ats_utilities</span> <span class="kn">import</span> <span class="n">VerboseRoot</span>
     <span class="kn">from</span> <span class="nn">ats_utilities.checker</span> <span class="kn">import</span> <span class="n">ATSChecker</span>
@@ -104,6 +103,9 @@
     <span class="kn">from</span> <span class="nn">ats_utilities.exceptions.ats_bad_call_error</span> <span class="kn">import</span> <span class="n">ATSBadCallError</span>
     <span class="kn">from</span> <span class="nn">ats_utilities.splash.progress_bar</span> <span class="kn">import</span> <span class="n">ProgressBar</span>
     <span class="kn">from</span> <span class="nn">ats_utilities.splash.terminal_properties</span> <span class="kn">import</span> <span class="n">TerminalProperties</span>
+    <span class="kn">from</span> <span class="nn">ats_utilities.splash.splash_property</span> <span class="kn">import</span> <span class="n">SplashProperty</span>
+    <span class="kn">from</span> <span class="nn">ats_utilities.splash.github_infrastructure</span> <span class="kn">import</span> <span class="n">GitHubInfrastructure</span>
+    <span class="kn">from</span> <span class="nn">ats_utilities.splash.ext_infrastructure</span> <span class="kn">import</span> <span class="n">ExtInfrastructure</span>
 <span class="k">except</span> <span class="ne">ImportError</span> <span class="k">as</span> <span class="n">ats_error_message</span><span class="p">:</span>
     <span class="n">MESSAGE</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="si">{0}</span><span class="se">\n</span><span class="si">{1}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="vm">__file__</span><span class="p">,</span> <span class="n">ats_error_message</span><span class="p">)</span>
     <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="n">MESSAGE</span><span class="p">)</span>  <span class="c1"># Force close python ATS ##############################</span>
@@ -112,29 +114,20 @@
 <span class="n">__copyright__</span> <span class="o">=</span> <span class="s1">&#39;Copyright 2021, https://vroncevic.github.io/ats_utilities&#39;</span>
 <span class="n">__credits__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Vladimir Roncevic&#39;</span><span class="p">]</span>
 <span class="n">__license__</span> <span class="o">=</span> <span class="s1">&#39;https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE&#39;</span>
-<span class="n">__version__</span> <span class="o">=</span> <span class="s1">&#39;2.0.4&#39;</span>
+<span class="n">__version__</span> <span class="o">=</span> <span class="s1">&#39;2.1.4&#39;</span>
 <span class="n">__maintainer__</span> <span class="o">=</span> <span class="s1">&#39;Vladimir Roncevic&#39;</span>
 <span class="n">__email__</span> <span class="o">=</span> <span class="s1">&#39;elektron.ronca@gmail.com&#39;</span>
 <span class="n">__status__</span> <span class="o">=</span> <span class="s1">&#39;Updated&#39;</span>
 
 
 <div class="viewcode-block" id="Splash"><a class="viewcode-back" href="../../ats_utilities.splash.html#ats_utilities.splash.Splash">[docs]</a><span class="nd">@add_metaclass</span><span class="p">(</span><span class="n">VerboseRoot</span><span class="p">)</span>
-<span class="k">class</span> <span class="nc">Splash</span><span class="p">:</span>
+<span class="k">class</span> <span class="nc">Splash</span><span class="p">(</span><span class="n">SplashProperty</span><span class="p">):</span>
     <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Defined class Splash with attribute(s) and method(s).</span>
 <span class="sd">        Load a splash screen info and add hyperlinks.</span>
 <span class="sd">        It defines:</span>
 
 <span class="sd">            :attributes:</span>
-<span class="sd">                | ORG - organization name.</span>
-<span class="sd">                | REPO - repository name.</span>
-<span class="sd">                | INFO_URL - project info link.</span>
-<span class="sd">                | INFO_TXT - project info text.</span>
-<span class="sd">                | ISSUE_URL - project issue link.</span>
-<span class="sd">                | ISSUE_TXT - project issue text.</span>
-<span class="sd">                | AUTHOR_URL - author info link.</span>
-<span class="sd">                | AUTHOR_TXT - author info text.</span>
-<span class="sd">                | LOGO - path to logo file.</span>
 <span class="sd">                | __verbose - enable/disable verbose option.</span>
 <span class="sd">            :methods:</span>
 <span class="sd">                | __init__ - initial constructor.</span>
@@ -142,51 +135,53 @@
 <span class="sd">                | __str__ - dunder method for Splash.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
 
-    <span class="n">ORG</span> <span class="o">=</span> <span class="s1">&#39;vroncevic&#39;</span>
-    <span class="n">REPO</span> <span class="o">=</span> <span class="s1">&#39;ats_utilities&#39;</span>
-    <span class="n">INFO_URL</span> <span class="o">=</span> <span class="s1">&#39;https://</span><span class="si">{0}</span><span class="s1">.github.io/</span><span class="si">{1}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">ORG</span><span class="p">,</span> <span class="n">REPO</span><span class="p">)</span>
-    <span class="n">INFO_TXT</span> <span class="o">=</span> <span class="s1">&#39;github.io/</span><span class="si">{0}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">REPO</span><span class="p">)</span>
-    <span class="n">ISSUE_URL</span> <span class="o">=</span> <span class="s1">&#39;https://github.com/</span><span class="si">{0}</span><span class="s1">/</span><span class="si">{1}</span><span class="s1">/issues/new/choose&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-        <span class="n">ORG</span><span class="p">,</span> <span class="n">REPO</span>
-    <span class="p">)</span>
-    <span class="n">ISSUE_TXT</span> <span class="o">=</span> <span class="s1">&#39;github.io/issue&#39;</span>
-    <span class="n">AUTHOR_URL</span> <span class="o">=</span> <span class="s1">&#39;https://</span><span class="si">{0}</span><span class="s1">.github.io/bio/&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">ORG</span><span class="p">)</span>
-    <span class="n">AUTHOR_TXT</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{0}</span><span class="s1">.github.io&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">ORG</span><span class="p">)</span>
-    <span class="n">LOGO</span> <span class="o">=</span> <span class="s1">&#39;/conf/ats_utilities.logo&#39;</span>
-
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ats_splash_property</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Initial constructor.</span>
 
+<span class="sd">            :param ats_splash_property: splash property in dict form.</span>
+<span class="sd">            :type ats_splash_property: &lt;dict&gt;</span>
 <span class="sd">            :param verbose: enable/disable verbose option.</span>
 <span class="sd">            :type verbose: &lt;bool&gt;</span>
-<span class="sd">            :exceptions: None</span>
+<span class="sd">            :exceptions: ATSTypeError | ATSBadCallError</span>
 <span class="sd">        &#39;&#39;&#39;</span>
+        <span class="n">checker</span><span class="p">,</span> <span class="n">error</span><span class="p">,</span> <span class="n">status</span> <span class="o">=</span> <span class="n">ATSChecker</span><span class="p">(),</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">False</span>
+        <span class="n">error</span><span class="p">,</span> <span class="n">status</span> <span class="o">=</span> <span class="n">checker</span><span class="o">.</span><span class="n">check_params</span><span class="p">([</span>
+            <span class="p">(</span><span class="s1">&#39;dict:ats_splash_property&#39;</span><span class="p">,</span> <span class="n">ats_splash_property</span><span class="p">)</span>
+        <span class="p">])</span>
+        <span class="k">if</span> <span class="n">status</span> <span class="o">==</span> <span class="n">ATSChecker</span><span class="o">.</span><span class="n">TYPE_ERROR</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">ATSTypeError</span><span class="p">(</span><span class="n">error</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">status</span> <span class="o">==</span> <span class="n">ATSChecker</span><span class="o">.</span><span class="n">VALUE_ERROR</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">ATSBadCallError</span><span class="p">(</span><span class="n">error</span><span class="p">)</span>
+        <span class="n">SplashProperty</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ats_splash_property</span><span class="p">,</span> <span class="n">verbose</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__verbose</span> <span class="o">=</span> <span class="n">verbose</span>
-        <span class="n">terminal</span> <span class="o">=</span> <span class="n">TerminalProperties</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__verbose</span> <span class="ow">or</span> <span class="n">verbose</span><span class="p">)</span>
-        <span class="n">current_dir</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)</span><span class="o">.</span><span class="n">resolve</span><span class="p">()</span><span class="o">.</span><span class="n">parent</span>
-        <span class="n">size</span> <span class="o">=</span> <span class="n">terminal</span><span class="o">.</span><span class="n">size</span><span class="p">()</span>
-        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{0}</span><span class="s1">/..</span><span class="si">{1}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">current_dir</span><span class="p">,</span> <span class="n">Splash</span><span class="o">.</span><span class="n">LOGO</span><span class="p">),</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">logo</span><span class="p">:</span>
-            <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">logo</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">center</span><span class="p">(</span><span class="n">size</span><span class="o">.</span><span class="n">columns</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">line</span><span class="o">.</span><span class="n">rstrip</span><span class="p">())</span>
-        <span class="n">info_text</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="se">\x1b</span><span class="s1">]8;;</span><span class="si">{0}</span><span class="se">\a</span><span class="si">{1}</span><span class="se">\x1b</span><span class="s1">]8;;</span><span class="se">\a</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-            <span class="n">Splash</span><span class="o">.</span><span class="n">INFO_URL</span><span class="p">,</span> <span class="n">Splash</span><span class="o">.</span><span class="n">INFO_TXT</span>
-        <span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">center</span><span class="p">(</span><span class="n">size</span><span class="o">.</span><span class="n">columns</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">info_text</span><span class="p">)</span>
-        <span class="n">issue_text</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="se">\x1b</span><span class="s1">]8;;</span><span class="si">{0}</span><span class="se">\a</span><span class="si">{1}</span><span class="se">\x1b</span><span class="s1">]8;;</span><span class="se">\a</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-            <span class="n">Splash</span><span class="o">.</span><span class="n">ISSUE_URL</span><span class="p">,</span> <span class="n">Splash</span><span class="o">.</span><span class="n">ISSUE_TXT</span>
-        <span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">center</span><span class="p">(</span><span class="n">size</span><span class="o">.</span><span class="n">columns</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">issue_text</span><span class="p">)</span>
-        <span class="n">author_text</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="se">\x1b</span><span class="s1">]8;;</span><span class="si">{0}</span><span class="se">\a</span><span class="si">{1}</span><span class="se">\x1b</span><span class="s1">]8;;</span><span class="se">\a</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-            <span class="n">Splash</span><span class="o">.</span><span class="n">AUTHOR_URL</span><span class="p">,</span> <span class="n">Splash</span><span class="o">.</span><span class="n">AUTHOR_TXT</span>
-        <span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">center</span><span class="p">(</span><span class="n">size</span><span class="o">.</span><span class="n">columns</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">author_text</span><span class="p">)</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
-        <span class="n">pb</span> <span class="o">=</span> <span class="n">ProgressBar</span><span class="p">(</span><span class="n">size</span><span class="o">.</span><span class="n">columns</span><span class="o">-</span><span class="nb">int</span><span class="p">(</span><span class="n">size</span><span class="o">.</span><span class="n">columns</span><span class="o">/</span><span class="mi">2</span><span class="p">))</span>
-        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">size</span><span class="o">.</span><span class="n">columns</span><span class="o">-</span><span class="nb">int</span><span class="p">(</span><span class="n">size</span><span class="o">.</span><span class="n">columns</span><span class="o">/</span><span class="mi">2</span><span class="p">)):</span>
-            <span class="n">pb</span><span class="o">.</span><span class="n">set_and_plot</span><span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">size</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
-            <span class="n">sleep</span><span class="p">(</span><span class="mf">0.01</span><span class="p">)</span>
-        <span class="k">del</span> <span class="n">pb</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">validate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__verbose</span> <span class="ow">or</span> <span class="n">verbose</span><span class="p">):</span>
+            <span class="n">terminal</span> <span class="o">=</span> <span class="n">TerminalProperties</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__verbose</span> <span class="ow">or</span> <span class="n">verbose</span><span class="p">)</span>
+            <span class="n">size</span> <span class="o">=</span> <span class="n">terminal</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__verbose</span> <span class="ow">or</span> <span class="n">verbose</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">ats_splash_property</span><span class="p">[</span><span class="s1">&#39;ats_use_github_infrastructure&#39;</span><span class="p">]:</span>
+                <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">ats_splash_property</span><span class="p">[</span><span class="s1">&#39;ats_logo_path&#39;</span><span class="p">],</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">logo</span><span class="p">:</span>
+                    <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">logo</span><span class="p">:</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">center</span><span class="p">(</span><span class="n">size</span><span class="o">.</span><span class="n">columns</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">line</span><span class="o">.</span><span class="n">rstrip</span><span class="p">())</span>
+                <span class="n">infrastructure</span> <span class="o">=</span> <span class="n">GitHubInfrastructure</span><span class="p">(</span>
+                    <span class="n">ats_splash_property</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">__verbose</span> <span class="ow">or</span> <span class="n">verbose</span>
+                <span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">center</span><span class="p">(</span><span class="n">size</span><span class="o">.</span><span class="n">columns</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">infrastructure</span><span class="o">.</span><span class="n">get_info_text</span><span class="p">())</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">center</span><span class="p">(</span><span class="n">size</span><span class="o">.</span><span class="n">columns</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">infrastructure</span><span class="o">.</span><span class="n">get_issue_text</span><span class="p">())</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">center</span><span class="p">(</span><span class="n">size</span><span class="o">.</span><span class="n">columns</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">infrastructure</span><span class="o">.</span><span class="n">get_author_text</span><span class="p">())</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">infrastructure</span> <span class="o">=</span> <span class="n">ExtInfrastructure</span><span class="p">(</span>
+                    <span class="n">ats_splash_property</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">__verbose</span> <span class="ow">or</span> <span class="n">verbose</span>
+                <span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">center</span><span class="p">(</span><span class="n">size</span><span class="o">.</span><span class="n">columns</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">infrastructure</span><span class="o">.</span><span class="n">get_info_text</span><span class="p">())</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">center</span><span class="p">(</span><span class="n">size</span><span class="o">.</span><span class="n">columns</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">infrastructure</span><span class="o">.</span><span class="n">get_issue_text</span><span class="p">())</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">center</span><span class="p">(</span><span class="n">size</span><span class="o">.</span><span class="n">columns</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">infrastructure</span><span class="o">.</span><span class="n">get_author_text</span><span class="p">())</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="n">pb</span> <span class="o">=</span> <span class="n">ProgressBar</span><span class="p">(</span><span class="n">size</span><span class="o">.</span><span class="n">columns</span><span class="o">-</span><span class="nb">int</span><span class="p">(</span><span class="n">size</span><span class="o">.</span><span class="n">columns</span><span class="o">/</span><span class="mi">2</span><span class="p">))</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">size</span><span class="o">.</span><span class="n">columns</span><span class="o">-</span><span class="nb">int</span><span class="p">(</span><span class="n">size</span><span class="o">.</span><span class="n">columns</span><span class="o">/</span><span class="mi">2</span><span class="p">)):</span>
+                <span class="n">pb</span><span class="o">.</span><span class="n">set_and_plot</span><span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">size</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
+                <span class="n">sleep</span><span class="p">(</span><span class="mf">0.01</span><span class="p">)</span>
+            <span class="k">del</span> <span class="n">pb</span>
 
 <div class="viewcode-block" id="Splash.center"><a class="viewcode-back" href="../../ats_utilities.splash.html#ats_utilities.splash.Splash.center">[docs]</a>    <span class="k">def</span> <span class="nf">center</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">columns</span><span class="p">,</span> <span class="n">additional_shifter</span><span class="p">,</span> <span class="n">text</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;</span>
