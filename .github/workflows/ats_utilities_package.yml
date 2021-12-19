@@ -2,8 +2,14 @@ name: Python package ats_utilities
 on:
   push:
     branches: [ master ]
+    paths:
+      - 'ats_utilities/**'
+      - 'setup.py'
   pull_request:
     branches: [ master ]
+    paths:
+      - 'ats_utilities/**'
+      - 'setup.py'
 jobs:
   build:
     runs-on: ubuntu-latest

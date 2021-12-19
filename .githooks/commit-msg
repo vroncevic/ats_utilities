@@ -1,0 +1,11 @@
+#!/bin/sh
+#
+# @brief   Add project name
+# @version ver.1.0.0
+# @date    Thu Apr 08 03:47:43 AM CET 2021
+# @company None, free software to use 2021
+# @author  Vladimir Roncevic <elektron.ronca@gmail.com>
+#
+
+PRO_NAME=$(basename `git rev-parse --show-toplevel`)
+echo "[$PRO_NAME] ""$(cat $1)" > "$1"

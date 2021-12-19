@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>ats_utilities.logging package &mdash; ats_utilities https://github.com/vroncevic/ats_utilities/releases documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -29,7 +30,7 @@
             <a href="index.html" class="icon icon-home"> ats_utilities
           </a>
               <div class="version">
-                1.9.4
+                2.0.4
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -58,6 +59,7 @@
 <li class="toctree-l4"><a class="reference internal" href="ats_utilities.option.html">ats_utilities.option package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ats_utilities.register.html">ats_utilities.register package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ats_utilities.singleton.html">ats_utilities.singleton package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ats_utilities.splash.html">ats_utilities.splash package</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="ats_utilities.html#module-ats_utilities">Module contents</a></li>
@@ -93,9 +95,9 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <div class="section" id="ats-utilities-logging-package">
+  <section id="ats-utilities-logging-package">
 <h1>ats_utilities.logging package<a class="headerlink" href="#ats-utilities-logging-package" title="Permalink to this headline"></a></h1>
-<div class="section" id="submodules">
+<section id="submodules">
 <h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline"></a></h2>
 <div class="toctree-wrapper compound">
 <ul>
@@ -104,8 +106,8 @@
 <li class="toctree-l1"><a class="reference internal" href="ats_utilities.logging.ats_logger_status.html">ats_utilities.logging.ats_logger_status module</a></li>
 </ul>
 </div>
-</div>
-<div class="section" id="module-ats_utilities.logging">
+</section>
+<section id="module-ats_utilities.logging">
 <span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-ats_utilities.logging" title="Permalink to this headline"></a></h2>
 <dl class="simple">
 <dt>Module</dt><dd><p>__init__.py</p>
@@ -128,7 +130,7 @@ Created API for ATS logging mechanism.</p>
 </dl>
 <dl class="py class">
 <dt class="sig sig-object py" id="ats_utilities.logging.ATSLogger">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">ats_utilities.logging.</span></span><span class="sig-name descname"><span class="pre">ATSLogger</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ats_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ats_log_file</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ats_utilities/logging.html#ATSLogger"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.logging.ATSLogger" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ats_utilities.logging.</span></span><span class="sig-name descname"><span class="pre">ATSLogger</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ats_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ats_log_file</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ats_utilities/logging.html#ATSLogger"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.logging.ATSLogger" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <a class="reference internal" href="ats_utilities.logging.ats_logger_name.html#ats_utilities.logging.ats_logger_name.ATSLoggerName" title="ats_utilities.logging.ats_logger_name.ATSLoggerName"><code class="xref py py-class docutils literal notranslate"><span class="pre">ats_utilities.logging.ats_logger_name.ATSLoggerName</span></code></a>, <a class="reference internal" href="ats_utilities.logging.ats_logger_file.html#ats_utilities.logging.ats_logger_file.ATSLoggerFile" title="ats_utilities.logging.ats_logger_file.ATSLoggerFile"><code class="xref py py-class docutils literal notranslate"><span class="pre">ats_utilities.logging.ats_logger_file.ATSLoggerFile</span></code></a>, <a class="reference internal" href="ats_utilities.logging.ats_logger_status.html#ats_utilities.logging.ats_logger_status.ATSLoggerStatus" title="ats_utilities.logging.ats_logger_status.ATSLoggerStatus"><code class="xref py py-class docutils literal notranslate"><span class="pre">ats_utilities.logging.ats_logger_status.ATSLoggerStatus</span></code></a></p>
 <p>Defined class ATSLogger with attribute(s) and method(s).
 Created API for ATS logging mechanism.
@@ -158,42 +160,42 @@ It defines:</p>
 </div></blockquote>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="ats_utilities.logging.ATSLogger.ATS_CRITICAL">
-<span class="sig-name descname"><span class="pre">ATS_CRITICAL</span></span><em class="property"> <span class="pre">=</span> <span class="pre">50</span></em><a class="headerlink" href="#ats_utilities.logging.ATSLogger.ATS_CRITICAL" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">ATS_CRITICAL</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">50</span></em><a class="headerlink" href="#ats_utilities.logging.ATSLogger.ATS_CRITICAL" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="ats_utilities.logging.ATSLogger.ATS_DEBUG">
-<span class="sig-name descname"><span class="pre">ATS_DEBUG</span></span><em class="property"> <span class="pre">=</span> <span class="pre">10</span></em><a class="headerlink" href="#ats_utilities.logging.ATSLogger.ATS_DEBUG" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">ATS_DEBUG</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">10</span></em><a class="headerlink" href="#ats_utilities.logging.ATSLogger.ATS_DEBUG" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="ats_utilities.logging.ATSLogger.ATS_ERROR">
-<span class="sig-name descname"><span class="pre">ATS_ERROR</span></span><em class="property"> <span class="pre">=</span> <span class="pre">40</span></em><a class="headerlink" href="#ats_utilities.logging.ATSLogger.ATS_ERROR" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">ATS_ERROR</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">40</span></em><a class="headerlink" href="#ats_utilities.logging.ATSLogger.ATS_ERROR" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="ats_utilities.logging.ATSLogger.ATS_INFO">
-<span class="sig-name descname"><span class="pre">ATS_INFO</span></span><em class="property"> <span class="pre">=</span> <span class="pre">20</span></em><a class="headerlink" href="#ats_utilities.logging.ATSLogger.ATS_INFO" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">ATS_INFO</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">20</span></em><a class="headerlink" href="#ats_utilities.logging.ATSLogger.ATS_INFO" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="ats_utilities.logging.ATSLogger.ATS_WARNING">
-<span class="sig-name descname"><span class="pre">ATS_WARNING</span></span><em class="property"> <span class="pre">=</span> <span class="pre">30</span></em><a class="headerlink" href="#ats_utilities.logging.ATSLogger.ATS_WARNING" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">ATS_WARNING</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">30</span></em><a class="headerlink" href="#ats_utilities.logging.ATSLogger.ATS_WARNING" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="ats_utilities.logging.ATSLogger.LOG_DATE_FORMAT">
-<span class="sig-name descname"><span class="pre">LOG_DATE_FORMAT</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'%m/%d/%Y</span> <span class="pre">%I:%M:%S</span> <span class="pre">%p'</span></em><a class="headerlink" href="#ats_utilities.logging.ATSLogger.LOG_DATE_FORMAT" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">LOG_DATE_FORMAT</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'%m/%d/%Y</span> <span class="pre">%I:%M:%S</span> <span class="pre">%p'</span></em><a class="headerlink" href="#ats_utilities.logging.ATSLogger.LOG_DATE_FORMAT" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="ats_utilities.logging.ATSLogger.LOG_MSG_FORMAT">
-<span class="sig-name descname"><span class="pre">LOG_MSG_FORMAT</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'%(asctime)s</span> <span class="pre">-</span> <span class="pre">%(levelname)s</span> <span class="pre">-</span> <span class="pre">%(message)s'</span></em><a class="headerlink" href="#ats_utilities.logging.ATSLogger.LOG_MSG_FORMAT" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">LOG_MSG_FORMAT</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'%(asctime)s</span> <span class="pre">-</span> <span class="pre">%(levelname)s</span> <span class="pre">-</span> <span class="pre">%(message)s'</span></em><a class="headerlink" href="#ats_utilities.logging.ATSLogger.LOG_MSG_FORMAT" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="ats_utilities.logging.ATSLogger.VERBOSE">
-<span class="sig-name descname"><span class="pre">VERBOSE</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'ats_utilities::logging'</span></em><a class="headerlink" href="#ats_utilities.logging.ATSLogger.VERBOSE" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">VERBOSE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'ats_utilities::logging'</span></em><a class="headerlink" href="#ats_utilities.logging.ATSLogger.VERBOSE" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -222,8 +224,8 @@ It defines:</p>
 
 </dd></dl>
 
-</div>
-</div>
+</section>
+</section>
 
 
            </div>

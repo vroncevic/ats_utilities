@@ -16,29 +16,33 @@
 FROM debian:10
 RUN apt-get update
 RUN DEBIAN_FRONTEND=noninteractive \
-    apt-get install -yq --no-install-recommends \
-    tree \
-    htop \
-    wget \
-    unzip \
-    ca-certificates \
-    openssl \
-    python \
-    python-pip \
-    python-wheel \
-    python3 \
-    python3-pip \
-    python3-wheel \
-    python3-venv \
-    libyaml-dev
+	apt-get install -yq --no-install-recommends \
+	vim \
+	nano \
+	tree \
+	htop \
+	wget \
+	unzip \
+	ca-certificates \
+	openssl \
+	python \
+	python-dev \
+	python3 \
+	python3-dev \
+	libyaml-dev
 
+RUN wget https://bootstrap.pypa.io/pip/2.7/get-pip.py
+RUN python2 get-pip.py
 RUN python2 -m pip install --upgrade setuptools
 RUN python2 -m pip install --upgrade pip
 RUN python2 -m pip install --upgrade build
+RUN rm -f get-pip.py
+RUN wget https://bootstrap.pypa.io/get-pip.py
+RUN python3 get-pip.py
 RUN python3 -m pip install --upgrade setuptools
 RUN python3 -m pip install --upgrade pip
 RUN python3 -m pip install --upgrade build
-RUN python3 -m venv env
+RUN rm -f get-pip.py
 RUN mkdir /ats_utilities/
 COPY ats_utilities /ats_utilities/
 COPY setup.cfg /
@@ -51,9 +55,9 @@ COPY requirements.txt /
 RUN pip2 install -r requirements.txt
 RUN pip3 install -r requirements.txt
 RUN rm -f requirements.txt
-RUN python -m build
+RUN python2 -m build --no-isolation --wheel
 RUN pip2 install /dist/ats_utilities-*-py2-none-any.whl
-RUN python3 -m build
+RUN python3 -m build --no-isolation --wheel
 RUN pip3 install /dist/ats_utilities-*-py3-none-any.whl
 RUN rm -rf /ats_utilities*
 RUN rm -rf dist/ tests/

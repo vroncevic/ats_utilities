@@ -20,6 +20,7 @@ Subpackages
    ats_utilities.option
    ats_utilities.register
    ats_utilities.singleton
+   ats_utilities.splash
 
 Module contents
 ---------------

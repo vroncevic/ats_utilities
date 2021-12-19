@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: UTF-8 -*-
 
-"""
+'''
  Module
      setup.py
  Copyright
@@ -18,7 +18,7 @@
      with this program. If not, see <http://www.gnu.org/licenses/>.
  Info
      Defined setup for package ats_utilities.
-"""
+'''
 
 from os.path import abspath, dirname, join
 from setuptools import setup
@@ -27,7 +27,7 @@ __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2017, https://vroncevic.github.io/ats_utilities'
 __credits__ = ['Vladimir Roncevic']
 __license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = '1.9.4'
+__version__ = '2.0.4'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
@@ -37,7 +37,7 @@ with open(join(THIS_DIR, 'README.md')) as readme:
     LONG_DESCRIPTION = readme.read()
 PROGRAMMING_LANG = 'Programming Language :: Python ::'
 VERSIONS = [
-    '2.7', '3', '3.1', '3.2', '3.3','3.4', '3.5', '3.6', '3.7', '3.8', '3.9'
+    '2.7', '3', '3.1', '3.2', '3.3', '3.4', '3.5', '3.6', '3.7', '3.8', '3.9'
 ]
 SUPPORTED_PY_VERSIONS = [
     '{0} {1}'.format(PROGRAMMING_LANG, VERSION) for VERSION in VERSIONS
@@ -56,7 +56,7 @@ APPROVED_LICENSES = [
 PYP_CLASSIFIERS = SUPPORTED_PY_VERSIONS + APPROVED_LICENSES
 setup(
     name='ats_utilities',
-    version='1.9.4',
+    version='2.0.4',
     description='Python App/Tool/Script Utilities',
     author='Vladimir Roncevic',
     author_email='elektron.ronca@gmail.com',
@@ -65,7 +65,7 @@ setup(
     long_description=LONG_DESCRIPTION,
     long_description_content_type='text/markdown',
     keywords='util, config, log, option, xml, cfg, ini, json, yml, cli, meta',
-    platforms='POSIX',
+    platforms='any',
     classifiers=PYP_CLASSIFIERS,
     packages=[
         'ats_utilities',
@@ -86,7 +86,8 @@ setup(
         'ats_utilities.logging',
         'ats_utilities.option',
         'ats_utilities.register',
-        'ats_utilities.singleton'
+        'ats_utilities.singleton',
+        'ats_utilities.splash'
     ],
     install_requires=[
         'six', 'colorama', 'bs4', 'PyYAML', 'configparser', 'pathlib'
