@@ -89,8 +89,8 @@ class TerminalProperties:
             :type file_descriptor: <int>
             :param verbose: enable/disable verbose option.
             :type verbose: <bool>
-            :return: status true window size checked else false.
-            :rtype: <bool>
+            :return: window size of terminal.
+            :rtype: <tupple>
             :exceptions: ATSTypeError | ATSBadCallError
         '''
         checker, error, status = ATSChecker(), None, False
@@ -111,7 +111,7 @@ class TerminalProperties:
             TerminalProperties.VERBOSE, self.__verbose or verbose,
             'terminal window size', self.__window_size
         )
-        return bool(self.__window_size)
+        return self.__window_size
 
     def __ioctl_for_all_descriptors(self, verbose=False):
         '''

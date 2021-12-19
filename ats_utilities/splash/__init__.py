@@ -90,25 +90,27 @@ class Splash(SplashProperty):
             if ats_splash_property['ats_use_github_infrastructure']:
                 with open(ats_splash_property['ats_logo_path'], 'r') as logo:
                     for line in logo:
-                        self.center(size.columns, 0, line.rstrip())
+                        processed_line = line.rstrip()
+                        if bool(processed_line):
+                            self.center(int(size[1]), 0, processed_line)
                 infrastructure = GitHubInfrastructure(
                     ats_splash_property, self.__verbose or verbose
                 )
-                self.center(size.columns, 2, infrastructure.get_info_text())
-                self.center(size.columns, 2, infrastructure.get_issue_text())
-                self.center(size.columns, 2, infrastructure.get_author_text())
+                self.center(int(size[1]), 2, infrastructure.get_info_text())
+                self.center(int(size[1]), 2, infrastructure.get_issue_text())
+                self.center(int(size[1]), 2, infrastructure.get_author_text())
                 print("\n")
             else:
                 infrastructure = ExtInfrastructure(
                     ats_splash_property, self.__verbose or verbose
                 )
-                self.center(size.columns, 2, infrastructure.get_info_text())
-                self.center(size.columns, 2, infrastructure.get_issue_text())
-                self.center(size.columns, 2, infrastructure.get_author_text())
+                self.center(int(size[1]), 2, infrastructure.get_info_text())
+                self.center(int(size[1]), 2, infrastructure.get_issue_text())
+                self.center(int(size[1]), 2, infrastructure.get_author_text())
                 print("\n")
-            pb = ProgressBar(size.columns-int(size.columns/2))
-            for i in range(0, size.columns-int(size.columns/2)):
-                pb.set_and_plot(i + 1, size.columns)
+            pb = ProgressBar(int(size[1])-int(int(size[1])/2))
+            for i in range(0, int(size[1])-int(int(size[1])/2)):
+                pb.set_and_plot(i + 1, int(size[1]))
                 sleep(0.01)
             del pb
 
@@ -142,7 +144,7 @@ class Splash(SplashProperty):
         )
         start_position = (columns/2) - 21
         number_of_tabs = int((start_position/8) - 1 + additional_shifter)
-        print('\011' * number_of_tabs, text)
+        print('{0}{1}'.format('\011' * number_of_tabs, text))
 
     def __str__(self):
         '''
