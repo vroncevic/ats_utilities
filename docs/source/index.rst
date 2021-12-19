@@ -219,8 +219,11 @@ Framework structure
     │   ├── meta.py
     │   └── meta_thread.py
     └── splash/
+        ├── ext_infrastructure.py
+        ├── github_infrastructure.py
         ├── __init__.py
         ├── progress_bar.py
+        ├── splash_property.py
         └── terminal_properties.py
 
 Copyright and licence

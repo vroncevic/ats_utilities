@@ -24,7 +24,6 @@ import sys
 from time import sleep
 
 try:
-    from pathlib import Path
     from six import add_metaclass
     from ats_utilities import VerboseRoot
     from ats_utilities.checker import ATSChecker
@@ -33,6 +32,9 @@ try:
     from ats_utilities.exceptions.ats_bad_call_error import ATSBadCallError
     from ats_utilities.splash.progress_bar import ProgressBar
     from ats_utilities.splash.terminal_properties import TerminalProperties
+    from ats_utilities.splash.splash_property import SplashProperty
+    from ats_utilities.splash.github_infrastructure import GitHubInfrastructure
+    from ats_utilities.splash.ext_infrastructure import ExtInfrastructure
 except ImportError as ats_error_message:
     MESSAGE = '\n{0}\n{1}\n'.format(__file__, ats_error_message)
     sys.exit(MESSAGE)  # Force close python ATS ##############################
@@ -41,29 +43,20 @@ __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2021, https://vroncevic.github.io/ats_utilities'
 __credits__ = ['Vladimir Roncevic']
 __license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = '2.0.4'
+__version__ = '2.1.4'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
 
 
 @add_metaclass(VerboseRoot)
-class Splash:
+class Splash(SplashProperty):
     '''
         Defined class Splash with attribute(s) and method(s).
         Load a splash screen info and add hyperlinks.
         It defines:
 
             :attributes:
-                | ORG - organization name.
-                | REPO - repository name.
-                | INFO_URL - project info link.
-                | INFO_TXT - project info text.
-                | ISSUE_URL - project issue link.
-                | ISSUE_TXT - project issue text.
-                | AUTHOR_URL - author info link.
-                | AUTHOR_TXT - author info text.
-                | LOGO - path to logo file.
                 | __verbose - enable/disable verbose option.
             :methods:
                 | __init__ - initial constructor.
@@ -71,51 +64,53 @@ class Splash:
                 | __str__ - dunder method for Splash.
     '''
 
-    ORG = 'vroncevic'
-    REPO = 'ats_utilities'
-    INFO_URL = 'https://{0}.github.io/{1}'.format(ORG, REPO)
-    INFO_TXT = 'github.io/{0}'.format(REPO)
-    ISSUE_URL = 'https://github.com/{0}/{1}/issues/new/choose'.format(
-        ORG, REPO
-    )
-    ISSUE_TXT = 'github.io/issue'
-    AUTHOR_URL = 'https://{0}.github.io/bio/'.format(ORG)
-    AUTHOR_TXT = '{0}.github.io'.format(ORG)
-    LOGO = '/conf/ats_utilities.logo'
-
-    def __init__(self, verbose=False):
+    def __init__(self, ats_splash_property, verbose=False):
         '''
             Initial constructor.
 
+            :param ats_splash_property: splash property in dict form.
+            :type ats_splash_property: <dict>
             :param verbose: enable/disable verbose option.
             :type verbose: <bool>
-            :exceptions: None
+            :exceptions: ATSTypeError | ATSBadCallError
         '''
+        checker, error, status = ATSChecker(), None, False
+        error, status = checker.check_params([
+            ('dict:ats_splash_property', ats_splash_property)
+        ])
+        if status == ATSChecker.TYPE_ERROR:
+            raise ATSTypeError(error)
+        if status == ATSChecker.VALUE_ERROR:
+            raise ATSBadCallError(error)
+        SplashProperty.__init__(self, ats_splash_property, verbose)
         self.__verbose = verbose
-        terminal = TerminalProperties(self.__verbose or verbose)
-        current_dir = Path(__file__).resolve().parent
-        size = terminal.size()
-        with open('{0}/..{1}'.format(current_dir, Splash.LOGO), 'r') as logo:
-            for line in logo:
-                self.center(size.columns, 0, line.rstrip())
-        info_text = '\x1b]8;;{0}\a{1}\x1b]8;;\a'.format(
-            Splash.INFO_URL, Splash.INFO_TXT
-        )
-        self.center(size.columns, 2, info_text)
-        issue_text = '\x1b]8;;{0}\a{1}\x1b]8;;\a'.format(
-            Splash.ISSUE_URL, Splash.ISSUE_TXT
-        )
-        self.center(size.columns, 2, issue_text)
-        author_text = '\x1b]8;;{0}\a{1}\x1b]8;;\a'.format(
-            Splash.AUTHOR_URL, Splash.AUTHOR_TXT
-        )
-        self.center(size.columns, 2, author_text)
-        print("\n")
-        pb = ProgressBar(size.columns-int(size.columns/2))
-        for i in range(0, size.columns-int(size.columns/2)):
-            pb.set_and_plot(i + 1, size.columns)
-            sleep(0.01)
-        del pb
+        if self.validate(self.__verbose or verbose):
+            terminal = TerminalProperties(self.__verbose or verbose)
+            size = terminal.size(self.__verbose or verbose)
+            if ats_splash_property['ats_use_github_infrastructure']:
+                with open(ats_splash_property['ats_logo_path'], 'r') as logo:
+                    for line in logo:
+                        self.center(size.columns, 0, line.rstrip())
+                infrastructure = GitHubInfrastructure(
+                    ats_splash_property, self.__verbose or verbose
+                )
+                self.center(size.columns, 2, infrastructure.get_info_text())
+                self.center(size.columns, 2, infrastructure.get_issue_text())
+                self.center(size.columns, 2, infrastructure.get_author_text())
+                print("\n")
+            else:
+                infrastructure = ExtInfrastructure(
+                    ats_splash_property, self.__verbose or verbose
+                )
+                self.center(size.columns, 2, infrastructure.get_info_text())
+                self.center(size.columns, 2, infrastructure.get_issue_text())
+                self.center(size.columns, 2, infrastructure.get_author_text())
+                print("\n")
+            pb = ProgressBar(size.columns-int(size.columns/2))
+            for i in range(0, size.columns-int(size.columns/2)):
+                pb.set_and_plot(i + 1, size.columns)
+                sleep(0.01)
+            del pb
 
     def center(self, columns, additional_shifter, text, verbose=False):
         '''

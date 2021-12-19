@@ -18,7 +18,7 @@
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="ats_utilities.splash.progress_bar module" href="ats_utilities.splash.progress_bar.html" />
+    <link rel="next" title="ats_utilities.splash.ext_infrastructure module" href="ats_utilities.splash.ext_infrastructure.html" />
     <link rel="prev" title="ats_utilities.singleton.meta_thread module" href="ats_utilities.singleton.meta_thread.html" /> 
 </head>
 
@@ -30,7 +30,7 @@
             <a href="index.html" class="icon icon-home"> ats_utilities
           </a>
               <div class="version">
-                2.0.4
+                2.1.4
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -101,7 +101,10 @@
 <h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline"></a></h2>
 <div class="toctree-wrapper compound">
 <ul>
+<li class="toctree-l1"><a class="reference internal" href="ats_utilities.splash.ext_infrastructure.html">ats_utilities.splash.ext_infrastructure module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ats_utilities.splash.github_infrastructure.html">ats_utilities.splash.github_infrastructure module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ats_utilities.splash.progress_bar.html">ats_utilities.splash.progress_bar module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ats_utilities.splash.splash_property.html">ats_utilities.splash.splash_property module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ats_utilities.splash.terminal_properties.html">ats_utilities.splash.terminal_properties module</a></li>
 </ul>
 </div>
@@ -129,8 +132,8 @@ Load a splash screen info and add hyperlinks.</p>
 </dl>
 <dl class="py class">
 <dt class="sig sig-object py" id="ats_utilities.splash.Splash">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ats_utilities.splash.</span></span><span class="sig-name descname"><span class="pre">Splash</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ats_utilities/splash.html#Splash"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.splash.Splash" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ats_utilities.splash.</span></span><span class="sig-name descname"><span class="pre">Splash</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ats_splash_property</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ats_utilities/splash.html#Splash"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.splash.Splash" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="ats_utilities.splash.splash_property.html#ats_utilities.splash.splash_property.SplashProperty" title="ats_utilities.splash.splash_property.SplashProperty"><code class="xref py py-class docutils literal notranslate"><span class="pre">ats_utilities.splash.splash_property.SplashProperty</span></code></a></p>
 <p>Defined class Splash with attribute(s) and method(s).
 Load a splash screen info and add hyperlinks.
 It defines:</p>
@@ -138,15 +141,6 @@ It defines:</p>
 <div><dl class="field-list">
 <dt class="field-odd">attributes</dt>
 <dd class="field-odd"><div class="line-block">
-<div class="line">ORG - organization name.</div>
-<div class="line">REPO - repository name.</div>
-<div class="line">INFO_URL - project info link.</div>
-<div class="line">INFO_TXT - project info text.</div>
-<div class="line">ISSUE_URL - project issue link.</div>
-<div class="line">ISSUE_TXT - project issue text.</div>
-<div class="line">AUTHOR_URL - author info link.</div>
-<div class="line">AUTHOR_TXT - author info text.</div>
-<div class="line">LOGO - path to logo file.</div>
 <div class="line">__verbose - enable/disable verbose option.</div>
 </div>
 </dd>
@@ -159,51 +153,6 @@ It defines:</p>
 </dd>
 </dl>
 </div></blockquote>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="ats_utilities.splash.Splash.AUTHOR_TXT">
-<span class="sig-name descname"><span class="pre">AUTHOR_TXT</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'vroncevic.github.io'</span></em><a class="headerlink" href="#ats_utilities.splash.Splash.AUTHOR_TXT" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="ats_utilities.splash.Splash.AUTHOR_URL">
-<span class="sig-name descname"><span class="pre">AUTHOR_URL</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'https://vroncevic.github.io/bio/'</span></em><a class="headerlink" href="#ats_utilities.splash.Splash.AUTHOR_URL" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="ats_utilities.splash.Splash.INFO_TXT">
-<span class="sig-name descname"><span class="pre">INFO_TXT</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'github.io/ats_utilities'</span></em><a class="headerlink" href="#ats_utilities.splash.Splash.INFO_TXT" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="ats_utilities.splash.Splash.INFO_URL">
-<span class="sig-name descname"><span class="pre">INFO_URL</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'https://vroncevic.github.io/ats_utilities'</span></em><a class="headerlink" href="#ats_utilities.splash.Splash.INFO_URL" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="ats_utilities.splash.Splash.ISSUE_TXT">
-<span class="sig-name descname"><span class="pre">ISSUE_TXT</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'github.io/issue'</span></em><a class="headerlink" href="#ats_utilities.splash.Splash.ISSUE_TXT" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="ats_utilities.splash.Splash.ISSUE_URL">
-<span class="sig-name descname"><span class="pre">ISSUE_URL</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'https://github.com/vroncevic/ats_utilities/issues/new/choose'</span></em><a class="headerlink" href="#ats_utilities.splash.Splash.ISSUE_URL" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="ats_utilities.splash.Splash.LOGO">
-<span class="sig-name descname"><span class="pre">LOGO</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'/conf/ats_utilities.logo'</span></em><a class="headerlink" href="#ats_utilities.splash.Splash.LOGO" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="ats_utilities.splash.Splash.ORG">
-<span class="sig-name descname"><span class="pre">ORG</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'vroncevic'</span></em><a class="headerlink" href="#ats_utilities.splash.Splash.ORG" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="ats_utilities.splash.Splash.REPO">
-<span class="sig-name descname"><span class="pre">REPO</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'ats_utilities'</span></em><a class="headerlink" href="#ats_utilities.splash.Splash.REPO" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
 <dl class="py attribute">
 <dt class="sig sig-object py" id="ats_utilities.splash.Splash.VERBOSE">
 <span class="sig-name descname"><span class="pre">VERBOSE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'ats_utilities::splash'</span></em><a class="headerlink" href="#ats_utilities.splash.Splash.VERBOSE" title="Permalink to this definition"></a></dt>
@@ -238,7 +187,7 @@ It defines:</p>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="ats_utilities.singleton.meta_thread.html" class="btn btn-neutral float-left" title="ats_utilities.singleton.meta_thread module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="ats_utilities.splash.progress_bar.html" class="btn btn-neutral float-right" title="ats_utilities.splash.progress_bar module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="ats_utilities.splash.ext_infrastructure.html" class="btn btn-neutral float-right" title="ats_utilities.splash.ext_infrastructure module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

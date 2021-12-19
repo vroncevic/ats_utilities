@@ -219,11 +219,14 @@ ats_utilities/
 │   ├── meta.py
 │   └── meta_thread.py
 └── splash/
+    ├── ext_infrastructure.py
+    ├── github_infrastructure.py
     ├── __init__.py
     ├── progress_bar.py
+    ├── splash_property.py
     └── terminal_properties.py
 
-19 directories, 64 files
+19 directories, 67 files
 ```
 
 ### Docs
