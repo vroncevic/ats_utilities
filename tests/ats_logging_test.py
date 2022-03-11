@@ -24,9 +24,9 @@
 
 import sys
 import unittest
+from os.path import dirname
 
 try:
-    from pathlib import Path
     from ats_utilities.logging import ATSLogger
 except ImportError as test_error_message:
     MESSAGE = '\n{0}\n{1}\n'.format(__file__, test_error_message)
@@ -36,7 +36,7 @@ __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2017, https://vroncevic.github.io/ats_utilities'
 __credits__ = ['Vladimir Roncevic']
 __license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = '2.1.4'
+__version__ = '2.2.4'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
@@ -68,7 +68,7 @@ class ATSLoggingTestCase(unittest.TestCase):
     def setUp(self):
         '''Call before test case.'''
         self.log_file = '{0}{1}'.format(
-            Path(__file__).resolve().parent, ATSLoggingTestCase.LOG_FILE
+            dirname(__file__), ATSLoggingTestCase.LOG_FILE
         )
         self.tool_name = 'simple_test'
         self.logger_ats = ATSLogger(

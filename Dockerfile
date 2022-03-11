@@ -16,20 +16,20 @@
 FROM debian:10
 RUN apt-get update
 RUN DEBIAN_FRONTEND=noninteractive \
-	apt-get install -yq --no-install-recommends \
-	vim \
-	nano \
-	tree \
-	htop \
-	wget \
-	unzip \
-	ca-certificates \
-	openssl \
-	python \
-	python-dev \
-	python3 \
-	python3-dev \
-	libyaml-dev
+    apt-get install -yq --no-install-recommends \
+    vim \
+    nano \
+    tree \
+    htop \
+    wget \
+    unzip \
+    ca-certificates \
+    openssl \
+    python \
+    python-dev \
+    python3 \
+    python3-dev \
+    libyaml-dev
 
 RUN wget https://bootstrap.pypa.io/pip/2.7/get-pip.py
 RUN python2 get-pip.py

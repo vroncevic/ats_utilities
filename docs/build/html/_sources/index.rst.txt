@@ -125,7 +125,6 @@ Dependencies
 * `bs4 - Screen-scraping library <https://pypi.org/project/beautifulsoup4/>`_
 * `configparser - Configuration parser library <https://pypi.org/project/configparser/>`_
 * `colorama - Cross-platform colored terminal text <https://pypi.org/project/colorama/>`_
-* `pathlib - Object-oriented filesystem paths <https://pypi.org/project/pathlib/>`_
 
 Framework structure
 --------------------

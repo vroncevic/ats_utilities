@@ -21,13 +21,13 @@
 '''
 
 import sys
+from os.path import isfile
 from logging import (
     getLogger, basicConfig, DEBUG, WARNING, CRITICAL, ERROR, INFO
 )
 
 try:
     from six import add_metaclass
-    from pathlib import Path
     from ats_utilities.checker import ATSChecker
     from ats_utilities.cooperative import CooperativeMeta
     from ats_utilities.console_io.error import error_message
@@ -46,7 +46,7 @@ __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2017, https://vroncevic.github.io/ats_utilities'
 __credits__ = ['Vladimir Roncevic']
 __license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = '2.1.4'
+__version__ = '2.2.4'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
@@ -104,7 +104,7 @@ class ATSLogger(ATSLoggerName, ATSLoggerFile, ATSLoggerStatus):
         ATSLoggerFile.__init__(self, verbose=verbose)
         ATSLoggerStatus.__init__(self, verbose=verbose)
         self.__verbose = verbose
-        if Path(ats_log_file).is_file():
+        if isfile(ats_log_file):
             self.logger_file = ats_log_file
             basicConfig(
                 format=ATSLogger.LOG_MSG_FORMAT,

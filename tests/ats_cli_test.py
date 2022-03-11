@@ -24,9 +24,9 @@
 
 import sys
 import unittest
+from os.path import dirname
 
 try:
-    from pathlib import Path
     from ats_utilities.cli.cfg_cli import CfgCLI
     from ats_utilities.cli.ini_cli import IniCLI
     from ats_utilities.cli.json_cli import JsonCLI
@@ -40,7 +40,7 @@ __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2017, https://vroncevic.github.io/ats_utilities'
 __credits__ = ['Vladimir Roncevic']
 __license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = '2.1.4'
+__version__ = '2.2.4'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
@@ -54,7 +54,7 @@ class ATSCliCfgAPI(CfgCLI):
 
     def __init__(self, verbose=False):
         '''Initial constructor.'''
-        current_dir = Path(__file__).resolve().parent
+        current_dir = dirname(__file__)
         base_info = '{0}{1}'.format(current_dir, ATSCliCfgAPI.__CONFIG)
         CfgCLI.__init__(self, base_info, verbose=verbose)
         if self.tool_operational:
@@ -83,7 +83,7 @@ class ATSCliIniAPI(IniCLI):
 
     def __init__(self, verbose=False):
         '''Initial constructor.'''
-        current_dir = Path(__file__).resolve().parent
+        current_dir = dirname(__file__)
         base_info = '{0}{1}'.format(current_dir, ATSCliIniAPI.__CONFIG)
         IniCLI.__init__(self, base_info, verbose=verbose)
         if self.tool_operational:
@@ -112,7 +112,7 @@ class ATSCliJsonAPI(JsonCLI):
 
     def __init__(self, verbose=False):
         '''Initial constructor.'''
-        current_dir = Path(__file__).resolve().parent
+        current_dir = dirname(__file__)
         base_info = '{0}{1}'.format(current_dir, ATSCliJsonAPI.__CONFIG)
         JsonCLI.__init__(self, base_info, verbose=verbose)
         if self.tool_operational:
@@ -141,7 +141,7 @@ class ATSCliXmlAPI(XmlCLI):
 
     def __init__(self, verbose=False):
         '''Initial constructor.'''
-        current_dir = Path(__file__).resolve().parent
+        current_dir = dirname(__file__)
         base_info = '{0}{1}'.format(current_dir, ATSCliXmlAPI.__CONFIG)
         XmlCLI.__init__(self, base_info, verbose=verbose)
         if self.tool_operational:
@@ -170,7 +170,7 @@ class ATSCliYamlAPI(YamlCLI):
 
     def __init__(self, verbose=False):
         '''Initial constructor.'''
-        current_dir = Path(__file__).resolve().parent
+        current_dir = dirname(__file__)
         base_info = '{0}{1}'.format(current_dir, ATSCliYamlAPI.__CONFIG)
         YamlCLI.__init__(self, base_info, verbose=verbose)
         if self.tool_operational:
