@@ -57,7 +57,7 @@ pip3 install ats-utilities
 
 ##### Install using build
 
-Navigate to **[release page](https://github.com/vroncevic/ats-utilities/releases)** download and extract release archive.
+Navigate to **[release page](https://github.com/vroncevic/ats_utilities/releases)** download and extract release archive.
 
 To install **ats-utilities**, run
 ```
@@ -87,7 +87,7 @@ rm -f get-pip.py
 
 ##### Install using py setup
 
-Navigate to **[release page](https://github.com/vroncevic/ats-utilities/releases)** download and extract release archive.
+Navigate to **[release page](https://github.com/vroncevic/ats_utilities/releases)** download and extract release archive.
 
 To install **ats-utilities**, locate and run setup.py with arguments
 ```
