@@ -2,6 +2,5 @@ six
 wheel
 PyYAML
 bs4
-pathlib
 colorama
 configparser

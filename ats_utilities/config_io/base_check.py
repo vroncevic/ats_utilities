@@ -21,11 +21,10 @@
 '''
 
 import sys
-from os.path import splitext
+from os.path import splitext, isfile
 
 try:
     from six import add_metaclass
-    from pathlib import Path
     from ats_utilities import VerboseRoot
     from ats_utilities.console_io.error import error_message
     from ats_utilities.console_io.verbose import verbose_message
@@ -37,7 +36,7 @@ __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2017, https://vroncevic.github.io/ats_utilities'
 __credits__ = ['Vladimir Roncevic']
 __license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = '2.1.4'
+__version__ = '2.2.4'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
@@ -91,7 +90,7 @@ class FileChecking:
             :type verbose: <bool>
             :exceptions: None
         '''
-        if not Path(file_path).is_file():
+        if not isfile(file_path):
             error_message(FileChecking.VERBOSE, 'check file', file_path)
         else:
             self.__file_path_ok = True

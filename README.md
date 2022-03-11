@@ -129,7 +129,6 @@ These modules requires other modules and libraries (Python 2.x/3.x)
 * [bs4 - Screen-scraping library](https://pypi.org/project/beautifulsoup4/)
 * [configparser - Configuration parser library](https://pypi.org/project/configparser/)
 * [colorama - Cross-platform colored terminal text](https://pypi.org/project/colorama/)
-* [pathlib - Object-oriented filesystem paths](https://pypi.org/project/pathlib/)
 
 ### Framework structure
 
