@@ -15,7 +15,7 @@ jobs:
 workflows:
   ats_utilities_ci:
     jobs:
-      - build_and_test
+      - build_and_test:
           filters:
             branches:
               only: master
