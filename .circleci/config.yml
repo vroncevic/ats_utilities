@@ -13,7 +13,7 @@ jobs:
           name: Run tests
           command: python -m pytest
 workflows:
-  ats_utilities_ci:
+  ats_utilities:
     jobs:
       - build_and_test:
           filters:
