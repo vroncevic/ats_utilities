@@ -27,6 +27,7 @@ other information that should be provided before the modules are installed.
 - [Dependencies](#dependencies)
 - [Framework structure](#framework-structure)
 - [Docs](#docs)
+- [Contributing](#contributing)
 - [Copyright and Licence](#copyright-and-licence)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
@@ -48,7 +49,8 @@ Currently there are four ways to install framework
 Python package is located at **[pypi.org](https://pypi.org/project/ats-utilities/)**.
 
 You can install by using pip
-```
+
+```bash
 # python2
 pip2 install ats-utilities
 # python3
@@ -60,7 +62,8 @@ pip3 install ats-utilities
 Navigate to **[release page](https://github.com/vroncevic/ats_utilities/releases)** download and extract release archive.
 
 To install **ats-utilities**, run
-```
+
+```bash
 tar xvzf ats-utilities-x.y.z.tar.gz
 cd ats-utilities-x.y.z
 # python2
@@ -90,7 +93,8 @@ rm -f get-pip.py
 Navigate to **[release page](https://github.com/vroncevic/ats_utilities/releases)** download and extract release archive.
 
 To install **ats-utilities**, locate and run setup.py with arguments
-```
+
+```bash
 tar xvzf ats-utilities-x.y.z.tar.gz
 cd ats-utilities-x.y.z
 # python2
@@ -137,7 +141,8 @@ These modules requires other modules and libraries (Python 2.x/3.x)
 ![Framework structure](https://raw.githubusercontent.com/vroncevic/ats_utilities/dev/docs/arch_flow_usage.png)
 
 Framework structure
-```
+
+```bash
 ats_utilities/
 ├── abstract/
 │   └── __init__.py
@@ -236,6 +241,10 @@ ats_utilities/
 More documentation and info at
 * [ats-utilities.readthedocs.io](https://ats-utilities.readthedocs.io/en/master/)
 * [www.python.org](https://www.python.org/)
+
+### Contributing
+
+[Contributing to ats_utilities](CONTRIBUTING.md)
 
 ### Copyright and Licence
 

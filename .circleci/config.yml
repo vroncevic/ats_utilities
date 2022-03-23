@@ -2,15 +2,21 @@ version: 2.1
 orbs:
   python: circleci/python@1.5.0
 jobs:
-  build-and-test:
+  build_and_test:
     docker:
       - image: cimg/python:3.9
     steps:
       - checkout
       - python/install-packages:
           pkg-manager: pip
+      - run:
+          name: Run tests
+          command: python -m pytest
 workflows:
-  sample:
+  ats_utilities:
     jobs:
-      - build-and-test
+      - build_and_test:
+          filters:
+            branches:
+              only: master
 
