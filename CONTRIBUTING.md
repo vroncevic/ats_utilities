@@ -4,4 +4,4 @@ The following is a set of guidelines for contributing to ats_utilities and its p
 
 ## Code of Conduct
 
-This project and everyone participating in it is governed by the [ats_utilities Code of Conduct](CODE_OF_CONDUCT.md). By participating, you are expected to uphold this code. Please report unacceptable behavior to [ats_utilities](mailto:elektron.ronca@gmail.com).
+ats_utilities project and everyone participating in it is governed by the [ats_utilities Code of Conduct](CODE_OF_CONDUCT.md). By participating, you are expected to uphold this code. Please report unacceptable behavior to [ats_utilities](mailto:elektron.ronca@gmail.com).
