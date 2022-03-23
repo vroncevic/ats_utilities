@@ -4,7 +4,7 @@
 
 **ats_utilities** is framework for creating Apps/Tools/Scripts.
 
-Developed in **[python](https://www.python.org/)** code: **https://github.com/vroncevic/ats_utilities/search?l=python**.
+Developed in **[python](https://www.python.org/)** code.
 
 [![codecov](https://codecov.io/gh/vroncevic/ats_utilities/branch/dev/graph/badge.svg?token=VNQOBXIHDB)](https://codecov.io/gh/vroncevic/ats_utilities)
 [![CircleCI](https://circleci.com/gh/vroncevic/ats_utilities/tree/master.svg?style=svg)](https://circleci.com/gh/vroncevic/ats_utilities/tree/master)
