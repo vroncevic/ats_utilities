@@ -9,8 +9,14 @@ jobs:
       - checkout
       - python/install-packages:
           pkg-manager: pip
+      - run:
+          name: Run tests
+          command: python -m pytest
 workflows:
-  sample:
+  ats_utilities_ci:
     jobs:
-      - build-and-test
+      - build_and_test
+          filters:
+            branches:
+              only: master
 
