@@ -2,9 +2,9 @@
 
 # ATS Utilities
 
-**ats_utilities** is framework for creating Apps/Tools/Scripts.
+☯️ **ats_utilities** is framework for creating Apps/Tools/Scripts.
 
-Developed in **[python](https://www.python.org/)** code.
+Developed in 🐍 **[python](https://www.python.org/)** code.
 
 [![codecov](https://codecov.io/gh/vroncevic/ats_utilities/branch/dev/graph/badge.svg?token=VNQOBXIHDB)](https://codecov.io/gh/vroncevic/ats_utilities)
 [![CircleCI](https://circleci.com/gh/vroncevic/ats_utilities/tree/master.svg?style=svg)](https://circleci.com/gh/vroncevic/ats_utilities/tree/master)
@@ -140,7 +140,7 @@ These modules requires other modules and libraries (Python 2.x/3.x)
 
 ![Framework structure](https://raw.githubusercontent.com/vroncevic/ats_utilities/dev/docs/arch_flow_usage.png)
 
-Framework structure
+🔨 Framework structure
 
 ```bash
 ats_utilities/
@@ -238,7 +238,7 @@ ats_utilities/
 
 [![Documentation Status](https://readthedocs.org/projects/ats-utilities/badge/?version=master)](https://ats-utilities.readthedocs.io/projects/ats-utilities/en/master/?badge=master)
 
-More documentation and info at
+📗 More documentation and info at
 * [ats-utilities.readthedocs.io](https://ats-utilities.readthedocs.io/en/master/)
 * [www.python.org](https://www.python.org/)
 
