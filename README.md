@@ -2,9 +2,9 @@
 
 # ATS Utilities
 
-**ats_utilities** is framework for creating Apps/Tools/Scripts.
+☯️ **ats_utilities** is framework for creating Apps/Tools/Scripts.
 
-Developed in **[python](https://www.python.org/)** code.
+Developed in 🐍 **[python](https://www.python.org/)** code.
 
 [![codecov](https://codecov.io/gh/vroncevic/ats_utilities/branch/dev/graph/badge.svg?token=VNQOBXIHDB)](https://codecov.io/gh/vroncevic/ats_utilities)
 [![CircleCI](https://circleci.com/gh/vroncevic/ats_utilities/tree/master.svg?style=svg)](https://circleci.com/gh/vroncevic/ats_utilities/tree/master)
@@ -46,7 +46,7 @@ Currently there are four ways to install framework
 
 ##### Install using pip
 
-Python package is located at **[pypi.org](https://pypi.org/project/ats-utilities/)**.
+Python 📦 is located at **[pypi.org](https://pypi.org/project/ats-utilities/)**.
 
 You can install by using pip
 
@@ -59,7 +59,7 @@ pip3 install ats-utilities
 
 ##### Install using build
 
-Navigate to **[release page](https://github.com/vroncevic/ats_utilities/releases)** download and extract release archive.
+Navigate to **[release page](https://github.com/vroncevic/ats_utilities/releases)** download and extract release archive 📦.
 
 To install **ats-utilities**, run
 
@@ -90,7 +90,7 @@ rm -f get-pip.py
 
 ##### Install using py setup
 
-Navigate to **[release page](https://github.com/vroncevic/ats_utilities/releases)** download and extract release archive.
+Navigate to **[release page](https://github.com/vroncevic/ats_utilities/releases)** download and extract release archive 📦.
 
 To install **ats-utilities**, locate and run setup.py with arguments
 
@@ -121,7 +121,7 @@ rm -f get-pip.py
 
 ##### Install using docker
 
-You can use Dockerfile to create image/container.
+You can use Dockerfile to create image/container 🚢.
 
 [![ats_utilities docker checker](https://github.com/vroncevic/ats_utilities/workflows/ats_utilities%20docker%20checker/badge.svg)](https://github.com/vroncevic/ats_utilities/actions?query=workflow%3A%22ats_utilities+docker+checker%22)
 
@@ -140,7 +140,7 @@ These modules requires other modules and libraries (Python 2.x/3.x)
 
 ![Framework structure](https://raw.githubusercontent.com/vroncevic/ats_utilities/dev/docs/arch_flow_usage.png)
 
-Framework structure
+🧰 Framework structure
 
 ```bash
 ats_utilities/
@@ -238,13 +238,13 @@ ats_utilities/
 
 [![Documentation Status](https://readthedocs.org/projects/ats-utilities/badge/?version=master)](https://ats-utilities.readthedocs.io/projects/ats-utilities/en/master/?badge=master)
 
-More documentation and info at
+📗 More documentation and info at
 * [ats-utilities.readthedocs.io](https://ats-utilities.readthedocs.io/en/master/)
 * [www.python.org](https://www.python.org/)
 
 ### Contributing
 
-[Contributing to ats_utilities](CONTRIBUTING.md)
+🌎 🌍 🌏 [Contributing to ats_utilities](CONTRIBUTING.md)
 
 ### Copyright and Licence
 
