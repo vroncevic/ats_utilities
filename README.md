@@ -34,7 +34,7 @@ other information that should be provided before the modules are installed.
 
 ### Installation
 
-![Install Python2 Package](https://github.com/vroncevic/ats_utilities/workflows/Install%20Python2%20Package%20ats_utilities/badge.svg?branch=master) ![Install Python3 Package](https://github.com/vroncevic/ats_utilities/workflows/Install%20Python3%20Package%20ats_utilities/badge.svg?branch=master)
+[![ats_utilities build python2 package](https://github.com/vroncevic/ats_utilities/actions/workflows/ats_utilities_python2_publish.yml/badge.svg)](https://github.com/vroncevic/ats_utilities/actions/workflows/ats_utilities_python2_publish.yml) [![ats_utilities build python3 package](https://github.com/vroncevic/ats_utilities/actions/workflows/ats_utilities_python3_publish.yml/badge.svg)](https://github.com/vroncevic/ats_utilities/actions/workflows/ats_utilities_python3_publish.yml)
 
 ![Debian Linux OS](https://raw.githubusercontent.com/vroncevic/ats_utilities/dev/docs/debtux.png)
 
@@ -123,7 +123,7 @@ rm -f get-pip.py
 
 You can use Dockerfile to create image/container 🚢.
 
-[![ats_utilities docker checker](https://github.com/vroncevic/ats_utilities/workflows/ats_utilities%20docker%20checker/badge.svg)](https://github.com/vroncevic/ats_utilities/actions?query=workflow%3A%22ats_utilities+docker+checker%22)
+[![ats_utilities docker checker](https://github.com/vroncevic/ats_utilities/actions/workflows/ats_utilities_docker_checker.yml/badge.svg)](https://github.com/vroncevic/ats_utilities/actions/workflows/ats_utilities_docker_checker.yml)
 
 ### Dependencies
 
