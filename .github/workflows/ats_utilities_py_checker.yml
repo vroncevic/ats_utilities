@@ -1,4 +1,4 @@
-name: ats_utilities py checker
+name: ats_utilities py code checker
 on:
   push:
     branches: [ master ]
@@ -15,7 +15,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: Check length of line in modules
+      - name: check length of line in modules
         id: long_line_checker
         run: |
           echo Checking length of line in modules
@@ -23,7 +23,7 @@ jobs:
           modules=($(find ats_utilities/ -type f -name '*.py' -exec echo '{}' \;))
           for mod in "${modules[@]}"; do line_length=$(wc -L < "${mod}"); [[ $line_length -gt 80 ]] && modules_ok=1; done
           [[ $modules_ok -eq 0 ]] && echo ::set-output name=status::success || echo ::set-output name=status::failure
-      - name: Check number of lines in modules
+      - name: check number of lines in modules
         id: num_line_checker
         run: |
           echo Checking number of lines in modules
@@ -31,6 +31,6 @@ jobs:
           modules=($(find ats_utilities/ -type f -name '*.py' -exec echo '{}' \;))
           for mod in "${modules[@]}"; do line_numbers=$(wc -l < "${mod}"); [[ $line_numbers -gt 300 ]] && modules_ok=1; done
           [[ $modules_ok -eq 0 ]] && echo ::set-output name=status::success || echo ::set-output name=status::failure
-      - name: Check on failures
+      - name: check on failures
         if: steps.long_line_checker.outputs.status == 'failure' || steps.num_line_checker.outputs.status == 'failure'
         run: exit 1

@@ -1,4 +1,4 @@
-name: Install Python3 Package ats_utilities
+name: ats_utilities build python3 package
 on:
   push:
     branches: [ master ]
@@ -25,16 +25,16 @@ jobs:
       uses: actions/setup-python@v1
       with:
         python-version: '3.9'
-    - name: Install dependencies
+    - name: install dependencies
       run: |
         python3 -m pip install --upgrade setuptools
         python3 -m pip install --upgrade pip
         python3 -m pip install --upgrade build
         python3 -m pip install --upgrade wheel
         pip3 install -r requirements.txt
-    - name: Build by python build
+    - name: build by python build
       run: |
         python3 -m build -s --no-isolation --wheel
-    - name: Build and publish
+    - name: build by python setup
       run: |
         python3 setup.py sdist bdist_wheel
