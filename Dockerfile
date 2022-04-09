@@ -22,6 +22,7 @@ RUN DEBIAN_FRONTEND=noninteractive \
     tree \
     htop \
     wget \
+    curl \
     unzip \
     ca-certificates \
     openssl \
