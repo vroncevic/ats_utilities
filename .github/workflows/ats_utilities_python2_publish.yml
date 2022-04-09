@@ -37,4 +37,4 @@ jobs:
         python2 -m build -s --no-isolation --wheel
     - name: Build and publish
       run: |
-        python2 setup.py --github sdist bdist_wheel
+        python2 setup.py sdist bdist_wheel
