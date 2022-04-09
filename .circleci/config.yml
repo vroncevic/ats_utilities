@@ -16,6 +16,15 @@ jobs:
           name: Install pytest
           command: pip install pytest
       - run:
+          name: Build python package
+          command: |
+            python -m pip install --upgrade setuptools
+            python -m pip install --upgrade pip
+            python -m pip install --upgrade build
+            python -m pip install --upgrade wheel
+            pip install -r requirements.txt
+            python -m build -s --no-isolation --wheel
+      - run:
           name: Run tests
           command: python -m pytest
 workflows:

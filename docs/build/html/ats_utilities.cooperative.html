@@ -1,20 +1,18 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html4" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-
+  <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ats_utilities.cooperative package &mdash; ats_utilities https://github.com/vroncevic/ats_utilities/releases documentation</title>
-      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <title>ats_utilities.cooperative package &mdash; ats_utilities https://github.com/vroncevic/ats_utilities/releases documentation</title><link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
   <!--[if lt IE 9]>
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
-  
-        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-        <script src="_static/jquery.js"></script>
-        <script src="_static/underscore.js"></script>
-        <script src="_static/doctools.js"></script>
+  <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -30,7 +28,7 @@
             <a href="index.html" class="icon icon-home"> ats_utilities
           </a>
               <div class="version">
-                2.2.5
+                2.3.5
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -40,7 +38,7 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption" role="heading"><span class="caption-text">Contents</span></p>
+              <p class="caption"><span class="caption-text">Contents</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="index.html">ATS Utilities</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="modules.html">ats_utilities</a><ul class="current">
@@ -95,14 +93,15 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="ats-utilities-cooperative-package">
-<h1>ats_utilities.cooperative package<a class="headerlink" href="#ats-utilities-cooperative-package" title="Permalink to this headline"></a></h1>
-<section id="module-ats_utilities.cooperative">
-<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-ats_utilities.cooperative" title="Permalink to this headline"></a></h2>
-<dl class="simple">
-<dt>Module</dt><dd><p>__init__.py</p>
-</dd>
-<dt>Copyright</dt><dd><p>Copyright (C) 2017 Vladimir Roncevic &lt;<a class="reference external" href="mailto:elektron&#46;ronca&#37;&#52;&#48;gmail&#46;com">elektron<span>&#46;</span>ronca<span>&#64;</span>gmail<span>&#46;</span>com</a>&gt;
+  <div class="section" id="ats-utilities-cooperative-package">
+<h1>ats_utilities.cooperative package<a class="headerlink" href="#ats-utilities-cooperative-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="module-ats_utilities.cooperative">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-ats_utilities.cooperative" title="Permalink to this headline">¶</a></h2>
+<dl class="docutils">
+<dt>Module</dt>
+<dd>__init__.py</dd>
+<dt>Copyright</dt>
+<dd>Copyright (C) 2017 Vladimir Roncevic &lt;<a class="reference external" href="mailto:elektron&#46;ronca&#37;&#52;&#48;gmail&#46;com">elektron<span>&#46;</span>ronca<span>&#64;</span>gmail<span>&#46;</span>com</a>&gt;
 ats_utilities is free software: you can redistribute it and/or modify it
 under the terms of the GNU General Public License as published by the
 Free Software Foundation, either version 3 of the License, or
@@ -112,39 +111,42 @@ WITHOUT ANY WARRANTY; without even the implied warranty of
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 See the GNU General Public License for more details.
 You should have received a copy of the GNU General Public License along
-with this program. If not, see &lt;<a class="reference external" href="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</a>&gt;.</p>
-</dd>
-<dt>Info</dt><dd><p>Defined class CooperativeMeta with attribute(s) and method(s).
-Created cooperative mechanism for multi-inheritance.</p>
-</dd>
+with this program. If not, see &lt;<a class="reference external" href="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</a>&gt;.</dd>
+<dt>Info</dt>
+<dd>Defined class CooperativeMeta with attribute(s) and method(s).
+Created cooperative mechanism for multi-inheritance.</dd>
 </dl>
-<dl class="py class">
-<dt class="sig sig-object py" id="ats_utilities.cooperative.CooperativeMeta">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ats_utilities.cooperative.</span></span><span class="sig-name descname"><span class="pre">CooperativeMeta</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bases</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">members</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ats_utilities/cooperative.html#CooperativeMeta"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.cooperative.CooperativeMeta" title="Permalink to this definition"></a></dt>
+<dl class="class">
+<dt id="ats_utilities.cooperative.CooperativeMeta">
+<em class="property">class </em><code class="descclassname">ats_utilities.cooperative.</code><code class="descname">CooperativeMeta</code><span class="sig-paren">(</span><em>name</em>, <em>bases</em>, <em>members</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ats_utilities/cooperative.html#CooperativeMeta"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ats_utilities.cooperative.CooperativeMeta" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">type</span></code></p>
 <p>Defined class CooperativeMeta with attribute(s) and method(s).
 Created cooperative mechanism for multi-inheritance.
 It defines:</p>
 <blockquote>
-<div><dl class="field-list">
-<dt class="field-odd">attributes</dt>
-<dd class="field-odd"><div class="line-block">
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">attributes:</th><td class="field-body"><div class="first last line-block">
 <div class="line">combined_metas - combined metaclasses in form of dictionary.</div>
 </div>
-</dd>
-<dt class="field-even">methods</dt>
-<dd class="field-even"><div class="line-block">
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">methods:</th><td class="field-body"><div class="first last line-block">
 <div class="line">__new__ - new constructor.</div>
 <div class="line">__init__ - initial constructor.</div>
 <div class="line">__str__ - str dunder method for CooperativeMeta.</div>
 </div>
-</dd>
-</dl>
+</td>
+</tr>
+</tbody>
+</table>
 </div></blockquote>
 </dd></dl>
 
-</section>
-</section>
+</div>
+</div>
 
 
            </div>

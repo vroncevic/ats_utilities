@@ -1,20 +1,18 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html4" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-
+  <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ats_utilities.option package &mdash; ats_utilities https://github.com/vroncevic/ats_utilities/releases documentation</title>
-      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <title>ats_utilities.option package &mdash; ats_utilities https://github.com/vroncevic/ats_utilities/releases documentation</title><link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
   <!--[if lt IE 9]>
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
-  
-        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-        <script src="_static/jquery.js"></script>
-        <script src="_static/underscore.js"></script>
-        <script src="_static/doctools.js"></script>
+  <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -30,7 +28,7 @@
             <a href="index.html" class="icon icon-home"> ats_utilities
           </a>
               <div class="version">
-                2.2.5
+                2.3.5
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -40,7 +38,7 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption" role="heading"><span class="caption-text">Contents</span></p>
+              <p class="caption"><span class="caption-text">Contents</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="index.html">ATS Utilities</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="modules.html">ats_utilities</a><ul class="current">
@@ -95,14 +93,15 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="ats-utilities-option-package">
-<h1>ats_utilities.option package<a class="headerlink" href="#ats-utilities-option-package" title="Permalink to this headline"></a></h1>
-<section id="module-ats_utilities.option">
-<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-ats_utilities.option" title="Permalink to this headline"></a></h2>
-<dl class="simple">
-<dt>Module</dt><dd><p>__init__.py</p>
-</dd>
-<dt>Copyright</dt><dd><p>Copyright (C) 2017 Vladimir Roncevic &lt;<a class="reference external" href="mailto:elektron&#46;ronca&#37;&#52;&#48;gmail&#46;com">elektron<span>&#46;</span>ronca<span>&#64;</span>gmail<span>&#46;</span>com</a>&gt;
+  <div class="section" id="ats-utilities-option-package">
+<h1>ats_utilities.option package<a class="headerlink" href="#ats-utilities-option-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="module-ats_utilities.option">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-ats_utilities.option" title="Permalink to this headline">¶</a></h2>
+<dl class="docutils">
+<dt>Module</dt>
+<dd>__init__.py</dd>
+<dt>Copyright</dt>
+<dd>Copyright (C) 2017 Vladimir Roncevic &lt;<a class="reference external" href="mailto:elektron&#46;ronca&#37;&#52;&#48;gmail&#46;com">elektron<span>&#46;</span>ronca<span>&#64;</span>gmail<span>&#46;</span>com</a>&gt;
 ats_utilities is free software: you can redistribute it and/or modify it
 under the terms of the GNU General Public License as published by the
 Free Software Foundation, either version 3 of the License, or
@@ -112,86 +111,97 @@ WITHOUT ANY WARRANTY; without even the implied warranty of
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 See the GNU General Public License for more details.
 You should have received a copy of the GNU General Public License along
-with this program. If not, see &lt;<a class="reference external" href="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</a>&gt;.</p>
-</dd>
-<dt>Info</dt><dd><p>Defined class ATSOptionParser with attribute(s) and method(s).
-Created option parser and argument processor.</p>
-</dd>
+with this program. If not, see &lt;<a class="reference external" href="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</a>&gt;.</dd>
+<dt>Info</dt>
+<dd>Defined class ATSOptionParser with attribute(s) and method(s).
+Created option parser and argument processor.</dd>
 </dl>
-<dl class="py class">
-<dt class="sig sig-object py" id="ats_utilities.option.ATSOptionParser">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ats_utilities.option.</span></span><span class="sig-name descname"><span class="pre">ATSOptionParser</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">version</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">epilog</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">description</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ats_utilities/option.html#ATSOptionParser"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.option.ATSOptionParser" title="Permalink to this definition"></a></dt>
+<dl class="class">
+<dt id="ats_utilities.option.ATSOptionParser">
+<em class="property">class </em><code class="descclassname">ats_utilities.option.</code><code class="descname">ATSOptionParser</code><span class="sig-paren">(</span><em>version</em>, <em>epilog</em>, <em>description</em>, <em>verbose=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ats_utilities/option.html#ATSOptionParser"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ats_utilities.option.ATSOptionParser" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Defined class ATSOptionParser with attribute(s) and method(s).
 Created option parser and argument processor.</p>
 <p>It defines:</p>
 <blockquote>
-<div><dl class="field-list">
-<dt class="field-odd">attributes</dt>
-<dd class="field-odd"><div class="line-block">
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">attributes:</th><td class="field-body"><div class="first last line-block">
 <div class="line">__verbose - enable/disable verbose option.</div>
 <div class="line">__opt_parser - options parser.</div>
 </div>
-</dd>
-<dt class="field-even">methods</dt>
-<dd class="field-even"><div class="line-block">
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">methods:</th><td class="field-body"><div class="first last line-block">
 <div class="line">__init__ - initial constructor.</div>
 <div class="line">add_operation - add option to ATS.</div>
 <div class="line">parse_args - process arguments from start.</div>
 <div class="line">__str__ - str dunder method for ATSOptionParser.</div>
 </div>
-</dd>
-</dl>
+</td>
+</tr>
+</tbody>
+</table>
 </div></blockquote>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="ats_utilities.option.ATSOptionParser.VERBOSE">
-<span class="sig-name descname"><span class="pre">VERBOSE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'ats_utilities::option'</span></em><a class="headerlink" href="#ats_utilities.option.ATSOptionParser.VERBOSE" title="Permalink to this definition"></a></dt>
+<dl class="attribute">
+<dt id="ats_utilities.option.ATSOptionParser.VERBOSE">
+<code class="descname">VERBOSE</code><em class="property"> = 'ats_utilities::option'</em><a class="headerlink" href="#ats_utilities.option.ATSOptionParser.VERBOSE" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="py method">
-<dt class="sig sig-object py" id="ats_utilities.option.ATSOptionParser.add_operation">
-<span class="sig-name descname"><span class="pre">add_operation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ats_utilities/option.html#ATSOptionParser.add_operation"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.option.ATSOptionParser.add_operation" title="Permalink to this definition"></a></dt>
+<dl class="method">
+<dt id="ats_utilities.option.ATSOptionParser.add_operation">
+<code class="descname">add_operation</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ats_utilities/option.html#ATSOptionParser.add_operation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ats_utilities.option.ATSOptionParser.add_operation" title="Permalink to this definition">¶</a></dt>
 <dd><p>Add option to ATS.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>args</strong> (<em>&lt;list&gt;</em>) – list of arguments (objects).</p></li>
-<li><p><strong>kwargs</strong> (<em>&lt;dict&gt;</em>) – arguments in shape of dictionary.</p></li>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>args</strong> (<em>&lt;list&gt;</em>) – list of arguments (objects).</li>
+<li><strong>kwargs</strong> (<em>&lt;dict&gt;</em>) – arguments in shape of dictionary.</li>
 </ul>
-</dd>
-<dt class="field-even">Exceptions</dt>
-<dd class="field-even"><p>None</p>
-</dd>
-</dl>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Exceptions:</th><td class="field-body"><p class="first last">None</p>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
-<dl class="py method">
-<dt class="sig sig-object py" id="ats_utilities.option.ATSOptionParser.parse_args">
-<span class="sig-name descname"><span class="pre">parse_args</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arguments</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ats_utilities/option.html#ATSOptionParser.parse_args"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.option.ATSOptionParser.parse_args" title="Permalink to this definition"></a></dt>
+<dl class="method">
+<dt id="ats_utilities.option.ATSOptionParser.parse_args">
+<code class="descname">parse_args</code><span class="sig-paren">(</span><em>arguments</em>, <em>verbose=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ats_utilities/option.html#ATSOptionParser.parse_args"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ats_utilities.option.ATSOptionParser.parse_args" title="Permalink to this definition">¶</a></dt>
 <dd><p>Process arguments from start.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>arguments</strong> (<em>&lt;list&gt;</em>) – arguments.</p></li>
-<li><p><strong>verbose</strong> (<em>&lt;bool&gt;</em>) – enable/disable verbose option.</p></li>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>arguments</strong> (<em>&lt;list&gt;</em>) – arguments.</li>
+<li><strong>verbose</strong> (<em>&lt;bool&gt;</em>) – enable/disable verbose option.</li>
 </ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>namespace object.</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>&lt;argparse.Namespace&gt;</p>
-</dd>
-<dt class="field-even">Exceptions</dt>
-<dd class="field-even"><p>None</p>
-</dd>
-</dl>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">namespace object.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first">&lt;argparse.Namespace&gt;</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Exceptions:</th><td class="field-body"><p class="first last">None</p>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 </dd></dl>
 
-</section>
-</section>
+</div>
+</div>
 
 
            </div>
