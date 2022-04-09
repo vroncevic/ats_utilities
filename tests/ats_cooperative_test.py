@@ -26,6 +26,7 @@ import sys
 import unittest
 
 try:
+    from six import add_metaclass
     from ats_utilities.cooperative import CooperativeMeta
 except ImportError as test_error_message:
     MESSAGE = '\n{0}\n{1}\n'.format(__file__, test_error_message)
@@ -35,7 +36,7 @@ __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2017, https://vroncevic.github.io/ats_utilities'
 __credits__ = ['Vladimir Roncevic']
 __license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = '2.2.5'
+__version__ = '2.3.5'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
@@ -61,29 +62,28 @@ class MetaClass(type):
     pass
 
 
+@add_metaclass(MetaType)
 class SetupType:
     '''Simple Class for checking CooperativeMeta.'''
-    __metaclass__ = MetaType
+    pass
 
 
+@add_metaclass(MetaValue)
 class SetupValue:
     '''Simple Class for checking CooperativeMeta.'''
-    __metaclass__ = MetaValue
+    pass
 
 
+@add_metaclass(MetaInstance)
 class SetupInstance:
     '''Simple Class for checking CooperativeMeta.'''
-    __metaclass__ = MetaInstance
+    pass
 
 
+@add_metaclass(MetaClass)
 class SetupClass:
     '''Simple Class for checking CooperativeMeta.'''
-    __metaclass__ = MetaClass
-
-
-class Fixed(SetupType, SetupValue, SetupInstance, SetupClass):
-    '''Simple Class for checking CooperativeMeta.'''
-    __metaclass__ = CooperativeMeta
+    pass
 
 
 class ATSCooperativeTestCase(unittest.TestCase):
@@ -97,7 +97,10 @@ class ATSCooperativeTestCase(unittest.TestCase):
             :methods:
                 | setUp - call before test case.
                 | tearDown - call after test case.
-                | test_cooperative_meta - test for cooperative meta.
+                | test_setup_type_class_meta - test setup type meta.
+                | test_setup_value_class_meta - test setup value meta.
+                | test_setup_instance_class_meta - test setup instance meta.
+                | test_setup_class_meta - test setup meta.
     '''
 
     def setUp(self):
@@ -108,9 +111,21 @@ class ATSCooperativeTestCase(unittest.TestCase):
         '''Call after test case.'''
         self.fixed_object = None
 
-    def test_cooperative_meta(self):
-        '''Test for cooperative meta.'''
-        self.fixed_object = Fixed()
+    def test_setup_type_class_meta(self):
+        '''Test for setup type class meta.'''
+        self.fixed_object = SetupType()
+
+    def test_setup_value_class_meta(self):
+        '''Test for setup value class meta.'''
+        self.fixed_object = SetupValue()
+
+    def test_setup_instance_class_meta(self):
+        '''Test for setup instance class meta.'''
+        self.fixed_object = SetupInstance()
+
+    def test_setup_class_meta(self):
+        '''Test for setup class meta.'''
+        self.fixed_object = SetupClass()
 
 
 if __name__ == '__main__':
