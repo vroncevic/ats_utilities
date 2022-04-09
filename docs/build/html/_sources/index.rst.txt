@@ -5,14 +5,25 @@ ATS Utilities
 
 Developed in `python <https://www.python.org/>`_ code.
 
+|CodeCov| |CircleCI|
+
+.. |CodeCov| image:: https://codecov.io/gh/vroncevic/ats_utilities/branch/dev/graph/badge.svg
+   :target: https://codecov.io/gh/vroncevic/ats_utilities
+
+.. |CircleCI| image:: https://circleci.com/gh/vroncevic/ats_utilities/tree/master.svg
+   :target: https://circleci.com/gh/vroncevic/ats_utilities/tree/master
+
 The README is used to introduce the modules and provide instructions on
 how to install the modules, any machine dependencies it may have and any
 other information that should be provided before the modules are installed.
 
-|Python package| |GitHub issues| |Documentation Status| |GitHub contributors|
+|Python checker| |Python package| |GitHub issues| |Documentation Status| |GitHub contributors|
 
-.. |Python package| image:: https://github.com/vroncevic/ats_utilities/workflows/Python%20package/badge.svg
-   :target: https://github.com/vroncevic/ats_utilities/workflows/Python%20package/badge.svg?branch=master
+.. |Python checker| image:: https://github.com/vroncevic/ats_utilities/actions/workflows/ats_utilities_py_checker.yml/badge.svg
+   :target: https://github.com/vroncevic/ats_utilities/actions/workflows/ats_utilities_py_checker.yml
+
+.. |Python package| image:: https://github.com/vroncevic/ats_utilities/actions/workflows/ats_utilities_package.yml/badge.svg
+   :target: https://github.com/vroncevic/ats_utilities/actions/workflows/ats_utilities_package.yml
 
 .. |GitHub issues| image:: https://img.shields.io/github/issues/vroncevic/ats_utilities.svg
    :target: https://github.com/vroncevic/ats_utilities/issues
@@ -35,11 +46,11 @@ Installation
 
 |Install Python2 Package| |Install Python3 Package|
 
-.. |Install Python2 Package| image:: https://github.com/vroncevic/ats_utilities/workflows/Install%20Python2%20Package%20ats_utilities/badge.svg
-   :target: https://github.com/vroncevic/ats_utilities/workflows/Install%20Python2%20Package%20ats_utilities/badge.svg?branch=master
+.. |Install Python2 Package| image:: https://github.com/vroncevic/ats_utilities/actions/workflows/ats_utilities_python2_publish.yml/badge.svg
+   :target: https://github.com/vroncevic/ats_utilities/actions/workflows/ats_utilities_python2_publish.yml
 
-.. |Install Python3 Package| image:: https://github.com/vroncevic/ats_utilities/workflows/Install%20Python3%20Package%20ats_utilities/badge.svg
-   :target: https://github.com/vroncevic/ats_utilities/workflows/Install%20Python3%20Package%20ats_utilities/badge.svg?branch=master
+.. |Install Python3 Package| image:: https://github.com/vroncevic/ats_utilities/actions/workflows/ats_utilities_python3_publish.yml/badge.svg
+   :target: https://github.com/vroncevic/ats_utilities/actions/workflows/ats_utilities_python3_publish.yml
 
 |Debian Linux OS|
 
@@ -112,8 +123,8 @@ You can use Docker to create image/container, or You can use pip to install
 
 |GitHub docker checker|
 
-.. |GitHub docker checker| image:: https://github.com/vroncevic/ats_utilities/workflows/ats_utilities%20docker%20checker/badge.svg
-   :target: https://github.com/vroncevic/ats_utilities/actions?query=workflow%3A%22ats_utilities+docker+checker%22
+.. |GitHub docker checker| image:: https://github.com/vroncevic/ats_utilities/actions/workflows/ats_utilities_docker_checker.yml/badge.svg
+   :target: https://github.com/vroncevic/ats_utilities/actions/workflows/ats_utilities_docker_checker.yml
 
 Dependencies
 -------------
