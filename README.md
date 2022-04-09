@@ -236,7 +236,7 @@ ats_utilities/
 
 ### Docs
 
-[![Documentation Status](https://readthedocs.org/projects/ats-utilities/badge/?version=master)](https://ats-utilities.readthedocs.io/projects/ats-utilities/en/master/?badge=master)
+[![Documentation Status](https://readthedocs.org/projects/ats-utilities/badge/?version=master)](https://ats-utilities.readthedocs.io/projects/ats-utilities/en/master/?badge=master) [![Pages build deployment](https://github.com/vroncevic/ats_utilities/actions/workflows/pages/pages-build-deployment/badge.svg)](https://github.com/vroncevic/ats_utilities/actions/workflows/pages/pages-build-deployment)
 
 📗 More documentation and info at
 * [ats-utilities.readthedocs.io](https://ats-utilities.readthedocs.io/en/master/)
