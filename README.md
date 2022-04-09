@@ -7,13 +7,13 @@
 Developed in 🐍 **[python](https://www.python.org/)** code.
 
 [![codecov](https://codecov.io/gh/vroncevic/ats_utilities/branch/dev/graph/badge.svg?token=VNQOBXIHDB)](https://codecov.io/gh/vroncevic/ats_utilities)
-[![CircleCI](https://circleci.com/gh/vroncevic/ats_utilities/tree/master.svg?style=svg)](https://circleci.com/gh/vroncevic/ats_utilities/tree/master)
+[![circleci](https://circleci.com/gh/vroncevic/ats_utilities/tree/master.svg?style=svg)](https://circleci.com/gh/vroncevic/ats_utilities/tree/master)
 
 The README is used to introduce the modules and provide instructions on
 how to install the modules, any machine dependencies it may have and any
 other information that should be provided before the modules are installed.
 
-![Python package](https://github.com/vroncevic/ats_utilities/workflows/Python%20package%20ats_utilities/badge.svg?branch=master) [![GitHub issues open](https://img.shields.io/github/issues/vroncevic/ats_utilities.svg)](https://github.com/vroncevic/ats_utilities/issues) [![GitHub contributors](https://img.shields.io/github/contributors/vroncevic/ats_utilities.svg)](https://github.com/vroncevic/ats_utilities/graphs/contributors)
+[![ats_utilities py code checker](https://github.com/vroncevic/ats_utilities/actions/workflows/ats_utilities_py_checker.yml/badge.svg)](https://github.com/vroncevic/ats_utilities/actions/workflows/ats_utilities_py_checker.yml) [![ats_utilities python package checker](https://github.com/vroncevic/ats_utilities/actions/workflows/ats_utilities_package.yml/badge.svg)](https://github.com/vroncevic/ats_utilities/actions/workflows/ats_utilities_package.yml) [![GitHub issues open](https://img.shields.io/github/issues/vroncevic/ats_utilities.svg)](https://github.com/vroncevic/ats_utilities/issues) [![GitHub contributors](https://img.shields.io/github/contributors/vroncevic/ats_utilities.svg)](https://github.com/vroncevic/ats_utilities/graphs/contributors)
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
@@ -36,7 +36,7 @@ other information that should be provided before the modules are installed.
 
 [![ats_utilities build python2 package](https://github.com/vroncevic/ats_utilities/actions/workflows/ats_utilities_python2_publish.yml/badge.svg)](https://github.com/vroncevic/ats_utilities/actions/workflows/ats_utilities_python2_publish.yml) [![ats_utilities build python3 package](https://github.com/vroncevic/ats_utilities/actions/workflows/ats_utilities_python3_publish.yml/badge.svg)](https://github.com/vroncevic/ats_utilities/actions/workflows/ats_utilities_python3_publish.yml)
 
-![Debian Linux OS](https://raw.githubusercontent.com/vroncevic/ats_utilities/dev/docs/debtux.png)
+![debian linux os](https://raw.githubusercontent.com/vroncevic/ats_utilities/dev/docs/debtux.png)
 
 Currently there are four ways to install framework
 * Install process based on using pip mechanism
@@ -138,7 +138,7 @@ These modules requires other modules and libraries (Python 2.x/3.x)
 
 **ats_utilities** is based on OOP.
 
-![Framework structure](https://raw.githubusercontent.com/vroncevic/ats_utilities/dev/docs/arch_flow_usage.png)
+![framework structure](https://raw.githubusercontent.com/vroncevic/ats_utilities/dev/docs/arch_flow_usage.png)
 
 🧰 Framework structure
 
@@ -236,7 +236,7 @@ ats_utilities/
 
 ### Docs
 
-[![Documentation Status](https://readthedocs.org/projects/ats-utilities/badge/?version=master)](https://ats-utilities.readthedocs.io/projects/ats-utilities/en/master/?badge=master) [![Pages build deployment](https://github.com/vroncevic/ats_utilities/actions/workflows/pages/pages-build-deployment/badge.svg)](https://github.com/vroncevic/ats_utilities/actions/workflows/pages/pages-build-deployment)
+[![documentation status](https://readthedocs.org/projects/ats-utilities/badge/?version=master)](https://ats-utilities.readthedocs.io/projects/ats-utilities/en/master/?badge=master) [![Pages build deployment](https://github.com/vroncevic/ats_utilities/actions/workflows/pages/pages-build-deployment/badge.svg)](https://github.com/vroncevic/ats_utilities/actions/workflows/pages/pages-build-deployment)
 
 📗 More documentation and info at
 * [ats-utilities.readthedocs.io](https://ats-utilities.readthedocs.io/en/master/)
