@@ -13,7 +13,7 @@ The README is used to introduce the modules and provide instructions on
 how to install the modules, any machine dependencies it may have and any
 other information that should be provided before the modules are installed.
 
-[![ats_utilities py code checker](https://github.com/vroncevic/ats_utilities/actions/workflows/ats_utilities_py_checker.yml/badge.svg)](https://github.com/vroncevic/ats_utilities/actions/workflows/ats_utilities_py_checker.yml) [![ats_utilities python package checker](https://github.com/vroncevic/ats_utilities/actions/workflows/ats_utilities_package.yml/badge.svg)](https://github.com/vroncevic/ats_utilities/actions/workflows/ats_utilities_package.yml) [![GitHub issues open](https://img.shields.io/github/issues/vroncevic/ats_utilities.svg)](https://github.com/vroncevic/ats_utilities/issues) [![GitHub contributors](https://img.shields.io/github/contributors/vroncevic/ats_utilities.svg)](https://github.com/vroncevic/ats_utilities/graphs/contributors)
+[![ats_utilities python checker](https://img.shields.io/github/workflow/status/vroncevic/ats_utilities/ats_utilities_python_checker?style=flat&label=ats_utilities%20python%20checker)](https://github.com/vroncevic/ats_utilities/actions/workflows/ats_utilities_python_checker.yml) [![ats_utilities package checker](https://img.shields.io/github/workflow/status/vroncevic/ats_utilities/ats_utilities_package_checker?style=flat&label=ats_utilities%20package%20checker)](https://github.com/vroncevic/ats_utilities/actions/workflows/ats_utilities_package_checker.yml) [![GitHub issues open](https://img.shields.io/github/issues/vroncevic/ats_utilities.svg)](https://github.com/vroncevic/ats_utilities/issues) [![GitHub contributors](https://img.shields.io/github/contributors/vroncevic/ats_utilities.svg)](https://github.com/vroncevic/ats_utilities/graphs/contributors)
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
@@ -34,9 +34,11 @@ other information that should be provided before the modules are installed.
 
 ### Installation
 
-[![ats_utilities build python2 package](https://github.com/vroncevic/ats_utilities/actions/workflows/ats_utilities_python2_publish.yml/badge.svg)](https://github.com/vroncevic/ats_utilities/actions/workflows/ats_utilities_python2_publish.yml) [![ats_utilities build python3 package](https://github.com/vroncevic/ats_utilities/actions/workflows/ats_utilities_python3_publish.yml/badge.svg)](https://github.com/vroncevic/ats_utilities/actions/workflows/ats_utilities_python3_publish.yml)
+Used next development environment
 
 ![debian linux os](https://raw.githubusercontent.com/vroncevic/ats_utilities/dev/docs/debtux.png)
+
+[![ats_utilities python2 build](https://img.shields.io/github/workflow/status/vroncevic/ats_utilities/ats_utilities_python2_build?style=flat&label=ats_utilities%20python2%20build)](https://github.com/vroncevic/ats_utilities/actions/workflows/ats_utilities_python2_build.yml) [![ats_utilities python3 build](https://img.shields.io/github/workflow/status/vroncevic/ats_utilities/ats_utilities_python3_build?style=flat&label=ats_utilities%20python3%20build)](https://github.com/vroncevic/ats_utilities/actions/workflows/ats_utilities_python3_build.yml)
 
 Currently there are four ways to install framework
 * Install process based on using pip mechanism
@@ -123,7 +125,7 @@ rm -f get-pip.py
 
 You can use Dockerfile to create image/container 🚢.
 
-[![ats_utilities docker checker](https://github.com/vroncevic/ats_utilities/actions/workflows/ats_utilities_docker_checker.yml/badge.svg)](https://github.com/vroncevic/ats_utilities/actions/workflows/ats_utilities_docker_checker.yml)
+[![ats_utilities docker checker](https://img.shields.io/github/workflow/status/vroncevic/ats_utilities/ats_utilities_docker_checker?style=flat&label=ats_utilities%20docker%20checker)](https://github.com/vroncevic/ats_utilities/actions/workflows/ats_utilities_docker_checker.yml)
 
 ### Dependencies
 
@@ -236,9 +238,10 @@ ats_utilities/
 
 ### Docs
 
-[![documentation status](https://readthedocs.org/projects/ats-utilities/badge/?version=master)](https://ats-utilities.readthedocs.io/projects/ats-utilities/en/master/?badge=master) [![Pages build deployment](https://github.com/vroncevic/ats_utilities/actions/workflows/pages/pages-build-deployment/badge.svg)](https://github.com/vroncevic/ats_utilities/actions/workflows/pages/pages-build-deployment)
+[![Documentation Status](https://readthedocs.org/projects/ats-utilities/badge/?version=master)](https://ats-utilities.readthedocs.io/en/master/?badge=master)
 
 📗 More documentation and info at
+
 * [ats-utilities.readthedocs.io](https://ats-utilities.readthedocs.io/en/master/)
 * [www.python.org](https://www.python.org/)
 

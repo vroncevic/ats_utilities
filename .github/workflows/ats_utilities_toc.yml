@@ -1,11 +1,11 @@
-name: ats_utilities toc generator
+name: ats_utilities_toc
 on:
   push:
     paths:
       - '**.md'
 jobs:
   generateTOC:
-    name: ats_utilities toc generator
+    name: ats_utilities_toc
     runs-on: ubuntu-latest
     steps:
       - uses: technote-space/toc-generator@v2

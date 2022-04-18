@@ -1,4 +1,4 @@
-name: ats_utilities py code checker
+name: ats_utilities_python_checker
 on:
   push:
     branches: [ master ]
