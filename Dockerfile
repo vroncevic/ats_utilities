@@ -61,7 +61,8 @@ RUN pip2 install /dist/ats_utilities-*-py2-none-any.whl
 RUN python3 -m build --no-isolation --wheel
 RUN pip3 install /dist/ats_utilities-*-py3-none-any.whl
 RUN rm -rf /ats_utilities*
-RUN rm -rf dist/ tests/
+RUN rm -rf dist/
+RUN rm -rf tests/
 RUN rm -f setup.cfg
 RUN rm -f pyproject.toml
 RUN rm -f MANIFEST.in

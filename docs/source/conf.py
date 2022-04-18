@@ -8,7 +8,7 @@ sys.path.insert(0, os.path.abspath('../../'))
 project = 'ats_utilities'
 copyright = '2017, https://vroncevic.github.io/ats_utilities'
 author = 'Vladimir Roncevic <elektron.ronca@gmail.com>'
-version = '2.4.5'
+version = '2.5.5'
 release = 'https://github.com/vroncevic/ats_utilities/releases'
 extensions = ['sphinx.ext.autodoc', 'sphinx.ext.viewcode', ]
 templates_path = ['_templates']

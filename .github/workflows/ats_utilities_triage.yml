@@ -1,14 +1,14 @@
-name: ats_utilities triage
+name: ats_utilities_triage
 on:
   issues:
     types: [opened]
 jobs:
   commentOnNewIssues:
-    name: ats_utilities triage
+    name: ats_utilities_triage
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: ats_utilities triage
+      - name: ats_utilities_triage
         uses: actions/github@v1.0.0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

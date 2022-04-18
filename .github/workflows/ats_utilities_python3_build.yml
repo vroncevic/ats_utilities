@@ -1,4 +1,4 @@
-name: ats_utilities build python2 package
+name: ats_utilities_python3_build
 on:
   push:
     branches: [ master ]
@@ -21,20 +21,20 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - name: Set up Python
+    - name: set up python3
       uses: actions/setup-python@v1
       with:
-        python-version: '2.7'
+        python-version: '3.9'
     - name: install dependencies
       run: |
-        python2 -m pip install --upgrade setuptools
-        python2 -m pip install --upgrade pip
-        python2 -m pip install --upgrade build
-        python2 -m pip install --upgrade wheel
-        pip2 install -r requirements.txt
-    - name: build by python build
+        python3 -m pip install --upgrade setuptools
+        python3 -m pip install --upgrade pip
+        python3 -m pip install --upgrade build
+        python3 -m pip install --upgrade wheel
+        pip3 install -r requirements.txt
+    - name: build python3 package
       run: |
-        python2 -m build -s --no-isolation --wheel
-    - name: build by python setup
+        python3 -m build -s --no-isolation --wheel
+    - name: build python3 package setup
       run: |
-        python2 setup.py sdist bdist_wheel
+        python3 setup.py sdist bdist_wheel

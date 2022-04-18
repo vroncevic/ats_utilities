@@ -1,4 +1,4 @@
-name: ats_utilities docker checker
+name: ats_utilities_docker_checker
 on:
   push:
     branches: [ master ]
@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - name: ats_utilities docker checker
+    - name: ats_utilities_docker_checker
       id: docker_checker
       run: |
         echo Building Docker image
