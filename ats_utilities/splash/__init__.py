@@ -36,14 +36,14 @@ try:
     from ats_utilities.splash.github_infrastructure import GitHubInfrastructure
     from ats_utilities.splash.ext_infrastructure import ExtInfrastructure
 except ImportError as ats_error_message:
-    MESSAGE = '\n{0}\n{1}\n'.format(__file__, ats_error_message)
-    sys.exit(MESSAGE)  # Force close python ATS ##############################
+    # Force exit python #######################################################
+    sys.exit(f'\n{__file__}\n{ats_error_message}\n')
 
 __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2021, https://vroncevic.github.io/ats_utilities'
-__credits__ = ['Vladimir Roncevic']
+__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = '2.5.5'
+__version__ = '2.6.5'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
@@ -78,9 +78,9 @@ class Splash(SplashProperty):
         error, status = checker.check_params([
             ('dict:ats_splash_property', ats_splash_property)
         ])
-        if status == ATSChecker.TYPE_ERROR:
+        if status == ATSChecker.type_error:
             raise ATSTypeError(error)
-        if status == ATSChecker.VALUE_ERROR:
+        if status == ATSChecker.value_error:
             raise ATSBadCallError(error)
         SplashProperty.__init__(self, ats_splash_property, verbose)
         self.__verbose = verbose
@@ -134,12 +134,12 @@ class Splash(SplashProperty):
             ('int:additional_shifter', additional_shifter),
             ('str:text', text)
         ])
-        if status == ATSChecker.TYPE_ERROR:
+        if status == ATSChecker.type_error:
             raise ATSTypeError(error)
-        if status == ATSChecker.VALUE_ERROR:
+        if status == ATSChecker.value_error:
             raise ATSBadCallError(error)
         verbose_message(
-            Splash.VERBOSE, self.__verbose or verbose,
+            Splash.verbose, self.__verbose or verbose,
             columns, additional_shifter, text
         )
         start_position = (columns/2) - 21

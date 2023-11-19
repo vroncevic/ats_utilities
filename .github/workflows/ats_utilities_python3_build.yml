@@ -24,7 +24,7 @@ jobs:
     - name: set up python3
       uses: actions/setup-python@v1
       with:
-        python-version: '3.9'
+        python-version: '3.11'
     - name: install dependencies
       run: |
         python3 -m pip install --upgrade setuptools

@@ -32,14 +32,14 @@ try:
     from ats_utilities.exceptions.ats_type_error import ATSTypeError
     from ats_utilities.exceptions.ats_bad_call_error import ATSBadCallError
 except ImportError as ats_error_message:
-    MESSAGE = '\n{0}\n{1}\n'.format(__file__, ats_error_message)
-    sys.exit(MESSAGE)  # Force close python ATS ##############################
+    # Force exit python #######################################################
+    sys.exit(f'\n{__file__}\n{ats_error_message}\n')
 
 __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2017, https://vroncevic.github.io/ats_utilities'
-__credits__ = ['Vladimir Roncevic']
+__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = '2.5.5'
+__version__ = '2.6.5'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
@@ -84,9 +84,9 @@ class ConfigFile(FileChecking):
             ('str:file_path', file_path), ('str:file_mode', file_mode),
             ('str:file_format', file_format)
         ])
-        if status == ATSChecker.TYPE_ERROR:
+        if status == ATSChecker.type_error:
             raise ATSTypeError(error)
-        if status == ATSChecker.VALUE_ERROR:
+        if status == ATSChecker.value_error:
             raise ATSBadCallError(error)
         FileChecking.__init__(self, verbose=verbose)
         self.__verbose = verbose
@@ -103,7 +103,7 @@ class ConfigFile(FileChecking):
             self.__file_path = file_path
             self.__file_mode = file_mode
             self.__file_format = file_format
-        verbose_message(ConfigFile.VERBOSE, verbose, file_path, file_mode)
+        verbose_message(ConfigFile.verbose, verbose, file_path, file_mode)
 
     def __enter__(self):
         '''
@@ -116,7 +116,7 @@ class ConfigFile(FileChecking):
         if self.is_file_ok():
             self.__file = open(self.__file_path, self.__file_mode)
         else:
-            error_message(ConfigFile.VERBOSE, 'check file', self.__file_path)
+            error_message(ConfigFile.verbose, 'check file', self.__file_path)
             self.__file = None
         return self.__file
 

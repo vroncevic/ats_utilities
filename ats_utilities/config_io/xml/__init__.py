@@ -34,14 +34,14 @@ try:
     from ats_utilities.exceptions.ats_type_error import ATSTypeError
     from ats_utilities.exceptions.ats_bad_call_error import ATSBadCallError
 except ImportError as ats_error_message:
-    MESSAGE = '\n{0}\n{1}\n'.format(__file__, ats_error_message)
-    sys.exit(MESSAGE)  # Force close python ATS ##############################
+    # Force exit python #######################################################
+    sys.exit(f'\n{__file__}\n{ats_error_message}\n')
 
 __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2017, https://vroncevic.github.io/ats_utilities'
-__credits__ = ['Vladimir Roncevic']
+__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = '2.5.5'
+__version__ = '2.6.5'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
@@ -80,9 +80,9 @@ class XmlBase:
         error, status = checker.check_params([
             ('str:informations_file', informations_file)
         ])
-        if status == ATSChecker.TYPE_ERROR:
+        if status == ATSChecker.type_error:
             raise ATSTypeError(error)
-        if status == ATSChecker.VALUE_ERROR:
+        if status == ATSChecker.value_error:
             raise ATSBadCallError(error)
         self.__verbose = verbose
         informations, info_dict = None, dict()
@@ -110,7 +110,7 @@ class XmlBase:
                 )
                 self.tool_operational = True
                 verbose_message(
-                    XmlBase.VERBOSE, verbose, 'loaded ATS XML base info'
+                    XmlBase.verbose, verbose, 'loaded ATS XML base info'
                 )
 
     def is_tool_ok(self):

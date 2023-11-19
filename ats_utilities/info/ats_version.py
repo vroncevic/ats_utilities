@@ -1,89 +1,92 @@
 # -*- coding: UTF-8 -*-
 
 '''
- Module
-     ats_version.py
- Copyright
-     Copyright (C) 2017 Vladimir Roncevic <elektron.ronca@gmail.com>
-     ats_utilities is free software: you can redistribute it and/or modify it
-     under the terms of the GNU General Public License as published by the
-     Free Software Foundation, either version 3 of the License, or
-     (at your option) any later version.
-     ats_utilities is distributed in the hope that it will be useful, but
-     WITHOUT ANY WARRANTY; without even the implied warranty of
-     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-     See the GNU General Public License for more details.
-     You should have received a copy of the GNU General Public License along
-     with this program. If not, see <http://www.gnu.org/licenses/>.
- Info
-     Defined class ATSVersion with attribute(s) and method(s).
-     Created API for ATS version in one property object.
+Module
+    ats_version.py
+Copyright
+    Copyright (C) 2017 Vladimir Roncevic <elektron.ronca@gmail.com>
+    ats_utilities is free software: you can redistribute it and/or modify it
+    under the terms of the GNU General Public License as published by the
+    Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+    ats_utilities is distributed in the hope that it will be useful, but
+    WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+    See the GNU General Public License for more details.
+    You should have received a copy of the GNU General Public License along
+    with this program. If not, see <http://www.gnu.org/licenses/>.
+Info
+    Defines class ATSVersion with attribute(s) and method(s).
+    Creates API for ATS version in one property object.
 '''
 
 import sys
 
 try:
-    from six import add_metaclass
-    from ats_utilities import VerboseRoot
+    from ats_utilities import auto_str, VerboseRoot
     from ats_utilities.checker import ATSChecker
     from ats_utilities.console_io.verbose import verbose_message
     from ats_utilities.exceptions.ats_type_error import ATSTypeError
     from ats_utilities.exceptions.ats_bad_call_error import ATSBadCallError
 except ImportError as ats_error_message:
-    MESSAGE = '\n{0}\n{1}\n'.format(__file__, ats_error_message)
-    sys.exit(MESSAGE)  # Force close python ATS ##############################
+    # Force exit python #######################################################
+    sys.exit(f'\n{__file__}\n{ats_error_message}\n')
 
 __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2017, https://vroncevic.github.io/ats_utilities'
-__credits__ = ['Vladimir Roncevic']
+__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = '2.5.5'
+__version__ = '2.6.5'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
 
 
-@add_metaclass(VerboseRoot)
-class ATSVersion:
+@auto_str
+class ATSVersion(metaclass=VerboseRoot):
     '''
-        Defined class ATSVersion with attribute(s) and method(s).
-        Created API for ATS version in one property object.
+        Defines class ATSVersion with attribute(s) and method(s).
+        Creates API for ATS version in one property object.
+        ATS version container.
+
         It defines:
 
             :attributes:
-                | __verbose - enable/disable verbose option.
-                | __version - ATS version.
+                | _verbose - Enable/Disable verbose option.
+                | _version - ATS version.
             :methods:
-                | __init__ - initial constructor.
-                | version - property methods for set/get operations.
-                | is_not_none - checking is ATS version None.
-                | __str__ - str dunder method for ATSVersion.
+                | __init__ - Initial ATSVersion constructor.
+                | version - Property methods for set/get operations.
+                | is_not_none - Check is ATS version not None.
     '''
 
-    def __init__(self, verbose=False):
-        '''
-            Initial constructor.
+    _verbose: bool
+    _version: str | None
 
-            :param verbose: enable/disable verbose option.
+    def __init__(self, verbose: bool = False) -> None:
+        '''
+            Initial ATSVersion constructor.
+
+            :param verbose: Enable/Disable verbose option
             :type verbose: <bool>
             :exceptions: None
         '''
-        self.__verbose = verbose
-        self.__version = None
+        self._verbose = verbose
+        self._version = None
 
     @property
-    def version(self):
+    def version(self) -> str | None:
         '''
             Property method for getting ATS version.
 
-            :return: ATS version | None.
+            :return: ATS version | None
             :rtype: <str> | <NoneType>
             :exceptions: None
         '''
-        return self.__version
+        return self._version
 
     @version.setter
-    def version(self, version):
+    def version(self, version: str | None) -> None:
         '''
             Property method for setting ATS version.
 
@@ -91,33 +94,29 @@ class ATSVersion:
             :type version: <str>
             :exceptions: ATSTypeError | ATSBadCallError
         '''
-        checker, error, status = ATSChecker(), None, False
-        error, status = checker.check_params([('str:version', version)])
-        if status == ATSChecker.TYPE_ERROR:
-            raise ATSTypeError(error)
-        if status == ATSChecker.VALUE_ERROR:
-            raise ATSBadCallError(error)
-        self.__version = version
-        verbose_message(ATSVersion.VERBOSE, self.__verbose, version)
+        checker: ATSChecker = ATSChecker()
+        error_msg: str | None = None
+        error_id: int | None = None
+        error_msg, error_id = checker.check_params([
+            ('str:version', version)
+        ])
+        if error_id == ATSChecker.type_error:
+            raise ATSTypeError(error_msg)
+        if error_id == ATSChecker.value_error:
+            raise ATSBadCallError(error_msg)
+        self._version = version
+        verbose_message(
+            ATSVersion.verbose,  # pylint: disable=no-member
+            self._verbose,
+            tuple(str(version))
+        )
 
-    def is_not_none(self):
+    def is_not_none(self) -> bool:
         '''
             Checking is ATS version None.
 
-            :return: boolean status, True | False.
+            :return: True (ATS version is not None) | False.
             :rtype: <bool>
             :exceptions: None
         '''
-        return bool(self.__version)
-
-    def __str__(self):
-        '''
-            Dunder str method for ATSVersion.
-
-            :return: object in a human-readable format.
-            :rtype: <str>
-            :exceptions: None
-        '''
-        return '{0} ({1}, {2})'.format(
-            self.__class__.__name__, str(self.__verbose), self.__version
-        )
+        return bool(self._version)

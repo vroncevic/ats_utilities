@@ -24,7 +24,7 @@ import sys
 
 __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2021, https://vroncevic.github.io/ats_utilities'
-__credits__ = ['Vladimir Roncevic']
+__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
 __version__ = '1.0.3'
 __maintainer__ = 'Vladimir Roncevic'

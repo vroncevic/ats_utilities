@@ -1,123 +1,122 @@
 # -*- coding: UTF-8 -*-
 
 '''
- Module
-     ats_name.py
- Copyright
-     Copyright (C) 2017 Vladimir Roncevic <elektron.ronca@gmail.com>
-     ats_utilities is free software: you can redistribute it and/or modify it
-     under the terms of the GNU General Public License as published by the
-     Free Software Foundation, either version 3 of the License, or
-     (at your option) any later version.
-     ats_utilities is distributed in the hope that it will be useful, but
-     WITHOUT ANY WARRANTY; without even the implied warranty of
-     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-     See the GNU General Public License for more details.
-     You should have received a copy of the GNU General Public License along
-     with this program. If not, see <http://www.gnu.org/licenses/>.
- Info
-     Defined class ATSName with attribute(s) and method(s).
-     Created API for ATS name in one propery object.
+Module
+    ats_name.py
+Copyright
+    Copyright (C) 2017 Vladimir Roncevic <elektron.ronca@gmail.com>
+    ats_utilities is free software: you can redistribute it and/or modify it
+    under the terms of the GNU General Public License as published by the
+    Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+    ats_utilities is distributed in the hope that it will be useful, but
+    WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+    See the GNU General Public License for more details.
+    You should have received a copy of the GNU General Public License along
+    with this program. If not, see <http://www.gnu.org/licenses/>.
+Info
+    Defines class ATSName with attribute(s) and method(s).
+    Creates API for ATS name in one propery object.
 '''
 
 import sys
 
 try:
-    from six import add_metaclass
-    from ats_utilities import VerboseRoot
+    from ats_utilities import auto_str, VerboseRoot
     from ats_utilities.checker import ATSChecker
     from ats_utilities.console_io.verbose import verbose_message
     from ats_utilities.exceptions.ats_type_error import ATSTypeError
     from ats_utilities.exceptions.ats_bad_call_error import ATSBadCallError
 except ImportError as ats_error_message:
-    MESSAGE = '\n{0}\n{1}\n'.format(__file__, ats_error_message)
-    sys.exit(MESSAGE)  # Force close python ATS ##############################
+    # Force exit python #######################################################
+    sys.exit(f'\n{__file__}\n{ats_error_message}\n')
 
 __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2017, https://vroncevic.github.io/ats_utilities'
-__credits__ = ['Vladimir Roncevic']
+__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = '2.5.5'
+__version__ = '2.6.5'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
 
 
-@add_metaclass(VerboseRoot)
-class ATSName:
+@auto_str
+class ATSName(metaclass=VerboseRoot):
     '''
-        Defined class ATSName with attribute(s) and method(s).
-        Created API for ATS name in one propery object.
+        Defines class ATSName with attribute(s) and method(s).
+        Creates API for ATS name in one propery object.
+        ATS name container.
+
         It defines:
 
             :attributes:
-                | __verbose - enable/disable verbose option.
-                | __name - ATS name.
+                | _verbose - Enable/Disable verbose option.
+                | _name - ATS name.
             :methods:
-                | __init__ - initial constructor.
-                | name - property methods for set/get operations.
-                | is_not_none - checking is ATS name None.
-                | __str__ - str dunder method for ATSName.
+                | __init__ - Initial ATSName constructor.
+                | name - Property methods for set/get operations.
+                | is_not_none - Check is ATS name not None.
     '''
 
-    def __init__(self, verbose=False):
-        '''
-            Initial constructor.
+    _verbose: bool
+    _name: str | None
 
-            :param verbose: enable/disable verbose option.
+    def __init__(self, verbose: bool = False) -> None:
+        '''
+            Initial ATSName constructor.
+
+            :param verbose: Enable/Disable verbose option
             :type verbose: <bool>
             :exceptions: None
         '''
-        self.__verbose = verbose
-        self.__name = None
+        self._verbose = verbose
+        self._name = None
 
     @property
-    def name(self):
+    def name(self) -> str | None:
         '''
             Property method for getting ATS name.
 
-            :return: ATS name | None.
+            :return: ATS name | None
             :rtype: <str> | <NoneType>
             :exceptions: None
         '''
-        return self.__name
+        return self._name
 
     @name.setter
-    def name(self, name):
+    def name(self, name: str | None) -> None:
         '''
             Property method for setting ATS name.
 
-            :param name: ATS name.
+            :param name: ATS name
             :type name: <str>
             :exceptions: ATSTypeError | ATSBadCallError
         '''
-        checker, error, status = ATSChecker(), None, False
-        error, status = checker.check_params([('str:name', name)])
-        if status == ATSChecker.TYPE_ERROR:
-            raise ATSTypeError(error)
-        if status == ATSChecker.VALUE_ERROR:
-            raise ATSBadCallError(error)
-        self.__name = name
-        verbose_message(ATSName.VERBOSE, self.__verbose, name)
+        checker: ATSChecker = ATSChecker()
+        error_msg: str | None = None
+        error_id: int | None = None
+        error_msg, error_id = checker.check_params([
+            ('str:name', name)
+        ])
+        if error_id == ATSChecker.type_error:
+            raise ATSTypeError(error_msg)
+        if error_id == ATSChecker.value_error:
+            raise ATSBadCallError(error_msg)
+        self._name = name
+        verbose_message(
+            ATSName.verbose,  # pylint: disable=no-member
+            self._verbose,
+            tuple(str(name))
+        )
 
-    def is_not_none(self):
+    def is_not_none(self) -> bool:
         '''
             Checking is ATS name None.
 
-            :return: boolean status, True | False.
+            :return: True (ATS name is not None) | False
             :rtype: <bool>
             :exceptions: None
         '''
-        return bool(self.__name)
-
-    def __str__(self):
-        '''
-            Dunder str method for ATSName.
-
-            :return: object in a human-readable format.
-            :rtype: <str>
-            :exceptions: None
-        '''
-        return '{0} ({1}, {2})'.format(
-            self.__class__.__name__, str(self.__verbose), self.__name
-        )
+        return bool(self._name)

@@ -29,14 +29,14 @@ try:
     from ats_utilities.console_io.error import error_message
     from ats_utilities.console_io.verbose import verbose_message
 except ImportError as ats_error_message:
-    MESSAGE = '\n{0}\n{1}\n'.format(__file__, ats_error_message)
-    sys.exit(MESSAGE)  # Force close python ATS ##############################
+    # Force exit python #######################################################
+    sys.exit(f'\n{__file__}\n{ats_error_message}\n')
 
 __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2017, https://vroncevic.github.io/ats_utilities'
-__credits__ = ['Vladimir Roncevic']
+__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = '2.5.5'
+__version__ = '2.6.5'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
@@ -78,7 +78,7 @@ class FileChecking:
         self.__file_path_ok = False
         self.__file_mode_ok = False
         self.__file_format_ok = False
-        verbose_message(FileChecking.VERBOSE, verbose, 'init ATS check file')
+        verbose_message(FileChecking.verbose, verbose, 'init ATS check file')
 
     def check_path(self, file_path, verbose=False):
         '''
@@ -91,11 +91,11 @@ class FileChecking:
             :exceptions: None
         '''
         if not isfile(file_path):
-            error_message(FileChecking.VERBOSE, 'check file', file_path)
+            error_message(FileChecking.verbose, 'check file', file_path)
         else:
             self.__file_path_ok = True
         verbose_message(
-            FileChecking.VERBOSE, self.__verbose or verbose, file_path
+            FileChecking.verbose, self.__verbose or verbose, file_path
         )
 
     def check_mode(self, file_mode, verbose=False):
@@ -119,12 +119,12 @@ class FileChecking:
         if all(mode_checks):
             self.__file_mode_ok = True
             verbose_message(
-                FileChecking.VERBOSE, self.__verbose or verbose, file_mode
+                FileChecking.verbose, self.__verbose or verbose, file_mode
             )
         else:
             self.__file_mode_ok = False
             error_message(
-                FileChecking.VERBOSE, '{0} [{1}]'.format(
+                FileChecking.verbose, '{0} [{1}]'.format(
                     'not supported mode', file_mode
                 )
             )
@@ -153,7 +153,7 @@ class FileChecking:
                 extension = 'wrong_format'
         if not extension == file_format or extension == 'wrong_format':
             error_message(
-                FileChecking.VERBOSE, '{0} [{1}] {2}'.format(
+                FileChecking.verbose, '{0} [{1}] {2}'.format(
                     'not matched file extension', file_format, file_path
                 )
             )
@@ -161,7 +161,7 @@ class FileChecking:
         else:
             self.__file_format_ok = True
         verbose_message(
-            FileChecking.VERBOSE, self.__verbose or verbose, file_path
+            FileChecking.verbose, self.__verbose or verbose, file_path
         )
 
     def is_file_ok(self):

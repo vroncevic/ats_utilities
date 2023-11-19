@@ -1,8 +1,8 @@
-# -*- coding: UTF-8 -*-
+# -*- coding: utf-8 -*-
 
 '''
 Module
-    ats_attribute_error.py
+    ats_info_meta.py
 Copyright
     Copyright (C) 2017 Vladimir Roncevic <elektron.ronca@gmail.com>
     ats_utilities is free software: you can redistribute it and/or modify it
@@ -16,9 +16,18 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines class ATSAttributeError with attribute(s) and method(s).
-    Creates exception for mechanism checking object attribute.
+    Defines class ATSInfoMeta with attribute(s) and method(s).
+    Creates Meta for ATS informations in one container object.
 '''
+
+import sys
+from abc import ABCMeta
+
+try:
+    from ats_utilities import VerboseRoot
+except ImportError as ats_error_message:
+    # Force exit python #######################################################
+    sys.exit(f'\n{__file__}\n{ats_error_message}\n')
 
 __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2017, https://vroncevic.github.io/ats_utilities'
@@ -30,15 +39,8 @@ __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
 
 
-class ATSAttributeError(AttributeError):
+class ATSInfoMeta(VerboseRoot, ABCMeta):
     '''
-        Defines class ATSAttributeError with attribute(s) and method(s).
-        Creates exception for mechanism checking object attribute.
-
-        It defines:
-
-            :attributes:
-                | None
-            :methods:
-                | None
+        Defines class ATSInfoMeta with attribute(s) and method(s).
+        Creates union meta for ATS informations in one container object.
     '''
