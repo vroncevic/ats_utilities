@@ -1,26 +1,27 @@
 # -*- coding: UTF-8 -*-
 
 '''
- Module
-     __init__.py
- Copyright
-     Copyright (C) 2017 Vladimir Roncevic <elektron.ronca@gmail.com>
-     ats_utilities is free software: you can redistribute it and/or modify it
-     under the terms of the GNU General Public License as published by the
-     Free Software Foundation, either version 3 of the License, or
-     (at your option) any later version.
-     ats_utilities is distributed in the hope that it will be useful, but
-     WITHOUT ANY WARRANTY; without even the implied warranty of
-     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-     See the GNU General Public License for more details.
-     You should have received a copy of the GNU General Public License along
-     with this program. If not, see <http://www.gnu.org/licenses/>.
- Info
-     Defined class CfgBase with attribute(s) and method(s).
-     Load ATS configuration/information, setup ATS CL interface.
+Module
+    __init__.py
+Copyright
+    Copyright (C) 2017 Vladimir Roncevic <elektron.ronca@gmail.com>
+    ats_utilities is free software: you can redistribute it and/or modify it
+    under the terms of the GNU General Public License as published by the
+    Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+    ats_utilities is distributed in the hope that it will be useful, but
+    WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+    See the GNU General Public License for more details.
+    You should have received a copy of the GNU General Public License along
+    with this program. If not, see <http://www.gnu.org/licenses/>.
+Info
+    Defines class CfgBase with attribute(s) and method(s).
+    Loads ATS configuration/information, setup ATS CL interface.
 '''
 
 import sys
+from typing import Any, Dict
 
 try:
     from ats_utilities import auto_str, VerboseRoot
@@ -47,81 +48,80 @@ __status__ = 'Updated'
 
 
 @auto_str
-class CfgBase:
+class CfgBase(metaclass=VerboseRoot):
     '''
-        Defined class CfgBase with attribute(s) and method(s).
-        Load ATS configuration/information, setup ATS CL interface.
+        Defines class CfgBase with attribute(s) and method(s).
+        Loads ATS configuration/information, setup ATS CL interface.
+        Configuration base API support.
+
         It defines:
 
             :attributes:
-                | __verbose - enable/disable verbose option.
-                | tool_operational - control ATS operational functionality.
-                | cfg2obj - in API for informations.
-                | obj2cfg - out API for informations.
-                | option_parser - option parser for ATS.
+                | _verbose - Enable/Disable verbose option.
+                | tool_operational - Control ATS operational functionality.
+                | cfg2obj - In API for information.
+                | obj2cfg - Out API for information.
+                | option_parser - Option parser for ATS.
             :methods:
-                | __init__ - initial constructor.
-                | is_tool_ok - checking is tool operational.
-                | __str__ - str dunder method for object CfgBase.
+                | __init__ - Initial CfgBase constructor.
+                | is_tool_ok - Check is tool operational.
     '''
 
-    def __init__(self, informations_file, verbose=False):
-        '''
-            Initial constructor.
+    _verbose: bool
+    tool_operational: bool
+    cfg2obj: Cfg2Object
+    obj2cfg: Object2Cfg
+    option_parser: ATSOptionParser
 
-            :param informations_file: informations file path.
-            :type informations_file: <str>
-            :param verbose: enable/disable verbose option.
+    def __init__(
+        self, information_file: str | None, verbose: bool = False
+    ) -> None:
+        '''
+            Initial CfgBase constructor.
+
+            :param information_file: Informations file path | None
+            :type information_file: <str> | <NoneType>
+            :param verbose: Enable/Disable verbose option
             :type verbose: <bool>
             :exceptions: ATSTypeError | ATSBadCallError
         '''
-        checker, error, status = ATSChecker(), None, False
-        error, status = checker.check_params([
-            ('str:informations_file', informations_file)
+        checker: ATSChecker = ATSChecker()
+        error_msg: str | None = None
+        error_id: int | None = None
+        error_msg, error_id = checker.check_params([
+            ('str:information_file', information_file)
         ])
-        if status == ATSChecker.type_error:
-            raise ATSTypeError(error)
-        if status == ATSChecker.value_error:
-            raise ATSBadCallError(error)
-        self.__verbose = verbose
-        informations = None
+        if error_id == ATSChecker.type_error:
+            raise ATSTypeError(error_msg)
+        if error_id == ATSChecker.value_error:
+            raise ATSBadCallError(error_msg)
+        self._verbose = verbose
+        information: Dict[Any, Any] = {}
         self.tool_operational = False
-        self.cfg2obj = Cfg2Object(informations_file, verbose=verbose)
-        self.obj2cfg = Object2Cfg(informations_file, verbose=verbose)
+        self.cfg2obj = Cfg2Object(information_file, verbose)
+        self.obj2cfg = Object2Cfg(information_file, verbose)
         if all([self.cfg2obj, self.obj2cfg]):
-            informations = self.cfg2obj.read_configuration(verbose=verbose)
-        if informations:
-            info = ATSInfo(informations, verbose=verbose)
+            information = self.cfg2obj.read_configuration(verbose)
+        if bool(information):
+            info: ATSInfo = ATSInfo(information, verbose)
             if info.ats_info_ok:
                 self.option_parser = ATSOptionParser(
-                    '{0} {1}'.format(info.name, info.build_date),
-                    info.version, info.licence, verbose=verbose
+                    f'{info.name} {info.build_date}',
+                    info.version, info.licence, verbose
                 )
                 self.tool_operational = True
                 verbose_message(
-                    CfgBase.verbose, verbose, 'loaded ATS CFG base info'
+                    CfgBase.verbose,  # pylint: disable=no-member
+                    verbose,
+                    tuple('loaded ATS CFG base info')
                 )
 
-    def is_tool_ok(self):
+    def is_tool_ok(self) -> bool:
         '''
             Checking is tool operational.
 
-            :return: boolean status, True (yes) | False.
+            :return: True (tool is operational) | False
             :rtype: <bool>
             :exceptions: None
         '''
         return self.tool_operational
-
-    def __str__(self):
-        '''
-            Dunder str method for CfgBase.
-
-            :return: object in a human-readable format.
-            :rtype: <str>
-            :exceptions: None
-        '''
-        return '{0} ({1}, {2}, {3}, {4})'.format(
-            self.__class__.__name__, str(self.__verbose),
-            str(self.tool_operational), str(self.cfg2obj),
-            str(self.obj2cfg)
-        )

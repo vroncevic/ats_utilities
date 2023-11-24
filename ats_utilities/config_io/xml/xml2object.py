@@ -55,7 +55,7 @@ class Xml2Object(BaseReadConfig):
 
             :attributes:
                 | __FORMAT - format of configuration content.
-                | __verbose - enable/disable verbose option.
+                | _verbose - Enable/Disable verbose option.
             :methods:
                 | __init__ - initial constructor.
                 | read_configuration - read a configuration from file.
@@ -82,8 +82,8 @@ class Xml2Object(BaseReadConfig):
             raise ATSTypeError(error)
         if status == ATSChecker.value_error:
             raise ATSBadCallError(error)
-        BaseReadConfig.__init__(self, verbose=verbose)
-        self.__verbose = verbose
+        BaseReadConfig.__init__(self, verbose)
+        self._verbose = verbose
         self.file_path = configuration_file
         verbose_message(Xml2Object.verbose, verbose, configuration_file)
 
@@ -105,7 +105,7 @@ class Xml2Object(BaseReadConfig):
                     config = BeautifulSoup(content, Xml2Object.__FORMAT)
         except AttributeError:
             pass
-        verbose_message(Xml2Object.verbose, self.__verbose or verbose, config)
+        verbose_message(Xml2Object.verbose, self._verbose or verbose, config)
         return config
 
     def __str__(self):
@@ -118,5 +118,5 @@ class Xml2Object(BaseReadConfig):
         '''
         return '{0} ({1}, {2})'.format(
             self.__class__.__name__, BaseReadConfig.__str__(self),
-            str(self.__verbose)
+            str(self._verbose)
         )

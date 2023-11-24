@@ -55,8 +55,8 @@ class YamlBase:
         It defines:
 
             :attributes:
-                | __verbose - enable/disable verbose option.
-                | tool_operational - control ATS operational functionality.
+                | _verbose - Enable/Disable verbose option.
+                | tool_operational - Control ATS operational functionality.
                 | yaml2obj - in API for informations.
                 | obj2yaml - out API for informations.
                 | option_parser - option parser for ATS.
@@ -66,37 +66,37 @@ class YamlBase:
                 | __str__ - str dunder method for object YamlBase.
     '''
 
-    def __init__(self, informations_file, verbose=False):
+    def __init__(self, information_file, verbose=False):
         '''
             Initial constructor.
 
-            :param informations_file: informations file path.
-            :type informations_file: <str>
+            :param information_file: informations file path.
+            :type information_file: <str>
             :param verbose: enable/disable verbose option.
             :type verbose: <bool>
             :exceptions: ATSTypeError | ATSBadCallError
         '''
         checker, error, status = ATSChecker(), None, False
         error, status = checker.check_params([
-            ('str:informations_file', informations_file)
+            ('str:information_file', information_file)
         ])
         if status == ATSChecker.type_error:
             raise ATSTypeError(error)
         if status == ATSChecker.value_error:
             raise ATSBadCallError(error)
-        self.__verbose = verbose
+        self._verbose = verbose
         informations = None
         self.tool_operational = False
-        self.yaml2obj = Yaml2Object(informations_file, verbose=verbose)
-        self.obj2yaml = Object2Yaml(informations_file, verbose=verbose)
+        self.yaml2obj = Yaml2Object(information_file, verbose)
+        self.obj2yaml = Object2Yaml(information_file, verbose)
         if all([self.yaml2obj, self.obj2yaml]):
-            informations = self.yaml2obj.read_configuration(verbose=verbose)
+            informations = self.yaml2obj.read_configuration(verbose)
         if informations:
-            info = ATSInfo(informations, verbose=verbose)
+            info = ATSInfo(informations, verbose)
             if info.ats_info_ok:
                 self.option_parser = ATSOptionParser(
                     '{0} {1}'.format(info.name, info.build_date),
-                    info.version, info.licence, verbose=verbose
+                    info.version, info.licence, verbose
                 )
                 self.tool_operational = True
                 verbose_message(
@@ -122,7 +122,7 @@ class YamlBase:
             :exceptions: None
         '''
         return '{0} ({1}, {2}, {3}, {4})'.format(
-            self.__class__.__name__, str(self.__verbose),
+            self.__class__.__name__, str(self._verbose),
             str(self.tool_operational), str(self.yaml2obj),
             str(self.obj2yaml)
         )

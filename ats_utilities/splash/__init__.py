@@ -57,7 +57,7 @@ class Splash(SplashProperty):
         It defines:
 
             :attributes:
-                | __verbose - enable/disable verbose option.
+                | _verbose - Enable/Disable verbose option.
             :methods:
                 | __init__ - initial constructor.
                 | center - center console line.
@@ -83,10 +83,10 @@ class Splash(SplashProperty):
         if status == ATSChecker.value_error:
             raise ATSBadCallError(error)
         SplashProperty.__init__(self, ats_splash_property, verbose)
-        self.__verbose = verbose
-        if self.validate(self.__verbose or verbose):
-            terminal = TerminalProperties(self.__verbose or verbose)
-            size = terminal.size(self.__verbose or verbose)
+        self._verbose = verbose
+        if self.validate(self._verbose or verbose):
+            terminal = TerminalProperties(self._verbose or verbose)
+            size = terminal.size(self._verbose or verbose)
             if ats_splash_property['ats_use_github_infrastructure']:
                 with open(ats_splash_property['ats_logo_path'], 'r') as logo:
                     for line in logo:
@@ -94,7 +94,7 @@ class Splash(SplashProperty):
                         if bool(processed_line):
                             self.center(int(size[1]), 0, processed_line)
                 infrastructure = GitHubInfrastructure(
-                    ats_splash_property, self.__verbose or verbose
+                    ats_splash_property, self._verbose or verbose
                 )
                 self.center(int(size[1]), 2, infrastructure.get_info_text())
                 self.center(int(size[1]), 2, infrastructure.get_issue_text())
@@ -102,7 +102,7 @@ class Splash(SplashProperty):
                 print("\n")
             else:
                 infrastructure = ExtInfrastructure(
-                    ats_splash_property, self.__verbose or verbose
+                    ats_splash_property, self._verbose or verbose
                 )
                 self.center(int(size[1]), 2, infrastructure.get_info_text())
                 self.center(int(size[1]), 2, infrastructure.get_issue_text())
@@ -139,7 +139,7 @@ class Splash(SplashProperty):
         if status == ATSChecker.value_error:
             raise ATSBadCallError(error)
         verbose_message(
-            Splash.verbose, self.__verbose or verbose,
+            Splash.verbose, self._verbose or verbose,
             columns, additional_shifter, text
         )
         start_position = (columns/2) - 21
@@ -154,4 +154,4 @@ class Splash(SplashProperty):
             :rtype: <str>
             :exceptions: None
         '''
-        return '{0} ({1})'.format(self.__class__.__name__, str(self.__verbose))
+        return '{0} ({1})'.format(self.__class__.__name__, str(self._verbose))

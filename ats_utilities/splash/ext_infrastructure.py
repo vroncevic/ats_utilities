@@ -51,7 +51,7 @@ class ExtInfrastructure:
         It defines:
 
             :attributes:
-                | __verbose - enable/disable verbose option.
+                | _verbose - Enable/Disable verbose option.
                 | __property - splash property in dict format.
             :methods:
                 | __init__ - initial constructor.
@@ -79,10 +79,10 @@ class ExtInfrastructure:
             raise ATSTypeError(error)
         if status == ATSChecker.value_error:
             raise ATSBadCallError(error)
-        self.__verbose = verbose
+        self._verbose = verbose
         self.__ats_splash_property = property
         verbose_message(
-            ExtInfrastructure.verbose, self.__verbose, property
+            ExtInfrastructure.verbose, self._verbose, property
         )
 
     def get_info_text(self):

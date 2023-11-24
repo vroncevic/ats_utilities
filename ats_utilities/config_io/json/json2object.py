@@ -55,7 +55,7 @@ class Json2Object(BaseReadConfig):
 
             :attributes:
                 | __FORMAT - format of configuration content.
-                | __verbose - enable/disable verbose option.
+                | _verbose - Enable/Disable verbose option.
             :methods:
                 | __init__ - initial constructor.
                 | read_configuration - read configuration from file.
@@ -82,8 +82,8 @@ class Json2Object(BaseReadConfig):
             raise ATSTypeError(error)
         if status == ATSChecker.value_error:
             raise ATSBadCallError(error)
-        BaseReadConfig.__init__(self, verbose=verbose)
-        self.__verbose = verbose
+        BaseReadConfig.__init__(self, verbose)
+        self._verbose = verbose
         self.file_path = configuration_file
         verbose_message(Json2Object.verbose, verbose, configuration_file)
 
@@ -102,7 +102,7 @@ class Json2Object(BaseReadConfig):
             if bool(json):
                 content = load(json)
         verbose_message(
-            Json2Object.verbose, self.__verbose or verbose, content
+            Json2Object.verbose, self._verbose or verbose, content
         )
         return content
 
@@ -116,5 +116,5 @@ class Json2Object(BaseReadConfig):
         '''
         return '{0} ({1}, {2})'.format(
             self.__class__.__name__, BaseReadConfig.__str__(self),
-            str(self.__verbose)
+            str(self._verbose)
         )

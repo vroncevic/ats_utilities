@@ -56,7 +56,7 @@ class TerminalProperties:
         It defines:
 
             :attributes:
-                | __verbose - enable/disable verbose option.
+                | _verbose - Enable/Disable verbose option.
                 | __window_size - terminal window size.
             :methods:
                 | __init__ - initial constructor.
@@ -74,10 +74,10 @@ class TerminalProperties:
             :type verbose: <bool>
             :exceptions: None
         '''
-        self.__verbose = verbose
+        self._verbose = verbose
         self.__window_size = None
         verbose_message(
-            TerminalProperties.verbose, self.__verbose or verbose,
+            TerminalProperties.verbose, self._verbose or verbose,
             'init terminal properties'
         )
 
@@ -108,7 +108,7 @@ class TerminalProperties:
         except:
             pass
         verbose_message(
-            TerminalProperties.verbose, self.__verbose or verbose,
+            TerminalProperties.verbose, self._verbose or verbose,
             'terminal window size', self.__window_size
         )
         return self.__window_size
@@ -128,7 +128,7 @@ class TerminalProperties:
         std_err = self.__ioctl_get_window_size(2)
         self.__window_size = std_in or std_out or std_err
         verbose_message(
-            TerminalProperties.verbose, self.__verbose or verbose,
+            TerminalProperties.verbose, self._verbose or verbose,
             'terminal window size', self.__window_size
         )
         return bool(self.__window_size)
@@ -159,7 +159,7 @@ class TerminalProperties:
             except:
                 pass
         verbose_message(
-            TerminalProperties.verbose, self.__verbose or verbose,
+            TerminalProperties.verbose, self._verbose or verbose,
             'terminal window size', self.__window_size
         )
         return self.__window_size
@@ -173,6 +173,6 @@ class TerminalProperties:
             :exceptions: None
         '''
         return '{0} ({1}, {2})'.format(
-            self.__class__.__name__, str(self.__verbose),
+            self.__class__.__name__, str(self._verbose),
             str(self.__window_size)
         )

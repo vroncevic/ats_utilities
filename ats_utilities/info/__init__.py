@@ -117,14 +117,14 @@ class ATSInfo(
             raise ATSTypeError(error_msg)
         if error_id == ATSChecker.value_error:
             raise ATSBadCallError(error_msg)
-        ATSName.__init__(self)
-        ATSVersion.__init__(self)
-        ATSLicence.__init__(self)
-        ATSBuildDate.__init__(self)
-        ATSInfoOk.__init__(self)
+        ATSName.__init__(self, verbose)
+        ATSVersion.__init__(self, verbose)
+        ATSLicence.__init__(self, verbose)
+        ATSBuildDate.__init__(self, verbose)
+        ATSInfoOk.__init__(self, verbose)
         self._verbose = verbose
         self._statuses = []
-        self.is_correct(info, verbose=verbose)
+        self.is_correct(info, verbose)
         if all(self._statuses):
             verbose_message(
                 ATSInfo.verbose,  # pylint: disable=no-member
@@ -173,7 +173,7 @@ class ATSInfo(
         verbose_message(
             ATSInfo.verbose,  # pylint: disable=no-member
             verbose,
-            tuple(str(informations))
+            tuple(f'info structure {str(informations)}')
         )
         for info_key in informations.keys():
             if info_key not in ATSInfo.ats_base_info.values():

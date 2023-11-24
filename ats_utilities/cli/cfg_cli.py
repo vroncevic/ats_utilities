@@ -20,15 +20,20 @@ Info
     Creates API for check and load informations, setup argument parser.
 '''
 
+
 import sys
+from typing import Any, Tuple, Dict
+from argparse import Namespace
+from abc import abstractmethod
 
 try:
-    from ats_utilities import auto_str, VerboseRoot
+    from ats_utilities import auto_str
     from ats_utilities.checker import ATSChecker
     from ats_utilities.config_io.cfg import CfgBase
     from ats_utilities.console_io.verbose import verbose_message
     from ats_utilities.exceptions.ats_type_error import ATSTypeError
     from ats_utilities.exceptions.ats_bad_call_error import ATSBadCallError
+    from ats_utilities.cli.cfg_cli_meta import CfgCLIMeta
 except ImportError as ats_error_message:
     # Force exit python #######################################################
     sys.exit(f'\n{__file__}\n{ats_error_message}\n')
@@ -44,87 +49,95 @@ __status__ = 'Updated'
 
 
 @auto_str
-class CfgCLI(CfgBase):
+class CfgCLI(CfgBase, metaclass=CfgCLIMeta):
     '''
-        Defined class CfgCLI with attribute(s) and method(s).
-        Created API for check and load informations, setup arguments parser.
+        Defines class CfgCLI with attribute(s) and method(s).
+        Creates API for check and load informations, setup arguments parser.
+        Command line interface configurtion based on cfg format.
+
         It defines:
 
             :attributes:
-                | __verbose - enable/disable verbose option.
+                | _verbose - Enable/Disable verbose option.
             :methods:
-                | __init__ - initial constructor.
-                | add_new_option - adding new option for CL interface.
-                | parse_args - parse arguments.
-                | process - process and run tool operation (Abstract method).
-                | __str__ - str dunder method for CfgCLI.
+                | __init__ - Initial CfgCLI constructor.
+                | add_new_option - Adding new option for CL interface.
+                | parse_args - Parse CL arguments.
+                | process - Process and run tool operation (Abstract method).
     '''
 
-    def __init__(self, informations_file, verbose=False):
-        '''
-            Initial constructor.
+    _verbose: bool
 
-            :param informations_file: informations file path.
-            :type informations_file: <str>
-            :param verbose: enable/disable verbose option.
+    def __init__(
+        self, information_file: str | None, verbose: bool = False
+    ) -> None:
+        '''
+            Initial CfgCLI constructor.
+
+            :param information_file: Informations file path | None
+            :type information_file: <str> | <NoneType>
+            :param verbose: Enable/Disable verbose option
             :type verbose: <bool>
             :exceptions: ATSTypeError | ATSBadCallError
         '''
-        checker, error, status = ATSChecker(), None, False
-        error, status = checker.check_params([
-            ('str:informations_file', informations_file)
+        checker: ATSChecker = ATSChecker()
+        error_msg: str | None = None
+        error_id: int | None = None
+        error_msg, error_id = checker.check_params([
+            ('str:information_file', information_file)
         ])
-        if status == ATSChecker.type_error:
-            raise ATSTypeError(error)
-        if status == ATSChecker.value_error:
-            raise ATSBadCallError(error)
-        CfgBase.__init__(self, informations_file, verbose=verbose)
-        self.__verbose = verbose
-        verbose_message(CfgCLI.verbose, verbose, 'init ATS cfg cli')
+        if error_id == ATSChecker.type_error:
+            raise ATSTypeError(error_msg)
+        if error_id == ATSChecker.value_error:
+            raise ATSBadCallError(error_msg)
+        CfgBase.__init__(self, information_file, verbose)
+        self._verbose = verbose
+        verbose_message(
+            CfgCLI.verbose,  # pylint: disable=no-member
+            verbose,
+            tuple('init ATS cfg cli')
+        )
 
-    def add_new_option(self, *args, **kwargs):
+    def add_new_option(
+        self, *args: Tuple[Any], **kwargs: Dict[Any, Any]
+    ) -> None:
         '''
             Adding new option for CL interface.
 
-            :param args: list of arguments (objects).
-            :type args: <list>
-            :param kwargs: arguments in shape of dictionary.
-            :type kwargs: <dict>
+            :param args: Tuple of arguments (objects)
+            :type args: <Tuple[Any]>
+            :param kwargs: arguments in dictionary format
+            :type kwargs: <Dict[Any, Any]>
             :exceptions: None
         '''
-        self.option_parser.add_operation(*args, **kwargs)
+        CfgBase.option_parser.add_operation(*args, **kwargs)
 
-    def parse_args(self, argv):
+    def parse_args(self, argv: list[Any] | list[str]) -> Any | Namespace:
         '''
             Process arguments from start.
 
-            :param argv: arguments.
-            :type argv: <list>
-            :return: options and arguments.
-            :rtype: <Python object(s)>
+            :param argv: List of arguments
+            :type argv: <list[Any] | list[str]>
+            :return: Options and arguments
+            :rtype: <Any | Namespace>
             :exceptions: None
         '''
-        args = self.option_parser.parse_args(argv)
-        return args
+        checker: ATSChecker = ATSChecker()
+        error_msg: str | None = None
+        error_id: int | None = None
+        error_msg, error_id = checker.check_params([('list:argv', argv)])
+        if error_id == ATSChecker.type_error:
+            raise ATSTypeError(error_msg)
+        if error_id == ATSChecker.value_error:
+            raise ATSBadCallError(error_msg)
+        return CfgBase.option_parser.parse_args(argv)
 
-    @AbstractMethod
-    def process(self, verbose=False):
+    @abstractmethod
+    def process(self, verbose: bool = False) -> None:
         '''
             Process and run tool operation (Abstract method).
 
-            :param verbose: enable/disable verbose option.
+            :param verbose: Enable/Disable verbose option
             :type verbose: <bool>
             :exception: NotImplementedError
         '''
-
-    def __str__(self):
-        '''
-            Dunder str method for CfgCLI.
-
-            :return: object in a human-readable format.
-            :rtype: <str>
-            :exceptions: None
-        '''
-        return '{0}({1}, {2})'.format(
-            self.__class__.__name__, CfgBase.__str__(self), str(self.__verbose)
-        )

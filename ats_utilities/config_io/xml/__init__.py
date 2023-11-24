@@ -55,8 +55,8 @@ class XmlBase:
         It defines:
 
             :attributes:
-                | __verbose - enable/disable verbose option.
-                | tool_operational - control ATS operational functionality.
+                | _verbose - Enable/Disable verbose option.
+                | tool_operational - Control ATS operational functionality.
                 | xml2obj - in API for informations.
                 | obj2xml - out API for informations.
                 | option_parser - option parser for ATS.
@@ -66,31 +66,31 @@ class XmlBase:
                 | __str__ - str dunder method for object XmlBase.
     '''
 
-    def __init__(self, informations_file, verbose=False):
+    def __init__(self, information_file, verbose=False):
         '''
             Initial constructor.
 
-            :param informations_file: informations file path.
-            :type informations_file: <str>
+            :param information_file: informations file path.
+            :type information_file: <str>
             :param verbose: enable/disable verbose option.
             :type verbose: <bool>
             :exceptions: ATSTypeError | ATSBadCallError
         '''
         checker, error, status = ATSChecker(), None, False
         error, status = checker.check_params([
-            ('str:informations_file', informations_file)
+            ('str:information_file', information_file)
         ])
         if status == ATSChecker.type_error:
             raise ATSTypeError(error)
         if status == ATSChecker.value_error:
             raise ATSBadCallError(error)
-        self.__verbose = verbose
+        self._verbose = verbose
         informations, info_dict = None, dict()
         self.tool_operational = False
-        self.xml2obj = Xml2Object(informations_file, verbose=verbose)
-        self.obj2xml = Object2Xml(informations_file, verbose=verbose)
+        self.xml2obj = Xml2Object(information_file, verbose)
+        self.obj2xml = Object2Xml(information_file, verbose)
         if all([self.xml2obj, self.obj2xml]):
-            informations = self.xml2obj.read_configuration(verbose=verbose)
+            informations = self.xml2obj.read_configuration(verbose)
         if informations:
             info_dict['ats_name'] = str(informations.find('ats_name').text)
             info_dict['ats_version'] = str(
@@ -102,11 +102,11 @@ class XmlBase:
             info_dict['ats_licence'] = str(
                 informations.find('ats_licence').text
             )
-            info = ATSInfo(info_dict, verbose=verbose)
+            info = ATSInfo(info_dict, verbose)
             if info.ats_info_ok:
                 self.option_parser = ATSOptionParser(
                     '{0} {1}'.format(info.name, info.build_date),
-                    info.version, info.licence, verbose=verbose
+                    info.version, info.licence, verbose
                 )
                 self.tool_operational = True
                 verbose_message(
@@ -132,7 +132,7 @@ class XmlBase:
             :exceptions: None
         '''
         return '{0} ({1}, {2}, {3}, {4})'.format(
-            self.__class__.__name__, str(self.__verbose),
+            self.__class__.__name__, str(self._verbose),
             str(self.tool_operational), str(self.xml2obj),
             str(self.obj2xml)
         )

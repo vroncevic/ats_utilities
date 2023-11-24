@@ -55,7 +55,7 @@ class Object2Yaml(BaseWriteConfig):
 
             :attributes:
                 | __FORMAT - format of configuration content.
-                | __verbose - enable/disable verbose option.
+                | _verbose - Enable/Disable verbose option.
             :methods:
                 | __init__ - initial constructor.
                 | write_configuration - write configuration to a yaml file.
@@ -82,8 +82,8 @@ class Object2Yaml(BaseWriteConfig):
             raise ATSTypeError(error)
         if status == ATSChecker.value_error:
             raise ATSBadCallError(error)
-        BaseWriteConfig.__init__(self, verbose=verbose)
-        self.__verbose = verbose
+        BaseWriteConfig.__init__(self, verbose)
+        self._verbose = verbose
         self.file_path = configuration_file
         verbose_message(Object2Yaml.verbose, verbose, configuration_file)
 
@@ -119,5 +119,5 @@ class Object2Yaml(BaseWriteConfig):
         '''
         return '{0} ({1}, {2})'.format(
             self.__class__.__name__, BaseWriteConfig.__str__(self),
-            str(self.__verbose)
+            str(self._verbose)
         )

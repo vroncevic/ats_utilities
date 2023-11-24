@@ -104,7 +104,8 @@ class ATSLoggerStatus(metaclass=VerboseRoot):
         if error_id == ATSChecker.value_error:
             raise ATSBadCallError(error_msg)
         self._log_status = log_status
-        # pylint: disable=no-member
         verbose_message(
-            ATSLoggerStatus.verbose, self._verbose, tuple(str(log_status))
+            ATSLoggerStatus.verbose,  # pylint: disable=no-member
+            self._verbose,
+            tuple(str(log_status))
         )

@@ -21,6 +21,7 @@ Info
 '''
 
 import sys
+from os.path import isfile
 
 try:
     from ats_utilities import auto_str, VerboseRoot
@@ -28,6 +29,7 @@ try:
     from ats_utilities.console_io.verbose import verbose_message
     from ats_utilities.exceptions.ats_type_error import ATSTypeError
     from ats_utilities.exceptions.ats_bad_call_error import ATSBadCallError
+    from ats_utilities.exceptions.ats_file_error import ATSFileError
 except ImportError as ats_error_message:
     # Force exit python #######################################################
     sys.exit(f'\n{__file__}\n{ats_error_message}\n')
@@ -92,7 +94,7 @@ class ATSLoggerFile(metaclass=VerboseRoot):
 
             :param logger_file: Log file path
             :type logger_file: <str> | <NoneType>
-            :exceptions: ATSTypeError | ATSBadCallError
+            :exceptions: ATSTypeError | ATSBadCallError | ATSFileError
         '''
         checker: ATSChecker = ATSChecker()
         error_msg: str | None = None
@@ -104,8 +106,12 @@ class ATSLoggerFile(metaclass=VerboseRoot):
             raise ATSTypeError(error_msg)
         if error_id == ATSChecker.value_error:
             raise ATSBadCallError(error_msg)
-        self._logger_file = logger_file
-        # pylint: disable=no-member
-        verbose_message(
-            ATSLoggerFile.verbose, self._verbose, tuple(str(logger_file))
-        )
+        if isfile(str(logger_file)):
+            self._logger_file = logger_file
+            verbose_message(
+                ATSLoggerFile.verbose,  # pylint: disable=no-member
+                self._verbose,
+                tuple(str(logger_file))
+            )
+        else:
+            raise ATSFileError(f'Check ATS log file path {logger_file}')

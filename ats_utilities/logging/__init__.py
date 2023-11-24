@@ -21,21 +21,20 @@ Info
 '''
 
 import sys
-from os.path import isfile
 from logging import (
     getLogger, basicConfig, Logger, DEBUG, WARNING, CRITICAL, ERROR, INFO
 )
 
 try:
-    from ats_utilities import auto_str, VerboseRoot
+    from ats_utilities import auto_str
     from ats_utilities.checker import ATSChecker
     from ats_utilities.console_io.error import error_message
     from ats_utilities.console_io.verbose import verbose_message
     from ats_utilities.logging.ats_logger_file import ATSLoggerFile
     from ats_utilities.logging.ats_logger_name import ATSLoggerName
-    from ats_utilities.exceptions.ats_file_error import ATSFileError
-    from ats_utilities.exceptions.ats_type_error import ATSTypeError
     from ats_utilities.logging.ats_logger_status import ATSLoggerStatus
+    from ats_utilities.logging.ats_logger_meta import ATSLoggerMeta
+    from ats_utilities.exceptions.ats_type_error import ATSTypeError
     from ats_utilities.exceptions.ats_bad_call_error import ATSBadCallError
 except ImportError as ats_error_message:
     # Force exit python #######################################################
@@ -52,7 +51,9 @@ __status__ = 'Updated'
 
 
 @auto_str
-class ATSLogger(metaclass=VerboseRoot):
+class ATSLogger(
+    ATSLoggerName, ATSLoggerStatus, ATSLoggerFile, metaclass=ATSLoggerMeta
+):
     '''
         Defines class ATSLogger with attribute(s) and method(s).
         Creates API for ATS logging mechanism.
@@ -68,10 +69,7 @@ class ATSLogger(metaclass=VerboseRoot):
                 | ats_critical - critical log level.
                 | ats_error - error log level.
                 | ats_info - info log level.
-                | _verbose - enable/disable verbose option.
-                | _ats_logger_name - Instance of logger name.
-                | _ats_logger_status - Instance of logger status.
-                | _ats_logger_file - Instance of logger file.
+                | _verbose - Enable/Disable verbose option.
             :methods:
                 | __init__ - Initial ATSLogger constructor.
                 | write_log - Write message to log file.
@@ -86,20 +84,20 @@ class ATSLogger(metaclass=VerboseRoot):
     ats_info: int = INFO
 
     _verbose: bool
-    _ats_logger_name: ATSLoggerName | None
-    _ats_logger_status: ATSLoggerStatus | None
-    _ats_logger_file: ATSLoggerFile | None
 
     def __init__(
-        self, ats_name: str, ats_log_file: str, verbose: bool = False
+        self,
+        ats_name: str | None,
+        ats_log_file: str | None,
+        verbose: bool = False
     ) -> None:
         '''
             Initial ATSLogger constructor.
 
             :param ats_name: ATS name
-            :type ats_name: <str>
+            :type ats_name: <str> | <NoneType>
             :param ats_log_file: Log file path of ATS
-            :type ats_log_file: <str>
+            :type ats_log_file: <str> | <NoneType>
             :param verbose: Enable/Disable verbose option
             :type verbose: <bool>
             :exceptions: ATSTypeError | ATSBadCallError | ATSFileError
@@ -115,21 +113,19 @@ class ATSLogger(metaclass=VerboseRoot):
         if error_id == ATSChecker.value_error:
             raise ATSBadCallError(error_msg)
         self._verbose = verbose
-        self._ats_logger_name = ATSLoggerName(verbose=verbose)
-        self._ats_logger_status = ATSLoggerStatus(verbose=verbose)
-        self._ats_logger_file = ATSLoggerFile(verbose=verbose)
-        if isfile(ats_log_file):
-            self._ats_logger_file.logger_file = ats_log_file
-            basicConfig(
-                format=ATSLogger.log_msg_format,
-                datefmt=ATSLogger.log_date_format,
-                filename=self._ats_logger_file.logger_file,
-                level=DEBUG
-            )
-            self.logger: Logger = getLogger(self._ats_logger_name.logger_name)
-            self._ats_logger_status.logger_status = True
-        else:
-            raise ATSFileError(f'Check ATS log file path {ats_log_file}')
+        ATSLoggerName.__init__(self, verbose)
+        ATSLoggerStatus.__init__(self, verbose)
+        ATSLoggerFile.__init__(self, verbose)
+        self.logger_file = str(ats_log_file)
+        self.logger_name = str(ats_name)
+        basicConfig(
+            format=ATSLogger.log_msg_format,
+            datefmt=ATSLogger.log_date_format,
+            filename=self.logger_file,
+            level=DEBUG
+        )
+        self.logger: Logger = getLogger(self.logger_name)
+        self.logger_status = True
         verbose_message(
             ATSLogger.verbose,  # pylint: disable=no-member
             verbose,
@@ -137,13 +133,13 @@ class ATSLogger(metaclass=VerboseRoot):
         )
 
     def write_log(
-        self, message: str, ctrl: int, verbose: bool = False
+        self, message: str | None, ctrl: int, verbose: bool = False
     ) -> bool:
         '''
             Write message to log file.
 
             :param message: Log message to log file
-            :type message: <str>
+            :type message: <str> | <NoneType>
             :param ctrl: Control flag (debug, warning, critical, errors, info)
             :type ctrl: <int>
             :param verbose: Enable/Disable verbose option
@@ -168,7 +164,7 @@ class ATSLogger(metaclass=VerboseRoot):
             self._verbose or verbose,
             tuple(f'{message} {str(ctrl)}')
         )
-        if bool(self._ats_logger_status):
+        if bool(self.logger_status):
             match ctrl:
                 case ATSLogger.ats_debug:
                     self.logger.debug(message)

@@ -53,7 +53,7 @@ class JsonCLI(JsonBase):
         It defines:
 
             :attributes:
-                | __verbose - enable/disable verbose option.
+                | _verbose - Enable/Disable verbose option.
             :methods:
                 | __init__ - initial constructor.
                 | add_new_option - adding new option for CL interface.
@@ -62,26 +62,26 @@ class JsonCLI(JsonBase):
                 | __str__ - str dunder method for JsonCLI.
     '''
 
-    def __init__(self, informations_file, verbose=False):
+    def __init__(self, information_file, verbose=False):
         '''
             Initial constructor.
 
-            :param informations_file: informations file path.
-            :type informations_file: <str>
+            :param information_file: informations file path.
+            :type information_file: <str>
             :param verbose: enable/disable verbose option.
             :type verbose: <bool>
             :exceptions: ATSTypeError | ATSBadCallError
         '''
         checker, error, status = ATSChecker(), None, False
         error, status = checker.check_params([
-            ('str:informations_file', informations_file)
+            ('str:information_file', information_file)
         ])
         if status == ATSChecker.type_error:
             raise ATSTypeError(error)
         if status == ATSChecker.value_error:
             raise ATSBadCallError(error)
-        JsonBase.__init__(self, informations_file, verbose=verbose)
-        self.__verbose = verbose
+        JsonBase.__init__(self, information_file, verbose)
+        self._verbose = verbose
         verbose_message(JsonCLI.verbose, verbose, 'init ATS json cli')
 
     def add_new_option(self, *args, **kwargs):
@@ -129,5 +129,5 @@ class JsonCLI(JsonBase):
         '''
         return '{0} ({1}, {2})'.format(
             self.__class__.__name__, JsonBase.__str__(self),
-            str(self.__verbose)
+            str(self._verbose)
         )

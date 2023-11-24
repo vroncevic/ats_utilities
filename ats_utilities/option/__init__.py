@@ -67,21 +67,21 @@ class ATSOptionParser(metaclass=VerboseRoot):
 
     def __init__(
         self,
-        version: str,
-        epilog: str,
-        description: str,
+        version: str | None,
+        epilog: str | None,
+        description: str | None,
         verbose: bool = False
     ) -> None:
         '''
             Initial ATSOptionParser constructor.
 
             :param version: ATS version and build date
-            :type version: <str>
+            :type version: <str> | <NoneType>
             :param epilog: ATS long description
-            :type epilog: <str>
+            :type epilog: <str> | <NoneType>
             :param description: ATS author and license
-            :type description: <str>
-            :param verbose: enable/disable verbose option
+            :type description: <str> | <NoneType>
+            :param verbose: Enable/Disable verbose option
             :type verbose: <bool>
             :exceptions: ATSTypeError | ATSBadCallError
         '''
@@ -101,7 +101,7 @@ class ATSOptionParser(metaclass=VerboseRoot):
         verbose_message(
             ATSOptionParser.verbose,  # pylint: disable=no-member
             self._verbose or verbose,
-            (version, epilog, description)
+            tuple(f'{str(version)}, {str(epilog)}, {str(description)}')
         )
 
     def add_operation(

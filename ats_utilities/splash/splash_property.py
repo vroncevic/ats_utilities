@@ -52,7 +52,7 @@ class SplashProperty:
 
             :attributes:
                 | __EXPECTED_PROPERY_KEYS - expected property names.
-                | __verbose - enable/disable verbose option.
+                | _verbose - Enable/Disable verbose option.
                 | __property - splash property in dict format.
             :methods:
                 | __init__ - initial constructor.
@@ -83,9 +83,9 @@ class SplashProperty:
             raise ATSTypeError(error)
         if status == ATSChecker.value_error:
             raise ATSBadCallError(error)
-        self.__verbose = verbose
+        self._verbose = verbose
         self.__property = property
-        verbose_message(SplashProperty.verbose, self.__verbose, property)
+        verbose_message(SplashProperty.verbose, self._verbose, property)
 
     def validate(self, verbose=False):
         '''
@@ -100,12 +100,12 @@ class SplashProperty:
         for key in list(self.__property.keys()):
             if key not in SplashProperty.__EXPECTED_PROPERY_KEYS:
                 verbose_message(
-                    SplashProperty.verbose, self.__verbose or verbose,
+                    SplashProperty.verbose, self._verbose or verbose,
                     'property name {0} not expected'.format(key)
                 )
                 return False
         verbose_message(
-            SplashProperty.verbose, self.__verbose or verbose,
+            SplashProperty.verbose, self._verbose or verbose,
             'property checked and all prepared'
         )
         return True
@@ -119,5 +119,5 @@ class SplashProperty:
                 :exceptions: None
             '''
         return '{0} ({1}, {2})'.format(
-            self.__class__.__name__, str(self.__verbose), str(self.__property)
+            self.__class__.__name__, str(self._verbose), str(self.__property)
         )

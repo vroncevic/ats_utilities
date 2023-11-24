@@ -56,7 +56,7 @@ class ATSCliCfgAPI(CfgCLI):
         '''Initial constructor.'''
         current_dir = dirname(__file__)
         base_info = '{0}{1}'.format(current_dir, ATSCliCfgAPI.__CONFIG)
-        CfgCLI.__init__(self, base_info, verbose=verbose)
+        CfgCLI.__init__(self, base_info, verbose)
         if self.tool_operational:
             self.add_new_option(
                 ATSCliCfgAPI.__OPS[0], ATSCliCfgAPI.__OPS[1], dest='test',
@@ -85,7 +85,7 @@ class ATSCliIniAPI(IniCLI):
         '''Initial constructor.'''
         current_dir = dirname(__file__)
         base_info = '{0}{1}'.format(current_dir, ATSCliIniAPI.__CONFIG)
-        IniCLI.__init__(self, base_info, verbose=verbose)
+        IniCLI.__init__(self, base_info, verbose)
         if self.tool_operational:
             self.add_new_option(
                 ATSCliIniAPI.__OPS[0], ATSCliIniAPI.__OPS[1], dest='test',
@@ -114,7 +114,7 @@ class ATSCliJsonAPI(JsonCLI):
         '''Initial constructor.'''
         current_dir = dirname(__file__)
         base_info = '{0}{1}'.format(current_dir, ATSCliJsonAPI.__CONFIG)
-        JsonCLI.__init__(self, base_info, verbose=verbose)
+        JsonCLI.__init__(self, base_info, verbose)
         if self.tool_operational:
             self.add_new_option(
                 ATSCliJsonAPI.__OPS[0], ATSCliJsonAPI.__OPS[1], dest='test',
@@ -143,7 +143,7 @@ class ATSCliXmlAPI(XmlCLI):
         '''Initial constructor.'''
         current_dir = dirname(__file__)
         base_info = '{0}{1}'.format(current_dir, ATSCliXmlAPI.__CONFIG)
-        XmlCLI.__init__(self, base_info, verbose=verbose)
+        XmlCLI.__init__(self, base_info, verbose)
         if self.tool_operational:
             self.add_new_option(
                 ATSCliXmlAPI.__OPS[0], ATSCliXmlAPI.__OPS[1], dest='test',
@@ -172,7 +172,7 @@ class ATSCliYamlAPI(YamlCLI):
         '''Initial constructor.'''
         current_dir = dirname(__file__)
         base_info = '{0}{1}'.format(current_dir, ATSCliYamlAPI.__CONFIG)
-        YamlCLI.__init__(self, base_info, verbose=verbose)
+        YamlCLI.__init__(self, base_info, verbose)
         if self.tool_operational:
             self.add_new_option(
                 ATSCliYamlAPI.__OPS[0], ATSCliYamlAPI.__OPS[1], dest='test',
