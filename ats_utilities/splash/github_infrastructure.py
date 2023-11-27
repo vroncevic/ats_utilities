@@ -1,149 +1,125 @@
 # -*- coding: UTF-8 -*-
 
 '''
- Module
-     github_infrastructure.py
- Copyright
-     Copyright (C) 2021 Vladimir Roncevic <elektron.ronca@gmail.com>
-     ats_utilities is free software: you can redistribute it and/or modify it
-     under the terms of the GNU General Public License as published by the
-     Free Software Foundation, either version 3 of the License, or
-     (at your option) any later version.
-     ats_utilities is distributed in the hope that it will be useful, but
-     WITHOUT ANY WARRANTY; without even the implied warranty of
-     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-     See the GNU General Public License for more details.
-     You should have received a copy of the GNU General Public License along
-     with this program. If not, see <http://www.gnu.org/licenses/>.
- Info
-     Defined class GitHubInfrastructure with attribute(s) and method(s).
-     Created API for processing hyperlinks for splash.
+Module
+    github_infrastructure.py
+Copyright
+    Copyright (C) 2021 Vladimir Roncevic <elektron.ronca@gmail.com>
+    ats_utilities is free software: you can redistribute it and/or modify it
+    under the terms of the GNU General Public License as published by the
+    Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+    ats_utilities is distributed in the hope that it will be useful, but
+    WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+    See the GNU General Public License for more details.
+    You should have received a copy of the GNU General Public License along
+    with this program. If not, see <http://www.gnu.org/licenses/>.
+Info
+    Defines class GitHubInfrastructure with attribute(s) and method(s).
+    Creates API for processing hyperlinks for splash.
 '''
 
 import sys
+from typing import Any, Dict
 
 try:
-    from six import add_metaclass
-    from ats_utilities import VerboseRoot
     from ats_utilities.checker import ATSChecker
     from ats_utilities.console_io.verbose import verbose_message
     from ats_utilities.exceptions.ats_type_error import ATSTypeError
     from ats_utilities.exceptions.ats_bad_call_error import ATSBadCallError
 except ImportError as ats_error_message:
-    MESSAGE = '\n{0}\n{1}\n'.format(__file__, ats_error_message)
-    sys.exit(MESSAGE)  # Force close python ATS ##############################
+    # Force exit python #######################################################
+    sys.exit(f'\n{__file__}\n{ats_error_message}\n')
 
 __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2021, https://vroncevic.github.io/ats_utilities'
-__credits__ = ['Vladimir Roncevic']
+__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = '2.5.5'
+__version__ = '2.6.5'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
 
 
-@add_metaclass(VerboseRoot)
-class GitHubInfrastructure:
+class GitHubInfrastructure(ATSChecker):
     '''
-        Defined class GitHubInfrastructure with attribute(s) and method(s).
-        Created API for processing hyperlinks for splash.
+        Defines class GitHubInfrastructure with attribute(s) and method(s).
+        Creates API for processing hyperlinks for splash.
+        API for GitHub information.
+
         It defines:
 
             :attributes:
-                | __verbose - enable/disable verbose option.
-                | __property - splash property in dict format.
+                | _verbose - Enable/Disable verbose option.
+                | _property - Splash property in dict format.
             :methods:
-                | __init__ - initial constructor.
-                | get_info_text - pre-processed info text.
-                | get_issue_text - pre-processed issue text.
-                | get_author_text - pre-processed author text.
-                | __str__ - dunder method for GitHubInfrastructure.
+                | __init__ - Initial GitHubInfrastructure constructor.
+                | get_info_text - Pre-processed info text.
+                | get_issue_text - Pre-processed issue text.
+                | get_author_text - Pre-processed author text.
     '''
 
-    def __init__(self, property, verbose=False):
+    def __init__(self, prop: Dict[Any, Any], verbose: bool = False) -> None:
         '''
-            Initial constructor.
+            Initial GitHubInfrastructure constructor.
 
-            :param property: splash property in dict form.
+            :param property: Splash property in dict form
             :type property: <dict>
-            :param verbose: enable/disable verbose option.
+            :param verbose: Enable/Disable verbose option
             :type verbose: <bool>
             :exceptions: ATSTypeError | ATSBadCallError
         '''
-        checker, error, status = ATSChecker(), None, False
-        error, status = checker.check_params([
-            ('dict:property', property)
-        ])
-        if status == ATSChecker.TYPE_ERROR:
-            raise ATSTypeError(error)
-        if status == ATSChecker.VALUE_ERROR:
-            raise ATSBadCallError(error)
-        self.__verbose = verbose
-        self.__ats_splash_property = property
+        super().__init__()
+        error_msg: str | None = None
+        error_id: int | None = None
+        error_msg, error_id = self.check_params([('dict:prop', prop)])
+        if error_id == self.TYPE_ERROR:
+            raise ATSTypeError(error_msg)
+        if error_id == self.VALUE_ERROR:
+            raise ATSBadCallError(error_msg)
+        self._verbose: bool = verbose
+        self._property: Dict[Any, Any] = prop
         verbose_message(
-            GitHubInfrastructure.VERBOSE, self.__verbose, property
+            self._verbose, [f'splash property {prop}']
         )
 
-    def get_info_text(self):
+    def get_info_text(self) -> str:
         '''
             Pre-processed info text for splash.
 
-            :return: hyperlink with info text.
+            :return: Hyperlink with info text
             :rtype: <str>
             :exceptions: None
         '''
-        return '\x1b]8;;{0}\a{1}\x1b]8;;\a'.format(
-            'https://{0}.github.io/{1}'.format(
-                self.__ats_splash_property['ats_organization'],
-                self.__ats_splash_property['ats_repository']
-            ),
-            'github.io/{0}'.format(
-                self.__ats_splash_property['ats_repository']
-            )
-        )
+        org: str = self._property['ats_organization']
+        repo: str = self._property['ats_repository']
+        url_short: str = f'github.io/{repo}'
+        url_long: str = f'https://{org}.github.io/{repo}'
+        return f'\x1b]8;;{url_long}\a{url_short}\x1b]8;;\a'
 
-    def get_issue_text(self):
+    def get_issue_text(self) -> str:
         '''
             Pre-processed issue text for splash.
 
-            :return: hyperlink with issue info.
+            :return: Hyperlink with issue info
             :rtype: <str>
             :exceptions: None
         '''
-        return '\x1b]8;;{0}\a{1}\x1b]8;;\a'.format(
-            'https://github.com/{0}/{1}/issues/new/choose'.format(
-                self.__ats_splash_property['ats_organization'],
-                self.__ats_splash_property['ats_repository']
-            ),
-            'github.io/issue'
-        )
+        org: str = self._property['ats_organization']
+        repo: str = self._property['ats_repository']
+        url: str = f'https://github.com/{org}/{repo}/issues/new/choose'
+        return f'\x1b]8;;{url}\agithub.io/issue\x1b]8;;\a'
 
-    def get_author_text(self):
+    def get_author_text(self) -> str:
         '''
             Pre-processed author text for splash.
 
-            :return: hyperlink with author info.
+            :return: Hyperlink with author info
             :rtype: <str>
             :exceptions: None
         '''
-        return '\x1b]8;;{0}\a{1}\x1b]8;;\a'.format(
-            'https://{0}.github.io/bio/'.format(
-                self.__ats_splash_property['ats_organization']
-            ),
-            '{0}.github.io'.format(
-                self.__ats_splash_property['ats_organization']
-            )
-        )
-
-    def __str__(self):
-        '''
-            Dunder method for GitHubInfrastructure.
-
-            :return: object in a human-readable format.
-            :rtype: <str>
-            :exceptions: None
-        '''
-        return '{0} ({1})'.format(
-            self.__class__.__name__, str(self.__ats_splash_property)
-        )
+        org: str = self._property['ats_organization']
+        org_short: str = f"{org}.github.io"
+        org_long: str = f"https://{org}.github.io/bio/"
+        return f'\x1b]8;;{org_long}\a{org_short}\x1b]8;;\a'

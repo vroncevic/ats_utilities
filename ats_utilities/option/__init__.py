@@ -1,136 +1,132 @@
 # -*- coding: utf-8 -*-
 
 '''
- Module
-     __init__.py
- Copyright
-     Copyright (C) 2017 Vladimir Roncevic <elektron.ronca@gmail.com>
-     ats_utilities is free software: you can redistribute it and/or modify it
-     under the terms of the GNU General Public License as published by the
-     Free Software Foundation, either version 3 of the License, or
-     (at your option) any later version.
-     ats_utilities is distributed in the hope that it will be useful, but
-     WITHOUT ANY WARRANTY; without even the implied warranty of
-     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-     See the GNU General Public License for more details.
-     You should have received a copy of the GNU General Public License along
-     with this program. If not, see <http://www.gnu.org/licenses/>.
- Info
-     Defined class ATSOptionParser with attribute(s) and method(s).
-     Created option parser and argument processor.
+Module
+    __init__.py
+Copyright
+    Copyright (C) 2017 Vladimir Roncevic <elektron.ronca@gmail.com>
+    ats_utilities is free software: you can redistribute it and/or modify it
+    under the terms of the GNU General Public License as published by the
+    Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+    ats_utilities is distributed in the hope that it will be useful, but
+    WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+    See the GNU General Public License for more details.
+    You should have received a copy of the GNU General Public License along
+    with this program. If not, see <http://www.gnu.org/licenses/>.
+Info
+    Defines class ATSOptionParser with attribute(s) and method(s).
+    Creates option parser and argument processor.
 '''
 
 import sys
-from argparse import ArgumentParser
+from typing import Any, Sequence
+from argparse import ArgumentParser, Namespace
 
 try:
-    from six import add_metaclass
-    from ats_utilities import VerboseRoot
     from ats_utilities.checker import ATSChecker
     from ats_utilities.console_io.verbose import verbose_message
     from ats_utilities.exceptions.ats_type_error import ATSTypeError
     from ats_utilities.exceptions.ats_bad_call_error import ATSBadCallError
 except ImportError as ats_error_message:
-    MESSAGE = '\n{0}\n{1}\n'.format(__file__, ats_error_message)
-    sys.exit(MESSAGE)  # Force close python ATS ##############################
+    # Force exit python #######################################################
+    sys.exit(f'\n{__file__}\n{ats_error_message}\n')
 
 __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2017, https://vroncevic.github.io/ats_utilities'
-__credits__ = ['Vladimir Roncevic']
+__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = '2.5.5'
+__version__ = '2.6.5'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
 
 
-@add_metaclass(VerboseRoot)
-class ATSOptionParser:
+class ATSOptionParser(ATSChecker):
     '''
-        Defined class ATSOptionParser with attribute(s) and method(s).
-        Created option parser and argument processor.
+        Defines class ATSOptionParser with attribute(s) and method(s).
+        Creates option parser and argument processor.
+        Mechanism for argument parser.
 
         It defines:
 
             :attributes:
-                | __verbose - enable/disable verbose option.
-                | __opt_parser - options parser.
+                | _verbose - Enable/Disable verbose option.
+                | _opt_parser - Options parser.
             :methods:
-                | __init__ - initial constructor.
-                | add_operation - add option to ATS.
-                | parse_args - process arguments from start.
-                | __str__ - str dunder method for ATSOptionParser.
+                | __init__ - Initial ATSOptionParser constructor.
+                | add_operation - Add option to ATS.
+                | parse_args - Process arguments from start.
     '''
 
-    def __init__(self, version, epilog, description, verbose=False):
-        '''
-            Initial constructor.
+    _verbose: bool
+    _opt_parser: ArgumentParser
 
-            :param version: ATS version and build date.
-            :type version: <str>
-            :param epilog: ATS long description.
-            :type epilog: <str>
-            :param description: ATS author and license.
-            :type description: <str>
-            :param verbose: enable/disable verbose option.
+    def __init__(
+        self,
+        version: str | None,
+        epilog: str | None,
+        description: str | None,
+        verbose: bool = False
+    ) -> None:
+        '''
+            Initial ATSOptionParser constructor.
+
+            :param version: ATS version and build date | None
+            :type version: <str> | <NoneType>
+            :param epilog: ATS long description | None
+            :type epilog: <str> | <NoneType>
+            :param description: ATS author and license | None
+            :type description: <str> | <NoneType>
+            :param verbose: Enable/Disable verbose option
             :type verbose: <bool>
             :exceptions: ATSTypeError | ATSBadCallError
         '''
-        checker, error, status = ATSChecker(), None, False
-        error, status = checker.check_params([
+        super().__init__()
+        error_msg: str | None = None
+        error_id: int | None = None
+        error_msg, error_id = self.check_params([
             ('str:version', version), ('str:epilog', epilog),
             ('str:description', description)
         ])
-        if status == ATSChecker.TYPE_ERROR:
-            raise ATSTypeError(error)
-        if status == ATSChecker.VALUE_ERROR:
-            raise ATSBadCallError(error)
-        self.__verbose = verbose
-        self.__opt_parser = ArgumentParser(version, epilog, description)
+        if error_id == self.TYPE_ERROR:
+            raise ATSTypeError(error_msg)
+        if error_id == self.VALUE_ERROR:
+            raise ATSBadCallError(error_msg)
+        self._verbose = verbose
+        self._opt_parser = ArgumentParser(version, epilog, description)
         verbose_message(
-            ATSOptionParser.VERBOSE, self.__verbose or verbose,
-            version, epilog, description
+            self._verbose,
+            [f'{str(version)}, {str(epilog)}, {str(description)}']
         )
 
-    def add_operation(self, *args, **kwargs):
+    def add_operation(self, *args: str, **kwargs: Any) -> None:
         '''
-            Add option to ATS.
+            Add option to ATS parser.
 
-            :param args: list of arguments (objects).
-            :type args: <list>
-            :param kwargs: arguments in shape of dictionary.
-            :type kwargs: <dict>
+            :param args: List of flags
+            :type args: <str>
+            :param kwargs: Arguments in shape of dictionary
+            :type kwargs: <Any>
             :exceptions: None
         '''
-        self.__opt_parser.add_argument(*args, **kwargs)
+        self._opt_parser.add_argument(*args, **kwargs)
 
-    def parse_args(self, arguments, verbose=False):
+    def parse_args(
+        self, arguments: Sequence[str], verbose: bool = False
+    ) -> Namespace:
         '''
             Process arguments from start.
 
-            :param arguments: arguments.
-            :type arguments: <list>
-            :param verbose: enable/disable verbose option.
+            :param arguments: Sequence of arguments
+            :type arguments: <Sequence[str]>
+            :param verbose: Enable/Disable verbose option
             :type verbose: <bool>
-            :return: namespace object.
-            :rtype: <argparse.Namespace>
+            :return: Namespace object
+            :rtype: <Namespace>
             :exceptions: None
         '''
-        args = self.__opt_parser.parse_args(arguments)
-        verbose_message(
-            ATSOptionParser.VERBOSE, self.__verbose or verbose, arguments
-        )
+        args: Namespace = self._opt_parser.parse_args(arguments)
+        verbose_message(self._verbose or verbose, [f'arguments {arguments}'])
         return args
-
-    def __str__(self):
-        '''
-            Dunder str method for ATSOptionParser.
-
-            :return: object in a human-readable format.
-            :rtype: <str>
-            :exceptions: None
-        '''
-        return '{0} ({1}, {2})'.format(
-            self.__class__.__name__, str(self.__verbose),
-            str(self.__opt_parser)
-        )

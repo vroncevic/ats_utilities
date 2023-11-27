@@ -1,30 +1,30 @@
 # -*- coding: UTF-8 -*-
 
 '''
- Module
-     progress_bar.py
- Copyright
-     Copyright (C) 2021 Vladimir Roncevic <elektron.ronca@gmail.com>
-     ats_utilities is free software: you can redistribute it and/or modify it
-     under the terms of the GNU General Public License as published by the
-     Free Software Foundation, either version 3 of the License, or
-     (at your option) any later version.
-     ats_utilities is distributed in the hope that it will be useful, but
-     WITHOUT ANY WARRANTY; without even the implied warranty of
-     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-     See the GNU General Public License for more details.
-     You should have received a copy of the GNU General Public License along
-     with this program. If not, see <http://www.gnu.org/licenses/>.
- Info
-     Defined class ProgressBar with attribute(s) and method(s).
-     Load a progressbar as part of splashscreen.
+Module
+    progress_bar.py
+Copyright
+    Copyright (C) 2021 Vladimir Roncevic <elektron.ronca@gmail.com>
+    ats_utilities is free software: you can redistribute it and/or modify it
+    under the terms of the GNU General Public License as published by the
+    Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+    ats_utilities is distributed in the hope that it will be useful, but
+    WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+    See the GNU General Public License for more details.
+    You should have received a copy of the GNU General Public License along
+    with this program. If not, see <http://www.gnu.org/licenses/>.
+Info
+    Defineds class ProgressBar with attribute(s) and method(s).
+    Loads a progressbar as part of splashscreen.
 '''
 
 import sys
 
 __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2021, https://vroncevic.github.io/ats_utilities'
-__credits__ = ['Vladimir Roncevic']
+__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
 __version__ = '1.0.3'
 __maintainer__ = 'Vladimir Roncevic'
@@ -34,98 +34,105 @@ __status__ = 'Updated'
 
 class ProgressBar:
     '''
-        Defined class ProgressBar with attribute(s) and method(s).
-        Load a progressbar as part of splashscreen.
+        Defineds class ProgressBar with attribute(s) and method(s).
+        Loads a progressbar as part of splashscreen.
+        Progress bar component.
+
         It defines:
 
             :attributes:
-                | DEFAULT_BAR_LENGTH - length of progressbar.
-                | DEFAULT_CHAR_ON - loaded progress element.
-                | DEFAULT_CHAR_OFF - unloaded progress element.
-                | start - start of level.
-                | end - end of level.
-                | _bar_length - progress length.
-                | _level - progress level.
-                | _plotted - plotted progress.
-                | _level_chars - level progress chars.
+                | DEFAULT_BAR_LENGTH - Length of progressbar.
+                | DEFAULT_CHAR_ON - Loaded progress element.
+                | DEFAULT_CHAR_OFF - Unloaded progress element.
+                | _start - Start of level.
+                | _end - End of level.
+                | _bar_length - Progress length.
+                | _level - Progress level.
+                | _plotted - Plotted progress.
+                | _level_chars - Level progress chars.
             :methods:
-                | __init__ - initial constructor.
-                | set_level - set level of progress.
-                | plot_progress - plot progress.
-                | set_and_plot - set and plot progress.
-                | __del__ - dunder method for ProgressBar.
+                | __init__ - Initial ProgressBar constructor.
+                | set_level - Set level of progress.
+                | plot_progress - Plot progress.
+                | set_and_plot - Set and plot progress.
     '''
-    DEFAULT_BAR_LENGTH = 60
-    DEFAULT_CHAR_ON = '█'
-    DEFAULT_CHAR_OFF = ' '
 
-    def __init__(self, end, start=0):
+    DEFAULT_BAR_LENGTH: int = 60
+    DEFAULT_CHAR_ON: str = '█'
+    DEFAULT_CHAR_OFF: str = ' '
+
+    def __init__(self, end: int, start: int = 0) -> None:
         '''
-            Initial constructor.
+            Initial ProgressBar constructor.
 
             :exceptions: None
         '''
-        self.end = end
-        self.start = start
-        self._bar_length = self.__class__.DEFAULT_BAR_LENGTH
-        self.set_level(self.start)
-        self._plotted = False
+        self._end: int = end
+        self._start: int = start
+        self._bar_length: int = self.DEFAULT_BAR_LENGTH
+        self.set_level(self._start)
+        self._plotted: bool = False
+        self._level: int = 0
+        self._ratio: float = 0.0
+        self._level_chars: int = 0
 
-    def set_level(self, level):
+    def set_level(self, level: int) -> None:
         '''
             Set level.
 
-            :param level: level of progress.
+            :param level: Level of progress
             :type level: <int>
             :exceptions: None
         '''
         self._level = level
-        if level < self.start:
-            self._level = self.start
-        if level > self.end:
-            self._level = self.end
-        self._ratio = float(self._level - self.start) / \
-            float(self.end - self.start)
+        if level < self._start:
+            self._level = self._start
+        if level > self._end:
+            self._level = self._end
+        self._ratio = (
+            float(self._level - self._start) /
+            float(self._end - self._start)
+        )
         self._level_chars = int(self._ratio * self._bar_length)
 
-    def plot_progress(self, columns):
+    def plot_progress(self, columns: int) -> None:
         '''
             Plot progress.
 
-            :param columns: colums for open console session.
+            :param columns: Colums for open console session
             :type columns: <int>
             :exceptions: None
         '''
-        start_position = (columns/2) - (columns/10)
-        number_of_tabs = int((start_position/8) - 3)
+        start_position: float = (columns/2) - (columns/10)
+        number_of_tabs: int = int((start_position/8) - 3)
         sys.stdout.write(
             "\r %s %3i%% %s%s".expandtabs(4) % (
                 '\011' * number_of_tabs,
                 int(self._ratio * 100.0),
-                self.__class__.DEFAULT_CHAR_ON * int(self._level_chars),
-                self.__class__.DEFAULT_CHAR_OFF *
+                self.DEFAULT_CHAR_ON * int(self._level_chars),
+                self.DEFAULT_CHAR_OFF *
                 int(self._bar_length - self._level_chars)
             )
         )
         sys.stdout.flush()
         self._plotted = True
 
-    def set_and_plot(self, level, columns):
+    def set_and_plot(self, level: int, columns: int) -> None:
         '''
             Set and plot progress.
 
-            :param level: level of progress.
+            :param level: Level of progress
             :type level: <int>
-            :param columns: colums for open console session.
+            :param columns: colums for open console session
             :type columns: <int>
             :exceptions: None
         '''
-        old_chars = self._level_chars
+        old_chars: int = self._level_chars
         self.set_level(level)
         if (not self._plotted) or (old_chars != self._level_chars):
             self.plot_progress(columns)
 
-    def __del__(self):
+    def __del__(self) -> None:
         '''
             Dunder method for ProgressBar.
 

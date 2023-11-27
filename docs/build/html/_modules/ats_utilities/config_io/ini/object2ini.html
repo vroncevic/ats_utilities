@@ -1,224 +1,227 @@
+
 <!DOCTYPE html>
-<html class="writer-html4" lang="en" >
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ats_utilities.config_io.ini.object2ini &mdash; ats_utilities https://github.com/vroncevic/ats_utilities/releases documentation</title><link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
-    <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
-  <!--[if lt IE 9]>
-    <script src="../../../../_static/js/html5shiv.min.js"></script>
-  <![endif]-->
-  <script id="documentation_options" data-url_root="../../../../" src="../../../../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../../../../_static/jquery.js"></script>
-        <script type="text/javascript" src="../../../../_static/underscore.js"></script>
-        <script type="text/javascript" src="../../../../_static/doctools.js"></script>
-        <script type="text/javascript" src="../../../../_static/language_data.js"></script>
-    <script src="../../../../_static/js/theme.js"></script>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ats_utilities.config_io.ini.object2ini &#8212; ats_utilities https://github.com/vroncevic/ats_utilities/releases documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/classic.css" />
+    
+    <script data-url_root="../../../../" id="documentation_options" src="../../../../_static/documentation_options.js"></script>
+    <script src="../../../../_static/jquery.js"></script>
+    <script src="../../../../_static/underscore.js"></script>
+    <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../../../_static/doctools.js"></script>
+    <script src="../../../../_static/sphinx_highlight.js"></script>
+    
     <link rel="index" title="Index" href="../../../../genindex.html" />
     <link rel="search" title="Search" href="../../../../search.html" /> 
-</head>
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../../index.html">ats_utilities https://github.com/vroncevic/ats_utilities/releases documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../../index.html" >Module code</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="../../../ats_utilities.html" >ats_utilities</a> &#187;</li>
+          <li class="nav-item nav-item-3"><a href="../../config_io.html" >ats_utilities.config_io</a> &#187;</li>
+          <li class="nav-item nav-item-4"><a href="../ini.html" accesskey="U">ats_utilities.config_io.ini</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">ats_utilities.config_io.ini.object2ini</a></li> 
+      </ul>
+    </div>  
 
-<body class="wy-body-for-nav"> 
-  <div class="wy-grid-for-nav">
-    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
-      <div class="wy-side-scroll">
-        <div class="wy-side-nav-search" >
-            <a href="../../../../index.html" class="icon icon-home"> ats_utilities
-          </a>
-              <div class="version">
-                2.5.5
-              </div>
-<div role="search">
-  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
-    <input type="hidden" name="check_keywords" value="yes" />
-    <input type="hidden" name="area" value="default" />
-  </form>
-</div>
-        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption"><span class="caption-text">Contents</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../../index.html">ATS Utilities</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../modules.html">ats_utilities</a></li>
-</ul>
-
-        </div>
-      </div>
-    </nav>
-
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
-          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../../../../index.html">ats_utilities</a>
-      </nav>
-
-      <div class="wy-nav-content">
-        <div class="rst-content">
-          <div role="navigation" aria-label="Page navigation">
-  <ul class="wy-breadcrumbs">
-      <li><a href="../../../../index.html" class="icon icon-home"></a> &raquo;</li>
-          <li><a href="../../../index.html">Module code</a> &raquo;</li>
-          <li><a href="../../../ats_utilities.html">ats_utilities</a> &raquo;</li>
-          <li><a href="../../config_io.html">ats_utilities.config_io</a> &raquo;</li>
-          <li><a href="../ini.html">ats_utilities.config_io.ini</a> &raquo;</li>
-      <li>ats_utilities.config_io.ini.object2ini</li>
-      <li class="wy-breadcrumbs-aside">
-      </li>
-  </ul>
-  <hr/>
-</div>
-          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
-           <div itemprop="articleBody">
-             
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
   <h1>Source code for ats_utilities.config_io.ini.object2ini</h1><div class="highlight"><pre>
 <span></span><span class="c1"># -*- coding: UTF-8 -*-</span>
 
 <span class="sd">&#39;&#39;&#39;</span>
-<span class="sd"> Module</span>
-<span class="sd">     object2ini.py</span>
-<span class="sd"> Copyright</span>
-<span class="sd">     Copyright (C) 2017 Vladimir Roncevic &lt;elektron.ronca@gmail.com&gt;</span>
-<span class="sd">     ats_utilities is free software: you can redistribute it and/or modify it</span>
-<span class="sd">     under the terms of the GNU General Public License as published by the</span>
-<span class="sd">     Free Software Foundation, either version 3 of the License, or</span>
-<span class="sd">     (at your option) any later version.</span>
-<span class="sd">     ats_utilities is distributed in the hope that it will be useful, but</span>
-<span class="sd">     WITHOUT ANY WARRANTY; without even the implied warranty of</span>
-<span class="sd">     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.</span>
-<span class="sd">     See the GNU General Public License for more details.</span>
-<span class="sd">     You should have received a copy of the GNU General Public License along</span>
-<span class="sd">     with this program. If not, see &lt;http://www.gnu.org/licenses/&gt;.</span>
-<span class="sd"> Info</span>
-<span class="sd">     Defined class Object2Ini with attribute(s) and method(s).</span>
-<span class="sd">     Created API for writing configuration/information to an ini file.</span>
+<span class="sd">Module</span>
+<span class="sd">    object2ini.py</span>
+<span class="sd">Copyright</span>
+<span class="sd">    Copyright (C) 2017 Vladimir Roncevic &lt;elektron.ronca@gmail.com&gt;</span>
+<span class="sd">    ats_utilities is free software: you can redistribute it and/or modify it</span>
+<span class="sd">    under the terms of the GNU General Public License as published by the</span>
+<span class="sd">    Free Software Foundation, either version 3 of the License, or</span>
+<span class="sd">    (at your option) any later version.</span>
+<span class="sd">    ats_utilities is distributed in the hope that it will be useful, but</span>
+<span class="sd">    WITHOUT ANY WARRANTY; without even the implied warranty of</span>
+<span class="sd">    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.</span>
+<span class="sd">    See the GNU General Public License for more details.</span>
+<span class="sd">    You should have received a copy of the GNU General Public License along</span>
+<span class="sd">    with this program. If not, see &lt;http://www.gnu.org/licenses/&gt;.</span>
+<span class="sd">Info</span>
+<span class="sd">    Defines class Object2Ini with attribute(s) and method(s).</span>
+<span class="sd">    Creates API for writing configuration/information to an ini file.</span>
 <span class="sd">&#39;&#39;&#39;</span>
 
 <span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">from</span> <span class="nn">configparser</span> <span class="kn">import</span> <span class="n">ConfigParser</span>
 
 <span class="k">try</span><span class="p">:</span>
-    <span class="kn">from</span> <span class="nn">six</span> <span class="kn">import</span> <span class="n">add_metaclass</span>
-    <span class="kn">from</span> <span class="nn">ats_utilities</span> <span class="kn">import</span> <span class="n">VerboseRoot</span>
+    <span class="kn">from</span> <span class="nn">ats_utilities</span> <span class="kn">import</span> <span class="n">auto_str</span>
     <span class="kn">from</span> <span class="nn">ats_utilities.checker</span> <span class="kn">import</span> <span class="n">ATSChecker</span>
-    <span class="kn">from</span> <span class="nn">ats_utilities.config_io</span> <span class="kn">import</span> <span class="n">ConfigFile</span>
+    <span class="kn">from</span> <span class="nn">ats_utilities.config_io</span> <span class="kn">import</span> <span class="n">ConfFile</span>
     <span class="kn">from</span> <span class="nn">ats_utilities.console_io.verbose</span> <span class="kn">import</span> <span class="n">verbose_message</span>
-    <span class="kn">from</span> <span class="nn">ats_utilities.config_io.base_write</span> <span class="kn">import</span> <span class="n">BaseWriteConfig</span>
+    <span class="kn">from</span> <span class="nn">ats_utilities.config_io.abs_write_conf</span> <span class="kn">import</span> <span class="n">WriteConf</span>
     <span class="kn">from</span> <span class="nn">ats_utilities.exceptions.ats_type_error</span> <span class="kn">import</span> <span class="n">ATSTypeError</span>
     <span class="kn">from</span> <span class="nn">ats_utilities.exceptions.ats_bad_call_error</span> <span class="kn">import</span> <span class="n">ATSBadCallError</span>
+    <span class="kn">from</span> <span class="nn">ats_utilities.config_io.ini.object2ini_meta</span> <span class="kn">import</span> <span class="n">Object2IniMeta</span>
 <span class="k">except</span> <span class="ne">ImportError</span> <span class="k">as</span> <span class="n">ats_error_message</span><span class="p">:</span>
-    <span class="n">MESSAGE</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="si">{0}</span><span class="se">\n</span><span class="si">{1}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="vm">__file__</span><span class="p">,</span> <span class="n">ats_error_message</span><span class="p">)</span>
-    <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="n">MESSAGE</span><span class="p">)</span>  <span class="c1"># Force close python ATS ##############################</span>
+    <span class="c1"># Force exit python #######################################################</span>
+    <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="se">\n</span><span class="si">{</span><span class="vm">__file__</span><span class="si">}</span><span class="se">\n</span><span class="si">{</span><span class="n">ats_error_message</span><span class="si">}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
 
 <span class="n">__author__</span> <span class="o">=</span> <span class="s1">&#39;Vladimir Roncevic&#39;</span>
 <span class="n">__copyright__</span> <span class="o">=</span> <span class="s1">&#39;Copyright 2017, https://vroncevic.github.io/ats_utilities&#39;</span>
-<span class="n">__credits__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Vladimir Roncevic&#39;</span><span class="p">]</span>
+<span class="n">__credits__</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Vladimir Roncevic&#39;</span><span class="p">,</span> <span class="s1">&#39;Python Software Foundation&#39;</span><span class="p">]</span>
 <span class="n">__license__</span> <span class="o">=</span> <span class="s1">&#39;https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE&#39;</span>
-<span class="n">__version__</span> <span class="o">=</span> <span class="s1">&#39;2.5.5&#39;</span>
+<span class="n">__version__</span> <span class="o">=</span> <span class="s1">&#39;2.6.5&#39;</span>
 <span class="n">__maintainer__</span> <span class="o">=</span> <span class="s1">&#39;Vladimir Roncevic&#39;</span>
 <span class="n">__email__</span> <span class="o">=</span> <span class="s1">&#39;elektron.ronca@gmail.com&#39;</span>
 <span class="n">__status__</span> <span class="o">=</span> <span class="s1">&#39;Updated&#39;</span>
 
 
-<div class="viewcode-block" id="Object2Ini"><a class="viewcode-back" href="../../../../ats_utilities.config_io.ini.object2ini.html#ats_utilities.config_io.ini.object2ini.Object2Ini">[docs]</a><span class="nd">@add_metaclass</span><span class="p">(</span><span class="n">VerboseRoot</span><span class="p">)</span>
-<span class="k">class</span> <span class="nc">Object2Ini</span><span class="p">(</span><span class="n">BaseWriteConfig</span><span class="p">):</span>
-    <span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">        Defined class Object2Ini with attribute(s) and method(s).</span>
-<span class="sd">        Created API for writing configuration/information to an ini file.</span>
+<div class="viewcode-block" id="Object2Ini"><a class="viewcode-back" href="../../../../ats_utilities.config_io.ini.object2ini.html#ats_utilities.config_io.ini.object2ini.Object2Ini">[docs]</a><span class="nd">@auto_str</span>
+<span class="k">class</span> <span class="nc">Object2Ini</span><span class="p">(</span><span class="n">WriteConf</span><span class="p">,</span> <span class="n">metaclass</span><span class="o">=</span><span class="n">Object2IniMeta</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Defines class Object2Ini with attribute(s) and method(s).</span>
+<span class="sd">        Creates API for writing configuration/information to an ini file.</span>
+<span class="sd">        Conversion ConfigParser to configuration content.</span>
+
 <span class="sd">        It defines:</span>
 
 <span class="sd">            :attributes:</span>
-<span class="sd">                | __FORMAT - format of configuration content.</span>
-<span class="sd">                | __verbose - enable/disable verbose option.</span>
+<span class="sd">                | _format - Format of configuration content.</span>
+<span class="sd">                | _verbose - Enable/Disable verbose option.</span>
 <span class="sd">            :methods:</span>
-<span class="sd">                | __init__ - initial constructor.</span>
-<span class="sd">                | write_configuration - write configuration to an ini file.</span>
-<span class="sd">                | __str__ - str dunder method for object Object2Ini.</span>
+<span class="sd">                | __init__ - Initial Object2Ini constructor.</span>
+<span class="sd">                | write_configuration - Write configuration to an ini file.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
 
-    <span class="n">__FORMAT</span> <span class="o">=</span> <span class="s1">&#39;ini&#39;</span>
+    <span class="n">_format</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;ini&#39;</span>
+    <span class="n">_verbose</span><span class="p">:</span> <span class="nb">bool</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">configuration_file</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
-        <span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">            Initial constructor.</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">configuration_file</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="p">,</span> <span class="n">verbose</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">            Initial Object2Ini constructor.</span>
 
-<span class="sd">            :param configuration_file: configuration file path.</span>
-<span class="sd">            :type configuration_file: &lt;str&gt;</span>
-<span class="sd">            :param verbose: enable/disable verbose option.</span>
+<span class="sd">            :param configuration_file: Configuration file path | None</span>
+<span class="sd">            :type configuration_file: &lt;str&gt; | &lt;NoneType&gt;</span>
+<span class="sd">            :param verbose: Enable/Disable verbose option</span>
 <span class="sd">            :type verbose: &lt;bool&gt;</span>
 <span class="sd">            :exceptions: ATSTypeError | ATSBadCallError</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="n">checker</span><span class="p">,</span> <span class="n">error</span><span class="p">,</span> <span class="n">status</span> <span class="o">=</span> <span class="n">ATSChecker</span><span class="p">(),</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">False</span>
-        <span class="n">error</span><span class="p">,</span> <span class="n">status</span> <span class="o">=</span> <span class="n">checker</span><span class="o">.</span><span class="n">check_params</span><span class="p">([</span>
+        <span class="n">checker</span><span class="p">:</span> <span class="n">ATSChecker</span> <span class="o">=</span> <span class="n">ATSChecker</span><span class="p">()</span>
+        <span class="n">error_msg</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="n">error_id</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="n">error_msg</span><span class="p">,</span> <span class="n">error_id</span> <span class="o">=</span> <span class="n">checker</span><span class="o">.</span><span class="n">check_params</span><span class="p">([</span>
             <span class="p">(</span><span class="s1">&#39;str:configuration_file&#39;</span><span class="p">,</span> <span class="n">configuration_file</span><span class="p">)</span>
         <span class="p">])</span>
-        <span class="k">if</span> <span class="n">status</span> <span class="o">==</span> <span class="n">ATSChecker</span><span class="o">.</span><span class="n">TYPE_ERROR</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="n">ATSTypeError</span><span class="p">(</span><span class="n">error</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">status</span> <span class="o">==</span> <span class="n">ATSChecker</span><span class="o">.</span><span class="n">VALUE_ERROR</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="n">ATSBadCallError</span><span class="p">(</span><span class="n">error</span><span class="p">)</span>
-        <span class="n">BaseWriteConfig</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="n">verbose</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">__verbose</span> <span class="o">=</span> <span class="n">verbose</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">file_path</span> <span class="o">=</span> <span class="n">configuration_file</span>
-        <span class="n">verbose_message</span><span class="p">(</span><span class="n">Object2Ini</span><span class="o">.</span><span class="n">VERBOSE</span><span class="p">,</span> <span class="n">verbose</span><span class="p">,</span> <span class="n">configuration_file</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">error_id</span> <span class="o">==</span> <span class="n">ATSChecker</span><span class="o">.</span><span class="n">type_error</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">ATSTypeError</span><span class="p">(</span><span class="n">error_msg</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">error_id</span> <span class="o">==</span> <span class="n">ATSChecker</span><span class="o">.</span><span class="n">value_error</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">ATSBadCallError</span><span class="p">(</span><span class="n">error_msg</span><span class="p">)</span>
+        <span class="n">WriteConf</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">verbose</span><span class="p">)</span>
+        <span class="n">configuration_file</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">configuration_file</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_verbose</span> <span class="o">=</span> <span class="n">verbose</span>
+        <span class="n">WriteConf</span><span class="o">.</span><span class="n">file_path</span> <span class="o">=</span> <span class="n">configuration_file</span>
+        <span class="n">verbose_message</span><span class="p">(</span>
+            <span class="n">Object2Ini</span><span class="o">.</span><span class="n">verbose</span><span class="p">,</span>  <span class="c1"># pylint: disable=no-member</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_verbose</span><span class="p">,</span>
+            <span class="nb">tuple</span><span class="p">(</span><span class="n">configuration_file</span><span class="p">)</span>
+        <span class="p">)</span>
 
-<div class="viewcode-block" id="Object2Ini.write_configuration"><a class="viewcode-back" href="../../../../ats_utilities.config_io.ini.object2ini.html#ats_utilities.config_io.ini.object2ini.Object2Ini.write_configuration">[docs]</a>    <span class="k">def</span> <span class="nf">write_configuration</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">configuration</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
-        <span class="sd">&#39;&#39;&#39;</span>
+<div class="viewcode-block" id="Object2Ini.write_configuration"><a class="viewcode-back" href="../../../../ats_utilities.config_io.ini.object2ini.html#ats_utilities.config_io.ini.object2ini.Object2Ini.write_configuration">[docs]</a>    <span class="k">def</span> <span class="nf">write_configuration</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">configuration</span><span class="p">:</span> <span class="n">ConfigParser</span> <span class="o">|</span> <span class="kc">None</span><span class="p">,</span> <span class="n">verbose</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Write configuration to a ini file.</span>
 
-<span class="sd">            :param configuration: configuration object | None.</span>
-<span class="sd">            :type configuration: &lt;Python object(s)&gt; | &lt;NoneType&gt;</span>
-<span class="sd">            :param verbose: enable/disable verbose option.</span>
+<span class="sd">            :param configuration: Configuration object | None</span>
+<span class="sd">            :type configuration: &lt;ConfigParser&gt; | &lt;NoneType&gt;</span>
+<span class="sd">            :param verbose: enable/disable verbose option</span>
 <span class="sd">            :type verbose: &lt;bool&gt;</span>
-<span class="sd">            :return: boolean status, True (success) | False.</span>
+<span class="sd">            :return: True (configuration written to file) | False</span>
 <span class="sd">            :rtype: &lt;bool&gt;</span>
-<span class="sd">            :exception: None</span>
+<span class="sd">            :exception: ATSTypeError | ATSBadCallError</span>
 <span class="sd">        &#39;&#39;&#39;</span>
+        <span class="n">checker</span><span class="p">:</span> <span class="n">ATSChecker</span> <span class="o">=</span> <span class="n">ATSChecker</span><span class="p">()</span>
+        <span class="n">error_msg</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="n">error_id</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="n">error_msg</span><span class="p">,</span> <span class="n">error_id</span> <span class="o">=</span> <span class="n">checker</span><span class="o">.</span><span class="n">check_params</span><span class="p">([</span>
+            <span class="p">(</span><span class="s1">&#39;ConfigParser:configuration&#39;</span><span class="p">,</span> <span class="n">configuration</span><span class="p">)</span>
+        <span class="p">])</span>
+        <span class="k">if</span> <span class="n">error_id</span> <span class="o">==</span> <span class="n">ATSChecker</span><span class="o">.</span><span class="n">type_error</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">ATSTypeError</span><span class="p">(</span><span class="n">error_msg</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">error_id</span> <span class="o">==</span> <span class="n">ATSChecker</span><span class="o">.</span><span class="n">value_error</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">ATSBadCallError</span><span class="p">(</span><span class="n">error_msg</span><span class="p">)</span>
         <span class="n">status</span> <span class="o">=</span> <span class="kc">False</span>
-        <span class="n">verbose_message</span><span class="p">(</span><span class="n">Object2Ini</span><span class="o">.</span><span class="n">VERBOSE</span><span class="p">,</span> <span class="n">verbose</span><span class="p">,</span> <span class="n">configuration</span><span class="p">)</span>
+        <span class="n">verbose_message</span><span class="p">(</span>
+            <span class="n">Object2Ini</span><span class="o">.</span><span class="n">verbose</span><span class="p">,</span>  <span class="c1"># pylint: disable=no-member</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_verbose</span> <span class="ow">or</span> <span class="n">verbose</span><span class="p">,</span>
+            <span class="nb">tuple</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">configuration</span><span class="p">))</span>
+        <span class="p">)</span>
         <span class="k">if</span> <span class="n">configuration</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">configuration</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">status</span>
-        <span class="k">with</span> <span class="n">ConfigFile</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">file_path</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">,</span> <span class="n">Object2Ini</span><span class="o">.</span><span class="n">__FORMAT</span><span class="p">)</span> <span class="k">as</span> <span class="n">ini</span><span class="p">:</span>
+        <span class="k">with</span> <span class="n">ConfFile</span><span class="p">(</span><span class="n">WriteConf</span><span class="o">.</span><span class="n">file_path</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">,</span> <span class="n">Object2Ini</span><span class="o">.</span><span class="n">_format</span><span class="p">)</span> <span class="k">as</span> <span class="n">ini</span><span class="p">:</span>
             <span class="k">if</span> <span class="nb">bool</span><span class="p">(</span><span class="n">ini</span><span class="p">):</span>
                 <span class="n">configuration</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">ini</span><span class="p">,</span> <span class="n">space_around_delimiters</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
                 <span class="n">status</span> <span class="o">=</span> <span class="kc">True</span>
-        <span class="k">return</span> <span class="n">status</span></div>
-
-    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">            Dunder str method for Object2Ini.</span>
-
-<span class="sd">            :return: object in a human-readable format.</span>
-<span class="sd">            :rtype: &lt;str&gt;</span>
-<span class="sd">            :exceptions: None</span>
-<span class="sd">        &#39;&#39;&#39;</span>
-        <span class="k">return</span> <span class="s1">&#39;</span><span class="si">{0}</span><span class="s1"> (</span><span class="si">{1}</span><span class="s1">, </span><span class="si">{2}</span><span class="s1">)&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="n">BaseWriteConfig</span><span class="o">.</span><span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">),</span>
-            <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__verbose</span><span class="p">)</span>
-        <span class="p">)</span></div>
+        <span class="k">return</span> <span class="n">status</span></div></div>
 </pre></div>
 
-           </div>
+            <div class="clearer"></div>
           </div>
-          <footer>
-
-  <hr/>
-
-  <div role="contentinfo">
-    <p>&#169; Copyright 2017, https://vroncevic.github.io/ats_utilities.</p>
-  </div>
-
-  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    provided by <a href="https://readthedocs.org">Read the Docs</a>.
-   
-
-</footer>
         </div>
       </div>
-    </section>
-  </div>
-  <script>
-      jQuery(function () {
-          SphinxRtdTheme.Navigation.enable(true);
-      });
-  </script> 
-
-</body>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../../index.html">ats_utilities https://github.com/vroncevic/ats_utilities/releases documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../../index.html" >Module code</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="../../../ats_utilities.html" >ats_utilities</a> &#187;</li>
+          <li class="nav-item nav-item-3"><a href="../../config_io.html" >ats_utilities.config_io</a> &#187;</li>
+          <li class="nav-item nav-item-4"><a href="../ini.html" >ats_utilities.config_io.ini</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">ats_utilities.config_io.ini.object2ini</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2017, https://vroncevic.github.io/ats_utilities.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.3.0.
+    </div>
+  </body>
 </html>

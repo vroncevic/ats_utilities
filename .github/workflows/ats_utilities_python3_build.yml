@@ -20,21 +20,21 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
-    - name: set up python3
-      uses: actions/setup-python@v1
+    - uses: actions/checkout@v4
+    - name: Set up python3
+      uses: actions/setup-python@v4
       with:
-        python-version: '3.9'
-    - name: install dependencies
+        python-version: '3.10'
+    - name: Install dependencies
       run: |
         python3 -m pip install --upgrade setuptools
         python3 -m pip install --upgrade pip
         python3 -m pip install --upgrade build
         python3 -m pip install --upgrade wheel
         pip3 install -r requirements.txt
-    - name: build python3 package
+    - name: Build python3 package
       run: |
         python3 -m build -s --no-isolation --wheel
-    - name: build python3 package setup
+    - name: Build python3 package setup
       run: |
         python3 setup.py sdist bdist_wheel

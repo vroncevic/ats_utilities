@@ -8,7 +8,9 @@ Submodules
    :maxdepth: 4
 
    ats_utilities.config_io.xml.object2xml
+   ats_utilities.config_io.xml.object2xml_meta
    ats_utilities.config_io.xml.xml2object
+   ats_utilities.config_io.xml.xml2object_meta
 
 Module contents
 ---------------
