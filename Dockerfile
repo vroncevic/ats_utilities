@@ -46,7 +46,7 @@ COPY setup.py /
 COPY README.md /
 COPY LICENSE /
 RUN python3 -m build --no-isolation --wheel
-RUN pip install /dist/ats_utilities-*-py3-none-any.whl
+RUN pip install --root-user-action=ignore /dist/ats_utilities-*-py3-none-any.whl
 RUN rm -rf /ats_utilities*
 RUN rm -rf dist/
 RUN rm -rf tests/
