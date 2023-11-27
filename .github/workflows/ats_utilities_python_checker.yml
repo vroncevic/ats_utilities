@@ -20,16 +20,14 @@ jobs:
       - name: Check max length of lines in modules
         id: long_line_checker
         run: |
-          echo "Check max length of lines in modules"
           modules_ok=0
           modules=($(find ats_utilities/ tests/ -type f -name '*.py' -exec echo '{}' \;))
           for mod in "${modules[@]}"; do line_length=$(wc -L < "${mod}"); [[ $line_length -gt 80 ]] && modules_ok=1; done
-          [[ $modules_ok -eq 0 ]] && echo "All looks good" || exit 1
+          [[ $modules_ok -eq 0 ]] && echo ok || exit 1
       - name: Check max number of lines in modules
         id: num_line_checker
         run: |
-          echo "Check max number of lines in modules"
           modules_ok=0
           modules=($(find ats_utilities/ tests/ -type f -name '*.py' -exec echo '{}' \;))
           for mod in "${modules[@]}"; do line_numbers=$(wc -l < "${mod}"); [[ $line_numbers -gt 300 ]] && modules_ok=1; done
-          [[ $modules_ok -eq 0 ]] && "All looks good" || exit 1
+          [[ $modules_ok -eq 0 ]] && echo ok || exit 1
