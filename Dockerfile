@@ -32,7 +32,10 @@ RUN DEBIAN_FRONTEND=noninteractive \
     python3-wheel \
     python3-pip \
     python3-setuptools \
-    python3-build
+    python3-build \
+    python3-bs4 \
+    python3-colorama \
+    python3-yaml
 
 RUN mkdir /ats_utilities/
 COPY ats_utilities /ats_utilities/
@@ -42,9 +45,6 @@ COPY MANIFEST.in /
 COPY setup.py /
 COPY README.md /
 COPY LICENSE /
-COPY requirements.txt /
-RUN pip3 install -r requirements.txt
-RUN rm -f requirements.txt
 RUN python3 -m build --no-isolation --wheel
 RUN pip3 install /dist/ats_utilities-*-py3-none-any.whl
 RUN rm -rf /ats_utilities*
