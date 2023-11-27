@@ -21,11 +21,10 @@ Info
 '''
 
 import sys
-from typing import Tuple
+from typing import Any, List
 
 try:
     from colorama import init, Fore
-    from ats_utilities import auto_str, VerboseRoot
     from ats_utilities.checker import ATSChecker
     from ats_utilities.exceptions.ats_type_error import ATSTypeError
     from ats_utilities.exceptions.ats_bad_call_error import ATSBadCallError
@@ -43,8 +42,7 @@ __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
 
 
-@auto_str
-class ATSWarning(metaclass=VerboseRoot):
+class ATSWarning:
     '''
         Defined class ATSWarning with attribute(s) and method(s).
         Created warning message container for console log mechanism.
@@ -60,29 +58,27 @@ class ATSWarning(metaclass=VerboseRoot):
                 | is_not_none - Check is message not None.
     '''
 
-    _message: str | None
-
     def __init__(self) -> None:
         '''
             Initial ATSWarning constructor.
 
             :exceptions: None
         '''
-        self._message = None
+        self._message: str | None = None
 
     @property
     def message(self) -> str | None:
         '''
             Property method for getting message.
 
-            :return: Formatted warning message
+            :return: Formatted warning message | None
             :rtype: <str> | <NoneType>
             :exceptions: None
         '''
         return self._message
 
     @message.setter
-    def message(self, message: str) -> None:
+    def message(self, message: str | None) -> None:
         '''
             Property method for setting message.
 
@@ -91,39 +87,37 @@ class ATSWarning(metaclass=VerboseRoot):
             :exceptions: None
         '''
         init(autoreset=False)
-        self._message = f'{Fore.YELLOW}{message}{Fore.RESET}'
+        if message is not None:
+            self._message = f'{Fore.YELLOW}{message}{Fore.RESET}'
 
     def is_not_none(self) -> bool:
         '''
             Checking is message not None.
 
-            :return: True (not None) | False (it is None)
+            :return: True (not None) | False
             :rtype: <bool>
             :exceptions: None
         '''
-        return bool(self._message)
+        return self._message is not None
 
 
-def warning_message(warning_path: str, *message: Tuple[str, ...]) -> None:
+def warning_message(message: List[Any]) -> None:
     '''
         Show warning message.
 
-        :param warning_path: Warning prefix message
-        :type warning_path: <str>
-        :param message: Message parts
-        :type message: <Tuple[str, ...]>
+        :param message: Message combined as list of any elements
+        :type message: <List[Any]>
         :exceptions: ATSTypeError | ATSBadCallError
     '''
     checker: ATSChecker = ATSChecker()
     error_msg: str | None = None
     error_id: int | None = None
-    error_msg, error_id = checker.check_params([
-        ('str:warning_path', warning_path), ('tuple:message', message)
-    ])
-    if error_id == ATSChecker.type_error:
+    error_msg, error_id = checker.check_params([('list:message', message)])
+    if error_id == checker.TYPE_ERROR:
         raise ATSTypeError(error_msg)
-    if error_id == ATSChecker.value_error:
+    if error_id == checker.VALUE_ERROR:
         raise ATSBadCallError(error_msg)
     warning: ATSWarning = ATSWarning()
-    warning.message = ' '.join(tuple([str(item) for item in message]))
-    print(f'[{warning_path.lower()}] {warning.message}')
+    warning.message = ' '.join([str(item) for item in message])
+    if warning.is_not_none():
+        print(f'{warning.message}')

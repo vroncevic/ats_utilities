@@ -25,7 +25,6 @@ from typing import Any, Sequence
 from argparse import ArgumentParser, Namespace
 
 try:
-    from ats_utilities import auto_str, VerboseRoot
     from ats_utilities.checker import ATSChecker
     from ats_utilities.console_io.verbose import verbose_message
     from ats_utilities.exceptions.ats_type_error import ATSTypeError
@@ -44,8 +43,7 @@ __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
 
 
-@auto_str
-class ATSOptionParser(metaclass=VerboseRoot):
+class ATSOptionParser(ATSChecker):
     '''
         Defines class ATSOptionParser with attribute(s) and method(s).
         Creates option parser and argument processor.
@@ -75,38 +73,35 @@ class ATSOptionParser(metaclass=VerboseRoot):
         '''
             Initial ATSOptionParser constructor.
 
-            :param version: ATS version and build date
+            :param version: ATS version and build date | None
             :type version: <str> | <NoneType>
-            :param epilog: ATS long description
+            :param epilog: ATS long description | None
             :type epilog: <str> | <NoneType>
-            :param description: ATS author and license
+            :param description: ATS author and license | None
             :type description: <str> | <NoneType>
             :param verbose: Enable/Disable verbose option
             :type verbose: <bool>
             :exceptions: ATSTypeError | ATSBadCallError
         '''
-        checker: ATSChecker = ATSChecker()
+        super().__init__()
         error_msg: str | None = None
         error_id: int | None = None
-        error_msg, error_id = checker.check_params([
+        error_msg, error_id = self.check_params([
             ('str:version', version), ('str:epilog', epilog),
             ('str:description', description)
         ])
-        if error_id == ATSChecker.type_error:
+        if error_id == self.TYPE_ERROR:
             raise ATSTypeError(error_msg)
-        if error_id == ATSChecker.value_error:
+        if error_id == self.VALUE_ERROR:
             raise ATSBadCallError(error_msg)
         self._verbose = verbose
         self._opt_parser = ArgumentParser(version, epilog, description)
         verbose_message(
-            ATSOptionParser.verbose,  # pylint: disable=no-member
-            self._verbose or verbose,
-            tuple(f'{str(version)}, {str(epilog)}, {str(description)}')
+            self._verbose,
+            [f'{str(version)}, {str(epilog)}, {str(description)}']
         )
 
-    def add_operation(
-        self, *args: str, **kwargs: Any
-    ) -> None:
+    def add_operation(self, *args: str, **kwargs: Any) -> None:
         '''
             Add option to ATS parser.
 
@@ -133,9 +128,5 @@ class ATSOptionParser(metaclass=VerboseRoot):
             :exceptions: None
         '''
         args: Namespace = self._opt_parser.parse_args(arguments)
-        verbose_message(
-            ATSOptionParser.verbose,  # pylint: disable=no-member
-            self._verbose or verbose,
-            tuple(arguments)
-        )
+        verbose_message(self._verbose or verbose, [f'arguments {arguments}'])
         return args

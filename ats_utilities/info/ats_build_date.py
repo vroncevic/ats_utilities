@@ -23,7 +23,6 @@ Info
 import sys
 
 try:
-    from ats_utilities import auto_str, VerboseRoot
     from ats_utilities.checker import ATSChecker
     from ats_utilities.console_io.verbose import verbose_message
     from ats_utilities.exceptions.ats_type_error import ATSTypeError
@@ -42,8 +41,7 @@ __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
 
 
-@auto_str
-class ATSBuildDate(metaclass=VerboseRoot):
+class ATSBuildDate(ATSChecker):
     '''
         Defines class ATSBuildDate with attribute(s) and method(s).
         Creates API for ATS build date in one property object.
@@ -60,26 +58,24 @@ class ATSBuildDate(metaclass=VerboseRoot):
                 | is_not_none - Check is ATS build date not None.
     '''
 
-    _verbose: bool
-    _build_date: str | None
-
     def __init__(self, verbose: bool = False) -> None:
         '''
             Initial ATSBuildDate constructor.
 
-            :param verbose: Enable/Disable verbose option.
+            :param verbose: Enable/Disable verbose option
             :type verbose: <bool>
             :exceptions: None
         '''
-        self._verbose = verbose
-        self._build_date = None
+        super().__init__()
+        self._verbose: bool = verbose
+        self._build_date: str | None = None
 
     @property
     def build_date(self) -> str | None:
         '''
             Property method for getting ATS build date.
 
-            :return: ATS build date | None.
+            :return: ATS build date | None
             :rtype: <str> | <NoneType>
             :exceptions: None
         '''
@@ -90,26 +86,21 @@ class ATSBuildDate(metaclass=VerboseRoot):
         '''
             Property method for setting ATS build date.
 
-            :param build_date: ATS build date.
+            :param build_date: ATS build date | None
             :type build_date: <str> | <NoneType>
             :exceptions: ATSTypeError | ATSBadCallError
         '''
-        checker: ATSChecker = ATSChecker()
         error_msg: str | None = None
         error_id: int | None = None
-        error_msg, error_id = checker.check_params([
+        error_msg, error_id = self.check_params([
             ('str:build_date', build_date)
         ])
-        if error_id == ATSChecker.type_error:
+        if error_id == self.TYPE_ERROR:
             raise ATSTypeError(error_msg)
-        if error_id == ATSChecker.value_error:
+        if error_id == self.VALUE_ERROR:
             raise ATSBadCallError(error_msg)
         self._build_date = build_date
-        verbose_message(
-            ATSBuildDate.verbose,  # pylint: disable=no-member
-            self._verbose,
-            tuple(str(build_date))
-        )
+        verbose_message(self._verbose, [f'build date {build_date}'])
 
     def is_not_none(self) -> bool:
         '''
@@ -119,4 +110,4 @@ class ATSBuildDate(metaclass=VerboseRoot):
             :rtype: <bool>
             :exceptions: None
         '''
-        return bool(self._build_date)
+        return self._build_date is not None

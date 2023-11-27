@@ -21,11 +21,10 @@ Info
 '''
 
 import sys
-from typing import Tuple
+from typing import Any, List
 
 try:
     from colorama import init, Fore
-    from ats_utilities import auto_str, VerboseRoot
     from ats_utilities.checker import ATSChecker
     from ats_utilities.exceptions.ats_type_error import ATSTypeError
     from ats_utilities.exceptions.ats_bad_call_error import ATSBadCallError
@@ -43,8 +42,7 @@ __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
 
 
-@auto_str
-class ATSError(metaclass=VerboseRoot):
+class ATSError:
     '''
         Defines class ATSError with attribute(s) and method(s).
         Creates error message container for console log mechanism.
@@ -75,14 +73,14 @@ class ATSError(metaclass=VerboseRoot):
         '''
             Property method for getting message.
 
-            :return: Formatted errors message
+            :return: Formatted errors message | None
             :rtype: <str> | <NoneType>
             :exceptions: None
         '''
         return self._message
 
     @message.setter
-    def message(self, message: str) -> None:
+    def message(self, message: str | None) -> None:
         '''
             Property method for setting message.
 
@@ -91,39 +89,37 @@ class ATSError(metaclass=VerboseRoot):
             :exceptions: None
         '''
         init(autoreset=False)
-        self._message = f'{Fore.RED}{message}{Fore.RESET}'
+        if message is not None:
+            self._message = f'{Fore.RED}{message}{Fore.RESET}'
 
     def is_not_none(self) -> bool:
         '''
             Checking is message not None.
 
-            :return: True (not None) | False (it is None)
+            :return: True (not None) | False
             :rtype: <bool>
             :exceptions: None
         '''
-        return bool(self._message)
+        return self._message is not None
 
 
-def error_message(error_path: str, *message: Tuple[str, ...]) -> None:
+def error_message(message: List[Any]) -> None:
     '''
         Show error message.
 
-        :param error_path: Error prefix message
-        :type error_path: <str>
-        :param message: Message parts
-        :type message: <Tuple[str, ...]>
+        :param message: Message combined as list of any elements
+        :type message: <List[Any]>
         :exceptions: ATSTypeError | ATSBadCallError
     '''
     checker: ATSChecker = ATSChecker()
     error_msg: str | None = None
     error_id: int | None = None
-    error_msg, error_id = checker.check_params([
-        ('str:error_path', error_path), ('tuple:message', message)
-    ])
-    if error_id == ATSChecker.type_error:
+    error_msg, error_id = checker.check_params([('list:message', message)])
+    if error_id == checker.TYPE_ERROR:
         raise ATSTypeError(error_msg)
-    if error_id == ATSChecker.value_error:
+    if error_id == checker.VALUE_ERROR:
         raise ATSBadCallError(error_msg)
     error: ATSError = ATSError()
-    error.message = ' '.join(tuple([str(item) for item in message]))
-    print(f'[{error_path.lower()}] {error.message}')
+    error.message = ' '.join([str(item) for item in message])
+    if error.is_not_none():
+        print(f'{error.message}')

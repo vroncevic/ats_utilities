@@ -21,11 +21,10 @@ Info
 '''
 
 import sys
-from typing import Tuple
+from typing import Any, List
 
 try:
     from colorama import init, Fore
-    from ats_utilities import auto_str, VerboseRoot
     from ats_utilities.checker import ATSChecker
     from ats_utilities.exceptions.ats_type_error import ATSTypeError
     from ats_utilities.exceptions.ats_bad_call_error import ATSBadCallError
@@ -43,8 +42,7 @@ __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
 
 
-@auto_str
-class ATSSuccess(metaclass=VerboseRoot):
+class ATSSuccess:
     '''
         Defined class ATSSuccess with attribute(s) and method(s).
         Created success message container for console log mechanism.
@@ -60,70 +58,66 @@ class ATSSuccess(metaclass=VerboseRoot):
                 | is_not_none - Check is message not None.
     '''
 
-    _message: str | None
-
     def __init__(self) -> None:
         '''
             Initial ATSSuccess constructor.
 
             :exceptions: None
         '''
-        self._message = None
+        self._message: str | None = None
 
     @property
     def message(self) -> str | None:
         '''
             Property method for getting message.
 
-            :return: Formatted success message
+            :return: Formatted success message | None
             :rtype: <str> | <NoneType>
             :exceptions: None
         '''
         return self._message
 
     @message.setter
-    def message(self, message: str) -> None:
+    def message(self, message: str | None) -> None:
         '''
             Property method for setting message.
 
-            :param message: Succcess message
-            :type message: <str>
+            :param message: Succcess message | None
+            :type message: <str> | <NoneType>
             :exceptions: None
         '''
         init(autoreset=False)
-        self._message = f'{Fore.GREEN}{message}{Fore.RESET}'
+        if message is not None:
+            self._message = f'{Fore.GREEN}{message}{Fore.RESET}'
 
     def is_not_none(self) -> bool:
         '''
             Checking is message not None.
 
-            :return: True (not None) | False (it is None)
+            :return: True (not None) | False
             :rtype: <bool>
             :exceptions: None
         '''
-        return bool(self._message)
+        return self._message is not None
 
 
-def success_message(success_path: str, *message: Tuple[str, ...]) -> None:
+def success_message(message: List[Any]) -> None:
     '''
         Show success message.
 
-        :param success_path: Success prefix message
-        :type success_path: <str>
-        :param message: Message parts
-        :type message: <Tuple[str, ...]>
+        :param message: Message combined as list of any elements
+        :type message: <List[Any]>
         :exceptions: ATSTypeError | ATSBadCallError
     '''
     checker: ATSChecker = ATSChecker()
     error_msg: str | None = None
     error_id: int | None = None
-    error_msg, error_id = checker.check_params([
-        ('str:success_path', success_path), ('tuple:message', message)
-    ])
-    if error_id == ATSChecker.type_error:
+    error_msg, error_id = checker.check_params([('list:message', message)])
+    if error_id == checker.TYPE_ERROR:
         raise ATSTypeError(error_msg)
-    if error_id == ATSChecker.value_error:
+    if error_id == checker.VALUE_ERROR:
         raise ATSBadCallError(error_msg)
     success: ATSSuccess = ATSSuccess()
-    success.message = ' '.join(tuple([str(item) for item in message]))
-    print(f'[{success_path.lower()}] {success.message}')
+    success.message = ' '.join([str(item) for item in message])
+    if success.is_not_none():
+        print(f'{success.message}')

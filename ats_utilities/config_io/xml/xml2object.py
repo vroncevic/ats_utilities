@@ -1,35 +1,32 @@
 # -*- coding: UTF-8 -*-
 
 '''
- Module
-     xml2object.py
- Copyright
-     Copyright (C) 2017 Vladimir Roncevic <elektron.ronca@gmail.com>
-     ats_utilities is free software: you can redistribute it and/or modify it
-     under the terms of the GNU General Public License as published by the
-     Free Software Foundation, either version 3 of the License, or
-     (at your option) any later version.
-     ats_utilities is distributed in the hope that it will be useful, but
-     WITHOUT ANY WARRANTY; without even the implied warranty of
-     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-     See the GNU General Public License for more details.
-     You should have received a copy of the GNU General Public License along
-     with this program. If not, see <http://www.gnu.org/licenses/>.
- Info
-     Defined class Xml2Object with attribute(s) and method(s).
-     Created API for reading a configuration/information from a xml file.
+Module
+    xml2object.py
+Copyright
+    Copyright (C) 2017 Vladimir Roncevic <elektron.ronca@gmail.com>
+    ats_utilities is free software: you can redistribute it and/or modify it
+    under the terms of the GNU General Public License as published by the
+    Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+    ats_utilities is distributed in the hope that it will be useful, but
+    WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+    See the GNU General Public License for more details.
+    You should have received a copy of the GNU General Public License along
+    with this program. If not, see <http://www.gnu.org/licenses/>.
+Info
+    Defines class Xml2Object with attribute(s) and method(s).
+    Creates API for reading a configuration/information from a xml file.
 '''
 
 import sys
 
 try:
-    from six import add_metaclass
     from bs4 import BeautifulSoup
-    from ats_utilities import VerboseRoot
     from ats_utilities.checker import ATSChecker
-    from ats_utilities.config_io import ConfigFile
+    from ats_utilities.config_io import ConfFile
     from ats_utilities.console_io.verbose import verbose_message
-    from ats_utilities.config_io.base_read import BaseReadConfig
     from ats_utilities.exceptions.ats_type_error import ATSTypeError
     from ats_utilities.exceptions.ats_bad_call_error import ATSBadCallError
 except ImportError as ats_error_message:
@@ -46,77 +43,73 @@ __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
 
 
-@add_metaclass(VerboseRoot)
-class Xml2Object(BaseReadConfig):
+class Xml2Object(ATSChecker):
     '''
-        Defined class Xml2Object with attribute(s) and method(s).
-        Created API for reading a configuration/information from a xml file.
+        Defines class Xml2Object with attribute(s) and method(s).
+        Creates API for reading a configuration/information from a xml file.
+        Conversion configuration content to XML.
+
         It defines:
 
             :attributes:
-                | __FORMAT - format of configuration content.
+                | _FORMAT - Format of configuration content.
                 | _verbose - Enable/Disable verbose option.
+                | _file_path - Configuration file path.
             :methods:
-                | __init__ - initial constructor.
-                | read_configuration - read a configuration from file.
-                | __str__ - str dunder method for object Xml2Object.
+                | __init__ - Initial Xml2Object constructor.
+                | read_configuration - Read a configuration from file.
     '''
 
-    __FORMAT = 'xml'
+    _FORMAT: str = 'xml'
 
-    def __init__(self, configuration_file, verbose=False):
+    def __init__(
+        self, configuration_file: str | None, verbose: bool = False
+    ) -> None:
         '''
-            Initial constructor.
+            Initial Xml2Object constructor.
 
-            :param configuration_file: configuration file path.
-            :type configuration_file: <str>
-            :param verbose: enable/disable verbose option.
+            :param configuration_file: Configuration file path | None
+            :type configuration_file: <str> | <NoneType>
+            :param verbose: Enable/Disable verbose option
             :type verbose: <bool>
             :exceptions: ATSTypeError | ATSBadCallError
         '''
-        checker, error, status = ATSChecker(), None, False
-        error, status = checker.check_params([
+        super().__init__()
+        error_msg: str | None = None
+        error_id: int | None = None
+        error_msg, error_id = self.check_params([
             ('str:configuration_file', configuration_file)
         ])
-        if status == ATSChecker.type_error:
-            raise ATSTypeError(error)
-        if status == ATSChecker.value_error:
-            raise ATSBadCallError(error)
-        BaseReadConfig.__init__(self, verbose)
-        self._verbose = verbose
-        self.file_path = configuration_file
-        verbose_message(Xml2Object.verbose, verbose, configuration_file)
+        if error_id == self.TYPE_ERROR:
+            raise ATSTypeError(error_msg)
+        if error_id == self.VALUE_ERROR:
+            raise ATSBadCallError(error_msg)
+        self._verbose: bool = verbose
+        configuration_file = str(configuration_file)
+        self._file_path: str = configuration_file
+        verbose_message(
+            self._verbose, [f'configuration file {configuration_file}']
+        )
 
-    def read_configuration(self, verbose=False):
+    def read_configuration(
+        self, verbose: bool = False
+    ) -> BeautifulSoup | None:
         '''
             Read a configuration from a xml file.
 
-            :param verbose: enable/disable verbose option.
+            :param verbose: Enable/Disable verbose option
             :type verbose: <bool>
-            :return: configuration object | None.
+            :return: Configuration object | None
             :rtype: <BeautifulSoup> | <NoneType>
             :exceptions: None
         '''
-        content, config = None, None
-        try:
-            with ConfigFile(self.file_path, 'r', Xml2Object.__FORMAT) as xml:
-                if bool(xml):
-                    content = xml.read()
-                    config = BeautifulSoup(content, Xml2Object.__FORMAT)
-        except AttributeError:
-            pass
-        verbose_message(Xml2Object.verbose, self._verbose or verbose, config)
-        return config
-
-    def __str__(self):
-        '''
-            Dunder str method for Xml2Object.
-
-            :return: object in a human-readable format.
-            :rtype: <str>
-            :exceptions: None
-        '''
-        return '{0} ({1}, {2})'.format(
-            self.__class__.__name__, BaseReadConfig.__str__(self),
-            str(self._verbose)
+        content: str | None = None
+        config: BeautifulSoup | None = None
+        with ConfFile(self._file_path, 'r', self._FORMAT) as xml:
+            if bool(xml):
+                content = xml.read()
+                config = BeautifulSoup(str(content), self._FORMAT)
+        verbose_message(
+            self._verbose or verbose, [f'configuration {config}']
         )
+        return config

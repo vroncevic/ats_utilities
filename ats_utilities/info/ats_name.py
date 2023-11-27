@@ -23,7 +23,6 @@ Info
 import sys
 
 try:
-    from ats_utilities import auto_str, VerboseRoot
     from ats_utilities.checker import ATSChecker
     from ats_utilities.console_io.verbose import verbose_message
     from ats_utilities.exceptions.ats_type_error import ATSTypeError
@@ -42,8 +41,7 @@ __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
 
 
-@auto_str
-class ATSName(metaclass=VerboseRoot):
+class ATSName(ATSChecker):
     '''
         Defines class ATSName with attribute(s) and method(s).
         Creates API for ATS name in one propery object.
@@ -60,9 +58,6 @@ class ATSName(metaclass=VerboseRoot):
                 | is_not_none - Check is ATS name not None.
     '''
 
-    _verbose: bool
-    _name: str | None
-
     def __init__(self, verbose: bool = False) -> None:
         '''
             Initial ATSName constructor.
@@ -71,8 +66,9 @@ class ATSName(metaclass=VerboseRoot):
             :type verbose: <bool>
             :exceptions: None
         '''
-        self._verbose = verbose
-        self._name = None
+        super().__init__()
+        self._verbose: bool = verbose
+        self._name: str | None = None
 
     @property
     def name(self) -> str | None:
@@ -90,26 +86,19 @@ class ATSName(metaclass=VerboseRoot):
         '''
             Property method for setting ATS name.
 
-            :param name: ATS name
-            :type name: <str>
+            :param name: ATS name | None
+            :type name: <str> | <NoneType>
             :exceptions: ATSTypeError | ATSBadCallError
         '''
-        checker: ATSChecker = ATSChecker()
         error_msg: str | None = None
         error_id: int | None = None
-        error_msg, error_id = checker.check_params([
-            ('str:name', name)
-        ])
-        if error_id == ATSChecker.type_error:
+        error_msg, error_id = self.check_params([('str:name', name)])
+        if error_id == self.TYPE_ERROR:
             raise ATSTypeError(error_msg)
-        if error_id == ATSChecker.value_error:
+        if error_id == self.VALUE_ERROR:
             raise ATSBadCallError(error_msg)
         self._name = name
-        verbose_message(
-            ATSName.verbose,  # pylint: disable=no-member
-            self._verbose,
-            tuple(str(name))
-        )
+        verbose_message(self._verbose, [f'name {name}'])
 
     def is_not_none(self) -> bool:
         '''
@@ -119,4 +108,4 @@ class ATSName(metaclass=VerboseRoot):
             :rtype: <bool>
             :exceptions: None
         '''
-        return bool(self._name)
+        return self._name is not None

@@ -20,16 +20,9 @@ Info
     Creates API fo checking parameters for object methods and functions.
 '''
 
-import sys
 from inspect import stack
 from typing import Any, List, Tuple, OrderedDict
 from collections import OrderedDict as OrderedDictionary
-
-try:
-    from ats_utilities import auto_str, VerboseRoot
-except ImportError as ats_error_message:
-    # Force exit python #######################################################
-    sys.exit(f'\n{__file__}\n{ats_error_message}\n')
 
 __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2017, https://vroncevic.github.io/ats_utilities'
@@ -41,8 +34,7 @@ __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
 
 
-@auto_str
-class ATSChecker(metaclass=VerboseRoot):
+class ATSChecker:
     '''
         Defines class ATSChecker with attribute(s) and method(s).
         Creates API fo checking parameters for object methods and functions.
@@ -51,10 +43,10 @@ class ATSChecker(metaclass=VerboseRoot):
         It defines:
 
             :attributes:
-                | no_error - No error, error id (0).
-                | type_error - Type param error id (1).
-                | value_error - Value param error id (2).
-                | format_error - Wrong format error id (3).
+                | NO_ERROR - No error, error id (0).
+                | TYPE_ERROR - Type param error id (1).
+                | VALUE_ERROR - Value param error id (2).
+                | FORMAT_ERROR - Wrong format error id (3).
                 | _start_message - Start segment of usage message.
                 | _list_of_params - List of parameters for method/function.
                 | _error_type - List of mapped errors.
@@ -66,20 +58,14 @@ class ATSChecker(metaclass=VerboseRoot):
                 | usage_message - Prepare usage message for method/function.
                 | check_types - Check parameters (types) for method/function.
                 | check_values - Check parameters (values) for method/function.
-                | priority_error - Set priority error id (type_error).
+                | priority_error - Set priority error id (TYPE_ERROR).
                 | check_params - Check parameters for method/function.
     '''
 
-    no_error: int = 0
-    type_error: int = 1
-    value_error: int = 2
-    format_error: int = 3
-
-    _start_message: str | None
-    _list_of_params: List[Any]
-    _error_type: List[int]
-    _error_type_index: List[int]
-    _error_value_index: List[int]
+    NO_ERROR = 0
+    TYPE_ERROR = 1
+    VALUE_ERROR = 2
+    FORMAT_ERROR = 3
 
     def __init__(self) -> None:
         '''
@@ -87,11 +73,11 @@ class ATSChecker(metaclass=VerboseRoot):
 
             :exceptions: None
         '''
-        self._start_message = None
-        self._list_of_params = []
-        self._error_type = [0, 0, 0]
-        self._error_type_index = []
-        self._error_value_index = []
+        self._start_message: str | None = None
+        self._list_of_params: List[str] = []
+        self._error_type: List[int] = [0, 0, 0]
+        self._error_type_index: List[int] = []
+        self._error_value_index: List[int] = []
 
     def collect_params(
         self, params_description: OrderedDict[str, Any]
@@ -99,18 +85,18 @@ class ATSChecker(metaclass=VerboseRoot):
         '''
             Collect all parameters in one list.
 
-            :param params_description: Description for parameters.
+            :param params_description: Description for parameters
             :type params_description: <OrderedDict[str, Any]>
-            :return: True (collected) | False (failed to collect).
+            :return: True (collected) | False (failed to collect)
             :rtype: <bool>
             :exceptions: None
         '''
-        if any([not bool(params_description)]):
-            self._error_type[2] = ATSChecker.format_error
+        if any([not params_description]):
+            self._error_type[2] = self.FORMAT_ERROR
             return False
         for exp_type, inst in params_description.items():
-            pname: str = exp_type.split(':')[1]
-            ptype: str = exp_type.split(':')[0]
+            pname: str = exp_type.split(sep=':')[1]
+            ptype: str = exp_type.split(sep=':')[0]
             self._list_of_params.append(
                 f'\n    expected {pname} <{ptype}> object at {hex(id(inst))}'
             )
@@ -120,7 +106,7 @@ class ATSChecker(metaclass=VerboseRoot):
         '''
             Prepare usage message for method/function.
 
-            :return: Usage message for method/function.
+            :return: Usage message for method/function | None
             :rtype: <str> | <NoneType>
             :exceptions: None
         '''
@@ -140,23 +126,23 @@ class ATSChecker(metaclass=VerboseRoot):
         '''
             Check parameters (types) for method/function.
 
-            :param params_description: Description for parameters.
+            :param params_description: Description for parameters
             :type params_description: <OrderedDict[str, Any]>
-            :return: True (types ok) | False (types are not ok).
+            :return: True (types ok) | False (types are not ok)
             :rtype: <bool>
             :exceptions: None
         '''
         if any([not bool(params_description)]):
-            self._error_type[2] = ATSChecker.format_error
+            self._error_type[2] = self.FORMAT_ERROR
             return False
         for index, (exp_type, inst) in enumerate(params_description.items()):
-            param_typ_name: list[str] = exp_type.split(':')
+            param_typ_name: list[str] = exp_type.split(sep=':')
             if len(param_typ_name) == 2:
                 if type(inst).__name__ != param_typ_name[0]:
-                    self._error_type[0] = ATSChecker.type_error
+                    self._error_type[0] = self.TYPE_ERROR
                     self._error_type_index.append(index)
             else:
-                self._error_type[2] = ATSChecker.format_error
+                self._error_type[2] = self.FORMAT_ERROR
                 return False
         return True
 
@@ -164,18 +150,18 @@ class ATSChecker(metaclass=VerboseRoot):
         '''
             Check parameters (values) for method/function.
 
-            :param params_description: Description for parameters.
+            :param params_description: Description for parameters
             :type params_description: <OrderedDict[str, Any]>
-            :return: True (values are ok) | False (values are not ok).
+            :return: True (values are ok) | False (values are not ok)
             :rtype: <bool>
             :exceptions: None
         '''
         if any([not bool(params_description)]):
-            self._error_type[2] = ATSChecker.format_error
+            self._error_type[2] = self.FORMAT_ERROR
             return False
         for index, inst in enumerate(params_description.values()):
             if inst is None:
-                self._error_type[1] = ATSChecker.value_error
+                self._error_type[1] = self.VALUE_ERROR
                 self._error_value_index.append(index)
             any_base_type: bool = any([
                 isinstance(inst, dict), isinstance(inst, list),
@@ -185,27 +171,27 @@ class ATSChecker(metaclass=VerboseRoot):
             ])
             if any_base_type:
                 if not bool(inst):
-                    self._error_type[1] = ATSChecker.value_error
+                    self._error_type[1] = self.VALUE_ERROR
                     self._error_value_index.append(index)
         return True
 
     def priority_error(self) -> int | None:
         '''
-            Set priority error id (type_error).
+            Set priority error id (TYPE_ERROR).
 
-            :return: Priority error id (0 | 1 | 2 | 3) | None.
+            :return: Priority error id (0 | 1 | 2 | 3) | None
             :rtype: <int> | <NoneType>
             :exceptions: None
         '''
         priority_error_id: int | None = None
-        if self._error_type[2] == ATSChecker.format_error:
-            return ATSChecker.format_error
-        if self._error_type[1] == ATSChecker.value_error:
-            priority_error_id = ATSChecker.value_error
-        if self._error_type[0] == ATSChecker.type_error:
-            priority_error_id = ATSChecker.type_error
+        if self._error_type[2] == self.FORMAT_ERROR:
+            return self.FORMAT_ERROR
+        if self._error_type[1] == self.VALUE_ERROR:
+            priority_error_id = self.VALUE_ERROR
+        if self._error_type[0] == self.TYPE_ERROR:
+            priority_error_id = self.TYPE_ERROR
         if all(error_type == 0 for error_type in self._error_type):
-            priority_error_id = ATSChecker.no_error
+            priority_error_id = self.NO_ERROR
         return priority_error_id
 
     def check_params(
@@ -214,9 +200,9 @@ class ATSChecker(metaclass=VerboseRoot):
         '''
             Check parameters for method/function.
 
-            :param params_description: Description for parameters.
+            :param params_description: Description for parameters
             :type params_description: <List[Tuple[str, Any]]>
-            :return: usage message, status (0 | 1 | 2 | 3).
+            :return: usage message, status (0 | 1 | 2 | 3)
             :rtype: <str> | <NoneType>, <int> | <NoneType>
             :exceptions: None
         '''
@@ -232,5 +218,5 @@ class ATSChecker(metaclass=VerboseRoot):
         error_id: int | None = self.priority_error()
         if any([error_id is None, fail_any_check]):
             message = f'{message} format wrong during checking params'
-            error_id = ATSChecker.format_error
+            error_id = self.FORMAT_ERROR
         return message, error_id

@@ -24,7 +24,6 @@ import sys
 from os.path import isfile
 
 try:
-    from ats_utilities import auto_str, VerboseRoot
     from ats_utilities.checker import ATSChecker
     from ats_utilities.console_io.verbose import verbose_message
     from ats_utilities.exceptions.ats_type_error import ATSTypeError
@@ -44,8 +43,7 @@ __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
 
 
-@auto_str
-class ATSLoggerFile(metaclass=VerboseRoot):
+class ATSLoggerFile(ATSChecker):
     '''
         Defines class ATSLoggerFile with attribute(s) and method(s).
         Creates API for ATS logger file path in one propery object.
@@ -55,15 +53,12 @@ class ATSLoggerFile(metaclass=VerboseRoot):
 
             :attributes:
                 | _verbose - Enable/Disable verbose option.
-                | _logger_file - Log file path.
+                | _logger_path - Log file path.
             :methods:
                 | __init__ - Initial ATSLoggerFile constructor.
-                | logger_file - property methods for set/get operations.
+                | file_path - property methods for set/get operations.
                 | __str__ - str dunder method for ATSLoggerFile.
     '''
-
-    _verbose: bool
-    _logger_file: str | None
 
     def __init__(self, verbose: bool = False) -> None:
         '''
@@ -73,45 +68,43 @@ class ATSLoggerFile(metaclass=VerboseRoot):
             :type verbose: <bool>
             :exceptions: None
         '''
-        self._verbose = verbose
-        self._logger_file = None
+        super().__init__()
+        self._verbose: bool = verbose
+        self._logger_path: str | None = None
 
     @property
-    def logger_file(self) -> str | None:
+    def file_path(self) -> str | None:
         '''
             Property method for getting log file path.
 
-            :return: log file path | None
+            :return: Log file path | None
             :rtype: <str> | <NoneType>
             :exceptions: None
         '''
-        return self._logger_file
+        return self._logger_path
 
-    @logger_file.setter
-    def logger_file(self, logger_file: str | None) -> None:
+    @file_path.setter
+    def file_path(self, file_path: str | None) -> None:
         '''
             Property method for setting log file path.
 
-            :param logger_file: Log file path
-            :type logger_file: <str> | <NoneType>
+            :param file_path: Log file path | None
+            :type file_path: <str> | <NoneType>
             :exceptions: ATSTypeError | ATSBadCallError | ATSFileError
         '''
-        checker: ATSChecker = ATSChecker()
         error_msg: str | None = None
         error_id: int | None = None
-        error_msg, error_id = checker.check_params([
-            ('str:logger_file', logger_file)
+        error_msg, error_id = self.check_params([
+            ('str:file_path', file_path)
         ])
-        if error_id == ATSChecker.type_error:
+        if error_id == self.TYPE_ERROR:
             raise ATSTypeError(error_msg)
-        if error_id == ATSChecker.value_error:
+        if error_id == self.VALUE_ERROR:
             raise ATSBadCallError(error_msg)
-        if isfile(str(logger_file)):
-            self._logger_file = logger_file
+        if isfile(str(file_path)):
+            self._logger_path = file_path
             verbose_message(
-                ATSLoggerFile.verbose,  # pylint: disable=no-member
-                self._verbose,
-                tuple(str(logger_file))
+                self._verbose, [f'logger path {self._logger_path}']
             )
         else:
-            raise ATSFileError(f'Check ATS log file path {logger_file}')
+            raise ATSFileError(f'Check ATS log file path {file_path}')

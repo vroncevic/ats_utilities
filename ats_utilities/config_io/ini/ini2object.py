@@ -24,14 +24,11 @@ import sys
 from configparser import ConfigParser
 
 try:
-    from ats_utilities import auto_str
     from ats_utilities.checker import ATSChecker
-    from ats_utilities.config_io import ConfigFile
+    from ats_utilities.config_io import ConfFile
     from ats_utilities.console_io.verbose import verbose_message
-    from ats_utilities.config_io.base_read import BaseReadConfig
     from ats_utilities.exceptions.ats_type_error import ATSTypeError
     from ats_utilities.exceptions.ats_bad_call_error import ATSBadCallError
-    from ats_utilities.config_io.ini.ini2object_meta import Ini2ObjectMeta
 except ImportError as ats_error_message:
     # Force exit python #######################################################
     sys.exit(f'\n{__file__}\n{ats_error_message}\n')
@@ -46,8 +43,7 @@ __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
 
 
-@auto_str
-class Ini2Object(BaseReadConfig, metaclass=Ini2ObjectMeta):
+class Ini2Object(ATSChecker):
     '''
         Defines class Ini2Object with attribute(s) and method(s).
         Creates API for reading configuration/information from an ini file.
@@ -56,17 +52,15 @@ class Ini2Object(BaseReadConfig, metaclass=Ini2ObjectMeta):
         It defines:
 
             :attributes:
-                | _format - Format of configuration content.
+                | _FORMAT - Format of configuration content.
                 | _verbose - Enable/Disable verbose option.
-                | _file_path - Configuration file path.
+                | _file_path - Configuraiton file path.
             :methods:
                 | __init__ - Initial Ini2Object constructor.
                 | read_configuration - read configuration from file.
     '''
 
-    _format: str = 'ini'
-    _verbose: bool
-    _file_path: str | None
+    _FORMAT: str = 'ini'
 
     def __init__(
         self, configuration_file: str | None, verbose: bool = False
@@ -80,24 +74,21 @@ class Ini2Object(BaseReadConfig, metaclass=Ini2ObjectMeta):
             :type verbose: <bool>
             :exceptions: ATSTypeError | ATSBadCallError
         '''
-        checker: ATSChecker = ATSChecker()
+        super().__init__()
         error_msg: str | None = None
         error_id: int | None = None
-        error_msg, error_id = checker.check_params([
+        error_msg, error_id = self.check_params([
             ('str:configuration_file', configuration_file)
         ])
-        if error_id == ATSChecker.type_error:
+        if error_id == self.TYPE_ERROR:
             raise ATSTypeError(error_msg)
-        if error_id == ATSChecker.value_error:
+        if error_id == self.VALUE_ERROR:
             raise ATSBadCallError(error_msg)
-        BaseReadConfig.__init__(self, verbose)
-        self._verbose = verbose
+        self._verbose: bool = verbose
         configuration_file = str(configuration_file)
-        self._file_path = configuration_file
+        self._file_path: str = configuration_file
         verbose_message(
-            Ini2Object.verbose,  # pylint: disable=no-member
-            verbose,
-            tuple(configuration_file)
+            self._verbose, [f'configuration file {configuration_file}']
         )
 
     def read_configuration(self, verbose: bool = False) -> ConfigParser | None:
@@ -110,13 +101,9 @@ class Ini2Object(BaseReadConfig, metaclass=Ini2ObjectMeta):
             :rtype: <ConfigParser> | <NoneType>
         '''
         content: ConfigParser | None = None
-        with ConfigFile(self._file_path, 'r', Ini2Object._format) as ini:
+        with ConfFile(self._file_path, 'r', self._FORMAT) as ini:
             if bool(ini):
                 content = ConfigParser()
                 content.read_file(ini)
-        verbose_message(
-            Ini2Object.verbose,  # pylint: disable=no-member
-            self._verbose or verbose,
-            tuple(str(content))
-        )
+        verbose_message(self._verbose or verbose, [f'configuration {content}'])
         return content

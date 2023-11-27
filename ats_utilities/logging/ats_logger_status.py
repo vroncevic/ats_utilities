@@ -23,7 +23,6 @@ Info
 import sys
 
 try:
-    from ats_utilities import auto_str, VerboseRoot
     from ats_utilities.checker import ATSChecker
     from ats_utilities.console_io.verbose import verbose_message
     from ats_utilities.exceptions.ats_type_error import ATSTypeError
@@ -42,8 +41,7 @@ __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
 
 
-@auto_str
-class ATSLoggerStatus(metaclass=VerboseRoot):
+class ATSLoggerStatus(ATSChecker):
     '''
         Defines class ATSLoggerStatus with attribute(s) and method(s).
         Creates API for ATS logger status in one propery object.
@@ -59,9 +57,6 @@ class ATSLoggerStatus(metaclass=VerboseRoot):
                 | logger_status - Property methods for set/get operations.
     '''
 
-    _verbose: bool
-    _log_status: bool | None
-
     def __init__(self, verbose: bool = False) -> None:
         '''
             Initial ATSLoggerStatus constructor.
@@ -70,11 +65,12 @@ class ATSLoggerStatus(metaclass=VerboseRoot):
             :type verbose: <bool>
             :exceptions: None
         '''
-        self._verbose = verbose
-        self._log_status = None
+        super().__init__()
+        self._verbose: bool = verbose
+        self._log_status: bool = False
 
     @property
-    def logger_status(self) -> bool | None:
+    def logger_status(self) -> bool:
         '''
             Property method for getting logger status.
 
@@ -85,7 +81,7 @@ class ATSLoggerStatus(metaclass=VerboseRoot):
         return self._log_status
 
     @logger_status.setter
-    def logger_status(self, log_status: bool | None) -> None:
+    def logger_status(self, log_status: bool) -> None:
         '''
             Property method for setting logger status.
 
@@ -93,19 +89,14 @@ class ATSLoggerStatus(metaclass=VerboseRoot):
             :type log_status: <bool>
             :exceptions: ATSTypeError | ATSBadCallError
         '''
-        checker: ATSChecker = ATSChecker()
         error_msg: str | None = None
         error_id: int | None = None
-        error_msg, error_id = checker.check_params([
+        error_msg, error_id = self.check_params([
             ('bool:log_status', log_status)
         ])
-        if error_id == ATSChecker.type_error:
+        if error_id == self.TYPE_ERROR:
             raise ATSTypeError(error_msg)
-        if error_id == ATSChecker.value_error:
+        if error_id == self.VALUE_ERROR:
             raise ATSBadCallError(error_msg)
         self._log_status = log_status
-        verbose_message(
-            ATSLoggerStatus.verbose,  # pylint: disable=no-member
-            self._verbose,
-            tuple(str(log_status))
-        )
+        verbose_message(self._verbose, [f'logger status {log_status}'])

@@ -1,35 +1,33 @@
 # -*- coding: UTF-8 -*-
 
 '''
- Module
-     yaml2object.py
- Copyright
-     Copyright (C) 2017 Vladimir Roncevic <elektron.ronca@gmail.com>
-     ats_utilities is free software: you can redistribute it and/or modify it
-     under the terms of the GNU General Public License as published by the
-     Free Software Foundation, either version 3 of the License, or
-     (at your option) any later version.
-     ats_utilities is distributed in the hope that it will be useful, but
-     WITHOUT ANY WARRANTY; without even the implied warranty of
-     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-     See the GNU General Public License for more details.
-     You should have received a copy of the GNU General Public License along
-     with this program. If not, see <http://www.gnu.org/licenses/>.
- Info
-     Defined class Yaml2Object with attribute(s) and method(s).
-     Created API for reading a configuration/information from a yaml file.
+Module
+    yaml2object.py
+Copyright
+    Copyright (C) 2017 Vladimir Roncevic <elektron.ronca@gmail.com>
+    ats_utilities is free software: you can redistribute it and/or modify it
+    under the terms of the GNU General Public License as published by the
+    Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+    ats_utilities is distributed in the hope that it will be useful, but
+    WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+    See the GNU General Public License for more details.
+    You should have received a copy of the GNU General Public License along
+    with this program. If not, see <http://www.gnu.org/licenses/>.
+Info
+    Defines class Yaml2Object with attribute(s) and method(s).
+    Creates API for reading a configuration/information from a yaml file.
 '''
 
 import sys
+from typing import Any
 
 try:
-    from six import add_metaclass
     from yaml import load, FullLoader
-    from ats_utilities import VerboseRoot
     from ats_utilities.checker import ATSChecker
-    from ats_utilities.config_io import ConfigFile
+    from ats_utilities.config_io import ConfFile
     from ats_utilities.console_io.verbose import verbose_message
-    from ats_utilities.config_io.base_read import BaseReadConfig
     from ats_utilities.exceptions.ats_type_error import ATSTypeError
     from ats_utilities.exceptions.ats_bad_call_error import ATSBadCallError
 except ImportError as ats_error_message:
@@ -46,75 +44,67 @@ __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
 
 
-@add_metaclass(VerboseRoot)
-class Yaml2Object(BaseReadConfig):
+class Yaml2Object(ATSChecker):
     '''
-        Defined class Yaml2Object with attribute(s) and method(s).
-        Created API for reading a configuration/information from a yaml file.
+        Defines class Yaml2Object with attribute(s) and method(s).
+        Creates API for reading a configuration/information from a yaml file.
+        Conversion YAML to configuration content.
+
         It defines:
 
             :attributes:
-                | __FORMAT - format of configuration content.
+                | _FORMAT - Format of configuration content.
                 | _verbose - Enable/Disable verbose option.
+                | _file_path - Configuration file path.
             :methods:
-                | __init__ - initial constructor.
-                | read_configuration - getting a configuration from file.
-                | __str__ - str dunder method for object Yaml2Object.
+                | __init__ - Initial Yaml2Object constructor.
+                | read_configuration - Read a configuration from file.
     '''
 
-    __FORMAT = 'yaml'
+    _FORMAT: str = 'yaml'
 
-    def __init__(self, configuration_file, verbose=False):
+    def __init__(
+        self, configuration_file: str | None, verbose: bool = False
+    ) -> None:
         '''
-            Initial constructor.
+            Initial Yaml2Object constructor.
 
-            :param configuration_file: configuration file path.
-            :type configuration_file: <str>
-            :param verbose: enable/disable verbose option.
+            :param configuration_file: Configuration file path | None
+            :type configuration_file: <str> | <NoneType>
+            :param verbose: Enable/Disable verbose option
             :type verbose: <bool>
             :exceptions: ATSTypeError | ATSBadCallError
         '''
-        checker, error, status = ATSChecker(), None, False
-        error, status = checker.check_params([
+        super().__init__()
+        error_msg: str | None = None
+        error_id: int | None = None
+        error_msg, error_id = self.check_params([
             ('str:configuration_file', configuration_file)
         ])
-        if status == ATSChecker.type_error:
-            raise ATSTypeError(error)
-        if status == ATSChecker.value_error:
-            raise ATSBadCallError(error)
-        BaseReadConfig.__init__(self, verbose)
-        self._verbose = verbose
-        self.file_path = configuration_file
-        verbose_message(Yaml2Object.verbose, verbose, configuration_file)
+        if error_id == self.TYPE_ERROR:
+            raise ATSTypeError(error_msg)
+        if error_id == self.VALUE_ERROR:
+            raise ATSBadCallError(error_msg)
+        self._verbose: bool = verbose
+        configuration_file = str(configuration_file)
+        self._file_path: str = configuration_file
+        verbose_message(
+            self._verbose, [f'configuration file {configuration_file}']
+        )
 
-    def read_configuration(self, verbose=False):
+    def read_configuration(self, verbose: bool = False) -> Any | None:
         '''
-            Getting a configuration from yaml file.
+            Read a configuration from yaml file.
 
-            :param verbose: enable/disable verbose option.
+            :param verbose: Enable/Disable verbose option
             :type verbose: <bool>
-            :return: configuration object | None.
-            :rtype: <Python object(s)> | <NoneType>
+            :return: Configuration object | None
+            :rtype: <Any> | <NoneType>
             :exceptions: None
         '''
-        config = None
-        with ConfigFile(self.file_path, 'r', Yaml2Object.__FORMAT) as yaml:
+        config: Any | None = None
+        with ConfFile(self._file_path, 'r', self._FORMAT) as yaml:
             if bool(yaml):
                 config = load(yaml, Loader=FullLoader)
-        verbose_message(
-            Yaml2Object.verbose, self._verbose or verbose, config
-        )
+        verbose_message(self._verbose or verbose, [f'configuration {config}'])
         return config
-
-    def __str__(self):
-        '''
-            Dunder str method for Yaml2Object.
-
-            :return: object in a human-readable format.
-            :rtype: <str>
-            :exceptions: None
-        '''
-        return '{0} ({1}, {2})'.format(
-            self.__class__.__name__, BaseReadConfig.__str__(self),
-            str(self._verbose)
-        )

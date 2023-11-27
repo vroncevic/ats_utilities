@@ -24,14 +24,11 @@ import sys
 from configparser import ConfigParser
 
 try:
-    from ats_utilities import auto_str
     from ats_utilities.checker import ATSChecker
-    from ats_utilities.config_io import ConfigFile
+    from ats_utilities.config_io import ConfFile
     from ats_utilities.console_io.verbose import verbose_message
-    from ats_utilities.config_io.base_write import BaseWriteConfig
     from ats_utilities.exceptions.ats_type_error import ATSTypeError
     from ats_utilities.exceptions.ats_bad_call_error import ATSBadCallError
-    from ats_utilities.config_io.ini.object2ini_meta import Object2IniMeta
 except ImportError as ats_error_message:
     # Force exit python #######################################################
     sys.exit(f'\n{__file__}\n{ats_error_message}\n')
@@ -46,8 +43,7 @@ __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
 
 
-@auto_str
-class Object2Ini(BaseWriteConfig, metaclass=Object2IniMeta):
+class Object2Ini(ATSChecker):
     '''
         Defines class Object2Ini with attribute(s) and method(s).
         Creates API for writing configuration/information to an ini file.
@@ -56,17 +52,15 @@ class Object2Ini(BaseWriteConfig, metaclass=Object2IniMeta):
         It defines:
 
             :attributes:
-                | _format - Format of configuration content.
+                | _FORMAT - Format of configuration content.
                 | _verbose - Enable/Disable verbose option.
-                | _file_path - Configuration file path.
+                | _file_path - Confguration file path.
             :methods:
                 | __init__ - Initial Object2Ini constructor.
                 | write_configuration - Write configuration to an ini file.
     '''
 
-    _format: str = 'ini'
-    _verbose: bool
-    _file_path: str | None
+    _FORMAT: str = 'ini'
 
     def __init__(
         self, configuration_file: str | None, verbose: bool = False
@@ -80,24 +74,21 @@ class Object2Ini(BaseWriteConfig, metaclass=Object2IniMeta):
             :type verbose: <bool>
             :exceptions: ATSTypeError | ATSBadCallError
         '''
-        checker: ATSChecker = ATSChecker()
+        super().__init__()
         error_msg: str | None = None
         error_id: int | None = None
-        error_msg, error_id = checker.check_params([
+        error_msg, error_id = self.check_params([
             ('str:configuration_file', configuration_file)
         ])
-        if error_id == ATSChecker.type_error:
+        if error_id == self.TYPE_ERROR:
             raise ATSTypeError(error_msg)
-        if error_id == ATSChecker.value_error:
+        if error_id == self.VALUE_ERROR:
             raise ATSBadCallError(error_msg)
-        BaseWriteConfig.__init__(self, verbose)
         configuration_file = str(configuration_file)
-        self._verbose = verbose
-        self._file_path = configuration_file
+        self._verbose: bool = verbose
+        self._file_path: str = configuration_file
         verbose_message(
-            Object2Ini.verbose,  # pylint: disable=no-member
-            verbose,
-            tuple(configuration_file)
+            self._verbose, [f'configuration file {configuration_file}']
         )
 
     def write_configuration(
@@ -114,25 +105,22 @@ class Object2Ini(BaseWriteConfig, metaclass=Object2IniMeta):
             :rtype: <bool>
             :exception: ATSTypeError | ATSBadCallError
         '''
-        checker: ATSChecker = ATSChecker()
         error_msg: str | None = None
         error_id: int | None = None
-        error_msg, error_id = checker.check_params([
+        error_msg, error_id = self.check_params([
             ('ConfigParser:configuration', configuration)
         ])
-        if error_id == ATSChecker.type_error:
+        if error_id == self.TYPE_ERROR:
             raise ATSTypeError(error_msg)
-        if error_id == ATSChecker.value_error:
+        if error_id == self.VALUE_ERROR:
             raise ATSBadCallError(error_msg)
         status = False
         verbose_message(
-            Object2Ini.verbose,  # pylint: disable=no-member
-            self._verbose or verbose,
-            tuple(str(configuration))
+            self._verbose or verbose, [f'configuration {configuration}']
         )
         if configuration is None or not configuration:
             return status
-        with ConfigFile(self._file_path, 'w', Object2Ini._format) as ini:
+        with ConfFile(self._file_path, 'w', self._FORMAT) as ini:
             if bool(ini):
                 configuration.write(ini, space_around_delimiters=True)
                 status = True

@@ -24,14 +24,11 @@ import sys
 from typing import Any, Dict
 
 try:
-    from ats_utilities import auto_str
     from ats_utilities.checker import ATSChecker
-    from ats_utilities.config_io import ConfigFile
+    from ats_utilities.config_io import ConfFile
     from ats_utilities.console_io.verbose import verbose_message
-    from ats_utilities.config_io.base_write import BaseWriteConfig
     from ats_utilities.exceptions.ats_type_error import ATSTypeError
     from ats_utilities.exceptions.ats_bad_call_error import ATSBadCallError
-    from ats_utilities.config_io.cfg.object2cfg_meta import Object2CfgMeta
 except ImportError as ats_error_message:
     # Force exit python #######################################################
     sys.exit(f'\n{__file__}\n{ats_error_message}\n')
@@ -46,8 +43,7 @@ __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
 
 
-@auto_str
-class Object2Cfg(BaseWriteConfig, metaclass=Object2CfgMeta):
+class Object2Cfg(ATSChecker):
     '''
         Defines class Object2Cfg with attribute(s) and method(s).
         Creates API for writing configuration/information to a cfg file.
@@ -56,17 +52,15 @@ class Object2Cfg(BaseWriteConfig, metaclass=Object2CfgMeta):
         It defines:
 
             :attributes:
-                | _format - Format of configuration content.
-                | _file_path - Configuration file path.
+                | _FORMAT - Format of configuration content.
                 | _verbose - Enable/Disable verbose option.
+                | _file_path - Configuration file path.
             :methods:
                 | __init__ - Initial Object2Cfg constructor.
                 | write_configuration - Write config to a cfg file.
     '''
 
-    _format: str = 'cfg'
-    _file_path: str | None
-    _verbose: bool
+    _FORMAT: str = 'cfg'
 
     def __init__(
         self, configuration_file: str | None, verbose: bool = False
@@ -80,24 +74,21 @@ class Object2Cfg(BaseWriteConfig, metaclass=Object2CfgMeta):
             :type verbose: <bool>
             :exceptions: ATSTypeError | ATSBadCallError
         '''
-        checker: ATSChecker = ATSChecker()
+        super().__init__()
         error_msg: str | None = None
         error_id: int | None = None
-        error_msg, error_id = checker.check_params([
+        error_msg, error_id = self.check_params([
             ('str:configuration_file', configuration_file)
         ])
-        if error_id == ATSChecker.type_error:
+        if error_id == self.TYPE_ERROR:
             raise ATSTypeError(error_msg)
-        if error_id == ATSChecker.value_error:
+        if error_id == self.VALUE_ERROR:
             raise ATSBadCallError(error_msg)
-        BaseWriteConfig.__init__(self, verbose)
-        self._verbose = verbose
+        self._verbose: bool = verbose
         configuration_file = str(configuration_file)
-        self._file_path = configuration_file
+        self._file_path: str = configuration_file
         verbose_message(
-            Object2Cfg.verbose,  # pylint: disable=no-member
-            verbose,
-            tuple(configuration_file)
+            self._verbose, [f'configuration file {configuration_file}']
         )
 
     def write_configuration(
@@ -110,30 +101,28 @@ class Object2Cfg(BaseWriteConfig, metaclass=Object2CfgMeta):
             :type configuration: <Dict[Any, Any]> | <NoneType>
             :param verbose: Enable/Disable verbose option
             :type verbose: <bool>
-            :return: True (written configuraiton to file) | False
+            :return: True (configuration written to file) | False
             :rtype: <bool>
             :exceptions: ATSTypeError | ATSBadCallError
         '''
-        checker: ATSChecker = ATSChecker()
         error_msg: str | None = None
         error_id: int | None = None
-        error_msg, error_id = checker.check_params([
+        error_msg, error_id = self.check_params([
             ('dict:configuration', configuration)
         ])
-        if error_id == ATSChecker.type_error:
+        if error_id == self.TYPE_ERROR:
             raise ATSTypeError(error_msg)
-        if error_id == ATSChecker.value_error:
+        if error_id == self.VALUE_ERROR:
             raise ATSBadCallError(error_msg)
         verbose_message(
-            Object2Cfg.verbose,  # pylint: disable=no-member
-            verbose,
-            tuple(str(configuration))
+            self._verbose or verbose, [f'configuration {configuration}']
         )
-        status = False
-        if bool(configuration):
-            with ConfigFile(self._file_path, 'w', Object2Cfg._format) as cfg:
-                if bool(cfg):
-                    for key in configuration:
-                        cfg.write(f'{key} = {configuration.get(key)}\n')
-                    status = True
+        status: bool = False
+        if not bool(configuration):
+            return status
+        with ConfFile(self._file_path, 'w', self._FORMAT) as cfg:
+            if bool(cfg):
+                for key in configuration:
+                    cfg.write(f'{key} = {configuration.get(key)}\n')
+                status = True
         return status

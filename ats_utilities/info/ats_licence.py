@@ -23,7 +23,6 @@ Info
 import sys
 
 try:
-    from ats_utilities import auto_str, VerboseRoot
     from ats_utilities.checker import ATSChecker
     from ats_utilities.console_io.verbose import verbose_message
     from ats_utilities.exceptions.ats_type_error import ATSTypeError
@@ -42,8 +41,7 @@ __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
 
 
-@auto_str
-class ATSLicence(metaclass=VerboseRoot):
+class ATSLicence(ATSChecker):
     '''
         Defines class ATSLicence with attribute(s) and method(s).
         Creates API for ATS licence in one property object.
@@ -60,9 +58,6 @@ class ATSLicence(metaclass=VerboseRoot):
                 | is_not_none - Check is ATS licence not None.
     '''
 
-    _verbose: bool
-    _licence: str | None
-
     def __init__(self, verbose: bool = False) -> None:
         '''
             Initial ATSLicence constructor.
@@ -71,8 +66,9 @@ class ATSLicence(metaclass=VerboseRoot):
             :type verbose: <bool>
             :exceptions: None
         '''
-        self._verbose = verbose
-        self._licence = None
+        super().__init__()
+        self._verbose: bool = verbose
+        self._licence: str | None = None
 
     @property
     def licence(self) -> str | None:
@@ -90,26 +86,21 @@ class ATSLicence(metaclass=VerboseRoot):
         '''
             Property method for setting ATS licence.
 
-            :param licence: ATS licence
+            :param licence: ATS licence | None
             :type licence: <str> | <NoneType>
             :exceptions: ATSTypeError | ATSBadCallError
         '''
-        checker: ATSChecker = ATSChecker()
         error_msg: str | None = None
         error_id: int | None = None
-        error_msg, error_id = checker.check_params([
+        error_msg, error_id = self.check_params([
             ('str:licence', licence)
         ])
-        if error_id == ATSChecker.type_error:
+        if error_id == self.TYPE_ERROR:
             raise ATSTypeError(error_msg)
-        if error_id == ATSChecker.value_error:
+        if error_id == self.VALUE_ERROR:
             raise ATSBadCallError(error_msg)
         self._licence = licence
-        verbose_message(
-            ATSLicence.verbose,  # pylint: disable=no-member
-            self._verbose,
-            tuple(str(licence))
-        )
+        verbose_message(self._verbose, [f'licence {licence}'])
 
     def is_not_none(self) -> bool:
         '''
@@ -119,4 +110,4 @@ class ATSLicence(metaclass=VerboseRoot):
             :rtype: <bool>
             :exceptions: None
         '''
-        return bool(self._licence)
+        return self._licence is not None

@@ -24,7 +24,6 @@ import sys
 from typing import Any, Dict
 
 try:
-    from ats_utilities import auto_str, VerboseRoot
     from ats_utilities.info import ATSInfo
     from ats_utilities.checker import ATSChecker
     from ats_utilities.option import ATSOptionParser
@@ -47,8 +46,7 @@ __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
 
 
-@auto_str
-class CfgBase(metaclass=VerboseRoot):
+class CfgBase(ATSChecker):
     '''
         Defines class CfgBase with attribute(s) and method(s).
         Loads ATS configuration/information, setup ATS CL interface.
@@ -67,54 +65,44 @@ class CfgBase(metaclass=VerboseRoot):
                 | is_tool_ok - Check is tool operational.
     '''
 
-    _verbose: bool
-    tool_operational: bool
-    cfg2obj: Cfg2Object
-    obj2cfg: Object2Cfg
-    option_parser: ATSOptionParser
-
     def __init__(
         self, information_file: str | None, verbose: bool = False
     ) -> None:
         '''
             Initial CfgBase constructor.
 
-            :param information_file: Informations file path | None
+            :param information_file: Information file path | None
             :type information_file: <str> | <NoneType>
             :param verbose: Enable/Disable verbose option
             :type verbose: <bool>
             :exceptions: ATSTypeError | ATSBadCallError
         '''
-        checker: ATSChecker = ATSChecker()
+        super().__init__()
         error_msg: str | None = None
         error_id: int | None = None
-        error_msg, error_id = checker.check_params([
+        error_msg, error_id = self.check_params([
             ('str:information_file', information_file)
         ])
-        if error_id == ATSChecker.type_error:
+        if error_id == self.TYPE_ERROR:
             raise ATSTypeError(error_msg)
-        if error_id == ATSChecker.value_error:
+        if error_id == self.VALUE_ERROR:
             raise ATSBadCallError(error_msg)
-        self._verbose = verbose
+        self._verbose: bool = verbose
         information: Dict[Any, Any] = {}
-        self.tool_operational = False
-        self.cfg2obj = Cfg2Object(information_file, verbose)
-        self.obj2cfg = Object2Cfg(information_file, verbose)
+        self.tool_operational: bool = False
+        self.cfg2obj: Cfg2Object = Cfg2Object(information_file, self._verbose)
+        self.obj2cfg: Object2Cfg = Object2Cfg(information_file, self._verbose)
         if all([self.cfg2obj, self.obj2cfg]):
-            information = self.cfg2obj.read_configuration(verbose)
-        if bool(information):
-            info: ATSInfo = ATSInfo(information, verbose)
+            information = self.cfg2obj.read_configuration(self._verbose)
+        if information:
+            info: ATSInfo = ATSInfo(information, self._verbose)
             if info.ats_info_ok:
-                self.option_parser = ATSOptionParser(
+                self.option_parser: ATSOptionParser = ATSOptionParser(
                     f'{info.name} {info.build_date}',
-                    info.version, info.licence, verbose
+                    info.version, info.licence, self._verbose
                 )
                 self.tool_operational = True
-                verbose_message(
-                    CfgBase.verbose,  # pylint: disable=no-member
-                    verbose,
-                    tuple('loaded ATS CFG base info')
-                )
+                verbose_message(self._verbose, ['loaded ATS CFG base info'])
 
     def is_tool_ok(self) -> bool:
         '''

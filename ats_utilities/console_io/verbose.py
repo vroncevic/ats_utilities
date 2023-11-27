@@ -21,11 +21,10 @@ Info
 '''
 
 import sys
-from typing import Tuple
+from typing import Any, List
 
 try:
     from colorama import init, Fore
-    from ats_utilities import auto_str, VerboseRoot
     from ats_utilities.checker import ATSChecker
     from ats_utilities.exceptions.ats_type_error import ATSTypeError
     from ats_utilities.exceptions.ats_bad_call_error import ATSBadCallError
@@ -43,8 +42,7 @@ __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
 
 
-@auto_str
-class ATSVerbose(metaclass=VerboseRoot):
+class ATSVerbose:
     '''
         Defines class ATSVerbose with attribute(s) and method(s).
         Creates verbose message container for console log mechanism.
@@ -60,75 +58,71 @@ class ATSVerbose(metaclass=VerboseRoot):
                 | is_not_none - Check is message not None.
     '''
 
-    _message: str | None
-
     def __init__(self) -> None:
         '''
             Initial ATSVerbose constructor.
 
             :exceptions: None
         '''
-        self._message = None
+        self._message: str | None = None
 
     @property
     def message(self) -> str | None:
         '''
             Property method for getting message.
 
-            :return: Formatted verbose message
+            :return: Formatted verbose message | None
             :rtype: <str> | <NoneType>
             :exceptions: None
         '''
         return self._message
 
     @message.setter
-    def message(self, message: str) -> None:
+    def message(self, message: str | None) -> None:
         '''
             Property method for setting message.
 
-            :param message: Verbose message
-            :type message: <str>
+            :param message: Verbose message | None
+            :type message: <str> | <NoneType>
             :exceptions: None
         '''
         init(autoreset=False)
-        self._message = f'{Fore.BLUE}{message}{Fore.RESET}'
+        if message is not None:
+            self._message = f'{Fore.BLUE}{message}{Fore.RESET}'
 
     def is_not_none(self) -> bool:
         '''
             Checking is message not None.
 
-            :return: True (not None) | False (it is None)
+            :return: True (not None) | False
             :rtype: <bool>
             :exceptions: None
         '''
-        return bool(self._message)
+        return self._message is not None
 
 
-def verbose_message(
-    verbose_path: str, control: bool, *message: Tuple[str, ...]
-) -> None:
+def verbose_message(control: bool, message: List[Any]) -> None:
     '''
         Show verbose message.
 
-        :param verbose_path: Verbose prefix message.
-        :type verbose_path: <str>
-        :param control: Enable/Disable verbose option.
+        :param control: Enable/Disable verbose option
         :type control: <bool>
-        :param message: Message parts
-        :type message: <Tuple[str, ...]>
+        :param message: Message combined as list of any elements
+        :type message: <List[Any]>
         :exceptions: ATSTypeError | ATSBadCallError
     '''
+    checker: ATSChecker = ATSChecker()
+    error_msg: str | None = None
+    error_id: int | None = None
+    error_msg, error_id = checker.check_params([
+        ('bool:control', control), ('list:message', message)
+    ])
+    if error_id == checker.TYPE_ERROR:
+        raise ATSTypeError(error_msg)
+    if error_id == checker.VALUE_ERROR:
+        raise ATSBadCallError(error_msg)
     if control:
-        checker: ATSChecker = ATSChecker()
-        error_msg: str | None = None
-        error_id: int | None = None
-        error_msg, error_id = checker.check_params([
-            ('str:verbose_path', verbose_path), ('tuple:message', message)
-        ])
-        if error_id == ATSChecker.type_error:
-            raise ATSTypeError(error_msg)
-        if error_id == ATSChecker.value_error:
-            raise ATSBadCallError(error_msg)
         verbose: ATSVerbose = ATSVerbose()
-        verbose.message = ' '.join(tuple([str(item) for item in message]))
-        print(f'[{verbose_path.lower()}] {verbose.message}')
+        verbose.message = ' '.join([str(item) for item in message])
+        if verbose.is_not_none():
+            print(f'{verbose.message}')

@@ -1,35 +1,33 @@
 # -*- coding: UTF-8 -*-
 
 '''
- Module
-     object2yaml.py
- Copyright
-     Copyright (C) 2017 Vladimir Roncevic <elektron.ronca@gmail.com>
-     ats_utilities is free software: you can redistribute it and/or modify it
-     under the terms of the GNU General Public License as published by the
-     Free Software Foundation, either version 3 of the License, or
-     (at your option) any later version.
-     ats_utilities is distributed in the hope that it will be useful, but
-     WITHOUT ANY WARRANTY; without even the implied warranty of
-     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-     See the GNU General Public License for more details.
-     You should have received a copy of the GNU General Public License along
-     with this program. If not, see <http://www.gnu.org/licenses/>.
- Info
-     Defined class Object2Yaml with attribute(s) and method(s).
-     Created API for writing a configuration/information to a yaml file.
+Module
+    object2yaml.py
+Copyright
+    Copyright (C) 2017 Vladimir Roncevic <elektron.ronca@gmail.com>
+    ats_utilities is free software: you can redistribute it and/or modify it
+    under the terms of the GNU General Public License as published by the
+    Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+    ats_utilities is distributed in the hope that it will be useful, but
+    WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+    See the GNU General Public License for more details.
+    You should have received a copy of the GNU General Public License along
+    with this program. If not, see <http://www.gnu.org/licenses/>.
+Info
+    Defines class Object2Yaml with attribute(s) and method(s).
+    Creates API for writing a configuration/information to a yaml file.
 '''
 
 import sys
+from typing import Any
 
 try:
-    from six import add_metaclass
     from yaml import dump
-    from ats_utilities import VerboseRoot
     from ats_utilities.checker import ATSChecker
-    from ats_utilities.config_io import ConfigFile
+    from ats_utilities.config_io import ConfFile
     from ats_utilities.console_io.verbose import verbose_message
-    from ats_utilities.config_io.base_write import BaseWriteConfig
     from ats_utilities.exceptions.ats_type_error import ATSTypeError
     from ats_utilities.exceptions.ats_bad_call_error import ATSBadCallError
 except ImportError as ats_error_message:
@@ -46,78 +44,85 @@ __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
 
 
-@add_metaclass(VerboseRoot)
-class Object2Yaml(BaseWriteConfig):
+class Object2Yaml(ATSChecker):
     '''
-        Defined class Object2Yaml with attribute(s) and method(s).
-        Created API for writing a configuration/information to a yaml file.
+        Defines class Object2Yaml with attribute(s) and method(s).
+        Creates API for writing a configuration/information to a yaml file.
+        Conversion YAML to configuration content.
+
         It defines:
 
             :attributes:
-                | __FORMAT - format of configuration content.
+                | _FORMAT - Format of configuration content.
                 | _verbose - Enable/Disable verbose option.
+                | _file_path - Configuration file path.
             :methods:
-                | __init__ - initial constructor.
-                | write_configuration - write configuration to a yaml file.
-                | __str__ - str dunder method for object Object2Yaml.
+                | __init__ - Initial Object2Yaml constructor.
+                | write_configuration - Write configuration to a yaml file.
     '''
 
-    __FORMAT = 'yaml'
+    _FORMAT: str = 'yaml'
 
-    def __init__(self, configuration_file, verbose=False):
+    def __init__(
+        self, configuration_file: str | None, verbose: bool = False
+    ) -> None:
         '''
-            Initial constructor.
+            Initial Object2Yaml constructor.
 
-            :param configuration_file: configuration file path.
-            :type configuration_file: <str>
-            :param verbose: enable/disable verbose option.
+            :param configuration_file: Configuration file path | None
+            :type configuration_file: <str> | <NoneType>
+            :param verbose: Enable/Disable verbose option
             :type verbose: <bool>
             :exceptions: ATSTypeError | ATSBadCallError
         '''
-        checker, error, status = ATSChecker(), None, False
-        error, status = checker.check_params([
+        super().__init__()
+        error_msg: str | None = None
+        error_id: int | None = None
+        error_msg, error_id = self.check_params([
             ('str:configuration_file', configuration_file)
         ])
-        if status == ATSChecker.type_error:
-            raise ATSTypeError(error)
-        if status == ATSChecker.value_error:
-            raise ATSBadCallError(error)
-        BaseWriteConfig.__init__(self, verbose)
-        self._verbose = verbose
-        self.file_path = configuration_file
-        verbose_message(Object2Yaml.verbose, verbose, configuration_file)
+        if error_id == self.TYPE_ERROR:
+            raise ATSTypeError(error_msg)
+        if error_id == self.VALUE_ERROR:
+            raise ATSBadCallError(error_msg)
+        self._verbose: bool = verbose
+        configuration_file = str(configuration_file)
+        self._file_path: str = configuration_file
+        verbose_message(
+            self._verbose, [f'configuraiton file {configuration_file}']
+        )
 
-    def write_configuration(self, configuration, verbose=False):
+    def write_configuration(
+        self, configuration: Any | None, verbose: bool = False
+    ) -> bool:
         '''
             Write configuration to a yaml file.
 
-            :param configuration: configuration object | None.
-            :type configuration: <Python object(s)> | <NoneType>
-            :param verbose: enable/disable verbose option.
+            :param verbose: Enable/Disable verbose option
             :type verbose: <bool>
-            :return: boolean status, True (success) | False.
+            :param configuration: Configuration object | None
+            :type: <Any> | <NoneType>
+            :return: True (configuration written to file) | False
             :rtype: <bool>
             :exception: None
         '''
-        status = False
-        verbose_message(Object2Yaml.verbose, verbose, configuration)
+        error_msg: str | None = None
+        error_id: int | None = None
+        error_msg, error_id = self.check_params([
+            ('Any:configuration', configuration)
+        ])
+        if error_id == self.TYPE_ERROR:
+            raise ATSTypeError(error_msg)
+        if error_id == self.VALUE_ERROR:
+            raise ATSBadCallError(error_msg)
+        status: bool = False
+        verbose_message(
+            self._verbose or verbose, [f'configuration {configuration}']
+        )
         if configuration is None:
             return status
-        with ConfigFile(self.file_path, 'w', Object2Yaml.__FORMAT) as yaml:
+        with ConfFile(self._file_path, 'w', Object2Yaml._FORMAT) as yaml:
             if bool(yaml):
                 dump(configuration, yaml, default_flow_style=False)
                 status = True
         return status
-
-    def __str__(self):
-        '''
-            Dunder str method for Object2Yaml.
-
-            :return: object in a human-readable format.
-            :rtype: <str>
-            :exceptions: None
-        '''
-        return '{0} ({1}, {2})'.format(
-            self.__class__.__name__, BaseWriteConfig.__str__(self),
-            str(self._verbose)
-        )

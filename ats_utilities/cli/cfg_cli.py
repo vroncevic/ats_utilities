@@ -17,23 +17,19 @@ Copyright
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
     Defines class CfgCLI with attribute(s) and method(s).
-    Creates API for check and load informations, setup argument parser.
+    Creates API for check and load information, setup argument parser.
 '''
 
-
 import sys
-from typing import Any, Tuple, Dict
+from typing import Any
 from argparse import Namespace
 from abc import abstractmethod
 
 try:
-    from ats_utilities import auto_str
-    from ats_utilities.checker import ATSChecker
     from ats_utilities.config_io.cfg import CfgBase
     from ats_utilities.console_io.verbose import verbose_message
     from ats_utilities.exceptions.ats_type_error import ATSTypeError
     from ats_utilities.exceptions.ats_bad_call_error import ATSBadCallError
-    from ats_utilities.cli.cfg_cli_meta import CfgCLIMeta
 except ImportError as ats_error_message:
     # Force exit python #######################################################
     sys.exit(f'\n{__file__}\n{ats_error_message}\n')
@@ -48,12 +44,11 @@ __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
 
 
-@auto_str
-class CfgCLI(CfgBase, metaclass=CfgCLIMeta):
+class CfgCLI(CfgBase):
     '''
         Defines class CfgCLI with attribute(s) and method(s).
-        Creates API for check and load informations, setup arguments parser.
-        Command line interface configurtion based on cfg format.
+        Creates API for check and load information, setup arguments parser.
+        Command line interface configurtion based on CFG format.
 
         It defines:
 
@@ -65,8 +60,6 @@ class CfgCLI(CfgBase, metaclass=CfgCLIMeta):
                 | parse_args - Parse CL arguments.
                 | process - Process and run tool operation (Abstract method).
     '''
-
-    _verbose: bool
 
     def __init__(
         self, information_file: str | None, verbose: bool = False
@@ -80,37 +73,21 @@ class CfgCLI(CfgBase, metaclass=CfgCLIMeta):
             :type verbose: <bool>
             :exceptions: ATSTypeError | ATSBadCallError
         '''
-        checker: ATSChecker = ATSChecker()
-        error_msg: str | None = None
-        error_id: int | None = None
-        error_msg, error_id = checker.check_params([
-            ('str:information_file', information_file)
-        ])
-        if error_id == ATSChecker.type_error:
-            raise ATSTypeError(error_msg)
-        if error_id == ATSChecker.value_error:
-            raise ATSBadCallError(error_msg)
-        CfgBase.__init__(self, information_file, verbose)
-        self._verbose = verbose
-        verbose_message(
-            CfgCLI.verbose,  # pylint: disable=no-member
-            verbose,
-            tuple('init ATS cfg cli')
-        )
+        super().__init__(information_file, verbose)
+        self._verbose: bool = verbose
+        verbose_message(self._verbose, ['init ATS cfg cli'])
 
-    def add_new_option(
-        self, *args: Tuple[Any], **kwargs: Dict[Any, Any]
-    ) -> None:
+    def add_new_option(self, *args: str, **kwargs: Any) -> None:
         '''
             Adding new option for CL interface.
 
-            :param args: Tuple of arguments (objects)
-            :type args: <Tuple[Any]>
-            :param kwargs: arguments in dictionary format
-            :type kwargs: <Dict[Any, Any]>
+            :param args: Arguments in string form
+            :type args: <str>
+            :param kwargs: arguments in Any form
+            :type kwargs: <Any>
             :exceptions: None
         '''
-        CfgBase.option_parser.add_operation(*args, **kwargs)
+        self.option_parser.add_operation(*args, **kwargs)
 
     def parse_args(self, argv: list[Any] | list[str]) -> Any | Namespace:
         '''
@@ -120,24 +97,25 @@ class CfgCLI(CfgBase, metaclass=CfgCLIMeta):
             :type argv: <list[Any] | list[str]>
             :return: Options and arguments
             :rtype: <Any | Namespace>
-            :exceptions: None
+            :exceptions: ATSTypeError | ATSBadCallError
         '''
-        checker: ATSChecker = ATSChecker()
         error_msg: str | None = None
         error_id: int | None = None
-        error_msg, error_id = checker.check_params([('list:argv', argv)])
-        if error_id == ATSChecker.type_error:
+        error_msg, error_id = self.check_params([('list:argv', argv)])
+        if error_id == self.TYPE_ERROR:
             raise ATSTypeError(error_msg)
-        if error_id == ATSChecker.value_error:
+        if error_id == self.VALUE_ERROR:
             raise ATSBadCallError(error_msg)
-        return CfgBase.option_parser.parse_args(argv)
+        return self.option_parser.parse_args(argv)
 
     @abstractmethod
-    def process(self, verbose: bool = False) -> None:
+    def process(self, verbose: bool = False) -> bool:
         '''
             Process and run tool operation (Abstract method).
 
             :param verbose: Enable/Disable verbose option
             :type verbose: <bool>
-            :exception: NotImplementedError
+            :return: True (successfully finished) | False
+            :rtype: <bool>
+            :exception: TypeError
         '''

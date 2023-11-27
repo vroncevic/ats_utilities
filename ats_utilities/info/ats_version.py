@@ -23,7 +23,6 @@ Info
 import sys
 
 try:
-    from ats_utilities import auto_str, VerboseRoot
     from ats_utilities.checker import ATSChecker
     from ats_utilities.console_io.verbose import verbose_message
     from ats_utilities.exceptions.ats_type_error import ATSTypeError
@@ -42,8 +41,7 @@ __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
 
 
-@auto_str
-class ATSVersion(metaclass=VerboseRoot):
+class ATSVersion(ATSChecker):
     '''
         Defines class ATSVersion with attribute(s) and method(s).
         Creates API for ATS version in one property object.
@@ -60,9 +58,6 @@ class ATSVersion(metaclass=VerboseRoot):
                 | is_not_none - Check is ATS version not None.
     '''
 
-    _verbose: bool
-    _version: str | None
-
     def __init__(self, verbose: bool = False) -> None:
         '''
             Initial ATSVersion constructor.
@@ -71,8 +66,9 @@ class ATSVersion(metaclass=VerboseRoot):
             :type verbose: <bool>
             :exceptions: None
         '''
-        self._verbose = verbose
-        self._version = None
+        super().__init__()
+        self._verbose: bool = verbose
+        self._version: str | None = None
 
     @property
     def version(self) -> str | None:
@@ -90,33 +86,26 @@ class ATSVersion(metaclass=VerboseRoot):
         '''
             Property method for setting ATS version.
 
-            :param version: ATS version.
-            :type version: <str>
+            :param version: ATS version | None
+            :type version: <str> | <NoneType>
             :exceptions: ATSTypeError | ATSBadCallError
         '''
-        checker: ATSChecker = ATSChecker()
         error_msg: str | None = None
         error_id: int | None = None
-        error_msg, error_id = checker.check_params([
-            ('str:version', version)
-        ])
-        if error_id == ATSChecker.type_error:
+        error_msg, error_id = self.check_params([('str:version', version)])
+        if error_id == self.TYPE_ERROR:
             raise ATSTypeError(error_msg)
-        if error_id == ATSChecker.value_error:
+        if error_id == self.VALUE_ERROR:
             raise ATSBadCallError(error_msg)
         self._version = version
-        verbose_message(
-            ATSVersion.verbose,  # pylint: disable=no-member
-            self._verbose,
-            tuple(str(version))
-        )
+        verbose_message(self._verbose, [f'version {version}'])
 
     def is_not_none(self) -> bool:
         '''
             Checking is ATS version None.
 
-            :return: True (ATS version is not None) | False.
+            :return: True (ATS version is not None) | False
             :rtype: <bool>
             :exceptions: None
         '''
-        return bool(self._version)
+        return self._version is not None

@@ -37,7 +37,7 @@ long_description: str | None = None
 with open(join(THIS_DIR, 'README.md'), encoding="utf-8") as readme:
     long_description = readme.read()
 PROGRAMMING_LANG = 'Programming Language :: Python ::'
-VERSIONS: list[str] = ['3.11']
+VERSIONS: list[str] = ['3.10', '3.11']
 SUPPORTED_PY_VERSIONS: list[str] = [
     f'{PROGRAMMING_LANG} {VERSION}' for VERSION in VERSIONS
 ]

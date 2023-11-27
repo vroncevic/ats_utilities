@@ -8,7 +8,9 @@ Submodules
    :maxdepth: 4
 
    ats_utilities.config_io.ini.ini2object
+   ats_utilities.config_io.ini.ini2object_meta
    ats_utilities.config_io.ini.object2ini
+   ats_utilities.config_io.ini.object2ini_meta
 
 Module contents
 ---------------

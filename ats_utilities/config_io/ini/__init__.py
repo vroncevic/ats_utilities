@@ -22,9 +22,9 @@ Info
 
 import sys
 from typing import Any, Dict
+from configparser import ConfigParser
 
 try:
-    from ats_utilities import auto_str, VerboseRoot
     from ats_utilities.info import ATSInfo
     from ats_utilities.checker import ATSChecker
     from ats_utilities.option import ATSOptionParser
@@ -47,8 +47,7 @@ __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
 
 
-@auto_str
-class IniBase(metaclas=VerboseRoot):
+class IniBase(ATSChecker):
     '''
         Defines class IniBase with attribute(s) and method(s).
         Loads ATS configuration/information, setup ATS CL interface.
@@ -67,42 +66,36 @@ class IniBase(metaclas=VerboseRoot):
                 | is_tool_ok - Check is tool operational.
     '''
 
-    _verbose: bool
-    tool_operational: bool
-    ini2obj: Ini2Object
-    obj2ini: Object2Ini
-    option_parser: ATSOptionParser
-
     def __init__(
         self, information_file: str | None, verbose: bool = False
     ) -> None:
         '''
             Initial IniBase constructor.
 
-            :param information_file: Informations file path | None
+            :param information_file: Information file path | None
             :type information_file: <str> | <NoneType>
             :param verbose: Enable/Disable verbose option
             :type verbose: <bool>
             :exceptions: ATSTypeError | ATSBadCallError
         '''
-        checker: ATSChecker = ATSChecker()
+        super().__init__()
         error_msg: str | None = None
         error_id: int | None = None
-        error_msg, error_id = checker.check_params([
+        error_msg, error_id = self.check_params([
             ('str:information_file', information_file)
         ])
-        if error_id == ATSChecker.type_error:
+        if error_id == self.TYPE_ERROR:
             raise ATSTypeError(error_msg)
-        if error_id == ATSChecker.value_error:
+        if error_id == self.VALUE_ERROR:
             raise ATSBadCallError(error_msg)
-        self._verbose = verbose
-        information: Dict[Any, Any] = {}
-        info_dict: Dict[Any, Any] = dict()
-        self.tool_operational = False
-        self.ini2obj = Ini2Object(information_file, verbose)
-        self.obj2ini = Object2Ini(information_file, verbose)
+        self._verbose: bool = verbose
+        information: ConfigParser | None = None
+        info_dict: Dict[Any, Any] = {}
+        self.tool_operational: bool = False
+        self.ini2obj: Ini2Object = Ini2Object(information_file, self._verbose)
+        self.obj2ini: Object2Ini = Object2Ini(information_file, self._verbose)
         if all([self.ini2obj, self.obj2ini]):
-            information = self.ini2obj.read_configuration(verbose)
+            information = self.ini2obj.read_configuration(self._verbose)
         if information:
             info_dict['ats_name'] = str(information.get(
                 'ats_info', 'ats_name'
@@ -116,18 +109,14 @@ class IniBase(metaclas=VerboseRoot):
             info_dict['ats_licence'] = str(information.get(
                 'ats_info', 'ats_licence'
             ))
-            info: ATSInfo = ATSInfo(info_dict, verbose)
+            info: ATSInfo = ATSInfo(info_dict, self._verbose)
             if info.ats_info_ok:
-                self.option_parser = ATSOptionParser(
+                self.option_parser: ATSOptionParser = ATSOptionParser(
                     f'{info.name} {info.build_date}',
-                    info.version, info.licence, verbose
+                    info.version, info.licence, self._verbose
                 )
                 self.tool_operational = True
-                verbose_message(
-                    IniBase.verbose,  # pylint: disable=no-member
-                    verbose,
-                    tuple('loaded ATS INI base info')
-                )
+                verbose_message(self._verbose, ['loaded ATS INI base info'])
 
     def is_tool_ok(self) -> bool:
         '''

@@ -1,118 +1,126 @@
+
 <!DOCTYPE html>
-<html class="writer-html4" lang="en" >
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ats_utilities package &mdash; ats_utilities https://github.com/vroncevic/ats_utilities/releases documentation</title><link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-  <!--[if lt IE 9]>
-    <script src="_static/js/html5shiv.min.js"></script>
-  <![endif]-->
-  <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-        <script type="text/javascript" src="_static/jquery.js"></script>
-        <script type="text/javascript" src="_static/underscore.js"></script>
-        <script type="text/javascript" src="_static/doctools.js"></script>
-        <script type="text/javascript" src="_static/language_data.js"></script>
-    <script src="_static/js/theme.js"></script>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>ats_utilities package &#8212; ats_utilities https://github.com/vroncevic/ats_utilities/releases documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/classic.css" />
+    
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/sphinx_highlight.js"></script>
+    
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="ats_utilities.abstract package" href="ats_utilities.abstract.html" />
+    <link rel="next" title="ats_utilities.checker package" href="ats_utilities.checker.html" />
     <link rel="prev" title="ats_utilities" href="modules.html" /> 
-</head>
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="ats_utilities.checker.html" title="ats_utilities.checker package"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="modules.html" title="ats_utilities"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">ats_utilities https://github.com/vroncevic/ats_utilities/releases documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="modules.html" accesskey="U">ats_utilities</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">ats_utilities package</a></li> 
+      </ul>
+    </div>  
 
-<body class="wy-body-for-nav"> 
-  <div class="wy-grid-for-nav">
-    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
-      <div class="wy-side-scroll">
-        <div class="wy-side-nav-search" >
-            <a href="index.html" class="icon icon-home"> ats_utilities
-          </a>
-              <div class="version">
-                2.5.5
-              </div>
-<div role="search">
-  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
-    <input type="hidden" name="check_keywords" value="yes" />
-    <input type="hidden" name="area" value="default" />
-  </form>
-</div>
-        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption"><span class="caption-text">Contents</span></p>
-<ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="index.html">ATS Utilities</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="modules.html">ats_utilities</a><ul class="current">
-<li class="toctree-l2 current"><a class="current reference internal" href="#">ats_utilities package</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#subpackages">Subpackages</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="ats_utilities.abstract.html">ats_utilities.abstract package</a></li>
-<li class="toctree-l4"><a class="reference internal" href="ats_utilities.checker.html">ats_utilities.checker package</a></li>
-<li class="toctree-l4"><a class="reference internal" href="ats_utilities.cli.html">ats_utilities.cli package</a></li>
-<li class="toctree-l4"><a class="reference internal" href="ats_utilities.config_io.html">ats_utilities.config_io package</a></li>
-<li class="toctree-l4"><a class="reference internal" href="ats_utilities.console_io.html">ats_utilities.console_io package</a></li>
-<li class="toctree-l4"><a class="reference internal" href="ats_utilities.cooperative.html">ats_utilities.cooperative package</a></li>
-<li class="toctree-l4"><a class="reference internal" href="ats_utilities.exceptions.html">ats_utilities.exceptions package</a></li>
-<li class="toctree-l4"><a class="reference internal" href="ats_utilities.final.html">ats_utilities.final package</a></li>
-<li class="toctree-l4"><a class="reference internal" href="ats_utilities.info.html">ats_utilities.info package</a></li>
-<li class="toctree-l4"><a class="reference internal" href="ats_utilities.logging.html">ats_utilities.logging package</a></li>
-<li class="toctree-l4"><a class="reference internal" href="ats_utilities.option.html">ats_utilities.option package</a></li>
-<li class="toctree-l4"><a class="reference internal" href="ats_utilities.register.html">ats_utilities.register package</a></li>
-<li class="toctree-l4"><a class="reference internal" href="ats_utilities.singleton.html">ats_utilities.singleton package</a></li>
-<li class="toctree-l4"><a class="reference internal" href="ats_utilities.splash.html">ats_utilities.splash package</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="#module-ats_utilities">Module contents</a></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-
-        </div>
-      </div>
-    </nav>
-
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
-          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="index.html">ats_utilities</a>
-      </nav>
-
-      <div class="wy-nav-content">
-        <div class="rst-content">
-          <div role="navigation" aria-label="Page navigation">
-  <ul class="wy-breadcrumbs">
-      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
-          <li><a href="modules.html">ats_utilities</a> &raquo;</li>
-      <li>ats_utilities package</li>
-      <li class="wy-breadcrumbs-aside">
-            <a href="_sources/ats_utilities.rst.txt" rel="nofollow"> View page source</a>
-      </li>
-  </ul>
-  <hr/>
-</div>
-          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
-           <div itemprop="articleBody">
-             
-  <div class="section" id="ats-utilities-package">
-<h1>ats_utilities package<a class="headerlink" href="#ats-utilities-package" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="subpackages">
-<h2>Subpackages<a class="headerlink" href="#subpackages" title="Permalink to this headline">¶</a></h2>
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="ats-utilities-package">
+<h1>ats_utilities package<a class="headerlink" href="#ats-utilities-package" title="Permalink to this heading">¶</a></h1>
+<section id="subpackages">
+<h2>Subpackages<a class="headerlink" href="#subpackages" title="Permalink to this heading">¶</a></h2>
 <div class="toctree-wrapper compound">
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="ats_utilities.abstract.html">ats_utilities.abstract package</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="ats_utilities.abstract.html#module-ats_utilities.abstract">Module contents</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ats_utilities.checker.html">ats_utilities.checker package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="ats_utilities.checker.html#module-ats_utilities.checker">Module contents</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="ats_utilities.checker.html#ats_utilities.checker.ATSChecker"><code class="docutils literal notranslate"><span class="pre">ATSChecker</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ats_utilities.checker.html#ats_utilities.checker.ATSChecker._error_type"><code class="docutils literal notranslate"><span class="pre">ATSChecker._error_type</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ats_utilities.checker.html#ats_utilities.checker.ATSChecker._error_type_index"><code class="docutils literal notranslate"><span class="pre">ATSChecker._error_type_index</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ats_utilities.checker.html#ats_utilities.checker.ATSChecker._error_value_index"><code class="docutils literal notranslate"><span class="pre">ATSChecker._error_value_index</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ats_utilities.checker.html#ats_utilities.checker.ATSChecker._list_of_params"><code class="docutils literal notranslate"><span class="pre">ATSChecker._list_of_params</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ats_utilities.checker.html#ats_utilities.checker.ATSChecker._start_message"><code class="docutils literal notranslate"><span class="pre">ATSChecker._start_message</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ats_utilities.checker.html#ats_utilities.checker.ATSChecker.check_params"><code class="docutils literal notranslate"><span class="pre">ATSChecker.check_params()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ats_utilities.checker.html#ats_utilities.checker.ATSChecker.check_types"><code class="docutils literal notranslate"><span class="pre">ATSChecker.check_types()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ats_utilities.checker.html#ats_utilities.checker.ATSChecker.check_values"><code class="docutils literal notranslate"><span class="pre">ATSChecker.check_values()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ats_utilities.checker.html#ats_utilities.checker.ATSChecker.collect_params"><code class="docutils literal notranslate"><span class="pre">ATSChecker.collect_params()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ats_utilities.checker.html#ats_utilities.checker.ATSChecker.format_error"><code class="docutils literal notranslate"><span class="pre">ATSChecker.format_error</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ats_utilities.checker.html#ats_utilities.checker.ATSChecker.no_error"><code class="docutils literal notranslate"><span class="pre">ATSChecker.no_error</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ats_utilities.checker.html#ats_utilities.checker.ATSChecker.priority_error"><code class="docutils literal notranslate"><span class="pre">ATSChecker.priority_error()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ats_utilities.checker.html#ats_utilities.checker.ATSChecker.type_error"><code class="docutils literal notranslate"><span class="pre">ATSChecker.type_error</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ats_utilities.checker.html#ats_utilities.checker.ATSChecker.usage_message"><code class="docutils literal notranslate"><span class="pre">ATSChecker.usage_message()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ats_utilities.checker.html#ats_utilities.checker.ATSChecker.value_error"><code class="docutils literal notranslate"><span class="pre">ATSChecker.value_error</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ats_utilities.checker.html#ats_utilities.checker.ATSChecker.verbose"><code class="docutils literal notranslate"><span class="pre">ATSChecker.verbose</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="ats_utilities.checker.html">ats_utilities.checker package</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="ats_utilities.checker.html#module-ats_utilities.checker">Module contents</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="ats_utilities.cli.html">ats_utilities.cli package</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="ats_utilities.cli.html#submodules">Submodules</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="ats_utilities.cli.cfg_cli.html">ats_utilities.cli.cfg_cli module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="ats_utilities.cli.ini_cli.html">ats_utilities.cli.ini_cli module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="ats_utilities.cli.json_cli.html">ats_utilities.cli.json_cli module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="ats_utilities.cli.xml_cli.html">ats_utilities.cli.xml_cli module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="ats_utilities.cli.yaml_cli.html">ats_utilities.cli.yaml_cli module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ats_utilities.cli.cfg_cli.html">ats_utilities.cli.cfg_cli module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ats_utilities.cli.cfg_cli.html#ats_utilities.cli.cfg_cli.CfgCLI"><code class="docutils literal notranslate"><span class="pre">CfgCLI</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="ats_utilities.cli.cfg_cli_meta.html">ats_utilities.cli.cfg_cli_meta module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ats_utilities.cli.cfg_cli_meta.html#ats_utilities.cli.cfg_cli_meta.CfgCLIMeta"><code class="docutils literal notranslate"><span class="pre">CfgCLIMeta</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="ats_utilities.cli.ini_cli.html">ats_utilities.cli.ini_cli module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ats_utilities.cli.ini_cli.html#ats_utilities.cli.ini_cli.IniCLI"><code class="docutils literal notranslate"><span class="pre">IniCLI</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="ats_utilities.cli.ini_cli_meta.html">ats_utilities.cli.ini_cli_meta module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ats_utilities.cli.ini_cli_meta.html#ats_utilities.cli.ini_cli_meta.IniCLIMeta"><code class="docutils literal notranslate"><span class="pre">IniCLIMeta</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="ats_utilities.cli.json_cli.html">ats_utilities.cli.json_cli module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ats_utilities.cli.json_cli.html#ats_utilities.cli.json_cli.JsonCLI"><code class="docutils literal notranslate"><span class="pre">JsonCLI</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="ats_utilities.cli.json_cli_meta.html">ats_utilities.cli.json_cli_meta module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ats_utilities.cli.json_cli_meta.html#ats_utilities.cli.json_cli_meta.JsonCLIMeta"><code class="docutils literal notranslate"><span class="pre">JsonCLIMeta</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="ats_utilities.cli.xml_cli.html">ats_utilities.cli.xml_cli module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ats_utilities.cli.xml_cli.html#ats_utilities.cli.xml_cli.XmlCLI"><code class="docutils literal notranslate"><span class="pre">XmlCLI</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="ats_utilities.cli.xml_cli_meta.html">ats_utilities.cli.xml_cli_meta module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ats_utilities.cli.xml_cli_meta.html#ats_utilities.cli.xml_cli_meta.XmlCLIMeta"><code class="docutils literal notranslate"><span class="pre">XmlCLIMeta</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="ats_utilities.cli.yaml_cli.html">ats_utilities.cli.yaml_cli module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ats_utilities.cli.yaml_cli.html#ats_utilities.cli.yaml_cli.YamlCLI"><code class="docutils literal notranslate"><span class="pre">YamlCLI</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="ats_utilities.cli.yaml_cli_meta.html">ats_utilities.cli.yaml_cli_meta module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ats_utilities.cli.yaml_cli_meta.html#ats_utilities.cli.yaml_cli_meta.YamlCLIMeta"><code class="docutils literal notranslate"><span class="pre">YamlCLIMeta</span></code></a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="ats_utilities.cli.html#module-ats_utilities.cli">Module contents</a></li>
@@ -148,111 +156,257 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="ats_utilities.config_io.html#submodules">Submodules</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="ats_utilities.config_io.base_check.html">ats_utilities.config_io.base_check module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="ats_utilities.config_io.base_read.html">ats_utilities.config_io.base_read module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="ats_utilities.config_io.base_write.html">ats_utilities.config_io.base_write module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ats_utilities.config_io.abs_read_conf.html">ats_utilities.config_io.abs_read_conf module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ats_utilities.config_io.abs_read_conf.html#ats_utilities.config_io.abs_read_conf.ReadConf"><code class="docutils literal notranslate"><span class="pre">ReadConf</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="ats_utilities.config_io.html#module-ats_utilities.config_io">Module contents</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ats_utilities.config_io.abs_write_conf.html">ats_utilities.config_io.abs_write_conf module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ats_utilities.config_io.abs_write_conf.html#ats_utilities.config_io.abs_write_conf.WriteConf"><code class="docutils literal notranslate"><span class="pre">WriteConf</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="ats_utilities.config_io.conf_file_meta.html">ats_utilities.config_io.conf_file_meta module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ats_utilities.config_io.conf_file_meta.html#ats_utilities.config_io.conf_file_meta.ConfFileMeta"><code class="docutils literal notranslate"><span class="pre">ConfFileMeta</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="ats_utilities.config_io.file_check.html">ats_utilities.config_io.file_check module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ats_utilities.config_io.file_check.html#ats_utilities.config_io.file_check.FileCheck"><code class="docutils literal notranslate"><span class="pre">FileCheck</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="ats_utilities.config_io.html#module-ats_utilities.config_io">Module contents</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="ats_utilities.config_io.html#ats_utilities.config_io.ConfFile"><code class="docutils literal notranslate"><span class="pre">ConfFile</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ats_utilities.config_io.html#ats_utilities.config_io.ConfFile._abc_impl"><code class="docutils literal notranslate"><span class="pre">ConfFile._abc_impl</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ats_utilities.config_io.html#ats_utilities.config_io.ConfFile._file"><code class="docutils literal notranslate"><span class="pre">ConfFile._file</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ats_utilities.config_io.html#ats_utilities.config_io.ConfFile._file_format"><code class="docutils literal notranslate"><span class="pre">ConfFile._file_format</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ats_utilities.config_io.html#ats_utilities.config_io.ConfFile._file_mode"><code class="docutils literal notranslate"><span class="pre">ConfFile._file_mode</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ats_utilities.config_io.html#ats_utilities.config_io.ConfFile._file_path"><code class="docutils literal notranslate"><span class="pre">ConfFile._file_path</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ats_utilities.config_io.html#ats_utilities.config_io.ConfFile._verbose"><code class="docutils literal notranslate"><span class="pre">ConfFile._verbose</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ats_utilities.config_io.html#ats_utilities.config_io.ConfFile.verbose"><code class="docutils literal notranslate"><span class="pre">ConfFile.verbose</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="ats_utilities.console_io.html">ats_utilities.console_io package</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="ats_utilities.console_io.html#submodules">Submodules</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="ats_utilities.console_io.error.html">ats_utilities.console_io.error module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="ats_utilities.console_io.success.html">ats_utilities.console_io.success module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="ats_utilities.console_io.verbose.html">ats_utilities.console_io.verbose module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="ats_utilities.console_io.warning.html">ats_utilities.console_io.warning module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ats_utilities.console_io.error.html">ats_utilities.console_io.error module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ats_utilities.console_io.error.html#ats_utilities.console_io.error.ATSError"><code class="docutils literal notranslate"><span class="pre">ATSError</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ats_utilities.console_io.error.html#ats_utilities.console_io.error.error_message"><code class="docutils literal notranslate"><span class="pre">error_message()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="ats_utilities.console_io.success.html">ats_utilities.console_io.success module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ats_utilities.console_io.success.html#ats_utilities.console_io.success.ATSSuccess"><code class="docutils literal notranslate"><span class="pre">ATSSuccess</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ats_utilities.console_io.success.html#ats_utilities.console_io.success.success_message"><code class="docutils literal notranslate"><span class="pre">success_message()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="ats_utilities.console_io.verbose.html">ats_utilities.console_io.verbose module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ats_utilities.console_io.verbose.html#ats_utilities.console_io.verbose.ATSVerbose"><code class="docutils literal notranslate"><span class="pre">ATSVerbose</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ats_utilities.console_io.verbose.html#ats_utilities.console_io.verbose.verbose_message"><code class="docutils literal notranslate"><span class="pre">verbose_message()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="ats_utilities.console_io.warning.html">ats_utilities.console_io.warning module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ats_utilities.console_io.warning.html#ats_utilities.console_io.warning.ATSWarning"><code class="docutils literal notranslate"><span class="pre">ATSWarning</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ats_utilities.console_io.warning.html#ats_utilities.console_io.warning.warning_message"><code class="docutils literal notranslate"><span class="pre">warning_message()</span></code></a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="ats_utilities.console_io.html#module-ats_utilities.console_io">Module contents</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="ats_utilities.cooperative.html">ats_utilities.cooperative package</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="ats_utilities.cooperative.html#module-ats_utilities.cooperative">Module contents</a></li>
-</ul>
-</li>
 <li class="toctree-l1"><a class="reference internal" href="ats_utilities.exceptions.html">ats_utilities.exceptions package</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="ats_utilities.exceptions.html#submodules">Submodules</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="ats_utilities.exceptions.ats_attribute_error.html">ats_utilities.exceptions.ats_attribute_error module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="ats_utilities.exceptions.ats_bad_call_error.html">ats_utilities.exceptions.ats_bad_call_error module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="ats_utilities.exceptions.ats_file_error.html">ats_utilities.exceptions.ats_file_error module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="ats_utilities.exceptions.ats_key_error.html">ats_utilities.exceptions.ats_key_error module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="ats_utilities.exceptions.ats_lookup_error.html">ats_utilities.exceptions.ats_lookup_error module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="ats_utilities.exceptions.ats_parameter_error.html">ats_utilities.exceptions.ats_parameter_error module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="ats_utilities.exceptions.ats_type_error.html">ats_utilities.exceptions.ats_type_error module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="ats_utilities.exceptions.ats_value_error.html">ats_utilities.exceptions.ats_value_error module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ats_utilities.exceptions.ats_attribute_error.html">ats_utilities.exceptions.ats_attribute_error module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ats_utilities.exceptions.ats_attribute_error.html#ats_utilities.exceptions.ats_attribute_error.ATSAttributeError"><code class="docutils literal notranslate"><span class="pre">ATSAttributeError</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="ats_utilities.exceptions.html#module-ats_utilities.exceptions">Module contents</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ats_utilities.exceptions.ats_bad_call_error.html">ats_utilities.exceptions.ats_bad_call_error module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ats_utilities.exceptions.ats_bad_call_error.html#ats_utilities.exceptions.ats_bad_call_error.ATSBadCallError"><code class="docutils literal notranslate"><span class="pre">ATSBadCallError</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="ats_utilities.final.html">ats_utilities.final package</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="ats_utilities.final.html#module-ats_utilities.final">Module contents</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ats_utilities.exceptions.ats_file_error.html">ats_utilities.exceptions.ats_file_error module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ats_utilities.exceptions.ats_file_error.html#ats_utilities.exceptions.ats_file_error.ATSFileError"><code class="docutils literal notranslate"><span class="pre">ATSFileError</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="ats_utilities.exceptions.ats_key_error.html">ats_utilities.exceptions.ats_key_error module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ats_utilities.exceptions.ats_key_error.html#ats_utilities.exceptions.ats_key_error.ATSKeyError"><code class="docutils literal notranslate"><span class="pre">ATSKeyError</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="ats_utilities.exceptions.ats_lookup_error.html">ats_utilities.exceptions.ats_lookup_error module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ats_utilities.exceptions.ats_lookup_error.html#ats_utilities.exceptions.ats_lookup_error.ATSLookupError"><code class="docutils literal notranslate"><span class="pre">ATSLookupError</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="ats_utilities.exceptions.ats_parameter_error.html">ats_utilities.exceptions.ats_parameter_error module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ats_utilities.exceptions.ats_parameter_error.html#ats_utilities.exceptions.ats_parameter_error.ATSParameterError"><code class="docutils literal notranslate"><span class="pre">ATSParameterError</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="ats_utilities.exceptions.ats_type_error.html">ats_utilities.exceptions.ats_type_error module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ats_utilities.exceptions.ats_type_error.html#ats_utilities.exceptions.ats_type_error.ATSTypeError"><code class="docutils literal notranslate"><span class="pre">ATSTypeError</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="ats_utilities.exceptions.ats_value_error.html">ats_utilities.exceptions.ats_value_error module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ats_utilities.exceptions.ats_value_error.html#ats_utilities.exceptions.ats_value_error.ATSValueError"><code class="docutils literal notranslate"><span class="pre">ATSValueError</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="ats_utilities.exceptions.html#module-ats_utilities.exceptions">Module contents</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="ats_utilities.exceptions.html#ats_utilities.exceptions.ATSError"><code class="docutils literal notranslate"><span class="pre">ATSError</span></code></a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="ats_utilities.info.html">ats_utilities.info package</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="ats_utilities.info.html#submodules">Submodules</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="ats_utilities.info.ats_build_date.html">ats_utilities.info.ats_build_date module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="ats_utilities.info.ats_info_ok.html">ats_utilities.info.ats_info_ok module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="ats_utilities.info.ats_licence.html">ats_utilities.info.ats_licence module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="ats_utilities.info.ats_name.html">ats_utilities.info.ats_name module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="ats_utilities.info.ats_version.html">ats_utilities.info.ats_version module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ats_utilities.info.ats_build_date.html">ats_utilities.info.ats_build_date module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ats_utilities.info.ats_build_date.html#ats_utilities.info.ats_build_date.ATSBuildDate"><code class="docutils literal notranslate"><span class="pre">ATSBuildDate</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="ats_utilities.info.html#module-ats_utilities.info">Module contents</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ats_utilities.info.ats_info_meta.html">ats_utilities.info.ats_info_meta module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ats_utilities.info.ats_info_meta.html#ats_utilities.info.ats_info_meta.ATSInfoMeta"><code class="docutils literal notranslate"><span class="pre">ATSInfoMeta</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="ats_utilities.info.ats_info_ok.html">ats_utilities.info.ats_info_ok module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ats_utilities.info.ats_info_ok.html#ats_utilities.info.ats_info_ok.ATSInfoOk"><code class="docutils literal notranslate"><span class="pre">ATSInfoOk</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="ats_utilities.info.ats_licence.html">ats_utilities.info.ats_licence module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ats_utilities.info.ats_licence.html#ats_utilities.info.ats_licence.ATSLicence"><code class="docutils literal notranslate"><span class="pre">ATSLicence</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="ats_utilities.info.ats_name.html">ats_utilities.info.ats_name module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ats_utilities.info.ats_name.html#ats_utilities.info.ats_name.ATSName"><code class="docutils literal notranslate"><span class="pre">ATSName</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="ats_utilities.info.ats_version.html">ats_utilities.info.ats_version module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ats_utilities.info.ats_version.html#ats_utilities.info.ats_version.ATSVersion"><code class="docutils literal notranslate"><span class="pre">ATSVersion</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="ats_utilities.info.html#module-ats_utilities.info">Module contents</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="ats_utilities.info.html#ats_utilities.info.ATSInfo"><code class="docutils literal notranslate"><span class="pre">ATSInfo</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ats_utilities.info.html#ats_utilities.info.ATSInfo._abc_impl"><code class="docutils literal notranslate"><span class="pre">ATSInfo._abc_impl</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ats_utilities.info.html#ats_utilities.info.ATSInfo._statuses"><code class="docutils literal notranslate"><span class="pre">ATSInfo._statuses</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ats_utilities.info.html#ats_utilities.info.ATSInfo._verbose"><code class="docutils literal notranslate"><span class="pre">ATSInfo._verbose</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ats_utilities.info.html#ats_utilities.info.ATSInfo.ats_base_info"><code class="docutils literal notranslate"><span class="pre">ATSInfo.ats_base_info</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ats_utilities.info.html#ats_utilities.info.ATSInfo.ats_build_date"><code class="docutils literal notranslate"><span class="pre">ATSInfo.ats_build_date</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ats_utilities.info.html#ats_utilities.info.ATSInfo.ats_licence"><code class="docutils literal notranslate"><span class="pre">ATSInfo.ats_licence</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ats_utilities.info.html#ats_utilities.info.ATSInfo.ats_name"><code class="docutils literal notranslate"><span class="pre">ATSInfo.ats_name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ats_utilities.info.html#ats_utilities.info.ATSInfo.ats_version"><code class="docutils literal notranslate"><span class="pre">ATSInfo.ats_version</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ats_utilities.info.html#ats_utilities.info.ATSInfo.is_correct"><code class="docutils literal notranslate"><span class="pre">ATSInfo.is_correct()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ats_utilities.info.html#ats_utilities.info.ATSInfo.show_base_info"><code class="docutils literal notranslate"><span class="pre">ATSInfo.show_base_info()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ats_utilities.info.html#ats_utilities.info.ATSInfo.verbose"><code class="docutils literal notranslate"><span class="pre">ATSInfo.verbose</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="ats_utilities.logging.html">ats_utilities.logging package</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="ats_utilities.logging.html#submodules">Submodules</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="ats_utilities.logging.ats_logger_file.html">ats_utilities.logging.ats_logger_file module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="ats_utilities.logging.ats_logger_name.html">ats_utilities.logging.ats_logger_name module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="ats_utilities.logging.ats_logger_status.html">ats_utilities.logging.ats_logger_status module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ats_utilities.logging.ats_logger_file.html">ats_utilities.logging.ats_logger_file module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ats_utilities.logging.ats_logger_file.html#ats_utilities.logging.ats_logger_file.ATSLoggerFile"><code class="docutils literal notranslate"><span class="pre">ATSLoggerFile</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="ats_utilities.logging.html#module-ats_utilities.logging">Module contents</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ats_utilities.logging.ats_logger_meta.html">ats_utilities.logging.ats_logger_meta module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ats_utilities.logging.ats_logger_meta.html#ats_utilities.logging.ats_logger_meta.ATSLoggerMeta"><code class="docutils literal notranslate"><span class="pre">ATSLoggerMeta</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="ats_utilities.logging.ats_logger_name.html">ats_utilities.logging.ats_logger_name module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ats_utilities.logging.ats_logger_name.html#ats_utilities.logging.ats_logger_name.ATSLoggerName"><code class="docutils literal notranslate"><span class="pre">ATSLoggerName</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="ats_utilities.logging.ats_logger_status.html">ats_utilities.logging.ats_logger_status module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ats_utilities.logging.ats_logger_status.html#ats_utilities.logging.ats_logger_status.ATSLoggerStatus"><code class="docutils literal notranslate"><span class="pre">ATSLoggerStatus</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="ats_utilities.logging.html#module-ats_utilities.logging">Module contents</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="ats_utilities.logging.html#ats_utilities.logging.ATSLogger"><code class="docutils literal notranslate"><span class="pre">ATSLogger</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ats_utilities.logging.html#ats_utilities.logging.ATSLogger._abc_impl"><code class="docutils literal notranslate"><span class="pre">ATSLogger._abc_impl</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ats_utilities.logging.html#ats_utilities.logging.ATSLogger._verbose"><code class="docutils literal notranslate"><span class="pre">ATSLogger._verbose</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ats_utilities.logging.html#ats_utilities.logging.ATSLogger.ats_critical"><code class="docutils literal notranslate"><span class="pre">ATSLogger.ats_critical</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ats_utilities.logging.html#ats_utilities.logging.ATSLogger.ats_debug"><code class="docutils literal notranslate"><span class="pre">ATSLogger.ats_debug</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ats_utilities.logging.html#ats_utilities.logging.ATSLogger.ats_error"><code class="docutils literal notranslate"><span class="pre">ATSLogger.ats_error</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ats_utilities.logging.html#ats_utilities.logging.ATSLogger.ats_info"><code class="docutils literal notranslate"><span class="pre">ATSLogger.ats_info</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ats_utilities.logging.html#ats_utilities.logging.ATSLogger.ats_warning"><code class="docutils literal notranslate"><span class="pre">ATSLogger.ats_warning</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ats_utilities.logging.html#ats_utilities.logging.ATSLogger.log_date_format"><code class="docutils literal notranslate"><span class="pre">ATSLogger.log_date_format</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ats_utilities.logging.html#ats_utilities.logging.ATSLogger.log_msg_format"><code class="docutils literal notranslate"><span class="pre">ATSLogger.log_msg_format</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ats_utilities.logging.html#ats_utilities.logging.ATSLogger.verbose"><code class="docutils literal notranslate"><span class="pre">ATSLogger.verbose</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ats_utilities.logging.html#ats_utilities.logging.ATSLogger.write_log"><code class="docutils literal notranslate"><span class="pre">ATSLogger.write_log()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="ats_utilities.option.html">ats_utilities.option package</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="ats_utilities.option.html#module-ats_utilities.option">Module contents</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ats_utilities.option.html#module-ats_utilities.option">Module contents</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="ats_utilities.option.html#ats_utilities.option.ATSOptionParser"><code class="docutils literal notranslate"><span class="pre">ATSOptionParser</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ats_utilities.option.html#ats_utilities.option.ATSOptionParser._opt_parser"><code class="docutils literal notranslate"><span class="pre">ATSOptionParser._opt_parser</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ats_utilities.option.html#ats_utilities.option.ATSOptionParser._verbose"><code class="docutils literal notranslate"><span class="pre">ATSOptionParser._verbose</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ats_utilities.option.html#ats_utilities.option.ATSOptionParser.add_operation"><code class="docutils literal notranslate"><span class="pre">ATSOptionParser.add_operation()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ats_utilities.option.html#ats_utilities.option.ATSOptionParser.parse_args"><code class="docutils literal notranslate"><span class="pre">ATSOptionParser.parse_args()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ats_utilities.option.html#ats_utilities.option.ATSOptionParser.verbose"><code class="docutils literal notranslate"><span class="pre">ATSOptionParser.verbose</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="ats_utilities.register.html">ats_utilities.register package</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="ats_utilities.register.html#module-ats_utilities.register">Module contents</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="ats_utilities.singleton.html">ats_utilities.singleton package</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="ats_utilities.singleton.html#submodules">Submodules</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="ats_utilities.singleton.base.html">ats_utilities.singleton.base module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="ats_utilities.singleton.functional.html">ats_utilities.singleton.functional module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="ats_utilities.singleton.meta.html">ats_utilities.singleton.meta module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="ats_utilities.singleton.meta_thread.html">ats_utilities.singleton.meta_thread module</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="ats_utilities.singleton.html#module-ats_utilities.singleton">Module contents</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="ats_utilities.splash.html">ats_utilities.splash package</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="ats_utilities.splash.html#submodules">Submodules</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="ats_utilities.splash.ext_infrastructure.html">ats_utilities.splash.ext_infrastructure module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="ats_utilities.splash.github_infrastructure.html">ats_utilities.splash.github_infrastructure module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="ats_utilities.splash.progress_bar.html">ats_utilities.splash.progress_bar module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="ats_utilities.splash.splash_property.html">ats_utilities.splash.splash_property module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="ats_utilities.splash.terminal_properties.html">ats_utilities.splash.terminal_properties module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ats_utilities.splash.ext_infrastructure.html">ats_utilities.splash.ext_infrastructure module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ats_utilities.splash.ext_infrastructure.html#ats_utilities.splash.ext_infrastructure.ExtInfrastructure"><code class="docutils literal notranslate"><span class="pre">ExtInfrastructure</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="ats_utilities.splash.html#module-ats_utilities.splash">Module contents</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ats_utilities.splash.github_infrastructure.html">ats_utilities.splash.github_infrastructure module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ats_utilities.splash.github_infrastructure.html#ats_utilities.splash.github_infrastructure.GitHubInfrastructure"><code class="docutils literal notranslate"><span class="pre">GitHubInfrastructure</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="ats_utilities.splash.progress_bar.html">ats_utilities.splash.progress_bar module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ats_utilities.splash.progress_bar.html#ats_utilities.splash.progress_bar.ProgressBar"><code class="docutils literal notranslate"><span class="pre">ProgressBar</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="ats_utilities.splash.splash_meta.html">ats_utilities.splash.splash_meta module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ats_utilities.splash.splash_meta.html#ats_utilities.splash.splash_meta.SplashMeta"><code class="docutils literal notranslate"><span class="pre">SplashMeta</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="ats_utilities.splash.splash_property.html">ats_utilities.splash.splash_property module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ats_utilities.splash.splash_property.html#ats_utilities.splash.splash_property.SplashProperty"><code class="docutils literal notranslate"><span class="pre">SplashProperty</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="ats_utilities.splash.terminal_properties.html">ats_utilities.splash.terminal_properties module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ats_utilities.splash.terminal_properties.html#ats_utilities.splash.terminal_properties.TerminalProperties"><code class="docutils literal notranslate"><span class="pre">TerminalProperties</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="ats_utilities.splash.html#module-ats_utilities.splash">Module contents</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="ats_utilities.splash.html#ats_utilities.splash.Splash"><code class="docutils literal notranslate"><span class="pre">Splash</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ats_utilities.splash.html#ats_utilities.splash.Splash._abc_impl"><code class="docutils literal notranslate"><span class="pre">Splash._abc_impl</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ats_utilities.splash.html#ats_utilities.splash.Splash._verbose"><code class="docutils literal notranslate"><span class="pre">Splash._verbose</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ats_utilities.splash.html#ats_utilities.splash.Splash.center"><code class="docutils literal notranslate"><span class="pre">Splash.center()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ats_utilities.splash.html#ats_utilities.splash.Splash.verbose"><code class="docutils literal notranslate"><span class="pre">Splash.verbose</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
 </div>
-</div>
-<div class="section" id="module-ats_utilities">
-<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-ats_utilities" title="Permalink to this headline">¶</a></h2>
-<dl class="docutils">
-<dt>Module</dt>
-<dd>__init__.py</dd>
-<dt>Copyright</dt>
-<dd>Copyright (C) 2017 Vladimir Roncevic &lt;<a class="reference external" href="mailto:elektron&#46;ronca&#37;&#52;&#48;gmail&#46;com">elektron<span>&#46;</span>ronca<span>&#64;</span>gmail<span>&#46;</span>com</a>&gt;
+</section>
+<section id="module-ats_utilities">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-ats_utilities" title="Permalink to this heading">¶</a></h2>
+<dl class="simple">
+<dt>Module</dt><dd><p>__init__.py</p>
+</dd>
+<dt>Copyright</dt><dd><p>Copyright (C) 2017 Vladimir Roncevic &lt;<a class="reference external" href="mailto:elektron&#46;ronca&#37;&#52;&#48;gmail&#46;com">elektron<span>&#46;</span>ronca<span>&#64;</span>gmail<span>&#46;</span>com</a>&gt;
 ats_utilities is free software: you can redistribute it and/or modify it
 under the terms of the GNU General Public License as published by the
 Free Software Foundation, either version 3 of the License, or
@@ -262,76 +416,144 @@ WITHOUT ANY WARRANTY; without even the implied warranty of
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 See the GNU General Public License for more details.
 You should have received a copy of the GNU General Public License along
-with this program. If not, see &lt;<a class="reference external" href="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</a>&gt;.</dd>
-<dt>Info</dt>
-<dd>Defined class VerboseRoot with attribute(s) and method(s).
-Created API for setup verbose class path from metaclass.</dd>
+with this program. If not, see &lt;<a class="reference external" href="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</a>&gt;.</p>
+</dd>
+<dt>Info</dt><dd><p>Defines class VerboseRoot with attribute(s) and method(s).
+Creates API for setup verbose class path from metaclass.</p>
+</dd>
 </dl>
-<dl class="class">
-<dt id="ats_utilities.VerboseRoot">
-<em class="property">class </em><code class="descclassname">ats_utilities.</code><code class="descname">VerboseRoot</code><a class="reference internal" href="_modules/ats_utilities.html#VerboseRoot"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ats_utilities.VerboseRoot" title="Permalink to this definition">¶</a></dt>
+<dl class="py class">
+<dt class="sig sig-object py" id="ats_utilities.VerboseRoot">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ats_utilities.</span></span><span class="sig-name descname"><span class="pre">VerboseRoot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bases</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">type</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dct</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ats_utilities.html#VerboseRoot"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.VerboseRoot" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">type</span></code></p>
-<p>Defined class VerboseRoot with attribute(s) and method(s).
-Created API for setup verbose class path from metaclass.
-It defines:</p>
+<p>Defines class VerboseRoot with attribute(s) and method(s).
+Creates API for setup verbose class path with metaclass.
+This metaclass is designed to set a verbose attribute on
+classes; it creates based on the module path and a specified
+root package name. It conditionally formats this attribute
+to reflect the class’s module path or a specified root
+package name.</p>
+<p>It defines:</p>
 <blockquote>
-<div><table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">attributes:</th><td class="field-body"><div class="first last line-block">
-<div class="line">ROOT_PACKAGE_NAME - root package name of framework.</div>
+<div><dl class="field-list">
+<dt class="field-odd">attributes<span class="colon">:</span></dt>
+<dd class="field-odd"><div class="line-block">
+<div class="line">package_name - Root package name of framework.</div>
 </div>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">methods:</th><td class="field-body"><div class="first last line-block">
-<div class="line">__new__ - new constructor.</div>
-<div class="line">__str__ - str dunder method for VerboseRoot.</div>
+</dd>
+<dt class="field-even">methods<span class="colon">:</span></dt>
+<dd class="field-even"><div class="line-block">
+<div class="line">__new__ - New VerboseRoot constructor.</div>
 </div>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+</dl>
 </div></blockquote>
-<dl class="attribute">
-<dt id="ats_utilities.VerboseRoot.ROOT_PACKAGE_NAME">
-<code class="descname">ROOT_PACKAGE_NAME</code><em class="property"> = 'ATS_UTILITIES'</em><a class="headerlink" href="#ats_utilities.VerboseRoot.ROOT_PACKAGE_NAME" title="Permalink to this definition">¶</a></dt>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ats_utilities.VerboseRoot.package_name">
+<span class="sig-name descname"><span class="pre">package_name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'ATS_UTILITIES'</span></em><a class="headerlink" href="#ats_utilities.VerboseRoot.package_name" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
-</div>
-</div>
+<dl class="py function">
+<dt class="sig sig-object py" id="ats_utilities.auto_str">
+<span class="sig-prename descclassname"><span class="pre">ats_utilities.</span></span><span class="sig-name descname"><span class="pre">auto_str</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mcs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Any</span></span></span><a class="reference internal" href="_modules/ats_utilities.html#auto_str"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.auto_str" title="Permalink to this definition">¶</a></dt>
+<dd><p>Auto define class dunder method __str__.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Updated class for __str__ definition</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>&lt;Any&gt;</p>
+</dd>
+<dt class="field-odd">Exceptions<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+</section>
 
 
-           </div>
+            <div class="clearer"></div>
           </div>
-          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="modules.html" class="btn btn-neutral float-left" title="ats_utilities" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="ats_utilities.abstract.html" class="btn btn-neutral float-right" title="ats_utilities.abstract package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-    </div>
-
-  <hr/>
-
-  <div role="contentinfo">
-    <p>&#169; Copyright 2017, https://vroncevic.github.io/ats_utilities.</p>
-  </div>
-
-  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    provided by <a href="https://readthedocs.org">Read the Docs</a>.
-   
-
-</footer>
         </div>
       </div>
-    </section>
-  </div>
-  <script>
-      jQuery(function () {
-          SphinxRtdTheme.Navigation.enable(true);
-      });
-  </script> 
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h3><a href="index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">ats_utilities package</a><ul>
+<li><a class="reference internal" href="#subpackages">Subpackages</a></li>
+<li><a class="reference internal" href="#module-ats_utilities">Module contents</a><ul>
+<li><a class="reference internal" href="#ats_utilities.VerboseRoot"><code class="docutils literal notranslate"><span class="pre">VerboseRoot</span></code></a><ul>
+<li><a class="reference internal" href="#ats_utilities.VerboseRoot.package_name"><code class="docutils literal notranslate"><span class="pre">VerboseRoot.package_name</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#ats_utilities.auto_str"><code class="docutils literal notranslate"><span class="pre">auto_str()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
 
-</body>
+  </div>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="modules.html"
+                          title="previous chapter">ats_utilities</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="ats_utilities.checker.html"
+                          title="next chapter">ats_utilities.checker package</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/ats_utilities.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="ats_utilities.checker.html" title="ats_utilities.checker package"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="modules.html" title="ats_utilities"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">ats_utilities https://github.com/vroncevic/ats_utilities/releases documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="modules.html" >ats_utilities</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">ats_utilities package</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2017, https://vroncevic.github.io/ats_utilities.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.3.0.
+    </div>
+  </body>
 </html>

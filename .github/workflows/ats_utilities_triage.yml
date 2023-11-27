@@ -7,10 +7,10 @@ jobs:
     name: ats_utilities_triage
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
       - name: ats_utilities_triage
         uses: actions/github@v1.0.0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          args: comment "[ats_utilities] should be supported for Python 3.11+"
+          args: comment "[ats_utilities] should be supported for Python 3.10+"
