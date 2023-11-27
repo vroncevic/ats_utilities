@@ -28,14 +28,13 @@ RUN DEBIAN_FRONTEND=noninteractive \
     openssl \
     python3 \
     python3-dev \
-    libyaml-dev
+    libyaml-dev \
+    python3-wheel \
+    python3-pip
 
-RUN wget https://bootstrap.pypa.io/get-pip.py
-RUN python3 get-pip.py
 RUN python3 -m pip install --upgrade setuptools
 RUN python3 -m pip install --upgrade pip
 RUN python3 -m pip install --upgrade build
-RUN rm -f get-pip.py
 RUN mkdir /ats_utilities/
 COPY ats_utilities /ats_utilities/
 COPY setup.cfg /
