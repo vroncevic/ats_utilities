@@ -13,7 +13,7 @@
 # limitations under the License.
 #
 
-FROM debian:10
+FROM debian:12
 RUN apt-get update
 RUN DEBIAN_FRONTEND=noninteractive \
     apt-get install -yq --no-install-recommends \
