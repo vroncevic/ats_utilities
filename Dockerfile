@@ -17,7 +17,6 @@ FROM ubuntu:22.04
 RUN apt-get update
 RUN DEBIAN_FRONTEND=noninteractive \
     apt-get install -yq --no-install-recommends \
-    vim \
     nano \
     tree \
     htop \
