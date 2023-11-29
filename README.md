@@ -213,11 +213,11 @@ Framework structure
 
 ### Docs
 
-[![Documentation Status](https://readthedocs.org/projects/ats-utilities/badge/?version=master)](https://ats-utilities.readthedocs.io/en/master/?badge=master)
+[![Documentation Status](https://readthedocs.org/projects/ats-utilities/badge/?version=master)](https://ats-utilities.readthedocs.io/?badge=master)
 
 More documentation and info at
 
-* [ats-utilities.readthedocs.io](https://ats-utilities.readthedocs.io/en/master/)
+* [ats-utilities.readthedocs.io](https://ats-utilities.readthedocs.io/)
 * [www.python.org](https://www.python.org/)
 
 ### Contributing

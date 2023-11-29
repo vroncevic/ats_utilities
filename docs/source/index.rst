@@ -28,7 +28,7 @@ other information that should be provided before the modules are installed.
    :target: https://github.com/vroncevic/ats_utilities/graphs/contributors
 
 .. |ats_utilities documentation Status| image:: https://readthedocs.org/projects/ats-utilities/badge/?version=master
-   :target: https://ats-utilities.readthedocs.io/en/master/?badge=master
+   :target: https://ats-utilities.readthedocs.io/?badge=master
 
 .. toctree::
    :maxdepth: 4
