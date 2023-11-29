@@ -6,9 +6,6 @@
 
 Developed in **[python](https://www.python.org/)** code.
 
-[![codecov](https://codecov.io/gh/vroncevic/ats_utilities/branch/dev/graph/badge.svg?token=VNQOBXIHDB)](https://codecov.io/gh/vroncevic/ats_utilities)
-[![circleci](https://circleci.com/gh/vroncevic/ats_utilities/tree/master.svg?style=svg)](https://circleci.com/gh/vroncevic/ats_utilities/tree/master)
-
 The README is used to introduce the modules and provide instructions on
 how to install the modules, any machine dependencies it may have and any
 other information that should be provided before the modules are installed.
