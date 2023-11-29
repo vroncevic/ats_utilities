@@ -1,30 +1,30 @@
 # -*- coding: UTF-8 -*-
 
 '''
- Module
-     __init__.py
- Copyright
-     Copyright (C) 2017 Vladimir Roncevic <elektron.ronca@gmail.com>
-     ats_utilities is free software: you can redistribute it and/or modify it
-     under the terms of the GNU General Public License as published by the
-     Free Software Foundation, either version 3 of the License, or
-     (at your option) any later version.
-     ats_utilities is distributed in the hope that it will be useful, but
-     WITHOUT ANY WARRANTY; without even the implied warranty of
-     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-     See the GNU General Public License for more details.
-     You should have received a copy of the GNU General Public License along
-     with this program. If not, see <http://www.gnu.org/licenses/>.
- Info
-     Defined class IniBase with attribute(s) and method(s).
-     Load ATS configuration/information, setup ATS CL interface.
+Module
+    __init__.py
+Copyright
+    Copyright (C) 2017 Vladimir Roncevic <elektron.ronca@gmail.com>
+    ats_utilities is free software: you can redistribute it and/or modify it
+    under the terms of the GNU General Public License as published by the
+    Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+    ats_utilities is distributed in the hope that it will be useful, but
+    WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+    See the GNU General Public License for more details.
+    You should have received a copy of the GNU General Public License along
+    with this program. If not, see <http://www.gnu.org/licenses/>.
+Info
+    Defines class IniBase with attribute(s) and method(s).
+    Loads ATS configuration/information, setup ATS CL interface.
 '''
 
 import sys
+from typing import Any, Dict
+from configparser import ConfigParser
 
 try:
-    from six import add_metaclass
-    from ats_utilities import VerboseRoot
     from ats_utilities.info import ATSInfo
     from ats_utilities.checker import ATSChecker
     from ats_utilities.option import ATSOptionParser
@@ -34,107 +34,96 @@ try:
     from ats_utilities.exceptions.ats_type_error import ATSTypeError
     from ats_utilities.exceptions.ats_bad_call_error import ATSBadCallError
 except ImportError as ats_error_message:
-    MESSAGE = '\n{0}\n{1}\n'.format(__file__, ats_error_message)
-    sys.exit(MESSAGE)  # Force close python ATS ##############################
+    # Force exit python #######################################################
+    sys.exit(f'\n{__file__}\n{ats_error_message}\n')
 
 __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2017, https://vroncevic.github.io/ats_utilities'
-__credits__ = ['Vladimir Roncevic']
+__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = '2.5.5'
+__version__ = '2.6.5'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
 
 
-@add_metaclass(VerboseRoot)
-class IniBase:
+class IniBase(ATSChecker):
     '''
-        Defined class IniBase with attribute(s) and method(s).
-        Load ATS configuration/information, setup ATS CL interface.
+        Defines class IniBase with attribute(s) and method(s).
+        Loads ATS configuration/information, setup ATS CL interface.
+        Configuration base ini API support.
+
         It defines:
 
             :attributes:
-                | __verbose - enable/disable verbose option.
-                | tool_operational - control ATS operational functionality.
-                | ini2obj - in API for informations.
-                | obj2ini - out API for informations.
-                | option_parser - option parser for ATS.
+                | _verbose - Enable/Disable verbose option.
+                | tool_operational - Control ATS operational functionality.
+                | ini2obj - In API for information.
+                | obj2ini - Out API for information.
+                | option_parser - Option parser for ATS configuration.
             :methods:
-                | __init__ - initial constructor.
-                | is_tool_ok - checking is tool operational.
-                | __str__ - str dunder method for object IniBase.
+                | __init__ - Initial IniBase constructor.
+                | is_tool_ok - Check is tool operational.
     '''
 
-    def __init__(self, informations_file, verbose=False):
+    def __init__(
+        self, information_file: str | None, verbose: bool = False
+    ) -> None:
         '''
-            Initial constructor.
+            Initial IniBase constructor.
 
-            :param informations_file: informations file path.
-            :type informations_file: <str>
-            :param verbose: enable/disable verbose option.
+            :param information_file: Information file path | None
+            :type information_file: <str> | <NoneType>
+            :param verbose: Enable/Disable verbose option
             :type verbose: <bool>
             :exceptions: ATSTypeError | ATSBadCallError
         '''
-        checker, error, status = ATSChecker(), None, False
-        error, status = checker.check_params([
-            ('str:informations_file', informations_file)
+        super().__init__()
+        error_msg: str | None = None
+        error_id: int | None = None
+        error_msg, error_id = self.check_params([
+            ('str:information_file', information_file)
         ])
-        if status == ATSChecker.TYPE_ERROR:
-            raise ATSTypeError(error)
-        if status == ATSChecker.VALUE_ERROR:
-            raise ATSBadCallError(error)
-        self.__verbose = verbose
-        informations, info_dict = None, dict()
-        self.tool_operational = False
-        self.ini2obj = Ini2Object(informations_file, verbose=verbose)
-        self.obj2ini = Object2Ini(informations_file, verbose=verbose)
+        if error_id == self.TYPE_ERROR:
+            raise ATSTypeError(error_msg)
+        if error_id == self.VALUE_ERROR:
+            raise ATSBadCallError(error_msg)
+        self._verbose: bool = verbose
+        information: ConfigParser | None = None
+        info_dict: Dict[Any, Any] = {}
+        self.tool_operational: bool = False
+        self.ini2obj: Ini2Object = Ini2Object(information_file, self._verbose)
+        self.obj2ini: Object2Ini = Object2Ini(information_file, self._verbose)
         if all([self.ini2obj, self.obj2ini]):
-            informations = self.ini2obj.read_configuration(verbose=verbose)
-        if informations:
-            info_dict['ats_name'] = str(informations.get(
+            information = self.ini2obj.read_configuration(self._verbose)
+        if information:
+            info_dict['ats_name'] = str(information.get(
                 'ats_info', 'ats_name'
             ))
-            info_dict['ats_version'] = str(informations.get(
+            info_dict['ats_version'] = str(information.get(
                 'ats_info', 'ats_version'
             ))
-            info_dict['ats_build_date'] = str(informations.get(
+            info_dict['ats_build_date'] = str(information.get(
                 'ats_info', 'ats_build_date'
             ))
-            info_dict['ats_licence'] = str(informations.get(
+            info_dict['ats_licence'] = str(information.get(
                 'ats_info', 'ats_licence'
             ))
-            info = ATSInfo(info_dict, verbose=verbose)
+            info: ATSInfo = ATSInfo(info_dict, self._verbose)
             if info.ats_info_ok:
-                self.option_parser = ATSOptionParser(
-                    '{0} {1}'.format(info.name, info.build_date),
-                    info.version, info.licence, verbose=verbose
+                self.option_parser: ATSOptionParser = ATSOptionParser(
+                    f'{info.name} {info.build_date}',
+                    info.version, info.licence, self._verbose
                 )
                 self.tool_operational = True
-                verbose_message(
-                    IniBase.VERBOSE, verbose, 'loaded ATS INI base info'
-                )
+                verbose_message(self._verbose, ['loaded ATS INI base info'])
 
-    def is_tool_ok(self):
+    def is_tool_ok(self) -> bool:
         '''
-            Checking is tool operational.
+            Check is tool operational.
 
-            :return: boolean statusm True (yes) | False.
+            :return: True (tool is operational) | False
             :rtype: <bool>
             :exceptions: None
         '''
         return self.tool_operational
-
-    def __str__(self):
-        '''
-            Dunder str method for IniBase.
-
-            :return: object in a human-readable format.
-            :rtype: <str>
-            :exceptions: None
-        '''
-        return '{0} ({1}, {2}, {3}, {4})'.format(
-            self.__class__.__name__, str(self.__verbose),
-            str(self.tool_operational), str(self.ini2obj),
-            str(self.obj2ini)
-        )

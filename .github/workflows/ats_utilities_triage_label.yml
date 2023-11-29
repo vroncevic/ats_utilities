@@ -7,7 +7,7 @@ jobs:
     name: ats_utilities_triage_label
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
       - name: ats_utilities_triage_label
         uses: actions/github@v1.0.0
         env:

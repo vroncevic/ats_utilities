@@ -1,9 +1,9 @@
 ATS Utilities
 --------------
 
-☯️ **ats_utilities** is framework for creating Apps/Tools/Scripts.
+**ats_utilities** is framework for creating Apps/Tools/Scripts.
 
-Developed in 🐍 `python <https://www.python.org/>`_ code.
+Developed in `python <https://www.python.org/>`_ code.
 
 |ats_utilities codecov| |ats_utilities circleci|
 
@@ -54,34 +54,21 @@ Used next development environment
 
 .. |debian linux os| image:: https://raw.githubusercontent.com/vroncevic/ats_utilities/dev/docs/debtux.png
 
-|ats_utilities python2 build| |ats_utilities python3 build|
-
-.. |ats_utilities python2 build| image:: https://img.shields.io/github/workflow/status/vroncevic/ats_utilities/ats_utilities_python2_build?style=flat&label=ats_utilities%20python2%20build
-   :target: https://github.com/vroncevic/ats_utilities/actions/workflows/ats_utilities_python2_build.yml
+|ats_utilities python3 build|
 
 .. |ats_utilities python3 build| image:: https://img.shields.io/github/workflow/status/vroncevic/ats_utilities/ats_utilities_python3_build?style=flat&label=ats_utilities%20python3%20build
    :target: https://github.com/vroncevic/ats_utilities/actions/workflows/ats_utilities_python3_build.yml
 
-Navigate to release `page`_ download and extract release archive 📦.
+Navigate to release `page`_ download and extract release archive.
 
 .. _page: https://github.com/vroncevic/ats_utilities/releases
 
-To install **ats_utilities** 📦 run
+To install **ats_utilities** run
 
 .. code-block:: bash
 
     tar xvzf ats_utilities-x.y.z.tar.gz
     cd ats_utilities-x.y.z
-    # python2
-    wget https://bootstrap.pypa.io/pip/2.7/get-pip.py
-    python2 get-pip.py
-    python2 -m pip install --upgrade setuptools
-    python2 -m pip install --upgrade pip
-    python2 -m pip install --upgrade build
-    pip2 install -r requirements.txt
-    python2 -m build --no-isolation --wheel
-    pip2 install dist/ats_utilities-x.y.z-py2-none-any.whl
-    rm -f get-pip.py
     # python3
     wget https://bootstrap.pypa.io/get-pip.py
     python3 get-pip.py 
@@ -99,15 +86,6 @@ Or type the following
 
     tar xvzf ats_utilities-x.y.z.tar.gz
     cd ats_utilities-x.y.z/
-    # python2
-    wget https://bootstrap.pypa.io/pip/2.7/get-pip.py
-    python2 get-pip.py
-    python2 -m pip install --upgrade setuptools
-    python2 -m pip install --upgrade pip
-    python2 -m pip install --upgrade build
-    pip2 install -r requirements.txt
-    python2 setup.py install_lib
-    python2 setup.py install_egg_info
     # pyton3
     wget https://bootstrap.pypa.io/get-pip.py
     python3 get-pip.py 
@@ -118,12 +96,10 @@ Or type the following
     python3 setup.py install_lib
     python3 setup.py install_egg_info
 
-You can use Docker to create image/container, or You can use pip to install 📦
+You can use Docker to create image/container, or You can use pip to install
 
 .. code-block:: bash
 
-    # python2
-    pip2 install ats_utilities
     # python3
     pip3 install ats_utilities
 
@@ -137,7 +113,6 @@ Dependencies
 
 **ats_utilities** requires next modules and libraries
 
-* `six - Python 2 and 3 compatibility library <https://pypi.org/project/six/>`_
 * `yaml - YAML parser and emitter for Python <https://pypi.org/project/PyYAML/>`_
 * `bs4 - Screen-scraping library <https://pypi.org/project/beautifulsoup4/>`_
 * `configparser - Configuration parser library <https://pypi.org/project/configparser/>`_
@@ -148,99 +123,104 @@ Framework structure
 
 **ats_utilities** is based on OOP.
 
-.. image:: https://raw.githubusercontent.com/vroncevic/ats_utilities/dev/docs/arch_flow_usage.png
-
-🧰 Framework structure
+Framework structure
 
 .. code-block:: bash
 
     ats_utilities/
-    ├── abstract/
-    │   └── __init__.py
-    ├── checker/
-    │   └── __init__.py
-    ├── cli/
-    │   ├── cfg_cli.py
-    │   ├── ini_cli.py
-    │   ├── __init__.py
-    │   ├── json_cli.py
-    │   ├── xml_cli.py
-    │   └── yaml_cli.py
-    ├── config_io/
-    │   ├── base_check.py
-    │   ├── base_read.py
-    │   ├── base_write.py
-    │   ├── cfg/
-    │   │   ├── cfg2object.py
-    │   │   ├── __init__.py
-    │   │   └── object2cfg.py
-    │   ├── ini/
-    │   │   ├── ini2object.py
-    │   │   ├── __init__.py
-    │   │   └── object2ini.py
-    │   ├── __init__.py
-    │   ├── json/
-    │   │   ├── __init__.py
-    │   │   ├── json2object.py
-    │   │   └── object2json.py
-    │   ├── xml/
-    │   │   ├── __init__.py
-    │   │   ├── object2xml.py
-    │   │   └── xml2object.py
-    │   └── yaml/
-    │       ├── __init__.py
-    │       ├── object2yaml.py
-    │       └── yaml2object.py
-    ├── console_io/
-    │   ├── error.py
-    │   ├── __init__.py
-    │   ├── success.py
-    │   ├── verbose.py
-    │   └── warning.py
-    ├── cooperative/
-    │   └── __init__.py
-    ├── exceptions/
-    │   ├── ats_attribute_error.py
-    │   ├── ats_bad_call_error.py
-    │   ├── ats_file_error.py
-    │   ├── ats_key_error.py
-    │   ├── ats_lookup_error.py
-    │   ├── ats_parameter_error.py
-    │   ├── ats_type_error.py
-    │   ├── ats_value_error.py
-    │   └── __init__.py
-    ├── final/
-    │   └── __init__.py
-    ├── info/
-    │   ├── ats_build_date.py
-    │   ├── ats_info_ok.py
-    │   ├── ats_licence.py
-    │   ├── ats_name.py
-    │   ├── ats_version.py
-    │   └── __init__.py
-    ├── __init__.py
-    ├── logging/
-    │   ├── ats_logger_file.py
-    │   ├── ats_logger_name.py
-    │   ├── ats_logger_status.py
-    │   └── __init__.py
-    ├── option/
-    │   └── __init__.py
-    ├── register/
-    │   └── __init__.py
-    ├── singleton/
-    │   ├── base.py
-    │   ├── functional.py
-    │   ├── __init__.py
-    │   ├── meta.py
-    │   └── meta_thread.py
-    └── splash/
-        ├── ext_infrastructure.py
-        ├── github_infrastructure.py
-        ├── __init__.py
-        ├── progress_bar.py
-        ├── splash_property.py
-        └── terminal_properties.py
+      ├── checker/
+      │   └── __init__.py
+      ├── cli/
+      │   ├── cfg_cli_meta.py
+      │   ├── cfg_cli.py
+      │   ├── ini_cli_meta.py
+      │   ├── ini_cli.py
+      │   ├── __init__.py
+      │   ├── json_cli_meta.py
+      │   ├── json_cli.py
+      │   ├── xml_cli_meta.py
+      │   ├── xml_cli.py
+      │   ├── yaml_cli_meta.py
+      │   └── yaml_cli.py
+      ├── config_io/
+      │   ├── abs_read_conf.py
+      │   ├── abs_write_conf.py
+      │   ├── cfg/
+      │   │   ├── cfg2object_meta.py
+      │   │   ├── cfg2object.py
+      │   │   ├── __init__.py
+      │   │   ├── object2cfg_meta.py
+      │   │   └── object2cfg.py
+      │   ├── conf_file_meta.py
+      │   ├── file_check.py
+      │   ├── ini/
+      │   │   ├── ini2object_meta.py
+      │   │   ├── ini2object.py
+      │   │   ├── __init__.py
+      │   │   ├── object2ini_meta.py
+      │   │   └── object2ini.py
+      │   ├── __init__.py
+      │   ├── json/
+      │   │   ├── __init__.py
+      │   │   ├── json2object_meta.py
+      │   │   ├── json2object.py
+      │   │   ├── object2json_meta.py
+      │   │   └── object2json.py
+      │   ├── xml/
+      │   │   ├── __init__.py
+      │   │   ├── object2xml_meta.py
+      │   │   ├── object2xml.py
+      │   │   ├── xml2object_meta.py
+      │   │   └── xml2object.py
+      │   └── yaml/
+      │       ├── __init__.py
+      │       ├── object2yaml_meta.py
+      │       ├── object2yaml.py
+      │       ├── yaml2object_meta.py
+      │       └── yaml2object.py
+      ├── console_io/
+      │   ├── error.py
+      │   ├── __init__.py
+      │   ├── success.py
+      │   ├── verbose.py
+      │   └── warning.py
+      ├── exceptions/
+      │   ├── ats_attribute_error.py
+      │   ├── ats_bad_call_error.py
+      │   ├── ats_file_error.py
+      │   ├── ats_key_error.py
+      │   ├── ats_lookup_error.py
+      │   ├── ats_parameter_error.py
+      │   ├── ats_type_error.py
+      │   ├── ats_value_error.py
+      │   └── __init__.py
+      ├── info/
+      │   ├── ats_build_date.py
+      │   ├── ats_info_meta.py
+      │   ├── ats_info_ok.py
+      │   ├── ats_licence.py
+      │   ├── ats_name.py
+      │   ├── ats_version.py
+      │   └── __init__.py
+      ├── __init__.py
+      ├── logging/
+      │   ├── ats_logger_file.py
+      │   ├── ats_logger_meta.py
+      │   ├── ats_logger_name.py
+      │   ├── ats_logger_status.py
+      │   └── __init__.py
+      ├── option/
+      │   └── __init__.py
+      └── splash/
+         ├── ext_infrastructure.py
+         ├── github_infrastructure.py
+         ├── __init__.py
+         ├── progress_bar.py
+         ├── splash_meta.py
+         ├── splash_property.py
+         └── terminal_properties.py
+
+      15 directories, 77 files
 
 Copyright and licence
 ----------------------
@@ -259,7 +239,7 @@ Copyright (C) 2017 by `vroncevic.github.io/ats_utilities <https://vroncevic.gith
 it under the same terms as Python itself, either Python version 2.x/3.x or,
 at your option, any later version of Python 3 you may have available.
 
-🌎 🌍 🌏 Lets help and support PSF.
+Lets help and support PSF.
 
 |python software foundation|
 
@@ -269,7 +249,7 @@ at your option, any later version of Python 3 you may have available.
 |donate|
 
 .. |donate| image:: https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif
-   :target: https://psfmember.org/index.php?q=civicrm/contribute/transact&reset=1&id=2
+   :target: https://www.python.org/psf/donations/
 
 Indices and tables
 ------------------

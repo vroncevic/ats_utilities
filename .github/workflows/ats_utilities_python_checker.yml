@@ -4,33 +4,30 @@ on:
     branches: [ master ]
     paths:
       - 'ats_utilities/**'
+      - 'tests/**'
       - 'setup.py'
   pull_request:
     branches: [ master ]
     paths:
       - 'ats_utilities/**'
+      - 'tests/**'
       - 'setup.py'
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - name: check length of line in modules
+      - uses: actions/checkout@v4
+      - name: Check max length of lines in modules
         id: long_line_checker
         run: |
-          echo Checking length of line in modules
           modules_ok=0
-          modules=($(find ats_utilities/ -type f -name '*.py' -exec echo '{}' \;))
+          modules=($(find ats_utilities/ tests/ -type f -name '*.py' -exec echo '{}' \;))
           for mod in "${modules[@]}"; do line_length=$(wc -L < "${mod}"); [[ $line_length -gt 80 ]] && modules_ok=1; done
-          [[ $modules_ok -eq 0 ]] && echo ::set-output name=status::success || echo ::set-output name=status::failure
-      - name: check number of lines in modules
+          [[ $modules_ok -eq 0 ]] && echo ok || exit 1
+      - name: Check max number of lines in modules
         id: num_line_checker
         run: |
-          echo Checking number of lines in modules
           modules_ok=0
-          modules=($(find ats_utilities/ -type f -name '*.py' -exec echo '{}' \;))
+          modules=($(find ats_utilities/ tests/ -type f -name '*.py' -exec echo '{}' \;))
           for mod in "${modules[@]}"; do line_numbers=$(wc -l < "${mod}"); [[ $line_numbers -gt 300 ]] && modules_ok=1; done
-          [[ $modules_ok -eq 0 ]] && echo ::set-output name=status::success || echo ::set-output name=status::failure
-      - name: check on failures
-        if: steps.long_line_checker.outputs.status == 'failure' || steps.num_line_checker.outputs.status == 'failure'
-        run: exit 1
+          [[ $modules_ok -eq 0 ]] && echo ok || exit 1
