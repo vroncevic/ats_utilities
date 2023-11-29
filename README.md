@@ -103,8 +103,6 @@ rm -f get-pip.py
 
 You can use Dockerfile to create image/container.
 
-[![ats_utilities_docker_checker](https://github.com/vroncevic/ats_utilities/actions/workflows/ats_utilities_docker_checker.yml/badge.svg)](https://github.com/vroncevic/ats_utilities/actions/workflows/ats_utilities_docker_checker.yml)
-
 ### Dependencies
 
 These modules requires other modules and libraries (Python 3.x)

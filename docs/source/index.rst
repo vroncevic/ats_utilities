@@ -103,11 +103,6 @@ You can use Docker to create image/container, or You can use pip to install
     # python3
     pip3 install ats_utilities
 
-|ats_utilities docker checker|
-
-.. |ats_utilities docker checker| image:: https://github.com/vroncevic/ats_utilities/actions/workflows/ats_utilities_docker_checker.yml/badge.svg
-   :target: https://github.com/vroncevic/ats_utilities/actions/workflows/ats_utilities_docker_checker.yml
-
 Dependencies
 -------------
 
