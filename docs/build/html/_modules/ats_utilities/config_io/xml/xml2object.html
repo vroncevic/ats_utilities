@@ -30,9 +30,8 @@
              >modules</a> |</li>
         <li class="nav-item nav-item-0"><a href="../../../../index.html">ats_utilities https://github.com/vroncevic/ats_utilities/releases documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../../index.html" >Module code</a> &#187;</li>
-          <li class="nav-item nav-item-2"><a href="../../../ats_utilities.html" >ats_utilities</a> &#187;</li>
-          <li class="nav-item nav-item-3"><a href="../../config_io.html" >ats_utilities.config_io</a> &#187;</li>
-          <li class="nav-item nav-item-4"><a href="../xml.html" accesskey="U">ats_utilities.config_io.xml</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="../../config_io.html" >ats_utilities.config_io</a> &#187;</li>
+          <li class="nav-item nav-item-3"><a href="../xml.html" accesskey="U">ats_utilities.config_io.xml</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">ats_utilities.config_io.xml.xml2object</a></li> 
       </ul>
     </div>  
@@ -69,14 +68,11 @@
 
 <span class="k">try</span><span class="p">:</span>
     <span class="kn">from</span> <span class="nn">bs4</span> <span class="kn">import</span> <span class="n">BeautifulSoup</span>
-    <span class="kn">from</span> <span class="nn">ats_utilities</span> <span class="kn">import</span> <span class="n">auto_str</span>
     <span class="kn">from</span> <span class="nn">ats_utilities.checker</span> <span class="kn">import</span> <span class="n">ATSChecker</span>
     <span class="kn">from</span> <span class="nn">ats_utilities.config_io</span> <span class="kn">import</span> <span class="n">ConfFile</span>
     <span class="kn">from</span> <span class="nn">ats_utilities.console_io.verbose</span> <span class="kn">import</span> <span class="n">verbose_message</span>
-    <span class="kn">from</span> <span class="nn">ats_utilities.config_io.abs_read_conf</span> <span class="kn">import</span> <span class="n">ReadConf</span>
     <span class="kn">from</span> <span class="nn">ats_utilities.exceptions.ats_type_error</span> <span class="kn">import</span> <span class="n">ATSTypeError</span>
     <span class="kn">from</span> <span class="nn">ats_utilities.exceptions.ats_bad_call_error</span> <span class="kn">import</span> <span class="n">ATSBadCallError</span>
-    <span class="kn">from</span> <span class="nn">ats_utilities.config_io.xml.xml2object_meta</span> <span class="kn">import</span> <span class="n">Xml2ObjectMeta</span>
 <span class="k">except</span> <span class="ne">ImportError</span> <span class="k">as</span> <span class="n">ats_error_message</span><span class="p">:</span>
     <span class="c1"># Force exit python #######################################################</span>
     <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="se">\n</span><span class="si">{</span><span class="vm">__file__</span><span class="si">}</span><span class="se">\n</span><span class="si">{</span><span class="n">ats_error_message</span><span class="si">}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
@@ -91,8 +87,7 @@
 <span class="n">__status__</span> <span class="o">=</span> <span class="s1">&#39;Updated&#39;</span>
 
 
-<div class="viewcode-block" id="Xml2Object"><a class="viewcode-back" href="../../../../ats_utilities.config_io.xml.xml2object.html#ats_utilities.config_io.xml.xml2object.Xml2Object">[docs]</a><span class="nd">@auto_str</span>
-<span class="k">class</span> <span class="nc">Xml2Object</span><span class="p">(</span><span class="n">ReadConf</span><span class="p">,</span> <span class="n">metaclass</span><span class="o">=</span><span class="n">Xml2ObjectMeta</span><span class="p">):</span>
+<div class="viewcode-block" id="Xml2Object"><a class="viewcode-back" href="../../../../ats_utilities.config_io.xml.xml2object.html#ats_utilities.config_io.xml.xml2object.Xml2Object">[docs]</a><span class="k">class</span> <span class="nc">Xml2Object</span><span class="p">(</span><span class="n">ATSChecker</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Defines class Xml2Object with attribute(s) and method(s).</span>
 <span class="sd">        Creates API for reading a configuration/information from a xml file.</span>
@@ -101,15 +96,15 @@
 <span class="sd">        It defines:</span>
 
 <span class="sd">            :attributes:</span>
-<span class="sd">                | _format - Format of configuration content.</span>
+<span class="sd">                | _FORMAT - Format of configuration content.</span>
 <span class="sd">                | _verbose - Enable/Disable verbose option.</span>
+<span class="sd">                | _file_path - Configuration file path.</span>
 <span class="sd">            :methods:</span>
 <span class="sd">                | __init__ - Initial Xml2Object constructor.</span>
 <span class="sd">                | read_configuration - Read a configuration from file.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
 
-    <span class="n">_format</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;xml&#39;</span>
-    <span class="n">_verbose</span><span class="p">:</span> <span class="nb">bool</span>
+    <span class="n">_FORMAT</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;xml&#39;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">configuration_file</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="p">,</span> <span class="n">verbose</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
@@ -123,24 +118,21 @@
 <span class="sd">            :type verbose: &lt;bool&gt;</span>
 <span class="sd">            :exceptions: ATSTypeError | ATSBadCallError</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="n">checker</span><span class="p">:</span> <span class="n">ATSChecker</span> <span class="o">=</span> <span class="n">ATSChecker</span><span class="p">()</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
         <span class="n">error_msg</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="n">error_id</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
-        <span class="n">error_msg</span><span class="p">,</span> <span class="n">error_id</span> <span class="o">=</span> <span class="n">checker</span><span class="o">.</span><span class="n">check_params</span><span class="p">([</span>
+        <span class="n">error_msg</span><span class="p">,</span> <span class="n">error_id</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">check_params</span><span class="p">([</span>
             <span class="p">(</span><span class="s1">&#39;str:configuration_file&#39;</span><span class="p">,</span> <span class="n">configuration_file</span><span class="p">)</span>
         <span class="p">])</span>
-        <span class="k">if</span> <span class="n">error_id</span> <span class="o">==</span> <span class="n">ATSChecker</span><span class="o">.</span><span class="n">type_error</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">error_id</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">TYPE_ERROR</span><span class="p">:</span>
             <span class="k">raise</span> <span class="n">ATSTypeError</span><span class="p">(</span><span class="n">error_msg</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">error_id</span> <span class="o">==</span> <span class="n">ATSChecker</span><span class="o">.</span><span class="n">value_error</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">error_id</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">VALUE_ERROR</span><span class="p">:</span>
             <span class="k">raise</span> <span class="n">ATSBadCallError</span><span class="p">(</span><span class="n">error_msg</span><span class="p">)</span>
-        <span class="n">ReadConf</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">verbose</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_verbose</span> <span class="o">=</span> <span class="n">verbose</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_verbose</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="n">verbose</span>
         <span class="n">configuration_file</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">configuration_file</span><span class="p">)</span>
-        <span class="n">ReadConf</span><span class="o">.</span><span class="n">file_path</span> <span class="o">=</span> <span class="n">configuration_file</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_file_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">configuration_file</span>
         <span class="n">verbose_message</span><span class="p">(</span>
-            <span class="n">Xml2Object</span><span class="o">.</span><span class="n">verbose</span><span class="p">,</span>  <span class="c1"># pylint: disable=no-member</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_verbose</span><span class="p">,</span>
-            <span class="nb">tuple</span><span class="p">(</span><span class="n">configuration_file</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_verbose</span><span class="p">,</span> <span class="p">[</span><span class="sa">f</span><span class="s1">&#39;configuration file </span><span class="si">{</span><span class="n">configuration_file</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">]</span>
         <span class="p">)</span>
 
 <div class="viewcode-block" id="Xml2Object.read_configuration"><a class="viewcode-back" href="../../../../ats_utilities.config_io.xml.xml2object.html#ats_utilities.config_io.xml.xml2object.Xml2Object.read_configuration">[docs]</a>    <span class="k">def</span> <span class="nf">read_configuration</span><span class="p">(</span>
@@ -157,14 +149,12 @@
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="n">content</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="n">config</span><span class="p">:</span> <span class="n">BeautifulSoup</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
-        <span class="k">with</span> <span class="n">ConfFile</span><span class="p">(</span><span class="n">ReadConf</span><span class="o">.</span><span class="n">file_path</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">Xml2Object</span><span class="o">.</span><span class="n">_format</span><span class="p">)</span> <span class="k">as</span> <span class="n">xml</span><span class="p">:</span>
+        <span class="k">with</span> <span class="n">ConfFile</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_file_path</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_FORMAT</span><span class="p">)</span> <span class="k">as</span> <span class="n">xml</span><span class="p">:</span>
             <span class="k">if</span> <span class="nb">bool</span><span class="p">(</span><span class="n">xml</span><span class="p">):</span>
                 <span class="n">content</span> <span class="o">=</span> <span class="n">xml</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
-                <span class="n">config</span> <span class="o">=</span> <span class="n">BeautifulSoup</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">content</span><span class="p">),</span> <span class="n">Xml2Object</span><span class="o">.</span><span class="n">_format</span><span class="p">)</span>
+                <span class="n">config</span> <span class="o">=</span> <span class="n">BeautifulSoup</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">content</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">_FORMAT</span><span class="p">)</span>
         <span class="n">verbose_message</span><span class="p">(</span>
-            <span class="n">Xml2Object</span><span class="o">.</span><span class="n">verbose</span><span class="p">,</span>  <span class="c1"># pylint: disable=no-member</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_verbose</span> <span class="ow">or</span> <span class="n">verbose</span><span class="p">,</span>
-            <span class="nb">tuple</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">config</span><span class="p">))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_verbose</span> <span class="ow">or</span> <span class="n">verbose</span><span class="p">,</span> <span class="p">[</span><span class="sa">f</span><span class="s1">&#39;configuration </span><span class="si">{</span><span class="n">config</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">]</span>
         <span class="p">)</span>
         <span class="k">return</span> <span class="n">config</span></div></div>
 </pre></div>
@@ -200,9 +190,8 @@
              >modules</a> |</li>
         <li class="nav-item nav-item-0"><a href="../../../../index.html">ats_utilities https://github.com/vroncevic/ats_utilities/releases documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../../index.html" >Module code</a> &#187;</li>
-          <li class="nav-item nav-item-2"><a href="../../../ats_utilities.html" >ats_utilities</a> &#187;</li>
-          <li class="nav-item nav-item-3"><a href="../../config_io.html" >ats_utilities.config_io</a> &#187;</li>
-          <li class="nav-item nav-item-4"><a href="../xml.html" >ats_utilities.config_io.xml</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="../../config_io.html" >ats_utilities.config_io</a> &#187;</li>
+          <li class="nav-item nav-item-3"><a href="../xml.html" >ats_utilities.config_io.xml</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">ats_utilities.config_io.xml.xml2object</a></li> 
       </ul>
     </div>

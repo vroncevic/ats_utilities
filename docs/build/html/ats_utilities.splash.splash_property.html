@@ -20,7 +20,7 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="ats_utilities.splash.terminal_properties module" href="ats_utilities.splash.terminal_properties.html" />
-    <link rel="prev" title="ats_utilities.splash.splash_meta module" href="ats_utilities.splash.splash_meta.html" /> 
+    <link rel="prev" title="ats_utilities.splash.progress_bar module" href="ats_utilities.splash.progress_bar.html" /> 
   </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
@@ -35,7 +35,7 @@
           <a href="ats_utilities.splash.terminal_properties.html" title="ats_utilities.splash.terminal_properties module"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="ats_utilities.splash.splash_meta.html" title="ats_utilities.splash.splash_meta module"
+          <a href="ats_utilities.splash.progress_bar.html" title="ats_utilities.splash.progress_bar module"
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">ats_utilities https://github.com/vroncevic/ats_utilities/releases documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="modules.html" >ats_utilities</a> &#187;</li>
@@ -74,7 +74,7 @@ Creates API for checking splash property.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="ats_utilities.splash.splash_property.SplashProperty">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ats_utilities.splash.splash_property.</span></span><span class="sig-name descname"><span class="pre">SplashProperty</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">prop</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ats_utilities/splash/splash_property.html#SplashProperty"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.splash.splash_property.SplashProperty" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dd><p>Bases: <a class="reference internal" href="ats_utilities.checker.html#ats_utilities.checker.ATSChecker" title="ats_utilities.checker.ATSChecker"><code class="xref py py-class docutils literal notranslate"><span class="pre">ATSChecker</span></code></a></p>
 <p>Defined class SplashProperty with attribute(s) and method(s).
 Created API for checking splash property.
 Splash screen property API.</p>
@@ -83,7 +83,7 @@ Splash screen property API.</p>
 <div><dl class="field-list">
 <dt class="field-odd">attributes<span class="colon">:</span></dt>
 <dd class="field-odd"><div class="line-block">
-<div class="line">_expected_prop_keys - Expected property names.</div>
+<div class="line">_EXPECTED_PROP_KEYS - Expected property names.</div>
 <div class="line">_verbose - Enable/Disable verbose option.</div>
 <div class="line">_property - Splash property in dict format.</div>
 </div>
@@ -97,18 +97,8 @@ Splash screen property API.</p>
 </dl>
 </div></blockquote>
 <dl class="py attribute">
-<dt class="sig sig-object py" id="ats_utilities.splash.splash_property.SplashProperty._expected_prop_keys">
-<span class="sig-name descname"><span class="pre">_expected_prop_keys</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">['ats_organization',</span> <span class="pre">'ats_repository',</span> <span class="pre">'ats_name',</span> <span class="pre">'ats_logo_path',</span> <span class="pre">'ats_use_github_infrastructure']</span></em><a class="headerlink" href="#ats_utilities.splash.splash_property.SplashProperty._expected_prop_keys" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="ats_utilities.splash.splash_property.SplashProperty._property">
-<span class="sig-name descname"><span class="pre">_property</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#ats_utilities.splash.splash_property.SplashProperty._property" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="ats_utilities.splash.splash_property.SplashProperty._verbose">
-<span class="sig-name descname"><span class="pre">_verbose</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#ats_utilities.splash.splash_property.SplashProperty._verbose" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ats_utilities.splash.splash_property.SplashProperty._EXPECTED_PROP_KEYS">
+<span class="sig-name descname"><span class="pre">_EXPECTED_PROP_KEYS</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">['ats_organization',</span> <span class="pre">'ats_repository',</span> <span class="pre">'ats_name',</span> <span class="pre">'ats_logo_path',</span> <span class="pre">'ats_use_github_infrastructure']</span></em><a class="headerlink" href="#ats_utilities.splash.splash_property.SplashProperty._EXPECTED_PROP_KEYS" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -131,11 +121,6 @@ Splash screen property API.</p>
 </dl>
 </dd></dl>
 
-<dl class="py attribute">
-<dt class="sig sig-object py" id="ats_utilities.splash.splash_property.SplashProperty.verbose">
-<span class="sig-name descname"><span class="pre">verbose</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'ATS_UTILITIES'</span></em><a class="headerlink" href="#ats_utilities.splash.splash_property.SplashProperty.verbose" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
 </dd></dl>
 
 </section>
@@ -152,11 +137,8 @@ Splash screen property API.</p>
     <ul>
 <li><a class="reference internal" href="#">ats_utilities.splash.splash_property module</a><ul>
 <li><a class="reference internal" href="#ats_utilities.splash.splash_property.SplashProperty"><code class="docutils literal notranslate"><span class="pre">SplashProperty</span></code></a><ul>
-<li><a class="reference internal" href="#ats_utilities.splash.splash_property.SplashProperty._expected_prop_keys"><code class="docutils literal notranslate"><span class="pre">SplashProperty._expected_prop_keys</span></code></a></li>
-<li><a class="reference internal" href="#ats_utilities.splash.splash_property.SplashProperty._property"><code class="docutils literal notranslate"><span class="pre">SplashProperty._property</span></code></a></li>
-<li><a class="reference internal" href="#ats_utilities.splash.splash_property.SplashProperty._verbose"><code class="docutils literal notranslate"><span class="pre">SplashProperty._verbose</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.splash.splash_property.SplashProperty._EXPECTED_PROP_KEYS"><code class="docutils literal notranslate"><span class="pre">SplashProperty._EXPECTED_PROP_KEYS</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.splash.splash_property.SplashProperty.validate"><code class="docutils literal notranslate"><span class="pre">SplashProperty.validate()</span></code></a></li>
-<li><a class="reference internal" href="#ats_utilities.splash.splash_property.SplashProperty.verbose"><code class="docutils literal notranslate"><span class="pre">SplashProperty.verbose</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -166,8 +148,8 @@ Splash screen property API.</p>
   </div>
   <div>
     <h4>Previous topic</h4>
-    <p class="topless"><a href="ats_utilities.splash.splash_meta.html"
-                          title="previous chapter">ats_utilities.splash.splash_meta module</a></p>
+    <p class="topless"><a href="ats_utilities.splash.progress_bar.html"
+                          title="previous chapter">ats_utilities.splash.progress_bar module</a></p>
   </div>
   <div>
     <h4>Next topic</h4>
@@ -208,7 +190,7 @@ Splash screen property API.</p>
           <a href="ats_utilities.splash.terminal_properties.html" title="ats_utilities.splash.terminal_properties module"
              >next</a> |</li>
         <li class="right" >
-          <a href="ats_utilities.splash.splash_meta.html" title="ats_utilities.splash.splash_meta module"
+          <a href="ats_utilities.splash.progress_bar.html" title="ats_utilities.splash.progress_bar module"
              >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">ats_utilities https://github.com/vroncevic/ats_utilities/releases documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="modules.html" >ats_utilities</a> &#187;</li>

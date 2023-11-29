@@ -8,9 +8,7 @@ Submodules
    :maxdepth: 4
 
    ats_utilities.config_io.json.json2object
-   ats_utilities.config_io.json.json2object_meta
    ats_utilities.config_io.json.object2json
-   ats_utilities.config_io.json.object2json_meta
 
 Module contents
 ---------------

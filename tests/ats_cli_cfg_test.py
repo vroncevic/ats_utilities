@@ -72,8 +72,8 @@ class ATSCliCfgAPI(CfgCLI):
 
 class CfgTestCase(TestCase):
     '''
-        Defined class CfgTestCase with attribute(s) and method(s).
-        Created test cases for checking functionalities of ATS CLI interfaces.
+        Defines class CfgTestCase with attribute(s) and method(s).
+        Creates test cases for checking functionalities of ATS CLI interfaces.
         CfgCLI unit tests.
 
         It defines:
@@ -83,7 +83,10 @@ class CfgTestCase(TestCase):
             :methods:
                 | setUp - Call before test case.
                 | tearDown - Call after test case.
+                | test_not_none - Test is ATSCliCfgAPI not None.
                 | test_process - Test for process.
+                | test_add_new_option_called - Test is add new option called.
+                | test_parse_args_called - Test is parse args called.
     '''
 
     def setUp(self) -> None:

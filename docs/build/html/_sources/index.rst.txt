@@ -23,10 +23,10 @@ other information that should be provided before the modules are installed.
 
 |ats_utilities documentation status|
 
-.. |ats_utilities python checker| image:: https://img.shields.io/github/workflow/status/vroncevic/ats_utilities/ats_utilities_python_checker?style=flat&label=ats_utilities%20python%20checker
+.. |ats_utilities python checker| image:: https://github.com/vroncevic/ats_utilities/actions/workflows/ats_utilities_python_checker.yml/badge.svg
    :target: https://github.com/vroncevic/ats_utilities/actions/workflows/ats_utilities_python_checker.yml
 
-.. |ats_utilities package checker| image:: https://img.shields.io/github/workflow/status/vroncevic/ats_utilities/ats_utilities_package_checker?style=flat&label=ats_utilities%20package%20checker
+.. |ats_utilities package checker| image:: https://github.com/vroncevic/ats_utilities/actions/workflows/ats_utilities_package_checker.yml/badge.svg
    :target: https://github.com/vroncevic/ats_utilities/actions/workflows/ats_utilities_package.yml
 
 .. |ats_utilities github issues| image:: https://img.shields.io/github/issues/vroncevic/ats_utilities.svg
@@ -56,7 +56,7 @@ Used next development environment
 
 |ats_utilities python3 build|
 
-.. |ats_utilities python3 build| image:: https://img.shields.io/github/workflow/status/vroncevic/ats_utilities/ats_utilities_python3_build?style=flat&label=ats_utilities%20python3%20build
+.. |ats_utilities python3 build| image:: https://github.com/vroncevic/ats_utilities/actions/workflows/ats_utilities_python3_build.yml/badge.svg
    :target: https://github.com/vroncevic/ats_utilities/actions/workflows/ats_utilities_python3_build.yml
 
 Navigate to release `page`_ download and extract release archive.
@@ -105,7 +105,7 @@ You can use Docker to create image/container, or You can use pip to install
 
 |ats_utilities docker checker|
 
-.. |ats_utilities docker checker| image:: https://img.shields.io/github/workflow/status/vroncevic/ats_utilities/ats_utilities_docker_checker?style=flat&label=ats_utilities%20docker%20checker
+.. |ats_utilities docker checker| image:: https://github.com/vroncevic/ats_utilities/actions/workflows/ats_utilities_docker_checker.yml/badge.svg
    :target: https://github.com/vroncevic/ats_utilities/actions/workflows/ats_utilities_docker_checker.yml
 
 Dependencies
@@ -233,7 +233,7 @@ Copyright and licence
 .. |license: apache 2.0| image:: https://img.shields.io/badge/License-Apache%202.0-blue.svg
    :target: https://opensource.org/licenses/Apache-2.0
 
-Copyright (C) 2017 by `vroncevic.github.io/ats_utilities <https://vroncevic.github.io/ats_utilities>`_
+Copyright (C) 2017-2024 by `vroncevic.github.io/ats_utilities <https://vroncevic.github.io/ats_utilities>`_
 
 **ats_utilities** is free software; you can redistribute it and/or modify
 it under the same terms as Python itself, either Python version 2.x/3.x or,

@@ -75,8 +75,8 @@ class ATSCliJsonAPI(JsonCLI):
 
 class JsonTestCase(TestCase):
     '''
-        Defined class JsonTestCase with attribute(s) and method(s).
-        Created test cases for checking functionalities of ATS CLI interfaces.
+        Defines class JsonTestCase with attribute(s) and method(s).
+        Creates test cases for checking functionalities of ATS CLI interfaces.
         It defines:
 
             :attributes:
@@ -84,7 +84,10 @@ class JsonTestCase(TestCase):
             :methods:
                 | setUp - Call before test case.
                 | tearDown - Call after test case.
+                | test_not_none - Test is ATSCliJsonAPI not None.
                 | test_process - Test for process.
+                | test_add_new_option_called - Test is add new option called.
+                | test_parse_args_called - Test is parse args called.
     '''
 
     def setUp(self) -> None:
