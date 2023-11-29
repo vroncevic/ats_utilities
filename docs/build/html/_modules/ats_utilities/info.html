@@ -29,8 +29,7 @@
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="nav-item nav-item-0"><a href="../../index.html">ats_utilities https://github.com/vroncevic/ats_utilities/releases documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="../index.html" >Module code</a> &#187;</li>
-          <li class="nav-item nav-item-2"><a href="../ats_utilities.html" accesskey="U">ats_utilities</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">Module code</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">ats_utilities.info</a></li> 
       </ul>
     </div>  
@@ -68,13 +67,10 @@
 <span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
 
 <span class="k">try</span><span class="p">:</span>
-    <span class="kn">from</span> <span class="nn">ats_utilities</span> <span class="kn">import</span> <span class="n">auto_str</span>
-    <span class="kn">from</span> <span class="nn">ats_utilities.checker</span> <span class="kn">import</span> <span class="n">ATSChecker</span>
     <span class="kn">from</span> <span class="nn">ats_utilities.info.ats_name</span> <span class="kn">import</span> <span class="n">ATSName</span>
     <span class="kn">from</span> <span class="nn">ats_utilities.info.ats_info_ok</span> <span class="kn">import</span> <span class="n">ATSInfoOk</span>
     <span class="kn">from</span> <span class="nn">ats_utilities.info.ats_version</span> <span class="kn">import</span> <span class="n">ATSVersion</span>
     <span class="kn">from</span> <span class="nn">ats_utilities.info.ats_licence</span> <span class="kn">import</span> <span class="n">ATSLicence</span>
-    <span class="kn">from</span> <span class="nn">ats_utilities.info.ats_info_meta</span> <span class="kn">import</span> <span class="n">ATSInfoMeta</span>
     <span class="kn">from</span> <span class="nn">ats_utilities.console_io.error</span> <span class="kn">import</span> <span class="n">error_message</span>
     <span class="kn">from</span> <span class="nn">ats_utilities.info.ats_build_date</span> <span class="kn">import</span> <span class="n">ATSBuildDate</span>
     <span class="kn">from</span> <span class="nn">ats_utilities.console_io.verbose</span> <span class="kn">import</span> <span class="n">verbose_message</span>
@@ -94,15 +90,7 @@
 <span class="n">__status__</span> <span class="o">=</span> <span class="s1">&#39;Updated&#39;</span>
 
 
-<div class="viewcode-block" id="ATSInfo"><a class="viewcode-back" href="../../ats_utilities.info.html#ats_utilities.info.ATSInfo">[docs]</a><span class="nd">@auto_str</span>
-<span class="k">class</span> <span class="nc">ATSInfo</span><span class="p">(</span>
-        <span class="n">ATSName</span><span class="p">,</span>
-        <span class="n">ATSVersion</span><span class="p">,</span>
-        <span class="n">ATSLicence</span><span class="p">,</span>
-        <span class="n">ATSBuildDate</span><span class="p">,</span>
-        <span class="n">ATSInfoOk</span><span class="p">,</span>
-        <span class="n">metaclass</span><span class="o">=</span><span class="n">ATSInfoMeta</span>
-<span class="p">):</span>
+<div class="viewcode-block" id="ATSInfo"><a class="viewcode-back" href="../../ats_utilities.info.html#ats_utilities.info.ATSInfo">[docs]</a><span class="k">class</span> <span class="nc">ATSInfo</span><span class="p">(</span><span class="n">ATSName</span><span class="p">,</span> <span class="n">ATSVersion</span><span class="p">,</span> <span class="n">ATSLicence</span><span class="p">,</span> <span class="n">ATSBuildDate</span><span class="p">,</span> <span class="n">ATSInfoOk</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Defines class ATSInfo with attribute(s) and method(s).</span>
 <span class="sd">        Creates API for ATS information in one container object.</span>
@@ -111,11 +99,11 @@
 <span class="sd">        It defines:</span>
 
 <span class="sd">            :attributes:</span>
-<span class="sd">                | ats_name - ATS name key.</span>
-<span class="sd">                | ats_version - ATS version key.</span>
-<span class="sd">                | ats_licence - ATS licence key.</span>
-<span class="sd">                | ats_build_date - ATS build date key.</span>
-<span class="sd">                | ats_base_info - ATS base information dict.</span>
+<span class="sd">                | ATS_NAME - ATS name key.</span>
+<span class="sd">                | ATS_VERSION - ATS version key.</span>
+<span class="sd">                | ATS_LICENCE - ATS licence key.</span>
+<span class="sd">                | ATS_BUILD_DATE - ATS build date key.</span>
+<span class="sd">                | ATS_BASE_INFO - ATS base information dict.</span>
 <span class="sd">                | _verbose - Enable/Disable verbose option.</span>
 <span class="sd">                | _statuses - List of check statuses.</span>
 <span class="sd">            :methods:</span>
@@ -124,23 +112,18 @@
 <span class="sd">                | is_correct - Check information structure.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
 
-    <span class="n">ats_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;ats_name&#39;</span>
-    <span class="n">ats_version</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;ats_version&#39;</span>
-    <span class="n">ats_licence</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;ats_licence&#39;</span>
-    <span class="n">ats_build_date</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;ats_build_date&#39;</span>
-    <span class="n">ats_base_info</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
-        <span class="mi">1</span><span class="p">:</span> <span class="n">ats_name</span><span class="p">,</span>
-        <span class="mi">2</span><span class="p">:</span> <span class="n">ats_version</span><span class="p">,</span>
-        <span class="mi">3</span><span class="p">:</span> <span class="n">ats_licence</span><span class="p">,</span>
-        <span class="mi">4</span><span class="p">:</span> <span class="n">ats_build_date</span><span class="p">,</span>
+    <span class="n">ATS_NAME</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;ats_name&#39;</span>
+    <span class="n">ATS_VERSION</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;ats_version&#39;</span>
+    <span class="n">ATS_LICENCE</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;ats_licence&#39;</span>
+    <span class="n">ATS_BUILD_DATE</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;ats_build_date&#39;</span>
+    <span class="n">ATS_BASE_INFO</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="mi">1</span><span class="p">:</span> <span class="n">ATS_NAME</span><span class="p">,</span>
+        <span class="mi">2</span><span class="p">:</span> <span class="n">ATS_VERSION</span><span class="p">,</span>
+        <span class="mi">3</span><span class="p">:</span> <span class="n">ATS_LICENCE</span><span class="p">,</span>
+        <span class="mi">4</span><span class="p">:</span> <span class="n">ATS_BUILD_DATE</span><span class="p">,</span>
     <span class="p">}</span>
 
-    <span class="n">_verbose</span><span class="p">:</span> <span class="nb">bool</span>
-    <span class="n">_statuses</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span>
-
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span> <span class="n">info</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span> <span class="n">verbose</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">info</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span> <span class="n">verbose</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Initial ATSInfo constructor.</span>
 
@@ -150,34 +133,20 @@
 <span class="sd">            :type verbose: &lt;bool&gt;</span>
 <span class="sd">            :exceptions: ATSTypeError | ATSBadCallError</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="n">checker</span><span class="p">:</span> <span class="n">ATSChecker</span> <span class="o">=</span> <span class="n">ATSChecker</span><span class="p">()</span>
-        <span class="n">error_msg</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
-        <span class="n">error_id</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
-        <span class="n">error_msg</span><span class="p">,</span> <span class="n">error_id</span> <span class="o">=</span> <span class="n">checker</span><span class="o">.</span><span class="n">check_params</span><span class="p">([</span>
-            <span class="p">(</span><span class="s1">&#39;dict:info&#39;</span><span class="p">,</span> <span class="n">info</span><span class="p">)</span>
-        <span class="p">])</span>
-        <span class="k">if</span> <span class="n">error_id</span> <span class="o">==</span> <span class="n">ATSChecker</span><span class="o">.</span><span class="n">type_error</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="n">ATSTypeError</span><span class="p">(</span><span class="n">error_msg</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">error_id</span> <span class="o">==</span> <span class="n">ATSChecker</span><span class="o">.</span><span class="n">value_error</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="n">ATSBadCallError</span><span class="p">(</span><span class="n">error_msg</span><span class="p">)</span>
         <span class="n">ATSName</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">verbose</span><span class="p">)</span>
         <span class="n">ATSVersion</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">verbose</span><span class="p">)</span>
         <span class="n">ATSLicence</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">verbose</span><span class="p">)</span>
         <span class="n">ATSBuildDate</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">verbose</span><span class="p">)</span>
         <span class="n">ATSInfoOk</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">verbose</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_verbose</span> <span class="o">=</span> <span class="n">verbose</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_statuses</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_statuses</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">is_correct</span><span class="p">(</span><span class="n">info</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_verbose</span><span class="p">)</span>
         <span class="k">if</span> <span class="nb">all</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_statuses</span><span class="p">):</span>
-            <span class="n">verbose_message</span><span class="p">(</span>
-                <span class="n">ATSInfo</span><span class="o">.</span><span class="n">verbose</span><span class="p">,</span>  <span class="c1"># pylint: disable=no-member</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_verbose</span><span class="p">,</span>
-                <span class="nb">tuple</span><span class="p">(</span><span class="s1">&#39;load ATS information&#39;</span><span class="p">)</span>
-            <span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">info</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">ATSInfo</span><span class="o">.</span><span class="n">ats_name</span><span class="p">))</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">version</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">info</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">ATSInfo</span><span class="o">.</span><span class="n">ats_version</span><span class="p">))</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">licence</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">info</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">ATSInfo</span><span class="o">.</span><span class="n">ats_licence</span><span class="p">))</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">build_date</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">info</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">ATSInfo</span><span class="o">.</span><span class="n">ats_build_date</span><span class="p">))</span>
+            <span class="n">verbose_message</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_verbose</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;load ATS information&#39;</span><span class="p">])</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">info</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ATS_NAME</span><span class="p">))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">version</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">info</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ATS_VERSION</span><span class="p">))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">licence</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">info</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ATS_LICENCE</span><span class="p">))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">build_date</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">info</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ATS_BUILD_DATE</span><span class="p">))</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">ats_info_ok</span> <span class="o">=</span> <span class="kc">True</span>
 
 <div class="viewcode-block" id="ATSInfo.show_base_info"><a class="viewcode-back" href="../../ats_utilities.info.html#ats_utilities.info.ATSInfo.show_base_info">[docs]</a>    <span class="k">def</span> <span class="nf">show_base_info</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
@@ -203,27 +172,21 @@
 <span class="sd">            :type verbose: &lt;bool&gt;</span>
 <span class="sd">            :exceptions: ATSTypeError | ATSBadCallError</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="n">checker</span><span class="p">:</span> <span class="n">ATSChecker</span> <span class="o">=</span> <span class="n">ATSChecker</span><span class="p">()</span>
         <span class="n">error_msg</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="n">error_id</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
-        <span class="n">error_msg</span><span class="p">,</span> <span class="n">error_id</span> <span class="o">=</span> <span class="n">checker</span><span class="o">.</span><span class="n">check_params</span><span class="p">([</span>
+        <span class="n">error_msg</span><span class="p">,</span> <span class="n">error_id</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">check_params</span><span class="p">([</span>
             <span class="p">(</span><span class="s1">&#39;dict:information&#39;</span><span class="p">,</span> <span class="n">information</span><span class="p">)</span>
         <span class="p">])</span>
-        <span class="k">if</span> <span class="n">error_id</span> <span class="o">==</span> <span class="n">ATSChecker</span><span class="o">.</span><span class="n">type_error</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">error_id</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">TYPE_ERROR</span><span class="p">:</span>
             <span class="k">raise</span> <span class="n">ATSTypeError</span><span class="p">(</span><span class="n">error_msg</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">error_id</span> <span class="o">==</span> <span class="n">ATSChecker</span><span class="o">.</span><span class="n">value_error</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">error_id</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">VALUE_ERROR</span><span class="p">:</span>
             <span class="k">raise</span> <span class="n">ATSBadCallError</span><span class="p">(</span><span class="n">error_msg</span><span class="p">)</span>
         <span class="n">verbose_message</span><span class="p">(</span>
-            <span class="n">ATSInfo</span><span class="o">.</span><span class="n">verbose</span><span class="p">,</span>  <span class="c1"># pylint: disable=no-member</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_verbose</span> <span class="ow">or</span> <span class="n">verbose</span><span class="p">,</span>
-            <span class="nb">tuple</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;info structure </span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">information</span><span class="p">)</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_verbose</span> <span class="ow">or</span> <span class="n">verbose</span><span class="p">,</span> <span class="p">[</span><span class="sa">f</span><span class="s1">&#39;info structure </span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">information</span><span class="p">)</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">]</span>
         <span class="p">)</span>
         <span class="k">for</span> <span class="n">info_key</span> <span class="ow">in</span> <span class="n">information</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
-            <span class="k">if</span> <span class="n">info_key</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">ATSInfo</span><span class="o">.</span><span class="n">ats_base_info</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
-                <span class="n">error_message</span><span class="p">(</span>
-                    <span class="n">ATSInfo</span><span class="o">.</span><span class="n">verbose</span><span class="p">,</span>  <span class="c1"># pylint: disable=no-member</span>
-                    <span class="nb">tuple</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;key not expected [</span><span class="si">{</span><span class="n">info_key</span><span class="si">}</span><span class="s1">]&#39;</span><span class="p">)</span>
-                <span class="p">)</span>
+            <span class="k">if</span> <span class="n">info_key</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">ATS_BASE_INFO</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+                <span class="n">error_message</span><span class="p">([</span><span class="sa">f</span><span class="s1">&#39;key not expected [</span><span class="si">{</span><span class="n">info_key</span><span class="si">}</span><span class="s1">]&#39;</span><span class="p">])</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_statuses</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_statuses</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span></div></div>
@@ -260,7 +223,6 @@
              >modules</a> |</li>
         <li class="nav-item nav-item-0"><a href="../../index.html">ats_utilities https://github.com/vroncevic/ats_utilities/releases documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../index.html" >Module code</a> &#187;</li>
-          <li class="nav-item nav-item-2"><a href="../ats_utilities.html" >ats_utilities</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">ats_utilities.info</a></li> 
       </ul>
     </div>

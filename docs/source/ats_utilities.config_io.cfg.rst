@@ -8,9 +8,7 @@ Submodules
    :maxdepth: 4
 
    ats_utilities.config_io.cfg.cfg2object
-   ats_utilities.config_io.cfg.cfg2object_meta
    ats_utilities.config_io.cfg.object2cfg
-   ats_utilities.config_io.cfg.object2cfg_meta
 
 Module contents
 ---------------

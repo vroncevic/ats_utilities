@@ -19,8 +19,8 @@
     
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="ats_utilities.config_io.json.object2json_meta module" href="ats_utilities.config_io.json.object2json_meta.html" />
-    <link rel="prev" title="ats_utilities.config_io.json.json2object_meta module" href="ats_utilities.config_io.json.json2object_meta.html" /> 
+    <link rel="next" title="ats_utilities.config_io.xml package" href="ats_utilities.config_io.xml.html" />
+    <link rel="prev" title="ats_utilities.config_io.json.json2object module" href="ats_utilities.config_io.json.json2object.html" /> 
   </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
@@ -32,10 +32,10 @@
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="ats_utilities.config_io.json.object2json_meta.html" title="ats_utilities.config_io.json.object2json_meta module"
+          <a href="ats_utilities.config_io.xml.html" title="ats_utilities.config_io.xml package"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="ats_utilities.config_io.json.json2object_meta.html" title="ats_utilities.config_io.json.json2object_meta module"
+          <a href="ats_utilities.config_io.json.json2object.html" title="ats_utilities.config_io.json.json2object module"
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">ats_utilities https://github.com/vroncevic/ats_utilities/releases documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="modules.html" >ats_utilities</a> &#187;</li>
@@ -75,7 +75,7 @@ Creates API for writing a configuration/information to a json file.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="ats_utilities.config_io.json.object2json.Object2Json">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ats_utilities.config_io.json.object2json.</span></span><span class="sig-name descname"><span class="pre">Object2Json</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">configuration_file</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ats_utilities/config_io/json/object2json.html#Object2Json"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.config_io.json.object2json.Object2Json" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="ats_utilities.config_io.abs_write_conf.html#ats_utilities.config_io.abs_write_conf.WriteConf" title="ats_utilities.config_io.abs_write_conf.WriteConf"><code class="xref py py-class docutils literal notranslate"><span class="pre">WriteConf</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="ats_utilities.checker.html#ats_utilities.checker.ATSChecker" title="ats_utilities.checker.ATSChecker"><code class="xref py py-class docutils literal notranslate"><span class="pre">ATSChecker</span></code></a></p>
 <p>Defines class Object2Json with attribute(s) and method(s).
 Creates API for writing a configuration/information to a json file.
 Conversion JSON to configuration content.</p>
@@ -84,8 +84,9 @@ Conversion JSON to configuration content.</p>
 <div><dl class="field-list">
 <dt class="field-odd">attributes<span class="colon">:</span></dt>
 <dd class="field-odd"><div class="line-block">
-<div class="line">_format - Format of configuration content.</div>
+<div class="line">_FORMAT - Format of configuration content.</div>
 <div class="line">_verbose - Enable/Disable verbose option.</div>
+<div class="line">_file_path - Configuration file path.</div>
 </div>
 </dd>
 <dt class="field-even">methods<span class="colon">:</span></dt>
@@ -97,23 +98,8 @@ Conversion JSON to configuration content.</p>
 </dl>
 </div></blockquote>
 <dl class="py attribute">
-<dt class="sig sig-object py" id="ats_utilities.config_io.json.object2json.Object2Json._abc_impl">
-<span class="sig-name descname"><span class="pre">_abc_impl</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;_abc._abc_data</span> <span class="pre">object&gt;</span></em><a class="headerlink" href="#ats_utilities.config_io.json.object2json.Object2Json._abc_impl" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="ats_utilities.config_io.json.object2json.Object2Json._format">
-<span class="sig-name descname"><span class="pre">_format</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'json'</span></em><a class="headerlink" href="#ats_utilities.config_io.json.object2json.Object2Json._format" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="ats_utilities.config_io.json.object2json.Object2Json._verbose">
-<span class="sig-name descname"><span class="pre">_verbose</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#ats_utilities.config_io.json.object2json.Object2Json._verbose" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="ats_utilities.config_io.json.object2json.Object2Json.verbose">
-<span class="sig-name descname"><span class="pre">verbose</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'ATS_UTILITIES'</span></em><a class="headerlink" href="#ats_utilities.config_io.json.object2json.Object2Json.verbose" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ats_utilities.config_io.json.object2json.Object2Json._FORMAT">
+<span class="sig-name descname"><span class="pre">_FORMAT</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'json'</span></em><a class="headerlink" href="#ats_utilities.config_io.json.object2json.Object2Json._FORMAT" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -158,10 +144,7 @@ Conversion JSON to configuration content.</p>
     <ul>
 <li><a class="reference internal" href="#">ats_utilities.config_io.json.object2json module</a><ul>
 <li><a class="reference internal" href="#ats_utilities.config_io.json.object2json.Object2Json"><code class="docutils literal notranslate"><span class="pre">Object2Json</span></code></a><ul>
-<li><a class="reference internal" href="#ats_utilities.config_io.json.object2json.Object2Json._abc_impl"><code class="docutils literal notranslate"><span class="pre">Object2Json._abc_impl</span></code></a></li>
-<li><a class="reference internal" href="#ats_utilities.config_io.json.object2json.Object2Json._format"><code class="docutils literal notranslate"><span class="pre">Object2Json._format</span></code></a></li>
-<li><a class="reference internal" href="#ats_utilities.config_io.json.object2json.Object2Json._verbose"><code class="docutils literal notranslate"><span class="pre">Object2Json._verbose</span></code></a></li>
-<li><a class="reference internal" href="#ats_utilities.config_io.json.object2json.Object2Json.verbose"><code class="docutils literal notranslate"><span class="pre">Object2Json.verbose</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.config_io.json.object2json.Object2Json._FORMAT"><code class="docutils literal notranslate"><span class="pre">Object2Json._FORMAT</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.config_io.json.object2json.Object2Json.write_configuration"><code class="docutils literal notranslate"><span class="pre">Object2Json.write_configuration()</span></code></a></li>
 </ul>
 </li>
@@ -172,13 +155,13 @@ Conversion JSON to configuration content.</p>
   </div>
   <div>
     <h4>Previous topic</h4>
-    <p class="topless"><a href="ats_utilities.config_io.json.json2object_meta.html"
-                          title="previous chapter">ats_utilities.config_io.json.json2object_meta module</a></p>
+    <p class="topless"><a href="ats_utilities.config_io.json.json2object.html"
+                          title="previous chapter">ats_utilities.config_io.json.json2object module</a></p>
   </div>
   <div>
     <h4>Next topic</h4>
-    <p class="topless"><a href="ats_utilities.config_io.json.object2json_meta.html"
-                          title="next chapter">ats_utilities.config_io.json.object2json_meta module</a></p>
+    <p class="topless"><a href="ats_utilities.config_io.xml.html"
+                          title="next chapter">ats_utilities.config_io.xml package</a></p>
   </div>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
@@ -211,10 +194,10 @@ Conversion JSON to configuration content.</p>
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="ats_utilities.config_io.json.object2json_meta.html" title="ats_utilities.config_io.json.object2json_meta module"
+          <a href="ats_utilities.config_io.xml.html" title="ats_utilities.config_io.xml package"
              >next</a> |</li>
         <li class="right" >
-          <a href="ats_utilities.config_io.json.json2object_meta.html" title="ats_utilities.config_io.json.json2object_meta module"
+          <a href="ats_utilities.config_io.json.json2object.html" title="ats_utilities.config_io.json.json2object module"
              >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">ats_utilities https://github.com/vroncevic/ats_utilities/releases documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="modules.html" >ats_utilities</a> &#187;</li>

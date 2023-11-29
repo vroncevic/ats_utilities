@@ -19,7 +19,7 @@
     
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="ats_utilities.splash.splash_meta module" href="ats_utilities.splash.splash_meta.html" />
+    <link rel="next" title="ats_utilities.splash.splash_property module" href="ats_utilities.splash.splash_property.html" />
     <link rel="prev" title="ats_utilities.splash.github_infrastructure module" href="ats_utilities.splash.github_infrastructure.html" /> 
   </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
@@ -32,7 +32,7 @@
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="ats_utilities.splash.splash_meta.html" title="ats_utilities.splash.splash_meta module"
+          <a href="ats_utilities.splash.splash_property.html" title="ats_utilities.splash.splash_property module"
              accesskey="N">next</a> |</li>
         <li class="right" >
           <a href="ats_utilities.splash.github_infrastructure.html" title="ats_utilities.splash.github_infrastructure module"
@@ -83,9 +83,9 @@ Progress bar component.</p>
 <div><dl class="field-list">
 <dt class="field-odd">attributes<span class="colon">:</span></dt>
 <dd class="field-odd"><div class="line-block">
-<div class="line">default_bar_length - Length of progressbar.</div>
-<div class="line">default_char_on - Loaded progress element.</div>
-<div class="line">default_char_off - Unloaded progress element.</div>
+<div class="line">DEFAULT_BAR_LENGTH - Length of progressbar.</div>
+<div class="line">DEFAULT_CHAR_ON - Loaded progress element.</div>
+<div class="line">DEFAULT_CHAR_OFF - Unloaded progress element.</div>
 <div class="line">_start - Start of level.</div>
 <div class="line">_end - End of level.</div>
 <div class="line">_bar_length - Progress length.</div>
@@ -105,53 +105,18 @@ Progress bar component.</p>
 </dl>
 </div></blockquote>
 <dl class="py attribute">
-<dt class="sig sig-object py" id="ats_utilities.splash.progress_bar.ProgressBar._bar_length">
-<span class="sig-name descname"><span class="pre">_bar_length</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#ats_utilities.splash.progress_bar.ProgressBar._bar_length" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ats_utilities.splash.progress_bar.ProgressBar.DEFAULT_BAR_LENGTH">
+<span class="sig-name descname"><span class="pre">DEFAULT_BAR_LENGTH</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">60</span></em><a class="headerlink" href="#ats_utilities.splash.progress_bar.ProgressBar.DEFAULT_BAR_LENGTH" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="ats_utilities.splash.progress_bar.ProgressBar._end">
-<span class="sig-name descname"><span class="pre">_end</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#ats_utilities.splash.progress_bar.ProgressBar._end" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ats_utilities.splash.progress_bar.ProgressBar.DEFAULT_CHAR_OFF">
+<span class="sig-name descname"><span class="pre">DEFAULT_CHAR_OFF</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'</span> <span class="pre">'</span></em><a class="headerlink" href="#ats_utilities.splash.progress_bar.ProgressBar.DEFAULT_CHAR_OFF" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="ats_utilities.splash.progress_bar.ProgressBar._level">
-<span class="sig-name descname"><span class="pre">_level</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#ats_utilities.splash.progress_bar.ProgressBar._level" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="ats_utilities.splash.progress_bar.ProgressBar._level_chars">
-<span class="sig-name descname"><span class="pre">_level_chars</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#ats_utilities.splash.progress_bar.ProgressBar._level_chars" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="ats_utilities.splash.progress_bar.ProgressBar._plotted">
-<span class="sig-name descname"><span class="pre">_plotted</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#ats_utilities.splash.progress_bar.ProgressBar._plotted" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="ats_utilities.splash.progress_bar.ProgressBar._ratio">
-<span class="sig-name descname"><span class="pre">_ratio</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><a class="headerlink" href="#ats_utilities.splash.progress_bar.ProgressBar._ratio" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="ats_utilities.splash.progress_bar.ProgressBar._start">
-<span class="sig-name descname"><span class="pre">_start</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#ats_utilities.splash.progress_bar.ProgressBar._start" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="ats_utilities.splash.progress_bar.ProgressBar.default_bar_length">
-<span class="sig-name descname"><span class="pre">default_bar_length</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">60</span></em><a class="headerlink" href="#ats_utilities.splash.progress_bar.ProgressBar.default_bar_length" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="ats_utilities.splash.progress_bar.ProgressBar.default_char_off">
-<span class="sig-name descname"><span class="pre">default_char_off</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'</span> <span class="pre">'</span></em><a class="headerlink" href="#ats_utilities.splash.progress_bar.ProgressBar.default_char_off" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="ats_utilities.splash.progress_bar.ProgressBar.default_char_on">
-<span class="sig-name descname"><span class="pre">default_char_on</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'█'</span></em><a class="headerlink" href="#ats_utilities.splash.progress_bar.ProgressBar.default_char_on" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ats_utilities.splash.progress_bar.ProgressBar.DEFAULT_CHAR_ON">
+<span class="sig-name descname"><span class="pre">DEFAULT_CHAR_ON</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'█'</span></em><a class="headerlink" href="#ats_utilities.splash.progress_bar.ProgressBar.DEFAULT_CHAR_ON" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -215,16 +180,9 @@ Progress bar component.</p>
     <ul>
 <li><a class="reference internal" href="#">ats_utilities.splash.progress_bar module</a><ul>
 <li><a class="reference internal" href="#ats_utilities.splash.progress_bar.ProgressBar"><code class="docutils literal notranslate"><span class="pre">ProgressBar</span></code></a><ul>
-<li><a class="reference internal" href="#ats_utilities.splash.progress_bar.ProgressBar._bar_length"><code class="docutils literal notranslate"><span class="pre">ProgressBar._bar_length</span></code></a></li>
-<li><a class="reference internal" href="#ats_utilities.splash.progress_bar.ProgressBar._end"><code class="docutils literal notranslate"><span class="pre">ProgressBar._end</span></code></a></li>
-<li><a class="reference internal" href="#ats_utilities.splash.progress_bar.ProgressBar._level"><code class="docutils literal notranslate"><span class="pre">ProgressBar._level</span></code></a></li>
-<li><a class="reference internal" href="#ats_utilities.splash.progress_bar.ProgressBar._level_chars"><code class="docutils literal notranslate"><span class="pre">ProgressBar._level_chars</span></code></a></li>
-<li><a class="reference internal" href="#ats_utilities.splash.progress_bar.ProgressBar._plotted"><code class="docutils literal notranslate"><span class="pre">ProgressBar._plotted</span></code></a></li>
-<li><a class="reference internal" href="#ats_utilities.splash.progress_bar.ProgressBar._ratio"><code class="docutils literal notranslate"><span class="pre">ProgressBar._ratio</span></code></a></li>
-<li><a class="reference internal" href="#ats_utilities.splash.progress_bar.ProgressBar._start"><code class="docutils literal notranslate"><span class="pre">ProgressBar._start</span></code></a></li>
-<li><a class="reference internal" href="#ats_utilities.splash.progress_bar.ProgressBar.default_bar_length"><code class="docutils literal notranslate"><span class="pre">ProgressBar.default_bar_length</span></code></a></li>
-<li><a class="reference internal" href="#ats_utilities.splash.progress_bar.ProgressBar.default_char_off"><code class="docutils literal notranslate"><span class="pre">ProgressBar.default_char_off</span></code></a></li>
-<li><a class="reference internal" href="#ats_utilities.splash.progress_bar.ProgressBar.default_char_on"><code class="docutils literal notranslate"><span class="pre">ProgressBar.default_char_on</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.splash.progress_bar.ProgressBar.DEFAULT_BAR_LENGTH"><code class="docutils literal notranslate"><span class="pre">ProgressBar.DEFAULT_BAR_LENGTH</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.splash.progress_bar.ProgressBar.DEFAULT_CHAR_OFF"><code class="docutils literal notranslate"><span class="pre">ProgressBar.DEFAULT_CHAR_OFF</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.splash.progress_bar.ProgressBar.DEFAULT_CHAR_ON"><code class="docutils literal notranslate"><span class="pre">ProgressBar.DEFAULT_CHAR_ON</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.splash.progress_bar.ProgressBar.plot_progress"><code class="docutils literal notranslate"><span class="pre">ProgressBar.plot_progress()</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.splash.progress_bar.ProgressBar.set_and_plot"><code class="docutils literal notranslate"><span class="pre">ProgressBar.set_and_plot()</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.splash.progress_bar.ProgressBar.set_level"><code class="docutils literal notranslate"><span class="pre">ProgressBar.set_level()</span></code></a></li>
@@ -242,8 +200,8 @@ Progress bar component.</p>
   </div>
   <div>
     <h4>Next topic</h4>
-    <p class="topless"><a href="ats_utilities.splash.splash_meta.html"
-                          title="next chapter">ats_utilities.splash.splash_meta module</a></p>
+    <p class="topless"><a href="ats_utilities.splash.splash_property.html"
+                          title="next chapter">ats_utilities.splash.splash_property module</a></p>
   </div>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
@@ -276,7 +234,7 @@ Progress bar component.</p>
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="ats_utilities.splash.splash_meta.html" title="ats_utilities.splash.splash_meta module"
+          <a href="ats_utilities.splash.splash_property.html" title="ats_utilities.splash.splash_property module"
              >next</a> |</li>
         <li class="right" >
           <a href="ats_utilities.splash.github_infrastructure.html" title="ats_utilities.splash.github_infrastructure module"

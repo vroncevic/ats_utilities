@@ -84,10 +84,10 @@ Mechanism for checking function/method parameters (type/value).</p>
 <div><dl class="field-list">
 <dt class="field-odd">attributes<span class="colon">:</span></dt>
 <dd class="field-odd"><div class="line-block">
-<div class="line">no_error - No error, error id (0).</div>
-<div class="line">type_error - Type param error id (1).</div>
-<div class="line">value_error - Value param error id (2).</div>
-<div class="line">format_error - Wrong format error id (3).</div>
+<div class="line">NO_ERROR - No error, error id (0).</div>
+<div class="line">TYPE_ERROR - Type param error id (1).</div>
+<div class="line">VALUE_ERROR - Value param error id (2).</div>
+<div class="line">FORMAT_ERROR - Wrong format error id (3).</div>
 <div class="line">_start_message - Start segment of usage message.</div>
 <div class="line">_list_of_params - List of parameters for method/function.</div>
 <div class="line">_error_type - List of mapped errors.</div>
@@ -102,35 +102,30 @@ Mechanism for checking function/method parameters (type/value).</p>
 <div class="line">usage_message - Prepare usage message for method/function.</div>
 <div class="line">check_types - Check parameters (types) for method/function.</div>
 <div class="line">check_values - Check parameters (values) for method/function.</div>
-<div class="line">priority_error - Set priority error id (type_error).</div>
+<div class="line">priority_error - Set priority error id (TYPE_ERROR).</div>
 <div class="line">check_params - Check parameters for method/function.</div>
 </div>
 </dd>
 </dl>
 </div></blockquote>
 <dl class="py attribute">
-<dt class="sig sig-object py" id="ats_utilities.checker.ATSChecker._error_type">
-<span class="sig-name descname"><span class="pre">_error_type</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#ats_utilities.checker.ATSChecker._error_type" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ats_utilities.checker.ATSChecker.FORMAT_ERROR">
+<span class="sig-name descname"><span class="pre">FORMAT_ERROR</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">3</span></em><a class="headerlink" href="#ats_utilities.checker.ATSChecker.FORMAT_ERROR" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="ats_utilities.checker.ATSChecker._error_type_index">
-<span class="sig-name descname"><span class="pre">_error_type_index</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#ats_utilities.checker.ATSChecker._error_type_index" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ats_utilities.checker.ATSChecker.NO_ERROR">
+<span class="sig-name descname"><span class="pre">NO_ERROR</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#ats_utilities.checker.ATSChecker.NO_ERROR" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="ats_utilities.checker.ATSChecker._error_value_index">
-<span class="sig-name descname"><span class="pre">_error_value_index</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#ats_utilities.checker.ATSChecker._error_value_index" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ats_utilities.checker.ATSChecker.TYPE_ERROR">
+<span class="sig-name descname"><span class="pre">TYPE_ERROR</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1</span></em><a class="headerlink" href="#ats_utilities.checker.ATSChecker.TYPE_ERROR" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="ats_utilities.checker.ATSChecker._list_of_params">
-<span class="sig-name descname"><span class="pre">_list_of_params</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#ats_utilities.checker.ATSChecker._list_of_params" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="ats_utilities.checker.ATSChecker._start_message">
-<span class="sig-name descname"><span class="pre">_start_message</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#ats_utilities.checker.ATSChecker._start_message" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ats_utilities.checker.ATSChecker.VALUE_ERROR">
+<span class="sig-name descname"><span class="pre">VALUE_ERROR</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">2</span></em><a class="headerlink" href="#ats_utilities.checker.ATSChecker.VALUE_ERROR" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -213,20 +208,10 @@ Mechanism for checking function/method parameters (type/value).</p>
 </dl>
 </dd></dl>
 
-<dl class="py attribute">
-<dt class="sig sig-object py" id="ats_utilities.checker.ATSChecker.format_error">
-<span class="sig-name descname"><span class="pre">format_error</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">3</span></em><a class="headerlink" href="#ats_utilities.checker.ATSChecker.format_error" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="ats_utilities.checker.ATSChecker.no_error">
-<span class="sig-name descname"><span class="pre">no_error</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#ats_utilities.checker.ATSChecker.no_error" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
 <dl class="py method">
 <dt class="sig sig-object py" id="ats_utilities.checker.ATSChecker.priority_error">
 <span class="sig-name descname"><span class="pre">priority_error</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></span><a class="reference internal" href="_modules/ats_utilities/checker.html#ATSChecker.priority_error"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.checker.ATSChecker.priority_error" title="Permalink to this definition">¶</a></dt>
-<dd><p>Set priority error id (type_error).</p>
+<dd><p>Set priority error id (TYPE_ERROR).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Priority error id (0 | 1 | 2 | 3) | None</p>
@@ -239,11 +224,6 @@ Mechanism for checking function/method parameters (type/value).</p>
 </dd>
 </dl>
 </dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="ats_utilities.checker.ATSChecker.type_error">
-<span class="sig-name descname"><span class="pre">type_error</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1</span></em><a class="headerlink" href="#ats_utilities.checker.ATSChecker.type_error" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="ats_utilities.checker.ATSChecker.usage_message">
@@ -261,16 +241,6 @@ Mechanism for checking function/method parameters (type/value).</p>
 </dd>
 </dl>
 </dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="ats_utilities.checker.ATSChecker.value_error">
-<span class="sig-name descname"><span class="pre">value_error</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">2</span></em><a class="headerlink" href="#ats_utilities.checker.ATSChecker.value_error" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="ats_utilities.checker.ATSChecker.verbose">
-<span class="sig-name descname"><span class="pre">verbose</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'ATS_UTILITIES'</span></em><a class="headerlink" href="#ats_utilities.checker.ATSChecker.verbose" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
 
 </dd></dl>
 
@@ -290,22 +260,16 @@ Mechanism for checking function/method parameters (type/value).</p>
 <li><a class="reference internal" href="#">ats_utilities.checker package</a><ul>
 <li><a class="reference internal" href="#module-ats_utilities.checker">Module contents</a><ul>
 <li><a class="reference internal" href="#ats_utilities.checker.ATSChecker"><code class="docutils literal notranslate"><span class="pre">ATSChecker</span></code></a><ul>
-<li><a class="reference internal" href="#ats_utilities.checker.ATSChecker._error_type"><code class="docutils literal notranslate"><span class="pre">ATSChecker._error_type</span></code></a></li>
-<li><a class="reference internal" href="#ats_utilities.checker.ATSChecker._error_type_index"><code class="docutils literal notranslate"><span class="pre">ATSChecker._error_type_index</span></code></a></li>
-<li><a class="reference internal" href="#ats_utilities.checker.ATSChecker._error_value_index"><code class="docutils literal notranslate"><span class="pre">ATSChecker._error_value_index</span></code></a></li>
-<li><a class="reference internal" href="#ats_utilities.checker.ATSChecker._list_of_params"><code class="docutils literal notranslate"><span class="pre">ATSChecker._list_of_params</span></code></a></li>
-<li><a class="reference internal" href="#ats_utilities.checker.ATSChecker._start_message"><code class="docutils literal notranslate"><span class="pre">ATSChecker._start_message</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.checker.ATSChecker.FORMAT_ERROR"><code class="docutils literal notranslate"><span class="pre">ATSChecker.FORMAT_ERROR</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.checker.ATSChecker.NO_ERROR"><code class="docutils literal notranslate"><span class="pre">ATSChecker.NO_ERROR</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.checker.ATSChecker.TYPE_ERROR"><code class="docutils literal notranslate"><span class="pre">ATSChecker.TYPE_ERROR</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.checker.ATSChecker.VALUE_ERROR"><code class="docutils literal notranslate"><span class="pre">ATSChecker.VALUE_ERROR</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.checker.ATSChecker.check_params"><code class="docutils literal notranslate"><span class="pre">ATSChecker.check_params()</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.checker.ATSChecker.check_types"><code class="docutils literal notranslate"><span class="pre">ATSChecker.check_types()</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.checker.ATSChecker.check_values"><code class="docutils literal notranslate"><span class="pre">ATSChecker.check_values()</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.checker.ATSChecker.collect_params"><code class="docutils literal notranslate"><span class="pre">ATSChecker.collect_params()</span></code></a></li>
-<li><a class="reference internal" href="#ats_utilities.checker.ATSChecker.format_error"><code class="docutils literal notranslate"><span class="pre">ATSChecker.format_error</span></code></a></li>
-<li><a class="reference internal" href="#ats_utilities.checker.ATSChecker.no_error"><code class="docutils literal notranslate"><span class="pre">ATSChecker.no_error</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.checker.ATSChecker.priority_error"><code class="docutils literal notranslate"><span class="pre">ATSChecker.priority_error()</span></code></a></li>
-<li><a class="reference internal" href="#ats_utilities.checker.ATSChecker.type_error"><code class="docutils literal notranslate"><span class="pre">ATSChecker.type_error</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.checker.ATSChecker.usage_message"><code class="docutils literal notranslate"><span class="pre">ATSChecker.usage_message()</span></code></a></li>
-<li><a class="reference internal" href="#ats_utilities.checker.ATSChecker.value_error"><code class="docutils literal notranslate"><span class="pre">ATSChecker.value_error</span></code></a></li>
-<li><a class="reference internal" href="#ats_utilities.checker.ATSChecker.verbose"><code class="docutils literal notranslate"><span class="pre">ATSChecker.verbose</span></code></a></li>
 </ul>
 </li>
 </ul>

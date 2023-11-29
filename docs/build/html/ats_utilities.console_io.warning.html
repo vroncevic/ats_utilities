@@ -95,18 +95,13 @@ Mechanism for logging warning messages.</p>
 </dd>
 </dl>
 </div></blockquote>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="ats_utilities.console_io.warning.ATSWarning._message">
-<span class="sig-name descname"><span class="pre">_message</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#ats_utilities.console_io.warning.ATSWarning._message" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
 <dl class="py method">
 <dt class="sig sig-object py" id="ats_utilities.console_io.warning.ATSWarning.is_not_none">
 <span class="sig-name descname"><span class="pre">is_not_none</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="_modules/ats_utilities/console_io/warning.html#ATSWarning.is_not_none"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.console_io.warning.ATSWarning.is_not_none" title="Permalink to this definition">¶</a></dt>
 <dd><p>Checking is message not None.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>True (not None) | False (it is None)</p>
+<dd class="field-odd"><p>True (not None) | False</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p>&lt;bool&gt;</p>
@@ -134,23 +129,15 @@ Mechanism for logging warning messages.</p>
 </dl>
 </dd></dl>
 
-<dl class="py attribute">
-<dt class="sig sig-object py" id="ats_utilities.console_io.warning.ATSWarning.verbose">
-<span class="sig-name descname"><span class="pre">verbose</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'ATS_UTILITIES'</span></em><a class="headerlink" href="#ats_utilities.console_io.warning.ATSWarning.verbose" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="ats_utilities.console_io.warning.warning_message">
-<span class="sig-prename descclassname"><span class="pre">ats_utilities.console_io.warning.</span></span><span class="sig-name descname"><span class="pre">warning_message</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">warning_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">message</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/ats_utilities/console_io/warning.html#warning_message"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.console_io.warning.warning_message" title="Permalink to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">ats_utilities.console_io.warning.</span></span><span class="sig-name descname"><span class="pre">warning_message</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">message</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/ats_utilities/console_io/warning.html#warning_message"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.console_io.warning.warning_message" title="Permalink to this definition">¶</a></dt>
 <dd><p>Show warning message.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>warning_path</strong> (<em>&lt;str&gt;</em>) – Warning prefix message</p></li>
-<li><p><strong>message</strong> (<em>&lt;Tuple</em><em>[</em><em>str</em><em>, </em><em>...</em><em>]</em><em>&gt;</em>) – Message parts</p></li>
-</ul>
+<dd class="field-odd"><p><strong>message</strong> (<em>&lt;List</em><em>[</em><em>Any</em><em>]</em><em>&gt;</em>) – Message combined as list of any elements</p>
 </dd>
 <dt class="field-even">Exceptions<span class="colon">:</span></dt>
 <dd class="field-even"><p>ATSTypeError | ATSBadCallError</p>
@@ -172,10 +159,8 @@ Mechanism for logging warning messages.</p>
     <ul>
 <li><a class="reference internal" href="#">ats_utilities.console_io.warning module</a><ul>
 <li><a class="reference internal" href="#ats_utilities.console_io.warning.ATSWarning"><code class="docutils literal notranslate"><span class="pre">ATSWarning</span></code></a><ul>
-<li><a class="reference internal" href="#ats_utilities.console_io.warning.ATSWarning._message"><code class="docutils literal notranslate"><span class="pre">ATSWarning._message</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.console_io.warning.ATSWarning.is_not_none"><code class="docutils literal notranslate"><span class="pre">ATSWarning.is_not_none()</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.console_io.warning.ATSWarning.message"><code class="docutils literal notranslate"><span class="pre">ATSWarning.message</span></code></a></li>
-<li><a class="reference internal" href="#ats_utilities.console_io.warning.ATSWarning.verbose"><code class="docutils literal notranslate"><span class="pre">ATSWarning.verbose</span></code></a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#ats_utilities.console_io.warning.warning_message"><code class="docutils literal notranslate"><span class="pre">warning_message()</span></code></a></li>

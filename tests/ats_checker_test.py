@@ -74,15 +74,11 @@ class ATSCheckerTestCase(TestCase):
                 | test_value_error - Test for value param checking.
     '''
 
-    checker: ATSChecker
-    error_msg: str | None
-    error_id: int | None
-
     def setUp(self) -> None:
         '''Call before every test case.'''
-        self.checker = ATSChecker()
-        self.error_msg = None
-        self.error_id = -1
+        self.checker: ATSChecker = ATSChecker()
+        self.error_msg: str | None = None
+        self.error_id: int | None = -1
 
     def tearDown(self) -> None:
         '''Call after every test case.'''

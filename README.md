@@ -13,7 +13,7 @@ The README is used to introduce the modules and provide instructions on
 how to install the modules, any machine dependencies it may have and any
 other information that should be provided before the modules are installed.
 
-[![ats_utilities python checker](https://img.shields.io/github/workflow/status/vroncevic/ats_utilities/ats_utilities_python_checker?style=flat&label=ats_utilities%20python%20checker)](https://github.com/vroncevic/ats_utilities/actions/workflows/ats_utilities_python_checker.yml) [![ats_utilities package checker](https://img.shields.io/github/workflow/status/vroncevic/ats_utilities/ats_utilities_package_checker?style=flat&label=ats_utilities%20package%20checker)](https://github.com/vroncevic/ats_utilities/actions/workflows/ats_utilities_package_checker.yml) [![GitHub issues open](https://img.shields.io/github/issues/vroncevic/ats_utilities.svg)](https://github.com/vroncevic/ats_utilities/issues) [![GitHub contributors](https://img.shields.io/github/contributors/vroncevic/ats_utilities.svg)](https://github.com/vroncevic/ats_utilities/graphs/contributors)
+[![ats_utilities_python_checker](https://github.com/vroncevic/ats_utilities/actions/workflows/ats_utilities_python_checker.yml/badge.svg)](https://github.com/vroncevic/ats_utilities/actions/workflows/ats_utilities_python_checker.yml) [![ats_utilities_package_checker](https://github.com/vroncevic/ats_utilities/actions/workflows/ats_utilities_package_checker.yml/badge.svg)](https://github.com/vroncevic/ats_utilities/actions/workflows/ats_utilities_package_checker.yml) [![GitHub issues open](https://img.shields.io/github/issues/vroncevic/ats_utilities.svg)](https://github.com/vroncevic/ats_utilities/issues) [![GitHub contributors](https://img.shields.io/github/contributors/vroncevic/ats_utilities.svg)](https://github.com/vroncevic/ats_utilities/graphs/contributors)
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
@@ -38,7 +38,7 @@ Used next development environment
 
 ![debian linux os](https://raw.githubusercontent.com/vroncevic/ats_utilities/dev/docs/debtux.png)
 
-[![ats_utilities python3 build](https://img.shields.io/github/workflow/status/vroncevic/ats_utilities/ats_utilities_python3_build?style=flat&label=ats_utilities%20python3%20build)](https://github.com/vroncevic/ats_utilities/actions/workflows/ats_utilities_python3_build.yml)
+[![ats_utilities_python3_build](https://github.com/vroncevic/ats_utilities/actions/workflows/ats_utilities_python3_build.yml/badge.svg)](https://github.com/vroncevic/ats_utilities/actions/workflows/ats_utilities_python3_build.yml)
 
 Currently there are four ways to install framework
 * Install process based on using pip mechanism
@@ -102,8 +102,6 @@ rm -f get-pip.py
 ##### Install using docker
 
 You can use Dockerfile to create image/container.
-
-[![ats_utilities docker checker](https://img.shields.io/github/workflow/status/vroncevic/ats_utilities/ats_utilities_docker_checker?style=flat&label=ats_utilities%20docker%20checker)](https://github.com/vroncevic/ats_utilities/actions/workflows/ats_utilities_docker_checker.yml)
 
 ### Dependencies
 
@@ -233,7 +231,7 @@ More documentation and info at
 
 [![license: gpl v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0) [![license apache 2.0](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
-Copyright (C) 2017 by [vroncevic.github.io/ats_utilities](https://vroncevic.github.io/ats_utilities/)
+Copyright (C) 2017-2024 by [vroncevic.github.io/ats_utilities](https://vroncevic.github.io/ats_utilities/)
 
 **ats_utilities** is free software; you can redistribute it and/or modify
 it under the same terms as Python itself, either Python version 3.x or,

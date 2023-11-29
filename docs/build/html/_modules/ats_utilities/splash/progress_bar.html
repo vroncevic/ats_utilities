@@ -30,8 +30,7 @@
              >modules</a> |</li>
         <li class="nav-item nav-item-0"><a href="../../../index.html">ats_utilities https://github.com/vroncevic/ats_utilities/releases documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../index.html" >Module code</a> &#187;</li>
-          <li class="nav-item nav-item-2"><a href="../../ats_utilities.html" >ats_utilities</a> &#187;</li>
-          <li class="nav-item nav-item-3"><a href="../splash.html" accesskey="U">ats_utilities.splash</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="../splash.html" accesskey="U">ats_utilities.splash</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">ats_utilities.splash.progress_bar</a></li> 
       </ul>
     </div>  
@@ -85,9 +84,9 @@
 <span class="sd">        It defines:</span>
 
 <span class="sd">            :attributes:</span>
-<span class="sd">                | default_bar_length - Length of progressbar.</span>
-<span class="sd">                | default_char_on - Loaded progress element.</span>
-<span class="sd">                | default_char_off - Unloaded progress element.</span>
+<span class="sd">                | DEFAULT_BAR_LENGTH - Length of progressbar.</span>
+<span class="sd">                | DEFAULT_CHAR_ON - Loaded progress element.</span>
+<span class="sd">                | DEFAULT_CHAR_OFF - Unloaded progress element.</span>
 <span class="sd">                | _start - Start of level.</span>
 <span class="sd">                | _end - End of level.</span>
 <span class="sd">                | _bar_length - Progress length.</span>
@@ -101,17 +100,9 @@
 <span class="sd">                | set_and_plot - Set and plot progress.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
 
-    <span class="n">default_bar_length</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">60</span>
-    <span class="n">default_char_on</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;█&#39;</span>
-    <span class="n">default_char_off</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39; &#39;</span>
-
-    <span class="n">_start</span><span class="p">:</span> <span class="nb">int</span>
-    <span class="n">_end</span><span class="p">:</span> <span class="nb">int</span>
-    <span class="n">_bar_length</span><span class="p">:</span> <span class="nb">int</span>
-    <span class="n">_plotted</span><span class="p">:</span> <span class="nb">bool</span>
-    <span class="n">_level</span><span class="p">:</span> <span class="nb">int</span>
-    <span class="n">_ratio</span><span class="p">:</span> <span class="nb">float</span>
-    <span class="n">_level_chars</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="n">DEFAULT_BAR_LENGTH</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">60</span>
+    <span class="n">DEFAULT_CHAR_ON</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;█&#39;</span>
+    <span class="n">DEFAULT_CHAR_OFF</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39; &#39;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">end</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">start</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
@@ -119,11 +110,14 @@
 
 <span class="sd">            :exceptions: None</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_end</span> <span class="o">=</span> <span class="n">end</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_start</span> <span class="o">=</span> <span class="n">start</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_bar_length</span> <span class="o">=</span> <span class="n">ProgressBar</span><span class="o">.</span><span class="n">default_bar_length</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_end</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">end</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_start</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">start</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_bar_length</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">DEFAULT_BAR_LENGTH</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">set_level</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_start</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_plotted</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_plotted</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_level</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_ratio</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_level_chars</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
 
 <div class="viewcode-block" id="ProgressBar.set_level"><a class="viewcode-back" href="../../../ats_utilities.splash.progress_bar.html#ats_utilities.splash.progress_bar.ProgressBar.set_level">[docs]</a>    <span class="k">def</span> <span class="nf">set_level</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">level</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
@@ -158,8 +152,8 @@
             <span class="s2">&quot;</span><span class="se">\r</span><span class="s2"> </span><span class="si">%s</span><span class="s2"> </span><span class="si">%3i%%</span><span class="s2"> </span><span class="si">%s%s</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">expandtabs</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span> <span class="o">%</span> <span class="p">(</span>
                 <span class="s1">&#39;</span><span class="se">\011</span><span class="s1">&#39;</span> <span class="o">*</span> <span class="n">number_of_tabs</span><span class="p">,</span>
                 <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_ratio</span> <span class="o">*</span> <span class="mf">100.0</span><span class="p">),</span>
-                <span class="n">ProgressBar</span><span class="o">.</span><span class="n">default_char_on</span> <span class="o">*</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_level_chars</span><span class="p">),</span>
-                <span class="n">ProgressBar</span><span class="o">.</span><span class="n">default_char_off</span> <span class="o">*</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">DEFAULT_CHAR_ON</span> <span class="o">*</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_level_chars</span><span class="p">),</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">DEFAULT_CHAR_OFF</span> <span class="o">*</span>
                 <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_bar_length</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">_level_chars</span><span class="p">)</span>
             <span class="p">)</span>
         <span class="p">)</span>
@@ -221,8 +215,7 @@
              >modules</a> |</li>
         <li class="nav-item nav-item-0"><a href="../../../index.html">ats_utilities https://github.com/vroncevic/ats_utilities/releases documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../index.html" >Module code</a> &#187;</li>
-          <li class="nav-item nav-item-2"><a href="../../ats_utilities.html" >ats_utilities</a> &#187;</li>
-          <li class="nav-item nav-item-3"><a href="../splash.html" >ats_utilities.splash</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="../splash.html" >ats_utilities.splash</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">ats_utilities.splash.progress_bar</a></li> 
       </ul>
     </div>

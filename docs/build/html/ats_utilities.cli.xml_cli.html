@@ -19,8 +19,8 @@
     
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="ats_utilities.cli.xml_cli_meta module" href="ats_utilities.cli.xml_cli_meta.html" />
-    <link rel="prev" title="ats_utilities.cli.json_cli_meta module" href="ats_utilities.cli.json_cli_meta.html" /> 
+    <link rel="next" title="ats_utilities.cli.yaml_cli module" href="ats_utilities.cli.yaml_cli.html" />
+    <link rel="prev" title="ats_utilities.cli.json_cli module" href="ats_utilities.cli.json_cli.html" /> 
   </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
@@ -32,10 +32,10 @@
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="ats_utilities.cli.xml_cli_meta.html" title="ats_utilities.cli.xml_cli_meta module"
+          <a href="ats_utilities.cli.yaml_cli.html" title="ats_utilities.cli.yaml_cli module"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="ats_utilities.cli.json_cli_meta.html" title="ats_utilities.cli.json_cli_meta module"
+          <a href="ats_utilities.cli.json_cli.html" title="ats_utilities.cli.json_cli module"
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">ats_utilities https://github.com/vroncevic/ats_utilities/releases documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="modules.html" >ats_utilities</a> &#187;</li>
@@ -96,25 +96,15 @@ Command line interface configurtion based on XML format.</p>
 </dd>
 </dl>
 </div></blockquote>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="ats_utilities.cli.xml_cli.XmlCLI._abc_impl">
-<span class="sig-name descname"><span class="pre">_abc_impl</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;_abc._abc_data</span> <span class="pre">object&gt;</span></em><a class="headerlink" href="#ats_utilities.cli.xml_cli.XmlCLI._abc_impl" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="ats_utilities.cli.xml_cli.XmlCLI._verbose">
-<span class="sig-name descname"><span class="pre">_verbose</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#ats_utilities.cli.xml_cli.XmlCLI._verbose" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
 <dl class="py method">
 <dt class="sig sig-object py" id="ats_utilities.cli.xml_cli.XmlCLI.add_new_option">
-<span class="sig-name descname"><span class="pre">add_new_option</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/ats_utilities/cli/xml_cli.html#XmlCLI.add_new_option"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.cli.xml_cli.XmlCLI.add_new_option" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">add_new_option</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/ats_utilities/cli/xml_cli.html#XmlCLI.add_new_option"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.cli.xml_cli.XmlCLI.add_new_option" title="Permalink to this definition">¶</a></dt>
 <dd><p>Adding new option for CL interface.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>args</strong> (<em>&lt;Tuple</em><em>[</em><em>Any</em><em>]</em><em>&gt;</em>) – Tuple of arguments (objects)</p></li>
-<li><p><strong>kwargs</strong> (<em>&lt;Dict</em><em>[</em><em>Any</em><em>, </em><em>Any</em><em>]</em><em>&gt;</em>) – arguments in dictionary format</p></li>
+<li><p><strong>args</strong> (<em>&lt;str&gt;</em>) – Arguments in string form</p></li>
+<li><p><strong>kwargs</strong> (<em>&lt;Any&gt;</em>) – arguments in Any form</p></li>
 </ul>
 </dd>
 <dt class="field-even">Exceptions<span class="colon">:</span></dt>
@@ -145,22 +135,23 @@ Command line interface configurtion based on XML format.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="ats_utilities.cli.xml_cli.XmlCLI.process">
-<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">process</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/ats_utilities/cli/xml_cli.html#XmlCLI.process"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.cli.xml_cli.XmlCLI.process" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">process</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="_modules/ats_utilities/cli/xml_cli.html#XmlCLI.process"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.cli.xml_cli.XmlCLI.process" title="Permalink to this definition">¶</a></dt>
 <dd><p>Process and run tool operation (Abstract method).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>verbose</strong> (<em>&lt;bool&gt;</em>) – Enable/Disable verbose option</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>True (successfully finished) | False</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>&lt;bool&gt;</p>
 </dd>
 <dt class="field-even">Exception<span class="colon">:</span></dt>
 <dd class="field-even"><p>TypeError</p>
 </dd>
 </dl>
 </dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="ats_utilities.cli.xml_cli.XmlCLI.verbose">
-<span class="sig-name descname"><span class="pre">verbose</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'ATS_UTILITIES'</span></em><a class="headerlink" href="#ats_utilities.cli.xml_cli.XmlCLI.verbose" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
 
 </dd></dl>
 
@@ -178,12 +169,9 @@ Command line interface configurtion based on XML format.</p>
     <ul>
 <li><a class="reference internal" href="#">ats_utilities.cli.xml_cli module</a><ul>
 <li><a class="reference internal" href="#ats_utilities.cli.xml_cli.XmlCLI"><code class="docutils literal notranslate"><span class="pre">XmlCLI</span></code></a><ul>
-<li><a class="reference internal" href="#ats_utilities.cli.xml_cli.XmlCLI._abc_impl"><code class="docutils literal notranslate"><span class="pre">XmlCLI._abc_impl</span></code></a></li>
-<li><a class="reference internal" href="#ats_utilities.cli.xml_cli.XmlCLI._verbose"><code class="docutils literal notranslate"><span class="pre">XmlCLI._verbose</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.cli.xml_cli.XmlCLI.add_new_option"><code class="docutils literal notranslate"><span class="pre">XmlCLI.add_new_option()</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.cli.xml_cli.XmlCLI.parse_args"><code class="docutils literal notranslate"><span class="pre">XmlCLI.parse_args()</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.cli.xml_cli.XmlCLI.process"><code class="docutils literal notranslate"><span class="pre">XmlCLI.process()</span></code></a></li>
-<li><a class="reference internal" href="#ats_utilities.cli.xml_cli.XmlCLI.verbose"><code class="docutils literal notranslate"><span class="pre">XmlCLI.verbose</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -193,13 +181,13 @@ Command line interface configurtion based on XML format.</p>
   </div>
   <div>
     <h4>Previous topic</h4>
-    <p class="topless"><a href="ats_utilities.cli.json_cli_meta.html"
-                          title="previous chapter">ats_utilities.cli.json_cli_meta module</a></p>
+    <p class="topless"><a href="ats_utilities.cli.json_cli.html"
+                          title="previous chapter">ats_utilities.cli.json_cli module</a></p>
   </div>
   <div>
     <h4>Next topic</h4>
-    <p class="topless"><a href="ats_utilities.cli.xml_cli_meta.html"
-                          title="next chapter">ats_utilities.cli.xml_cli_meta module</a></p>
+    <p class="topless"><a href="ats_utilities.cli.yaml_cli.html"
+                          title="next chapter">ats_utilities.cli.yaml_cli module</a></p>
   </div>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
@@ -232,10 +220,10 @@ Command line interface configurtion based on XML format.</p>
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="ats_utilities.cli.xml_cli_meta.html" title="ats_utilities.cli.xml_cli_meta module"
+          <a href="ats_utilities.cli.yaml_cli.html" title="ats_utilities.cli.yaml_cli module"
              >next</a> |</li>
         <li class="right" >
-          <a href="ats_utilities.cli.json_cli_meta.html" title="ats_utilities.cli.json_cli_meta module"
+          <a href="ats_utilities.cli.json_cli.html" title="ats_utilities.cli.json_cli module"
              >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">ats_utilities https://github.com/vroncevic/ats_utilities/releases documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="modules.html" >ats_utilities</a> &#187;</li>

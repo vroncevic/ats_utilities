@@ -17,7 +17,6 @@ FROM ubuntu:22.04
 RUN apt-get update
 RUN DEBIAN_FRONTEND=noninteractive \
     apt-get install -yq --no-install-recommends \
-    vim \
     nano \
     tree \
     htop \
@@ -46,7 +45,7 @@ COPY setup.py /
 COPY README.md /
 COPY LICENSE /
 RUN python3 -m build --no-isolation --wheel
-RUN pip install --root-user-action=ignore /dist/ats_utilities-*-py3-none-any.whl
+RUN python3 -m pip install /dist/ats_utilities-*-py3-none-any.whl
 RUN rm -rf /ats_utilities*
 RUN rm -rf dist/
 RUN rm -rf tests/

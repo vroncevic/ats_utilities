@@ -57,34 +57,21 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="ats_utilities.logging.ats_logger_file.html">ats_utilities.logging.ats_logger_file module</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="ats_utilities.logging.ats_logger_file.html#ats_utilities.logging.ats_logger_file.ATSLoggerFile"><code class="docutils literal notranslate"><span class="pre">ATSLoggerFile</span></code></a><ul>
-<li class="toctree-l3"><a class="reference internal" href="ats_utilities.logging.ats_logger_file.html#ats_utilities.logging.ats_logger_file.ATSLoggerFile._logger_file"><code class="docutils literal notranslate"><span class="pre">ATSLoggerFile._logger_file</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="ats_utilities.logging.ats_logger_file.html#ats_utilities.logging.ats_logger_file.ATSLoggerFile._verbose"><code class="docutils literal notranslate"><span class="pre">ATSLoggerFile._verbose</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="ats_utilities.logging.ats_logger_file.html#ats_utilities.logging.ats_logger_file.ATSLoggerFile.logger_file"><code class="docutils literal notranslate"><span class="pre">ATSLoggerFile.logger_file</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="ats_utilities.logging.ats_logger_file.html#ats_utilities.logging.ats_logger_file.ATSLoggerFile.verbose"><code class="docutils literal notranslate"><span class="pre">ATSLoggerFile.verbose</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="ats_utilities.logging.ats_logger_file.html#ats_utilities.logging.ats_logger_file.ATSLoggerFile.file_path"><code class="docutils literal notranslate"><span class="pre">ATSLoggerFile.file_path</span></code></a></li>
 </ul>
 </li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="ats_utilities.logging.ats_logger_meta.html">ats_utilities.logging.ats_logger_meta module</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="ats_utilities.logging.ats_logger_meta.html#ats_utilities.logging.ats_logger_meta.ATSLoggerMeta"><code class="docutils literal notranslate"><span class="pre">ATSLoggerMeta</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="ats_utilities.logging.ats_logger_name.html">ats_utilities.logging.ats_logger_name module</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="ats_utilities.logging.ats_logger_name.html#ats_utilities.logging.ats_logger_name.ATSLoggerName"><code class="docutils literal notranslate"><span class="pre">ATSLoggerName</span></code></a><ul>
-<li class="toctree-l3"><a class="reference internal" href="ats_utilities.logging.ats_logger_name.html#ats_utilities.logging.ats_logger_name.ATSLoggerName._logger_name"><code class="docutils literal notranslate"><span class="pre">ATSLoggerName._logger_name</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="ats_utilities.logging.ats_logger_name.html#ats_utilities.logging.ats_logger_name.ATSLoggerName._verbose"><code class="docutils literal notranslate"><span class="pre">ATSLoggerName._verbose</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="ats_utilities.logging.ats_logger_name.html#ats_utilities.logging.ats_logger_name.ATSLoggerName.logger_name"><code class="docutils literal notranslate"><span class="pre">ATSLoggerName.logger_name</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="ats_utilities.logging.ats_logger_name.html#ats_utilities.logging.ats_logger_name.ATSLoggerName.verbose"><code class="docutils literal notranslate"><span class="pre">ATSLoggerName.verbose</span></code></a></li>
 </ul>
 </li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="ats_utilities.logging.ats_logger_status.html">ats_utilities.logging.ats_logger_status module</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="ats_utilities.logging.ats_logger_status.html#ats_utilities.logging.ats_logger_status.ATSLoggerStatus"><code class="docutils literal notranslate"><span class="pre">ATSLoggerStatus</span></code></a><ul>
-<li class="toctree-l3"><a class="reference internal" href="ats_utilities.logging.ats_logger_status.html#ats_utilities.logging.ats_logger_status.ATSLoggerStatus._log_status"><code class="docutils literal notranslate"><span class="pre">ATSLoggerStatus._log_status</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="ats_utilities.logging.ats_logger_status.html#ats_utilities.logging.ats_logger_status.ATSLoggerStatus._verbose"><code class="docutils literal notranslate"><span class="pre">ATSLoggerStatus._verbose</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="ats_utilities.logging.ats_logger_status.html#ats_utilities.logging.ats_logger_status.ATSLoggerStatus.logger_status"><code class="docutils literal notranslate"><span class="pre">ATSLoggerStatus.logger_status</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="ats_utilities.logging.ats_logger_status.html#ats_utilities.logging.ats_logger_status.ATSLoggerStatus.verbose"><code class="docutils literal notranslate"><span class="pre">ATSLoggerStatus.verbose</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -125,13 +112,13 @@ ATS logger mechanism.</p>
 <div><dl class="field-list">
 <dt class="field-odd">attributes<span class="colon">:</span></dt>
 <dd class="field-odd"><div class="line-block">
-<div class="line">log_msg_format - log message format.</div>
-<div class="line">log_date_format - log date format.</div>
-<div class="line">ats_debug - debug log level.</div>
-<div class="line">ats_warning - warning log level.</div>
-<div class="line">ats_critical - critical log level.</div>
-<div class="line">ats_error - error log level.</div>
-<div class="line">ats_info - info log level.</div>
+<div class="line">LOG_MSG_FORMAT - Log message format.</div>
+<div class="line">LOG_DATE_FORMAT - Log date format.</div>
+<div class="line">ATS_DEBUG - Debug log level.</div>
+<div class="line">ATS_WARNING - Warning log level.</div>
+<div class="line">ATS_CRITICAL - Critical log level.</div>
+<div class="line">ATS_ERROR - Error log level.</div>
+<div class="line">ATS_INFO - Info log level.</div>
 <div class="line">_verbose - Enable/Disable verbose option.</div>
 </div>
 </dd>
@@ -144,53 +131,38 @@ ATS logger mechanism.</p>
 </dl>
 </div></blockquote>
 <dl class="py attribute">
-<dt class="sig sig-object py" id="ats_utilities.logging.ATSLogger._abc_impl">
-<span class="sig-name descname"><span class="pre">_abc_impl</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;_abc._abc_data</span> <span class="pre">object&gt;</span></em><a class="headerlink" href="#ats_utilities.logging.ATSLogger._abc_impl" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ats_utilities.logging.ATSLogger.ATS_CRITICAL">
+<span class="sig-name descname"><span class="pre">ATS_CRITICAL</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">50</span></em><a class="headerlink" href="#ats_utilities.logging.ATSLogger.ATS_CRITICAL" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="ats_utilities.logging.ATSLogger._verbose">
-<span class="sig-name descname"><span class="pre">_verbose</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#ats_utilities.logging.ATSLogger._verbose" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ats_utilities.logging.ATSLogger.ATS_DEBUG">
+<span class="sig-name descname"><span class="pre">ATS_DEBUG</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">10</span></em><a class="headerlink" href="#ats_utilities.logging.ATSLogger.ATS_DEBUG" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="ats_utilities.logging.ATSLogger.ats_critical">
-<span class="sig-name descname"><span class="pre">ats_critical</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">50</span></em><a class="headerlink" href="#ats_utilities.logging.ATSLogger.ats_critical" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ats_utilities.logging.ATSLogger.ATS_ERROR">
+<span class="sig-name descname"><span class="pre">ATS_ERROR</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">40</span></em><a class="headerlink" href="#ats_utilities.logging.ATSLogger.ATS_ERROR" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="ats_utilities.logging.ATSLogger.ats_debug">
-<span class="sig-name descname"><span class="pre">ats_debug</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">10</span></em><a class="headerlink" href="#ats_utilities.logging.ATSLogger.ats_debug" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ats_utilities.logging.ATSLogger.ATS_INFO">
+<span class="sig-name descname"><span class="pre">ATS_INFO</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">20</span></em><a class="headerlink" href="#ats_utilities.logging.ATSLogger.ATS_INFO" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="ats_utilities.logging.ATSLogger.ats_error">
-<span class="sig-name descname"><span class="pre">ats_error</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">40</span></em><a class="headerlink" href="#ats_utilities.logging.ATSLogger.ats_error" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ats_utilities.logging.ATSLogger.ATS_WARNING">
+<span class="sig-name descname"><span class="pre">ATS_WARNING</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">30</span></em><a class="headerlink" href="#ats_utilities.logging.ATSLogger.ATS_WARNING" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="ats_utilities.logging.ATSLogger.ats_info">
-<span class="sig-name descname"><span class="pre">ats_info</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">20</span></em><a class="headerlink" href="#ats_utilities.logging.ATSLogger.ats_info" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ats_utilities.logging.ATSLogger.LOG_DATE_FORMAT">
+<span class="sig-name descname"><span class="pre">LOG_DATE_FORMAT</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'%m/%d/%Y</span> <span class="pre">%I:%M:%S</span> <span class="pre">%p'</span></em><a class="headerlink" href="#ats_utilities.logging.ATSLogger.LOG_DATE_FORMAT" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="ats_utilities.logging.ATSLogger.ats_warning">
-<span class="sig-name descname"><span class="pre">ats_warning</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">30</span></em><a class="headerlink" href="#ats_utilities.logging.ATSLogger.ats_warning" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="ats_utilities.logging.ATSLogger.log_date_format">
-<span class="sig-name descname"><span class="pre">log_date_format</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'%m/%d/%Y</span> <span class="pre">%I:%M:%S</span> <span class="pre">%p'</span></em><a class="headerlink" href="#ats_utilities.logging.ATSLogger.log_date_format" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="ats_utilities.logging.ATSLogger.log_msg_format">
-<span class="sig-name descname"><span class="pre">log_msg_format</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'%(asctime)s</span> <span class="pre">-</span> <span class="pre">%(levelname)s</span> <span class="pre">-</span> <span class="pre">%(message)s'</span></em><a class="headerlink" href="#ats_utilities.logging.ATSLogger.log_msg_format" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="ats_utilities.logging.ATSLogger.verbose">
-<span class="sig-name descname"><span class="pre">verbose</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'ATS_UTILITIES'</span></em><a class="headerlink" href="#ats_utilities.logging.ATSLogger.verbose" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ats_utilities.logging.ATSLogger.LOG_MSG_FORMAT">
+<span class="sig-name descname"><span class="pre">LOG_MSG_FORMAT</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'%(asctime)s</span> <span class="pre">-</span> <span class="pre">%(levelname)s</span> <span class="pre">-</span> <span class="pre">%(message)s'</span></em><a class="headerlink" href="#ats_utilities.logging.ATSLogger.LOG_MSG_FORMAT" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -236,16 +208,13 @@ ATS logger mechanism.</p>
 <li><a class="reference internal" href="#submodules">Submodules</a></li>
 <li><a class="reference internal" href="#module-ats_utilities.logging">Module contents</a><ul>
 <li><a class="reference internal" href="#ats_utilities.logging.ATSLogger"><code class="docutils literal notranslate"><span class="pre">ATSLogger</span></code></a><ul>
-<li><a class="reference internal" href="#ats_utilities.logging.ATSLogger._abc_impl"><code class="docutils literal notranslate"><span class="pre">ATSLogger._abc_impl</span></code></a></li>
-<li><a class="reference internal" href="#ats_utilities.logging.ATSLogger._verbose"><code class="docutils literal notranslate"><span class="pre">ATSLogger._verbose</span></code></a></li>
-<li><a class="reference internal" href="#ats_utilities.logging.ATSLogger.ats_critical"><code class="docutils literal notranslate"><span class="pre">ATSLogger.ats_critical</span></code></a></li>
-<li><a class="reference internal" href="#ats_utilities.logging.ATSLogger.ats_debug"><code class="docutils literal notranslate"><span class="pre">ATSLogger.ats_debug</span></code></a></li>
-<li><a class="reference internal" href="#ats_utilities.logging.ATSLogger.ats_error"><code class="docutils literal notranslate"><span class="pre">ATSLogger.ats_error</span></code></a></li>
-<li><a class="reference internal" href="#ats_utilities.logging.ATSLogger.ats_info"><code class="docutils literal notranslate"><span class="pre">ATSLogger.ats_info</span></code></a></li>
-<li><a class="reference internal" href="#ats_utilities.logging.ATSLogger.ats_warning"><code class="docutils literal notranslate"><span class="pre">ATSLogger.ats_warning</span></code></a></li>
-<li><a class="reference internal" href="#ats_utilities.logging.ATSLogger.log_date_format"><code class="docutils literal notranslate"><span class="pre">ATSLogger.log_date_format</span></code></a></li>
-<li><a class="reference internal" href="#ats_utilities.logging.ATSLogger.log_msg_format"><code class="docutils literal notranslate"><span class="pre">ATSLogger.log_msg_format</span></code></a></li>
-<li><a class="reference internal" href="#ats_utilities.logging.ATSLogger.verbose"><code class="docutils literal notranslate"><span class="pre">ATSLogger.verbose</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.logging.ATSLogger.ATS_CRITICAL"><code class="docutils literal notranslate"><span class="pre">ATSLogger.ATS_CRITICAL</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.logging.ATSLogger.ATS_DEBUG"><code class="docutils literal notranslate"><span class="pre">ATSLogger.ATS_DEBUG</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.logging.ATSLogger.ATS_ERROR"><code class="docutils literal notranslate"><span class="pre">ATSLogger.ATS_ERROR</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.logging.ATSLogger.ATS_INFO"><code class="docutils literal notranslate"><span class="pre">ATSLogger.ATS_INFO</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.logging.ATSLogger.ATS_WARNING"><code class="docutils literal notranslate"><span class="pre">ATSLogger.ATS_WARNING</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.logging.ATSLogger.LOG_DATE_FORMAT"><code class="docutils literal notranslate"><span class="pre">ATSLogger.LOG_DATE_FORMAT</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.logging.ATSLogger.LOG_MSG_FORMAT"><code class="docutils literal notranslate"><span class="pre">ATSLogger.LOG_MSG_FORMAT</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.logging.ATSLogger.write_log"><code class="docutils literal notranslate"><span class="pre">ATSLogger.write_log()</span></code></a></li>
 </ul>
 </li>
