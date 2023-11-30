@@ -7,6 +7,6 @@
 # @author  Vladimir Roncevic <elektron.ronca@gmail.com>
 #
 
-python3 -m unittest discover -s ./ -p '*_test.py'
+python3 -m coverage run -m --source=../ats_utilities unittest discover -s ./ -p '*_test.py'
 python3 -m coverage html
 
