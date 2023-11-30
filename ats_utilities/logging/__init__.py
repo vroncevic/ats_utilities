@@ -41,7 +41,7 @@ __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2017, https://vroncevic.github.io/ats_utilities'
 __credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = '2.9.7'
+__version__ = '2.9.8'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
@@ -94,19 +94,10 @@ class ATSLogger(ATSLoggerName, ATSLoggerStatus, ATSLoggerFile):
             :type verbose: <bool>
             :exceptions: ATSTypeError | ATSBadCallError | ATSFileError
         '''
-        error_msg: str | None = None
-        error_id: int | None = None
-        error_msg, error_id = self.check_params([
-            ('str:ats_name', ats_name), ('str:ats_log_file', ats_log_file)
-        ])
-        if error_id == self.TYPE_ERROR:
-            raise ATSTypeError(error_msg)
-        if error_id == self.VALUE_ERROR:
-            raise ATSBadCallError(error_msg)
+        ATSLoggerName.__init__(self, verbose)
+        ATSLoggerStatus.__init__(self, verbose)
+        ATSLoggerFile.__init__(self, verbose)
         self._verbose: bool = verbose
-        ATSLoggerName.__init__(self, self._verbose)
-        ATSLoggerStatus.__init__(self, self._verbose)
-        ATSLoggerFile.__init__(self, self._verbose)
         self.logger_file = str(ats_log_file)
         self.logger_name = str(ats_name)
         basicConfig(

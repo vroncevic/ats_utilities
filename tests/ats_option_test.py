@@ -36,7 +36,7 @@ __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2017, https://vroncevic.github.io/ats_utilities'
 __credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = '2.9.7'
+__version__ = '2.9.8'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
@@ -84,37 +84,37 @@ class ATSOptionTestCase(TestCase):
         '''Test option parser short.'''
         arguments: list[str] = ['-g', 'Test']
         args: Namespace = self.option_ats.parse_args(arguments)
-        self.assertIsNone(args)
+        self.assertIsNotNone(args)
 
     def test_option_parser_long(self) -> None:
         '''Test option parser long.'''
         arguments: list[str] = ['--gen', 'Test']
         args: Namespace = self.option_ats.parse_args(arguments)
-        self.assertIsNone(args)
+        self.assertIsNotNone(args)
 
     def test_option_parser_with_verbose_short(self) -> None:
         '''Test option parser with verbose short.'''
         arguments: list[str] = ['-vv']
         args: Namespace = self.option_ats.parse_args(arguments)
-        self.assertIsNone(args)
+        self.assertIsNotNone(args)
 
     def test_option_parser_with_verbose_long(self) -> None:
         '''Test option parser with verbose long.'''
         arguments: list[str] = ['--verbose']
         args: Namespace = self.option_ats.parse_args(arguments)
-        self.assertIsNone(args)
+        self.assertIsNotNone(args)
 
     def test_option_parser_all_short(self) -> None:
         '''Test all combined short options.'''
         arguments: list[str] = ['-g', 'Test', '-vv']
         args: Namespace = self.option_ats.parse_args(arguments)
-        self.assertIsNone(args)
+        self.assertIsNotNone(args)
 
     def test_option_parser_all_long(self) -> None:
         '''Test all combined long options.'''
         arguments: list[str] = ['--gen', 'Test', '--verbose']
         args: Namespace = self.option_ats.parse_args(arguments)
-        self.assertIsNone(args)
+        self.assertIsNotNone(args)
 
 
 if __name__ == '__main__':
