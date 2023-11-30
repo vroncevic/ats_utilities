@@ -132,7 +132,7 @@ class ATSChecker:
             :rtype: <bool>
             :exceptions: None
         '''
-        if any([not bool(params_description)]):
+        if any([not params_description]):
             self._error_type[2] = self.FORMAT_ERROR
             return False
         for index, (exp_type, inst) in enumerate(params_description.items()):
@@ -141,6 +141,7 @@ class ATSChecker:
                 if type(inst).__name__ != param_typ_name[0]:
                     self._error_type[0] = self.TYPE_ERROR
                     self._error_type_index.append(index)
+                    return False
             else:
                 self._error_type[2] = self.FORMAT_ERROR
                 return False
@@ -160,17 +161,14 @@ class ATSChecker:
             self._error_type[2] = self.FORMAT_ERROR
             return False
         for index, inst in enumerate(params_description.values()):
-            if inst is None:
-                self._error_type[1] = self.VALUE_ERROR
-                self._error_value_index.append(index)
             any_base_type: bool = any([
                 isinstance(inst, dict), isinstance(inst, list),
                 isinstance(inst, tuple), isinstance(inst, set),
                 isinstance(inst, frozenset), isinstance(inst, bytearray),
-                isinstance(inst, bytes)
+                isinstance(inst, bytes), isinstance(inst, str)
             ])
             if any_base_type:
-                if not bool(inst):
+                if inst is None:
                     self._error_type[1] = self.VALUE_ERROR
                     self._error_value_index.append(index)
         return True
@@ -216,7 +214,6 @@ class ATSChecker:
         ])
         message: str | None = self.usage_message()
         error_id: int | None = self.priority_error()
-        if any([error_id is None, fail_any_check]):
+        if any([error_id != 0, fail_any_check]):
             message = f'{message} format wrong during checking params'
-            error_id = self.FORMAT_ERROR
         return message, error_id
