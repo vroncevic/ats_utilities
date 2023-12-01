@@ -28,6 +28,7 @@ from os.path import dirname
 
 try:
     from ats_utilities.logging import ATSLogger
+    # from ats_utilities.exceptions.ats_file_error import ATSFileError
 except ImportError as test_error_message:
     # Force close python test #################################################
     sys.exit(f'\n{__file__}\n{test_error_message}\n')
@@ -80,6 +81,17 @@ class ATSLoggingTestCase(TestCase):
     def test_not_none(self) -> None:
         '''Test not None'''
         self.assertIsNotNone(self.logger_ats)
+
+    # def test_set_file_path(self) -> None:
+    #     '''Test set file path'''
+    #     self.logger_ats.file_path = 'not_simple_tool.log'
+    #     self.assertRaises(ATSFileError)
+
+    def test_is_log_file_set(self) -> None:
+        '''Test is log file set'''
+        self.logger_ats.file_path = self.log_file
+        file_path: str | None = self.logger_ats.file_path
+        self.assertIsNotNone(file_path)
 
     def test_debug(self) -> None:
         '''Test ATS debug log.'''
