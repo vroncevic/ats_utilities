@@ -30,6 +30,7 @@ from os.path import dirname
 
 try:
     from ats_utilities.cli.cfg_cli import CfgCLI
+    from ats_utilities.exceptions.ats_type_error import ATSTypeError
 except ImportError as test_error_message:
     # Force close python test #################################################
     sys.exit(f'\n{__file__}\n{test_error_message}\n')
@@ -87,6 +88,7 @@ class CfgTestCase(TestCase):
                 | test_process - Test for process.
                 | test_add_new_option_called - Test is add new option called.
                 | test_parse_args_called - Test is parse args called.
+                | test_parse_wrong_args_called - Test parse without args.
     '''
 
     def setUp(self) -> None:
@@ -118,6 +120,12 @@ class CfgTestCase(TestCase):
         self.ats_cli_cfg_api.add_new_option('arg1', 'arg2', option='value')
         self.ats_cli_cfg_api.parse_args(['arg1', 'arg2'])
         self.mock_pars_arg.assert_called_once()
+
+    def test_parse_wrong_args_called(self) -> None:
+        '''Test parse without args'''
+        with self.assertRaises(ATSTypeError):
+            self.ats_cli_cfg_api.add_new_option('arg1', 'arg2', option='value')
+            self.ats_cli_cfg_api.parse_args(None)  # type: ignore
 
 
 if __name__ == '__main__':

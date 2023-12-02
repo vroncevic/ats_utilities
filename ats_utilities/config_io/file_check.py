@@ -28,7 +28,6 @@ try:
     from ats_utilities.console_io.error import error_message
     from ats_utilities.console_io.verbose import verbose_message
     from ats_utilities.exceptions.ats_type_error import ATSTypeError
-    from ats_utilities.exceptions.ats_bad_call_error import ATSBadCallError
 except ImportError as ats_error_message:
     # Force exit python #######################################################
     sys.exit(f'\n{__file__}\n{ats_error_message}\n')
@@ -92,7 +91,7 @@ class FileCheck(ATSChecker):
             :type file_path: <str> | <NoneType>
             :param verbose: Enable/Disable verbose option
             :type verbose: <bool>
-            :exceptions: ATSTypeError | ATSBadCallError
+            :exceptions: ATSTypeError
         '''
         error_msg: str | None = None
         error_id: int | None = None
@@ -101,12 +100,10 @@ class FileCheck(ATSChecker):
         ])
         if error_id == self.TYPE_ERROR:
             raise ATSTypeError(error_msg)
-        if error_id == self.VALUE_ERROR:
-            raise ATSBadCallError(error_msg)
         file_path = str(object=file_path)
         if not isfile(path=file_path):
             self._file_path_ok = False
-            error_message(list(f'check file {file_path}'))
+            error_message([f'check file {file_path}'])
         else:
             self._file_path_ok = True
             verbose_message(
@@ -121,19 +118,16 @@ class FileCheck(ATSChecker):
             :type file_mode: <str> | <NoneType>
             :param verbose: Enable/Disable verbose option
             :type verbose: <bool>
-            :exceptions: ATSTypeError | ATSBadCallError
+            :exceptions: ATSTypeError
         '''
-        checker: ATSChecker = ATSChecker()
         error_msg: str | None = None
         error_id: int | None = None
-        error_msg, error_id = checker.check_params([
+        error_msg, error_id = self.check_params([
             ('str:file_mode', file_mode)
         ])
         if error_id == self.TYPE_ERROR:
             raise ATSTypeError(error_msg)
-        if error_id == self.VALUE_ERROR:
-            raise ATSBadCallError(error_msg)
-        file_mode = str(file_mode) 
+        file_mode = str(file_mode)
         mode_checks: list[bool] = []
         for mode in list(file_mode):
             if mode not in self.MODES:
@@ -165,21 +159,18 @@ class FileCheck(ATSChecker):
             :type file_format: <str> | <NoneType>
             :param verbose: Enable/Disable verbose option
             :type verbose: <bool>
-            :exceptions: ATSTypeError | ATSBadCallError
+            :exceptions: ATSTypeError
         '''
-        checker: ATSChecker = ATSChecker()
         error_msg: str | None = None
         error_id: int | None = None
-        error_msg, error_id = checker.check_params([
+        error_msg, error_id = self.check_params([
             ('str:file_path', file_path), ('str:file_format', file_format)
         ])
         if error_id == self.TYPE_ERROR:
             raise ATSTypeError(error_msg)
-        if error_id == self.VALUE_ERROR:
-            raise ATSBadCallError(error_msg)
         extension: str | None = None
         file_format, file_path = str(file_format), str(file_path)
-        if file_format not in FileCheck.TRUSTED_EXTENSIONS:
+        if file_format not in self.TRUSTED_EXTENSIONS:
             extension = splitext(file_path)[1]
             extension = extension.replace('.', '')
             if extension == '':
@@ -187,15 +178,13 @@ class FileCheck(ATSChecker):
         else:
             if file_format.capitalize() in file_path:
                 extension = 'makefile'
-            else:
-                extension = 'wrong_format'
-        if not extension == file_format or extension == 'wrong_format':
+        if not extension == file_format:
             error_message([f'check extension [{file_format}] {file_path}'])
             self._file_format_ok = False
         else:
             self._file_format_ok = True
         verbose_message(
-            self._verbose or verbose, [f'checked file format of {file_path}']
+            self._verbose or verbose, [f'checked file format {file_path}']
         )
 
     def is_file_ok(self) -> bool:

@@ -28,7 +28,6 @@ try:
     from ats_utilities.config_io import ConfFile
     from ats_utilities.console_io.verbose import verbose_message
     from ats_utilities.exceptions.ats_type_error import ATSTypeError
-    from ats_utilities.exceptions.ats_bad_call_error import ATSBadCallError
 except ImportError as ats_error_message:
     # Force exit python #######################################################
     sys.exit(f'\n{__file__}\n{ats_error_message}\n')
@@ -82,8 +81,6 @@ class Object2Cfg(ATSChecker):
         ])
         if error_id == self.TYPE_ERROR:
             raise ATSTypeError(error_msg)
-        if error_id == self.VALUE_ERROR:
-            raise ATSBadCallError(error_msg)
         self._verbose: bool = verbose
         configuration_file = str(configuration_file)
         self._file_path: str = configuration_file
@@ -103,7 +100,7 @@ class Object2Cfg(ATSChecker):
             :type verbose: <bool>
             :return: True (configuration written to file) | False
             :rtype: <bool>
-            :exceptions: ATSTypeError | ATSBadCallError
+            :exceptions: ATSTypeError
         '''
         error_msg: str | None = None
         error_id: int | None = None
@@ -112,16 +109,14 @@ class Object2Cfg(ATSChecker):
         ])
         if error_id == self.TYPE_ERROR:
             raise ATSTypeError(error_msg)
-        if error_id == self.VALUE_ERROR:
-            raise ATSBadCallError(error_msg)
         verbose_message(
             self._verbose or verbose, [f'configuration {configuration}']
         )
         status: bool = False
-        if not bool(configuration):
+        if not configuration:
             return status
         with ConfFile(self._file_path, 'w', self._FORMAT) as cfg:
-            if bool(cfg):
+            if cfg:
                 for key in configuration:
                     cfg.write(f'{key} = {configuration.get(key)}\n')
                 status = True

@@ -1,8 +1,4 @@
-ats_name:
-    ats_cli_test
-ats_version:
-    1.0.0
-ats_build_date:
-    24 Apr 2021
-ats_licence:
-    https://github.com/vroncevic/ats_cli_test/blob/dev/LICENSE
+ats_build_date: 24 Apr 2021
+ats_licence: https://github.com/vroncevic/ats_cli_test/blob/dev/LICENSE
+ats_name: ats_cli_test
+ats_version: 1.0.0

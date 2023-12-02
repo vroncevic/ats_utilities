@@ -21,14 +21,13 @@ Info
 '''
 
 import sys
-from typing import Any
 
 try:
+    from bs4 import BeautifulSoup
     from ats_utilities.checker import ATSChecker
     from ats_utilities.config_io import ConfFile
     from ats_utilities.console_io.verbose import verbose_message
     from ats_utilities.exceptions.ats_type_error import ATSTypeError
-    from ats_utilities.exceptions.ats_bad_call_error import ATSBadCallError
 except ImportError as ats_error_message:
     # Force exit python #######################################################
     sys.exit(f'\n{__file__}\n{ats_error_message}\n')
@@ -72,7 +71,7 @@ class Object2Xml(ATSChecker):
             :type configuration_file: <str> | <NoneType>
             :param verbose: Enable/Disable verbose option
             :type verbose: <bool>
-            :exceptions: ATSTypeError | ATSBadCallError
+            :exceptions: ATSTypeError
         '''
         super().__init__()
         error_msg: str | None = None
@@ -82,8 +81,6 @@ class Object2Xml(ATSChecker):
         ])
         if error_id == self.TYPE_ERROR:
             raise ATSTypeError(error_msg)
-        if error_id == self.VALUE_ERROR:
-            raise ATSBadCallError(error_msg)
         self._verbose: bool = verbose
         configuration_file = str(configuration_file)
         self._file_path: str = configuration_file
@@ -92,7 +89,7 @@ class Object2Xml(ATSChecker):
         )
 
     def write_configuration(
-        self, configuration: Any | None, verbose: bool = False
+        self, configuration: BeautifulSoup | None, verbose: bool = False
     ) -> bool:
         '''
             Write configuration to a xml file.
@@ -100,28 +97,27 @@ class Object2Xml(ATSChecker):
             :param verbose: Enable/Disable verbose option
             :type verbose: <bool>
             :param configuration: configuration object
-            :type: <Any> | <NoneType>
+            :type: <BeautifulSoup> | <NoneType>
             :return: True (configuration written to file) | False
             :rtype: <bool>
-            :exception: None
+            :exception: ATSTypeError
         '''
         error_msg: str | None = None
         error_id: int | None = None
         error_msg, error_id = self.check_params([
-            ('Any:configuration', configuration)
+            ('BeautifulSoup:configuration', configuration)
         ])
         if error_id == self.TYPE_ERROR:
             raise ATSTypeError(error_msg)
-        if error_id == self.VALUE_ERROR:
-            raise ATSBadCallError(error_msg)
         status: bool = False
         verbose_message(
             self._verbose or verbose, [f'configuration {configuration}']
         )
-        if configuration is None:
-            return status
-        with ConfFile(self._file_path, 'w', self._FORMAT) as xml:
-            if bool(xml):
-                xml.write(f'{configuration}')
-                status = True
+        if configuration:
+            if not configuration.find('ats_info'):
+                return status
+            with ConfFile(self._file_path, 'w', self._FORMAT) as xml:
+                if xml:
+                    xml.write(f'{configuration}')
+                    status = True
         return status
