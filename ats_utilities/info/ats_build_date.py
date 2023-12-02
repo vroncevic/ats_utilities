@@ -26,7 +26,6 @@ try:
     from ats_utilities.checker import ATSChecker
     from ats_utilities.console_io.verbose import verbose_message
     from ats_utilities.exceptions.ats_type_error import ATSTypeError
-    from ats_utilities.exceptions.ats_bad_call_error import ATSBadCallError
 except ImportError as ats_error_message:
     # Force exit python #######################################################
     sys.exit(f'\n{__file__}\n{ats_error_message}\n')
@@ -55,7 +54,7 @@ class ATSBuildDate(ATSChecker):
             :methods:
                 | __init__ - Initial ATSBuildDate constructor.
                 | build_date - Property methods for set/get operations.
-                | is_not_none - Check is ATS build date not None.
+                | is_build_date_not_none - Check is ATS build date not None.
     '''
 
     def __init__(self, verbose: bool = False) -> None:
@@ -88,7 +87,7 @@ class ATSBuildDate(ATSChecker):
 
             :param build_date: ATS build date | None
             :type build_date: <str> | <NoneType>
-            :exceptions: ATSTypeError | ATSBadCallError
+            :exceptions: ATSTypeError
         '''
         error_msg: str | None = None
         error_id: int | None = None
@@ -97,12 +96,10 @@ class ATSBuildDate(ATSChecker):
         ])
         if error_id == self.TYPE_ERROR:
             raise ATSTypeError(error_msg)
-        if error_id == self.VALUE_ERROR:
-            raise ATSBadCallError(error_msg)
         self._build_date = build_date
         verbose_message(self._verbose, [f'build date {build_date}'])
 
-    def is_not_none(self) -> bool:
+    def is_build_date_not_none(self) -> bool:
         '''
             Check is ATS build date not None.
 

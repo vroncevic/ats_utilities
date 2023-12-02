@@ -33,7 +33,6 @@ try:
     from ats_utilities.info.ats_build_date import ATSBuildDate
     from ats_utilities.console_io.verbose import verbose_message
     from ats_utilities.exceptions.ats_type_error import ATSTypeError
-    from ats_utilities.exceptions.ats_bad_call_error import ATSBadCallError
 except ImportError as ats_error_message:
     # Force exit python #######################################################
     sys.exit(f'\n{__file__}\n{ats_error_message}\n')
@@ -63,7 +62,6 @@ class ATSInfo(ATSName, ATSVersion, ATSLicence, ATSBuildDate, ATSInfoOk):
                 | ATS_BUILD_DATE - ATS build date key.
                 | ATS_BASE_INFO - ATS base information dict.
                 | _verbose - Enable/Disable verbose option.
-                | _statuses - List of check statuses.
             :methods:
                 | __init__ - Initial ATSInfo constructor.
                 | show_base_info - Show ATS information.
@@ -97,9 +95,7 @@ class ATSInfo(ATSName, ATSVersion, ATSLicence, ATSBuildDate, ATSInfoOk):
         ATSBuildDate.__init__(self, verbose)
         ATSInfoOk.__init__(self, verbose)
         self._verbose = verbose
-        self._statuses: List[bool] = []
-        self.is_correct(info, self._verbose)
-        if all(self._statuses):
+        if self.is_correct(info, self._verbose):
             verbose_message(self._verbose, ['load ATS information'])
             self.name = str(info.get(self.ATS_NAME))
             self.version = str(info.get(self.ATS_VERSION))
@@ -120,7 +116,7 @@ class ATSInfo(ATSName, ATSVersion, ATSLicence, ATSBuildDate, ATSInfoOk):
 
     def is_correct(
         self, information: Dict[Any, Any], verbose: bool = False
-    ) -> None:
+    ) -> bool:
         '''
             Check information structure.
 
@@ -128,7 +124,9 @@ class ATSInfo(ATSName, ATSVersion, ATSLicence, ATSBuildDate, ATSInfoOk):
             :type information: <Dict[Any, Any]>
             :param verbose: Enable/Disable verbose option
             :type verbose: <bool>
-            :exceptions: ATSTypeError | ATSBadCallError
+            :return: True (all info parameters are ok) | False
+            :rtype: <bool>
+            :exceptions: ATSTypeError
         '''
         error_msg: str | None = None
         error_id: int | None = None
@@ -137,14 +135,18 @@ class ATSInfo(ATSName, ATSVersion, ATSLicence, ATSBuildDate, ATSInfoOk):
         ])
         if error_id == self.TYPE_ERROR:
             raise ATSTypeError(error_msg)
-        if error_id == self.VALUE_ERROR:
-            raise ATSBadCallError(error_msg)
         verbose_message(
             self._verbose or verbose, [f'info structure {str(information)}']
         )
+        statuses: List[bool] = []
         for info_key in information.keys():
             if info_key not in self.ATS_BASE_INFO.values():
                 error_message([f'key not expected [{info_key}]'])
-                self._statuses.append(False)
+                statuses.append(False)
             else:
-                self._statuses.append(True)
+                if information[info_key] is None:
+                    error_message([f'parameter [{info_key}] is None'])
+                    statuses.append(False)
+                else:
+                    statuses.append(True)
+        return all(statuses)

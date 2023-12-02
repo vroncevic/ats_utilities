@@ -19,7 +19,7 @@ Info
     Defines classes ATSInfoTestCase with attribute(s) and method(s).
     Creates test cases for checking functionalities of ATSInfo.
 Execute
-    python -m unittest -v ats_info_test
+    python3 -m unittest -v ats_info_test
 '''
 
 import sys
@@ -27,6 +27,7 @@ from unittest import TestCase, main
 
 try:
     from ats_utilities.info import ATSInfo
+    from ats_utilities.exceptions.ats_type_error import ATSTypeError
 except ImportError as test_error_message:
     # Force close python test #################################################
     sys.exit(f'\n{__file__}\n{test_error_message}\n')
@@ -69,6 +70,73 @@ class ATSInfoTestCase(TestCase):
 
     def tearDown(self) -> None:
         '''Call after test case.'''
+
+    def test_create_with_wrong_argument(self) -> None:
+        '''Test wrong argument type'''
+        with self.assertRaises(ATSTypeError):
+            ATSInfo(None)  # type: ignore
+
+    def test_create_with_wrong_arguments(self) -> None:
+        '''Test wrong argument types'''
+        info: ATSInfo = ATSInfo({
+            'ats_name': None,
+            'ats_version': None,
+            'ats_licence': None,
+            'ats_build_date': None
+        })
+        self.assertFalse(info.ats_info_ok)
+
+    def test_create_with_extra_arguments(self) -> None:
+        '''Test wrong argument types'''
+        info: ATSInfo = ATSInfo({
+            'ats_name': 'App',
+            'ats_version': 'ver.1.0.0',
+            'ats_licence': 'GPLv3',
+            'ats_build_date': '02. Dec. 2023.',
+            'ats_test': 'test'
+        })
+        self.assertFalse(info.ats_info_ok)
+
+    def test_info_set_name_none(self) -> None:
+        '''Test wrong argument types'''
+        with self.assertRaises(ATSTypeError):
+            self.ats_info.name = None
+
+    def test_info_set_version_none(self) -> None:
+        '''Test wrong argument types'''
+        with self.assertRaises(ATSTypeError):
+            self.ats_info.version = None
+
+    def test_info_set_licence_none(self) -> None:
+        '''Test wrong argument types'''
+        with self.assertRaises(ATSTypeError):
+            self.ats_info.licence = None
+
+    def test_info_set_build_date_none(self) -> None:
+        '''Test wrong argument types'''
+        with self.assertRaises(ATSTypeError):
+            self.ats_info.build_date = None
+
+    def test_info_set_status_none(self) -> None:
+        '''Test wrong argument types'''
+        with self.assertRaises(ATSTypeError):
+            self.ats_info.ats_info_ok = None  # type: ignore
+
+    def test_info_name_not_none(self) -> None:
+        '''Test info name not None'''
+        self.assertTrue(self.ats_info.is_name_not_none())
+
+    def test_info_licence_not_none(self) -> None:
+        '''Test info licence not None'''
+        self.assertTrue(self.ats_info.is_licence_not_none())
+
+    def test_info_version_not_none(self) -> None:
+        '''Test info version not None'''
+        self.assertTrue(self.ats_info.is_version_not_none())
+
+    def test_info_build_date_not_none(self) -> None:
+        '''Test info build date not None'''
+        self.assertTrue(self.ats_info.is_build_date_not_none())
 
     def test_show_base_info(self) -> None:
         '''Test base info.'''
