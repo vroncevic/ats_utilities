@@ -44,3 +44,13 @@
 12/02/2023 07:10:03 AM - ERROR - simple error
 12/02/2023 07:10:03 AM - INFO - simple info
 12/02/2023 07:10:04 AM - WARNING - simple warning
+12/02/2023 07:55:18 AM - CRITICAL - simple critical
+12/02/2023 07:55:18 AM - DEBUG - simple debug
+12/02/2023 07:55:18 AM - ERROR - simple error
+12/02/2023 07:55:18 AM - INFO - simple info
+12/02/2023 07:55:19 AM - WARNING - simple warning
+12/02/2023 08:19:10 AM - CRITICAL - simple critical
+12/02/2023 08:19:10 AM - DEBUG - simple debug
+12/02/2023 08:19:10 AM - ERROR - simple error
+12/02/2023 08:19:10 AM - INFO - simple info
+12/02/2023 08:19:11 AM - WARNING - simple warning
