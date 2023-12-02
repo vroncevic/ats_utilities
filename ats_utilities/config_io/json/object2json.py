@@ -21,7 +21,7 @@ Info
 '''
 
 import sys
-from typing import Any
+from typing import Dict
 from json import dump
 
 try:
@@ -29,7 +29,6 @@ try:
     from ats_utilities.config_io import ConfFile
     from ats_utilities.console_io.verbose import verbose_message
     from ats_utilities.exceptions.ats_type_error import ATSTypeError
-    from ats_utilities.exceptions.ats_bad_call_error import ATSBadCallError
 except ImportError as ats_error_message:
     # Force exit python #######################################################
     sys.exit(f'\n{__file__}\n{ats_error_message}\n')
@@ -73,7 +72,7 @@ class Object2Json(ATSChecker):
             :type configuration_file: <str> | <NoneType>
             :param verbose: Enable/Disable verbose option
             :type verbose: <bool>
-            :exceptions: ATSTypeError | ATSBadCallError
+            :exceptions: ATSTypeError
         '''
         super().__init__()
         error_msg: str | None = None
@@ -83,8 +82,6 @@ class Object2Json(ATSChecker):
         ])
         if error_id == self.TYPE_ERROR:
             raise ATSTypeError(error_msg)
-        if error_id == self.VALUE_ERROR:
-            raise ATSBadCallError(error_msg)
         self._verbose: bool = verbose
         configuration_file = str(configuration_file)
         self._file_path: str = configuration_file
@@ -93,7 +90,7 @@ class Object2Json(ATSChecker):
         )
 
     def write_configuration(
-        self, configuration: Any | None, verbose: bool = False
+        self, configuration: Dict[str, str] | None, verbose: bool = False
     ) -> bool:
         '''
             Write configuration to a json file.
@@ -101,28 +98,27 @@ class Object2Json(ATSChecker):
             :param verbose: Enable/Disable verbose option
             :type verbose: <bool>
             :param configuration: configuration object
-            :type: <Any> | <NoneType>
+            :type: <Dict[str, str]> | <NoneType>
             :return: True (configuration written to file) | False
             :rtype: <bool>
-            :exception: None
+            :exception: ATSTypeError
         '''
         error_msg: str | None = None
         error_id: int | None = None
         error_msg, error_id = self.check_params([
-            ('Any:configuration', configuration)
+            ('dict:configuration', configuration)
         ])
         if error_id == self.TYPE_ERROR:
             raise ATSTypeError(error_msg)
-        if error_id == self.VALUE_ERROR:
-            raise ATSBadCallError(error_msg)
         status: bool = False
         verbose_message(
             self._verbose or verbose, [f'configuration {configuration}']
         )
-        if configuration is None:
-            return status
-        with ConfFile(self._file_path, 'w', self._FORMAT) as json:
-            if bool(json):
-                dump(configuration, json)
-                status = True
+        if configuration:
+            if 'ats_name' not in configuration:
+                return status
+            with ConfFile(self._file_path, 'w', self._FORMAT) as json:
+                if json:
+                    dump(configuration, json)
+                    status = True
         return status

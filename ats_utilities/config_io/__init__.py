@@ -28,7 +28,6 @@ try:
     from ats_utilities.console_io.error import error_message
     from ats_utilities.console_io.verbose import verbose_message
     from ats_utilities.exceptions.ats_type_error import ATSTypeError
-    from ats_utilities.exceptions.ats_bad_call_error import ATSBadCallError
     from ats_utilities.config_io.file_check import FileCheck
 except ImportError as ats_error_message:
     # Force exit python #######################################################
@@ -81,7 +80,7 @@ class ConfFile(FileCheck):
             :type file_format: <str> | <NoneType>
             :param verbose: Enable/Disable verbose option
             :type verbose: <bool>
-            :exceptions: ATSTypeError | ATSBadCallError
+            :exceptions: ATSTypeError
         '''
         checker: ATSChecker = ATSChecker()
         error_msg: str | None = None
@@ -93,8 +92,6 @@ class ConfFile(FileCheck):
         ])
         if error_id == checker.TYPE_ERROR:
             raise ATSTypeError(error_msg)
-        if error_id == checker.VALUE_ERROR:
-            raise ATSBadCallError(error_msg)
         super().__init__(verbose)
         self._verbose: bool = verbose
         self._file: IO[str] | None = None

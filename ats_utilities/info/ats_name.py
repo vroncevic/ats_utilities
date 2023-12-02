@@ -26,7 +26,6 @@ try:
     from ats_utilities.checker import ATSChecker
     from ats_utilities.console_io.verbose import verbose_message
     from ats_utilities.exceptions.ats_type_error import ATSTypeError
-    from ats_utilities.exceptions.ats_bad_call_error import ATSBadCallError
 except ImportError as ats_error_message:
     # Force exit python #######################################################
     sys.exit(f'\n{__file__}\n{ats_error_message}\n')
@@ -55,7 +54,7 @@ class ATSName(ATSChecker):
             :methods:
                 | __init__ - Initial ATSName constructor.
                 | name - Property methods for set/get operations.
-                | is_not_none - Check is ATS name not None.
+                | is_name_not_none - Check is ATS name not None.
     '''
 
     def __init__(self, verbose: bool = False) -> None:
@@ -88,19 +87,17 @@ class ATSName(ATSChecker):
 
             :param name: ATS name | None
             :type name: <str> | <NoneType>
-            :exceptions: ATSTypeError | ATSBadCallError
+            :exceptions: ATSTypeError
         '''
         error_msg: str | None = None
         error_id: int | None = None
         error_msg, error_id = self.check_params([('str:name', name)])
         if error_id == self.TYPE_ERROR:
             raise ATSTypeError(error_msg)
-        if error_id == self.VALUE_ERROR:
-            raise ATSBadCallError(error_msg)
         self._name = name
         verbose_message(self._verbose, [f'name {name}'])
 
-    def is_not_none(self) -> bool:
+    def is_name_not_none(self) -> bool:
         '''
             Checking is ATS name None.
 

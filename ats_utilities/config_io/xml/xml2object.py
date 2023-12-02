@@ -28,7 +28,6 @@ try:
     from ats_utilities.config_io import ConfFile
     from ats_utilities.console_io.verbose import verbose_message
     from ats_utilities.exceptions.ats_type_error import ATSTypeError
-    from ats_utilities.exceptions.ats_bad_call_error import ATSBadCallError
 except ImportError as ats_error_message:
     # Force exit python #######################################################
     sys.exit(f'\n{__file__}\n{ats_error_message}\n')
@@ -72,7 +71,7 @@ class Xml2Object(ATSChecker):
             :type configuration_file: <str> | <NoneType>
             :param verbose: Enable/Disable verbose option
             :type verbose: <bool>
-            :exceptions: ATSTypeError | ATSBadCallError
+            :exceptions: ATSTypeError
         '''
         super().__init__()
         error_msg: str | None = None
@@ -82,8 +81,6 @@ class Xml2Object(ATSChecker):
         ])
         if error_id == self.TYPE_ERROR:
             raise ATSTypeError(error_msg)
-        if error_id == self.VALUE_ERROR:
-            raise ATSBadCallError(error_msg)
         self._verbose: bool = verbose
         configuration_file = str(configuration_file)
         self._file_path: str = configuration_file
@@ -106,7 +103,7 @@ class Xml2Object(ATSChecker):
         content: str | None = None
         config: BeautifulSoup | None = None
         with ConfFile(self._file_path, 'r', self._FORMAT) as xml:
-            if bool(xml):
+            if xml:
                 content = xml.read()
                 config = BeautifulSoup(str(content), self._FORMAT)
         verbose_message(

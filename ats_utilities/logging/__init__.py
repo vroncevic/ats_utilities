@@ -26,7 +26,6 @@ from logging import (
 )
 
 try:
-    from ats_utilities.console_io.error import error_message
     from ats_utilities.console_io.verbose import verbose_message
     from ats_utilities.logging.ats_logger_file import ATSLoggerFile
     from ats_utilities.logging.ats_logger_name import ATSLoggerName
@@ -133,11 +132,9 @@ class ATSLogger(ATSLoggerName, ATSLoggerStatus, ATSLoggerFile):
         ])
         if error_id == self.TYPE_ERROR:
             raise ATSTypeError(error_msg)
-        if error_id == self.VALUE_ERROR:
-            raise ATSBadCallError(error_msg)
         status: bool = False
         verbose_message(self._verbose or verbose, [f'{message} {str(ctrl)}'])
-        if bool(self.logger_status):
+        if self.logger_status:
             match ctrl:
                 case self.ATS_DEBUG:
                     self.logger.debug(message)
@@ -155,5 +152,7 @@ class ATSLogger(ATSLoggerName, ATSLoggerStatus, ATSLoggerFile):
                     self.logger.info(message)
                     status = True
                 case _:
-                    error_message([f'not supported log level [{str(ctrl)}]'])
+                    raise ATSBadCallError(
+                        f'not supported log level [{str(ctrl)}]'
+                    )
         return status

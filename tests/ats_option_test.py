@@ -19,7 +19,7 @@ Info
     Defines class ATSAbstractTestCase with attribute(s) and method(s).
     Creates test cases for checking functionalities of AbstractMethod.
 Execute
-    python -m unittest -v ats_option_test
+    python3 -m unittest -v ats_option_test
 '''
 
 import sys
@@ -28,6 +28,7 @@ from argparse import Namespace
 
 try:
     from ats_utilities.option import ATSOptionParser
+    from ats_utilities.exceptions.ats_type_error import ATSTypeError
 except ImportError as test_error_message:
     # Force close python test #################################################
     sys.exit(f'\n{__file__}\n{test_error_message}\n')
@@ -61,6 +62,7 @@ class ATSOptionTestCase(TestCase):
                 | test_option_parser_with_verbose_long - Test verbose long.
                 | test_option_parser_all_short - Test all short.
                 | test_option_parser_all_long - Test all long.
+                | test_option_parser_wrong_argument - Test argument types.
     '''
 
     OPS: list[str] = ['-g', '--gen', '-vv', '--verbose']
@@ -79,6 +81,11 @@ class ATSOptionTestCase(TestCase):
 
     def tearDown(self) -> None:
         '''Call after test case.'''
+
+    def test_create_with_wrong_arguments(self) -> None:
+        '''Test wrong argument types'''
+        with self.assertRaises(ATSTypeError):
+            ATSOptionParser(None, None, None)
 
     def test_option_parser_short(self) -> None:
         '''Test option parser short.'''

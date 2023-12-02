@@ -24,6 +24,7 @@ Execute
 
 import sys
 from typing import Any, Dict, Tuple, List, Set
+from collections import OrderedDict
 from unittest import TestCase, main
 
 try:
@@ -208,6 +209,54 @@ class ATSCheckerTestCase(TestCase):
             ('str:simple_var', simple_var)
         ])
         self.assertEqual(self.error_id, 1)
+
+    def test_collect_params(self) -> None:
+        '''Test for collect parameters.'''
+        self.assertFalse(self.checker.collect_params(OrderedDict([])))
+
+    def test_check_type_params(self) -> None:
+        '''Test for check type parameters.'''
+        self.assertFalse(self.checker.check_types(OrderedDict([])))
+
+    def test_check_value_params(self) -> None:
+        '''Test for check value parameters.'''
+        self.assertFalse(self.checker.check_values(OrderedDict([])))
+
+    def test_check_type_params_missing_description(self) -> None:
+        '''Test for check value parameters.'''
+        simple_config: int = 0
+        complex_config: str = 'test'
+        self.assertFalse(
+            self.checker.check_types(
+                OrderedDict(
+                    [
+                        ('', simple_config), ('', complex_config)
+                    ]
+                )
+            )
+        )
+
+    def test_non_base_type_check(self) -> None:
+        '''Test for check non base type'''
+
+        class Test:
+            '''Simple type'''
+
+            def __init__(self) -> None:
+                '''Initial Test Constructor'''
+                self.var: int = 0
+
+        test = Test()
+        self.assertTrue(self.checker.check_values(OrderedDict([
+            ('Test:test', test)
+        ])))
+
+    def test_check_value_params_base_none(self) -> None:
+        '''Test for check value parameters.'''
+        simple_config: int | None = None
+        self.assertFalse(
+            self.checker.check_types(OrderedDict([('', simple_config)]))
+        )
 
 
 if __name__ == '__main__':

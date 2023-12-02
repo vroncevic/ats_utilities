@@ -27,7 +27,6 @@ try:
     from ats_utilities.checker import ATSChecker
     from ats_utilities.console_io.verbose import verbose_message
     from ats_utilities.exceptions.ats_type_error import ATSTypeError
-    from ats_utilities.exceptions.ats_bad_call_error import ATSBadCallError
     from ats_utilities.exceptions.ats_file_error import ATSFileError
 except ImportError as ats_error_message:
     # Force exit python #######################################################
@@ -47,7 +46,7 @@ class ATSLoggerFile(ATSChecker):
     '''
         Defines class ATSLoggerFile with attribute(s) and method(s).
         Creates API for ATS logger file path in one propery object.
-        Log file property.
+        Log file path property.
 
         It defines:
 
@@ -90,7 +89,7 @@ class ATSLoggerFile(ATSChecker):
 
             :param file_path: Log file path | None
             :type file_path: <str> | <NoneType>
-            :exceptions: ATSTypeError | ATSBadCallError | ATSFileError
+            :exceptions: ATSTypeError | ATSFileError
         '''
         error_msg: str | None = None
         error_id: int | None = None
@@ -99,8 +98,6 @@ class ATSLoggerFile(ATSChecker):
         ])
         if error_id == self.TYPE_ERROR:
             raise ATSTypeError(error_msg)
-        if error_id == self.VALUE_ERROR:
-            raise ATSBadCallError(error_msg)
         if isfile(str(file_path)):
             self._logger_path = file_path
             verbose_message(

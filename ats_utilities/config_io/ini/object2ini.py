@@ -28,7 +28,6 @@ try:
     from ats_utilities.config_io import ConfFile
     from ats_utilities.console_io.verbose import verbose_message
     from ats_utilities.exceptions.ats_type_error import ATSTypeError
-    from ats_utilities.exceptions.ats_bad_call_error import ATSBadCallError
 except ImportError as ats_error_message:
     # Force exit python #######################################################
     sys.exit(f'\n{__file__}\n{ats_error_message}\n')
@@ -72,7 +71,7 @@ class Object2Ini(ATSChecker):
             :type configuration_file: <str> | <NoneType>
             :param verbose: Enable/Disable verbose option
             :type verbose: <bool>
-            :exceptions: ATSTypeError | ATSBadCallError
+            :exceptions: ATSTypeError
         '''
         super().__init__()
         error_msg: str | None = None
@@ -82,8 +81,6 @@ class Object2Ini(ATSChecker):
         ])
         if error_id == self.TYPE_ERROR:
             raise ATSTypeError(error_msg)
-        if error_id == self.VALUE_ERROR:
-            raise ATSBadCallError(error_msg)
         configuration_file = str(configuration_file)
         self._verbose: bool = verbose
         self._file_path: str = configuration_file
@@ -103,7 +100,7 @@ class Object2Ini(ATSChecker):
             :type verbose: <bool>
             :return: True (configuration written to file) | False
             :rtype: <bool>
-            :exception: ATSTypeError | ATSBadCallError
+            :exception: ATSTypeError
         '''
         error_msg: str | None = None
         error_id: int | None = None
@@ -112,16 +109,15 @@ class Object2Ini(ATSChecker):
         ])
         if error_id == self.TYPE_ERROR:
             raise ATSTypeError(error_msg)
-        if error_id == self.VALUE_ERROR:
-            raise ATSBadCallError(error_msg)
         status = False
         verbose_message(
             self._verbose or verbose, [f'configuration {configuration}']
         )
-        if configuration is None or not configuration:
-            return status
-        with ConfFile(self._file_path, 'w', self._FORMAT) as ini:
-            if bool(ini):
-                configuration.write(ini, space_around_delimiters=True)
-                status = True
+        if configuration:
+            if len(configuration.sections()) == 0:
+                return status
+            with ConfFile(self._file_path, 'w', self._FORMAT) as ini:
+                if ini:
+                    configuration.write(ini, space_around_delimiters=True)
+                    status = True
         return status
