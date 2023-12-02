@@ -26,7 +26,6 @@ try:
     from ats_utilities.checker import ATSChecker
     from ats_utilities.console_io.verbose import verbose_message
     from ats_utilities.exceptions.ats_type_error import ATSTypeError
-    from ats_utilities.exceptions.ats_bad_call_error import ATSBadCallError
 except ImportError as ats_error_message:
     # Force exit python #######################################################
     sys.exit(f'\n{__file__}\n{ats_error_message}\n')
@@ -45,7 +44,7 @@ class ATSLoggerName(ATSChecker):
     '''
         Defines class ATSLoggerName with attribute(s) and method(s).
         Creates API for ATS logger name in one propery object.
-        Logger property name.
+        Logger name property.
 
         It defines:
 
@@ -87,7 +86,7 @@ class ATSLoggerName(ATSChecker):
 
             :param logger_name: Logger name | None
             :type logger_name: <str> | <NoneType>
-            :exceptions: ATSTypeError | ATSBadCallError
+            :exceptions: ATSTypeError
         '''
         error_msg: str | None = None
         error_id: int | None = None
@@ -96,7 +95,5 @@ class ATSLoggerName(ATSChecker):
         ])
         if error_id == self.TYPE_ERROR:
             raise ATSTypeError(error_msg)
-        if error_id == self.VALUE_ERROR:
-            raise ATSBadCallError(error_msg)
         self._logger_name = logger_name
         verbose_message(self._verbose, [f'logger name {logger_name}'])
