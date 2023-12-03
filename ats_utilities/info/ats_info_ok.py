@@ -86,7 +86,7 @@ class ATSInfoOk(ATSChecker):
 
             :param ats_info_ok: ATS information status
             :type ats_info_ok: <bool>
-            :exceptions: ATSTypeError | ATSBadCallError
+            :exceptions: ATSTypeError
         '''
         error_msg: str | None = None
         error_id: int | None = None

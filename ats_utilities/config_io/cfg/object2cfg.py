@@ -71,7 +71,7 @@ class Object2Cfg(ATSChecker):
             :type configuration_file: <str> | <NoneType>
             :param verbose: Enable/Disable verbose option
             :type verbose: <bool>
-            :exceptions: ATSTypeError | ATSBadCallError
+            :exceptions: ATSTypeError
         '''
         super().__init__()
         error_msg: str | None = None

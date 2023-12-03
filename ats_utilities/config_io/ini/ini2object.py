@@ -96,6 +96,7 @@ class Ini2Object(ATSChecker):
             :type verbose: <bool>
             :return: configuration object | None
             :rtype: <ConfigParser> | <NoneType>
+            :exceptions: None
         '''
         content: ConfigParser | None = None
         with ConfFile(self._file_path, 'r', self._FORMAT) as ini:

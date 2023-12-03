@@ -70,7 +70,7 @@ class CfgCLI(CfgBase):
             :type information_file: <str> | <NoneType>
             :param verbose: Enable/Disable verbose option
             :type verbose: <bool>
-            :exceptions: ATSTypeError | ATSBadCallError
+            :exceptions: None
         '''
         super().__init__(information_file, verbose)
         self._verbose: bool = verbose
@@ -96,7 +96,7 @@ class CfgCLI(CfgBase):
             :type argv: <list[Any] | list[str]>
             :return: Options and arguments
             :rtype: <Any | Namespace>
-            :exceptions: ATSTypeError | ATSBadCallError
+            :exceptions: ATSTypeError
         '''
         error_msg: str | None = None
         error_id: int | None = None

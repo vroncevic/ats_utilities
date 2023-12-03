@@ -27,7 +27,6 @@ from time import sleep
 try:
     from ats_utilities.console_io.verbose import verbose_message
     from ats_utilities.exceptions.ats_type_error import ATSTypeError
-    from ats_utilities.exceptions.ats_bad_call_error import ATSBadCallError
     from ats_utilities.splash.progress_bar import ProgressBar
     from ats_utilities.splash.terminal_properties import TerminalProperties
     from ats_utilities.splash.splash_property import SplashProperty
@@ -72,15 +71,13 @@ class Splash(SplashProperty):
             :type prop: <: Dict[Any, Any]>
             :param verbose: Enable/Disable verbose option
             :type verbose: <bool>
-            :exceptions: ATSTypeError | ATSBadCallError
+            :exceptions: ATSTypeError
         '''
         error_msg: str | None = None
         error_id: int | None = None
         error_msg, error_id = self.check_params([('dict:prop', prop)])
         if error_id == self.TYPE_ERROR:
             raise ATSTypeError(error_msg)
-        if error_id == self.VALUE_ERROR:
-            raise ATSBadCallError(error_msg)
         super().__init__(prop, verbose)
         self._verbose: bool = verbose
         if self.validate(self._verbose):
@@ -139,7 +136,7 @@ class Splash(SplashProperty):
             :type text: <str>
             :param verbose: Enable/Disable verbose option
             :type verbose: <bool>
-            :exceptions: ATSTypeError | ATSBadCallError
+            :exceptions: ATSTypeError
         '''
         error_msg: str | None = None
         error_id: int | None = None
@@ -150,8 +147,6 @@ class Splash(SplashProperty):
         ])
         if error_id == self.TYPE_ERROR:
             raise ATSTypeError(error_msg)
-        if error_id == self.VALUE_ERROR:
-            raise ATSBadCallError(error_msg)
         verbose_message(
             self._verbose or verbose,
             [f'{columns} {additional_shifter} {text}']

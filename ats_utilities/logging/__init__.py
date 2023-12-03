@@ -91,7 +91,7 @@ class ATSLogger(ATSLoggerName, ATSLoggerStatus, ATSLoggerFile):
             :type ats_log_file: <str> | <NoneType>
             :param verbose: Enable/Disable verbose option
             :type verbose: <bool>
-            :exceptions: ATSTypeError | ATSBadCallError | ATSFileError
+            :exceptions: None
         '''
         ATSLoggerName.__init__(self, verbose)
         ATSLoggerStatus.__init__(self, verbose)

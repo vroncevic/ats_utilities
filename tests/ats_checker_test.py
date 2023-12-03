@@ -90,6 +90,21 @@ class ATSCheckerTestCase(TestCase):
         '''Test for checker not None.'''
         self.assertIsNotNone(self.checker)
 
+    def test_none_collect_parameter(self) -> None:
+        '''Test for None param collecting.'''
+        self.assertFalse(self.checker.collect_params(None))  # type: ignore
+
+    def test_none_check_type_parameter(self) -> None:
+        '''Test for None param checking type.'''
+        self.assertFalse(self.checker.check_types(None))  # type: ignore
+
+    def test_none_check_priority_error(self) -> None:
+        '''Test for None param checking type.'''
+        self.checker.check_types(None)  # type: ignore
+        self.assertEqual(
+            self.checker.priority_error(), self.checker.FORMAT_ERROR
+        )
+
     def test_str_parameter(self) -> None:
         '''Test for string param checking.'''
         simple_var: str = '8'
@@ -218,10 +233,6 @@ class ATSCheckerTestCase(TestCase):
         '''Test for check type parameters.'''
         self.assertFalse(self.checker.check_types(OrderedDict([])))
 
-    def test_check_value_params(self) -> None:
-        '''Test for check value parameters.'''
-        self.assertFalse(self.checker.check_values(OrderedDict([])))
-
     def test_check_type_params_missing_description(self) -> None:
         '''Test for check value parameters.'''
         simple_config: int = 0
@@ -247,7 +258,7 @@ class ATSCheckerTestCase(TestCase):
                 self.var: int = 0
 
         test = Test()
-        self.assertTrue(self.checker.check_values(OrderedDict([
+        self.assertTrue(self.checker.check_types(OrderedDict([
             ('Test:test', test)
         ])))
 
