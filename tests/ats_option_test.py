@@ -16,8 +16,8 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines class ATSAbstractTestCase with attribute(s) and method(s).
-    Creates test cases for checking functionalities of AbstractMethod.
+    Defines class ATSOptionTestCase with attribute(s) and method(s).
+    Creates test cases for checking functionalities of option parser.
 Execute
     python3 -m unittest -v ats_option_test
 '''

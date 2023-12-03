@@ -25,6 +25,7 @@ from typing import Any, Dict, Tuple
 from time import sleep
 
 try:
+    from ats_utilities.checker import ATSChecker
     from ats_utilities.console_io.verbose import verbose_message
     from ats_utilities.exceptions.ats_type_error import ATSTypeError
     from ats_utilities.splash.progress_bar import ProgressBar
@@ -73,10 +74,11 @@ class Splash(SplashProperty):
             :type verbose: <bool>
             :exceptions: ATSTypeError
         '''
+        checker: ATSChecker = ATSChecker()
         error_msg: str | None = None
         error_id: int | None = None
-        error_msg, error_id = self.check_params([('dict:prop', prop)])
-        if error_id == self.TYPE_ERROR:
+        error_msg, error_id = checker.check_params([('dict:prop', prop)])
+        if error_id == checker.TYPE_ERROR:
             raise ATSTypeError(error_msg)
         super().__init__(prop, verbose)
         self._verbose: bool = verbose

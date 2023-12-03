@@ -25,6 +25,7 @@ from typing import Any, Dict, List
 
 try:
     from ats_utilities.checker import ATSChecker
+    from ats_utilities.console_io.error import error_message
     from ats_utilities.console_io.verbose import verbose_message
     from ats_utilities.exceptions.ats_type_error import ATSTypeError
 except ImportError as ats_error_message:
@@ -98,11 +99,9 @@ class SplashProperty(ATSChecker):
             :rtype: <bool>
             :exceptions: None
         '''
-        for key in list(self._property.keys()):
-            if key not in self._EXPECTED_PROP_KEYS:
-                verbose_message(
-                    self._verbose or verbose, [f'property {key} not expected']
-                )
+        for key in self._EXPECTED_PROP_KEYS:
+            if key not in self._property.keys():
+                error_message([f'missing property {key}'])
                 return False
         verbose_message(
             self._verbose or verbose, ['property checked and all prepared']
