@@ -27,6 +27,7 @@ from unittest import TestCase, main
 
 try:
     from ats_utilities.console_io.success import success_message
+    from ats_utilities.exceptions.ats_type_error import ATSTypeError
 except ImportError as test_error_message:
     # Force close python test #################################################
     sys.exit(f'\n{__file__}\n{test_error_message}\n')
@@ -35,7 +36,7 @@ __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2017, https://vroncevic.github.io/ats_utilities'
 __credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = '2.9.8'
+__version__ = '2.9.9'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
@@ -54,6 +55,7 @@ class ATSSuccessTestCase(TestCase):
                 | setUp - Call before test case.
                 | tearDown - Call after test case.
                 | test_success_api - Test success API.
+                | test_none_success - Test for None as message.
     '''
 
     def setUp(self) -> None:
@@ -66,6 +68,11 @@ class ATSSuccessTestCase(TestCase):
     def test_success_api(self) -> None:
         '''Test success API.'''
         success_message([f'message {self.message}'])
+
+    def test_none_success(self) -> None:
+        '''Test for None as message'''
+        with self.assertRaises(ATSTypeError):
+            success_message(None)  # type: ignore
 
 
 if __name__ == '__main__':

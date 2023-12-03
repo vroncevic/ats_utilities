@@ -37,7 +37,7 @@ __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2017, https://vroncevic.github.io/ats_utilities'
 __credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = '2.9.8'
+__version__ = '2.9.9'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
@@ -89,6 +89,21 @@ class ATSCheckerTestCase(TestCase):
     def test_checker_not_none(self) -> None:
         '''Test for checker not None.'''
         self.assertIsNotNone(self.checker)
+
+    def test_none_collect_parameter(self) -> None:
+        '''Test for None param collecting.'''
+        self.assertFalse(self.checker.collect_params(None))  # type: ignore
+
+    def test_none_check_type_parameter(self) -> None:
+        '''Test for None param checking type.'''
+        self.assertFalse(self.checker.check_types(None))  # type: ignore
+
+    def test_none_check_priority_error(self) -> None:
+        '''Test for None param checking type.'''
+        self.checker.check_types(None)  # type: ignore
+        self.assertEqual(
+            self.checker.priority_error(), self.checker.FORMAT_ERROR
+        )
 
     def test_str_parameter(self) -> None:
         '''Test for string param checking.'''
@@ -218,10 +233,6 @@ class ATSCheckerTestCase(TestCase):
         '''Test for check type parameters.'''
         self.assertFalse(self.checker.check_types(OrderedDict([])))
 
-    def test_check_value_params(self) -> None:
-        '''Test for check value parameters.'''
-        self.assertFalse(self.checker.check_values(OrderedDict([])))
-
     def test_check_type_params_missing_description(self) -> None:
         '''Test for check value parameters.'''
         simple_config: int = 0
@@ -247,7 +258,7 @@ class ATSCheckerTestCase(TestCase):
                 self.var: int = 0
 
         test = Test()
-        self.assertTrue(self.checker.check_values(OrderedDict([
+        self.assertTrue(self.checker.check_types(OrderedDict([
             ('Test:test', test)
         ])))
 

@@ -31,7 +31,6 @@ try:
     from ats_utilities.checker import ATSChecker
     from ats_utilities.console_io.verbose import verbose_message
     from ats_utilities.exceptions.ats_type_error import ATSTypeError
-    from ats_utilities.exceptions.ats_bad_call_error import ATSBadCallError
 except ImportError as ats_error_message:
     # Force exit python #######################################################
     sys.exit(f'\n{__file__}\n{ats_error_message}\n')
@@ -40,7 +39,7 @@ __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2021, https://vroncevic.github.io/ats_utilities'
 __credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = '2.9.8'
+__version__ = '2.9.9'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
@@ -59,8 +58,8 @@ class TerminalProperties(ATSChecker):
                 | _window_size - Terminal window size.
             :methods:
                 | __init__ - Initial TerminalProperties constructor.
-                | _ioctl_get_window_size - Size for descriptor.
-                | _ioctl_for_all_descriptors - Size for all descriptors.
+                | ioctl_get_window_size - Size for descriptor.
+                | ioctl_for_all_descriptors - Size for all descriptors.
                 | size - Gets size of terminal window.
     '''
 
@@ -77,7 +76,7 @@ class TerminalProperties(ATSChecker):
         self._window_size: tuple[Any, ...]
         verbose_message(self._verbose, ['init terminal properties'])
 
-    def _ioctl_get_window_size(
+    def ioctl_get_window_size(
         self, file_descriptor: int, verbose: bool = False
     ) -> tuple[Any, ...]:
         '''
@@ -89,7 +88,7 @@ class TerminalProperties(ATSChecker):
             :type verbose: <bool>
             :return: window size of terminal.
             :rtype: <tupple>
-            :exceptions: ATSTypeError | ATSBadCallError
+            :exceptions: ATSTypeError
         '''
         error_msg: str | None = None
         error_id: int | None = None
@@ -98,10 +97,10 @@ class TerminalProperties(ATSChecker):
         ])
         if error_id == self.TYPE_ERROR:
             raise ATSTypeError(error_msg)
-        if error_id == self.VALUE_ERROR:
-            raise ATSBadCallError(error_msg)
         self._window_size = unpack(
-            'HH', ioctl(file_descriptor, TIOCGWINSZ, pack('HHHH', 0, 0, 0, 0))
+            'HHHH', ioctl(
+                file_descriptor, TIOCGWINSZ, pack('HHHH', 0, 0, 0, 0)
+            )
         )
         verbose_message(
             self._verbose or verbose,
@@ -109,7 +108,7 @@ class TerminalProperties(ATSChecker):
         )
         return self._window_size
 
-    def _ioctl_for_all_descriptors(self, verbose: bool = False) -> None:
+    def ioctl_for_all_descriptors(self, verbose: bool = False) -> None:
         '''
             Check window size for all descriptors.
 
@@ -119,9 +118,9 @@ class TerminalProperties(ATSChecker):
             :rtype: <bool>
             :exceptions: None
         '''
-        std_in: tuple[Any, ...] = self._ioctl_get_window_size(0)
-        std_out: tuple[Any, ...] = self._ioctl_get_window_size(1)
-        std_err: tuple[Any, ...] = self._ioctl_get_window_size(2)
+        std_in: tuple[Any, ...] = self.ioctl_get_window_size(0)
+        std_out: tuple[Any, ...] = self.ioctl_get_window_size(1)
+        std_err: tuple[Any, ...] = self.ioctl_get_window_size(2)
         self._window_size = std_in or std_out or std_err
         verbose_message(
             self._verbose or verbose,
@@ -138,9 +137,9 @@ class TerminalProperties(ATSChecker):
             :rtype: <tuple>
             :exceptions: None
         '''
-        self._ioctl_for_all_descriptors()
+        self.ioctl_for_all_descriptors()
         file_descriptor: int = os.open(os.ctermid(), os.O_RDONLY)
-        self._window_size = self._ioctl_get_window_size(file_descriptor)
+        self._window_size = self.ioctl_get_window_size(file_descriptor)
         os.close(file_descriptor)
         verbose_message(
             self._verbose or verbose,

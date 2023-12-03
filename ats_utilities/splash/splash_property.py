@@ -25,9 +25,9 @@ from typing import Any, Dict, List
 
 try:
     from ats_utilities.checker import ATSChecker
+    from ats_utilities.console_io.error import error_message
     from ats_utilities.console_io.verbose import verbose_message
     from ats_utilities.exceptions.ats_type_error import ATSTypeError
-    from ats_utilities.exceptions.ats_bad_call_error import ATSBadCallError
 except ImportError as ats_error_message:
     # Force exit python #######################################################
     sys.exit(f'\n{__file__}\n{ats_error_message}\n')
@@ -36,7 +36,7 @@ __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2021, https://vroncevic.github.io/ats_utilities'
 __credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = '2.9.8'
+__version__ = '2.9.9'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
@@ -77,7 +77,7 @@ class SplashProperty(ATSChecker):
             :type property: <dict>
             :param verbose: Enable/Disable verbose option
             :type verbose: <bool>
-            :exceptions: ATSTypeError | ATSBadCallError
+            :exceptions: ATSTypeError
         '''
         super().__init__()
         error_msg: str | None = None
@@ -85,8 +85,6 @@ class SplashProperty(ATSChecker):
         error_msg, error_id = self.check_params([('dict:prop', prop)])
         if error_id == self.TYPE_ERROR:
             raise ATSTypeError(error_msg)
-        if error_id == self.VALUE_ERROR:
-            raise ATSBadCallError(error_msg)
         self._verbose: bool = verbose
         self._property:  Dict[Any, Any] = prop
         verbose_message(self._verbose, [f'splash property {prop}'])
@@ -101,11 +99,9 @@ class SplashProperty(ATSChecker):
             :rtype: <bool>
             :exceptions: None
         '''
-        for key in list(self._property.keys()):
-            if key not in self._EXPECTED_PROP_KEYS:
-                verbose_message(
-                    self._verbose or verbose, [f'property {key} not expected']
-                )
+        for key in self._EXPECTED_PROP_KEYS:
+            if key not in self._property.keys():
+                error_message([f'missing property {key}'])
                 return False
         verbose_message(
             self._verbose or verbose, ['property checked and all prepared']

@@ -16,8 +16,8 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines class ATSAbstractTestCase with attribute(s) and method(s).
-    Creates test cases for checking functionalities of AbstractMethod.
+    Defines class ATSOptionTestCase with attribute(s) and method(s).
+    Creates test cases for checking functionalities of option parser.
 Execute
     python3 -m unittest -v ats_option_test
 '''
@@ -37,7 +37,7 @@ __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2017, https://vroncevic.github.io/ats_utilities'
 __credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = '2.9.8'
+__version__ = '2.9.9'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'

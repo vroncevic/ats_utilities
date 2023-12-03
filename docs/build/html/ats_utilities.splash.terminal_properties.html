@@ -86,16 +86,16 @@ API for terminal properties.</p>
 <dt class="field-even">methods<span class="colon">:</span></dt>
 <dd class="field-even"><div class="line-block">
 <div class="line">__init__ - Initial TerminalProperties constructor.</div>
-<div class="line">_ioctl_get_window_size - Size for descriptor.</div>
-<div class="line">_ioctl_for_all_descriptors - Size for all descriptors.</div>
+<div class="line">ioctl_get_window_size - Size for descriptor.</div>
+<div class="line">ioctl_for_all_descriptors - Size for all descriptors.</div>
 <div class="line">size - Gets size of terminal window.</div>
 </div>
 </dd>
 </dl>
 </div></blockquote>
 <dl class="py method">
-<dt class="sig sig-object py" id="ats_utilities.splash.terminal_properties.TerminalProperties._ioctl_for_all_descriptors">
-<span class="sig-name descname"><span class="pre">_ioctl_for_all_descriptors</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/ats_utilities/splash/terminal_properties.html#TerminalProperties._ioctl_for_all_descriptors"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.splash.terminal_properties.TerminalProperties._ioctl_for_all_descriptors" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ats_utilities.splash.terminal_properties.TerminalProperties.ioctl_for_all_descriptors">
+<span class="sig-name descname"><span class="pre">ioctl_for_all_descriptors</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/ats_utilities/splash/terminal_properties.html#TerminalProperties.ioctl_for_all_descriptors"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.splash.terminal_properties.TerminalProperties.ioctl_for_all_descriptors" title="Permalink to this definition">¶</a></dt>
 <dd><p>Check window size for all descriptors.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -114,8 +114,8 @@ API for terminal properties.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="ats_utilities.splash.terminal_properties.TerminalProperties._ioctl_get_window_size">
-<span class="sig-name descname"><span class="pre">_ioctl_get_window_size</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_descriptor</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/ats_utilities/splash/terminal_properties.html#TerminalProperties._ioctl_get_window_size"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.splash.terminal_properties.TerminalProperties._ioctl_get_window_size" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ats_utilities.splash.terminal_properties.TerminalProperties.ioctl_get_window_size">
+<span class="sig-name descname"><span class="pre">ioctl_get_window_size</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_descriptor</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/ats_utilities/splash/terminal_properties.html#TerminalProperties.ioctl_get_window_size"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.splash.terminal_properties.TerminalProperties.ioctl_get_window_size" title="Permalink to this definition">¶</a></dt>
 <dd><p>Check window size for descriptor.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -131,7 +131,7 @@ API for terminal properties.</p>
 <dd class="field-odd"><p>&lt;tupple&gt;</p>
 </dd>
 <dt class="field-even">Exceptions<span class="colon">:</span></dt>
-<dd class="field-even"><p>ATSTypeError | ATSBadCallError</p>
+<dd class="field-even"><p>ATSTypeError</p>
 </dd>
 </dl>
 </dd></dl>
@@ -172,8 +172,8 @@ API for terminal properties.</p>
     <ul>
 <li><a class="reference internal" href="#">ats_utilities.splash.terminal_properties module</a><ul>
 <li><a class="reference internal" href="#ats_utilities.splash.terminal_properties.TerminalProperties"><code class="docutils literal notranslate"><span class="pre">TerminalProperties</span></code></a><ul>
-<li><a class="reference internal" href="#ats_utilities.splash.terminal_properties.TerminalProperties._ioctl_for_all_descriptors"><code class="docutils literal notranslate"><span class="pre">TerminalProperties._ioctl_for_all_descriptors()</span></code></a></li>
-<li><a class="reference internal" href="#ats_utilities.splash.terminal_properties.TerminalProperties._ioctl_get_window_size"><code class="docutils literal notranslate"><span class="pre">TerminalProperties._ioctl_get_window_size()</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.splash.terminal_properties.TerminalProperties.ioctl_for_all_descriptors"><code class="docutils literal notranslate"><span class="pre">TerminalProperties.ioctl_for_all_descriptors()</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.splash.terminal_properties.TerminalProperties.ioctl_get_window_size"><code class="docutils literal notranslate"><span class="pre">TerminalProperties.ioctl_get_window_size()</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.splash.terminal_properties.TerminalProperties.size"><code class="docutils literal notranslate"><span class="pre">TerminalProperties.size()</span></code></a></li>
 </ul>
 </li>

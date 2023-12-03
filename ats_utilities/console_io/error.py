@@ -27,7 +27,6 @@ try:
     from colorama import init, Fore
     from ats_utilities.checker import ATSChecker
     from ats_utilities.exceptions.ats_type_error import ATSTypeError
-    from ats_utilities.exceptions.ats_bad_call_error import ATSBadCallError
 except ImportError as ats_error_message:
     # Force exit python #######################################################
     sys.exit(f'\n{__file__}\n{ats_error_message}\n')
@@ -36,7 +35,7 @@ __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2017, https://vroncevic.github.io/ats_utilities'
 __credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = '2.9.8'
+__version__ = '2.9.9'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
@@ -109,7 +108,7 @@ def error_message(message: List[Any]) -> None:
 
         :param message: Message combined as list of any elements
         :type message: <List[Any]>
-        :exceptions: ATSTypeError | ATSBadCallError
+        :exceptions: ATSTypeError
     '''
     checker: ATSChecker = ATSChecker()
     error_msg: str | None = None
@@ -117,8 +116,6 @@ def error_message(message: List[Any]) -> None:
     error_msg, error_id = checker.check_params([('list:message', message)])
     if error_id == checker.TYPE_ERROR:
         raise ATSTypeError(error_msg)
-    if error_id == checker.VALUE_ERROR:
-        raise ATSBadCallError(error_msg)
     error: ATSError = ATSError()
     error.message = ' '.join([str(item) for item in message])
     if error.is_not_none():

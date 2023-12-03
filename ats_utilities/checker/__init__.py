@@ -28,7 +28,7 @@ __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2017, https://vroncevic.github.io/ats_utilities'
 __credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = '2.9.8'
+__version__ = '2.9.9'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
@@ -45,8 +45,7 @@ class ATSChecker:
             :attributes:
                 | NO_ERROR - No error, error id (0).
                 | TYPE_ERROR - Type param error id (1).
-                | VALUE_ERROR - Value param error id (2).
-                | FORMAT_ERROR - Wrong format error id (3).
+                | FORMAT_ERROR - Wrong format error id (2).
                 | _start_message - Start segment of usage message.
                 | _list_of_params - List of parameters for method/function.
                 | _error_type - List of mapped errors.
@@ -57,15 +56,13 @@ class ATSChecker:
                 | collect_params - Collect all parameters in one list.
                 | usage_message - Prepare usage message for method/function.
                 | check_types - Check parameters (types) for method/function.
-                | check_values - Check parameters (values) for method/function.
                 | priority_error - Set priority error id (TYPE_ERROR).
                 | check_params - Check parameters for method/function.
     '''
 
     NO_ERROR = 0
     TYPE_ERROR = 1
-    VALUE_ERROR = 2
-    FORMAT_ERROR = 3
+    FORMAT_ERROR = 2
 
     def __init__(self) -> None:
         '''
@@ -75,7 +72,7 @@ class ATSChecker:
         '''
         self._start_message: str | None = None
         self._list_of_params: List[str] = []
-        self._error_type: List[int] = [0, 0, 0]
+        self._error_type: List[int] = [0, 0]
         self._error_type_index: List[int] = []
         self._error_value_index: List[int] = []
 
@@ -92,7 +89,7 @@ class ATSChecker:
             :exceptions: None
         '''
         if any([not params_description]):
-            self._error_type[2] = self.FORMAT_ERROR
+            self._error_type[1] = self.FORMAT_ERROR
             return False
         for exp_type, inst in params_description.items():
             pname: str = exp_type.split(sep=':')[1]
@@ -133,59 +130,31 @@ class ATSChecker:
             :exceptions: None
         '''
         if any([not params_description]):
-            self._error_type[2] = self.FORMAT_ERROR
+            self._error_type[1] = self.FORMAT_ERROR
             return False
         for index, (exp_type, inst) in enumerate(params_description.items()):
-            param_typ_name: list[str] = exp_type.split(sep=':')
-            if len(param_typ_name) == 2:
-                if type(inst).__name__ != param_typ_name[0]:
+            param_type_name: list[str] = exp_type.split(sep=':')
+            if len(param_type_name) == 2:
+                if type(inst).__name__ != param_type_name[0]:
                     self._error_type[0] = self.TYPE_ERROR
                     self._error_type_index.append(index)
                     return False
             else:
-                self._error_type[2] = self.FORMAT_ERROR
+                self._error_type[1] = self.FORMAT_ERROR
                 return False
-        return True
-
-    def check_values(self, params_description: OrderedDict[str, Any]) -> bool:
-        '''
-            Check parameters (values) for method/function.
-
-            :param params_description: Description for parameters
-            :type params_description: <OrderedDict[str, Any]>
-            :return: True (values are ok) | False (values are not ok)
-            :rtype: <bool>
-            :exceptions: None
-        '''
-        if any([not bool(params_description)]):
-            self._error_type[2] = self.FORMAT_ERROR
-            return False
-        for index, inst in enumerate(params_description.values()):
-            any_base_type: bool = any([
-                isinstance(inst, dict), isinstance(inst, list),
-                isinstance(inst, tuple), isinstance(inst, set),
-                isinstance(inst, frozenset), isinstance(inst, bytearray),
-                isinstance(inst, bytes), isinstance(inst, str)
-            ])
-            if any_base_type:
-                if inst is None:
-                    self._error_type[1] = self.VALUE_ERROR
-                    self._error_value_index.append(index)
         return True
 
     def priority_error(self) -> int | None:
         '''
             Set priority error id (TYPE_ERROR).
 
-            :return: Priority error id (0 | 1 | 2 | 3) | None
+            :return: Priority error id (0 | 1 | 2) | None
             :rtype: <int> | <NoneType>
             :exceptions: None
         '''
         priority_error_id: int | None = None
-        if self._error_type[2] == self.FORMAT_ERROR:
+        if self._error_type[1] == self.FORMAT_ERROR:
             return self.FORMAT_ERROR
-        if self._error_type[1] == self.VALUE_ERROR:
-            priority_error_id = self.VALUE_ERROR
         if self._error_type[0] == self.TYPE_ERROR:
             priority_error_id = self.TYPE_ERROR
         if all(error_type == 0 for error_type in self._error_type):
@@ -200,7 +169,7 @@ class ATSChecker:
 
             :param params_description: Description for parameters
             :type params_description: <List[Tuple[str, Any]]>
-            :return: usage message, status (0 | 1 | 2 | 3)
+            :return: usage message, status (0 | 1 | 2)
             :rtype: <str> | <NoneType>, <int> | <NoneType>
             :exceptions: None
         '''
@@ -209,8 +178,7 @@ class ATSChecker:
         self._start_message = f'\nmod: {module}\n  def: {func}()'
         fail_any_check: bool = any([
             not self.collect_params(OrderedDictionary(params_description)),
-            not self.check_types(OrderedDictionary(params_description)),
-            not self.check_values(OrderedDictionary(params_description))
+            not self.check_types(OrderedDictionary(params_description))
         ])
         message: str | None = self.usage_message()
         error_id: int | None = self.priority_error()

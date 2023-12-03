@@ -29,8 +29,8 @@ try:
     from ats_utilities.info.ats_info_ok import ATSInfoOk
     from ats_utilities.info.ats_version import ATSVersion
     from ats_utilities.info.ats_licence import ATSLicence
-    from ats_utilities.console_io.error import error_message
     from ats_utilities.info.ats_build_date import ATSBuildDate
+    from ats_utilities.console_io.error import error_message
     from ats_utilities.console_io.verbose import verbose_message
     from ats_utilities.exceptions.ats_type_error import ATSTypeError
 except ImportError as ats_error_message:
@@ -41,7 +41,7 @@ __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2017, https://vroncevic.github.io/ats_utilities'
 __credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = '2.9.8'
+__version__ = '2.9.9'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
@@ -87,7 +87,7 @@ class ATSInfo(ATSName, ATSVersion, ATSLicence, ATSBuildDate, ATSInfoOk):
             :type info: <Dict[Any, Any]>
             :param verbose: Enable/Disable verbose option
             :type verbose: <bool>
-            :exceptions: ATSTypeError | ATSBadCallError
+            :exceptions: None
         '''
         ATSName.__init__(self, verbose)
         ATSVersion.__init__(self, verbose)

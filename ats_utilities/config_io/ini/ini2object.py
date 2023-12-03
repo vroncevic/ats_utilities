@@ -36,7 +36,7 @@ __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2017, https://vroncevic.github.io/ats_utilities'
 __credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = '2.9.8'
+__version__ = '2.9.9'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
@@ -96,6 +96,7 @@ class Ini2Object(ATSChecker):
             :type verbose: <bool>
             :return: configuration object | None
             :rtype: <ConfigParser> | <NoneType>
+            :exceptions: None
         '''
         content: ConfigParser | None = None
         with ConfFile(self._file_path, 'r', self._FORMAT) as ini:

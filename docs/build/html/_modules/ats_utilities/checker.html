@@ -70,7 +70,7 @@
 <span class="n">__copyright__</span> <span class="o">=</span> <span class="s1">&#39;Copyright 2017, https://vroncevic.github.io/ats_utilities&#39;</span>
 <span class="n">__credits__</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Vladimir Roncevic&#39;</span><span class="p">,</span> <span class="s1">&#39;Python Software Foundation&#39;</span><span class="p">]</span>
 <span class="n">__license__</span> <span class="o">=</span> <span class="s1">&#39;https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE&#39;</span>
-<span class="n">__version__</span> <span class="o">=</span> <span class="s1">&#39;2.9.8&#39;</span>
+<span class="n">__version__</span> <span class="o">=</span> <span class="s1">&#39;2.9.9&#39;</span>
 <span class="n">__maintainer__</span> <span class="o">=</span> <span class="s1">&#39;Vladimir Roncevic&#39;</span>
 <span class="n">__email__</span> <span class="o">=</span> <span class="s1">&#39;elektron.ronca@gmail.com&#39;</span>
 <span class="n">__status__</span> <span class="o">=</span> <span class="s1">&#39;Updated&#39;</span>
@@ -87,8 +87,7 @@
 <span class="sd">            :attributes:</span>
 <span class="sd">                | NO_ERROR - No error, error id (0).</span>
 <span class="sd">                | TYPE_ERROR - Type param error id (1).</span>
-<span class="sd">                | VALUE_ERROR - Value param error id (2).</span>
-<span class="sd">                | FORMAT_ERROR - Wrong format error id (3).</span>
+<span class="sd">                | FORMAT_ERROR - Wrong format error id (2).</span>
 <span class="sd">                | _start_message - Start segment of usage message.</span>
 <span class="sd">                | _list_of_params - List of parameters for method/function.</span>
 <span class="sd">                | _error_type - List of mapped errors.</span>
@@ -99,15 +98,13 @@
 <span class="sd">                | collect_params - Collect all parameters in one list.</span>
 <span class="sd">                | usage_message - Prepare usage message for method/function.</span>
 <span class="sd">                | check_types - Check parameters (types) for method/function.</span>
-<span class="sd">                | check_values - Check parameters (values) for method/function.</span>
 <span class="sd">                | priority_error - Set priority error id (TYPE_ERROR).</span>
 <span class="sd">                | check_params - Check parameters for method/function.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
 
     <span class="n">NO_ERROR</span> <span class="o">=</span> <span class="mi">0</span>
     <span class="n">TYPE_ERROR</span> <span class="o">=</span> <span class="mi">1</span>
-    <span class="n">VALUE_ERROR</span> <span class="o">=</span> <span class="mi">2</span>
-    <span class="n">FORMAT_ERROR</span> <span class="o">=</span> <span class="mi">3</span>
+    <span class="n">FORMAT_ERROR</span> <span class="o">=</span> <span class="mi">2</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
@@ -117,7 +114,7 @@
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_start_message</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_list_of_params</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_error_type</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_error_type</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_error_type_index</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_error_value_index</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
 
@@ -134,7 +131,7 @@
 <span class="sd">            :exceptions: None</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="k">if</span> <span class="nb">any</span><span class="p">([</span><span class="ow">not</span> <span class="n">params_description</span><span class="p">]):</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_error_type</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">FORMAT_ERROR</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_error_type</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">FORMAT_ERROR</span>
             <span class="k">return</span> <span class="kc">False</span>
         <span class="k">for</span> <span class="n">exp_type</span><span class="p">,</span> <span class="n">inst</span> <span class="ow">in</span> <span class="n">params_description</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
             <span class="n">pname</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">exp_type</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">sep</span><span class="o">=</span><span class="s1">&#39;:&#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
@@ -174,62 +171,32 @@
 <span class="sd">            :rtype: &lt;bool&gt;</span>
 <span class="sd">            :exceptions: None</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="k">if</span> <span class="nb">any</span><span class="p">([</span><span class="ow">not</span> <span class="nb">bool</span><span class="p">(</span><span class="n">params_description</span><span class="p">)]):</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_error_type</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">FORMAT_ERROR</span>
+        <span class="k">if</span> <span class="nb">any</span><span class="p">([</span><span class="ow">not</span> <span class="n">params_description</span><span class="p">]):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_error_type</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">FORMAT_ERROR</span>
             <span class="k">return</span> <span class="kc">False</span>
         <span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="p">(</span><span class="n">exp_type</span><span class="p">,</span> <span class="n">inst</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">params_description</span><span class="o">.</span><span class="n">items</span><span class="p">()):</span>
-            <span class="n">param_typ_name</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">exp_type</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">sep</span><span class="o">=</span><span class="s1">&#39;:&#39;</span><span class="p">)</span>
-            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">param_typ_name</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
-                <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">inst</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span> <span class="o">!=</span> <span class="n">param_typ_name</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
+            <span class="n">param_type_name</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">exp_type</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">sep</span><span class="o">=</span><span class="s1">&#39;:&#39;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">param_type_name</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+                <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">inst</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span> <span class="o">!=</span> <span class="n">param_type_name</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">_error_type</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">TYPE_ERROR</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">_error_type_index</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">index</span><span class="p">)</span>
+                    <span class="k">return</span> <span class="kc">False</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_error_type</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">FORMAT_ERROR</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_error_type</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">FORMAT_ERROR</span>
                 <span class="k">return</span> <span class="kc">False</span>
-        <span class="k">return</span> <span class="kc">True</span></div>
-
-<div class="viewcode-block" id="ATSChecker.check_values"><a class="viewcode-back" href="../../ats_utilities.checker.html#ats_utilities.checker.ATSChecker.check_values">[docs]</a>    <span class="k">def</span> <span class="nf">check_values</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params_description</span><span class="p">:</span> <span class="n">OrderedDict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">            Check parameters (values) for method/function.</span>
-
-<span class="sd">            :param params_description: Description for parameters</span>
-<span class="sd">            :type params_description: &lt;OrderedDict[str, Any]&gt;</span>
-<span class="sd">            :return: True (values are ok) | False (values are not ok)</span>
-<span class="sd">            :rtype: &lt;bool&gt;</span>
-<span class="sd">            :exceptions: None</span>
-<span class="sd">        &#39;&#39;&#39;</span>
-        <span class="k">if</span> <span class="nb">any</span><span class="p">([</span><span class="ow">not</span> <span class="nb">bool</span><span class="p">(</span><span class="n">params_description</span><span class="p">)]):</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_error_type</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">FORMAT_ERROR</span>
-            <span class="k">return</span> <span class="kc">False</span>
-        <span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">inst</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">params_description</span><span class="o">.</span><span class="n">values</span><span class="p">()):</span>
-            <span class="k">if</span> <span class="n">inst</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_error_type</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">VALUE_ERROR</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_error_value_index</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">index</span><span class="p">)</span>
-            <span class="n">any_base_type</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="nb">any</span><span class="p">([</span>
-                <span class="nb">isinstance</span><span class="p">(</span><span class="n">inst</span><span class="p">,</span> <span class="nb">dict</span><span class="p">),</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">inst</span><span class="p">,</span> <span class="nb">list</span><span class="p">),</span>
-                <span class="nb">isinstance</span><span class="p">(</span><span class="n">inst</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">),</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">inst</span><span class="p">,</span> <span class="nb">set</span><span class="p">),</span>
-                <span class="nb">isinstance</span><span class="p">(</span><span class="n">inst</span><span class="p">,</span> <span class="nb">frozenset</span><span class="p">),</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">inst</span><span class="p">,</span> <span class="nb">bytearray</span><span class="p">),</span>
-                <span class="nb">isinstance</span><span class="p">(</span><span class="n">inst</span><span class="p">,</span> <span class="nb">bytes</span><span class="p">)</span>
-            <span class="p">])</span>
-            <span class="k">if</span> <span class="n">any_base_type</span><span class="p">:</span>
-                <span class="k">if</span> <span class="ow">not</span> <span class="nb">bool</span><span class="p">(</span><span class="n">inst</span><span class="p">):</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">_error_type</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">VALUE_ERROR</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">_error_value_index</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">index</span><span class="p">)</span>
         <span class="k">return</span> <span class="kc">True</span></div>
 
 <div class="viewcode-block" id="ATSChecker.priority_error"><a class="viewcode-back" href="../../ats_utilities.checker.html#ats_utilities.checker.ATSChecker.priority_error">[docs]</a>    <span class="k">def</span> <span class="nf">priority_error</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Set priority error id (TYPE_ERROR).</span>
 
-<span class="sd">            :return: Priority error id (0 | 1 | 2 | 3) | None</span>
+<span class="sd">            :return: Priority error id (0 | 1 | 2) | None</span>
 <span class="sd">            :rtype: &lt;int&gt; | &lt;NoneType&gt;</span>
 <span class="sd">            :exceptions: None</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="n">priority_error_id</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_error_type</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">FORMAT_ERROR</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_error_type</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">FORMAT_ERROR</span><span class="p">:</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">FORMAT_ERROR</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_error_type</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">VALUE_ERROR</span><span class="p">:</span>
-            <span class="n">priority_error_id</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">VALUE_ERROR</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_error_type</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">TYPE_ERROR</span><span class="p">:</span>
             <span class="n">priority_error_id</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">TYPE_ERROR</span>
         <span class="k">if</span> <span class="nb">all</span><span class="p">(</span><span class="n">error_type</span> <span class="o">==</span> <span class="mi">0</span> <span class="k">for</span> <span class="n">error_type</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_error_type</span><span class="p">):</span>
@@ -244,7 +211,7 @@
 
 <span class="sd">            :param params_description: Description for parameters</span>
 <span class="sd">            :type params_description: &lt;List[Tuple[str, Any]]&gt;</span>
-<span class="sd">            :return: usage message, status (0 | 1 | 2 | 3)</span>
+<span class="sd">            :return: usage message, status (0 | 1 | 2)</span>
 <span class="sd">            :rtype: &lt;str&gt; | &lt;NoneType&gt;, &lt;int&gt; | &lt;NoneType&gt;</span>
 <span class="sd">            :exceptions: None</span>
 <span class="sd">        &#39;&#39;&#39;</span>
@@ -253,14 +220,12 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_start_message</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">mod: </span><span class="si">{</span><span class="n">module</span><span class="si">}</span><span class="se">\n</span><span class="s1">  def: </span><span class="si">{</span><span class="n">func</span><span class="si">}</span><span class="s1">()&#39;</span>
         <span class="n">fail_any_check</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="nb">any</span><span class="p">([</span>
             <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">collect_params</span><span class="p">(</span><span class="n">OrderedDictionary</span><span class="p">(</span><span class="n">params_description</span><span class="p">)),</span>
-            <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">check_types</span><span class="p">(</span><span class="n">OrderedDictionary</span><span class="p">(</span><span class="n">params_description</span><span class="p">)),</span>
-            <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">check_values</span><span class="p">(</span><span class="n">OrderedDictionary</span><span class="p">(</span><span class="n">params_description</span><span class="p">))</span>
+            <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">check_types</span><span class="p">(</span><span class="n">OrderedDictionary</span><span class="p">(</span><span class="n">params_description</span><span class="p">))</span>
         <span class="p">])</span>
         <span class="n">message</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">usage_message</span><span class="p">()</span>
         <span class="n">error_id</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">priority_error</span><span class="p">()</span>
-        <span class="k">if</span> <span class="nb">any</span><span class="p">([</span><span class="n">error_id</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">,</span> <span class="n">fail_any_check</span><span class="p">]):</span>
+        <span class="k">if</span> <span class="nb">any</span><span class="p">([</span><span class="n">error_id</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">fail_any_check</span><span class="p">]):</span>
             <span class="n">message</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">message</span><span class="si">}</span><span class="s1"> format wrong during checking params&#39;</span>
-            <span class="n">error_id</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">FORMAT_ERROR</span>
         <span class="k">return</span> <span class="n">message</span><span class="p">,</span> <span class="n">error_id</span></div></div>
 </pre></div>
 
