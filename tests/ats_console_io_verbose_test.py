@@ -27,6 +27,7 @@ from unittest import TestCase, main
 
 try:
     from ats_utilities.console_io.verbose import verbose_message
+    from ats_utilities.exceptions.ats_type_error import ATSTypeError
 except ImportError as test_error_message:
     # Force close python test #################################################
     sys.exit(f'\n{__file__}\n{test_error_message}\n')
@@ -55,6 +56,7 @@ class ATSVerboseTestCase(TestCase):
                 | setUp - Call before test case.
                 | tearDown - Call after test case.
                 | test_verbose_api - Test verbose API.
+                | test_none_verbose - Test for None as message.
     '''
 
     def setUp(self) -> None:
@@ -68,6 +70,11 @@ class ATSVerboseTestCase(TestCase):
     def test_verbose_api(self) -> None:
         '''Test verbose API.'''
         verbose_message(self.verbose, [f'message {self.message}'])
+
+    def test_none_verbose(self) -> None:
+        '''Test for None as message'''
+        with self.assertRaises(ATSTypeError):
+            verbose_message(True, None)  # type: ignore
 
 
 if __name__ == '__main__':
