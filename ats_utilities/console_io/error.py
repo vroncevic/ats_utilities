@@ -17,7 +17,7 @@ Copyright
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
     Defines class ATSError with attribute(s) and method(s).
-    Creates error message container for console log mechanism.
+    Creates a error message container for console log mechanism.
 '''
 
 import sys
@@ -33,9 +33,9 @@ except ImportError as ats_error_message:
 
 __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2017, https://vroncevic.github.io/ats_utilities'
-__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
+__credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = '2.9.9'
+__version__ = '3.0.0'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
@@ -44,7 +44,7 @@ __status__ = 'Updated'
 class ATSError:
     '''
         Defines class ATSError with attribute(s) and method(s).
-        Creates error message container for console log mechanism.
+        Creates a error message container for console log mechanism.
         Mechanism for logging error messages.
 
         It defines:
@@ -52,20 +52,18 @@ class ATSError:
             :attributes:
                 | _message - Error message container.
             :methods:
-                | __init__ - Initial ATSError constructor.
+                | __init__ - Initials ATSError constructor.
                 | message - Property methods for set/get operations.
-                | is_not_none - Check is message not None.
+                | is_not_none - Checks is message not None.
     '''
-
-    _message: str | None
 
     def __init__(self) -> None:
         '''
-            Initial ATSError constructor.
+            Initials ATSError constructor.
 
             :exceptions: None
         '''
-        self._message = None
+        self._message: str | None = None
 
     @property
     def message(self) -> str | None:
@@ -83,19 +81,19 @@ class ATSError:
         '''
             Property method for setting message.
 
-            :param message: Error message text
+            :param message: Error message
             :type message: <str>
             :exceptions: None
         '''
         init(autoreset=False)
-        if message is not None:
+        if message:
             self._message = f'{Fore.RED}{message}{Fore.RESET}'
 
     def is_not_none(self) -> bool:
         '''
-            Checking is message not None.
+            Checka is message not None.
 
-            :return: True (not None) | False
+            :return: True (message is not None) | False
             :rtype: <bool>
             :exceptions: None
         '''
@@ -104,7 +102,7 @@ class ATSError:
 
 def error_message(message: List[Any]) -> None:
     '''
-        Show error message.
+        Shows error message.
 
         :param message: Message combined as list of any elements
         :type message: <List[Any]>

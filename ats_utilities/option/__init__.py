@@ -17,11 +17,11 @@ Copyright
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
     Defines class ATSOptionParser with attribute(s) and method(s).
-    Creates option parser and argument processor.
+    Creates an option parser and an argument processor.
 '''
 
 import sys
-from typing import Any, Sequence
+from typing import Any, List, Sequence
 from argparse import ArgumentParser, Namespace
 
 try:
@@ -34,9 +34,9 @@ except ImportError as ats_error_message:
 
 __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2017, https://vroncevic.github.io/ats_utilities'
-__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
+__credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = '2.9.9'
+__version__ = '3.0.0'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
@@ -45,8 +45,8 @@ __status__ = 'Updated'
 class ATSOptionParser(ATSChecker):
     '''
         Defines class ATSOptionParser with attribute(s) and method(s).
-        Creates option parser and argument processor.
-        Mechanism for ATS option parser.
+        Creates an option parser and an argument processor.
+        Mechanism for application, tool, or script option parser.
 
         It defines:
 
@@ -54,9 +54,9 @@ class ATSOptionParser(ATSChecker):
                 | _verbose - Enable/Disable verbose option.
                 | _opt_parser - Options parser.
             :methods:
-                | __init__ - Initial ATSOptionParser constructor.
-                | add_operation - Add option to ATS.
-                | parse_args - Process arguments from start.
+                | __init__ - Initials ATSOptionParser constructor.
+                | add_operation - Adds an option to the ATS parser.
+                | parse_args - Processes arguments from the start.
     '''
 
     def __init__(
@@ -67,7 +67,7 @@ class ATSOptionParser(ATSChecker):
         verbose: bool = False
     ) -> None:
         '''
-            Initial ATSOptionParser constructor.
+            Initials ATSOptionParser constructor.
 
             :param version: ATS version and build date | None
             :type version: <str> | <NoneType>
@@ -83,7 +83,8 @@ class ATSOptionParser(ATSChecker):
         error_msg: str | None = None
         error_id: int | None = None
         error_msg, error_id = self.check_params([
-            ('str:version', version), ('str:epilog', epilog),
+            ('str:version', version),
+            ('str:epilog', epilog),
             ('str:description', description)
         ])
         if error_id == self.TYPE_ERROR:
@@ -99,9 +100,9 @@ class ATSOptionParser(ATSChecker):
 
     def add_operation(self, *args: str, **kwargs: Any) -> None:
         '''
-            Add option to ATS parser.
+            Adds an option to the ATS parser.
 
-            :param args: List of flags
+            :param args: List of flags for the ATS
             :type args: <str>
             :param kwargs: Arguments in shape of dictionary
             :type kwargs: <Any>
@@ -113,7 +114,7 @@ class ATSOptionParser(ATSChecker):
         self, arguments: Sequence[str], verbose: bool = False
     ) -> Namespace:
         '''
-            Process arguments from start.
+            Processes arguments from the start.
 
             :param arguments: Sequence of arguments
             :type arguments: <Sequence[str]>

@@ -17,10 +17,11 @@ Copyright
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
     Defines class ATSInfoOk with attribute(s) and method(s).
-    Creates API for ATS info status in one property object.
+    Creates an API for the ATS info status in one property object.
 '''
 
 import sys
+from typing import List
 
 try:
     from ats_utilities.checker import ATSChecker
@@ -32,9 +33,9 @@ except ImportError as ats_error_message:
 
 __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2017, https://vroncevic.github.io/ats_utilities'
-__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
+__credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = '2.9.9'
+__version__ = '3.0.0'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
@@ -43,22 +44,22 @@ __status__ = 'Updated'
 class ATSInfoOk(ATSChecker):
     '''
         Defines class ATSInfoOk with attribute(s) and method(s).
-        Creates API for ATS info status in one property object.
-        ATS info status container.
+        Creates an API for the ATS info status in one property object.
+        The ATS info status container.
 
         It defines:
 
             :attributes:
                 | _verbose - Enable/Disable verbose option.
-                | _ats_info_ok - ATS information status.
+                | _ats_info_ok - The ATS information status.
             :methods:
-                | __init__ - Initial ATSInfoOk constructor.
+                | __init__ - Initials ATSInfoOk constructor.
                 | ats_info_ok - Property methods for set/get operations.
     '''
 
     def __init__(self, verbose: bool = False) -> None:
         '''
-            Initial ATSInfoOk constructor.
+            Initials ATSInfoOk constructor.
 
             :param verbose: Enable/Disable verbose option
             :type verbose: <bool>
@@ -73,7 +74,7 @@ class ATSInfoOk(ATSChecker):
         '''
             Property method for getting ATS information status.
 
-            :return: ATS information status
+            :return: The ATS information status
             :rtype: <bool>
             :exceptions: None
         '''
@@ -84,7 +85,7 @@ class ATSInfoOk(ATSChecker):
         '''
             Property method for setting ATS information status.
 
-            :param ats_info_ok: ATS information status
+            :param ats_info_ok: The ATS information status
             :type ats_info_ok: <bool>
             :exceptions: ATSTypeError
         '''

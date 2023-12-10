@@ -17,11 +17,11 @@ Copyright
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
     Defines class Splash with attribute(s) and method(s).
-    Loads a splash screen info and add hyperlinks.
+    Loads a splash screen info and adds hyperlinks.
 '''
 
 import sys
-from typing import Any, Dict, Tuple
+from typing import Any, Dict, Tuple, List
 from time import sleep
 
 try:
@@ -39,9 +39,9 @@ except ImportError as ats_error_message:
 
 __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2021, https://vroncevic.github.io/ats_utilities'
-__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
+__credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = '2.9.9'
+__version__ = '3.0.0'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
@@ -50,7 +50,7 @@ __status__ = 'Updated'
 class Splash(SplashProperty):
     '''
         Defines class Splash with attribute(s) and method(s).
-        Loads a splash screen info and add hyperlinks.
+        Loads a splash screen info and adds hyperlinks.
         API splash component.
 
         It defines:
@@ -58,15 +58,13 @@ class Splash(SplashProperty):
             :attributes:
                 | _verbose - Enable/Disable verbose option.
             :methods:
-                | __init__ - Initial Splash constructor.
+                | __init__ - Initials Splash constructor.
                 | center - Center console line.
     '''
 
-    def __init__(
-        self, prop: Dict[Any, Any], verbose: bool = False
-    ) -> None:
+    def __init__(self, prop: Dict[Any, Any], verbose: bool = False) -> None:
         '''
-            Initial Splash constructor.
+            Initials Splash constructor.
 
             :param prop: Splash property in dict form
             :type prop: <: Dict[Any, Any]>

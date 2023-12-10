@@ -17,11 +17,11 @@ Copyright
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
     Defines class IniCLI with attribute(s) and method(s).
-    Creates API for check and load information, setup argument parser.
+    Creates an API for check and load information argument parser.
 '''
 
 import sys
-from typing import Any
+from typing import Any, List
 from argparse import Namespace
 from abc import abstractmethod
 
@@ -35,9 +35,9 @@ except ImportError as ats_error_message:
 
 __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2017, https://vroncevic.github.io/ats_utilities'
-__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
+__credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = '2.9.9'
+__version__ = '3.0.0'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
@@ -46,39 +46,37 @@ __status__ = 'Updated'
 class IniCLI(IniBase):
     '''
         Defines class IniCLI with attribute(s) and method(s).
-        Creates API for check and load information, setup argument parser.
-        Command line interface configurtion based on ini format.
+        Creates an API for check and load information argument parser.
+        Command line interface configurtion based on INI format.
 
         It defines:
 
             :attributes:
                 | _verbose - Enable/Disable verbose option.
             :methods:
-                | __init__ - Initial IniCLI constructor.
-                | add_new_option - Adding new option for CL interface.
-                | parse_args - Parse CL arguments.
-                | process - Process and run tool operation (Abstract method).
+                | __init__ - Initials IniCLI constructor.
+                | add_new_option - Adds a new option for CL interface.
+                | parse_args - Parses the CL arguments.
+                | process - Processes and runs tool operation (Abstract).
     '''
 
-    def __init__(
-        self, information_file: str | None, verbose: bool = False
-    ) -> None:
+    def __init__(self, info_file: str | None, verbose: bool = False) -> None:
         '''
-            Initial IniCLI constructor.
+            Initials IniCLI constructor.
 
-            :param information_file: Informations file path | None
-            :type information_file: <str> | <NoneType>
+            :param info_file: Informations file path | None
+            :type info_file: <str> | <NoneType>
             :param verbose: Enable/Disable verbose option
             :type verbose: <bool>
             :exceptions: None
         '''
-        super().__init__(information_file, verbose)
+        super().__init__(info_file, verbose)
         self._verbose: bool = verbose
         verbose_message(self._verbose, ['init ATS ini cli'])
 
     def add_new_option(self, *args: str, **kwargs: Any) -> None:
         '''
-            Adding new option for CL interface.
+            Adds a new option for the CL interface.
 
             :param args: Arguments in string form
             :type args: <str>
@@ -88,12 +86,12 @@ class IniCLI(IniBase):
         '''
         self.option_parser.add_operation(*args, **kwargs)
 
-    def parse_args(self, argv: list[Any] | list[str]) -> Any | Namespace:
+    def parse_args(self, argv: List[Any] | List[str]) -> Any | Namespace:
         '''
-            Process arguments from start.
+            Parses the CL arguments.
 
             :param argv: List of arguments
-            :type argv: <list[Any] | list[str]>
+            :type argv: <List[Any] | List[str]>
             :return: Options and arguments
             :rtype: <Any | Namespace>
             :exceptions: ATSTypeError
@@ -108,7 +106,7 @@ class IniCLI(IniBase):
     @abstractmethod
     def process(self, verbose: bool = False) -> bool:
         '''
-            Process and run tool operation (Abstract method).
+            Processes and runs tool operation (Abstract).
 
             :param verbose: Enable/Disable verbose option
             :type verbose: <bool>

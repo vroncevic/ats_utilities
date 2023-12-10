@@ -17,7 +17,7 @@ Copyright
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
     Defines class ATSInfo with attribute(s) and method(s).
-    Creates API for ATS information in one container object.
+    Creates an API for the ATS information in one container object.
 '''
 
 import sys
@@ -39,9 +39,9 @@ except ImportError as ats_error_message:
 
 __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2017, https://vroncevic.github.io/ats_utilities'
-__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
+__credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = '2.9.9'
+__version__ = '3.0.0'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
@@ -50,22 +50,22 @@ __status__ = 'Updated'
 class ATSInfo(ATSName, ATSVersion, ATSLicence, ATSBuildDate, ATSInfoOk):
     '''
         Defines class ATSInfo with attribute(s) and method(s).
-        Creates API for ATS information in one container object.
-        ATS info container.
+        Creates an API for the ATS information in one container object.
+        The ATS info container.
 
         It defines:
 
             :attributes:
-                | ATS_NAME - ATS name key.
-                | ATS_VERSION - ATS version key.
-                | ATS_LICENCE - ATS licence key.
-                | ATS_BUILD_DATE - ATS build date key.
-                | ATS_BASE_INFO - ATS base information dict.
+                | ATS_NAME - The ATS name key.
+                | ATS_VERSION - The ATS version key.
+                | ATS_LICENCE - The ATS licence key.
+                | ATS_BUILD_DATE - The ATS build date key.
+                | ATS_BASE_INFO - The ATS base information dict.
                 | _verbose - Enable/Disable verbose option.
             :methods:
-                | __init__ - Initial ATSInfo constructor.
-                | show_base_info - Show ATS information.
-                | is_correct - Check information structure.
+                | __init__ - Initials ATSInfo constructor.
+                | show_base_info - Shows ATS information.
+                | is_correct - Checks information structure.
     '''
 
     ATS_NAME: str = 'ats_name'
@@ -81,9 +81,9 @@ class ATSInfo(ATSName, ATSVersion, ATSLicence, ATSBuildDate, ATSInfoOk):
 
     def __init__(self, info: Dict[Any, Any], verbose: bool = False) -> None:
         '''
-            Initial ATSInfo constructor.
+            Initials ATSInfo constructor.
 
-            :param info: ATS basic information
+            :param info: The ATS basic information
             :type info: <Dict[Any, Any]>
             :param verbose: Enable/Disable verbose option
             :type verbose: <bool>
@@ -105,7 +105,7 @@ class ATSInfo(ATSName, ATSVersion, ATSLicence, ATSBuildDate, ATSInfoOk):
 
     def show_base_info(self) -> None:
         '''
-            Show ATS information.
+            Shows ATS information.
 
             :exceptions: None
         '''
@@ -118,13 +118,13 @@ class ATSInfo(ATSName, ATSVersion, ATSLicence, ATSBuildDate, ATSInfoOk):
         self, information: Dict[Any, Any], verbose: bool = False
     ) -> bool:
         '''
-            Check information structure.
+            Checks information structure.
 
-            :param information: ATS base information
+            :param information: The ATS base information
             :type information: <Dict[Any, Any]>
             :param verbose: Enable/Disable verbose option
             :type verbose: <bool>
-            :return: True (all info parameters are ok) | False
+            :return: True (all info params are ok) | False
             :rtype: <bool>
             :exceptions: ATSTypeError
         '''
@@ -138,15 +138,15 @@ class ATSInfo(ATSName, ATSVersion, ATSLicence, ATSBuildDate, ATSInfoOk):
         verbose_message(
             self._verbose or verbose, [f'info structure {str(information)}']
         )
-        statuses: List[bool] = []
+        all_state: List[bool] = []
         for info_key in information.keys():
             if info_key not in self.ATS_BASE_INFO.values():
                 error_message([f'key not expected [{info_key}]'])
-                statuses.append(False)
+                all_state.append(False)
             else:
                 if information[info_key] is None:
                     error_message([f'parameter [{info_key}] is None'])
-                    statuses.append(False)
+                    all_state.append(False)
                 else:
-                    statuses.append(True)
-        return all(statuses)
+                    all_state.append(True)
+        return all(all_state)

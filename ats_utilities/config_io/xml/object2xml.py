@@ -17,10 +17,11 @@ Copyright
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
     Defines class Object2Xml with attribute(s) and method(s).
-    Creates API for writing a configuration/information to a xml file.
+    Creates an API for writing a configuration to a XML file.
 '''
 
 import sys
+from typing import List
 
 try:
     from bs4 import BeautifulSoup
@@ -34,9 +35,9 @@ except ImportError as ats_error_message:
 
 __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2017, https://vroncevic.github.io/ats_utilities'
-__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
+__credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = '2.9.9'
+__version__ = '3.0.0'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
@@ -45,30 +46,28 @@ __status__ = 'Updated'
 class Object2Xml(ATSChecker):
     '''
         Defines class Object2Xml with attribute(s) and method(s).
-        Creates API for writing a configuration/information to a xml file.
-        Conversion XML to configuration content.
+        Creates an API for writing a configuration to a XML file.
+        Conversion of Python object to XML content.
 
         It defines:
 
             :attributes:
-                | _FORMAT - Format of configuration content.
+                | _EXT - File extension of the configuration file.
                 | _verbose - Enable/Disable verbose option.
                 | _file_path - Configuration file path.
             :methods:
-                | __init__ - Initial constructor.
-                | write_configuration - Write configuration to a xml file.
+                | __init__ - Initials Object2Xml constructor.
+                | write_configuration - Writes configuration to a XML file.
     '''
 
-    _FORMAT: str = 'xml'
+    _EXT: str = 'xml'
 
-    def __init__(
-        self, configuration_file: str | None, verbose: bool = False
-    ) -> None:
+    def __init__(self, config_file: str | None, verbose: bool = False) -> None:
         '''
             Initial Object2Xml constructor.
 
-            :param configuration_file: Configuration file path | None
-            :type configuration_file: <str> | <NoneType>
+            :param config_file: Configuration file path | None
+            :type config_file: <str> | <NoneType>
             :param verbose: Enable/Disable verbose option
             :type verbose: <bool>
             :exceptions: ATSTypeError
@@ -77,26 +76,24 @@ class Object2Xml(ATSChecker):
         error_msg: str | None = None
         error_id: int | None = None
         error_msg, error_id = self.check_params([
-            ('str:configuration_file', configuration_file)
+            ('str:config_file', config_file)
         ])
         if error_id == self.TYPE_ERROR:
             raise ATSTypeError(error_msg)
         self._verbose: bool = verbose
-        configuration_file = str(configuration_file)
-        self._file_path: str = configuration_file
-        verbose_message(
-            self._verbose, [f'configuration file {configuration_file}']
-        )
+        config_file = str(config_file)
+        self._file_path: str = config_file
+        verbose_message(self._verbose, [f'configuration file {config_file}'])
 
     def write_configuration(
         self, configuration: BeautifulSoup | None, verbose: bool = False
     ) -> bool:
         '''
-            Write configuration to a xml file.
+            Writes configuration to a XML file.
 
             :param verbose: Enable/Disable verbose option
             :type verbose: <bool>
-            :param configuration: configuration object
+            :param configuration: Configuration object
             :type: <BeautifulSoup> | <NoneType>
             :return: True (configuration written to file) | False
             :rtype: <bool>
@@ -113,11 +110,12 @@ class Object2Xml(ATSChecker):
         verbose_message(
             self._verbose or verbose, [f'configuration {configuration}']
         )
-        if configuration:
-            if not configuration.find('ats_info'):
-                return status
-            with ConfFile(self._file_path, 'w', self._FORMAT) as xml:
-                if xml:
-                    xml.write(f'{configuration}')
-                    status = True
+        if not configuration:
+            return status
+        if not bool(configuration.contents):
+            return status
+        with ConfFile(self._file_path, 'w', self._EXT) as xml:
+            if xml:
+                xml.write(f'{configuration}')
+                status = True
         return status

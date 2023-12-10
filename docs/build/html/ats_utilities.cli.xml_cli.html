@@ -68,15 +68,15 @@ You should have received a copy of the GNU General Public License along
 with this program. If not, see &lt;<a class="reference external" href="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</a>&gt;.</p>
 </dd>
 <dt>Info</dt><dd><p>Defines class XmlCLI with attribute(s) and method(s).
-Creates API for check and load information, setup argument parser.</p>
+Creates an API for check and load information argument parser.</p>
 </dd>
 </dl>
 <dl class="py class">
 <dt class="sig sig-object py" id="ats_utilities.cli.xml_cli.XmlCLI">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ats_utilities.cli.xml_cli.</span></span><span class="sig-name descname"><span class="pre">XmlCLI</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">information_file</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ats_utilities/cli/xml_cli.html#XmlCLI"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.cli.xml_cli.XmlCLI" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ats_utilities.cli.xml_cli.</span></span><span class="sig-name descname"><span class="pre">XmlCLI</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">info_file</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ats_utilities/cli/xml_cli.html#XmlCLI"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.cli.xml_cli.XmlCLI" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="ats_utilities.config_io.xml.html#ats_utilities.config_io.xml.XmlBase" title="ats_utilities.config_io.xml.XmlBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">XmlBase</span></code></a></p>
 <p>Defined class XmlCLI with attribute(s) and method(s).
-Created API for check and load information, setup argument parser.
+Creates an API for check and load information argument parser.
 Command line interface configurtion based on XML format.</p>
 <p>It defines:</p>
 <blockquote>
@@ -88,10 +88,10 @@ Command line interface configurtion based on XML format.</p>
 </dd>
 <dt class="field-even">methods<span class="colon">:</span></dt>
 <dd class="field-even"><div class="line-block">
-<div class="line">__init__ - Initial XmlCLI constructor.</div>
-<div class="line">add_new_option - Adding new option for CL interface.</div>
-<div class="line">parse_args - Parse CL arguments.</div>
-<div class="line">process - Process and run tool operation (Abstract method).</div>
+<div class="line">__init__ - Initials XmlCLI constructor.</div>
+<div class="line">add_new_option - Adds a new option for the CL interface.</div>
+<div class="line">parse_args - Parses the CL arguments.</div>
+<div class="line">process - Processes and runs tool operation (Abstract).</div>
 </div>
 </dd>
 </dl>
@@ -99,7 +99,7 @@ Command line interface configurtion based on XML format.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="ats_utilities.cli.xml_cli.XmlCLI.add_new_option">
 <span class="sig-name descname"><span class="pre">add_new_option</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/ats_utilities/cli/xml_cli.html#XmlCLI.add_new_option"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.cli.xml_cli.XmlCLI.add_new_option" title="Permalink to this definition">¶</a></dt>
-<dd><p>Adding new option for CL interface.</p>
+<dd><p>Adds a new option for the CL interface.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -115,11 +115,11 @@ Command line interface configurtion based on XML format.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="ats_utilities.cli.xml_cli.XmlCLI.parse_args">
-<span class="sig-name descname"><span class="pre">parse_args</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">argv</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Any</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></span><a class="reference internal" href="_modules/ats_utilities/cli/xml_cli.html#XmlCLI.parse_args"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.cli.xml_cli.XmlCLI.parse_args" title="Permalink to this definition">¶</a></dt>
-<dd><p>Process arguments from start.</p>
+<span class="sig-name descname"><span class="pre">parse_args</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">argv</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Any</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></span><a class="reference internal" href="_modules/ats_utilities/cli/xml_cli.html#XmlCLI.parse_args"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.cli.xml_cli.XmlCLI.parse_args" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parses the CL arguments.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>argv</strong> (<em>&lt;list</em><em>[</em><em>Any</em><em>] </em><em>| </em><em>list</em><em>[</em><em>str</em><em>]</em><em>&gt;</em>) – List of arguments</p>
+<dd class="field-odd"><p><strong>argv</strong> (<em>&lt;List</em><em>[</em><em>Any</em><em>] </em><em>| </em><em>List</em><em>[</em><em>str</em><em>]</em><em>&gt;</em>) – List of arguments</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>Options and arguments</p>
@@ -136,7 +136,7 @@ Command line interface configurtion based on XML format.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="ats_utilities.cli.xml_cli.XmlCLI.process">
 <em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">process</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="_modules/ats_utilities/cli/xml_cli.html#XmlCLI.process"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.cli.xml_cli.XmlCLI.process" title="Permalink to this definition">¶</a></dt>
-<dd><p>Process and run tool operation (Abstract method).</p>
+<dd><p>Processes and runs tool operation (Abstract).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>verbose</strong> (<em>&lt;bool&gt;</em>) – Enable/Disable verbose option</p>

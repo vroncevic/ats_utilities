@@ -17,11 +17,11 @@ Copyright
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
     Defines class Yaml2Object with attribute(s) and method(s).
-    Creates API for reading a configuration/information from a yaml file.
+    Creates an API for reading a configuration from a YAML file.
 '''
 
 import sys
-from typing import Dict
+from typing import Any, Dict, List
 
 try:
     from yaml import load, FullLoader
@@ -35,9 +35,9 @@ except ImportError as ats_error_message:
 
 __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2017, https://vroncevic.github.io/ats_utilities'
-__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
+__credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = '2.9.9'
+__version__ = '3.0.0'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
@@ -46,30 +46,28 @@ __status__ = 'Updated'
 class Yaml2Object(ATSChecker):
     '''
         Defines class Yaml2Object with attribute(s) and method(s).
-        Creates API for reading a configuration/information from a yaml file.
-        Conversion YAML to configuration content.
+        Creates an API for reading a configuration from a YAML file.
+        Conversion of YAML content to Python object.
 
         It defines:
 
             :attributes:
-                | _FORMAT - Format of configuration content.
+                | _EXT - File extension of the configuration file.
                 | _verbose - Enable/Disable verbose option.
                 | _file_path - Configuration file path.
             :methods:
-                | __init__ - Initial Yaml2Object constructor.
-                | read_configuration - Read a configuration from file.
+                | __init__ - Initials Yaml2Object constructor.
+                | read_configuration - Reads a configuration from a YAML file.
     '''
 
-    _FORMAT: str = 'yaml'
+    _EXT: str = 'yaml'
 
-    def __init__(
-        self, configuration_file: str | None, verbose: bool = False
-    ) -> None:
+    def __init__(self, config_file: str | None, verbose: bool = False) -> None:
         '''
-            Initial Yaml2Object constructor.
+            Initials Yaml2Object constructor.
 
-            :param configuration_file: Configuration file path | None
-            :type configuration_file: <str> | <NoneType>
+            :param config_file: Configuration file path | None
+            :type config_file: <str> | <NoneType>
             :param verbose: Enable/Disable verbose option
             :type verbose: <bool>
             :exceptions: ATSTypeError
@@ -78,31 +76,27 @@ class Yaml2Object(ATSChecker):
         error_msg: str | None = None
         error_id: int | None = None
         error_msg, error_id = self.check_params([
-            ('str:configuration_file', configuration_file)
+            ('str:config_file', config_file)
         ])
         if error_id == self.TYPE_ERROR:
             raise ATSTypeError(error_msg)
         self._verbose: bool = verbose
-        configuration_file = str(configuration_file)
-        self._file_path: str = configuration_file
-        verbose_message(
-            self._verbose, [f'configuration file {configuration_file}']
-        )
+        config_file = str(config_file)
+        self._file_path: str = config_file
+        verbose_message(self._verbose, [f'configuration file {config_file}'])
 
-    def read_configuration(
-        self, verbose: bool = False
-    ) -> Dict[str, str] | None:
+    def read_configuration(self, verbose: bool = False) -> Dict[Any, Any]:
         '''
-            Read a configuration from yaml file.
+            Reads a configuration from a YAML file.
 
             :param verbose: Enable/Disable verbose option
             :type verbose: <bool>
-            :return: Configuration object | None
-            :rtype: <Dict[str, str]> | <NoneType>
+            :return: Python object
+            :rtype: <Dict[Any, Any]>
             :exceptions: None
         '''
-        config: Dict[str, str] | None = None
-        with ConfFile(self._file_path, 'r', self._FORMAT) as yaml:
+        config: Dict[Any, Any] = {}
+        with ConfFile(self._file_path, 'r', self._EXT) as yaml:
             if yaml:
                 config = load(yaml, Loader=FullLoader)
         verbose_message(self._verbose or verbose, [f'configuration {config}'])

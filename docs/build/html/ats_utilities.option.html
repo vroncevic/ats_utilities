@@ -69,7 +69,7 @@ You should have received a copy of the GNU General Public License along
 with this program. If not, see &lt;<a class="reference external" href="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</a>&gt;.</p>
 </dd>
 <dt>Info</dt><dd><p>Defines class ATSOptionParser with attribute(s) and method(s).
-Creates option parser and argument processor.</p>
+Creates an option parser and an argument processor.</p>
 </dd>
 </dl>
 <dl class="py class">
@@ -77,8 +77,8 @@ Creates option parser and argument processor.</p>
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ats_utilities.option.</span></span><span class="sig-name descname"><span class="pre">ATSOptionParser</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">version</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">epilog</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">description</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ats_utilities/option.html#ATSOptionParser"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.option.ATSOptionParser" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="ats_utilities.checker.html#ats_utilities.checker.ATSChecker" title="ats_utilities.checker.ATSChecker"><code class="xref py py-class docutils literal notranslate"><span class="pre">ATSChecker</span></code></a></p>
 <p>Defines class ATSOptionParser with attribute(s) and method(s).
-Creates option parser and argument processor.
-Mechanism for ATS option parser.</p>
+Creates an option parser and an argument processor.
+Mechanism for application, tool, or script option parser.</p>
 <p>It defines:</p>
 <blockquote>
 <div><dl class="field-list">
@@ -90,9 +90,9 @@ Mechanism for ATS option parser.</p>
 </dd>
 <dt class="field-even">methods<span class="colon">:</span></dt>
 <dd class="field-even"><div class="line-block">
-<div class="line">__init__ - Initial ATSOptionParser constructor.</div>
-<div class="line">add_operation - Add option to ATS.</div>
-<div class="line">parse_args - Process arguments from start.</div>
+<div class="line">__init__ - Initials ATSOptionParser constructor.</div>
+<div class="line">add_operation - Adds an option to the ATS parser.</div>
+<div class="line">parse_args - Processes arguments from the start.</div>
 </div>
 </dd>
 </dl>
@@ -100,11 +100,11 @@ Mechanism for ATS option parser.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="ats_utilities.option.ATSOptionParser.add_operation">
 <span class="sig-name descname"><span class="pre">add_operation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/ats_utilities/option.html#ATSOptionParser.add_operation"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.option.ATSOptionParser.add_operation" title="Permalink to this definition">¶</a></dt>
-<dd><p>Add option to ATS parser.</p>
+<dd><p>Adds an option to the ATS parser.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>args</strong> (<em>&lt;str&gt;</em>) – List of flags</p></li>
+<li><p><strong>args</strong> (<em>&lt;str&gt;</em>) – List of flags for the ATS</p></li>
 <li><p><strong>kwargs</strong> (<em>&lt;Any&gt;</em>) – Arguments in shape of dictionary</p></li>
 </ul>
 </dd>
@@ -117,7 +117,7 @@ Mechanism for ATS option parser.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="ats_utilities.option.ATSOptionParser.parse_args">
 <span class="sig-name descname"><span class="pre">parse_args</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arguments</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Namespace</span></span></span><a class="reference internal" href="_modules/ats_utilities/option.html#ATSOptionParser.parse_args"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.option.ATSOptionParser.parse_args" title="Permalink to this definition">¶</a></dt>
-<dd><p>Process arguments from start.</p>
+<dd><p>Processes arguments from the start.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">

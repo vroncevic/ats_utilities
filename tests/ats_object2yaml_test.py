@@ -23,6 +23,7 @@ Execute
 '''
 
 import sys
+from typing import List
 from unittest import TestCase, main
 from os.path import dirname
 
@@ -36,9 +37,9 @@ except ImportError as test_error_message:
 
 __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2017, https://vroncevic.github.io/ats_utilities'
-__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
+__credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = '2.9.9'
+__version__ = '3.0.0'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
@@ -59,46 +60,51 @@ class Object2YamlTestCase(TestCase):
                 | setUp - Call before test case.
                 | tearDown - Call after test case.
                 | test_not_none - Test is Object2Yaml not None.
-                | test_read_configuration - Test for read configuration.
+                | test_write_configuration - Test for write configuration.
+                | test_write_none_configuration - Write none configuration.
+                | test_write_empty_configuration - Write empty configuration.
                 | test_none_config_path - Test for None as file path.
     '''
 
     def setUp(self) -> None:
         '''Call before test case.'''
-        self.yaml2obj: Yaml2Object = Yaml2Object(
-            f'{dirname(__file__)}/config/ats_cli_yaml_api.yaml'
-        )
-        self.obj2yaml: Object2Yaml = Object2Yaml(
-            f'{dirname(__file__)}/config/ats_cli_yaml_api.yaml'
-        )
 
     def tearDown(self) -> None:
         '''Call after test case.'''
 
     def test_not_none(self) -> None:
         '''Test for create Object2Yaml'''
-        self.assertIsNotNone(self.obj2yaml)
+        obj2yaml: Object2Yaml = Object2Yaml(
+            f'{dirname(__file__)}/config/ats_cli_yaml_api.yaml'
+        )
+        self.assertIsNotNone(obj2yaml)
 
     def test_write_configuration(self) -> None:
         '''Test for write configuration'''
-        self.assertTrue(self.obj2yaml.write_configuration(
-            self.yaml2obj.read_configuration()
+        obj2yaml: Object2Yaml = Object2Yaml(
+            f'{dirname(__file__)}/config/ats_cli_yaml_api.yaml'
+        )
+        yaml2obj: Yaml2Object = Yaml2Object(
+            f'{dirname(__file__)}/config/ats_cli_yaml_api.yaml'
+        )
+        self.assertTrue(obj2yaml.write_configuration(
+            yaml2obj.read_configuration()
         ))
 
     def test_write_none_configuration(self) -> None:
         '''Test for write none configuration'''
+        obj2yaml: Object2Yaml = Object2Yaml(
+            f'{dirname(__file__)}/config/ats_cli_yaml_api_none.yaml'
+        )
         with self.assertRaises(ATSTypeError):
-            self.obj2yaml.write_configuration(None)  # type: ignore
+            obj2yaml.write_configuration(None)  # type: ignore
 
     def test_write_empty_configuration(self) -> None:
         '''Test for write empty configuration'''
-        self.assertFalse(self.obj2yaml.write_configuration({}))
-
-    def test_write_wrong_configuration(self) -> None:
-        '''Test for write empty configuration'''
-        self.assertFalse(self.obj2yaml.write_configuration({
-            'test': 'nothing'
-        }))
+        obj2yaml: Object2Yaml = Object2Yaml(
+            f'{dirname(__file__)}/config/ats_cli_yaml_api_empty.yaml'
+        )
+        self.assertFalse(obj2yaml.write_configuration({}))
 
     def test_none_config_path(self) -> None:
         '''Test for None as file path'''

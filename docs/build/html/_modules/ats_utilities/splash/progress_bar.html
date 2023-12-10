@@ -64,12 +64,13 @@
 <span class="sd">&#39;&#39;&#39;</span>
 
 <span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span>
 
 <span class="n">__author__</span> <span class="o">=</span> <span class="s1">&#39;Vladimir Roncevic&#39;</span>
 <span class="n">__copyright__</span> <span class="o">=</span> <span class="s1">&#39;Copyright 2021, https://vroncevic.github.io/ats_utilities&#39;</span>
-<span class="n">__credits__</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Vladimir Roncevic&#39;</span><span class="p">,</span> <span class="s1">&#39;Python Software Foundation&#39;</span><span class="p">]</span>
+<span class="n">__credits__</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Vladimir Roncevic&#39;</span><span class="p">,</span> <span class="s1">&#39;Python Software Foundation&#39;</span><span class="p">]</span>
 <span class="n">__license__</span> <span class="o">=</span> <span class="s1">&#39;https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE&#39;</span>
-<span class="n">__version__</span> <span class="o">=</span> <span class="s1">&#39;2.9.9&#39;</span>
+<span class="n">__version__</span> <span class="o">=</span> <span class="s1">&#39;3.0.0&#39;</span>
 <span class="n">__maintainer__</span> <span class="o">=</span> <span class="s1">&#39;Vladimir Roncevic&#39;</span>
 <span class="n">__email__</span> <span class="o">=</span> <span class="s1">&#39;elektron.ronca@gmail.com&#39;</span>
 <span class="n">__status__</span> <span class="o">=</span> <span class="s1">&#39;Updated&#39;</span>
@@ -94,10 +95,11 @@
 <span class="sd">                | _plotted - Plotted progress.</span>
 <span class="sd">                | _level_chars - Level progress chars.</span>
 <span class="sd">            :methods:</span>
-<span class="sd">                | __init__ - Initial ProgressBar constructor.</span>
-<span class="sd">                | set_level - Set level of progress.</span>
-<span class="sd">                | plot_progress - Plot progress.</span>
-<span class="sd">                | set_and_plot - Set and plot progress.</span>
+<span class="sd">                | __init__ - Initials ProgressBar constructor.</span>
+<span class="sd">                | set_level - Sets level of progress.</span>
+<span class="sd">                | plot_progress - Plots progress.</span>
+<span class="sd">                | set_and_plot - Sets and plots progress.</span>
+<span class="sd">                | __del__ - Dunder del method for ProgressBar.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
 
     <span class="n">DEFAULT_BAR_LENGTH</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">60</span>
@@ -106,7 +108,7 @@
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">end</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">start</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">            Initial ProgressBar constructor.</span>
+<span class="sd">            Initials ProgressBar constructor.</span>
 
 <span class="sd">            :exceptions: None</span>
 <span class="sd">        &#39;&#39;&#39;</span>
@@ -121,7 +123,7 @@
 
 <div class="viewcode-block" id="ProgressBar.set_level"><a class="viewcode-back" href="../../../ats_utilities.splash.progress_bar.html#ats_utilities.splash.progress_bar.ProgressBar.set_level">[docs]</a>    <span class="k">def</span> <span class="nf">set_level</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">level</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">            Set level.</span>
+<span class="sd">            Sets level.</span>
 
 <span class="sd">            :param level: Level of progress</span>
 <span class="sd">            :type level: &lt;int&gt;</span>
@@ -140,7 +142,7 @@
 
 <div class="viewcode-block" id="ProgressBar.plot_progress"><a class="viewcode-back" href="../../../ats_utilities.splash.progress_bar.html#ats_utilities.splash.progress_bar.ProgressBar.plot_progress">[docs]</a>    <span class="k">def</span> <span class="nf">plot_progress</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">columns</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">            Plot progress.</span>
+<span class="sd">            Plots progress.</span>
 
 <span class="sd">            :param columns: Colums for open console session</span>
 <span class="sd">            :type columns: &lt;int&gt;</span>
@@ -162,7 +164,7 @@
 
 <div class="viewcode-block" id="ProgressBar.set_and_plot"><a class="viewcode-back" href="../../../ats_utilities.splash.progress_bar.html#ats_utilities.splash.progress_bar.ProgressBar.set_and_plot">[docs]</a>    <span class="k">def</span> <span class="nf">set_and_plot</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">level</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">columns</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">            Set and plot progress.</span>
+<span class="sd">            Sets and plots progress.</span>
 
 <span class="sd">            :param level: Level of progress</span>
 <span class="sd">            :type level: &lt;int&gt;</span>
@@ -177,7 +179,7 @@
 
     <span class="k">def</span> <span class="fm">__del__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">            Dunder method for ProgressBar.</span>
+<span class="sd">            Dunder del method for ProgressBar.</span>
 
 <span class="sd">            :exceptions: None</span>
 <span class="sd">        &#39;&#39;&#39;</span>

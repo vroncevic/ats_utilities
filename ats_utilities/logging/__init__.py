@@ -17,10 +17,11 @@ Copyright
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
     Defines class ATSLogger with attribute(s) and method(s).
-    Creates API for ATS logging mechanism.
+    Creates an API for the ATS logging mechanism.
 '''
 
 import sys
+from typing import List
 from logging import (
     getLogger, basicConfig, Logger, DEBUG, WARNING, CRITICAL, ERROR, INFO
 )
@@ -38,9 +39,9 @@ except ImportError as ats_error_message:
 
 __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2017, https://vroncevic.github.io/ats_utilities'
-__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
+__credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = '2.9.9'
+__version__ = '3.0.0'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
@@ -49,7 +50,7 @@ __status__ = 'Updated'
 class ATSLogger(ATSLoggerName, ATSLoggerStatus, ATSLoggerFile):
     '''
         Defines class ATSLogger with attribute(s) and method(s).
-        Creates API for ATS logging mechanism.
+        Creates an API for the ATS logging mechanism.
         ATS logger mechanism.
 
         It defines:
@@ -64,8 +65,8 @@ class ATSLogger(ATSLoggerName, ATSLoggerStatus, ATSLoggerFile):
                 | ATS_INFO - Info log level.
                 | _verbose - Enable/Disable verbose option.
             :methods:
-                | __init__ - Initial ATSLogger constructor.
-                | write_log - Write message to log file.
+                | __init__ - Initials ATSLogger constructor.
+                | write_log - Writes message to log file.
     '''
 
     LOG_MSG_FORMAT: str = '%(asctime)s - %(levelname)s - %(message)s'
@@ -83,7 +84,7 @@ class ATSLogger(ATSLoggerName, ATSLoggerStatus, ATSLoggerFile):
         verbose: bool = False
     ) -> None:
         '''
-            Initial ATSLogger constructor.
+            Initials ATSLogger constructor.
 
             :param ats_name: ATS name | None
             :type ats_name: <str> | <NoneType>
@@ -113,9 +114,9 @@ class ATSLogger(ATSLoggerName, ATSLoggerStatus, ATSLoggerFile):
         self, message: str | None, ctrl: int, verbose: bool = False
     ) -> bool:
         '''
-            Write message to log file.
+            Writes message to log file.
 
-            :param message: Log message to log file | None
+            :param message: Log message for log file | None
             :type message: <str> | <NoneType>
             :param ctrl: Control flag (debug, warning, critical, errors, info)
             :type ctrl: <int>
@@ -123,7 +124,7 @@ class ATSLogger(ATSLoggerName, ATSLoggerStatus, ATSLoggerFile):
             :type verbose: <bool>
             :return: True (successful written log) | False
             :rtype: <bool>
-            :exceptions: ATSTypeError | ATSBadCallError
+            :exceptions: ATSTypeError
         '''
         error_msg: str | None = None
         error_id: int | None = None

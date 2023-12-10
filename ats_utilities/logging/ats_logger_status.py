@@ -17,10 +17,11 @@ Copyright
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
     Defines class ATSLoggerStatus with attribute(s) and method(s).
-    Creates API for ATS logger status in one propery object.
+    Creates an API for ATS logger status in one property object.
 '''
 
 import sys
+from typing import List
 
 try:
     from ats_utilities.checker import ATSChecker
@@ -32,9 +33,9 @@ except ImportError as ats_error_message:
 
 __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2017, https://vroncevic.github.io/ats_utilities'
-__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
+__credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = '2.9.9'
+__version__ = '3.0.0'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
@@ -43,7 +44,7 @@ __status__ = 'Updated'
 class ATSLoggerStatus(ATSChecker):
     '''
         Defines class ATSLoggerStatus with attribute(s) and method(s).
-        Creates API for ATS logger status in one propery object.
+        Creates an API for ATS logger status in one property object.
         Logging control mechanism.
 
         It defines:
@@ -52,13 +53,13 @@ class ATSLoggerStatus(ATSChecker):
                 | _verbose - Enable/Disable verbose option.
                 | _log_status - Logger status (enabled/disabled).
             :methods:
-                | __init__ - Initial ATSLoggerStatus constructor.
+                | __init__ - Initials ATSLoggerStatus constructor.
                 | logger_status - Property methods for set/get operations.
     '''
 
     def __init__(self, verbose: bool = False) -> None:
         '''
-            Initial ATSLoggerStatus constructor.
+            Initials ATSLoggerStatus constructor.
 
             :param verbose: Enable/Disable verbose option
             :type verbose: <bool>
@@ -73,7 +74,7 @@ class ATSLoggerStatus(ATSChecker):
         '''
             Property method for getting logger status.
 
-            :return: True (logger operative) | False
+            :return: True (the logger is operative) | False
             :rtype: <bool>
             :exceptions: None
         '''

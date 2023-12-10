@@ -17,7 +17,7 @@ Copyright
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
     Defines class SplashProperty with attribute(s) and method(s).
-    Creates API for checking splash property.
+    Creates an API for checking splash property.
 '''
 
 import sys
@@ -34,9 +34,9 @@ except ImportError as ats_error_message:
 
 __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2021, https://vroncevic.github.io/ats_utilities'
-__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
+__credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = '2.9.9'
+__version__ = '3.0.0'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
@@ -45,7 +45,7 @@ __status__ = 'Updated'
 class SplashProperty(ATSChecker):
     '''
         Defined class SplashProperty with attribute(s) and method(s).
-        Created API for checking splash property.
+        Created an API for checking splash property.
         Splash screen property API.
 
         It defines:
@@ -55,8 +55,8 @@ class SplashProperty(ATSChecker):
                 | _verbose - Enable/Disable verbose option.
                 | _property - Splash property in dict format.
             :methods:
-                | __init__ - Initial SplashProperty constructor.
-                | validation - validation of splash property.
+                | __init__ - Initials SplashProperty constructor.
+                | validation - validates splash property.
     '''
 
     _EXPECTED_PROP_KEYS: List[str] = [
@@ -67,14 +67,12 @@ class SplashProperty(ATSChecker):
         'ats_use_github_infrastructure'
     ]
 
-    def __init__(
-        self, prop: Dict[Any, Any], verbose: bool = False
-    ) -> None:
+    def __init__(self, prop: Dict[Any, Any], verbose: bool = False) -> None:
         '''
-            Initial SplashProperty constructor.
+            Initials SplashProperty constructor.
 
             :param property: Splash property in dict form
-            :type property: <dict>
+            :type property: <Dict[Any, Any]>
             :param verbose: Enable/Disable verbose option
             :type verbose: <bool>
             :exceptions: ATSTypeError
@@ -91,7 +89,7 @@ class SplashProperty(ATSChecker):
 
     def validate(self, verbose: bool = False) -> bool:
         '''
-            Validation of splash property.
+            Validates splash property.
 
             :param verbose: Enable/Disable verbose option
             :type verbose: <bool>

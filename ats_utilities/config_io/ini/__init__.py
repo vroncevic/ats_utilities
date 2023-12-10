@@ -17,11 +17,11 @@ Copyright
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
     Defines class IniBase with attribute(s) and method(s).
-    Loads ATS configuration/information, setup ATS CL interface.
+    Loads the ATS configuration for the ATS.
 '''
 
 import sys
-from typing import Any, Dict
+from typing import Any, Dict, List
 from configparser import ConfigParser
 
 try:
@@ -38,9 +38,9 @@ except ImportError as ats_error_message:
 
 __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2017, https://vroncevic.github.io/ats_utilities'
-__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
+__credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = '2.9.9'
+__version__ = '3.0.0'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
@@ -49,7 +49,7 @@ __status__ = 'Updated'
 class IniBase(ATSChecker):
     '''
         Defines class IniBase with attribute(s) and method(s).
-        Loads ATS configuration/information, setup ATS CL interface.
+        Loads the ATS configuration for the ATS.
         Configuration base ini API support.
 
         It defines:
@@ -61,18 +61,16 @@ class IniBase(ATSChecker):
                 | obj2ini - Out API for information.
                 | option_parser - Option parser for ATS configuration.
             :methods:
-                | __init__ - Initial IniBase constructor.
-                | is_tool_ok - Check is tool operational.
+                | __init__ - Initials IniBase constructor.
+                | is_tool_ok - Checks is tool operational.
     '''
 
-    def __init__(
-        self, information_file: str | None, verbose: bool = False
-    ) -> None:
+    def __init__(self, info_file: str | None, verbose: bool = False) -> None:
         '''
-            Initial IniBase constructor.
+            Initials IniBase constructor.
 
-            :param information_file: Information file path | None
-            :type information_file: <str> | <NoneType>
+            :param info_file: Information file path | None
+            :type info_file: <str> | <NoneType>
             :param verbose: Enable/Disable verbose option
             :type verbose: <bool>
             :exceptions: ATSTypeError
@@ -81,7 +79,7 @@ class IniBase(ATSChecker):
         error_msg: str | None = None
         error_id: int | None = None
         error_msg, error_id = self.check_params([
-            ('str:information_file', information_file)
+            ('str:info_file', info_file)
         ])
         if error_id == self.TYPE_ERROR:
             raise ATSTypeError(error_msg)
@@ -89,8 +87,8 @@ class IniBase(ATSChecker):
         information: ConfigParser | None = None
         info_dict: Dict[Any, Any] = {}
         self.tool_operational: bool = False
-        self.ini2obj: Ini2Object = Ini2Object(information_file, self._verbose)
-        self.obj2ini: Object2Ini = Object2Ini(information_file, self._verbose)
+        self.ini2obj: Ini2Object = Ini2Object(info_file, self._verbose)
+        self.obj2ini: Object2Ini = Object2Ini(info_file, self._verbose)
         if all([self.ini2obj, self.obj2ini]):
             information = self.ini2obj.read_configuration(self._verbose)
         if information:
@@ -117,7 +115,7 @@ class IniBase(ATSChecker):
 
     def is_tool_ok(self) -> bool:
         '''
-            Check is tool operational.
+            Checks is tool operational.
 
             :return: True (tool is operational) | False
             :rtype: <bool>

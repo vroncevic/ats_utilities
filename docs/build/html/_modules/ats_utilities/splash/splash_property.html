@@ -60,7 +60,7 @@
 <span class="sd">    with this program. If not, see &lt;http://www.gnu.org/licenses/&gt;.</span>
 <span class="sd">Info</span>
 <span class="sd">    Defines class SplashProperty with attribute(s) and method(s).</span>
-<span class="sd">    Creates API for checking splash property.</span>
+<span class="sd">    Creates an API for checking splash property.</span>
 <span class="sd">&#39;&#39;&#39;</span>
 
 <span class="kn">import</span> <span class="nn">sys</span>
@@ -77,9 +77,9 @@
 
 <span class="n">__author__</span> <span class="o">=</span> <span class="s1">&#39;Vladimir Roncevic&#39;</span>
 <span class="n">__copyright__</span> <span class="o">=</span> <span class="s1">&#39;Copyright 2021, https://vroncevic.github.io/ats_utilities&#39;</span>
-<span class="n">__credits__</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Vladimir Roncevic&#39;</span><span class="p">,</span> <span class="s1">&#39;Python Software Foundation&#39;</span><span class="p">]</span>
+<span class="n">__credits__</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Vladimir Roncevic&#39;</span><span class="p">,</span> <span class="s1">&#39;Python Software Foundation&#39;</span><span class="p">]</span>
 <span class="n">__license__</span> <span class="o">=</span> <span class="s1">&#39;https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE&#39;</span>
-<span class="n">__version__</span> <span class="o">=</span> <span class="s1">&#39;2.9.9&#39;</span>
+<span class="n">__version__</span> <span class="o">=</span> <span class="s1">&#39;3.0.0&#39;</span>
 <span class="n">__maintainer__</span> <span class="o">=</span> <span class="s1">&#39;Vladimir Roncevic&#39;</span>
 <span class="n">__email__</span> <span class="o">=</span> <span class="s1">&#39;elektron.ronca@gmail.com&#39;</span>
 <span class="n">__status__</span> <span class="o">=</span> <span class="s1">&#39;Updated&#39;</span>
@@ -88,7 +88,7 @@
 <div class="viewcode-block" id="SplashProperty"><a class="viewcode-back" href="../../../ats_utilities.splash.splash_property.html#ats_utilities.splash.splash_property.SplashProperty">[docs]</a><span class="k">class</span> <span class="nc">SplashProperty</span><span class="p">(</span><span class="n">ATSChecker</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Defined class SplashProperty with attribute(s) and method(s).</span>
-<span class="sd">        Created API for checking splash property.</span>
+<span class="sd">        Created an API for checking splash property.</span>
 <span class="sd">        Splash screen property API.</span>
 
 <span class="sd">        It defines:</span>
@@ -98,8 +98,8 @@
 <span class="sd">                | _verbose - Enable/Disable verbose option.</span>
 <span class="sd">                | _property - Splash property in dict format.</span>
 <span class="sd">            :methods:</span>
-<span class="sd">                | __init__ - Initial SplashProperty constructor.</span>
-<span class="sd">                | validation - validation of splash property.</span>
+<span class="sd">                | __init__ - Initials SplashProperty constructor.</span>
+<span class="sd">                | validation - validates splash property.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
 
     <span class="n">_EXPECTED_PROP_KEYS</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span>
@@ -110,14 +110,12 @@
         <span class="s1">&#39;ats_use_github_infrastructure&#39;</span>
     <span class="p">]</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span> <span class="n">prop</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span> <span class="n">verbose</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">prop</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span> <span class="n">verbose</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">            Initial SplashProperty constructor.</span>
+<span class="sd">            Initials SplashProperty constructor.</span>
 
 <span class="sd">            :param property: Splash property in dict form</span>
-<span class="sd">            :type property: &lt;dict&gt;</span>
+<span class="sd">            :type property: &lt;Dict[Any, Any]&gt;</span>
 <span class="sd">            :param verbose: Enable/Disable verbose option</span>
 <span class="sd">            :type verbose: &lt;bool&gt;</span>
 <span class="sd">            :exceptions: ATSTypeError</span>
@@ -134,7 +132,7 @@
 
 <div class="viewcode-block" id="SplashProperty.validate"><a class="viewcode-back" href="../../../ats_utilities.splash.splash_property.html#ats_utilities.splash.splash_property.SplashProperty.validate">[docs]</a>    <span class="k">def</span> <span class="nf">validate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">verbose</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">            Validation of splash property.</span>
+<span class="sd">            Validates splash property.</span>
 
 <span class="sd">            :param verbose: Enable/Disable verbose option</span>
 <span class="sd">            :type verbose: &lt;bool&gt;</span>

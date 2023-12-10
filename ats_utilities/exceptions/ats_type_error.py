@@ -17,14 +17,16 @@ Copyright
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
     Defines class ATSTypeError with attribute(s) and method(s).
-    Creates exception for check type mechanism.
+    Creates an exception for the check type mechanism.
 '''
+
+from typing import List
 
 __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2017, https://vroncevic.github.io/ats_utilities'
-__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
+__credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = '2.9.9'
+__version__ = '3.0.0'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
@@ -33,7 +35,7 @@ __status__ = 'Updated'
 class ATSTypeError(TypeError):
     '''
         Defines class ATSTypeError with attribute(s) and method(s).
-        Creates exception for check type mechanism.
+        Creates an exception for the check type mechanism.
 
         It defines:
 

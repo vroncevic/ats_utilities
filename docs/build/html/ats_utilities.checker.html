@@ -69,7 +69,7 @@ You should have received a copy of the GNU General Public License along
 with this program. If not, see &lt;<a class="reference external" href="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</a>&gt;.</p>
 </dd>
 <dt>Info</dt><dd><p>Defines class ATSChecker with attribute(s) and method(s).
-Creates API fo checking parameters for object methods and functions.</p>
+Creates an API for checking parameters for methods and functions.</p>
 </dd>
 </dl>
 <dl class="py class">
@@ -77,60 +77,59 @@ Creates API fo checking parameters for object methods and functions.</p>
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ats_utilities.checker.</span></span><span class="sig-name descname"><span class="pre">ATSChecker</span></span><a class="reference internal" href="_modules/ats_utilities/checker.html#ATSChecker"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.checker.ATSChecker" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Defines class ATSChecker with attribute(s) and method(s).
-Creates API fo checking parameters for object methods and functions.
-Mechanism for checking function/method parameters (type/value).</p>
+Creates an API for checking parameters for methods and functions.
+Mechanism for checking function or method parameters (type or format).</p>
 <p>It defines:</p>
 <blockquote>
 <div><dl class="field-list">
 <dt class="field-odd">attributes<span class="colon">:</span></dt>
 <dd class="field-odd"><div class="line-block">
-<div class="line">NO_ERROR - No error, error id (0).</div>
-<div class="line">TYPE_ERROR - Type param error id (1).</div>
-<div class="line">FORMAT_ERROR - Wrong format error id (2).</div>
+<div class="line">NO_ERROR - Marks no param error, error id (0).</div>
+<div class="line">TYPE_ERROR - Marks type param error, error id (1).</div>
+<div class="line">FORMAT_ERROR - Marks wrong format error, error id (2).</div>
 <div class="line">_start_message - Start segment of usage message.</div>
-<div class="line">_list_of_params - List of parameters for method/function.</div>
+<div class="line">_list_of_params - List of params for a method or function.</div>
 <div class="line">_error_type - List of mapped errors.</div>
 <div class="line">_error_type_index - Error type index.</div>
-<div class="line">_error_value_index - Error value index.</div>
 </div>
 </dd>
 <dt class="field-even">methods<span class="colon">:</span></dt>
 <dd class="field-even"><div class="line-block">
-<div class="line">__init__ - Initial ATSChecker constructor.</div>
-<div class="line">collect_params - Collect all parameters in one list.</div>
-<div class="line">usage_message - Prepare usage message for method/function.</div>
-<div class="line">check_types - Check parameters (types) for method/function.</div>
-<div class="line">priority_error - Set priority error id (TYPE_ERROR).</div>
-<div class="line">check_params - Check parameters for method/function.</div>
+<div class="line">__init__ - Initials ATSChecker constructor.</div>
+<div class="line">collect_params - Collects all params in one list.</div>
+<div class="line">usage_message - Prepares usage for method or function.</div>
+<div class="line">check_types - Checks params (types) for method or function.</div>
+<div class="line">priority_error - Sets priority error id (TYPE_ERROR).</div>
+<div class="line">check_params - Checks params for method or function.</div>
 </div>
 </dd>
 </dl>
 </div></blockquote>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="ats_utilities.checker.ATSChecker.FORMAT_ERROR">
-<span class="sig-name descname"><span class="pre">FORMAT_ERROR</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">2</span></em><a class="headerlink" href="#ats_utilities.checker.ATSChecker.FORMAT_ERROR" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">FORMAT_ERROR</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">2</span></em><a class="headerlink" href="#ats_utilities.checker.ATSChecker.FORMAT_ERROR" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="ats_utilities.checker.ATSChecker.NO_ERROR">
-<span class="sig-name descname"><span class="pre">NO_ERROR</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#ats_utilities.checker.ATSChecker.NO_ERROR" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">NO_ERROR</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#ats_utilities.checker.ATSChecker.NO_ERROR" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="ats_utilities.checker.ATSChecker.TYPE_ERROR">
-<span class="sig-name descname"><span class="pre">TYPE_ERROR</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1</span></em><a class="headerlink" href="#ats_utilities.checker.ATSChecker.TYPE_ERROR" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">TYPE_ERROR</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1</span></em><a class="headerlink" href="#ats_utilities.checker.ATSChecker.TYPE_ERROR" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="ats_utilities.checker.ATSChecker.check_params">
-<span class="sig-name descname"><span class="pre">check_params</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params_description</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/ats_utilities/checker.html#ATSChecker.check_params"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.checker.ATSChecker.check_params" title="Permalink to this definition">¶</a></dt>
-<dd><p>Check parameters for method/function.</p>
+<span class="sig-name descname"><span class="pre">check_params</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params_description</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/ats_utilities/checker.html#ATSChecker.check_params"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.checker.ATSChecker.check_params" title="Permalink to this definition">¶</a></dt>
+<dd><p>Checks params for method or function.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>params_description</strong> (<em>&lt;List</em><em>[</em><em>Tuple</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>]</em><em>]</em><em>&gt;</em>) – Description for parameters</p>
+<dd class="field-odd"><p><strong>params_description</strong> (<em>&lt;List</em><em>[</em><em>Tuple</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>]</em><em>]</em><em>&gt;</em>) – Description for params</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>usage message, status (0 | 1 | 2)</p>
+<dd class="field-even"><p>error message, error id (0 | 1 | 2)</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>&lt;str&gt; | &lt;NoneType&gt;, &lt;int&gt; | &lt;NoneType&gt;</p>
@@ -144,13 +143,13 @@ Mechanism for checking function/method parameters (type/value).</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="ats_utilities.checker.ATSChecker.check_types">
 <span class="sig-name descname"><span class="pre">check_types</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params_description</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">OrderedDict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="_modules/ats_utilities/checker.html#ATSChecker.check_types"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.checker.ATSChecker.check_types" title="Permalink to this definition">¶</a></dt>
-<dd><p>Check parameters (types) for method/function.</p>
+<dd><p>Checks params (types) for method or function.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>params_description</strong> (<em>&lt;OrderedDict</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>]</em><em>&gt;</em>) – Description for parameters</p>
+<dd class="field-odd"><p><strong>params_description</strong> (<em>&lt;OrderedDict</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>]</em><em>&gt;</em>) – Description for params</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>True (types ok) | False (types are not ok)</p>
+<dd class="field-even"><p>True (type(s) is(are) ok) | False (type(s) is(are) not ok)</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>&lt;bool&gt;</p>
@@ -164,13 +163,13 @@ Mechanism for checking function/method parameters (type/value).</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="ats_utilities.checker.ATSChecker.collect_params">
 <span class="sig-name descname"><span class="pre">collect_params</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params_description</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">OrderedDict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="_modules/ats_utilities/checker.html#ATSChecker.collect_params"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.checker.ATSChecker.collect_params" title="Permalink to this definition">¶</a></dt>
-<dd><p>Collect all parameters in one list.</p>
+<dd><p>Collects all params in one list.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>params_description</strong> (<em>&lt;OrderedDict</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>]</em><em>&gt;</em>) – Description for parameters</p>
+<dd class="field-odd"><p><strong>params_description</strong> (<em>&lt;OrderedDict</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>]</em><em>&gt;</em>) – Description for params</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>True (collected) | False (failed to collect)</p>
+<dd class="field-even"><p>True (are collected) | False (failed to collect)</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>&lt;bool&gt;</p>
@@ -184,7 +183,7 @@ Mechanism for checking function/method parameters (type/value).</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="ats_utilities.checker.ATSChecker.priority_error">
 <span class="sig-name descname"><span class="pre">priority_error</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></span><a class="reference internal" href="_modules/ats_utilities/checker.html#ATSChecker.priority_error"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.checker.ATSChecker.priority_error" title="Permalink to this definition">¶</a></dt>
-<dd><p>Set priority error id (TYPE_ERROR).</p>
+<dd><p>Sets priority error id (TYPE_ERROR).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Priority error id (0 | 1 | 2) | None</p>
@@ -201,10 +200,10 @@ Mechanism for checking function/method parameters (type/value).</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="ats_utilities.checker.ATSChecker.usage_message">
 <span class="sig-name descname"><span class="pre">usage_message</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></span><a class="reference internal" href="_modules/ats_utilities/checker.html#ATSChecker.usage_message"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.checker.ATSChecker.usage_message" title="Permalink to this definition">¶</a></dt>
-<dd><p>Prepare usage message for method/function.</p>
+<dd><p>Prepares usage for method or function.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Usage message for method/function | None</p>
+<dd class="field-odd"><p>Usage message for method or function | None</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p>&lt;str&gt; | &lt;NoneType&gt;</p>

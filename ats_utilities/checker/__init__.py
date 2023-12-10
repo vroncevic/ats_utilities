@@ -17,7 +17,7 @@ Copyright
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
     Defines class ATSChecker with attribute(s) and method(s).
-    Creates API fo checking parameters for object methods and functions.
+    Creates an API for checking parameters for methods and functions.
 '''
 
 from inspect import stack
@@ -26,9 +26,9 @@ from collections import OrderedDict as OrderedDictionary
 
 __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2017, https://vroncevic.github.io/ats_utilities'
-__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
+__credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = '2.9.9'
+__version__ = '3.0.0'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
@@ -37,36 +37,35 @@ __status__ = 'Updated'
 class ATSChecker:
     '''
         Defines class ATSChecker with attribute(s) and method(s).
-        Creates API fo checking parameters for object methods and functions.
-        Mechanism for checking function/method parameters (type/value).
+        Creates an API for checking parameters for methods and functions.
+        Mechanism for checking function or method parameters (type or format).
 
         It defines:
 
             :attributes:
-                | NO_ERROR - No error, error id (0).
-                | TYPE_ERROR - Type param error id (1).
-                | FORMAT_ERROR - Wrong format error id (2).
+                | NO_ERROR - Marks no param error, error id (0).
+                | TYPE_ERROR - Marks type param error, error id (1).
+                | FORMAT_ERROR - Marks wrong format error, error id (2).
                 | _start_message - Start segment of usage message.
-                | _list_of_params - List of parameters for method/function.
+                | _list_of_params - List of params for a method or function.
                 | _error_type - List of mapped errors.
                 | _error_type_index - Error type index.
-                | _error_value_index - Error value index.
             :methods:
-                | __init__ - Initial ATSChecker constructor.
-                | collect_params - Collect all parameters in one list.
-                | usage_message - Prepare usage message for method/function.
-                | check_types - Check parameters (types) for method/function.
-                | priority_error - Set priority error id (TYPE_ERROR).
-                | check_params - Check parameters for method/function.
+                | __init__ - Initials ATSChecker constructor.
+                | collect_params - Collects all params in one list.
+                | usage_message - Prepares usage for method or function.
+                | check_types - Checks params (types) for method or function.
+                | priority_error - Sets priority error id (TYPE_ERROR).
+                | check_params - Checks params for method or function.
     '''
 
-    NO_ERROR = 0
-    TYPE_ERROR = 1
-    FORMAT_ERROR = 2
+    NO_ERROR: int = 0
+    TYPE_ERROR: int = 1
+    FORMAT_ERROR: int = 2
 
     def __init__(self) -> None:
         '''
-            Initial ATSChecker constructor.
+            Initials ATSChecker constructor.
 
             :exceptions: None
         '''
@@ -74,17 +73,16 @@ class ATSChecker:
         self._list_of_params: List[str] = []
         self._error_type: List[int] = [0, 0]
         self._error_type_index: List[int] = []
-        self._error_value_index: List[int] = []
 
     def collect_params(
         self, params_description: OrderedDict[str, Any]
     ) -> bool:
         '''
-            Collect all parameters in one list.
+            Collects all params in one list.
 
-            :param params_description: Description for parameters
+            :param params_description: Description for params
             :type params_description: <OrderedDict[str, Any]>
-            :return: True (collected) | False (failed to collect)
+            :return: True (are collected) | False (failed to collect)
             :rtype: <bool>
             :exceptions: None
         '''
@@ -101,9 +99,9 @@ class ATSChecker:
 
     def usage_message(self) -> str | None:
         '''
-            Prepare usage message for method/function.
+            Prepares usage for method or function.
 
-            :return: Usage message for method/function | None
+            :return: Usage message for method or function | None
             :rtype: <str> | <NoneType>
             :exceptions: None
         '''
@@ -114,18 +112,15 @@ class ATSChecker:
                 if bool(self._error_type_index):
                     if index in set(self._error_type_index):
                         message = f'{message} wrong type'
-                if bool(self._error_value_index):
-                    if index in set(self._error_value_index):
-                        message = f'{message} wrong value'
         return message
 
     def check_types(self, params_description: OrderedDict[str, Any]) -> bool:
         '''
-            Check parameters (types) for method/function.
+            Checks params (types) for method or function.
 
-            :param params_description: Description for parameters
+            :param params_description: Description for params
             :type params_description: <OrderedDict[str, Any]>
-            :return: True (types ok) | False (types are not ok)
+            :return: True (type(s) is(are) ok) | False (type(s) is(are) not ok)
             :rtype: <bool>
             :exceptions: None
         '''
@@ -133,7 +128,7 @@ class ATSChecker:
             self._error_type[1] = self.FORMAT_ERROR
             return False
         for index, (exp_type, inst) in enumerate(params_description.items()):
-            param_type_name: list[str] = exp_type.split(sep=':')
+            param_type_name: List[str] = exp_type.split(sep=':')
             if len(param_type_name) == 2:
                 if type(inst).__name__ != param_type_name[0]:
                     self._error_type[0] = self.TYPE_ERROR
@@ -146,7 +141,7 @@ class ATSChecker:
 
     def priority_error(self) -> int | None:
         '''
-            Set priority error id (TYPE_ERROR).
+            Sets priority error id (TYPE_ERROR).
 
             :return: Priority error id (0 | 1 | 2) | None
             :rtype: <int> | <NoneType>
@@ -163,13 +158,13 @@ class ATSChecker:
 
     def check_params(
         self, params_description: List[Tuple[str, Any]]
-    ) -> tuple[str | None, int | None]:
+    ) -> Tuple[str | None, int | None]:
         '''
-            Check parameters for method/function.
+            Checks params for method or function.
 
-            :param params_description: Description for parameters
+            :param params_description: Description for params
             :type params_description: <List[Tuple[str, Any]]>
-            :return: usage message, status (0 | 1 | 2)
+            :return: error message, error id (0 | 1 | 2)
             :rtype: <str> | <NoneType>, <int> | <NoneType>
             :exceptions: None
         '''

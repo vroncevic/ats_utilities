@@ -68,7 +68,7 @@ You should have received a copy of the GNU General Public License along
 with this program. If not, see &lt;<a class="reference external" href="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</a>&gt;.</p>
 </dd>
 <dt>Info</dt><dd><p>Defines class FileCheck with attribute(s) and method(s).
-Creates API for checking operations with files.</p>
+Creates an API for checking operations with files.</p>
 </dd>
 </dl>
 <dl class="py class">
@@ -76,7 +76,7 @@ Creates API for checking operations with files.</p>
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ats_utilities.config_io.file_check.</span></span><span class="sig-name descname"><span class="pre">FileCheck</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ats_utilities/config_io/file_check.html#FileCheck"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.config_io.file_check.FileCheck" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="ats_utilities.checker.html#ats_utilities.checker.ATSChecker" title="ats_utilities.checker.ATSChecker"><code class="xref py py-class docutils literal notranslate"><span class="pre">ATSChecker</span></code></a></p>
 <p>Defines class FileCheck with attribute(s) and method(s).
-Creates API for checking operations with files.
+Creates an API for checking operations with files.
 Mechanism for checking files.</p>
 <p>It defines:</p>
 <blockquote>
@@ -93,11 +93,11 @@ Mechanism for checking files.</p>
 </dd>
 <dt class="field-even">methods<span class="colon">:</span></dt>
 <dd class="field-even"><div class="line-block">
-<div class="line">__init__ - Initial FileCheck constructor.</div>
-<div class="line">check_path - Check file path.</div>
-<div class="line">check_mode -  Check operation mode for file.</div>
-<div class="line">check_format - Check file format by extension.</div>
-<div class="line">is_file_ok - Status of file for processing.</div>
+<div class="line">__init__ - Initials FileCheck constructor.</div>
+<div class="line">check_path - Checks file path.</div>
+<div class="line">check_mode -  Checks operation mode for file.</div>
+<div class="line">check_format - Checks file format by extension.</div>
+<div class="line">is_file_ok - Returns status for file.</div>
 </div>
 </dd>
 </dl>
@@ -115,12 +115,12 @@ Mechanism for checking files.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="ats_utilities.config_io.file_check.FileCheck.check_format">
 <span class="sig-name descname"><span class="pre">check_format</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_format</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/ats_utilities/config_io/file_check.html#FileCheck.check_format"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.config_io.file_check.FileCheck.check_format" title="Permalink to this definition">¶</a></dt>
-<dd><p>Check file format by extension.</p>
+<dd><p>Checks file format by extension.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>file_path</strong> (<em>&lt;str&gt;</em><em> | </em><em>&lt;NoneType&gt;</em>) – File path</p></li>
-<li><p><strong>file_format</strong> (<em>&lt;str&gt;</em><em> | </em><em>&lt;NoneType&gt;</em>) – File format (file extension)</p></li>
+<li><p><strong>file_path</strong> (<em>&lt;str&gt;</em><em> | </em><em>&lt;NoneType&gt;</em>) – File path | None</p></li>
+<li><p><strong>file_format</strong> (<em>&lt;str&gt;</em><em> | </em><em>&lt;NoneType&gt;</em>) – File format (file extension) | None</p></li>
 <li><p><strong>verbose</strong> (<em>&lt;bool&gt;</em>) – Enable/Disable verbose option</p></li>
 </ul>
 </dd>
@@ -133,7 +133,7 @@ Mechanism for checking files.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="ats_utilities.config_io.file_check.FileCheck.check_mode">
 <span class="sig-name descname"><span class="pre">check_mode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_mode</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/ats_utilities/config_io/file_check.html#FileCheck.check_mode"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.config_io.file_check.FileCheck.check_mode" title="Permalink to this definition">¶</a></dt>
-<dd><p>Check operation mode for file.</p>
+<dd><p>Checks operation mode for file.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -150,11 +150,11 @@ Mechanism for checking files.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="ats_utilities.config_io.file_check.FileCheck.check_path">
 <span class="sig-name descname"><span class="pre">check_path</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/ats_utilities/config_io/file_check.html#FileCheck.check_path"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.config_io.file_check.FileCheck.check_path" title="Permalink to this definition">¶</a></dt>
-<dd><p>Check file path.</p>
+<dd><p>Checks file path.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>file_path</strong> (<em>&lt;str&gt;</em><em> | </em><em>&lt;NoneType&gt;</em>) – File path</p></li>
+<li><p><strong>file_path</strong> (<em>&lt;str&gt;</em><em> | </em><em>&lt;NoneType&gt;</em>) – File path | None</p></li>
 <li><p><strong>verbose</strong> (<em>&lt;bool&gt;</em>) – Enable/Disable verbose option</p></li>
 </ul>
 </dd>
@@ -167,10 +167,10 @@ Mechanism for checking files.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="ats_utilities.config_io.file_check.FileCheck.is_file_ok">
 <span class="sig-name descname"><span class="pre">is_file_ok</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="_modules/ats_utilities/config_io/file_check.html#FileCheck.is_file_ok"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.config_io.file_check.FileCheck.is_file_ok" title="Permalink to this definition">¶</a></dt>
-<dd><p>Status of file for checking.</p>
+<dd><p>Returns status for file.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>True (file validated) | False</p>
+<dd class="field-odd"><p>True (file validated and ok) | False</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p>&lt;bool&gt;</p>

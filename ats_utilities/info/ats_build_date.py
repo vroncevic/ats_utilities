@@ -17,10 +17,11 @@ Copyright
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
     Defines class ATSBuildDate with attribute(s) and method(s).
-    Creates API for ATS build date in one property object.
+    Creates an API for the ATS build date in one property object.
 '''
 
 import sys
+from typing import List
 
 try:
     from ats_utilities.checker import ATSChecker
@@ -32,9 +33,9 @@ except ImportError as ats_error_message:
 
 __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2017, https://vroncevic.github.io/ats_utilities'
-__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
+__credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = '2.9.9'
+__version__ = '3.0.0'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
@@ -43,23 +44,23 @@ __status__ = 'Updated'
 class ATSBuildDate(ATSChecker):
     '''
         Defines class ATSBuildDate with attribute(s) and method(s).
-        Creates API for ATS build date in one property object.
-        ATS build date container.
+        Creates an API for the ATS build date in one property object.
+        The ATS build date container.
 
         It defines:
 
             :attributes:
                 | _verbose - Enable/Disable verbose option.
-                | _build_date - ATS build date.
+                | _build_date - The ATS build date.
             :methods:
-                | __init__ - Initial ATSBuildDate constructor.
+                | __init__ - Initials ATSBuildDate constructor.
                 | build_date - Property methods for set/get operations.
-                | is_build_date_not_none - Check is ATS build date not None.
+                | is_build_date_not_none - Checks is ATS build date not None.
     '''
 
     def __init__(self, verbose: bool = False) -> None:
         '''
-            Initial ATSBuildDate constructor.
+            Initials ATSBuildDate constructor.
 
             :param verbose: Enable/Disable verbose option
             :type verbose: <bool>
@@ -74,7 +75,7 @@ class ATSBuildDate(ATSChecker):
         '''
             Property method for getting ATS build date.
 
-            :return: ATS build date | None
+            :return: The ATS build date | None
             :rtype: <str> | <NoneType>
             :exceptions: None
         '''
@@ -85,7 +86,7 @@ class ATSBuildDate(ATSChecker):
         '''
             Property method for setting ATS build date.
 
-            :param build_date: ATS build date | None
+            :param build_date: The ATS build date | None
             :type build_date: <str> | <NoneType>
             :exceptions: ATSTypeError
         '''
@@ -101,7 +102,7 @@ class ATSBuildDate(ATSChecker):
 
     def is_build_date_not_none(self) -> bool:
         '''
-            Check is ATS build date not None.
+            Checks is ATS build date not None.
 
             :return: True (ATS build date is not None) | False.
             :rtype: <bool>

@@ -59,11 +59,11 @@
 <span class="sd">    with this program. If not, see &lt;http://www.gnu.org/licenses/&gt;.</span>
 <span class="sd">Info</span>
 <span class="sd">    Defines class ConfFile with attribute(s) and method(s).</span>
-<span class="sd">    Creates API for information/configuration context manager.</span>
+<span class="sd">    Creates an API for the configuration context manager.</span>
 <span class="sd">&#39;&#39;&#39;</span>
 
 <span class="kn">import</span> <span class="nn">sys</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">IO</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">IO</span>
 
 <span class="k">try</span><span class="p">:</span>
     <span class="kn">from</span> <span class="nn">ats_utilities.checker</span> <span class="kn">import</span> <span class="n">ATSChecker</span>
@@ -77,9 +77,9 @@
 
 <span class="n">__author__</span> <span class="o">=</span> <span class="s1">&#39;Vladimir Roncevic&#39;</span>
 <span class="n">__copyright__</span> <span class="o">=</span> <span class="s1">&#39;Copyright 2017, https://vroncevic.github.io/ats_utilities&#39;</span>
-<span class="n">__credits__</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Vladimir Roncevic&#39;</span><span class="p">,</span> <span class="s1">&#39;Python Software Foundation&#39;</span><span class="p">]</span>
+<span class="n">__credits__</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Vladimir Roncevic&#39;</span><span class="p">,</span> <span class="s1">&#39;Python Software Foundation&#39;</span><span class="p">]</span>
 <span class="n">__license__</span> <span class="o">=</span> <span class="s1">&#39;https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE&#39;</span>
-<span class="n">__version__</span> <span class="o">=</span> <span class="s1">&#39;2.9.9&#39;</span>
+<span class="n">__version__</span> <span class="o">=</span> <span class="s1">&#39;3.0.0&#39;</span>
 <span class="n">__maintainer__</span> <span class="o">=</span> <span class="s1">&#39;Vladimir Roncevic&#39;</span>
 <span class="n">__email__</span> <span class="o">=</span> <span class="s1">&#39;elektron.ronca@gmail.com&#39;</span>
 <span class="n">__status__</span> <span class="o">=</span> <span class="s1">&#39;Updated&#39;</span>
@@ -88,7 +88,7 @@
 <div class="viewcode-block" id="ConfFile"><a class="viewcode-back" href="../../ats_utilities.config_io.html#ats_utilities.config_io.ConfFile">[docs]</a><span class="k">class</span> <span class="nc">ConfFile</span><span class="p">(</span><span class="n">FileCheck</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Defines class ConfFile with attribute(s) and method(s).</span>
-<span class="sd">        Creates API for information/configuration context manager.</span>
+<span class="sd">        Creates an API for the configuration context manager.</span>
 <span class="sd">        Configuration file context manager.</span>
 
 <span class="sd">        It defines:</span>
@@ -100,9 +100,9 @@
 <span class="sd">                | _file_format - File format.</span>
 <span class="sd">                | _file - File object.</span>
 <span class="sd">            :methods:</span>
-<span class="sd">                | __init__ - Initial ConfFile constructor.</span>
-<span class="sd">                | __enter__ - Open configuration file in mode.</span>
-<span class="sd">                | __exit__ - Close configuration file.</span>
+<span class="sd">                | __init__ - Initials ConfFile constructor.</span>
+<span class="sd">                | __enter__ - Opens configuration file in mode.</span>
+<span class="sd">                | __exit__ - Closes configuration file.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
@@ -112,7 +112,7 @@
         <span class="n">verbose</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">            Initial ConfFile constructor.</span>
+<span class="sd">            Initials ConfFile constructor.</span>
 
 <span class="sd">            :param file_path: Configuration file name | None</span>
 <span class="sd">            :type file_path: &lt;str&gt; | &lt;NoneType&gt;</span>
@@ -151,9 +151,9 @@
 
     <span class="k">def</span> <span class="fm">__enter__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">IO</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">            Open configuration file in mode.</span>
+<span class="sd">            Opens configuration file in mode.</span>
 
-<span class="sd">            :return: file object | None</span>
+<span class="sd">            :return: File IO object | None</span>
 <span class="sd">            :rtype: &lt;IO[str]&gt; | &lt;NoneType&gt;</span>
 <span class="sd">            :exceptions: None</span>
 <span class="sd">        &#39;&#39;&#39;</span>
@@ -173,7 +173,7 @@
         <span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="o">...</span><span class="p">],</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">            Close configuration file.</span>
+<span class="sd">            Closes configuration file.</span>
 
 <span class="sd">            :param *args: List of arguments</span>
 <span class="sd">            :type file_path: &lt;Tuple[Any, ...]&gt;</span>

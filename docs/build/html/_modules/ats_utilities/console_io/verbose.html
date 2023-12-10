@@ -59,7 +59,7 @@
 <span class="sd">    with this program. If not, see &lt;http://www.gnu.org/licenses/&gt;.</span>
 <span class="sd">Info</span>
 <span class="sd">    Defines class ATSVerbose with attribute(s) and method(s).</span>
-<span class="sd">    Creates verbose message container for console log mechanism.</span>
+<span class="sd">    Creates a verbose message container for console log mechanism.</span>
 <span class="sd">&#39;&#39;&#39;</span>
 
 <span class="kn">import</span> <span class="nn">sys</span>
@@ -75,9 +75,9 @@
 
 <span class="n">__author__</span> <span class="o">=</span> <span class="s1">&#39;Vladimir Roncevic&#39;</span>
 <span class="n">__copyright__</span> <span class="o">=</span> <span class="s1">&#39;Copyright 2017, https://vroncevic.github.io/ats_utilities&#39;</span>
-<span class="n">__credits__</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Vladimir Roncevic&#39;</span><span class="p">,</span> <span class="s1">&#39;Python Software Foundation&#39;</span><span class="p">]</span>
+<span class="n">__credits__</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Vladimir Roncevic&#39;</span><span class="p">,</span> <span class="s1">&#39;Python Software Foundation&#39;</span><span class="p">]</span>
 <span class="n">__license__</span> <span class="o">=</span> <span class="s1">&#39;https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE&#39;</span>
-<span class="n">__version__</span> <span class="o">=</span> <span class="s1">&#39;2.9.9&#39;</span>
+<span class="n">__version__</span> <span class="o">=</span> <span class="s1">&#39;3.0.0&#39;</span>
 <span class="n">__maintainer__</span> <span class="o">=</span> <span class="s1">&#39;Vladimir Roncevic&#39;</span>
 <span class="n">__email__</span> <span class="o">=</span> <span class="s1">&#39;elektron.ronca@gmail.com&#39;</span>
 <span class="n">__status__</span> <span class="o">=</span> <span class="s1">&#39;Updated&#39;</span>
@@ -86,7 +86,7 @@
 <div class="viewcode-block" id="ATSVerbose"><a class="viewcode-back" href="../../../ats_utilities.console_io.verbose.html#ats_utilities.console_io.verbose.ATSVerbose">[docs]</a><span class="k">class</span> <span class="nc">ATSVerbose</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Defines class ATSVerbose with attribute(s) and method(s).</span>
-<span class="sd">        Creates verbose message container for console log mechanism.</span>
+<span class="sd">        Creates a verbose message container for console log mechanism.</span>
 <span class="sd">        Mechanism for logging verbose messages.</span>
 
 <span class="sd">        It defines:</span>
@@ -94,14 +94,14 @@
 <span class="sd">            :attributes:</span>
 <span class="sd">                | _message - Verbose message container.</span>
 <span class="sd">            :methods:</span>
-<span class="sd">                | __init__ - Initial ATSVerbose constructor.</span>
+<span class="sd">                | __init__ - Initials ATSVerbose constructor.</span>
 <span class="sd">                | message - Property methods for set/get operations.</span>
-<span class="sd">                | is_not_none - Check is message not None.</span>
+<span class="sd">                | is_not_none - Checks is message not None.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">            Initial ATSVerbose constructor.</span>
+<span class="sd">            Initials ATSVerbose constructor.</span>
 
 <span class="sd">            :exceptions: None</span>
 <span class="sd">        &#39;&#39;&#39;</span>
@@ -128,14 +128,14 @@
 <span class="sd">            :exceptions: None</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="n">init</span><span class="p">(</span><span class="n">autoreset</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">message</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">message</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_message</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">Fore</span><span class="o">.</span><span class="n">BLUE</span><span class="si">}{</span><span class="n">message</span><span class="si">}{</span><span class="n">Fore</span><span class="o">.</span><span class="n">RESET</span><span class="si">}</span><span class="s1">&#39;</span>
 
 <div class="viewcode-block" id="ATSVerbose.is_not_none"><a class="viewcode-back" href="../../../ats_utilities.console_io.verbose.html#ats_utilities.console_io.verbose.ATSVerbose.is_not_none">[docs]</a>    <span class="k">def</span> <span class="nf">is_not_none</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">            Checking is message not None.</span>
+<span class="sd">            Checks is message not None.</span>
 
-<span class="sd">            :return: True (not None) | False</span>
+<span class="sd">            :return: True (message is not None) | False</span>
 <span class="sd">            :rtype: &lt;bool&gt;</span>
 <span class="sd">            :exceptions: None</span>
 <span class="sd">        &#39;&#39;&#39;</span>
@@ -144,7 +144,7 @@
 
 <div class="viewcode-block" id="verbose_message"><a class="viewcode-back" href="../../../ats_utilities.console_io.verbose.html#ats_utilities.console_io.verbose.verbose_message">[docs]</a><span class="k">def</span> <span class="nf">verbose_message</span><span class="p">(</span><span class="n">control</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">        Show verbose message.</span>
+<span class="sd">        Shows verbose message.</span>
 
 <span class="sd">        :param control: Enable/Disable verbose option</span>
 <span class="sd">        :type control: &lt;bool&gt;</span>

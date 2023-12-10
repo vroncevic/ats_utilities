@@ -17,10 +17,11 @@ Copyright
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
     Defines class ATSLicence with attribute(s) and method(s).
-    Creates API for ATS licence in one property object.
+    Creates an API for the ATS licence in one property object.
 '''
 
 import sys
+from typing import List
 
 try:
     from ats_utilities.checker import ATSChecker
@@ -32,9 +33,9 @@ except ImportError as ats_error_message:
 
 __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2017, https://vroncevic.github.io/ats_utilities'
-__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
+__credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = '2.9.9'
+__version__ = '3.0.0'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
@@ -43,23 +44,23 @@ __status__ = 'Updated'
 class ATSLicence(ATSChecker):
     '''
         Defines class ATSLicence with attribute(s) and method(s).
-        Creates API for ATS licence in one property object.
-        ATS license container.
+        Creates an API for the ATS licence in one property object.
+        The ATS license container.
 
         It defines:
 
             :attributes:
                 | _verbose - Enable/Disable verbose option.
-                | _licence - ATS licence.
+                | _licence - The ATS licence.
             :methods:
-                | __init__ - Initial ATSLicence constructor.
+                | __init__ - Initials ATSLicence constructor.
                 | name - Property methods for set/get operations.
-                | is_licence_not_none - Check is ATS licence not None.
+                | is_licence_not_none - Checks is ATS licence not None.
     '''
 
     def __init__(self, verbose: bool = False) -> None:
         '''
-            Initial ATSLicence constructor.
+            Initials ATSLicence constructor.
 
             :param verbose: Enable/Disable verbose option
             :type verbose: <bool>
@@ -74,7 +75,7 @@ class ATSLicence(ATSChecker):
         '''
             Property method for getting ATS licence.
 
-            :return: ATS licence | None
+            :return: The ATS licence | None
             :rtype: <str> | <NoneType>
             :exceptions: None
         '''
@@ -85,7 +86,7 @@ class ATSLicence(ATSChecker):
         '''
             Property method for setting ATS licence.
 
-            :param licence: ATS licence | None
+            :param licence: The ATS licence | None
             :type licence: <str> | <NoneType>
             :exceptions: ATSTypeError
         '''
@@ -101,7 +102,7 @@ class ATSLicence(ATSChecker):
 
     def is_licence_not_none(self) -> bool:
         '''
-            Checking is ATS licence None.
+            Checks is ATS licence not None.
 
             :return: True (ATS licence is not None) | False
             :rtype: <bool>

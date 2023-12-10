@@ -58,7 +58,7 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="ats_utilities.config_io.xml.object2xml.html">ats_utilities.config_io.xml.object2xml module</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="ats_utilities.config_io.xml.object2xml.html#ats_utilities.config_io.xml.object2xml.Object2Xml"><code class="docutils literal notranslate"><span class="pre">Object2Xml</span></code></a><ul>
-<li class="toctree-l3"><a class="reference internal" href="ats_utilities.config_io.xml.object2xml.html#ats_utilities.config_io.xml.object2xml.Object2Xml._FORMAT"><code class="docutils literal notranslate"><span class="pre">Object2Xml._FORMAT</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="ats_utilities.config_io.xml.object2xml.html#ats_utilities.config_io.xml.object2xml.Object2Xml._EXT"><code class="docutils literal notranslate"><span class="pre">Object2Xml._EXT</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="ats_utilities.config_io.xml.object2xml.html#ats_utilities.config_io.xml.object2xml.Object2Xml.write_configuration"><code class="docutils literal notranslate"><span class="pre">Object2Xml.write_configuration()</span></code></a></li>
 </ul>
 </li>
@@ -66,7 +66,7 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="ats_utilities.config_io.xml.xml2object.html">ats_utilities.config_io.xml.xml2object module</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="ats_utilities.config_io.xml.xml2object.html#ats_utilities.config_io.xml.xml2object.Xml2Object"><code class="docutils literal notranslate"><span class="pre">Xml2Object</span></code></a><ul>
-<li class="toctree-l3"><a class="reference internal" href="ats_utilities.config_io.xml.xml2object.html#ats_utilities.config_io.xml.xml2object.Xml2Object._FORMAT"><code class="docutils literal notranslate"><span class="pre">Xml2Object._FORMAT</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="ats_utilities.config_io.xml.xml2object.html#ats_utilities.config_io.xml.xml2object.Xml2Object._EXT"><code class="docutils literal notranslate"><span class="pre">Xml2Object._EXT</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="ats_utilities.config_io.xml.xml2object.html#ats_utilities.config_io.xml.xml2object.Xml2Object.read_configuration"><code class="docutils literal notranslate"><span class="pre">Xml2Object.read_configuration()</span></code></a></li>
 </ul>
 </li>
@@ -93,15 +93,15 @@ You should have received a copy of the GNU General Public License along
 with this program. If not, see &lt;<a class="reference external" href="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</a>&gt;.</p>
 </dd>
 <dt>Info</dt><dd><p>Defines class XmlBase with attribute(s) and method(s).
-Loads ATS configuration/information, setup ATS CL interface.</p>
+Loads the ATS configuration for the ATS.</p>
 </dd>
 </dl>
 <dl class="py class">
 <dt class="sig sig-object py" id="ats_utilities.config_io.xml.XmlBase">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ats_utilities.config_io.xml.</span></span><span class="sig-name descname"><span class="pre">XmlBase</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">information_file</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ats_utilities/config_io/xml.html#XmlBase"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.config_io.xml.XmlBase" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ats_utilities.config_io.xml.</span></span><span class="sig-name descname"><span class="pre">XmlBase</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">info_file</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ats_utilities/config_io/xml.html#XmlBase"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.config_io.xml.XmlBase" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="ats_utilities.checker.html#ats_utilities.checker.ATSChecker" title="ats_utilities.checker.ATSChecker"><code class="xref py py-class docutils literal notranslate"><span class="pre">ATSChecker</span></code></a></p>
 <p>Defines class XmlBase with attribute(s) and method(s).
-Loads ATS configuration/information, setup ATS CL interface.
+Loads the ATS configuration for the ATS.
 Configuration base XML API support.</p>
 <p>It defines:</p>
 <blockquote>
@@ -110,15 +110,15 @@ Configuration base XML API support.</p>
 <dd class="field-odd"><div class="line-block">
 <div class="line">_verbose - Enable/Disable verbose option.</div>
 <div class="line">tool_operational - Control ATS operational functionality.</div>
-<div class="line">xml2obj - In API for information.</div>
-<div class="line">obj2xml - Out API for information.</div>
+<div class="line">xml2obj - In API for tool_info.</div>
+<div class="line">obj2xml - Out API for tool_info.</div>
 <div class="line">option_parser - Option parser for ATS.</div>
 </div>
 </dd>
 <dt class="field-even">methods<span class="colon">:</span></dt>
 <dd class="field-even"><div class="line-block">
-<div class="line">__init__ - Initial XmlBase constructor.</div>
-<div class="line">is_tool_ok - Check is tool operational.</div>
+<div class="line">__init__ - Initials XmlBase constructor.</div>
+<div class="line">is_tool_ok - Checks is tool operational.</div>
 </div>
 </dd>
 </dl>
@@ -126,10 +126,10 @@ Configuration base XML API support.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="ats_utilities.config_io.xml.XmlBase.is_tool_ok">
 <span class="sig-name descname"><span class="pre">is_tool_ok</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="_modules/ats_utilities/config_io/xml.html#XmlBase.is_tool_ok"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.config_io.xml.XmlBase.is_tool_ok" title="Permalink to this definition">¶</a></dt>
-<dd><p>Checking is tool operational.</p>
+<dd><p>Checks is tool operational.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>True (tool is operational) | False.</p>
+<dd class="field-odd"><p>True (tool is operational) | False</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p>&lt;bool&gt;</p>

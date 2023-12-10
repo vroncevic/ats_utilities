@@ -17,10 +17,11 @@ Copyright
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
     Defines class ATSLoggerFile with attribute(s) and method(s).
-    Creates API for ATS logger file path in one propery object.
+    Creates an API for ATS logger file path in one property object.
 '''
 
 import sys
+from typing import List
 from os.path import isfile
 
 try:
@@ -34,9 +35,9 @@ except ImportError as ats_error_message:
 
 __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2017, https://vroncevic.github.io/ats_utilities'
-__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
+__credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = '2.9.9'
+__version__ = '3.0.0'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
@@ -45,7 +46,7 @@ __status__ = 'Updated'
 class ATSLoggerFile(ATSChecker):
     '''
         Defines class ATSLoggerFile with attribute(s) and method(s).
-        Creates API for ATS logger file path in one propery object.
+        Creates an API for ATS logger file path in one property object.
         Log file path property.
 
         It defines:
@@ -54,14 +55,13 @@ class ATSLoggerFile(ATSChecker):
                 | _verbose - Enable/Disable verbose option.
                 | _logger_path - Log file path.
             :methods:
-                | __init__ - Initial ATSLoggerFile constructor.
-                | file_path - property methods for set/get operations.
-                | __str__ - str dunder method for ATSLoggerFile.
+                | __init__ - Initials ATSLoggerFile constructor.
+                | file_path - Property methods for set/get operations.
     '''
 
     def __init__(self, verbose: bool = False) -> None:
         '''
-            Initial ATSLoggerFile constructor.
+            Initials ATSLoggerFile constructor.
 
             :param verbose: Enable/Disable verbose option
             :type verbose: <bool>

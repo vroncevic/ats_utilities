@@ -17,11 +17,11 @@ Copyright
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
     Defines class Object2Cfg with attribute(s) and method(s).
-    Creates API for writing configuration/information to a cfg file.
+    Creates an API for writing configuration to a CFG file.
 '''
 
 import sys
-from typing import Any, Dict
+from typing import Any, Dict, List
 
 try:
     from ats_utilities.checker import ATSChecker
@@ -34,9 +34,9 @@ except ImportError as ats_error_message:
 
 __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2017, https://vroncevic.github.io/ats_utilities'
-__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
+__credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = '2.9.9'
+__version__ = '3.0.0'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
@@ -45,30 +45,28 @@ __status__ = 'Updated'
 class Object2Cfg(ATSChecker):
     '''
         Defines class Object2Cfg with attribute(s) and method(s).
-        Creates API for writing configuration/information to a cfg file.
-        Conversion configuration dictionary to content.
+        Creates an API for writing configuration to a CFG file.
+        Conversion of Python object to CFG content.
 
         It defines:
 
             :attributes:
-                | _FORMAT - Format of configuration content.
+                | _EXT - File extension of the configuration file.
                 | _verbose - Enable/Disable verbose option.
                 | _file_path - Configuration file path.
             :methods:
-                | __init__ - Initial Object2Cfg constructor.
-                | write_configuration - Write config to a cfg file.
+                | __init__ - Initials Object2Cfg constructor.
+                | write_configuration - Writes configuration to a CFG file.
     '''
 
-    _FORMAT: str = 'cfg'
+    _EXT: str = 'cfg'
 
-    def __init__(
-        self, configuration_file: str | None, verbose: bool = False
-    ) -> None:
+    def __init__(self, config_file: str | None, verbose: bool = False) -> None:
         '''
-            Initial Object2Cfg constructor.
+            Initials Object2Cfg constructor.
 
-            :param configuration_file: Configuration file path | None
-            :type configuration_file: <str> | <NoneType>
+            :param config_file: Configuration file path | None
+            :type config_file: <str> | <NoneType>
             :param verbose: Enable/Disable verbose option
             :type verbose: <bool>
             :exceptions: ATSTypeError
@@ -77,22 +75,20 @@ class Object2Cfg(ATSChecker):
         error_msg: str | None = None
         error_id: int | None = None
         error_msg, error_id = self.check_params([
-            ('str:configuration_file', configuration_file)
+            ('str:config_file', config_file)
         ])
         if error_id == self.TYPE_ERROR:
             raise ATSTypeError(error_msg)
         self._verbose: bool = verbose
-        configuration_file = str(configuration_file)
-        self._file_path: str = configuration_file
-        verbose_message(
-            self._verbose, [f'configuration file {configuration_file}']
-        )
+        config_file = str(config_file)
+        self._file_path: str = config_file
+        verbose_message(self._verbose, [f'configuration file {config_file}'])
 
     def write_configuration(
         self, configuration: Dict[Any, Any], verbose: bool = False
     ) -> bool:
         '''
-            Write configuration to a cfg file.
+            Writes a configuration to a CFG file.
 
             :param configuration: Configuration object | None
             :type configuration: <Dict[Any, Any]> | <NoneType>
@@ -115,7 +111,7 @@ class Object2Cfg(ATSChecker):
         status: bool = False
         if not configuration:
             return status
-        with ConfFile(self._file_path, 'w', self._FORMAT) as cfg:
+        with ConfFile(self._file_path, 'w', self._EXT) as cfg:
             if cfg:
                 for key in configuration:
                     cfg.write(f'{key} = {configuration.get(key)}\n')

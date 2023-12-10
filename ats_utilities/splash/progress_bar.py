@@ -21,12 +21,13 @@ Info
 '''
 
 import sys
+from typing import List
 
 __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2021, https://vroncevic.github.io/ats_utilities'
-__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
+__credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = '2.9.9'
+__version__ = '3.0.0'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
@@ -51,10 +52,11 @@ class ProgressBar:
                 | _plotted - Plotted progress.
                 | _level_chars - Level progress chars.
             :methods:
-                | __init__ - Initial ProgressBar constructor.
-                | set_level - Set level of progress.
-                | plot_progress - Plot progress.
-                | set_and_plot - Set and plot progress.
+                | __init__ - Initials ProgressBar constructor.
+                | set_level - Sets level of progress.
+                | plot_progress - Plots progress.
+                | set_and_plot - Sets and plots progress.
+                | __del__ - Dunder del method for ProgressBar.
     '''
 
     DEFAULT_BAR_LENGTH: int = 60
@@ -63,7 +65,7 @@ class ProgressBar:
 
     def __init__(self, end: int, start: int = 0) -> None:
         '''
-            Initial ProgressBar constructor.
+            Initials ProgressBar constructor.
 
             :exceptions: None
         '''
@@ -78,7 +80,7 @@ class ProgressBar:
 
     def set_level(self, level: int) -> None:
         '''
-            Set level.
+            Sets level.
 
             :param level: Level of progress
             :type level: <int>
@@ -97,7 +99,7 @@ class ProgressBar:
 
     def plot_progress(self, columns: int) -> None:
         '''
-            Plot progress.
+            Plots progress.
 
             :param columns: Colums for open console session
             :type columns: <int>
@@ -119,7 +121,7 @@ class ProgressBar:
 
     def set_and_plot(self, level: int, columns: int) -> None:
         '''
-            Set and plot progress.
+            Sets and plots progress.
 
             :param level: Level of progress
             :type level: <int>
@@ -134,7 +136,7 @@ class ProgressBar:
 
     def __del__(self) -> None:
         '''
-            Dunder method for ProgressBar.
+            Dunder del method for ProgressBar.
 
             :exceptions: None
         '''
