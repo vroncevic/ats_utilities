@@ -17,7 +17,7 @@ Copyright
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
     Defines class ATSVerbose with attribute(s) and method(s).
-    Creates verbose message container for console log mechanism.
+    Creates a verbose message container for console log mechanism.
 '''
 
 import sys
@@ -33,9 +33,9 @@ except ImportError as ats_error_message:
 
 __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2017, https://vroncevic.github.io/ats_utilities'
-__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
+__credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = '2.9.9'
+__version__ = '3.0.0'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
@@ -44,7 +44,7 @@ __status__ = 'Updated'
 class ATSVerbose:
     '''
         Defines class ATSVerbose with attribute(s) and method(s).
-        Creates verbose message container for console log mechanism.
+        Creates a verbose message container for console log mechanism.
         Mechanism for logging verbose messages.
 
         It defines:
@@ -52,14 +52,14 @@ class ATSVerbose:
             :attributes:
                 | _message - Verbose message container.
             :methods:
-                | __init__ - Initial ATSVerbose constructor.
+                | __init__ - Initials ATSVerbose constructor.
                 | message - Property methods for set/get operations.
-                | is_not_none - Check is message not None.
+                | is_not_none - Checks is message not None.
     '''
 
     def __init__(self) -> None:
         '''
-            Initial ATSVerbose constructor.
+            Initials ATSVerbose constructor.
 
             :exceptions: None
         '''
@@ -86,14 +86,14 @@ class ATSVerbose:
             :exceptions: None
         '''
         init(autoreset=False)
-        if message is not None:
+        if message:
             self._message = f'{Fore.BLUE}{message}{Fore.RESET}'
 
     def is_not_none(self) -> bool:
         '''
-            Checking is message not None.
+            Checks is message not None.
 
-            :return: True (not None) | False
+            :return: True (message is not None) | False
             :rtype: <bool>
             :exceptions: None
         '''
@@ -102,7 +102,7 @@ class ATSVerbose:
 
 def verbose_message(control: bool, message: List[Any]) -> None:
     '''
-        Show verbose message.
+        Shows verbose message.
 
         :param control: Enable/Disable verbose option
         :type control: <bool>

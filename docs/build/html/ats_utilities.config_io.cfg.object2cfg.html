@@ -69,43 +69,43 @@ You should have received a copy of the GNU General Public License along
 with this program. If not, see &lt;<a class="reference external" href="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</a>&gt;.</p>
 </dd>
 <dt>Info</dt><dd><p>Defines class Object2Cfg with attribute(s) and method(s).
-Creates API for writing configuration/information to a cfg file.</p>
+Creates an API for writing configuration to a CFG file.</p>
 </dd>
 </dl>
 <dl class="py class">
 <dt class="sig sig-object py" id="ats_utilities.config_io.cfg.object2cfg.Object2Cfg">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ats_utilities.config_io.cfg.object2cfg.</span></span><span class="sig-name descname"><span class="pre">Object2Cfg</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">configuration_file</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ats_utilities/config_io/cfg/object2cfg.html#Object2Cfg"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.config_io.cfg.object2cfg.Object2Cfg" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ats_utilities.config_io.cfg.object2cfg.</span></span><span class="sig-name descname"><span class="pre">Object2Cfg</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config_file</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ats_utilities/config_io/cfg/object2cfg.html#Object2Cfg"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.config_io.cfg.object2cfg.Object2Cfg" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="ats_utilities.checker.html#ats_utilities.checker.ATSChecker" title="ats_utilities.checker.ATSChecker"><code class="xref py py-class docutils literal notranslate"><span class="pre">ATSChecker</span></code></a></p>
 <p>Defines class Object2Cfg with attribute(s) and method(s).
-Creates API for writing configuration/information to a cfg file.
-Conversion configuration dictionary to content.</p>
+Creates an API for writing configuration to a CFG file.
+Conversion of Python object to CFG content.</p>
 <p>It defines:</p>
 <blockquote>
 <div><dl class="field-list">
 <dt class="field-odd">attributes<span class="colon">:</span></dt>
 <dd class="field-odd"><div class="line-block">
-<div class="line">_FORMAT - Format of configuration content.</div>
+<div class="line">_EXT - File extension of the configuration file.</div>
 <div class="line">_verbose - Enable/Disable verbose option.</div>
 <div class="line">_file_path - Configuration file path.</div>
 </div>
 </dd>
 <dt class="field-even">methods<span class="colon">:</span></dt>
 <dd class="field-even"><div class="line-block">
-<div class="line">__init__ - Initial Object2Cfg constructor.</div>
-<div class="line">write_configuration - Write config to a cfg file.</div>
+<div class="line">__init__ - Initials Object2Cfg constructor.</div>
+<div class="line">write_configuration - Writes configuration to a CFG file.</div>
 </div>
 </dd>
 </dl>
 </div></blockquote>
 <dl class="py attribute">
-<dt class="sig sig-object py" id="ats_utilities.config_io.cfg.object2cfg.Object2Cfg._FORMAT">
-<span class="sig-name descname"><span class="pre">_FORMAT</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'cfg'</span></em><a class="headerlink" href="#ats_utilities.config_io.cfg.object2cfg.Object2Cfg._FORMAT" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ats_utilities.config_io.cfg.object2cfg.Object2Cfg._EXT">
+<span class="sig-name descname"><span class="pre">_EXT</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'cfg'</span></em><a class="headerlink" href="#ats_utilities.config_io.cfg.object2cfg.Object2Cfg._EXT" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="ats_utilities.config_io.cfg.object2cfg.Object2Cfg.write_configuration">
 <span class="sig-name descname"><span class="pre">write_configuration</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">configuration</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="_modules/ats_utilities/config_io/cfg/object2cfg.html#Object2Cfg.write_configuration"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.config_io.cfg.object2cfg.Object2Cfg.write_configuration" title="Permalink to this definition">¶</a></dt>
-<dd><p>Write configuration to a cfg file.</p>
+<dd><p>Writes a configuration to a CFG file.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -141,7 +141,7 @@ Conversion configuration dictionary to content.</p>
     <ul>
 <li><a class="reference internal" href="#">ats_utilities.config_io.cfg.object2cfg module</a><ul>
 <li><a class="reference internal" href="#ats_utilities.config_io.cfg.object2cfg.Object2Cfg"><code class="docutils literal notranslate"><span class="pre">Object2Cfg</span></code></a><ul>
-<li><a class="reference internal" href="#ats_utilities.config_io.cfg.object2cfg.Object2Cfg._FORMAT"><code class="docutils literal notranslate"><span class="pre">Object2Cfg._FORMAT</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.config_io.cfg.object2cfg.Object2Cfg._EXT"><code class="docutils literal notranslate"><span class="pre">Object2Cfg._EXT</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.config_io.cfg.object2cfg.Object2Cfg.write_configuration"><code class="docutils literal notranslate"><span class="pre">Object2Cfg.write_configuration()</span></code></a></li>
 </ul>
 </li>

@@ -17,10 +17,11 @@ Copyright
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
     Defines class Object2Ini with attribute(s) and method(s).
-    Creates API for writing configuration/information to an ini file.
+    Creates an API for writing configuration to an INI file.
 '''
 
 import sys
+from typing import List
 from configparser import ConfigParser
 
 try:
@@ -34,9 +35,9 @@ except ImportError as ats_error_message:
 
 __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2017, https://vroncevic.github.io/ats_utilities'
-__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
+__credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = '2.9.9'
+__version__ = '3.0.0'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
@@ -45,30 +46,28 @@ __status__ = 'Updated'
 class Object2Ini(ATSChecker):
     '''
         Defines class Object2Ini with attribute(s) and method(s).
-        Creates API for writing configuration/information to an ini file.
-        Conversion ConfigParser to configuration content.
+        Creates an API for writing configuration to an INI file.
+        Conversion of Python object to INI content.
 
         It defines:
 
             :attributes:
-                | _FORMAT - Format of configuration content.
+                | _EXT - File extension of the configuration file.
                 | _verbose - Enable/Disable verbose option.
                 | _file_path - Confguration file path.
             :methods:
-                | __init__ - Initial Object2Ini constructor.
-                | write_configuration - Write configuration to an ini file.
+                | __init__ - Initials Object2Ini constructor.
+                | write_configuration - Writes configuration to an INI file.
     '''
 
-    _FORMAT: str = 'ini'
+    _EXT: str = 'ini'
 
-    def __init__(
-        self, configuration_file: str | None, verbose: bool = False
-    ) -> None:
+    def __init__(self, config_file: str | None, verbose: bool = False) -> None:
         '''
-            Initial Object2Ini constructor.
+            Initials Object2Ini constructor.
 
-            :param configuration_file: Configuration file path | None
-            :type configuration_file: <str> | <NoneType>
+            :param config_file: Configuration file path | None
+            :type config_file: <str> | <NoneType>
             :param verbose: Enable/Disable verbose option
             :type verbose: <bool>
             :exceptions: ATSTypeError
@@ -77,22 +76,20 @@ class Object2Ini(ATSChecker):
         error_msg: str | None = None
         error_id: int | None = None
         error_msg, error_id = self.check_params([
-            ('str:configuration_file', configuration_file)
+            ('str:config_file', config_file)
         ])
         if error_id == self.TYPE_ERROR:
             raise ATSTypeError(error_msg)
-        configuration_file = str(configuration_file)
+        config_file = str(config_file)
         self._verbose: bool = verbose
-        self._file_path: str = configuration_file
-        verbose_message(
-            self._verbose, [f'configuration file {configuration_file}']
-        )
+        self._file_path: str = config_file
+        verbose_message(self._verbose, [f'configuration file {config_file}'])
 
     def write_configuration(
         self, configuration: ConfigParser | None, verbose: bool = False
     ) -> bool:
         '''
-            Write configuration to a ini file.
+            Writes configuration to a INI file.
 
             :param configuration: Configuration object | None
             :type configuration: <ConfigParser> | <NoneType>
@@ -113,11 +110,12 @@ class Object2Ini(ATSChecker):
         verbose_message(
             self._verbose or verbose, [f'configuration {configuration}']
         )
-        if configuration:
-            if len(configuration.sections()) == 0:
-                return status
-            with ConfFile(self._file_path, 'w', self._FORMAT) as ini:
-                if ini:
-                    configuration.write(ini, space_around_delimiters=True)
-                    status = True
+        if not configuration:
+            return status
+        if len(configuration.sections()) == 0:
+            return status
+        with ConfFile(self._file_path, 'w', self._EXT) as ini:
+            if ini:
+                configuration.write(ini, space_around_delimiters=True)
+                status = True
         return status

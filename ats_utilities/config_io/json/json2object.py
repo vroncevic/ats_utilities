@@ -16,12 +16,12 @@
      You should have received a copy of the GNU General Public License along
      with this program. If not, see <http://www.gnu.org/licenses/>.
  Info
-     Defined class Json2Object with attribute(s) and method(s).
-     Created API for reading a configuration/information from a json file.
+     Defines class Json2Object with attribute(s) and method(s).
+     Creates an API for reading a configuration from a JSON file.
 '''
 
 import sys
-from typing import Dict
+from typing import Any, Dict, List
 from json import load
 
 try:
@@ -35,9 +35,9 @@ except ImportError as ats_error_message:
 
 __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2017, https://vroncevic.github.io/ats_utilities'
-__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
+__credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = '2.9.9'
+__version__ = '3.0.0'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
@@ -45,31 +45,29 @@ __status__ = 'Updated'
 
 class Json2Object(ATSChecker):
     '''
-        Defined class Json2Object with attribute(s) and method(s).
-        Created API for reading a configuration/information from a json file.
-        Conversion configuration content to JSON.
+        Defines class Json2Object with attribute(s) and method(s).
+        Creates an API for reading a configuration from a JSON file.
+        Conversion of Python object to JSON content.
 
         It defines:
 
             :attributes:
-                | _FORMAT - Format of configuration content.
+                | _EXT - File extension of the configuration file.
                 | _verbose - Enable/Disable verbose option.
                 | _file_path - Configuration file path.
             :methods:
-                | __init__ - Initial Json2Object constructor.
-                | read_configuration - Read configuration from file.
+                | __init__ - Initials Json2Object constructor.
+                | read_configuration - Reads configuration from a JSON file.
     '''
 
-    _FORMAT: str = 'json'
+    _EXT: str = 'json'
 
-    def __init__(
-        self, configuration_file: str | None, verbose: bool = False
-    ) -> None:
+    def __init__(self, config_file: str | None, verbose: bool = False) -> None:
         '''
-            Initial Ini2Object constructor.
+            Initials Ini2Object constructor.
 
-            :param configuration_file: Configuration file path | None
-            :type configuration_file: <str> | <NoneType>
+            :param config_file: Configuration file path | None
+            :type config_file: <str> | <NoneType>
             :param verbose: Enable/Disable verbose option
             :type verbose: <bool>
             :exceptions: ATSTypeError
@@ -78,31 +76,27 @@ class Json2Object(ATSChecker):
         error_msg: str | None = None
         error_id: int | None = None
         error_msg, error_id = self.check_params([
-            ('str:configuration_file', configuration_file)
+            ('str:config_file', config_file)
         ])
         if error_id == self.TYPE_ERROR:
             raise ATSTypeError(error_msg)
         self._verbose: bool = verbose
-        configuration_file = str(configuration_file)
-        self._file_path: str = configuration_file
-        verbose_message(
-            self._verbose, [f'configuration file {configuration_file}']
-        )
+        config_file = str(config_file)
+        self._file_path: str = config_file
+        verbose_message(self._verbose, [f'configuration file {config_file}'])
 
-    def read_configuration(
-        self, verbose: bool = False
-    ) -> Dict[str, str] | None:
+    def read_configuration(self, verbose: bool = False) -> Dict[Any, Any]:
         '''
-            Read configuration from a json file.
+            Reads a configuration from a JSON file.
 
             :param verbose: Enable/Disable verbose option
             :type verbose: <bool>
-            :return: Configuration object | None
-            :rtype: <Dict[str, str]> | <NoneType>
+            :return: Configuration object
+            :rtype: <Dict[Any, Any]>
             :exceptions: None
         '''
-        content: Dict[str, str] | None = None
-        with ConfFile(self._file_path, 'r', self._FORMAT) as json:
+        content: Dict[Any, Any] = {}
+        with ConfFile(self._file_path, 'r', self._EXT) as json:
             if json:
                 content = load(json)
         verbose_message(self._verbose or verbose, [f'configuration {content}'])

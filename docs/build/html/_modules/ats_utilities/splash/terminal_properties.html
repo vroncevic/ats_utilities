@@ -60,12 +60,12 @@
 <span class="sd">    with this program. If not, see &lt;http://www.gnu.org/licenses/&gt;.</span>
 <span class="sd">Info</span>
 <span class="sd">    Defines class TerminalProperties with attribute(s) and method(s).</span>
-<span class="sd">    Defines API for getting terminal properties.</span>
+<span class="sd">    Defines an API for getting terminal properties.</span>
 <span class="sd">&#39;&#39;&#39;</span>
 
 <span class="kn">import</span> <span class="nn">sys</span>
 <span class="kn">import</span> <span class="nn">os</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">List</span>
 <span class="kn">from</span> <span class="nn">fcntl</span> <span class="kn">import</span> <span class="n">ioctl</span>
 <span class="kn">from</span> <span class="nn">termios</span> <span class="kn">import</span> <span class="n">TIOCGWINSZ</span>
 <span class="kn">from</span> <span class="nn">struct</span> <span class="kn">import</span> <span class="n">unpack</span><span class="p">,</span> <span class="n">pack</span>
@@ -80,9 +80,9 @@
 
 <span class="n">__author__</span> <span class="o">=</span> <span class="s1">&#39;Vladimir Roncevic&#39;</span>
 <span class="n">__copyright__</span> <span class="o">=</span> <span class="s1">&#39;Copyright 2021, https://vroncevic.github.io/ats_utilities&#39;</span>
-<span class="n">__credits__</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Vladimir Roncevic&#39;</span><span class="p">,</span> <span class="s1">&#39;Python Software Foundation&#39;</span><span class="p">]</span>
+<span class="n">__credits__</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Vladimir Roncevic&#39;</span><span class="p">,</span> <span class="s1">&#39;Python Software Foundation&#39;</span><span class="p">]</span>
 <span class="n">__license__</span> <span class="o">=</span> <span class="s1">&#39;https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE&#39;</span>
-<span class="n">__version__</span> <span class="o">=</span> <span class="s1">&#39;2.9.9&#39;</span>
+<span class="n">__version__</span> <span class="o">=</span> <span class="s1">&#39;3.0.0&#39;</span>
 <span class="n">__maintainer__</span> <span class="o">=</span> <span class="s1">&#39;Vladimir Roncevic&#39;</span>
 <span class="n">__email__</span> <span class="o">=</span> <span class="s1">&#39;elektron.ronca@gmail.com&#39;</span>
 <span class="n">__status__</span> <span class="o">=</span> <span class="s1">&#39;Updated&#39;</span>
@@ -90,8 +90,8 @@
 
 <div class="viewcode-block" id="TerminalProperties"><a class="viewcode-back" href="../../../ats_utilities.splash.terminal_properties.html#ats_utilities.splash.terminal_properties.TerminalProperties">[docs]</a><span class="k">class</span> <span class="nc">TerminalProperties</span><span class="p">(</span><span class="n">ATSChecker</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">        Defined class TerminalProperties with attribute(s) and method(s).</span>
-<span class="sd">        Defined API for getting terminal properties.</span>
+<span class="sd">        Defines class TerminalProperties with attribute(s) and method(s).</span>
+<span class="sd">        Defines an API for getting terminal properties.</span>
 <span class="sd">        API for terminal properties.</span>
 
 <span class="sd">        It defines:</span>
@@ -100,15 +100,15 @@
 <span class="sd">                | _verbose - Enable/Disable verbose option.</span>
 <span class="sd">                | _window_size - Terminal window size.</span>
 <span class="sd">            :methods:</span>
-<span class="sd">                | __init__ - Initial TerminalProperties constructor.</span>
-<span class="sd">                | ioctl_get_window_size - Size for descriptor.</span>
-<span class="sd">                | ioctl_for_all_descriptors - Size for all descriptors.</span>
+<span class="sd">                | __init__ - Initials TerminalProperties constructor.</span>
+<span class="sd">                | ioctl_get_window_size - Gets size for descriptor.</span>
+<span class="sd">                | ioctl_for_all_descriptors - Gets size for all descriptors.</span>
 <span class="sd">                | size - Gets size of terminal window.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">verbose</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">            Initial constructor.</span>
+<span class="sd">            Initials constructor.</span>
 
 <span class="sd">            :param verbose: Enable/Disable verbose option</span>
 <span class="sd">            :type verbose: &lt;bool&gt;</span>
@@ -123,14 +123,14 @@
         <span class="bp">self</span><span class="p">,</span> <span class="n">file_descriptor</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">verbose</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="o">...</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">            Check window size for descriptor.</span>
+<span class="sd">            Gets size for descriptor.</span>
 
 <span class="sd">            :param file_descriptor: file descriptor.</span>
 <span class="sd">            :type file_descriptor: &lt;int&gt;</span>
 <span class="sd">            :param verbose: Enable/Disable verbose option</span>
 <span class="sd">            :type verbose: &lt;bool&gt;</span>
-<span class="sd">            :return: window size of terminal.</span>
-<span class="sd">            :rtype: &lt;tupple&gt;</span>
+<span class="sd">            :return: Window size of terminal.</span>
+<span class="sd">            :rtype: &lt;tuple[Any, ...]&gt;</span>
 <span class="sd">            :exceptions: ATSTypeError</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="n">error_msg</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
@@ -153,7 +153,7 @@
 
 <div class="viewcode-block" id="TerminalProperties.ioctl_for_all_descriptors"><a class="viewcode-back" href="../../../ats_utilities.splash.terminal_properties.html#ats_utilities.splash.terminal_properties.TerminalProperties.ioctl_for_all_descriptors">[docs]</a>    <span class="k">def</span> <span class="nf">ioctl_for_all_descriptors</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">verbose</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">            Check window size for all descriptors.</span>
+<span class="sd">            Gets size for all descriptors.</span>
 
 <span class="sd">            :param verbose: Enable/Disable verbose option</span>
 <span class="sd">            :type verbose: &lt;bool&gt;</span>
@@ -172,7 +172,7 @@
 
 <div class="viewcode-block" id="TerminalProperties.size"><a class="viewcode-back" href="../../../ats_utilities.splash.terminal_properties.html#ats_utilities.splash.terminal_properties.TerminalProperties.size">[docs]</a>    <span class="k">def</span> <span class="nf">size</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">verbose</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="o">...</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">            Center console line.</span>
+<span class="sd">            Gets size of terminal window.</span>
 
 <span class="sd">            :param verbose: Enable/Disable verbose option</span>
 <span class="sd">            :type verbose: &lt;bool&gt;</span>

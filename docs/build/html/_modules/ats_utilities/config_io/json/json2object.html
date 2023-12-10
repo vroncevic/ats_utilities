@@ -60,12 +60,12 @@
 <span class="sd">     You should have received a copy of the GNU General Public License along</span>
 <span class="sd">     with this program. If not, see &lt;http://www.gnu.org/licenses/&gt;.</span>
 <span class="sd"> Info</span>
-<span class="sd">     Defined class Json2Object with attribute(s) and method(s).</span>
-<span class="sd">     Created API for reading a configuration/information from a json file.</span>
+<span class="sd">     Defines class Json2Object with attribute(s) and method(s).</span>
+<span class="sd">     Creates an API for reading a configuration from a JSON file.</span>
 <span class="sd">&#39;&#39;&#39;</span>
 
 <span class="kn">import</span> <span class="nn">sys</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Dict</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span>
 <span class="kn">from</span> <span class="nn">json</span> <span class="kn">import</span> <span class="n">load</span>
 
 <span class="k">try</span><span class="p">:</span>
@@ -79,9 +79,9 @@
 
 <span class="n">__author__</span> <span class="o">=</span> <span class="s1">&#39;Vladimir Roncevic&#39;</span>
 <span class="n">__copyright__</span> <span class="o">=</span> <span class="s1">&#39;Copyright 2017, https://vroncevic.github.io/ats_utilities&#39;</span>
-<span class="n">__credits__</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Vladimir Roncevic&#39;</span><span class="p">,</span> <span class="s1">&#39;Python Software Foundation&#39;</span><span class="p">]</span>
+<span class="n">__credits__</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Vladimir Roncevic&#39;</span><span class="p">,</span> <span class="s1">&#39;Python Software Foundation&#39;</span><span class="p">]</span>
 <span class="n">__license__</span> <span class="o">=</span> <span class="s1">&#39;https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE&#39;</span>
-<span class="n">__version__</span> <span class="o">=</span> <span class="s1">&#39;2.9.9&#39;</span>
+<span class="n">__version__</span> <span class="o">=</span> <span class="s1">&#39;3.0.0&#39;</span>
 <span class="n">__maintainer__</span> <span class="o">=</span> <span class="s1">&#39;Vladimir Roncevic&#39;</span>
 <span class="n">__email__</span> <span class="o">=</span> <span class="s1">&#39;elektron.ronca@gmail.com&#39;</span>
 <span class="n">__status__</span> <span class="o">=</span> <span class="s1">&#39;Updated&#39;</span>
@@ -89,31 +89,29 @@
 
 <div class="viewcode-block" id="Json2Object"><a class="viewcode-back" href="../../../../ats_utilities.config_io.json.json2object.html#ats_utilities.config_io.json.json2object.Json2Object">[docs]</a><span class="k">class</span> <span class="nc">Json2Object</span><span class="p">(</span><span class="n">ATSChecker</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">        Defined class Json2Object with attribute(s) and method(s).</span>
-<span class="sd">        Created API for reading a configuration/information from a json file.</span>
-<span class="sd">        Conversion configuration content to JSON.</span>
+<span class="sd">        Defines class Json2Object with attribute(s) and method(s).</span>
+<span class="sd">        Creates an API for reading a configuration from a JSON file.</span>
+<span class="sd">        Conversion of Python object to JSON content.</span>
 
 <span class="sd">        It defines:</span>
 
 <span class="sd">            :attributes:</span>
-<span class="sd">                | _FORMAT - Format of configuration content.</span>
+<span class="sd">                | _EXT - File extension of the configuration file.</span>
 <span class="sd">                | _verbose - Enable/Disable verbose option.</span>
 <span class="sd">                | _file_path - Configuration file path.</span>
 <span class="sd">            :methods:</span>
-<span class="sd">                | __init__ - Initial Json2Object constructor.</span>
-<span class="sd">                | read_configuration - Read configuration from file.</span>
+<span class="sd">                | __init__ - Initials Json2Object constructor.</span>
+<span class="sd">                | read_configuration - Reads configuration from a JSON file.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
 
-    <span class="n">_FORMAT</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;json&#39;</span>
+    <span class="n">_EXT</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;json&#39;</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span> <span class="n">configuration_file</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="p">,</span> <span class="n">verbose</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config_file</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="p">,</span> <span class="n">verbose</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">            Initial Ini2Object constructor.</span>
+<span class="sd">            Initials Ini2Object constructor.</span>
 
-<span class="sd">            :param configuration_file: Configuration file path | None</span>
-<span class="sd">            :type configuration_file: &lt;str&gt; | &lt;NoneType&gt;</span>
+<span class="sd">            :param config_file: Configuration file path | None</span>
+<span class="sd">            :type config_file: &lt;str&gt; | &lt;NoneType&gt;</span>
 <span class="sd">            :param verbose: Enable/Disable verbose option</span>
 <span class="sd">            :type verbose: &lt;bool&gt;</span>
 <span class="sd">            :exceptions: ATSTypeError</span>
@@ -122,31 +120,27 @@
         <span class="n">error_msg</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="n">error_id</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="n">error_msg</span><span class="p">,</span> <span class="n">error_id</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">check_params</span><span class="p">([</span>
-            <span class="p">(</span><span class="s1">&#39;str:configuration_file&#39;</span><span class="p">,</span> <span class="n">configuration_file</span><span class="p">)</span>
+            <span class="p">(</span><span class="s1">&#39;str:config_file&#39;</span><span class="p">,</span> <span class="n">config_file</span><span class="p">)</span>
         <span class="p">])</span>
         <span class="k">if</span> <span class="n">error_id</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">TYPE_ERROR</span><span class="p">:</span>
             <span class="k">raise</span> <span class="n">ATSTypeError</span><span class="p">(</span><span class="n">error_msg</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_verbose</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="n">verbose</span>
-        <span class="n">configuration_file</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">configuration_file</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_file_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">configuration_file</span>
-        <span class="n">verbose_message</span><span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_verbose</span><span class="p">,</span> <span class="p">[</span><span class="sa">f</span><span class="s1">&#39;configuration file </span><span class="si">{</span><span class="n">configuration_file</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">]</span>
-        <span class="p">)</span>
+        <span class="n">config_file</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">config_file</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_file_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">config_file</span>
+        <span class="n">verbose_message</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_verbose</span><span class="p">,</span> <span class="p">[</span><span class="sa">f</span><span class="s1">&#39;configuration file </span><span class="si">{</span><span class="n">config_file</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">])</span>
 
-<div class="viewcode-block" id="Json2Object.read_configuration"><a class="viewcode-back" href="../../../../ats_utilities.config_io.json.json2object.html#ats_utilities.config_io.json.json2object.Json2Object.read_configuration">[docs]</a>    <span class="k">def</span> <span class="nf">read_configuration</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span> <span class="n">verbose</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
+<div class="viewcode-block" id="Json2Object.read_configuration"><a class="viewcode-back" href="../../../../ats_utilities.config_io.json.json2object.html#ats_utilities.config_io.json.json2object.Json2Object.read_configuration">[docs]</a>    <span class="k">def</span> <span class="nf">read_configuration</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">verbose</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">            Read configuration from a json file.</span>
+<span class="sd">            Reads a configuration from a JSON file.</span>
 
 <span class="sd">            :param verbose: Enable/Disable verbose option</span>
 <span class="sd">            :type verbose: &lt;bool&gt;</span>
-<span class="sd">            :return: Configuration object | None</span>
-<span class="sd">            :rtype: &lt;Dict[str, str]&gt; | &lt;NoneType&gt;</span>
+<span class="sd">            :return: Configuration object</span>
+<span class="sd">            :rtype: &lt;Dict[Any, Any]&gt;</span>
 <span class="sd">            :exceptions: None</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="n">content</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
-        <span class="k">with</span> <span class="n">ConfFile</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_file_path</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_FORMAT</span><span class="p">)</span> <span class="k">as</span> <span class="n">json</span><span class="p">:</span>
+        <span class="n">content</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">with</span> <span class="n">ConfFile</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_file_path</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_EXT</span><span class="p">)</span> <span class="k">as</span> <span class="n">json</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">json</span><span class="p">:</span>
                 <span class="n">content</span> <span class="o">=</span> <span class="n">load</span><span class="p">(</span><span class="n">json</span><span class="p">)</span>
         <span class="n">verbose_message</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_verbose</span> <span class="ow">or</span> <span class="n">verbose</span><span class="p">,</span> <span class="p">[</span><span class="sa">f</span><span class="s1">&#39;configuration </span><span class="si">{</span><span class="n">content</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">])</span>

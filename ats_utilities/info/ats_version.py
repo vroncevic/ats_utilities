@@ -17,10 +17,11 @@ Copyright
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
     Defines class ATSVersion with attribute(s) and method(s).
-    Creates API for ATS version in one property object.
+    Creates an API for the ATS version in one property object.
 '''
 
 import sys
+from typing import List
 
 try:
     from ats_utilities.checker import ATSChecker
@@ -32,9 +33,9 @@ except ImportError as ats_error_message:
 
 __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2017, https://vroncevic.github.io/ats_utilities'
-__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
+__credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = '2.9.9'
+__version__ = '3.0.0'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
@@ -43,23 +44,23 @@ __status__ = 'Updated'
 class ATSVersion(ATSChecker):
     '''
         Defines class ATSVersion with attribute(s) and method(s).
-        Creates API for ATS version in one property object.
-        ATS version container.
+        Creates an API for the ATS version in one property object.
+        The ATS version container.
 
         It defines:
 
             :attributes:
                 | _verbose - Enable/Disable verbose option.
-                | _version - ATS version.
+                | _version - The ATS version.
             :methods:
-                | __init__ - Initial ATSVersion constructor.
+                | __init__ - Initials ATSVersion constructor.
                 | version - Property methods for set/get operations.
-                | is_version_not_none - Check is ATS version not None.
+                | is_version_not_none - Checks is ATS version not None.
     '''
 
     def __init__(self, verbose: bool = False) -> None:
         '''
-            Initial ATSVersion constructor.
+            Initials ATSVersion constructor.
 
             :param verbose: Enable/Disable verbose option
             :type verbose: <bool>
@@ -74,7 +75,7 @@ class ATSVersion(ATSChecker):
         '''
             Property method for getting ATS version.
 
-            :return: ATS version | None
+            :return: The ATS version | None
             :rtype: <str> | <NoneType>
             :exceptions: None
         '''
@@ -85,7 +86,7 @@ class ATSVersion(ATSChecker):
         '''
             Property method for setting ATS version.
 
-            :param version: ATS version | None
+            :param version: The ATS version | None
             :type version: <str> | <NoneType>
             :exceptions: ATSTypeError
         '''
@@ -99,7 +100,7 @@ class ATSVersion(ATSChecker):
 
     def is_version_not_none(self) -> bool:
         '''
-            Checking is ATS version None.
+            Checks is ATS version not None.
 
             :return: True (ATS version is not None) | False
             :rtype: <bool>

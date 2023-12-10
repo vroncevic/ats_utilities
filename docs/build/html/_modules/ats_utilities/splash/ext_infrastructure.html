@@ -60,11 +60,11 @@
 <span class="sd">    with this program. If not, see &lt;http://www.gnu.org/licenses/&gt;.</span>
 <span class="sd">Info</span>
 <span class="sd">    Defines class ExtInfrastructure with attribute(s) and method(s).</span>
-<span class="sd">    Creates API for processing hyperlinks for splash.</span>
+<span class="sd">    Creates an API for processing hyperlinks for splash.</span>
 <span class="sd">&#39;&#39;&#39;</span>
 
 <span class="kn">import</span> <span class="nn">sys</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Dict</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span>
 
 <span class="k">try</span><span class="p">:</span>
     <span class="kn">from</span> <span class="nn">ats_utilities.checker</span> <span class="kn">import</span> <span class="n">ATSChecker</span>
@@ -76,9 +76,9 @@
 
 <span class="n">__author__</span> <span class="o">=</span> <span class="s1">&#39;Vladimir Roncevic&#39;</span>
 <span class="n">__copyright__</span> <span class="o">=</span> <span class="s1">&#39;Copyright 2021, https://vroncevic.github.io/ats_utilities&#39;</span>
-<span class="n">__credits__</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Vladimir Roncevic&#39;</span><span class="p">,</span> <span class="s1">&#39;Python Software Foundation&#39;</span><span class="p">]</span>
+<span class="n">__credits__</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Vladimir Roncevic&#39;</span><span class="p">,</span> <span class="s1">&#39;Python Software Foundation&#39;</span><span class="p">]</span>
 <span class="n">__license__</span> <span class="o">=</span> <span class="s1">&#39;https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE&#39;</span>
-<span class="n">__version__</span> <span class="o">=</span> <span class="s1">&#39;2.9.9&#39;</span>
+<span class="n">__version__</span> <span class="o">=</span> <span class="s1">&#39;3.0.0&#39;</span>
 <span class="n">__maintainer__</span> <span class="o">=</span> <span class="s1">&#39;Vladimir Roncevic&#39;</span>
 <span class="n">__email__</span> <span class="o">=</span> <span class="s1">&#39;elektron.ronca@gmail.com&#39;</span>
 <span class="n">__status__</span> <span class="o">=</span> <span class="s1">&#39;Updated&#39;</span>
@@ -87,7 +87,7 @@
 <div class="viewcode-block" id="ExtInfrastructure"><a class="viewcode-back" href="../../../ats_utilities.splash.ext_infrastructure.html#ats_utilities.splash.ext_infrastructure.ExtInfrastructure">[docs]</a><span class="k">class</span> <span class="nc">ExtInfrastructure</span><span class="p">(</span><span class="n">ATSChecker</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Defines class ExtInfrastructure with attribute(s) and method(s).</span>
-<span class="sd">        Creates API for processing hyperlinks for splash.</span>
+<span class="sd">        Creates an API for processing hyperlinks for splash.</span>
 <span class="sd">        API for GitHub information.</span>
 
 <span class="sd">        It defines:</span>
@@ -96,15 +96,15 @@
 <span class="sd">                | _verbose - Enable/Disable verbose option.</span>
 <span class="sd">                | _property - Splash property in dict format.</span>
 <span class="sd">            :methods:</span>
-<span class="sd">                | __init__ - Initial ExtInfrastructure constructor.</span>
-<span class="sd">                | get_info_text - Pre-processed info text.</span>
-<span class="sd">                | get_issue_text - Pre-processed issue text.</span>
-<span class="sd">                | get_author_text - Pre-processed author text.</span>
+<span class="sd">                | __init__ - Initials ExtInfrastructure constructor.</span>
+<span class="sd">                | get_info_text - Pre-processes info text.</span>
+<span class="sd">                | get_issue_text - Pre-processes issue text.</span>
+<span class="sd">                | get_author_text - Pre-processes author text.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">prop</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span> <span class="n">verbose</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">            Initial ExtInfrastructure constructor.</span>
+<span class="sd">            Initials ExtInfrastructure constructor.</span>
 
 <span class="sd">            :param property: Splash property in dict form</span>
 <span class="sd">            :type property: &lt;dict&gt;</span>
@@ -124,7 +124,7 @@
 
 <div class="viewcode-block" id="ExtInfrastructure.get_info_text"><a class="viewcode-back" href="../../../ats_utilities.splash.ext_infrastructure.html#ats_utilities.splash.ext_infrastructure.ExtInfrastructure.get_info_text">[docs]</a>    <span class="k">def</span> <span class="nf">get_info_text</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">            Pre-processed info text for splash.</span>
+<span class="sd">            Pre-processes info text for splash.</span>
 
 <span class="sd">            :return: Hyperlink with info text</span>
 <span class="sd">            :rtype: &lt;str&gt;</span>
@@ -135,7 +135,7 @@
 
 <div class="viewcode-block" id="ExtInfrastructure.get_issue_text"><a class="viewcode-back" href="../../../ats_utilities.splash.ext_infrastructure.html#ats_utilities.splash.ext_infrastructure.ExtInfrastructure.get_issue_text">[docs]</a>    <span class="k">def</span> <span class="nf">get_issue_text</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">            Pre-processed issue text for splash.</span>
+<span class="sd">            Pre-processes issue text for splash.</span>
 
 <span class="sd">            :return: Hyperlink with issue info</span>
 <span class="sd">            :rtype: &lt;str&gt;</span>
@@ -146,7 +146,7 @@
 
 <div class="viewcode-block" id="ExtInfrastructure.get_author_text"><a class="viewcode-back" href="../../../ats_utilities.splash.ext_infrastructure.html#ats_utilities.splash.ext_infrastructure.ExtInfrastructure.get_author_text">[docs]</a>    <span class="k">def</span> <span class="nf">get_author_text</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">            Pre-processed author text for splash.</span>
+<span class="sd">            Pre-processes author text for splash.</span>
 
 <span class="sd">            :return: Hyperlink with author info</span>
 <span class="sd">            :rtype: &lt;str&gt;</span>

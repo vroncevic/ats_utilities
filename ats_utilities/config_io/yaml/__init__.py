@@ -17,11 +17,11 @@ Copyright
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
     Defines class YamlBase with attribute(s) and method(s).
-    Loads ATS information/configuration, setup ATS CL interface.
+    Loads the ATS configuration for the ATS.
 '''
 
 import sys
-from typing import Any
+from typing import Any, List, Dict
 
 try:
     from ats_utilities.info import ATSInfo
@@ -37,9 +37,9 @@ except ImportError as ats_error_message:
 
 __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2017, https://vroncevic.github.io/ats_utilities'
-__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
+__credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = '2.9.9'
+__version__ = '3.0.0'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
@@ -48,7 +48,7 @@ __status__ = 'Updated'
 class YamlBase(ATSChecker):
     '''
         Defines class YamlBase with attribute(s) and method(s).
-        Loads ATS information/configuration, setup ATS CL interface.
+        Loads the ATS configuration for the ATS.
         Configuration base YAML API support.
 
         It defines:
@@ -58,20 +58,20 @@ class YamlBase(ATSChecker):
                 | tool_operational - Control ATS operational functionality.
                 | yaml2obj - In API for information.
                 | obj2yaml - Out API for information.
-                | option_parser - Option parser for ATS.
+                | option_parser - Option parser for the ATS.
             :methods:
-                | __init__ - Initial YamlBase constructor.
-                | is_tool_ok - Check is tool operational.
+                | __init__ - Initials YamlBase constructor.
+                | is_tool_ok - Checks is tool operational.
     '''
 
     def __init__(
-        self, information_file: str | None, verbose: bool = False
+        self, info_file: str | None, verbose: bool = False
     ) -> None:
         '''
-            Initial YamlBase constructor.
+            Initials YamlBase constructor.
 
-            :param information_file: Information file path | None
-            :type information_file: <str> | <NoneType>
+            :param info_file: Information file path | None
+            :type info_file: <str> | <NoneType>
             :param verbose: Enable/Disable verbose option
             :type verbose: <bool>
             :exceptions: ATSTypeError
@@ -80,19 +80,15 @@ class YamlBase(ATSChecker):
         error_msg: str | None = None
         error_id: int | None = None
         error_msg, error_id = self.check_params([
-            ('str:information_file', information_file)
+            ('str:info_file', info_file)
         ])
         if error_id == self.TYPE_ERROR:
             raise ATSTypeError(error_msg)
         self._verbose: bool = verbose
-        information: Any | None = None
+        information: Dict[Any, Any] | None = None
         self.tool_operational: bool = False
-        self.yaml2obj: Yaml2Object = Yaml2Object(
-            information_file, self._verbose
-        )
-        self.obj2yaml: Object2Yaml = Object2Yaml(
-            information_file, self._verbose
-        )
+        self.yaml2obj: Yaml2Object = Yaml2Object(info_file, self._verbose)
+        self.obj2yaml: Object2Yaml = Object2Yaml(info_file, self._verbose)
         if all([self.yaml2obj, self.obj2yaml]):
             information = self.yaml2obj.read_configuration(self._verbose)
         if information:
@@ -107,7 +103,7 @@ class YamlBase(ATSChecker):
 
     def is_tool_ok(self) -> bool:
         '''
-            Check is tool operational.
+            Checks is tool operational.
 
             :return: True (tool is operational) | False
             :rtype: <bool>

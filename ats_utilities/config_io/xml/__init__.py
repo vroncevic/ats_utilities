@@ -17,13 +17,14 @@ Copyright
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
     Defines class XmlBase with attribute(s) and method(s).
-    Loads ATS configuration/information, setup ATS CL interface.
+    Loads the ATS configuration for the ATS.
 '''
 
 import sys
-from typing import Any, Dict
+from typing import Any, List, Dict
 
 try:
+    from bs4 import BeautifulSoup, Tag, NavigableString
     from ats_utilities.info import ATSInfo
     from ats_utilities.checker import ATSChecker
     from ats_utilities.option import ATSOptionParser
@@ -37,9 +38,9 @@ except ImportError as ats_error_message:
 
 __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2017, https://vroncevic.github.io/ats_utilities'
-__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
+__credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = '2.9.9'
+__version__ = '3.0.0'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
@@ -48,7 +49,7 @@ __status__ = 'Updated'
 class XmlBase(ATSChecker):
     '''
         Defines class XmlBase with attribute(s) and method(s).
-        Loads ATS configuration/information, setup ATS CL interface.
+        Loads the ATS configuration for the ATS.
         Configuration base XML API support.
 
         It defines:
@@ -56,22 +57,20 @@ class XmlBase(ATSChecker):
             :attributes:
                 | _verbose - Enable/Disable verbose option.
                 | tool_operational - Control ATS operational functionality.
-                | xml2obj - In API for information.
-                | obj2xml - Out API for information.
+                | xml2obj - In API for tool_info.
+                | obj2xml - Out API for tool_info.
                 | option_parser - Option parser for ATS.
             :methods:
-                | __init__ - Initial XmlBase constructor.
-                | is_tool_ok - Check is tool operational.
+                | __init__ - Initials XmlBase constructor.
+                | is_tool_ok - Checks is tool operational.
     '''
 
-    def __init__(
-        self, information_file: str | None, verbose: bool = False
-    ) -> None:
+    def __init__(self, info_file: str | None, verbose: bool = False) -> None:
         '''
-            Initial XmlBase constructor.
+            Initials XmlBase constructor.
 
-            :param information_file: Information file path | None
-            :type information_file: <str> | <NoneType>
+            :param info_file: Information file path | None
+            :type info_file: <str> | <NoneType>
             :param verbose: Enable/Disable verbose option
             :type verbose: <bool>
             :exceptions: ATSTypeError
@@ -80,43 +79,56 @@ class XmlBase(ATSChecker):
         error_msg: str | None = None
         error_id: int | None = None
         error_msg, error_id = self.check_params([
-            ('str:information_file', information_file)
+            ('str:info_file', info_file)
         ])
         if error_id == self.TYPE_ERROR:
             raise ATSTypeError(error_msg)
         self._verbose: bool = verbose
-        information: Any | None = None
         info_dict: Dict[Any, Any] = {}
         self.tool_operational: bool = False
-        self.xml2obj: Xml2Object = Xml2Object(information_file, self._verbose)
-        self.obj2xml: Object2Xml = Object2Xml(information_file, self._verbose)
+        self.xml2obj: Xml2Object = Xml2Object(info_file, self._verbose)
+        self.obj2xml: Object2Xml = Object2Xml(info_file, self._verbose)
         if all([self.xml2obj, self.obj2xml]):
-            information = self.xml2obj.read_configuration(self._verbose)
-        if information:
-            info_dict['ats_name'] = str(information.find('ats_name').text)
-            info_dict['ats_version'] = str(
-                information.find('ats_version').text
+            tool_info: BeautifulSoup | None = self.xml2obj.read_configuration(
+                self._verbose
             )
-            info_dict['ats_build_date'] = str(
-                information.find('ats_build_date').text
-            )
-            info_dict['ats_licence'] = str(
-                information.find('ats_licence').text
-            )
-            info: ATSInfo = ATSInfo(info_dict, self._verbose)
-            if info.ats_info_ok:
-                self.option_parser: ATSOptionParser = ATSOptionParser(
-                    f'{info.name} {info.build_date}',
-                    info.version, info.licence, self._verbose
+            if tool_info:
+                ats_name: Tag | NavigableString | None = tool_info.find(
+                    'ats_name'
                 )
-                self.tool_operational = True
-                verbose_message(self._verbose, ['loaded ATS XML base info'])
+                if ats_name:
+                    info_dict['ats_name'] = str(ats_name.get_text())
+                ats_version: Tag | NavigableString | None = tool_info.find(
+                    'ats_version'
+                )
+                if ats_version:
+                    info_dict['ats_version'] = str(ats_version.get_text())
+                ats_build_date: Tag | NavigableString | None = tool_info.find(
+                    'ats_build_date'
+                )
+                if ats_build_date:
+                    info_dict['ats_build_date'] = str(
+                        ats_build_date.get_text()
+                    )
+                ats_licence: Tag | NavigableString | None = tool_info.find(
+                    'ats_licence'
+                )
+                if ats_licence:
+                    info_dict['ats_licence'] = str(ats_licence.get_text())
+                info: ATSInfo = ATSInfo(info_dict, self._verbose)
+                if info.ats_info_ok:
+                    self.option_parser: ATSOptionParser = ATSOptionParser(
+                        f'{info.name} {info.build_date}',
+                        info.version, info.licence, self._verbose
+                    )
+                    self.tool_operational = True
+                    verbose_message(self._verbose, ['loaded ATS XML info'])
 
     def is_tool_ok(self) -> bool:
         '''
-            Checking is tool operational.
+            Checks is tool operational.
 
-            :return: True (tool is operational) | False.
+            :return: True (tool is operational) | False
             :rtype: <bool>
             :exceptions: None
         '''

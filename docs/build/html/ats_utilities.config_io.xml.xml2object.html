@@ -69,43 +69,43 @@ You should have received a copy of the GNU General Public License along
 with this program. If not, see &lt;<a class="reference external" href="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</a>&gt;.</p>
 </dd>
 <dt>Info</dt><dd><p>Defines class Xml2Object with attribute(s) and method(s).
-Creates API for reading a configuration/information from a xml file.</p>
+Creates an API for reading a configuration from a XML file.</p>
 </dd>
 </dl>
 <dl class="py class">
 <dt class="sig sig-object py" id="ats_utilities.config_io.xml.xml2object.Xml2Object">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ats_utilities.config_io.xml.xml2object.</span></span><span class="sig-name descname"><span class="pre">Xml2Object</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">configuration_file</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ats_utilities/config_io/xml/xml2object.html#Xml2Object"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.config_io.xml.xml2object.Xml2Object" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ats_utilities.config_io.xml.xml2object.</span></span><span class="sig-name descname"><span class="pre">Xml2Object</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config_file</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ats_utilities/config_io/xml/xml2object.html#Xml2Object"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.config_io.xml.xml2object.Xml2Object" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="ats_utilities.checker.html#ats_utilities.checker.ATSChecker" title="ats_utilities.checker.ATSChecker"><code class="xref py py-class docutils literal notranslate"><span class="pre">ATSChecker</span></code></a></p>
 <p>Defines class Xml2Object with attribute(s) and method(s).
-Creates API for reading a configuration/information from a xml file.
-Conversion configuration content to XML.</p>
+Creates an API for reading a configuration from a XML file.
+Conversion of XML content to Python object.</p>
 <p>It defines:</p>
 <blockquote>
 <div><dl class="field-list">
 <dt class="field-odd">attributes<span class="colon">:</span></dt>
 <dd class="field-odd"><div class="line-block">
-<div class="line">_FORMAT - Format of configuration content.</div>
+<div class="line">_EXT - File extension of the configuration file.</div>
 <div class="line">_verbose - Enable/Disable verbose option.</div>
 <div class="line">_file_path - Configuration file path.</div>
 </div>
 </dd>
 <dt class="field-even">methods<span class="colon">:</span></dt>
 <dd class="field-even"><div class="line-block">
-<div class="line">__init__ - Initial Xml2Object constructor.</div>
-<div class="line">read_configuration - Read a configuration from file.</div>
+<div class="line">__init__ - Initials Xml2Object constructor.</div>
+<div class="line">read_configuration - Reads a configuration from an XML file.</div>
 </div>
 </dd>
 </dl>
 </div></blockquote>
 <dl class="py attribute">
-<dt class="sig sig-object py" id="ats_utilities.config_io.xml.xml2object.Xml2Object._FORMAT">
-<span class="sig-name descname"><span class="pre">_FORMAT</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'xml'</span></em><a class="headerlink" href="#ats_utilities.config_io.xml.xml2object.Xml2Object._FORMAT" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ats_utilities.config_io.xml.xml2object.Xml2Object._EXT">
+<span class="sig-name descname"><span class="pre">_EXT</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'xml'</span></em><a class="headerlink" href="#ats_utilities.config_io.xml.xml2object.Xml2Object._EXT" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="ats_utilities.config_io.xml.xml2object.Xml2Object.read_configuration">
 <span class="sig-name descname"><span class="pre">read_configuration</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bs4.BeautifulSoup</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></span><a class="reference internal" href="_modules/ats_utilities/config_io/xml/xml2object.html#Xml2Object.read_configuration"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.config_io.xml.xml2object.Xml2Object.read_configuration" title="Permalink to this definition">¶</a></dt>
-<dd><p>Read a configuration from a xml file.</p>
+<dd><p>Reads a configuration from an XML file.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>verbose</strong> (<em>&lt;bool&gt;</em>) – Enable/Disable verbose option</p>
@@ -138,7 +138,7 @@ Conversion configuration content to XML.</p>
     <ul>
 <li><a class="reference internal" href="#">ats_utilities.config_io.xml.xml2object module</a><ul>
 <li><a class="reference internal" href="#ats_utilities.config_io.xml.xml2object.Xml2Object"><code class="docutils literal notranslate"><span class="pre">Xml2Object</span></code></a><ul>
-<li><a class="reference internal" href="#ats_utilities.config_io.xml.xml2object.Xml2Object._FORMAT"><code class="docutils literal notranslate"><span class="pre">Xml2Object._FORMAT</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.config_io.xml.xml2object.Xml2Object._EXT"><code class="docutils literal notranslate"><span class="pre">Xml2Object._EXT</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.config_io.xml.xml2object.Xml2Object.read_configuration"><code class="docutils literal notranslate"><span class="pre">Xml2Object.read_configuration()</span></code></a></li>
 </ul>
 </li>

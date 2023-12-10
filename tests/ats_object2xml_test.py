@@ -23,6 +23,7 @@ Execute
 '''
 
 import sys
+from typing import List
 from unittest import TestCase, main
 from os.path import dirname
 
@@ -37,9 +38,9 @@ except ImportError as test_error_message:
 
 __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2017, https://vroncevic.github.io/ats_utilities'
-__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
+__credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = '2.9.9'
+__version__ = '3.0.0'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
@@ -60,39 +61,50 @@ class Object2XmlTestCase(TestCase):
                 | setUp - Call before test case.
                 | tearDown - Call after test case.
                 | test_not_none - Test is Object2Xml not None.
-                | test_read_configuration - Test for read configuration.
+                | test_write_configuration - Test for write configuration.
+                | test_write_none_configuration - Write none configuration.
+                | test_write_empty_configuration - Write empty configuration.
                 | test_none_config_path - Test for None as file path.
     '''
 
     def setUp(self) -> None:
         '''Call before test case.'''
-        self.xlm2obj: Xml2Object = Xml2Object(
-            f'{dirname(__file__)}/config/ats_cli_xml_api.xml'
-        )
-        self.obj2xml: Object2Xml = Object2Xml(
-            f'{dirname(__file__)}/config/ats_cli_xml_api.xml'
-        )
 
     def tearDown(self) -> None:
         '''Call after test case.'''
 
     def test_not_none(self) -> None:
         '''Test for create Object2Xml'''
-        self.assertIsNotNone(self.obj2xml)
+        obj2xml: Object2Xml = Object2Xml(
+            f'{dirname(__file__)}/config/ats_cli_xml_api.xml'
+        )
+        self.assertIsNotNone(obj2xml)
 
     def test_write_configuration(self) -> None:
         '''Test for write configuration'''
-        configuration: BeautifulSoup | None = self.xlm2obj.read_configuration()
-        self.assertTrue(self.obj2xml.write_configuration(configuration))
+        xlm2obj: Xml2Object = Xml2Object(
+            f'{dirname(__file__)}/config/ats_cli_xml_api.xml'
+        )
+        obj2xml: Object2Xml = Object2Xml(
+            f'{dirname(__file__)}/config/ats_cli_xml_api.xml'
+        )
+        configuration: BeautifulSoup | None = xlm2obj.read_configuration()
+        self.assertTrue(obj2xml.write_configuration(configuration))
 
     def test_write_none_configuration(self) -> None:
         '''Test for write none configuration'''
+        obj2xml: Object2Xml = Object2Xml(
+            f'{dirname(__file__)}/config/ats_cli_xml_api_none.xml'
+        )
         with self.assertRaises(ATSTypeError):
-            self.obj2xml.write_configuration(None)  # type: ignore
+            obj2xml.write_configuration(None)  # type: ignore
 
     def test_write_empty_configuration(self) -> None:
-        '''Test for read configuration'''
-        self.assertFalse(self.obj2xml.write_configuration(BeautifulSoup()))
+        '''Test for write empty configuration'''
+        obj2xml: Object2Xml = Object2Xml(
+            f'{dirname(__file__)}/config/ats_cli_xml_api_empty.xml'
+        )
+        self.assertFalse(obj2xml.write_configuration(BeautifulSoup()))
 
     def test_none_config_path(self) -> None:
         '''Test for None as file path'''

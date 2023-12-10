@@ -17,14 +17,16 @@ Copyright
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
     Defines class ATSError with attribute(s) and method(s).
-    Creates general exception (raise exception for wrong state/behavior).
+    Creates a general exception (raises exception for wrong behavior).
 '''
+
+from typing import List
 
 __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2017, https://vroncevic.github.io/ats_utilities'
-__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
+__credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = '2.9.9'
+__version__ = '3.0.0'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
@@ -33,7 +35,8 @@ __status__ = 'Updated'
 class ATSError(Exception):
     '''
         Defines class ATSError with attribute(s) and method(s).
-        Creates general exception (raise exception for wrong state/behavior).
+        Creates a general exception (raises exception for wrong behavior).
+
         It defines:
 
             :attributes:

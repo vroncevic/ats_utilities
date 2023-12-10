@@ -58,7 +58,7 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="ats_utilities.config_io.json.json2object.html">ats_utilities.config_io.json.json2object module</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="ats_utilities.config_io.json.json2object.html#ats_utilities.config_io.json.json2object.Json2Object"><code class="docutils literal notranslate"><span class="pre">Json2Object</span></code></a><ul>
-<li class="toctree-l3"><a class="reference internal" href="ats_utilities.config_io.json.json2object.html#ats_utilities.config_io.json.json2object.Json2Object._FORMAT"><code class="docutils literal notranslate"><span class="pre">Json2Object._FORMAT</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="ats_utilities.config_io.json.json2object.html#ats_utilities.config_io.json.json2object.Json2Object._EXT"><code class="docutils literal notranslate"><span class="pre">Json2Object._EXT</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="ats_utilities.config_io.json.json2object.html#ats_utilities.config_io.json.json2object.Json2Object.read_configuration"><code class="docutils literal notranslate"><span class="pre">Json2Object.read_configuration()</span></code></a></li>
 </ul>
 </li>
@@ -66,7 +66,7 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="ats_utilities.config_io.json.object2json.html">ats_utilities.config_io.json.object2json module</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="ats_utilities.config_io.json.object2json.html#ats_utilities.config_io.json.object2json.Object2Json"><code class="docutils literal notranslate"><span class="pre">Object2Json</span></code></a><ul>
-<li class="toctree-l3"><a class="reference internal" href="ats_utilities.config_io.json.object2json.html#ats_utilities.config_io.json.object2json.Object2Json._FORMAT"><code class="docutils literal notranslate"><span class="pre">Object2Json._FORMAT</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="ats_utilities.config_io.json.object2json.html#ats_utilities.config_io.json.object2json.Object2Json._EXT"><code class="docutils literal notranslate"><span class="pre">Object2Json._EXT</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="ats_utilities.config_io.json.object2json.html#ats_utilities.config_io.json.object2json.Object2Json.write_configuration"><code class="docutils literal notranslate"><span class="pre">Object2Json.write_configuration()</span></code></a></li>
 </ul>
 </li>
@@ -93,15 +93,15 @@ You should have received a copy of the GNU General Public License along
 with this program. If not, see &lt;<a class="reference external" href="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</a>&gt;.</p>
 </dd>
 <dt>Info</dt><dd><p>Defines class JsonBase with attribute(s) and method(s).
-Loads ATS configuration/information, setup ATS CL interface.</p>
+Loads the ATS configuration for the ATS.</p>
 </dd>
 </dl>
 <dl class="py class">
 <dt class="sig sig-object py" id="ats_utilities.config_io.json.JsonBase">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ats_utilities.config_io.json.</span></span><span class="sig-name descname"><span class="pre">JsonBase</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">information_file</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ats_utilities/config_io/json.html#JsonBase"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.config_io.json.JsonBase" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ats_utilities.config_io.json.</span></span><span class="sig-name descname"><span class="pre">JsonBase</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">info_file</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ats_utilities/config_io/json.html#JsonBase"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.config_io.json.JsonBase" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="ats_utilities.checker.html#ats_utilities.checker.ATSChecker" title="ats_utilities.checker.ATSChecker"><code class="xref py py-class docutils literal notranslate"><span class="pre">ATSChecker</span></code></a></p>
 <p>Defines class JsonBase with attribute(s) and method(s).
-Loads ATS configuration/information, setup ATS CL interface.
+Loads the ATS configuration for the ATS.
 Configuration base JSON API support.</p>
 <p>It defines:</p>
 <blockquote>
@@ -117,8 +117,8 @@ Configuration base JSON API support.</p>
 </dd>
 <dt class="field-even">methods<span class="colon">:</span></dt>
 <dd class="field-even"><div class="line-block">
-<div class="line">__init__ - Initial JsonBase constructor.</div>
-<div class="line">is_tool_ok - Check is tool operational.</div>
+<div class="line">__init__ - Initials JsonBase constructor.</div>
+<div class="line">is_tool_ok - Checks is tool operational.</div>
 </div>
 </dd>
 </dl>
@@ -126,7 +126,7 @@ Configuration base JSON API support.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="ats_utilities.config_io.json.JsonBase.is_tool_ok">
 <span class="sig-name descname"><span class="pre">is_tool_ok</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="_modules/ats_utilities/config_io/json.html#JsonBase.is_tool_ok"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.config_io.json.JsonBase.is_tool_ok" title="Permalink to this definition">¶</a></dt>
-<dd><p>Check is tool operational.</p>
+<dd><p>Checks is tool operational.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>True (tool is operational) | False</p>

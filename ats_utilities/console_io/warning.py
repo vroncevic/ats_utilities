@@ -17,7 +17,7 @@ Copyright
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
     Defines class ATSWarning with attribute(s) and method(s).
-    Creates warning message container for console log mechanism.
+    Creates a warning message container for console log mechanism.
 '''
 
 import sys
@@ -33,9 +33,9 @@ except ImportError as ats_error_message:
 
 __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2017, https://vroncevic.github.io/ats_utilities'
-__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
+__credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = '2.9.9'
+__version__ = '3.0.0'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
@@ -43,8 +43,8 @@ __status__ = 'Updated'
 
 class ATSWarning:
     '''
-        Defined class ATSWarning with attribute(s) and method(s).
-        Created warning message container for console log mechanism.
+        Defines class ATSWarning with attribute(s) and method(s).
+        Creates a warning message container for console log mechanism.
         Mechanism for logging warning messages.
 
         It defines:
@@ -52,14 +52,14 @@ class ATSWarning:
             :attributes:
                 | _message - Warning message container.
             :methods:
-                | __init__ - Initial constructor.
+                | __init__ - Initials ATSWarning constructor.
                 | message - Property methods for set/get operations.
-                | is_not_none - Check is message not None.
+                | is_not_none - Checks is message not None.
     '''
 
     def __init__(self) -> None:
         '''
-            Initial ATSWarning constructor.
+            Initials ATSWarning constructor.
 
             :exceptions: None
         '''
@@ -81,19 +81,19 @@ class ATSWarning:
         '''
             Property method for setting message.
 
-            :param message: Warning message
-            :type message: <str>
+            :param message: Warning message | None
+            :type message: <str> | <NoneType>
             :exceptions: None
         '''
         init(autoreset=False)
-        if message is not None:
+        if message:
             self._message = f'{Fore.YELLOW}{message}{Fore.RESET}'
 
     def is_not_none(self) -> bool:
         '''
             Checking is message not None.
 
-            :return: True (not None) | False
+            :return: True (message is not None) | False
             :rtype: <bool>
             :exceptions: None
         '''
@@ -102,7 +102,7 @@ class ATSWarning:
 
 def warning_message(message: List[Any]) -> None:
     '''
-        Show warning message.
+        Shows warning message.
 
         :param message: Message combined as list of any elements
         :type message: <List[Any]>

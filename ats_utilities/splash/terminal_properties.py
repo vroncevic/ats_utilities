@@ -17,12 +17,12 @@ Copyright
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
     Defines class TerminalProperties with attribute(s) and method(s).
-    Defines API for getting terminal properties.
+    Defines an API for getting terminal properties.
 '''
 
 import sys
 import os
-from typing import Any
+from typing import Any, List
 from fcntl import ioctl
 from termios import TIOCGWINSZ
 from struct import unpack, pack
@@ -37,9 +37,9 @@ except ImportError as ats_error_message:
 
 __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2021, https://vroncevic.github.io/ats_utilities'
-__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
+__credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = '2.9.9'
+__version__ = '3.0.0'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
@@ -47,8 +47,8 @@ __status__ = 'Updated'
 
 class TerminalProperties(ATSChecker):
     '''
-        Defined class TerminalProperties with attribute(s) and method(s).
-        Defined API for getting terminal properties.
+        Defines class TerminalProperties with attribute(s) and method(s).
+        Defines an API for getting terminal properties.
         API for terminal properties.
 
         It defines:
@@ -57,15 +57,15 @@ class TerminalProperties(ATSChecker):
                 | _verbose - Enable/Disable verbose option.
                 | _window_size - Terminal window size.
             :methods:
-                | __init__ - Initial TerminalProperties constructor.
-                | ioctl_get_window_size - Size for descriptor.
-                | ioctl_for_all_descriptors - Size for all descriptors.
+                | __init__ - Initials TerminalProperties constructor.
+                | ioctl_get_window_size - Gets size for descriptor.
+                | ioctl_for_all_descriptors - Gets size for all descriptors.
                 | size - Gets size of terminal window.
     '''
 
     def __init__(self, verbose: bool = False) -> None:
         '''
-            Initial constructor.
+            Initials constructor.
 
             :param verbose: Enable/Disable verbose option
             :type verbose: <bool>
@@ -80,14 +80,14 @@ class TerminalProperties(ATSChecker):
         self, file_descriptor: int, verbose: bool = False
     ) -> tuple[Any, ...]:
         '''
-            Check window size for descriptor.
+            Gets size for descriptor.
 
             :param file_descriptor: file descriptor.
             :type file_descriptor: <int>
             :param verbose: Enable/Disable verbose option
             :type verbose: <bool>
-            :return: window size of terminal.
-            :rtype: <tupple>
+            :return: Window size of terminal.
+            :rtype: <tuple[Any, ...]>
             :exceptions: ATSTypeError
         '''
         error_msg: str | None = None
@@ -110,7 +110,7 @@ class TerminalProperties(ATSChecker):
 
     def ioctl_for_all_descriptors(self, verbose: bool = False) -> None:
         '''
-            Check window size for all descriptors.
+            Gets size for all descriptors.
 
             :param verbose: Enable/Disable verbose option
             :type verbose: <bool>
@@ -129,7 +129,7 @@ class TerminalProperties(ATSChecker):
 
     def size(self, verbose: bool = False) -> tuple[Any, ...]:
         '''
-            Center console line.
+            Gets size of terminal window.
 
             :param verbose: Enable/Disable verbose option
             :type verbose: <bool>

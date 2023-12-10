@@ -17,10 +17,11 @@ Copyright
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
     Defines class FileCheck with attribute(s) and method(s).
-    Creates API for checking operations with files.
+    Creates an API for checking operations with files.
 '''
 
 import sys
+from typing import List
 from os.path import splitext, isfile
 
 try:
@@ -34,9 +35,9 @@ except ImportError as ats_error_message:
 
 __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2017, https://vroncevic.github.io/ats_utilities'
-__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
+__credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = '2.9.9'
+__version__ = '3.0.0'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
@@ -45,7 +46,7 @@ __status__ = 'Updated'
 class FileCheck(ATSChecker):
     '''
         Defines class FileCheck with attribute(s) and method(s).
-        Creates API for checking operations with files.
+        Creates an API for checking operations with files.
         Mechanism for checking files.
 
         It defines:
@@ -58,11 +59,11 @@ class FileCheck(ATSChecker):
                 | _file_mode_ok - Supported file mode.
                 | _file_format_ok - File format is (not) expected.
             :methods:
-                | __init__ - Initial FileCheck constructor.
-                | check_path - Check file path.
-                | check_mode -  Check operation mode for file.
-                | check_format - Check file format by extension.
-                | is_file_ok - Status of file for processing.
+                | __init__ - Initials FileCheck constructor.
+                | check_path - Checks file path.
+                | check_mode -  Checks operation mode for file.
+                | check_format - Checks file format by extension.
+                | is_file_ok - Returns status for file.
     '''
 
     MODES: list[str] = ['r', 'w', 'a', 'b', 'x', 't', '+']
@@ -70,7 +71,7 @@ class FileCheck(ATSChecker):
 
     def __init__(self, verbose: bool = False) -> None:
         '''
-            Initial FileCheck constructor.
+            Initials FileCheck constructor.
 
             :param verbose: Enable/Disable verbose option
             :type verbose: <bool>
@@ -85,9 +86,9 @@ class FileCheck(ATSChecker):
 
     def check_path(self, file_path: str | None, verbose: bool = False) -> None:
         '''
-            Check file path.
+            Checks file path.
 
-            :param file_path: File path
+            :param file_path: File path | None
             :type file_path: <str> | <NoneType>
             :param verbose: Enable/Disable verbose option
             :type verbose: <bool>
@@ -100,8 +101,8 @@ class FileCheck(ATSChecker):
         ])
         if error_id == self.TYPE_ERROR:
             raise ATSTypeError(error_msg)
-        file_path = str(object=file_path)
-        if not isfile(path=file_path):
+        file_path = str(file_path)
+        if not isfile(file_path):
             self._file_path_ok = False
             error_message([f'check file {file_path}'])
         else:
@@ -112,7 +113,7 @@ class FileCheck(ATSChecker):
 
     def check_mode(self, file_mode: str | None, verbose: bool = False) -> None:
         '''
-            Check operation mode for file.
+            Checks operation mode for file.
 
             :param file_mode: File mode ('r', 'w', 'a', 'b', 'x', 't', '+')
             :type file_mode: <str> | <NoneType>
@@ -151,11 +152,11 @@ class FileCheck(ATSChecker):
         verbose: bool = False
     ) -> None:
         '''
-            Check file format by extension.
+            Checks file format by extension.
 
-            :param file_path: File path
+            :param file_path: File path | None
             :type file_path: <str> | <NoneType>
-            :param file_format: File format (file extension)
+            :param file_format: File format (file extension) | None
             :type file_format: <str> | <NoneType>
             :param verbose: Enable/Disable verbose option
             :type verbose: <bool>
@@ -189,9 +190,9 @@ class FileCheck(ATSChecker):
 
     def is_file_ok(self) -> bool:
         '''
-            Status of file for checking.
+            Returns status for file.
 
-            :return: True (file validated) | False
+            :return: True (file validated and ok) | False
             :rtype: <bool>
             :exceptions: None
         '''

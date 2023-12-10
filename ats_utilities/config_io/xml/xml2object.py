@@ -17,10 +17,11 @@ Copyright
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
     Defines class Xml2Object with attribute(s) and method(s).
-    Creates API for reading a configuration/information from a xml file.
+    Creates an API for reading a configuration from a XML file.
 '''
 
 import sys
+from typing import List
 
 try:
     from bs4 import BeautifulSoup
@@ -34,9 +35,9 @@ except ImportError as ats_error_message:
 
 __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2017, https://vroncevic.github.io/ats_utilities'
-__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
+__credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = '2.9.9'
+__version__ = '3.0.0'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
@@ -45,30 +46,28 @@ __status__ = 'Updated'
 class Xml2Object(ATSChecker):
     '''
         Defines class Xml2Object with attribute(s) and method(s).
-        Creates API for reading a configuration/information from a xml file.
-        Conversion configuration content to XML.
+        Creates an API for reading a configuration from a XML file.
+        Conversion of XML content to Python object.
 
         It defines:
 
             :attributes:
-                | _FORMAT - Format of configuration content.
+                | _EXT - File extension of the configuration file.
                 | _verbose - Enable/Disable verbose option.
                 | _file_path - Configuration file path.
             :methods:
-                | __init__ - Initial Xml2Object constructor.
-                | read_configuration - Read a configuration from file.
+                | __init__ - Initials Xml2Object constructor.
+                | read_configuration - Reads a configuration from an XML file.
     '''
 
-    _FORMAT: str = 'xml'
+    _EXT: str = 'xml'
 
-    def __init__(
-        self, configuration_file: str | None, verbose: bool = False
-    ) -> None:
+    def __init__(self, config_file: str | None, verbose: bool = False) -> None:
         '''
-            Initial Xml2Object constructor.
+            Initials Xml2Object constructor.
 
-            :param configuration_file: Configuration file path | None
-            :type configuration_file: <str> | <NoneType>
+            :param config_file: Configuration file path | None
+            :type config_file: <str> | <NoneType>
             :param verbose: Enable/Disable verbose option
             :type verbose: <bool>
             :exceptions: ATSTypeError
@@ -77,22 +76,20 @@ class Xml2Object(ATSChecker):
         error_msg: str | None = None
         error_id: int | None = None
         error_msg, error_id = self.check_params([
-            ('str:configuration_file', configuration_file)
+            ('str:config_file', config_file)
         ])
         if error_id == self.TYPE_ERROR:
             raise ATSTypeError(error_msg)
         self._verbose: bool = verbose
-        configuration_file = str(configuration_file)
-        self._file_path: str = configuration_file
-        verbose_message(
-            self._verbose, [f'configuration file {configuration_file}']
-        )
+        config_file = str(config_file)
+        self._file_path: str = config_file
+        verbose_message(self._verbose, [f'configuration file {config_file}'])
 
     def read_configuration(
         self, verbose: bool = False
     ) -> BeautifulSoup | None:
         '''
-            Read a configuration from a xml file.
+            Reads a configuration from an XML file.
 
             :param verbose: Enable/Disable verbose option
             :type verbose: <bool>
@@ -102,11 +99,9 @@ class Xml2Object(ATSChecker):
         '''
         content: str | None = None
         config: BeautifulSoup | None = None
-        with ConfFile(self._file_path, 'r', self._FORMAT) as xml:
+        with ConfFile(self._file_path, 'r', self._EXT) as xml:
             if xml:
                 content = xml.read()
-                config = BeautifulSoup(str(content), self._FORMAT)
-        verbose_message(
-            self._verbose or verbose, [f'configuration {config}']
-        )
+                config = BeautifulSoup(str(content), self._EXT)
+        verbose_message(self._verbose or verbose, [f'configuration {config}'])
         return config

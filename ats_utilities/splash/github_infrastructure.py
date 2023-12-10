@@ -17,11 +17,11 @@ Copyright
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
     Defines class GitHubInfrastructure with attribute(s) and method(s).
-    Creates API for processing hyperlinks for splash.
+    Creates an API for processing hyperlinks for splash.
 '''
 
 import sys
-from typing import Any, Dict
+from typing import Any, Dict, List
 
 try:
     from ats_utilities.checker import ATSChecker
@@ -33,9 +33,9 @@ except ImportError as ats_error_message:
 
 __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2021, https://vroncevic.github.io/ats_utilities'
-__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
+__credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = '2.9.9'
+__version__ = '3.0.0'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
@@ -44,7 +44,7 @@ __status__ = 'Updated'
 class GitHubInfrastructure(ATSChecker):
     '''
         Defines class GitHubInfrastructure with attribute(s) and method(s).
-        Creates API for processing hyperlinks for splash.
+        Creates an API for processing hyperlinks for splash.
         API for GitHub information.
 
         It defines:
@@ -53,15 +53,15 @@ class GitHubInfrastructure(ATSChecker):
                 | _verbose - Enable/Disable verbose option.
                 | _property - Splash property in dict format.
             :methods:
-                | __init__ - Initial GitHubInfrastructure constructor.
-                | get_info_text - Pre-processed info text.
-                | get_issue_text - Pre-processed issue text.
-                | get_author_text - Pre-processed author text.
+                | __init__ - Initials GitHubInfrastructure constructor.
+                | get_info_text - Pre-processes info text.
+                | get_issue_text - Pre-processes issue text.
+                | get_author_text - Pre-processes author text.
     '''
 
     def __init__(self, prop: Dict[Any, Any], verbose: bool = False) -> None:
         '''
-            Initial GitHubInfrastructure constructor.
+            Initials GitHubInfrastructure constructor.
 
             :param property: Splash property in dict form
             :type property: <dict>
@@ -83,7 +83,7 @@ class GitHubInfrastructure(ATSChecker):
 
     def get_info_text(self) -> str:
         '''
-            Pre-processed info text for splash.
+            Pre-processes info text for splash.
 
             :return: Hyperlink with info text
             :rtype: <str>
@@ -97,7 +97,7 @@ class GitHubInfrastructure(ATSChecker):
 
     def get_issue_text(self) -> str:
         '''
-            Pre-processed issue text for splash.
+            Pre-processes issue text for splash.
 
             :return: Hyperlink with issue info
             :rtype: <str>
@@ -110,7 +110,7 @@ class GitHubInfrastructure(ATSChecker):
 
     def get_author_text(self) -> str:
         '''
-            Pre-processed author text for splash.
+            Pre-processes author text for splash.
 
             :return: Hyperlink with author info
             :rtype: <str>

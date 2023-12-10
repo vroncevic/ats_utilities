@@ -17,11 +17,11 @@ Copyright
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
     Defines class ConfFile with attribute(s) and method(s).
-    Creates API for information/configuration context manager.
+    Creates an API for the configuration context manager.
 '''
 
 import sys
-from typing import Any, Tuple, Dict, IO
+from typing import Any, List, Tuple, Dict, IO
 
 try:
     from ats_utilities.checker import ATSChecker
@@ -35,9 +35,9 @@ except ImportError as ats_error_message:
 
 __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2017, https://vroncevic.github.io/ats_utilities'
-__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
+__credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = '2.9.9'
+__version__ = '3.0.0'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
@@ -46,7 +46,7 @@ __status__ = 'Updated'
 class ConfFile(FileCheck):
     '''
         Defines class ConfFile with attribute(s) and method(s).
-        Creates API for information/configuration context manager.
+        Creates an API for the configuration context manager.
         Configuration file context manager.
 
         It defines:
@@ -58,9 +58,9 @@ class ConfFile(FileCheck):
                 | _file_format - File format.
                 | _file - File object.
             :methods:
-                | __init__ - Initial ConfFile constructor.
-                | __enter__ - Open configuration file in mode.
-                | __exit__ - Close configuration file.
+                | __init__ - Initials ConfFile constructor.
+                | __enter__ - Opens configuration file in mode.
+                | __exit__ - Closes configuration file.
     '''
 
     def __init__(
@@ -70,7 +70,7 @@ class ConfFile(FileCheck):
         verbose: bool = False
     ) -> None:
         '''
-            Initial ConfFile constructor.
+            Initials ConfFile constructor.
 
             :param file_path: Configuration file name | None
             :type file_path: <str> | <NoneType>
@@ -109,9 +109,9 @@ class ConfFile(FileCheck):
 
     def __enter__(self) -> IO[str] | None:
         '''
-            Open configuration file in mode.
+            Opens configuration file in mode.
 
-            :return: file object | None
+            :return: File IO object | None
             :rtype: <IO[str]> | <NoneType>
             :exceptions: None
         '''
@@ -131,7 +131,7 @@ class ConfFile(FileCheck):
         self, *args: Tuple[Any, ...], **kwargs: Dict[Any, Any]
     ) -> None:
         '''
-            Close configuration file.
+            Closes configuration file.
 
             :param *args: List of arguments
             :type file_path: <Tuple[Any, ...]>
