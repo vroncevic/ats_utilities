@@ -15,6 +15,7 @@ Subpackages
    ats_utilities.info
    ats_utilities.logging
    ats_utilities.option
+   ats_utilities.pro_config
    ats_utilities.splash
 
 Module contents

@@ -4,7 +4,7 @@
 Module
     ats_logging_test.py
 Copyright
-    Copyright (C) 2017 Vladimir Roncevic <elektron.ronca@gmail.com>
+    Copyright (C) 2017 - 2024 Vladimir Roncevic <elektron.ronca@gmail.com>
     ats_utilities is free software: you can redistribute it and/or modify it
     under the terms of the GNU General Public License as published by the
     Free Software Foundation, either version 3 of the License, or
@@ -37,10 +37,10 @@ except ImportError as test_error_message:
     sys.exit(f'\n{__file__}\n{test_error_message}\n')
 
 __author__ = 'Vladimir Roncevic'
-__copyright__ = 'Copyright 2017, https://vroncevic.github.io/ats_utilities'
+__copyright__ = '(C) 2024, https://vroncevic.github.io/ats_utilities'
 __credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = '3.0.0'
+__version__ = '3.1.0'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
@@ -50,6 +50,7 @@ class ATSLoggingTestCase(TestCase):
     '''
         Defines class ATSLoggingTestCase with attribute(s) and method(s).
         Creates test cases for checking functionalities of ATSLogger.
+        ATSLogger unit tests.
 
         It defines:
 
@@ -88,12 +89,12 @@ class ATSLoggingTestCase(TestCase):
     def test_set_not_existing_file_path(self) -> None:
         '''Test set file path'''
         with self.assertRaises(ATSFileError):
-            self.logger_ats.file_path = 'not_simple_tool.log'
+            self.logger_ats.logger_path = 'not_simple_tool.log'
 
     def test_set_file_path_wrong_type(self) -> None:
         '''Test set file path'''
         with self.assertRaises(ATSTypeError):
-            self.logger_ats.file_path = None
+            self.logger_ats.logger_path = None
 
     def test_set_logger_name_wrong_type(self) -> None:
         '''Test set file path'''
@@ -108,7 +109,7 @@ class ATSLoggingTestCase(TestCase):
     def test_logger_write_log_wrong_type(self) -> None:
         '''Test set file path'''
         with self.assertRaises(ATSTypeError):
-            self.logger_ats.file_path = f'{dirname(__file__)}{self.LOG_FILE}'
+            self.logger_ats.logger_path = f'{dirname(__file__)}{self.LOG_FILE}'
             self.logger_ats.write_log(
                 None, self.logger_ats.ATS_DEBUG
             )
@@ -116,13 +117,13 @@ class ATSLoggingTestCase(TestCase):
     def test_logger_write_log_wrong_level(self) -> None:
         '''Test set file path'''
         with self.assertRaises(ATSBadCallError):
-            self.logger_ats.file_path = f'{dirname(__file__)}{self.LOG_FILE}'
+            self.logger_ats.logger_path = f'{dirname(__file__)}{self.LOG_FILE}'
             self.logger_ats.write_log('simple test', -1)
 
     def test_is_log_file_set(self) -> None:
         '''Test is log file set'''
-        self.logger_ats.file_path = self.log_file
-        file_path: str | None = self.logger_ats.file_path
+        self.logger_ats.logger_path = self.log_file
+        file_path: str | None = self.logger_ats.logger_path
         self.assertIsNotNone(file_path)
 
     def test_debug(self) -> None:

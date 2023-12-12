@@ -4,7 +4,7 @@
 Module
     __init__.py
 Copyright
-    Copyright (C) 2017 Vladimir Roncevic <elektron.ronca@gmail.com>
+    Copyright (C) 2017 - 2024 Vladimir Roncevic <elektron.ronca@gmail.com>
     ats_utilities is free software: you can redistribute it and/or modify it
     under the terms of the GNU General Public License as published by the
     Free Software Foundation, either version 3 of the License, or
@@ -38,10 +38,10 @@ except ImportError as ats_error_message:
     sys.exit(f'\n{__file__}\n{ats_error_message}\n')
 
 __author__ = 'Vladimir Roncevic'
-__copyright__ = 'Copyright 2017, https://vroncevic.github.io/ats_utilities'
+__copyright__ = '(C) 2024, https://vroncevic.github.io/ats_utilities'
 __credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = '3.0.0'
+__version__ = '3.1.0'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
@@ -98,12 +98,12 @@ class ATSLogger(ATSLoggerName, ATSLoggerStatus, ATSLoggerFile):
         ATSLoggerStatus.__init__(self, verbose)
         ATSLoggerFile.__init__(self, verbose)
         self._verbose: bool = verbose
-        self.logger_file = str(ats_log_file)
+        self.logger_path = str(ats_log_file)
         self.logger_name = str(ats_name)
         basicConfig(
             format=self.LOG_MSG_FORMAT,
             datefmt=self.LOG_DATE_FORMAT,
-            filename=self.logger_file,
+            filename=self.logger_path,
             level=DEBUG
         )
         self.logger: Logger = getLogger(self.logger_name)

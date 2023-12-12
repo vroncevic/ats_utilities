@@ -4,7 +4,7 @@
 Module
     object2ini.py
 Copyright
-    Copyright (C) 2017 Vladimir Roncevic <elektron.ronca@gmail.com>
+    Copyright (C) 2017 - 2024 Vladimir Roncevic <elektron.ronca@gmail.com>
     ats_utilities is free software: you can redistribute it and/or modify it
     under the terms of the GNU General Public License as published by the
     Free Software Foundation, either version 3 of the License, or
@@ -34,10 +34,10 @@ except ImportError as ats_error_message:
     sys.exit(f'\n{__file__}\n{ats_error_message}\n')
 
 __author__ = 'Vladimir Roncevic'
-__copyright__ = 'Copyright 2017, https://vroncevic.github.io/ats_utilities'
+__copyright__ = '(C) 2024, https://vroncevic.github.io/ats_utilities'
 __credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = '3.0.0'
+__version__ = '3.1.0'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
@@ -80,9 +80,8 @@ class Object2Ini(ATSChecker):
         ])
         if error_id == self.TYPE_ERROR:
             raise ATSTypeError(error_msg)
-        config_file = str(config_file)
         self._verbose: bool = verbose
-        self._file_path: str = config_file
+        self._file_path: str = str(config_file)
         verbose_message(self._verbose, [f'configuration file {config_file}'])
 
     def write_configuration(

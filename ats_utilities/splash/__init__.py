@@ -38,10 +38,10 @@ except ImportError as ats_error_message:
     sys.exit(f'\n{__file__}\n{ats_error_message}\n')
 
 __author__ = 'Vladimir Roncevic'
-__copyright__ = 'Copyright 2021, https://vroncevic.github.io/ats_utilities'
+__copyright__ = '(C) 2024, https://vroncevic.github.io/ats_utilities'
 __credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = '3.0.0'
+__version__ = '3.1.0'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
@@ -84,7 +84,7 @@ class Splash(SplashProperty):
             terminal: TerminalProperties = TerminalProperties(self._verbose)
             size: Tuple[Any, ...] = terminal.size(self._verbose)
             if prop['ats_use_github_infrastructure']:
-                with open(prop['ats_logo_path'], 'r', encoding="utf-8") as scr:
+                with open(prop['ats_logo_path'], 'r', encoding='utf-8') as scr:
                     for line in scr:
                         processed_line: str = line.rstrip()
                         if bool(processed_line):

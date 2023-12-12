@@ -46,7 +46,7 @@
 <span class="sd">Module</span>
 <span class="sd">    __init__.py</span>
 <span class="sd">Copyright</span>
-<span class="sd">    Copyright (C) 2017 Vladimir Roncevic &lt;elektron.ronca@gmail.com&gt;</span>
+<span class="sd">    Copyright (C) 2017 - 2024 Vladimir Roncevic &lt;elektron.ronca@gmail.com&gt;</span>
 <span class="sd">    ats_utilities is free software: you can redistribute it and/or modify it</span>
 <span class="sd">    under the terms of the GNU General Public License as published by the</span>
 <span class="sd">    Free Software Foundation, either version 3 of the License, or</span>
@@ -67,10 +67,10 @@
 <span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">OrderedDict</span> <span class="k">as</span> <span class="n">OrderedDictionary</span>
 
 <span class="n">__author__</span> <span class="o">=</span> <span class="s1">&#39;Vladimir Roncevic&#39;</span>
-<span class="n">__copyright__</span> <span class="o">=</span> <span class="s1">&#39;Copyright 2017, https://vroncevic.github.io/ats_utilities&#39;</span>
+<span class="n">__copyright__</span> <span class="o">=</span> <span class="s1">&#39;(C) 2024, https://vroncevic.github.io/ats_utilities&#39;</span>
 <span class="n">__credits__</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Vladimir Roncevic&#39;</span><span class="p">,</span> <span class="s1">&#39;Python Software Foundation&#39;</span><span class="p">]</span>
 <span class="n">__license__</span> <span class="o">=</span> <span class="s1">&#39;https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE&#39;</span>
-<span class="n">__version__</span> <span class="o">=</span> <span class="s1">&#39;3.0.0&#39;</span>
+<span class="n">__version__</span> <span class="o">=</span> <span class="s1">&#39;3.1.0&#39;</span>
 <span class="n">__maintainer__</span> <span class="o">=</span> <span class="s1">&#39;Vladimir Roncevic&#39;</span>
 <span class="n">__email__</span> <span class="o">=</span> <span class="s1">&#39;elektron.ronca@gmail.com&#39;</span>
 <span class="n">__status__</span> <span class="o">=</span> <span class="s1">&#39;Updated&#39;</span>
@@ -116,22 +116,20 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_error_type</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_error_type_index</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
 
-<div class="viewcode-block" id="ATSChecker.collect_params"><a class="viewcode-back" href="../../ats_utilities.checker.html#ats_utilities.checker.ATSChecker.collect_params">[docs]</a>    <span class="k">def</span> <span class="nf">collect_params</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span> <span class="n">params_description</span><span class="p">:</span> <span class="n">OrderedDict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<div class="viewcode-block" id="ATSChecker.collect_params"><a class="viewcode-back" href="../../ats_utilities.checker.html#ats_utilities.checker.ATSChecker.collect_params">[docs]</a>    <span class="k">def</span> <span class="nf">collect_params</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params_desc</span><span class="p">:</span> <span class="n">OrderedDict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Collects all params in one list.</span>
 
-<span class="sd">            :param params_description: Description for params</span>
-<span class="sd">            :type params_description: &lt;OrderedDict[str, Any]&gt;</span>
+<span class="sd">            :param params_desc: Description for params</span>
+<span class="sd">            :type params_desc: &lt;OrderedDict[str, Any]&gt;</span>
 <span class="sd">            :return: True (are collected) | False (failed to collect)</span>
 <span class="sd">            :rtype: &lt;bool&gt;</span>
 <span class="sd">            :exceptions: None</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="k">if</span> <span class="nb">any</span><span class="p">([</span><span class="ow">not</span> <span class="n">params_description</span><span class="p">]):</span>
+        <span class="k">if</span> <span class="nb">any</span><span class="p">([</span><span class="ow">not</span> <span class="n">params_desc</span><span class="p">]):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_error_type</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">FORMAT_ERROR</span>
             <span class="k">return</span> <span class="kc">False</span>
-        <span class="k">for</span> <span class="n">exp_type</span><span class="p">,</span> <span class="n">inst</span> <span class="ow">in</span> <span class="n">params_description</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="k">for</span> <span class="n">exp_type</span><span class="p">,</span> <span class="n">inst</span> <span class="ow">in</span> <span class="n">params_desc</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
             <span class="n">pname</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">exp_type</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">sep</span><span class="o">=</span><span class="s1">&#39;:&#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
             <span class="n">ptype</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">exp_type</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">sep</span><span class="o">=</span><span class="s1">&#39;:&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_list_of_params</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
@@ -156,20 +154,20 @@
                         <span class="n">message</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">message</span><span class="si">}</span><span class="s1"> wrong type&#39;</span>
         <span class="k">return</span> <span class="n">message</span></div>
 
-<div class="viewcode-block" id="ATSChecker.check_types"><a class="viewcode-back" href="../../ats_utilities.checker.html#ats_utilities.checker.ATSChecker.check_types">[docs]</a>    <span class="k">def</span> <span class="nf">check_types</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params_description</span><span class="p">:</span> <span class="n">OrderedDict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<div class="viewcode-block" id="ATSChecker.check_types"><a class="viewcode-back" href="../../ats_utilities.checker.html#ats_utilities.checker.ATSChecker.check_types">[docs]</a>    <span class="k">def</span> <span class="nf">check_types</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params_desc</span><span class="p">:</span> <span class="n">OrderedDict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Checks params (types) for method or function.</span>
 
-<span class="sd">            :param params_description: Description for params</span>
-<span class="sd">            :type params_description: &lt;OrderedDict[str, Any]&gt;</span>
+<span class="sd">            :param params_desc: Description for params</span>
+<span class="sd">            :type params_desc: &lt;OrderedDict[str, Any]&gt;</span>
 <span class="sd">            :return: True (type(s) is(are) ok) | False (type(s) is(are) not ok)</span>
 <span class="sd">            :rtype: &lt;bool&gt;</span>
 <span class="sd">            :exceptions: None</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="k">if</span> <span class="nb">any</span><span class="p">([</span><span class="ow">not</span> <span class="n">params_description</span><span class="p">]):</span>
+        <span class="k">if</span> <span class="nb">any</span><span class="p">([</span><span class="ow">not</span> <span class="n">params_desc</span><span class="p">]):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_error_type</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">FORMAT_ERROR</span>
             <span class="k">return</span> <span class="kc">False</span>
-        <span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="p">(</span><span class="n">exp_type</span><span class="p">,</span> <span class="n">inst</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">params_description</span><span class="o">.</span><span class="n">items</span><span class="p">()):</span>
+        <span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="p">(</span><span class="n">exp_type</span><span class="p">,</span> <span class="n">inst</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">params_desc</span><span class="o">.</span><span class="n">items</span><span class="p">()):</span>
             <span class="n">param_type_name</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">exp_type</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">sep</span><span class="o">=</span><span class="s1">&#39;:&#39;</span><span class="p">)</span>
             <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">param_type_name</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
                 <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">inst</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span> <span class="o">!=</span> <span class="n">param_type_name</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
@@ -199,13 +197,13 @@
         <span class="k">return</span> <span class="n">priority_error_id</span></div>
 
 <div class="viewcode-block" id="ATSChecker.check_params"><a class="viewcode-back" href="../../ats_utilities.checker.html#ats_utilities.checker.ATSChecker.check_params">[docs]</a>    <span class="k">def</span> <span class="nf">check_params</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span> <span class="n">params_description</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">params_desc</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="p">,</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Checks params for method or function.</span>
 
-<span class="sd">            :param params_description: Description for params</span>
-<span class="sd">            :type params_description: &lt;List[Tuple[str, Any]]&gt;</span>
+<span class="sd">            :param params_desc: Description for params</span>
+<span class="sd">            :type params_desc: &lt;List[Tuple[str, Any]]&gt;</span>
 <span class="sd">            :return: error message, error id (0 | 1 | 2)</span>
 <span class="sd">            :rtype: &lt;str&gt; | &lt;NoneType&gt;, &lt;int&gt; | &lt;NoneType&gt;</span>
 <span class="sd">            :exceptions: None</span>
@@ -214,8 +212,8 @@
         <span class="n">module</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">stack</span><span class="p">()[</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_start_message</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">mod: </span><span class="si">{</span><span class="n">module</span><span class="si">}</span><span class="se">\n</span><span class="s1">  def: </span><span class="si">{</span><span class="n">func</span><span class="si">}</span><span class="s1">()&#39;</span>
         <span class="n">fail_any_check</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="nb">any</span><span class="p">([</span>
-            <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">collect_params</span><span class="p">(</span><span class="n">OrderedDictionary</span><span class="p">(</span><span class="n">params_description</span><span class="p">)),</span>
-            <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">check_types</span><span class="p">(</span><span class="n">OrderedDictionary</span><span class="p">(</span><span class="n">params_description</span><span class="p">))</span>
+            <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">collect_params</span><span class="p">(</span><span class="n">OrderedDictionary</span><span class="p">(</span><span class="n">params_desc</span><span class="p">)),</span>
+            <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">check_types</span><span class="p">(</span><span class="n">OrderedDictionary</span><span class="p">(</span><span class="n">params_desc</span><span class="p">))</span>
         <span class="p">])</span>
         <span class="n">message</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">usage_message</span><span class="p">()</span>
         <span class="n">error_id</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">priority_error</span><span class="p">()</span>

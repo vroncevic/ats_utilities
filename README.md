@@ -199,6 +199,10 @@ Framework structure
       │   └── __init__.py
       ├── option/
       │   └── __init__.py
+      ├── pro_config/
+	  │   ├── __init__.py
+	  │   ├── pro_name.py
+	  │   └── template_dir.py
       └── splash/
          ├── ext_infrastructure.py
          ├── github_infrastructure.py
@@ -208,7 +212,7 @@ Framework structure
          ├── splash_property.py
          └── terminal_properties.py
 
-      15 directories, 77 files
+      16 directories, 59 files
 ```
 
 ### Docs
