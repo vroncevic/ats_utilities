@@ -200,9 +200,9 @@ Framework structure
       ├── option/
       │   └── __init__.py
       ├── pro_config/
-	  │   ├── __init__.py
-	  │   ├── pro_name.py
-	  │   └── template_dir.py
+      │   ├── __init__.py
+      │   ├── pro_name.py
+      │   └── template_dir.py
       └── splash/
          ├── ext_infrastructure.py
          ├── github_infrastructure.py

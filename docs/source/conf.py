@@ -29,7 +29,7 @@ sys.path.insert(0, os.path.abspath('../../'))
 project: str = 'ats_utilities'
 project_copyright: str = '2017, https://vroncevic.github.io/ats_utilities'
 author: str = 'Vladimir Roncevic <elektron.ronca@gmail.com>'
-version: str = '3.1.0'
+version: str = '3.1.1'
 release: str = 'https://github.com/vroncevic/ats_utilities/releases'
 extensions: List[str] = ['sphinx.ext.autodoc', 'sphinx.ext.viewcode', ]
 templates_path: List[str] = ['_templates']
