@@ -24,10 +24,10 @@ import sys
 from typing import List
 
 __author__ = 'Vladimir Roncevic'
-__copyright__ = 'Copyright 2021, https://vroncevic.github.io/ats_utilities'
+__copyright__ = '(C) 2024, https://vroncevic.github.io/ats_utilities'
 __credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = '3.0.0'
+__version__ = '3.1.0'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
@@ -105,7 +105,7 @@ class ProgressBar:
             :type columns: <int>
             :exceptions: None
         '''
-        start_position: float = (columns/2) - (columns/10)
+        start_position: float = (columns / 2) - (columns / 10)
         number_of_tabs: int = int((start_position/8) - 3)
         sys.stdout.write(
             "\r %s %3i%% %s%s".expandtabs(4) % (

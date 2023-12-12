@@ -4,7 +4,7 @@
 Module
     verbose.py
 Copyright
-    Copyright (C) 2017 Vladimir Roncevic <elektron.ronca@gmail.com>
+    Copyright (C) 2017 - 2024 Vladimir Roncevic <elektron.ronca@gmail.com>
     ats_utilities is free software: you can redistribute it and/or modify it
     under the terms of the GNU General Public License as published by the
     Free Software Foundation, either version 3 of the License, or
@@ -17,7 +17,7 @@ Copyright
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
     Defines class ATSVerbose with attribute(s) and method(s).
-    Creates a verbose message container for console log mechanism.
+    Creates a verbose message container for the console log mechanism.
 '''
 
 import sys
@@ -32,10 +32,10 @@ except ImportError as ats_error_message:
     sys.exit(f'\n{__file__}\n{ats_error_message}\n')
 
 __author__ = 'Vladimir Roncevic'
-__copyright__ = 'Copyright 2017, https://vroncevic.github.io/ats_utilities'
+__copyright__ = '(C) 2024, https://vroncevic.github.io/ats_utilities'
 __credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = '3.0.0'
+__version__ = '3.1.0'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
@@ -44,7 +44,7 @@ __status__ = 'Updated'
 class ATSVerbose:
     '''
         Defines class ATSVerbose with attribute(s) and method(s).
-        Creates a verbose message container for console log mechanism.
+        Creates a verbose message container for the console log mechanism.
         Mechanism for logging verbose messages.
 
         It defines:
@@ -85,8 +85,8 @@ class ATSVerbose:
             :type message: <str> | <NoneType>
             :exceptions: None
         '''
-        init(autoreset=False)
         if message:
+            init(autoreset=False)
             self._message = f'{Fore.BLUE}{message}{Fore.RESET}'
 
     def is_not_none(self) -> bool:

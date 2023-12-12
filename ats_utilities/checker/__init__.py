@@ -4,7 +4,7 @@
 Module
     __init__.py
 Copyright
-    Copyright (C) 2017 Vladimir Roncevic <elektron.ronca@gmail.com>
+    Copyright (C) 2017 - 2024 Vladimir Roncevic <elektron.ronca@gmail.com>
     ats_utilities is free software: you can redistribute it and/or modify it
     under the terms of the GNU General Public License as published by the
     Free Software Foundation, either version 3 of the License, or
@@ -25,10 +25,10 @@ from typing import Any, List, Tuple, OrderedDict
 from collections import OrderedDict as OrderedDictionary
 
 __author__ = 'Vladimir Roncevic'
-__copyright__ = 'Copyright 2017, https://vroncevic.github.io/ats_utilities'
+__copyright__ = '(C) 2024, https://vroncevic.github.io/ats_utilities'
 __credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = '3.0.0'
+__version__ = '3.1.0'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
@@ -74,22 +74,20 @@ class ATSChecker:
         self._error_type: List[int] = [0, 0]
         self._error_type_index: List[int] = []
 
-    def collect_params(
-        self, params_description: OrderedDict[str, Any]
-    ) -> bool:
+    def collect_params(self, params_desc: OrderedDict[str, Any]) -> bool:
         '''
             Collects all params in one list.
 
-            :param params_description: Description for params
-            :type params_description: <OrderedDict[str, Any]>
+            :param params_desc: Description for params
+            :type params_desc: <OrderedDict[str, Any]>
             :return: True (are collected) | False (failed to collect)
             :rtype: <bool>
             :exceptions: None
         '''
-        if any([not params_description]):
+        if any([not params_desc]):
             self._error_type[1] = self.FORMAT_ERROR
             return False
-        for exp_type, inst in params_description.items():
+        for exp_type, inst in params_desc.items():
             pname: str = exp_type.split(sep=':')[1]
             ptype: str = exp_type.split(sep=':')[0]
             self._list_of_params.append(
@@ -114,20 +112,20 @@ class ATSChecker:
                         message = f'{message} wrong type'
         return message
 
-    def check_types(self, params_description: OrderedDict[str, Any]) -> bool:
+    def check_types(self, params_desc: OrderedDict[str, Any]) -> bool:
         '''
             Checks params (types) for method or function.
 
-            :param params_description: Description for params
-            :type params_description: <OrderedDict[str, Any]>
+            :param params_desc: Description for params
+            :type params_desc: <OrderedDict[str, Any]>
             :return: True (type(s) is(are) ok) | False (type(s) is(are) not ok)
             :rtype: <bool>
             :exceptions: None
         '''
-        if any([not params_description]):
+        if any([not params_desc]):
             self._error_type[1] = self.FORMAT_ERROR
             return False
-        for index, (exp_type, inst) in enumerate(params_description.items()):
+        for index, (exp_type, inst) in enumerate(params_desc.items()):
             param_type_name: List[str] = exp_type.split(sep=':')
             if len(param_type_name) == 2:
                 if type(inst).__name__ != param_type_name[0]:
@@ -157,13 +155,13 @@ class ATSChecker:
         return priority_error_id
 
     def check_params(
-        self, params_description: List[Tuple[str, Any]]
+        self, params_desc: List[Tuple[str, Any]]
     ) -> Tuple[str | None, int | None]:
         '''
             Checks params for method or function.
 
-            :param params_description: Description for params
-            :type params_description: <List[Tuple[str, Any]]>
+            :param params_desc: Description for params
+            :type params_desc: <List[Tuple[str, Any]]>
             :return: error message, error id (0 | 1 | 2)
             :rtype: <str> | <NoneType>, <int> | <NoneType>
             :exceptions: None
@@ -172,8 +170,8 @@ class ATSChecker:
         module: str = stack()[1][1]
         self._start_message = f'\nmod: {module}\n  def: {func}()'
         fail_any_check: bool = any([
-            not self.collect_params(OrderedDictionary(params_description)),
-            not self.check_types(OrderedDictionary(params_description))
+            not self.collect_params(OrderedDictionary(params_desc)),
+            not self.check_types(OrderedDictionary(params_desc))
         ])
         message: str | None = self.usage_message()
         error_id: int | None = self.priority_error()

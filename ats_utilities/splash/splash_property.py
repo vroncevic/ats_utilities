@@ -33,10 +33,10 @@ except ImportError as ats_error_message:
     sys.exit(f'\n{__file__}\n{ats_error_message}\n')
 
 __author__ = 'Vladimir Roncevic'
-__copyright__ = 'Copyright 2021, https://vroncevic.github.io/ats_utilities'
+__copyright__ = '(C) 2024, https://vroncevic.github.io/ats_utilities'
 __credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = '3.0.0'
+__version__ = '3.1.0'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
@@ -44,8 +44,8 @@ __status__ = 'Updated'
 
 class SplashProperty(ATSChecker):
     '''
-        Defined class SplashProperty with attribute(s) and method(s).
-        Created an API for checking splash property.
+        Defines class SplashProperty with attribute(s) and method(s).
+        Creates an API for checking splash property.
         Splash screen property API.
 
         It defines:
@@ -56,7 +56,7 @@ class SplashProperty(ATSChecker):
                 | _property - Splash property in dict format.
             :methods:
                 | __init__ - Initials SplashProperty constructor.
-                | validation - validates splash property.
+                | validation - Validates splash property.
     '''
 
     _EXPECTED_PROP_KEYS: List[str] = [

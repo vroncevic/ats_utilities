@@ -55,7 +55,7 @@
 <dl class="simple">
 <dt>Module</dt><dd><p>cfg_cli.py</p>
 </dd>
-<dt>Copyright</dt><dd><p>Copyright (C) 2017 Vladimir Roncevic &lt;<a class="reference external" href="mailto:elektron&#46;ronca&#37;&#52;&#48;gmail&#46;com">elektron<span>&#46;</span>ronca<span>&#64;</span>gmail<span>&#46;</span>com</a>&gt;
+<dt>Copyright</dt><dd><p>Copyright (C) 2017 - 2024 Vladimir Roncevic &lt;<a class="reference external" href="mailto:elektron&#46;ronca&#37;&#52;&#48;gmail&#46;com">elektron<span>&#46;</span>ronca<span>&#64;</span>gmail<span>&#46;</span>com</a>&gt;
 ats_utilities is free software: you can redistribute it and/or modify it
 under the terms of the GNU General Public License as published by the
 Free Software Foundation, either version 3 of the License, or
@@ -68,7 +68,7 @@ You should have received a copy of the GNU General Public License along
 with this program. If not, see &lt;<a class="reference external" href="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</a>&gt;.</p>
 </dd>
 <dt>Info</dt><dd><p>Defines class CfgCLI with attribute(s) and method(s).
-Creates an API for check and load information argument parser.</p>
+Creates an API for checks and loads an information argument parser.</p>
 </dd>
 </dl>
 <dl class="py class">
@@ -76,8 +76,8 @@ Creates an API for check and load information argument parser.</p>
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ats_utilities.cli.cfg_cli.</span></span><span class="sig-name descname"><span class="pre">CfgCLI</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">info_file</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ats_utilities/cli/cfg_cli.html#CfgCLI"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.cli.cfg_cli.CfgCLI" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="ats_utilities.config_io.cfg.html#ats_utilities.config_io.cfg.CfgBase" title="ats_utilities.config_io.cfg.CfgBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">CfgBase</span></code></a></p>
 <p>Defines class CfgCLI with attribute(s) and method(s).
-Creates an API for check and load information argument parser.
-Command line interface configurtion based on CFG format.</p>
+Creates an API for checks and loads an information argument parser.
+Command-line interface configuration based on CFG format.</p>
 <p>It defines:</p>
 <blockquote>
 <div><dl class="field-list">
@@ -89,9 +89,9 @@ Command line interface configurtion based on CFG format.</p>
 <dt class="field-even">methods<span class="colon">:</span></dt>
 <dd class="field-even"><div class="line-block">
 <div class="line">__init__ - Initials CfgCLI constructor.</div>
-<div class="line">add_new_option - Adds a new option for the CL interface.</div>
+<div class="line">add_new_option - Adds a new option for the the CL interface.</div>
 <div class="line">parse_args - Parses the CL arguments.</div>
-<div class="line">process - Processes and runs tool operation (Abstract).</div>
+<div class="line">process - Processes and runs tool operations (Abstract).</div>
 </div>
 </dd>
 </dl>
@@ -136,7 +136,7 @@ Command line interface configurtion based on CFG format.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="ats_utilities.cli.cfg_cli.CfgCLI.process">
 <em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">process</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="_modules/ats_utilities/cli/cfg_cli.html#CfgCLI.process"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.cli.cfg_cli.CfgCLI.process" title="Permalink to this definition">¶</a></dt>
-<dd><p>Process and runs tool operation (Abstract).</p>
+<dd><p>Processes and runs tool operations (Abstract).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>verbose</strong> (<em>&lt;bool&gt;</em>) – Enable/Disable verbose option</p>

@@ -198,6 +198,10 @@ Framework structure
       │   └── __init__.py
       ├── option/
       │   └── __init__.py
+      ├── pro_config/
+	   │   ├── __init__.py
+	   │   ├── pro_name.py
+	   │   └── template_dir.py
       └── splash/
          ├── ext_infrastructure.py
          ├── github_infrastructure.py
@@ -207,7 +211,7 @@ Framework structure
          ├── splash_property.py
          └── terminal_properties.py
 
-      15 directories, 77 files
+      16 directories, 59 files
 
 Copyright and licence
 ----------------------
@@ -223,7 +227,7 @@ Copyright and licence
 Copyright (C) 2017-2024 by `vroncevic.github.io/ats_utilities <https://vroncevic.github.io/ats_utilities>`_
 
 **ats_utilities** is free software; you can redistribute it and/or modify
-it under the same terms as Python itself, either Python version 2.x/3.x or,
+it under the same terms as Python itself, either Python version 3.x or,
 at your option, any later version of Python 3 you may have available.
 
 Lets help and support PSF.
