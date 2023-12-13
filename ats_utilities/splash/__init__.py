@@ -4,7 +4,7 @@
 Module
     __init__.py
 Copyright
-    Copyright (C) 2021 Vladimir Roncevic <elektron.ronca@gmail.com>
+    Copyright (C) 2017 - 2024 Vladimir Roncevic <elektron.ronca@gmail.com>
     ats_utilities is free software: you can redistribute it and/or modify it
     under the terms of the GNU General Public License as published by the
     Free Software Foundation, either version 3 of the License, or
@@ -25,14 +25,14 @@ from typing import Any, Dict, Tuple, List
 from time import sleep
 
 try:
-    from ats_utilities.checker import ATSChecker
     from ats_utilities.console_io.verbose import verbose_message
-    from ats_utilities.exceptions.ats_type_error import ATSTypeError
     from ats_utilities.splash.progress_bar import ProgressBar
     from ats_utilities.splash.terminal_properties import TerminalProperties
     from ats_utilities.splash.splash_property import SplashProperty
     from ats_utilities.splash.github_infrastructure import GitHubInfrastructure
     from ats_utilities.splash.ext_infrastructure import ExtInfrastructure
+    from ats_utilities.exceptions.ats_type_error import ATSTypeError
+    from ats_utilities.exceptions.ats_value_error import ATSValueError
 except ImportError as ats_error_message:
     # Force exit python #######################################################
     sys.exit(f'\n{__file__}\n{ats_error_message}\n')
@@ -41,7 +41,7 @@ __author__ = 'Vladimir Roncevic'
 __copyright__ = '(C) 2024, https://vroncevic.github.io/ats_utilities'
 __credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = '3.1.1'
+__version__ = '3.1.2'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
@@ -70,20 +70,15 @@ class Splash(SplashProperty):
             :type prop: <: Dict[Any, Any]>
             :param verbose: Enable/Disable verbose option
             :type verbose: <bool>
-            :exceptions: ATSTypeError
+            :exceptions: None
         '''
-        checker: ATSChecker = ATSChecker()
-        error_msg: str | None = None
-        error_id: int | None = None
-        error_msg, error_id = checker.check_params([('dict:prop', prop)])
-        if error_id == checker.TYPE_ERROR:
-            raise ATSTypeError(error_msg)
         super().__init__(prop, verbose)
         self._verbose: bool = verbose
         if self.validate(self._verbose):
             terminal: TerminalProperties = TerminalProperties(self._verbose)
             size: Tuple[Any, ...] = terminal.size(self._verbose)
             if prop['ats_use_github_infrastructure']:
+                print("\n")
                 with open(prop['ats_logo_path'], 'r', encoding='utf-8') as scr:
                     for line in scr:
                         processed_line: str = line.rstrip()
@@ -122,21 +117,21 @@ class Splash(SplashProperty):
         self,
         columns: int,
         additional_shifter: int,
-        text: str,
+        text: str | None,
         verbose: bool = False
     ) -> None:
         '''
             Center console line.
 
-            :param columns: Colums for open console session
+            :param columns: Colums for console session
             :type columns: <int>
             :param additional_shifter: Additional shifters
             :type additional_shifter: <int>
-            :param text: Text for console session
-            :type text: <str>
+            :param text: Text for console session | None
+            :type text: <str> | <NoneType>
             :param verbose: Enable/Disable verbose option
             :type verbose: <bool>
-            :exceptions: ATSTypeError
+            :exceptions: ATSTypeError | ATSValueError
         '''
         error_msg: str | None = None
         error_id: int | None = None
@@ -147,10 +142,12 @@ class Splash(SplashProperty):
         ])
         if error_id == self.TYPE_ERROR:
             raise ATSTypeError(error_msg)
+        if not bool(text):
+            raise ATSValueError('missing text')
         verbose_message(
             self._verbose or verbose,
             [f'{columns} {additional_shifter} {text}']
         )
-        start_position: float = (columns / 2) - 21
+        start_position: float = (columns / 2) - 30
         number_of_tabs = int((start_position / 8) - 1 + additional_shifter)
         print('{0}{1}'.format('\011' * number_of_tabs, text))

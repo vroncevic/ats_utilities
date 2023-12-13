@@ -4,7 +4,7 @@
 Module
     progress_bar.py
 Copyright
-    Copyright (C) 2021 Vladimir Roncevic <elektron.ronca@gmail.com>
+    Copyright (C) 2017 - 2024 Vladimir Roncevic <elektron.ronca@gmail.com>
     ats_utilities is free software: you can redistribute it and/or modify it
     under the terms of the GNU General Public License as published by the
     Free Software Foundation, either version 3 of the License, or
@@ -17,7 +17,7 @@ Copyright
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
     Defineds class ProgressBar with attribute(s) and method(s).
-    Loads a progressbar as part of splashscreen.
+    Loads a progressbar as part of splash screen.
 '''
 
 import sys
@@ -27,7 +27,7 @@ __author__ = 'Vladimir Roncevic'
 __copyright__ = '(C) 2024, https://vroncevic.github.io/ats_utilities'
 __credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = '3.1.1'
+__version__ = '3.1.2'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
@@ -36,7 +36,7 @@ __status__ = 'Updated'
 class ProgressBar:
     '''
         Defineds class ProgressBar with attribute(s) and method(s).
-        Loads a progressbar as part of splashscreen.
+        Loads a progressbar as part of splash screen.
         Progress bar component.
 
         It defines:

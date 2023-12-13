@@ -2,4 +2,3 @@ wheel
 PyYAML
 bs4
 colorama
-configparser
