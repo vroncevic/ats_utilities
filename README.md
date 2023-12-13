@@ -105,7 +105,6 @@ You can use Dockerfile to create image/container.
 These modules requires other modules and libraries (Python 3.x)
 * [yaml - YAML parser and emitter for Python](https://pypi.org/project/PyYAML/)
 * [bs4 - Screen-scraping library](https://pypi.org/project/beautifulsoup4/)
-* [configparser - Configuration parser library](https://pypi.org/project/configparser/)
 * [colorama - Cross-platform colored terminal text](https://pypi.org/project/colorama/)
 
 ### Framework structure

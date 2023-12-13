@@ -30,6 +30,7 @@ from unittest import TestCase, main
 try:
     from ats_utilities.splash import Splash
     from ats_utilities.exceptions.ats_type_error import ATSTypeError
+    from ats_utilities.exceptions.ats_value_error import ATSValueError
 except ImportError as test_error_message:
     # Force close python test #################################################
     sys.exit(f'\n{__file__}\n{test_error_message}\n')
@@ -38,7 +39,7 @@ __author__ = 'Vladimir Roncevic'
 __copyright__ = '(C) 2024, https://vroncevic.github.io/ats_utilities'
 __credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = '3.1.1'
+__version__ = '3.1.2'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
@@ -58,7 +59,10 @@ class ATSSplashTestCase(TestCase):
                 | setUp - Call before test case.
                 | tearDown - Call after test case.
                 | test_splash_with_none_property - Test splash with None.
-                | test_size - Test for size.
+                | test_create - Test for create (not None).
+                | test_create_with_ext - Test for create with external.
+                | test_wrong_parameter_center - Test for wrong center param.
+                | test_empty_parameter_center - Test for empty center param.
     '''
 
     def setUp(self) -> None:
@@ -73,7 +77,7 @@ class ATSSplashTestCase(TestCase):
             Splash(None)  # type: ignore
 
     def test_create(self) -> None:
-        '''Test for create'''
+        '''Test for create (not None)'''
         splash: Splash = Splash(
             {
                 'ats_organization': 'App Example',
@@ -86,7 +90,7 @@ class ATSSplashTestCase(TestCase):
         self.assertIsNotNone(splash)
 
     def test_create_with_ext(self) -> None:
-        '''Test for create'''
+        '''Test for create with external'''
         splash: Splash = Splash(
             {
                 'ats_organization': 'App Example',
@@ -97,6 +101,34 @@ class ATSSplashTestCase(TestCase):
             }
         )
         self.assertIsNotNone(splash)
+
+    def test_wrong_parameter_center(self) -> None:
+        '''Test for wrong center param'''
+        splash: Splash = Splash(
+            {
+                'ats_organization': 'App Example',
+                'ats_repository': 'app_example',
+                'ats_name': 'appexample',
+                'ats_logo_path': f'{dirname(__file__)}/config/app.logo',
+                'ats_use_github_infrastructure': False
+            }
+        )
+        with self.assertRaises(ATSTypeError):
+            splash.center(120, 20, None)
+
+    def test_empty_parameter_center(self) -> None:
+        '''Test for empty center param'''
+        splash: Splash = Splash(
+            {
+                'ats_organization': 'App Example',
+                'ats_repository': 'app_example',
+                'ats_name': 'appexample',
+                'ats_logo_path': f'{dirname(__file__)}/config/app.logo',
+                'ats_use_github_infrastructure': False
+            }
+        )
+        with self.assertRaises(ATSValueError):
+            splash.center(120, 20, '')
 
 
 if __name__ == '__main__':

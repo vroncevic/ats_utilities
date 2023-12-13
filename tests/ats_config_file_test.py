@@ -30,6 +30,7 @@ from os.path import dirname
 try:
     from ats_utilities.config_io import ConfFile
     from ats_utilities.exceptions.ats_type_error import ATSTypeError
+    from ats_utilities.exceptions.ats_value_error import ATSValueError
 except ImportError as test_error_message:
     # Force close python test #################################################
     sys.exit(f'\n{__file__}\n{test_error_message}\n')
@@ -38,7 +39,7 @@ __author__ = 'Vladimir Roncevic'
 __copyright__ = '(C) 2024, https://vroncevic.github.io/ats_utilities'
 __credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = '3.1.1'
+__version__ = '3.1.2'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
@@ -60,6 +61,9 @@ class ConfigFileTestCase(TestCase):
                 | test_config_path - Test for file path.
                 | test_none_file - Test for None file.
                 | test_wrong_path_file - Test for wrong file path.
+                | test_empty_path_file - Test for missing file path.
+                | test_empty_type_file - Test for missing file format.
+                | test_empty_mode_file - Test for missing file mode.
     '''
 
     def setUp(self) -> None:
@@ -84,6 +88,24 @@ class ConfigFileTestCase(TestCase):
         '''Test for wrong file path'''
         with ConfFile('test', 'r', 'Makefile') as cfg:
             self.assertIsNone(cfg)
+
+    def test_empty_path_file(self) -> None:
+        '''Test for missing file path'''
+        with self.assertRaises(ATSValueError):
+            with ConfFile('', 'r', 'Makefile') as cfg:
+                self.assertIsNone(cfg)
+
+    def test_empty_type_file(self) -> None:
+        '''Test for missing file format'''
+        with self.assertRaises(ATSValueError):
+            with ConfFile('test', 'r', '') as cfg:
+                self.assertIsNone(cfg)
+
+    def test_empty_mode_file(self) -> None:
+        '''Test for missing file mode'''
+        with self.assertRaises(ATSValueError):
+            with ConfFile('test', '', 'Makefile') as cfg:
+                self.assertIsNone(cfg)
 
 
 if __name__ == '__main__':

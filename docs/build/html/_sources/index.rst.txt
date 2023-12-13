@@ -102,7 +102,6 @@ Dependencies
 
 * `yaml - YAML parser and emitter for Python <https://pypi.org/project/PyYAML/>`_
 * `bs4 - Screen-scraping library <https://pypi.org/project/beautifulsoup4/>`_
-* `configparser - Configuration parser library <https://pypi.org/project/configparser/>`_
 * `colorama - Cross-platform colored terminal text <https://pypi.org/project/colorama/>`_
 
 Framework structure
