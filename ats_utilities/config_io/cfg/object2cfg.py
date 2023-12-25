@@ -36,7 +36,7 @@ __author__ = 'Vladimir Roncevic'
 __copyright__ = '(C) 2024, https://vroncevic.github.io/ats_utilities'
 __credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = '3.1.2'
+__version__ = '3.1.3'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
@@ -84,13 +84,13 @@ class Object2Cfg(ATSChecker):
         verbose_message(self._verbose, [f'configuration file {config_file}'])
 
     def write_configuration(
-        self, configuration: Dict[Any, Any], verbose: bool = False
+        self, config: Dict[Any, Any], verbose: bool = False
     ) -> bool:
         '''
             Writes a configuration to a CFG file.
 
-            :param configuration: Configuration object | None
-            :type configuration: <Dict[Any, Any]> | <NoneType>
+            :param config: Configuration object | None
+            :type config: <Dict[Any, Any]> | <NoneType>
             :param verbose: Enable/Disable verbose option
             :type verbose: <bool>
             :return: True (configuration written to file) | False
@@ -99,20 +99,18 @@ class Object2Cfg(ATSChecker):
         '''
         error_msg: str | None = None
         error_id: int | None = None
-        error_msg, error_id = self.check_params([
-            ('dict:configuration', configuration)
-        ])
+        error_msg, error_id = self.check_params([('dict:config', config)])
         if error_id == self.TYPE_ERROR:
             raise ATSTypeError(error_msg)
         verbose_message(
-            self._verbose or verbose, [f'configuration {configuration}']
+            self._verbose or verbose, [f'configuration {config}']
         )
         status: bool = False
-        if not configuration:
+        if not bool(config):
             return status
         with ConfFile(self._file_path, 'w', self._EXT) as cfg:
-            if cfg:
-                for key in configuration:
-                    cfg.write(f'{key} = {configuration.get(key)}\n')
+            if bool(cfg):
+                for key in config:
+                    cfg.write(f'{key} = {config.get(key)}\n')
                 status = True
         return status

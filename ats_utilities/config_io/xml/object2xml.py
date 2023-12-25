@@ -37,7 +37,7 @@ __author__ = 'Vladimir Roncevic'
 __copyright__ = '(C) 2024, https://vroncevic.github.io/ats_utilities'
 __credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = '3.1.2'
+__version__ = '3.1.3'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
@@ -85,14 +85,14 @@ class Object2Xml(ATSChecker):
         verbose_message(self._verbose, [f'configuration file {config_file}'])
 
     def write_configuration(
-        self, configuration: BeautifulSoup | None, verbose: bool = False
+        self, config: BeautifulSoup | None, verbose: bool = False
     ) -> bool:
         '''
             Writes configuration to a XML file.
 
             :param verbose: Enable/Disable verbose option
             :type verbose: <bool>
-            :param configuration: Configuration object
+            :param config: Configuration object
             :type: <BeautifulSoup> | <NoneType>
             :return: True (configuration written to file) | False
             :rtype: <bool>
@@ -101,19 +101,19 @@ class Object2Xml(ATSChecker):
         error_msg: str | None = None
         error_id: int | None = None
         error_msg, error_id = self.check_params([
-            ('BeautifulSoup:configuration', configuration)
+            ('BeautifulSoup:config', config)
         ])
         if error_id == self.TYPE_ERROR:
             raise ATSTypeError(error_msg)
         status: bool = False
         verbose_message(
-            self._verbose or verbose, [f'configuration {configuration}']
+            self._verbose or verbose, [f'configuration {config}']
         )
-        if configuration:
-            if not bool(configuration.contents):
+        if bool(config):
+            if not bool(config.contents):
                 return status
             with ConfFile(self._file_path, 'w', self._EXT) as xml:
-                if xml:
-                    if xml.write(f'{configuration}'):
+                if bool(xml):
+                    if xml.write(f'{config}'):
                         status = True
         return status

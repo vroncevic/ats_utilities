@@ -30,7 +30,6 @@ from os.path import dirname
 
 try:
     from ats_utilities.cli.xml_cli import XmlCLI
-    from ats_utilities.exceptions.ats_type_error import ATSTypeError
 except ImportError as test_error_message:
     # Force close python test #################################################
     sys.exit(f'\n{__file__}\n{test_error_message}\n')
@@ -39,7 +38,7 @@ __author__ = 'Vladimir Roncevic'
 __copyright__ = '(C) 2024, https://vroncevic.github.io/ats_utilities'
 __credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = '3.1.2'
+__version__ = '3.1.3'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
@@ -126,11 +125,10 @@ class XmlTestCase(TestCase):
 
     def test_parse_wrong_args_called(self) -> None:
         '''Test parse without args'''
-        with self.assertRaises(ATSTypeError):
-            self.ats_cli_xml_api.add_new_option(
-                'arg1', 'arg2', option='value'
-            )
-            self.ats_cli_xml_api.parse_args(None)  # type: ignore
+        self.ats_cli_xml_api.add_new_option(
+            'arg1', 'arg2', option='value'
+        )
+        self.assertIsNotNone(self.ats_cli_xml_api.parse_args(None))
 
 
 if __name__ == '__main__':

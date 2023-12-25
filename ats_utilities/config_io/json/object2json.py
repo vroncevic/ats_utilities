@@ -37,7 +37,7 @@ __author__ = 'Vladimir Roncevic'
 __copyright__ = '(C) 2024, https://vroncevic.github.io/ats_utilities'
 __credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = '3.1.2'
+__version__ = '3.1.3'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
@@ -85,14 +85,14 @@ class Object2Json(ATSChecker):
         verbose_message(self._verbose, [f'configuration file {config_file}'])
 
     def write_configuration(
-        self, configuration: Dict[Any, Any], verbose: bool = False
+        self, config: Dict[Any, Any], verbose: bool = False
     ) -> bool:
         '''
             Writes configuration to a JSON file.
 
             :param verbose: Enable/Disable verbose option
             :type verbose: <bool>
-            :param configuration: Configuration object
+            :param config: Configuration object
             :type: <Dict[Any, Any]>
             :return: True (configuration written to file) | False
             :rtype: <bool>
@@ -100,19 +100,15 @@ class Object2Json(ATSChecker):
         '''
         error_msg: str | None = None
         error_id: int | None = None
-        error_msg, error_id = self.check_params([
-            ('dict:configuration', configuration)
-        ])
+        error_msg, error_id = self.check_params([('dict:config', config)])
         if error_id == self.TYPE_ERROR:
             raise ATSTypeError(error_msg)
         status: bool = False
-        verbose_message(
-            self._verbose or verbose, [f'configuration {configuration}']
-        )
-        if not configuration:
+        verbose_message(self._verbose or verbose, [f'configuration {config}'])
+        if not bool(config):
             return status
         with ConfFile(self._file_path, 'w', self._EXT) as json:
-            if json:
-                dump(configuration, json)
+            if bool(json):
+                dump(config, json)
                 status = True
         return status

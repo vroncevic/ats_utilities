@@ -41,7 +41,7 @@ __author__ = 'Vladimir Roncevic'
 __copyright__ = '(C) 2024, https://vroncevic.github.io/ats_utilities'
 __credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = '3.1.2'
+__version__ = '3.1.3'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
@@ -115,13 +115,13 @@ class ATSInfo(ATSName, ATSVersion, ATSLicence, ATSBuildDate, ATSInfoOk):
             )
 
     def is_correct(
-        self, information: Dict[Any, Any], verbose: bool = False
+        self, info: Dict[Any, Any], verbose: bool = False
     ) -> bool:
         '''
             Checks information structure.
 
-            :param information: The ATS base information
-            :type information: <Dict[Any, Any]>
+            :param info: The ATS base information
+            :type info: <Dict[Any, Any]>
             :param verbose: Enable/Disable verbose option
             :type verbose: <bool>
             :return: True (all info params are ok) | False
@@ -130,21 +130,19 @@ class ATSInfo(ATSName, ATSVersion, ATSLicence, ATSBuildDate, ATSInfoOk):
         '''
         error_msg: str | None = None
         error_id: int | None = None
-        error_msg, error_id = self.check_params([
-            ('dict:information', information)
-        ])
+        error_msg, error_id = self.check_params([('dict:info', info)])
         if error_id == self.TYPE_ERROR:
             raise ATSTypeError(error_msg)
         verbose_message(
-            self._verbose or verbose, [f'info structure {str(information)}']
+            self._verbose or verbose, [f'info structure {str(info)}']
         )
         all_state: List[bool] = []
-        for info_key in information.keys():
+        for info_key in info.keys():
             if info_key not in self.ATS_BASE_INFO.values():
                 error_message([f'key not expected [{info_key}]'])
                 all_state.append(False)
             else:
-                if information[info_key] is None:
+                if info[info_key] is None:
                     error_message([f'parameter [{info_key}] is None'])
                     all_state.append(False)
                 else:
