@@ -39,7 +39,7 @@ __author__ = 'Vladimir Roncevic'
 __copyright__ = '(C) 2024, https://vroncevic.github.io/ats_utilities'
 __credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = '3.1.2'
+__version__ = '3.1.3'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
@@ -87,11 +87,15 @@ class YamlBase(ATSChecker):
         self._verbose: bool = verbose
         information: Dict[Any, Any] | None = None
         self.tool_operational: bool = False
-        self.yaml2obj: Yaml2Object = Yaml2Object(info_file, self._verbose)
-        self.obj2yaml: Object2Yaml = Object2Yaml(info_file, self._verbose)
-        if all([self.yaml2obj, self.obj2yaml]):
+        self.yaml2obj: Yaml2Object | None = Yaml2Object(
+            info_file, self._verbose
+        )
+        self.obj2yaml: Object2Yaml | None = Object2Yaml(
+            info_file, self._verbose
+        )
+        if all([bool(self.yaml2obj), bool(self.obj2yaml)]):
             information = self.yaml2obj.read_configuration(self._verbose)
-        if information:
+        if bool(information):
             info: ATSInfo = ATSInfo(information, self._verbose)
             if info.ats_info_ok:
                 self.option_parser: ATSOptionParser = ATSOptionParser(

@@ -36,7 +36,7 @@ __author__ = 'Vladimir Roncevic'
 __copyright__ = '(C) 2024, https://vroncevic.github.io/ats_utilities'
 __credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = '3.1.2'
+__version__ = '3.1.3'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
@@ -111,13 +111,13 @@ class ATSOptionParser(ATSChecker):
         self._opt_parser.add_argument(*args, **kwargs)
 
     def parse_args(
-        self, arguments: Sequence[str], verbose: bool = False
+        self, arguments: Sequence[str] | None, verbose: bool = False
     ) -> Namespace:
         '''
             Processes arguments from the start.
 
-            :param arguments: Sequence of arguments
-            :type arguments: <Sequence[str]>
+            :param arguments: Sequence of arguments | None
+            :type arguments: <Sequence[str]> | <NoneType>
             :param verbose: Enable/Disable verbose option
             :type verbose: <bool>
             :return: Namespace object

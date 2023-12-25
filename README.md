@@ -115,103 +115,103 @@ Framework structure
 
 ```bash
     ats_utilities/
-      ├── checker/
-      │   └── __init__.py
-      ├── cli/
-      │   ├── cfg_cli_meta.py
-      │   ├── cfg_cli.py
-      │   ├── ini_cli_meta.py
-      │   ├── ini_cli.py
-      │   ├── __init__.py
-      │   ├── json_cli_meta.py
-      │   ├── json_cli.py
-      │   ├── xml_cli_meta.py
-      │   ├── xml_cli.py
-      │   ├── yaml_cli_meta.py
-      │   └── yaml_cli.py
-      ├── config_io/
-      │   ├── abs_read_conf.py
-      │   ├── abs_write_conf.py
-      │   ├── cfg/
-      │   │   ├── cfg2object_meta.py
-      │   │   ├── cfg2object.py
-      │   │   ├── __init__.py
-      │   │   ├── object2cfg_meta.py
-      │   │   └── object2cfg.py
-      │   ├── conf_file_meta.py
-      │   ├── file_check.py
-      │   ├── ini/
-      │   │   ├── ini2object_meta.py
-      │   │   ├── ini2object.py
-      │   │   ├── __init__.py
-      │   │   ├── object2ini_meta.py
-      │   │   └── object2ini.py
-      │   ├── __init__.py
-      │   ├── json/
-      │   │   ├── __init__.py
-      │   │   ├── json2object_meta.py
-      │   │   ├── json2object.py
-      │   │   ├── object2json_meta.py
-      │   │   └── object2json.py
-      │   ├── xml/
-      │   │   ├── __init__.py
-      │   │   ├── object2xml_meta.py
-      │   │   ├── object2xml.py
-      │   │   ├── xml2object_meta.py
-      │   │   └── xml2object.py
-      │   └── yaml/
-      │       ├── __init__.py
-      │       ├── object2yaml_meta.py
-      │       ├── object2yaml.py
-      │       ├── yaml2object_meta.py
-      │       └── yaml2object.py
-      ├── console_io/
-      │   ├── error.py
-      │   ├── __init__.py
-      │   ├── success.py
-      │   ├── verbose.py
-      │   └── warning.py
-      ├── exceptions/
-      │   ├── ats_attribute_error.py
-      │   ├── ats_bad_call_error.py
-      │   ├── ats_file_error.py
-      │   ├── ats_key_error.py
-      │   ├── ats_lookup_error.py
-      │   ├── ats_parameter_error.py
-      │   ├── ats_type_error.py
-      │   ├── ats_value_error.py
-      │   └── __init__.py
-      ├── info/
-      │   ├── ats_build_date.py
-      │   ├── ats_info_meta.py
-      │   ├── ats_info_ok.py
-      │   ├── ats_licence.py
-      │   ├── ats_name.py
-      │   ├── ats_version.py
-      │   └── __init__.py
-      ├── __init__.py
-      ├── logging/
-      │   ├── ats_logger_file.py
-      │   ├── ats_logger_meta.py
-      │   ├── ats_logger_name.py
-      │   ├── ats_logger_status.py
-      │   └── __init__.py
-      ├── option/
-      │   └── __init__.py
-      ├── pro_config/
-      │   ├── __init__.py
-      │   ├── pro_name.py
-      │   └── template_dir.py
-      └── splash/
-         ├── ext_infrastructure.py
-         ├── github_infrastructure.py
-         ├── __init__.py
-         ├── progress_bar.py
-         ├── splash_meta.py
-         ├── splash_property.py
-         └── terminal_properties.py
-
-      16 directories, 59 files
+          ├── checker/
+          │   └── __init__.py
+          ├── cli/
+          │   ├── cfg_cli_meta.py
+          │   ├── cfg_cli.py
+          │   ├── ini_cli_meta.py
+          │   ├── ini_cli.py
+          │   ├── __init__.py
+          │   ├── json_cli_meta.py
+          │   ├── json_cli.py
+          │   ├── xml_cli_meta.py
+          │   ├── xml_cli.py
+          │   ├── yaml_cli_meta.py
+          │   └── yaml_cli.py
+          ├── config_io/
+          │   ├── abs_read_conf.py
+          │   ├── abs_write_conf.py
+          │   ├── cfg/
+          │   │   ├── cfg2object_meta.py
+          │   │   ├── cfg2object.py
+          │   │   ├── __init__.py
+          │   │   ├── object2cfg_meta.py
+          │   │   └── object2cfg.py
+          │   ├── conf_file_meta.py
+          │   ├── file_check.py
+          │   ├── ini/
+          │   │   ├── ini2object_meta.py
+          │   │   ├── ini2object.py
+          │   │   ├── __init__.py
+          │   │   ├── object2ini_meta.py
+          │   │   └── object2ini.py
+          │   ├── __init__.py
+          │   ├── json/
+          │   │   ├── __init__.py
+          │   │   ├── json2object_meta.py
+          │   │   ├── json2object.py
+          │   │   ├── object2json_meta.py
+          │   │   └── object2json.py
+          │   ├── xml/
+          │   │   ├── __init__.py
+          │   │   ├── object2xml_meta.py
+          │   │   ├── object2xml.py
+          │   │   ├── xml2object_meta.py
+          │   │   └── xml2object.py
+          │   └── yaml/
+          │       ├── __init__.py
+          │       ├── object2yaml_meta.py
+          │       ├── object2yaml.py
+          │       ├── yaml2object_meta.py
+          │       └── yaml2object.py
+          ├── console_io/
+          │   ├── error.py
+          │   ├── __init__.py
+          │   ├── success.py
+          │   ├── verbose.py
+          │   └── warning.py
+          ├── exceptions/
+          │   ├── ats_attribute_error.py
+          │   ├── ats_bad_call_error.py
+          │   ├── ats_file_error.py
+          │   ├── ats_key_error.py
+          │   ├── ats_lookup_error.py
+          │   ├── ats_parameter_error.py
+          │   ├── ats_type_error.py
+          │   ├── ats_value_error.py
+          │   └── __init__.py
+          ├── info/
+          │   ├── ats_build_date.py
+          │   ├── ats_info_meta.py
+          │   ├── ats_info_ok.py
+          │   ├── ats_licence.py
+          │   ├── ats_name.py
+          │   ├── ats_version.py
+          │   └── __init__.py
+          ├── __init__.py
+          ├── logging/
+          │   ├── ats_logger_file.py
+          │   ├── ats_logger_meta.py
+          │   ├── ats_logger_name.py
+          │   ├── ats_logger_status.py
+          │   └── __init__.py
+          ├── option/
+          │   └── __init__.py
+          ├── pro_config/
+          │   ├── __init__.py
+          │   ├── pro_name.py
+          │   └── template_dir.py
+          └── splash/
+             ├── ext_infrastructure.py
+             ├── github_infrastructure.py
+             ├── __init__.py
+             ├── progress_bar.py
+             ├── splash_meta.py
+             ├── splash_property.py
+             └── terminal_properties.py
+    
+          16 directories, 59 files
 ```
 
 ### Docs
@@ -231,7 +231,7 @@ More documentation and info at
 
 [![license: gpl v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0) [![license apache 2.0](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
-Copyright (C) 2017-2024 by [vroncevic.github.io/ats_utilities](https://vroncevic.github.io/ats_utilities/)
+Copyright (C) 2017 - 2024 by [vroncevic.github.io/ats_utilities](https://vroncevic.github.io/ats_utilities/)
 
 **ats_utilities** is free software; you can redistribute it and/or modify
 it under the same terms as Python itself, either Python version 3.x or,

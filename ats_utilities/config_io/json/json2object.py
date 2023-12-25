@@ -37,7 +37,7 @@ __author__ = 'Vladimir Roncevic'
 __copyright__ = '(C) 2024, https://vroncevic.github.io/ats_utilities'
 __credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = '3.1.2'
+__version__ = '3.1.3'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
@@ -47,7 +47,7 @@ class Json2Object(ATSChecker):
     '''
         Defines class Json2Object with attribute(s) and method(s).
         Creates an API for reading a configuration from a JSON file.
-        Conversion of Python object to JSON content.
+        Conversion of Python object to JSON config.
 
         It defines:
 
@@ -94,9 +94,9 @@ class Json2Object(ATSChecker):
             :rtype: <Dict[Any, Any]>
             :exceptions: None
         '''
-        content: Dict[Any, Any] = {}
+        config: Dict[Any, Any] = {}
         with ConfFile(self._file_path, 'r', self._EXT) as json:
-            if json:
-                content = load(json)
-        verbose_message(self._verbose or verbose, [f'configuration {content}'])
-        return content
+            if bool(json):
+                config = load(json)
+        verbose_message(self._verbose or verbose, [f'configuration {config}'])
+        return config

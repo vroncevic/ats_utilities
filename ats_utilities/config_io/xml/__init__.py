@@ -40,7 +40,7 @@ __author__ = 'Vladimir Roncevic'
 __copyright__ = '(C) 2024, https://vroncevic.github.io/ats_utilities'
 __credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = '3.1.2'
+__version__ = '3.1.3'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
@@ -86,13 +86,13 @@ class XmlBase(ATSChecker):
         self._verbose: bool = verbose
         info_dict: Dict[Any, Any] = {}
         self.tool_operational: bool = False
-        self.xml2obj: Xml2Object = Xml2Object(info_file, self._verbose)
-        self.obj2xml: Object2Xml = Object2Xml(info_file, self._verbose)
-        if all([self.xml2obj, self.obj2xml]):
+        self.xml2obj: Xml2Object | None = Xml2Object(info_file, self._verbose)
+        self.obj2xml: Object2Xml | None = Object2Xml(info_file, self._verbose)
+        if all([bool(self.xml2obj), bool(self.obj2xml)]):
             tool_info: BeautifulSoup | None = self.xml2obj.read_configuration(
                 self._verbose
             )
-            if tool_info:
+            if bool(tool_info):
                 ats_name: Tag | NavigableString | None = tool_info.find(
                     'ats_name'
                 )

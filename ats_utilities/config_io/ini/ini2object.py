@@ -37,7 +37,7 @@ __author__ = 'Vladimir Roncevic'
 __copyright__ = '(C) 2024, https://vroncevic.github.io/ats_utilities'
 __credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = '3.1.2'
+__version__ = '3.1.3'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
@@ -47,7 +47,7 @@ class Ini2Object(ATSChecker):
     '''
         Defines class Ini2Object with attribute(s) and method(s).
         Creates an API for reading configuration from an INI file.
-        Conversion of INI content to Python object.
+        Conversion of INI config to Python object.
 
         It defines:
 
@@ -94,10 +94,10 @@ class Ini2Object(ATSChecker):
             :rtype: <ConfigParser> | <NoneType>
             :exceptions: None
         '''
-        content: ConfigParser | None = None
+        config: ConfigParser | None = None
         with ConfFile(self._file_path, 'r', self._EXT) as ini:
-            if ini:
-                content = ConfigParser()
-                content.read_file(ini)
-        verbose_message(self._verbose or verbose, [f'configuration {content}'])
-        return content
+            if bool(ini):
+                config = ConfigParser()
+                config.read_file(ini)
+        verbose_message(self._verbose or verbose, [f'configuration {config}'])
+        return config

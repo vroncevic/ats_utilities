@@ -37,7 +37,7 @@ __author__ = 'Vladimir Roncevic'
 __copyright__ = '(C) 2024, https://vroncevic.github.io/ats_utilities'
 __credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = '3.1.2'
+__version__ = '3.1.3'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
@@ -96,7 +96,7 @@ class Yaml2Object(ATSChecker):
         '''
         config: Dict[Any, Any] = {}
         with ConfFile(self._file_path, 'r', self._EXT) as yaml:
-            if yaml:
+            if bool(yaml):
                 config = load(yaml, Loader=FullLoader)
         verbose_message(self._verbose or verbose, [f'configuration {config}'])
         return config

@@ -41,7 +41,7 @@ __author__ = 'Vladimir Roncevic'
 __copyright__ = '(C) 2024, https://vroncevic.github.io/ats_utilities'
 __credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = '3.1.2'
+__version__ = '3.1.3'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
@@ -77,35 +77,23 @@ class Splash(SplashProperty):
         if self.validate(self._verbose):
             terminal: TerminalProperties = TerminalProperties(self._verbose)
             size: Tuple[Any, ...] = terminal.size(self._verbose)
-            if prop['ats_use_github_infrastructure']:
+            if bool(prop['ats_use_github_infrastructure']):
                 print("\n")
                 with open(prop['ats_logo_path'], 'r', encoding='utf-8') as scr:
                     for line in scr:
                         processed_line: str = line.rstrip()
                         if bool(processed_line):
                             self.center(int(size[1]), 0, processed_line)
-                infrastructure = GitHubInfrastructure(prop, self._verbose)
-                self.center(
-                    int(size[1]), 2, infrastructure.get_info_text()
-                )
-                self.center(
-                    int(size[1]), 2, infrastructure.get_issue_text()
-                )
-                self.center(
-                    int(size[1]), 2, infrastructure.get_author_text()
-                )
+                infrastruct = GitHubInfrastructure(prop, self._verbose)
+                self.center(int(size[1]), 2, infrastruct.get_info_text())
+                self.center(int(size[1]), 2, infrastruct.get_issue_text())
+                self.center(int(size[1]), 2, infrastruct.get_author_text())
                 print("\n")
             else:
-                infrastructure = ExtInfrastructure(prop, self._verbose)
-                self.center(
-                    int(size[1]), 2, infrastructure.get_info_text()
-                )
-                self.center(
-                    int(size[1]), 2, infrastructure.get_issue_text()
-                )
-                self.center(
-                    int(size[1]), 2, infrastructure.get_author_text()
-                )
+                infrastruct = ExtInfrastructure(prop, self._verbose)
+                self.center(int(size[1]), 2, infrastruct.get_info_text())
+                self.center(int(size[1]), 2, infrastruct.get_issue_text())
+                self.center(int(size[1]), 2, infrastruct.get_author_text())
                 print("\n")
             pb: ProgressBar = ProgressBar(int(size[1]) - int(int(size[1]) / 2))
             for i in range(0, int(size[1]) - int(int(size[1]) / 2)):

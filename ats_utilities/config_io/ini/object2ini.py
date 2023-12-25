@@ -37,7 +37,7 @@ __author__ = 'Vladimir Roncevic'
 __copyright__ = '(C) 2024, https://vroncevic.github.io/ats_utilities'
 __credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = '3.1.2'
+__version__ = '3.1.3'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
@@ -85,13 +85,13 @@ class Object2Ini(ATSChecker):
         verbose_message(self._verbose, [f'configuration file {config_file}'])
 
     def write_configuration(
-        self, configuration: ConfigParser | None, verbose: bool = False
+        self, config: ConfigParser | None, verbose: bool = False
     ) -> bool:
         '''
             Writes configuration to a INI file.
 
-            :param configuration: Configuration object | None
-            :type configuration: <ConfigParser> | <NoneType>
+            :param config: Configuration object | None
+            :type config: <ConfigParser> | <NoneType>
             :param verbose: enable/disable verbose option
             :type verbose: <bool>
             :return: True (configuration written to file) | False
@@ -101,19 +101,17 @@ class Object2Ini(ATSChecker):
         error_msg: str | None = None
         error_id: int | None = None
         error_msg, error_id = self.check_params([
-            ('ConfigParser:configuration', configuration)
+            ('ConfigParser:config', config)
         ])
         if error_id == self.TYPE_ERROR:
             raise ATSTypeError(error_msg)
         status = False
-        verbose_message(
-            self._verbose or verbose, [f'configuration {configuration}']
-        )
-        if configuration:
-            if not bool(configuration.sections()):
+        verbose_message(self._verbose or verbose, [f'configuration {config}'])
+        if bool(config):
+            if not bool(config.sections()):
                 return status
             with ConfFile(self._file_path, 'w', self._EXT) as ini:
-                if ini:
-                    configuration.write(ini, space_around_delimiters=True)
+                if bool(ini):
+                    config.write(ini, space_around_delimiters=True)
                     status = True
         return status

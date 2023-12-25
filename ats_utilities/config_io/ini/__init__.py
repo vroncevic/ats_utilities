@@ -40,7 +40,7 @@ __author__ = 'Vladimir Roncevic'
 __copyright__ = '(C) 2024, https://vroncevic.github.io/ats_utilities'
 __credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = '3.1.2'
+__version__ = '3.1.3'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
@@ -87,11 +87,11 @@ class IniBase(ATSChecker):
         information: ConfigParser | None = None
         info_dict: Dict[Any, Any] = {}
         self.tool_operational: bool = False
-        self.ini2obj: Ini2Object = Ini2Object(info_file, self._verbose)
-        self.obj2ini: Object2Ini = Object2Ini(info_file, self._verbose)
-        if all([self.ini2obj, self.obj2ini]):
+        self.ini2obj: Ini2Object | None = Ini2Object(info_file, self._verbose)
+        self.obj2ini: Object2Ini | None = Object2Ini(info_file, self._verbose)
+        if all([bool(self.ini2obj), bool(self.obj2ini)]):
             information = self.ini2obj.read_configuration(self._verbose)
-        if information:
+        if bool(information):
             info_dict['ats_name'] = str(information.get(
                 'ats_info', 'ats_name'
             ))
