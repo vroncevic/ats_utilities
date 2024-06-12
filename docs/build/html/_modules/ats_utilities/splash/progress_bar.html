@@ -1,20 +1,16 @@
-
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="en" data-content_root="../../../">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>ats_utilities.splash.progress_bar &#8212; ats_utilities https://github.com/vroncevic/ats_utilities/releases documentation</title>
-    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/classic.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/classic.css?v=514cf933" />
     
-    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
-    <script src="../../../_static/jquery.js"></script>
-    <script src="../../../_static/underscore.js"></script>
-    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="../../../_static/doctools.js"></script>
-    <script src="../../../_static/sphinx_highlight.js"></script>
+    <script src="../../../_static/documentation_options.js?v=893dd00a"></script>
+    <script src="../../../_static/doctools.js?v=888ff710"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" /> 
@@ -70,13 +66,15 @@
 <span class="n">__copyright__</span> <span class="o">=</span> <span class="s1">&#39;(C) 2024, https://vroncevic.github.io/ats_utilities&#39;</span>
 <span class="n">__credits__</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Vladimir Roncevic&#39;</span><span class="p">,</span> <span class="s1">&#39;Python Software Foundation&#39;</span><span class="p">]</span>
 <span class="n">__license__</span> <span class="o">=</span> <span class="s1">&#39;https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE&#39;</span>
-<span class="n">__version__</span> <span class="o">=</span> <span class="s1">&#39;3.1.3&#39;</span>
+<span class="n">__version__</span> <span class="o">=</span> <span class="s1">&#39;3.1.4&#39;</span>
 <span class="n">__maintainer__</span> <span class="o">=</span> <span class="s1">&#39;Vladimir Roncevic&#39;</span>
 <span class="n">__email__</span> <span class="o">=</span> <span class="s1">&#39;elektron.ronca@gmail.com&#39;</span>
 <span class="n">__status__</span> <span class="o">=</span> <span class="s1">&#39;Updated&#39;</span>
 
 
-<div class="viewcode-block" id="ProgressBar"><a class="viewcode-back" href="../../../ats_utilities.splash.progress_bar.html#ats_utilities.splash.progress_bar.ProgressBar">[docs]</a><span class="k">class</span> <span class="nc">ProgressBar</span><span class="p">:</span>
+<div class="viewcode-block" id="ProgressBar">
+<a class="viewcode-back" href="../../../ats_utilities.splash.progress_bar.html#ats_utilities.splash.progress_bar.ProgressBar">[docs]</a>
+<span class="k">class</span> <span class="nc">ProgressBar</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Defineds class ProgressBar with attribute(s) and method(s).</span>
 <span class="sd">        Loads a progressbar as part of splash screen.</span>
@@ -121,7 +119,9 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_ratio</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_level_chars</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
 
-<div class="viewcode-block" id="ProgressBar.set_level"><a class="viewcode-back" href="../../../ats_utilities.splash.progress_bar.html#ats_utilities.splash.progress_bar.ProgressBar.set_level">[docs]</a>    <span class="k">def</span> <span class="nf">set_level</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">level</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<div class="viewcode-block" id="ProgressBar.set_level">
+<a class="viewcode-back" href="../../../ats_utilities.splash.progress_bar.html#ats_utilities.splash.progress_bar.ProgressBar.set_level">[docs]</a>
+    <span class="k">def</span> <span class="nf">set_level</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">level</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Sets level.</span>
 
@@ -140,7 +140,10 @@
         <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_level_chars</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_ratio</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">_bar_length</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="ProgressBar.plot_progress"><a class="viewcode-back" href="../../../ats_utilities.splash.progress_bar.html#ats_utilities.splash.progress_bar.ProgressBar.plot_progress">[docs]</a>    <span class="k">def</span> <span class="nf">plot_progress</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">columns</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+
+<div class="viewcode-block" id="ProgressBar.plot_progress">
+<a class="viewcode-back" href="../../../ats_utilities.splash.progress_bar.html#ats_utilities.splash.progress_bar.ProgressBar.plot_progress">[docs]</a>
+    <span class="k">def</span> <span class="nf">plot_progress</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">columns</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Plots progress.</span>
 
@@ -162,7 +165,10 @@
         <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_plotted</span> <span class="o">=</span> <span class="kc">True</span></div>
 
-<div class="viewcode-block" id="ProgressBar.set_and_plot"><a class="viewcode-back" href="../../../ats_utilities.splash.progress_bar.html#ats_utilities.splash.progress_bar.ProgressBar.set_and_plot">[docs]</a>    <span class="k">def</span> <span class="nf">set_and_plot</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">level</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">columns</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+
+<div class="viewcode-block" id="ProgressBar.set_and_plot">
+<a class="viewcode-back" href="../../../ats_utilities.splash.progress_bar.html#ats_utilities.splash.progress_bar.ProgressBar.set_and_plot">[docs]</a>
+    <span class="k">def</span> <span class="nf">set_and_plot</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">level</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">columns</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Sets and plots progress.</span>
 
@@ -177,6 +183,7 @@
         <span class="k">if</span> <span class="p">(</span><span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_plotted</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="n">old_chars</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_level_chars</span><span class="p">):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">plot_progress</span><span class="p">(</span><span class="n">columns</span><span class="p">)</span></div>
 
+
     <span class="k">def</span> <span class="fm">__del__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Dunder del method for ProgressBar.</span>
@@ -184,6 +191,7 @@
 <span class="sd">            :exceptions: None</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span></div>
+
 </pre></div>
 
             <div class="clearer"></div>
@@ -222,8 +230,8 @@
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &#169; Copyright 2017, https://vroncevic.github.io/ats_utilities.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.3.0.
+    &#169; Copyright 2017, https://vroncevic.github.io/ats_utilities.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.2.6.
     </div>
   </body>
 </html>
