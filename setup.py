@@ -28,7 +28,7 @@ __author__ = 'Vladimir Roncevic'
 __copyright__ = '(C) 2024, https://vroncevic.github.io/ats_utilities'
 __credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = '3.1.3'
+__version__ = '3.1.4'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
@@ -56,7 +56,7 @@ APPROVED_LICENSES: List[str] = [
 PYP_CLASSIFIERS: List[str] = SUPPORTED_PY_VERSIONS + APPROVED_LICENSES
 setup(
     name='ats_utilities',
-    version='3.1.3',
+    version='3.1.4',
     description='Python App/Tool/Script Utilities',
     author='Vladimir Roncevic',
     author_email='elektron.ronca@gmail.com',
@@ -85,5 +85,10 @@ setup(
         'ats_utilities.pro_config',
         'ats_utilities.splash'
     ],
-    install_requires=['colorama', 'bs4', 'PyYAML']
+    install_requires=['colorama', 'bs4', 'PyYAML'],
+    package_data={
+        'armpicom': [
+            'py.typed'
+        ]
+    }
 )
