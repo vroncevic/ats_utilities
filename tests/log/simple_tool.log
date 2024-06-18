@@ -8,3 +8,8 @@
 06/18/2024 03:28:59 AM - ERROR - simple error
 06/18/2024 03:28:59 AM - INFO - simple info
 06/18/2024 03:29:00 AM - WARNING - simple warning
+06/18/2024 07:49:54 PM - CRITICAL - simple critical
+06/18/2024 07:49:55 PM - DEBUG - simple debug
+06/18/2024 07:49:55 PM - ERROR - simple error
+06/18/2024 07:49:55 PM - INFO - simple info
+06/18/2024 07:49:55 PM - WARNING - simple warning

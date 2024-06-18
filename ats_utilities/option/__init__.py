@@ -36,7 +36,7 @@ __author__ = 'Vladimir Roncevic'
 __copyright__ = '(C) 2024, https://vroncevic.github.io/ats_utilities'
 __credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = '3.1.5'
+__version__ = '3.1.6'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
@@ -92,7 +92,7 @@ class ATSOptionParser(ATSChecker):
             raise ATSTypeError(error_msg)
         self._verbose: bool = verbose
         self._opt_parser: ArgumentParser = ArgumentParser(
-            version, epilog, description
+            version, epilog, description=description
         )
         verbose_message(
             self._verbose,
@@ -143,6 +143,8 @@ class ATSOptionParser(ATSChecker):
             :rtype: <Namespace>
             :exceptions: None
         '''
-        args: Tuple[Namespace, List[str]] = self._opt_parser.parse_known_args()
+        args: Tuple[Namespace, List[str]] = self._opt_parser.parse_known_args(
+            arguments
+        )
         verbose_message(self._verbose or verbose, [f'arguments {arguments}'])
         return args[0]
