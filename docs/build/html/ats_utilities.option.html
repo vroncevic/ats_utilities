@@ -88,6 +88,7 @@ Mechanism for application, tool, or script option parser.</p>
 <dd class="field-even"><div class="line-block">
 <div class="line">__init__ - Initials ATSOptionParser constructor.</div>
 <div class="line">add_operation - Adds an option to the ATS parser.</div>
+<div class="line">parse_input_args - Processes arguments from the start.</div>
 <div class="line">parse_args - Processes arguments from the start.</div>
 </div>
 </dd>
@@ -133,6 +134,29 @@ Mechanism for application, tool, or script option parser.</p>
 </dl>
 </dd></dl>
 
+<dl class="py method">
+<dt class="sig sig-object py" id="ats_utilities.option.ATSOptionParser.parse_input_args">
+<span class="sig-name descname"><span class="pre">parse_input_args</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arguments</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Namespace</span></span></span><a class="reference internal" href="_modules/ats_utilities/option.html#ATSOptionParser.parse_input_args"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.option.ATSOptionParser.parse_input_args" title="Link to this definition">¶</a></dt>
+<dd><p>Processes arguments from the start.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>arguments</strong> (<em>&lt;Sequence</em><em>[</em><em>str</em><em>]</em><em>&gt;</em><em> | </em><em>&lt;NoneType&gt;</em>) – Sequence of arguments | None</p></li>
+<li><p><strong>verbose</strong> (<em>&lt;bool&gt;</em>) – Enable/Disable verbose option</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Namespace object</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>&lt;Namespace&gt;</p>
+</dd>
+<dt class="field-even">Exceptions<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
 </dd></dl>
 
 </section>
@@ -153,6 +177,7 @@ Mechanism for application, tool, or script option parser.</p>
 <li><a class="reference internal" href="#ats_utilities.option.ATSOptionParser"><code class="docutils literal notranslate"><span class="pre">ATSOptionParser</span></code></a><ul>
 <li><a class="reference internal" href="#ats_utilities.option.ATSOptionParser.add_operation"><code class="docutils literal notranslate"><span class="pre">ATSOptionParser.add_operation()</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.option.ATSOptionParser.parse_args"><code class="docutils literal notranslate"><span class="pre">ATSOptionParser.parse_args()</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.option.ATSOptionParser.parse_input_args"><code class="docutils literal notranslate"><span class="pre">ATSOptionParser.parse_input_args()</span></code></a></li>
 </ul>
 </li>
 </ul>
