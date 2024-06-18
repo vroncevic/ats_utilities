@@ -21,7 +21,7 @@ Info
 '''
 
 import sys
-from typing import Any, List, Sequence
+from typing import Any, List, Tuple, Sequence
 from argparse import ArgumentParser, Namespace
 
 try:
@@ -36,7 +36,7 @@ __author__ = 'Vladimir Roncevic'
 __copyright__ = '(C) 2024, https://vroncevic.github.io/ats_utilities'
 __credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = '3.1.4'
+__version__ = '3.1.5'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
@@ -56,6 +56,7 @@ class ATSOptionParser(ATSChecker):
             :methods:
                 | __init__ - Initials ATSOptionParser constructor.
                 | add_operation - Adds an option to the ATS parser.
+                | parse_input_args - Processes arguments from the start.
                 | parse_args - Processes arguments from the start.
     '''
 
@@ -110,7 +111,7 @@ class ATSOptionParser(ATSChecker):
         '''
         self._opt_parser.add_argument(*args, **kwargs)
 
-    def parse_args(
+    def parse_input_args(
         self, arguments: Sequence[str] | None, verbose: bool = False
     ) -> Namespace:
         '''
@@ -127,3 +128,21 @@ class ATSOptionParser(ATSChecker):
         args: Namespace = self._opt_parser.parse_args(arguments)
         verbose_message(self._verbose or verbose, [f'arguments {arguments}'])
         return args
+
+    def parse_args(
+            self, arguments: Sequence[str] | None, verbose: bool = False
+    ) -> Namespace:
+        '''
+            Processes arguments from the start.
+
+            :param arguments: Sequence of arguments | None
+            :type arguments: <Sequence[str]> | <NoneType>
+            :param verbose: Enable/Disable verbose option
+            :type verbose: <bool>
+            :return: Namespace object
+            :rtype: <Namespace>
+            :exceptions: None
+        '''
+        args: Tuple[Namespace, List[str]] = self._opt_parser.parse_known_args()
+        verbose_message(self._verbose or verbose, [f'arguments {arguments}'])
+        return args[0]

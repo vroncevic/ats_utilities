@@ -59,7 +59,7 @@
 <span class="sd">&#39;&#39;&#39;</span>
 
 <span class="kn">import</span> <span class="nn">sys</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Sequence</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Sequence</span>
 <span class="kn">from</span> <span class="nn">argparse</span> <span class="kn">import</span> <span class="n">ArgumentParser</span><span class="p">,</span> <span class="n">Namespace</span>
 
 <span class="k">try</span><span class="p">:</span>
@@ -74,7 +74,7 @@
 <span class="n">__copyright__</span> <span class="o">=</span> <span class="s1">&#39;(C) 2024, https://vroncevic.github.io/ats_utilities&#39;</span>
 <span class="n">__credits__</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Vladimir Roncevic&#39;</span><span class="p">,</span> <span class="s1">&#39;Python Software Foundation&#39;</span><span class="p">]</span>
 <span class="n">__license__</span> <span class="o">=</span> <span class="s1">&#39;https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE&#39;</span>
-<span class="n">__version__</span> <span class="o">=</span> <span class="s1">&#39;3.1.4&#39;</span>
+<span class="n">__version__</span> <span class="o">=</span> <span class="s1">&#39;3.1.5&#39;</span>
 <span class="n">__maintainer__</span> <span class="o">=</span> <span class="s1">&#39;Vladimir Roncevic&#39;</span>
 <span class="n">__email__</span> <span class="o">=</span> <span class="s1">&#39;elektron.ronca@gmail.com&#39;</span>
 <span class="n">__status__</span> <span class="o">=</span> <span class="s1">&#39;Updated&#39;</span>
@@ -96,6 +96,7 @@
 <span class="sd">            :methods:</span>
 <span class="sd">                | __init__ - Initials ATSOptionParser constructor.</span>
 <span class="sd">                | add_operation - Adds an option to the ATS parser.</span>
+<span class="sd">                | parse_input_args - Processes arguments from the start.</span>
 <span class="sd">                | parse_args - Processes arguments from the start.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
 
@@ -153,9 +154,9 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_opt_parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="ATSOptionParser.parse_args">
-<a class="viewcode-back" href="../../ats_utilities.option.html#ats_utilities.option.ATSOptionParser.parse_args">[docs]</a>
-    <span class="k">def</span> <span class="nf">parse_args</span><span class="p">(</span>
+<div class="viewcode-block" id="ATSOptionParser.parse_input_args">
+<a class="viewcode-back" href="../../ats_utilities.option.html#ats_utilities.option.ATSOptionParser.parse_input_args">[docs]</a>
+    <span class="k">def</span> <span class="nf">parse_input_args</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">arguments</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span><span class="p">,</span> <span class="n">verbose</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Namespace</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
@@ -172,6 +173,27 @@
         <span class="n">args</span><span class="p">:</span> <span class="n">Namespace</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_opt_parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">(</span><span class="n">arguments</span><span class="p">)</span>
         <span class="n">verbose_message</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_verbose</span> <span class="ow">or</span> <span class="n">verbose</span><span class="p">,</span> <span class="p">[</span><span class="sa">f</span><span class="s1">&#39;arguments </span><span class="si">{</span><span class="n">arguments</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">])</span>
         <span class="k">return</span> <span class="n">args</span></div>
+
+
+<div class="viewcode-block" id="ATSOptionParser.parse_args">
+<a class="viewcode-back" href="../../ats_utilities.option.html#ats_utilities.option.ATSOptionParser.parse_args">[docs]</a>
+    <span class="k">def</span> <span class="nf">parse_args</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span> <span class="n">arguments</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span><span class="p">,</span> <span class="n">verbose</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Namespace</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">            Processes arguments from the start.</span>
+
+<span class="sd">            :param arguments: Sequence of arguments | None</span>
+<span class="sd">            :type arguments: &lt;Sequence[str]&gt; | &lt;NoneType&gt;</span>
+<span class="sd">            :param verbose: Enable/Disable verbose option</span>
+<span class="sd">            :type verbose: &lt;bool&gt;</span>
+<span class="sd">            :return: Namespace object</span>
+<span class="sd">            :rtype: &lt;Namespace&gt;</span>
+<span class="sd">            :exceptions: None</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="n">args</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Namespace</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_opt_parser</span><span class="o">.</span><span class="n">parse_known_args</span><span class="p">()</span>
+        <span class="n">verbose_message</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_verbose</span> <span class="ow">or</span> <span class="n">verbose</span><span class="p">,</span> <span class="p">[</span><span class="sa">f</span><span class="s1">&#39;arguments </span><span class="si">{</span><span class="n">arguments</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">])</span>
+        <span class="k">return</span> <span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span></div>
 </div>
 
 </pre></div>
