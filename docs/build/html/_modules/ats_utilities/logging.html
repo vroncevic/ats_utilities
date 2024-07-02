@@ -59,7 +59,7 @@
 <span class="sd">&#39;&#39;&#39;</span>
 
 <span class="kn">import</span> <span class="nn">sys</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span>
 <span class="kn">from</span> <span class="nn">logging</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">getLogger</span><span class="p">,</span> <span class="n">basicConfig</span><span class="p">,</span> <span class="n">Logger</span><span class="p">,</span> <span class="n">DEBUG</span><span class="p">,</span> <span class="n">WARNING</span><span class="p">,</span> <span class="n">CRITICAL</span><span class="p">,</span> <span class="n">ERROR</span><span class="p">,</span> <span class="n">INFO</span>
 <span class="p">)</span>
@@ -79,7 +79,7 @@
 <span class="n">__copyright__</span> <span class="o">=</span> <span class="s1">&#39;(C) 2024, https://vroncevic.github.io/ats_utilities&#39;</span>
 <span class="n">__credits__</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Vladimir Roncevic&#39;</span><span class="p">,</span> <span class="s1">&#39;Python Software Foundation&#39;</span><span class="p">]</span>
 <span class="n">__license__</span> <span class="o">=</span> <span class="s1">&#39;https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE&#39;</span>
-<span class="n">__version__</span> <span class="o">=</span> <span class="s1">&#39;3.1.6&#39;</span>
+<span class="n">__version__</span> <span class="o">=</span> <span class="s1">&#39;3.1.7&#39;</span>
 <span class="n">__maintainer__</span> <span class="o">=</span> <span class="s1">&#39;Vladimir Roncevic&#39;</span>
 <span class="n">__email__</span> <span class="o">=</span> <span class="s1">&#39;elektron.ronca@gmail.com&#39;</span>
 <span class="n">__status__</span> <span class="o">=</span> <span class="s1">&#39;Updated&#39;</span>
@@ -119,17 +119,17 @@
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
-        <span class="n">ats_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="p">,</span>
-        <span class="n">ats_log_file</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">ats_name</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span>
+        <span class="n">ats_log_file</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span>
         <span class="n">verbose</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Initials ATSLogger constructor.</span>
 
 <span class="sd">            :param ats_name: ATS name | None</span>
-<span class="sd">            :type ats_name: &lt;str&gt; | &lt;NoneType&gt;</span>
+<span class="sd">            :type ats_name: &lt;Optional[str]&gt;</span>
 <span class="sd">            :param ats_log_file: Log file path of ATS | None</span>
-<span class="sd">            :type ats_log_file: &lt;str&gt; | &lt;NoneType&gt;</span>
+<span class="sd">            :type ats_log_file: &lt;Optional[str]&gt;</span>
 <span class="sd">            :param verbose: Enable/Disable verbose option</span>
 <span class="sd">            :type verbose: &lt;bool&gt;</span>
 <span class="sd">            :exceptions: None</span>
@@ -153,13 +153,13 @@
 <div class="viewcode-block" id="ATSLogger.write_log">
 <a class="viewcode-back" href="../../ats_utilities.logging.html#ats_utilities.logging.ATSLogger.write_log">[docs]</a>
     <span class="k">def</span> <span class="nf">write_log</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="p">,</span> <span class="n">ctrl</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">verbose</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">ctrl</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">verbose</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Writes message to log file.</span>
 
 <span class="sd">            :param message: Log message for log file | None</span>
-<span class="sd">            :type message: &lt;str&gt; | &lt;NoneType&gt;</span>
+<span class="sd">            :type message: &lt;Optional[str]&gt;</span>
 <span class="sd">            :param ctrl: Control flag (debug, warning, critical, errors, info)</span>
 <span class="sd">            :type ctrl: &lt;int&gt;</span>
 <span class="sd">            :param verbose: Enable/Disable verbose option</span>
@@ -168,8 +168,8 @@
 <span class="sd">            :rtype: &lt;bool&gt;</span>
 <span class="sd">            :exceptions: ATSTypeError</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="n">error_msg</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
-        <span class="n">error_id</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="n">error_msg</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="n">error_id</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="n">error_msg</span><span class="p">,</span> <span class="n">error_id</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">check_params</span><span class="p">([</span>
             <span class="p">(</span><span class="s1">&#39;str:message&#39;</span><span class="p">,</span> <span class="n">message</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;int:ctrl&#39;</span><span class="p">,</span> <span class="n">ctrl</span><span class="p">)</span>
         <span class="p">])</span>

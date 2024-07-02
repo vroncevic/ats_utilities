@@ -21,7 +21,7 @@ Info
 '''
 
 import sys
-from typing import Any, List, Dict
+from typing import Any, List, Dict, Optional
 
 try:
     from bs4 import BeautifulSoup, Tag, NavigableString
@@ -32,6 +32,7 @@ try:
     from ats_utilities.config_io.xml.xml2object import Xml2Object
     from ats_utilities.config_io.xml.object2xml import Object2Xml
     from ats_utilities.exceptions.ats_type_error import ATSTypeError
+    from ats_utilities.exceptions.ats_value_error import ATSValueError
 except ImportError as ats_error_message:
     # Force exit python #######################################################
     sys.exit(f'\n{__file__}\n{ats_error_message}\n')
@@ -40,7 +41,7 @@ __author__ = 'Vladimir Roncevic'
 __copyright__ = '(C) 2024, https://vroncevic.github.io/ats_utilities'
 __credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = '3.1.6'
+__version__ = '3.1.7'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
@@ -65,52 +66,58 @@ class XmlBase(ATSChecker):
                 | is_tool_ok - Checks is tool operational.
     '''
 
-    def __init__(self, info_file: str | None, verbose: bool = False) -> None:
+    def __init__(
+        self, info_file: Optional[str], verbose: bool = False
+    ) -> None:
         '''
             Initials XmlBase constructor.
 
             :param info_file: Information file path | None
-            :type info_file: <str> | <NoneType>
+            :type info_file: <Optional[str]>
             :param verbose: Enable/Disable verbose option
             :type verbose: <bool>
-            :exceptions: ATSTypeError
+            :exceptions: ATSTypeError | ATSValueError
         '''
         super().__init__()
-        error_msg: str | None = None
-        error_id: int | None = None
-        error_msg, error_id = self.check_params([
-            ('str:info_file', info_file)
-        ])
+        error_msg: Optional[str] = None
+        error_id: Optional[int] = None
+        error_msg, error_id = self.check_params([('str:info_file', info_file)])
         if error_id == self.TYPE_ERROR:
             raise ATSTypeError(error_msg)
+        if not bool(info_file):
+            raise ATSValueError(error_msg)
         self._verbose: bool = verbose
         info_dict: Dict[Any, Any] = {}
         self.tool_operational: bool = False
-        self.xml2obj: Xml2Object | None = Xml2Object(info_file, self._verbose)
-        self.obj2xml: Object2Xml | None = Object2Xml(info_file, self._verbose)
-        if all([bool(self.xml2obj), bool(self.obj2xml)]):
-            tool_info: BeautifulSoup | None = self.xml2obj.read_configuration(
-                self._verbose
-            )
+        self.xml2obj: Optional[Xml2Object] = Xml2Object(
+            info_file, self._verbose
+        )
+        self.obj2xml: Optional[Object2Xml] = Object2Xml(
+            info_file, self._verbose
+        )
+        if bool(self.xml2obj) and bool(self.obj2xml):
+            tool_info: Optional[
+                BeautifulSoup
+            ] = self.xml2obj.read_configuration(self._verbose)
             if bool(tool_info):
-                ats_name: Tag | NavigableString | None = tool_info.find(
+                ats_name:  Optional[Tag | NavigableString] = tool_info.find(
                     'ats_name'
                 )
                 if ats_name:
                     info_dict['ats_name'] = str(ats_name.get_text())
-                ats_version: Tag | NavigableString | None = tool_info.find(
+                ats_version: Optional[Tag | NavigableString] = tool_info.find(
                     'ats_version'
                 )
                 if ats_version:
                     info_dict['ats_version'] = str(ats_version.get_text())
-                ats_build_date: Tag | NavigableString | None = tool_info.find(
-                    'ats_build_date'
-                )
+                ats_build_date: Optional[
+                    Tag | NavigableString
+                ] = tool_info.find('ats_build_date')
                 if ats_build_date:
                     info_dict['ats_build_date'] = str(
                         ats_build_date.get_text()
                     )
-                ats_licence: Tag | NavigableString | None = tool_info.find(
+                ats_licence: Optional[Tag | NavigableString] = tool_info.find(
                     'ats_licence'
                 )
                 if ats_licence:

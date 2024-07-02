@@ -21,7 +21,7 @@ Info
 '''
 
 import sys
-from typing import Any, List
+from typing import Any, List, Optional
 
 try:
     from colorama import init, Fore
@@ -35,7 +35,7 @@ __author__ = 'Vladimir Roncevic'
 __copyright__ = '(C) 2024, https://vroncevic.github.io/ats_utilities'
 __credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = '3.1.6'
+__version__ = '3.1.7'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
@@ -63,26 +63,26 @@ class ATSSuccess:
 
             :exceptions: None
         '''
-        self._message: str | None = None
+        self._message: Optional[str] = None
 
     @property
-    def message(self) -> str | None:
+    def message(self) -> Optional[str]:
         '''
             Property method for getting message.
 
             :return: Formatted success message | None
-            :rtype: <str> | <NoneType>
+            :rtype: <Optional[str]>
             :exceptions: None
         '''
         return self._message
 
     @message.setter
-    def message(self, message: str | None) -> None:
+    def message(self, message: Optional[str]) -> None:
         '''
             Property method for setting message.
 
             :param message: Succcess message | None
-            :type message: <str> | <NoneType>
+            :type message: <Optional[str]>
             :exceptions: None
         '''
         if message:
@@ -109,8 +109,8 @@ def success_message(message: List[Any]) -> None:
         :exceptions: ATSTypeError
     '''
     checker: ATSChecker = ATSChecker()
-    error_msg: str | None = None
-    error_id: int | None = None
+    error_msg: Optional[str] = None
+    error_id: Optional[int] = None
     error_msg, error_id = checker.check_params([('list:message', message)])
     if error_id == checker.TYPE_ERROR:
         raise ATSTypeError(error_msg)

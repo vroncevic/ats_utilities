@@ -21,7 +21,7 @@ Info
 '''
 
 import sys
-from typing import List
+from typing import List, Optional
 
 try:
     from ats_utilities.checker import ATSChecker
@@ -35,7 +35,7 @@ __author__ = 'Vladimir Roncevic'
 __copyright__ = '(C) 2024, https://vroncevic.github.io/ats_utilities'
 __credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = '3.1.6'
+__version__ = '3.1.7'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
@@ -65,32 +65,32 @@ class TemplateDir:
             :type verbose: <bool>
             :exceptions: None
         '''
-        self._template_dir: str | None = None
+        self._template_dir: Optional[str] = None
         verbose_message(verbose, ['init template dir'])
 
     @property
-    def template_dir(self) -> str | None:
+    def template_dir(self) -> Optional[str]:
         '''
             Property method for getting template dir.
 
             :return: Formatted template dir | None.
-            :rtype: <str> | <NoneType>
+            :rtype: <Optional[str]>
             :exceptions: None
         '''
         return self._template_dir
 
     @template_dir.setter
-    def template_dir(self, template_dir: str | None) -> None:
+    def template_dir(self, template_dir: Optional[str]) -> None:
         '''
             Property method for setting project template dir.
 
             :param template_dir: Project template dir | None
-            :type template_dir: <str> | <NoneType>
+            :type template_dir: <Optional[str]>
             :exceptions: ATSTypeError
         '''
         checker: ATSChecker = ATSChecker()
-        error_msg: str | None = None
-        error_id: int | None = None
+        error_msg: Optional[str] = None
+        error_id: Optional[int] = None
         error_msg, error_id = checker.check_params([
             ('str:template_dir', template_dir)
         ])

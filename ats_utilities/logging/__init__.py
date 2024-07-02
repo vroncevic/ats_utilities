@@ -21,7 +21,7 @@ Info
 '''
 
 import sys
-from typing import List
+from typing import List, Optional
 from logging import (
     getLogger, basicConfig, Logger, DEBUG, WARNING, CRITICAL, ERROR, INFO
 )
@@ -41,7 +41,7 @@ __author__ = 'Vladimir Roncevic'
 __copyright__ = '(C) 2024, https://vroncevic.github.io/ats_utilities'
 __credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = '3.1.6'
+__version__ = '3.1.7'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
@@ -79,17 +79,17 @@ class ATSLogger(ATSLoggerName, ATSLoggerStatus, ATSLoggerFile):
 
     def __init__(
         self,
-        ats_name: str | None,
-        ats_log_file: str | None,
+        ats_name: Optional[str],
+        ats_log_file: Optional[str],
         verbose: bool = False
     ) -> None:
         '''
             Initials ATSLogger constructor.
 
             :param ats_name: ATS name | None
-            :type ats_name: <str> | <NoneType>
+            :type ats_name: <Optional[str]>
             :param ats_log_file: Log file path of ATS | None
-            :type ats_log_file: <str> | <NoneType>
+            :type ats_log_file: <Optional[str]>
             :param verbose: Enable/Disable verbose option
             :type verbose: <bool>
             :exceptions: None
@@ -111,13 +111,13 @@ class ATSLogger(ATSLoggerName, ATSLoggerStatus, ATSLoggerFile):
         verbose_message(self._verbose, ['init ATS logger'])
 
     def write_log(
-        self, message: str | None, ctrl: int, verbose: bool = False
+        self, message: Optional[str], ctrl: int, verbose: bool = False
     ) -> bool:
         '''
             Writes message to log file.
 
             :param message: Log message for log file | None
-            :type message: <str> | <NoneType>
+            :type message: <Optional[str]>
             :param ctrl: Control flag (debug, warning, critical, errors, info)
             :type ctrl: <int>
             :param verbose: Enable/Disable verbose option
@@ -126,8 +126,8 @@ class ATSLogger(ATSLoggerName, ATSLoggerStatus, ATSLoggerFile):
             :rtype: <bool>
             :exceptions: ATSTypeError
         '''
-        error_msg: str | None = None
-        error_id: int | None = None
+        error_msg: Optional[str] = None
+        error_id: Optional[int] = None
         error_msg, error_id = self.check_params([
             ('str:message', message), ('int:ctrl', ctrl)
         ])

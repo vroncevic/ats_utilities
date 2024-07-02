@@ -21,7 +21,7 @@ Info
 '''
 
 import sys
-from typing import Any, Dict, List
+from typing import Any, Dict, List, Optional
 from configparser import ConfigParser
 
 try:
@@ -32,6 +32,7 @@ try:
     from ats_utilities.config_io.ini.ini2object import Ini2Object
     from ats_utilities.config_io.ini.object2ini import Object2Ini
     from ats_utilities.exceptions.ats_type_error import ATSTypeError
+    from ats_utilities.exceptions.ats_value_error import ATSValueError
 except ImportError as ats_error_message:
     # Force exit python #######################################################
     sys.exit(f'\n{__file__}\n{ats_error_message}\n')
@@ -40,7 +41,7 @@ __author__ = 'Vladimir Roncevic'
 __copyright__ = '(C) 2024, https://vroncevic.github.io/ats_utilities'
 __credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = '3.1.6'
+__version__ = '3.1.7'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
@@ -65,31 +66,37 @@ class IniBase(ATSChecker):
                 | is_tool_ok - Checks is tool operational.
     '''
 
-    def __init__(self, info_file: str | None, verbose: bool = False) -> None:
+    def __init__(
+        self, info_file: Optional[str], verbose: bool = False
+    ) -> None:
         '''
             Initials IniBase constructor.
 
             :param info_file: Information file path | None
-            :type info_file: <str> | <NoneType>
+            :type info_file: <Optional[str]>
             :param verbose: Enable/Disable verbose option
             :type verbose: <bool>
-            :exceptions: ATSTypeError
+            :exceptions: ATSTypeError | ATSValueError
         '''
         super().__init__()
-        error_msg: str | None = None
-        error_id: int | None = None
-        error_msg, error_id = self.check_params([
-            ('str:info_file', info_file)
-        ])
+        error_msg: Optional[str] = None
+        error_id: Optional[int] = None
+        error_msg, error_id = self.check_params([('str:info_file', info_file)])
         if error_id == self.TYPE_ERROR:
             raise ATSTypeError(error_msg)
+        if not bool(info_file):
+            raise ATSValueError(error_msg)
         self._verbose: bool = verbose
-        information: ConfigParser | None = None
+        information: Optional[ConfigParser] = None
         info_dict: Dict[Any, Any] = {}
         self.tool_operational: bool = False
-        self.ini2obj: Ini2Object | None = Ini2Object(info_file, self._verbose)
-        self.obj2ini: Object2Ini | None = Object2Ini(info_file, self._verbose)
-        if all([bool(self.ini2obj), bool(self.obj2ini)]):
+        self.ini2obj: Optional[Ini2Object] = Ini2Object(
+            info_file, self._verbose
+        )
+        self.obj2ini: Optional[Object2Ini] = Object2Ini(
+            info_file, self._verbose
+        )
+        if bool(self.ini2obj) and bool(self.obj2ini):
             information = self.ini2obj.read_configuration(self._verbose)
         if bool(information):
             info_dict['ats_name'] = str(information.get(

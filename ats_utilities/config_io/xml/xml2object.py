@@ -21,7 +21,7 @@ Info
 '''
 
 import sys
-from typing import List
+from typing import List, Optional
 
 try:
     from bs4 import BeautifulSoup
@@ -29,6 +29,7 @@ try:
     from ats_utilities.config_io import ConfFile
     from ats_utilities.console_io.verbose import verbose_message
     from ats_utilities.exceptions.ats_type_error import ATSTypeError
+    from ats_utilities.exceptions.ats_value_error import ATSValueError
 except ImportError as ats_error_message:
     # Force exit python #######################################################
     sys.exit(f'\n{__file__}\n{ats_error_message}\n')
@@ -37,7 +38,7 @@ __author__ = 'Vladimir Roncevic'
 __copyright__ = '(C) 2024, https://vroncevic.github.io/ats_utilities'
 __credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = '3.1.6'
+__version__ = '3.1.7'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
@@ -62,42 +63,46 @@ class Xml2Object(ATSChecker):
 
     _EXT: str = 'xml'
 
-    def __init__(self, config_file: str | None, verbose: bool = False) -> None:
+    def __init__(
+        self, config_file: Optional[str], verbose: bool = False
+    ) -> None:
         '''
             Initials Xml2Object constructor.
 
             :param config_file: Configuration file path | None
-            :type config_file: <str> | <NoneType>
+            :type config_file: <Optional[str]>
             :param verbose: Enable/Disable verbose option
             :type verbose: <bool>
-            :exceptions: ATSTypeError
+            :exceptions: ATSTypeError | ATSValueError
         '''
         super().__init__()
-        error_msg: str | None = None
-        error_id: int | None = None
+        error_msg: Optional[str] = None
+        error_id: Optional[int] = None
         error_msg, error_id = self.check_params([
             ('str:config_file', config_file)
         ])
         if error_id == self.TYPE_ERROR:
             raise ATSTypeError(error_msg)
+        if not bool(config_file):
+            raise ATSValueError(error_msg)
         self._verbose: bool = verbose
         self._file_path: str = str(config_file)
         verbose_message(self._verbose, [f'configuration file {config_file}'])
 
     def read_configuration(
         self, verbose: bool = False
-    ) -> BeautifulSoup | None:
+    ) -> Optional[BeautifulSoup]:
         '''
             Reads a configuration from an XML file.
 
             :param verbose: Enable/Disable verbose option
             :type verbose: <bool>
             :return: Configuration object | None
-            :rtype: <BeautifulSoup> | <NoneType>
+            :rtype: <Optional[BeautifulSoup]>
             :exceptions: None
         '''
-        content: str | None = None
-        config: BeautifulSoup | None = None
+        content: Optional[str] = None
+        config: Optional[BeautifulSoup] = None
         with ConfFile(self._file_path, 'r', self._EXT) as xml:
             if bool(xml):
                 content = xml.read()
