@@ -21,7 +21,7 @@ Info
 '''
 
 import sys
-from typing import List
+from typing import List, Optional
 
 try:
     from ats_utilities.checker import ATSChecker
@@ -35,7 +35,7 @@ __author__ = 'Vladimir Roncevic'
 __copyright__ = '(C) 2024, https://vroncevic.github.io/ats_utilities'
 __credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = '3.1.6'
+__version__ = '3.1.7'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
@@ -65,32 +65,32 @@ class ProName:
             :type verbose: <bool>
             :exceptions: None
         '''
-        self._pro_name: str | None = None
+        self._pro_name: Optional[str] = None
         verbose_message(verbose, ['init project name'])
 
     @property
-    def pro_name(self) -> str | None:
+    def pro_name(self) -> Optional[str]:
         '''
             Property method for getting project name.
 
             :return: Formatted project name | None
-            :rtype: <str> | <NoneType>
+            :rtype: <Optional[str]>
             :exceptions: None
         '''
         return self._pro_name
 
     @pro_name.setter
-    def pro_name(self, pro_name: str | None) -> None:
+    def pro_name(self, pro_name: Optional[str]) -> None:
         '''
             Property method for setting project name.
 
             :param pro_name: Project name | None
-            :type pro_name: <str> | <NoneType>
+            :type pro_name: <Optional[str]>
             :exceptions: ATSTypeError
         '''
         checker: ATSChecker = ATSChecker()
-        error_msg: str | None = None
-        error_id: int | None = None
+        error_msg: Optional[str] = None
+        error_id: Optional[int] = None
         error_msg, error_id = checker.check_params([
             ('str:pro_name', pro_name)
         ])

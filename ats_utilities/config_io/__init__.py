@@ -21,7 +21,7 @@ Info
 '''
 
 import sys
-from typing import Any, List, Tuple, Dict, IO
+from typing import Any, List, Tuple, Dict, IO, Optional, TypeAlias
 
 try:
     from ats_utilities.config_io.file_check import FileCheck
@@ -38,10 +38,12 @@ __author__ = 'Vladimir Roncevic'
 __copyright__ = '(C) 2024, https://vroncevic.github.io/ats_utilities'
 __credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = '3.1.6'
+__version__ = '3.1.7'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
+
+File: TypeAlias = Optional[IO[str]]
 
 
 class ConfFile(FileCheck):
@@ -66,27 +68,27 @@ class ConfFile(FileCheck):
 
     def __init__(
         self,
-        file_path: str | None,
-        file_mode: str | None,
-        file_format: str | None,
+        file_path: Optional[str],
+        file_mode: Optional[str],
+        file_format: Optional[str],
         verbose: bool = False
     ) -> None:
         '''
             Initials ConfFile constructor.
 
             :param file_path: Configuration file path | None
-            :type file_path: <str> | <NoneType>
+            :type file_path: <Optional[str]>
             :param file_mode: File mode for configuration file | None
-            :type file_mode: <str> | <NoneType>
+            :type file_mode: <Optional[str]>
             :param file_format: File format | None
-            :type file_format: <str> | <NoneType>
+            :type file_format: <Optional[str]>
             :param verbose: Enable/Disable verbose option
             :type verbose: <bool>
             :exceptions: ATSTypeError | ATSValueError
         '''
         checker: ATSChecker = ATSChecker()
-        error_msg: str | None = None
-        error_id: int | None = None
+        error_msg: Optional[str] = None
+        error_id: Optional[int] = None
         error_msg, error_id = checker.check_params([
             ('str:file_path', file_path),
             ('str:file_mode', file_mode),
@@ -102,10 +104,10 @@ class ConfFile(FileCheck):
             raise ATSValueError('missing file format')
         super().__init__(verbose)
         self._verbose: bool = verbose
-        self._file: IO[str] | None = None
-        self._file_path: str | None = None
-        self._file_mode: str | None = None
-        self._file_format: str | None = None
+        self._file: File = None
+        self._file_path: Optional[str] = None
+        self._file_mode: Optional[str] = None
+        self._file_format: Optional[str] = None
         self.check_path(str(file_path), self._verbose)
         self.check_mode(str(file_mode), self._verbose)
         self.check_format(str(file_format), file_format, self._verbose)
@@ -115,21 +117,19 @@ class ConfFile(FileCheck):
             self._file_format = file_format
         verbose_message(self._verbose, [f'set file {file_path} {file_mode}'])
 
-    def __enter__(self) -> IO[str] | None:
+    def __enter__(self) -> File:
         '''
             Opens configuration file in mode.
 
             :return: File IO object | None
-            :rtype: <IO[str]> | <NoneType>
+            :rtype: <File>
             :exceptions: None
         '''
         if self.is_file_ok():
             mode: str = "r" if not bool(
                 str(self._file_mode)
             ) else str(self._file_mode)
-            self._file = open(
-                str(self._file_path), mode, encoding='utf-8'
-            )
+            self._file = open(str(self._file_path), mode, encoding='utf-8')
         else:
             error_message([f'check file {str(self._file_path)}'])
             self._file = None
@@ -147,6 +147,5 @@ class ConfFile(FileCheck):
             :type file_path: <Dict[Any, Any]>
             :exceptions: None
         '''
-        if self._file is not None:
-            if not self._file.closed:
-                self._file.close()
+        if self._file is not None and not self._file.closed:
+            self._file.close()

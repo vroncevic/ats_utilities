@@ -18,3 +18,16 @@ Copyright
 Info
     Defines package ats_utilities.cli.
 '''
+
+from typing import List, Optional, Sequence, TypeAlias
+
+__author__ = 'Vladimir Roncevic'
+__copyright__ = '(C) 2024, https://vroncevic.github.io/ats_utilities'
+__credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
+__license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = '3.1.7'
+__maintainer__ = 'Vladimir Roncevic'
+__email__ = 'elektron.ronca@gmail.com'
+__status__ = 'Updated'
+
+ArgSeq: TypeAlias = Optional[Sequence[str]]

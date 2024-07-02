@@ -21,17 +21,20 @@ Info
 '''
 
 from inspect import stack
-from typing import Any, List, Tuple, OrderedDict
+from typing import Any, List, Tuple, OrderedDict, Optional, TypeAlias
 from collections import OrderedDict as OrderedDictionary
 
 __author__ = 'Vladimir Roncevic'
 __copyright__ = '(C) 2024, https://vroncevic.github.io/ats_utilities'
 __credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = '3.1.6'
+__version__ = '3.1.7'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
+
+CheckParams: TypeAlias = Tuple[Optional[str], Optional[int]]
+ParamDesc: TypeAlias = List[Tuple[str, Any]]
 
 
 class ATSChecker:
@@ -69,7 +72,7 @@ class ATSChecker:
 
             :exceptions: None
         '''
-        self._start_message: str | None = None
+        self._start_message: Optional[str] = None
         self._list_of_params: List[str] = []
         self._error_type: List[int] = [0, 0]
         self._error_type_index: List[int] = []
@@ -95,15 +98,15 @@ class ATSChecker:
             )
         return True
 
-    def usage_message(self) -> str | None:
+    def usage_message(self) -> Optional[str]:
         '''
             Prepares usage for method or function.
 
             :return: Usage message for method or function | None
-            :rtype: <str> | <NoneType>
+            :rtype: <Optional[str]>
             :exceptions: None
         '''
-        message: str | None = self._start_message
+        message: Optional[str] = self._start_message
         if bool(self._list_of_params):
             for index, param in enumerate(self._list_of_params):
                 message = f'{message} {param}'
@@ -137,15 +140,15 @@ class ATSChecker:
                 return False
         return True
 
-    def priority_error(self) -> int | None:
+    def priority_error(self) -> Optional[int]:
         '''
             Sets priority error id (TYPE_ERROR).
 
             :return: Priority error id (0 | 1 | 2) | None
-            :rtype: <int> | <NoneType>
+            :rtype: <Optional[int]>
             :exceptions: None
         '''
-        priority_error_id: int | None = None
+        priority_error_id: Optional[int] = None
         if self._error_type[1] == self.FORMAT_ERROR:
             return self.FORMAT_ERROR
         if self._error_type[0] == self.TYPE_ERROR:
@@ -154,16 +157,14 @@ class ATSChecker:
             priority_error_id = self.NO_ERROR
         return priority_error_id
 
-    def check_params(
-        self, params_desc: List[Tuple[str, Any]]
-    ) -> Tuple[str | None, int | None]:
+    def check_params(self, params_desc: ParamDesc) -> CheckParams:
         '''
             Checks params for method or function.
 
             :param params_desc: Description for params
-            :type params_desc: <List[Tuple[str, Any]]>
+            :type params_desc: <ParamDesc>
             :return: error message, error id (0 | 1 | 2)
-            :rtype: <str> | <NoneType>, <int> | <NoneType>
+            :rtype: <CheckParams>
             :exceptions: None
         '''
         func: str = stack()[1][3]
@@ -173,8 +174,8 @@ class ATSChecker:
             not self.collect_params(OrderedDictionary(params_desc)),
             not self.check_types(OrderedDictionary(params_desc))
         ])
-        message: str | None = self.usage_message()
-        error_id: int | None = self.priority_error()
+        message: Optional[str] = self.usage_message()
+        error_id: Optional[int] = self.priority_error()
         if any([error_id != 0, fail_any_check]):
             message = f'{message} format wrong during checking params'
         return message, error_id

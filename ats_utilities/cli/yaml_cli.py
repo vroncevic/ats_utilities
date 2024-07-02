@@ -21,11 +21,12 @@ Info
 '''
 
 import sys
-from typing import Any, List, Sequence
+from typing import Any, List, Optional
 from argparse import Namespace
 from abc import abstractmethod
 
 try:
+    from ats_utilities.cli import ArgSeq
     from ats_utilities.config_io.yaml import YamlBase
     from ats_utilities.console_io.verbose import verbose_message
 except ImportError as ats_error_message:
@@ -36,7 +37,7 @@ __author__ = 'Vladimir Roncevic'
 __copyright__ = '(C) 2024, https://vroncevic.github.io/ats_utilities'
 __credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = '3.1.6'
+__version__ = '3.1.7'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
@@ -59,12 +60,14 @@ class YamlCLI(YamlBase):
                 | process - Processes and runs tool operations (Abstract).
     '''
 
-    def __init__(self, info_file: str | None, verbose: bool = False) -> None:
+    def __init__(
+        self, info_file: Optional[str], verbose: bool = False
+    ) -> None:
         '''
             Initial YamlCLI constructor.
 
             :param info_file: Information file path | None
-            :type info_file: <str> | <NoneType>
+            :type info_file: <Optional[str]>
             :param verbose: Enable/Disable verbose option
             :type verbose: <bool>
             :exceptions: None
@@ -85,12 +88,12 @@ class YamlCLI(YamlBase):
         '''
         self.option_parser.add_operation(*args, **kwargs)
 
-    def parse_args(self, argv: Sequence[str] | None) -> Namespace:
+    def parse_args(self, argv: ArgSeq) -> Namespace:
         '''
             Parses the CL arguments.
 
             :param argv: Sequence of arguments | None
-            :type argv: <Sequence[str]> | <NoneType>
+            :type argv: <ArgSeq>
             :return: Options and arguments
             :rtype: <Namespace>
             :exceptions: ATSTypeError

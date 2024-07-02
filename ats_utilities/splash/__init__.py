@@ -21,7 +21,7 @@ Info
 '''
 
 import sys
-from typing import Any, Dict, Tuple, List
+from typing import Any, Dict, Tuple, List, Optional
 from time import sleep
 
 try:
@@ -41,7 +41,7 @@ __author__ = 'Vladimir Roncevic'
 __copyright__ = '(C) 2024, https://vroncevic.github.io/ats_utilities'
 __credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = '3.1.6'
+__version__ = '3.1.7'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
@@ -105,7 +105,7 @@ class Splash(SplashProperty):
         self,
         columns: int,
         additional_shifter: int,
-        text: str | None,
+        text: Optional[str],
         verbose: bool = False
     ) -> None:
         '''
@@ -116,13 +116,13 @@ class Splash(SplashProperty):
             :param additional_shifter: Additional shifters
             :type additional_shifter: <int>
             :param text: Text for console session | None
-            :type text: <str> | <NoneType>
+            :type text: <Optional[str]>
             :param verbose: Enable/Disable verbose option
             :type verbose: <bool>
             :exceptions: ATSTypeError | ATSValueError
         '''
-        error_msg: str | None = None
-        error_id: int | None = None
+        error_msg: Optional[str] = None
+        error_id: Optional[int] = None
         error_msg, error_id = self.check_params([
             ('int:columns', columns),
             ('int:additional_shifter', additional_shifter),

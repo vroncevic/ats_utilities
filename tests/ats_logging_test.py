@@ -23,7 +23,7 @@ Execute
 '''
 
 import sys
-from typing import List
+from typing import List, Optional
 from unittest import TestCase, main
 from os.path import dirname
 
@@ -40,7 +40,7 @@ __author__ = 'Vladimir Roncevic'
 __copyright__ = '(C) 2024, https://vroncevic.github.io/ats_utilities'
 __credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = '3.1.6'
+__version__ = '3.1.7'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
@@ -123,7 +123,7 @@ class ATSLoggingTestCase(TestCase):
     def test_is_log_file_set(self) -> None:
         '''Test is log file set'''
         self.logger_ats.logger_path = self.log_file
-        file_path: str | None = self.logger_ats.logger_path
+        file_path: Optional[str] = self.logger_ats.logger_path
         self.assertIsNotNone(file_path)
 
     def test_debug(self) -> None:

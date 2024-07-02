@@ -21,7 +21,7 @@ Info
 '''
 
 import sys
-from typing import List
+from typing import List, Optional
 from os.path import isfile
 
 try:
@@ -37,7 +37,7 @@ __author__ = 'Vladimir Roncevic'
 __copyright__ = '(C) 2024, https://vroncevic.github.io/ats_utilities'
 __credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = '3.1.6'
+__version__ = '3.1.7'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
@@ -69,30 +69,30 @@ class ATSLoggerFile(ATSChecker):
         '''
         super().__init__()
         self._verbose: bool = verbose
-        self._logger_path: str | None = None
+        self._logger_path: Optional[str] = None
 
     @property
-    def logger_path(self) -> str | None:
+    def logger_path(self) -> Optional[str]:
         '''
             Property method for getting log file path.
 
             :return: Log file path | None
-            :rtype: <str> | <NoneType>
+            :rtype: <Optional[str]>
             :exceptions: None
         '''
         return self._logger_path
 
     @logger_path.setter
-    def logger_path(self, file_path: str | None) -> None:
+    def logger_path(self, file_path: Optional[str]) -> None:
         '''
             Property method for setting log file path.
 
             :param file_path: Log file path | None
-            :type file_path: <str> | <NoneType>
+            :type file_path: <Optional[str]>
             :exceptions: ATSTypeError | ATSFileError
         '''
-        error_msg: str | None = None
-        error_id: int | None = None
+        error_msg: Optional[str] = None
+        error_id: Optional[int] = None
         error_msg, error_id = self.check_params([
             ('str:file_path', file_path)
         ])

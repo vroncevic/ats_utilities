@@ -23,7 +23,7 @@ Execute
 '''
 
 import sys
-from typing import Any, Dict, Tuple, List, Set
+from typing import Any, Dict, Tuple, List, Set, Optional
 from collections import OrderedDict
 from unittest import TestCase, main
 
@@ -37,7 +37,7 @@ __author__ = 'Vladimir Roncevic'
 __copyright__ = '(C) 2024, https://vroncevic.github.io/ats_utilities'
 __credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = '3.1.6'
+__version__ = '3.1.7'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
@@ -78,8 +78,8 @@ class ATSCheckerTestCase(TestCase):
     def setUp(self) -> None:
         '''Call before every test case.'''
         self.checker: ATSChecker = ATSChecker()
-        self.error_msg: str | None = None
-        self.error_id: int | None = -1
+        self.error_msg: Optional[str] = None
+        self.error_id: Optional[int] = -1
 
     def tearDown(self) -> None:
         '''Call after every test case.'''
@@ -264,7 +264,7 @@ class ATSCheckerTestCase(TestCase):
 
     def test_check_value_params_base_none(self) -> None:
         '''Test for check value parameters.'''
-        simple_config: int | None = None
+        simple_config: Optional[int] = None
         self.assertFalse(
             self.checker.check_types(OrderedDict([('', simple_config)]))
         )
