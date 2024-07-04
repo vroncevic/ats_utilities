@@ -21,12 +21,13 @@ Info
 
 import sys
 from typing import Any, Dict, List, Optional
-from os.path import exists
+from os.path import exists, basename
 from json import load
 from unittest import TestLoader, TestSuite, TextTestRunner
 from argparse import Namespace
 
 try:
+    from pathlib import Path
     from ats_utilities.checker import ATSChecker
     from ats_utilities.console_io.success import success_message
     from ats_utilities.console_io.error import error_message
@@ -101,6 +102,31 @@ def load_report(report_file_path: str) -> Dict[str, Any]:
     return data
 
 
+def find_root_package(module_path: str) -> Optional[Path]:
+    '''
+        Finds root package for project structure.
+
+        :param module_path: Absolute path
+        :type module_path: <str>
+        :exceptions: ATSTypeError
+    '''
+    checker: ATSChecker = ATSChecker()
+    error_msg: Optional[str] = None
+    error_id: Optional[int] = None
+    error_msg, error_id = checker.check_params([(
+        'str:module_path', module_path
+    )])
+    if error_id == checker.TYPE_ERROR:
+        raise ATSTypeError(error_msg)
+    root: Optional[Path] = None
+    path: Path = Path(module_path).resolve()
+    while path.parent != path:
+        if (path / '__init__.py').exists():
+            root = path
+        path = path.parent
+    return root
+
+
 def update_readme(coverage: Dict[str, Any]) -> None:
     '''
         Updates README.md file with code coverage report table.
@@ -133,15 +159,22 @@ def update_readme(coverage: Dict[str, Any]) -> None:
             new_lines.append('\n')
             new_lines.append('| Name | Stmts | Miss | Cover |\n')
             new_lines.append('|------|-------|------|-------|\n')
-            for name in coverage['files']:
+            file_names: List[str] = coverage['files']
+            for name in file_names:
+                root_package: Optional[Path] = find_root_package(name)
+                module: str = ''
+                if name.startswith(str(root_package)):
+                    result: str = name[len(str(root_package)):]
+                    result = result.lstrip('/')
+                    module = f'{basename(str(root_package))}/{result}'
                 file_summary: Dict[str, Any] = coverage['files'][name]
                 statements: str = file_summary['summary'][stmts]
                 missing: str = file_summary['summary'][miss]
                 covered: str = file_summary['summary'][cover]
                 new_lines.append(
-                    f'| {name} | {statements} | {missing} | {covered}%|\n'
+                    f'| `{module}` | {statements} | {missing} | {covered}%|\n'
                 )
-            total: str = '| Total |'
+            total: str = '| **Total** |'
             total_statements: str = coverage['totals'][stmts]
             total_missing: str = coverage['totals'][miss]
             total_covered: str = coverage['totals'][cover]
