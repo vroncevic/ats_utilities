@@ -153,3 +153,13 @@
 07/05/2024 12:10:45 AM - ERROR - simple error
 07/05/2024 12:10:45 AM - INFO - simple info
 07/05/2024 12:10:45 AM - WARNING - simple warning
+07/05/2024 12:21:11 AM - CRITICAL - simple critical
+07/05/2024 12:21:11 AM - DEBUG - simple debug
+07/05/2024 12:21:11 AM - ERROR - simple error
+07/05/2024 12:21:11 AM - INFO - simple info
+07/05/2024 12:21:11 AM - WARNING - simple warning
+07/05/2024 12:21:23 AM - CRITICAL - simple critical
+07/05/2024 12:21:23 AM - DEBUG - simple debug
+07/05/2024 12:21:23 AM - ERROR - simple error
+07/05/2024 12:21:23 AM - INFO - simple info
+07/05/2024 12:21:23 AM - WARNING - simple warning
