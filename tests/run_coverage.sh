@@ -13,3 +13,4 @@ python3 -m coverage html -d htmlcov
 python3 -m coverage xml -o ats_utilities_coverage.xml 
 python3 -m coverage json -o ats_utilities_coverage.json
 python3 -m coverage report --format=markdown -m
+python3 ats_coverage.py -n ats_utilities
