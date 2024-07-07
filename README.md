@@ -194,7 +194,7 @@ Framework structure
 |------|-------|------|-------|
 | `ats_utilities/__init__.py` | 0 | 0 | 100%|
 | `ats_utilities/checker/__init__.py` | 73 | 23 | 68%|
-| `ats_utilities/cli/__init__.py` | 61 | 16 | 74%|
+| `ats_utilities/cli/__init__.py` | 62 | 16 | 74%|
 | `ats_utilities/config_io/__init__.py` | 58 | 2 | 97%|
 | `ats_utilities/config_io/cfg/__init__.py` | 46 | 3 | 93%|
 | `ats_utilities/config_io/cfg/cfg2object.py` | 46 | 3 | 93%|
@@ -243,7 +243,7 @@ Framework structure
 | `ats_utilities/splash/progress_bar.py` | 44 | 2 | 95%|
 | `ats_utilities/splash/splash_property.py` | 39 | 3 | 92%|
 | `ats_utilities/splash/terminal_properties.py` | 51 | 3 | 94%|
-| **Total** | 1960 | 263 | 87% |
+| **Total** | 1961 | 263 | 87% |
 
 ### Docs
 

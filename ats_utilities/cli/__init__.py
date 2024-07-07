@@ -22,6 +22,7 @@ Info
 
 import sys
 from typing import Any, List, Optional, Sequence, TypeAlias, Union
+from os.path import basename
 from argparse import Namespace
 from abc import abstractmethod
 
@@ -40,7 +41,7 @@ __author__ = 'Vladimir Roncevic'
 __copyright__ = '(C) 2024, https://vroncevic.github.io/ats_utilities'
 __credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = '3.3.1'
+__version__ = '3.3.2'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
@@ -85,8 +86,8 @@ class ATSCli:
             :type verbose: <bool>
             :exceptions: None
         '''
-        self._config: Config = self._builder(info_file, verbose)
         self._operational: bool = False
+        self._config: Config = self._builder(info_file, verbose)
         self._verbose: bool = verbose
         verbose_message(self._verbose, ['init ATS CFG cli'])
 
@@ -107,7 +108,7 @@ class ATSCli:
         cli_config: Config = None
         if not info_file:
             return cli_config
-        file_format: str = info_file.split('.')[1]
+        file_format: str = basename(info_file).split('.')[1]
         match file_format:
             case 'cfg':
                 cli_config = CfgBase(info_file, verbose)
