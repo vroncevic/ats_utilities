@@ -117,7 +117,7 @@ Framework structure
 
 ```bash
     ats_utilities/
-          ├── checker/
+          ├── checker
           │   └── __init__.py
           ├── cli/
           │   └── __init__.py
@@ -169,9 +169,6 @@ Framework structure
           │   └── __init__.py
           ├── __init__.py
           ├── logging/
-          │   ├── ats_logger_file.py
-          │   ├── ats_logger_name.py
-          │   ├── ats_logger_status.py
           │   └── __init__.py
           ├── option/
           │   └── __init__.py
@@ -187,8 +184,8 @@ Framework structure
               ├── progress_bar.py
               ├── splash_property.py
               └── terminal_properties.py
-    
-    16 directories, 55 files
+
+    16 directories, 52 files
 ```
 
 ### Code coverage
@@ -235,10 +232,7 @@ Framework structure
 | `ats_utilities/info/ats_licence.py` | 35 | 2 | 94%|
 | `ats_utilities/info/ats_name.py` | 35 | 2 | 94%|
 | `ats_utilities/info/ats_version.py` | 35 | 2 | 94%|
-| `ats_utilities/logging/__init__.py` | 74 | 4 | 95%|
-| `ats_utilities/logging/ats_logger_file.py` | 37 | 2 | 95%|
-| `ats_utilities/logging/ats_logger_name.py` | 33 | 2 | 94%|
-| `ats_utilities/logging/ats_logger_status.py` | 33 | 2 | 94%|
+| `ats_utilities/logging/__init__.py` | 72 | 8 | 89%|
 | `ats_utilities/option/__init__.py` | 40 | 27 | 32%|
 | `ats_utilities/pro_config/__init__.py` | 37 | 2 | 95%|
 | `ats_utilities/pro_config/pro_name.py` | 34 | 2 | 94%|
@@ -249,7 +243,7 @@ Framework structure
 | `ats_utilities/splash/progress_bar.py` | 44 | 2 | 95%|
 | `ats_utilities/splash/splash_property.py` | 39 | 3 | 92%|
 | `ats_utilities/splash/terminal_properties.py` | 51 | 3 | 94%|
-| **Total** | 2065 | 265 | 87% |
+| **Total** | 1960 | 263 | 87% |
 
 ### Docs
 

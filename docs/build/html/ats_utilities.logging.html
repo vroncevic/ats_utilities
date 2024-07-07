@@ -15,7 +15,7 @@
     
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="ats_utilities.logging.ats_logger_file module" href="ats_utilities.logging.ats_logger_file.html" />
+    <link rel="next" title="ats_utilities.option package" href="ats_utilities.option.html" />
     <link rel="prev" title="ats_utilities.info.ats_version module" href="ats_utilities.info.ats_version.html" /> 
   </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
@@ -28,7 +28,7 @@
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="ats_utilities.logging.ats_logger_file.html" title="ats_utilities.logging.ats_logger_file module"
+          <a href="ats_utilities.option.html" title="ats_utilities.option package"
              accesskey="N">next</a> |</li>
         <li class="right" >
           <a href="ats_utilities.info.ats_version.html" title="ats_utilities.info.ats_version module"
@@ -47,34 +47,6 @@
             
   <section id="ats-utilities-logging-package">
 <h1>ats_utilities.logging package<a class="headerlink" href="#ats-utilities-logging-package" title="Link to this heading">¶</a></h1>
-<section id="submodules">
-<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading">¶</a></h2>
-<div class="toctree-wrapper compound">
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="ats_utilities.logging.ats_logger_file.html">ats_utilities.logging.ats_logger_file module</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="ats_utilities.logging.ats_logger_file.html#ats_utilities.logging.ats_logger_file.ATSLoggerFile"><code class="docutils literal notranslate"><span class="pre">ATSLoggerFile</span></code></a><ul>
-<li class="toctree-l3"><a class="reference internal" href="ats_utilities.logging.ats_logger_file.html#ats_utilities.logging.ats_logger_file.ATSLoggerFile.logger_path"><code class="docutils literal notranslate"><span class="pre">ATSLoggerFile.logger_path</span></code></a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="ats_utilities.logging.ats_logger_name.html">ats_utilities.logging.ats_logger_name module</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="ats_utilities.logging.ats_logger_name.html#ats_utilities.logging.ats_logger_name.ATSLoggerName"><code class="docutils literal notranslate"><span class="pre">ATSLoggerName</span></code></a><ul>
-<li class="toctree-l3"><a class="reference internal" href="ats_utilities.logging.ats_logger_name.html#ats_utilities.logging.ats_logger_name.ATSLoggerName.logger_name"><code class="docutils literal notranslate"><span class="pre">ATSLoggerName.logger_name</span></code></a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="ats_utilities.logging.ats_logger_status.html">ats_utilities.logging.ats_logger_status module</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="ats_utilities.logging.ats_logger_status.html#ats_utilities.logging.ats_logger_status.ATSLoggerStatus"><code class="docutils literal notranslate"><span class="pre">ATSLoggerStatus</span></code></a><ul>
-<li class="toctree-l3"><a class="reference internal" href="ats_utilities.logging.ats_logger_status.html#ats_utilities.logging.ats_logger_status.ATSLoggerStatus.logger_status"><code class="docutils literal notranslate"><span class="pre">ATSLoggerStatus.logger_status</span></code></a></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</div>
-</section>
 <section id="module-ats_utilities.logging">
 <span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-ats_utilities.logging" title="Link to this heading">¶</a></h2>
 <dl class="simple">
@@ -98,8 +70,8 @@ Creates an API for the ATS logging mechanism.</p>
 </dl>
 <dl class="py class">
 <dt class="sig sig-object py" id="ats_utilities.logging.ATSLogger">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ats_utilities.logging.</span></span><span class="sig-name descname"><span class="pre">ATSLogger</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ats_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ats_log_file</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ats_log_stream</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">TextIOWrapper</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ats_logger_status</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ats_utilities/logging.html#ATSLogger"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.logging.ATSLogger" title="Link to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="ats_utilities.logging.ats_logger_name.html#ats_utilities.logging.ats_logger_name.ATSLoggerName" title="ats_utilities.logging.ats_logger_name.ATSLoggerName"><code class="xref py py-class docutils literal notranslate"><span class="pre">ATSLoggerName</span></code></a>, <a class="reference internal" href="ats_utilities.logging.ats_logger_status.html#ats_utilities.logging.ats_logger_status.ATSLoggerStatus" title="ats_utilities.logging.ats_logger_status.ATSLoggerStatus"><code class="xref py py-class docutils literal notranslate"><span class="pre">ATSLoggerStatus</span></code></a>, <a class="reference internal" href="ats_utilities.logging.ats_logger_file.html#ats_utilities.logging.ats_logger_file.ATSLoggerFile" title="ats_utilities.logging.ats_logger_file.ATSLoggerFile"><code class="xref py py-class docutils literal notranslate"><span class="pre">ATSLoggerFile</span></code></a></p>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ats_utilities.logging.</span></span><span class="sig-name descname"><span class="pre">ATSLogger</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ats_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ats_log_stdout</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ats_log_file</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ats_logger_status</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ats_utilities/logging.html#ATSLogger"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.logging.ATSLogger" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="ats_utilities.checker.html#ats_utilities.checker.ATSChecker" title="ats_utilities.checker.ATSChecker"><code class="xref py py-class docutils literal notranslate"><span class="pre">ATSChecker</span></code></a></p>
 <p>Defines class ATSLogger with attribute(s) and method(s).
 Creates an API for the ATS logging mechanism.
 ATS logger mechanism.</p>
@@ -201,7 +173,6 @@ ATS logger mechanism.</p>
     <h3><a href="index.html">Table of Contents</a></h3>
     <ul>
 <li><a class="reference internal" href="#">ats_utilities.logging package</a><ul>
-<li><a class="reference internal" href="#submodules">Submodules</a></li>
 <li><a class="reference internal" href="#module-ats_utilities.logging">Module contents</a><ul>
 <li><a class="reference internal" href="#ats_utilities.logging.ATSLogger"><code class="docutils literal notranslate"><span class="pre">ATSLogger</span></code></a><ul>
 <li><a class="reference internal" href="#ats_utilities.logging.ATSLogger.ATS_CRITICAL"><code class="docutils literal notranslate"><span class="pre">ATSLogger.ATS_CRITICAL</span></code></a></li>
@@ -228,8 +199,8 @@ ATS logger mechanism.</p>
   </div>
   <div>
     <h4>Next topic</h4>
-    <p class="topless"><a href="ats_utilities.logging.ats_logger_file.html"
-                          title="next chapter">ats_utilities.logging.ats_logger_file module</a></p>
+    <p class="topless"><a href="ats_utilities.option.html"
+                          title="next chapter">ats_utilities.option package</a></p>
   </div>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
@@ -262,7 +233,7 @@ ATS logger mechanism.</p>
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="ats_utilities.logging.ats_logger_file.html" title="ats_utilities.logging.ats_logger_file module"
+          <a href="ats_utilities.option.html" title="ats_utilities.option package"
              >next</a> |</li>
         <li class="right" >
           <a href="ats_utilities.info.ats_version.html" title="ats_utilities.info.ats_version module"

@@ -2,7 +2,7 @@
 
 '''
 Module
-    ats_logging_test.py
+    ats_logging_stdout_test.py
 Copyright
     Copyright (C) 2017 - 2024 Vladimir Roncevic <elektron.ronca@gmail.com>
     ats_utilities is free software: you can redistribute it and/or modify it
@@ -16,16 +16,15 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines class ATSLoggingTestCase with attribute(s) and method(s).
+    Defines class ATSLoggingStreamTestCase with attribute(s) and method(s).
     Creates test cases for checking functionalities of ATSLogger.
 Execute
-    python -m unittest -v ats_logging_test
+    python -m unittest -v ats_logging_stdout_test
 '''
 
 import sys
 from typing import List
 from unittest import TestCase, main
-from os.path import dirname
 
 try:
     from ats_utilities.logging import ATSLogger
@@ -43,18 +42,16 @@ __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
 
 
-class ATSLoggingTestCase(TestCase):
+class ATSLoggingStreamTestCase(TestCase):
     '''
-        Defines class ATSLoggingTestCase with attribute(s) and method(s).
+        Defines class ATSLoggingStreamTestCase with attribute(s) and method(s).
         Creates test cases for checking functionalities of ATSLogger.
         ATSLogger unit tests.
 
         It defines:
 
             :attributes:
-                | LOG_FILE - Log file path.
                 | tool_name - Tool name.
-                | log_file - Tool log file path.
                 | logger_ats - API for ATS logger.
             :methods:
                 | setUp - Call before test case.
@@ -67,16 +64,13 @@ class ATSLoggingTestCase(TestCase):
                 | test_info - Test info log.
     '''
 
-    LOG_FILE = '/log/simple_tool.log'
-
     def setUp(self) -> None:
         '''Call before test case.'''
-        self.log_file: str = f'{dirname(__file__)}{self.LOG_FILE}'
         self.tool_name: str = 'simple_test'
         self.logger_ats: ATSLogger = ATSLogger(
             ats_name=self.tool_name,
-            ats_log_stdout=False,
-            ats_log_file=self.log_file,
+            ats_log_stdout=True,
+            ats_log_file=None,
             ats_logger_status=True,
             verbose=False
         )
