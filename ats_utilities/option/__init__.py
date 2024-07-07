@@ -36,7 +36,7 @@ __author__ = 'Vladimir Roncevic'
 __copyright__ = '(C) 2024, https://vroncevic.github.io/ats_utilities'
 __credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = '3.2.0'
+__version__ = '3.3.0'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
@@ -98,8 +98,7 @@ class ATSOptionParser(ATSChecker):
             version, epilog, description=description
         )
         verbose_message(
-            self._verbose,
-            [f'{str(version)}, {str(epilog)}, {str(description)}']
+            self._verbose, [f'{version}, {epilog}, {description}']
         )
 
     def add_operation(self, *args: str, **kwargs: Any) -> None:

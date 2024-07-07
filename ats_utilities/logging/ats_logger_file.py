@@ -37,7 +37,7 @@ __author__ = 'Vladimir Roncevic'
 __copyright__ = '(C) 2024, https://vroncevic.github.io/ats_utilities'
 __credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = '3.2.0'
+__version__ = '3.3.0'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
@@ -83,25 +83,21 @@ class ATSLoggerFile(ATSChecker):
         return self._logger_path
 
     @logger_path.setter
-    def logger_path(self, file_path: Optional[str]) -> None:
+    def logger_path(self, path: Optional[str]) -> None:
         '''
             Property method for setting log file path.
 
-            :param file_path: Log file path | None
-            :type file_path: <Optional[str]>
+            :param path: Log file path | None
+            :type path: <Optional[str]>
             :exceptions: ATSTypeError | ATSFileError
         '''
         error_msg: Optional[str] = None
         error_id: Optional[int] = None
-        error_msg, error_id = self.check_params([
-            ('str:file_path', file_path)
-        ])
+        error_msg, error_id = self.check_params([('str:file_path', path)])
         if error_id == self.TYPE_ERROR:
             raise ATSTypeError(error_msg)
-        if isfile(str(file_path)):
-            self._logger_path = file_path
-            verbose_message(
-                self._verbose, [f'logger path {self._logger_path}']
-            )
+        if path and isfile(path):
+            self._logger_path = path
+            verbose_message(self._verbose, [f'setup path {self._logger_path}'])
         else:
-            raise ATSFileError(f'Check ATS log file path {file_path}')
+            raise ATSFileError(f'Check ATS log file path {path}')
