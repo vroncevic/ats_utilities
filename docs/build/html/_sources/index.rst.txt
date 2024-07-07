@@ -113,7 +113,79 @@ Framework structure
 
 .. code-block:: bash
 
-
+    ats_utilities/
+          ├── checker/
+          │   └── __init__.py
+          ├── cli/
+          │   └── __init__.py
+          ├── config_io/
+          │   ├── cfg/
+          │   │   ├── cfg2object.py
+          │   │   ├── __init__.py
+          │   │   └── object2cfg.py
+          │   ├── file_check.py
+          │   ├── ini/
+          │   │   ├── ini2object.py
+          │   │   ├── __init__.py
+          │   │   └── object2ini.py
+          │   ├── __init__.py
+          │   ├── json/
+          │   │   ├── __init__.py
+          │   │   ├── json2object.py
+          │   │   └── object2json.py
+          │   ├── xml/
+          │   │   ├── __init__.py
+          │   │   ├── object2xml.py
+          │   │   └── xml2object.py
+          │   └── yaml/
+          │       ├── __init__.py
+          │       ├── object2yaml.py
+          │       └── yaml2object.py
+          ├── console_io/
+          │   ├── error.py
+          │   ├── __init__.py
+          │   ├── success.py
+          │   ├── verbose.py
+          │   └── warning.py
+          ├── exceptions/
+          │   ├── ats_attribute_error.py
+          │   ├── ats_bad_call_error.py
+          │   ├── ats_file_error.py
+          │   ├── ats_key_error.py
+          │   ├── ats_lookup_error.py
+          │   ├── ats_parameter_error.py
+          │   ├── ats_type_error.py
+          │   ├── ats_value_error.py
+          │   └── __init__.py
+          ├── info/
+          │   ├── ats_build_date.py
+          │   ├── ats_info_ok.py
+          │   ├── ats_licence.py
+          │   ├── ats_name.py
+          │   ├── ats_version.py
+          │   └── __init__.py
+          ├── __init__.py
+          ├── logging/
+          │   ├── ats_logger_file.py
+          │   ├── ats_logger_name.py
+          │   ├── ats_logger_status.py
+          │   └── __init__.py
+          ├── option/
+          │   └── __init__.py
+          ├── pro_config/
+          │   ├── __init__.py
+          │   ├── pro_name.py
+          │   └── template_dir.py
+          ├── py.typed
+          └── splash/
+              ├── ext_infrastructure.py
+              ├── github_infrastructure.py
+              ├── __init__.py
+              ├── progress_bar.py
+              ├── splash_property.py
+              └── terminal_properties.py
+    
+    16 directories, 55 files
 
 Copyright and licence
 ----------------------
