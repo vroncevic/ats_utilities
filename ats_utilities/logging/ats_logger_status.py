@@ -35,7 +35,7 @@ __author__ = 'Vladimir Roncevic'
 __copyright__ = '(C) 2024, https://vroncevic.github.io/ats_utilities'
 __credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = '3.2.0'
+__version__ = '3.3.0'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
@@ -81,20 +81,18 @@ class ATSLoggerStatus(ATSChecker):
         return self._log_status
 
     @logger_status.setter
-    def logger_status(self, log_status: bool) -> None:
+    def logger_status(self, status: bool) -> None:
         '''
             Property method for setting logger status.
 
-            :param log_status: Logger status (enable/disable logging)
-            :type log_status: <bool>
+            :param status: Logger status (enable/disable logging)
+            :type status: <bool>
             :exceptions: ATSTypeError
         '''
         error_msg: Optional[str] = None
         error_id: Optional[int] = None
-        error_msg, error_id = self.check_params([
-            ('bool:log_status', log_status)
-        ])
+        error_msg, error_id = self.check_params([('bool:status', status)])
         if error_id == self.TYPE_ERROR:
             raise ATSTypeError(error_msg)
-        self._log_status = log_status
-        verbose_message(self._verbose, [f'logger status {log_status}'])
+        self._log_status = status
+        verbose_message(self._verbose, [f'logger status {status}'])

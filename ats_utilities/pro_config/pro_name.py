@@ -35,7 +35,7 @@ __author__ = 'Vladimir Roncevic'
 __copyright__ = '(C) 2024, https://vroncevic.github.io/ats_utilities'
 __credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = '3.2.0'
+__version__ = '3.3.0'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
@@ -80,23 +80,21 @@ class ProName:
         return self._pro_name
 
     @pro_name.setter
-    def pro_name(self, pro_name: Optional[str]) -> None:
+    def pro_name(self, name: Optional[str]) -> None:
         '''
             Property method for setting project name.
 
-            :param pro_name: Project name | None
-            :type pro_name: <Optional[str]>
+            :param name: Project name | None
+            :type name: <Optional[str]>
             :exceptions: ATSTypeError
         '''
         checker: ATSChecker = ATSChecker()
         error_msg: Optional[str] = None
         error_id: Optional[int] = None
-        error_msg, error_id = checker.check_params([
-            ('str:pro_name', pro_name)
-        ])
+        error_msg, error_id = checker.check_params([('str:name', name)])
         if error_id == checker.TYPE_ERROR:
             raise ATSTypeError(error_msg)
-        self._pro_name = pro_name
+        self._pro_name = name
 
     def is_pro_name_ok(self) -> bool:
         '''
@@ -106,4 +104,4 @@ class ProName:
             :rtype: <bool>
             :exceptions: None
         '''
-        return all([bool(self._pro_name), isinstance(self._pro_name, str)])
+        return bool(self._pro_name)

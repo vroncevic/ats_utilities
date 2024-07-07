@@ -22,6 +22,7 @@ Info
 
 import sys
 from typing import List, Optional
+from io import TextIOWrapper
 from logging import (
     getLogger, basicConfig, Logger, DEBUG, WARNING, CRITICAL, ERROR, INFO
 )
@@ -41,7 +42,7 @@ __author__ = 'Vladimir Roncevic'
 __copyright__ = '(C) 2024, https://vroncevic.github.io/ats_utilities'
 __credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = '3.2.0'
+__version__ = '3.3.0'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
@@ -80,7 +81,9 @@ class ATSLogger(ATSLoggerName, ATSLoggerStatus, ATSLoggerFile):
     def __init__(
         self,
         ats_name: Optional[str],
-        ats_log_file: Optional[str],
+        ats_log_file: Optional[str] = None,
+        ats_log_stream: Optional[TextIOWrapper] = None,
+        ats_logger_status: bool = False,
         verbose: bool = False
     ) -> None:
         '''
@@ -90,6 +93,10 @@ class ATSLogger(ATSLoggerName, ATSLoggerStatus, ATSLoggerFile):
             :type ats_name: <Optional[str]>
             :param ats_log_file: Log file path of ATS | None
             :type ats_log_file: <Optional[str]>
+            :param ats_log_stream: Log stream | None
+            :type ats_log_stream: <Optional[TextIOWrapper]>
+            :param ats_logger_status: Logging status (defaault False)
+            :type ats_logger_status: <bool>
             :param verbose: Enable/Disable verbose option
             :type verbose: <bool>
             :exceptions: None
@@ -98,16 +105,25 @@ class ATSLogger(ATSLoggerName, ATSLoggerStatus, ATSLoggerFile):
         ATSLoggerStatus.__init__(self, verbose)
         ATSLoggerFile.__init__(self, verbose)
         self._verbose: bool = verbose
-        self.logger_path = str(ats_log_file)
-        self.logger_name = str(ats_name)
-        basicConfig(
-            format=self.LOG_MSG_FORMAT,
-            datefmt=self.LOG_DATE_FORMAT,
-            filename=self.logger_path,
-            level=DEBUG
-        )
+        self.logger_path: Optional[str] = ats_log_file
+        self.logger_name: Optional[str] = ats_name
+        self.logger_stream: Optional[TextIOWrapper] = ats_log_stream
+        if bool(self.logger_path):
+            basicConfig(
+                format=self.LOG_MSG_FORMAT,
+                datefmt=self.LOG_DATE_FORMAT,
+                filename=self.logger_path,
+                level=DEBUG
+            )
+        if self.logger_stream:
+            basicConfig(
+                format=self.LOG_MSG_FORMAT,
+                datefmt=self.LOG_DATE_FORMAT,
+                stream=ats_log_stream,
+                level=DEBUG
+            )
         self.logger: Logger = getLogger(self.logger_name)
-        self.logger_status = True
+        self.logger_status = ats_logger_status
         verbose_message(self._verbose, ['init ATS logger'])
 
     def write_log(
@@ -122,9 +138,9 @@ class ATSLogger(ATSLoggerName, ATSLoggerStatus, ATSLoggerFile):
             :type ctrl: <int>
             :param verbose: Enable/Disable verbose option
             :type verbose: <bool>
-            :return: True (successful written log) | False
+            :return: True (successfully logged message) | False
             :rtype: <bool>
-            :exceptions: ATSTypeError
+            :exceptions: ATSTypeError | ATSBadCallError
         '''
         error_msg: Optional[str] = None
         error_id: Optional[int] = None
@@ -134,6 +150,9 @@ class ATSLogger(ATSLoggerName, ATSLoggerStatus, ATSLoggerFile):
         if error_id == self.TYPE_ERROR:
             raise ATSTypeError(error_msg)
         status: bool = False
+        if not self.logger_status:
+            # Skip logging messages
+            return status
         verbose_message(self._verbose or verbose, [f'{message} {str(ctrl)}'])
         if self.logger_status:
             match ctrl:

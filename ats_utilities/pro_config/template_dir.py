@@ -35,7 +35,7 @@ __author__ = 'Vladimir Roncevic'
 __copyright__ = '(C) 2024, https://vroncevic.github.io/ats_utilities'
 __credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = '3.2.0'
+__version__ = '3.3.0'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
@@ -80,23 +80,21 @@ class TemplateDir:
         return self._template_dir
 
     @template_dir.setter
-    def template_dir(self, template_dir: Optional[str]) -> None:
+    def template_dir(self, path: Optional[str]) -> None:
         '''
             Property method for setting project template dir.
 
-            :param template_dir: Project template dir | None
-            :type template_dir: <Optional[str]>
+            :param path: Project template dir | None
+            :type path: <Optional[str]>
             :exceptions: ATSTypeError
         '''
         checker: ATSChecker = ATSChecker()
         error_msg: Optional[str] = None
         error_id: Optional[int] = None
-        error_msg, error_id = checker.check_params([
-            ('str:template_dir', template_dir)
-        ])
+        error_msg, error_id = checker.check_params([('str:path', path)])
         if error_id == checker.TYPE_ERROR:
             raise ATSTypeError(error_msg)
-        self._template_dir = template_dir
+        self._template_dir = path
 
     def is_template_dir_ok(self) -> bool:
         '''
@@ -106,6 +104,4 @@ class TemplateDir:
             :rtype: <bool>
             :exceptions: None
         '''
-        return all([
-            bool(self._template_dir), isinstance(self._template_dir, str)
-        ])
+        return bool(self._template_dir)

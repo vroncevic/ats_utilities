@@ -35,7 +35,7 @@ __author__ = 'Vladimir Roncevic'
 __copyright__ = '(C) 2024, https://vroncevic.github.io/ats_utilities'
 __credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = '3.2.0'
+__version__ = '3.3.0'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
@@ -81,20 +81,18 @@ class ATSLoggerName(ATSChecker):
         return self._logger_name
 
     @logger_name.setter
-    def logger_name(self, logger_name: Optional[str]) -> None:
+    def logger_name(self, name: Optional[str]) -> None:
         '''
             Property method for setting logger name.
 
-            :param logger_name: Logger name | None
-            :type logger_name: <Optional[str]>
+            :param name: Logger name | None
+            :type name: <Optional[str]>
             :exceptions: ATSTypeError
         '''
         error_msg: Optional[str] = None
         error_id: Optional[int] = None
-        error_msg, error_id = self.check_params([
-            ('str:logger_name', logger_name)
-        ])
+        error_msg, error_id = self.check_params([('str:name', name)])
         if error_id == self.TYPE_ERROR:
             raise ATSTypeError(error_msg)
-        self._logger_name = logger_name
-        verbose_message(self._verbose, [f'logger name {logger_name}'])
+        self._logger_name = name
+        verbose_message(self._verbose, [f'setup logger name {name}'])

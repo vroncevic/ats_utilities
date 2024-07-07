@@ -40,7 +40,7 @@ __author__ = 'Vladimir Roncevic'
 __copyright__ = '(C) 2024, https://vroncevic.github.io/ats_utilities'
 __credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = '3.2.0'
+__version__ = '3.3.0'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
@@ -76,7 +76,11 @@ class ATSLoggingTestCase(TestCase):
         self.log_file: str = f'{dirname(__file__)}{self.LOG_FILE}'
         self.tool_name: str = 'simple_test'
         self.logger_ats: ATSLogger = ATSLogger(
-            self.tool_name, self.log_file, verbose=False
+            ats_name=self.tool_name,
+            ats_log_file=self.log_file,
+            ats_log_stream=None,
+            ats_logger_status=True,
+            verbose=False
         )
 
     def tearDown(self) -> None:

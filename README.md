@@ -115,104 +115,7 @@ These modules requires other modules and libraries (Python 3.x)
 Framework structure
 
 ```bash
-    ats_utilities/
-          ├── checker/
-          │   └── __init__.py
-          ├── cli/
-          │   ├── cfg_cli_meta.py
-          │   ├── cfg_cli.py
-          │   ├── ini_cli_meta.py
-          │   ├── ini_cli.py
-          │   ├── __init__.py
-          │   ├── json_cli_meta.py
-          │   ├── json_cli.py
-          │   ├── xml_cli_meta.py
-          │   ├── xml_cli.py
-          │   ├── yaml_cli_meta.py
-          │   └── yaml_cli.py
-          ├── config_io/
-          │   ├── abs_read_conf.py
-          │   ├── abs_write_conf.py
-          │   ├── cfg/
-          │   │   ├── cfg2object_meta.py
-          │   │   ├── cfg2object.py
-          │   │   ├── __init__.py
-          │   │   ├── object2cfg_meta.py
-          │   │   └── object2cfg.py
-          │   ├── conf_file_meta.py
-          │   ├── file_check.py
-          │   ├── ini/
-          │   │   ├── ini2object_meta.py
-          │   │   ├── ini2object.py
-          │   │   ├── __init__.py
-          │   │   ├── object2ini_meta.py
-          │   │   └── object2ini.py
-          │   ├── __init__.py
-          │   ├── json/
-          │   │   ├── __init__.py
-          │   │   ├── json2object_meta.py
-          │   │   ├── json2object.py
-          │   │   ├── object2json_meta.py
-          │   │   └── object2json.py
-          │   ├── xml/
-          │   │   ├── __init__.py
-          │   │   ├── object2xml_meta.py
-          │   │   ├── object2xml.py
-          │   │   ├── xml2object_meta.py
-          │   │   └── xml2object.py
-          │   └── yaml/
-          │       ├── __init__.py
-          │       ├── object2yaml_meta.py
-          │       ├── object2yaml.py
-          │       ├── yaml2object_meta.py
-          │       └── yaml2object.py
-          ├── console_io/
-          │   ├── error.py
-          │   ├── __init__.py
-          │   ├── success.py
-          │   ├── verbose.py
-          │   └── warning.py
-          ├── exceptions/
-          │   ├── ats_attribute_error.py
-          │   ├── ats_bad_call_error.py
-          │   ├── ats_file_error.py
-          │   ├── ats_key_error.py
-          │   ├── ats_lookup_error.py
-          │   ├── ats_parameter_error.py
-          │   ├── ats_type_error.py
-          │   ├── ats_value_error.py
-          │   └── __init__.py
-          ├── info/
-          │   ├── ats_build_date.py
-          │   ├── ats_info_meta.py
-          │   ├── ats_info_ok.py
-          │   ├── ats_licence.py
-          │   ├── ats_name.py
-          │   ├── ats_version.py
-          │   └── __init__.py
-          ├── __init__.py
-          ├── logging/
-          │   ├── ats_logger_file.py
-          │   ├── ats_logger_meta.py
-          │   ├── ats_logger_name.py
-          │   ├── ats_logger_status.py
-          │   └── __init__.py
-          ├── option/
-          │   └── __init__.py
-          ├── pro_config/
-          │   ├── __init__.py
-          │   ├── pro_name.py
-          │   └── template_dir.py
-          └── splash/
-             ├── ext_infrastructure.py
-             ├── github_infrastructure.py
-             ├── __init__.py
-             ├── progress_bar.py
-             ├── splash_meta.py
-             ├── splash_property.py
-             └── terminal_properties.py
-    
-          16 directories, 59 files
+
 ```
 
 ### Code coverage
@@ -221,12 +124,7 @@ Framework structure
 |------|-------|------|-------|
 | `ats_utilities/__init__.py` | 0 | 0 | 100%|
 | `ats_utilities/checker/__init__.py` | 73 | 23 | 68%|
-| `ats_utilities/cli/__init__.py` | 10 | 0 | 100%|
-| `ats_utilities/cli/cfg_cli.py` | 29 | 2 | 93%|
-| `ats_utilities/cli/ini_cli.py` | 29 | 2 | 93%|
-| `ats_utilities/cli/json_cli.py` | 29 | 2 | 93%|
-| `ats_utilities/cli/xml_cli.py` | 29 | 2 | 93%|
-| `ats_utilities/cli/yaml_cli.py` | 29 | 2 | 93%|
+| `ats_utilities/cli/__init__.py` | 61 | 16 | 74%|
 | `ats_utilities/config_io/__init__.py` | 58 | 2 | 97%|
 | `ats_utilities/config_io/cfg/__init__.py` | 46 | 3 | 93%|
 | `ats_utilities/config_io/cfg/cfg2object.py` | 46 | 3 | 93%|
@@ -264,7 +162,7 @@ Framework structure
 | `ats_utilities/info/ats_licence.py` | 35 | 2 | 94%|
 | `ats_utilities/info/ats_name.py` | 35 | 2 | 94%|
 | `ats_utilities/info/ats_version.py` | 35 | 2 | 94%|
-| `ats_utilities/logging/__init__.py` | 67 | 2 | 97%|
+| `ats_utilities/logging/__init__.py` | 74 | 4 | 95%|
 | `ats_utilities/logging/ats_logger_file.py` | 37 | 2 | 95%|
 | `ats_utilities/logging/ats_logger_name.py` | 33 | 2 | 94%|
 | `ats_utilities/logging/ats_logger_status.py` | 33 | 2 | 94%|
@@ -278,7 +176,7 @@ Framework structure
 | `ats_utilities/splash/progress_bar.py` | 44 | 2 | 95%|
 | `ats_utilities/splash/splash_property.py` | 39 | 3 | 92%|
 | `ats_utilities/splash/terminal_properties.py` | 51 | 3 | 94%|
-| **Total** | 2152 | 257 | 88% |
+| **Total** | 2065 | 265 | 87% |
 
 ### Docs
 
