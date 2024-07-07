@@ -85,7 +85,7 @@ setup(
         'ats_utilities.pro_config',
         'ats_utilities.splash'
     ],
-    install_requires=['colorama', 'bs4', 'PyYAML'],
+    install_requires=['colorama', 'bs4', 'lxml', 'PyYAML'],
     package_data={
         'ats_utilities': [
             'py.typed'
