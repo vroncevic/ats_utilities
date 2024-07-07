@@ -21,17 +21,14 @@ Info
 '''
 
 import sys
-from typing import List, Optional
-from io import TextIOWrapper
+from typing import Any, List, Dict, Optional
 from logging import (
     getLogger, basicConfig, Logger, DEBUG, WARNING, CRITICAL, ERROR, INFO
 )
 
 try:
+    from ats_utilities.checker import ATSChecker
     from ats_utilities.console_io.verbose import verbose_message
-    from ats_utilities.logging.ats_logger_file import ATSLoggerFile
-    from ats_utilities.logging.ats_logger_name import ATSLoggerName
-    from ats_utilities.logging.ats_logger_status import ATSLoggerStatus
     from ats_utilities.exceptions.ats_type_error import ATSTypeError
     from ats_utilities.exceptions.ats_bad_call_error import ATSBadCallError
 except ImportError as ats_error_message:
@@ -42,13 +39,13 @@ __author__ = 'Vladimir Roncevic'
 __copyright__ = '(C) 2024, https://vroncevic.github.io/ats_utilities'
 __credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = '3.3.0'
+__version__ = '3.3.1'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
 
 
-class ATSLogger(ATSLoggerName, ATSLoggerStatus, ATSLoggerFile):
+class ATSLogger(ATSChecker):
     '''
         Defines class ATSLogger with attribute(s) and method(s).
         Creates an API for the ATS logging mechanism.
@@ -81,8 +78,8 @@ class ATSLogger(ATSLoggerName, ATSLoggerStatus, ATSLoggerFile):
     def __init__(
         self,
         ats_name: Optional[str],
+        ats_log_stdout: bool = True,
         ats_log_file: Optional[str] = None,
-        ats_log_stream: Optional[TextIOWrapper] = None,
         ats_logger_status: bool = False,
         verbose: bool = False
     ) -> None:
@@ -99,31 +96,26 @@ class ATSLogger(ATSLoggerName, ATSLoggerStatus, ATSLoggerFile):
             :type ats_logger_status: <bool>
             :param verbose: Enable/Disable verbose option
             :type verbose: <bool>
-            :exceptions: None
+            :exceptions: ATSTypeError | ATSBadCallError
         '''
-        ATSLoggerName.__init__(self, verbose)
-        ATSLoggerStatus.__init__(self, verbose)
-        ATSLoggerFile.__init__(self, verbose)
-        self._verbose: bool = verbose
-        self.logger_path: Optional[str] = ats_log_file
+        super().__init__()
         self.logger_name: Optional[str] = ats_name
-        self.logger_stream: Optional[TextIOWrapper] = ats_log_stream
-        if bool(self.logger_path):
-            basicConfig(
-                format=self.LOG_MSG_FORMAT,
-                datefmt=self.LOG_DATE_FORMAT,
-                filename=self.logger_path,
-                level=DEBUG
-            )
-        if self.logger_stream:
-            basicConfig(
-                format=self.LOG_MSG_FORMAT,
-                datefmt=self.LOG_DATE_FORMAT,
-                stream=ats_log_stream,
-                level=DEBUG
-            )
+        self.logger_path: Optional[str] = ats_log_file
+        log_config: Dict[str, Any] = {
+            'format': self.LOG_MSG_FORMAT,
+            'datefmt': self.LOG_DATE_FORMAT,
+            'level': DEBUG
+        }
+        if bool(ats_log_file) and not ats_log_stdout:
+            log_config['filename'] = ats_log_file
+        elif not bool(ats_log_file) and not ats_log_stdout:
+            raise ATSTypeError(f'check log file {ats_log_file}')
+        elif bool(ats_log_file) and ats_log_stdout:
+            raise ATSBadCallError('file log or stream log can be supported')
+        basicConfig(**log_config)
         self.logger: Logger = getLogger(self.logger_name)
-        self.logger_status = ats_logger_status
+        self.logger_status: bool = ats_logger_status
+        self._verbose: bool = verbose
         verbose_message(self._verbose, ['init ATS logger'])
 
     def write_log(

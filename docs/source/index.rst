@@ -103,6 +103,7 @@ Dependencies
 * `yaml - YAML parser and emitter for Python <https://pypi.org/project/PyYAML/>`_
 * `bs4 - Screen-scraping library <https://pypi.org/project/beautifulsoup4/>`_
 * `colorama - Cross-platform colored terminal text <https://pypi.org/project/colorama/>`_
+* `lxml - XML processing library <https://pypi.org/project/lxml/>`_
 
 Framework structure
 --------------------
@@ -114,7 +115,7 @@ Framework structure
 .. code-block:: bash
 
     ats_utilities/
-          ├── checker/
+          ├── checker
           │   └── __init__.py
           ├── cli/
           │   └── __init__.py
@@ -166,9 +167,6 @@ Framework structure
           │   └── __init__.py
           ├── __init__.py
           ├── logging/
-          │   ├── ats_logger_file.py
-          │   ├── ats_logger_name.py
-          │   ├── ats_logger_status.py
           │   └── __init__.py
           ├── option/
           │   └── __init__.py
@@ -184,8 +182,8 @@ Framework structure
               ├── progress_bar.py
               ├── splash_property.py
               └── terminal_properties.py
-    
-    16 directories, 55 files
+
+    16 directories, 52 files
 
 Copyright and licence
 ----------------------
