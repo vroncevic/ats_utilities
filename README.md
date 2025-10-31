@@ -193,57 +193,57 @@ Framework structure
 | Name | Stmts | Miss | Cover |
 |------|-------|------|-------|
 | `ats_utilities/__init__.py` | 0 | 0 | 100%|
-| `ats_utilities/checker/__init__.py` | 73 | 23 | 68%|
-| `ats_utilities/cli/__init__.py` | 62 | 16 | 74%|
-| `ats_utilities/config_io/__init__.py` | 58 | 2 | 97%|
-| `ats_utilities/config_io/cfg/__init__.py` | 46 | 3 | 93%|
-| `ats_utilities/config_io/cfg/cfg2object.py` | 46 | 3 | 93%|
-| `ats_utilities/config_io/cfg/object2cfg.py` | 48 | 3 | 94%|
-| `ats_utilities/config_io/file_check.py` | 79 | 2 | 97%|
-| `ats_utilities/config_io/ini/__init__.py` | 52 | 3 | 94%|
-| `ats_utilities/config_io/ini/ini2object.py` | 41 | 3 | 93%|
-| `ats_utilities/config_io/ini/object2ini.py` | 51 | 4 | 92%|
-| `ats_utilities/config_io/json/__init__.py` | 46 | 3 | 93%|
-| `ats_utilities/config_io/json/json2object.py` | 40 | 3 | 92%|
-| `ats_utilities/config_io/json/object2json.py` | 48 | 3 | 94%|
-| `ats_utilities/config_io/xml/__init__.py` | 59 | 3 | 95%|
-| `ats_utilities/config_io/xml/object2xml.py` | 51 | 4 | 92%|
-| `ats_utilities/config_io/xml/xml2object.py` | 42 | 3 | 93%|
-| `ats_utilities/config_io/yaml/__init__.py` | 46 | 3 | 93%|
-| `ats_utilities/config_io/yaml/object2yaml.py` | 48 | 3 | 94%|
-| `ats_utilities/config_io/yaml/yaml2object.py` | 40 | 3 | 92%|
+| `ats_utilities/checker/__init__.py` | 73 | 0 | 100%|
+| `ats_utilities/cli/__init__.py` | 60 | 14 | 77%|
+| `ats_utilities/config_io/__init__.py` | 56 | 0 | 100%|
+| `ats_utilities/config_io/cfg/__init__.py` | 44 | 1 | 98%|
+| `ats_utilities/config_io/cfg/cfg2object.py` | 44 | 1 | 98%|
+| `ats_utilities/config_io/cfg/object2cfg.py` | 46 | 1 | 98%|
+| `ats_utilities/config_io/file_check.py` | 77 | 0 | 100%|
+| `ats_utilities/config_io/ini/__init__.py` | 50 | 1 | 98%|
+| `ats_utilities/config_io/ini/ini2object.py` | 39 | 1 | 97%|
+| `ats_utilities/config_io/ini/object2ini.py` | 49 | 2 | 96%|
+| `ats_utilities/config_io/json/__init__.py` | 44 | 1 | 98%|
+| `ats_utilities/config_io/json/json2object.py` | 38 | 1 | 97%|
+| `ats_utilities/config_io/json/object2json.py` | 46 | 1 | 98%|
+| `ats_utilities/config_io/xml/__init__.py` | 57 | 1 | 98%|
+| `ats_utilities/config_io/xml/object2xml.py` | 49 | 2 | 96%|
+| `ats_utilities/config_io/xml/xml2object.py` | 40 | 1 | 98%|
+| `ats_utilities/config_io/yaml/__init__.py` | 44 | 1 | 98%|
+| `ats_utilities/config_io/yaml/object2yaml.py` | 46 | 1 | 98%|
+| `ats_utilities/config_io/yaml/yaml2object.py` | 38 | 1 | 97%|
 | `ats_utilities/console_io/__init__.py` | 0 | 0 | 100%|
-| `ats_utilities/console_io/error.py` | 40 | 24 | 40%|
-| `ats_utilities/console_io/success.py` | 40 | 24 | 40%|
-| `ats_utilities/console_io/verbose.py` | 41 | 24 | 41%|
-| `ats_utilities/console_io/warning.py` | 40 | 2 | 95%|
-| `ats_utilities/exceptions/__init__.py` | 10 | 10 | 0%|
+| `ats_utilities/console_io/error.py` | 38 | 0 | 100%|
+| `ats_utilities/console_io/success.py` | 38 | 0 | 100%|
+| `ats_utilities/console_io/verbose.py` | 39 | 0 | 100%|
+| `ats_utilities/console_io/warning.py` | 38 | 0 | 100%|
+| `ats_utilities/exceptions/__init__.py` | 10 | 0 | 100%|
 | `ats_utilities/exceptions/ats_attribute_error.py` | 10 | 0 | 100%|
 | `ats_utilities/exceptions/ats_bad_call_error.py` | 10 | 0 | 100%|
-| `ats_utilities/exceptions/ats_file_error.py` | 10 | 10 | 0%|
+| `ats_utilities/exceptions/ats_file_error.py` | 10 | 0 | 100%|
 | `ats_utilities/exceptions/ats_key_error.py` | 10 | 0 | 100%|
 | `ats_utilities/exceptions/ats_lookup_error.py` | 10 | 0 | 100%|
 | `ats_utilities/exceptions/ats_parameter_error.py` | 10 | 0 | 100%|
-| `ats_utilities/exceptions/ats_type_error.py` | 10 | 10 | 0%|
+| `ats_utilities/exceptions/ats_type_error.py` | 10 | 0 | 100%|
 | `ats_utilities/exceptions/ats_value_error.py` | 10 | 0 | 100%|
-| `ats_utilities/info/__init__.py` | 62 | 2 | 97%|
-| `ats_utilities/info/ats_build_date.py` | 35 | 2 | 94%|
-| `ats_utilities/info/ats_info_ok.py` | 33 | 2 | 94%|
-| `ats_utilities/info/ats_licence.py` | 35 | 2 | 94%|
-| `ats_utilities/info/ats_name.py` | 35 | 2 | 94%|
-| `ats_utilities/info/ats_version.py` | 35 | 2 | 94%|
-| `ats_utilities/logging/__init__.py` | 72 | 8 | 89%|
-| `ats_utilities/option/__init__.py` | 40 | 27 | 32%|
+| `ats_utilities/info/__init__.py` | 60 | 0 | 100%|
+| `ats_utilities/info/ats_build_date.py` | 33 | 0 | 100%|
+| `ats_utilities/info/ats_info_ok.py` | 31 | 0 | 100%|
+| `ats_utilities/info/ats_licence.py` | 33 | 0 | 100%|
+| `ats_utilities/info/ats_name.py` | 33 | 0 | 100%|
+| `ats_utilities/info/ats_version.py` | 33 | 0 | 100%|
+| `ats_utilities/logging/__init__.py` | 70 | 6 | 91%|
+| `ats_utilities/option/__init__.py` | 38 | 3 | 92%|
 | `ats_utilities/pro_config/__init__.py` | 37 | 2 | 95%|
 | `ats_utilities/pro_config/pro_name.py` | 34 | 2 | 94%|
 | `ats_utilities/pro_config/template_dir.py` | 34 | 2 | 94%|
-| `ats_utilities/splash/__init__.py` | 63 | 2 | 97%|
-| `ats_utilities/splash/ext_infrastructure.py` | 39 | 3 | 92%|
-| `ats_utilities/splash/github_infrastructure.py` | 46 | 3 | 93%|
+| `ats_utilities/splash/__init__.py` | 61 | 0 | 100%|
+| `ats_utilities/splash/ext_infrastructure.py` | 37 | 1 | 97%|
+| `ats_utilities/splash/github_infrastructure.py` | 44 | 1 | 98%|
 | `ats_utilities/splash/progress_bar.py` | 44 | 2 | 95%|
-| `ats_utilities/splash/splash_property.py` | 39 | 3 | 92%|
-| `ats_utilities/splash/terminal_properties.py` | 51 | 3 | 94%|
-| **Total** | 1961 | 263 | 87% |
+| `ats_utilities/splash/splash_property.py` | 37 | 1 | 97%|
+| `ats_utilities/splash/terminal_properties.py` | 49 | 1 | 98%|
+| **Total** | 1891 | 52 | 97% |
 
 ### Docs
 
@@ -262,7 +262,7 @@ More documentation and info at
 
 [![license: gpl v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0) [![license apache 2.0](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
-Copyright (C) 2017 - 2024 by [vroncevic.github.io/ats_utilities](https://vroncevic.github.io/ats_utilities/)
+Copyright (C) 2017 - 2025 by [vroncevic.github.io/ats_utilities](https://vroncevic.github.io/ats_utilities/)
 
 **ats_utilities** is free software; you can redistribute it and/or modify
 it under the same terms as Python itself, either Python version 3.x or,

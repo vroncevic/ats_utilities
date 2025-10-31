@@ -4,7 +4,7 @@
 Module
     conf.py
 Copyright
-    Copyright (C) 2017 - 2024 Vladimir Roncevic <elektron.ronca@gmail.com>
+    Copyright (C) 2017 - 2025 Vladimir Roncevic <elektron.ronca@gmail.com>
     ats_utilities is free software: you can redistribute it and/or modify it
     under the terms of the GNU General Public License as published by the
     Free Software Foundation, either version 3 of the License, or
@@ -23,21 +23,21 @@ import sys
 from os.path import abspath
 from typing import Any, List, Dict, Tuple
 
-__author__ = 'Vladimir Roncevic'
-__copyright__ = '(C) 2024, https://vroncevic.github.io/ats_utilities'
+__author__: str = 'Vladimir Roncevic'
+__copyright__: str = '(C) 2025, https://vroncevic.github.io/ats_utilities'
 __credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
-__license__ = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = '3.3.2'
-__maintainer__ = 'Vladimir Roncevic'
-__email__ = 'elektron.ronca@gmail.com'
-__status__ = 'Updated'
+__license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__: str = '3.3.3'
+__maintainer__: str = 'Vladimir Roncevic'
+__email__: str = 'elektron.ronca@gmail.com'
+__status__: str = 'Updated'
 
 sys.path.insert(0, abspath('../../'))
 
 project: str = 'ats_utilities'
 project_copyright: str = '2017, https://vroncevic.github.io/ats_utilities'
 author: str = 'Vladimir Roncevic <elektron.ronca@gmail.com>'
-version: str = '3.3.2'
+version: str = '3.3.3'
 release: str = 'https://github.com/vroncevic/ats_utilities/releases'
 extensions: List[str] = ['sphinx.ext.autodoc', 'sphinx.ext.viewcode', ]
 templates_path: List[str] = ['_templates']

@@ -4,7 +4,7 @@
 Module
     ats_coverage.py
 Copyright
-    Copyright (C) 2024 Vladimir Roncevic <elektron.ronca@gmail.com>
+    Copyright (C) 2025 Vladimir Roncevic <elektron.ronca@gmail.com>
     ats_coverage is free software: you can redistribute it and/or modify it
     under the terms of the GNU General Public License as published by the
     Free Software Foundation, either version 3 of the License, or
@@ -35,18 +35,18 @@ try:
     from ats_utilities.exceptions.ats_type_error import ATSTypeError
     from ats_utilities.exceptions.ats_file_error import ATSFileError
     from coverage import Coverage
-except ImportError as ats_error_message:
+except ImportError as ats_error_message:  # pragma: no cover
     # Force exit python #######################################################
-    sys.exit(f'\n{__file__}\n{ats_error_message}\n')
+    sys.exit(f'\n{__file__}\n{ats_error_message}\n')  # pragma: no cover
 
-__author__ = 'Vladimir Roncevic'
-__copyright__ = '(C) 2024, https://vroncevic.github.io/ats_coverage'
+__author__: str = 'Vladimir Roncevic'
+__copyright__: str = '(C) 2025, https://vroncevic.github.io/ats_coverage'
 __credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
-__license__ = 'https://github.com/vroncevic/ats_coverage/blob/dev/LICENSE'
-__version__ = '1.0.0'
-__maintainer__ = 'Vladimir Roncevic'
-__email__ = 'elektron.ronca@gmail.com'
-__status__ = 'Updated'
+__license__: str = 'https://github.com/vroncevic/ats_coverage/blob/dev/LICENSE'
+__version__: str = '1.0.0'
+__maintainer__: str = 'Vladimir Roncevic'
+__email__: str = 'elektron.ronca@gmail.com'
+__status__: str = 'Updated'
 
 
 def run_coverage(pro_name: str) -> str:
@@ -196,7 +196,7 @@ def update_readme(coverage: Dict[str, Any]) -> None:
 
 if __name__ == "__main__":
     cli: ATSOptionParser = ATSOptionParser(
-        'ats_coverage 2024', '1.0.0', 'GPLv3', False
+        'ats_coverage 2025', '1.0.0', 'GPLv3', False
     )
     cli.add_operation(
         '-n', '--name', dest='name',
@@ -207,7 +207,7 @@ if __name__ == "__main__":
         error_message(['ats_coverage: missing name argument'])
         sys.exit(127)
     try:
-        pro_report_file: str = run_coverage(getattr(args, "name"))
+        pro_report_file: str = f'{getattr(args, "name")}_coverage.json'
         report_data: Dict[str, Any] = load_report(pro_report_file)
         update_readme(report_data)
     except (ATSTypeError, ATSFileError) as e:

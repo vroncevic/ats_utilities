@@ -196,7 +196,7 @@ Copyright and licence
 .. |license: apache 2.0| image:: https://img.shields.io/badge/License-Apache%202.0-blue.svg
    :target: https://opensource.org/licenses/Apache-2.0
 
-Copyright (C) 2017 - 2024 by `vroncevic.github.io/ats_utilities <https://vroncevic.github.io/ats_utilities>`_
+Copyright (C) 2017 - 2025 by `vroncevic.github.io/ats_utilities <https://vroncevic.github.io/ats_utilities>`_
 
 **ats_utilities** is free software; you can redistribute it and/or modify
 it under the same terms as Python itself, either Python version 3.x or,
