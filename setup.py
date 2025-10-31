@@ -44,11 +44,7 @@ SUPPORTED_PY_VERSIONS: List[str] = [
 ]
 LICENSE_PREFIX: str = 'License :: OSI Approved ::'
 LICENSES: List[str] = [
-    'GNU Lesser General Public License v2 (LGPLv2)',
-    'GNU Lesser General Public License v2 or later (LGPLv2+)',
-    'GNU Lesser General Public License v3 (LGPLv3)',
-    'GNU Lesser General Public License v3 or later (LGPLv3+)',
-    'GNU Library or Lesser General Public License (LGPL)'
+    'GNU Lesser General Public License v3 or later (LGPLv3+)'
 ]
 APPROVED_LICENSES: List[str] = [
     f'{LICENSE_PREFIX} {LICENSE}' for LICENSE in LICENSES
@@ -61,7 +57,7 @@ setup(
     author='Vladimir Roncevic',
     author_email='elektron.ronca@gmail.com',
     url='https://vroncevic.github.io/ats_utilities',
-    license='GPL 2017 - 2025 Free software to use and distributed it.',
+    license='GPL-3.0-or-later',
     long_description=long_description,
     long_description_content_type='text/markdown',
     keywords='util, config, log, option, xml, cfg, ini, json, yml, cli, meta',
