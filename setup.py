@@ -46,10 +46,7 @@ LICENSE_PREFIX: str = 'License :: OSI Approved ::'
 LICENSES: List[str] = [
     'GNU Lesser General Public License v3 or later (LGPLv3+)'
 ]
-APPROVED_LICENSES: List[str] = [
-    f'{LICENSE_PREFIX} {LICENSE}' for LICENSE in LICENSES
-]
-PYP_CLASSIFIERS: List[str] = SUPPORTED_PY_VERSIONS + APPROVED_LICENSES
+PYP_CLASSIFIERS: List[str] = SUPPORTED_PY_VERSIONS
 setup(
     name='ats_utilities',
     version='3.3.3',
