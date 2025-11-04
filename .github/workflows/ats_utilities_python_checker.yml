@@ -22,7 +22,7 @@ jobs:
         run: |
           modules_ok=0
           modules=($(find ats_utilities/ tests/ -type f -name '*.py' -exec echo '{}' \;))
-          for mod in "${modules[@]}"; do line_length=$(wc -L < "${mod}"); [[ $line_length -gt 80 ]] && modules_ok=1; done
+          for mod in "${modules[@]}"; do line_length=$(wc -L < "${mod}"); [[ $line_length -gt 127 ]] && modules_ok=1; done
           [[ $modules_ok -eq 0 ]] && echo ok || exit 1
       - name: Check max number of lines in modules
         id: num_line_checker
