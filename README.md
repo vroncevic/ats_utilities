@@ -234,16 +234,16 @@ Framework structure
 | `ats_utilities/info/ats_version.py` | 33 | 0 | 100%|
 | `ats_utilities/logging/__init__.py` | 70 | 6 | 91%|
 | `ats_utilities/option/__init__.py` | 38 | 3 | 92%|
-| `ats_utilities/pro_config/__init__.py` | 37 | 2 | 95%|
-| `ats_utilities/pro_config/pro_name.py` | 34 | 2 | 94%|
-| `ats_utilities/pro_config/template_dir.py` | 34 | 2 | 94%|
+| `ats_utilities/pro_config/__init__.py` | 35 | 0 | 100%|
+| `ats_utilities/pro_config/pro_name.py` | 32 | 0 | 100%|
+| `ats_utilities/pro_config/template_dir.py` | 32 | 0 | 100%|
 | `ats_utilities/splash/__init__.py` | 61 | 0 | 100%|
 | `ats_utilities/splash/ext_infrastructure.py` | 37 | 1 | 97%|
 | `ats_utilities/splash/github_infrastructure.py` | 44 | 1 | 98%|
 | `ats_utilities/splash/progress_bar.py` | 44 | 2 | 95%|
 | `ats_utilities/splash/splash_property.py` | 37 | 1 | 97%|
 | `ats_utilities/splash/terminal_properties.py` | 49 | 1 | 98%|
-| **Total** | 1891 | 52 | 97% |
+| **Total** | 1885 | 46 | 98% |
 
 ### Docs
 
@@ -262,7 +262,7 @@ More documentation and info at
 
 [![license: gpl v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0) [![license apache 2.0](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
-Copyright (C) 2017 - 2025 by [vroncevic.github.io/ats_utilities](https://vroncevic.github.io/ats_utilities/)
+Copyright (C) 2017 - 2026 by [vroncevic.github.io/ats_utilities](https://vroncevic.github.io/ats_utilities/)
 
 **ats_utilities** is free software; you can redistribute it and/or modify
 it under the same terms as Python itself, either Python version 3.x or,

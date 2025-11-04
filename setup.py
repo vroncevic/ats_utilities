@@ -5,7 +5,7 @@
 Module
     setup.py
 Copyright
-    Copyright (C) 2017 - 2025 Vladimir Roncevic <elektron.ronca@gmail.com>
+    Copyright (C) 2017 - 2026 Vladimir Roncevic <elektron.ronca@gmail.com>
     ats_utilities is free software: you can redistribute it and/or modify it
     under the terms of the GNU General Public License as published by the
     Free Software Foundation, either version 3 of the License, or
@@ -25,10 +25,10 @@ from os.path import abspath, dirname, join
 from setuptools import setup
 
 __author__: str = 'Vladimir Roncevic'
-__copyright__: str = '(C) 2025, https://vroncevic.github.io/ats_utilities'
+__copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.3.3'
+__version__: str = '3.3.4'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
@@ -42,14 +42,10 @@ VERSIONS: List[str] = ['3.10', '3.11', '3.12']
 SUPPORTED_PY_VERSIONS: List[str] = [
     f'{PROGRAMMING_LANG} {VERSION}' for VERSION in VERSIONS
 ]
-LICENSE_PREFIX: str = 'License :: OSI Approved ::'
-LICENSES: List[str] = [
-    'GNU Lesser General Public License v3 or later (LGPLv3+)'
-]
 PYP_CLASSIFIERS: List[str] = SUPPORTED_PY_VERSIONS
 setup(
     name='ats_utilities',
-    version='3.3.3',
+    version='3.3.4',
     description='Python App/Tool/Script Utilities',
     author='Vladimir Roncevic',
     author_email='elektron.ronca@gmail.com',

@@ -4,7 +4,7 @@
 Module
     ats_coverage.py
 Copyright
-    Copyright (C) 2025 Vladimir Roncevic <elektron.ronca@gmail.com>
+    Copyright (C) 2026 Vladimir Roncevic <elektron.ronca@gmail.com>
     ats_coverage is free software: you can redistribute it and/or modify it
     under the terms of the GNU General Public License as published by the
     Free Software Foundation, either version 3 of the License, or
@@ -40,7 +40,7 @@ except ImportError as ats_error_message:  # pragma: no cover
     sys.exit(f'\n{__file__}\n{ats_error_message}\n')  # pragma: no cover
 
 __author__: str = 'Vladimir Roncevic'
-__copyright__: str = '(C) 2025, https://vroncevic.github.io/ats_coverage'
+__copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_coverage'
 __credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_coverage/blob/dev/LICENSE'
 __version__: str = '1.0.0'
