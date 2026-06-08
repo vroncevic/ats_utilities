@@ -22,18 +22,19 @@ Info
 
 import sys
 from typing import List
+from .iprogress_bar import IProgressBar
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.3.4'
+__version__: str = '3.3.5'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
 
 
-class ProgressBar:
+class ProgressBar(IProgressBar):
     '''
         Defineds class ProgressBar with attribute(s) and method(s).
         Loads a progressbar as part of splash screen.
@@ -45,12 +46,12 @@ class ProgressBar:
                 | DEFAULT_BAR_LENGTH - Length of progressbar.
                 | DEFAULT_CHAR_ON - Loaded progress element.
                 | DEFAULT_CHAR_OFF - Unloaded progress element.
-                | _start - Start of level.
-                | _end - End of level.
-                | _bar_length - Progress length.
-                | _level - Progress level.
-                | _plotted - Plotted progress.
-                | _level_chars - Level progress chars.
+                | __start - Start of level.
+                | __end - End of level.
+                | __bar_length - Progress length.
+                | __level - Progress level.
+                | __plotted - Plotted progress.
+                | __level_chars - Level progress chars.
             :methods:
                 | __init__ - Initials ProgressBar constructor.
                 | set_level - Sets level of progress.
@@ -69,14 +70,14 @@ class ProgressBar:
 
             :exceptions: None
         '''
-        self._end: int = end
-        self._start: int = start
-        self._bar_length: int = self.DEFAULT_BAR_LENGTH
-        self.set_level(self._start)
-        self._plotted: bool = False
-        self._level: int = 0
+        self.__end: int = end
+        self.__start: int = start
+        self.__bar_length: int = self.DEFAULT_BAR_LENGTH
+        self.set_level(self.__start)
+        self.__plotted: bool = False
+        self.__level: int = 0
         self._ratio: float = 0.0
-        self._level_chars: int = 0
+        self.__level_chars: int = 0
 
     def set_level(self, level: int) -> None:
         '''
@@ -86,16 +87,16 @@ class ProgressBar:
             :type level: <int>
             :exceptions: None
         '''
-        self._level = level
-        if level < self._start:
-            self._level = self._start
-        if level > self._end:
-            self._level = self._end
+        self.__level = level
+        if level < self.__start:
+            self.__level = self.__start
+        if level > self.__end:
+            self.__level = self.__end
         self._ratio = (
-            float(self._level - self._start) /
-            float(self._end - self._start)
+            float(self.__level - self.__start) /
+            float(self.__end - self.__start)
         )
-        self._level_chars = int(self._ratio * self._bar_length)
+        self.__level_chars = int(self._ratio * self.__bar_length)
 
     def plot_progress(self, columns: int) -> None:
         '''
@@ -111,13 +112,13 @@ class ProgressBar:
             "\r %s %3i%% %s%s".expandtabs(4) % (
                 '\011' * number_of_tabs,
                 int(self._ratio * 100.0),
-                self.DEFAULT_CHAR_ON * int(self._level_chars),
+                self.DEFAULT_CHAR_ON * int(self.__level_chars),
                 self.DEFAULT_CHAR_OFF *
-                int(self._bar_length - self._level_chars)
+                int(self.__bar_length - self.__level_chars)
             )
         )
         sys.stdout.flush()
-        self._plotted = True
+        self.__plotted = True
 
     def set_and_plot(self, level: int, columns: int) -> None:
         '''
@@ -129,9 +130,9 @@ class ProgressBar:
             :type columns: <int>
             :exceptions: None
         '''
-        old_chars: int = self._level_chars
+        old_chars: int = self.__level_chars
         self.set_level(level)
-        if (not self._plotted) or (old_chars != self._level_chars):
+        if (not self.__plotted) or (old_chars != self.__level_chars):
             self.plot_progress(columns)
 
     def __del__(self) -> None:

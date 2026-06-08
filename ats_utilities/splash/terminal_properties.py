@@ -20,33 +20,27 @@ Info
     Creates an API for getting terminal properties.
 '''
 
-import sys
 import os
-from typing import Any, List, Tuple, Optional
+from typing import Any, ClassVar, List, Tuple, Optional
 from fcntl import ioctl
 from termios import TIOCGWINSZ
 from struct import unpack, pack
-
-try:
-    from ats_utilities.checker import ATSChecker
-    from ats_utilities.console_io.verbose import verbose_message
-    from ats_utilities.exceptions.ats_type_error import ATSTypeError
-    from ats_utilities.exceptions.ats_value_error import ATSValueError
-except ImportError as ats_error_message:  # pragma: no cover
-    # Force exit python #######################################################
-    sys.exit(f'\n{__file__}\n{ats_error_message}\n')  # pragma: no cover
+from ats_utilities.console_io import IATSReporter, ATSReporter
+from ats_utilities.checker import IATSChecker, ATSChecker, ErrorChecker
+from ats_utilities.exceptions import ATSTypeError, ATSValueError
+from .iterminal_properties import ITerminalProperties
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.3.4'
+__version__: str = '3.3.5'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
 
 
-class TerminalProperties(ATSChecker):
+class TerminalProperties(ITerminalProperties):
     '''
         Defines class TerminalProperties with attribute(s) and method(s).
         Creates an API for getting terminal properties.
@@ -55,8 +49,11 @@ class TerminalProperties(ATSChecker):
         It defines:
 
             :attributes:
-                | _verbose - Enable/Disable verbose option.
-                | _window_size - Terminal window size.
+                | ERRORS - Error checker.
+                | __checker - Error checker.
+                | __reporter - ATSReporter for outputting messages.
+                | __verbose - Enable/Disable verbose option.
+                | __window_size - Terminal window size.
             :methods:
                 | __init__ - Initials TerminalProperties constructor.
                 | ioctl_get_window_size - Gets size for descriptor.
@@ -64,22 +61,32 @@ class TerminalProperties(ATSChecker):
                 | size - Gets size of terminal window.
     '''
 
-    def __init__(self, verbose: bool = False) -> None:
+    ERRORS: ClassVar[type[ErrorChecker]] = ErrorChecker
+
+    def __init__(
+        self,
+        checker: Optional[IATSChecker] = None,
+        reporter: Optional[IATSReporter] = None,
+        verbose: bool = False
+    ) -> None:
         '''
             Initials TerminalProperties constructor.
 
+            :param checker: Error checker | None
+            :type checker: :class:`~ats_utilities.checker.IATSChecker`
+            :param reporter: ATSReporter for outputting messages | None
+            :type reporter: :class:`~ats_utilities.console_io.iats_reporter.IATSReporter`
             :param verbose: Enable/Disable verbose option
             :type verbose: <bool>
             :exceptions: None
         '''
-        super().__init__()
-        self._verbose: bool = verbose
-        self._window_size: Tuple[Any, ...]
-        verbose_message(self._verbose, ['init terminal properties'])
+        self.__checker: IATSChecker = checker or ATSChecker()
+        self.__reporter: IATSReporter = reporter or ATSReporter()
+        self.__verbose: bool = verbose
+        self.__window_size: Tuple[Any, ...]
+        self.__reporter.verbose(self.__verbose, ['init terminal properties'])
 
-    def ioctl_get_window_size(
-        self, file_descriptor: int, verbose: bool = False
-    ) -> Tuple[Any, ...]:
+    def ioctl_get_window_size(self, file_descriptor: int, verbose: bool = False) -> Tuple[Any, ...]:
         '''
             Gets size for descriptor.
 
@@ -93,23 +100,17 @@ class TerminalProperties(ATSChecker):
         '''
         error_msg: Optional[str] = None
         error_id: Optional[int] = None
-        error_msg, error_id = self.check_params([
-            ('int:file_descriptor', file_descriptor)
-        ])
-        if error_id == self.TYPE_ERROR:
+        error_msg, error_id = self.__checker.validate_parameters([('int:file_descriptor', file_descriptor)])
+
+        if error_id == self.ERRORS.TYPE_ERROR:
             raise ATSTypeError(error_msg)
+
         if file_descriptor < 0:
             raise ATSValueError(error_msg)
-        self._window_size = unpack(
-            'HHHH', ioctl(
-                file_descriptor, TIOCGWINSZ, pack('HHHH', 0, 0, 0, 0)
-            )
-        )
-        verbose_message(
-            self._verbose or verbose,
-            [f'terminal window size {self._window_size}']
-        )
-        return self._window_size
+
+        self.__window_size = unpack('HHHH', ioctl(file_descriptor, TIOCGWINSZ, pack('HHHH', 0, 0, 0, 0)))
+        self.__reporter.verbose(self.__verbose or verbose, [f'terminal window size {self.__window_size}'])
+        return self.__window_size
 
     def ioctl_for_all_descriptors(self, verbose: bool = False) -> None:
         '''
@@ -124,11 +125,8 @@ class TerminalProperties(ATSChecker):
         std_in: Tuple[Any, ...] = self.ioctl_get_window_size(0)
         std_out: Tuple[Any, ...] = self.ioctl_get_window_size(1)
         std_err: Tuple[Any, ...] = self.ioctl_get_window_size(2)
-        self._window_size = std_in or std_out or std_err
-        verbose_message(
-            self._verbose or verbose,
-            [f'terminal window size {self._window_size}']
-        )
+        self.__window_size = std_in or std_out or std_err
+        self.__reporter.verbose(self.__verbose or verbose, [f'terminal window size {self.__window_size}'])
 
     def size(self, verbose: bool = False) -> Tuple[Any, ...]:
         '''
@@ -142,10 +140,7 @@ class TerminalProperties(ATSChecker):
         '''
         self.ioctl_for_all_descriptors()
         file_descriptor: int = os.open(os.ctermid(), os.O_RDONLY)
-        self._window_size = self.ioctl_get_window_size(file_descriptor)
+        self.__window_size = self.ioctl_get_window_size(file_descriptor)
         os.close(file_descriptor)
-        verbose_message(
-            self._verbose or verbose,
-            [f'terminal window size {self._window_size}']
-        )
-        return self._window_size
+        self.__reporter.verbose(self.__verbose or verbose, [f'terminal window size {self.__window_size}'])
+        return self.__window_size

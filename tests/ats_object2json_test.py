@@ -22,27 +22,50 @@ Execute
     python3 -m unittest -v ats_object2json_test
 '''
 
-import sys
-from typing import List
-from unittest import TestCase, main
+from typing import List, Dict
+from unittest import TestCase, main, mock
 from os.path import dirname
-
-try:
-    from ats_utilities.config_io.json.json2object import Json2Object
-    from ats_utilities.config_io.json.object2json import Object2Json
-    from ats_utilities.exceptions.ats_type_error import ATSTypeError
-except ImportError as test_error_message:
-    # Force close python test #################################################
-    sys.exit(f'\n{__file__}\n{test_error_message}\n')
+from ats_utilities.config_io.json import Json2Object
+from ats_utilities.config_io.json import Object2Json
+from ats_utilities.config_io.json.ijson_processor import IJSONProcessor as BaseIJSONProcessor
+from ats_utilities.exceptions import ATSTypeError
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.3.4'
+__version__: str = '3.3.5'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
+
+
+class IJSONProcessor(BaseIJSONProcessor):
+    '''Mock implementation of IJSONProcessor for testing.'''
+
+    def __init__(self, is_empty: bool = False) -> None:
+        self.__is_empty = is_empty
+        self.encode_mock = mock.MagicMock(return_value="")
+        self.to_dict_mock = mock.MagicMock(return_value={})
+        self.decode_mock = mock.MagicMock()
+        self.from_string_mock = mock.MagicMock()
+
+
+    def __bool__(self) -> bool:
+        '''Mock method for truthiness.'''
+        return not self.__is_empty
+
+    def decode(self, json_string: str) -> bool:
+        '''Implementation of abstract method.'''
+        return self.decode_mock(json_string)
+
+    def to_dict(self) -> Dict[str, str]:
+        '''Implementation of abstract method.'''
+        return self.to_dict_mock()
+
+    def encode(self) -> str:
+        '''Implementation of abstract method.'''
+        return self.encode_mock()
 
 
 class Object2JsonTestCase(TestCase):
@@ -82,9 +105,9 @@ class Object2JsonTestCase(TestCase):
 
     def test_write_configuration(self) -> None:
         '''Test for write configuration'''
-        self.assertTrue(self.obj2json.write_configuration(
-            self.json2obj.read_configuration()
-        ))
+        mock_config = IJSONProcessor()
+        mock_config.encode_mock.return_value = "{}"
+        self.assertTrue(self.obj2json.write_configuration(mock_config))
 
     def test_write_none_configuration(self) -> None:
         '''Test for write none configuration'''
@@ -93,7 +116,8 @@ class Object2JsonTestCase(TestCase):
 
     def test_write_empty_configuration(self) -> None:
         '''Test for write empty configuration'''
-        self.assertFalse(self.obj2json.write_configuration({}))
+        mock_config = IJSONProcessor(is_empty=True)
+        self.assertFalse(self.obj2json.write_configuration(mock_config))
 
     def test_none_config_path(self) -> None:
         '''Test for None as file path'''

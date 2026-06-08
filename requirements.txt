@@ -1,4 +1,3 @@
 PyYAML
 bs4
 lxml
-colorama

@@ -24,20 +24,12 @@ from typing import Any, Dict, List, Optional
 from os.path import exists, basename
 from json import load
 from unittest import TestLoader, TestSuite, TextTestRunner
-from argparse import Namespace
-
-try:
-    from pathlib import Path
-    from ats_utilities.checker import ATSChecker
-    from ats_utilities.console_io.success import success_message
-    from ats_utilities.console_io.error import error_message
-    from ats_utilities.option import ATSOptionParser
-    from ats_utilities.exceptions.ats_type_error import ATSTypeError
-    from ats_utilities.exceptions.ats_file_error import ATSFileError
-    from coverage import Coverage
-except ImportError as ats_error_message:  # pragma: no cover
-    # Force exit python #######################################################
-    sys.exit(f'\n{__file__}\n{ats_error_message}\n')  # pragma: no cover
+from pathlib import Path
+from coverage import Coverage
+from ats_utilities.checker import ATSChecker, ErrorChecker
+from ats_utilities.console_io import ATSReporter
+from ats_utilities.option import ATSOptionParser, OptionNamespace
+from ats_utilities.exceptions import ATSTypeError, ATSFileError
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_coverage'
@@ -60,8 +52,8 @@ def run_coverage(pro_name: str) -> str:
     checker: ATSChecker = ATSChecker()
     error_msg: Optional[str] = None
     error_id: Optional[int] = None
-    error_msg, error_id = checker.check_params([('str:pro_name', pro_name)])
-    if error_id == checker.TYPE_ERROR:
+    error_msg, error_id = checker.validate_parameters([('str:pro_name', pro_name)])
+    if error_id == ErrorChecker.TYPE_ERROR:
         raise ATSTypeError(error_msg)
     if not exists(f'../{pro_name}'):
         raise ATSFileError(f'missing ../{pro_name}')
@@ -74,7 +66,8 @@ def run_coverage(pro_name: str) -> str:
     cov.save()
     report_file_name: str = f'{pro_name}_coverage.json'
     cov.json_report(outfile=report_file_name)
-    success_message([f'\nats_coverage: generated coverage {report_file_name}'])
+    reporter: ATSReporter = ATSReporter()
+    reporter.success([f'\nats_coverage: generated coverage {report_file_name}'])
     return report_file_name
 
 
@@ -89,10 +82,10 @@ def load_report(report_file_path: str) -> Dict[str, Any]:
     checker: ATSChecker = ATSChecker()
     error_msg: Optional[str] = None
     error_id: Optional[int] = None
-    error_msg, error_id = checker.check_params([(
+    error_msg, error_id = checker.validate_parameters([(
         'str:report_file_path', report_file_path
     )])
-    if error_id == checker.TYPE_ERROR:
+    if error_id == ErrorChecker.TYPE_ERROR:
         raise ATSTypeError(error_msg)
     if not exists(report_file_path):
         raise ATSFileError(f'{report_file_path} does not exist.')
@@ -113,10 +106,10 @@ def find_root_package(module_path: str) -> Optional[Path]:
     checker: ATSChecker = ATSChecker()
     error_msg: Optional[str] = None
     error_id: Optional[int] = None
-    error_msg, error_id = checker.check_params([(
+    error_msg, error_id = checker.validate_parameters([(
         'str:module_path', module_path
     )])
-    if error_id == checker.TYPE_ERROR:
+    if error_id == ErrorChecker.TYPE_ERROR:
         raise ATSTypeError(error_msg)
     root: Optional[Path] = None
     path: Path = Path(module_path).resolve()
@@ -138,8 +131,8 @@ def update_readme(coverage: Dict[str, Any]) -> None:
     checker: ATSChecker = ATSChecker()
     error_msg: Optional[str] = None
     error_id: Optional[int] = None
-    error_msg, error_id = checker.check_params([('dict:coverage', coverage)])
-    if error_id == checker.TYPE_ERROR:
+    error_msg, error_id = checker.validate_parameters([('dict:coverage', coverage)])
+    if error_id == ErrorChecker.TYPE_ERROR:
         raise ATSTypeError(error_msg)
     readme_path: str = '../README.md'
     start_marker: str = '### Code coverage'
@@ -195,21 +188,25 @@ def update_readme(coverage: Dict[str, Any]) -> None:
 
 
 if __name__ == "__main__":
-    cli: ATSOptionParser = ATSOptionParser(
-        'ats_coverage 2025', '1.0.0', 'GPLv3', False
-    )
+    cli: ATSOptionParser = ATSOptionParser({
+        'description': 'ats_coverage 2025',
+        'version': '1.0.0',
+        'licence': 'GPLv3'
+    })
     cli.add_operation(
         '-n', '--name', dest='name',
         help='generate coverage report for project (provide name)'
     )
-    args: Namespace = cli.parse_args(sys.argv)
+    args: OptionNamespace = cli.parse_args(sys.argv)
+    main_reporter: ATSReporter = ATSReporter()
+
     if not bool(getattr(args, "name")):
-        error_message(['ats_coverage: missing name argument'])
+        main_reporter.error(['ats_coverage: missing name argument'])
         sys.exit(127)
     try:
         pro_report_file: str = f'{getattr(args, "name")}_coverage.json'
         report_data: Dict[str, Any] = load_report(pro_report_file)
         update_readme(report_data)
     except (ATSTypeError, ATSFileError) as e:
-        error_message([f'ats_coverage: {e}'])
+        main_reporter.error([f'ats_coverage: {e}'])
         sys.exit(128)

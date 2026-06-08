@@ -1,0 +1,20 @@
+[MASTER]
+# Optimization level. 0 is the highest, 2 is the lowest.
+jobs=0
+
+[MESSAGES CONTROL]
+# Disable unnecessary-pass
+# Centralized place for ignore / warning management.
+disable=unnecessary-pass,line-too-long,too-many-arguments,too-few-public-methods,too-many-function-args
+
+[DESIGN]
+# Maximum number of arguments for function / method defining.
+max-args=10
+max-locals=25
+max-returns=10
+max-branches=15
+max-statements=60
+max-parents=10
+max-attributes=12
+max-public-methods=25
+max-positional-arguments=10

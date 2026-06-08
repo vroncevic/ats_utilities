@@ -20,31 +20,24 @@ Info
     Creates an API for reading a configuration from a XML file.
 '''
 
-import sys
-from typing import List, Optional
-
-try:
-    from bs4 import BeautifulSoup
-    from ats_utilities.checker import ATSChecker
-    from ats_utilities.config_io import ConfFile
-    from ats_utilities.console_io.verbose import verbose_message
-    from ats_utilities.exceptions.ats_type_error import ATSTypeError
-    from ats_utilities.exceptions.ats_value_error import ATSValueError
-except ImportError as ats_error_message:  # pragma: no cover
-    # Force exit python #######################################################
-    sys.exit(f'\n{__file__}\n{ats_error_message}\n')  # pragma: no cover
+from typing import ClassVar, List, Optional
+from ats_utilities.checker import IATSChecker, ATSChecker, ErrorChecker
+from ats_utilities.console_io import IATSReporter, ATSReporter
+from ats_utilities.exceptions import ATSTypeError
+from ats_utilities.config_io import IRead, ConfFile, IFileCheck, FileCheck
+from .ixml_processor import IXMLProcessor
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.3.4'
+__version__: str = '3.3.5'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
 
 
-class Xml2Object(ATSChecker):
+class Xml2Object(IRead):
     '''
         Defines class Xml2Object with attribute(s) and method(s).
         Creates an API for reading a configuration from a XML file.
@@ -61,51 +54,86 @@ class Xml2Object(ATSChecker):
                 | read_configuration - Reads a configuration from an XML file.
     '''
 
-    _EXT: str = 'xml'
+    ERRORS: ClassVar[type[ErrorChecker]] = ErrorChecker
+    __EXT: str = 'xml'
+    __MODE: str = 'r'
 
     def __init__(
-        self, config_file: Optional[str], verbose: bool = False
+        self,
+        config_file: Optional[str],
+        xml_processor: IXMLProcessor,
+        checker: Optional[IATSChecker] = None,
+        reporter: Optional[IATSReporter] = None,
+        file_checker: Optional[IFileCheck] = None,
+        verbose: bool = False
     ) -> None:
         '''
-            Initials Xml2Object constructor.
+            Initials Cfg2Object constructor.
 
             :param config_file: Configuration file path | None
             :type config_file: <Optional[str]>
+            :param xml_processor: IXMLProcessor for processing XML content | None
+            :type xml_processor: :class:`~ats_utilities.config_io.xml.ixml_processor.IXMLProcessor`
+            :param checker: ATSChecker for check operations | None
+            :type checker: :class:`~ats_utilities.checker.IATSChecker`
+            :param reporter: ATSReporter for check operations | None
+            :type reporter: :class:`~ats_utilities.console_io.iats_reporter.IATSReporter`
+            :param file_checker: FileCheck for checking file | None
+            :type file_checker: :class:`~ats_utilities.config_io.ifile_check.IFileCheck`
             :param verbose: Enable/Disable verbose option
             :type verbose: <bool>
-            :exceptions: ATSTypeError | ATSValueError
+            :exceptions:  ATSTypeError
         '''
-        super().__init__()
+        self.__checker: IATSChecker = checker or ATSChecker()
+        self.__reporter: IATSReporter = reporter or ATSReporter()
+        self.__verbose: bool = verbose
+        self.__file_checker: IFileCheck = file_checker or FileCheck(
+            self.__checker, self.__reporter, self.__verbose
+        )
+
         error_msg: Optional[str] = None
         error_id: Optional[int] = None
-        error_msg, error_id = self.check_params([
+        error_msg, error_id = self.__checker.validate_parameters([
             ('str:config_file', config_file)
         ])
-        if error_id == self.TYPE_ERROR:
-            raise ATSTypeError(error_msg)
-        if not bool(config_file):
-            raise ATSValueError(error_msg)
-        self._verbose: bool = verbose
-        self._file_path: str = str(config_file)
-        verbose_message(self._verbose, [f'configuration file {config_file}'])
 
-    def read_configuration(
-        self, verbose: bool = False
-    ) -> Optional[BeautifulSoup]:
+        if error_id == self.ERRORS.TYPE_ERROR:
+            raise ATSTypeError(error_msg)
+
+
+        self.__file_path: str = str(config_file)
+        self.__xml_processor: IXMLProcessor = xml_processor
+        self.__reporter.verbose(self.__verbose, [f'configuration {config_file}'])
+
+    def read_configuration(self, verbose: bool = False) -> Optional[IXMLProcessor]:
         '''
             Reads a configuration from an XML file.
 
             :param verbose: Enable/Disable verbose option
             :type verbose: <bool>
             :return: Configuration object | None
-            :rtype: <Optional[BeautifulSoup]>
+            :rtype: :class:`~ats_utilities.config_io.xml.ixml_processor.IXMLProcessor`
             :exceptions: None
         '''
         content: Optional[str] = None
-        config: Optional[BeautifulSoup] = None
-        with ConfFile(self._file_path, 'r', self._EXT) as xml:
+        config: Optional[IXMLProcessor] = None
+
+        with ConfFile(
+            self.__file_path,
+            self.__MODE,
+            self.__EXT,
+            self.__checker,
+            self.__reporter,
+            self.__file_checker,
+            self.__verbose or verbose
+        ) as xml:
             if bool(xml):
                 content = xml.read()
-                config = BeautifulSoup(str(content), self._EXT)
-        verbose_message(self._verbose or verbose, [f'configuration {config}'])
+
+                if bool(content):
+                    if self.__xml_processor.from_string(str(content)):
+                        config = self.__xml_processor
+
+        self.__reporter.verbose(self.__verbose or verbose, [f'configuration {config}'])
+
         return config

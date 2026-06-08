@@ -22,29 +22,51 @@ Execute
     python3 -m unittest -v ats_object2xml_test
 '''
 
-import sys
-from typing import List
-from unittest import TestCase, main
+from typing import List, Dict
+from unittest import TestCase, main, mock
 from os.path import dirname
-
-try:
-    from bs4 import BeautifulSoup
-    from ats_utilities.config_io.xml.xml2object import Xml2Object
-    from ats_utilities.config_io.xml.object2xml import Object2Xml
-    from ats_utilities.exceptions.ats_type_error import ATSTypeError
-except ImportError as test_error_message:
-    # Force close python test #################################################
-    sys.exit(f'\n{__file__}\n{test_error_message}\n')
+from ats_utilities.config_io.xml.object2xml import Object2Xml
+from ats_utilities.config_io.xml.ixml_processor import IXMLProcessor as BaseIXMLProcessor
+from ats_utilities.exceptions.ats_type_error import ATSTypeError
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.3.4'
+__version__: str = '3.3.5'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
 
+
+class IXMLProcessor(BaseIXMLProcessor):
+    '''Mock implementation of IXMLProcessor for testing.'''
+
+    def __init__(self, is_empty: bool = False) -> None:
+        self.__is_empty = is_empty
+        self.to_string_mock = mock.MagicMock(return_value="")
+        self.to_dict_mock = mock.MagicMock(return_value={})
+        self.from_string_mock = mock.MagicMock()
+        self.get_ats_info_mock = mock.MagicMock(return_value={})
+
+    def __bool__(self) -> bool:
+        '''Mock method for truthiness.'''
+        return not self.__is_empty
+
+    def from_string(self, xml_content: str) -> bool:
+        return self.from_string_mock(xml_content)
+
+    def to_dict(self) -> Dict[str, str]:
+        '''Implementation of abstract method.'''
+        return self.to_dict_mock()
+
+    def to_string(self) -> str:
+        '''Implementation of abstract method.'''
+        return self.to_string_mock()
+
+    def get_ats_info(self) -> Dict[str, str]:
+        '''Implementation of abstract method.'''
+        return self.get_ats_info_mock()
 
 class Object2XmlTestCase(TestCase):
     '''
@@ -81,14 +103,12 @@ class Object2XmlTestCase(TestCase):
 
     def test_write_configuration(self) -> None:
         '''Test for write configuration'''
-        xlm2obj: Xml2Object = Xml2Object(
-            f'{dirname(__file__)}/config/ats_cli_xml_api.xml'
-        )
         obj2xml: Object2Xml = Object2Xml(
             f'{dirname(__file__)}/config/ats_cli_xml_api.xml'
         )
-        configuration: BeautifulSoup | None = xlm2obj.read_configuration()
-        self.assertTrue(obj2xml.write_configuration(configuration))
+        mock_config = IXMLProcessor()
+        mock_config.to_string_mock.return_value = "<xml></xml>"
+        self.assertTrue(obj2xml.write_configuration(mock_config))
 
     def test_write_none_configuration(self) -> None:
         '''Test for write none configuration'''
@@ -100,10 +120,9 @@ class Object2XmlTestCase(TestCase):
 
     def test_write_empty_configuration(self) -> None:
         '''Test for write empty configuration'''
-        obj2xml: Object2Xml = Object2Xml(
-            f'{dirname(__file__)}/config/ats_cli_xml_api_empty.xml'
-        )
-        self.assertFalse(obj2xml.write_configuration(BeautifulSoup()))
+        obj2xml: Object2Xml = Object2Xml(f'{dirname(__file__)}/config/ats_cli_xml_api_empty.xml')
+        mock_config = IXMLProcessor(is_empty=True)
+        self.assertFalse(obj2xml.write_configuration(mock_config))
 
     def test_none_config_path(self) -> None:
         '''Test for None as file path'''

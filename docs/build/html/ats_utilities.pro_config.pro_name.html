@@ -16,7 +16,7 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="ats_utilities.pro_config.template_dir module" href="ats_utilities.pro_config.template_dir.html" />
-    <link rel="prev" title="ats_utilities.pro_config package" href="ats_utilities.pro_config.html" /> 
+    <link rel="prev" title="ats_utilities.pro_config.pro_config module" href="ats_utilities.pro_config.pro_config.html" /> 
   </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
@@ -31,7 +31,7 @@
           <a href="ats_utilities.pro_config.template_dir.html" title="ats_utilities.pro_config.template_dir module"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="ats_utilities.pro_config.html" title="ats_utilities.pro_config package"
+          <a href="ats_utilities.pro_config.pro_config.html" title="ats_utilities.pro_config.pro_config module"
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">ats_utilities https://github.com/vroncevic/ats_utilities/releases documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="modules.html" >ats_utilities</a> &#187;</li>
@@ -69,8 +69,8 @@ Defines project name container.</p>
 </dl>
 <dl class="py class">
 <dt class="sig sig-object py" id="ats_utilities.pro_config.pro_name.ProName">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ats_utilities.pro_config.pro_name.</span></span><span class="sig-name descname"><span class="pre">ProName</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ats_utilities/pro_config/pro_name.html#ProName"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.pro_config.pro_name.ProName" title="Link to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ats_utilities.pro_config.pro_name.</span></span><span class="sig-name descname"><span class="pre">ProName</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">checker</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="ats_utilities.checker.iats_checker.html#ats_utilities.checker.iats_checker.IATSChecker" title="ats_utilities.checker.iats_checker.IATSChecker"><span class="pre">IATSChecker</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reporter</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="ats_utilities.console_io.ireporter.html#ats_utilities.console_io.ireporter.IATSReporter" title="ats_utilities.console_io.ireporter.IATSReporter"><span class="pre">IATSReporter</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ats_utilities/pro_config/pro_name.html#ProName"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.pro_config.pro_name.ProName" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="ats_utilities.pro_config.ipro_name.html#ats_utilities.pro_config.ipro_name.IProName" title="ats_utilities.pro_config.ipro_name.IProName"><code class="xref py py-class docutils literal notranslate"><span class="pre">IProName</span></code></a></p>
 <p>Defines class ProName with attribute(s) and method(s).
 Defines project name container.
 Mechanism for project configuration.</p>
@@ -79,7 +79,11 @@ Mechanism for project configuration.</p>
 <div><dl class="field-list">
 <dt class="field-odd">attributes<span class="colon">:</span></dt>
 <dd class="field-odd"><div class="line-block">
-<div class="line">_pro_name - Project name.</div>
+<div class="line">ERRORS - Error checker.</div>
+<div class="line">__checker - Error checker.</div>
+<div class="line">__reporter - ATSReporter for outputting messages.</div>
+<div class="line">__verbose - Enable/Disable verbose option.</div>
+<div class="line">__pro_name - Project name.</div>
 </div>
 </dd>
 <dt class="field-even">methods<span class="colon">:</span></dt>
@@ -91,13 +95,44 @@ Mechanism for project configuration.</p>
 </dd>
 </dl>
 </div></blockquote>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ats_utilities.pro_config.pro_name.ProName.ERRORS">
+<span class="sig-name descname"><span class="pre">ERRORS</span></span><a class="headerlink" href="#ats_utilities.pro_config.pro_name.ProName.ERRORS" title="Link to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="ats_utilities.checker.iats_checker.html#ats_utilities.checker.iats_checker.ErrorChecker" title="ats_utilities.checker.iats_checker.ErrorChecker"><code class="xref py py-class docutils literal notranslate"><span class="pre">ErrorChecker</span></code></a></p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ats_utilities.pro_config.pro_name.ProName.__checker">
+<span class="sig-name descname"><span class="pre">__checker</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="ats_utilities.checker.iats_checker.html#ats_utilities.checker.iats_checker.IATSChecker" title="ats_utilities.checker.iats_checker.IATSChecker"><span class="pre">IATSChecker</span></a></em><a class="headerlink" href="#ats_utilities.pro_config.pro_name.ProName.__checker" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ats_utilities.pro_config.pro_name.ProName.__pro_name">
+<span class="sig-name descname"><span class="pre">__pro_name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#ats_utilities.pro_config.pro_name.ProName.__pro_name" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ats_utilities.pro_config.pro_name.ProName.__reporter">
+<span class="sig-name descname"><span class="pre">__reporter</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="ats_utilities.console_io.ireporter.html#ats_utilities.console_io.ireporter.IATSReporter" title="ats_utilities.console_io.ireporter.IATSReporter"><span class="pre">IATSReporter</span></a></em><a class="headerlink" href="#ats_utilities.pro_config.pro_name.ProName.__reporter" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ats_utilities.pro_config.pro_name.ProName.__verbose">
+<span class="sig-name descname"><span class="pre">__verbose</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#ats_utilities.pro_config.pro_name.ProName.__verbose" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ats_utilities.pro_config.pro_name.ProName._abc_impl">
+<span class="sig-name descname"><span class="pre">_abc_impl</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;_abc._abc_data</span> <span class="pre">object&gt;</span></em><a class="headerlink" href="#ats_utilities.pro_config.pro_name.ProName._abc_impl" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
 <dl class="py method">
 <dt class="sig sig-object py" id="ats_utilities.pro_config.pro_name.ProName.is_pro_name_ok">
 <span class="sig-name descname"><span class="pre">is_pro_name_ok</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="_modules/ats_utilities/pro_config/pro_name.html#ProName.is_pro_name_ok"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.pro_config.pro_name.ProName.is_pro_name_ok" title="Link to this definition">¶</a></dt>
 <dd><p>Checks is project name ok.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>True (project name is ok) | False</p>
+<dd class="field-odd"><p>True (project name is not None) | False</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p>&lt;bool&gt;</p>
@@ -141,6 +176,12 @@ Mechanism for project configuration.</p>
     <ul>
 <li><a class="reference internal" href="#">ats_utilities.pro_config.pro_name module</a><ul>
 <li><a class="reference internal" href="#ats_utilities.pro_config.pro_name.ProName"><code class="docutils literal notranslate"><span class="pre">ProName</span></code></a><ul>
+<li><a class="reference internal" href="#ats_utilities.pro_config.pro_name.ProName.ERRORS"><code class="docutils literal notranslate"><span class="pre">ProName.ERRORS</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.pro_config.pro_name.ProName.__checker"><code class="docutils literal notranslate"><span class="pre">ProName.__checker</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.pro_config.pro_name.ProName.__pro_name"><code class="docutils literal notranslate"><span class="pre">ProName.__pro_name</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.pro_config.pro_name.ProName.__reporter"><code class="docutils literal notranslate"><span class="pre">ProName.__reporter</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.pro_config.pro_name.ProName.__verbose"><code class="docutils literal notranslate"><span class="pre">ProName.__verbose</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.pro_config.pro_name.ProName._abc_impl"><code class="docutils literal notranslate"><span class="pre">ProName._abc_impl</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.pro_config.pro_name.ProName.is_pro_name_ok"><code class="docutils literal notranslate"><span class="pre">ProName.is_pro_name_ok()</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.pro_config.pro_name.ProName.pro_name"><code class="docutils literal notranslate"><span class="pre">ProName.pro_name</span></code></a></li>
 </ul>
@@ -152,8 +193,8 @@ Mechanism for project configuration.</p>
   </div>
   <div>
     <h4>Previous topic</h4>
-    <p class="topless"><a href="ats_utilities.pro_config.html"
-                          title="previous chapter">ats_utilities.pro_config package</a></p>
+    <p class="topless"><a href="ats_utilities.pro_config.pro_config.html"
+                          title="previous chapter">ats_utilities.pro_config.pro_config module</a></p>
   </div>
   <div>
     <h4>Next topic</h4>
@@ -194,7 +235,7 @@ Mechanism for project configuration.</p>
           <a href="ats_utilities.pro_config.template_dir.html" title="ats_utilities.pro_config.template_dir module"
              >next</a> |</li>
         <li class="right" >
-          <a href="ats_utilities.pro_config.html" title="ats_utilities.pro_config package"
+          <a href="ats_utilities.pro_config.pro_config.html" title="ats_utilities.pro_config.pro_config module"
              >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">ats_utilities https://github.com/vroncevic/ats_utilities/releases documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="modules.html" >ats_utilities</a> &#187;</li>

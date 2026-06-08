@@ -20,31 +20,25 @@ Info
     Creates an API for reading configuration from a CFG file.
 '''
 
-import sys
-from typing import Any, Dict, List, Optional
-from re import match
-
-try:
-    from ats_utilities.checker import ATSChecker
-    from ats_utilities.config_io import ConfFile
-    from ats_utilities.console_io.verbose import verbose_message
-    from ats_utilities.exceptions.ats_type_error import ATSTypeError
-    from ats_utilities.exceptions.ats_value_error import ATSValueError
-except ImportError as ats_error_message:  # pragma: no cover
-    # Force exit python #######################################################
-    sys.exit(f'\n{__file__}\n{ats_error_message}\n')  # pragma: no cover
+from typing import ClassVar, List, Optional
+from ats_utilities.checker import IATSChecker, ATSChecker, ErrorChecker
+from ats_utilities.console_io import IATSReporter, ATSReporter
+from ats_utilities.exceptions import ATSTypeError
+from ats_utilities.config_io import IRead, ConfFile, IFileCheck, FileCheck
+from .icfg_processor import ICFGProcessor
+from .default_cfg_processor import ATSCFGProcessor
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.3.4'
+__version__: str = '3.3.5'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
 
 
-class Cfg2Object(ATSChecker):
+class Cfg2Object(IRead):
     '''
         Defines class Cfg2Object with attribute(s) and method(s).
         Creates an API for reading configuration from a CFG file.
@@ -53,45 +47,69 @@ class Cfg2Object(ATSChecker):
         It defines:
 
             :attributes:
-                | _EXT - File extension of the configuration file.
-                | _REGEX_EXP - Regular expression for matching line.
-                | _verbose - Enable/Disable verbose option.
-                | _file_path - Configuration file path.
+                | ERRORS - Marks error types.
+                | __EXT - File extension of the configuration file.
+                | __MODE - File open mode.
+                | __REGEX_EXP - Regular expression for matching line.
+                | __checker - ATSChecker for check operations.
+                | __reporter - ATSReporter for messaging.
+                | __file_checker - FileCheck for checking file.
+                | __file_path - Configuration file path.
+                | __verbose - Enable/Disable verbose option.
             :methods:
                 | __init__ - Initials Cfg2Object constructor.
                 | read_configuration - Reads configuration from a CFG file.
     '''
 
-    _EXT: str = 'cfg'
-    _REGEX_EXP: str = r'^\s*$'
+    ERRORS: ClassVar[type[ErrorChecker]] = ErrorChecker
+    __EXT: str = 'cfg'
+    __MODE: str = 'r'
 
     def __init__(
-        self, config_file: Optional[str], verbose: bool = False
+        self,
+        config_file: Optional[str],
+        cfg_processor: Optional[ICFGProcessor] = None,
+        checker: Optional[IATSChecker] = None,
+        reporter: Optional[IATSReporter] = None,
+        file_checker: Optional[IFileCheck] = None,
+        verbose: bool = False
     ) -> None:
         '''
             Initials Cfg2Object constructor.
 
             :param config_file: Configuration file path | None
             :type config_file: <Optional[str]>
+            :param checker: ATSChecker for check operations | None
+            :type checker: :class:`~ats_utilities.checker.IATSChecker`
+            :param reporter: ATSReporter for check operations | None
+            :type reporter: :class:`~ats_utilities.console_io.iats_reporter.IATSReporter`
+            :param file_checker: FileCheck for checking file | None
+            :type file_checker: :class:`~ats_utilities.config_io.ifile_check.IFileCheck`
             :param verbose: Enable/Disable verbose option
             :type verbose: <bool>
-            :exceptions: ATSTypeError | ATSValueError
+            :exceptions:  ATSTypeError
         '''
-        super().__init__()
+        self.__checker: IATSChecker = checker or ATSChecker()
+        self.__reporter: IATSReporter = reporter or ATSReporter()
+        self.__verbose: bool = verbose
+        self.__file_checker: IFileCheck = file_checker or FileCheck(
+            self.__checker, self.__reporter, self.__verbose
+        )
+
         error_msg: Optional[str] = None
         error_id: Optional[int] = None
-        error_msg, error_id = self.check_params([
+        error_msg, error_id = self.__checker.validate_parameters([
             ('str:config_file', config_file)
         ])
-        if error_id == self.TYPE_ERROR:
-            raise ATSTypeError(error_msg)
-        if not bool(config_file):
-            raise ATSValueError(error_msg)
-        self._verbose: bool = verbose
-        self._file_path: str = str(config_file)
-        verbose_message(self._verbose, [f'confiuration {config_file}'])
 
-    def read_configuration(self, verbose: bool = False) -> Dict[Any, Any]:
+        if error_id == self.ERRORS.TYPE_ERROR:
+            raise ATSTypeError(error_msg)
+
+        self.__cfg_processor: ICFGProcessor = cfg_processor or ATSCFGProcessor()
+        self.__file_path: str = str(config_file)
+        self.__reporter.verbose(self.__verbose, [f'configuration {config_file}'])
+
+    def read_configuration(self, verbose: bool = False) -> Optional[ICFGProcessor]:
         '''
             Reads a configuration from a CFG file.
 
@@ -101,14 +119,20 @@ class Cfg2Object(ATSChecker):
             :rtype: <Dict[Any, Any]>
             :exceptions: None
         '''
-        config: Dict[Any, Any] = {}
-        with ConfFile(self._file_path, 'r', self._EXT) as cfg:
+        with ConfFile(
+            self.__file_path,
+            self.__MODE,
+            self.__EXT,
+            self.__checker,
+            self.__reporter,
+            self.__file_checker,
+            self.__verbose or verbose
+        ) as cfg:
             if bool(cfg):
-                for line in cfg.read().splitlines():
-                    if not match(self._REGEX_EXP, line):
-                        pairs: Any = line.split('=')
-                        key: str = pairs[0]
-                        value: str = pairs[1]
-                        config[key.strip()] = value.strip()
-        verbose_message(self._verbose or verbose, [f'configuration {config}'])
-        return config
+                lines = cfg.readlines()
+                if self.__cfg_processor.from_lines(lines):
+                    self.__reporter.verbose(
+                        self.__verbose or verbose, [f'configuration {self.__cfg_processor}']
+                    )
+                    return self.__cfg_processor
+        return None

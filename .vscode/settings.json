@@ -1,8 +1,14 @@
 {
-    "files.exclude": {
-        "*.pyc": true,
-        "**/*.pyc": true,
-        "__pycache__": true,
-        "**/__pycache__": true
-    }
+  "files.exclude": {
+      "**/*.pyc": true,
+      "**/__pycache__": true
+  },
+
+  "pylint.args": [
+      "--rcfile=${workspaceFolder}/.pylintrc"
+  ],
+
+  "pylint.importStrategy": "useBundled",
+  "pylint.cwd": "${workspaceFolder}",
+  "flake8.enabled": false
 }

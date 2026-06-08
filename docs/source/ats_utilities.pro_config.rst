@@ -7,6 +7,10 @@ Submodules
 .. toctree::
    :maxdepth: 4
 
+   ats_utilities.pro_config.ipro_config
+   ats_utilities.pro_config.ipro_name
+   ats_utilities.pro_config.itemplate_dir
+   ats_utilities.pro_config.pro_config
    ats_utilities.pro_config.pro_name
    ats_utilities.pro_config.template_dir
 
