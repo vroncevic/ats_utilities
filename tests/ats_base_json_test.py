@@ -47,7 +47,7 @@ __status__: str = 'Updated'
 class ATSBaseJson(JsonBase):
     '''Simple Class for checking JsonBase.'''
 
-    _CONFIG: str = '/config/ats_cli_json_api.json'
+    _CONFIG: str = '/config/correct/ats_cli_json_api.json'
     _OPS: List[str] = ['-t', '--test', '-v']
 
     def __init__(self, reporter: IATSReporter = ATSReporter(), verbose: bool = False) -> None:
@@ -164,12 +164,14 @@ class JsonBaseUnitTestCase(TestCase):
         operational_mock_options_parser = MagicMock(spec=ATSOptionParser)
 
         operational_mock_checker.validate_parameters.return_value = ('', 0)
-        operational_mock_json2obj.read_configuration.return_value = {
+        mock_processor = MagicMock()
+        mock_processor.to_dict.return_value = {
             'ats_name': 'Test Tool',
             'ats_version': '1.0.0',
             'ats_licence': 'MIT',
             'ats_build_date': '2023-01-01'
         }
+        operational_mock_json2obj.read_configuration.return_value = mock_processor
 
         operational_json_base = JsonBase(
             info_file=self.config_path,

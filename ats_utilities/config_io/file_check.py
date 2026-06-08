@@ -76,7 +76,7 @@ class FileCheck(IFileCheck):
             :param verbose: Enable/Disable verbose option
             :type verbose: <bool>
             :param reporter: ATSReporter for check operations | None
-            :type reporter: <Optional[IATSReporter]>
+            :type reporter: :class:`~ats_utilities.console_io.iats_reporter.IATSReporter`
             :exceptions: None
         '''
         self.__checker: IATSChecker = checker or ATSChecker()

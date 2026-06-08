@@ -46,7 +46,7 @@ __status__: str = 'Updated'
 class ATSBaseCfg(CfgBase):
     '''Simple Class for checking CfgBase.'''
 
-    _CONFIG: str = '/config/ats_cli_cfg_api.cfg'
+    _CONFIG: str = '/config/correct/ats_cli_cfg_api.cfg'
     _OPS: List[str] = ['-t', '--test', '-v']
 
     def __init__(self, reporter: IATSReporter = ATSReporter(), verbose: bool = False) -> None:
@@ -163,12 +163,14 @@ class CfgBaseUnitTestCase(TestCase):
         operational_mock_options_parser = MagicMock(spec=ATSOptionParser)
 
         operational_mock_checker.validate_parameters.return_value = ('', 0)
-        operational_mock_cfg2obj.read_configuration.return_value = {
+        mock_processor = MagicMock()
+        mock_processor.to_dict.return_value = {
             'ats_name': 'Test Tool',
             'ats_version': '1.0.0',
             'ats_licence': 'MIT',
             'ats_build_date': '2023-01-01'
         }
+        operational_mock_cfg2obj.read_configuration.return_value = mock_processor
 
         operational_cfg_base = CfgBase(
             info_file=self.config_path,

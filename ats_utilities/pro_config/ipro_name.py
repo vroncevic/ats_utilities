@@ -61,8 +61,22 @@ class IProName(ABC):
     @pro_name.setter
     @abstractmethod
     def pro_name(self, name: str) -> None:
+        '''
+            Property method for setting project name.
+
+            :param name: Project name | None
+            :type name: <str>
+            :exceptions: NotImplementedError
+        '''
         raise NotImplementedError("Subclasses must implement pro_name setter")
 
     @abstractmethod
     def is_pro_name_ok(self) -> bool:
+        '''
+            Checks is project name ok.
+
+            :return: True (project name is ok) | False
+            :rtype: <bool>
+            :exceptions: NotImplementedError
+        '''
         raise NotImplementedError("Subclasses must implement is_pro_name_ok method")

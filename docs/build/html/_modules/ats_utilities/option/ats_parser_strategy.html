@@ -151,15 +151,15 @@
 <span class="sd">                | parse - Parses the input arguments and returns an OptionNamespace.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">reporter</span><span class="p">:</span> <span class="n">IATSReporter</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">reporter</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">IATSReporter</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Initials ATSArgParseStrategy constructor.</span>
 
 <span class="sd">            :param reporter: ATSReporter for outputting messages</span>
-<span class="sd">            :type reporter: &lt;IATSReporter&gt;</span>
+<span class="sd">            :type reporter: :class:`~ats_utilities.console_io.iats_reporter.IATSReporter`</span>
 <span class="sd">            :exceptions: None</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">__reporter</span> <span class="o">=</span> <span class="n">reporter</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__reporter</span> <span class="o">=</span> <span class="n">reporter</span> <span class="ow">or</span> <span class="n">ATSReporter</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_parser</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ArgumentParser</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
 
 <div class="viewcode-block" id="ATSArgParseStrategy.setup">
@@ -217,11 +217,11 @@
 <span class="sd">            Parses the input arguments and returns an OptionNamespace.</span>
 
 <span class="sd">            :param arguments: Sequence of arguments | None</span>
-<span class="sd">            :type arguments: &lt;OptArgs&gt;</span>
+<span class="sd">            :type arguments: :class:`~ats_utilities.option.option_namespace.OptArgs`</span>
 <span class="sd">            :param known_only: Parse only known arguments</span>
 <span class="sd">            :type known_only: &lt;bool&gt;</span>
 <span class="sd">            :return: Option namespace object</span>
-<span class="sd">            :rtype: &lt;OptionNamespace&gt;</span>
+<span class="sd">            :rtype: :class:`~ats_utilities.option.option_namespace.OptionNamespace`</span>
 <span class="sd">            :exceptions: RuntimeError</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parser</span><span class="p">:</span>

@@ -58,16 +58,17 @@
 <span class="sd">    Loads the ATS configuration for the ATS.</span>
 <span class="sd">&#39;&#39;&#39;</span>
 
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">ClassVar</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span>
-<span class="kn">from</span> <span class="nn">bs4</span> <span class="kn">import</span> <span class="n">Tag</span><span class="p">,</span> <span class="n">NavigableString</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">ClassVar</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.checker</span> <span class="kn">import</span> <span class="n">IATSChecker</span><span class="p">,</span> <span class="n">ATSChecker</span><span class="p">,</span> <span class="n">ErrorChecker</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.info</span> <span class="kn">import</span> <span class="n">ATSInfo</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.option</span> <span class="kn">import</span> <span class="n">ATSOptionParser</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.option</span> <span class="kn">import</span> <span class="n">IATSOptionParser</span><span class="p">,</span> <span class="n">ATSOptionParser</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.console_io</span> <span class="kn">import</span> <span class="n">IATSReporter</span><span class="p">,</span> <span class="n">ATSReporter</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.config_io</span> <span class="kn">import</span> <span class="n">IRead</span><span class="p">,</span> <span class="n">IWrite</span><span class="p">,</span> <span class="n">IFileCheck</span><span class="p">,</span> <span class="n">FileCheck</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.option</span> <span class="kn">import</span> <span class="n">IATSArgParseStrategy</span>
 <span class="kn">from</span> <span class="nn">.xml2object</span> <span class="kn">import</span> <span class="n">Xml2Object</span>
 <span class="kn">from</span> <span class="nn">.object2xml</span> <span class="kn">import</span> <span class="n">Object2Xml</span>
+<span class="kn">from</span> <span class="nn">.ixml_processor</span> <span class="kn">import</span> <span class="n">IXMLProcessor</span>
+<span class="kn">from</span> <span class="nn">.default_xml_processor</span> <span class="kn">import</span> <span class="n">ATSXmlProcessor</span>
 
 <span class="n">__author__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;Vladimir Roncevic&#39;</span>
 <span class="n">__copyright__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;(C) 2026, https://vroncevic.github.io/ats_utilities&#39;</span>
@@ -111,7 +112,7 @@
         <span class="n">info_file</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">xml2obj</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">IRead</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">obj2xml</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">IWrite</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-        <span class="n">options_parser</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ATSOptionParser</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">options_parser</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">IATSOptionParser</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">checker</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">IATSChecker</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">reporter</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">IATSReporter</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">file_checker</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">IFileCheck</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -124,17 +125,17 @@
 <span class="sd">            :param info_file: Path to the info file | None</span>
 <span class="sd">            :type info_file: &lt;Optional[str]&gt;</span>
 <span class="sd">            :param xml2obj: In API for information (Dependency Injected)</span>
-<span class="sd">            :type xml2obj: &lt;IRead&gt;</span>
+<span class="sd">            :type xml2obj: :class:`~ats_utilities.config_io.iread.IRead`</span>
 <span class="sd">            :param obj2xml: Out API for information (Dependency Injected)</span>
-<span class="sd">            :type obj2xml: &lt;IWrite&gt;</span>
+<span class="sd">            :type obj2xml: :class:`~ats_utilities.config_io.iwrite.IWrite`</span>
 <span class="sd">            :param options_parser: Option parser for ATS | None</span>
-<span class="sd">            :type options_parser: &lt;Optional[IATSOptionParser]&gt;</span>
+<span class="sd">            :type options_parser: :class:`~ats_utilities.option.ioption_parser.IATSOptionParser`</span>
 <span class="sd">            :param checker: Error checker | None</span>
-<span class="sd">            :type checker: &lt;Optional[IATSChecker]&gt;</span>
+<span class="sd">            :type checker: :class:`~ats_utilities.checker.IATSChecker`</span>
 <span class="sd">            :param reporter: ATSReporter for check operations | None</span>
-<span class="sd">            :type reporter: &lt;Optional[IATSReporter]&gt;</span>
+<span class="sd">            :type reporter: :class:`~ats_utilities.console_io.iats_reporter.IATSReporter`</span>
 <span class="sd">            :param file_checker: FileCheck for checking file | None</span>
-<span class="sd">            :type file_checker: &lt;Optional[IFileCheck]&gt;</span>
+<span class="sd">            :type file_checker: :class:`~ats_utilities.config_io.ifile_check.IFileCheck`</span>
 <span class="sd">            :param verbose: Enable/Disable verbose option</span>
 <span class="sd">            :type verbose: &lt;bool&gt;</span>
 <span class="sd">            :exceptions: None</span>
@@ -148,61 +149,40 @@
 
         <span class="c1"># Dependency Injection for Xml2Object and Object2Xml or use defaults if not provided</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__xml2obj</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">IRead</span><span class="p">]</span> <span class="o">=</span> <span class="n">xml2obj</span> <span class="ow">or</span> <span class="n">Xml2Object</span><span class="p">(</span>
-            <span class="n">info_file</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">__checker</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">__reporter</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">__file_checker</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">__verbose</span>
+            <span class="n">info_file</span><span class="p">,</span> <span class="n">ATSXmlProcessor</span><span class="p">(),</span> <span class="bp">self</span><span class="o">.</span><span class="n">__checker</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">__reporter</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">__file_checker</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">__verbose</span>
         <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__obj2xml</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">IWrite</span><span class="p">]</span> <span class="o">=</span> <span class="n">obj2xml</span> <span class="ow">or</span> <span class="n">Object2Xml</span><span class="p">(</span>
             <span class="n">info_file</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">__checker</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">__reporter</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">__file_checker</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">__verbose</span>
         <span class="p">)</span>
 
-        <span class="n">info_dict</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">info_dict</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">xml_processor</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">IXMLProcessor</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__tool_operational</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
 
         <span class="k">if</span> <span class="nb">bool</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__xml2obj</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">bool</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__obj2xml</span><span class="p">):</span>
-            <span class="n">tool_info</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__xml2obj</span><span class="o">.</span><span class="n">read_configuration</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__verbose</span><span class="p">)</span>
+            <span class="n">xml_processor</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__xml2obj</span><span class="o">.</span><span class="n">read_configuration</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__verbose</span><span class="p">)</span>
 
-        <span class="k">if</span> <span class="nb">bool</span><span class="p">(</span><span class="n">tool_info</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">bool</span><span class="p">(</span><span class="n">xml_processor</span><span class="p">):</span>
+            <span class="n">info_dict</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">xml_processor</span><span class="o">.</span><span class="n">get_ats_info</span><span class="p">()</span>
+            <span class="n">info</span><span class="p">:</span> <span class="n">ATSInfo</span> <span class="o">=</span> <span class="n">ATSInfo</span><span class="p">(</span><span class="n">info_dict</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">__checker</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">__reporter</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">__verbose</span><span class="p">)</span>
 
-            <span class="k">if</span> <span class="nb">bool</span><span class="p">(</span><span class="n">tool_info</span><span class="p">):</span>
-                <span class="n">ats_name</span><span class="p">:</span>  <span class="n">Optional</span><span class="p">[</span><span class="n">Tag</span> <span class="o">|</span> <span class="n">NavigableString</span><span class="p">]</span> <span class="o">=</span> <span class="n">tool_info</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;ats_name&#39;</span><span class="p">)</span>
-
-                <span class="k">if</span> <span class="n">ats_name</span><span class="p">:</span>
-                    <span class="n">info_dict</span><span class="p">[</span><span class="s1">&#39;ats_name&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">ats_name</span><span class="o">.</span><span class="n">get_text</span><span class="p">())</span>
-
-                <span class="n">ats_version</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Tag</span> <span class="o">|</span> <span class="n">NavigableString</span><span class="p">]</span> <span class="o">=</span> <span class="n">tool_info</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;ats_version&#39;</span><span class="p">)</span>
-
-                <span class="k">if</span> <span class="n">ats_version</span><span class="p">:</span>
-                    <span class="n">info_dict</span><span class="p">[</span><span class="s1">&#39;ats_version&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">ats_version</span><span class="o">.</span><span class="n">get_text</span><span class="p">())</span>
-
-                <span class="n">ats_build_date</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Tag</span> <span class="o">|</span> <span class="n">NavigableString</span><span class="p">]</span> <span class="o">=</span> <span class="n">tool_info</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;ats_build_date&#39;</span><span class="p">)</span>
-
-                <span class="k">if</span> <span class="n">ats_build_date</span><span class="p">:</span>
-                    <span class="n">info_dict</span><span class="p">[</span><span class="s1">&#39;ats_build_date&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">ats_build_date</span><span class="o">.</span><span class="n">get_text</span><span class="p">())</span>
-
-                <span class="n">ats_licence</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Tag</span> <span class="o">|</span> <span class="n">NavigableString</span><span class="p">]</span> <span class="o">=</span> <span class="n">tool_info</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;ats_licence&#39;</span><span class="p">)</span>
-
-                <span class="k">if</span> <span class="n">ats_licence</span><span class="p">:</span>
-                    <span class="n">info_dict</span><span class="p">[</span><span class="s1">&#39;ats_licence&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">ats_licence</span><span class="o">.</span><span class="n">get_text</span><span class="p">())</span>
-
-                <span class="n">info</span><span class="p">:</span> <span class="n">ATSInfo</span> <span class="o">=</span> <span class="n">ATSInfo</span><span class="p">(</span><span class="n">info_dict</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">__checker</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">__reporter</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">__verbose</span><span class="p">)</span>
-
-                <span class="k">if</span> <span class="n">info</span><span class="o">.</span><span class="n">ats_info_ok</span><span class="p">:</span>
-                    <span class="c1"># Dependecy injection for option parser or use default if not provided</span>
-                    <span class="c1"># Dependecy injection for argument strategy</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">__option_parser</span><span class="p">:</span> <span class="n">ATSOptionParser</span> <span class="o">=</span> <span class="n">options_parser</span> <span class="ow">or</span> <span class="n">ATSOptionParser</span><span class="p">(</span>
-                        <span class="n">info_dict</span><span class="p">,</span> <span class="n">strategy</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">__checker</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">__reporter</span><span class="p">,</span> <span class="n">verbose</span>
-                    <span class="p">)</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">__option_parser</span><span class="o">.</span><span class="n">add_version_operation</span><span class="p">(</span><span class="n">info</span><span class="o">.</span><span class="n">version</span><span class="p">)</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">__tool_operational</span> <span class="o">=</span> <span class="kc">True</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">__reporter</span><span class="o">.</span><span class="n">verbose</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__verbose</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;loaded ATS XML info&#39;</span><span class="p">])</span>
+            <span class="k">if</span> <span class="n">info</span><span class="o">.</span><span class="n">ats_info_ok</span><span class="p">:</span>
+                <span class="c1"># Dependecy injection for option parser or use default if not provided</span>
+                <span class="c1"># Dependecy injection for argument strategy</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">__option_parser</span><span class="p">:</span> <span class="n">IATSOptionParser</span> <span class="o">=</span> <span class="n">options_parser</span> <span class="ow">or</span> <span class="n">ATSOptionParser</span><span class="p">(</span>
+                    <span class="n">info_dict</span><span class="p">,</span> <span class="n">strategy</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">__checker</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">__reporter</span><span class="p">,</span> <span class="n">verbose</span>
+                <span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">__option_parser</span><span class="o">.</span><span class="n">add_version_operation</span><span class="p">(</span><span class="n">info</span><span class="o">.</span><span class="n">version</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">__tool_operational</span> <span class="o">=</span> <span class="kc">True</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">__reporter</span><span class="o">.</span><span class="n">verbose</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__verbose</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;loaded ATS XML info&#39;</span><span class="p">])</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">option_parser</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ATSOptionParser</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">option_parser</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">IATSOptionParser</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Option parser for ATS.</span>
 
 <span class="sd">            :return: Option parser for ATS</span>
-<span class="sd">            :rtype: &lt;ATSO</span>
-<span class="sd">            ptionParser&gt;</span>
+<span class="sd">            :rtype: :class:`~ats_utilities.option.ioption_parser.IATSOptionParser`</span>
 <span class="sd">            :exceptions: None</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__option_parser</span>

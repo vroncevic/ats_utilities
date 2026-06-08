@@ -21,11 +21,11 @@ Info
 '''
 
 from typing import ClassVar, List, Optional
-from bs4 import BeautifulSoup
 from ats_utilities.checker import IATSChecker, ATSChecker, ErrorChecker
 from ats_utilities.console_io import IATSReporter, ATSReporter
 from ats_utilities.exceptions import ATSTypeError
 from ats_utilities.config_io import IRead, ConfFile, IFileCheck, FileCheck
+from .ixml_processor import IXMLProcessor
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -61,6 +61,7 @@ class Xml2Object(IRead):
     def __init__(
         self,
         config_file: Optional[str],
+        xml_processor: IXMLProcessor,
         checker: Optional[IATSChecker] = None,
         reporter: Optional[IATSReporter] = None,
         file_checker: Optional[IFileCheck] = None,
@@ -71,12 +72,14 @@ class Xml2Object(IRead):
 
             :param config_file: Configuration file path | None
             :type config_file: <Optional[str]>
+            :param xml_processor: IXMLProcessor for processing XML content | None
+            :type xml_processor: :class:`~ats_utilities.config_io.xml.ixml_processor.IXMLProcessor`
             :param checker: ATSChecker for check operations | None
-            :type checker: <Optional[IATSChecker]>
+            :type checker: :class:`~ats_utilities.checker.IATSChecker`
             :param reporter: ATSReporter for check operations | None
-            :type reporter: <Optional[IATSReporter]>
+            :type reporter: :class:`~ats_utilities.console_io.iats_reporter.IATSReporter`
             :param file_checker: FileCheck for checking file | None
-            :type file_checker: <Optional[IFileCheck]>
+            :type file_checker: :class:`~ats_utilities.config_io.ifile_check.IFileCheck`
             :param verbose: Enable/Disable verbose option
             :type verbose: <bool>
             :exceptions:  ATSTypeError
@@ -99,20 +102,21 @@ class Xml2Object(IRead):
 
 
         self.__file_path: str = str(config_file)
+        self.__xml_processor: IXMLProcessor = xml_processor
         self.__reporter.verbose(self.__verbose, [f'configuration {config_file}'])
 
-    def read_configuration(self, verbose: bool = False) -> Optional[BeautifulSoup]:
+    def read_configuration(self, verbose: bool = False) -> Optional[IXMLProcessor]:
         '''
             Reads a configuration from an XML file.
 
             :param verbose: Enable/Disable verbose option
             :type verbose: <bool>
             :return: Configuration object | None
-            :rtype: <Optional[BeautifulSoup]>
+            :rtype: :class:`~ats_utilities.config_io.xml.ixml_processor.IXMLProcessor`
             :exceptions: None
         '''
         content: Optional[str] = None
-        config: Optional[BeautifulSoup] = None
+        config: Optional[IXMLProcessor] = None
 
         with ConfFile(
             self.__file_path,
@@ -125,6 +129,11 @@ class Xml2Object(IRead):
         ) as xml:
             if bool(xml):
                 content = xml.read()
-                config = BeautifulSoup(str(content), self.__EXT)
+
+                if bool(content):
+                    if self.__xml_processor.from_string(str(content)):
+                        config = self.__xml_processor
+
         self.__reporter.verbose(self.__verbose or verbose, [f'configuration {config}'])
+
         return config

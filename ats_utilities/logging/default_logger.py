@@ -134,9 +134,9 @@ class DefaultLogger(IATSLogger):
             :param ats_log_file: Log to file (default None)
             :type ats_log_file: <Optional[str]>
             :param checker: Checker for parameter validation | None
-            :type checker: <Optional[IATSChecker]>
+            :type checker: :class:`~ats_utilities.checker.IATSChecker`
             :param reporter: ATSReporter for verbose output | None
-            :type reporter: <Optional[IATSReporter]>
+            :type reporter: :class:`~ats_utilities.console_io.iats_reporter.IATSReporter`
             :param configure_logging: Configure logging | True
             :type configure_logging: <bool>
             :param verbose: Enable/Disable verbose option

@@ -20,12 +20,12 @@ Info
     Creates an API for writing a configuration to a YAML file.
 '''
 
-from typing import Any, ClassVar, Dict, List, Optional
-from yaml import dump
+from typing import ClassVar, List, Optional
 from ats_utilities.checker import IATSChecker, ATSChecker, ErrorChecker
 from ats_utilities.console_io import IATSReporter, ATSReporter
 from ats_utilities.exceptions import ATSTypeError
 from ats_utilities.config_io import IWrite, ConfFile, IFileCheck, FileCheck
+from .iyaml_processor import IYAMLProcessor
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -72,11 +72,11 @@ class Object2Yaml(IWrite):
             :param config_file: Configuration file path | None
             :type config_file: <Optional[str]>
             :param checker: ATSChecker for check operations | None
-            :type checker: <Optional[IATSChecker]>
+            :type checker: :class:`~ats_utilities.checker.IATSChecker`
             :param reporter: ATSReporter for check operations | None
-            :type reporter: <Optional[IATSReporter]>
+            :type reporter: :class:`~ats_utilities.console_io.iats_reporter.IATSReporter`
             :param file_checker: FileCheck for checking file | None
-            :type file_checker: <Optional[IFileCheck]>
+            :type file_checker: :class:`~ats_utilities.config_io.ifile_check.IFileCheck`
             :param verbose: Enable/Disable verbose option
             :type verbose: <bool>
             :exceptions: ATSTypeError
@@ -98,16 +98,14 @@ class Object2Yaml(IWrite):
         self.__file_path: str = str(config_file)
         self.__reporter.verbose(self.__verbose, [f'configuration file {config_file}'])
 
-    def write_configuration(
-        self, config: Optional[Dict[Any, Any]], verbose: bool = False
-    ) -> bool:
+    def write_configuration(self, config: Optional[IYAMLProcessor], verbose: bool = False) -> bool:
         '''
             Writes configuration to a YAML file.
 
             :param verbose: Enable/Disable verbose option
             :type verbose: <bool>
             :param config: Configuration object | None
-            :type: <Optional[Dict[Any, Any]]>
+            :type: :class:`~ats_utilities.config_io.yaml.iyaml_processor.IYAMLProcessor`fig_io.yaml.iyaml_processor.IYAMLProcessor`
             :return: True (configuration written to the file) | False
             :rtype: <bool>
             :exception: ATSTypeError
@@ -115,7 +113,7 @@ class Object2Yaml(IWrite):
         status: bool = False
         error_msg: Optional[str] = None
         error_id: Optional[int] = None
-        error_msg, error_id = self.__checker.validate_parameters([('dict:config', config)])
+        error_msg, error_id = self.__checker.validate_parameters([('IYAMLProcessor:config', config)])
 
         if error_id == self.ERRORS.TYPE_ERROR:
             raise ATSTypeError(error_msg)
@@ -125,8 +123,6 @@ class Object2Yaml(IWrite):
 
         self.__reporter.verbose(self.__verbose or verbose, [f'configuration {config}'])
 
-        if not bool(config):
-            return status
         with ConfFile(
             self.__file_path,
             self.__MODE,
@@ -137,6 +133,6 @@ class Object2Yaml(IWrite):
             self.__verbose or verbose
         ) as yaml:
             if bool(yaml):
-                dump(config, yaml, default_flow_style=False)
+                yaml.write(config.encode())
                 status = True
         return status

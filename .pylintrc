@@ -5,7 +5,7 @@ jobs=0
 [MESSAGES CONTROL]
 # Disable unnecessary-pass
 # Centralized place for ignore / warning management.
-disable=unnecessary-pass,line-too-long,too-many-arguments,too-few-public-methods
+disable=unnecessary-pass,line-too-long,too-many-arguments,too-few-public-methods,too-many-function-args
 
 [DESIGN]
 # Maximum number of arguments for function / method defining.

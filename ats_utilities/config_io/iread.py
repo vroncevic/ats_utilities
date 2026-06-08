@@ -53,7 +53,7 @@ class IRead(ABC):
             :param verbose: Enable/Disable verbose option
             :type verbose: <bool>
             :return: Configuration object
-            :rtype: <Dict[Any, Any]>
+            :rtype: <Any>
             :exceptions: NotImplementedError
         '''
         raise NotImplementedError("Subclasses must implement read_configuration method")

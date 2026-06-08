@@ -76,13 +76,13 @@ class ATSChecker(IATSChecker):
             Initials ATSChecker constructor.
 
             :param format_validator: Validator for parameters format
-            :type format_validator: <Optional[IFormatValidator]>
+            :type format_validator: :class:`~ats_utilities.checker.iformat_validator.IFormatValidator`
             :param type_validator: Validator for parameters type
-            :type type_validator: <Optional[ITypeValidator]>
+            :type type_validator: :class:`~ats_utilities.checker.itype_validator.ITypeValidator`
             :param context_provider: Provider for call context
-            :type context_provider: <Optional[IContextProvider]>
+            :type context_provider: :class:`~ats_utilities.checker.icontext_provider.IContextProvider`
             :param check_reporter: Formatter for message reports
-            :type check_reporter: <Optional[ICheckReporter]>
+            :type check_reporter: :class:`~ats_utilities.checker.icheck_reporter.ICheckReporter`cker.icheck_reporter.ICheckReporter`
             :exceptions: None
         '''
         # If no custom implementations are provided, use default ones.
@@ -96,7 +96,7 @@ class ATSChecker(IATSChecker):
             Validates parameters for method(s) or function(s).
 
             :param parameters: Specification for parameters
-            :type parameters: <Optional[ParametersSpecs]>
+            :type parameters: :class:`~ats_utilities.checker.iats_checker.ParametersSpecs` 
             :return: tuple of error message report and error id
             :rtype: <ValidationResult>
             :exceptions: None

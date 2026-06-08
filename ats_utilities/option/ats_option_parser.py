@@ -75,9 +75,9 @@ class ATSOptionParser(IATSOptionParser):
             :param parameters: Parameters for logger
             :type parameters: <Dict[str, str]>
             :param checker: Parameters checker instance | None
-            :type checker: <Optional[IATSChecker]>
+            :type checker: :class:`~ats_utilities.checker.IATSChecker`
             :param reporter: ATSReporter for outputting messages | None 
-            :type reporter: <Optional[IATSReporter]>
+            :type reporter: :class:`~ats_utilities.console_io.iats_reporter.IATSReporter`
             :param verbose: Enable/Disable verbose option
             :type verbose: <bool>
             :exceptions: ATSTypeError
@@ -125,11 +125,11 @@ class ATSOptionParser(IATSOptionParser):
             Processes arguments from the start.
 
             :param arguments: Sequence of arguments | None
-            :type arguments: <OptArgs>
+            :type arguments: :class:`~ats_utilities.option.option_namespace.OptArgs`
             :param verbose: Enable/Disable verbose option
             :type verbose: <bool>
             :return: Option namespace object
-            :rtype: <OptionNamespace>
+            :rtype: :class:`~ats_utilities.option.option_namespace.OptionNamespace`
             :exceptions: None
         '''
         args = self.__strategy.parse(arguments, known_only=False)
@@ -141,11 +141,11 @@ class ATSOptionParser(IATSOptionParser):
             Processes arguments from the start.
 
             :param arguments: Sequence of arguments | None
-            :type arguments: <OptArgs>
+            :type arguments: :class:`~ats_utilities.option.option_namespace.OptArgs`
             :param verbose: Enable/Disable verbose option
             :type verbose: <bool>
             :return: Option namespace object
-            :rtype: <OptionNamespace>
+            :rtype: :class:`~ats_utilities.option.option_namespace.OptionNamespace`
             :exceptions: None
         '''
         args = self.__strategy.parse(arguments, known_only=True)

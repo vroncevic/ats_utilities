@@ -122,9 +122,6 @@ pip3<span class="w"> </span>install<span class="w"> </span>ats_utilities
 <p><strong>ats_utilities</strong> requires next modules and libraries</p>
 <ul class="simple">
 <li><p><a class="reference external" href="https://pypi.org/project/PyYAML/">yaml - YAML parser and emitter for Python</a></p></li>
-<li><p><a class="reference external" href="https://pypi.org/project/beautifulsoup4/">bs4 - Screen-scraping library</a></p></li>
-<li><p><a class="reference external" href="https://pypi.org/project/colorama/">colorama - Cross-platform colored terminal text</a></p></li>
-<li><p><a class="reference external" href="https://pypi.org/project/lxml/">lxml - XML processing library</a></p></li>
 </ul>
 </section>
 <section id="framework-structure">
@@ -146,12 +143,16 @@ pip3<span class="w"> </span>install<span class="w"> </span>ats_utilities
 │<span class="w">   </span>└──<span class="w"> </span>itype_validator.py
 ├──<span class="w"> </span>cli/
 │<span class="w">   </span>├──<span class="w"> </span>ats_cli.py
+│<span class="w">   </span>├──<span class="w"> </span>config_manager.py
 │<span class="w">   </span>├──<span class="w"> </span>icli.py
+│<span class="w">   </span>├──<span class="w"> </span>iconfig_manager.py
 │<span class="w">   </span>└──<span class="w"> </span>__init__.py
 ├──<span class="w"> </span>config_io/
 │<span class="w">   </span>├──<span class="w"> </span>cfg/
 │<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>cfg2object.py
 │<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>cfgbase.py
+│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>default_cfg_processor.py
+│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>icfg_processor.py
 │<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>__init__.py
 │<span class="w">   </span>│<span class="w">   </span>└──<span class="w"> </span>object2cfg.py
 │<span class="w">   </span>├──<span class="w"> </span>conf_file.py
@@ -159,6 +160,8 @@ pip3<span class="w"> </span>install<span class="w"> </span>ats_utilities
 │<span class="w">   </span>├──<span class="w"> </span>iconf_file.py
 │<span class="w">   </span>├──<span class="w"> </span>ifile_check.py
 │<span class="w">   </span>├──<span class="w"> </span>ini/
+│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>default_ini_processor.py
+│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>iini_processor.py
 │<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>ini2object.py
 │<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>inibase.py
 │<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>__init__.py
@@ -167,17 +170,23 @@ pip3<span class="w"> </span>install<span class="w"> </span>ats_utilities
 │<span class="w">   </span>├──<span class="w"> </span>iread.py
 │<span class="w">   </span>├──<span class="w"> </span>iwrite.py
 │<span class="w">   </span>├──<span class="w"> </span>json/
+│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>default_json_processor.py
+│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>ijson_processor.py
 │<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>__init__.py
 │<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>json2object.py
 │<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>jsonbase.py
 │<span class="w">   </span>│<span class="w">   </span>└──<span class="w"> </span>object2json.py
 │<span class="w">   </span>├──<span class="w"> </span>xml/
+│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>default_xml_processor.py
 │<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>__init__.py
+│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>ixml_processor.py
 │<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>object2xml.py
 │<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>xml2object.py
 │<span class="w">   </span>│<span class="w">   </span>└──<span class="w"> </span>xmlbase.py
 │<span class="w">   </span>└──<span class="w"> </span>yaml/
+│<span class="w">       </span>├──<span class="w"> </span>default_yaml_processor.py
 │<span class="w">       </span>├──<span class="w"> </span>__init__.py
+│<span class="w">       </span>├──<span class="w"> </span>iyaml_processor.py
 │<span class="w">       </span>├──<span class="w"> </span>object2yaml.py
 │<span class="w">       </span>├──<span class="w"> </span>yaml2object.py
 │<span class="w">       </span>└──<span class="w"> </span>yamlbase.py
@@ -249,7 +258,7 @@ pip3<span class="w"> </span>install<span class="w"> </span>ats_utilities
 <span class="w">    </span>├──<span class="w"> </span>splash.py
 <span class="w">    </span>└──<span class="w"> </span>terminal_properties.py
 
-<span class="m">17</span><span class="w"> </span>directories,<span class="w"> </span><span class="m">100</span><span class="w"> </span>files
+<span class="m">17</span><span class="w"> </span>directories,<span class="w"> </span><span class="m">112</span><span class="w"> </span>files
 </pre></div>
 </div>
 </section>

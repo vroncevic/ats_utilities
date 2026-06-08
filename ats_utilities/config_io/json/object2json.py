@@ -20,12 +20,12 @@ Info
     Creates an API for writing a configuration to a JSON file.
 '''
 
-from typing import Any, ClassVar, Dict, List, Optional
-from json import dump
+from typing import ClassVar, List, Optional
 from ats_utilities.checker import IATSChecker, ATSChecker, ErrorChecker
 from ats_utilities.console_io import IATSReporter, ATSReporter
 from ats_utilities.exceptions import ATSTypeError
 from ats_utilities.config_io import IWrite, ConfFile, IFileCheck, FileCheck
+from .ijson_processor import IJSONProcessor
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -73,11 +73,11 @@ class Object2Json(IWrite):
             :param config_file: Configuration file path | None
             :type config_file: <Optional[str]>
             :param checker: ATSChecker for check operations | None
-            :type checker: <Optional[IATSChecker]>
+            :type checker: :class:`~ats_utilities.checker.IATSChecker`
             :param reporter: ATSReporter for check operations | None
-            :type reporter: <Optional[IATSReporter]>
+            :type reporter: :class:`~ats_utilities.console_io.iats_reporter.IATSReporter`
             :param file_checker: FileCheck for checking file | None
-            :type file_checker: <Optional[IFileCheck]>
+            :type file_checker: :class:`~ats_utilities.config_io.ifile_check.IFileCheck`
             :param verbose: Enable/Disable verbose option
             :type verbose: <bool>
             :exceptions: ATSTypeError
@@ -97,14 +97,14 @@ class Object2Json(IWrite):
         self.__file_path: str = str(config_file)
         self.__reporter.verbose(self.__verbose, [f'configuration file {config_file}'])
 
-    def write_configuration(self, config: Dict[Any, Any], verbose: bool = False) -> bool:
+    def write_configuration(self, config: Optional[IJSONProcessor], verbose: bool = False) -> bool:
         '''
             Writes configuration to a JSON file.
 
             :param verbose: Enable/Disable verbose option
             :type verbose: <bool>
             :param config: Configuration object
-            :type: <Dict[Any, Any]>
+            :type: :class:`~ats_utilities.config_io.json.ijson_processor.IJSONProcessor`
             :return: True (configuration written to file) | False
             :rtype: <bool>
             :exception: ATSTypeError
@@ -112,7 +112,7 @@ class Object2Json(IWrite):
         status: bool = False
         error_msg: Optional[str] = None
         error_id: Optional[int] = None
-        error_msg, error_id = self.__checker.validate_parameters([('dict:config', config)])
+        error_msg, error_id = self.__checker.validate_parameters([('IJSONProcessor:config', config)])
 
         if error_id == self.ERRORS.TYPE_ERROR:
             raise ATSTypeError(error_msg)
@@ -132,6 +132,6 @@ class Object2Json(IWrite):
             self.__verbose or verbose
         ) as json:
             if bool(json):
-                dump(config, json)
+                json.write(config.encode())
                 status = True
         return status

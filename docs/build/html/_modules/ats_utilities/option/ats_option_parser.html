@@ -115,9 +115,9 @@
 <span class="sd">            :param parameters: Parameters for logger</span>
 <span class="sd">            :type parameters: &lt;Dict[str, str]&gt;</span>
 <span class="sd">            :param checker: Parameters checker instance | None</span>
-<span class="sd">            :type checker: &lt;Optional[IATSChecker]&gt;</span>
+<span class="sd">            :type checker: :class:`~ats_utilities.checker.IATSChecker`</span>
 <span class="sd">            :param reporter: ATSReporter for outputting messages | None </span>
-<span class="sd">            :type reporter: &lt;Optional[IATSReporter]&gt;</span>
+<span class="sd">            :type reporter: :class:`~ats_utilities.console_io.iats_reporter.IATSReporter`</span>
 <span class="sd">            :param verbose: Enable/Disable verbose option</span>
 <span class="sd">            :type verbose: &lt;bool&gt;</span>
 <span class="sd">            :exceptions: ATSTypeError</span>
@@ -173,11 +173,11 @@
 <span class="sd">            Processes arguments from the start.</span>
 
 <span class="sd">            :param arguments: Sequence of arguments | None</span>
-<span class="sd">            :type arguments: &lt;OptArgs&gt;</span>
+<span class="sd">            :type arguments: :class:`~ats_utilities.option.option_namespace.OptArgs`</span>
 <span class="sd">            :param verbose: Enable/Disable verbose option</span>
 <span class="sd">            :type verbose: &lt;bool&gt;</span>
 <span class="sd">            :return: Option namespace object</span>
-<span class="sd">            :rtype: &lt;OptionNamespace&gt;</span>
+<span class="sd">            :rtype: :class:`~ats_utilities.option.option_namespace.OptionNamespace`</span>
 <span class="sd">            :exceptions: None</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="n">args</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__strategy</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">arguments</span><span class="p">,</span> <span class="n">known_only</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
@@ -192,11 +192,11 @@
 <span class="sd">            Processes arguments from the start.</span>
 
 <span class="sd">            :param arguments: Sequence of arguments | None</span>
-<span class="sd">            :type arguments: &lt;OptArgs&gt;</span>
+<span class="sd">            :type arguments: :class:`~ats_utilities.option.option_namespace.OptArgs`</span>
 <span class="sd">            :param verbose: Enable/Disable verbose option</span>
 <span class="sd">            :type verbose: &lt;bool&gt;</span>
 <span class="sd">            :return: Option namespace object</span>
-<span class="sd">            :rtype: &lt;OptionNamespace&gt;</span>
+<span class="sd">            :rtype: :class:`~ats_utilities.option.option_namespace.OptionNamespace`</span>
 <span class="sd">            :exceptions: None</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="n">args</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__strategy</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">arguments</span><span class="p">,</span> <span class="n">known_only</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>

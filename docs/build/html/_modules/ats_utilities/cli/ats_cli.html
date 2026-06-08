@@ -58,19 +58,13 @@
 <span class="sd">    Creates an API for checks and loads an information argument parser.</span>
 <span class="sd">&#39;&#39;&#39;</span>
 
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Union</span>
-<span class="kn">from</span> <span class="nn">os.path</span> <span class="kn">import</span> <span class="n">basename</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span>
 <span class="kn">from</span> <span class="nn">abc</span> <span class="kn">import</span> <span class="n">abstractmethod</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.config_io</span> <span class="kn">import</span> <span class="n">IFileCheck</span><span class="p">,</span> <span class="n">IRead</span><span class="p">,</span> <span class="n">IWrite</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.config_io.cfg</span> <span class="kn">import</span> <span class="n">CfgBase</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.config_io.ini</span> <span class="kn">import</span> <span class="n">IniBase</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.config_io.json</span> <span class="kn">import</span> <span class="n">JsonBase</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.config_io.xml</span> <span class="kn">import</span> <span class="n">XmlBase</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.config_io.yaml</span> <span class="kn">import</span> <span class="n">YamlBase</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.console_io</span> <span class="kn">import</span> <span class="n">IATSReporter</span><span class="p">,</span> <span class="n">ATSReporter</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.checker</span> <span class="kn">import</span> <span class="n">IATSChecker</span><span class="p">,</span> <span class="n">ATSChecker</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.option</span> <span class="kn">import</span> <span class="n">ATSOptionParser</span><span class="p">,</span> <span class="n">OptionNamespace</span><span class="p">,</span> <span class="n">IATSArgParseStrategy</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.option</span> <span class="kn">import</span> <span class="n">OptionNamespace</span>
 <span class="kn">from</span> <span class="nn">.icli</span> <span class="kn">import</span> <span class="n">IATSCli</span><span class="p">,</span> <span class="n">ArgSeq</span>
+<span class="kn">from</span> <span class="nn">.iconfig_manager</span> <span class="kn">import</span> <span class="n">IConfigManager</span><span class="p">,</span> <span class="n">Config</span>
+<span class="kn">from</span> <span class="nn">.config_manager</span> <span class="kn">import</span> <span class="n">ATSConfigManager</span>
 
 <span class="n">__author__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;Vladimir Roncevic&#39;</span>
 <span class="n">__copyright__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;(C) 2026, https://vroncevic.github.io/ats_utilities&#39;</span>
@@ -80,10 +74,6 @@
 <span class="n">__maintainer__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;Vladimir Roncevic&#39;</span>
 <span class="n">__email__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;elektron.ronca@gmail.com&#39;</span>
 <span class="n">__status__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;Updated&#39;</span>
-
-<span class="c1"># Optional configuration type</span>
-<span class="n">Config</span> <span class="o">=</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="n">CfgBase</span><span class="p">,</span> <span class="n">IniBase</span><span class="p">,</span> <span class="n">JsonBase</span><span class="p">,</span> <span class="n">XmlBase</span><span class="p">,</span> <span class="n">YamlBase</span><span class="p">]]</span>
-
 
 <div class="viewcode-block" id="ATSCli">
 <a class="viewcode-back" href="../../../ats_utilities.cli.ats_cli.html#ats_utilities.cli.ATSCli">[docs]</a>
@@ -97,11 +87,11 @@
 
 <span class="sd">            :attributes:</span>
 <span class="sd">                | __config - CLI configuration object.</span>
+<span class="sd">                | __config_manager - Manager for configuration loading.</span>
 <span class="sd">                | __operational - Status for tool | generator (default False).</span>
 <span class="sd">                | __verbose - Enable/Disable verbose option.</span>
 <span class="sd">            :methods:</span>
 <span class="sd">                | __init__ - Initials ATSCli constructor.</span>
-<span class="sd">                | _builder - Builds ATS cli configuration.</span>
 <span class="sd">                | is_operational - Checks is tool | generator operational.</span>
 <span class="sd">                | add_new_option - Adds a new option for the the CL interface.</span>
 <span class="sd">                | parse_args - Parses the CLI arguments.</span>
@@ -111,13 +101,8 @@
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">info_file</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-        <span class="n">config2object</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">IRead</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-        <span class="n">object2config</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">IWrite</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-        <span class="n">options_parser</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ATSOptionParser</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-        <span class="n">checker</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">IATSChecker</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">config_manager</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">IConfigManager</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">reporter</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">IATSReporter</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-        <span class="n">file_checker</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">IFileCheck</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-        <span class="n">strategy</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">IATSArgParseStrategy</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">verbose</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
@@ -125,105 +110,22 @@
 
 <span class="sd">            :param info_file: Information file path | None</span>
 <span class="sd">            :type info_file: &lt;Optional[str]&gt;</span>
+<span class="sd">            :param config_manager: Configuration manager | None</span>
+<span class="sd">            :type config_manager: &lt;Optional[IConfigManager]&gt;</span>
 <span class="sd">            :param verbose: Enable/Disable verbose option</span>
 <span class="sd">            :type verbose: &lt;bool&gt;</span>
 <span class="sd">            :exceptions: None</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">__checker</span><span class="p">:</span> <span class="n">IATSChecker</span> <span class="o">=</span> <span class="n">checker</span> <span class="ow">or</span> <span class="n">ATSChecker</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__reporter</span><span class="p">:</span> <span class="n">IATSReporter</span> <span class="o">=</span> <span class="n">reporter</span> <span class="ow">or</span> <span class="n">ATSReporter</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__verbose</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="n">verbose</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">__config2object</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">IRead</span><span class="p">]</span> <span class="o">=</span> <span class="n">config2object</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">__object2config</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">IWrite</span><span class="p">]</span> <span class="o">=</span> <span class="n">object2config</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">__file_checker</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">IFileCheck</span><span class="p">]</span> <span class="o">=</span> <span class="n">file_checker</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">__options_parser</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ATSOptionParser</span><span class="p">]</span> <span class="o">=</span> <span class="n">options_parser</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">__strategy</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">IATSArgParseStrategy</span><span class="p">]</span> <span class="o">=</span> <span class="n">strategy</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__operational</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">__config</span><span class="p">:</span> <span class="n">Config</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_builder</span><span class="p">(</span><span class="n">info_file</span><span class="p">,</span> <span class="n">verbose</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">__reporter</span><span class="o">.</span><span class="n">verbose</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__verbose</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;init ATS CFG cli&#39;</span><span class="p">])</span>
 
-<div class="viewcode-block" id="ATSCli._builder">
-<a class="viewcode-back" href="../../../ats_utilities.cli.ats_cli.html#ats_utilities.cli.ATSCli._builder">[docs]</a>
-    <span class="k">def</span> <span class="nf">_builder</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">info_file</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">verbose</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Config</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">            Builds ATS cli configuration.</span>
-
-<span class="sd">            :param info_file: Information file path | None</span>
-<span class="sd">            :type info_file: &lt;Optional[str]&gt;</span>
-<span class="sd">            :param verbose: Enable/Disable verbose option</span>
-<span class="sd">            :type verbose: &lt;bool&gt;</span>
-<span class="sd">            :return: CLI configuration object | None</span>
-<span class="sd">            :rtype: &lt;Config&gt;</span>
-<span class="sd">            :exceptions: None</span>
-<span class="sd">        &#39;&#39;&#39;</span>
-        <span class="n">cli_config</span><span class="p">:</span> <span class="n">Config</span> <span class="o">=</span> <span class="kc">None</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">info_file</span><span class="p">:</span>
-            <span class="k">return</span> <span class="n">cli_config</span>
-        <span class="n">file_format</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">basename</span><span class="p">(</span><span class="n">info_file</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
-        <span class="k">match</span> <span class="n">file_format</span><span class="p">:</span>
-            <span class="k">case</span> <span class="s1">&#39;cfg&#39;</span><span class="p">:</span>
-                <span class="n">cli_config</span> <span class="o">=</span> <span class="n">CfgBase</span><span class="p">(</span>
-                    <span class="n">info_file</span><span class="p">,</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">__config2object</span><span class="p">,</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">__object2config</span><span class="p">,</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">__options_parser</span><span class="p">,</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">__checker</span><span class="p">,</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">__reporter</span><span class="p">,</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">__file_checker</span><span class="p">,</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">__strategy</span><span class="p">,</span>
-                    <span class="n">verbose</span>
-                <span class="p">)</span>
-            <span class="k">case</span> <span class="s1">&#39;ini&#39;</span><span class="p">:</span>
-                <span class="n">cli_config</span> <span class="o">=</span> <span class="n">IniBase</span><span class="p">(</span>
-                    <span class="n">info_file</span><span class="p">,</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">__config2object</span><span class="p">,</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">__object2config</span><span class="p">,</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">__options_parser</span><span class="p">,</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">__checker</span><span class="p">,</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">__reporter</span><span class="p">,</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">__file_checker</span><span class="p">,</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">__strategy</span><span class="p">,</span>
-                    <span class="n">verbose</span>
-                <span class="p">)</span>
-            <span class="k">case</span> <span class="s1">&#39;json&#39;</span><span class="p">:</span>
-                <span class="n">cli_config</span> <span class="o">=</span> <span class="n">JsonBase</span><span class="p">(</span>
-                    <span class="n">info_file</span><span class="p">,</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">__config2object</span><span class="p">,</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">__object2config</span><span class="p">,</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">__options_parser</span><span class="p">,</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">__checker</span><span class="p">,</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">__reporter</span><span class="p">,</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">__file_checker</span><span class="p">,</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">__strategy</span><span class="p">,</span>
-                    <span class="n">verbose</span>
-                <span class="p">)</span>
-            <span class="k">case</span> <span class="s1">&#39;xml&#39;</span><span class="p">:</span>
-                <span class="n">cli_config</span> <span class="o">=</span> <span class="n">XmlBase</span><span class="p">(</span>
-                    <span class="n">info_file</span><span class="p">,</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">__config2object</span><span class="p">,</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">__object2config</span><span class="p">,</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">__options_parser</span><span class="p">,</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">__checker</span><span class="p">,</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">__reporter</span><span class="p">,</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">__file_checker</span><span class="p">,</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">__strategy</span><span class="p">,</span>
-                    <span class="n">verbose</span>
-                <span class="p">)</span>
-            <span class="k">case</span> <span class="s1">&#39;yaml&#39;</span><span class="p">:</span>
-                <span class="n">cli_config</span> <span class="o">=</span> <span class="n">YamlBase</span><span class="p">(</span>
-                    <span class="n">info_file</span><span class="p">,</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">__config2object</span><span class="p">,</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">__object2config</span><span class="p">,</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">__options_parser</span><span class="p">,</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">__checker</span><span class="p">,</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">__reporter</span><span class="p">,</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">__file_checker</span><span class="p">,</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">__strategy</span><span class="p">,</span>
-                    <span class="n">verbose</span>
-                <span class="p">)</span>
-            <span class="k">case</span><span class="w"> </span><span class="k">_</span><span class="p">:</span>
-                <span class="n">cli_config</span> <span class="o">=</span> <span class="kc">None</span>
-        <span class="k">return</span> <span class="n">cli_config</span></div>
-
+        <span class="c1"># Dependency Injection of the manager or use default</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__config_manager</span><span class="p">:</span> <span class="n">IConfigManager</span> <span class="o">=</span> <span class="n">config_manager</span> <span class="ow">or</span> <span class="n">ATSConfigManager</span><span class="p">(</span>
+            <span class="n">reporter</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">__reporter</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__config</span><span class="p">:</span> <span class="n">Config</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__config_manager</span><span class="o">.</span><span class="n">load_config</span><span class="p">(</span><span class="n">info_file</span><span class="p">,</span> <span class="n">verbose</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__reporter</span><span class="o">.</span><span class="n">verbose</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__verbose</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;init ATS cli&#39;</span><span class="p">])</span>
 
 <div class="viewcode-block" id="ATSCli.is_operational">
 <a class="viewcode-back" href="../../../ats_utilities.cli.ats_cli.html#ats_utilities.cli.ATSCli.is_operational">[docs]</a>
@@ -263,9 +165,9 @@
 <span class="sd">            Parses the CLI arguments.</span>
 
 <span class="sd">            :param argv: Sequence of arguments | None</span>
-<span class="sd">            :type argv: &lt;ArgSeq&gt;</span>
+<span class="sd">            :type argv: :class:`~ats_utilities.cli.icli.ArgSeq`</span>
 <span class="sd">            :return: Options and arguments</span>
-<span class="sd">            :rtype: &lt;Optional[Namespace]&gt;</span>
+<span class="sd">            :rtype: :class:`~ats_utilities.option.option_namespace.OptionNamespace`</span>
 <span class="sd">            :exceptions: ATSTypeError</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__config</span><span class="p">:</span>

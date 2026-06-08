@@ -61,13 +61,13 @@ class ATSReporter(IATSReporter):
             Initializes ATSReporter constructor.
 
             :param checker: Checker for parameter validation | None
-            :type checker: <Optional[IATSChecker]>
+            :type checker: :class:`~ats_utilities.checker.IATSChecker`
             :param theme: Theme for styling | None
-            :type theme: <Optional[IConsoleTheme]>
+            :type theme: :class:`~ats_utilities.console_io.theme.IConsoleTheme`
             :exceptions: None
         '''
-        self.__checker: IATSChecker = checker or ATSChecker()
-        self.__theme: IConsoleTheme = theme or DefaultTheme()
+        self.__checker = checker or ATSChecker()
+        self.__theme = theme or DefaultTheme()
 
     def __report(self, message: List[Any], color: str) -> None:
         '''

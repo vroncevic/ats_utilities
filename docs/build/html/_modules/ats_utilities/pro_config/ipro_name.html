@@ -101,12 +101,26 @@
     <span class="nd">@pro_name</span><span class="o">.</span><span class="n">setter</span>
     <span class="nd">@abstractmethod</span>
     <span class="k">def</span> <span class="nf">pro_name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">            Property method for setting project name.</span>
+
+<span class="sd">            :param name: Project name | None</span>
+<span class="sd">            :type name: &lt;str&gt;</span>
+<span class="sd">            :exceptions: NotImplementedError</span>
+<span class="sd">        &#39;&#39;&#39;</span>
         <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s2">&quot;Subclasses must implement pro_name setter&quot;</span><span class="p">)</span>
 
 <div class="viewcode-block" id="IProName.is_pro_name_ok">
 <a class="viewcode-back" href="../../../ats_utilities.pro_config.ipro_name.html#ats_utilities.pro_config.IProName.is_pro_name_ok">[docs]</a>
     <span class="nd">@abstractmethod</span>
     <span class="k">def</span> <span class="nf">is_pro_name_ok</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">            Checks is project name ok.</span>
+
+<span class="sd">            :return: True (project name is ok) | False</span>
+<span class="sd">            :rtype: &lt;bool&gt;</span>
+<span class="sd">            :exceptions: NotImplementedError</span>
+<span class="sd">        &#39;&#39;&#39;</span>
         <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s2">&quot;Subclasses must implement is_pro_name_ok method&quot;</span><span class="p">)</span></div>
 </div>
 

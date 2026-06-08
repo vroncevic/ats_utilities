@@ -20,11 +20,11 @@ Info
     Creates an API for writing a configuration to a XML file.
 '''
 from typing import ClassVar, List, Optional
-from bs4 import BeautifulSoup
 from ats_utilities.checker import IATSChecker, ATSChecker, ErrorChecker
 from ats_utilities.console_io import IATSReporter, ATSReporter
 from ats_utilities.exceptions import ATSTypeError
 from ats_utilities.config_io import IWrite, ConfFile, IFileCheck, FileCheck
+from .ixml_processor import IXMLProcessor
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -71,11 +71,11 @@ class Object2Xml(IWrite):
             :param config_file: Configuration file path | None
             :type config_file: <Optional[str]>
             :param checker: ATSChecker for check operations | None
-            :type checker: <Optional[IATSChecker]>
+            :type checker: :class:`~ats_utilities.checker.IATSChecker`
             :param reporter: ATSReporter for check operations | None
-            :type reporter: <Optional[IATSReporter]>
+            :type reporter: :class:`~ats_utilities.console_io.iats_reporter.IATSReporter`
             :param file_checker: FileCheck for checking file | None
-            :type file_checker: <Optional[IFileCheck]>
+            :type file_checker: :class:`~ats_utilities.config_io.ifile_check.IFileCheck`
             :param verbose: Enable/Disable verbose option
             :type verbose: <bool>
             :exceptions: ATSTypeError
@@ -95,12 +95,12 @@ class Object2Xml(IWrite):
         self.__file_path: str = str(config_file)
         self.__reporter.verbose(self.__verbose, [f'configuration file {config_file}'])
 
-    def write_configuration(self, config: Optional[BeautifulSoup], verbose: bool = False) -> bool:
+    def write_configuration(self, config: Optional[IXMLProcessor], verbose: bool = False) -> bool:
         '''
             Writes configuration to a XML file.
 
             :param config: Configuration object
-            :type: <Optional[BeautifulSoup]>
+            :type: :class:`~ats_utilities.config_io.xml.ixml_processor.IXMLProcessor`nfig_io.xml.ixml_processor.IXMLProcessor`
             :param verbose: Enable/Disable verbose option
             :type verbose: <bool>
             :return: True (configuration written to file) | False
@@ -110,9 +110,7 @@ class Object2Xml(IWrite):
         status: bool = False
         error_msg: Optional[str] = None
         error_id: Optional[int] = None
-        error_msg, error_id = self.__checker.validate_parameters([
-            ('BeautifulSoup:config', config)
-        ])
+        error_msg, error_id = self.__checker.validate_parameters([('IXMLProcessor:config', config)])
 
         if error_id == self.ERRORS.TYPE_ERROR:
             raise ATSTypeError(error_msg)
@@ -120,21 +118,23 @@ class Object2Xml(IWrite):
         if not bool(config):
             return status
 
-        self.__reporter.verbose(self.__verbose or verbose, [f'configuration {config}'])
+        xml_content: str = config.to_string()
 
-        if bool(config):
-            if not bool(config.contents):
-                return status
-            with ConfFile(
-                self.__file_path,
-                self.__MODE,
-                self.__EXT,
-                self.__checker,
-                self.__reporter,
-                self.__file_checker,
-                self.__verbose or verbose
-            ) as xml:
-                if bool(xml):
-                    if xml.write(f'{config}'):
-                        status = True
+        if not bool(xml_content):
+            return status
+
+        self.__reporter.verbose(self.__verbose or verbose, [f'configuration {xml_content}'])
+
+        with ConfFile(
+            self.__file_path,
+            self.__MODE,
+            self.__EXT,
+            self.__checker,
+            self.__reporter,
+            self.__file_checker,
+            self.__verbose or verbose
+        ) as xml:
+            if bool(xml):
+                if xml.write(xml_content):
+                    status = True
         return status

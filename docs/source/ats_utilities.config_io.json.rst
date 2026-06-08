@@ -7,6 +7,8 @@ Submodules
 .. toctree::
    :maxdepth: 4
 
+   ats_utilities.config_io.json.default_json_processor
+   ats_utilities.config_io.json.ijson_processor
    ats_utilities.config_io.json.json2object
    ats_utilities.config_io.json.jsonbase
    ats_utilities.config_io.json.object2json

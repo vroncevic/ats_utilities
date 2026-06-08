@@ -20,19 +20,13 @@ Info
     Creates an API for checks and loads an information argument parser.
 '''
 
-from typing import Any, List, Optional, Union
-from os.path import basename
+from typing import Any, List, Optional
 from abc import abstractmethod
-from ats_utilities.config_io import IFileCheck, IRead, IWrite
-from ats_utilities.config_io.cfg import CfgBase
-from ats_utilities.config_io.ini import IniBase
-from ats_utilities.config_io.json import JsonBase
-from ats_utilities.config_io.xml import XmlBase
-from ats_utilities.config_io.yaml import YamlBase
 from ats_utilities.console_io import IATSReporter, ATSReporter
-from ats_utilities.checker import IATSChecker, ATSChecker
-from ats_utilities.option import ATSOptionParser, OptionNamespace, IATSArgParseStrategy
+from ats_utilities.option import OptionNamespace
 from .icli import IATSCli, ArgSeq
+from .iconfig_manager import IConfigManager, Config
+from .config_manager import ATSConfigManager
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -42,10 +36,6 @@ __version__: str = '3.3.5'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
-
-# Optional configuration type
-Config = Optional[Union[CfgBase, IniBase, JsonBase, XmlBase, YamlBase]]
-
 
 class ATSCli(IATSCli):
     '''
@@ -57,11 +47,11 @@ class ATSCli(IATSCli):
 
             :attributes:
                 | __config - CLI configuration object.
+                | __config_manager - Manager for configuration loading.
                 | __operational - Status for tool | generator (default False).
                 | __verbose - Enable/Disable verbose option.
             :methods:
                 | __init__ - Initials ATSCli constructor.
-                | _builder - Builds ATS cli configuration.
                 | is_operational - Checks is tool | generator operational.
                 | add_new_option - Adds a new option for the the CL interface.
                 | parse_args - Parses the CLI arguments.
@@ -71,13 +61,8 @@ class ATSCli(IATSCli):
     def __init__(
         self,
         info_file: Optional[str] = None,
-        config2object: Optional[IRead] = None,
-        object2config: Optional[IWrite] = None,
-        options_parser: Optional[ATSOptionParser] = None,
-        checker: Optional[IATSChecker] = None,
+        config_manager: Optional[IConfigManager] = None,
         reporter: Optional[IATSReporter] = None,
-        file_checker: Optional[IFileCheck] = None,
-        strategy: Optional[IATSArgParseStrategy] = None,
         verbose: bool = False
     ) -> None:
         '''
@@ -85,102 +70,22 @@ class ATSCli(IATSCli):
 
             :param info_file: Information file path | None
             :type info_file: <Optional[str]>
+            :param config_manager: Configuration manager | None
+            :type config_manager: <Optional[IConfigManager]>
             :param verbose: Enable/Disable verbose option
             :type verbose: <bool>
             :exceptions: None
         '''
-        self.__checker: IATSChecker = checker or ATSChecker()
         self.__reporter: IATSReporter = reporter or ATSReporter()
         self.__verbose: bool = verbose
-        self.__config2object: Optional[IRead] = config2object
-        self.__object2config: Optional[IWrite] = object2config
-        self.__file_checker: Optional[IFileCheck] = file_checker
-        self.__options_parser: Optional[ATSOptionParser] = options_parser
-        self.__strategy: Optional[IATSArgParseStrategy] = strategy
         self.__operational: bool = False
-        self.__config: Config = self._builder(info_file, verbose)
-        self.__reporter.verbose(self.__verbose, ['init ATS CFG cli'])
 
-    def _builder(self, info_file: Optional[str], verbose: bool = False) -> Config:
-        '''
-            Builds ATS cli configuration.
-
-            :param info_file: Information file path | None
-            :type info_file: <Optional[str]>
-            :param verbose: Enable/Disable verbose option
-            :type verbose: <bool>
-            :return: CLI configuration object | None
-            :rtype: <Config>
-            :exceptions: None
-        '''
-        cli_config: Config = None
-        if not info_file:
-            return cli_config
-        file_format: str = basename(info_file).split('.')[1]
-        match file_format:
-            case 'cfg':
-                cli_config = CfgBase(
-                    info_file,
-                    self.__config2object,
-                    self.__object2config,
-                    self.__options_parser,
-                    self.__checker,
-                    self.__reporter,
-                    self.__file_checker,
-                    self.__strategy,
-                    verbose
-                )
-            case 'ini':
-                cli_config = IniBase(
-                    info_file,
-                    self.__config2object,
-                    self.__object2config,
-                    self.__options_parser,
-                    self.__checker,
-                    self.__reporter,
-                    self.__file_checker,
-                    self.__strategy,
-                    verbose
-                )
-            case 'json':
-                cli_config = JsonBase(
-                    info_file,
-                    self.__config2object,
-                    self.__object2config,
-                    self.__options_parser,
-                    self.__checker,
-                    self.__reporter,
-                    self.__file_checker,
-                    self.__strategy,
-                    verbose
-                )
-            case 'xml':
-                cli_config = XmlBase(
-                    info_file,
-                    self.__config2object,
-                    self.__object2config,
-                    self.__options_parser,
-                    self.__checker,
-                    self.__reporter,
-                    self.__file_checker,
-                    self.__strategy,
-                    verbose
-                )
-            case 'yaml':
-                cli_config = YamlBase(
-                    info_file,
-                    self.__config2object,
-                    self.__object2config,
-                    self.__options_parser,
-                    self.__checker,
-                    self.__reporter,
-                    self.__file_checker,
-                    self.__strategy,
-                    verbose
-                )
-            case _:
-                cli_config = None
-        return cli_config
+        # Dependency Injection of the manager or use default
+        self.__config_manager: IConfigManager = config_manager or ATSConfigManager(
+            reporter=self.__reporter
+        )
+        self.__config: Config = self.__config_manager.load_config(info_file, verbose)
+        self.__reporter.verbose(self.__verbose, ['init ATS cli'])
 
     def is_operational(self) -> bool:
         '''
@@ -212,9 +117,9 @@ class ATSCli(IATSCli):
             Parses the CLI arguments.
 
             :param argv: Sequence of arguments | None
-            :type argv: <ArgSeq>
+            :type argv: :class:`~ats_utilities.cli.icli.ArgSeq`
             :return: Options and arguments
-            :rtype: <Optional[Namespace]>
+            :rtype: :class:`~ats_utilities.option.option_namespace.OptionNamespace`
             :exceptions: ATSTypeError
         '''
         if self.__config:

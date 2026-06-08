@@ -20,12 +20,13 @@ Info
     Creates an API for reading configuration from a CFG file.
 '''
 
-from typing import Any, ClassVar, Dict, List, Optional
-from re import match
+from typing import ClassVar, List, Optional
 from ats_utilities.checker import IATSChecker, ATSChecker, ErrorChecker
 from ats_utilities.console_io import IATSReporter, ATSReporter
 from ats_utilities.exceptions import ATSTypeError
 from ats_utilities.config_io import IRead, ConfFile, IFileCheck, FileCheck
+from .icfg_processor import ICFGProcessor
+from .default_cfg_processor import ATSCFGProcessor
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -63,11 +64,11 @@ class Cfg2Object(IRead):
     ERRORS: ClassVar[type[ErrorChecker]] = ErrorChecker
     __EXT: str = 'cfg'
     __MODE: str = 'r'
-    __REGEX_EXP: str = r'^\s*$'
 
     def __init__(
         self,
         config_file: Optional[str],
+        cfg_processor: Optional[ICFGProcessor] = None,
         checker: Optional[IATSChecker] = None,
         reporter: Optional[IATSReporter] = None,
         file_checker: Optional[IFileCheck] = None,
@@ -79,11 +80,11 @@ class Cfg2Object(IRead):
             :param config_file: Configuration file path | None
             :type config_file: <Optional[str]>
             :param checker: ATSChecker for check operations | None
-            :type checker: <Optional[IATSChecker]>
+            :type checker: :class:`~ats_utilities.checker.IATSChecker`
             :param reporter: ATSReporter for check operations | None
-            :type reporter: <Optional[IATSReporter]>
+            :type reporter: :class:`~ats_utilities.console_io.iats_reporter.IATSReporter`
             :param file_checker: FileCheck for checking file | None
-            :type file_checker: <Optional[IFileCheck]>
+            :type file_checker: :class:`~ats_utilities.config_io.ifile_check.IFileCheck`
             :param verbose: Enable/Disable verbose option
             :type verbose: <bool>
             :exceptions:  ATSTypeError
@@ -104,11 +105,11 @@ class Cfg2Object(IRead):
         if error_id == self.ERRORS.TYPE_ERROR:
             raise ATSTypeError(error_msg)
 
-
+        self.__cfg_processor: ICFGProcessor = cfg_processor or ATSCFGProcessor()
         self.__file_path: str = str(config_file)
         self.__reporter.verbose(self.__verbose, [f'configuration {config_file}'])
 
-    def read_configuration(self, verbose: bool = False) -> Dict[Any, Any]:
+    def read_configuration(self, verbose: bool = False) -> Optional[ICFGProcessor]:
         '''
             Reads a configuration from a CFG file.
 
@@ -118,8 +119,6 @@ class Cfg2Object(IRead):
             :rtype: <Dict[Any, Any]>
             :exceptions: None
         '''
-        config: Dict[Any, Any] = {}
-
         with ConfFile(
             self.__file_path,
             self.__MODE,
@@ -130,13 +129,10 @@ class Cfg2Object(IRead):
             self.__verbose or verbose
         ) as cfg:
             if bool(cfg):
-                for line in cfg:
-                    if not match(self.__REGEX_EXP, line):
-                        if '=' in line:
-                            pairs: List[str] = line.split('=', 1)
-                            key: str = pairs[0]
-                            value: str = pairs[1]
-                            config[key.strip()] = value.strip()
-        self.__reporter.verbose(self.__verbose or verbose, [f'configuration {config}'])
-
-        return config
+                lines = cfg.readlines()
+                if self.__cfg_processor.from_lines(lines):
+                    self.__reporter.verbose(
+                        self.__verbose or verbose, [f'configuration {self.__cfg_processor}']
+                    )
+                    return self.__cfg_processor
+        return None

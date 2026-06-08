@@ -20,9 +20,13 @@ Info
 '''
 
 from typing import List
+from .iyaml_processor import IYAMLProcessor
+from .default_yaml_processor import ATSYAMLProcessor
 from .yaml2object import Yaml2Object
 from .object2yaml import Object2Yaml
 from .yamlbase import YamlBase
+
+
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -36,5 +40,7 @@ __status__: str = 'Updated'
 __all__ = [
     'Yaml2Object',
     'Object2Yaml',
-    'YamlBase'
+    'YamlBase',
+    'IYAMLProcessor',
+    'ATSYAMLProcessor'
 ]

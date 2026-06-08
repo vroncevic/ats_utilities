@@ -105,15 +105,15 @@ class ATSArgParseStrategy(IATSArgParseStrategy):
                 | parse - Parses the input arguments and returns an OptionNamespace.
     '''
 
-    def __init__(self, reporter: IATSReporter) -> None:
+    def __init__(self, reporter: Optional[IATSReporter]) -> None:
         '''
             Initials ATSArgParseStrategy constructor.
 
             :param reporter: ATSReporter for outputting messages
-            :type reporter: <IATSReporter>
+            :type reporter: :class:`~ats_utilities.console_io.iats_reporter.IATSReporter`
             :exceptions: None
         '''
-        self.__reporter = reporter
+        self.__reporter = reporter or ATSReporter()
         self._parser: Optional[ArgumentParser] = None
 
     def setup(self, parameters: Dict[str, str]) -> None:
@@ -160,11 +160,11 @@ class ATSArgParseStrategy(IATSArgParseStrategy):
             Parses the input arguments and returns an OptionNamespace.
 
             :param arguments: Sequence of arguments | None
-            :type arguments: <OptArgs>
+            :type arguments: :class:`~ats_utilities.option.option_namespace.OptArgs`
             :param known_only: Parse only known arguments
             :type known_only: <bool>
             :return: Option namespace object
-            :rtype: <OptionNamespace>
+            :rtype: :class:`~ats_utilities.option.option_namespace.OptionNamespace`
             :exceptions: RuntimeError
         '''
         if not self._parser:

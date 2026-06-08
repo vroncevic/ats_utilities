@@ -47,14 +47,14 @@ __status__: str = 'Updated'
 class ATSBaseYaml(YamlBase):
     '''Simple Class for checking YamlBase.'''
 
-    _CONFIG: str = '/config/ats_cli_yaml_api.yaml'
+    _CONFIG: str = '/config/correct/ats_cli_yaml_api.yaml'
     _OPS: List[str] = ['-t', '--test', '-v']
 
     def __init__(self, reporter: IATSReporter = ATSReporter(), verbose: bool = False) -> None:
         '''Initial constructor.'''
         current_dir: str = dirname(__file__)
         base_info: str = f'{current_dir}{self._CONFIG}'
-        super().__init__(info_file=base_info, verbose=verbose)
+        super().__init__(info_file=base_info, reporter=reporter, verbose=verbose)
         self._verbose = verbose
         if self.is_tool_ok():
             reporter.success(['init ATS yaml cli'])
@@ -80,7 +80,7 @@ class YamlBaseTestCase(TestCase):
 
     def setUp(self) -> None:
         '''Call before test case.'''
-        self.ats_base_yaml: ATSBaseYaml = ATSBaseYaml()
+        self.ats_base_yaml: ATSBaseYaml = ATSBaseYaml(verbose=True)
 
     def tearDown(self) -> None:
         '''Call after test case.'''
@@ -164,12 +164,14 @@ class YamlBaseUnitTestCase(TestCase):
         operational_mock_options_parser = MagicMock(spec=ATSOptionParser)
 
         operational_mock_checker.validate_parameters.return_value = ('', 0)
-        operational_mock_yaml2obj.read_configuration.return_value = {
+        mock_processor = MagicMock()
+        mock_processor.to_dict.return_value = {
             'ats_name': 'Test Tool',
             'ats_version': '1.0.0',
             'ats_licence': 'MIT',
             'ats_build_date': '2023-01-01'
         }
+        operational_mock_yaml2obj.read_configuration.return_value = mock_processor
 
         operational_yaml_base = YamlBase(
             info_file=self.config_path,

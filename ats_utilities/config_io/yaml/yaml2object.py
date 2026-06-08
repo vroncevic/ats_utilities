@@ -20,12 +20,13 @@ Info
     Creates an API for reading a configuration from a YAML file.
 '''
 
-from typing import Any, ClassVar, Dict, List, Optional
-from yaml import load, FullLoader
+from typing import ClassVar, List, Optional
 from ats_utilities.checker import IATSChecker, ATSChecker, ErrorChecker
 from ats_utilities.console_io import IATSReporter, ATSReporter
 from ats_utilities.exceptions import ATSTypeError
 from ats_utilities.config_io import IRead, ConfFile, IFileCheck, FileCheck
+from .iyaml_processor import IYAMLProcessor
+from .default_yaml_processor import ATSYAMLProcessor
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -61,6 +62,7 @@ class Yaml2Object(IRead):
     def __init__(
         self,
         config_file: Optional[str],
+        yaml_processor: Optional[IYAMLProcessor] = None,
         checker: Optional[IATSChecker] = None,
         reporter: Optional[IATSReporter] = None,
         file_checker: Optional[IFileCheck] = None,
@@ -72,11 +74,11 @@ class Yaml2Object(IRead):
             :param config_file: Configuration file path | None
             :type config_file: <Optional[str]>
             :param checker: ATSChecker for check operations | None
-            :type checker: <Optional[IATSChecker]>
+            :type checker: :class:`~ats_utilities.checker.IATSChecker`
             :param reporter: ATSReporter for check operations | None
-            :type reporter: <Optional[IATSReporter]>
+            :type reporter: :class:`~ats_utilities.console_io.iats_reporter.IATSReporter`
             :param file_checker: FileCheck for checking file | None
-            :type file_checker: <Optional[IFileCheck]>
+            :type file_checker: :class:`~ats_utilities.config_io.ifile_check.IFileCheck`
             :param verbose: Enable/Disable verbose option
             :type verbose: <bool>
             :exceptions:  ATSTypeError
@@ -99,20 +101,19 @@ class Yaml2Object(IRead):
 
 
         self.__file_path: str = str(config_file)
+        self.__yaml_processor: IYAMLProcessor = yaml_processor or ATSYAMLProcessor()
         self.__reporter.verbose(self.__verbose, [f'configuration {config_file}'])
 
-    def read_configuration(self, verbose: bool = False) -> Dict[Any, Any]:
+    def read_configuration(self, verbose: bool = False) -> Optional[IYAMLProcessor]:
         '''
             Reads a configuration from a YAML file.
 
             :param verbose: Enable/Disable verbose option
             :type verbose: <bool>
             :return: Python object
-            :rtype: <Dict[Any, Any]>
+            :rtype: :class:`~ats_utilities.config_io.yaml.iyaml_processor.IYAMLProcessor`
             :exceptions: None
         '''
-        config: Dict[Any, Any] = {}
-
         with ConfFile(
             self.__file_path,
             self.__MODE,
@@ -123,6 +124,11 @@ class Yaml2Object(IRead):
             self.__verbose or verbose
         ) as yaml:
             if bool(yaml):
-                config = load(yaml, Loader=FullLoader)
-        self.__reporter.verbose(self.__verbose or verbose, [f'configuration {config}'])
-        return config
+                content: str = yaml.read()
+                if content:
+                    self.__yaml_processor.decode(content)
+                    self.__reporter.verbose(
+                        self.__verbose or verbose, [f'configuration {content}']
+                    )
+                    return self.__yaml_processor
+        return None

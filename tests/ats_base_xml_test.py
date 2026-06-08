@@ -47,7 +47,7 @@ __status__: str = 'Updated'
 class ATSBaseXml(XmlBase):
     '''Simple Class for checking XmlBase.'''
 
-    _CONFIG: str = '/config/ats_cli_xml_api.xml'
+    _CONFIG: str = '/config/correct/ats_cli_xml_api.xml'
     _OPS: List[str] = ['-t', '--test', '-v']
 
     def __init__(self, reporter: IATSReporter = ATSReporter(), verbose: bool = False) -> None:
@@ -164,19 +164,22 @@ class XmlBaseUnitTestCase(TestCase):
         operational_mock_options_parser = MagicMock(spec=ATSOptionParser)
 
         operational_mock_checker.validate_parameters.return_value = ('', 0)
-        mock_tool_info = MagicMock()
 
-        def mock_find(name: str):
-            val = {
+        # Mock the IXMLProcessor (or equivalent) that read_configuration is expected to return
+        mock_xml_processor = MagicMock()
+        mock_ats_info = MagicMock()
+
+        def mock_get(key: str):
+            return {
                 'ats_name': 'Test Tool',
                 'ats_version': '1.0.0',
                 'ats_licence': 'MIT',
                 'ats_build_date': '2023-01-01'
-            }.get(name)
-            return MagicMock(get_text=MagicMock(return_value=val)) if val else None
+            }.get(key)
 
-        mock_tool_info.find.side_effect = mock_find
-        operational_mock_xml2obj.read_configuration.return_value = mock_tool_info
+        mock_ats_info.get.side_effect = mock_get
+        mock_xml_processor.get_ats_info.return_value = mock_ats_info
+        operational_mock_xml2obj.read_configuration.return_value = mock_xml_processor
 
         operational_xml_base = XmlBase(
             info_file=self.config_path,

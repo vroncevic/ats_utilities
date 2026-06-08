@@ -81,11 +81,11 @@ class IATSOptionParser(ABC):
             Processes arguments from the start.
 
             :param arguments: Sequence of arguments | None
-            :type arguments: <OptArgs>
+            :type arguments: :class:`~ats_utilities.option.option_namespace.OptArgs`
             :param verbose: Enable/Disable verbose option
             :type verbose: <bool>
             :return: option namespace object
-            :rtype: <OptionNamespace>
+            :rtype: :class:`~ats_utilities.option.option_namespace.OptionNamespace`
             :exceptions: NotImplementedError
         '''
         raise NotImplementedError("Subclasses must implement parse_input_args method")
@@ -96,11 +96,11 @@ class IATSOptionParser(ABC):
             Processes arguments from the start.
 
             :param arguments: Sequence of arguments | None
-            :type arguments: <OptArgs>
+            :type arguments: :class:`~ats_utilities.option.option_namespace.OptArgs`
             :param verbose: Enable/Disable verbose option
             :type verbose: <bool>
             :return: Option namespace object
-            :rtype: <OptionNamespace>
+            :rtype: :class:`~ats_utilities.option.option_namespace.OptionNamespace`
             :exceptions: NotImplementedError
         '''
         raise NotImplementedError("Subclasses must implement parse_args method")

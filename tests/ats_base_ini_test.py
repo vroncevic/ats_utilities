@@ -22,7 +22,7 @@ Execute
     python3 -m unittest -v ats_base_ini_test
 '''
 
-from typing import List, Optional
+from typing import List
 from unittest import TestCase, main
 from unittest.mock import MagicMock
 from os.path import dirname
@@ -46,7 +46,7 @@ __status__: str = 'Updated'
 class ATSBaseIni(IniBase):
     '''Simple Class for checking IniBase.'''
 
-    _CONFIG: str = '/config/ats_cli_ini_api.ini'
+    _CONFIG: str = '/config/correct/ats_cli_ini_api.ini'
     _OPS: List[str] = ['-t', '--test', '-v']
 
     def __init__(self, reporter: IATSReporter = ATSReporter(), verbose: bool = False) -> None:
@@ -163,19 +163,22 @@ class IniBaseUnitTestCase(TestCase):
         operational_mock_options_parser = MagicMock(spec=ATSOptionParser)
 
         operational_mock_checker.validate_parameters.return_value = ('', 0)
-        mock_tool_info = MagicMock()
 
-        def mock_get(s: str, o: str) -> Optional[str]:
+        # Mock the INI processor that read_configuration is expected to return
+        mock_ini_processor = MagicMock()
+        mock_ats_info = MagicMock()
+
+        def mock_get(key: str):
             return {
-                ('ats_info', 'ats_name'): 'Test Tool',
-                ('ats_info', 'ats_version'): '1.0.0',
-                ('ats_info', 'ats_licence'): 'MIT',
-                ('ats_info', 'ats_build_date'): '2023-01-01'
-            }.get((s, o))
+                'ats_name': 'Test Tool',
+                'ats_version': '1.0.0',
+                'ats_licence': 'MIT',
+                'ats_build_date': '2023-01-01'
+            }.get(key)
 
-        mock_tool_info.get.side_effect = mock_get
-
-        operational_mock_ini2obj.read_configuration.return_value = mock_tool_info
+        mock_ats_info.get.side_effect = mock_get
+        mock_ini_processor.get_ats_info.return_value = mock_ats_info
+        operational_mock_ini2obj.read_configuration.return_value = mock_ini_processor
 
         operational_ini_base = IniBase(
             info_file=self.config_path,

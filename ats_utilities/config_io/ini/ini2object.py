@@ -21,11 +21,12 @@ Info
 '''
 
 from typing import ClassVar, List, Optional
-from configparser import ConfigParser
 from ats_utilities.checker import IATSChecker, ATSChecker, ErrorChecker
 from ats_utilities.console_io import IATSReporter, ATSReporter
 from ats_utilities.exceptions import ATSTypeError
 from ats_utilities.config_io import IRead, ConfFile, IFileCheck, FileCheck
+from .iini_processor import IINIProcessor
+from .default_ini_processor import ATSINIProcessor
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -66,6 +67,7 @@ class Ini2Object(IRead):
     def __init__(
         self,
         config_file: Optional[str],
+        ini_processor: Optional[IINIProcessor] = None,
         checker: Optional[IATSChecker] = None,
         reporter: Optional[IATSReporter] = None,
         file_checker: Optional[IFileCheck] = None,
@@ -77,11 +79,11 @@ class Ini2Object(IRead):
             :param config_file: Configuration file path | None
             :type config_file: <Optional[str]>
             :param checker: ATSChecker for check operations | None
-            :type checker: <Optional[IATSChecker]>
+            :type checker: :class:`~ats_utilities.checker.IATSChecker`
             :param reporter: ATSReporter for check operations | None
-            :type reporter: <Optional[IATSReporter]>
+            :type reporter: :class:`~ats_utilities.console_io.iats_reporter.IATSReporter`
             :param file_checker: FileCheck for checking file | None
-            :type file_checker: <Optional[IFileCheck]>
+            :type file_checker: :class:`~ats_utilities.config_io.ifile_check.IFileCheck`
             :param verbose: Enable/Disable verbose option
             :type verbose: <bool>
             :exceptions:  ATSTypeError
@@ -101,19 +103,19 @@ class Ini2Object(IRead):
             raise ATSTypeError(error_msg)
 
         self.__file_path: str = str(config_file)
+        self.__ini_processor: IINIProcessor = ini_processor or ATSINIProcessor()
         self.__reporter.verbose(self.__verbose, [f'configuration {config_file}'])
 
-    def read_configuration(self, verbose: bool = False) -> Optional[ConfigParser]:
+    def read_configuration(self, verbose: bool = False) -> Optional[IINIProcessor]:
         '''
             Reads a configuration from an INI file.
 
             :param verbose: Enable/Disable verbose option
             :type verbose: <bool>
             :return: Configuration object | None
-            :rtype: <Optional[ConfigParser]>
+            :rtype: :class:`~ats_utilities.config_io.ini.iini_processor.IINIProcessor`nfig_io.ini.iini_processor.IINIProcessor`
             :exceptions: None
         '''
-        config: Optional[ConfigParser] = None
         with ConfFile(
             self.__file_path,
             self.__MODE,
@@ -124,7 +126,9 @@ class Ini2Object(IRead):
             self.__verbose or verbose
         ) as ini:
             if bool(ini):
-                config = ConfigParser()
-                config.read_file(ini)
-        self.__reporter.verbose(self.__verbose or verbose, [f'configuration {config}'])
-        return config
+                if self.__ini_processor.from_stream(ini):
+                    self.__reporter.verbose(
+                        self.__verbose or verbose, [f'configuration {self.__ini_processor}']
+                    )
+                    return self.__ini_processor
+        return None

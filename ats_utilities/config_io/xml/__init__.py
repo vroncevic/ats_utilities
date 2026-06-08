@@ -23,6 +23,9 @@ from typing import List
 from .xml2object import Xml2Object
 from .object2xml import Object2Xml
 from .xmlbase import XmlBase
+from .default_xml_processor import ATSXmlProcessor
+from .ixml_processor import IXMLProcessor
+
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -36,5 +39,7 @@ __status__: str = 'Updated'
 __all__ = [
     'Xml2Object',
     'Object2Xml',
-    'XmlBase'
+    'XmlBase',
+    'IXMLProcessor',
+    'ATSXmlProcessor'
 ]

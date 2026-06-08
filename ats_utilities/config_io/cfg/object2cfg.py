@@ -20,11 +20,12 @@ Info
     Creates an API for writing configuration to a CFG file.
 '''
 
-from typing import Any, ClassVar, Dict, List, Optional
+from typing import ClassVar, List, Optional
 from ats_utilities.checker import IATSChecker, ATSChecker, ErrorChecker
 from ats_utilities.console_io import IATSReporter, ATSReporter
 from ats_utilities.exceptions import ATSTypeError
 from ats_utilities.config_io import IWrite, ConfFile, IFileCheck, FileCheck
+from .icfg_processor import ICFGProcessor
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -76,11 +77,11 @@ class Object2Cfg(IWrite):
             :param config_file: Configuration file path | None
             :type config_file: <Optional[str]>
             :param checker: ATSChecker for check operations | None
-            :type checker: <Optional[IATSChecker]>
+            :type checker: :class:`~ats_utilities.checker.IATSChecker`
             :param reporter: ATSReporter for check operations | None
-            :type reporter: <Optional[IATSReporter]>
+            :type reporter: :class:`~ats_utilities.console_io.iats_reporter.IATSReporter`
             :param file_checker: FileCheck for checking file | None
-            :type file_checker: <Optional[IFileCheck]>
+            :type file_checker: :class:`~ats_utilities.config_io.ifile_check.IFileCheck`
             :param verbose: Enable/Disable verbose option
             :type verbose: <bool>
             :exceptions: ATSTypeError
@@ -102,12 +103,12 @@ class Object2Cfg(IWrite):
         self.__file_path: str = str(config_file)
         self.__reporter.verbose(self.__verbose, [f'configuration file {config_file}'])
 
-    def write_configuration(self, config: Dict[Any, Any], verbose: bool = False) -> bool:
+    def write_configuration(self, config: Optional[ICFGProcessor], verbose: bool = False) -> bool:
         '''
             Writes a configuration to a CFG file.
 
             :param config: Configuration object | None
-            :type config: <Dict[Any, Any]> | <NoneType>
+            :type config: :class:`~ats_utilities.config_io.cfg.icfg_processor.ICFGProcessor`nfig_io.cfg.icfg_processor.ICFGProcessor`
             :param verbose: Enable/Disable verbose option
             :type verbose: <bool>
             :return: True (configuration written to file) | False
@@ -117,9 +118,7 @@ class Object2Cfg(IWrite):
         status: bool = False
         error_msg: Optional[str] = None
         error_id: Optional[int] = None
-        error_msg, error_id = self.__checker.validate_parameters([
-            ('dict:config', config)
-        ])
+        error_msg, error_id = self.__checker.validate_parameters([('ICFGProcessor:config', config)])
 
         if error_id == self.ERRORS.TYPE_ERROR:
             raise ATSTypeError(error_msg)
@@ -128,6 +127,7 @@ class Object2Cfg(IWrite):
             return status
 
         self.__reporter.verbose(self.__verbose or verbose, [f'configuration {config}'])
+        cfg_string = config.to_string()
 
         with ConfFile(
             self.__file_path,
@@ -139,8 +139,6 @@ class Object2Cfg(IWrite):
             self.__verbose or verbose
         ) as cfg:
             if bool(cfg):
-                for key in config:
-                    cfg.write(f'{key} = {config.get(key)}\n')
+                cfg.write(cfg_string)
                 status = True
-
         return status

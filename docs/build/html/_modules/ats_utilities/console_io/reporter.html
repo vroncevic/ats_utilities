@@ -101,13 +101,13 @@
 <span class="sd">            Initializes ATSReporter constructor.</span>
 
 <span class="sd">            :param checker: Checker for parameter validation | None</span>
-<span class="sd">            :type checker: &lt;Optional[IATSChecker]&gt;</span>
+<span class="sd">            :type checker: :class:`~ats_utilities.checker.IATSChecker`</span>
 <span class="sd">            :param theme: Theme for styling | None</span>
-<span class="sd">            :type theme: &lt;Optional[IConsoleTheme]&gt;</span>
+<span class="sd">            :type theme: :class:`~ats_utilities.console_io.theme.IConsoleTheme`</span>
 <span class="sd">            :exceptions: None</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">__checker</span><span class="p">:</span> <span class="n">IATSChecker</span> <span class="o">=</span> <span class="n">checker</span> <span class="ow">or</span> <span class="n">ATSChecker</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">__theme</span><span class="p">:</span> <span class="n">IConsoleTheme</span> <span class="o">=</span> <span class="n">theme</span> <span class="ow">or</span> <span class="n">DefaultTheme</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__checker</span> <span class="o">=</span> <span class="n">checker</span> <span class="ow">or</span> <span class="n">ATSChecker</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__theme</span> <span class="o">=</span> <span class="n">theme</span> <span class="ow">or</span> <span class="n">DefaultTheme</span><span class="p">()</span>
 
     <span class="k">def</span> <span class="nf">__report</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Any</span><span class="p">],</span> <span class="n">color</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>

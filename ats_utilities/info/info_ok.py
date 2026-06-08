@@ -67,9 +67,9 @@ class ATSInfoOk(IATSInfoOk):
             Initials ATSInfoOk constructor.
 
             :param checker: Error checker | None
-            :type checker: <Optional[ATSChecker]>
+            :type checker: :class:`~ats_utilities.checker.IATSChecker`
             :param reporter: ATSReporter for messaging | None
-            :type reporter: <Optional[IATSReporter]>
+            :type reporter: :class:`~ats_utilities.console_io.iats_reporter.IATSReporter`
             :param verbose: Enable/Disable verbose option
             :type verbose: <bool>
             :exceptions: None

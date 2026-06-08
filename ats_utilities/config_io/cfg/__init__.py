@@ -20,9 +20,13 @@ Info
 '''
 
 from typing import List
+from .icfg_processor import ICFGProcessor
+from .default_cfg_processor import ATSCFGProcessor
 from .cfg2object import Cfg2Object
 from .object2cfg import Object2Cfg
 from .cfgbase import CfgBase
+
+
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -36,5 +40,7 @@ __status__: str = 'Updated'
 __all__ = [
     'Cfg2Object',
     'Object2Cfg',
-    'CfgBase'
+    'CfgBase',
+    'ICFGProcessor',
+    'ATSCFGProcessor'
 ]

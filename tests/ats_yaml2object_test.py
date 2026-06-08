@@ -59,7 +59,7 @@ class Yaml2ObjectTestCase(TestCase):
     def setUp(self) -> None:
         '''Call before test case.'''
         self.yaml2obj: Yaml2Object = Yaml2Object(
-            f'{dirname(__file__)}/config/ats_cli_json_api.json'
+            f'{dirname(__file__)}/config/ats_cli_yaml_api.yaml'
         )
 
     def tearDown(self) -> None:

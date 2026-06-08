@@ -22,11 +22,11 @@ Execute
     python3 -m unittest -v ats_object2cfg_test
 '''
 
-from typing import List
-from typing import Any, Dict
-from unittest import TestCase, main
+from typing import List, Dict
+from unittest import TestCase, main, mock
 from os.path import dirname
 from ats_utilities.config_io.cfg import Object2Cfg
+from ats_utilities.config_io.cfg.icfg_processor import ICFGProcessor as BaseICFGProcessor
 from ats_utilities.exceptions import ATSTypeError
 
 __author__: str = 'Vladimir Roncevic'
@@ -37,6 +37,32 @@ __version__: str = '3.3.5'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
+
+
+class ICFGProcessor(BaseICFGProcessor):
+    '''Mock implementation of ICFGProcessor for testing.'''
+
+    def __init__(self, is_empty: bool = False) -> None:
+        self.__is_empty = is_empty
+        self.to_string_mock = mock.MagicMock(return_value="")
+        self.to_dict_mock = mock.MagicMock(return_value={})
+        self.from_lines_mock = mock.MagicMock()
+
+    def __bool__(self) -> bool:
+        '''Mock method for truthiness.'''
+        return not self.__is_empty
+
+    def from_lines(self, lines: List[str]) -> bool:
+        '''Implementation of abstract method.'''
+        return self.from_lines_mock(lines)
+
+    def to_dict(self) -> Dict[str, str]:
+        '''Implementation of abstract method.'''
+        return self.to_dict_mock()
+
+    def to_string(self) -> str:
+        '''Implementation of abstract method.'''
+        return self.to_string_mock()
 
 
 class Object2CfgTestCase(TestCase):
@@ -72,14 +98,9 @@ class Object2CfgTestCase(TestCase):
 
     def test_write_configuration(self) -> None:
         '''Test for read configuration'''
-        configuration: Dict[Any, Any] = {
-            'ats_name': 'ats_cli_test',
-            'ats_version': '1.0.0',
-            'ats_build_date': '24 Apr 2021',
-            'ats_licence':
-            'https://github.com/vroncevic/ats_cli_test/blob/dev/LICENSE'
-        }
-        self.assertTrue(self.obj2cfg.write_configuration(configuration))
+        mock_config = ICFGProcessor()
+        mock_config.to_string_mock.return_value = "ats_name = test"
+        self.assertTrue(self.obj2cfg.write_configuration(mock_config))
 
     def test_write_none_configuration(self) -> None:
         '''Test for read configuration'''
@@ -88,7 +109,8 @@ class Object2CfgTestCase(TestCase):
 
     def test_write_empty_configuration(self) -> None:
         '''Test for read configuration'''
-        self.assertFalse(self.obj2cfg.write_configuration({}))
+        mock_config = ICFGProcessor(is_empty=True)
+        self.assertFalse(self.obj2cfg.write_configuration(mock_config))
 
     def test_none_config_path(self) -> None:
         '''Test for None as file path'''

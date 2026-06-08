@@ -59,11 +59,12 @@
 <span class="sd">&#39;&#39;&#39;</span>
 
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">ClassVar</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span>
-<span class="kn">from</span> <span class="nn">configparser</span> <span class="kn">import</span> <span class="n">ConfigParser</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.checker</span> <span class="kn">import</span> <span class="n">IATSChecker</span><span class="p">,</span> <span class="n">ATSChecker</span><span class="p">,</span> <span class="n">ErrorChecker</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.console_io</span> <span class="kn">import</span> <span class="n">IATSReporter</span><span class="p">,</span> <span class="n">ATSReporter</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.exceptions</span> <span class="kn">import</span> <span class="n">ATSTypeError</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.config_io</span> <span class="kn">import</span> <span class="n">IRead</span><span class="p">,</span> <span class="n">ConfFile</span><span class="p">,</span> <span class="n">IFileCheck</span><span class="p">,</span> <span class="n">FileCheck</span>
+<span class="kn">from</span> <span class="nn">.iini_processor</span> <span class="kn">import</span> <span class="n">IINIProcessor</span>
+<span class="kn">from</span> <span class="nn">.default_ini_processor</span> <span class="kn">import</span> <span class="n">ATSINIProcessor</span>
 
 <span class="n">__author__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;Vladimir Roncevic&#39;</span>
 <span class="n">__copyright__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;(C) 2026, https://vroncevic.github.io/ats_utilities&#39;</span>
@@ -106,6 +107,7 @@
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">config_file</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span>
+        <span class="n">ini_processor</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">IINIProcessor</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">checker</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">IATSChecker</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">reporter</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">IATSReporter</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">file_checker</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">IFileCheck</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -117,11 +119,11 @@
 <span class="sd">            :param config_file: Configuration file path | None</span>
 <span class="sd">            :type config_file: &lt;Optional[str]&gt;</span>
 <span class="sd">            :param checker: ATSChecker for check operations | None</span>
-<span class="sd">            :type checker: &lt;Optional[IATSChecker]&gt;</span>
+<span class="sd">            :type checker: :class:`~ats_utilities.checker.IATSChecker`</span>
 <span class="sd">            :param reporter: ATSReporter for check operations | None</span>
-<span class="sd">            :type reporter: &lt;Optional[IATSReporter]&gt;</span>
+<span class="sd">            :type reporter: :class:`~ats_utilities.console_io.iats_reporter.IATSReporter`</span>
 <span class="sd">            :param file_checker: FileCheck for checking file | None</span>
-<span class="sd">            :type file_checker: &lt;Optional[IFileCheck]&gt;</span>
+<span class="sd">            :type file_checker: :class:`~ats_utilities.config_io.ifile_check.IFileCheck`</span>
 <span class="sd">            :param verbose: Enable/Disable verbose option</span>
 <span class="sd">            :type verbose: &lt;bool&gt;</span>
 <span class="sd">            :exceptions:  ATSTypeError</span>
@@ -141,21 +143,21 @@
             <span class="k">raise</span> <span class="n">ATSTypeError</span><span class="p">(</span><span class="n">error_msg</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">__file_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">config_file</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__ini_processor</span><span class="p">:</span> <span class="n">IINIProcessor</span> <span class="o">=</span> <span class="n">ini_processor</span> <span class="ow">or</span> <span class="n">ATSINIProcessor</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__reporter</span><span class="o">.</span><span class="n">verbose</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__verbose</span><span class="p">,</span> <span class="p">[</span><span class="sa">f</span><span class="s1">&#39;configuration </span><span class="si">{</span><span class="n">config_file</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">])</span>
 
 <div class="viewcode-block" id="Ini2Object.read_configuration">
 <a class="viewcode-back" href="../../../../ats_utilities.config_io.ini.ini2object.html#ats_utilities.config_io.ini.Ini2Object.read_configuration">[docs]</a>
-    <span class="k">def</span> <span class="nf">read_configuration</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">verbose</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ConfigParser</span><span class="p">]:</span>
+    <span class="k">def</span> <span class="nf">read_configuration</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">verbose</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">IINIProcessor</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Reads a configuration from an INI file.</span>
 
 <span class="sd">            :param verbose: Enable/Disable verbose option</span>
 <span class="sd">            :type verbose: &lt;bool&gt;</span>
 <span class="sd">            :return: Configuration object | None</span>
-<span class="sd">            :rtype: &lt;Optional[ConfigParser]&gt;</span>
+<span class="sd">            :rtype: :class:`~ats_utilities.config_io.ini.iini_processor.IINIProcessor`nfig_io.ini.iini_processor.IINIProcessor`</span>
 <span class="sd">            :exceptions: None</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="n">config</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ConfigParser</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="k">with</span> <span class="n">ConfFile</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">__file_path</span><span class="p">,</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">__MODE</span><span class="p">,</span>
@@ -166,10 +168,12 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">__verbose</span> <span class="ow">or</span> <span class="n">verbose</span>
         <span class="p">)</span> <span class="k">as</span> <span class="n">ini</span><span class="p">:</span>
             <span class="k">if</span> <span class="nb">bool</span><span class="p">(</span><span class="n">ini</span><span class="p">):</span>
-                <span class="n">config</span> <span class="o">=</span> <span class="n">ConfigParser</span><span class="p">()</span>
-                <span class="n">config</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="n">ini</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">__reporter</span><span class="o">.</span><span class="n">verbose</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__verbose</span> <span class="ow">or</span> <span class="n">verbose</span><span class="p">,</span> <span class="p">[</span><span class="sa">f</span><span class="s1">&#39;configuration </span><span class="si">{</span><span class="n">config</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">])</span>
-        <span class="k">return</span> <span class="n">config</span></div>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__ini_processor</span><span class="o">.</span><span class="n">from_stream</span><span class="p">(</span><span class="n">ini</span><span class="p">):</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">__reporter</span><span class="o">.</span><span class="n">verbose</span><span class="p">(</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">__verbose</span> <span class="ow">or</span> <span class="n">verbose</span><span class="p">,</span> <span class="p">[</span><span class="sa">f</span><span class="s1">&#39;configuration </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">__ini_processor</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">]</span>
+                    <span class="p">)</span>
+                    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__ini_processor</span>
+        <span class="k">return</span> <span class="kc">None</span></div>
 </div>
 
 </pre></div>

@@ -21,15 +21,17 @@ Info
 '''
 
 from typing import Any, ClassVar, Dict, List, Optional
-from configparser import ConfigParser
 from ats_utilities.checker import IATSChecker, ATSChecker, ErrorChecker
 from ats_utilities.info import ATSInfo
-from ats_utilities.option import ATSOptionParser
+from ats_utilities.option import IATSOptionParser, ATSOptionParser
 from ats_utilities.console_io import IATSReporter, ATSReporter
 from ats_utilities.config_io import IRead, IWrite, IFileCheck, FileCheck
 from ats_utilities.option import IATSArgParseStrategy
 from .ini2object import Ini2Object
 from .object2ini import Object2Ini
+from .iini_processor import IINIProcessor
+from .default_ini_processor import ATSINIProcessor
+
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -71,7 +73,7 @@ class IniBase:
         info_file: Optional[str] = None,
         ini2obj: Optional[IRead] = None,
         obj2ini: Optional[IWrite] = None,
-        options_parser: Optional[ATSOptionParser] = None,
+        options_parser: Optional[IATSOptionParser] = None,
         checker: Optional[IATSChecker] = None,
         reporter: Optional[IATSReporter] = None,
         file_checker: Optional[IFileCheck] = None,
@@ -84,17 +86,17 @@ class IniBase:
             :param info_file: Path to the info file | None
             :type info_file: <Optional[str]>
             :param ini2obj: In API for information (Dependency Injected)
-            :type ini2obj: <IRead>
+            :type ini2obj: :class:`~ats_utilities.config_io.iread.IRead`
             :param obj2ini: Out API for information (Dependency Injected)
-            :type obj2ini: <IWrite>
+            :type obj2ini: :class:`~ats_utilities.config_io.iwrite.IWrite`
             :param options_parser: Option parser for ATS | None
-            :type options_parser: <Optional[IATSOptionParser]>
+            :type options_parser: :class:`~ats_utilities.option.ioption_parser.IATSOptionParser`
             :param checker: Error checker | None
-            :type checker: <Optional[IATSChecker]>
+            :type checker: :class:`~ats_utilities.checker.IATSChecker`
             :param reporter: ATSReporter for check operations | None
-            :type reporter: <Optional[IATSReporter]>
+            :type reporter: :class:`~ats_utilities.console_io.iats_reporter.IATSReporter`
             :param file_checker: FileCheck for checking file | None
-            :type file_checker: <Optional[IFileCheck]>
+            :type file_checker: :class:`~ats_utilities.config_io.ifile_check.IFileCheck`
             :param verbose: Enable/Disable verbose option
             :type verbose: <bool>
             :exceptions: None
@@ -108,13 +110,13 @@ class IniBase:
 
         # Dependency Injection for Ini2Object and Object2Ini or use defaults if not provided
         self.__ini2obj: Optional[IRead] = ini2obj or Ini2Object(
-            info_file, self.__checker, self.__reporter, self.__file_checker, self.__verbose
-        ) 
+            info_file, ATSINIProcessor(), self.__checker, self.__reporter, self.__file_checker, self.__verbose
+        )
         self.__obj2ini: Optional[IWrite] = obj2ini or Object2Ini(
             info_file, self.__checker, self.__reporter, self.__file_checker, self.__verbose
         )
 
-        information: Optional[ConfigParser] = None
+        information: Optional[IINIProcessor] = None
         info_dict: Dict[Any, Any] = {}
         self.__tool_operational: bool = False
 
@@ -122,17 +124,14 @@ class IniBase:
             information = self.__ini2obj.read_configuration(self.__verbose)
 
         if bool(information):
-            info_dict['ats_name'] = str(information.get('ats_info', 'ats_name'))
-            info_dict['ats_version'] = str(information.get('ats_info', 'ats_version'))
-            info_dict['ats_build_date'] = str(information.get('ats_info', 'ats_build_date'))
-            info_dict['ats_licence'] = str(information.get('ats_info', 'ats_licence'))
+            info_dict = information.get_ats_info()
 
             info: ATSInfo = ATSInfo(info_dict, self.__checker, self.__reporter, self.__verbose)
 
             if info.ats_info_ok:
                 # Dependecy injection for option parser or use default if not provided
                 # Dependecy injection for argument strategy
-                self.__option_parser: ATSOptionParser = options_parser or ATSOptionParser(
+                self.__option_parser: IATSOptionParser = options_parser or ATSOptionParser(
                     info_dict, strategy, self.__checker, self.__reporter, verbose
                 )
                 self.__option_parser.add_version_operation(info.version)
@@ -140,13 +139,12 @@ class IniBase:
                 self.__reporter.verbose(self.__verbose, ['loaded ATS INI info'])
 
     @property
-    def option_parser(self) -> ATSOptionParser:
+    def option_parser(self) -> IATSOptionParser:
         '''
             Option parser for ATS.
 
             :return: Option parser for ATS
-            :rtype: <ATSO
-            ptionParser>
+            :rtype: :class:`~ats_utilities.option.ioption_parser.IATSOptionParser`
             :exceptions: None
         '''
         return self.__option_parser

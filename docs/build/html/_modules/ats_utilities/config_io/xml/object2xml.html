@@ -58,11 +58,11 @@
 <span class="sd">    Creates an API for writing a configuration to a XML file.</span>
 <span class="sd">&#39;&#39;&#39;</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">ClassVar</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span>
-<span class="kn">from</span> <span class="nn">bs4</span> <span class="kn">import</span> <span class="n">BeautifulSoup</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.checker</span> <span class="kn">import</span> <span class="n">IATSChecker</span><span class="p">,</span> <span class="n">ATSChecker</span><span class="p">,</span> <span class="n">ErrorChecker</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.console_io</span> <span class="kn">import</span> <span class="n">IATSReporter</span><span class="p">,</span> <span class="n">ATSReporter</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.exceptions</span> <span class="kn">import</span> <span class="n">ATSTypeError</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.config_io</span> <span class="kn">import</span> <span class="n">IWrite</span><span class="p">,</span> <span class="n">ConfFile</span><span class="p">,</span> <span class="n">IFileCheck</span><span class="p">,</span> <span class="n">FileCheck</span>
+<span class="kn">from</span> <span class="nn">.ixml_processor</span> <span class="kn">import</span> <span class="n">IXMLProcessor</span>
 
 <span class="n">__author__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;Vladimir Roncevic&#39;</span>
 <span class="n">__copyright__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;(C) 2026, https://vroncevic.github.io/ats_utilities&#39;</span>
@@ -111,11 +111,11 @@
 <span class="sd">            :param config_file: Configuration file path | None</span>
 <span class="sd">            :type config_file: &lt;Optional[str]&gt;</span>
 <span class="sd">            :param checker: ATSChecker for check operations | None</span>
-<span class="sd">            :type checker: &lt;Optional[IATSChecker]&gt;</span>
+<span class="sd">            :type checker: :class:`~ats_utilities.checker.IATSChecker`</span>
 <span class="sd">            :param reporter: ATSReporter for check operations | None</span>
-<span class="sd">            :type reporter: &lt;Optional[IATSReporter]&gt;</span>
+<span class="sd">            :type reporter: :class:`~ats_utilities.console_io.iats_reporter.IATSReporter`</span>
 <span class="sd">            :param file_checker: FileCheck for checking file | None</span>
-<span class="sd">            :type file_checker: &lt;Optional[IFileCheck]&gt;</span>
+<span class="sd">            :type file_checker: :class:`~ats_utilities.config_io.ifile_check.IFileCheck`</span>
 <span class="sd">            :param verbose: Enable/Disable verbose option</span>
 <span class="sd">            :type verbose: &lt;bool&gt;</span>
 <span class="sd">            :exceptions: ATSTypeError</span>
@@ -137,12 +137,12 @@
 
 <div class="viewcode-block" id="Object2Xml.write_configuration">
 <a class="viewcode-back" href="../../../../ats_utilities.config_io.xml.object2xml.html#ats_utilities.config_io.xml.Object2Xml.write_configuration">[docs]</a>
-    <span class="k">def</span> <span class="nf">write_configuration</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">BeautifulSoup</span><span class="p">],</span> <span class="n">verbose</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">write_configuration</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">IXMLProcessor</span><span class="p">],</span> <span class="n">verbose</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Writes configuration to a XML file.</span>
 
 <span class="sd">            :param config: Configuration object</span>
-<span class="sd">            :type: &lt;Optional[BeautifulSoup]&gt;</span>
+<span class="sd">            :type: :class:`~ats_utilities.config_io.xml.ixml_processor.IXMLProcessor`nfig_io.xml.ixml_processor.IXMLProcessor`</span>
 <span class="sd">            :param verbose: Enable/Disable verbose option</span>
 <span class="sd">            :type verbose: &lt;bool&gt;</span>
 <span class="sd">            :return: True (configuration written to file) | False</span>
@@ -152,9 +152,7 @@
         <span class="n">status</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
         <span class="n">error_msg</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="n">error_id</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
-        <span class="n">error_msg</span><span class="p">,</span> <span class="n">error_id</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__checker</span><span class="o">.</span><span class="n">validate_parameters</span><span class="p">([</span>
-            <span class="p">(</span><span class="s1">&#39;BeautifulSoup:config&#39;</span><span class="p">,</span> <span class="n">config</span><span class="p">)</span>
-        <span class="p">])</span>
+        <span class="n">error_msg</span><span class="p">,</span> <span class="n">error_id</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__checker</span><span class="o">.</span><span class="n">validate_parameters</span><span class="p">([(</span><span class="s1">&#39;IXMLProcessor:config&#39;</span><span class="p">,</span> <span class="n">config</span><span class="p">)])</span>
 
         <span class="k">if</span> <span class="n">error_id</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">ERRORS</span><span class="o">.</span><span class="n">TYPE_ERROR</span><span class="p">:</span>
             <span class="k">raise</span> <span class="n">ATSTypeError</span><span class="p">(</span><span class="n">error_msg</span><span class="p">)</span>
@@ -162,23 +160,25 @@
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">bool</span><span class="p">(</span><span class="n">config</span><span class="p">):</span>
             <span class="k">return</span> <span class="n">status</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">__reporter</span><span class="o">.</span><span class="n">verbose</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__verbose</span> <span class="ow">or</span> <span class="n">verbose</span><span class="p">,</span> <span class="p">[</span><span class="sa">f</span><span class="s1">&#39;configuration </span><span class="si">{</span><span class="n">config</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">])</span>
+        <span class="n">xml_content</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">to_string</span><span class="p">()</span>
 
-        <span class="k">if</span> <span class="nb">bool</span><span class="p">(</span><span class="n">config</span><span class="p">):</span>
-            <span class="k">if</span> <span class="ow">not</span> <span class="nb">bool</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">contents</span><span class="p">):</span>
-                <span class="k">return</span> <span class="n">status</span>
-            <span class="k">with</span> <span class="n">ConfFile</span><span class="p">(</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">__file_path</span><span class="p">,</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">__MODE</span><span class="p">,</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">__EXT</span><span class="p">,</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">__checker</span><span class="p">,</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">__reporter</span><span class="p">,</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">__file_checker</span><span class="p">,</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">__verbose</span> <span class="ow">or</span> <span class="n">verbose</span>
-            <span class="p">)</span> <span class="k">as</span> <span class="n">xml</span><span class="p">:</span>
-                <span class="k">if</span> <span class="nb">bool</span><span class="p">(</span><span class="n">xml</span><span class="p">):</span>
-                    <span class="k">if</span> <span class="n">xml</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">config</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">):</span>
-                        <span class="n">status</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">bool</span><span class="p">(</span><span class="n">xml_content</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">status</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">__reporter</span><span class="o">.</span><span class="n">verbose</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__verbose</span> <span class="ow">or</span> <span class="n">verbose</span><span class="p">,</span> <span class="p">[</span><span class="sa">f</span><span class="s1">&#39;configuration </span><span class="si">{</span><span class="n">xml_content</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">])</span>
+
+        <span class="k">with</span> <span class="n">ConfFile</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__file_path</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__MODE</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__EXT</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__checker</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__reporter</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__file_checker</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__verbose</span> <span class="ow">or</span> <span class="n">verbose</span>
+        <span class="p">)</span> <span class="k">as</span> <span class="n">xml</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">bool</span><span class="p">(</span><span class="n">xml</span><span class="p">):</span>
+                <span class="k">if</span> <span class="n">xml</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">xml_content</span><span class="p">):</span>
+                    <span class="n">status</span> <span class="o">=</span> <span class="kc">True</span>
         <span class="k">return</span> <span class="n">status</span></div>
 </div>
 

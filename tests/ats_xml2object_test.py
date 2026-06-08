@@ -23,9 +23,10 @@ Execute
 '''
 
 from typing import List
-from unittest import TestCase, main
+from unittest import TestCase, main, mock
 from os.path import dirname
 from ats_utilities.config_io.xml import Xml2Object
+from ats_utilities.config_io.xml.ixml_processor import IXMLProcessor
 from ats_utilities.exceptions import ATSTypeError
 
 __author__: str = 'Vladimir Roncevic'
@@ -58,8 +59,9 @@ class Xml2ObjectTestCase(TestCase):
 
     def setUp(self) -> None:
         '''Call before test case.'''
+        self.xml_processor = mock.MagicMock(spec=IXMLProcessor)
         self.xml2obj: Xml2Object = Xml2Object(
-            f'{dirname(__file__)}/config/ats_cli_xml_api.xml'
+            f'{dirname(__file__)}/config/ats_cli_xml_api.xml', self.xml_processor
         )
 
     def tearDown(self) -> None:
@@ -76,7 +78,7 @@ class Xml2ObjectTestCase(TestCase):
     def test_none_config_path(self) -> None:
         '''Test for None as file path'''
         with self.assertRaises(ATSTypeError):
-            Xml2Object(None)
+            Xml2Object(None, self.xml_processor)
 
 
 if __name__ == '__main__':

@@ -22,9 +22,9 @@ Execute
     python3 -m unittest -v ats_checker_test
 '''
 
-from typing import Any, Dict, Tuple, List, Set
-from unittest import TestCase, main
-from ats_utilities.checker import ATSChecker, ErrorChecker
+from typing import Any, Dict, Tuple, List, Set, Optional
+from unittest import TestCase, main, mock
+from ats_utilities.checker import ATSChecker, ErrorChecker, IATSChecker, ParametersSpecs
 from ats_utilities.console_io import IATSReporter, ATSReporter
 
 __author__: str = 'Vladimir Roncevic'
@@ -251,6 +251,52 @@ class ATSCheckerTestCase(TestCase):
             ('Test:test', test)
         ])
         self.assertEqual(self.error_id, ErrorChecker.NO_ERROR)
+
+    def test_multiple_parameters_success(self) -> None:
+        '''Test validation of multiple parameters.'''
+        params: Optional[ParametersSpecs] = [('str:p1', 'v1'), ('int:p2', 2), ('float:p3', 3.0)]
+        self.error_msg, self.error_id = self.ats_base_checker.validate_parameters(params)
+        self.assertEqual(self.error_id, ErrorChecker.NO_ERROR)
+
+    def test_multiple_parameters_failure(self) -> None:
+        '''Test validation of multiple parameters where one fails.'''
+        params: Optional[ParametersSpecs] = [('str:p1', 'v1'), ('int:p2', 'not_an_int')]
+        self.error_msg, self.error_id = self.ats_base_checker.validate_parameters(params)
+        self.assertEqual(self.error_id, ErrorChecker.TYPE_ERROR)
+
+    def test_empty_parameters_list(self) -> None:
+        '''Test validation with an empty list of parameters.'''
+        self.error_msg, self.error_id = self.ats_base_checker.validate_parameters([])
+        self.assertEqual(self.error_id, ErrorChecker.NO_ERROR)
+
+    def test_validate_parameters_wrong_type_format(self) -> None:
+        '''Test detection of invalid type in format string.'''
+        self.error_msg, self.error_id = self.ats_base_checker.validate_parameters([
+            ('unknown_type:var', 'value')
+        ])
+        self.assertEqual(self.error_id, ErrorChecker.TYPE_ERROR)
+
+
+class ATSCheckerUnitTestCase(TestCase):
+    '''
+        Unit tests for IATSChecker interface using mocks.
+
+        It defines:
+            :methods:
+                | setUp - Set up test environment with mocks.
+                | test_mock_validate_parameters - Test mock interaction.
+    '''
+
+    def setUp(self) -> None:
+        '''Set up test environment.'''
+        self.mock_checker = mock.MagicMock(spec=IATSChecker)
+
+    def test_mock_validate_parameters(self) -> None:
+        '''Test mock interaction for validate_parameters.'''
+        self.mock_checker.validate_parameters.return_value = ('', 0)
+        result = self.mock_checker.validate_parameters([('str:test', 'value')])
+        self.assertEqual(result, ('', 0))
+        self.mock_checker.validate_parameters.assert_called_once()
 
 
 if __name__ == '__main__':

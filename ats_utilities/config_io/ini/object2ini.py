@@ -21,11 +21,11 @@ Info
 '''
 
 from typing import ClassVar, List, Optional
-from configparser import ConfigParser
 from ats_utilities.checker import IATSChecker, ATSChecker, ErrorChecker
 from ats_utilities.console_io import IATSReporter, ATSReporter
 from ats_utilities.exceptions import ATSTypeError
 from ats_utilities.config_io import IWrite, ConfFile, IFileCheck, FileCheck
+from .iini_processor import IINIProcessor 
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -72,11 +72,11 @@ class Object2Ini(IWrite):
             :param config_file: Configuration file path | None
             :type config_file: <Optional[str]>
             :param checker: ATSChecker for check operations | None
-            :type checker: <Optional[IATSChecker]>
+            :type checker: :class:`~ats_utilities.checker.IATSChecker`
             :param reporter: ATSReporter for check operations | None
-            :type reporter: <Optional[IATSReporter]>
+            :type reporter: :class:`~ats_utilities.console_io.iats_reporter.IATSReporter`
             :param file_checker: FileCheck for checking file | None
-            :type file_checker: <Optional[IFileCheck]>
+            :type file_checker: :class:`~ats_utilities.config_io.ifile_check.IFileCheck`
             :param verbose: Enable/Disable verbose option
             :type verbose: <bool>
             :exceptions: ATSTypeError
@@ -98,12 +98,12 @@ class Object2Ini(IWrite):
         self.__file_path: str = str(config_file)
         self.__reporter.verbose(self.__verbose, [f'configuration file {config_file}'])
 
-    def write_configuration(self, config: Optional[ConfigParser], verbose: bool = False) -> bool:
+    def write_configuration(self, config: Optional[IINIProcessor], verbose: bool = False) -> bool:
         '''
             Writes configuration to a INI file.
 
             :param config: Configuration object | None
-            :type config: <Optional[ConfigParser]>
+            :type config: :class:`~ats_utilities.config_io.ini.iini_processor.IINIProcessor`
             :param verbose: enable/disable verbose option
             :type verbose: <bool>
             :return: True (configuration written to file) | False
@@ -113,7 +113,7 @@ class Object2Ini(IWrite):
         status: bool = False
         error_msg: Optional[str] = None
         error_id: Optional[int] = None
-        error_msg, error_id = self.__checker.validate_parameters([('ConfigParser:config', config)])
+        error_msg, error_id = self.__checker.validate_parameters([('IINIProcessor:config', config)])
 
         if error_id == self.ERRORS.TYPE_ERROR:
             raise ATSTypeError(error_msg)
@@ -123,19 +123,16 @@ class Object2Ini(IWrite):
 
         self.__reporter.verbose(self.__verbose or verbose, [f'configuration {config}'])
 
-        if bool(config):
-            if not bool(config.sections()):
-                return status
-            with ConfFile(
-                self.__file_path,
-                self.__MODE,
-                self.__EXT,
-                self.__checker,
-                self.__reporter,
-                self.__file_checker,
-                self.__verbose or verbose
-            ) as ini:
-                if bool(ini):
-                    config.write(ini, space_around_delimiters=True)
+        with ConfFile(
+            self.__file_path,
+            self.__MODE,
+            self.__EXT,
+            self.__checker,
+            self.__reporter,
+            self.__file_checker,
+            self.__verbose or verbose
+        ) as ini:
+            if bool(ini):
+                if config.to_stream(ini):
                     status = True
         return status

@@ -51,7 +51,7 @@ class IWrite(ABC):
             Write configuration to file.
 
             :param config: Configuration object | None
-            :type config: <Dict[Any, Any]> | <NoneType>
+            :type config: <Any>
             :param verbose: Enable/Disable verbose option
             :type verbose: <bool>
             :return: True if written | False

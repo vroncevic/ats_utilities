@@ -23,6 +23,9 @@ from typing import List
 from .json2object import Json2Object
 from .object2json import Object2Json
 from .jsonbase import JsonBase
+from .ijson_processor import IJSONProcessor
+from .default_json_processor import ATSJSONProcessor
+
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -36,5 +39,7 @@ __status__: str = 'Updated'
 __all__ = [
     'Json2Object',
     'Object2Json',
-    'JsonBase'
+    'JsonBase',
+    'IJSONProcessor',
+    'ATSJSONProcessor'
 ]

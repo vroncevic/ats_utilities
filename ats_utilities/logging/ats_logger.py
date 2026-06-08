@@ -83,9 +83,9 @@ class ATSLogger:
             :param ats_log_file: Log to file (default None)
             :type ats_log_file: <Optional[str]>
             :param logger_instance: Pre-configured Logger instance
-            :type logger_instance: <Optional[IATSLogger]>
+            :type logger_instance: :class:`~ats_utilities.logging.ilogger.IATSLogger`
             :param reporter: ATSReporter for check operations | None
-            :type reporter: <Optional[IATSReporter]>
+            :type reporter: :class:`~ats_utilities.console_io.iats_reporter.IATSReporter`
             :param verbose: Enable/Disable verbose option
             :type verbose: <bool>
             :exceptions: None

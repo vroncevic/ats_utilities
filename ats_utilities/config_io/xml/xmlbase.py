@@ -20,16 +20,17 @@ Info
     Loads the ATS configuration for the ATS.
 '''
 
-from typing import Any, ClassVar, Dict, List, Optional
-from bs4 import Tag, NavigableString
+from typing import ClassVar, Dict, List, Optional
 from ats_utilities.checker import IATSChecker, ATSChecker, ErrorChecker
 from ats_utilities.info import ATSInfo
-from ats_utilities.option import ATSOptionParser
+from ats_utilities.option import IATSOptionParser, ATSOptionParser
 from ats_utilities.console_io import IATSReporter, ATSReporter
 from ats_utilities.config_io import IRead, IWrite, IFileCheck, FileCheck
 from ats_utilities.option import IATSArgParseStrategy
 from .xml2object import Xml2Object
 from .object2xml import Object2Xml
+from .ixml_processor import IXMLProcessor
+from .default_xml_processor import ATSXmlProcessor
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -71,7 +72,7 @@ class XmlBase:
         info_file: Optional[str] = None,
         xml2obj: Optional[IRead] = None,
         obj2xml: Optional[IWrite] = None,
-        options_parser: Optional[ATSOptionParser] = None,
+        options_parser: Optional[IATSOptionParser] = None,
         checker: Optional[IATSChecker] = None,
         reporter: Optional[IATSReporter] = None,
         file_checker: Optional[IFileCheck] = None,
@@ -84,17 +85,17 @@ class XmlBase:
             :param info_file: Path to the info file | None
             :type info_file: <Optional[str]>
             :param xml2obj: In API for information (Dependency Injected)
-            :type xml2obj: <IRead>
+            :type xml2obj: :class:`~ats_utilities.config_io.iread.IRead`
             :param obj2xml: Out API for information (Dependency Injected)
-            :type obj2xml: <IWrite>
+            :type obj2xml: :class:`~ats_utilities.config_io.iwrite.IWrite`
             :param options_parser: Option parser for ATS | None
-            :type options_parser: <Optional[IATSOptionParser]>
+            :type options_parser: :class:`~ats_utilities.option.ioption_parser.IATSOptionParser`
             :param checker: Error checker | None
-            :type checker: <Optional[IATSChecker]>
+            :type checker: :class:`~ats_utilities.checker.IATSChecker`
             :param reporter: ATSReporter for check operations | None
-            :type reporter: <Optional[IATSReporter]>
+            :type reporter: :class:`~ats_utilities.console_io.iats_reporter.IATSReporter`
             :param file_checker: FileCheck for checking file | None
-            :type file_checker: <Optional[IFileCheck]>
+            :type file_checker: :class:`~ats_utilities.config_io.ifile_check.IFileCheck`
             :param verbose: Enable/Disable verbose option
             :type verbose: <bool>
             :exceptions: None
@@ -108,61 +109,40 @@ class XmlBase:
 
         # Dependency Injection for Xml2Object and Object2Xml or use defaults if not provided
         self.__xml2obj: Optional[IRead] = xml2obj or Xml2Object(
-            info_file, self.__checker, self.__reporter, self.__file_checker, self.__verbose
+            info_file, ATSXmlProcessor(), self.__checker, self.__reporter, self.__file_checker, self.__verbose
         )
         self.__obj2xml: Optional[IWrite] = obj2xml or Object2Xml(
             info_file, self.__checker, self.__reporter, self.__file_checker, self.__verbose
         )
 
-        info_dict: Dict[Any, Any] = {}
+        info_dict: Dict[str, str] = {}
+        xml_processor: Optional[IXMLProcessor] = None
         self.__tool_operational: bool = False
 
         if bool(self.__xml2obj) and bool(self.__obj2xml):
-            tool_info = self.__xml2obj.read_configuration(self.__verbose)
+            xml_processor = self.__xml2obj.read_configuration(self.__verbose)
 
-        if bool(tool_info):
+        if bool(xml_processor):
+            info_dict: Dict[str, str] = xml_processor.get_ats_info()
+            info: ATSInfo = ATSInfo(info_dict, self.__checker, self.__reporter, self.__verbose)
 
-            if bool(tool_info):
-                ats_name:  Optional[Tag | NavigableString] = tool_info.find('ats_name')
-
-                if ats_name:
-                    info_dict['ats_name'] = str(ats_name.get_text())
-
-                ats_version: Optional[Tag | NavigableString] = tool_info.find('ats_version')
-
-                if ats_version:
-                    info_dict['ats_version'] = str(ats_version.get_text())
-
-                ats_build_date: Optional[Tag | NavigableString] = tool_info.find('ats_build_date')
-
-                if ats_build_date:
-                    info_dict['ats_build_date'] = str(ats_build_date.get_text())
-
-                ats_licence: Optional[Tag | NavigableString] = tool_info.find('ats_licence')
-
-                if ats_licence:
-                    info_dict['ats_licence'] = str(ats_licence.get_text())
-
-                info: ATSInfo = ATSInfo(info_dict, self.__checker, self.__reporter, self.__verbose)
-
-                if info.ats_info_ok:
-                    # Dependecy injection for option parser or use default if not provided
-                    # Dependecy injection for argument strategy
-                    self.__option_parser: ATSOptionParser = options_parser or ATSOptionParser(
-                        info_dict, strategy, self.__checker, self.__reporter, verbose
-                    )
-                    self.__option_parser.add_version_operation(info.version)
-                    self.__tool_operational = True
-                    self.__reporter.verbose(self.__verbose, ['loaded ATS XML info'])
+            if info.ats_info_ok:
+                # Dependecy injection for option parser or use default if not provided
+                # Dependecy injection for argument strategy
+                self.__option_parser: IATSOptionParser = options_parser or ATSOptionParser(
+                    info_dict, strategy, self.__checker, self.__reporter, verbose
+                )
+                self.__option_parser.add_version_operation(info.version)
+                self.__tool_operational = True
+                self.__reporter.verbose(self.__verbose, ['loaded ATS XML info'])
 
     @property
-    def option_parser(self) -> ATSOptionParser:
+    def option_parser(self) -> IATSOptionParser:
         '''
             Option parser for ATS.
 
             :return: Option parser for ATS
-            :rtype: <ATSO
-            ptionParser>
+            :rtype: :class:`~ats_utilities.option.ioption_parser.IATSOptionParser`
             :exceptions: None
         '''
         return self.__option_parser
