@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../../../../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ats_utilities.config_io.cfg.cfgbase &#8212; ats_utilities https://github.com/vroncevic/ats_utilities/releases documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/classic.css?v=514cf933" />
+    
+    <script src="../../../../_static/documentation_options.js?v=893dd00a"></script>
+    <script src="../../../../_static/doctools.js?v=888ff710"></script>
+    <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../../index.html">ats_utilities https://github.com/vroncevic/ats_utilities/releases documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../../index.html" accesskey="U">Module code</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">ats_utilities.config_io.cfg.cfgbase</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for ats_utilities.config_io.cfg.cfgbase</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: UTF-8 -*-</span>
+
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">Module</span>
+<span class="sd">    cfgbase.py</span>
+<span class="sd">Copyright</span>
+<span class="sd">    Copyright (C) 2017 - 2026 Vladimir Roncevic &lt;elektron.ronca@gmail.com&gt;</span>
+<span class="sd">    ats_utilities is free software: you can redistribute it and/or modify it</span>
+<span class="sd">    under the terms of the GNU General Public License as published by the</span>
+<span class="sd">    Free Software Foundation, either version 3 of the License, or</span>
+<span class="sd">    (at your option) any later version.</span>
+<span class="sd">    ats_utilities is distributed in the hope that it will be useful, but</span>
+<span class="sd">    WITHOUT ANY WARRANTY; without even the implied warranty of</span>
+<span class="sd">    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.</span>
+<span class="sd">    See the GNU General Public License for more details.</span>
+<span class="sd">    You should have received a copy of the GNU General Public License along</span>
+<span class="sd">    with this program. If not, see &lt;http://www.gnu.org/licenses/&gt;.</span>
+<span class="sd">Info</span>
+<span class="sd">    Defines class CfgBase with attribute(s) and method(s).</span>
+<span class="sd">    Loads the ATS configuration for the ATS.</span>
+<span class="sd">&#39;&#39;&#39;</span>
+
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">ClassVar</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.checker</span> <span class="kn">import</span> <span class="n">IATSChecker</span><span class="p">,</span> <span class="n">ATSChecker</span><span class="p">,</span> <span class="n">ErrorChecker</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.info</span> <span class="kn">import</span> <span class="n">ATSInfo</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.option</span> <span class="kn">import</span> <span class="n">ATSOptionParser</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.console_io</span> <span class="kn">import</span> <span class="n">IATSReporter</span><span class="p">,</span> <span class="n">ATSReporter</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.config_io</span> <span class="kn">import</span> <span class="n">IRead</span><span class="p">,</span> <span class="n">IWrite</span><span class="p">,</span> <span class="n">IFileCheck</span><span class="p">,</span> <span class="n">FileCheck</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.option</span> <span class="kn">import</span> <span class="n">IATSArgParseStrategy</span>
+<span class="kn">from</span> <span class="nn">.cfg2object</span> <span class="kn">import</span> <span class="n">Cfg2Object</span>
+<span class="kn">from</span> <span class="nn">.object2cfg</span> <span class="kn">import</span> <span class="n">Object2Cfg</span>
+
+<span class="n">__author__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;Vladimir Roncevic&#39;</span>
+<span class="n">__copyright__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;(C) 2026, https://vroncevic.github.io/ats_utilities&#39;</span>
+<span class="n">__credits__</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Vladimir Roncevic&#39;</span><span class="p">,</span> <span class="s1">&#39;Python Software Foundation&#39;</span><span class="p">]</span>
+<span class="n">__license__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE&#39;</span>
+<span class="n">__version__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;3.3.5&#39;</span>
+<span class="n">__maintainer__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;Vladimir Roncevic&#39;</span>
+<span class="n">__email__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;elektron.ronca@gmail.com&#39;</span>
+<span class="n">__status__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;Updated&#39;</span>
+
+
+<div class="viewcode-block" id="CfgBase">
+<a class="viewcode-back" href="../../../../ats_utilities.config_io.cfg.cfgbase.html#ats_utilities.config_io.cfg.CfgBase">[docs]</a>
+<span class="k">class</span> <span class="nc">CfgBase</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Defines class CfgBase with attribute(s) and method(s).</span>
+<span class="sd">        Loads the ATS configuration for the ATS.</span>
+<span class="sd">        CFG configuration-based API support.</span>
+
+<span class="sd">        It defines:</span>
+
+<span class="sd">            :attributes:</span>
+<span class="sd">                | ERRORS - Error checker mapping.</span>
+<span class="sd">                | __checker - Error checker.</span>
+<span class="sd">                | __reporter - ATSReporter for check operations.</span>
+<span class="sd">                | __verbose - Enable/Disable verbose option.</span>
+<span class="sd">                | __file_checker - FileCheck for checking file.</span>
+<span class="sd">                | __cfg2obj - In API for information.</span>
+<span class="sd">                | __obj2cfg - Out API for information.</span>
+<span class="sd">                | __tool_operational - Control ATS operational functionality.</span>
+<span class="sd">                | __option_parser - Option parser for ATS.</span>
+<span class="sd">            :methods:</span>
+<span class="sd">                | __init__ - Initials CfgBase constructor.</span>
+<span class="sd">                | is_tool_ok - Checks is tool operational.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+
+    <span class="n">ERRORS</span><span class="p">:</span> <span class="n">ClassVar</span><span class="p">[</span><span class="nb">type</span><span class="p">[</span><span class="n">ErrorChecker</span><span class="p">]]</span> <span class="o">=</span> <span class="n">ErrorChecker</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">info_file</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">cfg2object</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">IRead</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">object2cfg</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">IWrite</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">options_parser</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ATSOptionParser</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">checker</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">IATSChecker</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">reporter</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">IATSReporter</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">file_checker</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">IFileCheck</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">strategy</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">IATSArgParseStrategy</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">verbose</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">            Initials CfgBase constructor.</span>
+
+<span class="sd">            :param info_file: Path to the info file | None</span>
+<span class="sd">            :type info_file: &lt;Optional[str]&gt;</span>
+<span class="sd">            :param cfg2object: In API for information (Dependency Injected)</span>
+<span class="sd">            :type cfg2object: &lt;IRead&gt;</span>
+<span class="sd">            :param object2cfg: Out API for information (Dependency Injected)</span>
+<span class="sd">            :type object2cfg: &lt;IWrite&gt;</span>
+<span class="sd">            :param options_parser: Option parser for ATS | None</span>
+<span class="sd">            :type options_parser: &lt;Optional[IATSOptionParser]&gt;</span>
+<span class="sd">            :param checker: Error checker | None</span>
+<span class="sd">            :type checker: &lt;Optional[IATSChecker]&gt;</span>
+<span class="sd">            :param reporter: ATSReporter for check operations | None</span>
+<span class="sd">            :type reporter: &lt;Optional[IATSReporter]&gt;</span>
+<span class="sd">            :param file_checker: FileCheck for checking file | None</span>
+<span class="sd">            :type file_checker: &lt;Optional[IFileCheck]&gt;</span>
+<span class="sd">            :param verbose: Enable/Disable verbose option</span>
+<span class="sd">            :type verbose: &lt;bool&gt;</span>
+<span class="sd">            :exceptions: None</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__checker</span><span class="p">:</span> <span class="n">IATSChecker</span> <span class="o">=</span> <span class="n">checker</span> <span class="ow">or</span> <span class="n">ATSChecker</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__reporter</span><span class="p">:</span> <span class="n">IATSReporter</span> <span class="o">=</span> <span class="n">reporter</span> <span class="ow">or</span> <span class="n">ATSReporter</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__verbose</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="n">verbose</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__file_checker</span><span class="p">:</span> <span class="n">IFileCheck</span> <span class="o">=</span> <span class="n">file_checker</span> <span class="ow">or</span> <span class="n">FileCheck</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__checker</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">__reporter</span><span class="p">,</span> <span class="n">verbose</span>
+        <span class="p">)</span>
+
+        <span class="c1"># Dependency Injection for Cfg2Object and Object2Cfg or use defaults if not provided</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__cfg2obj</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">IRead</span><span class="p">]</span> <span class="o">=</span> <span class="n">cfg2object</span> <span class="ow">or</span> <span class="n">Cfg2Object</span><span class="p">(</span>
+            <span class="n">info_file</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">__checker</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">__reporter</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">__file_checker</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">__verbose</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__obj2cfg</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">IWrite</span><span class="p">]</span> <span class="o">=</span> <span class="n">object2cfg</span> <span class="ow">or</span> <span class="n">Object2Cfg</span><span class="p">(</span>
+            <span class="n">info_file</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">__checker</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">__reporter</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">__file_checker</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">__verbose</span>
+        <span class="p">)</span>
+
+        <span class="n">information</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__tool_operational</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
+
+        <span class="k">if</span> <span class="nb">bool</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__cfg2obj</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">bool</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__obj2cfg</span><span class="p">):</span>
+            <span class="n">information</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__cfg2obj</span><span class="o">.</span><span class="n">read_configuration</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__verbose</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="nb">bool</span><span class="p">(</span><span class="n">information</span><span class="p">):</span>
+            <span class="n">info</span><span class="p">:</span> <span class="n">ATSInfo</span> <span class="o">=</span> <span class="n">ATSInfo</span><span class="p">(</span><span class="n">information</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">__checker</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">__reporter</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">__verbose</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">info</span><span class="o">.</span><span class="n">ats_info_ok</span><span class="p">:</span>
+                <span class="c1"># Dependecy injection for option parser or use default if not provided</span>
+                <span class="c1"># Dependecy injection for argument strategy</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">__option_parser</span><span class="p">:</span> <span class="n">ATSOptionParser</span> <span class="o">=</span> <span class="n">options_parser</span> <span class="ow">or</span> <span class="n">ATSOptionParser</span><span class="p">(</span>
+                    <span class="n">information</span><span class="p">,</span> <span class="n">strategy</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">__checker</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">__reporter</span><span class="p">,</span> <span class="n">verbose</span>
+                <span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">__option_parser</span><span class="o">.</span><span class="n">add_version_operation</span><span class="p">(</span><span class="n">info</span><span class="o">.</span><span class="n">version</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">__tool_operational</span> <span class="o">=</span> <span class="kc">True</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">__reporter</span><span class="o">.</span><span class="n">verbose</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__verbose</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;loaded ATS CFG info&#39;</span><span class="p">])</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">option_parser</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ATSOptionParser</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">            Option parser for ATS.</span>
+
+<span class="sd">            :return: Option parser for ATS</span>
+<span class="sd">            :rtype: &lt;ATSO</span>
+<span class="sd">            ptionParser&gt;</span>
+<span class="sd">            :exceptions: None</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__option_parser</span>
+
+<div class="viewcode-block" id="CfgBase.is_tool_ok">
+<a class="viewcode-back" href="../../../../ats_utilities.config_io.cfg.cfgbase.html#ats_utilities.config_io.cfg.CfgBase.is_tool_ok">[docs]</a>
+    <span class="k">def</span> <span class="nf">is_tool_ok</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">            Checks is tool operational.</span>
+
+<span class="sd">            :return: True (tool is operational) | False</span>
+<span class="sd">            :rtype: &lt;bool&gt;</span>
+<span class="sd">            :exceptions: None</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__tool_operational</span></div>
+</div>
+
+</pre></div>
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../../index.html">ats_utilities https://github.com/vroncevic/ats_utilities/releases documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../../index.html" >Module code</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">ats_utilities.config_io.cfg.cfgbase</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+    &#169; Copyright 2026, https://vroncevic.github.io/ats_utilities.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.2.6.
+    </div>
+  </body>
+</html>

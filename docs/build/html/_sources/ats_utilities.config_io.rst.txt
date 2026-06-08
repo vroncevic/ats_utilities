@@ -19,7 +19,12 @@ Submodules
 .. toctree::
    :maxdepth: 4
 
+   ats_utilities.config_io.conf_file
    ats_utilities.config_io.file_check
+   ats_utilities.config_io.iconf_file
+   ats_utilities.config_io.ifile_check
+   ats_utilities.config_io.iread
+   ats_utilities.config_io.iwrite
 
 Module contents
 ---------------

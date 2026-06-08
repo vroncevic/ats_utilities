@@ -22,25 +22,19 @@ Execute
     python3 -m unittest -v ats_object2ini_test
 '''
 
-import sys
 from typing import List
 from configparser import ConfigParser
 from unittest import TestCase, main
 from os.path import dirname
-
-try:
-    from ats_utilities.config_io.ini.ini2object import Ini2Object
-    from ats_utilities.config_io.ini.object2ini import Object2Ini
-    from ats_utilities.exceptions.ats_type_error import ATSTypeError
-except ImportError as test_error_message:
-    # Force close python test #################################################
-    sys.exit(f'\n{__file__}\n{test_error_message}\n')
+from ats_utilities.config_io.ini import Ini2Object
+from ats_utilities.config_io.ini import Object2Ini
+from ats_utilities.exceptions import ATSTypeError
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.3.4'
+__version__: str = '3.3.5'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'

@@ -9,6 +9,7 @@ Submodules
 
    ats_utilities.config_io.yaml.object2yaml
    ats_utilities.config_io.yaml.yaml2object
+   ats_utilities.config_io.yaml.yamlbase
 
 Module contents
 ---------------

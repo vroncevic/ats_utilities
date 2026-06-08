@@ -20,29 +20,23 @@ Info
     Creates an API for processing hyperlinks for splash screen.
 '''
 
-import sys
-from typing import Any, Dict, List, Optional
-
-try:
-    from ats_utilities.checker import ATSChecker
-    from ats_utilities.console_io.verbose import verbose_message
-    from ats_utilities.exceptions.ats_type_error import ATSTypeError
-    from ats_utilities.exceptions.ats_value_error import ATSValueError
-except ImportError as ats_error_message:  # pragma: no cover
-    # Force exit python #######################################################
-    sys.exit(f'\n{__file__}\n{ats_error_message}\n')  # pragma: no cover
+from typing import Any, ClassVar, Dict, List, Optional
+from ats_utilities.checker import IATSChecker, ATSChecker, ErrorChecker
+from ats_utilities.console_io import IATSReporter, ATSReporter
+from ats_utilities.exceptions import ATSTypeError, ATSValueError
+from .iext_infrastructure import IExtInfrastructure
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.3.4'
+__version__: str = '3.3.5'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
 
 
-class GitHubInfrastructure(ATSChecker):
+class GitHubInfrastructure(IExtInfrastructure):
     '''
         Defines class GitHubInfrastructure with attribute(s) and method(s).
         Creates an API for processing hyperlinks for splash screen.
@@ -51,8 +45,11 @@ class GitHubInfrastructure(ATSChecker):
         It defines:
 
             :attributes:
-                | _verbose - Enable/Disable verbose option.
-                | _property - Splash property in dict format.
+                | ERRORS - Error checker.
+                | __checker - Error checker.
+                | __reporter - ATSReporter for outputting messages.
+                | __verbose - Enable/Disable verbose option.
+                | __property - Splash property in dict format.
             :methods:
                 | __init__ - Initials GitHubInfrastructure constructor.
                 | get_info_text - Pre-processes info text.
@@ -60,27 +57,44 @@ class GitHubInfrastructure(ATSChecker):
                 | get_author_text - Pre-processes author text.
     '''
 
-    def __init__(self, prop: Dict[Any, Any], verbose: bool = False) -> None:
+    ERRORS: ClassVar[type[ErrorChecker]] = ErrorChecker
+
+    def __init__(
+        self,
+        prop: Dict[Any, Any],
+        checker: Optional[IATSChecker] = None,
+        reporter: Optional[IATSReporter] = None,
+        verbose: bool = False
+    ) -> None:
         '''
             Initials GitHubInfrastructure constructor.
 
             :param property: Splash property in dict form
             :type property: <dict>
+            :param checker: Error checker | None
+            :type checker: <Optional[IATSChecker]>
+            :param reporter: ATSReporter for outputting messages | None
+            :type reporter: <Optional[IATSReporter]>
             :param verbose: Enable/Disable verbose option
             :type verbose: <bool>
             :exceptions: ATSTypeError | ATSValueError
         '''
-        super().__init__()
+        self.__checker: IATSChecker = checker or ATSChecker()
+        self.__reporter: IATSReporter = reporter or ATSReporter()
+        self.__verbose: bool = verbose
+
         error_msg: Optional[str] = None
         error_id: Optional[int] = None
-        error_msg, error_id = self.check_params([('dict:prop', prop)])
-        if error_id == self.TYPE_ERROR:
+        error_msg, error_id = self.__checker.validate_parameters([('dict:prop', prop)])
+
+        if error_id == self.ERRORS.TYPE_ERROR:
             raise ATSTypeError(error_msg)
+
         if not bool(prop):
             raise ATSValueError(error_msg)
-        self._verbose: bool = verbose
-        self._property: Dict[Any, Any] = prop
-        verbose_message(self._verbose, [f'splash property {prop}'])
+
+        self.__property: Dict[Any, Any] = prop
+        self.__reporter.verbose(self.__verbose, [f'splash property {prop}'])
 
     def get_info_text(self) -> str:
         '''
@@ -90,8 +104,8 @@ class GitHubInfrastructure(ATSChecker):
             :rtype: <str>
             :exceptions: None
         '''
-        org: str = self._property['ats_organization']
-        repo: str = self._property['ats_repository']
+        org: str = self.__property['ats_organization']
+        repo: str = self.__property['ats_repository']
         url_short: str = f'github.io/{repo}'
         url_long: str = f'https://{org}.github.io/{repo}'
         return f'\x1b]8;;{url_long}\a{url_short}\x1b]8;;\a'
@@ -104,8 +118,8 @@ class GitHubInfrastructure(ATSChecker):
             :rtype: <str>
             :exceptions: None
         '''
-        org: str = self._property['ats_organization']
-        repo: str = self._property['ats_repository']
+        org: str = self.__property['ats_organization']
+        repo: str = self.__property['ats_repository']
         url: str = f'https://github.com/{org}/{repo}/issues/new/choose'
         return f'\x1b]8;;{url}\agithub.io/issue\x1b]8;;\a'
 
@@ -117,7 +131,7 @@ class GitHubInfrastructure(ATSChecker):
             :rtype: <str>
             :exceptions: None
         '''
-        org: str = self._property['ats_organization']
+        org: str = self.__property['ats_organization']
         org_short: str = f"{org}.github.io"
         org_long: str = f"https://{org}.github.io/bio/"
         return f'\x1b]8;;{org_long}\a{org_short}\x1b]8;;\a'

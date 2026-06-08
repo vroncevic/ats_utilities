@@ -20,28 +20,23 @@ Info
     Defines project template directory container.
 '''
 
-import sys
-from typing import List, Optional
-
-try:
-    from ats_utilities.checker import ATSChecker
-    from ats_utilities.console_io.verbose import verbose_message
-    from ats_utilities.exceptions.ats_type_error import ATSTypeError
-except ImportError as ats_error_message:  # pragma: no cover
-    # Force exit python #######################################################
-    sys.exit(f'\n{__file__}\n{ats_error_message}\n')  # pragma: no cover
+from typing import ClassVar, List, Optional
+from ats_utilities.checker import IATSChecker, ATSChecker, ErrorChecker
+from ats_utilities.console_io import IATSReporter, ATSReporter
+from ats_utilities.exceptions import ATSTypeError
+from .itemplate_dir import ITemplateDir
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.3.4'
+__version__: str = '3.3.5'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
 
 
-class TemplateDir:
+class TemplateDir(ITemplateDir):
     '''
         Defines class TemplateDir with attribute(s) and method(s).
         Defines project template directory container.
@@ -50,23 +45,41 @@ class TemplateDir:
         It defines:
 
             :attributes:
-                | _template_dir - Project template dir.
+                | ERRORS - Error checker.
+                | __checker - Error checker.
+                | __reporter - ATSReporter for outputting messages.
+                | __verbose - Enable/Disable verbose option.
+                | __template_dir - Project template dir.
             :methods:
                 | __init__ - Initials TemplateDir constructor.
                 | template_dir - Property methods for set/get operations.
                 | is_template_dir_ok - Checks is template dir ok.
     '''
 
-    def __init__(self, verbose: bool = False) -> None:
+    ERRORS: ClassVar[type[ErrorChecker]] = ErrorChecker
+
+    def __init__(
+        self,
+        checker: Optional[IATSChecker] = None,
+        reporter: Optional[IATSReporter] = None,
+        verbose: bool = False
+    ) -> None:
         '''
             Initials TemplateDir constructor.
 
+            :param checker: Error checker | None
+            :type checker: <Optional[IATSChecker]>
+            :param reporter: ATSReporter for outputting messages | None
+            :type reporter: <Optional[IATSReporter]>
             :param verbose: Enable/Disable verbose option
             :type verbose: <bool>
             :exceptions: None
         '''
-        self._template_dir: Optional[str] = None
-        verbose_message(verbose, ['init template dir'])
+        self.__checker: IATSChecker = checker or ATSChecker()
+        self.__reporter: IATSReporter = reporter or ATSReporter()
+        self.__verbose: bool = verbose
+        self.__template_dir: Optional[str] = None
+        self.__reporter.verbose(self.__verbose, ['init template dir'])
 
     @property
     def template_dir(self) -> Optional[str]:
@@ -77,31 +90,33 @@ class TemplateDir:
             :rtype: <Optional[str]>
             :exceptions: None
         '''
-        return self._template_dir
+        return self.__template_dir
 
     @template_dir.setter
-    def template_dir(self, path: Optional[str]) -> None:
+    def template_dir(self, dir_path: str) -> None:
         '''
             Property method for setting project template dir.
 
-            :param path: Project template dir | None
-            :type path: <Optional[str]>
+            :param dir_path: Project template dir path | None
+            :type dir_path: <str>
             :exceptions: ATSTypeError
         '''
-        checker: ATSChecker = ATSChecker()
         error_msg: Optional[str] = None
         error_id: Optional[int] = None
-        error_msg, error_id = checker.check_params([('str:path', path)])
-        if error_id == checker.TYPE_ERROR:
+        error_msg, error_id = self.__checker.validate_parameters([('str:dir_path', dir_path)])
+
+        if error_id == self.ERRORS.TYPE_ERROR:
             raise ATSTypeError(error_msg)
-        self._template_dir = path
+
+        self.__reporter.verbose(self.__verbose, [f'set template dir: {dir_path}'])
+        self.__template_dir = dir_path
 
     def is_template_dir_ok(self) -> bool:
         '''
             Checks is project template dir ok.
 
-            :return: True (tempalte dir is ok) | False
+            :return: True (tempalte dir is not None) | False
             :rtype: <bool>
             :exceptions: None
         '''
-        return bool(self._template_dir)
+        return self.__template_dir is not None

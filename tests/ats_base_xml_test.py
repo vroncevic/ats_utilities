@@ -17,29 +17,28 @@ Copyright
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
     Defines classes XmlBaseTestCase with attribute(s) and method(s).
+    Defines classes XmlBaseTestCase and XmlBaseUnitTestCase with attribute(s) and method(s).
     Creates test cases for checking functionalities of Xml.
 Execute
     python3 -m unittest -v ats_base_xml_test
 '''
 
-import sys
 from typing import List
 from unittest import TestCase, main
+from unittest.mock import MagicMock
 from os.path import dirname
-
-try:
-    from ats_utilities.config_io.xml import XmlBase
-    from ats_utilities.console_io.verbose import verbose_message
-    from ats_utilities.exceptions.ats_type_error import ATSTypeError
-except ImportError as test_error_message:
-    # Force close python test #################################################
-    sys.exit(f'\n{__file__}\n{test_error_message}\n')
+from ats_utilities.config_io.xml import XmlBase
+from ats_utilities.config_io import IRead, IWrite
+from ats_utilities.checker.iats_checker import IATSChecker
+from ats_utilities.option import ATSOptionParser
+from ats_utilities.console_io import IATSReporter, ATSReporter
+from ats_utilities.exceptions.ats_type_error import ATSTypeError
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.3.4'
+__version__: str = '3.3.5'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
@@ -51,14 +50,14 @@ class ATSBaseXml(XmlBase):
     _CONFIG: str = '/config/ats_cli_xml_api.xml'
     _OPS: List[str] = ['-t', '--test', '-v']
 
-    def __init__(self, verbose: bool = False) -> None:
+    def __init__(self, reporter: IATSReporter = ATSReporter(), verbose: bool = False) -> None:
         '''Initial constructor.'''
         current_dir: str = dirname(__file__)
         base_info: str = f'{current_dir}{self._CONFIG}'
-        super().__init__(base_info, verbose)
+        super().__init__(info_file=base_info, verbose=verbose)
         self._verbose = verbose
-        if self.tool_operational:
-            verbose_message(self._verbose, ['init ATS xml cli'])
+        if self.is_tool_ok():
+            reporter.success(['init ATS xml cli'])
 
 
 class XmlBaseTestCase(TestCase):
@@ -70,7 +69,7 @@ class XmlBaseTestCase(TestCase):
         It defines:
 
             :attributes:
-                | ats_base_ini - API for checking base Xml.
+                | ats_base_xml - API for checking base Xml.
             :methods:
                 | setUp - Call before test case.
                 | tearDown - Call after test case.
@@ -81,23 +80,118 @@ class XmlBaseTestCase(TestCase):
 
     def setUp(self) -> None:
         '''Call before test case.'''
-        self.ats_base_ini: ATSBaseXml = ATSBaseXml()
+        self.ats_base_xml: ATSBaseXml = ATSBaseXml()
 
     def tearDown(self) -> None:
         '''Call after test case.'''
 
     def test_not_none(self) -> None:
         '''Test for create XmlBase'''
-        self.assertIsNotNone(self.ats_base_ini)
+        self.assertIsNotNone(self.ats_base_xml)
 
     def test_tool_operational(self) -> None:
         '''Test is tool operational'''
-        self.assertTrue(self.ats_base_ini.is_tool_ok())
+        self.assertTrue(self.ats_base_xml.is_tool_ok())
 
     def test_none_config_path(self) -> None:
         '''Test for None as file path'''
         with self.assertRaises(ATSTypeError):
             XmlBase(None)
+
+
+class XmlBaseUnitTestCase(TestCase):
+    '''
+        Unit tests for XmlBase class using mocks.
+
+        It defines:
+
+            :attributes:
+                | config_path - Path for configuration file.
+                | mock_checker - Mocked IATSChecker.
+                | mock_reporter - Mocked IATSReporter.
+                | mock_xml2obj - Mocked IRead interface.
+                | mock_obj2xml - Mocked IWrite interface.
+            :methods:
+                | setUp - Set up test environment with mocks.
+                | test_init - Test initialization.
+                | test_is_tool_ok_non_operational - Test non-operational status.
+                | test_option_parser_access_non_operational - Test property error.
+                | test_operational_xml_base - Test operational state.
+    '''
+
+    def setUp(self) -> None:
+        '''Set up test environment.'''
+        self.config_path = 'ats_cli_xml_api.xml'
+        self.mock_checker = MagicMock(spec=IATSChecker)
+        self.mock_reporter = MagicMock(spec=IATSReporter)
+        self.mock_xml2obj = MagicMock(spec=IRead)
+        self.mock_obj2xml = MagicMock(spec=IWrite)
+
+        # Setup mock behavior
+        self.mock_checker.validate_parameters.return_value = ('', 0)
+        self.mock_xml2obj.read_configuration.return_value = {}
+
+        # Use keyword arguments to ensure correct dependency injection
+        self.xml_base: XmlBase = XmlBase(
+            info_file=self.config_path,
+            xml2obj=self.mock_xml2obj,
+            obj2xml=self.mock_obj2xml,
+            checker=self.mock_checker,
+            reporter=self.mock_reporter,
+            verbose=True
+        )
+
+    def test_init(self) -> None:
+        '''Test initialization of XmlBase.'''
+        self.assertIsNotNone(self.xml_base)
+        self.mock_xml2obj.read_configuration.assert_called_once()
+
+    def test_is_tool_ok_non_operational(self) -> None:
+        '''Test is_tool_ok status when XmlBase is not operational.'''
+        self.assertFalse(self.xml_base.is_tool_ok())
+
+    def test_option_parser_access_non_operational(self) -> None:
+        '''Test if option_parser access raises AttributeError when not operational.'''
+        with self.assertRaises(AttributeError):
+            _ = self.xml_base.option_parser
+
+    def test_operational_xml_base(self) -> None:
+        '''Test XmlBase when it is operational.'''
+        operational_mock_xml2obj = MagicMock(spec=IRead)
+        operational_mock_obj2xml = MagicMock(spec=IWrite)
+        operational_mock_checker = MagicMock(spec=IATSChecker)
+        operational_mock_reporter = MagicMock(spec=IATSReporter)
+        operational_mock_options_parser = MagicMock(spec=ATSOptionParser)
+
+        operational_mock_checker.validate_parameters.return_value = ('', 0)
+        mock_tool_info = MagicMock()
+
+        def mock_find(name: str):
+            val = {
+                'ats_name': 'Test Tool',
+                'ats_version': '1.0.0',
+                'ats_licence': 'MIT',
+                'ats_build_date': '2023-01-01'
+            }.get(name)
+            return MagicMock(get_text=MagicMock(return_value=val)) if val else None
+
+        mock_tool_info.find.side_effect = mock_find
+        operational_mock_xml2obj.read_configuration.return_value = mock_tool_info
+
+        operational_xml_base = XmlBase(
+            info_file=self.config_path,
+            xml2obj=operational_mock_xml2obj,
+            obj2xml=operational_mock_obj2xml,
+            options_parser=operational_mock_options_parser,
+            checker=operational_mock_checker,
+            reporter=operational_mock_reporter,
+            verbose=True
+        )
+
+        self.assertTrue(operational_xml_base.is_tool_ok())
+        self.assertIsNotNone(operational_xml_base.option_parser)
+        operational_mock_xml2obj.read_configuration.assert_called_once()
+        operational_mock_options_parser.add_version_operation.assert_called_once_with('1.0.0')
 
 
 if __name__ == '__main__':

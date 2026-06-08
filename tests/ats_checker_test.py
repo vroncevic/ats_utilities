@@ -22,25 +22,39 @@ Execute
     python3 -m unittest -v ats_checker_test
 '''
 
-import sys
-from typing import Any, Dict, Tuple, List, Set, Optional
-from collections import OrderedDict
+from typing import Any, Dict, Tuple, List, Set
 from unittest import TestCase, main
-
-try:
-    from ats_utilities.checker import ATSChecker
-except ImportError as test_error_message:
-    # Force close python test #################################################
-    sys.exit(f'\n{__file__}\n{test_error_message}\n')
+from ats_utilities.checker import ATSChecker, ErrorChecker
+from ats_utilities.console_io import IATSReporter, ATSReporter
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.3.4'
+__version__: str = '3.3.5'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
+
+
+class ATSBaseChecker(ATSChecker):
+    '''Simple Class for checking ATSChecker.'''
+
+    def __init__(self, reporter: IATSReporter = ATSReporter(), verbose: bool = False) -> None:
+        '''Initial constructor.'''
+        super().__init__()
+        self._verbose = verbose
+        if self.is_tool_ok():
+            reporter.success(['init ATS checker'])
+
+    def is_tool_ok(self) -> bool:
+        '''
+            Check is checker operational.
+
+            :return: Is checker operational
+            :rtype: <bool>
+        '''
+        return True
 
 
 class ATSCheckerTestCase(TestCase):
@@ -50,224 +64,193 @@ class ATSCheckerTestCase(TestCase):
         ATSChecker unit tests.
 
         It defines:
-
             :attributes:
-                | checker - API for checking parameters.
-                | error_msg - error message from ATSChecker.
-                | error_id - error status from ATSChecker.
+                | ats_base_checker - API for checking base parameters.
+                | error_msg - Error message from ATSChecker.
+                | error_id - Error status from ATSChecker.
             :methods:
-                | setUp - call before every test case.
-                | tearDown - call after every test case.
-                | test_str_parameter - Test for string param checking.
-                | test_int_parameter - Test for int param checking.
-                | test_float_parameter - Test for float param checking.
-                | test_complex_parameter - Test for complex param checking.
-                | test_bool_parameter - Test for bool param checking.
-                | test_bytearray_parameter - Test for bytearray param checking.
-                | test_bytes_parameter - Test for bytes param checking.
-                | test_dict_parameter - Test for dict param checking.
-                | test_frozenset_parameter - Test for frozenset param checking.
-                | test_list_parameter - Test for list param checking.
-                | test_set_parameter - Test for set param checking.
-                | test_tuple_parameter - Test for tuple param checking.
-                | test_object_parameter - Test for object param checking.
-                | test_type_error - Test for type param checking.
-                | test_value_error - Test for value param checking.
+                | setUp - Call before test case.
+                | tearDown - Call after test case.
+                | test_not_none - Test is ATSBaseChecker not None.
+                | test_tool_operational - Test is tool operational.
     '''
 
     def setUp(self) -> None:
         '''Call before every test case.'''
-        self.checker: ATSChecker = ATSChecker()
-        self.error_msg: Optional[str] = None
-        self.error_id: Optional[int] = -1
+        self.ats_base_checker: ATSBaseChecker = ATSBaseChecker()
+        self.error_msg: str = ''
+        self.error_id: int = -1
 
     def tearDown(self) -> None:
         '''Call after every test case.'''
-        self.error_msg = None
+        self.error_msg = ''
         self.error_id = -1
 
-    def test_checker_not_none(self) -> None:
+    def test_not_none(self) -> None:
         '''Test for checker not None.'''
-        self.assertIsNotNone(self.checker)
+        self.assertIsNotNone(self.ats_base_checker)
 
-    def test_none_collect_parameter(self) -> None:
-        '''Test for None param collecting.'''
-        self.assertFalse(self.checker.collect_params(None))  # type: ignore
+    def test_tool_operational(self) -> None:
+        '''Test is tool operational'''
+        self.assertTrue(self.ats_base_checker.is_tool_ok())
 
-    def test_none_check_type_parameter(self) -> None:
-        '''Test for None param checking type.'''
-        self.assertFalse(self.checker.check_types(None))  # type: ignore
+    def test_check_params_none_input(self) -> None:
+        '''Test handling of None input for parameters.'''
+        self.error_msg, self.error_id = self.ats_base_checker.validate_parameters(None)
+        self.assertEqual(self.error_id, ErrorChecker.FORMAT_ERROR)
+        self.assertIn('format wrong', self.error_msg.lower())
 
-    def test_none_check_priority_error(self) -> None:
-        '''Test for None param checking type.'''
-        self.checker.check_types(None)  # type: ignore
-        self.assertEqual(
-            self.checker.priority_error(), self.checker.FORMAT_ERROR
-        )
+    def test_format_error_detection(self) -> None:
+        '''Test detection of invalid format strings.'''
+        # DefaultFormatValidator expects "type:name"
+        self.error_msg, self.error_id = self.ats_base_checker.validate_parameters([
+            ('invalid_format', 'some_value')
+        ])
+        self.assertEqual(self.error_id, ErrorChecker.FORMAT_ERROR)
+        self.assertIn('format wrong', self.error_msg.lower())
 
     def test_str_parameter(self) -> None:
         '''Test for string param checking.'''
         simple_var: str = '8'
-        self.error_msg, self.error_id = self.checker.check_params([
+        self.error_msg, self.error_id = self.ats_base_checker.validate_parameters([
             ('str:simple_var', simple_var)
         ])
-        self.assertEqual(self.error_id, 0)
+        self.assertEqual(self.error_id, ErrorChecker.NO_ERROR)
 
     def test_int_parameter(self) -> None:
         '''Test for int param checking.'''
         simple_var: int = 2342425252
-        self.error_msg, self.error_id = self.checker.check_params([
+        self.error_msg, self.error_id = self.ats_base_checker.validate_parameters([
             ('int:simple_var', simple_var)
         ])
-        self.assertEqual(self.error_id, 0)
+        self.assertEqual(self.error_id, ErrorChecker.NO_ERROR)
 
     def test_float_parameter(self) -> None:
         '''Test for float param checking.'''
         simple_var: float = 34.4546464
-        self.error_msg, self.error_id = self.checker.check_params([
+        self.error_msg, self.error_id = self.ats_base_checker.validate_parameters([
             ('float:simple_var', simple_var)
         ])
-        self.assertEqual(self.error_id, 0)
+        self.assertEqual(self.error_id, ErrorChecker.NO_ERROR)
 
     def test_complex_parameter(self) -> None:
         '''Test for complex param checking.'''
         simple_var: complex = 3 + 6j
-        self.error_msg, self.error_id = self.checker.check_params([
+        self.error_msg, self.error_id = self.ats_base_checker.validate_parameters([
             ('complex:simple_var', simple_var)
         ])
-        self.assertEqual(self.error_id, 0)
+        self.assertEqual(self.error_id, ErrorChecker.NO_ERROR)
 
     def test_bool_parameter(self) -> None:
         '''Test for bool param checking.'''
         simple_var: bool = True
-        self.error_msg, self.error_id = self.checker.check_params([
+        self.error_msg, self.error_id = self.ats_base_checker.validate_parameters([
             ('bool:simple_var', simple_var)
         ])
-        self.assertEqual(self.error_id, 0)
+        self.assertEqual(self.error_id, ErrorChecker.NO_ERROR)
 
     def test_bytearray_parameter(self) -> None:
         '''Test for bytearray param checking.'''
         simple_var: bytearray = bytearray(b'hello')
-        self.error_msg, self.error_id = self.checker.check_params([
+        self.error_msg, self.error_id = self.ats_base_checker.validate_parameters([
             ('bytearray:simple_var', simple_var)
         ])
-        self.assertEqual(self.error_id, 0)
+        self.assertEqual(self.error_id, ErrorChecker.NO_ERROR)
 
     def test_bytes_parameter(self) -> None:
         '''Test for bytes param checking.'''
         simple_var: bytes = bytes(b'hello')
-        self.error_msg, self.error_id = self.checker.check_params([
+        self.error_msg, self.error_id = self.ats_base_checker.validate_parameters([
             ('bytes:simple_var', simple_var)
         ])
-        self.assertEqual(self.error_id, 0)
+        self.assertEqual(self.error_id, ErrorChecker.NO_ERROR)
 
     def test_dict_parameter(self) -> None:
         '''Test for dict param checking.'''
         simple_var: Dict[Any, Any] = {'a': 1, 'b': 2, 3: "test"}
-        self.error_msg, self.error_id = self.checker.check_params([
+        self.error_msg, self.error_id = self.ats_base_checker.validate_parameters([
             ('dict:simple_var', simple_var)
         ])
-        self.assertEqual(self.error_id, 0)
+        self.assertEqual(self.error_id, ErrorChecker.NO_ERROR)
 
     def test_frozenset_parameter(self) -> None:
         '''Test for frozenset param checking.'''
         simple_var: frozenset[int] = frozenset([123, 12, 34, 3443, 3434])
-        self.error_msg, self.error_id = self.checker.check_params([
+        self.error_msg, self.error_id = self.ats_base_checker.validate_parameters([
             ('frozenset:simple_var', simple_var)
         ])
-        self.assertEqual(self.error_id, 0)
+        self.assertEqual(self.error_id, ErrorChecker.NO_ERROR)
 
     def test_list_parameter(self) -> None:
         '''Test for list param checking.'''
         simple_var: List[Any] = ['8', 34, 43.343533, {'a', 'bs'}]
-        self.error_msg, self.error_id = self.checker.check_params([
+        self.error_msg, self.error_id = self.ats_base_checker.validate_parameters([
             ('list:simple_var', simple_var)
         ])
-        self.assertEqual(self.error_id, 0)
+        self.assertEqual(self.error_id, ErrorChecker.NO_ERROR)
 
     def test_set_parameter(self) -> None:
         '''Call test for set param checking.'''
         simple_var: Set[str] = {'apple', 'banana', 'cherry'}
-        self.error_msg, self.error_id = self.checker.check_params([
+        self.error_msg, self.error_id = self.ats_base_checker.validate_parameters([
             ('set:simple_var', simple_var)
         ])
-        self.assertEqual(self.error_id, 0)
+        self.assertEqual(self.error_id, ErrorChecker.NO_ERROR)
 
     def test_tuple_parameter(self) -> None:
         '''Test for tuple param checking.'''
         simple_var: Tuple[Any, ...] = ('quick test', 8, 32.4, [-99, 8, 3.4])
-        self.error_msg, self.error_id = self.checker.check_params([
+        self.error_msg, self.error_id = self.ats_base_checker.validate_parameters([
             ('tuple:simple_var', simple_var)
         ])
-        self.assertEqual(self.error_id, 0)
+        self.assertEqual(self.error_id, ErrorChecker.NO_ERROR)
 
     def test_object_parameter(self) -> None:
         '''Test for object param checking.'''
         simple_var: object = object()
-        self.error_msg, self.error_id = self.checker.check_params([
+        self.error_msg, self.error_id = self.ats_base_checker.validate_parameters([
             ('object:simple_var', simple_var)
         ])
-        self.assertEqual(self.error_id, 0)
+        self.assertEqual(self.error_id, ErrorChecker.NO_ERROR)
 
     def test_type_error(self) -> None:
         '''Test for type param checking.'''
         simple_var: Tuple[Any, ...] = ('quick test', 8, 32.4, [-99, 8, 3.4])
-        self.error_msg, self.error_id = self.checker.check_params([
+        self.error_msg, self.error_id = self.ats_base_checker.validate_parameters([
             ('str:simple_var', simple_var)
         ])
-        self.assertEqual(self.error_id, 1)
+        self.assertEqual(self.error_id, ErrorChecker.TYPE_ERROR)
 
     def test_value_error(self) -> None:
-        '''Test for value param checking.'''
+        '''Test for None as a value when string is expected.'''
         simple_var = None
-        self.error_msg, self.error_id = self.checker.check_params([
+        self.error_msg, self.error_id = self.ats_base_checker.validate_parameters([
             ('str:simple_var', simple_var)
         ])
-        self.assertEqual(self.error_id, 1)
-
-    def test_collect_params(self) -> None:
-        '''Test for collect parameters.'''
-        self.assertFalse(self.checker.collect_params(OrderedDict([])))
-
-    def test_check_type_params(self) -> None:
-        '''Test for check type parameters.'''
-        self.assertFalse(self.checker.check_types(OrderedDict([])))
-
-    def test_check_type_params_missing_description(self) -> None:
-        '''Test for check value parameters.'''
-        simple_config: int = 0
-        complex_config: str = 'test'
-        self.assertFalse(
-            self.checker.check_types(
-                OrderedDict(
-                    [
-                        ('', simple_config), ('', complex_config)
-                    ]
-                )
-            )
-        )
+        self.assertEqual(self.error_id, ErrorChecker.TYPE_ERROR)
 
     def test_non_base_type_check(self) -> None:
-        '''Test for check non base type'''
-
+        '''Test for checking custom object types.'''
         class Test:
-            '''Simple type'''
+            '''Custom test object used for non-base type parameter checking.'''
 
             def __init__(self) -> None:
-                '''Initial Test Constructor'''
                 self.var: int = 0
 
-        test = Test()
-        self.assertTrue(self.checker.check_types(OrderedDict([
-            ('Test:test', test)
-        ])))
+            def get_var(self) -> int:
+                '''Get the value of var.'''
+                return self.var
 
-    def test_check_value_params_base_none(self) -> None:
-        '''Test for check value parameters.'''
-        simple_config: Optional[int] = None
-        self.assertFalse(
-            self.checker.check_types(OrderedDict([('', simple_config)]))
-        )
+            def set_var(self, var: int) -> None:
+                '''Set the value of var.'''
+                self.var = var
+
+        test = Test()
+        # Using default TypeValidator which checks type(inst).__name__
+        self.error_msg, self.error_id = self.ats_base_checker.validate_parameters([
+            ('Test:test', test)
+        ])
+        self.assertEqual(self.error_id, ErrorChecker.NO_ERROR)
 
 
 if __name__ == '__main__':

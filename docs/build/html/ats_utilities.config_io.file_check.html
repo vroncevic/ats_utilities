@@ -15,8 +15,8 @@
     
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="ats_utilities.console_io package" href="ats_utilities.console_io.html" />
-    <link rel="prev" title="ats_utilities.config_io.yaml.yaml2object module" href="ats_utilities.config_io.yaml.yaml2object.html" /> 
+    <link rel="next" title="ats_utilities.config_io.iconf_file module" href="ats_utilities.config_io.iconf_file.html" />
+    <link rel="prev" title="ats_utilities.config_io.conf_file module" href="ats_utilities.config_io.conf_file.html" /> 
   </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
@@ -28,10 +28,10 @@
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="ats_utilities.console_io.html" title="ats_utilities.console_io package"
+          <a href="ats_utilities.config_io.iconf_file.html" title="ats_utilities.config_io.iconf_file module"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="ats_utilities.config_io.yaml.yaml2object.html" title="ats_utilities.config_io.yaml.yaml2object module"
+          <a href="ats_utilities.config_io.conf_file.html" title="ats_utilities.config_io.conf_file module"
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">ats_utilities https://github.com/vroncevic/ats_utilities/releases documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="modules.html" >ats_utilities</a> &#187;</li>
@@ -69,8 +69,8 @@ Creates an API for checking operations with files.</p>
 </dl>
 <dl class="py class">
 <dt class="sig sig-object py" id="ats_utilities.config_io.file_check.FileCheck">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ats_utilities.config_io.file_check.</span></span><span class="sig-name descname"><span class="pre">FileCheck</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ats_utilities/config_io/file_check.html#FileCheck"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.config_io.file_check.FileCheck" title="Link to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="ats_utilities.checker.html#ats_utilities.checker.ATSChecker" title="ats_utilities.checker.ATSChecker"><code class="xref py py-class docutils literal notranslate"><span class="pre">ATSChecker</span></code></a></p>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ats_utilities.config_io.file_check.</span></span><span class="sig-name descname"><span class="pre">FileCheck</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">checker</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="ats_utilities.checker.iats_checker.html#ats_utilities.checker.iats_checker.IATSChecker" title="ats_utilities.checker.iats_checker.IATSChecker"><span class="pre">IATSChecker</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reporter</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="ats_utilities.console_io.ireporter.html#ats_utilities.console_io.ireporter.IATSReporter" title="ats_utilities.console_io.ireporter.IATSReporter"><span class="pre">IATSReporter</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ats_utilities/config_io/file_check.html#FileCheck"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.config_io.file_check.FileCheck" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="ats_utilities.config_io.ifile_check.html#ats_utilities.config_io.ifile_check.IFileCheck" title="ats_utilities.config_io.ifile_check.IFileCheck"><code class="xref py py-class docutils literal notranslate"><span class="pre">IFileCheck</span></code></a></p>
 <p>Defines class FileCheck with attribute(s) and method(s).
 Creates an API for checking operations with files.
 Mechanism for checking files.</p>
@@ -79,12 +79,13 @@ Mechanism for checking files.</p>
 <div><dl class="field-list">
 <dt class="field-odd">attributes<span class="colon">:</span></dt>
 <dd class="field-odd"><div class="line-block">
-<div class="line">MODES - Mode file operations.</div>
-<div class="line">TRUSTED_EXTENSIONS - List of trusted file extensions.</div>
-<div class="line">_verbose - Enable/Disable verbose option.</div>
-<div class="line">_file_path_ok - File exist, path ok.</div>
-<div class="line">_file_mode_ok - Supported file mode.</div>
-<div class="line">_file_format_ok - File format is (not) expected.</div>
+<div class="line">ERRORS - Marks error types.</div>
+<div class="line">__checker - ATSChecker for check operations.</div>
+<div class="line">__reporter - ATSReporter for check operations.</div>
+<div class="line">__verbose - Enable/Disable verbose option.</div>
+<div class="line">__file_path_ok - File exist, path ok.</div>
+<div class="line">__file_mode_ok - Supported file mode.</div>
+<div class="line">__file_format_ok - File format is (not) expected.</div>
 </div>
 </dd>
 <dt class="field-even">methods<span class="colon">:</span></dt>
@@ -99,13 +100,44 @@ Mechanism for checking files.</p>
 </dl>
 </div></blockquote>
 <dl class="py attribute">
-<dt class="sig sig-object py" id="ats_utilities.config_io.file_check.FileCheck.MODES">
-<span class="sig-name descname"><span class="pre">MODES</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">['r',</span> <span class="pre">'w',</span> <span class="pre">'a',</span> <span class="pre">'b',</span> <span class="pre">'x',</span> <span class="pre">'t',</span> <span class="pre">'+']</span></em><a class="headerlink" href="#ats_utilities.config_io.file_check.FileCheck.MODES" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ats_utilities.config_io.file_check.FileCheck.ERRORS">
+<span class="sig-name descname"><span class="pre">ERRORS</span></span><a class="headerlink" href="#ats_utilities.config_io.file_check.FileCheck.ERRORS" title="Link to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="ats_utilities.checker.iats_checker.html#ats_utilities.checker.iats_checker.ErrorChecker" title="ats_utilities.checker.iats_checker.ErrorChecker"><code class="xref py py-class docutils literal notranslate"><span class="pre">ErrorChecker</span></code></a></p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ats_utilities.config_io.file_check.FileCheck.__checker">
+<span class="sig-name descname"><span class="pre">__checker</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="ats_utilities.checker.iats_checker.html#ats_utilities.checker.iats_checker.IATSChecker" title="ats_utilities.checker.iats_checker.IATSChecker"><span class="pre">IATSChecker</span></a></em><a class="headerlink" href="#ats_utilities.config_io.file_check.FileCheck.__checker" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="ats_utilities.config_io.file_check.FileCheck.TRUSTED_EXTENSIONS">
-<span class="sig-name descname"><span class="pre">TRUSTED_EXTENSIONS</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">['makefile']</span></em><a class="headerlink" href="#ats_utilities.config_io.file_check.FileCheck.TRUSTED_EXTENSIONS" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ats_utilities.config_io.file_check.FileCheck.__file_format_ok">
+<span class="sig-name descname"><span class="pre">__file_format_ok</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#ats_utilities.config_io.file_check.FileCheck.__file_format_ok" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ats_utilities.config_io.file_check.FileCheck.__file_mode_ok">
+<span class="sig-name descname"><span class="pre">__file_mode_ok</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#ats_utilities.config_io.file_check.FileCheck.__file_mode_ok" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ats_utilities.config_io.file_check.FileCheck.__file_path_ok">
+<span class="sig-name descname"><span class="pre">__file_path_ok</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#ats_utilities.config_io.file_check.FileCheck.__file_path_ok" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ats_utilities.config_io.file_check.FileCheck.__reporter">
+<span class="sig-name descname"><span class="pre">__reporter</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="ats_utilities.console_io.ireporter.html#ats_utilities.console_io.ireporter.IATSReporter" title="ats_utilities.console_io.ireporter.IATSReporter"><span class="pre">IATSReporter</span></a></em><a class="headerlink" href="#ats_utilities.config_io.file_check.FileCheck.__reporter" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ats_utilities.config_io.file_check.FileCheck.__verbose">
+<span class="sig-name descname"><span class="pre">__verbose</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#ats_utilities.config_io.file_check.FileCheck.__verbose" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ats_utilities.config_io.file_check.FileCheck._abc_impl">
+<span class="sig-name descname"><span class="pre">_abc_impl</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;_abc._abc_data</span> <span class="pre">object&gt;</span></em><a class="headerlink" href="#ats_utilities.config_io.file_check.FileCheck._abc_impl" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -193,8 +225,14 @@ Mechanism for checking files.</p>
     <ul>
 <li><a class="reference internal" href="#">ats_utilities.config_io.file_check module</a><ul>
 <li><a class="reference internal" href="#ats_utilities.config_io.file_check.FileCheck"><code class="docutils literal notranslate"><span class="pre">FileCheck</span></code></a><ul>
-<li><a class="reference internal" href="#ats_utilities.config_io.file_check.FileCheck.MODES"><code class="docutils literal notranslate"><span class="pre">FileCheck.MODES</span></code></a></li>
-<li><a class="reference internal" href="#ats_utilities.config_io.file_check.FileCheck.TRUSTED_EXTENSIONS"><code class="docutils literal notranslate"><span class="pre">FileCheck.TRUSTED_EXTENSIONS</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.config_io.file_check.FileCheck.ERRORS"><code class="docutils literal notranslate"><span class="pre">FileCheck.ERRORS</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.config_io.file_check.FileCheck.__checker"><code class="docutils literal notranslate"><span class="pre">FileCheck.__checker</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.config_io.file_check.FileCheck.__file_format_ok"><code class="docutils literal notranslate"><span class="pre">FileCheck.__file_format_ok</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.config_io.file_check.FileCheck.__file_mode_ok"><code class="docutils literal notranslate"><span class="pre">FileCheck.__file_mode_ok</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.config_io.file_check.FileCheck.__file_path_ok"><code class="docutils literal notranslate"><span class="pre">FileCheck.__file_path_ok</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.config_io.file_check.FileCheck.__reporter"><code class="docutils literal notranslate"><span class="pre">FileCheck.__reporter</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.config_io.file_check.FileCheck.__verbose"><code class="docutils literal notranslate"><span class="pre">FileCheck.__verbose</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.config_io.file_check.FileCheck._abc_impl"><code class="docutils literal notranslate"><span class="pre">FileCheck._abc_impl</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.config_io.file_check.FileCheck.check_format"><code class="docutils literal notranslate"><span class="pre">FileCheck.check_format()</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.config_io.file_check.FileCheck.check_mode"><code class="docutils literal notranslate"><span class="pre">FileCheck.check_mode()</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.config_io.file_check.FileCheck.check_path"><code class="docutils literal notranslate"><span class="pre">FileCheck.check_path()</span></code></a></li>
@@ -208,13 +246,13 @@ Mechanism for checking files.</p>
   </div>
   <div>
     <h4>Previous topic</h4>
-    <p class="topless"><a href="ats_utilities.config_io.yaml.yaml2object.html"
-                          title="previous chapter">ats_utilities.config_io.yaml.yaml2object module</a></p>
+    <p class="topless"><a href="ats_utilities.config_io.conf_file.html"
+                          title="previous chapter">ats_utilities.config_io.conf_file module</a></p>
   </div>
   <div>
     <h4>Next topic</h4>
-    <p class="topless"><a href="ats_utilities.console_io.html"
-                          title="next chapter">ats_utilities.console_io package</a></p>
+    <p class="topless"><a href="ats_utilities.config_io.iconf_file.html"
+                          title="next chapter">ats_utilities.config_io.iconf_file module</a></p>
   </div>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
@@ -247,10 +285,10 @@ Mechanism for checking files.</p>
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="ats_utilities.console_io.html" title="ats_utilities.console_io package"
+          <a href="ats_utilities.config_io.iconf_file.html" title="ats_utilities.config_io.iconf_file module"
              >next</a> |</li>
         <li class="right" >
-          <a href="ats_utilities.config_io.yaml.yaml2object.html" title="ats_utilities.config_io.yaml.yaml2object module"
+          <a href="ats_utilities.config_io.conf_file.html" title="ats_utilities.config_io.conf_file module"
              >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">ats_utilities https://github.com/vroncevic/ats_utilities/releases documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="modules.html" >ats_utilities</a> &#187;</li>

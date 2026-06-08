@@ -22,13 +22,13 @@ Info
 
 from typing import List, Optional
 from os.path import abspath, dirname, join
-from setuptools import setup
+from setuptools import setup, find_packages
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.3.4'
+__version__: str = '3.3.5'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
@@ -45,7 +45,7 @@ SUPPORTED_PY_VERSIONS: List[str] = [
 PYP_CLASSIFIERS: List[str] = SUPPORTED_PY_VERSIONS
 setup(
     name='ats_utilities',
-    version='3.3.4',
+    version='3.3.5',
     description='Python App/Tool/Script Utilities',
     author='Vladimir Roncevic',
     author_email='elektron.ronca@gmail.com',
@@ -56,25 +56,8 @@ setup(
     keywords='util, config, log, option, xml, cfg, ini, json, yml, cli, meta',
     platforms='any',
     classifiers=PYP_CLASSIFIERS,
-    packages=[
-        'ats_utilities',
-        'ats_utilities.checker',
-        'ats_utilities.cli',
-        'ats_utilities.config_io',
-        'ats_utilities.config_io.cfg',
-        'ats_utilities.config_io.ini',
-        'ats_utilities.config_io.json',
-        'ats_utilities.config_io.xml',
-        'ats_utilities.config_io.yaml',
-        'ats_utilities.console_io',
-        'ats_utilities.exceptions',
-        'ats_utilities.info',
-        'ats_utilities.logging',
-        'ats_utilities.option',
-        'ats_utilities.pro_config',
-        'ats_utilities.splash'
-    ],
-    install_requires=['colorama', 'bs4', 'lxml', 'PyYAML'],
+    packages=find_packages(exclude=['tests', 'tests.*']),
+    install_requires=['PyYAML'],
     package_data={
         'ats_utilities': [
             'py.typed'

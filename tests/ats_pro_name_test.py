@@ -22,25 +22,40 @@ Execute
     python3 -m unittest -v ats_pro_name_test
 '''
 
-import sys
 from typing import List, Optional
 from unittest import TestCase, main
-
-try:
-    from ats_utilities.pro_config.pro_name import ProName
-    from ats_utilities.exceptions.ats_type_error import ATSTypeError
-except ImportError as test_error_message:
-    # Force close python test #################################################
-    sys.exit(f'\n{__file__}\n{test_error_message}\n')
+from ats_utilities.pro_config import ProName
+from ats_utilities.console_io import IATSReporter, ATSReporter
+from ats_utilities.exceptions import ATSTypeError
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.3.4'
+__version__: str = '3.3.5'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
+
+
+class ATSBaseProName(ProName):
+    '''Simple Class for checking ProName.'''
+
+    def __init__(self, reporter: IATSReporter = ATSReporter(), verbose: bool = False) -> None:
+        '''Initial constructor.'''
+        super().__init__()
+        self._verbose = verbose
+        if self.is_tool_ok():
+            reporter.success(['init project name'])
+
+    def is_tool_ok(self) -> bool:
+        '''
+            Check is project name operational.
+
+            :return: Is project name operational
+            :rtype: <bool>
+        '''
+        return bool(self.pro_name)
 
 
 class ProNameTestCase(TestCase):
@@ -52,11 +67,12 @@ class ProNameTestCase(TestCase):
         It defines:
 
             :attributes:
-                | None
+                | ats_base_pro_name - API for checking base ProName.
             :methods:
                 | setUp - Call before test case.
                 | tearDown - Call after test case.
-                | test_default_create - Default create.
+                | test_not_none - Test is ATSBaseProName not None.
+                | test_tool_operational - Test is tool operational.
                 | test_set_pro_name_empty - Sets empty project name.
                 | test_set_pro_name_none - Sets None project name.
                 | test_set_pro_name - Sets simple project name.
@@ -65,42 +81,42 @@ class ProNameTestCase(TestCase):
 
     def setUp(self) -> None:
         '''Call before test case.'''
+        self.ats_base_pro_name: ATSBaseProName = ATSBaseProName()
 
     def tearDown(self) -> None:
         '''Call after test case.'''
 
-    def test_default_create(self) -> None:
-        '''Default create'''
-        pro_name: ProName = ProName()
-        self.assertIsNotNone(pro_name)
+    def test_not_none(self) -> None:
+        '''Test for create ProName'''
+        self.assertIsNotNone(self.ats_base_pro_name)
+
+    def test_tool_operational(self) -> None:
+        '''Test is tool operational'''
+        self.assertFalse(self.ats_base_pro_name.is_tool_ok())
 
     def test_set_pro_name_empty(self) -> None:
         '''Sets empty name'''
-        pro_name: ProName = ProName()
         empty_name: Optional[str] = ""
-        pro_name.pro_name = empty_name
-        self.assertFalse(pro_name.is_pro_name_ok())
+        self.ats_base_pro_name.pro_name = empty_name
+        self.assertFalse(self.ats_base_pro_name.is_tool_ok())
 
     def test_set_pro_name_none(self) -> None:
         '''Sets None name'''
-        pro_name: ProName = ProName()
         none_name: Optional[str] = None
         with self.assertRaises(ATSTypeError):
-            pro_name.pro_name = none_name
+            self.ats_base_pro_name.pro_name = none_name
 
     def test_set_pro_name(self) -> None:
         '''Sets simple project name'''
-        pro_name: ProName = ProName()
         test_name: Optional[str] = "app_example"
-        pro_name.pro_name = test_name
-        self.assertTrue(pro_name.is_pro_name_ok())
+        self.ats_base_pro_name.pro_name = test_name
+        self.assertTrue(self.ats_base_pro_name.is_tool_ok())
 
     def test_get_pro_name(self) -> None:
         '''Gets simple project name'''
-        pro_name: ProName = ProName()
         test_name: Optional[str] = "app_example"
-        pro_name.pro_name = test_name
-        self.assertIsNotNone(pro_name.pro_name)
+        self.ats_base_pro_name.pro_name = test_name
+        self.assertIsNotNone(self.ats_base_pro_name.pro_name)
 
 
 if __name__ == '__main__':

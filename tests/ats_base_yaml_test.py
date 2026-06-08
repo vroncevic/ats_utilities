@@ -17,29 +17,28 @@ Copyright
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
     Defines classes YamlBaseTestCase with attribute(s) and method(s).
+    Defines classes YamlBaseTestCase and YamlBaseUnitTestCase with attribute(s) and method(s).
     Creates test cases for checking functionalities of Yaml.
 Execute
     python3 -m unittest -v ats_base_yaml_test
 '''
 
-import sys
 from typing import List
 from unittest import TestCase, main
+from unittest.mock import MagicMock
 from os.path import dirname
-
-try:
-    from ats_utilities.config_io.yaml import YamlBase
-    from ats_utilities.console_io.verbose import verbose_message
-    from ats_utilities.exceptions.ats_type_error import ATSTypeError
-except ImportError as test_error_message:
-    # Force close python test #################################################
-    sys.exit(f'\n{__file__}\n{test_error_message}\n')
+from ats_utilities.config_io.yaml import YamlBase
+from ats_utilities.config_io import IRead, IWrite
+from ats_utilities.checker.iats_checker import IATSChecker
+from ats_utilities.option import ATSOptionParser
+from ats_utilities.console_io import IATSReporter, ATSReporter
+from ats_utilities.exceptions.ats_type_error import ATSTypeError
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.3.4'
+__version__: str = '3.3.5'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
@@ -51,14 +50,14 @@ class ATSBaseYaml(YamlBase):
     _CONFIG: str = '/config/ats_cli_yaml_api.yaml'
     _OPS: List[str] = ['-t', '--test', '-v']
 
-    def __init__(self, verbose: bool = False) -> None:
+    def __init__(self, reporter: IATSReporter = ATSReporter(), verbose: bool = False) -> None:
         '''Initial constructor.'''
         current_dir: str = dirname(__file__)
         base_info: str = f'{current_dir}{self._CONFIG}'
-        super().__init__(base_info, verbose)
+        super().__init__(info_file=base_info, verbose=verbose)
         self._verbose = verbose
-        if self.tool_operational:
-            verbose_message(self._verbose, ['init ATS yaml cli'])
+        if self.is_tool_ok():
+            reporter.success(['init ATS yaml cli'])
 
 
 class YamlBaseTestCase(TestCase):
@@ -98,6 +97,94 @@ class YamlBaseTestCase(TestCase):
         '''Test for None as file path'''
         with self.assertRaises(ATSTypeError):
             YamlBase(None)
+
+
+class YamlBaseUnitTestCase(TestCase):
+    '''
+        Unit tests for YamlBase class using mocks.
+
+        It defines:
+
+            :attributes:
+                | config_path - Path for configuration file.
+                | mock_checker - Mocked IATSChecker.
+                | mock_reporter - Mocked IATSReporter.
+                | mock_yaml2obj - Mocked IRead interface.
+                | mock_obj2yaml - Mocked IWrite interface.
+            :methods:
+                | setUp - Set up test environment with mocks.
+                | test_init - Test initialization.
+                | test_is_tool_ok_non_operational - Test non-operational status.
+                | test_option_parser_access_non_operational - Test property error.
+                | test_operational_yaml_base - Test operational state.
+    '''
+
+    def setUp(self) -> None:
+        '''Set up test environment.'''
+        self.config_path = 'ats_cli_yaml_api.yaml'
+        self.mock_checker = MagicMock(spec=IATSChecker)
+        self.mock_reporter = MagicMock(spec=IATSReporter)
+        self.mock_yaml2obj = MagicMock(spec=IRead)
+        self.mock_obj2yaml = MagicMock(spec=IWrite)
+
+        # Setup mock behavior
+        self.mock_checker.validate_parameters.return_value = ('', 0)
+        self.mock_yaml2obj.read_configuration.return_value = {}
+
+        # Use keyword arguments to ensure correct dependency injection
+        self.yaml_base: YamlBase = YamlBase(
+            info_file=self.config_path,
+            yaml2obj=self.mock_yaml2obj,
+            obj2yaml=self.mock_obj2yaml,
+            checker=self.mock_checker,
+            reporter=self.mock_reporter,
+            verbose=True
+        )
+
+    def test_init(self) -> None:
+        '''Test initialization of YamlBase.'''
+        self.assertIsNotNone(self.yaml_base)
+        self.mock_yaml2obj.read_configuration.assert_called_once()
+
+    def test_is_tool_ok_non_operational(self) -> None:
+        '''Test is_tool_ok status when YamlBase is not operational.'''
+        self.assertFalse(self.yaml_base.is_tool_ok())
+
+    def test_option_parser_access_non_operational(self) -> None:
+        '''Test if option_parser access raises AttributeError when not operational.'''
+        with self.assertRaises(AttributeError):
+            _ = self.yaml_base.option_parser
+
+    def test_operational_yaml_base(self) -> None:
+        '''Test YamlBase when it is operational.'''
+        operational_mock_yaml2obj = MagicMock(spec=IRead)
+        operational_mock_obj2yaml = MagicMock(spec=IWrite)
+        operational_mock_checker = MagicMock(spec=IATSChecker)
+        operational_mock_reporter = MagicMock(spec=IATSReporter)
+        operational_mock_options_parser = MagicMock(spec=ATSOptionParser)
+
+        operational_mock_checker.validate_parameters.return_value = ('', 0)
+        operational_mock_yaml2obj.read_configuration.return_value = {
+            'ats_name': 'Test Tool',
+            'ats_version': '1.0.0',
+            'ats_licence': 'MIT',
+            'ats_build_date': '2023-01-01'
+        }
+
+        operational_yaml_base = YamlBase(
+            info_file=self.config_path,
+            yaml2obj=operational_mock_yaml2obj,
+            obj2yaml=operational_mock_obj2yaml,
+            options_parser=operational_mock_options_parser,
+            checker=operational_mock_checker,
+            reporter=operational_mock_reporter,
+            verbose=True
+        )
+
+        self.assertTrue(operational_yaml_base.is_tool_ok())
+        self.assertIsNotNone(operational_yaml_base.option_parser)
+        operational_mock_yaml2obj.read_configuration.assert_called_once()
+        operational_mock_options_parser.add_version_operation.assert_called_once_with('1.0.0')
 
 
 if __name__ == '__main__':

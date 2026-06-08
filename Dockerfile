@@ -32,8 +32,6 @@ RUN DEBIAN_FRONTEND=noninteractive \
     python3-pip \
     python3-setuptools \
     python3-build \
-    python3-bs4 \
-    python3-colorama \
     python3-yaml
 
 RUN mkdir /ats_utilities/

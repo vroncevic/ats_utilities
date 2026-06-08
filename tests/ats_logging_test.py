@@ -19,28 +19,49 @@ Info
     Defines class ATSLoggingTestCase with attribute(s) and method(s).
     Creates test cases for checking functionalities of ATSLogger.
 Execute
-    python -m unittest -v ats_logging_test
+    python3 -m unittest -v ats_logging_test
 '''
 
-import sys
 from typing import List
 from unittest import TestCase, main
 from os.path import dirname
-
-try:
-    from ats_utilities.logging import ATSLogger
-except ImportError as test_error_message:
-    # Force close python test #################################################
-    sys.exit(f'\n{__file__}\n{test_error_message}\n')
+from ats_utilities.logging import ATSLogger
+from ats_utilities.console_io import IATSReporter, ATSReporter
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.3.4'
+__version__: str = '3.3.5'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
+
+
+class ATSBaseLoggingFile(ATSLogger):
+    '''Simple Class for checking ATSLogger.'''
+
+    def __init__(self, log_file: str, reporter: IATSReporter = ATSReporter(), verbose: bool = False) -> None:
+        '''Initial constructor.'''
+        super().__init__(
+            ats_name='simple_test',
+            ats_log_stdout=False,
+            ats_log_file=log_file,
+            reporter=reporter,
+            verbose=verbose
+        )
+        self._verbose = verbose
+        if self.is_tool_ok():
+            reporter.success(['init ATS logging'])
+
+    def is_tool_ok(self) -> bool:
+        '''
+            Check is logger operational.
+
+            :return: Is logger operational
+            :rtype: <bool>
+        '''
+        return True
 
 
 class ATSLoggingTestCase(TestCase):
@@ -52,14 +73,13 @@ class ATSLoggingTestCase(TestCase):
         It defines:
 
             :attributes:
-                | LOG_FILE - Log file path.
-                | tool_name - Tool name.
-                | log_file - Tool log file path.
-                | logger_ats - API for ATS logger.
+                | LOG_FILE - Log file path template.
+                | ats_base_logging - API for checking base logging.
             :methods:
                 | setUp - Call before test case.
                 | tearDown - Call after test case.
-                | test_not_none - Test for ATSLogger not None
+                | test_not_none - Test is ATSBaseLoggingFile not None.
+                | test_tool_operational - Test is logger operational.
                 | test_debug - Test debug log.
                 | test_warning - Test warning log.
                 | test_critical - Test critical log.
@@ -72,59 +92,56 @@ class ATSLoggingTestCase(TestCase):
     def setUp(self) -> None:
         '''Call before test case.'''
         self.log_file: str = f'{dirname(__file__)}{self.LOG_FILE}'
-        self.tool_name: str = 'simple_test'
-        self.logger_ats: ATSLogger = ATSLogger(
-            ats_name=self.tool_name,
-            ats_log_stdout=False,
-            ats_log_file=self.log_file,
-            ats_logger_status=True,
-            verbose=False
-        )
+        self.ats_base_logging: ATSBaseLoggingFile = ATSBaseLoggingFile(self.log_file)
 
     def tearDown(self) -> None:
         '''Call after test case.'''
 
     def test_not_none(self) -> None:
         '''Test not None'''
-        self.assertIsNotNone(self.logger_ats)
+        self.assertIsNotNone(self.ats_base_logging)
+
+    def test_tool_operational(self) -> None:
+        '''Test is logger operational'''
+        self.assertTrue(self.ats_base_logging.is_tool_ok())
 
     def test_debug(self) -> None:
         '''Test ATS debug log.'''
         self.assertTrue(
-            self.logger_ats.write_log(
-                'simple debug', self.logger_ats.ATS_DEBUG
+            self.ats_base_logging.write_log(
+                'simple debug', self.ats_base_logging.ATS_DEBUG
             )
         )
 
     def test_warning(self) -> None:
         '''Test ATS warning log.'''
         self.assertTrue(
-            self.logger_ats.write_log(
-                'simple warning', self.logger_ats.ATS_WARNING
+            self.ats_base_logging.write_log(
+                'simple warning', self.ats_base_logging.ATS_WARNING
             )
         )
 
     def test_critical(self) -> None:
         '''Test ATS critical log.'''
         self.assertTrue(
-            self.logger_ats.write_log(
-                'simple critical', self.logger_ats.ATS_CRITICAL
+            self.ats_base_logging.write_log(
+                'simple critical', self.ats_base_logging.ATS_CRITICAL
             )
         )
 
     def test_error(self) -> None:
         '''Test ATS error log.'''
         self.assertTrue(
-            self.logger_ats.write_log(
-                'simple error', self.logger_ats.ATS_ERROR
+            self.ats_base_logging.write_log(
+                'simple error', self.ats_base_logging.ATS_ERROR
             )
         )
 
     def test_info(self) -> None:
         '''Test ATS info log.'''
         self.assertTrue(
-            self.logger_ats.write_log(
-                'simple info', self.logger_ats.ATS_INFO
+            self.ats_base_logging.write_log(
+                'simple info', self.ats_base_logging.ATS_INFO
             )
         )
 
