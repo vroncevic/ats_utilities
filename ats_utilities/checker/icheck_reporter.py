@@ -16,8 +16,8 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines abstract class ICheckReporter with attribute(s) and method(s).
-    Creates an interface for formating message report.
+    Defines abstract class IATSCheckReporter with attribute(s) and method(s).
+    Creates an interface for formating message report in context of checker.
 '''
 
 from abc import ABC, abstractmethod
@@ -27,7 +27,7 @@ __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.3.6'
+__version__: str = '3.3.7'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
@@ -36,21 +36,21 @@ __status__: str = 'Updated'
 ParamMetadata: TypeAlias = Tuple[str, str, Any]
 
 
-class ICheckReporter(ABC):
+class IATSCheckReporter(ABC):
     '''
-        Defines abstract class ICheckReporter with attribute(s) and method(s).
-        Creates an interface for formating message report.
+        Defines abstract class IATSCheckReporter with attribute(s) and method(s).
+        Creates an interface for formating message report in context of checker.
 
         It defines:
 
             :attributes: None
             :methods:
-                | build_message_format - Builds the final message report.
+                | build_message_format - Builds the final message report for checker.
     '''
     @abstractmethod
     def build_message_format(self, context: str, parameters_meta: List[ParamMetadata], err_indices: List[int], is_fmt_err: bool) -> str:
         '''
-            Builds the final message report.
+            Builds the final message report for checker.
 
             :param context: The context string from the stack
             :type context: <str>
@@ -64,4 +64,4 @@ class ICheckReporter(ABC):
             :rtype: <str>
             :exceptions: NotImplementedError
         '''
-        raise NotImplementedError("Method build_message_format() must be implement")
+        raise NotImplementedError("Method build_message_format() must be implemented.")

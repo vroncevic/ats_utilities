@@ -26,7 +26,7 @@ __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.3.6'
+__version__: str = '3.3.7'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
@@ -56,7 +56,7 @@ class IJSONProcessor(ABC):
             :rtype: <bool>
             :exceptions: NotImplementedError
         '''
-        raise NotImplementedError("Method decode() must be implement")
+        raise NotImplementedError("Method decode() must be implemented.")
 
     @abstractmethod
     def encode(self) -> str:
@@ -67,7 +67,7 @@ class IJSONProcessor(ABC):
             :rtype: <str>
             :exceptions: NotImplementedError
         '''
-        raise NotImplementedError("Method encode() must be implement")
+        raise NotImplementedError("Method encode() must be implemented.")
 
     @abstractmethod
     def to_dict(self) -> Dict[Any, Any]:
@@ -78,4 +78,4 @@ class IJSONProcessor(ABC):
             :rtype: <Dict[Any, Any]>
             :exceptions: NotImplementedError
         '''
-        raise NotImplementedError("Method to_dict() must be implement")
+        raise NotImplementedError("Method to_dict() must be implemented.")

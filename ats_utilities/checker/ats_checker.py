@@ -21,25 +21,25 @@ Info
 '''
 
 from typing import ClassVar, List, Optional
-from ats_utilities.checker.iats_checker import IATSChecker
-from ats_utilities.checker.iats_checker import ErrorChecker
-from ats_utilities.checker.iats_checker import ValidationResult
-from ats_utilities.checker.iats_checker import ParametersSpecs
-from ats_utilities.checker.itype_validator import ITypeValidator
-from ats_utilities.checker.iformat_validator import IFormatValidator
-from ats_utilities.checker.icontext_provider import IContextProvider
-from ats_utilities.checker.icheck_reporter import ICheckReporter
+from ats_utilities.checker.ichecker import IATSChecker
+from ats_utilities.checker.ichecker import ErrorChecker
+from ats_utilities.checker.ichecker import ValidationResult
+from ats_utilities.checker.ichecker import ParametersSpecs
+from ats_utilities.checker.itype_validator import IATSTypeValidator
+from ats_utilities.checker.iformat_validator import IATSFormatValidator
+from ats_utilities.checker.icontext_provider import IATSContextProvider
+from ats_utilities.checker.icheck_reporter import IATSCheckReporter
 from ats_utilities.checker.icheck_reporter import ParamMetadata
-from ats_utilities.checker.default_format_validator import DefaultFormatValidator
-from ats_utilities.checker.default_type_validator import DefaultTypeValidator
-from ats_utilities.checker.default_context_provider import DefaultContextProvider
-from ats_utilities.checker.default_check_reporter import DefaultCheckReporter
+from ats_utilities.checker.format_validator import ATSFormatValidator
+from ats_utilities.checker.type_validator import ATSTypeValidator
+from ats_utilities.checker.context_provider import ATSContextProvider
+from ats_utilities.checker.check_reporter import ATSCheckReporter
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.3.6'
+__version__: str = '3.3.7'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
@@ -48,50 +48,49 @@ __status__: str = 'Updated'
 class ATSChecker(IATSChecker):
     '''
         Defines class ATSChecker with attribute(s) and method(s).
-        Concrete implementation of the ATS parameter checker.
-        Creates an API for validating parameters for method(s) and function(s).
-        Main class module for validating function(s) or method(s) parameters (type or format).
+        Concrete implementation of the ATS parameter(s) checker.
+        Creates an API for validating parameter(s) for method(s) and function(s).
 
         It defines:
 
             :attributes:
                 | ERRORS - Marks error types for message reports.
-                | _format_validator - Validator for parameters format.
-                | _type_validator - Validator for parameters type.
-                | _context_provider - Provider for call context.
-                | _check_reporter - Formatter for message reports.
+                | __format_validator - Validator for parameters format.
+                | __type_validator - Validator for parameters type.
+                | __provider - Provider for call context.
+                | __reporter - Formatter for message reports.
             :methods:
                 | __init__ - Initials ATSChecker constructor.
-                | validate_parameters - Validates parameters for method(s) or function(s).
+                | validate_parameters - Validates parameter(s) for method(s) or function(s).
     '''
 
     ERRORS: ClassVar[type[ErrorChecker]] = ErrorChecker
 
     def __init__(
         self,
-        format_validator: Optional[IFormatValidator] = None,
-        type_validator: Optional[ITypeValidator] = None,
-        context_provider: Optional[IContextProvider] = None,
-        check_reporter: Optional[ICheckReporter] = None
+        format_validator: Optional[IATSFormatValidator] = None,
+        type_validator: Optional[IATSTypeValidator] = None,
+        context_provider: Optional[IATSContextProvider] = None,
+        check_reporter: Optional[IATSCheckReporter] = None
     ) -> None:
         '''
             Initials ATSChecker constructor.
 
             :param format_validator: Validator for parameters format
-            :type format_validator: <Optional[IFormatValidator]>
+            :type format_validator: <Optional[IATSFormatValidator]>
             :param type_validator: Validator for parameters type
-            :type type_validator: <Optional[ITypeValidator]>
+            :type type_validator: <Optional[IATSTypeValidator]>
             :param context_provider: Provider for call context
-            :type context_provider: <Optional[IContextProvider]>
+            :type context_provider: <Optional[IATSContextProvider]>
             :param check_reporter: Formatter for message reports
-            :type check_reporter: <Optional[ICheckReporter]>
+            :type check_reporter: <Optional[IATSCheckReporter]>
             :exceptions: None
         '''
         # If no custom implementations are provided, use default ones.
-        self._format_validator: IFormatValidator = format_validator or DefaultFormatValidator()
-        self._type_validator: ITypeValidator = type_validator or DefaultTypeValidator()
-        self._context_provider: IContextProvider = context_provider or DefaultContextProvider()
-        self._check_reporter: ICheckReporter = check_reporter or DefaultCheckReporter()
+        self.__format_validator: IATSFormatValidator = format_validator or ATSFormatValidator()
+        self.__type_validator: IATSTypeValidator = type_validator or ATSTypeValidator()
+        self.__provider: IATSContextProvider = context_provider or ATSContextProvider()
+        self.__reporter: IATSCheckReporter = check_reporter or ATSCheckReporter()
 
     def validate_parameters(self, parameters: Optional[ParametersSpecs]) -> ValidationResult:
         '''
@@ -103,31 +102,34 @@ class ATSChecker(IATSChecker):
             :rtype: <ValidationResult>
             :exceptions: None
         '''
-        context = self._context_provider.get_context()
+        context: str = self.__provider.get_context()
         params_meta: List[ParamMetadata] = []
         err_indices: List[int] = []
-        error_id = self.ERRORS.NO_ERROR
+        error_id: int = self.ERRORS.NO_ERROR
 
         if parameters is None:
-            return self._check_reporter.build_message_format(context, [], [], True), self.ERRORS.FORMAT_ERROR
+            return self.__reporter.build_message_format(context, [], [], True), self.ERRORS.FORMAT_ERROR
 
-        is_fmt_err = False
+        is_fmt_err: bool = False
         for index, (exp_type, inst) in enumerate(parameters):
 
-            if not self._format_validator.is_valid(exp_type):
+            if not self.__format_validator.is_valid(exp_type):
                 is_fmt_err = True
                 error_id = self.ERRORS.FORMAT_ERROR
                 break
 
-            ptype, pname = self._format_validator.split(exp_type)
+            ptype: Optional[str] = None
+            pname: Optional[str] = None
+
+            ptype, pname = self.__format_validator.split(exp_type)
             params_meta.append((pname, ptype, inst))
 
-            if not self._type_validator.is_match(inst, ptype):
+            if not self.__type_validator.is_match(inst, ptype):
                 err_indices.append(index)
 
                 if error_id == self.ERRORS.NO_ERROR:
                     error_id = self.ERRORS.TYPE_ERROR
 
-        return self._check_reporter.build_message_format(
+        return self.__reporter.build_message_format(
             context, params_meta, err_indices, is_fmt_err
         ), error_id

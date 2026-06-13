@@ -29,7 +29,7 @@ __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.3.6'
+__version__: str = '3.3.7'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
@@ -61,7 +61,7 @@ class IATSOptionParser(ABC):
             :type kwargs: <Any>
             :exceptions: NotImplementedError
         '''
-        raise NotImplementedError("Method add_operation() must be implement")
+        raise NotImplementedError("Method add_operation() must be implemented.")
 
     @abstractmethod
     def add_version_operation(self, version: Optional[str], verbose: bool = False) -> None:
@@ -74,7 +74,7 @@ class IATSOptionParser(ABC):
             :type verbose: <bool>
             :exceptions: NotImplementedError
         '''
-        raise NotImplementedError("Method add_version_operation() must be implement")
+        raise NotImplementedError("Method add_version_operation() must be implemented.")
 
     @abstractmethod
     def parse_input_args(self, arguments: OptArgs, verbose: bool = False) -> OptionNamespace:
@@ -89,7 +89,7 @@ class IATSOptionParser(ABC):
             :rtype: <OptionNamespace>
             :exceptions: NotImplementedError
         '''
-        raise NotImplementedError("Method parse_input_args() must be implement")
+        raise NotImplementedError("Method parse_input_args() must be implemented.")
 
     @abstractmethod
     def parse_args(self, arguments: OptArgs, verbose: bool = False) -> OptionNamespace:
@@ -104,4 +104,4 @@ class IATSOptionParser(ABC):
             :rtype: <OptionNamespace>
             :exceptions: NotImplementedError
         '''
-        raise NotImplementedError("Method parse_args() must be implement")
+        raise NotImplementedError("Method parse_args() must be implemented.")

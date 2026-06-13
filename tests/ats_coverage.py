@@ -27,7 +27,7 @@ from unittest import TestLoader, TestSuite, TextTestRunner
 from pathlib import Path
 from coverage import Coverage
 from ats_utilities.checker.ats_checker import ATSChecker
-from ats_utilities.checker.iats_checker import ErrorChecker
+from ats_utilities.checker.ichecker import ErrorChecker
 from ats_utilities.console_io.reporter import ATSReporter
 from ats_utilities.option.ats_option_parser import ATSOptionParser
 from ats_utilities.option.option_namespace import OptionNamespace
