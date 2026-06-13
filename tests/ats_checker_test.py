@@ -25,7 +25,7 @@ Execute
 from typing import Any, Dict, Tuple, List, Set, Optional
 from unittest import TestCase, main, mock
 from ats_utilities.checker.ats_checker import ATSChecker
-from ats_utilities.checker.iats_checker import ErrorChecker, IATSChecker, ParametersSpecs
+from ats_utilities.checker.ichecker import ErrorChecker, IATSChecker, ParametersSpecs
 from ats_utilities.console_io.ireporter import IATSReporter
 from ats_utilities.console_io.reporter import ATSReporter
 
@@ -33,7 +33,7 @@ __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.3.6'
+__version__: str = '3.3.7'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
@@ -104,7 +104,7 @@ class ATSCheckerTestCase(TestCase):
 
     def test_format_error_detection(self) -> None:
         '''Test detection of invalid format strings.'''
-        # DefaultFormatValidator expects "type:name"
+        # ATSFormatValidator expects "type:name"
         self.error_msg, self.error_id = self.ats_base_checker.validate_parameters([
             ('invalid_format', 'some_value')
         ])

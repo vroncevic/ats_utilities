@@ -63,15 +63,15 @@ See the GNU General Public License for more details.
 You should have received a copy of the GNU General Public License along
 with this program. If not, see &lt;<a class="reference external" href="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</a>&gt;.</p>
 </dd>
-<dt>Info</dt><dd><p>Defines abstract class IFormatValidator with attribute(s) and method(s).
+<dt>Info</dt><dd><p>Defines abstract class IATSFormatValidator with attribute(s) and method(s).
 Creates an interface for validating parameters for method(s) and function(s).</p>
 </dd>
 </dl>
 <dl class="py class">
-<dt class="sig sig-object py" id="ats_utilities.checker.iformat_validator.IFormatValidator">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ats_utilities.checker.iformat_validator.</span></span><span class="sig-name descname"><span class="pre">IFormatValidator</span></span><a class="reference internal" href="_modules/ats_utilities/checker/iformat_validator.html#IFormatValidator"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.checker.iformat_validator.IFormatValidator" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ats_utilities.checker.iformat_validator.IATSFormatValidator">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ats_utilities.checker.iformat_validator.</span></span><span class="sig-name descname"><span class="pre">IATSFormatValidator</span></span><a class="reference internal" href="_modules/ats_utilities/checker/iformat_validator.html#IATSFormatValidator"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.checker.iformat_validator.IATSFormatValidator" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">ABC</span></code></p>
-<p>Defines abstract class IFormatValidator with attribute(s) and method(s).
+<p>Defines abstract class IATSFormatValidator with attribute(s) and method(s).
 Creates an interface for validating parameters for method(s) and function(s).</p>
 <p>It defines:</p>
 <blockquote>
@@ -88,13 +88,13 @@ Creates an interface for validating parameters for method(s) and function(s).</p
 </dl>
 </div></blockquote>
 <dl class="py attribute">
-<dt class="sig sig-object py" id="ats_utilities.checker.iformat_validator.IFormatValidator._abc_impl">
-<span class="sig-name descname"><span class="pre">_abc_impl</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;_abc._abc_data</span> <span class="pre">object&gt;</span></em><a class="headerlink" href="#ats_utilities.checker.iformat_validator.IFormatValidator._abc_impl" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ats_utilities.checker.iformat_validator.IATSFormatValidator._abc_impl">
+<span class="sig-name descname"><span class="pre">_abc_impl</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;_abc._abc_data</span> <span class="pre">object&gt;</span></em><a class="headerlink" href="#ats_utilities.checker.iformat_validator.IATSFormatValidator._abc_impl" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="ats_utilities.checker.iformat_validator.IFormatValidator.is_valid">
-<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">is_valid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">exp_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="_modules/ats_utilities/checker/iformat_validator.html#IFormatValidator.is_valid"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.checker.iformat_validator.IFormatValidator.is_valid" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ats_utilities.checker.iformat_validator.IATSFormatValidator.is_valid">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">is_valid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">exp_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="_modules/ats_utilities/checker/iformat_validator.html#IATSFormatValidator.is_valid"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.checker.iformat_validator.IATSFormatValidator.is_valid" title="Link to this definition">¶</a></dt>
 <dd><p>Checks if the string follows the expected format.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -113,8 +113,8 @@ Creates an interface for validating parameters for method(s) and function(s).</p
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="ats_utilities.checker.iformat_validator.IFormatValidator.split">
-<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">split</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">exp_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/ats_utilities/checker/iformat_validator.html#IFormatValidator.split"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.checker.iformat_validator.IFormatValidator.split" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ats_utilities.checker.iformat_validator.IATSFormatValidator.split">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">split</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">exp_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/ats_utilities/checker/iformat_validator.html#IATSFormatValidator.split"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.checker.iformat_validator.IATSFormatValidator.split" title="Link to this definition">¶</a></dt>
 <dd><p>Splits the format string into components.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -147,10 +147,10 @@ Creates an interface for validating parameters for method(s) and function(s).</p
     <h3><a href="index.html">Table of Contents</a></h3>
     <ul>
 <li><a class="reference internal" href="#">ats_utilities.checker.iformat_validator module</a><ul>
-<li><a class="reference internal" href="#ats_utilities.checker.iformat_validator.IFormatValidator"><code class="docutils literal notranslate"><span class="pre">IFormatValidator</span></code></a><ul>
-<li><a class="reference internal" href="#ats_utilities.checker.iformat_validator.IFormatValidator._abc_impl"><code class="docutils literal notranslate"><span class="pre">IFormatValidator._abc_impl</span></code></a></li>
-<li><a class="reference internal" href="#ats_utilities.checker.iformat_validator.IFormatValidator.is_valid"><code class="docutils literal notranslate"><span class="pre">IFormatValidator.is_valid()</span></code></a></li>
-<li><a class="reference internal" href="#ats_utilities.checker.iformat_validator.IFormatValidator.split"><code class="docutils literal notranslate"><span class="pre">IFormatValidator.split()</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.checker.iformat_validator.IATSFormatValidator"><code class="docutils literal notranslate"><span class="pre">IATSFormatValidator</span></code></a><ul>
+<li><a class="reference internal" href="#ats_utilities.checker.iformat_validator.IATSFormatValidator._abc_impl"><code class="docutils literal notranslate"><span class="pre">IATSFormatValidator._abc_impl</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.checker.iformat_validator.IATSFormatValidator.is_valid"><code class="docutils literal notranslate"><span class="pre">IATSFormatValidator.is_valid()</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.checker.iformat_validator.IATSFormatValidator.split"><code class="docutils literal notranslate"><span class="pre">IATSFormatValidator.split()</span></code></a></li>
 </ul>
 </li>
 </ul>

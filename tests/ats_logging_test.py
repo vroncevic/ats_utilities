@@ -17,7 +17,7 @@ Copyright
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
     Defines class ATSLoggingTestCase with attribute(s) and method(s).
-    Creates test cases for checking functionalities of ATSLogger.
+    Creates test cases for checking functionalities of ATSLoggerManager.
 Execute
     python3 -m unittest -v ats_logging_test
 '''
@@ -25,7 +25,7 @@ Execute
 from typing import List
 from unittest import TestCase, main
 from os.path import dirname
-from ats_utilities.logging.ats_logger import ATSLogger
+from ats_utilities.logging.ats_logger_manager import ATSLoggerManager
 from ats_utilities.console_io.ireporter import IATSReporter
 from ats_utilities.console_io.reporter import ATSReporter
 
@@ -33,14 +33,14 @@ __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.3.6'
+__version__: str = '3.3.7'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
 
 
-class ATSBaseLoggingFile(ATSLogger):
-    '''Simple Class for checking ATSLogger.'''
+class ATSBaseLoggingFile(ATSLoggerManager):
+    '''Simple Class for checking ATSLoggerManager.'''
 
     def __init__(self, log_file: str, reporter: IATSReporter = ATSReporter(), verbose: bool = False) -> None:
         '''Initial constructor.'''
@@ -68,8 +68,8 @@ class ATSBaseLoggingFile(ATSLogger):
 class ATSLoggingTestCase(TestCase):
     '''
         Defines class ATSLoggingTestCase with attribute(s) and method(s).
-        Creates test cases for checking functionalities of ATSLogger.
-        ATSLogger unit tests.
+        Creates test cases for checking functionalities of ATSLoggerManager.
+        ATSLoggerManager unit tests.
 
         It defines:
 

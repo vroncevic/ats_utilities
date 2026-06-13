@@ -21,7 +21,7 @@ Info
 '''
 
 from typing import ClassVar, List, Optional
-from ats_utilities.checker.iats_checker import IATSChecker, ErrorChecker
+from ats_utilities.checker.ichecker import IATSChecker, ErrorChecker
 from ats_utilities.checker.ats_checker import ATSChecker
 from ats_utilities.console_io.ireporter import IATSReporter
 from ats_utilities.console_io.reporter import ATSReporter
@@ -31,13 +31,13 @@ from ats_utilities.config_io.conf_file import ConfFile
 from ats_utilities.config_io.ifile_check import IFileCheck
 from ats_utilities.config_io.file_check import FileCheck
 from ats_utilities.config_io.yaml.iyaml_processor import IYAMLProcessor
-from ats_utilities.config_io.yaml.default_yaml_processor import ATSYAMLProcessor
+from ats_utilities.config_io.yaml.yaml_processor import ATSYAMLProcessor
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.3.6'
+__version__: str = '3.3.7'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'

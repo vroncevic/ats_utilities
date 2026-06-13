@@ -7,9 +7,9 @@ Submodules
 .. toctree::
    :maxdepth: 4
 
-   ats_utilities.logging.ats_logger
-   ats_utilities.logging.default_logger
+   ats_utilities.logging.ats_logger_manager
    ats_utilities.logging.ilogger
+   ats_utilities.logging.logger
 
 Module contents
 ---------------

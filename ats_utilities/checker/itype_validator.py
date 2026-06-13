@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines abstract class ITypeValidator with attribute(s) and method(s).
+    Defines abstract class IATSTypeValidator with attribute(s) and method(s).
     Creates an interface for validating parameters for method(s) and function(s).
 '''
 
@@ -27,15 +27,15 @@ __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.3.6'
+__version__: str = '3.3.7'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
 
 
-class ITypeValidator(ABC):
+class IATSTypeValidator(ABC):
     '''
-        Defines abstract class ITypeValidator with attribute(s) and method(s).
+        Defines abstract class IATSTypeValidator with attribute(s) and method(s).
         Creates an interface for validating parameters for method(s) and function(s).
 
         It defines:
@@ -60,7 +60,7 @@ class ITypeValidator(ABC):
             :rtype: <bool>
             :exceptions: NotImplementedError
         '''
-        raise NotImplementedError("Method is_match() must be implement")
+        raise NotImplementedError("Method is_match() must be implemented.")
 
     @abstractmethod
     def is_subtype(self, inst: Any, expected_type_name: str) -> bool:
@@ -75,7 +75,7 @@ class ITypeValidator(ABC):
             :rtype: <bool>
             :exceptions: NotImplementedError
         '''
-        raise NotImplementedError("Method is_subtype() must be implement")
+        raise NotImplementedError("Method is_subtype() must be implemented.")
 
     @abstractmethod
     def get_type_name(self, inst: Any) -> str:
@@ -88,4 +88,4 @@ class ITypeValidator(ABC):
             :rtype: <str>
             :exceptions: NotImplementedError
         '''
-        raise NotImplementedError("Method get_type_name() must be implement")
+        raise NotImplementedError("Method get_type_name() must be implemented.")

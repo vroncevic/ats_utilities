@@ -28,7 +28,7 @@ __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.3.6'
+__version__: str = '3.3.7'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
@@ -61,7 +61,7 @@ class IATSCli(ABC):
             :rtype: <bool>
             :exceptions: NotImplementedError
         '''
-        raise NotImplementedError("Method is_operational() must be implement")
+        raise NotImplementedError("Method is_operational() must be implemented.")
 
     @abstractmethod
     def add_new_option(self, *args: str, **kwargs: Any) -> None:
@@ -74,7 +74,7 @@ class IATSCli(ABC):
             :type kwargs: <Any>
             :exceptions: NotImplementedError
         '''
-        raise NotImplementedError("Method add_new_option() must be implement")
+        raise NotImplementedError("Method add_new_option() must be implemented.")
 
     @abstractmethod
     def parse_args(self, argv: ArgSeq) -> Optional[OptionNamespace]:
@@ -87,7 +87,7 @@ class IATSCli(ABC):
             :rtype: <Optional[OptionNamespace]>
             :exceptions: NotImplementedError
         '''
-        raise NotImplementedError("Method parse_args() must be implement")
+        raise NotImplementedError("Method parse_args() must be implemented.")
 
     @abstractmethod
     def process(self, verbose: bool = False) -> bool:
@@ -100,4 +100,4 @@ class IATSCli(ABC):
             :rtype: <bool>
             :exceptions: NotImplementedError
         '''
-        raise NotImplementedError("Method process() must be implement")
+        raise NotImplementedError("Method process() must be implemented.")

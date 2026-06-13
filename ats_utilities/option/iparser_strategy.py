@@ -29,7 +29,7 @@ __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.3.6'
+__version__: str = '3.3.7'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
@@ -60,7 +60,7 @@ class IATSArgParseStrategy(ABC):
             :type parameters: <Dict[str, str]>
             :exceptions: NotImplementedError
         '''
-        raise NotImplementedError("Method setup() must be implement")
+        raise NotImplementedError("Method setup() must be implemented.")
 
     @abstractmethod
     def add_argument(self, *args: str, **kwargs: Any) -> None:
@@ -73,7 +73,7 @@ class IATSArgParseStrategy(ABC):
             :type kwargs: <Any>
             :exceptions: NotImplementedError
         '''
-        raise NotImplementedError("Method add_argument() must be implement")
+        raise NotImplementedError("Method add_argument() must be implemented.")
 
     @abstractmethod
     def add_version(self, version: Optional[str]) -> None:
@@ -84,7 +84,7 @@ class IATSArgParseStrategy(ABC):
             :type version: <Optional[str]>
             :exceptions: NotImplementedError
         '''
-        raise NotImplementedError("Method add_version() must be implement")
+        raise NotImplementedError("Method add_version() must be implemented.")
 
     @abstractmethod
     def parse(self, arguments: OptArgs, known_only: bool = False) -> OptionNamespace:
@@ -99,4 +99,4 @@ class IATSArgParseStrategy(ABC):
             :rtype: <OptionNamespace>
             :exceptions: NotImplementedError
         '''
-        raise NotImplementedError("Method parse() must be implement")
+        raise NotImplementedError("Method parse() must be implemented.")

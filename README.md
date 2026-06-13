@@ -114,135 +114,135 @@ Framework structure
 
 ```bash
     ats_utilities/
-    ├── checker/
-    │   ├── ats_checker.py
-    │   ├── default_check_reporter.py
-    │   ├── default_context_provider.py
-    │   ├── default_format_validator.py
-    │   ├── default_type_validator.py
-    │   ├── iats_checker.py
-    │   ├── icheck_reporter.py
-    │   ├── icontext_provider.py
-    │   ├── iformat_validator.py
-    │   ├── __init__.py
-    │   └── itype_validator.py
-    ├── cli/
-    │   ├── ats_cli.py
-    │   ├── config_manager.py
-    │   ├── icli.py
-    │   ├── iconfig_manager.py
-    │   └── __init__.py
-    ├── config_io/
-    │   ├── cfg/
-    │   │   ├── cfg2object.py
-    │   │   ├── cfgbase.py
-    │   │   ├── default_cfg_processor.py
-    │   │   ├── icfg_processor.py
-    │   │   ├── __init__.py
-    │   │   └── object2cfg.py
-    │   ├── conf_file.py
-    │   ├── file_check.py
-    │   ├── iconf_file.py
-    │   ├── ifile_check.py
-    │   ├── ini/
-    │   │   ├── default_ini_processor.py
-    │   │   ├── iini_processor.py
-    │   │   ├── ini2object.py
-    │   │   ├── inibase.py
-    │   │   ├── __init__.py
-    │   │   └── object2ini.py
-    │   ├── __init__.py
-    │   ├── iread.py
-    │   ├── iwrite.py
-    │   ├── json/
-    │   │   ├── default_json_processor.py
-    │   │   ├── ijson_processor.py
-    │   │   ├── __init__.py
-    │   │   ├── json2object.py
-    │   │   ├── jsonbase.py
-    │   │   └── object2json.py
-    │   ├── xml/
-    │   │   ├── default_xml_processor.py
-    │   │   ├── __init__.py
-    │   │   ├── ixml_processor.py
-    │   │   ├── object2xml.py
-    │   │   ├── xml2object.py
-    │   │   └── xmlbase.py
-    │   └── yaml/
-    │       ├── default_yaml_processor.py
-    │       ├── __init__.py
-    │       ├── iyaml_processor.py
-    │       ├── object2yaml.py
-    │       ├── yaml2object.py
-    │       └── yamlbase.py
-    ├── console_io/
-    │   ├── __init__.py
-    │   ├── ireporter.py
-    │   ├── reporter.py
-    │   └── theme/
-    │       ├── default_theme.py
-    │       ├── iconsole_theme.py
-    │       └── __init__.py
-    ├── exceptions/
-    │   ├── ats_attribute_error.py
-    │   ├── ats_bad_call_error.py
-    │   ├── ats_error.py
-    │   ├── ats_file_error.py
-    │   ├── ats_key_error.py
-    │   ├── ats_lookup_error.py
-    │   ├── ats_parameter_error.py
-    │   ├── ats_type_error.py
-    │   ├── ats_value_error.py
-    │   └── __init__.py
-    ├── info/
-    │   ├── ats_info.py
-    │   ├── build_date.py
-    │   ├── ibuild_date.py
-    │   ├── iinfo_ok.py
-    │   ├── ilicence.py
-    │   ├── iname.py
-    │   ├── info_ok.py
-    │   ├── __init__.py
-    │   ├── iversion.py
-    │   ├── licence.py
-    │   ├── name.py
-    │   └── version.py
-    ├── __init__.py
-    ├── logging/
-    │   ├── ats_logger.py
-    │   ├── default_logger.py
-    │   ├── ilogger.py
-    │   └── __init__.py
-    ├── option/
-    │   ├── ats_option_parser.py
-    │   ├── ats_parser_strategy.py
-    │   ├── __init__.py
-    │   ├── ioption_parser.py
-    │   ├── iparser_strategy.py
-    │   └── option_namespace.py
-    ├── pro_config/
-    │   ├── __init__.py
-    │   ├── ipro_config.py
-    │   ├── ipro_name.py
-    │   ├── itemplate_dir.py
-    │   ├── pro_config.py
-    │   ├── pro_name.py
-    │   └── template_dir.py
-    ├── py.typed
-    └── splash/
-        ├── ext_infrastructure.py
-        ├── github_infrastructure.py
-        ├── iext_infrastructure.py
+        ├── checker/
+        │   ├── ats_checker.py
+        │   ├── check_reporter.py
+        │   ├── context_provider.py
+        │   ├── format_validator.py
+        │   ├── ichecker.py
+        │   ├── icheck_reporter.py
+        │   ├── icontext_provider.py
+        │   ├── iformat_validator.py
+        │   ├── __init__.py
+        │   ├── itype_validator.py
+        │   └── type_validator.py
+        ├── cli/
+        │   ├── ats_cli.py
+        │   ├── config_manager.py
+        │   ├── icli.py
+        │   ├── iconfig_manager.py
+        │   └── __init__.py
+        ├── config_io/
+        │   ├── cfg/
+        │   │   ├── cfg2object.py
+        │   │   ├── cfgbase.py
+        │   │   ├── cfg_processor.py
+        │   │   ├── icfg_processor.py
+        │   │   ├── __init__.py
+        │   │   └── object2cfg.py
+        │   ├── conf_file.py
+        │   ├── file_check.py
+        │   ├── iconf_file.py
+        │   ├── ifile_check.py
+        │   ├── ini/
+        │   │   ├── iini_processor.py
+        │   │   ├── ini2object.py
+        │   │   ├── inibase.py
+        │   │   ├── ini_processor.py
+        │   │   ├── __init__.py
+        │   │   └── object2ini.py
+        │   ├── __init__.py
+        │   ├── iread.py
+        │   ├── iwrite.py
+        │   ├── json/
+        │   │   ├── ijson_processor.py
+        │   │   ├── __init__.py
+        │   │   ├── json2object.py
+        │   │   ├── jsonbase.py
+        │   │   ├── json_processor.py
+        │   │   └── object2json.py
+        │   ├── xml/
+        │   │   ├── __init__.py
+        │   │   ├── ixml_processor.py
+        │   │   ├── object2xml.py
+        │   │   ├── xml2object.py
+        │   │   ├── xmlbase.py
+        │   │   └── xml_processor.py
+        │   └── yaml/
+        │       ├── __init__.py
+        │       ├── iyaml_processor.py
+        │       ├── object2yaml.py
+        │       ├── yaml2object.py
+        │       ├── yamlbase.py
+        │       └── yaml_processor.py
+        ├── console_io/
+        │   ├── __init__.py
+        │   ├── ireporter.py
+        │   ├── reporter.py
+        │   └── theme/
+        │       ├── default_theme.py
+        │       ├── iconsole_theme.py
+        │       └── __init__.py
+        ├── exceptions/
+        │   ├── ats_attribute_error.py
+        │   ├── ats_bad_call_error.py
+        │   ├── ats_error.py
+        │   ├── ats_file_error.py
+        │   ├── ats_key_error.py
+        │   ├── ats_lookup_error.py
+        │   ├── ats_parameter_error.py
+        │   ├── ats_type_error.py
+        │   ├── ats_value_error.py
+        │   └── __init__.py
+        ├── info/
+        │   ├── ats_info.py
+        │   ├── build_date.py
+        │   ├── ibuild_date.py
+        │   ├── iinfo_ok.py
+        │   ├── ilicence.py
+        │   ├── iname.py
+        │   ├── info_ok.py
+        │   ├── __init__.py
+        │   ├── iversion.py
+        │   ├── licence.py
+        │   ├── name.py
+        │   └── version.py
         ├── __init__.py
-        ├── iprogress_bar.py
-        ├── isplash.py
-        ├── isplash_screen.py
-        ├── iterminal_properties.py
-        ├── progress_bar.py
-        ├── splash_property.py
-        ├── splash.py
-        └── terminal_properties.py
-    
+        ├── logging/
+        │   ├── ats_logger_manager.py
+        │   ├── ilogger.py
+        │   ├── __init__.py
+        │   └── logger.py
+        ├── option/
+        │   ├── ats_option_parser.py
+        │   ├── ats_parser_strategy.py
+        │   ├── __init__.py
+        │   ├── ioption_parser.py
+        │   ├── iparser_strategy.py
+        │   └── option_namespace.py
+        ├── pro_config/
+        │   ├── __init__.py
+        │   ├── ipro_config.py
+        │   ├── ipro_name.py
+        │   ├── itemplate_dir.py
+        │   ├── pro_config.py
+        │   ├── pro_name.py
+        │   └── template_dir.py
+        ├── py.typed
+        └── splash/
+            ├── ats_splash.py
+            ├── ext_infrastructure.py
+            ├── github_infrastructure.py
+            ├── iext_infrastructure.py
+            ├── __init__.py
+            ├── iprogress_bar.py
+            ├── isplash.py
+            ├── isplash_screen.py
+            ├── iterminal_properties.py
+            ├── progress_bar.py
+            ├── splash_property.py
+            └── terminal_properties.py
+
     17 directories, 112 files
 ```
 
@@ -252,16 +252,16 @@ Framework structure
 |------|-------|------|-------|
 | `ats_utilities/__init__.py` | 9 | 0 | 100%|
 | `ats_utilities/checker/__init__.py` | 9 | 0 | 100%|
-| `ats_utilities/checker/ats_checker.py` | 49 | 0 | 100%|
-| `ats_utilities/checker/default_check_reporter.py` | 21 | 0 | 100%|
-| `ats_utilities/checker/default_context_provider.py` | 16 | 0 | 100%|
-| `ats_utilities/checker/default_format_validator.py` | 17 | 0 | 100%|
-| `ats_utilities/checker/default_type_validator.py` | 17 | 2 | 88%|
-| `ats_utilities/checker/iats_checker.py` | 26 | 1 | 96%|
+| `ats_utilities/checker/ats_checker.py` | 51 | 0 | 100%|
+| `ats_utilities/checker/check_reporter.py` | 21 | 0 | 100%|
+| `ats_utilities/checker/context_provider.py` | 16 | 0 | 100%|
+| `ats_utilities/checker/format_validator.py` | 17 | 0 | 100%|
 | `ats_utilities/checker/icheck_reporter.py` | 15 | 1 | 93%|
+| `ats_utilities/checker/ichecker.py` | 26 | 1 | 96%|
 | `ats_utilities/checker/icontext_provider.py` | 14 | 1 | 93%|
 | `ats_utilities/checker/iformat_validator.py` | 17 | 2 | 88%|
 | `ats_utilities/checker/itype_validator.py` | 20 | 3 | 85%|
+| `ats_utilities/checker/type_validator.py` | 17 | 2 | 88%|
 | `ats_utilities/cli/__init__.py` | 9 | 0 | 100%|
 | `ats_utilities/cli/ats_cli.py` | 40 | 4 | 90%|
 | `ats_utilities/cli/config_manager.py` | 51 | 0 | 100%|
@@ -270,8 +270,8 @@ Framework structure
 | `ats_utilities/config_io/__init__.py` | 9 | 0 | 100%|
 | `ats_utilities/config_io/cfg/__init__.py` | 9 | 0 | 100%|
 | `ats_utilities/config_io/cfg/cfg2object.py` | 46 | 1 | 98%|
+| `ats_utilities/config_io/cfg/cfg_processor.py` | 27 | 1 | 96%|
 | `ats_utilities/config_io/cfg/cfgbase.py` | 52 | 0 | 100%|
-| `ats_utilities/config_io/cfg/default_cfg_processor.py` | 27 | 1 | 96%|
 | `ats_utilities/config_io/cfg/icfg_processor.py` | 20 | 3 | 85%|
 | `ats_utilities/config_io/cfg/object2cfg.py` | 52 | 0 | 100%|
 | `ats_utilities/config_io/conf_file.py` | 63 | 0 | 100%|
@@ -279,30 +279,30 @@ Framework structure
 | `ats_utilities/config_io/iconf_file.py` | 18 | 2 | 89%|
 | `ats_utilities/config_io/ifile_check.py` | 25 | 4 | 84%|
 | `ats_utilities/config_io/ini/__init__.py` | 9 | 0 | 100%|
-| `ats_utilities/config_io/ini/default_ini_processor.py` | 30 | 8 | 73%|
 | `ats_utilities/config_io/ini/iini_processor.py` | 20 | 3 | 85%|
 | `ats_utilities/config_io/ini/ini2object.py` | 45 | 1 | 98%|
+| `ats_utilities/config_io/ini/ini_processor.py` | 30 | 8 | 73%|
 | `ats_utilities/config_io/ini/inibase.py` | 54 | 0 | 100%|
 | `ats_utilities/config_io/ini/object2ini.py` | 51 | 0 | 100%|
 | `ats_utilities/config_io/iread.py` | 14 | 1 | 93%|
 | `ats_utilities/config_io/iwrite.py` | 14 | 1 | 93%|
 | `ats_utilities/config_io/json/__init__.py` | 9 | 0 | 100%|
-| `ats_utilities/config_io/json/default_json_processor.py` | 24 | 3 | 88%|
 | `ats_utilities/config_io/json/ijson_processor.py` | 20 | 3 | 85%|
 | `ats_utilities/config_io/json/json2object.py` | 46 | 1 | 98%|
+| `ats_utilities/config_io/json/json_processor.py` | 24 | 3 | 88%|
 | `ats_utilities/config_io/json/jsonbase.py` | 52 | 0 | 100%|
 | `ats_utilities/config_io/json/object2json.py` | 51 | 0 | 100%|
 | `ats_utilities/config_io/xml/__init__.py` | 9 | 0 | 100%|
-| `ats_utilities/config_io/xml/default_xml_processor.py` | 33 | 6 | 82%|
 | `ats_utilities/config_io/xml/ixml_processor.py` | 20 | 3 | 85%|
 | `ats_utilities/config_io/xml/object2xml.py` | 53 | 1 | 98%|
 | `ats_utilities/config_io/xml/xml2object.py` | 47 | 0 | 100%|
+| `ats_utilities/config_io/xml/xml_processor.py` | 33 | 6 | 82%|
 | `ats_utilities/config_io/xml/xmlbase.py` | 54 | 0 | 100%|
 | `ats_utilities/config_io/yaml/__init__.py` | 9 | 0 | 100%|
-| `ats_utilities/config_io/yaml/default_yaml_processor.py` | 24 | 3 | 88%|
 | `ats_utilities/config_io/yaml/iyaml_processor.py` | 20 | 3 | 85%|
 | `ats_utilities/config_io/yaml/object2yaml.py` | 51 | 0 | 100%|
 | `ats_utilities/config_io/yaml/yaml2object.py` | 46 | 1 | 98%|
+| `ats_utilities/config_io/yaml/yaml_processor.py` | 24 | 3 | 88%|
 | `ats_utilities/config_io/yaml/yamlbase.py` | 52 | 0 | 100%|
 | `ats_utilities/console_io/__init__.py` | 9 | 0 | 100%|
 | `ats_utilities/console_io/ireporter.py` | 25 | 4 | 84%|
@@ -333,9 +333,9 @@ Framework structure
 | `ats_utilities/info/name.py` | 36 | 0 | 100%|
 | `ats_utilities/info/version.py` | 36 | 0 | 100%|
 | `ats_utilities/logging/__init__.py` | 9 | 0 | 100%|
-| `ats_utilities/logging/ats_logger.py` | 27 | 0 | 100%|
-| `ats_utilities/logging/default_logger.py` | 63 | 5 | 92%|
+| `ats_utilities/logging/ats_logger_manager.py` | 29 | 1 | 97%|
 | `ats_utilities/logging/ilogger.py` | 35 | 1 | 97%|
+| `ats_utilities/logging/logger.py` | 63 | 5 | 92%|
 | `ats_utilities/option/__init__.py` | 9 | 0 | 100%|
 | `ats_utilities/option/ats_option_parser.py` | 46 | 7 | 85%|
 | `ats_utilities/option/ats_parser_strategy.py` | 43 | 8 | 81%|
@@ -350,6 +350,7 @@ Framework structure
 | `ats_utilities/pro_config/pro_name.py` | 38 | 1 | 97%|
 | `ats_utilities/pro_config/template_dir.py` | 38 | 1 | 97%|
 | `ats_utilities/splash/__init__.py` | 9 | 0 | 100%|
+| `ats_utilities/splash/ats_splash.py` | 70 | 0 | 100%|
 | `ats_utilities/splash/ext_infrastructure.py` | 40 | 1 | 98%|
 | `ats_utilities/splash/github_infrastructure.py` | 47 | 1 | 98%|
 | `ats_utilities/splash/iext_infrastructure.py` | 20 | 3 | 85%|
@@ -358,10 +359,9 @@ Framework structure
 | `ats_utilities/splash/isplash_screen.py` | 14 | 1 | 93%|
 | `ats_utilities/splash/iterminal_properties.py` | 20 | 3 | 85%|
 | `ats_utilities/splash/progress_bar.py` | 45 | 2 | 96%|
-| `ats_utilities/splash/splash.py` | 70 | 0 | 100%|
 | `ats_utilities/splash/splash_property.py` | 39 | 1 | 97%|
 | `ats_utilities/splash/terminal_properties.py` | 52 | 1 | 98%|
-| **Total** | 3062 | 158 | 95% |
+| **Total** | 3066 | 159 | 95% |
 
 ### Docs
 

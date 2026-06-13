@@ -21,9 +21,9 @@ Info
 '''
 
 from typing import ClassVar, List, Optional
-from ats_utilities.checker.iats_checker import IATSChecker
+from ats_utilities.checker.ichecker import IATSChecker
 from ats_utilities.checker.ats_checker import ATSChecker
-from ats_utilities.checker.iats_checker import ErrorChecker
+from ats_utilities.checker.ichecker import ErrorChecker
 from ats_utilities.info.ats_info import ATSInfo
 from ats_utilities.option.ioption_parser import IATSOptionParser
 from ats_utilities.option.ats_option_parser import ATSOptionParser
@@ -36,14 +36,14 @@ from ats_utilities.config_io.file_check import FileCheck
 from ats_utilities.option.iparser_strategy import IATSArgParseStrategy
 from ats_utilities.config_io.cfg.cfg2object import Cfg2Object
 from ats_utilities.config_io.cfg.object2cfg import Object2Cfg
-from ats_utilities.config_io.cfg.default_cfg_processor import ATSCFGProcessor
+from ats_utilities.config_io.cfg.cfg_processor import ATSCFGProcessor
 from ats_utilities.config_io.cfg.icfg_processor import ICFGProcessor
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.3.6'
+__version__: str = '3.3.7'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'

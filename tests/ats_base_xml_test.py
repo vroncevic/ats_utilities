@@ -30,7 +30,7 @@ from os.path import dirname
 from ats_utilities.config_io.xml.xmlbase import XmlBase
 from ats_utilities.config_io.iread import IRead
 from ats_utilities.config_io.iwrite import IWrite
-from ats_utilities.checker.iats_checker import IATSChecker
+from ats_utilities.checker.ichecker import IATSChecker
 from ats_utilities.option.ats_option_parser import ATSOptionParser
 from ats_utilities.console_io.ireporter import IATSReporter
 from ats_utilities.console_io.reporter import ATSReporter
@@ -40,7 +40,7 @@ __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.3.6'
+__version__: str = '3.3.7'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'

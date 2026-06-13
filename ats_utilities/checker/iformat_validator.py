@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines abstract class IFormatValidator with attribute(s) and method(s).
+    Defines abstract class IATSFormatValidator with attribute(s) and method(s).
     Creates an interface for validating parameters for method(s) and function(s).
 '''
 
@@ -27,15 +27,15 @@ __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.3.6'
+__version__: str = '3.3.7'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
 
 
-class IFormatValidator(ABC):
+class IATSFormatValidator(ABC):
     '''
-        Defines abstract class IFormatValidator with attribute(s) and method(s).
+        Defines abstract class IATSFormatValidator with attribute(s) and method(s).
         Creates an interface for validating parameters for method(s) and function(s).
 
         It defines:
@@ -57,7 +57,7 @@ class IFormatValidator(ABC):
             :rtype: <bool>
             :exceptions: NotImplementedError
         '''
-        raise NotImplementedError("Method is_valid() must be implement")
+        raise NotImplementedError("Method is_valid() must be implemented.")
 
     @abstractmethod
     def split(self, exp_type: str) -> Tuple[str, str]:
@@ -70,4 +70,4 @@ class IFormatValidator(ABC):
             :rtype: <Tuple[str, str]>
             :exceptions: NotImplementedError
         '''
-        raise NotImplementedError("Method split() must be implement")
+        raise NotImplementedError("Method split() must be implemented.")
