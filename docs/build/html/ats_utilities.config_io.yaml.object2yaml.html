@@ -110,31 +110,6 @@ Conversion of Python object to YAML content.</p>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="ats_utilities.config_io.yaml.object2yaml.Object2Yaml.__checker">
-<span class="sig-name descname"><span class="pre">__checker</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="ats_utilities.checker.iats_checker.html#ats_utilities.checker.iats_checker.IATSChecker" title="ats_utilities.checker.iats_checker.IATSChecker"><span class="pre">IATSChecker</span></a></em><a class="headerlink" href="#ats_utilities.config_io.yaml.object2yaml.Object2Yaml.__checker" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="ats_utilities.config_io.yaml.object2yaml.Object2Yaml.__file_checker">
-<span class="sig-name descname"><span class="pre">__file_checker</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="ats_utilities.config_io.ifile_check.html#ats_utilities.config_io.ifile_check.IFileCheck" title="ats_utilities.config_io.ifile_check.IFileCheck"><span class="pre">IFileCheck</span></a></em><a class="headerlink" href="#ats_utilities.config_io.yaml.object2yaml.Object2Yaml.__file_checker" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="ats_utilities.config_io.yaml.object2yaml.Object2Yaml.__file_path">
-<span class="sig-name descname"><span class="pre">__file_path</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#ats_utilities.config_io.yaml.object2yaml.Object2Yaml.__file_path" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="ats_utilities.config_io.yaml.object2yaml.Object2Yaml.__reporter">
-<span class="sig-name descname"><span class="pre">__reporter</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="ats_utilities.console_io.ireporter.html#ats_utilities.console_io.ireporter.IATSReporter" title="ats_utilities.console_io.ireporter.IATSReporter"><span class="pre">IATSReporter</span></a></em><a class="headerlink" href="#ats_utilities.config_io.yaml.object2yaml.Object2Yaml.__reporter" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="ats_utilities.config_io.yaml.object2yaml.Object2Yaml.__verbose">
-<span class="sig-name descname"><span class="pre">__verbose</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#ats_utilities.config_io.yaml.object2yaml.Object2Yaml.__verbose" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
 <dt class="sig sig-object py" id="ats_utilities.config_io.yaml.object2yaml.Object2Yaml._abc_impl">
 <span class="sig-name descname"><span class="pre">_abc_impl</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;_abc._abc_data</span> <span class="pre">object&gt;</span></em><a class="headerlink" href="#ats_utilities.config_io.yaml.object2yaml.Object2Yaml._abc_impl" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -147,20 +122,17 @@ Conversion of Python object to YAML content.</p>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>verbose</strong> (<em>&lt;bool&gt;</em>) – Enable/Disable verbose option</p></li>
-<li><p><strong>config</strong> – Configuration object | None</p></li>
+<li><p><strong>config</strong> (<em>&lt;Optional</em><em>[</em><a class="reference internal" href="ats_utilities.config_io.yaml.iyaml_processor.html#ats_utilities.config_io.yaml.iyaml_processor.IYAMLProcessor" title="ats_utilities.config_io.yaml.iyaml_processor.IYAMLProcessor"><em>IYAMLProcessor</em></a><em>]</em><em>&gt;</em>) – Configuration object | None</p></li>
 </ul>
 </dd>
-<dt class="field-even">Type<span class="colon">:</span></dt>
-<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">IYAMLProcessor</span></code></p>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>True (configuration written to the file) | False</p>
 </dd>
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>True (configuration written to the file) | False</p>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>&lt;bool&gt;</p>
 </dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>&lt;bool&gt;</p>
-</dd>
-<dt class="field-odd">Exception<span class="colon">:</span></dt>
-<dd class="field-odd"><p>ATSTypeError</p>
+<dt class="field-even">Exception<span class="colon">:</span></dt>
+<dd class="field-even"><p>ATSTypeError</p>
 </dd>
 </dl>
 </dd></dl>
@@ -184,11 +156,6 @@ Conversion of Python object to YAML content.</p>
 <li><a class="reference internal" href="#ats_utilities.config_io.yaml.object2yaml.Object2Yaml.ERRORS"><code class="docutils literal notranslate"><span class="pre">Object2Yaml.ERRORS</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.config_io.yaml.object2yaml.Object2Yaml.__EXT"><code class="docutils literal notranslate"><span class="pre">Object2Yaml.__EXT</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.config_io.yaml.object2yaml.Object2Yaml.__MODE"><code class="docutils literal notranslate"><span class="pre">Object2Yaml.__MODE</span></code></a></li>
-<li><a class="reference internal" href="#ats_utilities.config_io.yaml.object2yaml.Object2Yaml.__checker"><code class="docutils literal notranslate"><span class="pre">Object2Yaml.__checker</span></code></a></li>
-<li><a class="reference internal" href="#ats_utilities.config_io.yaml.object2yaml.Object2Yaml.__file_checker"><code class="docutils literal notranslate"><span class="pre">Object2Yaml.__file_checker</span></code></a></li>
-<li><a class="reference internal" href="#ats_utilities.config_io.yaml.object2yaml.Object2Yaml.__file_path"><code class="docutils literal notranslate"><span class="pre">Object2Yaml.__file_path</span></code></a></li>
-<li><a class="reference internal" href="#ats_utilities.config_io.yaml.object2yaml.Object2Yaml.__reporter"><code class="docutils literal notranslate"><span class="pre">Object2Yaml.__reporter</span></code></a></li>
-<li><a class="reference internal" href="#ats_utilities.config_io.yaml.object2yaml.Object2Yaml.__verbose"><code class="docutils literal notranslate"><span class="pre">Object2Yaml.__verbose</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.config_io.yaml.object2yaml.Object2Yaml._abc_impl"><code class="docutils literal notranslate"><span class="pre">Object2Yaml._abc_impl</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.config_io.yaml.object2yaml.Object2Yaml.write_configuration"><code class="docutils literal notranslate"><span class="pre">Object2Yaml.write_configuration()</span></code></a></li>
 </ul>

@@ -21,17 +21,23 @@ Info
 '''
 
 from typing import ClassVar, List, Optional
-from ats_utilities.checker import IATSChecker, ATSChecker, ErrorChecker
-from ats_utilities.console_io import IATSReporter, ATSReporter
-from ats_utilities.exceptions import ATSTypeError
-from ats_utilities.config_io import IWrite, ConfFile, IFileCheck, FileCheck
-from .ijson_processor import IJSONProcessor
+from ats_utilities.checker.iats_checker import IATSChecker
+from ats_utilities.checker.ats_checker import ATSChecker
+from ats_utilities.checker.iats_checker import ErrorChecker
+from ats_utilities.console_io.ireporter import IATSReporter
+from ats_utilities.console_io.reporter import ATSReporter
+from ats_utilities.exceptions.ats_type_error import ATSTypeError
+from ats_utilities.config_io.iwrite import IWrite
+from ats_utilities.config_io.conf_file import ConfFile
+from ats_utilities.config_io.ifile_check import IFileCheck
+from ats_utilities.config_io.file_check import FileCheck
+from ats_utilities.config_io.json.ijson_processor import IJSONProcessor
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.3.5'
+__version__: str = '3.3.6'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
@@ -68,16 +74,16 @@ class Object2Json(IWrite):
         verbose: bool = False
     ) -> None:
         '''
-            Initials Object2Cfg constructor.
+            Initials Object2Json constructor.
 
             :param config_file: Configuration file path | None
             :type config_file: <Optional[str]>
             :param checker: ATSChecker for check operations | None
-            :type checker: :class:`~ats_utilities.checker.IATSChecker`
+            :type checker: <Optional[IATSChecker]>
             :param reporter: ATSReporter for check operations | None
-            :type reporter: :class:`~ats_utilities.console_io.iats_reporter.IATSReporter`
+            :type reporter: <Optional[IATSReporter]>
             :param file_checker: FileCheck for checking file | None
-            :type file_checker: :class:`~ats_utilities.config_io.ifile_check.IFileCheck`
+            :type file_checker: <Optional[IFileCheck]>
             :param verbose: Enable/Disable verbose option
             :type verbose: <bool>
             :exceptions: ATSTypeError
@@ -101,13 +107,13 @@ class Object2Json(IWrite):
         '''
             Writes configuration to a JSON file.
 
+            :param config: Configuration object | None
+            :type config: <Optional[IJSONProcessor]>
             :param verbose: Enable/Disable verbose option
             :type verbose: <bool>
-            :param config: Configuration object
-            :type: :class:`~ats_utilities.config_io.json.ijson_processor.IJSONProcessor`
             :return: True (configuration written to file) | False
             :rtype: <bool>
-            :exception: ATSTypeError
+            :exceptions: ATSTypeError
         '''
         status: bool = False
         error_msg: Optional[str] = None

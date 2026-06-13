@@ -58,22 +58,22 @@
 <span class="sd">    Defines class ATSINIProcessor with attribute(s) and method(s).</span>
 <span class="sd">    Default implementation for processing INI content.</span>
 <span class="sd">&#39;&#39;&#39;</span>
-<span class="kn">from</span> <span class="nn">configparser</span> <span class="kn">import</span> <span class="n">ConfigParser</span>
+<span class="kn">from</span> <span class="nn">configparser</span> <span class="kn">import</span> <span class="n">ConfigParser</span><span class="p">,</span> <span class="n">Error</span> <span class="k">as</span> <span class="n">ConfigParserError</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Dict</span>
-<span class="kn">from</span> <span class="nn">.iini_processor</span> <span class="kn">import</span> <span class="n">IINIProcessor</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.config_io.ini.iini_processor</span> <span class="kn">import</span> <span class="n">IINIProcessor</span>
 
 <span class="n">__author__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;Vladimir Roncevic&#39;</span>
 <span class="n">__copyright__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;(C) 2026, https://vroncevic.github.io/ats_utilities&#39;</span>
 <span class="n">__credits__</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Vladimir Roncevic&#39;</span><span class="p">,</span> <span class="s1">&#39;Python Software Foundation&#39;</span><span class="p">]</span>
 <span class="n">__license__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE&#39;</span>
-<span class="n">__version__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;3.3.5&#39;</span>
+<span class="n">__version__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;3.3.6&#39;</span>
 <span class="n">__maintainer__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;Vladimir Roncevic&#39;</span>
 <span class="n">__email__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;elektron.ronca@gmail.com&#39;</span>
 <span class="n">__status__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;Updated&#39;</span>
 
 
 <div class="viewcode-block" id="ATSINIProcessor">
-<a class="viewcode-back" href="../../../../ats_utilities.config_io.ini.default_ini_processor.html#ats_utilities.config_io.ini.ATSINIProcessor">[docs]</a>
+<a class="viewcode-back" href="../../../../ats_utilities.config_io.ini.default_ini_processor.html#ats_utilities.config_io.ini.default_ini_processor.ATSINIProcessor">[docs]</a>
 <span class="k">class</span> <span class="nc">ATSINIProcessor</span><span class="p">(</span><span class="n">IINIProcessor</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Defines class ATSINIProcessor with attribute(s) and method(s).</span>
@@ -97,7 +97,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">__config</span> <span class="o">=</span> <span class="n">ConfigParser</span><span class="p">()</span>
 
 <div class="viewcode-block" id="ATSINIProcessor.from_stream">
-<a class="viewcode-back" href="../../../../ats_utilities.config_io.ini.default_ini_processor.html#ats_utilities.config_io.ini.ATSINIProcessor.from_stream">[docs]</a>
+<a class="viewcode-back" href="../../../../ats_utilities.config_io.ini.default_ini_processor.html#ats_utilities.config_io.ini.default_ini_processor.ATSINIProcessor.from_stream">[docs]</a>
     <span class="k">def</span> <span class="nf">from_stream</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">stream</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Load INI content from a stream.</span>
@@ -111,12 +111,12 @@
         <span class="k">try</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">__config</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="n">stream</span><span class="p">)</span>
             <span class="k">return</span> <span class="kc">True</span>
-        <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+        <span class="k">except</span> <span class="p">(</span><span class="ne">OSError</span><span class="p">,</span> <span class="n">ConfigParserError</span><span class="p">):</span>
             <span class="k">return</span> <span class="kc">False</span></div>
 
 
 <div class="viewcode-block" id="ATSINIProcessor.to_stream">
-<a class="viewcode-back" href="../../../../ats_utilities.config_io.ini.default_ini_processor.html#ats_utilities.config_io.ini.ATSINIProcessor.to_stream">[docs]</a>
+<a class="viewcode-back" href="../../../../ats_utilities.config_io.ini.default_ini_processor.html#ats_utilities.config_io.ini.default_ini_processor.ATSINIProcessor.to_stream">[docs]</a>
     <span class="k">def</span> <span class="nf">to_stream</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">stream</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Write INI content to a stream.</span>
@@ -130,12 +130,12 @@
         <span class="k">try</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">__config</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">stream</span><span class="p">,</span> <span class="n">space_around_delimiters</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
             <span class="k">return</span> <span class="kc">True</span>
-        <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+        <span class="k">except</span> <span class="p">(</span><span class="ne">OSError</span><span class="p">,</span> <span class="n">ConfigParserError</span><span class="p">):</span>
             <span class="k">return</span> <span class="kc">False</span></div>
 
 
 <div class="viewcode-block" id="ATSINIProcessor.get_ats_info">
-<a class="viewcode-back" href="../../../../ats_utilities.config_io.ini.default_ini_processor.html#ats_utilities.config_io.ini.ATSINIProcessor.get_ats_info">[docs]</a>
+<a class="viewcode-back" href="../../../../ats_utilities.config_io.ini.default_ini_processor.html#ats_utilities.config_io.ini.default_ini_processor.ATSINIProcessor.get_ats_info">[docs]</a>
     <span class="k">def</span> <span class="nf">get_ats_info</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Get ATS information from INI.</span>

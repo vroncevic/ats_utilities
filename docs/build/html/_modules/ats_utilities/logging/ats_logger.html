@@ -61,21 +61,21 @@
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.console_io.ireporter</span> <span class="kn">import</span> <span class="n">IATSReporter</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.console_io.reporter</span> <span class="kn">import</span> <span class="n">ATSReporter</span>
-<span class="kn">from</span> <span class="nn">.ilogger</span> <span class="kn">import</span> <span class="n">IATSLogger</span>
-<span class="kn">from</span> <span class="nn">.default_logger</span> <span class="kn">import</span> <span class="n">DefaultLogger</span><span class="p">,</span> <span class="n">DefaultLogLevels</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.logging.ilogger</span> <span class="kn">import</span> <span class="n">IATSLogger</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.logging.default_logger</span> <span class="kn">import</span> <span class="n">DefaultLogger</span><span class="p">,</span> <span class="n">DefaultLogLevels</span>
 
 <span class="n">__author__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;Vladimir Roncevic&#39;</span>
 <span class="n">__copyright__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;(C) 2026, https://vroncevic.github.io/ats_utilities&#39;</span>
 <span class="n">__credits__</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Vladimir Roncevic&#39;</span><span class="p">,</span> <span class="s1">&#39;Python Software Foundation&#39;</span><span class="p">]</span>
 <span class="n">__license__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE&#39;</span>
-<span class="n">__version__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;3.3.5&#39;</span>
+<span class="n">__version__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;3.3.6&#39;</span>
 <span class="n">__maintainer__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;Vladimir Roncevic&#39;</span>
 <span class="n">__email__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;elektron.ronca@gmail.com&#39;</span>
 <span class="n">__status__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;Updated&#39;</span>
 
 
 <div class="viewcode-block" id="ATSLogger">
-<a class="viewcode-back" href="../../../ats_utilities.logging.ats_logger.html#ats_utilities.logging.ATSLogger">[docs]</a>
+<a class="viewcode-back" href="../../../ats_utilities.logging.ats_logger.html#ats_utilities.logging.ats_logger.ATSLogger">[docs]</a>
 <span class="k">class</span> <span class="nc">ATSLogger</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Defines class ATSLogger with attribute(s) and method(s).</span>
@@ -122,10 +122,10 @@
 <span class="sd">            :type ats_log_stdout: &lt;bool&gt;</span>
 <span class="sd">            :param ats_log_file: Log to file (default None)</span>
 <span class="sd">            :type ats_log_file: &lt;Optional[str]&gt;</span>
-<span class="sd">            :param logger_instance: Pre-configured Logger instance</span>
-<span class="sd">            :type logger_instance: :class:`~ats_utilities.logging.ilogger.IATSLogger`</span>
+<span class="sd">            :param logger_instance: Pre-configured Logger instance | None</span>
+<span class="sd">            :type logger_instance: &lt;Optional[IATSLogger]&gt;</span>
 <span class="sd">            :param reporter: ATSReporter for check operations | None</span>
-<span class="sd">            :type reporter: :class:`~ats_utilities.console_io.iats_reporter.IATSReporter`</span>
+<span class="sd">            :type reporter: &lt;Optional[IATSReporter]&gt;</span>
 <span class="sd">            :param verbose: Enable/Disable verbose option</span>
 <span class="sd">            :type verbose: &lt;bool&gt;</span>
 <span class="sd">            :exceptions: None</span>
@@ -138,7 +138,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">__reporter</span><span class="o">.</span><span class="n">verbose</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__verbose</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;init ATS logger&#39;</span><span class="p">])</span>
 
 <div class="viewcode-block" id="ATSLogger.write_log">
-<a class="viewcode-back" href="../../../ats_utilities.logging.ats_logger.html#ats_utilities.logging.ATSLogger.write_log">[docs]</a>
+<a class="viewcode-back" href="../../../ats_utilities.logging.ats_logger.html#ats_utilities.logging.ats_logger.ATSLogger.write_log">[docs]</a>
     <span class="k">def</span> <span class="nf">write_log</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">ctrl</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">verbose</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Writes message to log output.</span>

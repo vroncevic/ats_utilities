@@ -20,15 +20,15 @@ Info
     Defines class ATSINIProcessor with attribute(s) and method(s).
     Default implementation for processing INI content.
 '''
-from configparser import ConfigParser
+from configparser import ConfigParser, Error as ConfigParserError
 from typing import Any, Dict
-from .iini_processor import IINIProcessor
+from ats_utilities.config_io.ini.iini_processor import IINIProcessor
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.3.5'
+__version__: str = '3.3.6'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
@@ -69,7 +69,7 @@ class ATSINIProcessor(IINIProcessor):
         try:
             self.__config.read_file(stream)
             return True
-        except Exception:
+        except (OSError, ConfigParserError):
             return False
 
     def to_stream(self, stream: Any) -> bool:
@@ -85,7 +85,7 @@ class ATSINIProcessor(IINIProcessor):
         try:
             self.__config.write(stream, space_around_delimiters=True)
             return True
-        except Exception:
+        except (OSError, ConfigParserError):
             return False
 
     def get_ats_info(self) -> Dict[str, str]:

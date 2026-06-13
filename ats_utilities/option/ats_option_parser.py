@@ -21,18 +21,23 @@ Info
 '''
 
 from typing import Any, ClassVar, List, Dict, Optional
-from ats_utilities.checker import IATSChecker, ATSChecker, ErrorChecker
-from ats_utilities.console_io import IATSReporter, ATSReporter
-from ats_utilities.exceptions import ATSTypeError
-from .ioption_parser import IATSOptionParser, OptionNamespace, OptArgs
-from .iparser_strategy import IATSArgParseStrategy
-from .ats_parser_strategy import ATSArgParseStrategy
+from ats_utilities.checker.iats_checker import IATSChecker
+from ats_utilities.checker.ats_checker import ATSChecker
+from ats_utilities.checker.iats_checker import ErrorChecker
+from ats_utilities.console_io.ireporter import IATSReporter
+from ats_utilities.console_io.reporter import ATSReporter
+from ats_utilities.exceptions.ats_type_error import ATSTypeError
+from ats_utilities.option.ioption_parser import IATSOptionParser
+from ats_utilities.option.option_namespace import OptionNamespace
+from ats_utilities.option.option_namespace import OptArgs
+from ats_utilities.option.iparser_strategy import IATSArgParseStrategy
+from ats_utilities.option.ats_parser_strategy import ATSArgParseStrategy
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.3.5'
+__version__: str = '3.3.6'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
@@ -70,14 +75,16 @@ class ATSOptionParser(IATSOptionParser):
         verbose: bool = False
     ) -> None:
         '''
-            Initials ATSDefaultOptionParser constructor.
+            Initials ATSOptionParser constructor.
 
             :param parameters: Parameters for logger
             :type parameters: <Dict[str, str]>
+            :param strategy: Strategy for argument parsing | None
+            :type strategy: <Optional[IATSArgParseStrategy]>
             :param checker: Parameters checker instance | None
-            :type checker: :class:`~ats_utilities.checker.IATSChecker`
+            :type checker: <Optional[IATSChecker]>
             :param reporter: ATSReporter for outputting messages | None 
-            :type reporter: :class:`~ats_utilities.console_io.iats_reporter.IATSReporter`
+            :type reporter: <Optional[IATSReporter]>
             :param verbose: Enable/Disable verbose option
             :type verbose: <bool>
             :exceptions: ATSTypeError
@@ -112,7 +119,7 @@ class ATSOptionParser(IATSOptionParser):
             Adds version option to the ATS parser.
 
             :param version: The ATS version
-            :type version: <str>
+            :type version: <Optional[str]>
             :param verbose: Enable/Disable verbose option
             :type verbose: <bool>
             :exceptions: None
@@ -125,11 +132,11 @@ class ATSOptionParser(IATSOptionParser):
             Processes arguments from the start.
 
             :param arguments: Sequence of arguments | None
-            :type arguments: :class:`~ats_utilities.option.option_namespace.OptArgs`
+            :type arguments: <OptArgs>
             :param verbose: Enable/Disable verbose option
             :type verbose: <bool>
             :return: Option namespace object
-            :rtype: :class:`~ats_utilities.option.option_namespace.OptionNamespace`
+            :rtype: <OptionNamespace>
             :exceptions: None
         '''
         args = self.__strategy.parse(arguments, known_only=False)
@@ -141,11 +148,11 @@ class ATSOptionParser(IATSOptionParser):
             Processes arguments from the start.
 
             :param arguments: Sequence of arguments | None
-            :type arguments: :class:`~ats_utilities.option.option_namespace.OptArgs`
+            :type arguments: <OptArgs>
             :param verbose: Enable/Disable verbose option
             :type verbose: <bool>
             :return: Option namespace object
-            :rtype: :class:`~ats_utilities.option.option_namespace.OptionNamespace`
+            :rtype: <OptionNamespace>
             :exceptions: None
         '''
         args = self.__strategy.parse(arguments, known_only=True)

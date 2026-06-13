@@ -21,22 +21,29 @@ Info
 '''
 
 from typing import ClassVar, Dict, List, Optional
-from ats_utilities.checker import IATSChecker, ATSChecker, ErrorChecker
-from ats_utilities.info import ATSInfo
-from ats_utilities.option import IATSOptionParser, ATSOptionParser
-from ats_utilities.console_io import IATSReporter, ATSReporter
-from ats_utilities.config_io import IRead, IWrite, IFileCheck, FileCheck
-from ats_utilities.option import IATSArgParseStrategy
-from .xml2object import Xml2Object
-from .object2xml import Object2Xml
-from .ixml_processor import IXMLProcessor
-from .default_xml_processor import ATSXmlProcessor
+from ats_utilities.checker.iats_checker import IATSChecker
+from ats_utilities.checker.ats_checker import ATSChecker
+from ats_utilities.checker.iats_checker import ErrorChecker
+from ats_utilities.info.ats_info import ATSInfo
+from ats_utilities.option.ioption_parser import IATSOptionParser
+from ats_utilities.option.ats_option_parser import ATSOptionParser
+from ats_utilities.console_io.ireporter import IATSReporter
+from ats_utilities.console_io.reporter import ATSReporter
+from ats_utilities.config_io.iread import IRead
+from ats_utilities.config_io.iwrite import IWrite
+from ats_utilities.config_io.ifile_check import IFileCheck
+from ats_utilities.config_io.file_check import FileCheck
+from ats_utilities.option.iparser_strategy import IATSArgParseStrategy
+from ats_utilities.config_io.xml.xml2object import Xml2Object
+from ats_utilities.config_io.xml.object2xml import Object2Xml
+from ats_utilities.config_io.xml.ixml_processor import IXMLProcessor
+from ats_utilities.config_io.xml.default_xml_processor import ATSXmlProcessor
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.3.5'
+__version__: str = '3.3.6'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
@@ -85,17 +92,17 @@ class XmlBase:
             :param info_file: Path to the info file | None
             :type info_file: <Optional[str]>
             :param xml2obj: In API for information (Dependency Injected)
-            :type xml2obj: :class:`~ats_utilities.config_io.iread.IRead`
+            :type xml2obj: <Optional[IRead]>
             :param obj2xml: Out API for information (Dependency Injected)
-            :type obj2xml: :class:`~ats_utilities.config_io.iwrite.IWrite`
+            :type obj2xml: <Optional[IWrite]>
             :param options_parser: Option parser for ATS | None
-            :type options_parser: :class:`~ats_utilities.option.ioption_parser.IATSOptionParser`
+            :type options_parser: <Optional[IATSOptionParser]>
             :param checker: Error checker | None
-            :type checker: :class:`~ats_utilities.checker.IATSChecker`
+            :type checker: <Optional[IATSChecker]>
             :param reporter: ATSReporter for check operations | None
-            :type reporter: :class:`~ats_utilities.console_io.iats_reporter.IATSReporter`
+            :type reporter: <Optional[IATSReporter]>
             :param file_checker: FileCheck for checking file | None
-            :type file_checker: :class:`~ats_utilities.config_io.ifile_check.IFileCheck`
+            :type file_checker: <Optional[IFileCheck]>
             :param verbose: Enable/Disable verbose option
             :type verbose: <bool>
             :exceptions: None
@@ -106,6 +113,7 @@ class XmlBase:
         self.__file_checker: IFileCheck = file_checker or FileCheck(
             self.__checker, self.__reporter, verbose
         )
+        self.__option_parser: Optional[IATSOptionParser] = None
 
         # Dependency Injection for Xml2Object and Object2Xml or use defaults if not provided
         self.__xml2obj: Optional[IRead] = xml2obj or Xml2Object(
@@ -129,7 +137,7 @@ class XmlBase:
             if info.ats_info_ok:
                 # Dependecy injection for option parser or use default if not provided
                 # Dependecy injection for argument strategy
-                self.__option_parser: IATSOptionParser = options_parser or ATSOptionParser(
+                self.__option_parser = options_parser or ATSOptionParser(
                     info_dict, strategy, self.__checker, self.__reporter, verbose
                 )
                 self.__option_parser.add_version_operation(info.version)
@@ -137,12 +145,12 @@ class XmlBase:
                 self.__reporter.verbose(self.__verbose, ['loaded ATS XML info'])
 
     @property
-    def option_parser(self) -> IATSOptionParser:
+    def option_parser(self) -> Optional[IATSOptionParser]:
         '''
             Option parser for ATS.
 
             :return: Option parser for ATS
-            :rtype: :class:`~ats_utilities.option.ioption_parser.IATSOptionParser`
+            :rtype: <Optional[IATSOptionParser]>
             :exceptions: None
         '''
         return self.__option_parser

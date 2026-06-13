@@ -25,15 +25,15 @@ Execute
 from typing import List, Dict
 from unittest import TestCase, main, mock
 from os.path import dirname
-from ats_utilities.config_io.cfg import Object2Cfg
+from ats_utilities.config_io.cfg.object2cfg import Object2Cfg
 from ats_utilities.config_io.cfg.icfg_processor import ICFGProcessor as BaseICFGProcessor
-from ats_utilities.exceptions import ATSTypeError
+from ats_utilities.exceptions.ats_type_error import ATSTypeError
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.3.5'
+__version__: str = '3.3.6'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'

@@ -27,7 +27,7 @@ __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.3.5'
+__version__: str = '3.3.6'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
@@ -57,7 +57,7 @@ class IFormatValidator(ABC):
             :rtype: <bool>
             :exceptions: NotImplementedError
         '''
-        raise NotImplementedError('is_valid method must be implemented by subclasses')
+        raise NotImplementedError("Method is_valid() must be implement")
 
     @abstractmethod
     def split(self, exp_type: str) -> Tuple[str, str]:
@@ -70,4 +70,4 @@ class IFormatValidator(ABC):
             :rtype: <Tuple[str, str]>
             :exceptions: NotImplementedError
         '''
-        raise NotImplementedError('split method must be implemented by subclasses')
+        raise NotImplementedError("Method split() must be implement")

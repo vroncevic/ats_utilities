@@ -60,23 +60,29 @@
 
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">ClassVar</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Optional</span>
 <span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.checker</span> <span class="kn">import</span> <span class="n">IATSChecker</span><span class="p">,</span> <span class="n">ATSChecker</span><span class="p">,</span> <span class="n">ErrorChecker</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.console_io</span> <span class="kn">import</span> <span class="n">IATSReporter</span><span class="p">,</span> <span class="n">ATSReporter</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.exceptions</span> <span class="kn">import</span> <span class="n">ATSTypeError</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.info</span> <span class="kn">import</span> <span class="n">ATSName</span><span class="p">,</span> <span class="n">ATSVersion</span><span class="p">,</span> <span class="n">ATSLicence</span><span class="p">,</span> <span class="n">ATSBuildDate</span><span class="p">,</span> <span class="n">ATSInfoOk</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.checker.iats_checker</span> <span class="kn">import</span> <span class="n">IATSChecker</span><span class="p">,</span> <span class="n">ErrorChecker</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.checker.ats_checker</span> <span class="kn">import</span> <span class="n">ATSChecker</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.console_io.ireporter</span> <span class="kn">import</span> <span class="n">IATSReporter</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.console_io.reporter</span> <span class="kn">import</span> <span class="n">ATSReporter</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.exceptions.ats_type_error</span> <span class="kn">import</span> <span class="n">ATSTypeError</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.info.name</span> <span class="kn">import</span> <span class="n">ATSName</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.info.version</span> <span class="kn">import</span> <span class="n">ATSVersion</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.info.licence</span> <span class="kn">import</span> <span class="n">ATSLicence</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.info.build_date</span> <span class="kn">import</span> <span class="n">ATSBuildDate</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.info.info_ok</span> <span class="kn">import</span> <span class="n">ATSInfoOk</span>
 
 <span class="n">__author__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;Vladimir Roncevic&#39;</span>
 <span class="n">__copyright__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;(C) 2026, https://vroncevic.github.io/ats_utilities&#39;</span>
 <span class="n">__credits__</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Vladimir Roncevic&#39;</span><span class="p">,</span> <span class="s1">&#39;Python Software Foundation&#39;</span><span class="p">]</span>
 <span class="n">__license__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE&#39;</span>
-<span class="n">__version__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;3.3.5&#39;</span>
+<span class="n">__version__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;3.3.6&#39;</span>
 <span class="n">__maintainer__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;Vladimir Roncevic&#39;</span>
 <span class="n">__email__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;elektron.ronca@gmail.com&#39;</span>
 <span class="n">__status__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;Updated&#39;</span>
 
 
 <div class="viewcode-block" id="ATSInfo">
-<a class="viewcode-back" href="../../../ats_utilities.info.ats_info.html#ats_utilities.info.ATSInfo">[docs]</a>
+<a class="viewcode-back" href="../../../ats_utilities.info.ats_info.html#ats_utilities.info.ats_info.ATSInfo">[docs]</a>
 <span class="k">class</span> <span class="nc">ATSInfo</span><span class="p">(</span><span class="n">ATSName</span><span class="p">,</span> <span class="n">ATSVersion</span><span class="p">,</span> <span class="n">ATSLicence</span><span class="p">,</span> <span class="n">ATSBuildDate</span><span class="p">,</span> <span class="n">ATSInfoOk</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Defines class ATSInfo with attribute(s) and method(s).</span>
@@ -126,9 +132,9 @@
 <span class="sd">            :param info: The ATS basic information</span>
 <span class="sd">            :type info: &lt;Dict[Any, Any]&gt;</span>
 <span class="sd">            :param checker: Error checker | None</span>
-<span class="sd">            :type checker: :class:`~ats_utilities.checker.IATSChecker`</span>
+<span class="sd">            :type checker: &lt;Optional[IATSChecker]&gt;</span>
 <span class="sd">            :param reporter: ATSReporter for check operations | None</span>
-<span class="sd">            :type reporter: :class:`~ats_utilities.console_io.iats_reporter.IATSReporter`</span>
+<span class="sd">            :type reporter: &lt;Optional[IATSReporter]&gt;</span>
 <span class="sd">            :param verbose: Enable/Disable verbose option</span>
 <span class="sd">            :type verbose: &lt;bool&gt;</span>
 <span class="sd">            :exceptions: None</span>
@@ -150,7 +156,7 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">ats_info_ok</span> <span class="o">=</span> <span class="kc">True</span>
 
 <div class="viewcode-block" id="ATSInfo.show_base_info">
-<a class="viewcode-back" href="../../../ats_utilities.info.ats_info.html#ats_utilities.info.ATSInfo.show_base_info">[docs]</a>
+<a class="viewcode-back" href="../../../ats_utilities.info.ats_info.html#ats_utilities.info.ats_info.ATSInfo.show_base_info">[docs]</a>
     <span class="k">def</span> <span class="nf">show_base_info</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Shows ATS information.</span>
@@ -162,7 +168,7 @@
 
 
 <div class="viewcode-block" id="ATSInfo.is_correct">
-<a class="viewcode-back" href="../../../ats_utilities.info.ats_info.html#ats_utilities.info.ATSInfo.is_correct">[docs]</a>
+<a class="viewcode-back" href="../../../ats_utilities.info.ats_info.html#ats_utilities.info.ats_info.ATSInfo.is_correct">[docs]</a>
     <span class="k">def</span> <span class="nf">is_correct</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">info</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span> <span class="n">verbose</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Checks information structure.</span>

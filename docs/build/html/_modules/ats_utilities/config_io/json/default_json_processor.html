@@ -59,19 +59,19 @@
 <span class="sd">&#39;&#39;&#39;</span>
 <span class="kn">import</span> <span class="nn">json</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span>
-<span class="kn">from</span> <span class="nn">.ijson_processor</span> <span class="kn">import</span> <span class="n">IJSONProcessor</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.config_io.json.ijson_processor</span> <span class="kn">import</span> <span class="n">IJSONProcessor</span>
 
 <span class="n">__author__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;Vladimir Roncevic&#39;</span>
 <span class="n">__copyright__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;(C) 2026, https://vroncevic.github.io/ats_utilities&#39;</span>
 <span class="n">__credits__</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Vladimir Roncevic&#39;</span><span class="p">,</span> <span class="s1">&#39;Python Software Foundation&#39;</span><span class="p">]</span>
 <span class="n">__license__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE&#39;</span>
-<span class="n">__version__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;3.3.5&#39;</span>
+<span class="n">__version__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;3.3.6&#39;</span>
 <span class="n">__maintainer__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;Vladimir Roncevic&#39;</span>
 <span class="n">__email__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;elektron.ronca@gmail.com&#39;</span>
 <span class="n">__status__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;Updated&#39;</span>
 
 <div class="viewcode-block" id="ATSJSONProcessor">
-<a class="viewcode-back" href="../../../../ats_utilities.config_io.json.default_json_processor.html#ats_utilities.config_io.json.ATSJSONProcessor">[docs]</a>
+<a class="viewcode-back" href="../../../../ats_utilities.config_io.json.default_json_processor.html#ats_utilities.config_io.json.default_json_processor.ATSJSONProcessor">[docs]</a>
 <span class="k">class</span> <span class="nc">ATSJSONProcessor</span><span class="p">(</span><span class="n">IJSONProcessor</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Defines class ATSJSONProcessor with attribute(s) and method(s).</span>
@@ -95,7 +95,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">__data</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
 
 <div class="viewcode-block" id="ATSJSONProcessor.decode">
-<a class="viewcode-back" href="../../../../ats_utilities.config_io.json.default_json_processor.html#ats_utilities.config_io.json.ATSJSONProcessor.decode">[docs]</a>
+<a class="viewcode-back" href="../../../../ats_utilities.config_io.json.default_json_processor.html#ats_utilities.config_io.json.default_json_processor.ATSJSONProcessor.decode">[docs]</a>
     <span class="k">def</span> <span class="nf">decode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">json_string</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Convert raw JSON text to an internal object/structure.</span>
@@ -113,7 +113,7 @@
 
 
 <div class="viewcode-block" id="ATSJSONProcessor.encode">
-<a class="viewcode-back" href="../../../../ats_utilities.config_io.json.default_json_processor.html#ats_utilities.config_io.json.ATSJSONProcessor.encode">[docs]</a>
+<a class="viewcode-back" href="../../../../ats_utilities.config_io.json.default_json_processor.html#ats_utilities.config_io.json.default_json_processor.ATSJSONProcessor.encode">[docs]</a>
     <span class="k">def</span> <span class="nf">encode</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Convert an internal object/structure back to a JSON string.</span>
@@ -125,7 +125,7 @@
 
 
 <div class="viewcode-block" id="ATSJSONProcessor.to_dict">
-<a class="viewcode-back" href="../../../../ats_utilities.config_io.json.default_json_processor.html#ats_utilities.config_io.json.ATSJSONProcessor.to_dict">[docs]</a>
+<a class="viewcode-back" href="../../../../ats_utilities.config_io.json.default_json_processor.html#ats_utilities.config_io.json.default_json_processor.ATSJSONProcessor.to_dict">[docs]</a>
     <span class="k">def</span> <span class="nf">to_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Return data as a flat dictionary.</span>

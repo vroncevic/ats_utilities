@@ -19,10 +19,13 @@ Info
     Defines ats_utilities.console_io.theme package.
 '''
 
-from .iconsole_theme import IConsoleTheme
-from .default_theme import DefaultTheme
+from typing import List
 
-__all__ = [
-    'IConsoleTheme',
-    'DefaultTheme'
-]
+__author__: str = 'Vladimir Roncevic'
+__copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
+__credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
+__license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__: str = '3.3.6'
+__maintainer__: str = 'Vladimir Roncevic'
+__email__: str = 'elektron.ronca@gmail.com'
+__status__: str = 'Updated'

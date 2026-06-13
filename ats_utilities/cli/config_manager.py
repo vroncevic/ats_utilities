@@ -22,22 +22,26 @@ Info
 
 from typing import List, Optional
 from os.path import basename
-from ats_utilities.config_io import IFileCheck, IRead, IWrite
-from ats_utilities.config_io.cfg import CfgBase
-from ats_utilities.config_io.ini import IniBase
-from ats_utilities.config_io.json import JsonBase
-from ats_utilities.config_io.xml import XmlBase
-from ats_utilities.config_io.yaml import YamlBase
-from ats_utilities.console_io import IATSReporter
-from ats_utilities.checker import IATSChecker
-from ats_utilities.option import IATSOptionParser, IATSArgParseStrategy
-from .iconfig_manager import IConfigManager, Config
+from ats_utilities.config_io.ifile_check import IFileCheck
+from ats_utilities.config_io.iread import IRead
+from ats_utilities.config_io.iwrite import IWrite
+from ats_utilities.config_io.cfg.cfgbase import CfgBase
+from ats_utilities.config_io.ini.inibase import IniBase
+from ats_utilities.config_io.json.jsonbase import JsonBase
+from ats_utilities.config_io.xml.xmlbase import XmlBase
+from ats_utilities.config_io.yaml.yamlbase import YamlBase
+from ats_utilities.console_io.ireporter import IATSReporter
+from ats_utilities.checker.iats_checker import IATSChecker
+from ats_utilities.option.ioption_parser import IATSOptionParser
+from ats_utilities.option.iparser_strategy import IATSArgParseStrategy
+from ats_utilities.cli.iconfig_manager import IConfigManager
+from ats_utilities.cli.iconfig_manager import Config
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.3.5'
+__version__: str = '3.3.6'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
@@ -74,19 +78,19 @@ class ATSConfigManager(IConfigManager):
             Initializes ATSConfigManager constructor.
 
             :param config2object: Object for converting configuration to object | None
-            :type config2object: :class:`~ats_utilities.config_io.iread.IRead`
+            :type config2object: <Optional[IRead]>
             :param object2config: Object for converting object to configuration | None
-            :type object2config: :class:`~ats_utilities.config_io.iwrite.IWrite`
+            :type object2config: <Optional[IWrite]>
             :param options_parser: Option parser for CLI arguments | None
-            :type options_parser: :class:`~ats_utilities.option.iatsoptionparser.IATSOptionParser`
+            :type options_parser: <Optional[IATSOptionParser]>
             :param checker: Checker for parameter validation | None
-            :type checker: :class:`~ats_utilities.checker.IATSChecker`
+            :type checker: <Optional[IATSChecker]>
             :param reporter: Reporter for console output | None
-            :type reporter: :class:`~ats_utilities.console_io.iats_reporter.IATSReporter`
+            :type reporter: <Optional[IATSReporter]>
             :param file_checker: Checker for file operations | None
-            :type file_checker: :class:`~ats_utilities.config_io.ifile_check.IFileCheck`
+            :type file_checker: <Optional[IFileCheck]>
             :param strategy: Strategy for argument parsing | None
-            :type strategy: :class:`~ats_utilities.option.iats_arg_parse_strategy.IATSArgParseStrategy`
+            :type strategy: <Optional[IATSArgParseStrategy]>
             :exceptions: None
         '''
         self.__config2object = config2object

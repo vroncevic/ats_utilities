@@ -22,25 +22,28 @@ Info
 
 from typing import Any, ClassVar, Dict, Tuple, List, Optional
 from time import sleep
-from ats_utilities.checker import IATSChecker, ATSChecker, ErrorChecker
-from ats_utilities.console_io import IATSReporter, ATSReporter
-from ats_utilities.exceptions import ATSTypeError, ATSValueError
-from .isplash import ISplash
-from .github_infrastructure import GitHubInfrastructure
-from .ext_infrastructure import ExtInfrastructure
-from .iext_infrastructure import IExtInfrastructure
-from .iprogress_bar import IProgressBar
-from .progress_bar import ProgressBar
-from .iterminal_properties import ITerminalProperties
-from .terminal_properties import TerminalProperties
-from .isplash_screen import ISplashProperty
-from .splash_property import SplashProperty
+from ats_utilities.checker.iats_checker import IATSChecker, ErrorChecker
+from ats_utilities.checker.ats_checker import ATSChecker
+from ats_utilities.console_io.ireporter import IATSReporter
+from ats_utilities.console_io.reporter import ATSReporter
+from ats_utilities.exceptions.ats_type_error import ATSTypeError
+from ats_utilities.exceptions.ats_value_error import ATSValueError
+from ats_utilities.splash.isplash import ISplash
+from ats_utilities.splash.github_infrastructure import GitHubInfrastructure
+from ats_utilities.splash.ext_infrastructure import ExtInfrastructure
+from ats_utilities.splash.iext_infrastructure import IExtInfrastructure
+from ats_utilities.splash.iprogress_bar import IProgressBar
+from ats_utilities.splash.progress_bar import ProgressBar
+from ats_utilities.splash.iterminal_properties import ITerminalProperties
+from ats_utilities.splash.terminal_properties import TerminalProperties
+from ats_utilities.splash.isplash_screen import ISplashProperty
+from ats_utilities.splash.splash_property import SplashProperty
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.3.5'
+__version__: str = '3.3.6'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
@@ -99,9 +102,9 @@ class Splash(ISplash):
             :param pb: Progress bar | None
             :type pb: <Optional[IProgressBar]>
             :param checker: Error checker | None
-            :type checker: :class:`~ats_utilities.checker.IATSChecker`
+            :type checker: <Optional[IATSChecker]>
             :param reporter: ATSReporter for outputting messages | None
-            :type reporter: :class:`~ats_utilities.console_io.iats_reporter.IATSReporter`
+            :type reporter: <Optional[IATSReporter]>
             :param verbose: Enable/Disable verbose option
             :type verbose: <bool>
             :exceptions: ATSTypeError | ATSValueError

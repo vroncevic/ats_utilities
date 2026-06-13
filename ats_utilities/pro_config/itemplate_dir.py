@@ -27,7 +27,7 @@ __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.3.5'
+__version__: str = '3.3.6'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
@@ -56,7 +56,7 @@ class ITemplateDir(ABC):
             :rtype: <Optional[str]>
             :exceptions: NotImplementedError
         '''
-        raise NotImplementedError("Subclasses must implement template_dir getter")
+        raise NotImplementedError("Method template_dir() must be implement")
 
     @template_dir.setter
     @abstractmethod
@@ -68,7 +68,7 @@ class ITemplateDir(ABC):
             :type dir_path: <str>
             :exceptions: NotImplementedError
         '''
-        raise NotImplementedError("Subclasses must implement template_dir setter")
+        raise NotImplementedError("Method template_dir() must be implement")
 
     @abstractmethod
     def is_template_dir_ok(self) -> bool:
@@ -79,4 +79,4 @@ class ITemplateDir(ABC):
             :rtype: <bool>
             :exceptions: NotImplementedError
         '''
-        raise NotImplementedError("Subclasses must implement is_template_dir_ok method")
+        raise NotImplementedError("Method is_template_dir_ok() must be implement")

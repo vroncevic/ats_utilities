@@ -20,33 +20,12 @@ Info
 '''
 
 from typing import List
-from ats_utilities.exceptions.ats_error import ATSError
-from ats_utilities.exceptions.ats_attribute_error import ATSAttributeError
-from ats_utilities.exceptions.ats_bad_call_error import ATSBadCallError
-from ats_utilities.exceptions.ats_file_error import ATSFileError
-from ats_utilities.exceptions.ats_key_error import ATSKeyError
-from ats_utilities.exceptions.ats_lookup_error import ATSLookupError
-from ats_utilities.exceptions.ats_parameter_error import ATSParameterError
-from ats_utilities.exceptions.ats_type_error import ATSTypeError
-from ats_utilities.exceptions.ats_value_error import ATSValueError
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.3.5'
+__version__: str = '3.3.6'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
-
-__all__ = [
-    'ATSError',
-    'ATSAttributeError',
-    'ATSBadCallError',
-    'ATSFileError',
-    'ATSKeyError',
-    'ATSLookupError',
-    'ATSParameterError',
-    'ATSTypeError',
-    'ATSValueError'
-]

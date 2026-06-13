@@ -22,16 +22,22 @@ Info
 
 from typing import Any, ClassVar, List, Dict, Optional
 from datetime import datetime
-from ats_utilities.checker import IATSChecker, ATSChecker, ErrorChecker
-from ats_utilities.console_io import IATSReporter, ATSReporter
-from ats_utilities.exceptions import ATSTypeError
-from ats_utilities.info import ATSName, ATSVersion, ATSLicence, ATSBuildDate, ATSInfoOk
+from ats_utilities.checker.iats_checker import IATSChecker, ErrorChecker
+from ats_utilities.checker.ats_checker import ATSChecker
+from ats_utilities.console_io.ireporter import IATSReporter
+from ats_utilities.console_io.reporter import ATSReporter
+from ats_utilities.exceptions.ats_type_error import ATSTypeError
+from ats_utilities.info.name import ATSName
+from ats_utilities.info.version import ATSVersion
+from ats_utilities.info.licence import ATSLicence
+from ats_utilities.info.build_date import ATSBuildDate
+from ats_utilities.info.info_ok import ATSInfoOk
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.3.5'
+__version__: str = '3.3.6'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
@@ -86,9 +92,9 @@ class ATSInfo(ATSName, ATSVersion, ATSLicence, ATSBuildDate, ATSInfoOk):
             :param info: The ATS basic information
             :type info: <Dict[Any, Any]>
             :param checker: Error checker | None
-            :type checker: :class:`~ats_utilities.checker.IATSChecker`
+            :type checker: <Optional[IATSChecker]>
             :param reporter: ATSReporter for check operations | None
-            :type reporter: :class:`~ats_utilities.console_io.iats_reporter.IATSReporter`
+            :type reporter: <Optional[IATSReporter]>
             :param verbose: Enable/Disable verbose option
             :type verbose: <bool>
             :exceptions: None

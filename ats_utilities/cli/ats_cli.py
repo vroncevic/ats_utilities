@@ -22,17 +22,20 @@ Info
 
 from typing import Any, List, Optional
 from abc import abstractmethod
-from ats_utilities.console_io import IATSReporter, ATSReporter
-from ats_utilities.option import OptionNamespace
-from .icli import IATSCli, ArgSeq
-from .iconfig_manager import IConfigManager, Config
-from .config_manager import ATSConfigManager
+from ats_utilities.console_io.ireporter import IATSReporter
+from ats_utilities.console_io.reporter import ATSReporter
+from ats_utilities.option.option_namespace import OptionNamespace
+from ats_utilities.cli.icli import IATSCli
+from ats_utilities.cli.icli import ArgSeq
+from ats_utilities.cli.iconfig_manager import IConfigManager
+from ats_utilities.cli.iconfig_manager import Config
+from ats_utilities.cli.config_manager import ATSConfigManager
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.3.5'
+__version__: str = '3.3.6'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
@@ -72,12 +75,14 @@ class ATSCli(IATSCli):
             :type info_file: <Optional[str]>
             :param config_manager: Configuration manager | None
             :type config_manager: <Optional[IConfigManager]>
+            :param reporter: ATSReporter for check operations | None
+            :type reporter: <Optional[IATSReporter]>
             :param verbose: Enable/Disable verbose option
             :type verbose: <bool>
             :exceptions: None
         '''
-        self.__reporter: IATSReporter = reporter or ATSReporter()
         self.__verbose: bool = verbose
+        self.__reporter: IATSReporter = reporter or ATSReporter()
         self.__operational: bool = False
 
         # Dependency Injection of the manager or use default
@@ -109,7 +114,7 @@ class ATSCli(IATSCli):
             :type kwargs: <Any>
             :exceptions: None
         '''
-        if self.__config:
+        if self.__config and self.__config.option_parser:
             self.__config.option_parser.add_operation(*args, **kwargs)
 
     def parse_args(self, argv: ArgSeq) -> Optional[OptionNamespace]:
@@ -117,12 +122,12 @@ class ATSCli(IATSCli):
             Parses the CLI arguments.
 
             :param argv: Sequence of arguments | None
-            :type argv: :class:`~ats_utilities.cli.icli.ArgSeq`
+            :type argv: <ArgSeq>
             :return: Options and arguments
-            :rtype: :class:`~ats_utilities.option.option_namespace.OptionNamespace`
+            :rtype: <Optional[OptionNamespace]>
             :exceptions: ATSTypeError
         '''
-        if self.__config:
+        if self.__config and self.__config.option_parser:
             return self.__config.option_parser.parse_args(argv)
         return None
 
@@ -135,6 +140,6 @@ class ATSCli(IATSCli):
             :type verbose: <bool>
             :return: True (successfully finished) | False
             :rtype: <bool>
-            :exception: TypeError
+            :exceptions: TypeError
         '''
-        raise NotImplementedError("Subclasses must implement process method")
+        raise NotImplementedError("Method process() must be implement")

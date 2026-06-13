@@ -55,34 +55,36 @@
 <span class="sd">    with this program. If not, see &lt;http://www.gnu.org/licenses/&gt;.</span>
 <span class="sd">Info</span>
 <span class="sd">    Defines class ATSChecker with attribute(s) and method(s).</span>
-<span class="sd">    Concrete implementation of the ATS parameter checker.</span>
+<span class="sd">    Concrete implementation of the ATS parameter(s) checker.</span>
 <span class="sd">&#39;&#39;&#39;</span>
 
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">ClassVar</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span>
-<span class="kn">from</span> <span class="nn">.iats_checker</span> <span class="kn">import</span> <span class="p">(</span>
-    <span class="n">IATSChecker</span><span class="p">,</span> <span class="n">ErrorChecker</span><span class="p">,</span> <span class="n">ValidationResult</span><span class="p">,</span> <span class="n">ParametersSpecs</span>
-<span class="p">)</span>
-<span class="kn">from</span> <span class="nn">.itype_validator</span> <span class="kn">import</span> <span class="n">ITypeValidator</span>
-<span class="kn">from</span> <span class="nn">.iformat_validator</span> <span class="kn">import</span> <span class="n">IFormatValidator</span>
-<span class="kn">from</span> <span class="nn">.icontext_provider</span> <span class="kn">import</span> <span class="n">IContextProvider</span>
-<span class="kn">from</span> <span class="nn">.icheck_reporter</span> <span class="kn">import</span> <span class="n">ICheckReporter</span><span class="p">,</span> <span class="n">ParamMetadata</span>
-<span class="kn">from</span> <span class="nn">.default_format_validator</span> <span class="kn">import</span> <span class="n">DefaultFormatValidator</span>
-<span class="kn">from</span> <span class="nn">.default_type_validator</span> <span class="kn">import</span> <span class="n">DefaultTypeValidator</span>
-<span class="kn">from</span> <span class="nn">.default_context_provider</span> <span class="kn">import</span> <span class="n">DefaultContextProvider</span>
-<span class="kn">from</span> <span class="nn">.default_check_reporter</span> <span class="kn">import</span> <span class="n">DefaultCheckReporter</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.checker.iats_checker</span> <span class="kn">import</span> <span class="n">IATSChecker</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.checker.iats_checker</span> <span class="kn">import</span> <span class="n">ErrorChecker</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.checker.iats_checker</span> <span class="kn">import</span> <span class="n">ValidationResult</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.checker.iats_checker</span> <span class="kn">import</span> <span class="n">ParametersSpecs</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.checker.itype_validator</span> <span class="kn">import</span> <span class="n">ITypeValidator</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.checker.iformat_validator</span> <span class="kn">import</span> <span class="n">IFormatValidator</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.checker.icontext_provider</span> <span class="kn">import</span> <span class="n">IContextProvider</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.checker.icheck_reporter</span> <span class="kn">import</span> <span class="n">ICheckReporter</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.checker.icheck_reporter</span> <span class="kn">import</span> <span class="n">ParamMetadata</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.checker.default_format_validator</span> <span class="kn">import</span> <span class="n">DefaultFormatValidator</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.checker.default_type_validator</span> <span class="kn">import</span> <span class="n">DefaultTypeValidator</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.checker.default_context_provider</span> <span class="kn">import</span> <span class="n">DefaultContextProvider</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.checker.default_check_reporter</span> <span class="kn">import</span> <span class="n">DefaultCheckReporter</span>
 
 <span class="n">__author__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;Vladimir Roncevic&#39;</span>
 <span class="n">__copyright__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;(C) 2026, https://vroncevic.github.io/ats_utilities&#39;</span>
 <span class="n">__credits__</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Vladimir Roncevic&#39;</span><span class="p">,</span> <span class="s1">&#39;Python Software Foundation&#39;</span><span class="p">]</span>
 <span class="n">__license__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE&#39;</span>
-<span class="n">__version__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;3.3.5&#39;</span>
+<span class="n">__version__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;3.3.6&#39;</span>
 <span class="n">__maintainer__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;Vladimir Roncevic&#39;</span>
 <span class="n">__email__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;elektron.ronca@gmail.com&#39;</span>
 <span class="n">__status__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;Updated&#39;</span>
 
 
 <div class="viewcode-block" id="ATSChecker">
-<a class="viewcode-back" href="../../../ats_utilities.checker.ats_checker.html#ats_utilities.checker.ATSChecker">[docs]</a>
+<a class="viewcode-back" href="../../../ats_utilities.checker.ats_checker.html#ats_utilities.checker.ats_checker.ATSChecker">[docs]</a>
 <span class="k">class</span> <span class="nc">ATSChecker</span><span class="p">(</span><span class="n">IATSChecker</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Defines class ATSChecker with attribute(s) and method(s).</span>
@@ -116,13 +118,13 @@
 <span class="sd">            Initials ATSChecker constructor.</span>
 
 <span class="sd">            :param format_validator: Validator for parameters format</span>
-<span class="sd">            :type format_validator: :class:`~ats_utilities.checker.iformat_validator.IFormatValidator`</span>
+<span class="sd">            :type format_validator: &lt;Optional[IFormatValidator]&gt;</span>
 <span class="sd">            :param type_validator: Validator for parameters type</span>
-<span class="sd">            :type type_validator: :class:`~ats_utilities.checker.itype_validator.ITypeValidator`</span>
+<span class="sd">            :type type_validator: &lt;Optional[ITypeValidator]&gt;</span>
 <span class="sd">            :param context_provider: Provider for call context</span>
-<span class="sd">            :type context_provider: :class:`~ats_utilities.checker.icontext_provider.IContextProvider`</span>
+<span class="sd">            :type context_provider: &lt;Optional[IContextProvider]&gt;</span>
 <span class="sd">            :param check_reporter: Formatter for message reports</span>
-<span class="sd">            :type check_reporter: :class:`~ats_utilities.checker.icheck_reporter.ICheckReporter`cker.icheck_reporter.ICheckReporter`</span>
+<span class="sd">            :type check_reporter: &lt;Optional[ICheckReporter]&gt;</span>
 <span class="sd">            :exceptions: None</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="c1"># If no custom implementations are provided, use default ones.</span>
@@ -132,13 +134,13 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_check_reporter</span><span class="p">:</span> <span class="n">ICheckReporter</span> <span class="o">=</span> <span class="n">check_reporter</span> <span class="ow">or</span> <span class="n">DefaultCheckReporter</span><span class="p">()</span>
 
 <div class="viewcode-block" id="ATSChecker.validate_parameters">
-<a class="viewcode-back" href="../../../ats_utilities.checker.ats_checker.html#ats_utilities.checker.ATSChecker.validate_parameters">[docs]</a>
+<a class="viewcode-back" href="../../../ats_utilities.checker.ats_checker.html#ats_utilities.checker.ats_checker.ATSChecker.validate_parameters">[docs]</a>
     <span class="k">def</span> <span class="nf">validate_parameters</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parameters</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ParametersSpecs</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">ValidationResult</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Validates parameters for method(s) or function(s).</span>
 
 <span class="sd">            :param parameters: Specification for parameters</span>
-<span class="sd">            :type parameters: :class:`~ats_utilities.checker.iats_checker.ParametersSpecs` </span>
+<span class="sd">            :type parameters: &lt;Optional[ParametersSpecs]&gt;</span>
 <span class="sd">            :return: tuple of error message report and error id</span>
 <span class="sd">            :rtype: &lt;ValidationResult&gt;</span>
 <span class="sd">            :exceptions: None</span>
