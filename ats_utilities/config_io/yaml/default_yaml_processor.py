@@ -20,15 +20,15 @@ Info
     Provides a default implementation for processing YAML content.
 '''
 
-from yaml import load, dump, FullLoader
 from typing import Any, Dict, List
-from .iyaml_processor import IYAMLProcessor
+from yaml import load, dump, FullLoader, YAMLError
+from ats_utilities.config_io.yaml.iyaml_processor import IYAMLProcessor
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.3.5'
+__version__: str = '3.3.6'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
@@ -67,7 +67,7 @@ class ATSYAMLProcessor(IYAMLProcessor):
         try:
             self.__data = load(yaml_string, Loader=FullLoader)
             return True
-        except Exception:
+        except YAMLError:
             return False
 
     def encode(self) -> str:

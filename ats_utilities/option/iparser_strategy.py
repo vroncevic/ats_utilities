@@ -22,13 +22,14 @@ Info
 
 from abc import ABC, abstractmethod
 from typing import Any, Dict, List, Optional
-from .option_namespace import OptionNamespace, OptArgs
+from ats_utilities.option.option_namespace import OptionNamespace
+from ats_utilities.option.option_namespace import OptArgs
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.3.5'
+__version__: str = '3.3.6'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
@@ -59,7 +60,7 @@ class IATSArgParseStrategy(ABC):
             :type parameters: <Dict[str, str]>
             :exceptions: NotImplementedError
         '''
-        raise NotImplementedError("Subclasses must implement setup method")
+        raise NotImplementedError("Method setup() must be implement")
 
     @abstractmethod
     def add_argument(self, *args: str, **kwargs: Any) -> None:
@@ -72,7 +73,7 @@ class IATSArgParseStrategy(ABC):
             :type kwargs: <Any>
             :exceptions: NotImplementedError
         '''
-        raise NotImplementedError("Subclasses must implement add_argument method")
+        raise NotImplementedError("Method add_argument() must be implement")
 
     @abstractmethod
     def add_version(self, version: Optional[str]) -> None:
@@ -83,7 +84,7 @@ class IATSArgParseStrategy(ABC):
             :type version: <Optional[str]>
             :exceptions: NotImplementedError
         '''
-        raise NotImplementedError("Subclasses must implement add_version method")
+        raise NotImplementedError("Method add_version() must be implement")
 
     @abstractmethod
     def parse(self, arguments: OptArgs, known_only: bool = False) -> OptionNamespace:
@@ -98,4 +99,4 @@ class IATSArgParseStrategy(ABC):
             :rtype: <OptionNamespace>
             :exceptions: NotImplementedError
         '''
-        raise NotImplementedError("Subclasses must implement parse method")
+        raise NotImplementedError("Method parse() must be implement")

@@ -20,26 +20,12 @@ Info
 '''
 
 from typing import List
-from .xml2object import Xml2Object
-from .object2xml import Object2Xml
-from .xmlbase import XmlBase
-from .default_xml_processor import ATSXmlProcessor
-from .ixml_processor import IXMLProcessor
-
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.3.5'
+__version__: str = '3.3.6'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
-
-__all__ = [
-    'Xml2Object',
-    'Object2Xml',
-    'XmlBase',
-    'IXMLProcessor',
-    'ATSXmlProcessor'
-]

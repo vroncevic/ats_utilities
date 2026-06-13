@@ -26,10 +26,13 @@ from json import load
 from unittest import TestLoader, TestSuite, TextTestRunner
 from pathlib import Path
 from coverage import Coverage
-from ats_utilities.checker import ATSChecker, ErrorChecker
-from ats_utilities.console_io import ATSReporter
-from ats_utilities.option import ATSOptionParser, OptionNamespace
-from ats_utilities.exceptions import ATSTypeError, ATSFileError
+from ats_utilities.checker.ats_checker import ATSChecker
+from ats_utilities.checker.iats_checker import ErrorChecker
+from ats_utilities.console_io.reporter import ATSReporter
+from ats_utilities.option.ats_option_parser import ATSOptionParser
+from ats_utilities.option.option_namespace import OptionNamespace
+from ats_utilities.exceptions.ats_type_error import ATSTypeError
+from ats_utilities.exceptions.ats_file_error import ATSFileError
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_coverage'

@@ -23,16 +23,19 @@ Info
 import sys
 from typing import Any, Dict, List, Optional, NoReturn
 from argparse import ArgumentParser
-from ats_utilities.console_io import IATSReporter, ATSReporter
-from .option_namespace import OptionNamespace, OptArgs, KnownArgs
-from .iparser_strategy import IATSArgParseStrategy
+from ats_utilities.console_io.ireporter import IATSReporter
+from ats_utilities.console_io.reporter import ATSReporter
+from ats_utilities.option.option_namespace import OptionNamespace
+from ats_utilities.option.option_namespace import OptArgs
+from ats_utilities.option.option_namespace import KnownArgs
+from ats_utilities.option.iparser_strategy import IATSArgParseStrategy
 
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.3.5'
+__version__: str = '3.3.6'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
@@ -62,7 +65,7 @@ class _ATSArgumentParser(ArgumentParser):
             Initials _ATSArgumentParser constructor.
 
             :param reporter: ATSReporter for outputting messages
-            :type reporter: <IATSReporter>
+            :type reporter: <Optional[IATSReporter]>
             :param args: Additional positional arguments
             :type args: <Any>
             :param kwargs: Additional keyword arguments
@@ -110,7 +113,7 @@ class ATSArgParseStrategy(IATSArgParseStrategy):
             Initials ATSArgParseStrategy constructor.
 
             :param reporter: ATSReporter for outputting messages
-            :type reporter: :class:`~ats_utilities.console_io.iats_reporter.IATSReporter`
+            :type reporter: <Optional[IATSReporter]>
             :exceptions: None
         '''
         self.__reporter = reporter or ATSReporter()
@@ -160,11 +163,11 @@ class ATSArgParseStrategy(IATSArgParseStrategy):
             Parses the input arguments and returns an OptionNamespace.
 
             :param arguments: Sequence of arguments | None
-            :type arguments: :class:`~ats_utilities.option.option_namespace.OptArgs`
+            :type arguments: <OptArgs>
             :param known_only: Parse only known arguments
             :type known_only: <bool>
             :return: Option namespace object
-            :rtype: :class:`~ats_utilities.option.option_namespace.OptionNamespace`
+            :rtype: <OptionNamespace>
             :exceptions: RuntimeError
         '''
         if not self._parser:

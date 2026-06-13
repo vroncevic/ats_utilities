@@ -97,31 +97,6 @@ Command-line interface configuration.</p>
 </dl>
 </div></blockquote>
 <dl class="py attribute">
-<dt class="sig sig-object py" id="ats_utilities.cli.ats_cli.ATSCli.__config">
-<span class="sig-name descname"><span class="pre">__config</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="ats_utilities.config_io.cfg.cfgbase.html#ats_utilities.config_io.cfg.cfgbase.CfgBase" title="ats_utilities.config_io.cfg.cfgbase.CfgBase"><span class="pre">CfgBase</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="ats_utilities.config_io.ini.inibase.html#ats_utilities.config_io.ini.inibase.IniBase" title="ats_utilities.config_io.ini.inibase.IniBase"><span class="pre">IniBase</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="ats_utilities.config_io.json.jsonbase.html#ats_utilities.config_io.json.jsonbase.JsonBase" title="ats_utilities.config_io.json.jsonbase.JsonBase"><span class="pre">JsonBase</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="ats_utilities.config_io.xml.xmlbase.html#ats_utilities.config_io.xml.xmlbase.XmlBase" title="ats_utilities.config_io.xml.xmlbase.XmlBase"><span class="pre">XmlBase</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="ats_utilities.config_io.yaml.yamlbase.html#ats_utilities.config_io.yaml.yamlbase.YamlBase" title="ats_utilities.config_io.yaml.yamlbase.YamlBase"><span class="pre">YamlBase</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#ats_utilities.cli.ats_cli.ATSCli.__config" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="ats_utilities.cli.ats_cli.ATSCli.__config_manager">
-<span class="sig-name descname"><span class="pre">__config_manager</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="ats_utilities.cli.iconfig_manager.html#ats_utilities.cli.iconfig_manager.IConfigManager" title="ats_utilities.cli.iconfig_manager.IConfigManager"><span class="pre">IConfigManager</span></a></em><a class="headerlink" href="#ats_utilities.cli.ats_cli.ATSCli.__config_manager" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="ats_utilities.cli.ats_cli.ATSCli.__operational">
-<span class="sig-name descname"><span class="pre">__operational</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#ats_utilities.cli.ats_cli.ATSCli.__operational" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="ats_utilities.cli.ats_cli.ATSCli.__reporter">
-<span class="sig-name descname"><span class="pre">__reporter</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="ats_utilities.console_io.ireporter.html#ats_utilities.console_io.ireporter.IATSReporter" title="ats_utilities.console_io.ireporter.IATSReporter"><span class="pre">IATSReporter</span></a></em><a class="headerlink" href="#ats_utilities.cli.ats_cli.ATSCli.__reporter" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="ats_utilities.cli.ats_cli.ATSCli.__verbose">
-<span class="sig-name descname"><span class="pre">__verbose</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#ats_utilities.cli.ats_cli.ATSCli.__verbose" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
 <dt class="sig sig-object py" id="ats_utilities.cli.ats_cli.ATSCli._abc_impl">
 <span class="sig-name descname"><span class="pre">_abc_impl</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;_abc._abc_data</span> <span class="pre">object&gt;</span></em><a class="headerlink" href="#ats_utilities.cli.ats_cli.ATSCli._abc_impl" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -166,13 +141,13 @@ Command-line interface configuration.</p>
 <dd><p>Parses the CLI arguments.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>argv</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">ArgSeq</span></code>) – Sequence of arguments | None</p>
+<dd class="field-odd"><p><strong>argv</strong> (<em>&lt;ArgSeq&gt;</em>) – Sequence of arguments | None</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>Options and arguments</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference internal" href="ats_utilities.option.option_namespace.html#ats_utilities.option.option_namespace.OptionNamespace" title="ats_utilities.option.option_namespace.OptionNamespace"><code class="xref py py-class docutils literal notranslate"><span class="pre">OptionNamespace</span></code></a></p>
+<dd class="field-odd"><p>&lt;Optional[<a class="reference internal" href="ats_utilities.option.option_namespace.html#ats_utilities.option.option_namespace.OptionNamespace" title="ats_utilities.option.option_namespace.OptionNamespace">OptionNamespace</a>]&gt;</p>
 </dd>
 <dt class="field-even">Exceptions<span class="colon">:</span></dt>
 <dd class="field-even"><p>ATSTypeError</p>
@@ -194,7 +169,7 @@ Command-line interface configuration.</p>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>&lt;bool&gt;</p>
 </dd>
-<dt class="field-even">Exception<span class="colon">:</span></dt>
+<dt class="field-even">Exceptions<span class="colon">:</span></dt>
 <dd class="field-even"><p>TypeError</p>
 </dd>
 </dl>
@@ -216,11 +191,6 @@ Command-line interface configuration.</p>
     <ul>
 <li><a class="reference internal" href="#">ats_utilities.cli.ats_cli module</a><ul>
 <li><a class="reference internal" href="#ats_utilities.cli.ats_cli.ATSCli"><code class="docutils literal notranslate"><span class="pre">ATSCli</span></code></a><ul>
-<li><a class="reference internal" href="#ats_utilities.cli.ats_cli.ATSCli.__config"><code class="docutils literal notranslate"><span class="pre">ATSCli.__config</span></code></a></li>
-<li><a class="reference internal" href="#ats_utilities.cli.ats_cli.ATSCli.__config_manager"><code class="docutils literal notranslate"><span class="pre">ATSCli.__config_manager</span></code></a></li>
-<li><a class="reference internal" href="#ats_utilities.cli.ats_cli.ATSCli.__operational"><code class="docutils literal notranslate"><span class="pre">ATSCli.__operational</span></code></a></li>
-<li><a class="reference internal" href="#ats_utilities.cli.ats_cli.ATSCli.__reporter"><code class="docutils literal notranslate"><span class="pre">ATSCli.__reporter</span></code></a></li>
-<li><a class="reference internal" href="#ats_utilities.cli.ats_cli.ATSCli.__verbose"><code class="docutils literal notranslate"><span class="pre">ATSCli.__verbose</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.cli.ats_cli.ATSCli._abc_impl"><code class="docutils literal notranslate"><span class="pre">ATSCli._abc_impl</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.cli.ats_cli.ATSCli.add_new_option"><code class="docutils literal notranslate"><span class="pre">ATSCli.add_new_option()</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.cli.ats_cli.ATSCli.is_operational"><code class="docutils literal notranslate"><span class="pre">ATSCli.is_operational()</span></code></a></li>

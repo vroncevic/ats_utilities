@@ -60,7 +60,9 @@
 
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">ClassVar</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span>
 <span class="kn">from</span> <span class="nn">os.path</span> <span class="kn">import</span> <span class="n">splitext</span><span class="p">,</span> <span class="n">isfile</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.checker</span> <span class="kn">import</span> <span class="n">IATSChecker</span><span class="p">,</span> <span class="n">ATSChecker</span><span class="p">,</span> <span class="n">ErrorChecker</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.checker.iats_checker</span> <span class="kn">import</span> <span class="n">IATSChecker</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.checker.ats_checker</span> <span class="kn">import</span> <span class="n">ATSChecker</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.checker.iats_checker</span> <span class="kn">import</span> <span class="n">ErrorChecker</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.config_io.ifile_check</span> <span class="kn">import</span> <span class="n">IFileCheck</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.console_io.ireporter</span> <span class="kn">import</span> <span class="n">IATSReporter</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.console_io.reporter</span> <span class="kn">import</span> <span class="n">ATSReporter</span>
@@ -70,14 +72,14 @@
 <span class="n">__copyright__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;(C) 2026, https://vroncevic.github.io/ats_utilities&#39;</span>
 <span class="n">__credits__</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Vladimir Roncevic&#39;</span><span class="p">,</span> <span class="s1">&#39;Python Software Foundation&#39;</span><span class="p">]</span>
 <span class="n">__license__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE&#39;</span>
-<span class="n">__version__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;3.3.5&#39;</span>
+<span class="n">__version__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;3.3.6&#39;</span>
 <span class="n">__maintainer__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;Vladimir Roncevic&#39;</span>
 <span class="n">__email__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;elektron.ronca@gmail.com&#39;</span>
 <span class="n">__status__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;Updated&#39;</span>
 
 
 <div class="viewcode-block" id="FileCheck">
-<a class="viewcode-back" href="../../../ats_utilities.config_io.file_check.html#ats_utilities.config_io.FileCheck">[docs]</a>
+<a class="viewcode-back" href="../../../ats_utilities.config_io.file_check.html#ats_utilities.config_io.file_check.FileCheck">[docs]</a>
 <span class="k">class</span> <span class="nc">FileCheck</span><span class="p">(</span><span class="n">IFileCheck</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Defines class FileCheck with attribute(s) and method(s).</span>
@@ -113,10 +115,12 @@
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Initials FileCheck constructor.</span>
 
+<span class="sd">            :param checker: ATSChecker for check operations | None</span>
+<span class="sd">            :type checker: &lt;Optional[IATSChecker]&gt;</span>
 <span class="sd">            :param verbose: Enable/Disable verbose option</span>
 <span class="sd">            :type verbose: &lt;bool&gt;</span>
 <span class="sd">            :param reporter: ATSReporter for check operations | None</span>
-<span class="sd">            :type reporter: :class:`~ats_utilities.console_io.iats_reporter.IATSReporter`</span>
+<span class="sd">            :type reporter: &lt;Optional[IATSReporter]&gt;</span>
 <span class="sd">            :exceptions: None</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__checker</span><span class="p">:</span> <span class="n">IATSChecker</span> <span class="o">=</span> <span class="n">checker</span> <span class="ow">or</span> <span class="n">ATSChecker</span><span class="p">()</span>
@@ -128,7 +132,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">__reporter</span><span class="o">.</span><span class="n">verbose</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__verbose</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;init ATS check file&#39;</span><span class="p">])</span>
 
 <div class="viewcode-block" id="FileCheck.check_path">
-<a class="viewcode-back" href="../../../ats_utilities.config_io.file_check.html#ats_utilities.config_io.FileCheck.check_path">[docs]</a>
+<a class="viewcode-back" href="../../../ats_utilities.config_io.file_check.html#ats_utilities.config_io.file_check.FileCheck.check_path">[docs]</a>
     <span class="k">def</span> <span class="nf">check_path</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file_path</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">verbose</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Checks file path.</span>
@@ -156,7 +160,7 @@
 
 
 <div class="viewcode-block" id="FileCheck.check_mode">
-<a class="viewcode-back" href="../../../ats_utilities.config_io.file_check.html#ats_utilities.config_io.FileCheck.check_mode">[docs]</a>
+<a class="viewcode-back" href="../../../ats_utilities.config_io.file_check.html#ats_utilities.config_io.file_check.FileCheck.check_mode">[docs]</a>
     <span class="k">def</span> <span class="nf">check_mode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file_mode</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">verbose</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Checks operation mode for file.</span>
@@ -184,7 +188,7 @@
 
 
 <div class="viewcode-block" id="FileCheck.check_format">
-<a class="viewcode-back" href="../../../ats_utilities.config_io.file_check.html#ats_utilities.config_io.FileCheck.check_format">[docs]</a>
+<a class="viewcode-back" href="../../../ats_utilities.config_io.file_check.html#ats_utilities.config_io.file_check.FileCheck.check_format">[docs]</a>
     <span class="k">def</span> <span class="nf">check_format</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">file_path</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span>
@@ -232,7 +236,7 @@
 
 
 <div class="viewcode-block" id="FileCheck.is_file_ok">
-<a class="viewcode-back" href="../../../ats_utilities.config_io.file_check.html#ats_utilities.config_io.FileCheck.is_file_ok">[docs]</a>
+<a class="viewcode-back" href="../../../ats_utilities.config_io.file_check.html#ats_utilities.config_io.file_check.FileCheck.is_file_ok">[docs]</a>
     <span class="k">def</span> <span class="nf">is_file_ok</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Returns status for file.</span>

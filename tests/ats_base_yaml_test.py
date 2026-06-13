@@ -27,18 +27,20 @@ from typing import List
 from unittest import TestCase, main
 from unittest.mock import MagicMock
 from os.path import dirname
-from ats_utilities.config_io.yaml import YamlBase
-from ats_utilities.config_io import IRead, IWrite
+from ats_utilities.config_io.yaml.yamlbase import YamlBase
+from ats_utilities.config_io.iread import IRead
+from ats_utilities.config_io.iwrite import IWrite
 from ats_utilities.checker.iats_checker import IATSChecker
-from ats_utilities.option import ATSOptionParser
-from ats_utilities.console_io import IATSReporter, ATSReporter
+from ats_utilities.option.ats_option_parser import ATSOptionParser
+from ats_utilities.console_io.ireporter import IATSReporter
+from ats_utilities.console_io.reporter import ATSReporter
 from ats_utilities.exceptions.ats_type_error import ATSTypeError
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.3.5'
+__version__: str = '3.3.6'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
@@ -151,9 +153,8 @@ class YamlBaseUnitTestCase(TestCase):
         self.assertFalse(self.yaml_base.is_tool_ok())
 
     def test_option_parser_access_non_operational(self) -> None:
-        '''Test if option_parser access raises AttributeError when not operational.'''
-        with self.assertRaises(AttributeError):
-            _ = self.yaml_base.option_parser
+        '''Test if option_parser access returns None when not operational.'''
+        self.assertIsNone(self.yaml_base.option_parser)
 
     def test_operational_yaml_base(self) -> None:
         '''Test YamlBase when it is operational.'''

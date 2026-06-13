@@ -22,13 +22,13 @@ Info
 
 from abc import ABC, abstractmethod
 from typing import Any, List, Optional, Sequence, TypeAlias
-from ats_utilities.option import OptionNamespace
+from ats_utilities.option.option_namespace import OptionNamespace
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.3.5'
+__version__: str = '3.3.6'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
@@ -61,7 +61,7 @@ class IATSCli(ABC):
             :rtype: <bool>
             :exceptions: NotImplementedError
         '''
-        raise NotImplementedError("Subclasses must implement is_operational method")
+        raise NotImplementedError("Method is_operational() must be implement")
 
     @abstractmethod
     def add_new_option(self, *args: str, **kwargs: Any) -> None:
@@ -74,7 +74,7 @@ class IATSCli(ABC):
             :type kwargs: <Any>
             :exceptions: NotImplementedError
         '''
-        raise NotImplementedError("Subclasses must implement add_new_option method")
+        raise NotImplementedError("Method add_new_option() must be implement")
 
     @abstractmethod
     def parse_args(self, argv: ArgSeq) -> Optional[OptionNamespace]:
@@ -83,11 +83,11 @@ class IATSCli(ABC):
 
             :param argv: Sequence of arguments | None
             :type argv: <ArgSeq>
-            :return: Options and arguments
-            :rtype: <Optional[Namespace]>
+            :return: Options and arguments | None
+            :rtype: <Optional[OptionNamespace]>
             :exceptions: NotImplementedError
         '''
-        raise NotImplementedError("Subclasses must implement parse_args method")
+        raise NotImplementedError("Method parse_args() must be implement")
 
     @abstractmethod
     def process(self, verbose: bool = False) -> bool:
@@ -100,4 +100,4 @@ class IATSCli(ABC):
             :rtype: <bool>
             :exceptions: NotImplementedError
         '''
-        raise NotImplementedError("Subclasses must implement process method")
+        raise NotImplementedError("Method process() must be implement")

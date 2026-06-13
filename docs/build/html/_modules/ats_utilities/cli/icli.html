@@ -60,13 +60,13 @@
 
 <span class="kn">from</span> <span class="nn">abc</span> <span class="kn">import</span> <span class="n">ABC</span><span class="p">,</span> <span class="n">abstractmethod</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Sequence</span><span class="p">,</span> <span class="n">TypeAlias</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.option</span> <span class="kn">import</span> <span class="n">OptionNamespace</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.option.option_namespace</span> <span class="kn">import</span> <span class="n">OptionNamespace</span>
 
 <span class="n">__author__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;Vladimir Roncevic&#39;</span>
 <span class="n">__copyright__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;(C) 2026, https://vroncevic.github.io/ats_utilities&#39;</span>
 <span class="n">__credits__</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Vladimir Roncevic&#39;</span><span class="p">,</span> <span class="s1">&#39;Python Software Foundation&#39;</span><span class="p">]</span>
 <span class="n">__license__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE&#39;</span>
-<span class="n">__version__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;3.3.5&#39;</span>
+<span class="n">__version__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;3.3.6&#39;</span>
 <span class="n">__maintainer__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;Vladimir Roncevic&#39;</span>
 <span class="n">__email__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;elektron.ronca@gmail.com&#39;</span>
 <span class="n">__status__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;Updated&#39;</span>
@@ -76,7 +76,7 @@
 
 
 <div class="viewcode-block" id="IATSCli">
-<a class="viewcode-back" href="../../../ats_utilities.cli.icli.html#ats_utilities.cli.IATSCli">[docs]</a>
+<a class="viewcode-back" href="../../../ats_utilities.cli.icli.html#ats_utilities.cli.icli.IATSCli">[docs]</a>
 <span class="k">class</span> <span class="nc">IATSCli</span><span class="p">(</span><span class="n">ABC</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Defines interface IATSCli with attribute(s) and method(s).</span>
@@ -93,7 +93,7 @@
 <span class="sd">    &#39;&#39;&#39;</span>
 
 <div class="viewcode-block" id="IATSCli.is_operational">
-<a class="viewcode-back" href="../../../ats_utilities.cli.icli.html#ats_utilities.cli.IATSCli.is_operational">[docs]</a>
+<a class="viewcode-back" href="../../../ats_utilities.cli.icli.html#ats_utilities.cli.icli.IATSCli.is_operational">[docs]</a>
     <span class="nd">@abstractmethod</span>
     <span class="k">def</span> <span class="nf">is_operational</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
@@ -103,11 +103,11 @@
 <span class="sd">            :rtype: &lt;bool&gt;</span>
 <span class="sd">            :exceptions: NotImplementedError</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s2">&quot;Subclasses must implement is_operational method&quot;</span><span class="p">)</span></div>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s2">&quot;Method is_operational() must be implement&quot;</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="IATSCli.add_new_option">
-<a class="viewcode-back" href="../../../ats_utilities.cli.icli.html#ats_utilities.cli.IATSCli.add_new_option">[docs]</a>
+<a class="viewcode-back" href="../../../ats_utilities.cli.icli.html#ats_utilities.cli.icli.IATSCli.add_new_option">[docs]</a>
     <span class="nd">@abstractmethod</span>
     <span class="k">def</span> <span class="nf">add_new_option</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
@@ -119,11 +119,11 @@
 <span class="sd">            :type kwargs: &lt;Any&gt;</span>
 <span class="sd">            :exceptions: NotImplementedError</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s2">&quot;Subclasses must implement add_new_option method&quot;</span><span class="p">)</span></div>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s2">&quot;Method add_new_option() must be implement&quot;</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="IATSCli.parse_args">
-<a class="viewcode-back" href="../../../ats_utilities.cli.icli.html#ats_utilities.cli.IATSCli.parse_args">[docs]</a>
+<a class="viewcode-back" href="../../../ats_utilities.cli.icli.html#ats_utilities.cli.icli.IATSCli.parse_args">[docs]</a>
     <span class="nd">@abstractmethod</span>
     <span class="k">def</span> <span class="nf">parse_args</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">argv</span><span class="p">:</span> <span class="n">ArgSeq</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">OptionNamespace</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
@@ -131,15 +131,15 @@
 
 <span class="sd">            :param argv: Sequence of arguments | None</span>
 <span class="sd">            :type argv: &lt;ArgSeq&gt;</span>
-<span class="sd">            :return: Options and arguments</span>
-<span class="sd">            :rtype: &lt;Optional[Namespace]&gt;</span>
+<span class="sd">            :return: Options and arguments | None</span>
+<span class="sd">            :rtype: &lt;Optional[OptionNamespace]&gt;</span>
 <span class="sd">            :exceptions: NotImplementedError</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s2">&quot;Subclasses must implement parse_args method&quot;</span><span class="p">)</span></div>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s2">&quot;Method parse_args() must be implement&quot;</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="IATSCli.process">
-<a class="viewcode-back" href="../../../ats_utilities.cli.icli.html#ats_utilities.cli.IATSCli.process">[docs]</a>
+<a class="viewcode-back" href="../../../ats_utilities.cli.icli.html#ats_utilities.cli.icli.IATSCli.process">[docs]</a>
     <span class="nd">@abstractmethod</span>
     <span class="k">def</span> <span class="nf">process</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">verbose</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
@@ -151,7 +151,7 @@
 <span class="sd">            :rtype: &lt;bool&gt;</span>
 <span class="sd">            :exceptions: NotImplementedError</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s2">&quot;Subclasses must implement process method&quot;</span><span class="p">)</span></div>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s2">&quot;Method process() must be implement&quot;</span><span class="p">)</span></div>
 </div>
 
 </pre></div>

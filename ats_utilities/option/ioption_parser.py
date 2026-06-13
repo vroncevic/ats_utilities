@@ -22,13 +22,14 @@ Info
 
 from abc import ABC, abstractmethod
 from typing import Any, List, Optional
-from .option_namespace import OptionNamespace, OptArgs
+from ats_utilities.option.option_namespace import OptionNamespace
+from ats_utilities.option.option_namespace import OptArgs
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.3.5'
+__version__: str = '3.3.6'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
@@ -60,7 +61,7 @@ class IATSOptionParser(ABC):
             :type kwargs: <Any>
             :exceptions: NotImplementedError
         '''
-        raise NotImplementedError("Subclasses must implement add_operation method")
+        raise NotImplementedError("Method add_operation() must be implement")
 
     @abstractmethod
     def add_version_operation(self, version: Optional[str], verbose: bool = False) -> None:
@@ -68,12 +69,12 @@ class IATSOptionParser(ABC):
             Adds version option to the ATS parser.
 
             :param version: The ATS version
-            :type version: <str>
+            :type version: <Optional[str]>
             :param verbose: Enable/Disable verbose option
             :type verbose: <bool>
             :exceptions: NotImplementedError
         '''
-        raise NotImplementedError("Subclasses must implement add_version_operation method")
+        raise NotImplementedError("Method add_version_operation() must be implement")
 
     @abstractmethod
     def parse_input_args(self, arguments: OptArgs, verbose: bool = False) -> OptionNamespace:
@@ -81,14 +82,14 @@ class IATSOptionParser(ABC):
             Processes arguments from the start.
 
             :param arguments: Sequence of arguments | None
-            :type arguments: :class:`~ats_utilities.option.option_namespace.OptArgs`
+            :type arguments: <OptArgs>
             :param verbose: Enable/Disable verbose option
             :type verbose: <bool>
             :return: option namespace object
-            :rtype: :class:`~ats_utilities.option.option_namespace.OptionNamespace`
+            :rtype: <OptionNamespace>
             :exceptions: NotImplementedError
         '''
-        raise NotImplementedError("Subclasses must implement parse_input_args method")
+        raise NotImplementedError("Method parse_input_args() must be implement")
 
     @abstractmethod
     def parse_args(self, arguments: OptArgs, verbose: bool = False) -> OptionNamespace:
@@ -96,11 +97,11 @@ class IATSOptionParser(ABC):
             Processes arguments from the start.
 
             :param arguments: Sequence of arguments | None
-            :type arguments: :class:`~ats_utilities.option.option_namespace.OptArgs`
+            :type arguments: <OptArgs>
             :param verbose: Enable/Disable verbose option
             :type verbose: <bool>
             :return: Option namespace object
-            :rtype: :class:`~ats_utilities.option.option_namespace.OptionNamespace`
+            :rtype: <OptionNamespace>
             :exceptions: NotImplementedError
         '''
-        raise NotImplementedError("Subclasses must implement parse_args method")
+        raise NotImplementedError("Method parse_args() must be implement")

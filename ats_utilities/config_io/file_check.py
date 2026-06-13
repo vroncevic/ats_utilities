@@ -22,7 +22,9 @@ Info
 
 from typing import ClassVar, List, Optional
 from os.path import splitext, isfile
-from ats_utilities.checker import IATSChecker, ATSChecker, ErrorChecker
+from ats_utilities.checker.iats_checker import IATSChecker
+from ats_utilities.checker.ats_checker import ATSChecker
+from ats_utilities.checker.iats_checker import ErrorChecker
 from ats_utilities.config_io.ifile_check import IFileCheck
 from ats_utilities.console_io.ireporter import IATSReporter
 from ats_utilities.console_io.reporter import ATSReporter
@@ -32,7 +34,7 @@ __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.3.5'
+__version__: str = '3.3.6'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
@@ -73,10 +75,12 @@ class FileCheck(IFileCheck):
         '''
             Initials FileCheck constructor.
 
+            :param checker: ATSChecker for check operations | None
+            :type checker: <Optional[IATSChecker]>
             :param verbose: Enable/Disable verbose option
             :type verbose: <bool>
             :param reporter: ATSReporter for check operations | None
-            :type reporter: :class:`~ats_utilities.console_io.iats_reporter.IATSReporter`
+            :type reporter: <Optional[IATSReporter]>
             :exceptions: None
         '''
         self.__checker: IATSChecker = checker or ATSChecker()

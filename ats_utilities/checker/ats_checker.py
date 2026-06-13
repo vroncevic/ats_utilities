@@ -17,27 +17,29 @@ Copyright
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
     Defines class ATSChecker with attribute(s) and method(s).
-    Concrete implementation of the ATS parameter checker.
+    Concrete implementation of the ATS parameter(s) checker.
 '''
 
 from typing import ClassVar, List, Optional
-from .iats_checker import (
-    IATSChecker, ErrorChecker, ValidationResult, ParametersSpecs
-)
-from .itype_validator import ITypeValidator
-from .iformat_validator import IFormatValidator
-from .icontext_provider import IContextProvider
-from .icheck_reporter import ICheckReporter, ParamMetadata
-from .default_format_validator import DefaultFormatValidator
-from .default_type_validator import DefaultTypeValidator
-from .default_context_provider import DefaultContextProvider
-from .default_check_reporter import DefaultCheckReporter
+from ats_utilities.checker.iats_checker import IATSChecker
+from ats_utilities.checker.iats_checker import ErrorChecker
+from ats_utilities.checker.iats_checker import ValidationResult
+from ats_utilities.checker.iats_checker import ParametersSpecs
+from ats_utilities.checker.itype_validator import ITypeValidator
+from ats_utilities.checker.iformat_validator import IFormatValidator
+from ats_utilities.checker.icontext_provider import IContextProvider
+from ats_utilities.checker.icheck_reporter import ICheckReporter
+from ats_utilities.checker.icheck_reporter import ParamMetadata
+from ats_utilities.checker.default_format_validator import DefaultFormatValidator
+from ats_utilities.checker.default_type_validator import DefaultTypeValidator
+from ats_utilities.checker.default_context_provider import DefaultContextProvider
+from ats_utilities.checker.default_check_reporter import DefaultCheckReporter
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.3.5'
+__version__: str = '3.3.6'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
@@ -76,13 +78,13 @@ class ATSChecker(IATSChecker):
             Initials ATSChecker constructor.
 
             :param format_validator: Validator for parameters format
-            :type format_validator: :class:`~ats_utilities.checker.iformat_validator.IFormatValidator`
+            :type format_validator: <Optional[IFormatValidator]>
             :param type_validator: Validator for parameters type
-            :type type_validator: :class:`~ats_utilities.checker.itype_validator.ITypeValidator`
+            :type type_validator: <Optional[ITypeValidator]>
             :param context_provider: Provider for call context
-            :type context_provider: :class:`~ats_utilities.checker.icontext_provider.IContextProvider`
+            :type context_provider: <Optional[IContextProvider]>
             :param check_reporter: Formatter for message reports
-            :type check_reporter: :class:`~ats_utilities.checker.icheck_reporter.ICheckReporter`cker.icheck_reporter.ICheckReporter`
+            :type check_reporter: <Optional[ICheckReporter]>
             :exceptions: None
         '''
         # If no custom implementations are provided, use default ones.
@@ -96,7 +98,7 @@ class ATSChecker(IATSChecker):
             Validates parameters for method(s) or function(s).
 
             :param parameters: Specification for parameters
-            :type parameters: :class:`~ats_utilities.checker.iats_checker.ParametersSpecs` 
+            :type parameters: <Optional[ParametersSpecs]>
             :return: tuple of error message report and error id
             :rtype: <ValidationResult>
             :exceptions: None

@@ -59,23 +59,25 @@
 <span class="sd">&#39;&#39;&#39;</span>
 
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.checker</span> <span class="kn">import</span> <span class="n">IATSChecker</span><span class="p">,</span> <span class="n">ATSChecker</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.checker.iats_checker</span> <span class="kn">import</span> <span class="n">IATSChecker</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.checker.ats_checker</span> <span class="kn">import</span> <span class="n">ATSChecker</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.exceptions.ats_type_error</span> <span class="kn">import</span> <span class="n">ATSTypeError</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.console_io.theme</span> <span class="kn">import</span> <span class="n">IConsoleTheme</span><span class="p">,</span> <span class="n">DefaultTheme</span>
-<span class="kn">from</span> <span class="nn">.ireporter</span> <span class="kn">import</span> <span class="n">IATSReporter</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.console_io.theme.iconsole_theme</span> <span class="kn">import</span> <span class="n">IConsoleTheme</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.console_io.theme.default_theme</span> <span class="kn">import</span> <span class="n">DefaultTheme</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.console_io.ireporter</span> <span class="kn">import</span> <span class="n">IATSReporter</span>
 
 <span class="n">__author__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;Vladimir Roncevic&#39;</span>
 <span class="n">__copyright__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;(C) 2026, https://vroncevic.github.io/ats_utilities&#39;</span>
 <span class="n">__credits__</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Vladimir Roncevic&#39;</span><span class="p">,</span> <span class="s1">&#39;Python Software Foundation&#39;</span><span class="p">]</span>
 <span class="n">__license__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE&#39;</span>
-<span class="n">__version__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;3.3.5&#39;</span>
+<span class="n">__version__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;3.3.6&#39;</span>
 <span class="n">__maintainer__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;Vladimir Roncevic&#39;</span>
 <span class="n">__email__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;elektron.ronca@gmail.com&#39;</span>
 <span class="n">__status__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;Updated&#39;</span>
 
 
 <div class="viewcode-block" id="ATSReporter">
-<a class="viewcode-back" href="../../../ats_utilities.console_io.reporter.html#ats_utilities.console_io.ATSReporter">[docs]</a>
+<a class="viewcode-back" href="../../../ats_utilities.console_io.reporter.html#ats_utilities.console_io.reporter.ATSReporter">[docs]</a>
 <span class="k">class</span> <span class="nc">ATSReporter</span><span class="p">(</span><span class="n">IATSReporter</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Defines class ATSReporter with attribute(s) and method(s).</span>
@@ -101,9 +103,9 @@
 <span class="sd">            Initializes ATSReporter constructor.</span>
 
 <span class="sd">            :param checker: Checker for parameter validation | None</span>
-<span class="sd">            :type checker: :class:`~ats_utilities.checker.IATSChecker`</span>
+<span class="sd">            :type checker: &lt;Optional[IATSChecker]&gt;</span>
 <span class="sd">            :param theme: Theme for styling | None</span>
-<span class="sd">            :type theme: :class:`~ats_utilities.console_io.theme.IConsoleTheme`</span>
+<span class="sd">            :type theme: &lt;Optional[IConsoleTheme]&gt;</span>
 <span class="sd">            :exceptions: None</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__checker</span> <span class="o">=</span> <span class="n">checker</span> <span class="ow">or</span> <span class="n">ATSChecker</span><span class="p">()</span>
@@ -130,7 +132,7 @@
             <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">color</span><span class="si">}{</span><span class="n">message_out</span><span class="si">}{</span><span class="bp">self</span><span class="o">.</span><span class="n">__theme</span><span class="o">.</span><span class="n">get_color</span><span class="p">(</span><span class="s1">&#39;reset&#39;</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
 <div class="viewcode-block" id="ATSReporter.verbose">
-<a class="viewcode-back" href="../../../ats_utilities.console_io.reporter.html#ats_utilities.console_io.ATSReporter.verbose">[docs]</a>
+<a class="viewcode-back" href="../../../ats_utilities.console_io.reporter.html#ats_utilities.console_io.reporter.ATSReporter.verbose">[docs]</a>
     <span class="k">def</span> <span class="nf">verbose</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">is_verbose</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Report verbose message to console.</span>
@@ -146,7 +148,7 @@
 
 
 <div class="viewcode-block" id="ATSReporter.success">
-<a class="viewcode-back" href="../../../ats_utilities.console_io.reporter.html#ats_utilities.console_io.ATSReporter.success">[docs]</a>
+<a class="viewcode-back" href="../../../ats_utilities.console_io.reporter.html#ats_utilities.console_io.reporter.ATSReporter.success">[docs]</a>
     <span class="k">def</span> <span class="nf">success</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Report success message to console.</span>
@@ -159,7 +161,7 @@
 
 
 <div class="viewcode-block" id="ATSReporter.warning">
-<a class="viewcode-back" href="../../../ats_utilities.console_io.reporter.html#ats_utilities.console_io.ATSReporter.warning">[docs]</a>
+<a class="viewcode-back" href="../../../ats_utilities.console_io.reporter.html#ats_utilities.console_io.reporter.ATSReporter.warning">[docs]</a>
     <span class="k">def</span> <span class="nf">warning</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Report warning message to console.</span>
@@ -172,7 +174,7 @@
 
 
 <div class="viewcode-block" id="ATSReporter.error">
-<a class="viewcode-back" href="../../../ats_utilities.console_io.reporter.html#ats_utilities.console_io.ATSReporter.error">[docs]</a>
+<a class="viewcode-back" href="../../../ats_utilities.console_io.reporter.html#ats_utilities.console_io.reporter.ATSReporter.error">[docs]</a>
     <span class="k">def</span> <span class="nf">error</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Report error message to console.</span>

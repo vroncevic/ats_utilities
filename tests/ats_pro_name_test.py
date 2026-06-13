@@ -24,15 +24,16 @@ Execute
 
 from typing import List, Optional
 from unittest import TestCase, main
-from ats_utilities.pro_config import ProName
-from ats_utilities.console_io import IATSReporter, ATSReporter
-from ats_utilities.exceptions import ATSTypeError
+from ats_utilities.pro_config.pro_name import ProName
+from ats_utilities.console_io.ireporter import IATSReporter
+from ats_utilities.console_io.reporter import ATSReporter
+from ats_utilities.exceptions.ats_type_error import ATSTypeError
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.3.5'
+__version__: str = '3.3.6'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'

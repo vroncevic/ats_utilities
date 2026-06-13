@@ -27,7 +27,7 @@ __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.3.5'
+__version__: str = '3.3.6'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.roncevic@gmail.com'
 __status__: str = 'Updated'
@@ -64,7 +64,7 @@ class IFileCheck(ABC):
             :type verbose: <bool>
             :exceptions: NotImplementedError
         '''
-        raise NotImplementedError("Subclasses must implement check_path method")
+        raise NotImplementedError("Method check_path() must be implement")
 
     @abstractmethod
     def check_mode(self, file_mode: Optional[str], verbose: bool = False) -> None:
@@ -77,7 +77,7 @@ class IFileCheck(ABC):
             :type verbose: <bool>
             :exceptions: NotImplementedError
         '''
-        raise NotImplementedError("Subclasses must implement check_mode method")
+        raise NotImplementedError("Method check_mode() must be implement")
 
     @abstractmethod
     def check_format(self, file_path: Optional[str], file_format: Optional[str], verbose: bool = False) -> None:
@@ -92,7 +92,7 @@ class IFileCheck(ABC):
             :type verbose: <bool>
             :exceptions: NotImplementedError
         '''
-        raise NotImplementedError("Subclasses must implement check_format method")
+        raise NotImplementedError("Method check_format() must be implement")
 
     @abstractmethod
     def is_file_ok(self) -> bool:
@@ -103,4 +103,4 @@ class IFileCheck(ABC):
             :rtype: <bool>
             :exceptions: NotImplementedError
         '''
-        raise NotImplementedError("Subclasses must implement is_file_ok method")
+        raise NotImplementedError("Method is_file_ok() must be implement")

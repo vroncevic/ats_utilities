@@ -60,32 +60,35 @@
 
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">ClassVar</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span>
 <span class="kn">from</span> <span class="nn">time</span> <span class="kn">import</span> <span class="n">sleep</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.checker</span> <span class="kn">import</span> <span class="n">IATSChecker</span><span class="p">,</span> <span class="n">ATSChecker</span><span class="p">,</span> <span class="n">ErrorChecker</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.console_io</span> <span class="kn">import</span> <span class="n">IATSReporter</span><span class="p">,</span> <span class="n">ATSReporter</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.exceptions</span> <span class="kn">import</span> <span class="n">ATSTypeError</span><span class="p">,</span> <span class="n">ATSValueError</span>
-<span class="kn">from</span> <span class="nn">.isplash</span> <span class="kn">import</span> <span class="n">ISplash</span>
-<span class="kn">from</span> <span class="nn">.github_infrastructure</span> <span class="kn">import</span> <span class="n">GitHubInfrastructure</span>
-<span class="kn">from</span> <span class="nn">.ext_infrastructure</span> <span class="kn">import</span> <span class="n">ExtInfrastructure</span>
-<span class="kn">from</span> <span class="nn">.iext_infrastructure</span> <span class="kn">import</span> <span class="n">IExtInfrastructure</span>
-<span class="kn">from</span> <span class="nn">.iprogress_bar</span> <span class="kn">import</span> <span class="n">IProgressBar</span>
-<span class="kn">from</span> <span class="nn">.progress_bar</span> <span class="kn">import</span> <span class="n">ProgressBar</span>
-<span class="kn">from</span> <span class="nn">.iterminal_properties</span> <span class="kn">import</span> <span class="n">ITerminalProperties</span>
-<span class="kn">from</span> <span class="nn">.terminal_properties</span> <span class="kn">import</span> <span class="n">TerminalProperties</span>
-<span class="kn">from</span> <span class="nn">.isplash_screen</span> <span class="kn">import</span> <span class="n">ISplashProperty</span>
-<span class="kn">from</span> <span class="nn">.splash_property</span> <span class="kn">import</span> <span class="n">SplashProperty</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.checker.iats_checker</span> <span class="kn">import</span> <span class="n">IATSChecker</span><span class="p">,</span> <span class="n">ErrorChecker</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.checker.ats_checker</span> <span class="kn">import</span> <span class="n">ATSChecker</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.console_io.ireporter</span> <span class="kn">import</span> <span class="n">IATSReporter</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.console_io.reporter</span> <span class="kn">import</span> <span class="n">ATSReporter</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.exceptions.ats_type_error</span> <span class="kn">import</span> <span class="n">ATSTypeError</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.exceptions.ats_value_error</span> <span class="kn">import</span> <span class="n">ATSValueError</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.splash.isplash</span> <span class="kn">import</span> <span class="n">ISplash</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.splash.github_infrastructure</span> <span class="kn">import</span> <span class="n">GitHubInfrastructure</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.splash.ext_infrastructure</span> <span class="kn">import</span> <span class="n">ExtInfrastructure</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.splash.iext_infrastructure</span> <span class="kn">import</span> <span class="n">IExtInfrastructure</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.splash.iprogress_bar</span> <span class="kn">import</span> <span class="n">IProgressBar</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.splash.progress_bar</span> <span class="kn">import</span> <span class="n">ProgressBar</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.splash.iterminal_properties</span> <span class="kn">import</span> <span class="n">ITerminalProperties</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.splash.terminal_properties</span> <span class="kn">import</span> <span class="n">TerminalProperties</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.splash.isplash_screen</span> <span class="kn">import</span> <span class="n">ISplashProperty</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.splash.splash_property</span> <span class="kn">import</span> <span class="n">SplashProperty</span>
 
 <span class="n">__author__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;Vladimir Roncevic&#39;</span>
 <span class="n">__copyright__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;(C) 2026, https://vroncevic.github.io/ats_utilities&#39;</span>
 <span class="n">__credits__</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Vladimir Roncevic&#39;</span><span class="p">,</span> <span class="s1">&#39;Python Software Foundation&#39;</span><span class="p">]</span>
 <span class="n">__license__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE&#39;</span>
-<span class="n">__version__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;3.3.5&#39;</span>
+<span class="n">__version__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;3.3.6&#39;</span>
 <span class="n">__maintainer__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;Vladimir Roncevic&#39;</span>
 <span class="n">__email__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;elektron.ronca@gmail.com&#39;</span>
 <span class="n">__status__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;Updated&#39;</span>
 
 
 <div class="viewcode-block" id="Splash">
-<a class="viewcode-back" href="../../../ats_utilities.splash.splash.html#ats_utilities.splash.Splash">[docs]</a>
+<a class="viewcode-back" href="../../../ats_utilities.splash.splash.html#ats_utilities.splash.splash.Splash">[docs]</a>
 <span class="k">class</span> <span class="nc">Splash</span><span class="p">(</span><span class="n">ISplash</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Defines class Splash with attribute(s) and method(s).</span>
@@ -139,9 +142,9 @@
 <span class="sd">            :param pb: Progress bar | None</span>
 <span class="sd">            :type pb: &lt;Optional[IProgressBar]&gt;</span>
 <span class="sd">            :param checker: Error checker | None</span>
-<span class="sd">            :type checker: :class:`~ats_utilities.checker.IATSChecker`</span>
+<span class="sd">            :type checker: &lt;Optional[IATSChecker]&gt;</span>
 <span class="sd">            :param reporter: ATSReporter for outputting messages | None</span>
-<span class="sd">            :type reporter: :class:`~ats_utilities.console_io.iats_reporter.IATSReporter`</span>
+<span class="sd">            :type reporter: &lt;Optional[IATSReporter]&gt;</span>
 <span class="sd">            :param verbose: Enable/Disable verbose option</span>
 <span class="sd">            :type verbose: &lt;bool&gt;</span>
 <span class="sd">            :exceptions: ATSTypeError | ATSValueError</span>
@@ -191,7 +194,7 @@
             <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">__pb</span>
 
 <div class="viewcode-block" id="Splash.center">
-<a class="viewcode-back" href="../../../ats_utilities.splash.splash.html#ats_utilities.splash.Splash.center">[docs]</a>
+<a class="viewcode-back" href="../../../ats_utilities.splash.splash.html#ats_utilities.splash.splash.Splash.center">[docs]</a>
     <span class="k">def</span> <span class="nf">center</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">columns</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>

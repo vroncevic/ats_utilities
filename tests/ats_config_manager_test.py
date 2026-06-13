@@ -27,21 +27,24 @@ from os.path import dirname
 from unittest import TestCase, main, mock
 from ats_utilities.cli.config_manager import ATSConfigManager
 from ats_utilities.cli.iconfig_manager import IConfigManager
-from ats_utilities.config_io import IRead, IWrite, IFileCheck
-from ats_utilities.checker import IATSChecker
-from ats_utilities.console_io import IATSReporter
-from ats_utilities.option import ATSOptionParser, IATSArgParseStrategy
-from ats_utilities.config_io.cfg import CfgBase
-from ats_utilities.config_io.ini import IniBase
-from ats_utilities.config_io.json import JsonBase
-from ats_utilities.config_io.xml import XmlBase
-from ats_utilities.config_io.yaml import YamlBase
+from ats_utilities.config_io.iread import IRead
+from ats_utilities.config_io.iwrite import IWrite
+from ats_utilities.config_io.ifile_check import IFileCheck
+from ats_utilities.checker.iats_checker import IATSChecker
+from ats_utilities.console_io.ireporter import IATSReporter
+from ats_utilities.option.ats_option_parser import ATSOptionParser
+from ats_utilities.option.iparser_strategy import IATSArgParseStrategy
+from ats_utilities.config_io.cfg.cfgbase import CfgBase
+from ats_utilities.config_io.ini.inibase import IniBase
+from ats_utilities.config_io.json.jsonbase import JsonBase
+from ats_utilities.config_io.xml.xmlbase import XmlBase
+from ats_utilities.config_io.yaml.yamlbase import YamlBase
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.3.5'
+__version__: str = '3.3.6'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'

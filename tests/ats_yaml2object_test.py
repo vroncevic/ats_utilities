@@ -25,14 +25,14 @@ Execute
 from typing import List
 from unittest import TestCase, main
 from os.path import dirname
-from ats_utilities.config_io.yaml import Yaml2Object
-from ats_utilities.exceptions import ATSTypeError
+from ats_utilities.config_io.yaml.yaml2object import Yaml2Object
+from ats_utilities.exceptions.ats_type_error import ATSTypeError
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.3.5'
+__version__: str = '3.3.6'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'

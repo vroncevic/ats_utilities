@@ -27,7 +27,7 @@ __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.3.5'
+__version__: str = '3.3.6'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
@@ -58,7 +58,7 @@ class ICFGProcessor(ABC):
             :rtype: <bool>
             :exceptions: NotImplementedError
         '''
-        raise NotImplementedError("Subclasses must implement from_lines method")
+        raise NotImplementedError("Method from_lines() must be implement")
 
     @abstractmethod
     def to_string(self) -> str:
@@ -69,7 +69,7 @@ class ICFGProcessor(ABC):
             :rtype: <str>
             :exceptions: NotImplementedError
         '''
-        raise NotImplementedError("Subclasses must implement to_string method")
+        raise NotImplementedError("Method to_string() must be implement")
 
     @abstractmethod
     def to_dict(self) -> Dict[Any, Any]:
@@ -80,4 +80,4 @@ class ICFGProcessor(ABC):
             :rtype: <Dict[Any, Any]>
             :exceptions: NotImplementedError
         '''
-        raise NotImplementedError("Subclasses must implement to_dict method")
+        raise NotImplementedError("Method to_dict() must be implement")

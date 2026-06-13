@@ -21,22 +21,29 @@ Info
 '''
 
 from typing import ClassVar, List, Optional
-from ats_utilities.checker import IATSChecker, ATSChecker, ErrorChecker
-from ats_utilities.info import ATSInfo
-from ats_utilities.option import IATSOptionParser, ATSOptionParser
-from ats_utilities.console_io import IATSReporter, ATSReporter
-from ats_utilities.config_io import IRead, IWrite, IFileCheck, FileCheck
-from ats_utilities.option import IATSArgParseStrategy
-from .yaml2object import Yaml2Object
-from .object2yaml import Object2Yaml
-from .iyaml_processor import IYAMLProcessor
-from .default_yaml_processor import ATSYAMLProcessor
+from ats_utilities.checker.iats_checker import IATSChecker
+from ats_utilities.checker.ats_checker import ATSChecker
+from ats_utilities.checker.iats_checker import ErrorChecker
+from ats_utilities.info.ats_info import ATSInfo
+from ats_utilities.option.ioption_parser import IATSOptionParser
+from ats_utilities.option.ats_option_parser import ATSOptionParser
+from ats_utilities.console_io.ireporter import IATSReporter
+from ats_utilities.console_io.reporter import ATSReporter
+from ats_utilities.config_io.iread import IRead
+from ats_utilities.config_io.iwrite import IWrite
+from ats_utilities.config_io.ifile_check import IFileCheck
+from ats_utilities.config_io.file_check import FileCheck
+from ats_utilities.option.iparser_strategy import IATSArgParseStrategy
+from ats_utilities.config_io.yaml.yaml2object import Yaml2Object
+from ats_utilities.config_io.yaml.object2yaml import Object2Yaml
+from ats_utilities.config_io.yaml.iyaml_processor import IYAMLProcessor
+from ats_utilities.config_io.yaml.default_yaml_processor import ATSYAMLProcessor
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.3.5'
+__version__: str = '3.3.6'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
@@ -85,17 +92,17 @@ class YamlBase:
             :param info_file: Path to the info file | None
             :type info_file: <Optional[str]>
             :param yaml2obj: In API for information (Dependency Injected)
-            :type yaml2obj: :class:`~ats_utilities.config_io.iread.IRead`
+            :type yaml2obj: <Optional[IRead]>
             :param obj2yaml: Out API for information (Dependency Injected)
-            :type obj2yaml: :class:`~ats_utilities.config_io.iwrite.IWrite`
+            :type obj2yaml: <Optional[IWrite]>
             :param options_parser: Option parser for ATS | None
-            :type options_parser: :class:`~ats_utilities.option.ioption_parser.IATSOptionParser`
+            :type options_parser: <Optional[IATSOptionParser]>
             :param checker: Error checker | None
-            :type checker: :class:`~ats_utilities.checker.IATSChecker`
+            :type checker: <Optional[IATSChecker]>
             :param reporter: ATSReporter for check operations | None
-            :type reporter: :class:`~ats_utilities.console_io.iats_reporter.IATSReporter`onsole_io.iats_reporter.IATSReporter`          
+            :type reporter: <Optional[IATSReporter]>
             :param file_checker: FileCheck for checking file | None
-            :type file_checker: :class:`~ats_utilities.config_io.ifile_check.IFileCheck`
+            :type file_checker: <Optional[IFileCheck]>
             :param verbose: Enable/Disable verbose option
             :type verbose: <bool>
             :exceptions: None
@@ -106,6 +113,7 @@ class YamlBase:
         self.__file_checker: IFileCheck = file_checker or FileCheck(
             self.__checker, self.__reporter, verbose
         )
+        self.__option_parser: Optional[IATSOptionParser] = None
 
         # Dependency Injection for Yaml2Object and Object2Yaml or use defaults if not provided
         self.__yaml2obj: IRead = yaml2obj or Yaml2Object(
@@ -127,7 +135,7 @@ class YamlBase:
             if info.ats_info_ok:
                 # Dependecy injection for option parser or use default if not provided
                 # Dependecy injection for argument strategy
-                self.__option_parser: IATSOptionParser = options_parser or ATSOptionParser(
+                self.__option_parser = options_parser or ATSOptionParser(
                     information.to_dict(), strategy, self.__checker, self.__reporter, verbose
                 )
                 self.__option_parser.add_version_operation(info.version)
@@ -135,12 +143,12 @@ class YamlBase:
                 self.__reporter.verbose(self.__verbose, ['loaded ATS INI info'])
 
     @property
-    def option_parser(self) -> IATSOptionParser:
+    def option_parser(self) -> Optional[IATSOptionParser]:
         '''
             Option parser for ATS.
 
             :return: Option parser for ATS
-            :rtype: :class:`~ats_utilities.option.ioption_parser.IATSOptionParser`
+            :rtype: <Optional[IATSOptionParser]>
             :exceptions: None
         '''
         return self.__option_parser

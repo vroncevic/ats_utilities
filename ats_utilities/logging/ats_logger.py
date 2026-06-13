@@ -23,14 +23,14 @@ Info
 from typing import List, Optional
 from ats_utilities.console_io.ireporter import IATSReporter
 from ats_utilities.console_io.reporter import ATSReporter
-from .ilogger import IATSLogger
-from .default_logger import DefaultLogger, DefaultLogLevels
+from ats_utilities.logging.ilogger import IATSLogger
+from ats_utilities.logging.default_logger import DefaultLogger, DefaultLogLevels
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.3.5'
+__version__: str = '3.3.6'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
@@ -82,10 +82,10 @@ class ATSLogger:
             :type ats_log_stdout: <bool>
             :param ats_log_file: Log to file (default None)
             :type ats_log_file: <Optional[str]>
-            :param logger_instance: Pre-configured Logger instance
-            :type logger_instance: :class:`~ats_utilities.logging.ilogger.IATSLogger`
+            :param logger_instance: Pre-configured Logger instance | None
+            :type logger_instance: <Optional[IATSLogger]>
             :param reporter: ATSReporter for check operations | None
-            :type reporter: :class:`~ats_utilities.console_io.iats_reporter.IATSReporter`
+            :type reporter: <Optional[IATSReporter]>
             :param verbose: Enable/Disable verbose option
             :type verbose: <bool>
             :exceptions: None
