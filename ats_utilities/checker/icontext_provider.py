@@ -42,8 +42,21 @@ class IATSContextProvider(ABC):
 
             :attributes: None
             :methods:
+                | set_stack_index_caller - Sets the index in the call stack to identify the caller.
                 | get_context - Returns a string representing the calling context.
+                | __str__ - Returns a human-readable string representation of the context provider.
     '''
+
+    @abstractmethod
+    def set_stack_index_caller(self, stack_index_caller: int) -> None:
+        '''
+            Sets the index in the call stack to identify the caller.
+
+            :param stack_index_caller: Index in the call stack to identify the caller.
+            :type stack_index_caller: <int>
+            :exceptions: None
+        '''
+        raise NotImplementedError("Method set_stack_index_caller() must be implemented.")
 
     @abstractmethod
     def get_context(self) -> str:
@@ -55,3 +68,14 @@ class IATSContextProvider(ABC):
             :exceptions: NotImplementedError
         '''
         raise NotImplementedError("Method get_context() must be implemented.")
+
+    @abstractmethod
+    def __str__(self) -> str:
+        '''
+            Returns a human-readable string representation of the context provider.
+
+            :return: String representation
+            :rtype: <str>
+            :exceptions: NotImplementedError
+        '''
+        raise NotImplementedError("Method __str__() must be implemented.")

@@ -24,7 +24,7 @@ from typing import ClassVar, List, Optional
 from ats_utilities.checker.ichecker import IATSChecker
 from ats_utilities.checker.ats_checker import ATSChecker
 from ats_utilities.checker.ichecker import ErrorChecker
-from ats_utilities.info.ats_info import ATSInfo
+from ats_utilities.info.ats_info_manager import ATSInfo
 from ats_utilities.option.ioption_parser import IATSOptionParser
 from ats_utilities.option.ats_option_parser import ATSOptionParser
 from ats_utilities.console_io.ireporter import IATSReporter

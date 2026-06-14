@@ -48,6 +48,7 @@ class IATSReporter(ABC):
                 | success - Report success message (abstract).
                 | verbose - Report verbose message (abstract).
                 | warning - Report warning message (abstract).
+                | __str__ - Returns a human-readable string representation of the reporter.
     '''
 
     ERRORS: ClassVar[type[ErrorChecker]] = ErrorChecker
@@ -97,3 +98,14 @@ class IATSReporter(ABC):
             :exceptions: NotImplementedError
         '''
         raise NotImplementedError("Subclasses must implement error method")
+
+    @abstractmethod
+    def __str__(self) -> str:
+        '''
+            Returns a human-readable string representation of the reporter.
+
+            :return: String representation.
+            :rtype: <str>
+            :exceptions: NotImplementedError
+        '''
+        raise NotImplementedError("Method __str__() must be implemented.")

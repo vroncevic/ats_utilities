@@ -46,6 +46,7 @@ class ATSFormatValidator(IATSFormatValidator):
             :methods:
                 | is_valid - Checks if the string follows the expected format.
                 | split - Splits the format string into type and name parts.
+                | __str__ - Returns the string representation of ATSFormatValidator.
     '''
 
     EXPECTED_FORMAT_PARTS: Final[int] = 2
@@ -75,3 +76,16 @@ class ATSFormatValidator(IATSFormatValidator):
         '''
         parts = exp_type.split(sep=':')
         return parts[0], parts[1]
+
+    def __str__(self) -> str:
+        '''
+            Returns the string representation of ATSFormatValidator.
+
+            :return: String representation
+            :rtype: <str>
+            :exceptions: None
+        '''
+        return (
+            f'<{self.__class__.__name__}(\n'
+            f'    expected_format_parts={self.EXPECTED_FORMAT_PARTS}\n)> at 0x{id(self):x} '
+        )

@@ -86,13 +86,14 @@ class IATSChecker(ABC):
             :attributes:
                 | ERRORS - Marks error types for message reports (0 | 1 | 2).
             :methods:
-                | validate_parameters - Validates parameters for method(s) or function(s) (abstract).
+                | validates_parameters - Validates parameters for method(s) or function(s) (abstract).
+                | __str__ - Returns a human-readable string representation of the checker.
     '''
 
     ERRORS: ClassVar[EnumMeta] = ErrorChecker
 
     @abstractmethod
-    def validate_parameters(self, parameters: Optional[ParametersSpecs]) -> ValidationResult:
+    def validates_parameters(self, parameters: Optional[ParametersSpecs]) -> ValidationResult:
         '''
             Validates parameters for a method(s) or function(s).
 
@@ -103,3 +104,14 @@ class IATSChecker(ABC):
             :exceptions: NotImplementedError
         '''
         raise NotImplementedError("Method validate_parameters() must be implemented.")
+
+    @abstractmethod
+    def __str__(self) -> str:
+        '''
+            Returns a human-readable string representation of the checker.
+
+            :return: String representation
+            :rtype: <str>
+            :exceptions: NotImplementedError
+        '''
+        raise NotImplementedError("Method __str__() must be implemented.")

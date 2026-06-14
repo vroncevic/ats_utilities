@@ -21,7 +21,7 @@ Info
 '''
 
 from inspect import stack
-from typing import List, Final
+from typing import List
 from ats_utilities.checker.icontext_provider import IATSContextProvider
 
 __author__: str = 'Vladimir Roncevic'
@@ -43,20 +43,60 @@ class ATSContextProvider(IATSContextProvider):
         It defines:
 
             :attributes:
-                | STACK_INDEX_CALLER - Index in the call stack to identify the caller.
+                | __stack_index_caller - Index in the call stack to identify the caller (instance attribute).
             :methods:
+                | __init__ - Initializes ATSContextProvider.
+                | set_stack_index_caller - Sets the index in the call stack to identify the caller.
                 | get_context - Returns a string representing the calling context.
+                | __str__ - Returns the string representation of ATSContextProvider.
     '''
 
-    STACK_INDEX_CALLER: Final[int] = 2
+    def __init__(self, stack_index_caller: int = 2) -> None:
+        '''
+            Initializes ATSContextProvider.
+
+            :param stack_index_caller: Index in the call stack to identify the caller.
+            :type stack_index_caller: <int>
+            :exceptions: None
+        '''
+        self.__stack_index_caller: int = stack_index_caller
+
+    def set_stack_index_caller(self, stack_index_caller: int) -> None:
+        '''
+            Sets the index in the call stack to identify the caller.
+
+            :param stack_index_caller: Index in the call stack to identify the caller.
+            :type stack_index_caller: <int>
+            :exceptions: None
+        '''
+        self.__stack_index_caller = stack_index_caller
 
     def get_context(self) -> str:
         '''
             Returns a string representing the calling context.
+            It uses the instance's STACK_INDEX_CALLER to determine the correct
+            frame in the call stack.
 
             :return: Context information string
             :rtype: <str>
             :exceptions: None
         '''
-        caller = stack()[self.STACK_INDEX_CALLER]
+        current_stack = stack()
+        target_index = self.__stack_index_caller
+        if target_index >= len(current_stack):
+            target_index = len(current_stack) - 1
+        caller = current_stack[target_index]
         return f'\nmod: {caller.filename}\n  def: {caller.function}()'
+
+    def __str__(self) -> str:
+        '''
+            Returns the string representation of ATSContextProvider.
+
+            :return: String representation
+            :rtype: <str>
+            :exceptions: None
+        '''
+        return (
+            f'<{self.__class__.__name__}(\n'
+            f'    stack_index_caller={self.__stack_index_caller}\n)> at 0x{id(self):x} '
+        )

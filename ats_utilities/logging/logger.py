@@ -25,12 +25,10 @@ from enum import Enum
 from logging import (
     getLogger, basicConfig, Logger, DEBUG, WARNING, CRITICAL, ERROR, INFO
 )
-from ats_utilities.checker.ichecker import IATSChecker, ErrorChecker
-from ats_utilities.checker.ats_checker import ATSChecker
+from ats_utilities.logging.ilogger import IATSLogger, LogFormats
 from ats_utilities.console_io.ireporter import IATSReporter
 from ats_utilities.console_io.reporter import ATSReporter
-from ats_utilities.exceptions.ats_type_error import ATSTypeError
-from ats_utilities.logging.ilogger import IATSLogger, LogFormats
+from ats_utilities.checker.proxy_validator import validator
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -102,26 +100,23 @@ class ATSLogger(IATSLogger):
                 | __logger_name - ATS name.
                 | __log_stdout - Logging to stdout (default).
                 | __log_file - Logging to file.
-                | __checker - Checker for parameter validation.
                 | __reporter - Formatter for error reports.
                 | __logger - Python Logger instance.
                 | __verbose - Enable/Disable verbose option.
                 | 
             :methods:
                 | __init__ - Initials ATSLogger constructor.
-                | write_log - Writes message to log file.
+                | write_log - Writes message to log.
     '''
 
     LOG_FORMATS: ClassVar[type[LogFormats]] = LogFormats
     LOG_LEVELS: ClassVar[type[ATSLogLevels]] = ATSLogLevels
-    ERRORS: ClassVar[type[ErrorChecker]] = ErrorChecker
 
     def __init__(
         self,
         ats_name: Optional[str] = None,
         ats_log_stdout: bool = True,
         ats_log_file: Optional[str] = None,
-        checker: Optional[IATSChecker] = None,
         reporter: Optional[IATSReporter] = None,
         configure_logging: bool = True,
         verbose: bool = False
@@ -135,8 +130,6 @@ class ATSLogger(IATSLogger):
             :type ats_log_stdout: <bool>
             :param ats_log_file: Log to file (default None)
             :type ats_log_file: <Optional[str]>
-            :param checker: Checker for parameter validation | None
-            :type checker: <Optional[IATSChecker]>
             :param reporter: ATSReporter for verbose output | None
             :type reporter: <Optional[IATSReporter]>
             :param configure_logging: Configure logging | True
@@ -163,7 +156,6 @@ class ATSLogger(IATSLogger):
             basicConfig(**log_config)
 
         self.__logger: Logger = getLogger(self.__logger_name)
-        self.__checker: IATSChecker = checker or ATSChecker()
         self.__reporter: IATSReporter = reporter or ATSReporter()
         self.__verbose: bool = verbose
         self.__reporter.verbose(self.__verbose, ['init default ATS logger'])
@@ -175,11 +167,12 @@ class ATSLogger(IATSLogger):
             self.LOG_LEVELS.ATS_LOG_CRITICAL: self.__logger.critical,
         }
 
+    @validator([('Optional[str]:message', None)])
     def write_log(self, message: Optional[str], ctrl: int, verbose: bool = False) -> bool:
         '''
-            Writes message to log file.
+            Writes message to log.
 
-            :param message: Log message for log file | None
+            :param message: Log message in string format for log | None
             :type message: <Optional[str]>
             :param ctrl: Control flag (debug, warning, critical, errors, info)
             :type ctrl: <int>
@@ -187,15 +180,8 @@ class ATSLogger(IATSLogger):
             :type verbose: <bool>
             :return: True (successfully logged message) | False
             :rtype: <bool>
-            :exceptions: ATSTypeError
+            :exceptions: ATSTypeError by validates_parameters
         '''
-        error_msg: Optional[str] = None
-        error_id: Optional[int] = None
-        error_msg, error_id = self.__checker.validate_parameters([('str:message', message)])
-
-        if error_id == self.ERRORS.TYPE_ERROR:
-            raise ATSTypeError(error_msg)
-
         self.__reporter.verbose(self.__verbose or verbose, [f'log message: {message} {str(ctrl)}'])
         log_call = self.__log_methods.get(ctrl)
 

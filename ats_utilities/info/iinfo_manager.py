@@ -2,7 +2,7 @@
 
 '''
 Module
-    iversion.py
+    iinfo_manager.py
 Copyright
     Copyright (C) 2017 - 2026 Vladimir Roncevic <elektron.ronca@gmail.com>
     ats_utilities is free software: you can redistribute it and/or modify it
@@ -16,12 +16,12 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines interface IATSVersion with attribute(s) and method(s).
-    Interface for the ATS version mechanism.
+    Defines interface IATSInfoManager with attribute(s) and method(s).
+    Interface for the ATS info manager mechanism.
 '''
 
 from abc import ABC, abstractmethod
-from typing import List, Optional
+from typing import Any, Dict, List
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -33,61 +33,61 @@ __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
 
 
-class IATSVersion(ABC):
+class IATSInfoManager(ABC):
     '''
-        Defines interface IATSVersion with attribute(s) and method(s).
-        Interface for the ATS version mechanism.
+        Defines interface IATSInfoManager with attribute(s) and method(s).
+        Interface for the ATS info manager mechanism.
 
         It defines:
 
             :attributes: None.
             :methods:
-                | version - Property methods for set/get operations (abstract).
-                | is_version_not_none - Checks is ATS version not None (abstract).
-                | __str__ - Returns the string representation of ATS version (abstract).
+                | pre_setup - Property method for getting ATS pre-setup status.
+                | show_base_info - Shows ATS information.
+                | base_info_is_ok - Checks base information structure.
+                | __str__ - Returns the string representation of ATS info manager.
     '''
 
     @property
     @abstractmethod
-    def version(self) -> Optional[str]:
+    def pre_setup(self) -> bool:
         '''
-            Property method for getting ATS version.
+            Property method for getting ATS pre-setup status.
 
-            :return: The ATS version | None
-            :rtype: <Optional[str]>
-            :exceptions: NotImplementedError
-        '''
-        raise NotImplementedError("Subclasses must implement version getter")
-
-    @version.setter
-    @abstractmethod
-    def version(self, version: Optional[str]) -> None:
-        '''
-            Property method for setting ATS version.
-
-            :param version: The ATS version | None
-            :type version: <Optional[str]>
-            :exceptions: NotImplementedError
-        '''
-        raise NotImplementedError("Subclasses must implement version setter")
-
-    @abstractmethod
-    def is_version_not_none(self) -> bool:
-        '''
-            Checks is ATS version not None.
-
-            :return: True (ATS version is not None) | False.
+            :return: The ATS pre-setup status
             :rtype: <bool>
             :exceptions: NotImplementedError
         '''
-        raise NotImplementedError("Subclasses must implement is_version_not_none method")
+        raise NotImplementedError("Subclasses must implement pre_setup getter")
+
+    @abstractmethod
+    def show_base_info(self) -> None:
+        '''
+            Shows ATS information.
+
+            :exceptions: NotImplementedError
+        '''
+        raise NotImplementedError("Subclasses must implement show_base_info method")
+
+    @abstractmethod
+    def base_info_is_ok(self, info: Dict[Any, Any]) -> bool:
+        '''
+            Checks base information structure.
+
+            :param info: The ATS base information
+            :type info: <Dict[Any, Any]>
+            :return: True (all info params are ok) | False
+            :rtype: <bool>
+            :exceptions: NotImplementedError
+        '''
+        raise NotImplementedError("Subclasses must implement base_info_is_ok method")
 
     @abstractmethod
     def __str__(self) -> str:
         '''
-            Returns the string representation of ATS version.
+            Returns the string representation of ATS info manager.
 
-            :return: The ATS version string
+            :return: The ATS info manager string
             :rtype: <str>
             :exceptions: NotImplementedError
         '''

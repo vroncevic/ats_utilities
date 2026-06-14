@@ -44,6 +44,7 @@ class IATSLicence(ABC):
             :methods:
                 | licence - Property methods for set/get operations.
                 | is_licence_not_none - Checks is ATS licence not None.
+                | __str__ - Returns the string representation of ATS licence.
     '''
 
     @property
@@ -80,3 +81,14 @@ class IATSLicence(ABC):
             :exceptions: NotImplementedError
         '''
         raise NotImplementedError("Subclasses must implement is_licence_not_none method")
+
+    @abstractmethod
+    def __str__(self) -> str:
+        '''
+            Returns the string representation of ATS licence.
+
+            :return: The ATS licence string
+            :rtype: <str>
+            :exceptions: NotImplementedError
+        '''
+        raise NotImplementedError("Subclasses must implement __str__ method")

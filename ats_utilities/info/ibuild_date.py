@@ -44,6 +44,7 @@ class IATSBuildDate(ABC):
             :methods:
                 | build_date - Property methods for set/get operations.
                 | is_build_date_not_none - Checks is ATS build date not None.
+                | __str__ - Returns the string representation of ATS build date.
     '''
 
     @property
@@ -80,3 +81,14 @@ class IATSBuildDate(ABC):
             :exceptions: NotImplementedError
         '''
         raise NotImplementedError("Subclasses must implement is_build_date_not_none method")
+
+    @abstractmethod
+    def __str__(self) -> str:
+        '''
+            Returns the string representation of ATS build date.
+
+            :return: The ATS build date string
+            :rtype: <str>
+            :exceptions: NotImplementedError
+        '''
+        raise NotImplementedError("Subclasses must implement __str__ method")

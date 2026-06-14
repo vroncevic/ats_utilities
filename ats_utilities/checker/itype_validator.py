@@ -45,6 +45,7 @@ class IATSTypeValidator(ABC):
                 | is_match - Compares instance type with expected type name.
                 | is_subtype - Checks if instance is a subtype of expected type name.
                 | get_type_name - Returns the string representation of an instance type.
+                | __str__ - Returns a human-readable string representation of the validator.
     '''
 
     @abstractmethod
@@ -89,3 +90,14 @@ class IATSTypeValidator(ABC):
             :exceptions: NotImplementedError
         '''
         raise NotImplementedError("Method get_type_name() must be implemented.")
+
+    @abstractmethod
+    def __str__(self) -> str:
+        '''
+            Returns a human-readable string representation of the validator.
+
+            :return: String representation
+            :rtype: <str>
+            :exceptions: NotImplementedError
+        '''
+        raise NotImplementedError("Method __str__() must be implemented.")

@@ -73,6 +73,7 @@ class _ATSArgumentParser(ArgumentParser):
             :exceptions: None
         '''
         super().__init__(*args, **kwargs)
+        # No dependency injection then use default ones.
         self.__reporter: IATSReporter = reporter or ATSReporter()
 
     def error(self, message: str) -> NoReturn:
@@ -99,7 +100,7 @@ class ATSArgParseStrategy(IATSArgParseStrategy):
 
             :attributes:
                 | __reporter - ATSReporter for outputting messages.
-                | _parser - Options parser.
+                | __parser - Options parser.
             :methods:
                 | __init__ - Initials ATSArgParseStrategy constructor.
                 | setup - Initializes the underlying parser with metadata parameters.
@@ -116,8 +117,9 @@ class ATSArgParseStrategy(IATSArgParseStrategy):
             :type reporter: <Optional[IATSReporter]>
             :exceptions: None
         '''
+        # No dependency injection then use default ones.
         self.__reporter = reporter or ATSReporter()
-        self._parser: Optional[ArgumentParser] = None
+        self.__parser: Optional[ArgumentParser] = None
 
     def setup(self, parameters: Dict[str, str]) -> None:
         '''
@@ -127,7 +129,7 @@ class ATSArgParseStrategy(IATSArgParseStrategy):
             :type parameters: <Dict[str, str]>
             :exceptions: None
         '''
-        self._parser = _ATSArgumentParser(
+        self.__parser = _ATSArgumentParser(
             self.__reporter,
             prog=f'{parameters.get("name")} {parameters.get("version")}',
             epilog=parameters.get("epilog"),
@@ -144,8 +146,8 @@ class ATSArgParseStrategy(IATSArgParseStrategy):
             :type kwargs: <Any>
             :exceptions: None
         '''
-        if self._parser:
-            self._parser.add_argument(*args, **kwargs)
+        if self.__parser:
+            self.__parser.add_argument(*args, **kwargs)
 
     def add_version(self, version: Optional[str]) -> None:
         '''
@@ -155,8 +157,8 @@ class ATSArgParseStrategy(IATSArgParseStrategy):
             :type version: <Optional[str]>
             :exceptions: None
         '''
-        if self._parser and version:
-            self._parser.add_argument('--version', action='version', version=version)
+        if self.__parser and version:
+            self.__parser.add_argument('--version', action='version', version=version)
 
     def parse(self, arguments: OptArgs, known_only: bool = False) -> OptionNamespace:
         '''
@@ -170,10 +172,10 @@ class ATSArgParseStrategy(IATSArgParseStrategy):
             :rtype: <OptionNamespace>
             :exceptions: RuntimeError
         '''
-        if not self._parser:
+        if not self.__parser:
             raise RuntimeError("Parser strategy is not initialized.")
 
         if known_only:
-            known_args: KnownArgs = self._parser.parse_known_args(arguments)
+            known_args: KnownArgs = self.__parser.parse_known_args(arguments)
             return known_args[0]
-        return self._parser.parse_args(arguments)
+        return self.__parser.parse_args(arguments)

@@ -42,8 +42,9 @@ class IATSName(ABC):
 
             :attributes: None.
             :methods:
-                | name - Property methods for set/get operations.
-                | is_name_not_none - Checks is ATS name not None.
+                | name - Property methods for set/get operations (abstract).
+                | is_name_not_none - Checks is ATS name not None (abstract).
+                | __str__ - Returns the string representation of ATS name (abstract).
     '''
 
     @property
@@ -80,3 +81,14 @@ class IATSName(ABC):
             :exceptions: NotImplementedError
         '''
         raise NotImplementedError("Subclasses must implement is_name_not_none method")
+
+    @abstractmethod
+    def __str__(self) -> str:
+        '''
+            Returns the string representation of ATS name.
+
+            :return: The ATS name string
+            :rtype: <str>
+            :exceptions: NotImplementedError
+        '''
+        raise NotImplementedError("Subclasses must implement __str__ method")

@@ -20,13 +20,14 @@ Info
     Creates an API for the ATS info status in one property object.
 '''
 
-from typing import ClassVar, List, Optional
-from ats_utilities.checker.ichecker import IATSChecker, ErrorChecker
+from typing import List, Optional
+from ats_utilities.info.iinfo_ok import IATSInfoOk
+from ats_utilities.checker.ichecker import IATSChecker
 from ats_utilities.checker.ats_checker import ATSChecker
+from ats_utilities.checker.proxy_validator import validator
 from ats_utilities.console_io.ireporter import IATSReporter
 from ats_utilities.console_io.reporter import ATSReporter
-from ats_utilities.exceptions.ats_type_error import ATSTypeError
-from ats_utilities.info.iinfo_ok import IATSInfoOk
+from ats_utilities.console_io.proxy_reporter import vreporter
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -47,17 +48,15 @@ class ATSInfoOk(IATSInfoOk):
         It defines:
 
             :attributes:
-                | ERRORS - Error checker mapping.
-                | __checker - Error checker.
-                | __reporter - ATSReporter for messaging.
-                | __verbose - Enable/Disable verbose option.
-                | __ats_info_ok - The ATS information status.
+                | __checker - Parameters checker (default set ATSChecker).
+                | __reporter - Reporter for messaging (default ATSReporter).
+                | __verbose - Enable/Disable verbose option (default False).
+                | __info_ok - The ATS information status (default False).
             :methods:
                 | __init__ - Initials ATSInfoOk constructor.
                 | ats_info_ok - Property methods for set/get operations.
+                | __str__ - Returns the string representation of ATS info status.
     '''
-
-    ERRORS: ClassVar[type[ErrorChecker]] = ErrorChecker
 
     def __init__(
         self,
@@ -68,45 +67,64 @@ class ATSInfoOk(IATSInfoOk):
         '''
             Initials ATSInfoOk constructor.
 
-            :param checker: Error checker | None
+            :param checker: Parameters checker (default set ATSChecker) | None
             :type checker: <Optional[IATSChecker]>
-            :param reporter: ATSReporter for messaging | None
+            :param reporter: Reporter for messaging (default set ATSReporter) | None
             :type reporter: <Optional[IATSReporter]>
             :param verbose: Enable/Disable verbose option
             :type verbose: <bool>
             :exceptions: None
         '''
+        # No dependency injection then use default ones.
         self.__checker: IATSChecker = checker or ATSChecker()
-        self.__reporter: IATSReporter = reporter or ATSReporter()
+        self.__reporter: IATSReporter = reporter or ATSReporter(checker=self.__checker)
         self.__verbose: bool = verbose
-        self.__ats_info_ok: bool = False
+        self.__info_ok: bool = False
 
     @property
-    def ats_info_ok(self) -> bool:
+    @vreporter('get info_ok {info_ok}')
+    def info_ok(self) -> bool:
         '''
             Property method for getting ATS information status.
 
-            :return: The ATS information status
+            :return: The ATS information status in bool format
             :rtype: <bool>
-            :exceptions: None
+            :exceptions: RuntimeError, AttributeError by vreporter
         '''
-        return self.__ats_info_ok
+        return self.__info_ok
 
-    @ats_info_ok.setter
-    def ats_info_ok(self, ats_info_ok: bool) -> None:
+    @info_ok.setter
+    @validator([('bool:info_ok', None)])
+    @vreporter('set info_ok {info_ok}')
+    def info_ok(self, info_ok: bool) -> None:
         '''
             Property method for setting ATS information status.
 
-            :param ats_info_ok: The ATS information status
-            :type ats_info_ok: <bool>
-            :exceptions: ATSTypeError
+            :param info_ok: The ATS information status in bool format
+            :type info_ok: <bool>
+            :exceptions:
+                | ATSTypeError, ATSValueError by validator
+                | RuntimeError, AttributeError by vreporter
         '''
-        error_msg: Optional[str] = None
-        error_id: Optional[int] = None
-        error_msg, error_id = self.__checker.validate_parameters([('bool:ats_info_ok', ats_info_ok)])
+        self.__info_ok = info_ok
 
-        if error_id == self.ERRORS.TYPE_ERROR:
-            raise ATSTypeError(error_msg)
+    def __str__(self) -> str:
+        '''
+            Returns the string representation of ATS info status.
 
-        self.__ats_info_ok = ats_info_ok
-        self.__reporter.verbose(self.__verbose, [f'info {ats_info_ok}'])
+            :return: The ATS info status string representation
+            :rtype: <str>
+            :exceptions: None
+        '''
+        info_ok = str(self.__info_ok).replace('\n', '\n    ')
+        checker = str(self.__checker).replace('\n', '\n    ')
+        reporter = str(self.__reporter).replace('\n', '\n    ')
+        verbose = str(self.__verbose).replace('\n', '\n    ')
+
+        return (
+            f'<{self.__class__.__name__}(\n'
+            f'    info_ok={info_ok},\n'
+            f'    checker={checker},\n'
+            f'    reporter={reporter},\n'
+            f'    verbose={verbose}\n)> at 0x{id(self):x} '
+        )

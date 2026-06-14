@@ -20,15 +20,12 @@ Info
     Creates an API for checking operations with files.
 '''
 
-from typing import ClassVar, List, Optional
+from typing import List, Optional
 from os.path import splitext, isfile
-from ats_utilities.checker.ichecker import IATSChecker
-from ats_utilities.checker.ats_checker import ATSChecker
-from ats_utilities.checker.ichecker import ErrorChecker
 from ats_utilities.config_io.ifile_check import IFileCheck
 from ats_utilities.console_io.ireporter import IATSReporter
 from ats_utilities.console_io.reporter import ATSReporter
-from ats_utilities.exceptions.ats_type_error import ATSTypeError
+from ats_utilities.checker.decorator import validates_parameters
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -49,8 +46,6 @@ class FileCheck(IFileCheck):
         It defines:
 
             :attributes:
-                | ERRORS - Marks error types.
-                | __checker - ATSChecker for check operations.
                 | __reporter - ATSReporter for check operations.
                 | __verbose - Enable/Disable verbose option.
                 | __file_path_ok - File exist, path ok.
@@ -64,26 +59,16 @@ class FileCheck(IFileCheck):
                 | is_file_ok - Returns status for file.
     '''
 
-    ERRORS: ClassVar[type[ErrorChecker]] = ErrorChecker
-
-    def __init__(
-        self,
-        checker: Optional[IATSChecker] = None,
-        reporter: Optional[IATSReporter] = None,
-        verbose: bool = False
-    ) -> None:
+    def __init__(self, reporter: Optional[IATSReporter] = None, verbose: bool = False) -> None:
         '''
             Initials FileCheck constructor.
 
-            :param checker: ATSChecker for check operations | None
-            :type checker: <Optional[IATSChecker]>
             :param verbose: Enable/Disable verbose option
             :type verbose: <bool>
             :param reporter: ATSReporter for check operations | None
             :type reporter: <Optional[IATSReporter]>
             :exceptions: None
         '''
-        self.__checker: IATSChecker = checker or ATSChecker()
         self.__reporter: IATSReporter = reporter or ATSReporter()
         self.__verbose: bool = verbose
         self.__file_path_ok: bool = False
@@ -91,6 +76,7 @@ class FileCheck(IFileCheck):
         self.__file_format_ok: bool = False
         self.__reporter.verbose(self.__verbose, ['init ATS check file'])
 
+    @validates_parameters([('Optional[str]:file_path', None)])
     def check_path(self, file_path: Optional[str], verbose: bool = False) -> None:
         '''
             Checks file path.
@@ -99,15 +85,8 @@ class FileCheck(IFileCheck):
             :type file_path: <Optional[str]>
             :param verbose: Enable/Disable verbose option
             :type verbose: <bool>
-            :exceptions: ATSTypeError
+            :exceptions: ATSTypeError by validate_parameters
         '''
-        error_msg: Optional[str] = None
-        error_id: Optional[int] = None
-        error_msg, error_id = self.__checker.validate_parameters([('str:file_path', file_path)])
-
-        if error_id == self.ERRORS.TYPE_ERROR:
-            raise ATSTypeError(error_msg)
-
         # file_path is guaranteed to be str if no exception was raised
         self.__file_path_ok = isfile(file_path)  # type: ignore
 
@@ -116,6 +95,7 @@ class FileCheck(IFileCheck):
         else:
             self.__reporter.error([f'check file {file_path}'])
 
+    @validates_parameters([('Optional[str]:file_mode', None)])
     def check_mode(self, file_mode: Optional[str], verbose: bool = False) -> None:
         '''
             Checks operation mode for file.
@@ -126,13 +106,6 @@ class FileCheck(IFileCheck):
             :type verbose: <bool>
             :exceptions: ATSTypeError
         '''
-        error_msg: Optional[str] = None
-        error_id: Optional[int] = None
-        error_msg, error_id = self.__checker.validate_parameters([('str:file_mode', file_mode)])
-
-        if error_id == self.ERRORS.TYPE_ERROR:
-            raise ATSTypeError(error_msg)
-
         # file_mode is guaranteed to be str
         self.__file_mode_ok = all(char in self.MODES for char in file_mode)  # type: ignore
 
@@ -141,12 +114,8 @@ class FileCheck(IFileCheck):
         else:
             self.__reporter.error([f'not supported file mode [{file_mode}]'])
 
-    def check_format(
-        self,
-        file_path: Optional[str],
-        file_format: Optional[str],
-        verbose: bool = False
-    ) -> None:
+    @validates_parameters([('Optional[str]:file_path', None), ('Optional[str]:file_format', None)])
+    def check_format(self, file_path: Optional[str], file_format: Optional[str], verbose: bool = False) -> None:
         '''
             Checks file format by extension.
 
@@ -156,15 +125,8 @@ class FileCheck(IFileCheck):
             :type file_format: <Optional[str]>
             :param verbose: Enable/Disable verbose option
             :type verbose: <bool>
-            :exceptions: ATSTypeError
+            :exceptions: ATSTypeError by validate_parameters
         '''
-        error_msg: Optional[str] = None
-        error_id: Optional[int] = None
-        error_msg, error_id = self.__checker.validate_parameters([('str:file_path', file_path), ('str:file_format', file_format)])
-
-        if error_id == self.ERRORS.TYPE_ERROR:
-            raise ATSTypeError(error_msg)
-
         extension: Optional[str] = None
         fmt_str, path_str = str(file_format), str(file_path)
 

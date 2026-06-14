@@ -20,19 +20,16 @@ Info
     Creates an API for reading configuration from a CFG file.
 '''
 
-from typing import ClassVar, List, Optional
-from ats_utilities.checker.ichecker import IATSChecker
-from ats_utilities.checker.ats_checker import ATSChecker
-from ats_utilities.checker.ichecker import ErrorChecker
+from typing import List, Optional
+from ats_utilities.config_io.iread import IRead
 from ats_utilities.console_io.ireporter import IATSReporter
 from ats_utilities.console_io.reporter import ATSReporter
-from ats_utilities.exceptions.ats_type_error import ATSTypeError
-from ats_utilities.config_io.iread import IRead
 from ats_utilities.config_io.conf_file import ConfFile
 from ats_utilities.config_io.ifile_check import IFileCheck
 from ats_utilities.config_io.file_check import FileCheck
 from ats_utilities.config_io.cfg.icfg_processor import ICFGProcessor
 from ats_utilities.config_io.cfg.cfg_processor import ATSCFGProcessor
+from ats_utilities.checker.decorator import validates_parameters
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -53,11 +50,9 @@ class Cfg2Object(IRead):
         It defines:
 
             :attributes:
-                | ERRORS - Marks error types.
                 | __EXT - File extension of the configuration file.
                 | __MODE - File open mode.
                 | __REGEX_EXP - Regular expression for matching line.
-                | __checker - ATSChecker for check operations.
                 | __reporter - ATSReporter for messaging.
                 | __file_checker - FileCheck for checking file.
                 | __file_path - Configuration file path.
@@ -67,15 +62,14 @@ class Cfg2Object(IRead):
                 | read_configuration - Reads configuration from a CFG file.
     '''
 
-    ERRORS: ClassVar[type[ErrorChecker]] = ErrorChecker
     __EXT: str = 'cfg'
     __MODE: str = 'r'
 
+    @validates_parameters([('Optional[str]:config_file', None)])
     def __init__(
         self,
         config_file: Optional[str],
         cfg_processor: Optional[ICFGProcessor] = None,
-        checker: Optional[IATSChecker] = None,
         reporter: Optional[IATSReporter] = None,
         file_checker: Optional[IFileCheck] = None,
         verbose: bool = False
@@ -87,8 +81,6 @@ class Cfg2Object(IRead):
             :type config_file: <Optional[str]>
             :param cfg_processor: Processor for CFG content | None
             :type cfg_processor: <Optional[ICFGProcessor]>
-            :param checker: ATSChecker for check operations | None
-            :type checker: <Optional[IATSChecker]>
             :param reporter: ATSReporter for check operations | None
             :type reporter: <Optional[IATSReporter]>
             :param file_checker: FileCheck for checking file | None
@@ -97,22 +89,9 @@ class Cfg2Object(IRead):
             :type verbose: <bool>
             :exceptions:  ATSTypeError
         '''
-        self.__checker: IATSChecker = checker or ATSChecker()
         self.__reporter: IATSReporter = reporter or ATSReporter()
         self.__verbose: bool = verbose
-        self.__file_checker: IFileCheck = file_checker or FileCheck(
-            self.__checker, self.__reporter, self.__verbose
-        )
-
-        error_msg: Optional[str] = None
-        error_id: Optional[int] = None
-        error_msg, error_id = self.__checker.validate_parameters([
-            ('str:config_file', config_file)
-        ])
-
-        if error_id == self.ERRORS.TYPE_ERROR:
-            raise ATSTypeError(error_msg)
-
+        self.__file_checker: IFileCheck = file_checker or FileCheck(self.__reporter, self.__verbose)
         self.__cfg_processor: ICFGProcessor = cfg_processor or ATSCFGProcessor()
         self.__file_path: str = str(config_file)
         self.__reporter.verbose(self.__verbose, [f'configuration {config_file}'])
@@ -131,7 +110,6 @@ class Cfg2Object(IRead):
             self.__file_path,
             self.__MODE,
             self.__EXT,
-            self.__checker,
             self.__reporter,
             self.__file_checker,
             self.__verbose or verbose

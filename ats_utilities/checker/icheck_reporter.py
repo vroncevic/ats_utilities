@@ -46,6 +46,7 @@ class IATSCheckReporter(ABC):
             :attributes: None
             :methods:
                 | build_message_format - Builds the final message report for checker.
+                | __str__ - Returns a human-readable string representation of the reporter.
     '''
     @abstractmethod
     def build_message_format(self, context: str, parameters_meta: List[ParamMetadata], err_indices: List[int], is_fmt_err: bool) -> str:
@@ -65,3 +66,14 @@ class IATSCheckReporter(ABC):
             :exceptions: NotImplementedError
         '''
         raise NotImplementedError("Method build_message_format() must be implemented.")
+
+    @abstractmethod
+    def __str__(self) -> str:
+        '''
+            Returns a human-readable string representation of the reporter.
+
+            :return: String representation
+            :rtype: <str>
+            :exceptions: NotImplementedError
+        '''
+        raise NotImplementedError("Method __str__() must be implemented.")

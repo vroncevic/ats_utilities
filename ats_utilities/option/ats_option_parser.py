@@ -20,18 +20,18 @@ Info
     Creates an option parser based on the argparse argument processor.
 '''
 
-from typing import Any, ClassVar, List, Dict, Optional
-from ats_utilities.checker.ichecker import IATSChecker
-from ats_utilities.checker.ats_checker import ATSChecker
-from ats_utilities.checker.ichecker import ErrorChecker
-from ats_utilities.console_io.ireporter import IATSReporter
-from ats_utilities.console_io.reporter import ATSReporter
-from ats_utilities.exceptions.ats_type_error import ATSTypeError
+from typing import Any, List, Dict, Optional
 from ats_utilities.option.ioption_parser import IATSOptionParser
-from ats_utilities.option.option_namespace import OptionNamespace
-from ats_utilities.option.option_namespace import OptArgs
 from ats_utilities.option.iparser_strategy import IATSArgParseStrategy
 from ats_utilities.option.ats_parser_strategy import ATSArgParseStrategy
+from ats_utilities.checker.ichecker import IATSChecker
+from ats_utilities.checker.ats_checker import ATSChecker
+from ats_utilities.checker.proxy_validator import validator
+from ats_utilities.console_io.ireporter import IATSReporter
+from ats_utilities.console_io.reporter import ATSReporter
+from ats_utilities.console_io.proxy_reporter import vreporter
+from ats_utilities.option.option_namespace import OptionNamespace
+from ats_utilities.option.option_namespace import OptArgs
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -52,8 +52,6 @@ class ATSOptionParser(IATSOptionParser):
         It defines:
 
             :attributes:
-                | ERRORS - Marks error types.
-                | __checker - Parameters checker instance.
                 | __reporter - ATSReporter for outputting messages.
                 | __verbose - Enable/Disable verbose option.
                 | __opt_parser - Options parser.
@@ -64,8 +62,7 @@ class ATSOptionParser(IATSOptionParser):
                 | parse_args - Processes arguments from the start.
     '''
 
-    ERRORS: ClassVar[type[ErrorChecker]] = ErrorChecker
-
+    @validator([('dict:parameters', None)])
     def __init__(
         self,
         parameters: Dict[str, str],
@@ -81,26 +78,20 @@ class ATSOptionParser(IATSOptionParser):
             :type parameters: <Dict[str, str]>
             :param strategy: Strategy for argument parsing | None
             :type strategy: <Optional[IATSArgParseStrategy]>
-            :param checker: Parameters checker instance | None
+            :param checker: Parameters checker (default set ATSChecker) | None
             :type checker: <Optional[IATSChecker]>
             :param reporter: ATSReporter for outputting messages | None 
             :type reporter: <Optional[IATSReporter]>
             :param verbose: Enable/Disable verbose option
             :type verbose: <bool>
-            :exceptions: ATSTypeError
+            :exceptions: ATSTypeError by validates_parameters
         '''
+        # No dependency injection then use default ones.
         self.__checker: IATSChecker = checker or ATSChecker()
-        self.__reporter: IATSReporter = reporter or ATSReporter()
-        self.__verbose: bool = verbose
-        error_msg: Optional[str] = None
-        error_id: Optional[int] = None
-        error_msg, error_id = self.__checker.validate_parameters([('dict:parameters', parameters)])
-
-        if error_id == self.ERRORS.TYPE_ERROR:
-            raise ATSTypeError(error_msg)
-
+        self.__reporter: IATSReporter = reporter or ATSReporter(self.__checker)
         self.__strategy: IATSArgParseStrategy = strategy or ATSArgParseStrategy(self.__reporter)
         self.__strategy.setup(parameters)
+        self.__verbose: bool = verbose
 
     def add_operation(self, *args: str, **kwargs: Any) -> None:
         '''
@@ -114,6 +105,8 @@ class ATSOptionParser(IATSOptionParser):
         '''
         self.__strategy.add_argument(*args, **kwargs)
 
+    @validator([('Optional[str]:version', None)])
+    @vreporter('add version {version}')
     def add_version_operation(self, version: Optional[str], verbose: bool = False) -> None:
         '''
             Adds version option to the ATS parser.
@@ -122,7 +115,7 @@ class ATSOptionParser(IATSOptionParser):
             :type version: <Optional[str]>
             :param verbose: Enable/Disable verbose option
             :type verbose: <bool>
-            :exceptions: None
+            :exceptions: ATSTypeError by validates_parameters
         '''
         if version:
             self.__strategy.add_version(version)

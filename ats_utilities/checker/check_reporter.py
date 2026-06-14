@@ -44,6 +44,7 @@ class ATSCheckReporter(IATSCheckReporter):
             :attributes: None
             :methods:
                 | build_message_format - Builds the final message report.
+                | __str__ - Returns the string representation of ATSCheckReporter.
     '''
 
     def build_message_format(self, context: str, parameters_meta: List[ParamMetadata], err_indices: List[int], is_fmt_err: bool) -> str:
@@ -75,3 +76,13 @@ class ATSCheckReporter(IATSCheckReporter):
             message += ' format wrong during checking parameters_meta'
 
         return message
+
+    def __str__(self) -> str:
+        '''
+            Returns the string representation of ATSCheckReporter.
+
+            :return: String representation
+            :rtype: <str>
+            :exceptions: None
+        '''
+        return f'<{self.__class__.__name__}()> at 0x{id(self):x} '

@@ -20,18 +20,15 @@ Info
     Creates an API for writing configuration to a CFG file.
 '''
 
-from typing import ClassVar, List, Optional
-from ats_utilities.checker.ichecker import IATSChecker
-from ats_utilities.checker.ats_checker import ATSChecker
-from ats_utilities.checker.ichecker import ErrorChecker
+from typing import List, Optional
+from ats_utilities.config_io.iwrite import IWrite
 from ats_utilities.console_io.ireporter import IATSReporter
 from ats_utilities.console_io.reporter import ATSReporter
-from ats_utilities.exceptions.ats_type_error import ATSTypeError
-from ats_utilities.config_io.iwrite import IWrite
 from ats_utilities.config_io.conf_file import ConfFile
 from ats_utilities.config_io.ifile_check import IFileCheck
 from ats_utilities.config_io.file_check import FileCheck
 from ats_utilities.config_io.cfg.icfg_processor import ICFGProcessor
+from ats_utilities.checker.decorator import validates_parameters
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -52,10 +49,8 @@ class Object2Cfg(IWrite):
         It defines:
 
             :attributes:
-                | ERRORS - Marks error types.
                 | __EXT - File extension of the configuration file.
                 | __MODE - File open mode.
-                | __checker - ATSChecker for check operations.
                 | __reporter - ATSReporter for messaging.
                 | __file_checker - FileCheck for checking file.
                 | __file_path - Configuration file path.
@@ -65,14 +60,13 @@ class Object2Cfg(IWrite):
                 | write_configuration - Writes configuration to a CFG file.
     '''
 
-    ERRORS: ClassVar[type[ErrorChecker]] = ErrorChecker
     __EXT: str = 'cfg'
     __MODE: str = 'w'
 
+    @validates_parameters([('Optional[str]:config_file', None)])
     def __init__(
         self,
         config_file: Optional[str],
-        checker: Optional[IATSChecker] = None,
         reporter: Optional[IATSReporter] = None,
         file_checker: Optional[IFileCheck] = None,
         verbose: bool = False
@@ -82,8 +76,6 @@ class Object2Cfg(IWrite):
 
             :param config_file: Configuration file path | None
             :type config_file: <Optional[str]>
-            :param checker: ATSChecker for check operations | None
-            :type checker: <Optional[IATSChecker]>
             :param reporter: ATSReporter for check operations | None
             :type reporter: <Optional[IATSReporter]>
             :param file_checker: FileCheck for checking file | None
@@ -92,23 +84,13 @@ class Object2Cfg(IWrite):
             :type verbose: <bool>
             :exceptions: ATSTypeError
         '''
-        self.__checker: IATSChecker = checker or ATSChecker()
         self.__reporter: IATSReporter = reporter or ATSReporter()
-        self.__file_checker: IFileCheck = file_checker or FileCheck(checker, reporter, verbose)
+        self.__file_checker: IFileCheck = file_checker or FileCheck(reporter, verbose)
         self.__verbose: bool = verbose
-
-        error_msg: Optional[str] = None
-        error_id: Optional[int] = None
-        error_msg, error_id = self.__checker.validate_parameters([
-            ('str:config_file', config_file)
-        ])
-
-        if error_id == self.ERRORS.TYPE_ERROR:
-            raise ATSTypeError(error_msg)
-
         self.__file_path: str = str(config_file)
         self.__reporter.verbose(self.__verbose, [f'configuration file {config_file}'])
 
+    @validates_parameters([('Optional[ICFGProcessor]:config', None)])
     def write_configuration(self, config: Optional[ICFGProcessor], verbose: bool = False) -> bool:
         '''
             Writes a configuration to a CFG file.
@@ -122,12 +104,6 @@ class Object2Cfg(IWrite):
             :exceptions: ATSTypeError
         '''
         status: bool = False
-        error_msg: Optional[str] = None
-        error_id: Optional[int] = None
-        error_msg, error_id = self.__checker.validate_parameters([('ICFGProcessor:config', config)])
-
-        if error_id == self.ERRORS.TYPE_ERROR:
-            raise ATSTypeError(error_msg)
 
         if not bool(config):
             return status
@@ -139,7 +115,6 @@ class Object2Cfg(IWrite):
             self.__file_path,
             self.__MODE,
             self.__EXT,
-            self.__checker,
             self.__reporter,
             self.__file_checker,
             self.__verbose or verbose

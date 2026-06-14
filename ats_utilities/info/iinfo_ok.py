@@ -42,12 +42,13 @@ class IATSInfoOk(ABC):
 
             :attributes: None.
             :methods:
-                | ats_info_ok - Property methods for set/get operations.
+                | info_ok - Property methods for set/get operations.
+                | __str__ - Returns the string representation of ATS info status.
     '''
 
     @property
     @abstractmethod
-    def ats_info_ok(self) -> bool:
+    def info_ok(self) -> bool:
         '''
             Property method for getting ATS information status.
 
@@ -55,16 +56,27 @@ class IATSInfoOk(ABC):
             :rtype: <bool>
             :exceptions: NotImplementedError
         '''
-        raise NotImplementedError("Subclasses must implement ats_info_ok getter")
+        raise NotImplementedError("Subclasses must implement info_ok getter")
 
-    @ats_info_ok.setter
+    @info_ok.setter
     @abstractmethod
-    def ats_info_ok(self, ats_info_ok: bool) -> None:
+    def info_ok(self, info_ok: bool) -> None:
         '''
             Property method for setting ATS information status.
 
-            :param ats_info_ok: The ATS information status
-            :type ats_info_ok: <bool>
+            :param info_ok: The ATS information status
+            :type info_ok: <bool>
             :exceptions: NotImplementedError
         '''
-        raise NotImplementedError("Subclasses must implement ats_info_ok setter")
+        raise NotImplementedError("Subclasses must implement info_ok setter")
+
+    @abstractmethod
+    def __str__(self) -> str:
+        '''
+            Returns the string representation of ATS info status.
+
+            :return: The ATS info status string
+            :rtype: <str>
+            :exceptions: NotImplementedError
+        '''
+        raise NotImplementedError("Subclasses must implement __str__ method")

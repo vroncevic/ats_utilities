@@ -43,6 +43,7 @@ class IConsoleTheme(ABC):
             :attributes: None
             :methods:
                 | get_color - Returns color code based on type (abstract).
+                | __str__ - Returns a human-readable string representation of the theme.
     '''
 
     @abstractmethod
@@ -57,3 +58,14 @@ class IConsoleTheme(ABC):
             :exceptions: NotImplementedError
         '''
         raise NotImplementedError()
+
+    @abstractmethod
+    def __str__(self) -> str:
+        '''
+            Returns a human-readable string representation of the theme.
+
+            :return: String representation.
+            :rtype: <str>
+            :exceptions: NotImplementedError
+        '''
+        raise NotImplementedError("Method __str__() must be implemented.")

@@ -44,6 +44,7 @@ class IATSFormatValidator(ABC):
             :methods:
                 | is_valid - Checks if the string follows the expected format.
                 | split - Splits the format string into components.
+                | __str__ - Returns a human-readable string representation of the validator.
     '''
 
     @abstractmethod
@@ -71,3 +72,14 @@ class IATSFormatValidator(ABC):
             :exceptions: NotImplementedError
         '''
         raise NotImplementedError("Method split() must be implemented.")
+
+    @abstractmethod
+    def __str__(self) -> str:
+        '''
+            Returns a human-readable string representation of the validator.
+
+            :return: String representation
+            :rtype: <str>
+            :exceptions: NotImplementedError
+        '''
+        raise NotImplementedError("Method __str__() must be implemented.")

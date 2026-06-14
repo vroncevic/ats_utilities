@@ -61,7 +61,8 @@ class ATSChecker(IATSChecker):
                 | __reporter - Formatter for message reports.
             :methods:
                 | __init__ - Initials ATSChecker constructor.
-                | validate_parameters - Validates parameter(s) for method(s) or function(s).
+                | validates_parameters - Validates parameter(s) for method(s) or function(s).
+                | __str__ - Returns the string representation of ATSChecker.
     '''
 
     ERRORS: ClassVar[type[ErrorChecker]] = ErrorChecker
@@ -86,13 +87,13 @@ class ATSChecker(IATSChecker):
             :type check_reporter: <Optional[IATSCheckReporter]>
             :exceptions: None
         '''
-        # If no custom implementations are provided, use default ones.
+        # No dependency injection then use default ones.
         self.__format_validator: IATSFormatValidator = format_validator or ATSFormatValidator()
         self.__type_validator: IATSTypeValidator = type_validator or ATSTypeValidator()
         self.__provider: IATSContextProvider = context_provider or ATSContextProvider()
         self.__reporter: IATSCheckReporter = check_reporter or ATSCheckReporter()
 
-    def validate_parameters(self, parameters: Optional[ParametersSpecs]) -> ValidationResult:
+    def validates_parameters(self, parameters: Optional[ParametersSpecs]) -> ValidationResult:
         '''
             Validates parameters for method(s) or function(s).
 
@@ -133,3 +134,24 @@ class ATSChecker(IATSChecker):
         return self.__reporter.build_message_format(
             context, params_meta, err_indices, is_fmt_err
         ), error_id
+
+    def __str__(self) -> str:
+        '''
+            Returns the string representation of ATSChecker.
+
+            :return: String representation
+            :rtype: <str>
+            :exceptions: None
+        '''
+        format_validator = str(self.__format_validator).replace('\n', '\n    ')
+        type_validator = str(self.__type_validator).replace('\n', '\n    ')
+        context_provider = str(self.__provider).replace('\n', '\n    ')
+        check_reporter = str(self.__reporter).replace('\n', '\n    ')
+
+        return (
+            f'<{self.__class__.__name__}(\n'
+            f'    format_validator={format_validator},\n'
+            f'    type_validator={type_validator},\n'
+            f'    context_provider={context_provider},\n'
+            f'    check_reporter={check_reporter}\n)> at 0x{id(self):x} '
+        )

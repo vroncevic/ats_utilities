@@ -46,6 +46,7 @@ class ATSTypeValidator(IATSTypeValidator):
                 | is_match - Compares instance type with expected type name.
                 | is_subtype - Checks if instance is a subtype of expected type name.
                 | get_type_name - Returns the string representation of an instance type.
+                | __str__ - Returns the string representation of ATSTypeValidator.
     '''
 
     def is_match(self, inst: Any, expected_type_name: str) -> bool:
@@ -89,3 +90,13 @@ class ATSTypeValidator(IATSTypeValidator):
             :exceptions: None
         '''
         return type(inst).__name__
+
+    def __str__(self) -> str:
+        '''
+            Returns the string representation of ATSTypeValidator.
+
+            :return: String representation
+            :rtype: <str>
+            :exceptions: None
+        '''
+        return f'<{self.__class__.__name__}()> at 0x{id(self):x} '

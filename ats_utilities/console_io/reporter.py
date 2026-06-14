@@ -21,12 +21,12 @@ Info
 '''
 
 from typing import Any, List, Optional
+from ats_utilities.console_io.ireporter import IATSReporter
 from ats_utilities.checker.ichecker import IATSChecker
 from ats_utilities.checker.ats_checker import ATSChecker
-from ats_utilities.exceptions.ats_type_error import ATSTypeError
+from ats_utilities.checker.proxy_validator import validator
 from ats_utilities.console_io.theme.iconsole_theme import IConsoleTheme
-from ats_utilities.console_io.theme.default_theme import DefaultTheme
-from ats_utilities.console_io.ireporter import IATSReporter
+from ats_utilities.console_io.theme.theme import ATSConsoleTheme
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -46,12 +46,15 @@ class ATSReporter(IATSReporter):
 
         It defines:
 
-            :attributes: None
+            :attributes:
+                | __checker - Parameters checker (default set ATSChecker).
+                | __theme - Theme for styling messages (default set ATSConsoleTheme).
             :methods:
                 | error - Report error message to console.
                 | success - Report success message to console.
                 | verbose - Report verbose message to console.
                 | warning - Report warning message to console.
+                | __str__ - Returns the string representation of ATSReporter.
     '''
 
     def __init__(
@@ -62,14 +65,15 @@ class ATSReporter(IATSReporter):
         '''
             Initializes ATSReporter constructor.
 
-            :param checker: Checker for parameter validation | None
+            :param checker: Parameters checker (default set ATSChecker) | None
             :type checker: <Optional[IATSChecker]>
-            :param theme: Theme for styling | None
+            :param theme: Theme for styling messages (default set ATSConsoleTheme) | None
             :type theme: <Optional[IConsoleTheme]>
             :exceptions: None
         '''
+        # No dependency injection then use default ones.
         self.__checker = checker or ATSChecker()
-        self.__theme = theme or DefaultTheme()
+        self.__theme = theme or ATSConsoleTheme()
 
     def __report(self, message: List[Any], color: str) -> None:
         '''
@@ -81,16 +85,12 @@ class ATSReporter(IATSReporter):
             :type color: <str>
             :exceptions: ATSTypeError
         '''
-        error_msg, error_id = self.__checker.validate_parameters([('list:message', message)])
-
-        if error_id == self.ERRORS.TYPE_ERROR:
-            raise ATSTypeError(error_msg)
-
         message_out: str = ' '.join([str(item) for item in message])
 
         if message_out:
             print(f"{color}{message_out}{self.__theme.get_color('reset')}")
 
+    @validator([('bool:is_verbose', None), ('list:message', None)])
     def verbose(self, is_verbose: bool, message: List[Any]) -> None:
         '''
             Report verbose message to console.
@@ -104,6 +104,7 @@ class ATSReporter(IATSReporter):
         if is_verbose:
             self.__report(message, self.__theme.get_color('verbose'))
 
+    @validator([('list:message', None)])
     def success(self, message: List[Any]) -> None:
         '''
             Report success message to console.
@@ -114,6 +115,7 @@ class ATSReporter(IATSReporter):
         '''
         self.__report(message, self.__theme.get_color('success'))
 
+    @validator([('list:message', None)])
     def warning(self, message: List[Any]) -> None:
         '''
             Report warning message to console.
@@ -124,6 +126,7 @@ class ATSReporter(IATSReporter):
         '''
         self.__report(message, self.__theme.get_color('warning'))
 
+    @validator([('list:message', None)])
     def error(self, message: List[Any]) -> None:
         '''
             Report error message to console.
@@ -133,3 +136,20 @@ class ATSReporter(IATSReporter):
             :exceptions: None
         '''
         self.__report(message, self.__theme.get_color('error'))
+
+    def __str__(self) -> str:
+        '''
+            Returns the string representation of ATSReporter.
+
+            :return: String representation
+            :rtype: <str>
+            :exceptions: None
+        '''
+        checker = str(self.__checker).replace('\n', '\n    ')
+        theme = str(self.__theme).replace('\n', '\n    ')
+
+        return (
+            f'<{self.__class__.__name__}(\n'
+            f'    checker={checker},\n'
+            f'    theme={theme}\n)> at 0x{id(self):x}'
+        )

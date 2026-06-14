@@ -2,7 +2,7 @@
 
 '''
 Module
-    default_theme.py
+    theme.py
 Copyright
     Copyright (C) 2017 - 2026 Vladimir Roncevic <elektron.ronca@gmail.com>
     ats_utilities is free software: you can redistribute it and/or modify it
@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines class DefaultTheme with attribute(s) and method(s).
+    Defines class ATSConsoleTheme with attribute(s) and method(s).
     Concrete implementation of IConsoleTheme preparing console styling.
 '''
 
@@ -33,9 +33,9 @@ __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
 
 
-class DefaultTheme(IConsoleTheme):
+class ATSConsoleTheme(IConsoleTheme):
     '''
-        Defines class DefaultTheme with attribute(s) and method(s).
+        Defines class ATSConsoleTheme with attribute(s) and method(s).
         Concrete implementation of IConsoleTheme preparing console styling.
 
         It defines:
@@ -43,8 +43,9 @@ class DefaultTheme(IConsoleTheme):
             :attributes:
                 | __palette - Dictionary with color codes for different message types.
             :methods:
-                | __init__ - Initializes DefaultTheme constructor.
+                | __init__ - Initializes ATSConsoleTheme constructor.
                 | get_color - Returns color code from palette.
+                | __str__ - Returns the string representation of ATSConsoleTheme.
     '''
 
     DEFAULT_PALETE_COLORS: Dict[str, str] = {
@@ -57,7 +58,7 @@ class DefaultTheme(IConsoleTheme):
 
     def __init__(self, palette: Optional[Dict[str, str]] = None) -> None:
         '''
-            Initials DefaultTheme constructor.
+            Initials ATSConsoleTheme constructor.
 
             :param palette: Dictionary with color codes
             :type palette: <Dict[str, str]>
@@ -76,3 +77,16 @@ class DefaultTheme(IConsoleTheme):
             :exceptions: None
         '''
         return self.__palette.get(color_type, '')
+
+    def __str__(self) -> str:
+        '''
+            Returns the string representation of ATSConsoleTheme.
+
+            :return: String representation
+            :rtype: <str>
+            :exceptions: None
+        '''
+        return (
+            f'<{self.__class__.__name__}(\n'
+            f'    palette={self.__palette}\n)> at 0x{id(self):x} '
+        )

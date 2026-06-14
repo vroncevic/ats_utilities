@@ -20,18 +20,15 @@ Info
     Creates an API for the configuration context manager.
 '''
 
-from typing import Any, ClassVar, List, Tuple, Dict, Optional
-from ats_utilities.checker.ichecker import IATSChecker
-from ats_utilities.checker.ats_checker import ATSChecker
-from ats_utilities.checker.ichecker import ErrorChecker
+from typing import Any, List, Tuple, Dict, Optional
+from ats_utilities.config_io.iconf_file import IConfFile
 from ats_utilities.console_io.ireporter import IATSReporter
 from ats_utilities.console_io.reporter import ATSReporter
-from ats_utilities.exceptions.ats_type_error import ATSTypeError
 from ats_utilities.exceptions.ats_value_error import ATSValueError
 from ats_utilities.config_io.ifile_check import IFileCheck
 from ats_utilities.config_io.file_check import FileCheck
-from ats_utilities.config_io.iconf_file import IConfFile
 from ats_utilities.config_io.iconf_file import File
+from ats_utilities.checker.decorator import validates_parameters
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -52,8 +49,6 @@ class ConfFile(IConfFile):
         It defines:
 
             :attributes:
-                | __verbose - Enable/Disable verbose option.
-                | __checker - IATSChecker for check operations.
                 | __reporter - ATSReporter for check operations.
                 | __file_path - Configuration file name.
                 | __file_mode - File mode.
@@ -65,14 +60,16 @@ class ConfFile(IConfFile):
                 | __exit__ - Closes configuration file.
     '''
 
-    ERRORS: ClassVar[type[ErrorChecker]] = ErrorChecker
-
+    @validates_parameters([
+        ('Optional[str]:file_path', None),
+        ('Optional[str]:file_mode', None),
+        ('Optional[str]:file', None)
+    ])
     def __init__(
         self,
         file_path: Optional[str],
         file_mode: Optional[str],
         file_format: Optional[str],
-        checker: Optional[IATSChecker] = None,
         reporter: Optional[IATSReporter] = None,
         file_checker: Optional[IFileCheck] = None,
         verbose: bool = False
@@ -86,8 +83,6 @@ class ConfFile(IConfFile):
             :type file_mode: <Optional[str]>
             :param file_format: File format | None
             :type file_format: <Optional[str]>
-            :param checker: IATSChecker for check operations | None
-            :type checker: <Optional[IATSChecker]>
             :param reporter: ATSReporter for check operations | None
             :type reporter: <Optional[IATSReporter]>
             :param file_checker: IFileCheck for file checking operations | None
@@ -96,20 +91,9 @@ class ConfFile(IConfFile):
             :type verbose: <bool>
             :exceptions: ATSTypeError | ATSValueError
         '''
-        self.__checker: IATSChecker = checker or ATSChecker()
         self.__reporter: IATSReporter = reporter or ATSReporter()
-        self.__file_checker: IFileCheck = file_checker or FileCheck(checker, reporter, verbose)
+        self.__file_checker: IFileCheck = file_checker or FileCheck(reporter, verbose)
         self.__verbose: bool = verbose
-        error_msg: Optional[str] = None
-        error_id: Optional[int] = None
-        error_msg, error_id = self.__checker.validate_parameters([
-            ('str:file_path', file_path),
-            ('str:file_mode', file_mode),
-            ('str:file_format', file_format)
-        ])
-
-        if error_id == self.ERRORS.TYPE_ERROR:
-            raise ATSTypeError(error_msg)
 
         if not bool(file_path):
             raise ATSValueError('missing file path')
