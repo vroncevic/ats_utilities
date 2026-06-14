@@ -98,5 +98,5 @@ class ATSContextProvider(IATSContextProvider):
         '''
         return (
             f'<{self.__class__.__name__}(\n'
-            f'    stack_index_caller={self.__stack_index_caller}\n)> at 0x{id(self):x} '
+            f'    stack_index_caller={self.__stack_index_caller}\n)> at 0x{id(self):x}'
         )

@@ -87,5 +87,5 @@ class ATSFormatValidator(IATSFormatValidator):
         '''
         return (
             f'<{self.__class__.__name__}(\n'
-            f'    expected_format_parts={self.EXPECTED_FORMAT_PARTS}\n)> at 0x{id(self):x} '
+            f'    expected_format_parts={self.EXPECTED_FORMAT_PARTS}\n)> at 0x{id(self):x}'
         )

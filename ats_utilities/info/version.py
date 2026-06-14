@@ -138,5 +138,5 @@ class ATSVersion(IATSVersion):
             f'    version={version},\n'
             f'    checker={checker},\n'
             f'    reporter={reporter},\n'
-            f'    verbose={verbose}\n)> at 0x{id(self):x} '
+            f'    verbose={verbose}\n)> at 0x{id(self):x}'
         )

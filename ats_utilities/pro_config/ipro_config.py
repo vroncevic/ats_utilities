@@ -44,6 +44,7 @@ class IProConfig(ABC):
             :methods:
                 | config - Property methods for set/get operations.
                 | is_config_ok - Checks is project configuration ok.
+                | __str__ - Returns the string representation of ATS project configuration.
     '''
 
     @property
@@ -52,7 +53,7 @@ class IProConfig(ABC):
         '''
             Property method for getting project configuration.
 
-            :return: Formatted project configuration | None
+            :return: Formatted project configuration in dict format | None
             :rtype: <Optional[Dict[Any, Any]]>
             :exceptions: NotImplementedError
         '''
@@ -60,12 +61,12 @@ class IProConfig(ABC):
 
     @config.setter
     @abstractmethod
-    def config(self, pro_config: Dict[Any, Any]) -> None:
+    def config(self, pro_config: Optional[Dict[Any, Any]]) -> None:
         '''
             Property method for setting project configuration.
 
             :param pro_config: Project configuration in dict format | None
-            :type pro_config: <Dict[Any, Any]>
+            :type pro_config: <Optional[Dict[Any, Any]]>
             :exceptions: NotImplementedError
         '''
         raise NotImplementedError("Method config() must be implemented.")
@@ -75,8 +76,19 @@ class IProConfig(ABC):
         '''
             Checks is project configuration ok.
 
-            :return: True (configuration is ok) | False
+            :return: True (configuration is ok) | False (configuration is not ok)
             :rtype: <bool>
             :exceptions: NotImplementedError
         '''
         raise NotImplementedError("Method is_config_ok() must be implemented.")
+
+    @abstractmethod
+    def __str__(self) -> str:
+        '''
+            Returns the string representation of ATS project configuration.
+
+            :return: The ATS project configuration as string
+            :rtype: <str>
+            :exceptions: NotImplementedError
+        '''
+        raise NotImplementedError("Subclasses must implement __str__ method")

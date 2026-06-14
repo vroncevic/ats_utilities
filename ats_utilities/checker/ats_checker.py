@@ -153,5 +153,5 @@ class ATSChecker(IATSChecker):
             f'    format_validator={format_validator},\n'
             f'    type_validator={type_validator},\n'
             f'    context_provider={context_provider},\n'
-            f'    check_reporter={check_reporter}\n)> at 0x{id(self):x} '
+            f'    check_reporter={check_reporter}\n)> at 0x{id(self):x}'
         )

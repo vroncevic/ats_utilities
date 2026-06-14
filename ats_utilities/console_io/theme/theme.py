@@ -88,5 +88,5 @@ class ATSConsoleTheme(IConsoleTheme):
         '''
         return (
             f'<{self.__class__.__name__}(\n'
-            f'    palette={self.__palette}\n)> at 0x{id(self):x} '
+            f'    palette={self.__palette}\n)> at 0x{id(self):x}'
         )

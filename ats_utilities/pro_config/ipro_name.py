@@ -44,6 +44,7 @@ class IProName(ABC):
             :methods:
                 | pro_name - Property methods for set/get operations.
                 | is_pro_name_ok - Checks is project name ok.
+                | __str__ - Returns the string representation of ATS project name.
     '''
 
     @property
@@ -52,7 +53,7 @@ class IProName(ABC):
         '''
             Property method for getting project name.
 
-            :return: Formatted project name | None
+            :return: Formatted project name in string format | None
             :rtype: <Optional[str]>
             :exceptions: NotImplementedError
         '''
@@ -64,7 +65,7 @@ class IProName(ABC):
         '''
             Property method for setting project name.
 
-            :param name: Project name | None
+            :param name: Project name in string format | None
             :type name: <str>
             :exceptions: NotImplementedError
         '''
@@ -75,8 +76,19 @@ class IProName(ABC):
         '''
             Checks is project name ok.
 
-            :return: True (project name is ok) | False
+            :return: True (project name is ok) | False (project name is not ok)
             :rtype: <bool>
             :exceptions: NotImplementedError
         '''
         raise NotImplementedError("Method is_pro_name_ok() must be implemented.")
+
+    @abstractmethod
+    def __str__(self) -> str:
+        '''
+            Returns the string representation of ATS project name.
+
+            :return: The ATS project name as string
+            :rtype: <str>
+            :exceptions: NotImplementedError
+        '''
+        raise NotImplementedError("Subclasses must implement __str__ method")

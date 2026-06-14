@@ -126,5 +126,5 @@ class ATSInfoOk(IATSInfoOk):
             f'    info_ok={info_ok},\n'
             f'    checker={checker},\n'
             f'    reporter={reporter},\n'
-            f'    verbose={verbose}\n)> at 0x{id(self):x} '
+            f'    verbose={verbose}\n)> at 0x{id(self):x}'
         )

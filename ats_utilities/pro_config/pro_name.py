@@ -20,14 +20,14 @@ Info
     Defines project name container.
 '''
 
-from typing import ClassVar, List, Optional
+from typing import List, Optional
+from ats_utilities.pro_config.ipro_name import IProName
 from ats_utilities.checker.ichecker import IATSChecker
 from ats_utilities.checker.ats_checker import ATSChecker
-from ats_utilities.checker.ichecker import ErrorChecker
+from ats_utilities.checker.proxy_validator import validator
 from ats_utilities.console_io.ireporter import IATSReporter
 from ats_utilities.console_io.reporter import ATSReporter
-from ats_utilities.exceptions.ats_type_error import ATSTypeError
-from ats_utilities.pro_config.ipro_name import IProName
+from ats_utilities.console_io.proxy_reporter import vreporter
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -48,18 +48,16 @@ class ProName(IProName):
         It defines:
 
             :attributes:
-                | ERRORS - Error checker.
-                | __checker - Error checker.
-                | __reporter - ATSReporter for outputting messages.
-                | __verbose - Enable/Disable verbose option.
+                | __checker - Parameters checker (default set ATSChecker).
+                | __reporter - Reporter for messaging (default ATSReporter).
+                | __verbose - Enable/Disable verbose option (default False).
                 | __pro_name - Project name.
             :methods:
                 | __init__ - Initials ProName constructor.
                 | pro_name - Property methods for set/get operations.
                 | is_pro_name_ok - Checks is project name ok.
+                | __str__ - Returns the string representation of ATS project name.
     '''
-
-    ERRORS: ClassVar[type[ErrorChecker]] = ErrorChecker
 
     def __init__(
         self,
@@ -70,56 +68,75 @@ class ProName(IProName):
         '''
             Initials ProName constructor.
 
-            :param checker: Error checker | None
+            :param checker: Parameters checker (default set ATSChecker) | None
             :type checker: <Optional[IATSChecker]>
-            :param reporter: ATSReporter for outputting messages | None
+            :param reporter: Reporter for messaging (default set ATSReporter) | None
             :type reporter: <Optional[IATSReporter]>
             :param verbose: Enable/Disable verbose option
             :type verbose: <bool>
             :exceptions: None
         '''
+        # No dependency injection then use default ones.
         self.__checker: IATSChecker = checker or ATSChecker()
-        self.__reporter: IATSReporter = reporter or ATSReporter()
+        self.__reporter: IATSReporter = reporter or ATSReporter(checker=self.__checker)
         self.__verbose: bool = verbose
         self.__pro_name: Optional[str] = None
-        self.__reporter.verbose(self.__verbose, ['init project name'])
 
     @property
+    @vreporter('get pro name {pro_name}')
     def pro_name(self) -> Optional[str]:
         '''
-            Property method for getting project name.
+            Property method for getting project name in string format.
 
-            :return: Formatted project name | None
+            :return: Formatted project name in string format | None
             :rtype: <Optional[str]>
-            :exceptions: None
+            :exceptions: RuntimeError, AttributeError by vreporter
         '''
         return self.__pro_name
 
     @pro_name.setter
+    @validator([('Optional[str]:name', None)])
+    @vreporter('get pro name {pro_name}')
     def pro_name(self, name: Optional[str]) -> None:
         '''
             Property method for setting project name.
 
-            :param name: Project name | None
+            :param name: Project name in string format | None
             :type name: <Optional[str]>
-            :exceptions: ATSTypeError
+            :exceptions:
+                | ATSTypeError, ATSValueError by validator
+                | RuntimeError, AttributeError by vreporter
         '''
-        error_msg: Optional[str] = None
-        error_id: Optional[int] = None
-        error_msg, error_id = self.__checker.validate_parameters([('str:name', name)])
-
-        if error_id == self.ERRORS.TYPE_ERROR:
-            raise ATSTypeError(error_msg)
-
-        self.__reporter.verbose(self.__verbose, [f'set project name: {name}'])
         self.__pro_name = name
 
+    @vreporter('check pro name {pro_name}')
     def is_pro_name_ok(self) -> bool:
         '''
             Checks is project name ok.
 
-            :return: True (project name is not None) | False
+            :return: True (project name is not None) | False (project name is None)
             :rtype: <bool>
-            :exceptions: None
+            :exceptions: RuntimeError, AttributeError by vreporter
         '''
         return self.__pro_name is not None
+
+    def __str__(self) -> str:
+        '''
+            Returns the string representation of ATS project name.
+
+            :return: The ATS project name as string
+            :rtype: <str>
+            :exceptions: None
+        '''
+        pro_name = str(self.__pro_name).replace('\n', '\n    ')
+        checker = str(self.__checker).replace('\n', '\n    ')
+        reporter = str(self.__reporter).replace('\n', '\n    ')
+        verbose = str(self.__verbose).replace('\n', '\n    ')
+
+        return (
+            f'<{self.__class__.__name__}(\n'
+            f'    pro_name={pro_name},\n'
+            f'    checker={checker},\n'
+            f'    reporter={reporter},\n'
+            f'    verbose={verbose}\n)> at 0x{id(self):x}'
+        )

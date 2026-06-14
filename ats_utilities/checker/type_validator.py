@@ -99,4 +99,4 @@ class ATSTypeValidator(IATSTypeValidator):
             :rtype: <str>
             :exceptions: None
         '''
-        return f'<{self.__class__.__name__}()> at 0x{id(self):x} '
+        return f'<{self.__class__.__name__}()> at 0x{id(self):x}'
