@@ -21,17 +21,17 @@ Info
 '''
 
 import os
-from typing import Any, ClassVar, List, Tuple, Optional
+from typing import Any, List, Tuple, Optional
 from fcntl import ioctl
 from termios import TIOCGWINSZ
 from struct import unpack, pack
+from ats_utilities.splash.iterminal_properties import ITerminalProperties
+from ats_utilities.checker.ichecker import IATSChecker
+from ats_utilities.checker.ats_checker import ATSChecker
+from ats_utilities.checker.proxy_validator import validator
 from ats_utilities.console_io.ireporter import IATSReporter
 from ats_utilities.console_io.reporter import ATSReporter
-from ats_utilities.checker.ichecker import IATSChecker, ErrorChecker
-from ats_utilities.checker.ats_checker import ATSChecker
-from ats_utilities.exceptions.ats_type_error import ATSTypeError
-from ats_utilities.exceptions.ats_value_error import ATSValueError
-from ats_utilities.splash.iterminal_properties import ITerminalProperties
+from ats_utilities.console_io.proxy_reporter import vreporter
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -52,19 +52,17 @@ class TerminalProperties(ITerminalProperties):
         It defines:
 
             :attributes:
-                | ERRORS - Error checker.
-                | __checker - Error checker.
-                | __reporter - ATSReporter for outputting messages.
-                | __verbose - Enable/Disable verbose option.
+                | __checker - Parameters checker (default set ATSChecker).
+                | __reporter - Reporter for messaging (default ATSReporter).
+                | __verbose - Enable/Disable verbose option (default False).
                 | __window_size - Terminal window size.
             :methods:
                 | __init__ - Initials TerminalProperties constructor.
                 | ioctl_get_window_size - Gets size for descriptor.
-                | ioctl_for_all_descriptors - Gets size for all descriptors.
+                | ioctl_for_all_descriptors - Sets size for all descriptors.
                 | size - Gets size of terminal window.
+                | __str__ - Returns the string representation of terminal properties.
     '''
-
-    ERRORS: ClassVar[type[ErrorChecker]] = ErrorChecker
 
     def __init__(
         self,
@@ -75,75 +73,83 @@ class TerminalProperties(ITerminalProperties):
         '''
             Initials TerminalProperties constructor.
 
-            :param checker: Error checker | None
+            :param checker: Parameters checker (default set ATSChecker) | None
             :type checker: <Optional[IATSChecker]>
-            :param reporter: ATSReporter for outputting messages | None
+            :param reporter: Reporter for messaging (default set ATSReporter) | None
             :type reporter: <Optional[IATSReporter]>
             :param verbose: Enable/Disable verbose option
             :type verbose: <bool>
             :exceptions: None
         '''
+        # No dependency injection then use default ones.
         self.__checker: IATSChecker = checker or ATSChecker()
-        self.__reporter: IATSReporter = reporter or ATSReporter()
+        self.__reporter: IATSReporter = reporter or ATSReporter(checker=self.__checker)
         self.__verbose: bool = verbose
         self.__window_size: Tuple[Any, ...]
-        self.__reporter.verbose(self.__verbose, ['init terminal properties'])
 
-    def ioctl_get_window_size(self, file_descriptor: int, verbose: bool = False) -> Tuple[Any, ...]:
+    @validator([('int:file_descriptor', None)])
+    @vreporter('ioctl get window size {window_size}')
+    def ioctl_get_window_size(self, file_descriptor: int) -> Tuple[Any, ...]:
         '''
             Gets size for descriptor.
 
             :param file_descriptor: file descriptor.
             :type file_descriptor: <int>
-            :param verbose: Enable/Disable verbose option
-            :type verbose: <bool>
             :return: Window size of terminal.
             :rtype: <Tuple[Any, ...]>
-            :exceptions: ATSTypeError | ATSValueError
+            :exceptions:
+                | ATSTypeError, ATSValueError by validator
+                | RuntimeError, AttributeError by vreporter
         '''
-        error_msg: Optional[str] = None
-        error_id: Optional[int] = None
-        error_msg, error_id = self.__checker.validate_parameters([('int:file_descriptor', file_descriptor)])
-
-        if error_id == self.ERRORS.TYPE_ERROR:
-            raise ATSTypeError(error_msg)
-
-        if file_descriptor < 0:
-            raise ATSValueError(error_msg)
-
         self.__window_size = unpack('HHHH', ioctl(file_descriptor, TIOCGWINSZ, pack('HHHH', 0, 0, 0, 0)))
-        self.__reporter.verbose(self.__verbose or verbose, [f'terminal window size {self.__window_size}'])
+
         return self.__window_size
 
-    def ioctl_for_all_descriptors(self, verbose: bool = False) -> None:
+    @vreporter('ioctl for all descriptors {window_size}')
+    def ioctl_for_all_descriptors(self) -> None:
         '''
-            Gets size for all descriptors.
+            Sets size for all descriptors.
 
-            :param verbose: Enable/Disable verbose option
-            :type verbose: <bool>
-            :return: True (window size checked) else false
-            :rtype: <bool>
-            :exceptions: None
+            :exceptions: RuntimeError, AttributeError by vreporter
         '''
         std_in: Tuple[Any, ...] = self.ioctl_get_window_size(0)
         std_out: Tuple[Any, ...] = self.ioctl_get_window_size(1)
         std_err: Tuple[Any, ...] = self.ioctl_get_window_size(2)
         self.__window_size = std_in or std_out or std_err
-        self.__reporter.verbose(self.__verbose or verbose, [f'terminal window size {self.__window_size}'])
 
-    def size(self, verbose: bool = False) -> Tuple[Any, ...]:
+    @vreporter('size {window_size}')
+    def size(self) -> Tuple[Any, ...]:
         '''
             Gets size of terminal window.
 
-            :param verbose: Enable/Disable verbose option
-            :type verbose: <bool>
             :return: Window size
             :rtype: <Tuple[Any, ...]>
-            :exceptions: None
+            :exceptions: RuntimeError, AttributeError by vreporter
         '''
         self.ioctl_for_all_descriptors()
         file_descriptor: int = os.open(os.ctermid(), os.O_RDONLY)
         self.__window_size = self.ioctl_get_window_size(file_descriptor)
         os.close(file_descriptor)
-        self.__reporter.verbose(self.__verbose or verbose, [f'terminal window size {self.__window_size}'])
+
         return self.__window_size
+
+    def __str__(self) -> str:
+        '''
+            Returns the string representation of terminal properties.
+
+            :return: The terminal properties as string
+            :rtype: <str>
+            :exceptions: None
+        '''
+        window_size = str(self.__window_size).replace('\n', '\n    ')
+        checker = str(self.__checker).replace('\n', '\n    ')
+        reporter = str(self.__reporter).replace('\n', '\n    ')
+        verbose = str(self.__verbose).replace('\n', '\n    ')
+
+        return (
+            f'<{self.__class__.__name__}(\n'
+            f'    window_size={window_size},\n'
+            f'    checker={checker},\n'
+            f'    reporter={reporter},\n'
+            f'    verbose={verbose}\n)> at 0x{id(self):x}'
+        )

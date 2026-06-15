@@ -21,7 +21,7 @@ Info
 '''
 
 from abc import ABC, abstractmethod
-from typing import List
+from typing import Any, Dict, List, Optional
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -42,18 +42,53 @@ class ISplashProperty(ABC):
 
             :attributes: None
             :methods:
-                | validate - Validates splash property (abstract).
+                | validates - Validates splash property (abstract).
+                | splash_property - Splash property (abstract).
+                | __str__ - Returns the string representation of splash property (abstract).
     '''
 
+    @property
     @abstractmethod
-    def validate(self, verbose: bool = False) -> bool:
+    def splash_property(self) -> Optional[Dict[Any, Any]]:
+        '''
+            Property method for getting splash property.
+
+            :return: Formatted splash property in dict format | None
+            :rtype: <Optional[str]>
+            :exceptions: NotImplementedError
+        '''
+        raise NotImplementedError("Method splash_property() must be implemented.")
+
+    @splash_property.setter
+    @abstractmethod
+    def splash_property(self, splash_property_setup: Optional[Dict[Any, Any]]) -> None:
+        '''
+            Property method for setting project splash property.
+
+            :param splash_property_setup: Project splash property in dict format | None
+            :type splash_property_setup: <Optional[Dict[Any, Any]]>
+            :exceptions: NotImplementedError
+        '''
+        raise NotImplementedError("Method splash_property() must be implemented.")
+
+    @abstractmethod
+    def validates(self) -> bool:
         '''
             Validates splash property.
 
-            :param verbose: Enable/Disable verbose option
-            :type verbose: <bool>
-            :return: True (property ok) else False
+            :return: True (property ok) else False (property not ok)
             :rtype: <bool>
             :exceptions: NotImplementedError
         '''
         raise NotImplementedError("Subclasses must implement validate method")
+
+    @abstractmethod
+    def __str__(self) -> str:
+        '''
+            Returns the string representation of splash property.
+
+            :return: The splash property as string
+            :rtype: <str>
+            :exceptions: NotImplementedError
+        '''
+        raise NotImplementedError("Subclasses must implement __str__ method")

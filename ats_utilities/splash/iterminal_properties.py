@@ -43,19 +43,18 @@ class ITerminalProperties(ABC):
             :attributes: None
             :methods:
                 | ioctl_get_window_size - Gets size for descriptor (abstract).
-                | ioctl_for_all_descriptors - Gets size for all descriptors (abstract).
+                | ioctl_for_all_descriptors - Sets size for all descriptors (abstract).
                 | size - Gets size of terminal window (abstract).
+                | __str__ - Returns the string representation of terminal properties (abstract).
     '''
 
     @abstractmethod
-    def ioctl_get_window_size(self, file_descriptor: int, verbose: bool = False) -> Tuple[Any, ...]:
+    def ioctl_get_window_size(self, file_descriptor: int) -> Tuple[Any, ...]:
         '''
             Gets size for descriptor.
 
             :param file_descriptor: file descriptor.
             :type file_descriptor: <int>
-            :param verbose: Enable/Disable verbose option
-            :type verbose: <bool>
             :return: Window size of terminal.
             :rtype: <Tuple[Any, ...]>
             :exceptions: NotImplementedError
@@ -63,27 +62,32 @@ class ITerminalProperties(ABC):
         raise NotImplementedError("Subclasses must implement ioctl_get_window_size method")
 
     @abstractmethod
-    def ioctl_for_all_descriptors(self, verbose: bool = False) -> None:
+    def ioctl_for_all_descriptors(self) -> None:
         '''
-            Gets size for all descriptors.
+            Sets size for all descriptors.
 
-            :param verbose: Enable/Disable verbose option
-            :type verbose: <bool>
-            :return: None
-            :rtype: <NoneType>
             :exceptions: NotImplementedError
         '''
         raise NotImplementedError("Subclasses must implement ioctl_for_all_descriptors method")
 
     @abstractmethod
-    def size(self, verbose: bool = False) -> Tuple[Any, ...]:
+    def size(self) -> Tuple[Any, ...]:
         '''
             Gets size of terminal window.
 
-            :param verbose: Enable/Disable verbose option
-            :type verbose: <bool>
             :return: Window size
             :rtype: <Tuple[Any, ...]>
             :exceptions: NotImplementedError
         '''
         raise NotImplementedError("Subclasses must implement size method")
+
+    @abstractmethod
+    def __str__(self) -> str:
+        '''
+            Returns the string representation of terminal properties.
+
+            :return: The terminal properties as string
+            :rtype: <str>
+            :exceptions: NotImplementedError
+        '''
+        raise NotImplementedError("Subclasses must implement __str__ method")

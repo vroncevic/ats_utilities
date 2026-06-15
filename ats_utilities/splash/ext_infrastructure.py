@@ -20,14 +20,14 @@ Info
     Creates an API for processing hyperlinks for splash screen.
 '''
 
-from typing import Any, ClassVar, Dict, List, Optional
-from ats_utilities.checker.ichecker import IATSChecker, ErrorChecker
+from typing import Any, Dict, List, Optional
+from ats_utilities.splash.iext_infrastructure import IExtInfrastructure
+from ats_utilities.checker.ichecker import IATSChecker
 from ats_utilities.checker.ats_checker import ATSChecker
+from ats_utilities.checker.proxy_validator import validator
 from ats_utilities.console_io.ireporter import IATSReporter
 from ats_utilities.console_io.reporter import ATSReporter
-from ats_utilities.exceptions.ats_type_error import ATSTypeError
-from ats_utilities.exceptions.ats_value_error import ATSValueError
-from ats_utilities.splash.iext_infrastructure import IExtInfrastructure
+from ats_utilities.console_io.proxy_reporter import vreporter
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -48,23 +48,21 @@ class ExtInfrastructure(IExtInfrastructure):
         It defines:
 
             :attributes:
-                | ERRORS - Error checker.
-                | __checker - Error checker.
-                | __reporter - ATSReporter for outputting messages.
-                | __verbose - Enable/Disable verbose option.
-                | __property - Splash property in dict format.
+                | __checker - Parameters checker (default set ATSChecker).
+                | __reporter - Reporter for messaging (default ATSReporter).
+                | __verbose - Enable/Disable verbose option (default False).
+                | __infrastructure_property - Infrastructure property in dict format (default None).
             :methods:
                 | __init__ - Initials ExtInfrastructure constructor.
+                | infrastructure_property - Property method for get/set infrastructure property.
                 | get_info_text - Pre-processes info text.
                 | get_issue_text - Pre-processes issue text.
                 | get_author_text - Pre-processes author text.
+                | __str__ - Returns the string representation of external infrastructure.
     '''
-
-    ERRORS: ClassVar[type[ErrorChecker]] = ErrorChecker
 
     def __init__(
         self,
-        prop: Dict[Any, Any],
         checker: Optional[IATSChecker] = None,
         reporter: Optional[IATSReporter] = None,
         verbose: bool = False
@@ -72,62 +70,115 @@ class ExtInfrastructure(IExtInfrastructure):
         '''
             Initials ExtInfrastructure constructor.
 
-            :param prop: Splash property in dict form
-            :type prop: <Dict[Any, Any]>
-            :param checker: Error checker | None
+            :param checker: Parameters checker (default set ATSChecker) | None
             :type checker: <Optional[IATSChecker]>
-            :param reporter: ATSReporter for outputting messages | None
+            :param reporter: Reporter for messaging (default set ATSReporter) | None
             :type reporter: <Optional[IATSReporter]>
             :param verbose: Enable/Disable verbose option
             :type verbose: <bool>
-            :exceptions: ATSTypeError | ATSValueError
+            :exceptions: None
         '''
+        # No dependency injection then use default ones.
         self.__checker: IATSChecker = checker or ATSChecker()
-        self.__reporter: IATSReporter = reporter or ATSReporter()
+        self.__reporter: IATSReporter = reporter or ATSReporter(checker=self.__checker)
         self.__verbose: bool = verbose
+        self.__infrastructure_property: Optional[Dict[Any, Any]] = None
 
-        error_msg: Optional[str] = None
-        error_id: Optional[int] = None
-        error_msg, error_id = self.__checker.validate_parameters([('dict:prop', prop)])
+    @property
+    @vreporter('get infrastructure property {infrastructure_property}')
+    def infrastructure_property(self) -> Optional[Dict[Any, Any]]:
+        '''
+            Property method for getting infrastructure property.
 
-        if error_id == self.ERRORS.TYPE_ERROR:
-            raise ATSTypeError(error_msg)
+            :return: Formatted infrastructure property in dict format | None
+            :rtype: <Optional[str]>
+            :exceptions: RuntimeError, AttributeError by vreporter
+        '''
+        return self.__infrastructure_property
 
-        if not bool(prop):
-            raise ATSValueError(error_msg)
+    @infrastructure_property.setter
+    @validator([('dict:infrastructure_property_setup', None)])
+    @vreporter('set infrastructure property {infrastructure_property}')
+    def infrastructure_property(self, infrastructure_property_setup: Optional[Dict[Any, Any]]) -> None:
+        '''
+            Property method for setting project infrastructure property.
 
-        self.__property: Dict[Any, Any] = prop
-        self.__reporter.verbose(self.__verbose, [f'splash property {prop}'])
+            :param infrastructure_property_setup: Project infrastructure property in dict format | None
+            :type infrastructure_property_setup: <Optional[Dict[Any, Any]]>
+            :exceptions:
+                | ATSTypeError, ATSValueError by validator
+                | RuntimeError, AttributeError by vreporter
+        '''
+        self.__infrastructure_property = infrastructure_property_setup
 
+    @vreporter('get info text {infrastructure_property}')
     def get_info_text(self) -> str:
         '''
             Pre-processes info text for splash.
 
             :return: Hyperlink with info text
             :rtype: <str>
-            :exceptions: None
+            :exceptions: RuntimeError, AttributeError by vreporter
         '''
-        name: str = self.__property['ats_name']
+        if not self.__infrastructure_property:
+            self.__reporter.error(['missing infrastructure property'])
+            return ''
+
+        name: str = self.__infrastructure_property['ats_name']
+
         return f'\x1b]8;;{name}\a{name}\x1b]8;;\a'
 
+    @vreporter('get issue text {infrastructure_property}')
     def get_issue_text(self) -> str:
         '''
             Pre-processes issue text for splash.
 
             :return: Hyperlink with issue info
             :rtype: <str>
-            :exceptions: None
+            :exceptions: RuntimeError, AttributeError by vreporter
         '''
-        repo: str = self.__property['ats_repository']
+        if not self.__infrastructure_property:
+            self.__reporter.error(['missing infrastructure property'])
+            return ''
+
+        repo: str = self.__infrastructure_property['ats_repository']
+
         return f'\x1b]8;;{repo}\a{repo}\x1b]8;;\a'
 
+    @vreporter('get author text {infrastructure_property}')
     def get_author_text(self) -> str:
         '''
             Pre-processes author text for splash.
 
             :return: Hyperlink with author info
             :rtype: <str>
+            :exceptions: RuntimeError, AttributeError by vreporter
+        '''
+        if not self.__infrastructure_property:
+            self.__reporter.error(['missing infrastructure property'])
+            return ''
+
+        org: str = self.__infrastructure_property['ats_organization']
+
+        return f'\x1b]8;;{org}\a{org}\x1b]8;;\a'
+
+    def __str__(self) -> str:
+        '''
+            Returns the string representation of external infrastructure.
+
+            :return: The external infrastructure as string
+            :rtype: <str>
             :exceptions: None
         '''
-        org: str = self.__property['ats_organization']
-        return f'\x1b]8;;{org}\a{org}\x1b]8;;\a'
+        infrastructure_property = str(self.__infrastructure_property).replace('\n', '\n    ')
+        checker = str(self.__checker).replace('\n', '\n    ')
+        reporter = str(self.__reporter).replace('\n', '\n    ')
+        verbose = str(self.__verbose).replace('\n', '\n    ')
+
+        return (
+            f'<{self.__class__.__name__}(\n'
+            f'    infrastructure_property={infrastructure_property},\n'
+            f'    checker={checker},\n'
+            f'    reporter={reporter},\n'
+            f'    verbose={verbose}\n)> at 0x{id(self):x}'
+        )

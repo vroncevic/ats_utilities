@@ -45,6 +45,7 @@ class IProgressBar(ABC):
                 | set_level - Sets level of progress (abstract).
                 | plot_progress - Plots progress (abstract).
                 | set_and_plot - Sets and plots progress (abstract).
+                | __str__ - Returns the string representation of progress bar component (abstract).
     '''
 
     @abstractmethod
@@ -81,3 +82,14 @@ class IProgressBar(ABC):
             :exceptions: NotImplementedError
         '''
         raise NotImplementedError("Subclasses must implement set_and_plot method")
+
+    @abstractmethod
+    def __str__(self) -> str:
+        '''
+            Returns the string representation of progress bar component.
+
+            :return: The progress bar component as string
+            :rtype: <str>
+            :exceptions: NotImplementedError
+        '''
+        raise NotImplementedError("Subclasses must implement __str__ method")

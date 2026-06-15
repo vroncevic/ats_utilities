@@ -43,6 +43,7 @@ class ISplash(ABC):
             :attributes: None
             :methods:
                 | center - Center console line (abstract).
+                | __str__ - Returns the string representation of splash screen component (abstract).
     '''
 
     @abstractmethod
@@ -50,8 +51,7 @@ class ISplash(ABC):
         self,
         columns: int,
         additional_shifter: int,
-        text: Optional[str],
-        verbose: bool = False
+        text: Optional[str]
     ) -> None:
         '''
             Center console line.
@@ -62,8 +62,17 @@ class ISplash(ABC):
             :type additional_shifter: <int>
             :param text: Text for console session | None
             :type text: <Optional[str]>
-            :param verbose: Enable/Disable verbose option
-            :type verbose: <bool>
             :exceptions: NotImplementedError
         '''
         raise NotImplementedError("Subclasses must implement center method")
+
+    @abstractmethod
+    def __str__(self) -> str:
+        '''
+            Returns the string representation of splash screen component.
+
+            :return: The splash screen component as string
+            :rtype: <str>
+            :exceptions: NotImplementedError
+        '''
+        raise NotImplementedError("Subclasses must implement __str__ method")

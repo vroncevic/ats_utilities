@@ -20,14 +20,14 @@ Info
     Creates an API for checking splash property.
 '''
 
-from typing import Any, ClassVar, Dict, List, Optional
-from ats_utilities.checker.ichecker import IATSChecker, ErrorChecker
+from typing import Any, Dict, List, Optional
+from ats_utilities.splash.isplash_property import ISplashProperty
+from ats_utilities.checker.ichecker import IATSChecker
 from ats_utilities.checker.ats_checker import ATSChecker
+from ats_utilities.checker.proxy_validator import validator
 from ats_utilities.console_io.ireporter import IATSReporter
 from ats_utilities.console_io.reporter import ATSReporter
-from ats_utilities.exceptions.ats_type_error import ATSTypeError
-from ats_utilities.exceptions.ats_value_error import ATSValueError
-from ats_utilities.splash.isplash_screen import ISplashProperty
+from ats_utilities.console_io.proxy_reporter import vreporter
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -48,18 +48,18 @@ class SplashProperty(ISplashProperty):
         It defines:
 
             :attributes:
-                | ERRORS - Error checker.
                 | _EXPECTED_PROP_KEYS - Expected property names.
-                | __checker - Error checker.
-                | __reporter - ATSReporter for outputting messages.
-                | __verbose - Enable/Disable verbose option.
-                | __property - Splash property in dict format.
+                | __checker - Parameters checker (default set ATSChecker).
+                | __reporter - Reporter for messaging (default ATSReporter).
+                | __verbose - Enable/Disable verbose option (default False).
+                | __splash_property - Splash property in dict format (default None).
             :methods:
                 | __init__ - Initials SplashProperty constructor.
+                | splash_property - Property method for get/set splash property.  
                 | validation - Validates splash property.
+                | __str__ - Returns the string representation of splash property.
     '''
 
-    ERRORS: ClassVar[type[ErrorChecker]] = ErrorChecker
     _EXPECTED_PROP_KEYS: List[str] = [
         'ats_organization',
         'ats_repository',
@@ -70,7 +70,6 @@ class SplashProperty(ISplashProperty):
 
     def __init__(
         self,
-        prop: Dict[Any, Any],
         checker: Optional[IATSChecker] = None,
         reporter: Optional[IATSReporter] = None,
         verbose: bool = False
@@ -78,48 +77,84 @@ class SplashProperty(ISplashProperty):
         '''
             Initials SplashProperty constructor.
 
-            :param prop: Splash property in dict form
-            :type prop: <Dict[Any, Any]>
-            :param checker: Error checker | None
+            :param checker: Parameters checker (default set ATSChecker) | None
             :type checker: <Optional[IATSChecker]>
-            :param reporter: ATSReporter for outputting messages | None
+            :param reporter: Reporter for messaging (default set ATSReporter) | None
             :type reporter: <Optional[IATSReporter]>
             :param verbose: Enable/Disable verbose option
             :type verbose: <bool>
-            :exceptions: ATSTypeError | ATSValueError
+            :exceptions: None
         '''
+        # No dependency injection then use default ones.
         self.__checker: IATSChecker = checker or ATSChecker()
-        self.__reporter: IATSReporter = reporter or ATSReporter()
+        self.__reporter: IATSReporter = reporter or ATSReporter(checker=self.__checker)
         self.__verbose: bool = verbose
+        self.__splash_property:  Optional[Dict[Any, Any]] = None
 
-        error_msg: Optional[str] = None
-        error_id: Optional[int] = None
-        error_msg, error_id = self.__checker.validate_parameters([('dict:prop', prop)])
+    @property
+    @vreporter('get splash property {splash_property}')
+    def splash_property(self) -> Optional[Dict[Any, Any]]:
+        '''
+            Property method for getting splash property.
 
-        if error_id == self.ERRORS.TYPE_ERROR:
-            raise ATSTypeError(error_msg)
+            :return: Formatted splash property in dict format | None
+            :rtype: <Optional[str]>
+            :exceptions: RuntimeError, AttributeError by vreporter
+        '''
+        return self.__splash_property
 
-        if not bool(prop):
-            raise ATSValueError(error_msg)
+    @splash_property.setter
+    @validator([('dict:splash_property_setup', None)])
+    @vreporter('set splash property {splash_property}')
+    def splash_property(self, splash_property_setup: Optional[Dict[Any, Any]]) -> None:
+        '''
+            Property method for setting project splash property.
 
-        self.__property:  Dict[Any, Any] = prop
-        self.__reporter.verbose(self.__verbose, [f'splash property {prop}'])
+            :param splash_property_setup: Project splash property in dict format | None
+            :type splash_property_setup: <Optional[Dict[Any, Any]]>
+            :exceptions:
+                | ATSTypeError, ATSValueError by validator
+                | RuntimeError, AttributeError by vreporter
+        '''
+        self.__splash_property = splash_property_setup
 
-    def validate(self, verbose: bool = False) -> bool:
+    @vreporter('validation or splash property {splash_property}')
+    def validates(self) -> bool:
         '''
             Validates splash property.
 
-            :param verbose: Enable/Disable verbose option
-            :type verbose: <bool>
-            :return: True (property ok) else False
+            :return: True (splash property ok) else False (splash property not ok)
             :rtype: <bool>
-            :exceptions: None
+            :exceptions: RuntimeError, AttributeError by vreporter
         '''
+        if not self.__splash_property:
+            self.__reporter.error(['missing splash property'])
+            return False
+
         for key in self._EXPECTED_PROP_KEYS:
-            if key not in self.__property.keys():
+            if key not in self.__splash_property.keys():
                 self.__reporter.error([f'missing property {key}'])
                 return False
 
-        self.__reporter.verbose(self.__verbose or verbose, ['property checked and all prepared'])
-
         return True
+
+    def __str__(self) -> str:
+        '''
+            Returns the string representation of splash property.
+
+            :return: The splash property as string
+            :rtype: <str>
+            :exceptions: None
+        '''
+        splash_property = str(self.__splash_property).replace('\n', '\n    ')
+        checker = str(self.__checker).replace('\n', '\n    ')
+        reporter = str(self.__reporter).replace('\n', '\n    ')
+        verbose = str(self.__verbose).replace('\n', '\n    ')
+
+        return (
+            f'<{self.__class__.__name__}(\n'
+            f'    splash_property={splash_property},\n'
+            f'    checker={checker},\n'
+            f'    reporter={reporter},\n'
+            f'    verbose={verbose}\n)> at 0x{id(self):x}'
+        )

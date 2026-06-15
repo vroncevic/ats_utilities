@@ -58,6 +58,7 @@ class ProgressBar(IProgressBar):
                 | plot_progress - Plots progress.
                 | set_and_plot - Sets and plots progress.
                 | __del__ - Dunder del method for ProgressBar.
+                | __str__ - Returns the string representation of progress bar component.
     '''
 
     DEFAULT_BAR_LENGTH: int = 60
@@ -142,3 +143,28 @@ class ProgressBar(IProgressBar):
             :exceptions: None
         '''
         sys.stdout.write("\n")
+
+    def __str__(self) -> str:
+        '''
+            Returns the string representation of progress bar component.
+
+            :return: The progress bar component as string
+            :rtype: <str>
+            :exceptions: NotImplementedError
+        '''
+        start = str(self.__start).replace('\n', '\n    ')
+        end = str(self.__end).replace('\n', '\n    ')
+        bar_length = str(self.__bar_length).replace('\n', '\n    ')
+        level = str(self.__level).replace('\n', '\n    ')
+        plotted = str(self.__plotted).replace('\n', '\n    ')
+        level_chars = str(self.__level_chars).replace('\n', '\n    ')
+
+        return (
+            f'<{self.__class__.__name__}(\n'
+            f'    start={start},\n'
+            f'    end={end},\n'
+            f'    bar_length={bar_length},\n'
+            f'    plotted={plotted},\n'
+            f'    level_chars={level_chars},\n'
+            f'    level={level}\n)> at 0x{id(self):x}'
+        )

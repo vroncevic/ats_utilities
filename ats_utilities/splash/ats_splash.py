@@ -20,15 +20,13 @@ Info
     Loads a splash screen info and adds hyperlinks.
 '''
 
-from typing import Any, ClassVar, Dict, Tuple, List, Optional
+from typing import Any, Dict, Tuple, List, Optional
 from time import sleep
-from ats_utilities.checker.ichecker import IATSChecker, ErrorChecker
+from ats_utilities.splash.isplash import ISplash
+from ats_utilities.checker.ichecker import IATSChecker
 from ats_utilities.checker.ats_checker import ATSChecker
 from ats_utilities.console_io.ireporter import IATSReporter
 from ats_utilities.console_io.reporter import ATSReporter
-from ats_utilities.exceptions.ats_type_error import ATSTypeError
-from ats_utilities.exceptions.ats_value_error import ATSValueError
-from ats_utilities.splash.isplash import ISplash
 from ats_utilities.splash.github_infrastructure import GitHubInfrastructure
 from ats_utilities.splash.ext_infrastructure import ExtInfrastructure
 from ats_utilities.splash.iext_infrastructure import IExtInfrastructure
@@ -36,7 +34,7 @@ from ats_utilities.splash.iprogress_bar import IProgressBar
 from ats_utilities.splash.progress_bar import ProgressBar
 from ats_utilities.splash.iterminal_properties import ITerminalProperties
 from ats_utilities.splash.terminal_properties import TerminalProperties
-from ats_utilities.splash.isplash_screen import ISplashProperty
+from ats_utilities.splash.isplash_property import ISplashProperty
 from ats_utilities.splash.splash_property import SplashProperty
 
 __author__: str = 'Vladimir Roncevic'
@@ -58,21 +56,18 @@ class Splash(ISplash):
         It defines:
 
             :attributes:
-                | ERRORS - Error checker.
-                | __checker - Error checker.
-                | __reporter - ATSReporter for outputting messages.
-                | __verbose - Enable/Disable verbose option.
-                | __splash_property - Splash property checker.
-                | __terminal_property - Terminal properties.
+                | __checker - Parameters checker (default set ATSChecker).
+                | __reporter - Reporter for messaging (default ATSReporter).
+                | __verbose - Enable/Disable verbose option (default False).
+                | __splash_property - Splash property (default set SplashProperty).
+                | __terminal_property - Terminal properties (default set TerminalProperties).
                 | __github - GitHub infrastructure for hyperlinks (used if 'ats_use_github_infrastructure' is True).
                 | __ext - Generic external infrastructure for hyperlinks (used if 'ats_use_github_infrastructure' is False).
-                | __pb - Progress bar.
+                | __pb - Progress bar (default set ProgressBar).
             :methods:
                 | __init__ - Initials Splash constructor.
                 | center - Center console line.
     '''
-
-    ERRORS: ClassVar[type[ErrorChecker]] = ErrorChecker
 
     def __init__(
         self,
@@ -89,7 +84,7 @@ class Splash(ISplash):
         '''
             Initials Splash constructor.
 
-            :param prop: Splash property in dict form
+            :param prop: Splash property in dict format
             :type prop: <Dict[Any, Any]>
             :param splash_property: Splash property checker | None
             :type splash_property: <Optional[ISplashProperty]>
@@ -107,20 +102,21 @@ class Splash(ISplash):
             :type reporter: <Optional[IATSReporter]>
             :param verbose: Enable/Disable verbose option
             :type verbose: <bool>
-            :exceptions: ATSTypeError | ATSValueError
+            :exceptions: None
         '''
         self.__checker: IATSChecker = checker or ATSChecker()
-        self.__reporter: IATSReporter = reporter or ATSReporter()
+        self.__reporter: IATSReporter = reporter or ATSReporter(self.__checker)
         self.__verbose: bool = verbose
         self.__splash_property: ISplashProperty = splash_property or SplashProperty(
-            prop, self.__checker, self.__reporter, self.__verbose
+            self.__checker, self.__reporter, self.__verbose
         )
+        self.__splash_property.splash_property = prop
 
-        if self.__splash_property.validate(self.__verbose):
+        if self.__splash_property.validates():
             self.__terminal_property: ITerminalProperties = terminal_property or TerminalProperties(
                 self.__checker, self.__reporter, self.__verbose
             )
-            size: Tuple[Any, ...] = self.__terminal_property.size(self.__verbose)
+            size: Tuple[Any, ...] = self.__terminal_property.size()
 
             if bool(prop['ats_use_github_infrastructure']):
                 print("\n")
@@ -131,17 +127,20 @@ class Splash(ISplash):
 
                         if bool(processed_line):
                             self.center(int(size[1]), 0, processed_line)
+
                 self.__github: IExtInfrastructure = github or GitHubInfrastructure(
-                    prop, self.__checker, self.__reporter, self.__verbose
+                    self.__checker, self.__reporter, self.__verbose
                 )
+                self.__github.infrastructure_property = prop
                 self.center(int(size[1]), 2, self.__github.get_info_text())
                 self.center(int(size[1]), 2, self.__github.get_issue_text())
                 self.center(int(size[1]), 2, self.__github.get_author_text())
                 print("\n")
             else:
                 self.__ext: IExtInfrastructure = ext or ExtInfrastructure(
-                    prop, self.__checker, self.__reporter, self.__verbose
+                    self.__checker, self.__reporter, self.__verbose
                 )
+                self.__ext.infrastructure_property = prop
                 self.center(int(size[1]), 2, self.__ext.get_info_text())
                 self.center(int(size[1]), 2, self.__ext.get_issue_text())
                 self.center(int(size[1]), 2, self.__ext.get_author_text())
@@ -157,8 +156,7 @@ class Splash(ISplash):
         self,
         columns: int,
         additional_shifter: int,
-        text: Optional[str],
-        verbose: bool = False
+        text: Optional[str]
     ) -> None:
         '''
             Center console line.
@@ -169,25 +167,8 @@ class Splash(ISplash):
             :type additional_shifter: <int>
             :param text: Text for console session | None
             :type text: <Optional[str]>
-            :param verbose: Enable/Disable verbose option
-            :type verbose: <bool>
             :exceptions: ATSTypeError | ATSValueError
         '''
-        error_msg: Optional[str] = None
-        error_id: Optional[int] = None
-        error_msg, error_id = self.__checker.validate_parameters([
-            ('int:columns', columns),
-            ('int:additional_shifter', additional_shifter),
-            ('str:text', text)
-        ])
-
-        if error_id == self.ERRORS.TYPE_ERROR:
-            raise ATSTypeError(error_msg)
-
-        if not bool(text):
-            raise ATSValueError('missing text')
-
-        self.__reporter.verbose(self.__verbose or verbose, [f'{columns} {additional_shifter} {text}'])
         start_position: float = (columns / 2) - 30
         number_of_tabs = int((start_position / 8) - 1 + additional_shifter)
         print('{0}{1}'.format('\011' * number_of_tabs, text))

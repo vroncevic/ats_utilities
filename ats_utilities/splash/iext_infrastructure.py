@@ -21,7 +21,7 @@ Info
 '''
 
 from abc import ABC, abstractmethod
-from typing import List
+from typing import Any, Dict, Optional, List
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -42,10 +42,36 @@ class IExtInfrastructure(ABC):
 
             :attributes: None
             :methods:
+                | infrastructure_property - Property method for get/set infrastructure property (abstract).
                 | get_info_text - Pre-processes info text (abstract).
                 | get_issue_text - Pre-processes issue text (abstract).
                 | get_author_text - Pre-processes author text (abstract).
+                | __str__ - Returns the string representation of external infrastructure (abstract).
     '''
+
+    @property
+    @abstractmethod
+    def infrastructure_property(self) -> Optional[Dict[Any, Any]]:
+        '''
+            Property method for getting infrastructure property.
+
+            :return: Formatted infrastructure property in dict format | None
+            :rtype: <Optional[str]>
+            :exceptions: NotImplementedError
+        '''
+        raise NotImplementedError("Subclasses must implement get_info_text method")
+
+    @infrastructure_property.setter
+    @abstractmethod
+    def infrastructure_property(self, infrastructure_property_setup: Optional[Dict[Any, Any]]) -> None:
+        '''
+            Property method for setting project infrastructure property.
+
+            :param infrastructure_property_setup: Project infrastructure property in dict format | None
+            :type infrastructure_property_setup: <Optional[Dict[Any, Any]]>
+            :exceptions: NotImplementedError
+        '''
+        raise NotImplementedError("Subclasses must implement get_info_text method")
 
     @abstractmethod
     def get_info_text(self) -> str:
@@ -79,3 +105,14 @@ class IExtInfrastructure(ABC):
             :exceptions: NotImplementedError
         '''
         raise NotImplementedError("Subclasses must implement get_author_text method")
+
+    @abstractmethod
+    def __str__(self) -> str:
+        '''
+            Returns the string representation of external infrastructure.
+
+            :return: The external infrastructure as string
+            :rtype: <str>
+            :exceptions: NotImplementedError
+        '''
+        raise NotImplementedError("Subclasses must implement __str__ method")
