@@ -49,6 +49,7 @@ class ATSCFGProcessor(ICFGProcessor):
                 | from_lines - Load CFG content from lines.
                 | to_string - Convert CFG content to string.
                 | to_dict - Convert CFG content to dictionary.
+                | __str__ - Returns the string representation of CFG processor component.
     '''
 
     __REGEX_EXP: str = r'^\s*$'
@@ -96,3 +97,18 @@ class ATSCFGProcessor(ICFGProcessor):
             :exceptions: None
         '''
         return self.__data
+
+    def __str__(self) -> str:
+        '''
+            Returns the string representation of CFG processor component.
+
+            :return: CFG processor component as string representation
+            :rtype: <str>
+            :exceptions: None
+        '''
+        data = str(self.__data).replace('\n', '\n    ')
+
+        return (
+            f'<{self.__class__.__name__}(\n'
+            f'    data={data}\n)> at 0x{id(self):x}'
+        )

@@ -49,7 +49,8 @@ class IConfigManager(ABC):
 
             :attributes: None
             :methods:
-                | load_config - Loads the appropriate configuration base based on file type.
+                | load_config - Loads the appropriate configuration base based on file type (abstract).
+                | __str__ - Returns the string representation of configuration manager (abstract).
     '''
 
     @abstractmethod
@@ -66,3 +67,14 @@ class IConfigManager(ABC):
             :exceptions: NotImplementedError
         '''
         raise NotImplementedError("Method load_config() must be implemented.")
+
+    @abstractmethod
+    def __str__(self) -> str:
+        '''
+            Returns the string representation of configuration manager.
+
+            :return: The configuration manager as string
+            :rtype: <str>
+            :exceptions: NotImplementedError
+        '''
+        raise NotImplementedError("Subclasses must implement __str__ method")

@@ -25,7 +25,7 @@ from ats_utilities.info.name import ATSName
 from ats_utilities.info.licence import ATSLicence
 from ats_utilities.info.build_date import ATSBuildDate
 from ats_utilities.info.info_ok import ATSInfoOk
-from ats_utilities.info.ats_info_manager import ATSInfoManager
+from ats_utilities.info.ats_info_manager import ATSInfoManager, ATSComponentBundle
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -73,14 +73,16 @@ ats_info_overwrite: Dict[Any, Any] = {
     'ats_build_date': 'Sun Jun 14 03:06:12 PM CEST 2026'
 }
 
-ats_info_manager_with_di_and_case_overwrite = ATSInfoManager(
-    info=ats_info_overwrite,
+bundle: ATSComponentBundle = ATSComponentBundle(
     name=ats_name,
     version=ats_version,
     licence=ats_licence,
     build_date=ats_build_date,
-    info_ok=ats_info_ok,
-    verbose=VERBOSE
+    info_ok=ats_info_ok
+)
+
+ats_info_manager_with_di_and_case_overwrite = ATSInfoManager(
+    info=ats_info_overwrite, bundle=bundle, verbose=VERBOSE
 )
 print(ats_info_manager_with_di_and_case_overwrite)
 
@@ -99,12 +101,15 @@ ats_build_date.build_date = 'Sun Jun 14 03:06:13 PM CEST 2026'
 ats_info_ok = ATSInfoOk(verbose=VERBOSE)
 ats_info_ok.info_ok = True
 
-ats_info_manager_with_di_and_without_case_overwrite = ATSInfoManager(
+bundle: ATSComponentBundle = ATSComponentBundle(
     name=ats_name,
     version=ats_version,
     licence=ats_licence,
     build_date=ats_build_date,
-    info_ok=ats_info_ok,
-    verbose=VERBOSE
+    info_ok=ats_info_ok
+)
+
+ats_info_manager_with_di_and_without_case_overwrite = ATSInfoManager(
+    bundle=bundle, verbose=VERBOSE
 )
 print(ats_info_manager_with_di_and_without_case_overwrite)

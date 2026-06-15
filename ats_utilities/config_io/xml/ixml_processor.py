@@ -45,6 +45,7 @@ class IXMLProcessor(ABC):
                 | from_string - Load XML content from string (abstract).
                 | to_string - Convert XML content to string (abstract).
                 | get_ats_info - Get ATS information from XML (abstract).
+                | __str__ - Returns the string representation of XML configuration processor component (abstract).
     '''
 
     @abstractmethod
@@ -81,3 +82,14 @@ class IXMLProcessor(ABC):
             :exceptions: NotImplementedError
         '''
         raise NotImplementedError("Method get_ats_info() must be implemented.")
+
+    @abstractmethod
+    def __str__(self) -> str:
+        '''
+            Returns the string representation of XML configuration processor component.
+
+            :return: The XML configuration processor component as string
+            :rtype: <str>
+            :exceptions: NotImplementedError
+        '''
+        raise NotImplementedError("Subclasses must implement __str__ method")

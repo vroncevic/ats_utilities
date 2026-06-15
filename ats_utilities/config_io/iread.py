@@ -43,6 +43,7 @@ class IRead(ABC):
             :attributes: None
             :methods:
                 | read_configuration - Read configuration from file (abstract).
+                | __str__ - Returns the string representation of read configuration component (abstract).
     '''
 
     @abstractmethod
@@ -57,3 +58,14 @@ class IRead(ABC):
             :exceptions: NotImplementedError
         '''
         raise NotImplementedError("Method read_configuration() must be implemented.")
+
+    @abstractmethod
+    def __str__(self) -> str:
+        '''
+            Returns the string representation of read configuration component.
+
+            :return: The read configuration component as string
+            :rtype: <str>
+            :exceptions: NotImplementedError
+        '''
+        raise NotImplementedError("Subclasses must implement __str__ method")

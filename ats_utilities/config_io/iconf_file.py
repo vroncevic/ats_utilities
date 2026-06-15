@@ -45,14 +45,15 @@ class IConfFile(ABC):
 
             :attributes: None
             :methods:
-                | __enter__ - Opens configuration file in mode (abstract).
-                | __exit__ - Closes configuration file (abstract).
+                | __enter__ - Opens configuration context manager (abstract).
+                | __exit__ - Closes configuration context manager (abstract).
+                | __str__ - Returns the string representation of configuration context manger (abstract).
     '''
 
     @abstractmethod
     def __enter__(self) -> File:
         '''
-            Opens configuration file in mode.
+            Opens configuration context manager.
 
             :return: File IO object | None
             :rtype: <File>
@@ -63,7 +64,7 @@ class IConfFile(ABC):
     @abstractmethod
     def __exit__(self, *args: Tuple[Any, ...], **kwargs: Dict[Any, Any]) -> None:
         '''
-            Closes configuration file.
+            Closes configuration context manager.
 
             :param *args: List of arguments
             :type *args: <Tuple[Any, ...]>
@@ -72,3 +73,14 @@ class IConfFile(ABC):
             :exceptions: NotImplementedError
         '''
         raise NotImplementedError("Method __exit__() must be implemented.")
+
+    @abstractmethod
+    def __str__(self) -> str:
+        '''
+            Returns the string representation of configuration context manger.
+
+            :return: The configuration context manger as string
+            :rtype: <str>
+            :exceptions: NotImplementedError
+        '''
+        raise NotImplementedError("Subclasses must implement __str__ method")

@@ -45,6 +45,7 @@ class IINIProcessor(ABC):
                 | from_stream - Load INI content from a stream (abstract).
                 | to_stream - Write INI content to a stream (abstract).
                 | get_ats_info - Get ATS information from INI (abstract).
+                | __str__ - Returns the string representation of INI configuration processor component (abstract).
     '''
 
     @abstractmethod
@@ -83,3 +84,14 @@ class IINIProcessor(ABC):
             :exceptions: NotImplementedError
         '''
         raise NotImplementedError("Method get_ats_info() must be implemented.")
+
+    @abstractmethod
+    def __str__(self) -> str:
+        '''
+            Returns the string representation of INI configuration processor component.
+
+            :return: INI configuration processor component as string
+            :rtype: <str>
+            :exceptions: NotImplementedError
+        '''
+        raise NotImplementedError("Subclasses must implement __str__ method")

@@ -20,8 +20,9 @@ Info
     Creates an API for the ATS information in one container object.
 '''
 
-from typing import Any, List, Dict, Optional
+from dataclasses import dataclass, fields
 from datetime import datetime
+from typing import Any, List, Dict, Optional
 from ats_utilities.info.iinfo_manager import IATSInfoManager
 from ats_utilities.info.iname import IATSName
 from ats_utilities.info.name import ATSName
@@ -48,6 +49,19 @@ __version__: str = '3.3.7'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
+
+
+@dataclass
+class ATSComponentBundle:
+    '''
+        Parameter Object pattern wrapper encapsulating all core info domain elements.
+        Simplifies dependency passing and signatures for higher-level managers.
+    '''
+    name: Optional[IATSName] = None
+    version: Optional[IATSVersion] = None
+    licence: Optional[IATSLicence] = None
+    build_date: Optional[IATSBuildDate] = None
+    info_ok: Optional[IATSInfoOk] = None
 
 
 class ATSInfoManager(IATSInfoManager):
@@ -96,11 +110,7 @@ class ATSInfoManager(IATSInfoManager):
     def __init__(
         self,
         info: Optional[Dict[Any, Any]] = None,
-        name: Optional[IATSName] = None,
-        version: Optional[IATSVersion] = None,
-        licence: Optional[IATSLicence] = None,
-        build_date: Optional[IATSBuildDate] = None,
-        info_ok: Optional[IATSInfoOk] = None,
+        bundle: Optional[ATSComponentBundle] = None,
         checker: Optional[IATSChecker] = None,
         reporter: Optional[IATSReporter] = None,
         verbose: bool = False
@@ -108,18 +118,10 @@ class ATSInfoManager(IATSInfoManager):
         '''
             Initials ATSInfoManager constructor.
 
-            :info: The ATS base information in dict format | None
-            :type info: <Optional[Dict[Any, Any]]]>
-            :param name: The ATS name (default set ATSName) | None
-            :type name: <Optional[IATSName]>
-            :param version: The ATS version (default set ATSVersion) | None
-            :type version: <Optional[IATSVersion]>
-            :param licence: The ATS licence (default set ATSLicence) | None
-            :type licence: <Optional[IATSLicence]>
-            :param build_date: The ATS build date (default set ATSBuildDate) | None
-            :type build_date: <Optional[IATSBuildDate]>
-            :param info_ok: The ATS information status (default set ATSInfoOk) | None
-            :type info_ok: <Optional[IATSInfoOk]>
+            :param info: The ATS base information in dict format | None
+            :type info: <Optional[Dict[Any, Any]]>
+            :param bundle: The structured domain components package
+            :type bundle: <Optional[ATSComponentBundle]>
             :param checker: Parameters checker (default set ATSChecker) | None
             :type checker: <Optional[IATSChecker]>
             :param reporter: Reporter for messaging (default set ATSReporter) | None
@@ -132,30 +134,43 @@ class ATSInfoManager(IATSInfoManager):
         self.__checker: IATSChecker = checker or ATSChecker()
         self.__reporter: IATSReporter = reporter or ATSReporter(checker=self.__checker)
         self.__verbose: bool = verbose
-        self.__name: Optional[IATSName] = name or ATSName(
-            checker=self.__checker, reporter=self.__reporter, verbose=self.__verbose
-        )
-        self.__version: Optional[IATSVersion] = version or ATSVersion(
-            checker=self.__checker, reporter=self.__reporter, verbose=self.__verbose
-        )
-        self.__licence: Optional[IATSLicence] = licence or ATSLicence(
-            checker=self.__checker, reporter=self.__reporter, verbose=self.__verbose
-        )
-        self.__build_date: Optional[IATSBuildDate] = build_date or ATSBuildDate(
-            checker=self.__checker, reporter=self.__reporter, verbose=self.__verbose
-        )
-        self.__info_ok: Optional[IATSInfoOk] = info_ok or ATSInfoOk(
-            checker=self.__checker, reporter=self.__reporter, verbose=self.__verbose
-        )
         self.__pre_setup: bool = False
 
-        if info is not None and self._pre_setup_check(info, name, version, licence, build_date, info_ok):
-            self.__name.name = info.get(self.ATS_NAME)
-            self.__version.version = info.get(self.ATS_VERSION)
-            self.__licence.licence = info.get(self.ATS_LICENCE)
-            self.__build_date.build_date = info.get(self.ATS_BUILD_DATE)
-            self.__info_ok.info_ok = True
+        components: ATSComponentBundle = bundle or ATSComponentBundle()
 
+        def make_component(passed_obj: Any, default_class: Any) -> Any:
+            return passed_obj or default_class(
+                checker=self.__checker, reporter=self.__reporter, verbose=self.__verbose
+            )
+
+        self.__name: IATSName = make_component(components.name, ATSName)
+        self.__version: IATSVersion = make_component(components.version, ATSVersion)
+        self.__licence: IATSLicence = make_component(components.licence, ATSLicence)
+        self.__build_date: IATSBuildDate = make_component(components.build_date, ATSBuildDate)
+        self.__info_ok: IATSInfoOk = make_component(components.info_ok, ATSInfoOk)
+
+        if info is not None and self._pre_setup_check(info, components):
+            self._fill_info_from_dict(info)
+
+        self._evaluate_pre_setup_status()
+
+    def _fill_info_from_dict(self, info: Dict[Any, Any]) -> None:
+        '''
+            Populates internal component tracking with fields pulled from info.
+
+            :param info: Validated key-value information source object
+            :type info: <Dict[Any, Any]>
+        '''
+        self.__name.name = info.get(self.ATS_NAME)
+        self.__version.version = info.get(self.ATS_VERSION)
+        self.__licence.licence = info.get(self.ATS_LICENCE)
+        self.__build_date.build_date = info.get(self.ATS_BUILD_DATE)
+        self.__info_ok.info_ok = True
+
+    def _evaluate_pre_setup_status(self) -> None:
+        '''
+            Evaluates configuration readiness checklist across active structures.
+        '''
         self.__pre_setup = all([
             self.__name.is_name_not_none(),
             self.__version.is_version_not_none(),
@@ -167,52 +182,31 @@ class ATSInfoManager(IATSInfoManager):
     def _pre_setup_check(
         self,
         info: Optional[Dict[Any, Any]] = None,
-        name: Optional[IATSName] = None,
-        version: Optional[IATSVersion] = None,
-        licence: Optional[IATSLicence] = None,
-        build_date: Optional[IATSBuildDate] = None,
-        info_ok: Optional[IATSInfoOk] = None,
+        bundle: Optional[ATSComponentBundle] = None,
     ) -> bool:
         '''
-            Performs a pre-setup check for ATS information.
+            Performs a pre-setup check for ATS information using the component bundle.
             This method is called during initialization if an 'info' dictionary is provided.
             It validates the 'info' dictionary and issues warnings if individual info objects
-            (name, version, licence, build_date, info_ok) are also provided, as the values
-            from the 'info' dictionary will take precedence.
+            inside the bundle are also provided, as the values from the 'info' dictionary 
+            will take precedence.
 
             :param info: The ATS base information in dict format.
             :type info: <Optional[Dict[Any, Any]]>
-            :param name: The ATS name object.
-            :type name: <Optional[IATSName]>
-            :param version: The ATS version object.
-            :type version: <Optional[IATSVersion]>
-            :param licence: The ATS licence object.
-            :type licence: <Optional[IATSLicence]>
-            :param build_date: The ATS build date object.
-            :type build_date: <Optional[IATSBuildDate]>
-            :param info_ok: The ATS information status object.
-            :type info_ok: <Optional[IATSInfoOk]>
+            :param bundle: The component bundle container holding individual domain objects.
+            :type bundle: <Optional[ATSComponentBundle]>
             :return: True if the 'info' dictionary is valid, False otherwise.
             :rtype: <bool>
             :exceptions: ATSTypeError, ATSValueError (potentially from base_info_is_ok via validator)
         '''
-        if info and self.base_info_is_ok(info):
-            if name:
-                self.__reporter.warning(['ATS base info (dict) will overwrite ATS name'])
-
-            if version:
-                self.__reporter.warning(['ATS base info (dict) will overwrite ATS version'])
-
-            if licence:
-                self.__reporter.warning(['ATS base info (dict) will overwrite ATS licence'])
-
-            if build_date:
-                self.__reporter.warning(['ATS base info (dict) will overwrite ATS build date'])
-
-            if info_ok:
-                self.__reporter.warning(['ATS base info (dict) will overwrite ATS info_ok'])
-        else:
+        if not info or not self.base_info_is_ok(info):
             return False
+
+        if bundle:
+            for field in fields(bundle):
+                if getattr(bundle, field.name) is not None:
+                    clean_name = field.name.replace('_', ' ')
+                    self.__reporter.warning([f'ATS base info (dict) will overwrite ATS {clean_name}'])
 
         return True
 
@@ -232,13 +226,10 @@ class ATSInfoManager(IATSInfoManager):
     @vreporter('set pre_setup {pre_setup}')
     def pre_setup(self, pre_setup: bool) -> None:
         '''
-            Property method for getting ATS pre-setup status.
+            Property method for setting ATS pre-setup status.
 
             :param pre_setup: The ATS pre-setup status in bool format
             :type pre_setup: <bool>
-            :return: The ATS pre-setup status in bool format
-            :rtype: <bool>
-            :exceptions: RuntimeError, AttributeError by vreporter
         '''
         self.__pre_setup = pre_setup
 
@@ -281,6 +272,16 @@ class ATSInfoManager(IATSInfoManager):
 
         return all(all_state)
 
+    def get_version(self) -> Optional[str]:
+        '''
+            Gets ATS version.
+
+            :return: The ATS version in string format | None
+            :rtype: <Optional[str]>
+            :exceptions: None
+        '''
+        return self.__version.version if self.__version else None
+
     def __str__(self) -> str:
         '''
             Returns the string representation of ATS info manager.
@@ -289,25 +290,12 @@ class ATSInfoManager(IATSInfoManager):
             :rtype: <str>
             :exceptions: None
         '''
-        name = str(self.__name).replace('\n', '\n    ')
-        version = str(self.__version).replace('\n', '\n    ')
-        licence = str(self.__licence).replace('\n', '\n    ')
-        build_date = str(self.__build_date).replace('\n', '\n    ')
-        info_ok = str(self.__info_ok).replace('\n', '\n    ')
-        pre_setup = str(self.__pre_setup).replace('\n', '\n    ')
-        checker = str(self.__checker).replace('\n', '\n    ')
-        reporter = str(self.__reporter).replace('\n', '\n    ')
-        verbose = str(self.__verbose).replace('\n', '\n    ')
+        class_name = self.__class__.__name__
+        prefix = f'_{class_name}__'
 
-        return (
-            f'<{self.__class__.__name__}(\n'
-            f'    name={name},\n'
-            f'    version={version},\n'
-            f'    licence={licence},\n'
-            f'    build_date={build_date},\n'
-            f'    info_ok={info_ok},\n'
-            f'    pre_setup={pre_setup},\n'
-            f'    checker={checker},\n'
-            f'    reporter={reporter},\n'
-            f'    verbose={verbose}\n)> at 0x{id(self):x}'
+        formatted_attrs = ',\n'.join(
+            f"    {k[len(prefix):] if k.startswith(prefix) else k}={str(v).replace('\n', '\n    ')}"
+            for k, v in self.__dict__.items()
         )
+
+        return f'<{class_name}(\n{formatted_attrs}\n)> at 0x{id(self):x}'

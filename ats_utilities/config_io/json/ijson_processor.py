@@ -43,6 +43,7 @@ class IJSONProcessor(ABC):
                 | decode - Convert raw JSON text to an internal object/structure (abstract).
                 | encode - Convert an internal object/structure back to a JSON string (abstract).
                 | to_dict - Return data as a flat dictionary required for ATSInfo (abstract).
+                | __str__ - Returns the string representation of JSON configuration processor component (abstract).
     '''
 
     @abstractmethod
@@ -79,3 +80,14 @@ class IJSONProcessor(ABC):
             :exceptions: NotImplementedError
         '''
         raise NotImplementedError("Method to_dict() must be implemented.")
+
+    @abstractmethod
+    def __str__(self) -> str:
+        '''
+            Returns the string representation of JSON configuration processor component.
+
+            :return: The JSON configuration processor component as string
+            :rtype: <str>
+            :exceptions: NotImplementedError
+        '''
+        raise NotImplementedError("Subclasses must implement __str__ method")

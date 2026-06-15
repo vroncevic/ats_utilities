@@ -45,6 +45,7 @@ class ICFGProcessor(ABC):
                 | from_lines - Load CFG content from lines (abstract).
                 | to_string - Convert CFG content to string (abstract).
                 | to_dict - Convert CFG content to dictionary (abstract).
+                | __str__ - Returns the string representation of CFG configuration processor component (abstract).
     '''
 
     @abstractmethod
@@ -81,3 +82,14 @@ class ICFGProcessor(ABC):
             :exceptions: NotImplementedError
         '''
         raise NotImplementedError("Method to_dict() must be implemented.")
+
+    @abstractmethod
+    def __str__(self) -> str:
+        '''
+            Returns the string representation of CFG configuration processor component.
+
+            :return: The CFG configuration processor component as string
+            :rtype: <str>
+            :exceptions: NotImplementedError
+        '''
+        raise NotImplementedError("Subclasses must implement __str__ method")

@@ -43,6 +43,7 @@ class IWrite(ABC):
             :attributes: None
             :methods:
                 | write_configuration - Write configuration to file (abstract).
+                | __str__ - Returns the string representation of write configuration component (abstract).
     '''
 
     @abstractmethod
@@ -59,3 +60,14 @@ class IWrite(ABC):
             :exceptions: NotImplementedError
         '''
         raise NotImplementedError("Method write_configuration() must be implemented.")
+
+    @abstractmethod
+    def __str__(self) -> str:
+        '''
+            Returns the string representation of write configuration component.
+
+            :return: The write configuration component as string
+            :rtype: <str>
+            :exceptions: NotImplementedError
+        '''
+        raise NotImplementedError("Subclasses must implement __str__ method")

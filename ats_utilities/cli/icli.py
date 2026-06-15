@@ -46,18 +46,19 @@ class IATSCli(ABC):
 
             :attributes: None
             :methods:
-                | is_operational - Checks is tool | generator operational.
-                | add_new_option - Adds a new option for the the CL interface.
-                | parse_args - Parses the CLI arguments.
-                | process - Processes and runs tool operations.
+                | is_operational - Checks is tool | generator operational (abstract).
+                | add_new_option - Adds a new option for the the CL interface (abstract).
+                | parse_args - Parses the CLI arguments (abstract).
+                | process - Processes and runs tool operations (abstract).
+                | __str__ - Returns the string representation of command line interface component (abstract).
     '''
 
     @abstractmethod
     def is_operational(self) -> bool:
         '''
-            Checks is tool | generator operational.
+            Checks is ATS operational.
 
-            :return: True (tool | generator is operational) | False
+            :return: True (ATS is operational) | False (ATS is not operational)
             :rtype: <bool>
             :exceptions: NotImplementedError
         '''
@@ -101,3 +102,14 @@ class IATSCli(ABC):
             :exceptions: NotImplementedError
         '''
         raise NotImplementedError("Method process() must be implemented.")
+
+    @abstractmethod
+    def __str__(self) -> str:
+        '''
+            Returns the string representation of command line interface component.
+
+            :return: The command line interface component as string
+            :rtype: <str>
+            :exceptions: NotImplementedError
+        '''
+        raise NotImplementedError("Subclasses must implement __str__ method")

@@ -23,9 +23,12 @@ Info
 from typing import List, Optional
 from os.path import splitext, isfile
 from ats_utilities.config_io.ifile_check import IFileCheck
+from ats_utilities.checker.ichecker import IATSChecker
+from ats_utilities.checker.ats_checker import ATSChecker
+from ats_utilities.checker.proxy_validator import validator
 from ats_utilities.console_io.ireporter import IATSReporter
 from ats_utilities.console_io.reporter import ATSReporter
-from ats_utilities.checker.decorator import validates_parameters
+from ats_utilities.console_io.proxy_reporter import vreporter
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -46,85 +49,86 @@ class FileCheck(IFileCheck):
         It defines:
 
             :attributes:
-                | __reporter - ATSReporter for check operations.
-                | __verbose - Enable/Disable verbose option.
-                | __file_path_ok - File exist, path ok.
-                | __file_mode_ok - Supported file mode.
-                | __file_format_ok - File format is (not) expected.
+                | __checker - Parameters checker (default set ATSChecker).
+                | __reporter - Reporter for messaging (default ATSReporter).
+                | __verbose - Enable/Disable verbose option (default False).
+                | __file_path_ok - File exist, path ok (default False).
+                | __file_mode_ok - Supported file mode (default False).
+                | __file_format_ok - File format is (not) expected (default False).
             :methods:
                 | __init__ - Initials FileCheck constructor.
                 | check_path - Checks file path.
                 | check_mode -  Checks operation mode for file.
                 | check_format - Checks file format by extension.
                 | is_file_ok - Returns status for file.
+                | __str__ - Returns the string representation of file check component.
     '''
 
-    def __init__(self, reporter: Optional[IATSReporter] = None, verbose: bool = False) -> None:
+    def __init__(
+        self,
+        checker: Optional[IATSChecker] = None,
+        reporter: Optional[IATSReporter] = None,
+        verbose: bool = False
+    ) -> None:
         '''
             Initials FileCheck constructor.
 
+            :param checker: Parameters checker (default set ATSChecker) | None
+            :type checker: <Optional[IATSChecker]>
+            :param reporter: Reporter for messaging (default set ATSReporter) | None
+            :type reporter: <Optional[IATSReporter]>
             :param verbose: Enable/Disable verbose option
             :type verbose: <bool>
-            :param reporter: ATSReporter for check operations | None
-            :type reporter: <Optional[IATSReporter]>
             :exceptions: None
         '''
-        self.__reporter: IATSReporter = reporter or ATSReporter()
+        # No dependency injection then use default ones.
+        self.__checker: IATSChecker = checker or ATSChecker()
+        self.__reporter: IATSReporter = reporter or ATSReporter(checker=self.__checker)
         self.__verbose: bool = verbose
         self.__file_path_ok: bool = False
         self.__file_mode_ok: bool = False
         self.__file_format_ok: bool = False
-        self.__reporter.verbose(self.__verbose, ['init ATS check file'])
 
-    @validates_parameters([('Optional[str]:file_path', None)])
-    def check_path(self, file_path: Optional[str], verbose: bool = False) -> None:
+    @validator([('Optional[str]:file_path', None)])
+    @vreporter('check file path {file_path_ok}')
+    def check_path(self, file_path: Optional[str]) -> None:
         '''
-            Checks file path.
+            Checks file path in string format.
 
-            :param file_path: File path | None
+            :param file_path: File path in string format | None
             :type file_path: <Optional[str]>
-            :param verbose: Enable/Disable verbose option
-            :type verbose: <bool>
             :exceptions: ATSTypeError by validate_parameters
         '''
-        # file_path is guaranteed to be str if no exception was raised
         self.__file_path_ok = isfile(file_path)  # type: ignore
 
-        if self.__file_path_ok:
-            self.__reporter.verbose(self.__verbose or verbose, [f'check file path {file_path}'])
-        else:
+        if not self.__file_path_ok:
             self.__reporter.error([f'check file {file_path}'])
 
-    @validates_parameters([('Optional[str]:file_mode', None)])
-    def check_mode(self, file_mode: Optional[str], verbose: bool = False) -> None:
+    @validator([('Optional[str]:file_mode', None)])
+    @vreporter('check file mode {file_mode_ok}')
+    def check_mode(self, file_mode: Optional[str]) -> None:
         '''
             Checks operation mode for file.
 
-            :param file_mode: File mode ('r', 'w', 'a', 'b', 'x', 't', '+')
+            :param file_mode: File mode in string format ('r', 'w', 'a', 'b', 'x', 't', '+')
             :type file_mode: <Optional[str]>
-            :param verbose: Enable/Disable verbose option
-            :type verbose: <bool>
             :exceptions: ATSTypeError
         '''
-        # file_mode is guaranteed to be str
         self.__file_mode_ok = all(char in self.MODES for char in file_mode)  # type: ignore
 
-        if self.__file_mode_ok:
-            self.__reporter.verbose(self.__verbose or verbose, [f'supported file mode [{file_mode}]'])
-        else:
+        if not self.__file_mode_ok:
             self.__reporter.error([f'not supported file mode [{file_mode}]'])
 
-    @validates_parameters([('Optional[str]:file_path', None), ('Optional[str]:file_format', None)])
-    def check_format(self, file_path: Optional[str], file_format: Optional[str], verbose: bool = False) -> None:
+    @validator([('Optional[str]:file_path', None), ('Optional[str]:file_format', None)])
+    @vreporter('check file format {file_format_ok}')
+    def check_format(self, file_path: Optional[str], file_format: Optional[str]) -> None:
         '''
             Checks file format by extension.
 
-            :param file_path: File path | None
+            :param file_path: File path in string format | None
             :type file_path: <Optional[str]>
             :param file_format: File format (file extension) | None
             :type file_format: <Optional[str]>
-            :param verbose: Enable/Disable verbose option
-            :type verbose: <bool>
             :exceptions: ATSTypeError by validate_parameters
         '''
         extension: Optional[str] = None
@@ -146,14 +150,38 @@ class FileCheck(IFileCheck):
         else:
             self.__file_format_ok = True
 
-        self.__reporter.verbose(self.__verbose or verbose, [f'checked file format {path_str}'])
-
+    @vreporter('check is file ok path: {file_path_ok}, mode: {file_mode_ok}, format: {file_format_ok}')
     def is_file_ok(self) -> bool:
         '''
             Returns status for file.
 
-            :return: True (file validated and ok) | False
+            :return: True (success) | False (fail)
             :rtype: <bool>
             :exceptions: None
         '''
         return all([self.__file_path_ok, self.__file_mode_ok, self.__file_format_ok])
+
+    def __str__(self) -> str:
+        '''
+            Returns the string representation of file check component.
+
+            :return: The file check component as string representation
+            :rtype: <str>
+            :exceptions: None
+        '''
+        file_path_ok = str(self.__file_path_ok).replace('\n', '\n    ')
+        file_mode_ok = str(self.__file_mode_ok).replace('\n', '\n    ')
+        file_format_ok = str(self.__file_format_ok).replace('\n', '\n    ')
+        checker = str(self.__checker).replace('\n', '\n    ')
+        reporter = str(self.__reporter).replace('\n', '\n    ')
+        verbose = str(self.__verbose).replace('\n', '\n    ')
+
+        return (
+            f'<{self.__class__.__name__}(\n'
+            f'    file_path_ok={file_path_ok},\n'
+            f'    file_mode_ok={file_mode_ok},\n'
+            f'    file_format_ok={file_format_ok},\n'
+            f'    checker={checker},\n'
+            f'    reporter={reporter},\n'
+            f'    verbose={verbose}\n)> at 0x{id(self):x}'
+        )

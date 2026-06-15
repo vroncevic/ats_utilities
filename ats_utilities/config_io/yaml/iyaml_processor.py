@@ -43,6 +43,7 @@ class IYAMLProcessor(ABC):
                 | decode - Convert raw YAML text to an internal object/structure (abstract).
                 | encode - Convert an internal object/structure back to a YAML string (abstract).
                 | to_dict - Return data as a flat dictionary required for ATSInfo (abstract).
+                | __str__ - Returns the string representation of YAML configuration processor component (abstract).
     '''
 
     @abstractmethod
@@ -79,3 +80,14 @@ class IYAMLProcessor(ABC):
             :exceptions: NotImplementedError
         '''
         raise NotImplementedError("Subclasses must implement to_dict method")
+
+    @abstractmethod
+    def __str__(self) -> str:
+        '''
+            Returns the string representation of YAML configuration processor component.
+
+            :return: The YAML configuration processor component as string
+            :rtype: <str>
+            :exceptions: NotImplementedError
+        '''
+        raise NotImplementedError("Subclasses must implement __str__ method")

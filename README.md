@@ -23,6 +23,7 @@ other information that should be provided before the modules are installed.
     - [Install using docker](#install-using-docker)
 - [Dependencies](#dependencies)
 - [Framework structure](#framework-structure)
+- [Use Cases](#use-cases)
 - [Code coverage](#code-coverage)
 - [Docs](#docs)
 - [Contributing](#contributing)
@@ -362,6 +363,10 @@ Framework structure
 | `ats_utilities/splash/splash_property.py` | 39 | 1 | 97%|
 | `ats_utilities/splash/terminal_properties.py` | 52 | 1 | 98%|
 | **Total** | 3066 | 159 | 95% |
+
+### Use Cases
+
+For practical examples, detailed script explanations, and demonstration of framework features, please visit the [Use Cases documentation](use_cases/USE_CASES.md).
 
 ### Docs
 

@@ -21,9 +21,11 @@ Info
 '''
 
 from typing import List, Optional
-from ats_utilities.info.ats_info_manager import ATSInfo
+from ats_utilities.info.ats_info_manager import ATSInfoManager
 from ats_utilities.option.ioption_parser import IATSOptionParser
 from ats_utilities.option.ats_option_parser import ATSOptionParser
+from ats_utilities.checker.ichecker import IATSChecker
+from ats_utilities.checker.ats_checker import ATSChecker
 from ats_utilities.console_io.ireporter import IATSReporter
 from ats_utilities.console_io.reporter import ATSReporter
 from ats_utilities.config_io.iread import IRead
@@ -55,10 +57,9 @@ class CfgBase:
         It defines:
 
             :attributes:
-                | ERRORS - Error checker mapping.
-                | __checker - Error checker.
-                | __reporter - ATSReporter for check operations.
-                | __verbose - Enable/Disable verbose option.
+                | __checker - Parameters checker (default set ATSChecker).
+                | __reporter - Reporter for messaging (default ATSReporter).
+                | __verbose - Enable/Disable verbose option (default False).
                 | __file_checker - FileCheck for checking file.
                 | __cfg2obj - In API for information.
                 | __obj2cfg - Out API for information.
@@ -75,6 +76,7 @@ class CfgBase:
         cfg2object: Optional[IRead] = None,
         object2cfg: Optional[IWrite] = None,
         options_parser: Optional[IATSOptionParser] = None,
+        checker: Optional[IATSChecker] = None,
         reporter: Optional[IATSReporter] = None,
         file_checker: Optional[IFileCheck] = None,
         strategy: Optional[IATSArgParseStrategy] = None,
@@ -91,7 +93,9 @@ class CfgBase:
             :type object2cfg: <Optional[IWrite]>
             :param options_parser: Option parser for ATS | None
             :type options_parser: <Optional[IATSOptionParser]>
-            :param reporter: ATSReporter for check operations | None
+            :param checker: Parameters checker (default set ATSChecker) | None
+            :type checker: <Optional[IATSChecker]>
+            :param reporter: Reporter for messaging (default set ATSReporter) | None
             :type reporter: <Optional[IATSReporter]>
             :param file_checker: FileCheck for checking file | None
             :type file_checker: <Optional[IFileCheck]>
@@ -101,17 +105,30 @@ class CfgBase:
             :type verbose: <bool>
             :exceptions: None
         '''
-        self.__reporter: IATSReporter = reporter or ATSReporter()
+        # No dependency injection then use default ones.
+        self.__checker: IATSChecker = checker or ATSChecker()
+        self.__reporter: IATSReporter = reporter or ATSReporter(checker=self.__checker)
         self.__verbose: bool = verbose
-        self.__file_checker: IFileCheck = file_checker or FileCheck(self.__reporter, verbose)
+        self.__file_checker: IFileCheck = file_checker or FileCheck(
+            checker=self.__checker, reporter=self.__reporter, verbose=self.__verbose
+        )
         self.__option_parser: Optional[IATSOptionParser] = None
 
         # Dependency Injection for Cfg2Object and Object2Cfg or use defaults if not provided
         self.__cfg2obj: Optional[IRead] = cfg2object or Cfg2Object(
-            info_file, ATSCFGProcessor(), self.__reporter, self.__file_checker, self.__verbose
+            config_file=info_file,
+            cfg_processor=ATSCFGProcessor(),
+            checker=self.__checker,
+            reporter=self.__reporter,
+            file_checker=self.__file_checker,
+            verbose=self.__verbose
         )
         self.__obj2cfg: Optional[IWrite] = object2cfg or Object2Cfg(
-            info_file, self.__reporter, self.__file_checker, self.__verbose
+            config_file=info_file,
+            checker=self.__checker,
+            reporter=self.__reporter,
+            file_checker=self.__file_checker,
+            verbose=self.__verbose
         )
 
         information: Optional[ICFGProcessor] = None
@@ -121,17 +138,23 @@ class CfgBase:
             information = self.__cfg2obj.read_configuration(self.__verbose)
 
         if bool(information):
-            info: ATSInfo = ATSInfo(info=information.to_dict(), reporter=self.__reporter, verbose=self.__verbose)
+            info: ATSInfoManager = ATSInfoManager(
+                info=information.to_dict(),
+                checker=self.__checker,
+                reporter=self.__reporter,
+                verbose=self.__verbose
+            )
 
-            if info and info.is_correct(information.to_dict()):
-                # Dependecy injection for option parser or use default if not provided
-                # Dependecy injection for argument strategy
+            if info and info.base_info_is_ok(information.to_dict()):
                 self.__option_parser = options_parser or ATSOptionParser(
-                    information.to_dict(), strategy, self.__reporter, verbose
+                    parameters=information.to_dict(),
+                    strategy=strategy,
+                    checker=self.__checker,
+                    reporter=self.__reporter,
+                    verbose=self.__verbose
                 )
-                self.__option_parser.add_version_operation(info.version)
+                self.__option_parser.add_version_operation(info.get_version())
                 self.__tool_operational = True
-                self.__reporter.verbose(self.__verbose, ['loaded ATS CFG info'])
 
     @property
     def option_parser(self) -> Optional[IATSOptionParser]:

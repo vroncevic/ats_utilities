@@ -22,13 +22,16 @@ Info
 
 from typing import List, Optional
 from ats_utilities.config_io.iwrite import IWrite
+from ats_utilities.checker.ichecker import IATSChecker
+from ats_utilities.checker.ats_checker import ATSChecker
+from ats_utilities.checker.proxy_validator import validator
 from ats_utilities.console_io.ireporter import IATSReporter
 from ats_utilities.console_io.reporter import ATSReporter
+from ats_utilities.console_io.proxy_reporter import vreporter
 from ats_utilities.config_io.conf_file import ConfFile
 from ats_utilities.config_io.ifile_check import IFileCheck
 from ats_utilities.config_io.file_check import FileCheck
 from ats_utilities.config_io.cfg.icfg_processor import ICFGProcessor
-from ats_utilities.checker.decorator import validates_parameters
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -51,10 +54,11 @@ class Object2Cfg(IWrite):
             :attributes:
                 | __EXT - File extension of the configuration file.
                 | __MODE - File open mode.
-                | __reporter - ATSReporter for messaging.
+                | __checker - Parameters checker (default set ATSChecker).
+                | __reporter - Reporter for messaging (default ATSReporter).
                 | __file_checker - FileCheck for checking file.
                 | __file_path - Configuration file path.
-                | __verbose - Enable/Disable verbose option.
+                | __verbose - Enable/Disable verbose option (default False).
             :methods:
                 | __init__ - Initials Object2Cfg constructor.
                 | write_configuration - Writes configuration to a CFG file.
@@ -63,10 +67,10 @@ class Object2Cfg(IWrite):
     __EXT: str = 'cfg'
     __MODE: str = 'w'
 
-    @validates_parameters([('Optional[str]:config_file', None)])
     def __init__(
         self,
         config_file: Optional[str],
+        checker: Optional[IATSChecker] = None,
         reporter: Optional[IATSReporter] = None,
         file_checker: Optional[IFileCheck] = None,
         verbose: bool = False
@@ -76,7 +80,9 @@ class Object2Cfg(IWrite):
 
             :param config_file: Configuration file path | None
             :type config_file: <Optional[str]>
-            :param reporter: ATSReporter for check operations | None
+            :param checker: Parameters checker (default set ATSChecker) | None
+            :type checker: <Optional[IATSChecker]>
+            :param reporter: Reporter for messaging (default set ATSReporter) | None
             :type reporter: <Optional[IATSReporter]>
             :param file_checker: FileCheck for checking file | None
             :type file_checker: <Optional[IFileCheck]>
@@ -84,13 +90,17 @@ class Object2Cfg(IWrite):
             :type verbose: <bool>
             :exceptions: ATSTypeError
         '''
-        self.__reporter: IATSReporter = reporter or ATSReporter()
-        self.__file_checker: IFileCheck = file_checker or FileCheck(reporter, verbose)
+        # No dependency injection then use default ones.
+        self.__checker: IATSChecker = checker or ATSChecker()
+        self.__reporter: IATSReporter = reporter or ATSReporter(checker=self.__checker)
         self.__verbose: bool = verbose
+        self.__file_checker: IFileCheck = file_checker or FileCheck(
+            checker=self.__checker, reporter=self.__reporter, verbose=self.__verbose
+        )
         self.__file_path: str = str(config_file)
-        self.__reporter.verbose(self.__verbose, [f'configuration file {config_file}'])
 
-    @validates_parameters([('Optional[ICFGProcessor]:config', None)])
+    @validator([('Optional[ICFGProcessor]:config', None)])
+    @vreporter('write configuration to file {file_path}')
     def write_configuration(self, config: Optional[ICFGProcessor], verbose: bool = False) -> bool:
         '''
             Writes a configuration to a CFG file.
@@ -101,20 +111,22 @@ class Object2Cfg(IWrite):
             :type verbose: <bool>
             :return: True (configuration written to file) | False
             :rtype: <bool>
-            :exceptions: ATSTypeError
+            :exceptions:
+                | ATSTypeError, ATSValueError by validator
+                | RuntimeError, AttributeError by vreporter
         '''
         status: bool = False
 
         if not bool(config):
             return status
 
-        self.__reporter.verbose(self.__verbose or verbose, [f'configuration {config}'])
         cfg_string = config.to_string()
 
         with ConfFile(
             self.__file_path,
             self.__MODE,
             self.__EXT,
+            self.__checker,
             self.__reporter,
             self.__file_checker,
             self.__verbose or verbose
@@ -122,4 +134,28 @@ class Object2Cfg(IWrite):
             if bool(cfg):
                 cfg.write(cfg_string)
                 status = True
+
         return status
+
+    def __str__(self) -> str:
+        '''
+            Returns the string representation of ATS version.
+
+            :return: The ATS version string representation
+            :rtype: <str>
+            :exceptions: None
+        '''
+        file_path = str(self.__file_path).replace('\n', '\n    ')
+        checker = str(self.__checker).replace('\n', '\n    ')
+        reporter = str(self.__reporter).replace('\n', '\n    ')
+        file_checker = str(self.__file_checker).replace('\n', '\n    ')
+        verbose = str(self.__verbose).replace('\n', '\n    ')
+
+        return (
+            f'<{self.__class__.__name__}(\n'
+            f'    file_path={file_path},\n'
+            f'    checker={checker},\n'
+            f'    reporter={reporter},\n'
+            f'    file_checker={file_checker},\n'
+            f'    verbose={verbose}\n)> at 0x{id(self):x}'
+        )
