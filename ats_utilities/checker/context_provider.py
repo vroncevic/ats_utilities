@@ -22,6 +22,7 @@ Info
 
 from inspect import stack
 from typing import List
+from ats_utilities.factory import format_instance_to_string
 from ats_utilities.checker.icontext_provider import IATSContextProvider
 
 __author__: str = 'Vladimir Roncevic'
@@ -92,11 +93,8 @@ class ATSContextProvider(IATSContextProvider):
         '''
             Returns the string representation of ATSContextProvider.
 
-            :return: String representation
+            :return: String representation of ATSContextProvider
             :rtype: <str>
             :exceptions: None
         '''
-        return (
-            f'<{self.__class__.__name__}(\n'
-            f'    stack_index_caller={self.__stack_index_caller}\n)> at 0x{id(self):x}'
-        )
+        return format_instance_to_string(self)

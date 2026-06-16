@@ -122,13 +122,14 @@ class IATSLogger(ABC):
                 | LOG_LEVELS - Log levels.
             :methods:
                 | write_log - Writes message to log output.
+                | __str__ - Returns the string representation of ATS logger.
     '''
 
     LOG_FORMATS: ClassVar[EnumMeta] = LogFormats
     LOG_LEVELS: ClassVar[EnumMeta] = LogLevels
 
     @abstractmethod
-    def write_log(self, message: Optional[str], ctrl: int, verbose: bool = False) -> bool:
+    def write_log(self, message: Optional[str], ctrl: int) -> bool:
         '''
             Writes message to log output.
 
@@ -136,10 +137,19 @@ class IATSLogger(ABC):
             :type message: <Optional[str]>
             :param ctrl: Control flag (debug, warning, critical, errors, info)
             :type ctrl: <int>
-            :param verbose: Enable/Disable verbose option
-            :type verbose: <bool>
             :return: True (successfully logged message) | False
             :rtype: <bool>
             :exceptions: NotImplementedError
         '''
         raise NotImplementedError("Subclasses must implement write_log method")
+
+    @abstractmethod
+    def __str__(self) -> str:
+        '''
+            Returns the string representation of ATS logger.
+
+            :return: The ATS logger as string
+            :rtype: <str>
+            :exceptions: NotImplementedError
+        '''
+        raise NotImplementedError("Subclasses must implement __str__ method")

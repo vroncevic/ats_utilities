@@ -87,7 +87,7 @@ class Json2Object(IRead):
             :type reporter: <Optional[IATSReporter]>
             :param file_checker: FileCheck for checking file | None
             :type file_checker: <Optional[IFileCheck]>
-            :param verbose: Enable/Disable verbose option
+            :param verbose: Enable/Disable verbose option (default False)
             :type verbose: <bool>
             :exceptions: ATSTypeError
         '''
@@ -113,7 +113,7 @@ class Json2Object(IRead):
         '''
             Reads a configuration from a JSON file.
 
-            :param verbose: Enable/Disable verbose option
+            :param verbose: Enable/Disable verbose option (default False)
             :type verbose: <bool>
             :return: Configuration object
             :rtype: <Optional[IJSONProcessor]>

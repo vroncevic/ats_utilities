@@ -64,27 +64,23 @@ class IATSOptionParser(ABC):
         raise NotImplementedError("Method add_operation() must be implemented.")
 
     @abstractmethod
-    def add_version_operation(self, version: Optional[str], verbose: bool = False) -> None:
+    def add_version_operation(self, version: Optional[str]) -> None:
         '''
             Adds version option to the ATS parser.
 
             :param version: The ATS version
             :type version: <Optional[str]>
-            :param verbose: Enable/Disable verbose option
-            :type verbose: <bool>
             :exceptions: NotImplementedError
         '''
         raise NotImplementedError("Method add_version_operation() must be implemented.")
 
     @abstractmethod
-    def parse_input_args(self, arguments: OptArgs, verbose: bool = False) -> OptionNamespace:
+    def parse_input_args(self, arguments: OptArgs) -> OptionNamespace:
         '''
             Processes arguments from the start.
 
             :param arguments: Sequence of arguments | None
             :type arguments: <OptArgs>
-            :param verbose: Enable/Disable verbose option
-            :type verbose: <bool>
             :return: option namespace object
             :rtype: <OptionNamespace>
             :exceptions: NotImplementedError
@@ -92,16 +88,25 @@ class IATSOptionParser(ABC):
         raise NotImplementedError("Method parse_input_args() must be implemented.")
 
     @abstractmethod
-    def parse_args(self, arguments: OptArgs, verbose: bool = False) -> OptionNamespace:
+    def parse_args(self, arguments: OptArgs) -> OptionNamespace:
         '''
             Processes arguments from the start.
 
             :param arguments: Sequence of arguments | None
             :type arguments: <OptArgs>
-            :param verbose: Enable/Disable verbose option
-            :type verbose: <bool>
             :return: Option namespace object
             :rtype: <OptionNamespace>
             :exceptions: NotImplementedError
         '''
         raise NotImplementedError("Method parse_args() must be implemented.")
+
+    @abstractmethod
+    def __str__(self) -> str:
+        '''
+            Returns the string representation of ATS option parser.
+
+            :return: The ATS option parser as string
+            :rtype: <str>
+            :exceptions: NotImplementedError
+        '''
+        raise NotImplementedError("Subclasses must implement __str__ method")

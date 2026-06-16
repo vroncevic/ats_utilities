@@ -83,7 +83,7 @@ class Object2Yaml(IWrite):
             :type reporter: <Optional[IATSReporter]>
             :param file_checker: FileCheck for checking file | None
             :type file_checker: <Optional[IFileCheck]>
-            :param verbose: Enable/Disable verbose option
+            :param verbose: Enable/Disable verbose option (default False)
             :type verbose: <bool>
             :exceptions: ATSTypeError
         '''
@@ -108,7 +108,7 @@ class Object2Yaml(IWrite):
         '''
             Writes configuration to a YAML file.
 
-            :param verbose: Enable/Disable verbose option
+            :param verbose: Enable/Disable verbose option (default False)
             :type verbose: <bool>
             :param config: Configuration object | None
             :type config: <Optional[IYAMLProcessor]>

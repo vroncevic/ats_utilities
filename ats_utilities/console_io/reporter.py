@@ -21,6 +21,7 @@ Info
 '''
 
 from typing import Any, List, Optional
+from ats_utilities.factory import make_component, validate_component, format_instance_to_string
 from ats_utilities.console_io.ireporter import IATSReporter
 from ats_utilities.checker.ichecker import IATSChecker
 from ats_utilities.checker.ats_checker import ATSChecker
@@ -69,11 +70,13 @@ class ATSReporter(IATSReporter):
             :type checker: <Optional[IATSChecker]>
             :param theme: Theme for styling messages (default set ATSConsoleTheme) | None
             :type theme: <Optional[IConsoleTheme]>
-            :exceptions: None
+            :exceptions: ATSTypeError by validate_component()
         '''
         # No dependency injection then use default ones.
-        self.__checker = checker or ATSChecker()
-        self.__theme = theme or ATSConsoleTheme()
+        self.__checker: IATSChecker = make_component(checker, ATSChecker, None)
+        validate_component(self.__checker, ATSChecker, "ATSChecker")
+        self.__theme: IConsoleTheme = make_component(theme, ATSConsoleTheme, None)
+        validate_component(self.__theme, ATSConsoleTheme, "ATSConsoleTheme")
 
     def __report(self, message: List[Any], color: str) -> None:
         '''
@@ -145,11 +148,4 @@ class ATSReporter(IATSReporter):
             :rtype: <str>
             :exceptions: None
         '''
-        checker = str(self.__checker).replace('\n', '\n    ')
-        theme = str(self.__theme).replace('\n', '\n    ')
-
-        return (
-            f'<{self.__class__.__name__}(\n'
-            f'    checker={checker},\n'
-            f'    theme={theme}\n)> at 0x{id(self):x}'
-        )
+        return format_instance_to_string(self)

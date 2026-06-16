@@ -22,6 +22,7 @@ Info
 
 from typing import List, Optional
 from ats_utilities.pro_config.itemplate_dir import ITemplateDir
+from ats_utilities.factory import inject, format_instance_to_string
 from ats_utilities.checker.ichecker import IATSChecker
 from ats_utilities.checker.ats_checker import ATSChecker
 from ats_utilities.checker.proxy_validator import validator
@@ -72,14 +73,17 @@ class TemplateDir(ITemplateDir):
             :type checker: <Optional[IATSChecker]>
             :param reporter: Reporter for messaging (default set ATSReporter) | None
             :type reporter: <Optional[IATSReporter]>
-            :param verbose: Enable/Disable verbose option
+            :param verbose: Enable/Disable verbose option (default False)
             :type verbose: <bool>
             :exceptions: None
         '''
         # No dependency injection then use default ones.
-        self.__checker: IATSChecker = checker or ATSChecker()
-        self.__reporter: IATSReporter = reporter or ATSReporter(checker=self.__checker)
-        self.__verbose: bool = verbose
+        inject(
+            self,
+            ('checker', checker, ATSChecker, None),
+            ('reporter', reporter, ATSReporter, ['checker']),
+            ('verbose', verbose, False, None)
+        )
         self.__template_dir: Optional[str] = None
 
     @property
@@ -128,15 +132,4 @@ class TemplateDir(ITemplateDir):
             :rtype: <str>
             :exceptions: None
         '''
-        template_dir = str(self.__template_dir).replace('\n', '\n    ')
-        checker = str(self.__checker).replace('\n', '\n    ')
-        reporter = str(self.__reporter).replace('\n', '\n    ')
-        verbose = str(self.__verbose).replace('\n', '\n    ')
-
-        return (
-            f'<{self.__class__.__name__}(\n'
-            f'    template_dir={template_dir},\n'
-            f'    checker={checker},\n'
-            f'    reporter={reporter},\n'
-            f'    verbose={verbose}\n)> at 0x{id(self):x}'
-        )
+        return format_instance_to_string(self)

@@ -21,7 +21,7 @@ Info
 '''
 
 from abc import ABC, abstractmethod
-from typing import Any, Dict, List
+from typing import Any, Dict, List, Optional
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -45,6 +45,7 @@ class IATSInfoManager(ABC):
                 | pre_setup - Property method for getting ATS pre-setup status.
                 | show_base_info - Shows ATS information.
                 | base_info_is_ok - Checks base information structure.
+                | get_version - Gets ATS version.
                 | __str__ - Returns the string representation of ATS info manager.
     '''
 
@@ -81,6 +82,17 @@ class IATSInfoManager(ABC):
             :exceptions: NotImplementedError
         '''
         raise NotImplementedError("Subclasses must implement base_info_is_ok method")
+
+    @abstractmethod
+    def get_version(self) -> Optional[str]:
+        '''
+            Gets ATS version.
+
+            :return: The ATS version in string format | None
+            :rtype: <Optional[str]>
+            :exceptions: NotImplementedError
+        '''
+        raise NotImplementedError("Subclasses must implement get_version method")
 
     @abstractmethod
     def __str__(self) -> str:

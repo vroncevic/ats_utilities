@@ -105,7 +105,7 @@ class JsonBase:
             :type file_checker: <Optional[IFileCheck]>
             :param strategy: Strategy for argument parsing | None
             :type strategy: <Optional[IATSArgParseStrategy]>
-            :param verbose: Enable/Disable verbose option
+            :param verbose: Enable/Disable verbose option (default False)
             :type verbose: <bool>
             :exceptions: None
         '''

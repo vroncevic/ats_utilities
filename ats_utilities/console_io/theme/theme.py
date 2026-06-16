@@ -21,6 +21,7 @@ Info
 '''
 
 from typing import List, Dict, Optional
+from ats_utilities.factory import format_instance_to_string
 from ats_utilities.console_io.theme.iconsole_theme import IConsoleTheme
 
 __author__: str = 'Vladimir Roncevic'
@@ -82,11 +83,8 @@ class ATSConsoleTheme(IConsoleTheme):
         '''
             Returns the string representation of ATSConsoleTheme.
 
-            :return: String representation
+            :return: String representation of ATSConsoleTheme
             :rtype: <str>
             :exceptions: None
         '''
-        return (
-            f'<{self.__class__.__name__}(\n'
-            f'    palette={self.__palette}\n)> at 0x{id(self):x}'
-        )
+        return format_instance_to_string(self)

@@ -25,10 +25,13 @@ from enum import Enum
 from logging import (
     getLogger, basicConfig, Logger, DEBUG, WARNING, CRITICAL, ERROR, INFO
 )
+from ats_utilities.factory import inject, get_private_attr, format_instance_to_string
 from ats_utilities.logging.ilogger import IATSLogger, LogFormats
+from ats_utilities.checker.ichecker import IATSChecker
+from ats_utilities.checker.ats_checker import ATSChecker
+from ats_utilities.checker.proxy_validator import validator
 from ats_utilities.console_io.ireporter import IATSReporter
 from ats_utilities.console_io.reporter import ATSReporter
-from ats_utilities.checker.proxy_validator import validator
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -100,13 +103,16 @@ class ATSLogger(IATSLogger):
                 | __logger_name - ATS name.
                 | __log_stdout - Logging to stdout (default).
                 | __log_file - Logging to file.
-                | __reporter - Formatter for error reports.
+                | __checker - Parameters checker (default set ATSChecker).
+                | __reporter - Reporter for messaging (default ATSReporter).
+                | __verbose - Enable/Disable verbose option (default False).
                 | __logger - Python Logger instance.
-                | __verbose - Enable/Disable verbose option.
                 | 
             :methods:
                 | __init__ - Initials ATSLogger constructor.
                 | write_log - Writes message to log.
+                | _reporter - Property method for getting the internal reporter instance.
+                | __str__ - Returns the string representation of ATS logger.
     '''
 
     LOG_FORMATS: ClassVar[type[LogFormats]] = LogFormats
@@ -117,8 +123,9 @@ class ATSLogger(IATSLogger):
         ats_name: Optional[str] = None,
         ats_log_stdout: bool = True,
         ats_log_file: Optional[str] = None,
-        reporter: Optional[IATSReporter] = None,
         configure_logging: bool = True,
+        checker: Optional[IATSChecker] = None,
+        reporter: Optional[IATSReporter] = None,
         verbose: bool = False
     ) -> None:
         '''
@@ -130,14 +137,23 @@ class ATSLogger(IATSLogger):
             :type ats_log_stdout: <bool>
             :param ats_log_file: Log to file (default None)
             :type ats_log_file: <Optional[str]>
-            :param reporter: ATSReporter for verbose output | None
-            :type reporter: <Optional[IATSReporter]>
-            :param configure_logging: Configure logging | True
+            :param configure_logging: Configure logging (default True)
             :type configure_logging: <bool>
-            :param verbose: Enable/Disable verbose option
+            :param checker: Parameters checker (default set ATSChecker) | None
+            :type checker: <Optional[IATSChecker]>
+            :param reporter: Reporter for messaging (default set ATSReporter) | None
+            :type reporter: <Optional[IATSReporter]>
+            :param verbose: Enable/Disable verbose option (default False)
             :type verbose: <bool>
             :exceptions: None
         '''
+        # No dependency injection then use default ones.
+        inject(
+            self,
+            ('checker', checker, ATSChecker, None),
+            ('reporter', reporter, ATSReporter, ['checker']),
+            ('verbose', verbose, False, None)
+        )
         self.__logger_name: Optional[str] = ats_name
         self.__log_stdout: bool = ats_log_stdout
         self.__log_file: Optional[str] = ats_log_file
@@ -156,9 +172,6 @@ class ATSLogger(IATSLogger):
             basicConfig(**log_config)
 
         self.__logger: Logger = getLogger(self.__logger_name)
-        self.__reporter: IATSReporter = reporter or ATSReporter()
-        self.__verbose: bool = verbose
-        self.__reporter.verbose(self.__verbose, ['init default ATS logger'])
         self.__log_methods: Dict[int, Callable[..., None]] = {
             self.LOG_LEVELS.ATS_LOG_DEBUG: self.__logger.debug,
             self.LOG_LEVELS.ATS_LOG_INFO: self.__logger.info,
@@ -167,8 +180,8 @@ class ATSLogger(IATSLogger):
             self.LOG_LEVELS.ATS_LOG_CRITICAL: self.__logger.critical,
         }
 
-    @validator([('Optional[str]:message', None)])
-    def write_log(self, message: Optional[str], ctrl: int, verbose: bool = False) -> bool:
+    @validator([('Optional[str]:message', None), ('int:ctrl', None)])
+    def write_log(self, message: Optional[str], ctrl: int) -> bool:
         '''
             Writes message to log.
 
@@ -176,18 +189,36 @@ class ATSLogger(IATSLogger):
             :type message: <Optional[str]>
             :param ctrl: Control flag (debug, warning, critical, errors, info)
             :type ctrl: <int>
-            :param verbose: Enable/Disable verbose option
-            :type verbose: <bool>
-            :return: True (successfully logged message) | False
+            :return: True (success) | False (fail)
             :rtype: <bool>
             :exceptions: ATSTypeError by validates_parameters
         '''
-        self.__reporter.verbose(self.__verbose or verbose, [f'log message: {message} {str(ctrl)}'])
         log_call = self.__log_methods.get(ctrl)
 
         if log_call:
             log_call(message)
             return True
 
-        self.__reporter.error([f'not supported log level [{str(ctrl)}]'])
+        self._reporter.error([f'not supported log level [{str(ctrl)}]'])
         return False
+
+    @property
+    def _reporter(self) -> IATSReporter:
+        '''
+            Property method for getting the internal reporter instance.
+
+            :return: The reporter instance in IATSReporter format
+            :rtype: <IATSReporter>
+            :exceptions: None
+        '''
+        return get_private_attr(self, 'reporter')
+
+    def __str__(self) -> str:
+        '''
+            Returns the string representation of ATS logger.
+
+            :return: The ATS logger as string
+            :rtype: <str>
+            :exceptions: None
+        '''
+        return format_instance_to_string(self)

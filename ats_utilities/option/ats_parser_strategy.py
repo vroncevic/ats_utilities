@@ -2,7 +2,7 @@
 
 '''
 Module
-    iparser_strategy.py
+    ats_parser_strategy.py
 Copyright
     Copyright (C) 2017 - 2026 Vladimir Roncevic <elektron.ronca@gmail.com>
     ats_utilities is free software: you can redistribute it and/or modify it
@@ -20,16 +20,19 @@ Info
     Creates an interfaces for ATS option parsing.
 '''
 
-import sys
-from typing import Any, Dict, List, Optional, NoReturn
+from typing import Any, Dict, List, Optional
 from argparse import ArgumentParser
+from ats_utilities.factory import inject, get_private_attr, format_instance_to_string
+from ats_utilities.option.iparser_strategy import IATSArgParseStrategy
+from ats_utilities.option.ats_argument_parser import ATSArgumentParser
+from ats_utilities.checker.ichecker import IATSChecker
+from ats_utilities.checker.ats_checker import ATSChecker
+from ats_utilities.checker.proxy_validator import validator
 from ats_utilities.console_io.ireporter import IATSReporter
 from ats_utilities.console_io.reporter import ATSReporter
 from ats_utilities.option.option_namespace import OptionNamespace
 from ats_utilities.option.option_namespace import OptArgs
 from ats_utilities.option.option_namespace import KnownArgs
-from ats_utilities.option.iparser_strategy import IATSArgParseStrategy
-
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -41,55 +44,6 @@ __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
 
 
-class _ATSArgumentParser(ArgumentParser):
-    '''
-        Defines class _ATSArgumentParser with attribute(s) and method(s).
-        Custom ArgumentParser to route errors to IATSReporter.
-
-        It defines:
-
-            :attributes:
-                | __reporter - ATSReporter for outputting messages.
-            :methods:
-                | __init__ - Initials _ATSArgumentParser constructor.
-                | error - Overrides default error handling to use IATSReporter.
-    '''
-
-    def __init__(
-        self,
-        reporter: Optional[IATSReporter],
-        *args: Any,
-        **kwargs: Any,
-    ) -> None:
-        '''
-            Initials _ATSArgumentParser constructor.
-
-            :param reporter: ATSReporter for outputting messages
-            :type reporter: <Optional[IATSReporter]>
-            :param args: Additional positional arguments
-            :type args: <Any>
-            :param kwargs: Additional keyword arguments
-            :type kwargs: <Any>
-            :exceptions: None
-        '''
-        super().__init__(*args, **kwargs)
-        # No dependency injection then use default ones.
-        self.__reporter: IATSReporter = reporter or ATSReporter()
-
-    def error(self, message: str) -> NoReturn:
-        '''
-            Overrides default error handling to use IATSReporter.
-
-            :param message: Error message to report
-            :type message: <str>
-            :return: None
-            :rtype: <NoReturn>
-            :exceptions: None
-        '''
-        self.__reporter.error([f'argument error: {message}'])
-        sys.exit(2)
-
-
 class ATSArgParseStrategy(IATSArgParseStrategy):
     '''
         Defines class ATSArgParseStrategy with attribute(s) and method(s).
@@ -99,38 +53,58 @@ class ATSArgParseStrategy(IATSArgParseStrategy):
         It defines:
 
             :attributes:
-                | __reporter - ATSReporter for outputting messages.
-                | __parser - Options parser.
+                | __checker - Parameters checker (default set ATSChecker).
+                | __reporter - Reporter for messaging (default ATSReporter).
+                | __verbose - Enable/Disable verbose option (default False).
+                | __parser - Options parser (default None).
             :methods:
                 | __init__ - Initials ATSArgParseStrategy constructor.
                 | setup - Initializes the underlying parser with metadata parameters.
                 | add_argument - Adds an operational argument/flag to the parser.
                 | add_version - Adds a version display option to the parser.
                 | parse - Parses the input arguments and returns an OptionNamespace.
+                | _reporter - Property method for getting the internal reporter instance.
+                | __str__ - Returns the string representation of ATSArgParseStrategy.
     '''
 
-    def __init__(self, reporter: Optional[IATSReporter]) -> None:
+    def __init__(
+        self,
+        checker: Optional[IATSChecker] = None,
+        reporter: Optional[IATSReporter] = None,
+        verbose: bool = False
+    ) -> None:
         '''
             Initials ATSArgParseStrategy constructor.
 
-            :param reporter: ATSReporter for outputting messages
+            :param checker: Parameters checker (default set ATSChecker) | None
+            :type checker: <Optional[IATSChecker]>
+            :param reporter: Reporter for messaging (default set ATSReporter) | None
             :type reporter: <Optional[IATSReporter]>
+            :param verbose: Enable/Disable verbose option (default False)
+            :type verbose: <bool>
             :exceptions: None
         '''
         # No dependency injection then use default ones.
-        self.__reporter = reporter or ATSReporter()
+        inject(
+            self,
+            ('checker', checker, ATSChecker, None),
+            ('reporter', reporter, ATSReporter, ['checker']),
+            ('verbose', verbose, False, None)
+        )
         self.__parser: Optional[ArgumentParser] = None
 
+    @validator([('dict:parameters', None)])
     def setup(self, parameters: Dict[str, str]) -> None:
         '''
             Initializes the underlying parser with metadata parameters.
 
             :param parameters: Parameters for logger
             :type parameters: <Dict[str, str]>
-            :exceptions: None
+            :exceptions: ATSTypeError, ATSValueError by validator
         '''
-        self.__parser = _ATSArgumentParser(
-            self.__reporter,
+        self.__parser = ATSArgumentParser(
+            checker=self._checker,
+            reporter=self._reporter,
             prog=f'{parameters.get("name")} {parameters.get("version")}',
             epilog=parameters.get("epilog"),
             description=parameters.get("description")
@@ -153,7 +127,7 @@ class ATSArgParseStrategy(IATSArgParseStrategy):
         '''
             Adds a version display option to the parser.
 
-            :param version: The ATS version
+            :param version: The ATS version | None
             :type version: <Optional[str]>
             :exceptions: None
         '''
@@ -166,7 +140,7 @@ class ATSArgParseStrategy(IATSArgParseStrategy):
 
             :param arguments: Sequence of arguments | None
             :type arguments: <OptArgs>
-            :param known_only: Parse only known arguments
+            :param known_only: Parse only known arguments (default False)
             :type known_only: <bool>
             :return: Option namespace object
             :rtype: <OptionNamespace>
@@ -179,3 +153,35 @@ class ATSArgParseStrategy(IATSArgParseStrategy):
             known_args: KnownArgs = self.__parser.parse_known_args(arguments)
             return known_args[0]
         return self.__parser.parse_args(arguments)
+
+    @property
+    def _checker(self) -> IATSChecker:
+        '''
+            Property method for getting the internal checker instance.
+
+            :return: The checker instance in IATSChecker format
+            :rtype: <IATSChecker>
+            :exceptions: None
+        '''
+        return get_private_attr(self, 'checker')
+
+    @property
+    def _reporter(self) -> IATSReporter:
+        '''
+            Property method for getting the internal reporter instance.
+
+            :return: The reporter instance in IATSReporter format
+            :rtype: <IATSReporter>
+            :exceptions: None
+        '''
+        return get_private_attr(self, 'reporter')
+
+    def __str__(self) -> str:
+        '''
+            Returns the string representation of ATSArgParseStrategy.
+
+            :return: The ATSArgParseStrategy as string
+            :rtype: <str>
+            :exceptions: None
+        '''
+        return format_instance_to_string(self)

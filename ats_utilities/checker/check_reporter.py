@@ -21,6 +21,7 @@ Info
 '''
 
 from typing import List
+from ats_utilities.factory import format_instance_to_string
 from ats_utilities.checker.icheck_reporter import IATSCheckReporter, ParamMetadata
 
 __author__: str = 'Vladimir Roncevic'
@@ -81,8 +82,8 @@ class ATSCheckReporter(IATSCheckReporter):
         '''
             Returns the string representation of ATSCheckReporter.
 
-            :return: String representation
+            :return: String representation of ATSCheckReporter
             :rtype: <str>
             :exceptions: None
         '''
-        return f'<{self.__class__.__name__}()> at 0x{id(self):x}'
+        return format_instance_to_string(self)

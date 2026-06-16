@@ -87,7 +87,7 @@ class ATSLoggerManager:
             :type logger_instance: <Optional[IATSLogger]>
             :param reporter: ATSReporter for check operations | None
             :type reporter: <Optional[IATSReporter]>
-            :param verbose: Enable/Disable verbose option
+            :param verbose: Enable/Disable verbose option (default False)
             :type verbose: <bool>
             :exceptions: None
         '''
@@ -116,7 +116,7 @@ class ATSLoggerManager:
             :type message: <Optional[str]>
             :param ctrl: Control flag (debug, warning, critical, errors, info)
             :type ctrl: <int>
-            :param verbose: Enable/Disable verbose option
+            :param verbose: Enable/Disable verbose option (default False)
             :type verbose: <bool>
             :return: True (successfully logged message) | False
             :rtype: <bool>

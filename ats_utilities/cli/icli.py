@@ -95,9 +95,9 @@ class IATSCli(ABC):
         '''
             Processes and runs tool operations.
 
-            :param verbose: Enable/Disable verbose option
+            :param verbose: Enable/Disable verbose option (default False)
             :type verbose: <bool>
-            :return: True (successfully finished) | False
+            :return: True (success) | False (fail)
             :rtype: <bool>
             :exceptions: NotImplementedError
         '''

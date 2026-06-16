@@ -21,6 +21,7 @@ Info
 '''
 
 from typing import List, Tuple, Final
+from ats_utilities.factory import format_instance_to_string
 from ats_utilities.checker.iformat_validator import IATSFormatValidator
 
 __author__: str = 'Vladimir Roncevic'
@@ -81,11 +82,8 @@ class ATSFormatValidator(IATSFormatValidator):
         '''
             Returns the string representation of ATSFormatValidator.
 
-            :return: String representation
+            :return: String representation of ATSFormatValidator
             :rtype: <str>
             :exceptions: None
         '''
-        return (
-            f'<{self.__class__.__name__}(\n'
-            f'    expected_format_parts={self.EXPECTED_FORMAT_PARTS}\n)> at 0x{id(self):x}'
-        )
+        return format_instance_to_string(self)

@@ -21,6 +21,7 @@ Info
 '''
 
 from typing import List, Optional
+from ats_utilities.factory import inject, get_private_attr, format_instance_to_string
 from ats_utilities.config_io.iread import IRead
 from ats_utilities.checker.ichecker import IATSChecker
 from ats_utilities.checker.ats_checker import ATSChecker
@@ -57,12 +58,18 @@ class Cfg2Object(IRead):
                 | __REGEX_EXP - Regular expression for matching line.
                 | __checker - Parameters checker (default set ATSChecker).
                 | __reporter - Reporter for messaging (default ATSReporter).
-                | __file_checker - FileCheck for checking file.
-                | __file_path - Configuration file path.
-                | __verbose - Enable/Disable verbose option.
+                | __file_checker - FileCheck for checking file (default set FileCheck).
+                | __cfg_processor - Processor for CFG content (default set ATSCFGProcessor).
+                | __file_path - Configuration file path (default set None).
+                | __verbose - Enable/Disable verbose option (default False).
             :methods:
                 | __init__ - Initials Cfg2Object constructor.
                 | read_configuration - Reads configuration from a CFG file.
+                | _checker - Property method for getting the internal checker instance.
+                | _reporter - Property method for getting the internal reporter instance.
+                | _verbose - Property method for getting the internal verbose flag.
+                | _file_checker - Property method for getting the internal file checker instance.
+                | _cfg_processor - Property method for getting the internal cfg processor.
                 | __str__ - Returns the string representation of cfg2object.
     '''
 
@@ -72,10 +79,10 @@ class Cfg2Object(IRead):
     def __init__(
         self,
         config_file: Optional[str],
-        cfg_processor: Optional[ICFGProcessor] = None,
         checker: Optional[IATSChecker] = None,
         reporter: Optional[IATSReporter] = None,
         file_checker: Optional[IFileCheck] = None,
+        cfg_processor: Optional[ICFGProcessor] = None,
         verbose: bool = False
     ) -> None:
         '''
@@ -83,79 +90,116 @@ class Cfg2Object(IRead):
 
             :param config_file: Configuration file path in string format | None
             :type config_file: <Optional[str]>
-            :param cfg_processor: Processor for CFG content | None
-            :type cfg_processor: <Optional[ICFGProcessor]>
             :param checker: Parameters checker (default set ATSChecker) | None
             :type checker: <Optional[IATSChecker]>
             :param reporter: Reporter for messaging (default set ATSReporter) | None
             :type reporter: <Optional[IATSReporter]>
             :param file_checker: FileCheck for checking file | None
             :type file_checker: <Optional[IFileCheck]>
-            :param verbose: Enable/Disable verbose option
+            :param cfg_processor: Processor for CFG content | None
+            :type cfg_processor: <Optional[ICFGProcessor]>
+            :param verbose: Enable/Disable verbose option (default False)
             :type verbose: <bool>
-            :exceptions:  ATSTypeError
+            :exceptions: None
         '''
         # No dependency injection then use default ones.
-        self.__checker: IATSChecker = checker or ATSChecker()
-        self.__reporter: IATSReporter = reporter or ATSReporter(self.__checker)
-        self.__verbose: bool = verbose
-        self.__file_checker: IFileCheck = file_checker or FileCheck(
-            self.__checker, self.__reporter, self.__verbose
+        inject(
+            self,
+            ('checker', checker, ATSChecker, None),
+            ('reporter', reporter, ATSReporter, ['checker']),
+            ('verbose', verbose, False, None),
+            ('file_checker', file_checker, FileCheck, ['checker', 'reporter', 'verbose']),
+            ('cfg_processor', cfg_processor, ATSCFGProcessor, None)
         )
-        self.__cfg_processor: ICFGProcessor = cfg_processor or ATSCFGProcessor()
         self.__file_path: str = str(config_file)
-        self.__reporter.verbose(self.__verbose, [f'configuration {config_file}'])
 
     @vreporter('read configuration from file {file_path}')
     def read_configuration(self, verbose: bool = False) -> Optional[ICFGProcessor]:
         '''
             Reads a configuration from a CFG file.
 
-            :param verbose: Enable/Disable verbose option
+            :param verbose: Enable/Disable verbose option (default False)
             :type verbose: <bool>
             :return: Configuration object
             :rtype: <Optional[ICFGProcessor]>
-            :exceptions: None
+            :exceptions: RuntimeError, AttributeError by vreporter
         '''
         with ConfFile(
             self.__file_path,
             self.__MODE,
             self.__EXT,
-            self.__checker,
-            self.__reporter,
-            self.__file_checker,
-            self.__verbose or verbose
+            self._checker,
+            self._reporter,
+            self._file_checker,
+            self._verbose or verbose
         ) as cfg:
             if bool(cfg):
                 lines = cfg.readlines()
-                if self.__cfg_processor.from_lines(lines):
-                    self.__reporter.verbose(
-                        self.__verbose or verbose, [f'configuration {self.__cfg_processor.to_string()}']
-                    )
-                    return self.__cfg_processor
+                if self._cfg_processor.from_lines(lines):
+                    return self._cfg_processor
         return None
+
+    @property
+    def _checker(self) -> IATSChecker:
+        '''
+            Property method for getting the internal checker instance.
+
+            :return: The checker instance in IATSChecker format
+            :rtype: <IATSChecker>
+            :exceptions: None
+        '''
+        return get_private_attr(self, 'checker')
+
+    @property
+    def _reporter(self) -> IATSReporter:
+        '''
+            Property method for getting the internal reporter instance.
+
+            :return: The reporter instance in IATSReporter format
+            :rtype: <IATSReporter>
+            :exceptions: None
+        '''
+        return get_private_attr(self, 'reporter')
+
+    @property
+    def _verbose(self) -> bool:
+        '''
+            Property method for getting the internal verbose flag.
+
+            :return: The verbose flag in bool format
+            :rtype: <bool>
+            :exceptions: None
+        '''
+        return get_private_attr(self, 'verbose')
+
+    @property
+    def _file_checker(self) -> IFileCheck:
+        '''
+            Property method for getting the internal file checker instance.
+
+            :return: The file checker instance in IFileCheck format
+            :rtype: <IFileCheck>
+            :exceptions: None
+        '''
+        return get_private_attr(self, 'file_checker')
+
+    @property
+    def _cfg_processor(self) -> ICFGProcessor:
+        '''
+            Property method for getting the internal cfg processor.
+
+            :return: The cfg processor instance in ICFGProcessor format
+            :rtype: <ICFGProcessor>
+            :exceptions: None
+        '''
+        return get_private_attr(self, 'cfg_processor')
 
     def __str__(self) -> str:
         '''
-            Returns the string representation of cfg2object.
+            Returns the string representation of CFG object.
 
-            :return: The cfg2object string representation
+            :return: The CFG object as string representation
             :rtype: <str>
             :exceptions: None
         '''
-        file_path = str(self.__file_path).replace('\n', '\n    ')
-        checker = str(self.__checker).replace('\n', '\n    ')
-        reporter = str(self.__reporter).replace('\n', '\n    ')
-        file_checker = str(self.__file_checker).replace('\n', '\n    ')
-        cfg_processor = str(self.__cfg_processor).replace('\n', '\n    ')
-        verbose = str(self.__verbose).replace('\n', '\n    ')
-
-        return (
-            f'<{self.__class__.__name__}(\n'
-            f'    file_path={file_path},\n'
-            f'    checker={checker},\n'
-            f'    reporter={reporter},\n'
-            f'    file_checker={file_checker},\n'
-            f'    cfg_processor={cfg_processor},\n'
-            f'    verbose={verbose}\n)> at 0x{id(self):x}'
-        )
+        return format_instance_to_string(self)

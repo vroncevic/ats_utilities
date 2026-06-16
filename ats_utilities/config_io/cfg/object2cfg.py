@@ -21,6 +21,7 @@ Info
 '''
 
 from typing import List, Optional
+from ats_utilities.factory import inject, get_private_attr, format_instance_to_string
 from ats_utilities.config_io.iwrite import IWrite
 from ats_utilities.checker.ichecker import IATSChecker
 from ats_utilities.checker.ats_checker import ATSChecker
@@ -56,12 +57,17 @@ class Object2Cfg(IWrite):
                 | __MODE - File open mode.
                 | __checker - Parameters checker (default set ATSChecker).
                 | __reporter - Reporter for messaging (default ATSReporter).
-                | __file_checker - FileCheck for checking file.
+                | __file_checker - FileCheck for checking file (default set FileCheck).
                 | __file_path - Configuration file path.
                 | __verbose - Enable/Disable verbose option (default False).
             :methods:
                 | __init__ - Initials Object2Cfg constructor.
                 | write_configuration - Writes configuration to a CFG file.
+                | _checker - Property method for getting the internal checker instance.
+                | _reporter - Property method for getting the internal reporter instance.
+                | _verbose - Property method for getting the internal verbose flag.
+                | _file_checker - Property method for getting the internal file checker instance.
+                | __str__ - Returns the string representation of object2cfg.
     '''
 
     __EXT: str = 'cfg'
@@ -86,16 +92,17 @@ class Object2Cfg(IWrite):
             :type reporter: <Optional[IATSReporter]>
             :param file_checker: FileCheck for checking file | None
             :type file_checker: <Optional[IFileCheck]>
-            :param verbose: Enable/Disable verbose option
+            :param verbose: Enable/Disable verbose option (default False)
             :type verbose: <bool>
             :exceptions: ATSTypeError
         '''
         # No dependency injection then use default ones.
-        self.__checker: IATSChecker = checker or ATSChecker()
-        self.__reporter: IATSReporter = reporter or ATSReporter(checker=self.__checker)
-        self.__verbose: bool = verbose
-        self.__file_checker: IFileCheck = file_checker or FileCheck(
-            checker=self.__checker, reporter=self.__reporter, verbose=self.__verbose
+        inject(
+            self,
+            ('checker', checker, ATSChecker, None),
+            ('reporter', reporter, ATSReporter, ['checker']),
+            ('verbose', verbose, False, None),
+            ('file_checker', file_checker, FileCheck, ['checker', 'reporter', 'verbose'])
         )
         self.__file_path: str = str(config_file)
 
@@ -107,9 +114,9 @@ class Object2Cfg(IWrite):
 
             :param config: Configuration object | None
             :type config: <Optional[ICFGProcessor]>
-            :param verbose: Enable/Disable verbose option
+            :param verbose: Enable/Disable verbose option (default False)
             :type verbose: <bool>
-            :return: True (configuration written to file) | False
+            :return: True (success) | False (fail)
             :rtype: <bool>
             :exceptions:
                 | ATSTypeError, ATSValueError by validator
@@ -126,10 +133,10 @@ class Object2Cfg(IWrite):
             self.__file_path,
             self.__MODE,
             self.__EXT,
-            self.__checker,
-            self.__reporter,
-            self.__file_checker,
-            self.__verbose or verbose
+            self._checker,
+            self._reporter,
+            self._file_checker,
+            self._verbose or verbose
         ) as cfg:
             if bool(cfg):
                 cfg.write(cfg_string)
@@ -137,25 +144,56 @@ class Object2Cfg(IWrite):
 
         return status
 
+    @property
+    def _checker(self) -> IATSChecker:
+        '''
+            Property method for getting the internal checker instance.
+
+            :return: The checker instance in IATSChecker format
+            :rtype: <IATSChecker>
+            :exceptions: None
+        '''
+        return get_private_attr(self, 'checker')
+
+    @property
+    def _reporter(self) -> IATSReporter:
+        '''
+            Property method for getting the internal reporter instance.
+
+            :return: The reporter instance in IATSReporter format
+            :rtype: <IATSReporter>
+            :exceptions: None
+        '''
+        return get_private_attr(self, 'reporter')
+
+    @property
+    def _verbose(self) -> bool:
+        '''
+            Property method for getting the internal verbose flag.
+
+            :return: The verbose flag in bool format
+            :rtype: <bool>
+            :exceptions: None
+        '''
+        return get_private_attr(self, 'verbose')
+
+    @property
+    def _file_checker(self) -> IFileCheck:
+        '''
+            Property method for getting the internal file checker instance.
+
+            :return: The file checker instance in IFileCheck format
+            :rtype: <IFileCheck>
+            :exceptions: None
+        '''
+        return get_private_attr(self, 'file_checker')
+
     def __str__(self) -> str:
         '''
-            Returns the string representation of ATS version.
+            Returns the string representation of CFG object.
 
-            :return: The ATS version string representation
+            :return: The CFG object as string representation
             :rtype: <str>
             :exceptions: None
         '''
-        file_path = str(self.__file_path).replace('\n', '\n    ')
-        checker = str(self.__checker).replace('\n', '\n    ')
-        reporter = str(self.__reporter).replace('\n', '\n    ')
-        file_checker = str(self.__file_checker).replace('\n', '\n    ')
-        verbose = str(self.__verbose).replace('\n', '\n    ')
-
-        return (
-            f'<{self.__class__.__name__}(\n'
-            f'    file_path={file_path},\n'
-            f'    checker={checker},\n'
-            f'    reporter={reporter},\n'
-            f'    file_checker={file_checker},\n'
-            f'    verbose={verbose}\n)> at 0x{id(self):x}'
-        )
+        return format_instance_to_string(self)

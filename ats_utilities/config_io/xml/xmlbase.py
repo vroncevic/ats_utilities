@@ -103,7 +103,7 @@ class XmlBase:
             :type reporter: <Optional[IATSReporter]>
             :param file_checker: FileCheck for checking file | None
             :type file_checker: <Optional[IFileCheck]>
-            :param verbose: Enable/Disable verbose option
+            :param verbose: Enable/Disable verbose option (default False)
             :type verbose: <bool>
             :exceptions: None
         '''

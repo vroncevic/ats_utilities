@@ -21,6 +21,10 @@ Info
 '''
 
 from typing import List, Optional
+from ats_utilities.factory import (
+    inject, get_private_attr, make_component, validate_component, format_instance_to_string
+)
+from ats_utilities.info.iinfo_manager import IATSInfoManager
 from ats_utilities.info.ats_info_manager import ATSInfoManager
 from ats_utilities.option.ioption_parser import IATSOptionParser
 from ats_utilities.option.ats_option_parser import ATSOptionParser
@@ -60,14 +64,21 @@ class CfgBase:
                 | __checker - Parameters checker (default set ATSChecker).
                 | __reporter - Reporter for messaging (default ATSReporter).
                 | __verbose - Enable/Disable verbose option (default False).
-                | __file_checker - FileCheck for checking file.
-                | __cfg2obj - In API for information.
-                | __obj2cfg - Out API for information.
-                | __tool_operational - Control ATS operational functionality.
-                | __option_parser - Option parser for ATS.
+                | __file_checker - FileCheck for checking file (default set FileCheck).
+                | __cfg2obj - In API for information (default set Cfg2Object).
+                | __obj2cfg - Out API for information (default set Object2Cfg).
+                | __tool_operational - Control ATS operational functionality (default False).
+                | __info_manager - Information manager (default set ATSInfoManager).
+                | __option_parser - Option parser for ATS (default set ATSOptionParser).
             :methods:
                 | __init__ - Initials CfgBase constructor.
                 | is_tool_ok - Checks is tool operational.
+                | _checker - Property method for getting the internal checker instance.
+                | _reporter - Property method for getting the internal reporter instance.
+                | _verbose - Property method for getting the internal verbose flag.
+                | _file_checker - Property method for getting the internal file checker instance.
+                | option_parser - Property method for getting the internal option parser instance.
+                | __str__ - Returns the string representation of cfgbase.
     '''
 
     def __init__(
@@ -75,11 +86,12 @@ class CfgBase:
         info_file: Optional[str] = None,
         cfg2object: Optional[IRead] = None,
         object2cfg: Optional[IWrite] = None,
+        info_manager: Optional[IATSInfoManager] = None,
+        strategy: Optional[IATSArgParseStrategy] = None,
         options_parser: Optional[IATSOptionParser] = None,
         checker: Optional[IATSChecker] = None,
         reporter: Optional[IATSReporter] = None,
         file_checker: Optional[IFileCheck] = None,
-        strategy: Optional[IATSArgParseStrategy] = None,
         verbose: bool = False
     ) -> None:
         '''
@@ -87,9 +99,9 @@ class CfgBase:
 
             :param info_file: Path to the info file | None
             :type info_file: <Optional[str]>
-            :param cfg2object: In API for information (Dependency Injected)
+            :param cfg2object: In API for information (default set Cfg2Object) | None
             :type cfg2object: <Optional[IRead]>
-            :param object2cfg: Out API for information (Dependency Injected)
+            :param object2cfg: Out API for information (default set Object2Cfg) | None
             :type object2cfg: <Optional[IWrite]>
             :param options_parser: Option parser for ATS | None
             :type options_parser: <Optional[IATSOptionParser]>
@@ -97,69 +109,118 @@ class CfgBase:
             :type checker: <Optional[IATSChecker]>
             :param reporter: Reporter for messaging (default set ATSReporter) | None
             :type reporter: <Optional[IATSReporter]>
-            :param file_checker: FileCheck for checking file | None
+            :param file_checker: FileCheck for checking file (default set FileCheck) | None
             :type file_checker: <Optional[IFileCheck]>
-            :param strategy: Strategy for argument parsing | None
+            :param strategy: Strategy for argument parsing (default set ATSArgParseStrategy) | None
             :type strategy: <Optional[IATSArgParseStrategy]>
-            :param verbose: Enable/Disable verbose option
+            :param verbose: Enable/Disable verbose option (default False)
             :type verbose: <bool>
             :exceptions: None
         '''
         # No dependency injection then use default ones.
-        self.__checker: IATSChecker = checker or ATSChecker()
-        self.__reporter: IATSReporter = reporter or ATSReporter(checker=self.__checker)
-        self.__verbose: bool = verbose
-        self.__file_checker: IFileCheck = file_checker or FileCheck(
-            checker=self.__checker, reporter=self.__reporter, verbose=self.__verbose
+        inject(
+            self,
+            ('checker', checker, ATSChecker, None),
+            ('reporter', reporter, ATSReporter, ['checker']),
+            ('verbose', verbose, False, None),
+            ('file_checker', file_checker, FileCheck, ['checker', 'reporter', 'verbose'])
         )
         self.__option_parser: Optional[IATSOptionParser] = None
 
-        # Dependency Injection for Cfg2Object and Object2Cfg or use defaults if not provided
-        self.__cfg2obj: Optional[IRead] = cfg2object or Cfg2Object(
-            config_file=info_file,
-            cfg_processor=ATSCFGProcessor(),
-            checker=self.__checker,
-            reporter=self.__reporter,
-            file_checker=self.__file_checker,
-            verbose=self.__verbose
-        )
-        self.__obj2cfg: Optional[IWrite] = object2cfg or Object2Cfg(
-            config_file=info_file,
-            checker=self.__checker,
-            reporter=self.__reporter,
-            file_checker=self.__file_checker,
-            verbose=self.__verbose
-        )
+        self.__cfg2obj: IRead = make_component(cfg2object, Cfg2Object, {
+            'config_file': info_file,
+            'cfg_processor': ATSCFGProcessor(),
+            'checker': self._checker,
+            'reporter': self._reporter,
+            'file_checker': self._file_checker,
+            'verbose': self._verbose
+        })
+        validate_component(self.__cfg2obj, IRead, 'cfg2object')
+
+        self.__obj2cfg: IWrite = make_component(object2cfg, Object2Cfg, {
+            'config_file': info_file,
+            'checker': self._checker,
+            'reporter': self._reporter,
+            'file_checker': self._file_checker,
+            'verbose': self._verbose
+        })
+        validate_component(self.__obj2cfg, IWrite, 'object2cfg')
 
         information: Optional[ICFGProcessor] = None
         self.__tool_operational: bool = False
 
         if bool(self.__cfg2obj) and bool(self.__obj2cfg):
-            information = self.__cfg2obj.read_configuration(self.__verbose)
+            information = self.__cfg2obj.read_configuration(self._verbose)
 
         if bool(information):
-            info: ATSInfoManager = ATSInfoManager(
-                info=information.to_dict(),
-                checker=self.__checker,
-                reporter=self.__reporter,
-                verbose=self.__verbose
-            )
+            self.__info_manager: IATSInfoManager = make_component(info_manager, ATSInfoManager, {
+                'info': information.to_dict(),
+                'checker': self._checker,
+                'reporter': self._reporter,
+                'verbose': self._verbose
+            })
 
-            if info and info.base_info_is_ok(information.to_dict()):
-                self.__option_parser = options_parser or ATSOptionParser(
-                    parameters=information.to_dict(),
-                    strategy=strategy,
-                    checker=self.__checker,
-                    reporter=self.__reporter,
-                    verbose=self.__verbose
-                )
-                self.__option_parser.add_version_operation(info.get_version())
-                self.__tool_operational = True
+            if self.__info_manager and self.__info_manager.base_info_is_ok(information.to_dict()):
+                self.__option_parser = make_component(options_parser, ATSOptionParser, {
+                    'parameters': information.to_dict(),
+                    'strategy': strategy,
+                    'checker': self._checker,
+                    'reporter': self._reporter,
+                    'verbose': self._verbose
+                })
+
+                if self.__option_parser:
+                    self.__option_parser.add_version_operation(self.__info_manager.get_version())
+                    self.__tool_operational = True
+
+    @property
+    def _checker(self) -> IATSChecker:
+        '''
+            Property method for getting the internal checker instance.
+
+            :return: The checker instance in IATSChecker format
+            :rtype: <IATSChecker>
+            :exceptions: None
+        '''
+        return get_private_attr(self, 'checker')
+
+    @property
+    def _reporter(self) -> IATSReporter:
+        '''
+            Property method for getting the internal reporter instance.
+
+            :return: The reporter instance in IATSReporter format
+            :rtype: <IATSReporter>
+            :exceptions: None
+        '''
+        return get_private_attr(self, 'reporter')
+
+    @property
+    def _verbose(self) -> bool:
+        '''
+            Property method for getting the internal verbose flag.
+
+            :return: The verbose flag in bool format
+            :rtype: <bool>
+            :exceptions: None
+        '''
+        return get_private_attr(self, 'verbose')
+
+    @property
+    def _file_checker(self) -> IFileCheck:
+        '''
+            Property method for getting the internal file checker instance.
+
+            :return: The file checker instance in IFileCheck format
+            :rtype: <IFileCheck>
+            :exceptions: None
+        '''
+        return get_private_attr(self, 'file_checker')
 
     @property
     def option_parser(self) -> Optional[IATSOptionParser]:
         '''
-            Option parser for ATS.
+            Property method for getting the internal option parser instance.
 
             :return: Option parser for ATS | None
             :rtype: <Optional[IATSOptionParser]>
@@ -176,3 +237,13 @@ class CfgBase:
             :exceptions: None
         '''
         return self.__tool_operational
+
+    def __str__(self) -> str:
+        '''
+            Returns the string representation of CFG base object.
+
+            :return: The CFG base object as string representation
+            :rtype: <str>
+            :exceptions: None
+        '''
+        return format_instance_to_string(self)

@@ -21,6 +21,7 @@ Info
 '''
 
 from typing import List, Optional
+from ats_utilities.factory import inject, format_instance_to_string
 from ats_utilities.info.iinfo_ok import IATSInfoOk
 from ats_utilities.checker.ichecker import IATSChecker
 from ats_utilities.checker.ats_checker import ATSChecker
@@ -71,14 +72,17 @@ class ATSInfoOk(IATSInfoOk):
             :type checker: <Optional[IATSChecker]>
             :param reporter: Reporter for messaging (default set ATSReporter) | None
             :type reporter: <Optional[IATSReporter]>
-            :param verbose: Enable/Disable verbose option
+            :param verbose: Enable/Disable verbose option (default False)
             :type verbose: <bool>
             :exceptions: None
         '''
         # No dependency injection then use default ones.
-        self.__checker: IATSChecker = checker or ATSChecker()
-        self.__reporter: IATSReporter = reporter or ATSReporter(checker=self.__checker)
-        self.__verbose: bool = verbose
+        inject(
+            self,
+            ('checker', checker, ATSChecker, None),
+            ('reporter', reporter, ATSReporter, ['checker']),
+            ('verbose', verbose, False, None)
+        )
         self.__info_ok: bool = False
 
     @property
@@ -116,15 +120,4 @@ class ATSInfoOk(IATSInfoOk):
             :rtype: <str>
             :exceptions: None
         '''
-        info_ok = str(self.__info_ok).replace('\n', '\n    ')
-        checker = str(self.__checker).replace('\n', '\n    ')
-        reporter = str(self.__reporter).replace('\n', '\n    ')
-        verbose = str(self.__verbose).replace('\n', '\n    ')
-
-        return (
-            f'<{self.__class__.__name__}(\n'
-            f'    info_ok={info_ok},\n'
-            f'    checker={checker},\n'
-            f'    reporter={reporter},\n'
-            f'    verbose={verbose}\n)> at 0x{id(self):x}'
-        )
+        return format_instance_to_string(self)

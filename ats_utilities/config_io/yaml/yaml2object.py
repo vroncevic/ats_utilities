@@ -86,7 +86,7 @@ class Yaml2Object(IRead):
             :type reporter: <Optional[IATSReporter]>
             :param file_checker: FileCheck for checking file | None
             :type file_checker: <Optional[IFileCheck]>
-            :param verbose: Enable/Disable verbose option
+            :param verbose: Enable/Disable verbose option (default False)
             :type verbose: <bool>
             :exceptions:  ATSTypeError
         '''
@@ -115,7 +115,7 @@ class Yaml2Object(IRead):
         '''
             Reads a configuration from a YAML file.
 
-            :param verbose: Enable/Disable verbose option
+            :param verbose: Enable/Disable verbose option (default False)
             :type verbose: <bool>
             :return: Python object
             :rtype: <Optional[IYAMLProcessor]>

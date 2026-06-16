@@ -25,6 +25,7 @@ from typing import Any, List, Tuple, Optional
 from fcntl import ioctl
 from termios import TIOCGWINSZ
 from struct import unpack, pack
+from ats_utilities.factory import inject, format_instance_to_string
 from ats_utilities.splash.iterminal_properties import ITerminalProperties
 from ats_utilities.checker.ichecker import IATSChecker
 from ats_utilities.checker.ats_checker import ATSChecker
@@ -77,14 +78,17 @@ class TerminalProperties(ITerminalProperties):
             :type checker: <Optional[IATSChecker]>
             :param reporter: Reporter for messaging (default set ATSReporter) | None
             :type reporter: <Optional[IATSReporter]>
-            :param verbose: Enable/Disable verbose option
+            :param verbose: Enable/Disable verbose option (default False)
             :type verbose: <bool>
             :exceptions: None
         '''
         # No dependency injection then use default ones.
-        self.__checker: IATSChecker = checker or ATSChecker()
-        self.__reporter: IATSReporter = reporter or ATSReporter(checker=self.__checker)
-        self.__verbose: bool = verbose
+        inject(
+            self,
+            ('checker', checker, ATSChecker, None),
+            ('reporter', reporter, ATSReporter, ['checker']),
+            ('verbose', verbose, False, None)
+        )
         self.__window_size: Tuple[Any, ...]
 
     @validator([('int:file_descriptor', None)])
@@ -141,15 +145,4 @@ class TerminalProperties(ITerminalProperties):
             :rtype: <str>
             :exceptions: None
         '''
-        window_size = str(self.__window_size).replace('\n', '\n    ')
-        checker = str(self.__checker).replace('\n', '\n    ')
-        reporter = str(self.__reporter).replace('\n', '\n    ')
-        verbose = str(self.__verbose).replace('\n', '\n    ')
-
-        return (
-            f'<{self.__class__.__name__}(\n'
-            f'    window_size={window_size},\n'
-            f'    checker={checker},\n'
-            f'    reporter={reporter},\n'
-            f'    verbose={verbose}\n)> at 0x{id(self):x}'
-        )
+        return format_instance_to_string(self)

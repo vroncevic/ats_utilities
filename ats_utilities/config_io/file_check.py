@@ -22,6 +22,7 @@ Info
 
 from typing import List, Optional
 from os.path import splitext, isfile
+from ats_utilities.factory import inject, get_private_attr, format_instance_to_string
 from ats_utilities.config_io.ifile_check import IFileCheck
 from ats_utilities.checker.ichecker import IATSChecker
 from ats_utilities.checker.ats_checker import ATSChecker
@@ -77,14 +78,17 @@ class FileCheck(IFileCheck):
             :type checker: <Optional[IATSChecker]>
             :param reporter: Reporter for messaging (default set ATSReporter) | None
             :type reporter: <Optional[IATSReporter]>
-            :param verbose: Enable/Disable verbose option
+            :param verbose: Enable/Disable verbose option (default False)
             :type verbose: <bool>
             :exceptions: None
         '''
         # No dependency injection then use default ones.
-        self.__checker: IATSChecker = checker or ATSChecker()
-        self.__reporter: IATSReporter = reporter or ATSReporter(checker=self.__checker)
-        self.__verbose: bool = verbose
+        inject(
+            self,
+            ('checker', checker, ATSChecker, None),
+            ('reporter', reporter, ATSReporter, ['checker']),
+            ('verbose', verbose, False, None)
+        )
         self.__file_path_ok: bool = False
         self.__file_mode_ok: bool = False
         self.__file_format_ok: bool = False
@@ -97,12 +101,14 @@ class FileCheck(IFileCheck):
 
             :param file_path: File path in string format | None
             :type file_path: <Optional[str]>
-            :exceptions: ATSTypeError by validate_parameters
+            :exceptions:
+                | ATSTypeError, ATSValueError by validator
+                | RuntimeError, AttributeError by vreporter
         '''
         self.__file_path_ok = isfile(file_path)  # type: ignore
 
         if not self.__file_path_ok:
-            self.__reporter.error([f'check file {file_path}'])
+            self._reporter.error([f'check file {file_path}'])
 
     @validator([('Optional[str]:file_mode', None)])
     @vreporter('check file mode {file_mode_ok}')
@@ -112,12 +118,16 @@ class FileCheck(IFileCheck):
 
             :param file_mode: File mode in string format ('r', 'w', 'a', 'b', 'x', 't', '+')
             :type file_mode: <Optional[str]>
-            :exceptions: ATSTypeError
+            :exceptions:
+                | ATSTypeError, ATSValueError by validator
+                | RuntimeError, AttributeError by vreporter
         '''
-        self.__file_mode_ok = all(char in self.MODES for char in file_mode)  # type: ignore
+        self.__file_mode_ok = bool(file_mode) and all(
+            char in self.MODES for char in file_mode  # type: ignore
+        )
 
         if not self.__file_mode_ok:
-            self.__reporter.error([f'not supported file mode [{file_mode}]'])
+            self._reporter.error([f'not supported file mode [{file_mode}]'])
 
     @validator([('Optional[str]:file_path', None), ('Optional[str]:file_format', None)])
     @vreporter('check file format {file_format_ok}')
@@ -129,7 +139,9 @@ class FileCheck(IFileCheck):
             :type file_path: <Optional[str]>
             :param file_format: File format (file extension) | None
             :type file_format: <Optional[str]>
-            :exceptions: ATSTypeError by validate_parameters
+            :exceptions:
+                | ATSTypeError, ATSValueError by validator
+                | RuntimeError, AttributeError by vreporter
         '''
         extension: Optional[str] = None
         fmt_str, path_str = str(file_format), str(file_path)
@@ -145,7 +157,7 @@ class FileCheck(IFileCheck):
             extension = 'makefile'
 
         if extension != fmt_str:
-            self.__reporter.error([f'check extension [{fmt_str}] {path_str}'])
+            self._reporter.error([f'check extension [{fmt_str}] {path_str}'])
             self.__file_format_ok = False
         else:
             self.__file_format_ok = True
@@ -157,9 +169,20 @@ class FileCheck(IFileCheck):
 
             :return: True (success) | False (fail)
             :rtype: <bool>
-            :exceptions: None
+            :exceptions: RuntimeError, AttributeError by vreporter
         '''
         return all([self.__file_path_ok, self.__file_mode_ok, self.__file_format_ok])
+
+    @property
+    def _reporter(self) -> IATSReporter:
+        '''
+            Property method for getting the internal reporter instance.
+
+            :return: The reporter instance in IATSReporter format
+            :rtype: <IATSReporter>
+            :exceptions: None
+        '''
+        return get_private_attr(self, 'reporter')
 
     def __str__(self) -> str:
         '''
@@ -169,19 +192,4 @@ class FileCheck(IFileCheck):
             :rtype: <str>
             :exceptions: None
         '''
-        file_path_ok = str(self.__file_path_ok).replace('\n', '\n    ')
-        file_mode_ok = str(self.__file_mode_ok).replace('\n', '\n    ')
-        file_format_ok = str(self.__file_format_ok).replace('\n', '\n    ')
-        checker = str(self.__checker).replace('\n', '\n    ')
-        reporter = str(self.__reporter).replace('\n', '\n    ')
-        verbose = str(self.__verbose).replace('\n', '\n    ')
-
-        return (
-            f'<{self.__class__.__name__}(\n'
-            f'    file_path_ok={file_path_ok},\n'
-            f'    file_mode_ok={file_mode_ok},\n'
-            f'    file_format_ok={file_format_ok},\n'
-            f'    checker={checker},\n'
-            f'    reporter={reporter},\n'
-            f'    verbose={verbose}\n)> at 0x{id(self):x}'
-        )
+        return format_instance_to_string(self)

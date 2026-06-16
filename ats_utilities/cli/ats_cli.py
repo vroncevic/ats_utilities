@@ -22,12 +22,21 @@ Info
 
 from typing import Any, List, Optional
 from abc import abstractmethod
+from ats_utilities.factory import (
+    inject, get_private_attr, make_component, validate_component, format_instance_to_string
+)
+from ats_utilities.checker.ichecker import IATSChecker
+from ats_utilities.checker.ats_checker import ATSChecker
 from ats_utilities.console_io.ireporter import IATSReporter
 from ats_utilities.console_io.reporter import ATSReporter
 from ats_utilities.option.option_namespace import OptionNamespace
 from ats_utilities.cli.icli import IATSCli
 from ats_utilities.cli.icli import ArgSeq
 from ats_utilities.cli.iconfig_manager import IConfigManager
+from ats_utilities.info.iinfo_manager import IATSInfoManager
+from ats_utilities.config_io.ifile_check import IFileCheck
+from ats_utilities.config_io.iread import IRead
+from ats_utilities.config_io.iwrite import IWrite
 from ats_utilities.cli.iconfig_manager import Config
 from ats_utilities.cli.config_manager import ATSConfigManager
 
@@ -65,7 +74,14 @@ class ATSCli(IATSCli):
         self,
         info_file: Optional[str] = None,
         config_manager: Optional[IConfigManager] = None,
+        config2object: Optional[IRead] = None,
+        object2config: Optional[IWrite] = None,
+        info_manager: Optional[IATSInfoManager] = None,
+        strategy: Optional[IATSArgParseStrategy] = None,
+        options_parser: Optional[IATSOptionParser] = None,
+        checker: Optional[IATSChecker] = None,
         reporter: Optional[IATSReporter] = None,
+        file_checker: Optional[IFileCheck] = None,
         verbose: bool = False
     ) -> None:
         '''
@@ -77,20 +93,25 @@ class ATSCli(IATSCli):
             :type config_manager: <Optional[IConfigManager]>
             :param reporter: ATSReporter for check operations | None
             :type reporter: <Optional[IATSReporter]>
-            :param verbose: Enable/Disable verbose option
+            :param verbose: Enable/Disable verbose option (default False)
             :type verbose: <bool>
             :exceptions: None
         '''
-        self.__verbose: bool = verbose
-        self.__reporter: IATSReporter = reporter or ATSReporter()
-        self.__operational: bool = False
-
-        # Dependency Injection of the manager or use default
-        self.__config_manager: IConfigManager = config_manager or ATSConfigManager(
-            reporter=self.__reporter
+        # No dependency injection then use default ones.
+        inject(
+            self,
+            ('checker', checker, ATSChecker, None),
+            ('reporter', reporter, ATSReporter, ['checker']),
+            ('verbose', verbose, False, None),
         )
-        self.__config: Config = self.__config_manager.load_config(info_file, verbose)
-        self.__reporter.verbose(self.__verbose, ['init ATS cli'])
+        self.__config_manager: IConfigManager = make_component(config_manager, ATSConfigManager, {
+            'checker': self._checker,
+            'reporter': self._reporter,
+            'verbose': self._verbose
+        })
+
+        self.__config: Config = self.__config_manager.load_config(info_file, self._verbose)
+        self.__operational: bool = False
 
     def is_operational(self) -> bool:
         '''
@@ -136,10 +157,53 @@ class ATSCli(IATSCli):
         '''
             Processes and runs tool operations (Abstract).
 
-            :param verbose: Enable/Disable verbose option
+            :param verbose: Enable/Disable verbose option (default False)
             :type verbose: <bool>
             :return: True (successfully finished) | False
             :rtype: <bool>
             :exceptions: TypeError
         '''
         raise NotImplementedError("Method process() must be implemented.")
+
+    @property
+    def _checker(self) -> IATSChecker:
+        '''
+            Property method for getting the internal checker instance.
+
+            :return: The checker instance in IATSChecker format
+            :rtype: <IATSChecker>
+            :exceptions: None
+        '''
+        return get_private_attr(self, 'checker')
+
+    @property
+    def _reporter(self) -> IATSReporter:
+        '''
+            Property method for getting the internal reporter instance.
+
+            :return: The reporter instance in IATSReporter format
+            :rtype: <IATSReporter>
+            :exceptions: None
+        '''
+        return get_private_attr(self, 'reporter')
+
+    @property
+    def _verbose(self) -> bool:
+        '''
+            Property method for getting the internal verbose flag.
+
+            :return: The verbose flag in bool format
+            :rtype: <bool>
+            :exceptions: None
+        '''
+        return get_private_attr(self, 'verbose')
+
+    def __str__(self) -> str:
+        '''
+            Returns the string representation of command line interface component.
+
+            :return: The command line interface component as string
+            :rtype: <str>
+            :exceptions: None
+        '''
+        return format_instance_to_string(self)

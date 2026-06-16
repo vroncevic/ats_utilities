@@ -22,6 +22,7 @@ Info
 
 from typing import List, Optional
 from os.path import basename
+from ats_utilities.info.iinfo_manager import IATSInfoManager
 from ats_utilities.config_io.ifile_check import IFileCheck
 from ats_utilities.config_io.iread import IRead
 from ats_utilities.config_io.iwrite import IWrite
@@ -55,11 +56,12 @@ class ATSConfigManager(IConfigManager):
             :attributes:
                 | __config2object - Object for converting configuration to object.
                 | __object2config - Object for converting object to configuration.
+                | __info_manager - Information manager.
+                | __strategy - Strategy for argument parsing.
                 | __options_parser - Option parser for CLI arguments.
                 | __checker - Checker for parameter validation.
                 | __reporter - Reporter for console output.
                 | __file_checker - Checker for file operations.
-                | __strategy - Strategy for argument parsing.
             :methods:
                 | load_config - Loads the appropriate configuration base based on file type.
     '''
@@ -68,11 +70,12 @@ class ATSConfigManager(IConfigManager):
         self,
         config2object: Optional[IRead] = None,
         object2config: Optional[IWrite] = None,
+        info_manager: Optional[IATSInfoManager] = None,
+        strategy: Optional[IATSArgParseStrategy] = None,
         options_parser: Optional[IATSOptionParser] = None,
         checker: Optional[IATSChecker] = None,
         reporter: Optional[IATSReporter] = None,
         file_checker: Optional[IFileCheck] = None,
-        strategy: Optional[IATSArgParseStrategy] = None
     ) -> None:
         '''
             Initializes ATSConfigManager constructor.
@@ -81,6 +84,10 @@ class ATSConfigManager(IConfigManager):
             :type config2object: <Optional[IRead]>
             :param object2config: Object for converting object to configuration | None
             :type object2config: <Optional[IWrite]>
+            :param info_manager: Information manager | None
+            :type info_manager: <Optional[IATSInfoManager]>
+            :param strategy: Strategy for argument parsing | None
+            :type strategy: <Optional[IATSArgParseStrategy]>
             :param options_parser: Option parser for CLI arguments | None
             :type options_parser: <Optional[IATSOptionParser]>
             :param checker: Checker for parameter validation | None
@@ -89,17 +96,16 @@ class ATSConfigManager(IConfigManager):
             :type reporter: <Optional[IATSReporter]>
             :param file_checker: Checker for file operations | None
             :type file_checker: <Optional[IFileCheck]>
-            :param strategy: Strategy for argument parsing | None
-            :type strategy: <Optional[IATSArgParseStrategy]>
             :exceptions: None
         '''
         self.__config2object = config2object
         self.__object2config = object2config
+        self.__info_manager = info_manager
+        self.__strategy = strategy
         self.__options_parser = options_parser
         self.__checker = checker
         self.__reporter = reporter
         self.__file_checker = file_checker
-        self.__strategy = strategy
 
     def load_config(self, info_file: Optional[str], verbose: bool = False) -> Config:
         '''
@@ -122,11 +128,12 @@ class ATSConfigManager(IConfigManager):
             info_file,
             self.__config2object,
             self.__object2config,
+            self.__info_manager,
+            self.__strategy,
             self.__options_parser,
             self.__checker,
             self.__reporter,
             self.__file_checker,
-            self.__strategy,
             verbose
         )
 

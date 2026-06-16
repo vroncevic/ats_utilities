@@ -2,7 +2,7 @@
 
 '''
 Module
-    story_ats_version.py
+    ats_component_bundle.py
 Copyright
     Copyright (C) 2017 - 2026 Vladimir Roncevic <elektron.ronca@gmail.com>
     ats_utilities is free software: you can redistribute it and/or modify it
@@ -16,13 +16,16 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Use cases for ATS version.
+    Defines class ATSComponentBundle with attribute(s).
 '''
 
-from typing import List
-from ats_utilities.info.version import ATSVersion
-from ats_utilities.checker.ats_checker import ATSChecker
-from ats_utilities.console_io.reporter import ATSReporter
+from typing import List, Optional
+from dataclasses import dataclass
+from ats_utilities.info.iname import IATSName
+from ats_utilities.info.iversion import IATSVersion
+from ats_utilities.info.ilicence import IATSLicence
+from ats_utilities.info.ibuild_date import IATSBuildDate
+from ats_utilities.info.iinfo_ok import IATSInfoOk
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -33,26 +36,15 @@ __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
 
-VERBOSE: bool = False
 
-#
-# default [without DI]
-# ====================
-#
-ats_version = ATSVersion(verbose=VERBOSE)
-ats_version.version = '1.2.5'
-print(ats_version.version)
-print(ats_version)
-print(100 * '=')
-
-#
-# with DI
-# =======
-#
-checker = ATSChecker()
-reporter = ATSReporter(checker=checker)
-ats_version = ATSVersion(checker=checker, reporter=reporter, verbose=VERBOSE)
-ats_version.version = '1.2.6'
-print(ats_version.version)
-print(ats_version)
-print(100 * '=')
+@dataclass
+class ATSComponentBundle:
+    '''
+        Parameter Object pattern wrapper encapsulating all core info domain elements.
+        Simplifies dependency passing and signatures for higher-level managers.
+    '''
+    name: Optional[IATSName] = None
+    version: Optional[IATSVersion] = None
+    licence: Optional[IATSLicence] = None
+    build_date: Optional[IATSBuildDate] = None
+    info_ok: Optional[IATSInfoOk] = None

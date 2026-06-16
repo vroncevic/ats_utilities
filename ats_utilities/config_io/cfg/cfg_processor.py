@@ -22,6 +22,7 @@ Info
 
 from re import match
 from typing import Any, Dict, List
+from ats_utilities.factory import format_instance_to_string
 from ats_utilities.config_io.cfg.icfg_processor import ICFGProcessor
 
 __author__: str = 'Vladimir Roncevic'
@@ -76,6 +77,7 @@ class ATSCFGProcessor(ICFGProcessor):
                 if '=' in line:
                     pairs = line.split('=', 1)
                     self.__data[pairs[0].strip()] = pairs[1].strip()
+
         return True
 
     def to_string(self) -> str:
@@ -106,9 +108,4 @@ class ATSCFGProcessor(ICFGProcessor):
             :rtype: <str>
             :exceptions: None
         '''
-        data = str(self.__data).replace('\n', '\n    ')
-
-        return (
-            f'<{self.__class__.__name__}(\n'
-            f'    data={data}\n)> at 0x{id(self):x}'
-        )
+        return format_instance_to_string(self)

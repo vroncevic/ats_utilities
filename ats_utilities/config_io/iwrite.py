@@ -53,7 +53,7 @@ class IWrite(ABC):
 
             :param config: Configuration object | None
             :type config: <Any>
-            :param verbose: Enable/Disable verbose option
+            :param verbose: Enable/Disable verbose option (default False)
             :type verbose: <bool>
             :return: True if written | False
             :rtype: <bool>

@@ -21,6 +21,7 @@ Info
 '''
 
 from typing import Any, List, Dict, Optional
+from ats_utilities.factory import inject, get_private_attr, format_instance_to_string
 from ats_utilities.option.ioption_parser import IATSOptionParser
 from ats_utilities.option.iparser_strategy import IATSArgParseStrategy
 from ats_utilities.option.ats_parser_strategy import ATSArgParseStrategy
@@ -52,17 +53,20 @@ class ATSOptionParser(IATSOptionParser):
         It defines:
 
             :attributes:
-                | __reporter - ATSReporter for outputting messages.
-                | __verbose - Enable/Disable verbose option.
-                | __opt_parser - Options parser.
+                | __checker - Parameters checker (default set ATSChecker).
+                | __reporter - Reporter for messaging (default ATSReporter).
+                | __verbose - Enable/Disable verbose option (default False).
+                | __strategy - Strategy for argument parsing (default ATSArgParseStrategy).
             :methods:
                 | __init__ - Initials ATSDefaultOptionParser constructor.
                 | add_operation - Adds an option to the ATS parser.
                 | parse_input_args - Processes arguments from the start.
                 | parse_args - Processes arguments from the start.
+                | add_version_operation - Adds version option to the ATS parser.
+                | _strategy - Property method for getting the internal strategy instance.
+                | __str__ - Returns the string representation of ATSOptionParser.
     '''
 
-    @validator([('dict:parameters', None)])
     def __init__(
         self,
         parameters: Dict[str, str],
@@ -82,16 +86,19 @@ class ATSOptionParser(IATSOptionParser):
             :type checker: <Optional[IATSChecker]>
             :param reporter: ATSReporter for outputting messages | None 
             :type reporter: <Optional[IATSReporter]>
-            :param verbose: Enable/Disable verbose option
+            :param verbose: Enable/Disable verbose option (default False)
             :type verbose: <bool>
             :exceptions: ATSTypeError by validates_parameters
         '''
         # No dependency injection then use default ones.
-        self.__checker: IATSChecker = checker or ATSChecker()
-        self.__reporter: IATSReporter = reporter or ATSReporter(self.__checker)
-        self.__strategy: IATSArgParseStrategy = strategy or ATSArgParseStrategy(self.__reporter)
-        self.__strategy.setup(parameters)
-        self.__verbose: bool = verbose
+        inject(
+            self,
+            ('checker', checker, ATSChecker, None),
+            ('reporter', reporter, ATSReporter, ['checker']),
+            ('verbose', verbose, False, None),
+            ('strategy', strategy, ATSArgParseStrategy, ['checker', 'reporter', 'verbose'])
+        )
+        self._strategy.setup(parameters)
 
     def add_operation(self, *args: str, **kwargs: Any) -> None:
         '''
@@ -103,51 +110,68 @@ class ATSOptionParser(IATSOptionParser):
             :type kwargs: <Any>
             :exceptions: None
         '''
-        self.__strategy.add_argument(*args, **kwargs)
+        self._strategy.add_argument(*args, **kwargs)
 
     @validator([('Optional[str]:version', None)])
     @vreporter('add version {version}')
-    def add_version_operation(self, version: Optional[str], verbose: bool = False) -> None:
+    def add_version_operation(self, version: Optional[str]) -> None:
         '''
             Adds version option to the ATS parser.
 
-            :param version: The ATS version
+            :param version: The ATS version in string format | None
             :type version: <Optional[str]>
-            :param verbose: Enable/Disable verbose option
-            :type verbose: <bool>
-            :exceptions: ATSTypeError by validates_parameters
+            :exceptions:
+                | ATSTypeError, ATSValueError by validator
+                | RuntimeError, AttributeError by vreporter
         '''
         if version:
-            self.__strategy.add_version(version)
+            self._strategy.add_version(version)
 
-    def parse_input_args(self, arguments: OptArgs, verbose: bool = False) -> OptionNamespace:
+    @vreporter('parse inout args arguments {arguments}')
+    def parse_input_args(self, arguments: OptArgs) -> OptionNamespace:
         '''
             Processes arguments from the start.
 
             :param arguments: Sequence of arguments | None
             :type arguments: <OptArgs>
-            :param verbose: Enable/Disable verbose option
-            :type verbose: <bool>
             :return: Option namespace object
             :rtype: <OptionNamespace>
-            :exceptions: None
+            :exceptions: RuntimeError, AttributeError by vreporter
         '''
-        args = self.__strategy.parse(arguments, known_only=False)
-        self.__reporter.verbose(self.__verbose or verbose, [f'arguments {arguments}'])
+        args = self._strategy.parse(arguments, known_only=False)
         return args
 
-    def parse_args(self, arguments: OptArgs, verbose: bool = False) -> OptionNamespace:
+    @vreporter('parse args arguments {arguments}')
+    def parse_args(self, arguments: OptArgs) -> OptionNamespace:
         '''
             Processes arguments from the start.
 
             :param arguments: Sequence of arguments | None
             :type arguments: <OptArgs>
-            :param verbose: Enable/Disable verbose option
-            :type verbose: <bool>
             :return: Option namespace object
             :rtype: <OptionNamespace>
+            :exceptions: RuntimeError, AttributeError by vreporter
+        '''
+        args = self._strategy.parse(arguments, known_only=True)
+        return args
+
+    @property
+    def _strategy(self) -> IATSArgParseStrategy:
+        '''
+            Property method for getting the internal strategy instance.
+
+            :return: The strategy instance in IATSArgParseStrategy format
+            :rtype: <IATSArgParseStrategy>
             :exceptions: None
         '''
-        args = self.__strategy.parse(arguments, known_only=True)
-        self.__reporter.verbose(self.__verbose or verbose, [f'arguments {arguments}'])
-        return args
+        return get_private_attr(self, 'strategy')
+
+    def __str__(self) -> str:
+        '''
+            Returns the string representation of ATSOptionParser.
+
+            :return: The ATS option parser as string
+            :rtype: <str>
+            :exceptions: None
+        '''
+        return format_instance_to_string(self)

@@ -21,6 +21,7 @@ Info
 '''
 
 from typing import Any, Dict, List, Optional
+from ats_utilities.factory import inject, get_private_attr, format_instance_to_string
 from ats_utilities.splash.iext_infrastructure import IExtInfrastructure
 from ats_utilities.checker.ichecker import IATSChecker
 from ats_utilities.checker.ats_checker import ATSChecker
@@ -58,6 +59,7 @@ class ExtInfrastructure(IExtInfrastructure):
                 | get_info_text - Pre-processes info text.
                 | get_issue_text - Pre-processes issue text.
                 | get_author_text - Pre-processes author text.
+                | _reporter - Property method for getting the internal reporter instance.
                 | __str__ - Returns the string representation of external infrastructure.
     '''
 
@@ -74,14 +76,17 @@ class ExtInfrastructure(IExtInfrastructure):
             :type checker: <Optional[IATSChecker]>
             :param reporter: Reporter for messaging (default set ATSReporter) | None
             :type reporter: <Optional[IATSReporter]>
-            :param verbose: Enable/Disable verbose option
+            :param verbose: Enable/Disable verbose option (default False)
             :type verbose: <bool>
             :exceptions: None
         '''
         # No dependency injection then use default ones.
-        self.__checker: IATSChecker = checker or ATSChecker()
-        self.__reporter: IATSReporter = reporter or ATSReporter(checker=self.__checker)
-        self.__verbose: bool = verbose
+        inject(
+            self,
+            ('checker', checker, ATSChecker, None),
+            ('reporter', reporter, ATSReporter, ['checker']),
+            ('verbose', verbose, False, None)
+        )
         self.__infrastructure_property: Optional[Dict[Any, Any]] = None
 
     @property
@@ -121,7 +126,7 @@ class ExtInfrastructure(IExtInfrastructure):
             :exceptions: RuntimeError, AttributeError by vreporter
         '''
         if not self.__infrastructure_property:
-            self.__reporter.error(['missing infrastructure property'])
+            self._reporter.error(['missing infrastructure property'])
             return ''
 
         name: str = self.__infrastructure_property['ats_name']
@@ -138,7 +143,7 @@ class ExtInfrastructure(IExtInfrastructure):
             :exceptions: RuntimeError, AttributeError by vreporter
         '''
         if not self.__infrastructure_property:
-            self.__reporter.error(['missing infrastructure property'])
+            self._reporter.error(['missing infrastructure property'])
             return ''
 
         repo: str = self.__infrastructure_property['ats_repository']
@@ -155,12 +160,23 @@ class ExtInfrastructure(IExtInfrastructure):
             :exceptions: RuntimeError, AttributeError by vreporter
         '''
         if not self.__infrastructure_property:
-            self.__reporter.error(['missing infrastructure property'])
+            self._reporter.error(['missing infrastructure property'])
             return ''
 
         org: str = self.__infrastructure_property['ats_organization']
 
         return f'\x1b]8;;{org}\a{org}\x1b]8;;\a'
+
+    @property
+    def _reporter(self) -> IATSReporter:
+        '''
+            Property method for getting the internal reporter instance.
+
+            :return: The reporter instance in IATSReporter format
+            :rtype: <IATSReporter>
+            :exceptions: None
+        '''
+        return get_private_attr(self, 'reporter')
 
     def __str__(self) -> str:
         '''
@@ -170,15 +186,4 @@ class ExtInfrastructure(IExtInfrastructure):
             :rtype: <str>
             :exceptions: None
         '''
-        infrastructure_property = str(self.__infrastructure_property).replace('\n', '\n    ')
-        checker = str(self.__checker).replace('\n', '\n    ')
-        reporter = str(self.__reporter).replace('\n', '\n    ')
-        verbose = str(self.__verbose).replace('\n', '\n    ')
-
-        return (
-            f'<{self.__class__.__name__}(\n'
-            f'    infrastructure_property={infrastructure_property},\n'
-            f'    checker={checker},\n'
-            f'    reporter={reporter},\n'
-            f'    verbose={verbose}\n)> at 0x{id(self):x}'
-        )
+        return format_instance_to_string(self)

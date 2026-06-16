@@ -21,6 +21,7 @@ Info
 '''
 
 from typing import Any, List, Tuple, Dict, Optional
+from ats_utilities.factory import inject, get_private_attr, format_instance_to_string
 from ats_utilities.config_io.iconf_file import IConfFile
 from ats_utilities.checker.ichecker import IATSChecker
 from ats_utilities.checker.ats_checker import ATSChecker
@@ -55,7 +56,6 @@ class ConfFile(IConfFile):
                 | __reporter - Reporter for messaging (default ATSReporter).
                 | __file_path - Configuration file path (default set None).
                 | __file_mode - Configuration file mode (default set None).
-                | __file_format - Configuration file format (default set None).
                 | __file - File object (default set None).
                 | __verbose - Enable/Disable verbose option (default False).
             :methods:
@@ -90,16 +90,17 @@ class ConfFile(IConfFile):
             :type reporter: <Optional[IATSReporter]>
             :param file_checker: Checking operations (default set FileCheck) | None
             :type file_checker: <Optional[IFileCheck]>
-            :param verbose: Enable/Disable verbose option
+            :param verbose: Enable/Disable verbose option (default False)
             :type verbose: <bool>
-            :exceptions: ATSTypeError | ATSValueError
+            :exceptions: ATSValueError
         '''
         # No dependency injection then use default ones.
-        self.__checker: IATSChecker = checker or ATSChecker()
-        self.__reporter: IATSReporter = reporter or ATSReporter(checker=self.__checker)
-        self.__verbose: bool = verbose
-        self.__file_checker: IFileCheck = file_checker or FileCheck(
-            checker=self.__checker, reporter=self.__reporter, verbose=self.__verbose
+        inject(
+            self,
+            ('checker', checker, ATSChecker, None),
+            ('reporter', reporter, ATSReporter, ['checker']),
+            ('verbose', verbose, False, None),
+            ('file_checker', file_checker, FileCheck, ['checker', 'reporter', 'verbose'])
         )
 
         if not bool(file_path):
@@ -111,37 +112,29 @@ class ConfFile(IConfFile):
         if not bool(file_format):
             raise ATSValueError('missing file format')
 
-        self.__file: File = None
+        self.__file: Optional[File] = None
         self.__file_path: Optional[str] = None
         self.__file_mode: Optional[str] = None
-        self.__file_format: Optional[str] = None
 
-        self.__file_checker.check_path(str(file_path))
-        self.__file_checker.check_mode(str(file_mode))
-        self.__file_checker.check_format(str(file_path), str(file_format))
+        self._file_checker.check_path(file_path)
+        self._file_checker.check_mode(file_mode)
+        self._file_checker.check_format(file_path, file_format)
 
-        if self.__file_checker.is_file_ok():
+        if self._file_checker.is_file_ok():
             self.__file_path = file_path
             self.__file_mode = file_mode
-            self.__file_format = file_format
-
-        self.__reporter.verbose(self.__verbose, [f'set file {file_path} {file_mode}'])
 
     @vreporter('open file {file_path} with mode {file_mode}')
-    def __enter__(self) -> File:
+    def __enter__(self) -> Optional[File]:
         '''
             Opens configuration file in mode.
 
             :return: File IO object | None
             :rtype: <File>
-            :exceptions: None
+            :exceptions: RuntimeError, AttributeError by vreporter
         '''
-        if self.__file_checker.is_file_ok():
-            mode: str = self.__file_mode or "r"
-            self.__file = open(str(self.__file_path), mode, encoding='utf-8')
-        else:
-            self.__reporter.error([f'check file {str(self.__file_path)}'])
-            self.__file = None
+        if self.__file_path and self.__file_mode:
+            self.__file = open(self.__file_path, self.__file_mode, encoding='utf-8')
 
         return self.__file
 
@@ -154,10 +147,21 @@ class ConfFile(IConfFile):
             :type *args: <Tuple[Any, ...]>
             :param **kwargs: Dictionary of mapped arguments
             :type **kwargs: <Dict[Any, Any]>
+            :exceptions: RuntimeError, AttributeError by vreporter
+        '''
+        if self.__file and not self.__file.closed:
+            self.__file.close()
+
+    @property
+    def _file_checker(self) -> IFileCheck:
+        '''
+            Property method for getting the internal file checker instance.
+
+            :return: The file checker instance in IFileCheck format
+            :rtype: <IFileCheck>
             :exceptions: None
         '''
-        if self.__file is not None and not self.__file.closed:
-            self.__file.close()
+        return get_private_attr(self, 'file_checker')
 
     def __str__(self) -> str:
         '''
@@ -167,21 +171,4 @@ class ConfFile(IConfFile):
             :rtype: <str>
             :exceptions: None
         '''
-        file_path = str(self.__file_path).replace('\n', '\n    ')
-        file_mode = str(self.__file_mode).replace('\n', '\n    ')
-        file_format = str(self.__file_format).replace('\n', '\n    ')
-        file = str(self.__file).replace('\n', '\n    ')
-        checker = str(self.__checker).replace('\n', '\n    ')
-        reporter = str(self.__reporter).replace('\n', '\n    ')
-        verbose = str(self.__verbose).replace('\n', '\n    ')
-
-        return (
-            f'<{self.__class__.__name__}(\n'
-            f'    file_path={file_path},\n'
-            f'    file_mode={file_mode},\n'
-            f'    file_format={file_format},\n'
-            f'    file={file},\n'
-            f'    checker={checker},\n'
-            f'    reporter={reporter},\n'
-            f'    verbose={verbose}\n)> at 0x{id(self):x}'
-        )
+        return format_instance_to_string(self)

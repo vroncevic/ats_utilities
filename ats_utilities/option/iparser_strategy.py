@@ -49,6 +49,7 @@ class IATSArgParseStrategy(ABC):
                 | add_argument - Adds an operational argument/flag to the parser.
                 | add_version - Adds a version display option to the parser.
                 | parse - Parses the input arguments and returns an OptionNamespace.
+                | __str__ - Returns the string representation of ATS parser strategy.
     '''
 
     @abstractmethod
@@ -100,3 +101,14 @@ class IATSArgParseStrategy(ABC):
             :exceptions: NotImplementedError
         '''
         raise NotImplementedError("Method parse() must be implemented.")
+
+    @abstractmethod
+    def __str__(self) -> str:
+        '''
+            Returns the string representation of ATS parser strategy.
+
+            :return: The ATS parser strategy as string
+            :rtype: <str>
+            :exceptions: NotImplementedError
+        '''
+        raise NotImplementedError("Subclasses must implement __str__ method")

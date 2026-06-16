@@ -51,7 +51,7 @@ class IRead(ABC):
         '''
             Read configuration from file.
 
-            :param verbose: Enable/Disable verbose option
+            :param verbose: Enable/Disable verbose option (default False)
             :type verbose: <bool>
             :return: Configuration object
             :rtype: <Any>

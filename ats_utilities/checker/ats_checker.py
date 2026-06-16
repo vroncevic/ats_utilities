@@ -21,6 +21,7 @@ Info
 '''
 
 from typing import ClassVar, List, Optional
+from ats_utilities.factory import make_component, validate_component, format_instance_to_string
 from ats_utilities.checker.ichecker import IATSChecker
 from ats_utilities.checker.ichecker import ErrorChecker
 from ats_utilities.checker.ichecker import ValidationResult
@@ -58,7 +59,7 @@ class ATSChecker(IATSChecker):
                 | __format_validator - Validator for parameters format.
                 | __type_validator - Validator for parameters type.
                 | __provider - Provider for call context.
-                | __reporter - Formatter for message reports.
+                | __check_reporter - Formatter for message reports.
             :methods:
                 | __init__ - Initials ATSChecker constructor.
                 | validates_parameters - Validates parameter(s) for method(s) or function(s).
@@ -85,13 +86,17 @@ class ATSChecker(IATSChecker):
             :type context_provider: <Optional[IATSContextProvider]>
             :param check_reporter: Formatter for message reports
             :type check_reporter: <Optional[IATSCheckReporter]>
-            :exceptions: None
+            :exceptions: ATSTypeError by validate_component()
         '''
         # No dependency injection then use default ones.
-        self.__format_validator: IATSFormatValidator = format_validator or ATSFormatValidator()
-        self.__type_validator: IATSTypeValidator = type_validator or ATSTypeValidator()
-        self.__provider: IATSContextProvider = context_provider or ATSContextProvider()
-        self.__reporter: IATSCheckReporter = check_reporter or ATSCheckReporter()
+        self.__format_validator: IATSFormatValidator = make_component(format_validator, ATSFormatValidator, None)
+        validate_component(self.__format_validator, ATSFormatValidator, "ATSFormatValidator")
+        self.__type_validator: IATSTypeValidator = make_component(type_validator, ATSTypeValidator, None)
+        validate_component(self.__type_validator, ATSTypeValidator, "ATSTypeValidator")
+        self.__provider: IATSContextProvider = make_component(context_provider, ATSContextProvider, None)
+        validate_component(self.__provider, ATSContextProvider, "ATSContextProvider")
+        self.__check_reporter: IATSCheckReporter = make_component(check_reporter, ATSCheckReporter, None)
+        validate_component(self.__check_reporter, ATSCheckReporter, "ATSCheckReporter")
 
     def validates_parameters(self, parameters: Optional[ParametersSpecs]) -> ValidationResult:
         '''
@@ -109,7 +114,7 @@ class ATSChecker(IATSChecker):
         error_id: int = self.ERRORS.NO_ERROR
 
         if parameters is None:
-            return self.__reporter.build_message_format(context, [], [], True), self.ERRORS.FORMAT_ERROR
+            return self.__check_reporter.build_message_format(context, [], [], True), self.ERRORS.FORMAT_ERROR
 
         is_fmt_err: bool = False
         for index, (exp_type, inst) in enumerate(parameters):
@@ -131,7 +136,7 @@ class ATSChecker(IATSChecker):
                 if error_id == self.ERRORS.NO_ERROR:
                     error_id = self.ERRORS.TYPE_ERROR
 
-        return self.__reporter.build_message_format(
+        return self.__check_reporter.build_message_format(
             context, params_meta, err_indices, is_fmt_err
         ), error_id
 
@@ -139,19 +144,8 @@ class ATSChecker(IATSChecker):
         '''
             Returns the string representation of ATSChecker.
 
-            :return: String representation
+            :return: String representation of ATSChecker
             :rtype: <str>
             :exceptions: None
         '''
-        format_validator = str(self.__format_validator).replace('\n', '\n    ')
-        type_validator = str(self.__type_validator).replace('\n', '\n    ')
-        context_provider = str(self.__provider).replace('\n', '\n    ')
-        check_reporter = str(self.__reporter).replace('\n', '\n    ')
-
-        return (
-            f'<{self.__class__.__name__}(\n'
-            f'    format_validator={format_validator},\n'
-            f'    type_validator={type_validator},\n'
-            f'    context_provider={context_provider},\n'
-            f'    check_reporter={check_reporter}\n)> at 0x{id(self):x}'
-        )
+        return format_instance_to_string(self)

@@ -22,6 +22,9 @@ Info
 
 from typing import Any, Dict, Tuple, List, Optional
 from time import sleep
+from ats_utilities.factory import (
+    inject, get_private_attr, make_component, validate_component, format_instance_to_string
+)
 from ats_utilities.splash.isplash import ISplash
 from ats_utilities.checker.ichecker import IATSChecker
 from ats_utilities.checker.ats_checker import ATSChecker
@@ -100,22 +103,28 @@ class Splash(ISplash):
             :type checker: <Optional[IATSChecker]>
             :param reporter: ATSReporter for outputting messages | None
             :type reporter: <Optional[IATSReporter]>
-            :param verbose: Enable/Disable verbose option
+            :param verbose: Enable/Disable verbose option (default False)
             :type verbose: <bool>
             :exceptions: None
         '''
-        self.__checker: IATSChecker = checker or ATSChecker()
-        self.__reporter: IATSReporter = reporter or ATSReporter(self.__checker)
-        self.__verbose: bool = verbose
-        self.__splash_property: ISplashProperty = splash_property or SplashProperty(
-            self.__checker, self.__reporter, self.__verbose
+        # No dependency injection then use default ones.
+        inject(
+            self,
+            ('checker', checker, ATSChecker, None),
+            ('reporter', reporter, ATSReporter, ['checker']),
+            ('verbose', verbose, False, None),
+            ('splash_property', splash_property, SplashProperty, ['checker', 'reporter', 'verbose'])
         )
-        self.__splash_property.splash_property = prop
+        self._splash_property.splash_property = prop
 
-        if self.__splash_property.validates():
-            self.__terminal_property: ITerminalProperties = terminal_property or TerminalProperties(
-                self.__checker, self.__reporter, self.__verbose
+        if self._splash_property.validates():
+            dependencies: Dict[str, Any] = {
+            'checker': self._checker, 'reporter': self._reporter, 'verbose': self._verbose
+            }
+            self.__terminal_property: ITerminalProperties = make_component(
+                terminal_property, TerminalProperties, dependencies
             )
+            validate_component(self.__terminal_property, TerminalProperties, 'TerminalProperties')
             size: Tuple[Any, ...] = self.__terminal_property.size()
 
             if bool(prop['ats_use_github_infrastructure']):
@@ -128,18 +137,16 @@ class Splash(ISplash):
                         if bool(processed_line):
                             self.center(int(size[1]), 0, processed_line)
 
-                self.__github: IExtInfrastructure = github or GitHubInfrastructure(
-                    self.__checker, self.__reporter, self.__verbose
-                )
+                self.__github: IExtInfrastructure = make_component(github, GitHubInfrastructure, dependencies)
+                validate_component(self.__github, GitHubInfrastructure, 'GitHubInfrastructure')
                 self.__github.infrastructure_property = prop
                 self.center(int(size[1]), 2, self.__github.get_info_text())
                 self.center(int(size[1]), 2, self.__github.get_issue_text())
                 self.center(int(size[1]), 2, self.__github.get_author_text())
                 print("\n")
             else:
-                self.__ext: IExtInfrastructure = ext or ExtInfrastructure(
-                    self.__checker, self.__reporter, self.__verbose
-                )
+                self.__ext: IExtInfrastructure = make_component(ext, ExtInfrastructure, dependencies)
+                validate_component(self.__ext, ExtInfrastructure, 'ExtInfrastructure')
                 self.__ext.infrastructure_property = prop
                 self.center(int(size[1]), 2, self.__ext.get_info_text())
                 self.center(int(size[1]), 2, self.__ext.get_issue_text())
@@ -172,3 +179,57 @@ class Splash(ISplash):
         start_position: float = (columns / 2) - 30
         number_of_tabs = int((start_position / 8) - 1 + additional_shifter)
         print('{0}{1}'.format('\011' * number_of_tabs, text))
+
+    @property
+    def _checker(self) -> IATSChecker:
+        '''
+            Property method for getting the internal checker instance.
+
+            :return: The checker instance in IATSChecker format
+            :rtype: <IATSChecker>
+            :exceptions: None
+        '''
+        return get_private_attr(self, 'checker')
+
+    @property
+    def _reporter(self) -> IATSReporter:
+        '''
+            Property method for getting the internal reporter instance.
+
+            :return: The reporter instance in IATSReporter format
+            :rtype: <IATSReporter>
+            :exceptions: None
+        '''
+        return get_private_attr(self, 'reporter')
+
+    @property
+    def _verbose(self) -> bool:
+        '''
+            Property method for getting the internal verbose flag.
+
+            :return: The verbose flag in bool format
+            :rtype: <bool>
+            :exceptions: None
+        '''
+        return get_private_attr(self, 'verbose')
+
+    @property
+    def _splash_property(self) -> ISplashProperty:
+        '''
+            Property method for getting the internal splash property.
+
+            :return: The splash property in SplashProperty format
+            :rtype: <ISplashProperty>
+            :exceptions: None
+        '''
+        return get_private_attr(self, 'splash_property')
+
+    def __str__(self) -> str:
+        '''
+            Returns the string representation of splash.
+
+            :return: The splash as string
+            :rtype: <str>
+            :exceptions: None
+        '''
+        return format_instance_to_string(self)

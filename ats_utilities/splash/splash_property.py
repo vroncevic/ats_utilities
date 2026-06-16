@@ -21,6 +21,7 @@ Info
 '''
 
 from typing import Any, Dict, List, Optional
+from ats_utilities.factory import inject, get_private_attr, format_instance_to_string
 from ats_utilities.splash.isplash_property import ISplashProperty
 from ats_utilities.checker.ichecker import IATSChecker
 from ats_utilities.checker.ats_checker import ATSChecker
@@ -57,6 +58,7 @@ class SplashProperty(ISplashProperty):
                 | __init__ - Initials SplashProperty constructor.
                 | splash_property - Property method for get/set splash property.  
                 | validation - Validates splash property.
+                | _reporter - Property method for getting the internal reporter instance.
                 | __str__ - Returns the string representation of splash property.
     '''
 
@@ -81,14 +83,17 @@ class SplashProperty(ISplashProperty):
             :type checker: <Optional[IATSChecker]>
             :param reporter: Reporter for messaging (default set ATSReporter) | None
             :type reporter: <Optional[IATSReporter]>
-            :param verbose: Enable/Disable verbose option
+            :param verbose: Enable/Disable verbose option (default False)
             :type verbose: <bool>
             :exceptions: None
         '''
         # No dependency injection then use default ones.
-        self.__checker: IATSChecker = checker or ATSChecker()
-        self.__reporter: IATSReporter = reporter or ATSReporter(checker=self.__checker)
-        self.__verbose: bool = verbose
+        inject(
+            self,
+            ('checker', checker, ATSChecker, None),
+            ('reporter', reporter, ATSReporter, ['checker']),
+            ('verbose', verbose, False, None)
+        )
         self.__splash_property:  Optional[Dict[Any, Any]] = None
 
     @property
@@ -128,15 +133,26 @@ class SplashProperty(ISplashProperty):
             :exceptions: RuntimeError, AttributeError by vreporter
         '''
         if not self.__splash_property:
-            self.__reporter.error(['missing splash property'])
+            self._reporter.error(['missing splash property'])
             return False
 
         for key in self._EXPECTED_PROP_KEYS:
             if key not in self.__splash_property.keys():
-                self.__reporter.error([f'missing property {key}'])
+                self._reporter.error([f'missing property {key}'])
                 return False
 
         return True
+
+    @property
+    def _reporter(self) -> IATSReporter:
+        '''
+            Property method for getting the internal reporter instance.
+
+            :return: The reporter instance in IATSReporter format
+            :rtype: <IATSReporter>
+            :exceptions: None
+        '''
+        return get_private_attr(self, 'reporter')
 
     def __str__(self) -> str:
         '''
@@ -146,15 +162,4 @@ class SplashProperty(ISplashProperty):
             :rtype: <str>
             :exceptions: None
         '''
-        splash_property = str(self.__splash_property).replace('\n', '\n    ')
-        checker = str(self.__checker).replace('\n', '\n    ')
-        reporter = str(self.__reporter).replace('\n', '\n    ')
-        verbose = str(self.__verbose).replace('\n', '\n    ')
-
-        return (
-            f'<{self.__class__.__name__}(\n'
-            f'    splash_property={splash_property},\n'
-            f'    checker={checker},\n'
-            f'    reporter={reporter},\n'
-            f'    verbose={verbose}\n)> at 0x{id(self):x}'
-        )
+        return format_instance_to_string(self)

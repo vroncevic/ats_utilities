@@ -2,7 +2,7 @@
 
 '''
 Module
-    licence.py
+    ats_argument_parser.py
 Copyright
     Copyright (C) 2017 - 2026 Vladimir Roncevic <elektron.ronca@gmail.com>
     ats_utilities is free software: you can redistribute it and/or modify it
@@ -16,13 +16,14 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines class ATSLicence with attribute(s) and method(s).
-    Creates an API for the ATS licence in one property object.
+    Defines class ATSArgumentParser with attribute(s) and method(s).
+    Custom ArgumentParser to route errors to IATSReporter.
 '''
 
-from typing import List, Optional
-from ats_utilities.factory import inject, format_instance_to_string
-from ats_utilities.info.ilicence import IATSLicence
+import sys
+from typing import Any, List, Optional, NoReturn
+from argparse import ArgumentParser
+from ats_utilities.factory import inject, get_private_attr, format_instance_to_string
 from ats_utilities.checker.ichecker import IATSChecker
 from ats_utilities.checker.ats_checker import ATSChecker
 from ats_utilities.checker.proxy_validator import validator
@@ -40,11 +41,10 @@ __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
 
 
-class ATSLicence(IATSLicence):
+class ATSArgumentParser(ArgumentParser):
     '''
-        Defines class ATSLicence with attribute(s) and method(s).
-        Creates an API for the ATS licence in one property object.
-        The ATS license container.
+        Defines class ATSArgumentParser with attribute(s) and method(s).
+        Custom ArgumentParser to route errors to IATSReporter.
 
         It defines:
 
@@ -52,31 +52,37 @@ class ATSLicence(IATSLicence):
                 | __checker - Parameters checker (default set ATSChecker).
                 | __reporter - Reporter for messaging (default ATSReporter).
                 | __verbose - Enable/Disable verbose option (default False).
-                | __licence - The ATS licence (default None).
             :methods:
-                | __init__ - Initials ATSLicence constructor.
-                | licence - Property methods for set/get operations.
-                | is_licence_not_none - Checks is ATS licence is not None.
-                | __str__ - Returns the string representation of ATS licence.
+                | __init__ - Initials ATSArgumentParser constructor.
+                | error - Overrides default error handling to use IATSReporter.
+                | _reporter - Property method for getting the internal reporter instance.
+                | __str__ - Returns the string representation of ATSArgumentParser.
     '''
 
     def __init__(
         self,
+        *args: Any,
         checker: Optional[IATSChecker] = None,
         reporter: Optional[IATSReporter] = None,
-        verbose: bool = False
+        verbose: bool = False,
+        **kwargs: Any
     ) -> None:
         '''
-            Initials ATSLicence constructor.
+            Initials ATSArgumentParser constructor.
 
+            :param args: Additional positional arguments
+            :type args: <Any>
             :param checker: Parameters checker (default set ATSChecker) | None
             :type checker: <Optional[IATSChecker]>
-            :param reporter: Reporter for messaging (default set ATSReporter) | None
+            :param reporter: ATSReporter for outputting messages | None
             :type reporter: <Optional[IATSReporter]>
             :param verbose: Enable/Disable verbose option (default False)
             :type verbose: <bool>
+            :param kwargs: Additional keyword arguments
+            :type kwargs: <Any>
             :exceptions: None
         '''
+        super().__init__(*args, **kwargs)
         # No dependency injection then use default ones.
         inject(
             self,
@@ -84,51 +90,38 @@ class ATSLicence(IATSLicence):
             ('reporter', reporter, ATSReporter, ['checker']),
             ('verbose', verbose, False, None)
         )
-        self.__licence: Optional[str] = None
+
+    @validator([('str:message', None)])
+    @vreporter('argument error: {message}')
+    def error(self, message: str) -> NoReturn:
+        '''
+            Overrides default error handling to use IATSReporter.
+
+            :param message: Error message to report
+            :type message: <str>
+            :return: None
+            :rtype: <NoReturn>
+            :exceptions: None
+        '''
+        self._reporter.error([f'argument error: {message}'])
+        sys.exit(2)
 
     @property
-    @vreporter('get licence {licence}')
-    def licence(self) -> Optional[str]:
+    def _reporter(self) -> IATSReporter:
         '''
-            Property method for getting ATS licence.
+            Property method for getting the internal reporter instance.
 
-            :return: The ATS licence in string format | None
-            :rtype: <Optional[str]>
-            :exceptions: RuntimeError, AttributeError by vreporter
+            :return: The reporter instance in IATSReporter format
+            :rtype: <IATSReporter>
+            :exceptions: None
         '''
-        return self.__licence
-
-    @licence.setter
-    @validator([('Optional[str]:licence', None)])
-    @vreporter('set licence {licence}')
-    def licence(self, licence: Optional[str]) -> None:
-        '''
-            Property method for setting ATS licence.
-
-            :param licence: The ATS licence in string format | None
-            :type licence: <Optional[str]>
-            :exceptions:
-                | ATSTypeError, ATSValueError by validator
-                | RuntimeError, AttributeError by vreporter
-        '''
-        self.__licence = licence
-
-    @vreporter('check licence {licence}')
-    def is_licence_not_none(self) -> bool:
-        '''
-            Checks is ATS licence not None.
-
-            :return: True (ATS licence is not None) | False (ATS licence is None)
-            :rtype: <bool>
-            :exceptions: RuntimeError, AttributeError by vreporter
-        '''
-        return self.__licence is not None
+        return get_private_attr(self, 'reporter')
 
     def __str__(self) -> str:
         '''
-            Returns the string representation of ATS licence.
+            Returns the string representation of ATSArgumentParser.
 
-            :return: The ATS licence string representation
+            :return: The ATSArgumentParser as string
             :rtype: <str>
             :exceptions: None
         '''
