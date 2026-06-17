@@ -21,13 +21,13 @@ Info
 '''
 
 from typing import Any, List, Tuple, Dict, Optional
-from ats_utilities.factory import inject, get_private_attr, format_instance_to_string
+from ats_utilities.factory_class import inject, get_private_attr, format_instance_to_string
 from ats_utilities.config_io.iconf_file import IConfFile
-from ats_utilities.checker.ichecker import IATSChecker
-from ats_utilities.checker.ats_checker import ATSChecker
-from ats_utilities.console_io.ireporter import IATSReporter
-from ats_utilities.console_io.reporter import ATSReporter
-from ats_utilities.console_io.proxy_reporter import vreporter
+from ats_utilities.checker.ichecker import IChecker
+from ats_utilities.checker.engine import ATSChecker
+from ats_utilities.reporter.ireporter import IReporter
+from ats_utilities.reporter.engine import ATSReporter
+from ats_utilities.reporter.proxy_reporter import vreporter
 from ats_utilities.config_io.ifile_check import IFileCheck
 from ats_utilities.config_io.file_check import FileCheck
 from ats_utilities.config_io.iconf_file import File
@@ -70,8 +70,8 @@ class ConfFile(IConfFile):
         file_path: Optional[str],
         file_mode: Optional[str],
         file_format: Optional[str],
-        checker: Optional[IATSChecker] = None,
-        reporter: Optional[IATSReporter] = None,
+        checker: Optional[IChecker] = None,
+        reporter: Optional[IReporter] = None,
         file_checker: Optional[IFileCheck] = None,
         verbose: bool = False
     ) -> None:
@@ -85,9 +85,9 @@ class ConfFile(IConfFile):
             :param file_format: Configuration file format (default set None) | None
             :type file_format: <Optional[str]>
             :param checker: Parameters checker (default set ATSChecker) | None
-            :type checker: <Optional[IATSChecker]>
+            :type checker: <Optional[IChecker]>
             :param reporter: Reporter for messaging (default set ATSReporter) | None
-            :type reporter: <Optional[IATSReporter]>
+            :type reporter: <Optional[IReporter]>
             :param file_checker: Checking operations (default set FileCheck) | None
             :type file_checker: <Optional[IFileCheck]>
             :param verbose: Enable/Disable verbose option (default False)

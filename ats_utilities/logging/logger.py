@@ -25,13 +25,13 @@ from enum import Enum
 from logging import (
     getLogger, basicConfig, Logger, DEBUG, WARNING, CRITICAL, ERROR, INFO
 )
-from ats_utilities.factory import inject, get_private_attr, format_instance_to_string
+from ats_utilities.factory_class import inject, get_private_attr, format_instance_to_string
 from ats_utilities.logging.ilogger import IATSLogger, LogFormats
-from ats_utilities.checker.ichecker import IATSChecker
-from ats_utilities.checker.ats_checker import ATSChecker
+from ats_utilities.checker.ichecker import IChecker
+from ats_utilities.checker.engine import ATSChecker
 from ats_utilities.checker.proxy_validator import validator
-from ats_utilities.console_io.ireporter import IATSReporter
-from ats_utilities.console_io.reporter import ATSReporter
+from ats_utilities.reporter.ireporter import IReporter
+from ats_utilities.reporter.engine import ATSReporter
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -124,8 +124,8 @@ class ATSLogger(IATSLogger):
         ats_log_stdout: bool = True,
         ats_log_file: Optional[str] = None,
         configure_logging: bool = True,
-        checker: Optional[IATSChecker] = None,
-        reporter: Optional[IATSReporter] = None,
+        checker: Optional[IChecker] = None,
+        reporter: Optional[IReporter] = None,
         verbose: bool = False
     ) -> None:
         '''
@@ -140,9 +140,9 @@ class ATSLogger(IATSLogger):
             :param configure_logging: Configure logging (default True)
             :type configure_logging: <bool>
             :param checker: Parameters checker (default set ATSChecker) | None
-            :type checker: <Optional[IATSChecker]>
+            :type checker: <Optional[IChecker]>
             :param reporter: Reporter for messaging (default set ATSReporter) | None
-            :type reporter: <Optional[IATSReporter]>
+            :type reporter: <Optional[IReporter]>
             :param verbose: Enable/Disable verbose option (default False)
             :type verbose: <bool>
             :exceptions: None
@@ -203,12 +203,12 @@ class ATSLogger(IATSLogger):
         return False
 
     @property
-    def _reporter(self) -> IATSReporter:
+    def _reporter(self) -> IReporter:
         '''
             Property method for getting the internal reporter instance.
 
-            :return: The reporter instance in IATSReporter format
-            :rtype: <IATSReporter>
+            :return: The reporter instance in IReporter format
+            :rtype: <IReporter>
             :exceptions: None
         '''
         return get_private_attr(self, 'reporter')

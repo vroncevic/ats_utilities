@@ -17,7 +17,7 @@ Copyright
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
     Defines vreporter decorator for automatic console logging via templates.
-    Utility for proxy reporting that borrows IATSReporter from class instances
+    Utility for proxy reporting that borrows IReporter from class instances
     and supports multiple message templates and variables.
 '''
 

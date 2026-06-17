@@ -30,10 +30,10 @@ from os.path import dirname
 from ats_utilities.config_io.json.jsonbase import JsonBase
 from ats_utilities.config_io.iread import IRead
 from ats_utilities.config_io.iwrite import IWrite
-from ats_utilities.checker.ichecker import IATSChecker
+from ats_utilities.checker.ichecker import IChecker
 from ats_utilities.option.ats_option_parser import ATSOptionParser
-from ats_utilities.console_io.ireporter import IATSReporter
-from ats_utilities.console_io.reporter import ATSReporter
+from ats_utilities.reporter.ireporter import IReporter
+from ats_utilities.reporter.engine import ATSReporter
 from ats_utilities.exceptions.ats_type_error import ATSTypeError
 
 __author__: str = 'Vladimir Roncevic'
@@ -52,7 +52,7 @@ class ATSBaseJson(JsonBase):
     _CONFIG: str = '/config/correct/ats_cli_json_api.json'
     _OPS: List[str] = ['-t', '--test', '-v']
 
-    def __init__(self, reporter: IATSReporter = ATSReporter(), verbose: bool = False) -> None:
+    def __init__(self, reporter: IReporter = ATSReporter(), verbose: bool = False) -> None:
         '''Initial constructor.'''
         current_dir: str = dirname(__file__)
         base_info: str = f'{current_dir}{self._CONFIG}'
@@ -109,8 +109,8 @@ class JsonBaseUnitTestCase(TestCase):
 
             :attributes:
                 | config_path - Path for configuration file.
-                | mock_checker - Mocked IATSChecker.
-                | mock_reporter - Mocked IATSReporter.
+                | mock_checker - Mocked IChecker.
+                | mock_reporter - Mocked IReporter.
                 | mock_json2obj - Mocked IRead interface.
                 | mock_obj2json - Mocked IWrite interface.
             :methods:
@@ -124,8 +124,8 @@ class JsonBaseUnitTestCase(TestCase):
     def setUp(self) -> None:
         '''Set up test environment.'''
         self.config_path = 'ats_cli_json_api.json'
-        self.mock_checker = MagicMock(spec=IATSChecker)
-        self.mock_reporter = MagicMock(spec=IATSReporter)
+        self.mock_checker = MagicMock(spec=IChecker)
+        self.mock_reporter = MagicMock(spec=IReporter)
         self.mock_json2obj = MagicMock(spec=IRead)
         self.mock_obj2json = MagicMock(spec=IWrite)
 
@@ -160,8 +160,8 @@ class JsonBaseUnitTestCase(TestCase):
         '''Test JsonBase when it is operational.'''
         operational_mock_json2obj = MagicMock(spec=IRead)
         operational_mock_obj2json = MagicMock(spec=IWrite)
-        operational_mock_checker = MagicMock(spec=IATSChecker)
-        operational_mock_reporter = MagicMock(spec=IATSReporter)
+        operational_mock_checker = MagicMock(spec=IChecker)
+        operational_mock_reporter = MagicMock(spec=IReporter)
         operational_mock_options_parser = MagicMock(spec=ATSOptionParser)
 
         operational_mock_checker.validate_parameters.return_value = ('', 0)

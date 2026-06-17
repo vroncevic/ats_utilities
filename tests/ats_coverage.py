@@ -26,9 +26,9 @@ from json import load
 from unittest import TestLoader, TestSuite, TextTestRunner
 from pathlib import Path
 from coverage import Coverage
-from ats_utilities.checker.ats_checker import ATSChecker
+from ats_utilities.checker.engine import ATSChecker
 from ats_utilities.checker.ichecker import ErrorChecker
-from ats_utilities.console_io.reporter import ATSReporter
+from ats_utilities.reporter.engine import ATSReporter
 from ats_utilities.option.ats_option_parser import ATSOptionParser
 from ats_utilities.option.option_namespace import OptionNamespace
 from ats_utilities.exceptions.ats_type_error import ATSTypeError

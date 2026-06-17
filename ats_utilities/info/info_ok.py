@@ -21,14 +21,12 @@ Info
 '''
 
 from typing import List, Optional
-from ats_utilities.factory import inject, format_instance_to_string
-from ats_utilities.info.iinfo_ok import IATSInfoOk
-from ats_utilities.checker.ichecker import IATSChecker
-from ats_utilities.checker.ats_checker import ATSChecker
+from ats_utilities.info.iinfo_ok import IInfoOk
+from ats_utilities.context_bundle import ContextBundle
+from ats_utilities.factory_context_bundle import factory_context_bundle
+from ats_utilities.factory_class import format_instance_to_string
 from ats_utilities.checker.proxy_validator import validator
-from ats_utilities.console_io.ireporter import IATSReporter
-from ats_utilities.console_io.reporter import ATSReporter
-from ats_utilities.console_io.proxy_reporter import vreporter
+from ats_utilities.reporter.proxy_reporter import vreporter
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -40,49 +38,33 @@ __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
 
 
-class ATSInfoOk(IATSInfoOk):
+class ATSInfoOk(IInfoOk):
     '''
         Defines class ATSInfoOk with attribute(s) and method(s).
         Creates an API for the ATS info status in one property object.
-        The ATS info status container.
 
         It defines:
 
             :attributes:
-                | __checker - Parameters checker (default set ATSChecker).
+                | __checker - Parameters checker (default ATSChecker).
                 | __reporter - Reporter for messaging (default ATSReporter).
                 | __verbose - Enable/Disable verbose option (default False).
                 | __info_ok - The ATS information status (default False).
             :methods:
                 | __init__ - Initials ATSInfoOk constructor.
-                | ats_info_ok - Property methods for set/get operations.
+                | info_ok - Property methods for set/get information status.
                 | __str__ - Returns the string representation of ATS info status.
     '''
 
-    def __init__(
-        self,
-        checker: Optional[IATSChecker] = None,
-        reporter: Optional[IATSReporter] = None,
-        verbose: bool = False
-    ) -> None:
+    def __init__(self, info_bundle: Optional[ContextBundle] = None) -> None:
         '''
             Initials ATSInfoOk constructor.
 
-            :param checker: Parameters checker (default set ATSChecker) | None
-            :type checker: <Optional[IATSChecker]>
-            :param reporter: Reporter for messaging (default set ATSReporter) | None
-            :type reporter: <Optional[IATSReporter]>
-            :param verbose: Enable/Disable verbose option (default False)
-            :type verbose: <bool>
+            :param info_bundle: Bundle with checker, reporter and verbose | None
+            :type info_bundle: <Optional[ContextBundle]>
             :exceptions: None
         '''
-        # No dependency injection then use default ones.
-        inject(
-            self,
-            ('checker', checker, ATSChecker, None),
-            ('reporter', reporter, ATSReporter, ['checker']),
-            ('verbose', verbose, False, None)
-        )
+        factory_context_bundle(self, info_bundle)
         self.__info_ok: bool = False
 
     @property
@@ -114,9 +96,9 @@ class ATSInfoOk(IATSInfoOk):
 
     def __str__(self) -> str:
         '''
-            Returns the string representation of ATS info status.
+            Returns the string representation of the ATS info status.
 
-            :return: The ATS info status string representation
+            :return: The ATS info status instance as string representation
             :rtype: <str>
             :exceptions: None
         '''

@@ -42,9 +42,9 @@ class IProConfig(ABC):
 
             :attributes: None.
             :methods:
-                | config - Property methods for set/get operations.
-                | is_config_ok - Checks is project configuration ok.
-                | __str__ - Returns the string representation of ATS project configuration.
+                | config - Property methods for set/get operations (abstract).
+                | not_none - Checks project configuration is not None (abstract).
+                | __str__ - Returns the string representation of ATS project configuration (abstract).
     '''
 
     @property
@@ -72,23 +72,23 @@ class IProConfig(ABC):
         raise NotImplementedError("Method config() must be implemented.")
 
     @abstractmethod
-    def is_config_ok(self) -> bool:
+    def not_none(self) -> bool:
         '''
-            Checks is project configuration ok.
+            Checks project configuration is not None.
 
-            :return: True (configuration is ok) | False (configuration is not ok)
+            :return: True (success) | False (fail)
             :rtype: <bool>
             :exceptions: NotImplementedError
         '''
-        raise NotImplementedError("Method is_config_ok() must be implemented.")
+        raise NotImplementedError("Method not_none() must be implemented.")
 
     @abstractmethod
     def __str__(self) -> str:
         '''
             Returns the string representation of ATS project configuration.
 
-            :return: The ATS project configuration as string
+            :return: The ATS project configuration as string representation
             :rtype: <str>
             :exceptions: NotImplementedError
         '''
-        raise NotImplementedError("Subclasses must implement __str__ method")
+        raise NotImplementedError("Method __str__() must be implemented.")

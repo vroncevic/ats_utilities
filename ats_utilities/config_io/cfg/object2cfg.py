@@ -21,17 +21,18 @@ Info
 '''
 
 from typing import List, Optional
-from ats_utilities.factory import inject, get_private_attr, format_instance_to_string
+from ats_utilities.factory_class import inject, get_private_attr, format_instance_to_string
 from ats_utilities.config_io.iwrite import IWrite
-from ats_utilities.checker.ichecker import IATSChecker
-from ats_utilities.checker.ats_checker import ATSChecker
+from ats_utilities.checker.ichecker import IChecker
+from ats_utilities.checker.engine import ATSChecker
 from ats_utilities.checker.proxy_validator import validator
-from ats_utilities.console_io.ireporter import IATSReporter
-from ats_utilities.console_io.reporter import ATSReporter
-from ats_utilities.console_io.proxy_reporter import vreporter
+from ats_utilities.reporter.ireporter import IReporter
+from ats_utilities.reporter.engine import ATSReporter
+from ats_utilities.reporter.proxy_reporter import vreporter
 from ats_utilities.config_io.conf_file import ConfFile
 from ats_utilities.config_io.ifile_check import IFileCheck
 from ats_utilities.config_io.file_check import FileCheck
+from ats_utilities.config_io.config_bundle import ATSConfigBundle
 from ats_utilities.config_io.cfg.icfg_processor import ICFGProcessor
 
 __author__: str = 'Vladimir Roncevic'
@@ -76,33 +77,27 @@ class Object2Cfg(IWrite):
     def __init__(
         self,
         config_file: Optional[str],
-        checker: Optional[IATSChecker] = None,
-        reporter: Optional[IATSReporter] = None,
-        file_checker: Optional[IFileCheck] = None,
-        verbose: bool = False
+        config_bundle: Optional[ATSConfigBundle] = None
     ) -> None:
         '''
             Initials Object2Cfg constructor.
 
             :param config_file: Configuration file path | None
             :type config_file: <Optional[str]>
-            :param checker: Parameters checker (default set ATSChecker) | None
-            :type checker: <Optional[IATSChecker]>
-            :param reporter: Reporter for messaging (default set ATSReporter) | None
-            :type reporter: <Optional[IATSReporter]>
-            :param file_checker: FileCheck for checking file | None
-            :type file_checker: <Optional[IFileCheck]>
-            :param verbose: Enable/Disable verbose option (default False)
-            :type verbose: <bool>
+            :param config_bundle: Configuration bundle (default set ATSConfigBundle) | None
+            :type config_bundle: <Optional[ATSConfigBundle]>
             :exceptions: ATSTypeError
         '''
+        if not bool(config_bundle):
+            config_bundle = ATSConfigBundle()
+
         # No dependency injection then use default ones.
         inject(
             self,
-            ('checker', checker, ATSChecker, None),
-            ('reporter', reporter, ATSReporter, ['checker']),
-            ('verbose', verbose, False, None),
-            ('file_checker', file_checker, FileCheck, ['checker', 'reporter', 'verbose'])
+            ('checker', config_bundle.checker, ATSChecker, None),
+            ('reporter', config_bundle.reporter, ATSReporter, ['checker']),
+            ('verbose', config_bundle.verbose, False, None),
+            ('file_checker', config_bundle.file_checker, FileCheck, ['checker', 'reporter', 'verbose'])
         )
         self.__file_path: str = str(config_file)
 
@@ -145,23 +140,23 @@ class Object2Cfg(IWrite):
         return status
 
     @property
-    def _checker(self) -> IATSChecker:
+    def _checker(self) -> IChecker:
         '''
             Property method for getting the internal checker instance.
 
-            :return: The checker instance in IATSChecker format
-            :rtype: <IATSChecker>
+            :return: The checker instance in IChecker format
+            :rtype: <IChecker>
             :exceptions: None
         '''
         return get_private_attr(self, 'checker')
 
     @property
-    def _reporter(self) -> IATSReporter:
+    def _reporter(self) -> IReporter:
         '''
             Property method for getting the internal reporter instance.
 
-            :return: The reporter instance in IATSReporter format
-            :rtype: <IATSReporter>
+            :return: The reporter instance in IReporter format
+            :rtype: <IReporter>
             :exceptions: None
         '''
         return get_private_attr(self, 'reporter')

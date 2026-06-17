@@ -21,7 +21,7 @@ Info
 '''
 
 from typing import List
-from ats_utilities.factory import format_instance_to_string
+from ats_utilities.factory_class import format_instance_to_string
 from ats_utilities.checker.icheck_reporter import IATSCheckReporter, ParamMetadata
 
 __author__: str = 'Vladimir Roncevic'

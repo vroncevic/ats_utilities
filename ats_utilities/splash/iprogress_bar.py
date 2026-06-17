@@ -57,7 +57,7 @@ class IProgressBar(ABC):
             :type level: <int>
             :exceptions: NotImplementedError
         '''
-        raise NotImplementedError("Subclasses must implement set_level method")
+        raise NotImplementedError("Method set_level() must be implemented.")
 
     @abstractmethod
     def plot_progress(self, columns: int) -> None:
@@ -68,7 +68,7 @@ class IProgressBar(ABC):
             :type columns: <int>
             :exceptions: NotImplementedError
         '''
-        raise NotImplementedError("Subclasses must implement plot_progress method")
+        raise NotImplementedError("Method plot_progress() must be implemented.")
 
     @abstractmethod
     def set_and_plot(self, level: int, columns: int) -> None:
@@ -81,15 +81,15 @@ class IProgressBar(ABC):
             :type columns: <int>
             :exceptions: NotImplementedError
         '''
-        raise NotImplementedError("Subclasses must implement set_and_plot method")
+        raise NotImplementedError("Method set_and_plot() must be implemented.")
 
     @abstractmethod
     def __str__(self) -> str:
         '''
             Returns the string representation of progress bar component.
 
-            :return: The progress bar component as string
+            :return: The progress bar component as string representation
             :rtype: <str>
             :exceptions: NotImplementedError
         '''
-        raise NotImplementedError("Subclasses must implement __str__ method")
+        raise NotImplementedError("Method __str__() must be implemented.")

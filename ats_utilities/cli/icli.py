@@ -112,4 +112,4 @@ class IATSCli(ABC):
             :rtype: <str>
             :exceptions: NotImplementedError
         '''
-        raise NotImplementedError("Subclasses must implement __str__ method")
+        raise NotImplementedError("Method __str__() must be implemented.")

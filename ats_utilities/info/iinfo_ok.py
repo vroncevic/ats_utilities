@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines interface IATSInfoOk with attribute(s) and method(s).
+    Defines interface IInfoOk with attribute(s) and method(s).
     Interface for the ATS info status mechanism.
 '''
 
@@ -33,17 +33,17 @@ __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
 
 
-class IATSInfoOk(ABC):
+class IInfoOk(ABC):
     '''
-        Defines interface IATSInfoOk with attribute(s) and method(s).
+        Defines interface IInfoOk with attribute(s) and method(s).
         Interface for the ATS info status mechanism.
 
         It defines:
 
             :attributes: None.
             :methods:
-                | info_ok - Property methods for set/get operations.
-                | __str__ - Returns the string representation of ATS info status.
+                | info_ok - Property methods for set/get operations (abstract).
+                | __str__ - Returns the string representation of ATS info status (abstract).
     '''
 
     @property
@@ -52,11 +52,11 @@ class IATSInfoOk(ABC):
         '''
             Property method for getting ATS information status.
 
-            :return: The ATS information status
+            :return: The ATS information status in bool format
             :rtype: <bool>
             :exceptions: NotImplementedError
         '''
-        raise NotImplementedError("Subclasses must implement info_ok getter")
+        raise NotImplementedError("Method info_ok must be implemented.")
 
     @info_ok.setter
     @abstractmethod
@@ -64,19 +64,19 @@ class IATSInfoOk(ABC):
         '''
             Property method for setting ATS information status.
 
-            :param info_ok: The ATS information status
+            :param info_ok: The ATS information status in bool format
             :type info_ok: <bool>
             :exceptions: NotImplementedError
         '''
-        raise NotImplementedError("Subclasses must implement info_ok setter")
+        raise NotImplementedError("Method info_ok() must be implemented.")
 
     @abstractmethod
     def __str__(self) -> str:
         '''
             Returns the string representation of ATS info status.
 
-            :return: The ATS info status string
+            :return: The ATS info status instance as string representation
             :rtype: <str>
             :exceptions: NotImplementedError
         '''
-        raise NotImplementedError("Subclasses must implement __str__ method")
+        raise NotImplementedError("Method __str__() must be implemented.")

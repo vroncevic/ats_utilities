@@ -21,16 +21,16 @@ Info
 '''
 
 from typing import Any, List, Dict, Optional
-from ats_utilities.factory import inject, get_private_attr, format_instance_to_string
+from ats_utilities.factory_class import inject, get_private_attr, format_instance_to_string
 from ats_utilities.option.ioption_parser import IATSOptionParser
 from ats_utilities.option.iparser_strategy import IATSArgParseStrategy
 from ats_utilities.option.ats_parser_strategy import ATSArgParseStrategy
-from ats_utilities.checker.ichecker import IATSChecker
-from ats_utilities.checker.ats_checker import ATSChecker
+from ats_utilities.checker.ichecker import IChecker
+from ats_utilities.checker.engine import ATSChecker
 from ats_utilities.checker.proxy_validator import validator
-from ats_utilities.console_io.ireporter import IATSReporter
-from ats_utilities.console_io.reporter import ATSReporter
-from ats_utilities.console_io.proxy_reporter import vreporter
+from ats_utilities.reporter.ireporter import IReporter
+from ats_utilities.reporter.engine import ATSReporter
+from ats_utilities.reporter.proxy_reporter import vreporter
 from ats_utilities.option.option_namespace import OptionNamespace
 from ats_utilities.option.option_namespace import OptArgs
 
@@ -71,8 +71,8 @@ class ATSOptionParser(IATSOptionParser):
         self,
         parameters: Dict[str, str],
         strategy: Optional[IATSArgParseStrategy] = None,
-        checker: Optional[IATSChecker] = None,
-        reporter: Optional[IATSReporter] = None,
+        checker: Optional[IChecker] = None,
+        reporter: Optional[IReporter] = None,
         verbose: bool = False
     ) -> None:
         '''
@@ -83,9 +83,9 @@ class ATSOptionParser(IATSOptionParser):
             :param strategy: Strategy for argument parsing | None
             :type strategy: <Optional[IATSArgParseStrategy]>
             :param checker: Parameters checker (default set ATSChecker) | None
-            :type checker: <Optional[IATSChecker]>
+            :type checker: <Optional[IChecker]>
             :param reporter: ATSReporter for outputting messages | None 
-            :type reporter: <Optional[IATSReporter]>
+            :type reporter: <Optional[IReporter]>
             :param verbose: Enable/Disable verbose option (default False)
             :type verbose: <bool>
             :exceptions: ATSTypeError by validates_parameters

@@ -24,10 +24,10 @@ Execute
 
 from typing import Any, Dict, Tuple, List, Set, Optional
 from unittest import TestCase, main, mock
-from ats_utilities.checker.ats_checker import ATSChecker
-from ats_utilities.checker.ichecker import ErrorChecker, IATSChecker, ParametersSpecs
-from ats_utilities.console_io.ireporter import IATSReporter
-from ats_utilities.console_io.reporter import ATSReporter
+from ats_utilities.checker.engine import ATSChecker
+from ats_utilities.checker.ichecker import ErrorChecker, IChecker, ParametersSpecs
+from ats_utilities.reporter.ireporter import IReporter
+from ats_utilities.reporter.engine import ATSReporter
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -42,7 +42,7 @@ __status__: str = 'Updated'
 class ATSBaseChecker(ATSChecker):
     '''Simple Class for checking ATSChecker.'''
 
-    def __init__(self, reporter: IATSReporter = ATSReporter(), verbose: bool = False) -> None:
+    def __init__(self, reporter: IReporter = ATSReporter(), verbose: bool = False) -> None:
         '''Initial constructor.'''
         super().__init__()
         self._verbose = verbose
@@ -281,7 +281,7 @@ class ATSCheckerTestCase(TestCase):
 
 class ATSCheckerUnitTestCase(TestCase):
     '''
-        Unit tests for IATSChecker interface using mocks.
+        Unit tests for IChecker interface using mocks.
 
         It defines:
             :methods:
@@ -291,7 +291,7 @@ class ATSCheckerUnitTestCase(TestCase):
 
     def setUp(self) -> None:
         '''Set up test environment.'''
-        self.mock_checker = mock.MagicMock(spec=IATSChecker)
+        self.mock_checker = mock.MagicMock(spec=IChecker)
 
     def test_mock_validate_parameters(self) -> None:
         '''Test mock interaction for validate_parameters.'''

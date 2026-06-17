@@ -21,14 +21,12 @@ Info
 '''
 
 from typing import List, Optional
-from ats_utilities.factory import inject, format_instance_to_string
-from ats_utilities.info.iversion import IATSVersion
-from ats_utilities.checker.ichecker import IATSChecker
-from ats_utilities.checker.ats_checker import ATSChecker
+from ats_utilities.info.iversion import IVersion
+from ats_utilities.context_bundle import ContextBundle
+from ats_utilities.factory_context_bundle import factory_context_bundle
+from ats_utilities.factory_class import format_instance_to_string
 from ats_utilities.checker.proxy_validator import validator
-from ats_utilities.console_io.ireporter import IATSReporter
-from ats_utilities.console_io.reporter import ATSReporter
-from ats_utilities.console_io.proxy_reporter import vreporter
+from ats_utilities.reporter.proxy_reporter import vreporter
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -40,50 +38,34 @@ __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
 
 
-class ATSVersion(IATSVersion):
+class ATSVersion(IVersion):
     '''
         Defines class ATSVersion with attribute(s) and method(s).
         Creates an API for the ATS version in one property object.
-        The ATS version container.
 
         It defines:
 
             :attributes:
-                | __checker - Parameters checker (default set ATSChecker).
+                | __checker - Parameters checker (default ATSChecker).
                 | __reporter - Reporter for messaging (default ATSReporter).
                 | __verbose - Enable/Disable verbose option (default False).
                 | __version - The ATS version (default None).
             :methods:
                 | __init__ - Initials ATSVersion constructor.
-                | version - Property methods for set/get operations.
-                | is_version_not_none - Checks is ATS version not None.
+                | version - Property methods for set/get version.
+                | not_none - Checks is ATS version not None.
                 | __str__ - Returns the string representation of ATS version.
     '''
 
-    def __init__(
-        self,
-        checker: Optional[IATSChecker] = None,
-        reporter: Optional[IATSReporter] = None,
-        verbose: bool = False
-    ) -> None:
+    def __init__(self, info_bundle: Optional[ContextBundle] = None) -> None:
         '''
             Initials ATSVersion constructor.
 
-            :param checker: Parameters checker (default set ATSChecker) | None
-            :type checker: <Optional[IATSChecker]>
-            :param reporter: Reporter for messaging (default set ATSReporter) | None
-            :type reporter: <Optional[IATSReporter]>
-            :param verbose: Enable/Disable verbose option (default False)
-            :type verbose: <bool>
+            :param info_bundle: Bundle with checker, reporter and verbose | None
+            :type info_bundle: <Optional[ContextBundle]>
             :exceptions: None
         '''
-        # No dependency injection then use default ones.
-        inject(
-            self,
-            ('checker', checker, ATSChecker, None),
-            ('reporter', reporter, ATSReporter, ['checker']),
-            ('verbose', verbose, False, None)
-        )
+        factory_context_bundle(self, info_bundle)
         self.__version: Optional[str] = None
 
     @property
@@ -92,7 +74,7 @@ class ATSVersion(IATSVersion):
         '''
             Property method for getting ATS version.
 
-            :return: The ATS version | None
+            :return: The ATS version in string format | None
             :rtype: <Optional[str]>
             :exceptions: RuntimeError, AttributeError by vreporter
         '''
@@ -105,7 +87,7 @@ class ATSVersion(IATSVersion):
         '''
             Property method for setting ATS version.
 
-            :param version: The ATS version | None
+            :param version: The ATS version in string format | None
             :type version: <Optional[str]>
             :exceptions:
                 | ATSTypeError, ATSValueError by validator
@@ -114,11 +96,11 @@ class ATSVersion(IATSVersion):
         self.__version = version
 
     @vreporter('check version {version}')
-    def is_version_not_none(self) -> bool:
+    def not_none(self) -> bool:
         '''
             Checks is ATS version not None.
 
-            :return: True (version is not None) | False (version is None)
+            :return: True (success) | False (fail)
             :rtype: <bool>
             :exceptions: RuntimeError, AttributeError by vreporter
         '''
@@ -126,9 +108,9 @@ class ATSVersion(IATSVersion):
 
     def __str__(self) -> str:
         '''
-            Returns the string representation of the ATS version instance.
+            Returns the string representation of the ATS version.
 
-            :return: The ATS version string representation
+            :return: The ATS version instance as string representation
             :rtype: <str>
             :exceptions: None
         '''

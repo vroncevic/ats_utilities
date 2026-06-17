@@ -24,8 +24,8 @@ Execute
 
 from typing import List
 from unittest import TestCase, main, mock
-from ats_utilities.console_io.ireporter import IATSReporter
-from ats_utilities.console_io.reporter import ATSReporter
+from ats_utilities.reporter.ireporter import IReporter
+from ats_utilities.reporter.engine import ATSReporter
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -87,12 +87,12 @@ class ReporterTestCase(TestCase):
 
 class ReporterUnitTestCase(TestCase):
     '''
-        Unit tests for IATSReporter interface using mocks.
+        Unit tests for IReporter interface using mocks.
 
         It defines:
 
             :attributes:
-                | mock_reporter - Mocked IATSReporter.
+                | mock_reporter - Mocked IReporter.
             :methods:
                 | setUp - Set up test environment with mocks.
                 | test_mock_success - Test success call on mock.
@@ -103,7 +103,7 @@ class ReporterUnitTestCase(TestCase):
 
     def setUp(self) -> None:
         '''Set up test environment.'''
-        self.mock_reporter = mock.MagicMock(spec=IATSReporter)
+        self.mock_reporter = mock.MagicMock(spec=IReporter)
 
     def test_mock_success(self) -> None:
         '''Test success call on mock.'''

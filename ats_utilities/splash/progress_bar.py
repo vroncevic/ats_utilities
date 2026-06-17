@@ -22,6 +22,7 @@ Info
 
 import sys
 from typing import List
+from ats_utilities.factory_class import format_instance_to_string
 from ats_utilities.splash.iprogress_bar import IProgressBar
 
 __author__: str = 'Vladimir Roncevic'
@@ -148,23 +149,8 @@ class ProgressBar(IProgressBar):
         '''
             Returns the string representation of progress bar component.
 
-            :return: The progress bar component as string
+            :return: The progress bar component as string representation
             :rtype: <str>
             :exceptions: NotImplementedError
         '''
-        start = str(self.__start).replace('\n', '\n    ')
-        end = str(self.__end).replace('\n', '\n    ')
-        bar_length = str(self.__bar_length).replace('\n', '\n    ')
-        level = str(self.__level).replace('\n', '\n    ')
-        plotted = str(self.__plotted).replace('\n', '\n    ')
-        level_chars = str(self.__level_chars).replace('\n', '\n    ')
-
-        return (
-            f'<{self.__class__.__name__}(\n'
-            f'    start={start},\n'
-            f'    end={end},\n'
-            f'    bar_length={bar_length},\n'
-            f'    plotted={plotted},\n'
-            f'    level_chars={level_chars},\n'
-            f'    level={level}\n)> at 0x{id(self):x}'
-        )
+        return format_instance_to_string(self)

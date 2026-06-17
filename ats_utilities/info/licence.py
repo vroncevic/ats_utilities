@@ -21,14 +21,12 @@ Info
 '''
 
 from typing import List, Optional
-from ats_utilities.factory import inject, format_instance_to_string
-from ats_utilities.info.ilicence import IATSLicence
-from ats_utilities.checker.ichecker import IATSChecker
-from ats_utilities.checker.ats_checker import ATSChecker
+from ats_utilities.info.ilicence import ILicence
+from ats_utilities.context_bundle import ContextBundle
+from ats_utilities.factory_context_bundle import factory_context_bundle
+from ats_utilities.factory_class import format_instance_to_string
 from ats_utilities.checker.proxy_validator import validator
-from ats_utilities.console_io.ireporter import IATSReporter
-from ats_utilities.console_io.reporter import ATSReporter
-from ats_utilities.console_io.proxy_reporter import vreporter
+from ats_utilities.reporter.proxy_reporter import vreporter
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -40,50 +38,34 @@ __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
 
 
-class ATSLicence(IATSLicence):
+class ATSLicence(ILicence):
     '''
         Defines class ATSLicence with attribute(s) and method(s).
         Creates an API for the ATS licence in one property object.
-        The ATS license container.
 
         It defines:
 
             :attributes:
-                | __checker - Parameters checker (default set ATSChecker).
+                | __checker - Parameters checker (default ATSChecker).
                 | __reporter - Reporter for messaging (default ATSReporter).
                 | __verbose - Enable/Disable verbose option (default False).
                 | __licence - The ATS licence (default None).
             :methods:
                 | __init__ - Initials ATSLicence constructor.
                 | licence - Property methods for set/get operations.
-                | is_licence_not_none - Checks is ATS licence is not None.
+                | not_none - Checks is ATS licence is not None.
                 | __str__ - Returns the string representation of ATS licence.
     '''
 
-    def __init__(
-        self,
-        checker: Optional[IATSChecker] = None,
-        reporter: Optional[IATSReporter] = None,
-        verbose: bool = False
-    ) -> None:
+    def __init__(self, info_bundle: Optional[ContextBundle] = None) -> None:
         '''
             Initials ATSLicence constructor.
 
-            :param checker: Parameters checker (default set ATSChecker) | None
-            :type checker: <Optional[IATSChecker]>
-            :param reporter: Reporter for messaging (default set ATSReporter) | None
-            :type reporter: <Optional[IATSReporter]>
-            :param verbose: Enable/Disable verbose option (default False)
-            :type verbose: <bool>
+            :param info_bundle: Bundle with checker, reporter and verbose | None
+            :type info_bundle: <Optional[ContextBundle]>
             :exceptions: None
         '''
-        # No dependency injection then use default ones.
-        inject(
-            self,
-            ('checker', checker, ATSChecker, None),
-            ('reporter', reporter, ATSReporter, ['checker']),
-            ('verbose', verbose, False, None)
-        )
+        factory_context_bundle(self, info_bundle)
         self.__licence: Optional[str] = None
 
     @property
@@ -114,11 +96,11 @@ class ATSLicence(IATSLicence):
         self.__licence = licence
 
     @vreporter('check licence {licence}')
-    def is_licence_not_none(self) -> bool:
+    def not_none(self) -> bool:
         '''
             Checks is ATS licence not None.
 
-            :return: True (ATS licence is not None) | False (ATS licence is None)
+            :return: True (success) | False (fail)
             :rtype: <bool>
             :exceptions: RuntimeError, AttributeError by vreporter
         '''
@@ -128,7 +110,7 @@ class ATSLicence(IATSLicence):
         '''
             Returns the string representation of ATS licence.
 
-            :return: The ATS licence string representation
+            :return: The ATS licence instance as string representation
             :rtype: <str>
             :exceptions: None
         '''

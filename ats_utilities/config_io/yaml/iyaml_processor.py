@@ -57,7 +57,7 @@ class IYAMLProcessor(ABC):
             :rtype: <bool>
             :exceptions: NotImplementedError
         '''
-        raise NotImplementedError("Subclasses must implement decode method")
+        raise NotImplementedError("Method decode() must be implemented.")
 
     @abstractmethod
     def encode(self) -> str:
@@ -68,7 +68,7 @@ class IYAMLProcessor(ABC):
             :rtype: <str>
             :exceptions: NotImplementedError
         '''
-        raise NotImplementedError("Subclasses must implement encode method")
+        raise NotImplementedError("Method encode() must be implemented.")
 
     @abstractmethod
     def to_dict(self) -> Dict[Any, Any]:
@@ -79,7 +79,7 @@ class IYAMLProcessor(ABC):
             :rtype: <Dict[Any, Any]>
             :exceptions: NotImplementedError
         '''
-        raise NotImplementedError("Subclasses must implement to_dict method")
+        raise NotImplementedError("Method to_dict() must be implemented.")
 
     @abstractmethod
     def __str__(self) -> str:
@@ -90,4 +90,4 @@ class IYAMLProcessor(ABC):
             :rtype: <str>
             :exceptions: NotImplementedError
         '''
-        raise NotImplementedError("Subclasses must implement __str__ method")
+        raise NotImplementedError("Method __str__() must be implemented.")

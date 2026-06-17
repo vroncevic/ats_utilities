@@ -2,7 +2,7 @@
 
 '''
 Module
-    iinfo_manager.py
+    imanager.py
 Copyright
     Copyright (C) 2017 - 2026 Vladimir Roncevic <elektron.ronca@gmail.com>
     ats_utilities is free software: you can redistribute it and/or modify it
@@ -16,12 +16,12 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines interface IATSInfoManager with attribute(s) and method(s).
+    Defines interface IInfoManager with attribute(s) and method(s).
     Interface for the ATS info manager mechanism.
 '''
 
 from abc import ABC, abstractmethod
-from typing import Any, Dict, List, Optional
+from typing import List
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -33,66 +33,40 @@ __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
 
 
-class IATSInfoManager(ABC):
+class IInfoManager(ABC):
     '''
-        Defines interface IATSInfoManager with attribute(s) and method(s).
+        Defines interface IInfoManager with attribute(s) and method(s).
         Interface for the ATS info manager mechanism.
 
         It defines:
 
             :attributes: None.
             :methods:
-                | pre_setup - Property method for getting ATS pre-setup status.
-                | show_base_info - Shows ATS information.
-                | base_info_is_ok - Checks base information structure.
-                | get_version - Gets ATS version.
-                | __str__ - Returns the string representation of ATS info manager.
+                | info_ok - Checks is ATS information structure ok (abstract).
+                | refresh_status - Refresh status for ATS information structure (abstract).
+                | __str__ - Returns the string representation of ATS info manager (abstract).
     '''
 
     @property
     @abstractmethod
-    def pre_setup(self) -> bool:
+    def info_ok(self) -> bool:
         '''
-            Property method for getting ATS pre-setup status.
-
-            :return: The ATS pre-setup status
+            Checks is ATS information structure ok.
+        
+            :return: True (success) | False (fail)
             :rtype: <bool>
             :exceptions: NotImplementedError
         '''
-        raise NotImplementedError("Subclasses must implement pre_setup getter")
+        raise NotImplementedError("Method info_ok() must be implemented.")
 
     @abstractmethod
-    def show_base_info(self) -> None:
+    def refresh_status(self) -> None:
         '''
-            Shows ATS information.
+            Refresh status for ATS information structure.
 
             :exceptions: NotImplementedError
         '''
-        raise NotImplementedError("Subclasses must implement show_base_info method")
-
-    @abstractmethod
-    def base_info_is_ok(self, info: Dict[Any, Any]) -> bool:
-        '''
-            Checks base information structure.
-
-            :param info: The ATS base information
-            :type info: <Dict[Any, Any]>
-            :return: True (all info params are ok) | False
-            :rtype: <bool>
-            :exceptions: NotImplementedError
-        '''
-        raise NotImplementedError("Subclasses must implement base_info_is_ok method")
-
-    @abstractmethod
-    def get_version(self) -> Optional[str]:
-        '''
-            Gets ATS version.
-
-            :return: The ATS version in string format | None
-            :rtype: <Optional[str]>
-            :exceptions: NotImplementedError
-        '''
-        raise NotImplementedError("Subclasses must implement get_version method")
+        raise NotImplementedError("Method refresh_status() must be implemented.")
 
     @abstractmethod
     def __str__(self) -> str:
@@ -103,4 +77,4 @@ class IATSInfoManager(ABC):
             :rtype: <str>
             :exceptions: NotImplementedError
         '''
-        raise NotImplementedError("Subclasses must implement __str__ method")
+        raise NotImplementedError("Method __str__() must be implemented.")

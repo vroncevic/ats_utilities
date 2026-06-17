@@ -21,8 +21,8 @@ Info
 '''
 
 from typing import List, Optional
-from ats_utilities.console_io.ireporter import IATSReporter
-from ats_utilities.console_io.reporter import ATSReporter
+from ats_utilities.reporter.ireporter import IReporter
+from ats_utilities.reporter.engine import ATSReporter
 from ats_utilities.logging.ilogger import IATSLogger
 from ats_utilities.logging.logger import ATSLogger, ATSLogLevels
 
@@ -71,7 +71,7 @@ class ATSLoggerManager:
         ats_log_stdout: bool = True,
         ats_log_file: Optional[str] = None,
         logger_instance: Optional[IATSLogger] = None,
-        reporter: Optional[IATSReporter] = None,
+        reporter: Optional[IReporter] = None,
         verbose: bool = False
     ) -> None:
         '''
@@ -86,7 +86,7 @@ class ATSLoggerManager:
             :param logger_instance: Pre-configured Logger instance | None
             :type logger_instance: <Optional[IATSLogger]>
             :param reporter: ATSReporter for check operations | None
-            :type reporter: <Optional[IATSReporter]>
+            :type reporter: <Optional[IReporter]>
             :param verbose: Enable/Disable verbose option (default False)
             :type verbose: <bool>
             :exceptions: None
@@ -94,7 +94,7 @@ class ATSLoggerManager:
         self.__logger: IATSLogger = logger_instance or ATSLogger(
             ats_name, ats_log_stdout, ats_log_file, reporter=reporter, verbose=verbose
         )
-        self.__reporter: IATSReporter = reporter or ATSReporter()
+        self.__reporter: IReporter = reporter or ATSReporter()
         self.__verbose: bool = verbose
         self.__reporter.verbose(self.__verbose, ['init ATS logger'])
 

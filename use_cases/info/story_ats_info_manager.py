@@ -25,7 +25,7 @@ from ats_utilities.info.name import ATSName
 from ats_utilities.info.licence import ATSLicence
 from ats_utilities.info.build_date import ATSBuildDate
 from ats_utilities.info.info_ok import ATSInfoOk
-from ats_utilities.info.ats_info_manager import ATSInfoManager, ATSComponentBundle
+from ats_utilities.info.engine import ATSInfoManager, ATSInfoComponentBundle
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -73,7 +73,7 @@ ats_info_overwrite: Dict[Any, Any] = {
     'ats_build_date': 'Sun Jun 14 03:06:12 PM CEST 2026'
 }
 
-bundle: ATSComponentBundle = ATSComponentBundle(
+bundle: ATSInfoComponentBundle = ATSInfoComponentBundle(
     name=ats_name,
     version=ats_version,
     licence=ats_licence,
@@ -101,7 +101,7 @@ ats_build_date.build_date = 'Sun Jun 14 03:06:13 PM CEST 2026'
 ats_info_ok = ATSInfoOk(verbose=VERBOSE)
 ats_info_ok.info_ok = True
 
-bundle: ATSComponentBundle = ATSComponentBundle(
+bundle: ATSInfoComponentBundle = ATSInfoComponentBundle(
     name=ats_name,
     version=ats_version,
     licence=ats_licence,

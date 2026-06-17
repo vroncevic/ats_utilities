@@ -20,7 +20,7 @@ Info
 '''
 
 from typing import List
-from ats_utilities.console_io.reporter import ATSReporter
+from ats_utilities.reporter.engine import ATSReporter
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'

@@ -16,13 +16,12 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines abstract class IATSReporter with attribute(s) and method(s).
+    Defines abstract class IReporter with attribute(s) and method(s).
     Creates an interface for reporting message.
 '''
 
 from abc import ABC, abstractmethod
-from typing import Any, ClassVar, List
-from ats_utilities.checker.ichecker import ErrorChecker
+from typing import Any, List
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -34,24 +33,21 @@ __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
 
 
-class IATSReporter(ABC):
+class IReporter(ABC):
     '''
-        Defines abstract class IATSReporter with attribute(s) and method(s).
+        Defines abstract class IReporter with attribute(s) and method(s).
         Creates an interface for reporting message.
 
         It defines:
 
-            :attributes:
-                | ERRORS - Marks error types.
+            :attributes: None
             :methods:
                 | error - Report error message (abstract).
                 | success - Report success message (abstract).
                 | verbose - Report verbose message (abstract).
                 | warning - Report warning message (abstract).
-                | __str__ - Returns a human-readable string representation of the reporter.
+                | __str__ - Returns the string representation of ATS reporter (abstract).
     '''
-
-    ERRORS: ClassVar[type[ErrorChecker]] = ErrorChecker
 
     @abstractmethod
     def verbose(self, is_verbose: bool, message: List[Any]) -> None:
@@ -64,7 +60,7 @@ class IATSReporter(ABC):
             :type message: <List[Any]>
             :exceptions: NotImplementedError
         '''
-        raise NotImplementedError("Subclasses must implement verbose method")
+        raise NotImplementedError("Method verbose() must be implemented.")
 
     @abstractmethod
     def success(self, message: List[Any]) -> None:
@@ -75,7 +71,7 @@ class IATSReporter(ABC):
             :type message: <List[Any]>
             :exceptions: NotImplementedError
         '''
-        raise NotImplementedError("Subclasses must implement success method")
+        raise NotImplementedError("Method success() must be implemented.")
 
     @abstractmethod
     def warning(self, message: List[Any]) -> None:
@@ -86,7 +82,7 @@ class IATSReporter(ABC):
             :type message: <List[Any]>
             :exceptions: NotImplementedError
         '''
-        raise NotImplementedError("Subclasses must implement warning method")
+        raise NotImplementedError("Method warning() must be implemented.")
 
     @abstractmethod
     def error(self, message: List[Any]) -> None:
@@ -97,14 +93,14 @@ class IATSReporter(ABC):
             :type message: <List[Any]>
             :exceptions: NotImplementedError
         '''
-        raise NotImplementedError("Subclasses must implement error method")
+        raise NotImplementedError("Method error() must be implemented.")
 
     @abstractmethod
     def __str__(self) -> str:
         '''
-            Returns a human-readable string representation of the reporter.
+            Returns the string representation of ATS reporter.
 
-            :return: String representation.
+            :return: ATS reporter instance as string representation
             :rtype: <str>
             :exceptions: NotImplementedError
         '''

@@ -59,7 +59,7 @@ class IExtInfrastructure(ABC):
             :rtype: <Optional[str]>
             :exceptions: NotImplementedError
         '''
-        raise NotImplementedError("Subclasses must implement get_info_text method")
+        raise NotImplementedError("Method infrastructure_property() must be implemented.")
 
     @infrastructure_property.setter
     @abstractmethod
@@ -71,7 +71,7 @@ class IExtInfrastructure(ABC):
             :type infrastructure_property_setup: <Optional[Dict[Any, Any]]>
             :exceptions: NotImplementedError
         '''
-        raise NotImplementedError("Subclasses must implement get_info_text method")
+        raise NotImplementedError("Method infrastructure_property() must be implemented.")
 
     @abstractmethod
     def get_info_text(self) -> str:
@@ -82,7 +82,7 @@ class IExtInfrastructure(ABC):
             :rtype: <str>
             :exceptions: NotImplementedError
         '''
-        raise NotImplementedError("Subclasses must implement get_info_text method")
+        raise NotImplementedError("Method get_info_text() must be implemented.")
 
     @abstractmethod
     def get_issue_text(self) -> str:
@@ -93,7 +93,7 @@ class IExtInfrastructure(ABC):
             :rtype: <str>
             :exceptions: NotImplementedError
         '''
-        raise NotImplementedError("Subclasses must implement get_issue_text method")
+        raise NotImplementedError("Method get_issue_text() must be implemented.")
 
     @abstractmethod
     def get_author_text(self) -> str:
@@ -104,15 +104,15 @@ class IExtInfrastructure(ABC):
             :rtype: <str>
             :exceptions: NotImplementedError
         '''
-        raise NotImplementedError("Subclasses must implement get_author_text method")
+        raise NotImplementedError("Method get_author_text() must be implemented.")
 
     @abstractmethod
     def __str__(self) -> str:
         '''
             Returns the string representation of external infrastructure.
 
-            :return: The external infrastructure as string
+            :return: The external infrastructure as string representation
             :rtype: <str>
             :exceptions: NotImplementedError
         '''
-        raise NotImplementedError("Subclasses must implement __str__ method")
+        raise NotImplementedError("Method __str__() must be implemented.")

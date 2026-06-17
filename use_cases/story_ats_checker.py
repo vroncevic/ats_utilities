@@ -20,7 +20,7 @@ Info
 '''
 
 from typing import List
-from ats_utilities.checker.ats_checker import ATSChecker
+from ats_utilities.checker.engine import ATSChecker
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'

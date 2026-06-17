@@ -17,19 +17,19 @@ Copyright
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
     Defines class ATSArgumentParser with attribute(s) and method(s).
-    Custom ArgumentParser to route errors to IATSReporter.
+    Custom ArgumentParser to route errors to IReporter.
 '''
 
 import sys
 from typing import Any, List, Optional, NoReturn
 from argparse import ArgumentParser
-from ats_utilities.factory import inject, get_private_attr, format_instance_to_string
-from ats_utilities.checker.ichecker import IATSChecker
-from ats_utilities.checker.ats_checker import ATSChecker
+from ats_utilities.factory_class import inject, get_private_attr, format_instance_to_string
+from ats_utilities.checker.ichecker import IChecker
+from ats_utilities.checker.engine import ATSChecker
 from ats_utilities.checker.proxy_validator import validator
-from ats_utilities.console_io.ireporter import IATSReporter
-from ats_utilities.console_io.reporter import ATSReporter
-from ats_utilities.console_io.proxy_reporter import vreporter
+from ats_utilities.reporter.ireporter import IReporter
+from ats_utilities.reporter.engine import ATSReporter
+from ats_utilities.reporter.proxy_reporter import vreporter
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -44,7 +44,7 @@ __status__: str = 'Updated'
 class ATSArgumentParser(ArgumentParser):
     '''
         Defines class ATSArgumentParser with attribute(s) and method(s).
-        Custom ArgumentParser to route errors to IATSReporter.
+        Custom ArgumentParser to route errors to IReporter.
 
         It defines:
 
@@ -54,7 +54,7 @@ class ATSArgumentParser(ArgumentParser):
                 | __verbose - Enable/Disable verbose option (default False).
             :methods:
                 | __init__ - Initials ATSArgumentParser constructor.
-                | error - Overrides default error handling to use IATSReporter.
+                | error - Overrides default error handling to use IReporter.
                 | _reporter - Property method for getting the internal reporter instance.
                 | __str__ - Returns the string representation of ATSArgumentParser.
     '''
@@ -62,8 +62,8 @@ class ATSArgumentParser(ArgumentParser):
     def __init__(
         self,
         *args: Any,
-        checker: Optional[IATSChecker] = None,
-        reporter: Optional[IATSReporter] = None,
+        checker: Optional[IChecker] = None,
+        reporter: Optional[IReporter] = None,
         verbose: bool = False,
         **kwargs: Any
     ) -> None:
@@ -73,9 +73,9 @@ class ATSArgumentParser(ArgumentParser):
             :param args: Additional positional arguments
             :type args: <Any>
             :param checker: Parameters checker (default set ATSChecker) | None
-            :type checker: <Optional[IATSChecker]>
+            :type checker: <Optional[IChecker]>
             :param reporter: ATSReporter for outputting messages | None
-            :type reporter: <Optional[IATSReporter]>
+            :type reporter: <Optional[IReporter]>
             :param verbose: Enable/Disable verbose option (default False)
             :type verbose: <bool>
             :param kwargs: Additional keyword arguments
@@ -95,7 +95,7 @@ class ATSArgumentParser(ArgumentParser):
     @vreporter('argument error: {message}')
     def error(self, message: str) -> NoReturn:
         '''
-            Overrides default error handling to use IATSReporter.
+            Overrides default error handling to use IReporter.
 
             :param message: Error message to report
             :type message: <str>
@@ -107,12 +107,12 @@ class ATSArgumentParser(ArgumentParser):
         sys.exit(2)
 
     @property
-    def _reporter(self) -> IATSReporter:
+    def _reporter(self) -> IReporter:
         '''
             Property method for getting the internal reporter instance.
 
-            :return: The reporter instance in IATSReporter format
-            :rtype: <IATSReporter>
+            :return: The reporter instance in IReporter format
+            :rtype: <IReporter>
             :exceptions: None
         '''
         return get_private_attr(self, 'reporter')

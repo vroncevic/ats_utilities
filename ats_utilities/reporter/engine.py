@@ -2,7 +2,7 @@
 
 '''
 Module
-    reporter.py
+    engine.py
 Copyright
     Copyright (C) 2017 - 2026 Vladimir Roncevic <elektron.ronca@gmail.com>
     ats_utilities is free software: you can redistribute it and/or modify it
@@ -21,13 +21,14 @@ Info
 '''
 
 from typing import Any, List, Optional
-from ats_utilities.factory import make_component, validate_component, format_instance_to_string
-from ats_utilities.console_io.ireporter import IATSReporter
-from ats_utilities.checker.ichecker import IATSChecker
-from ats_utilities.checker.ats_checker import ATSChecker
+from ats_utilities.factory_class import format_instance_to_string
+from ats_utilities.factory_component import make_component, validate_component
+from ats_utilities.reporter.ireporter import IReporter
+from ats_utilities.checker.ichecker import IChecker
+from ats_utilities.checker.engine import ATSChecker
 from ats_utilities.checker.proxy_validator import validator
-from ats_utilities.console_io.theme.iconsole_theme import IConsoleTheme
-from ats_utilities.console_io.theme.theme import ATSConsoleTheme
+from ats_utilities.reporter.theme.iconsole_theme import IConsoleTheme
+from ats_utilities.reporter.theme.engine import ATSConsoleTheme
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -39,7 +40,7 @@ __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
 
 
-class ATSReporter(IATSReporter):
+class ATSReporter(IReporter):
     '''
         Defines class ATSReporter with attribute(s) and method(s).
         Creates an API for reporting messages.
@@ -48,8 +49,8 @@ class ATSReporter(IATSReporter):
         It defines:
 
             :attributes:
-                | __checker - Parameters checker (default set ATSChecker).
-                | __theme - Theme for styling messages (default set ATSConsoleTheme).
+                | __checker - Parameters checker (default ATSChecker).
+                | __theme - Theme for styling messages (default ATSConsoleTheme).
             :methods:
                 | error - Report error message to console.
                 | success - Report success message to console.
@@ -58,22 +59,18 @@ class ATSReporter(IATSReporter):
                 | __str__ - Returns the string representation of ATSReporter.
     '''
 
-    def __init__(
-        self,
-        checker: Optional[IATSChecker] = None,
-        theme: Optional[IConsoleTheme] = None
-    ) -> None:
+    def __init__(self, checker: Optional[IChecker] = None, theme: Optional[IConsoleTheme] = None) -> None:
         '''
             Initializes ATSReporter constructor.
 
-            :param checker: Parameters checker (default set ATSChecker) | None
-            :type checker: <Optional[IATSChecker]>
-            :param theme: Theme for styling messages (default set ATSConsoleTheme) | None
+            :param checker: Parameters checker (default ATSChecker) | None
+            :type checker: <Optional[IChecker]>
+            :param theme: Theme for styling messages (default ATSConsoleTheme) | None
             :type theme: <Optional[IConsoleTheme]>
             :exceptions: ATSTypeError by validate_component()
         '''
         # No dependency injection then use default ones.
-        self.__checker: IATSChecker = make_component(checker, ATSChecker, None)
+        self.__checker: IChecker = make_component(checker, ATSChecker, None)
         validate_component(self.__checker, ATSChecker, "ATSChecker")
         self.__theme: IConsoleTheme = make_component(theme, ATSConsoleTheme, None)
         validate_component(self.__theme, ATSConsoleTheme, "ATSConsoleTheme")
@@ -144,7 +141,7 @@ class ATSReporter(IATSReporter):
         '''
             Returns the string representation of ATSReporter.
 
-            :return: String representation
+            :return: ATS reporter instance as string representation
             :rtype: <str>
             :exceptions: None
         '''

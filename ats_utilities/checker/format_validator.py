@@ -21,7 +21,7 @@ Info
 '''
 
 from typing import List, Tuple, Final
-from ats_utilities.factory import format_instance_to_string
+from ats_utilities.factory_class import format_instance_to_string
 from ats_utilities.checker.iformat_validator import IATSFormatValidator
 
 __author__: str = 'Vladimir Roncevic'

@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines interface IATSVersion with attribute(s) and method(s).
+    Defines interface IVersion with attribute(s) and method(s).
     Interface for the ATS version mechanism.
 '''
 
@@ -33,9 +33,9 @@ __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
 
 
-class IATSVersion(ABC):
+class IVersion(ABC):
     '''
-        Defines interface IATSVersion with attribute(s) and method(s).
+        Defines interface IVersion with attribute(s) and method(s).
         Interface for the ATS version mechanism.
 
         It defines:
@@ -43,7 +43,7 @@ class IATSVersion(ABC):
             :attributes: None.
             :methods:
                 | version - Property methods for set/get operations (abstract).
-                | is_version_not_none - Checks is ATS version not None (abstract).
+                | not_none - Checks ATS version is not None (abstract).
                 | __str__ - Returns the string representation of ATS version (abstract).
     '''
 
@@ -53,11 +53,11 @@ class IATSVersion(ABC):
         '''
             Property method for getting ATS version.
 
-            :return: The ATS version | None
+            :return: The ATS version in string format | None
             :rtype: <Optional[str]>
             :exceptions: NotImplementedError
         '''
-        raise NotImplementedError("Subclasses must implement version getter")
+        raise NotImplementedError("Method version() must be implemented.")
 
     @version.setter
     @abstractmethod
@@ -65,22 +65,22 @@ class IATSVersion(ABC):
         '''
             Property method for setting ATS version.
 
-            :param version: The ATS version | None
+            :param version: The ATS version in string format | None
             :type version: <Optional[str]>
             :exceptions: NotImplementedError
         '''
-        raise NotImplementedError("Subclasses must implement version setter")
+        raise NotImplementedError("Method version() must be implemented.")
 
     @abstractmethod
-    def is_version_not_none(self) -> bool:
+    def not_none(self) -> bool:
         '''
-            Checks is ATS version not None.
+            Checks ATS version is not None.
 
-            :return: True (ATS version is not None) | False.
+            :return: True (success) | False (fail).
             :rtype: <bool>
             :exceptions: NotImplementedError
         '''
-        raise NotImplementedError("Subclasses must implement is_version_not_none method")
+        raise NotImplementedError("Method not_none() must be implemented.")
 
     @abstractmethod
     def __str__(self) -> str:
@@ -91,4 +91,4 @@ class IATSVersion(ABC):
             :rtype: <str>
             :exceptions: NotImplementedError
         '''
-        raise NotImplementedError("Subclasses must implement __str__ method")
+        raise NotImplementedError("Method __str__() must be implemented.")

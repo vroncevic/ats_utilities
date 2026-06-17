@@ -22,13 +22,11 @@ Info
 
 from typing import List, Optional
 from ats_utilities.pro_config.itemplate_dir import ITemplateDir
-from ats_utilities.factory import inject, format_instance_to_string
-from ats_utilities.checker.ichecker import IATSChecker
-from ats_utilities.checker.ats_checker import ATSChecker
+from ats_utilities.context_bundle import ContextBundle
+from ats_utilities.factory_context_bundle import factory_context_bundle
+from ats_utilities.factory_class import format_instance_to_string
 from ats_utilities.checker.proxy_validator import validator
-from ats_utilities.console_io.ireporter import IATSReporter
-from ats_utilities.console_io.reporter import ATSReporter
-from ats_utilities.console_io.proxy_reporter import vreporter
+from ats_utilities.reporter.proxy_reporter import vreporter
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -56,34 +54,19 @@ class TemplateDir(ITemplateDir):
             :methods:
                 | __init__ - Initials TemplateDir constructor.
                 | template_dir - Property methods for set/get operations.
-                | is_template_dir_ok - Checks is template dir ok.
+                | not_none - Checks template dir is not None.
                 | __str__ - Returns the string representation of ATS project template directory.
     '''
 
-    def __init__(
-        self,
-        checker: Optional[IATSChecker] = None,
-        reporter: Optional[IATSReporter] = None,
-        verbose: bool = False
-    ) -> None:
+    def __init__(self, pro_config_bundle: Optional[ContextBundle] = None) -> None:
         '''
             Initials TemplateDir constructor.
 
-            :param checker: Parameters checker (default set ATSChecker) | None
-            :type checker: <Optional[IATSChecker]>
-            :param reporter: Reporter for messaging (default set ATSReporter) | None
-            :type reporter: <Optional[IATSReporter]>
-            :param verbose: Enable/Disable verbose option (default False)
-            :type verbose: <bool>
+            :param pro_config_bundle: Bundle with checker, reporter and verbose | None
+            :type pro_config_bundle: <Optional[ContextBundle]>
             :exceptions: None
         '''
-        # No dependency injection then use default ones.
-        inject(
-            self,
-            ('checker', checker, ATSChecker, None),
-            ('reporter', reporter, ATSReporter, ['checker']),
-            ('verbose', verbose, False, None)
-        )
+        factory_context_bundle(self, pro_config_bundle)
         self.__template_dir: Optional[str] = None
 
     @property
@@ -114,11 +97,11 @@ class TemplateDir(ITemplateDir):
         self.__template_dir = dir_path
 
     @vreporter('check template dir {template_dir}')
-    def is_template_dir_ok(self) -> bool:
+    def not_none(self) -> bool:
         '''
-            Checks is project template dir ok.
+            Checks project template dir is not None.
 
-            :return: True (template dir is ok) | False (template dir is not ok)
+            :return: True (success) | False (fail)
             :rtype: <bool>
             :exceptions: RuntimeError, AttributeError by vreporter
         '''
@@ -128,7 +111,7 @@ class TemplateDir(ITemplateDir):
         '''
             Returns the string representation of ATS project template directory.
 
-            :return: The ATS project directory as string
+            :return: The ATS project directory as string representation
             :rtype: <str>
             :exceptions: None
         '''

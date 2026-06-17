@@ -25,8 +25,8 @@ Execute
 from typing import Any, Dict, List
 from unittest import TestCase, main
 from ats_utilities.pro_config.pro_config import ProConfig
-from ats_utilities.console_io.ireporter import IATSReporter
-from ats_utilities.console_io.reporter import ATSReporter
+from ats_utilities.reporter.ireporter import IReporter
+from ats_utilities.reporter.engine import ATSReporter
 from ats_utilities.exceptions.ats_type_error import ATSTypeError
 
 __author__: str = 'Vladimir Roncevic'
@@ -42,7 +42,7 @@ __status__: str = 'Updated'
 class ATSBaseProConfig(ProConfig):
     '''Simple Class for checking ProConfig.'''
 
-    def __init__(self, reporter: IATSReporter = ATSReporter(), verbose: bool = False) -> None:
+    def __init__(self, reporter: IReporter = ATSReporter(), verbose: bool = False) -> None:
         '''Initial constructor.'''
         super().__init__()
         self._verbose = verbose

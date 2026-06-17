@@ -25,7 +25,7 @@ Execute
 from typing import List
 from os.path import dirname
 from unittest import TestCase, main
-from ats_utilities.splash.ats_splash import Splash
+from ats_utilities.splash.engine import Splash
 from ats_utilities.exceptions.ats_type_error import ATSTypeError
 from ats_utilities.exceptions.ats_value_error import ATSValueError
 

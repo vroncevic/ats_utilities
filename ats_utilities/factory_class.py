@@ -2,7 +2,7 @@
 
 '''
 Module
-    factory.py
+    factory_class.py
 Copyright
     Copyright (C) 2017 - 2026 Vladimir Roncevic <elektron.ronca@gmail.com>
     ats_utilities is free software: you can redistribute it and/or modify it
@@ -16,12 +16,12 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines a helper function for component instantiation.
+    Factory universally injects instances, gets private instances and setup instance string representation.
+    Encapsulates core utilities to minimize constructor overhead.
     Provides a simple factory mechanism for dependency injection.
 '''
 
-from typing import Any, List, Dict, Tuple, Type, Optional, Union
-from ats_utilities.exceptions.ats_type_error import ATSTypeError
+from typing import Any, List, Tuple, Optional, Union
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -38,11 +38,11 @@ def inject(instance: Any, *dependencies: Tuple[str, Any, Any, Optional[Union[str
         Adheres to SOLID principles by avoiding hardcoded component names or classes.
         Dynamically handles multi-dependency relationship chains between sequence steps.
 
-        :param instance: The object instance (self) to inject attributes into.
+        :param instance: The object instance (self) to inject attributes into
         :type instance: <Any>
         :param dependencies: Variadic sequence of tuples containing injection rules.
                              Format: ('attr_name', value, fallback, 'depends_on_attr')
-                             The 'depends_on_attr' can be a string, list, or tuple.
+                             The 'depends_on_attr' can be a string, list, or tuple
         :type dependencies: <Tuple[str, Any, Any, Optional[Union[str, List[str], Tuple[str, ...]]]]>
         :exceptions: None
     '''
@@ -100,52 +100,14 @@ def get_private_attr(instance: Any, attr_name: str) -> Any:
     clean_attr = attr_name.lstrip('_')
     return getattr(instance, f'_{class_name}__{clean_attr}')
 
-def make_component(passed_obj: Any, default_class: Any, factory_args: Optional[Dict[str, Any]] = None) -> Any:
-    '''
-        Creates a component instance or returns an existing one.
-
-        :param passed_obj: An existing component instance or None
-        :type passed_obj: <Any>
-        :param default_class: The class to instantiate if passed_obj is None
-        :type default_class: <Any>
-        :param factory_args: Arguments to pass to the default_class constructor | None
-        :type factory_args: <Optional[Dict[str, Any]]>
-        :return: An instance of the component
-        :rtype: <Any>
-        :exceptions: None
-    '''
-    if passed_obj is not None:
-        return passed_obj
-
-    if factory_args is None:
-        factory_args = {}
-
-    return default_class(**factory_args)
-
-def validate_component(instance: Any, expected_class: Type[Any], component_name: str) -> None:
-    '''
-        Validates if a component instance is of the expected class type.
-        Raises an ATSTypeError if the validation fails.
-
-        :param instance: The resolved component instance to check
-        :type instance: <Any>
-        :param expected_class: The expected concrete class type
-        :type expected_class: <Type[Any]>
-        :param component_name: Name of the component for the error message
-        :type component_name: <str>
-        :exceptions: ATSTypeError
-    '''
-    if not isinstance(instance, expected_class):
-        raise ATSTypeError(f"Failed to initialize default {component_name} component.")
-
 def format_instance_to_string(instance: Any) -> str:
     '''
         Generates a standardized string representation for any class instance.
         Cleans name-mangled private attributes and appends memory addresses in hex.
 
-        :param instance: The class instance to format.
+        :param instance: The class instance to format
         :type instance: <Any>
-        :return: String representation of the instance.
+        :return: String representation of the instance
         :rtype: <str>
         :exceptions: None
     '''

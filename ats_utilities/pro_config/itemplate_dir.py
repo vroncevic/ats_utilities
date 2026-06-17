@@ -42,9 +42,9 @@ class ITemplateDir(ABC):
 
             :attributes: None.
             :methods:
-                | template_dir - Property methods for set/get operations.
-                | is_template_dir_ok - Checks is template dir ok.
-                | __str__ - Returns the string representation of ATS project directory.
+                | template_dir - Property methods for set/get operations (abstract).
+                | not_none - Checks template dir is not None (abstract).
+                | __str__ - Returns the string representation of ATS project directory (abstract).
     '''
 
     @property
@@ -72,23 +72,23 @@ class ITemplateDir(ABC):
         raise NotImplementedError("Method template_dir() must be implemented.")
 
     @abstractmethod
-    def is_template_dir_ok(self) -> bool:
+    def not_none(self) -> bool:
         '''
-            Checks is project template dir ok.
+            Checks project template dir is not None.
 
-            :return: True (template dir is ok) | False (template dir is not ok)
+            :return: True (success) | False (fail)
             :rtype: <bool>
             :exceptions: NotImplementedError
         '''
-        raise NotImplementedError("Method is_template_dir_ok() must be implemented.")
+        raise NotImplementedError("Method not_none() must be implemented.")
 
     @abstractmethod
     def __str__(self) -> str:
         '''
             Returns the string representation of ATS project template directory.
 
-            :return: The ATS project directory as string
+            :return: The ATS project directory as string representation
             :rtype: <str>
             :exceptions: NotImplementedError
         '''
-        raise NotImplementedError("Subclasses must implement __str__ method")
+        raise NotImplementedError("Method __str__() must be implemented.")

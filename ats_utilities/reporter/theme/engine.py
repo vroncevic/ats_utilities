@@ -2,7 +2,7 @@
 
 '''
 Module
-    theme.py
+    engine.py
 Copyright
     Copyright (C) 2017 - 2026 Vladimir Roncevic <elektron.ronca@gmail.com>
     ats_utilities is free software: you can redistribute it and/or modify it
@@ -21,8 +21,8 @@ Info
 '''
 
 from typing import List, Dict, Optional
-from ats_utilities.factory import format_instance_to_string
-from ats_utilities.console_io.theme.iconsole_theme import IConsoleTheme
+from ats_utilities.factory_class import format_instance_to_string
+from ats_utilities.reporter.theme.iconsole_theme import IConsoleTheme
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -61,7 +61,7 @@ class ATSConsoleTheme(IConsoleTheme):
         '''
             Initials ATSConsoleTheme constructor.
 
-            :param palette: Dictionary with color codes
+            :param palette: Dictionary with color codes | None
             :type palette: <Dict[str, str]>
             :exceptions: None
         '''
@@ -73,7 +73,7 @@ class ATSConsoleTheme(IConsoleTheme):
 
             :param color_type: Type of the message (key in palette)
             :type color_type: <str>
-            :return: Color code
+            :return: Color code in string format
             :rtype: <str>
             :exceptions: None
         '''

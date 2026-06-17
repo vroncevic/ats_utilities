@@ -21,14 +21,13 @@ Info
 '''
 
 from typing import Any, Dict, List, Optional
-from ats_utilities.factory import inject, get_private_attr, format_instance_to_string
 from ats_utilities.splash.iext_infrastructure import IExtInfrastructure
-from ats_utilities.checker.ichecker import IATSChecker
-from ats_utilities.checker.ats_checker import ATSChecker
+from ats_utilities.context_bundle import ContextBundle
+from ats_utilities.reporter.ireporter import IReporter
+from ats_utilities.factory_context_bundle import factory_context_bundle
+from ats_utilities.factory_class import get_private_attr, format_instance_to_string
 from ats_utilities.checker.proxy_validator import validator
-from ats_utilities.console_io.ireporter import IATSReporter
-from ats_utilities.console_io.reporter import ATSReporter
-from ats_utilities.console_io.proxy_reporter import vreporter
+from ats_utilities.reporter.proxy_reporter import vreporter
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -63,30 +62,15 @@ class ExtInfrastructure(IExtInfrastructure):
                 | __str__ - Returns the string representation of external infrastructure.
     '''
 
-    def __init__(
-        self,
-        checker: Optional[IATSChecker] = None,
-        reporter: Optional[IATSReporter] = None,
-        verbose: bool = False
-    ) -> None:
+    def __init__(self, splash_bundle: Optional[ContextBundle] = None) -> None:
         '''
             Initials ExtInfrastructure constructor.
 
-            :param checker: Parameters checker (default set ATSChecker) | None
-            :type checker: <Optional[IATSChecker]>
-            :param reporter: Reporter for messaging (default set ATSReporter) | None
-            :type reporter: <Optional[IATSReporter]>
-            :param verbose: Enable/Disable verbose option (default False)
-            :type verbose: <bool>
+            :param splash_bundle: Bundle with checker, reporter and verbose | None
+            :type splash_bundle: <Optional[ContextBundle]>
             :exceptions: None
         '''
-        # No dependency injection then use default ones.
-        inject(
-            self,
-            ('checker', checker, ATSChecker, None),
-            ('reporter', reporter, ATSReporter, ['checker']),
-            ('verbose', verbose, False, None)
-        )
+        factory_context_bundle(self, splash_bundle)
         self.__infrastructure_property: Optional[Dict[Any, Any]] = None
 
     @property
@@ -168,12 +152,12 @@ class ExtInfrastructure(IExtInfrastructure):
         return f'\x1b]8;;{org}\a{org}\x1b]8;;\a'
 
     @property
-    def _reporter(self) -> IATSReporter:
+    def _reporter(self) -> IReporter:
         '''
             Property method for getting the internal reporter instance.
 
-            :return: The reporter instance in IATSReporter format
-            :rtype: <IATSReporter>
+            :return: The reporter instance in IReporter format
+            :rtype: <IReporter>
             :exceptions: None
         '''
         return get_private_attr(self, 'reporter')
@@ -182,7 +166,7 @@ class ExtInfrastructure(IExtInfrastructure):
         '''
             Returns the string representation of external infrastructure.
 
-            :return: The external infrastructure as string
+            :return: The external infrastructure as string representation
             :rtype: <str>
             :exceptions: None
         '''

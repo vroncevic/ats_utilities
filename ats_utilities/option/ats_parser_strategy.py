@@ -22,14 +22,14 @@ Info
 
 from typing import Any, Dict, List, Optional
 from argparse import ArgumentParser
-from ats_utilities.factory import inject, get_private_attr, format_instance_to_string
+from ats_utilities.factory_class import inject, get_private_attr, format_instance_to_string
 from ats_utilities.option.iparser_strategy import IATSArgParseStrategy
 from ats_utilities.option.ats_argument_parser import ATSArgumentParser
-from ats_utilities.checker.ichecker import IATSChecker
-from ats_utilities.checker.ats_checker import ATSChecker
+from ats_utilities.checker.ichecker import IChecker
+from ats_utilities.checker.engine import ATSChecker
 from ats_utilities.checker.proxy_validator import validator
-from ats_utilities.console_io.ireporter import IATSReporter
-from ats_utilities.console_io.reporter import ATSReporter
+from ats_utilities.reporter.ireporter import IReporter
+from ats_utilities.reporter.engine import ATSReporter
 from ats_utilities.option.option_namespace import OptionNamespace
 from ats_utilities.option.option_namespace import OptArgs
 from ats_utilities.option.option_namespace import KnownArgs
@@ -69,17 +69,17 @@ class ATSArgParseStrategy(IATSArgParseStrategy):
 
     def __init__(
         self,
-        checker: Optional[IATSChecker] = None,
-        reporter: Optional[IATSReporter] = None,
+        checker: Optional[IChecker] = None,
+        reporter: Optional[IReporter] = None,
         verbose: bool = False
     ) -> None:
         '''
             Initials ATSArgParseStrategy constructor.
 
             :param checker: Parameters checker (default set ATSChecker) | None
-            :type checker: <Optional[IATSChecker]>
+            :type checker: <Optional[IChecker]>
             :param reporter: Reporter for messaging (default set ATSReporter) | None
-            :type reporter: <Optional[IATSReporter]>
+            :type reporter: <Optional[IReporter]>
             :param verbose: Enable/Disable verbose option (default False)
             :type verbose: <bool>
             :exceptions: None
@@ -155,23 +155,23 @@ class ATSArgParseStrategy(IATSArgParseStrategy):
         return self.__parser.parse_args(arguments)
 
     @property
-    def _checker(self) -> IATSChecker:
+    def _checker(self) -> IChecker:
         '''
             Property method for getting the internal checker instance.
 
-            :return: The checker instance in IATSChecker format
-            :rtype: <IATSChecker>
+            :return: The checker instance in IChecker format
+            :rtype: <IChecker>
             :exceptions: None
         '''
         return get_private_attr(self, 'checker')
 
     @property
-    def _reporter(self) -> IATSReporter:
+    def _reporter(self) -> IReporter:
         '''
             Property method for getting the internal reporter instance.
 
-            :return: The reporter instance in IATSReporter format
-            :rtype: <IATSReporter>
+            :return: The reporter instance in IReporter format
+            :rtype: <IReporter>
             :exceptions: None
         '''
         return get_private_attr(self, 'reporter')

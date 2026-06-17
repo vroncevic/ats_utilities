@@ -25,8 +25,8 @@ Execute
 from typing import List, Optional
 from unittest import TestCase, main
 from ats_utilities.pro_config.template_dir import TemplateDir
-from ats_utilities.console_io.ireporter import IATSReporter
-from ats_utilities.console_io.reporter import ATSReporter
+from ats_utilities.reporter.ireporter import IReporter
+from ats_utilities.reporter.engine import ATSReporter
 from ats_utilities.exceptions.ats_type_error import ATSTypeError
 
 __author__: str = 'Vladimir Roncevic'
@@ -42,7 +42,7 @@ __status__: str = 'Updated'
 class ATSBaseTemplateDir(TemplateDir):
     '''Simple Class for checking TemplateDir.'''
 
-    def __init__(self, reporter: IATSReporter = ATSReporter(), verbose: bool = False) -> None:
+    def __init__(self, reporter: IReporter = ATSReporter(), verbose: bool = False) -> None:
         '''Initial constructor.'''
         super().__init__()
         self._verbose = verbose

@@ -21,14 +21,12 @@ Info
 '''
 
 from typing import Any, List, Dict, Optional
-from ats_utilities.factory import inject, format_instance_to_string
 from ats_utilities.pro_config.ipro_config import IProConfig
-from ats_utilities.checker.ichecker import IATSChecker
-from ats_utilities.checker.ats_checker import ATSChecker
+from ats_utilities.context_bundle import ContextBundle
+from ats_utilities.factory_context_bundle import factory_context_bundle
+from ats_utilities.factory_class import format_instance_to_string
 from ats_utilities.checker.proxy_validator import validator
-from ats_utilities.console_io.ireporter import IATSReporter
-from ats_utilities.console_io.reporter import ATSReporter
-from ats_utilities.console_io.proxy_reporter import vreporter
+from ats_utilities.reporter.proxy_reporter import vreporter
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -59,7 +57,7 @@ class ProConfig(IProConfig):
             :methods:
                 | __init__ - Initials ProConfig constructor.
                 | config - Property methods for set/get operations.
-                | is_config_ok - Checks is project configuration ok.
+                | not_none - Checks project configuration is not None.
                 | __str__ - Returns the string representation of ATS project configuration.
     '''
 
@@ -67,30 +65,15 @@ class ProConfig(IProConfig):
     MODULES: str = 'modules'
     FORMAT: str = 'template'
 
-    def __init__(
-        self,
-        checker: Optional[IATSChecker] = None,
-        reporter: Optional[IATSReporter] = None,
-        verbose: bool = False
-    ) -> None:
+    def __init__(self, pro_config_bundle: Optional[ContextBundle] = None) -> None:
         '''
             Initials ProConfig constructor.
 
-            :param checker: Parameters checker (default set ATSChecker) | None
-            :type checker: <Optional[IATSChecker]>
-            :param reporter: Reporter for messaging (default set ATSReporter) | None
-            :type reporter: <Optional[IATSReporter]>
-            :param verbose: Enable/Disable verbose option (default False)
-            :type verbose: <bool>
+            :param pro_config_bundle: Bundle with checker, reporter and verbose | None
+            :type pro_config_bundle: <Optional[ContextBundle]>
             :exceptions: None
         '''
-        # No dependency injection then use default ones.
-        inject(
-            self,
-            ('checker', checker, ATSChecker, None),
-            ('reporter', reporter, ATSReporter, ['checker']),
-            ('verbose', verbose, False, None)
-        )
+        factory_context_bundle(self, pro_config_bundle)
         self.__config: Optional[Dict[Any, Any]] = None
 
     @property
@@ -121,11 +104,11 @@ class ProConfig(IProConfig):
         self.__config = pro_config
 
     @vreporter('check config {config}')
-    def is_config_ok(self) -> bool:
+    def not_none(self) -> bool:
         '''
-            Checks is project configuration ok.
+            Checks project configuration is not None.
 
-            :return: True (configuration is ok) | False (configuration is not ok)
+            :return: True (success) | False (fail)
             :rtype: <bool>
             :exceptions: RuntimeError, AttributeError by vreporter
         '''

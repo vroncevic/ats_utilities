@@ -25,8 +25,8 @@ Execute
 from typing import List
 from unittest import TestCase, main
 from ats_utilities.logging.ats_logger_manager import ATSLoggerManager
-from ats_utilities.console_io.ireporter import IATSReporter
-from ats_utilities.console_io.reporter import ATSReporter
+from ats_utilities.reporter.ireporter import IReporter
+from ats_utilities.reporter.engine import ATSReporter
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -41,7 +41,7 @@ __status__: str = 'Updated'
 class ATSBaseLoggingStream(ATSLoggerManager):
     '''Simple Class for checking ATSLoggerManager.'''
 
-    def __init__(self, reporter: IATSReporter = ATSReporter(), verbose: bool = False) -> None:
+    def __init__(self, reporter: IReporter = ATSReporter(), verbose: bool = False) -> None:
         '''Initial constructor.'''
         super().__init__(
             ats_name='simple_test',

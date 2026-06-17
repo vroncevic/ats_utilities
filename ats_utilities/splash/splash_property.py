@@ -21,14 +21,13 @@ Info
 '''
 
 from typing import Any, Dict, List, Optional
-from ats_utilities.factory import inject, get_private_attr, format_instance_to_string
 from ats_utilities.splash.isplash_property import ISplashProperty
-from ats_utilities.checker.ichecker import IATSChecker
-from ats_utilities.checker.ats_checker import ATSChecker
+from ats_utilities.context_bundle import ContextBundle
+from ats_utilities.reporter.ireporter import IReporter
+from ats_utilities.factory_context_bundle import factory_context_bundle
+from ats_utilities.factory_class import get_private_attr, format_instance_to_string
 from ats_utilities.checker.proxy_validator import validator
-from ats_utilities.console_io.ireporter import IATSReporter
-from ats_utilities.console_io.reporter import ATSReporter
-from ats_utilities.console_io.proxy_reporter import vreporter
+from ats_utilities.reporter.proxy_reporter import vreporter
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -70,30 +69,15 @@ class SplashProperty(ISplashProperty):
         'ats_use_github_infrastructure'
     ]
 
-    def __init__(
-        self,
-        checker: Optional[IATSChecker] = None,
-        reporter: Optional[IATSReporter] = None,
-        verbose: bool = False
-    ) -> None:
+    def __init__(self, splash_bundle: Optional[ContextBundle] = None) -> None:
         '''
             Initials SplashProperty constructor.
 
-            :param checker: Parameters checker (default set ATSChecker) | None
-            :type checker: <Optional[IATSChecker]>
-            :param reporter: Reporter for messaging (default set ATSReporter) | None
-            :type reporter: <Optional[IATSReporter]>
-            :param verbose: Enable/Disable verbose option (default False)
-            :type verbose: <bool>
+            :param splash_bundle: Bundle with checker, reporter and verbose | None
+            :type splash_bundle: <Optional[ContextBundle]>
             :exceptions: None
         '''
-        # No dependency injection then use default ones.
-        inject(
-            self,
-            ('checker', checker, ATSChecker, None),
-            ('reporter', reporter, ATSReporter, ['checker']),
-            ('verbose', verbose, False, None)
-        )
+        factory_context_bundle(self, splash_bundle)
         self.__splash_property:  Optional[Dict[Any, Any]] = None
 
     @property
@@ -144,12 +128,12 @@ class SplashProperty(ISplashProperty):
         return True
 
     @property
-    def _reporter(self) -> IATSReporter:
+    def _reporter(self) -> IReporter:
         '''
             Property method for getting the internal reporter instance.
 
-            :return: The reporter instance in IATSReporter format
-            :rtype: <IATSReporter>
+            :return: The reporter instance in IReporter format
+            :rtype: <IReporter>
             :exceptions: None
         '''
         return get_private_attr(self, 'reporter')
@@ -158,7 +142,7 @@ class SplashProperty(ISplashProperty):
         '''
             Returns the string representation of splash property.
 
-            :return: The splash property as string
+            :return: The splash property as string representation
             :rtype: <str>
             :exceptions: None
         '''

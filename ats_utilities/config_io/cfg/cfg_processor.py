@@ -22,7 +22,7 @@ Info
 
 from re import match
 from typing import Any, Dict, List
-from ats_utilities.factory import format_instance_to_string
+from ats_utilities.factory_class import format_instance_to_string
 from ats_utilities.config_io.cfg.icfg_processor import ICFGProcessor
 
 __author__: str = 'Vladimir Roncevic'

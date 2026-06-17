@@ -30,11 +30,11 @@ from ats_utilities.cli.iconfig_manager import IConfigManager
 from ats_utilities.config_io.iread import IRead
 from ats_utilities.config_io.iwrite import IWrite
 from ats_utilities.config_io.ifile_check import IFileCheck
-from ats_utilities.checker.ichecker import IATSChecker
-from ats_utilities.console_io.ireporter import IATSReporter
+from ats_utilities.checker.ichecker import IChecker
+from ats_utilities.reporter.ireporter import IReporter
 from ats_utilities.option.ats_option_parser import ATSOptionParser
 from ats_utilities.option.iparser_strategy import IATSArgParseStrategy
-from ats_utilities.config_io.cfg.cfgbase import CfgBase
+from ats_utilities.config_io.cfg.cfg_initializer import CfgInitializer
 from ats_utilities.config_io.ini.inibase import IniBase
 from ats_utilities.config_io.json.jsonbase import JsonBase
 from ats_utilities.config_io.xml.xmlbase import XmlBase
@@ -83,8 +83,8 @@ class ConfigManagerUnitTestCase(TestCase):
             :attributes:
                 | mock_read - Mocked IRead interface.
                 | mock_write - Mocked IWrite interface.
-                | mock_checker - Mocked IATSChecker.
-                | mock_reporter - Mocked IATSReporter.
+                | mock_checker - Mocked IChecker.
+                | mock_reporter - Mocked IReporter.
                 | manager - ATSConfigManager instance with mocks.
             :methods:
                 | setUp - Set up test environment with mocks.
@@ -102,8 +102,8 @@ class ConfigManagerUnitTestCase(TestCase):
         self.mock_read = mock.MagicMock(spec=IRead)
         self.mock_write = mock.MagicMock(spec=IWrite)
         self.mock_parser = mock.MagicMock(spec=ATSOptionParser)
-        self.mock_checker = mock.MagicMock(spec=IATSChecker)
-        self.mock_reporter = mock.MagicMock(spec=IATSReporter)
+        self.mock_checker = mock.MagicMock(spec=IChecker)
+        self.mock_reporter = mock.MagicMock(spec=IReporter)
         self.mock_file_checker = mock.MagicMock(spec=IFileCheck)
         self.mock_strategy = mock.MagicMock(spec=IATSArgParseStrategy)
 
@@ -140,7 +140,7 @@ class ConfigManagerUnitTestCase(TestCase):
         current_dir: str = dirname(__file__)
         base_info: str = f'{current_dir}{config_file}'
         config = self.manager.load_config(base_info, True)
-        self.assertIsInstance(config, CfgBase)
+        self.assertIsInstance(config, CfgInitializer)
 
     def test_load_config_ini(self) -> None:
         '''Test loading .ini file.'''

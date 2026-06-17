@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines abstract class IATSChecker with attribute(s) and method(s).
+    Defines abstract class IChecker with attribute(s) and method(s).
     Creates an interface for ATSChecker and other checker implementations.
 '''
 
@@ -42,7 +42,7 @@ ParametersSpecs: TypeAlias = List[Tuple[str, Any]]
 
 class ErrorChecker(int, Enum):
     '''
-        Defines class ErrorChecker with attribute(s) and method(s).
+        Defines class ErrorChecker with attribute(s).
         Marks error types for the ATSChecker.
 
         It defines:
@@ -60,7 +60,7 @@ class ErrorChecker(int, Enum):
 
 class ErrorCheckerProtocol(Protocol):
     '''
-        Defines class ErrorCheckerProtocol with attribute(s) and method(s).
+        Defines class ErrorCheckerProtocol with attribute(s).
         Protocol for error types for the ATSChecker.
 
         It defines:
@@ -76,9 +76,9 @@ class ErrorCheckerProtocol(Protocol):
     FORMAT_ERROR: ClassVar[int]
 
 
-class IATSChecker(ABC):
+class IChecker(ABC):
     '''
-        Defines abstract class IATSChecker with attribute(s) and method(s).
+        Defines abstract class IChecker with attribute(s) and method(s).
         Creates an interface for ATSChecker and other checker implementations.
 
         It defines:
@@ -87,7 +87,7 @@ class IATSChecker(ABC):
                 | ERRORS - Marks error types for message reports (0 | 1 | 2).
             :methods:
                 | validates_parameters - Validates parameters for method(s) or function(s) (abstract).
-                | __str__ - Returns a human-readable string representation of the checker.
+                | __str__ - Returns the string representation of the checker.
     '''
 
     ERRORS: ClassVar[EnumMeta] = ErrorChecker
@@ -108,9 +108,9 @@ class IATSChecker(ABC):
     @abstractmethod
     def __str__(self) -> str:
         '''
-            Returns a human-readable string representation of the checker.
+            Returns the string representation of the checker.
 
-            :return: String representation
+            :return: String representation of the checker instance
             :rtype: <str>
             :exceptions: NotImplementedError
         '''

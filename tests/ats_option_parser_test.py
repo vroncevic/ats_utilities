@@ -28,10 +28,10 @@ from ats_utilities.option.ats_option_parser import ATSOptionParser
 from ats_utilities.option.ioption_parser import IATSOptionParser
 from ats_utilities.option.iparser_strategy import IATSArgParseStrategy
 from ats_utilities.option.ats_parser_strategy import ATSArgParseStrategy
-from ats_utilities.checker.ichecker import IATSChecker
-from ats_utilities.checker.ats_checker import ATSChecker
-from ats_utilities.console_io.ireporter import IATSReporter
-from ats_utilities.console_io.reporter import ATSReporter
+from ats_utilities.checker.ichecker import IChecker
+from ats_utilities.checker.engine import ATSChecker
+from ats_utilities.reporter.ireporter import IReporter
+from ats_utilities.reporter.engine import ATSReporter
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -49,8 +49,8 @@ class ATSBaseOptionParser(ATSOptionParser):
     def __init__(
         self,
         ats_info: Dict[str, Any],
-        checker: IATSChecker = ATSChecker(),
-        reporter: IATSReporter = ATSReporter(),
+        checker: IChecker = ATSChecker(),
+        reporter: IReporter = ATSReporter(),
         verbose: bool = False
     ) -> None:
         '''Initial constructor.'''
@@ -129,8 +129,8 @@ class OptionParserUnitTestCase(TestCase):
         '''Set up test environment.'''
         self.mock_parser = mock.MagicMock(spec=IATSOptionParser)
         self.mock_strategy = mock.MagicMock(spec=IATSArgParseStrategy)
-        self.mock_checker = mock.MagicMock(spec=IATSChecker)
-        self.mock_reporter = mock.MagicMock(spec=IATSReporter)
+        self.mock_checker = mock.MagicMock(spec=IChecker)
+        self.mock_reporter = mock.MagicMock(spec=IReporter)
 
     def test_mock_add_operation(self) -> None:
         '''Test mock interaction for add_operation.'''

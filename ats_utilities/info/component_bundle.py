@@ -2,7 +2,7 @@
 
 '''
 Module
-    ats_component_bundle.py
+    component_bundle.py
 Copyright
     Copyright (C) 2017 - 2026 Vladimir Roncevic <elektron.ronca@gmail.com>
     ats_utilities is free software: you can redistribute it and/or modify it
@@ -16,16 +16,17 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines class ATSComponentBundle with attribute(s).
+    Defines component bundle data classe for dependency group simplification.
+    Encapsulates core utilities to minimize constructor overhead.
 '''
 
 from typing import List, Optional
 from dataclasses import dataclass
-from ats_utilities.info.iname import IATSName
-from ats_utilities.info.iversion import IATSVersion
-from ats_utilities.info.ilicence import IATSLicence
-from ats_utilities.info.ibuild_date import IATSBuildDate
-from ats_utilities.info.iinfo_ok import IATSInfoOk
+from ats_utilities.info.iname import IName
+from ats_utilities.info.iversion import IVersion
+from ats_utilities.info.ilicence import ILicence
+from ats_utilities.info.ibuild_date import IBuildDate
+from ats_utilities.info.iinfo_ok import IInfoOk
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -38,13 +39,24 @@ __status__: str = 'Updated'
 
 
 @dataclass
-class ATSComponentBundle:
+class ATSInfoComponentBundle:
     '''
         Parameter Object pattern wrapper encapsulating all core info domain elements.
         Simplifies dependency passing and signatures for higher-level managers.
+
+        :param name: The ATS name | None
+        :type name: <Optional[IName]>
+        :param version: The ATS version | None
+        :type version: <Optional[IVersion]>
+        :param licence: The ATS licence | None
+        :type licence: <Optional[ILicence]>
+        :param build_date: The ATS build date | None
+        :type build_date: <Optional[IBuildDate]>
+        :param info_ok: The ATS information status | None
+        :type info_ok: <Optional[IInfoOk]>
     '''
-    name: Optional[IATSName] = None
-    version: Optional[IATSVersion] = None
-    licence: Optional[IATSLicence] = None
-    build_date: Optional[IATSBuildDate] = None
-    info_ok: Optional[IATSInfoOk] = None
+    name: Optional[IName] = None
+    version: Optional[IVersion] = None
+    licence: Optional[ILicence] = None
+    build_date: Optional[IBuildDate] = None
+    info_ok: Optional[IInfoOk] = None

@@ -22,18 +22,18 @@ Info
 
 from typing import Any, List, Optional
 from abc import abstractmethod
-from ats_utilities.factory import (
+from ats_utilities.factory_class import (
     inject, get_private_attr, make_component, validate_component, format_instance_to_string
 )
-from ats_utilities.checker.ichecker import IATSChecker
-from ats_utilities.checker.ats_checker import ATSChecker
-from ats_utilities.console_io.ireporter import IATSReporter
-from ats_utilities.console_io.reporter import ATSReporter
+from ats_utilities.checker.ichecker import IChecker
+from ats_utilities.checker.engine import ATSChecker
+from ats_utilities.reporter.ireporter import IReporter
+from ats_utilities.reporter.engine import ATSReporter
 from ats_utilities.option.option_namespace import OptionNamespace
 from ats_utilities.cli.icli import IATSCli
 from ats_utilities.cli.icli import ArgSeq
 from ats_utilities.cli.iconfig_manager import IConfigManager
-from ats_utilities.info.iinfo_manager import IATSInfoManager
+from ats_utilities.info.imanager import IInfoManager
 from ats_utilities.config_io.ifile_check import IFileCheck
 from ats_utilities.config_io.iread import IRead
 from ats_utilities.config_io.iwrite import IWrite
@@ -76,11 +76,11 @@ class ATSCli(IATSCli):
         config_manager: Optional[IConfigManager] = None,
         config2object: Optional[IRead] = None,
         object2config: Optional[IWrite] = None,
-        info_manager: Optional[IATSInfoManager] = None,
+        info_manager: Optional[IInfoManager] = None,
         strategy: Optional[IATSArgParseStrategy] = None,
         options_parser: Optional[IATSOptionParser] = None,
-        checker: Optional[IATSChecker] = None,
-        reporter: Optional[IATSReporter] = None,
+        checker: Optional[IChecker] = None,
+        reporter: Optional[IReporter] = None,
         file_checker: Optional[IFileCheck] = None,
         verbose: bool = False
     ) -> None:
@@ -92,7 +92,7 @@ class ATSCli(IATSCli):
             :param config_manager: Configuration manager | None
             :type config_manager: <Optional[IConfigManager]>
             :param reporter: ATSReporter for check operations | None
-            :type reporter: <Optional[IATSReporter]>
+            :type reporter: <Optional[IReporter]>
             :param verbose: Enable/Disable verbose option (default False)
             :type verbose: <bool>
             :exceptions: None
@@ -166,23 +166,23 @@ class ATSCli(IATSCli):
         raise NotImplementedError("Method process() must be implemented.")
 
     @property
-    def _checker(self) -> IATSChecker:
+    def _checker(self) -> IChecker:
         '''
             Property method for getting the internal checker instance.
 
-            :return: The checker instance in IATSChecker format
-            :rtype: <IATSChecker>
+            :return: The checker instance in IChecker format
+            :rtype: <IChecker>
             :exceptions: None
         '''
         return get_private_attr(self, 'checker')
 
     @property
-    def _reporter(self) -> IATSReporter:
+    def _reporter(self) -> IReporter:
         '''
             Property method for getting the internal reporter instance.
 
-            :return: The reporter instance in IATSReporter format
-            :rtype: <IATSReporter>
+            :return: The reporter instance in IReporter format
+            :rtype: <IReporter>
             :exceptions: None
         '''
         return get_private_attr(self, 'reporter')
@@ -207,3 +207,31 @@ class ATSCli(IATSCli):
             :exceptions: None
         '''
         return format_instance_to_string(self)
+
+
+#from ats_utilities.info.iinfo_manager import IInfoManager
+#from ats_utilities.info.ats_info_manager import ATSInfoManager
+#from ats_utilities.option.ioption_parser import IATSOptionParser
+#from ats_utilities.option.ats_option_parser import ATSOptionParser
+#from ats_utilities.config_io.base_bundle import ATSBaseBundle
+
+        #if bool(information):
+        #    info_manager: IInfoManager = make_component(base_bundle.info_manager, ATSInfoManager, {
+        #        'info': information.to_dict(),
+        #        'checker': self._checker,
+        #        'reporter': self._reporter,
+        #        'verbose': self._verbose
+        #    })
+        #
+        #    if info_manager and info_manager.base_info_is_ok(information.to_dict()):
+        #        self.__option_parser = make_component(base_bundle.options_parser, ATSOptionParser, {
+        #            'parameters': information.to_dict(),
+        #            'strategy': base_bundle.strategy,
+        #            'checker': self._checker,
+        #            'reporter': self._reporter,
+        #            'verbose': self._verbose
+        #        })
+        #
+        #        if self.__option_parser:
+        #            self.__option_parser.add_version_operation(info_manager.get_version())
+        #            self.__tool_operational = True

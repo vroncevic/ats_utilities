@@ -64,15 +64,15 @@ class ISplash(ABC):
             :type text: <Optional[str]>
             :exceptions: NotImplementedError
         '''
-        raise NotImplementedError("Subclasses must implement center method")
+        raise NotImplementedError("Method center method")
 
     @abstractmethod
     def __str__(self) -> str:
         '''
             Returns the string representation of splash screen component.
 
-            :return: The splash screen component as string
+            :return: The splash screen component as string representation
             :rtype: <str>
             :exceptions: NotImplementedError
         '''
-        raise NotImplementedError("Subclasses must implement __str__ method")
+        raise NotImplementedError("Method __str__() must be implemented.")

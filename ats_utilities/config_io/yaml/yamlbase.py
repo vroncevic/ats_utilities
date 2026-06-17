@@ -21,14 +21,14 @@ Info
 '''
 
 from typing import ClassVar, List, Optional
-from ats_utilities.checker.ichecker import IATSChecker
-from ats_utilities.checker.ats_checker import ATSChecker
+from ats_utilities.checker.ichecker import IChecker
+from ats_utilities.checker.engine import ATSChecker
 from ats_utilities.checker.ichecker import ErrorChecker
-from ats_utilities.info.ats_info_manager import ATSInfo
+from ats_utilities.info.engine import ATSInfo
 from ats_utilities.option.ioption_parser import IATSOptionParser
 from ats_utilities.option.ats_option_parser import ATSOptionParser
-from ats_utilities.console_io.ireporter import IATSReporter
-from ats_utilities.console_io.reporter import ATSReporter
+from ats_utilities.reporter.ireporter import IReporter
+from ats_utilities.reporter.engine import ATSReporter
 from ats_utilities.config_io.iread import IRead
 from ats_utilities.config_io.iwrite import IWrite
 from ats_utilities.config_io.ifile_check import IFileCheck
@@ -80,8 +80,8 @@ class YamlBase:
         yaml2obj: Optional[IRead] = None,
         obj2yaml: Optional[IWrite] = None,
         options_parser: Optional[IATSOptionParser] = None,
-        checker: Optional[IATSChecker] = None,
-        reporter: Optional[IATSReporter] = None,
+        checker: Optional[IChecker] = None,
+        reporter: Optional[IReporter] = None,
         file_checker: Optional[IFileCheck] = None,
         strategy: Optional[IATSArgParseStrategy] = None,
         verbose: bool = False
@@ -98,17 +98,17 @@ class YamlBase:
             :param options_parser: Option parser for ATS | None
             :type options_parser: <Optional[IATSOptionParser]>
             :param checker: Error checker | None
-            :type checker: <Optional[IATSChecker]>
+            :type checker: <Optional[IChecker]>
             :param reporter: ATSReporter for check operations | None
-            :type reporter: <Optional[IATSReporter]>
+            :type reporter: <Optional[IReporter]>
             :param file_checker: FileCheck for checking file | None
             :type file_checker: <Optional[IFileCheck]>
             :param verbose: Enable/Disable verbose option (default False)
             :type verbose: <bool>
             :exceptions: None
         '''
-        self.__checker: IATSChecker = checker or ATSChecker()
-        self.__reporter: IATSReporter = reporter or ATSReporter()
+        self.__checker: IChecker = checker or ATSChecker()
+        self.__reporter: IReporter = reporter or ATSReporter()
         self.__verbose: bool = verbose
         self.__file_checker: IFileCheck = file_checker or FileCheck(
             self.__checker, self.__reporter, verbose

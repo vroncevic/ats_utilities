@@ -62,9 +62,9 @@ class IConsoleTheme(ABC):
     @abstractmethod
     def __str__(self) -> str:
         '''
-            Returns a human-readable string representation of the theme.
+            Returns the string representation of console theme.
 
-            :return: String representation.
+            :return: Console theme instance as string representation
             :rtype: <str>
             :exceptions: NotImplementedError
         '''

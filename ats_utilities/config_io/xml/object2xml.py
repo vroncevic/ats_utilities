@@ -20,10 +20,10 @@ Info
     Creates an API for writing a configuration to a XML file.
 '''
 from typing import ClassVar, List, Optional
-from ats_utilities.checker.ichecker import IATSChecker, ErrorChecker
-from ats_utilities.checker.ats_checker import ATSChecker
-from ats_utilities.console_io.ireporter import IATSReporter
-from ats_utilities.console_io.reporter import ATSReporter
+from ats_utilities.checker.ichecker import IChecker, ErrorChecker
+from ats_utilities.checker.engine import ATSChecker
+from ats_utilities.reporter.ireporter import IReporter
+from ats_utilities.reporter.engine import ATSReporter
 from ats_utilities.exceptions.ats_type_error import ATSTypeError
 from ats_utilities.config_io.iwrite import IWrite
 from ats_utilities.config_io.conf_file import ConfFile
@@ -65,8 +65,8 @@ class Object2Xml(IWrite):
     def __init__(
         self,
         config_file: Optional[str],
-        checker: Optional[IATSChecker] = None,
-        reporter: Optional[IATSReporter] = None,
+        checker: Optional[IChecker] = None,
+        reporter: Optional[IReporter] = None,
         file_checker: Optional[IFileCheck] = None,
         verbose: bool = False
     ) -> None:
@@ -76,17 +76,17 @@ class Object2Xml(IWrite):
             :param config_file: Configuration file path | None
             :type config_file: <Optional[str]>
             :param checker: ATSChecker for check operations | None
-            :type checker: <Optional[IATSChecker]>
+            :type checker: <Optional[IChecker]>
             :param reporter: ATSReporter for check operations | None
-            :type reporter: <Optional[IATSReporter]>
+            :type reporter: <Optional[IReporter]>
             :param file_checker: FileCheck for checking file | None
             :type file_checker: <Optional[IFileCheck]>
             :param verbose: Enable/Disable verbose option (default False)
             :type verbose: <bool>
             :exceptions: ATSTypeError
         '''
-        self.__checker: IATSChecker = checker or ATSChecker()
-        self.__reporter: IATSReporter = reporter or ATSReporter()
+        self.__checker: IChecker = checker or ATSChecker()
+        self.__reporter: IReporter = reporter or ATSReporter()
         self.__file_checker: IFileCheck = file_checker or FileCheck(checker, reporter, verbose)
         self.__verbose: bool = verbose
 

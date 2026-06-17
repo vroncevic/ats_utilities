@@ -53,13 +53,13 @@ class ITerminalProperties(ABC):
         '''
             Gets size for descriptor.
 
-            :param file_descriptor: file descriptor.
+            :param file_descriptor: file descriptor
             :type file_descriptor: <int>
-            :return: Window size of terminal.
+            :return: Window size of terminal
             :rtype: <Tuple[Any, ...]>
             :exceptions: NotImplementedError
         '''
-        raise NotImplementedError("Subclasses must implement ioctl_get_window_size method")
+        raise NotImplementedError("Method ioctl_get_window_size() must be implemented.")
 
     @abstractmethod
     def ioctl_for_all_descriptors(self) -> None:
@@ -68,7 +68,7 @@ class ITerminalProperties(ABC):
 
             :exceptions: NotImplementedError
         '''
-        raise NotImplementedError("Subclasses must implement ioctl_for_all_descriptors method")
+        raise NotImplementedError("Method ioctl_for_all_descriptors() must be implemented.")
 
     @abstractmethod
     def size(self) -> Tuple[Any, ...]:
@@ -79,15 +79,15 @@ class ITerminalProperties(ABC):
             :rtype: <Tuple[Any, ...]>
             :exceptions: NotImplementedError
         '''
-        raise NotImplementedError("Subclasses must implement size method")
+        raise NotImplementedError("Method size() must be implemented.")
 
     @abstractmethod
     def __str__(self) -> str:
         '''
             Returns the string representation of terminal properties.
 
-            :return: The terminal properties as string
+            :return: The terminal properties as string representation
             :rtype: <str>
             :exceptions: NotImplementedError
         '''
-        raise NotImplementedError("Subclasses must implement __str__ method")
+        raise NotImplementedError("Method __str__() must be implemented.")

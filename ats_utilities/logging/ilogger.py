@@ -141,7 +141,7 @@ class IATSLogger(ABC):
             :rtype: <bool>
             :exceptions: NotImplementedError
         '''
-        raise NotImplementedError("Subclasses must implement write_log method")
+        raise NotImplementedError("Method write_log method")
 
     @abstractmethod
     def __str__(self) -> str:
@@ -152,4 +152,4 @@ class IATSLogger(ABC):
             :rtype: <str>
             :exceptions: NotImplementedError
         '''
-        raise NotImplementedError("Subclasses must implement __str__ method")
+        raise NotImplementedError("Method __str__() must be implemented.")

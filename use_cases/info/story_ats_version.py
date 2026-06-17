@@ -20,9 +20,10 @@ Info
 '''
 
 from typing import List
+from ats_utilities.context_bundle import ContextBundle
 from ats_utilities.info.version import ATSVersion
-from ats_utilities.checker.ats_checker import ATSChecker
-from ats_utilities.console_io.reporter import ATSReporter
+from ats_utilities.checker.engine import ATSChecker
+from ats_utilities.reporter.engine import ATSReporter
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -37,22 +38,34 @@ VERBOSE: bool = False
 
 #
 # default [without DI]
-# ====================
+# =====================
 #
-ats_version = ATSVersion(verbose=VERBOSE)
+ats_version = ATSVersion()
 ats_version.version = '1.2.5'
 print(ats_version.version)
 print(ats_version)
-print(100 * '=')
+print(150 * '=')
 
 #
 # with DI
-# =======
+# ========
 #
 checker = ATSChecker()
 reporter = ATSReporter(checker=checker)
-ats_version = ATSVersion(checker=checker, reporter=reporter, verbose=VERBOSE)
+info_bundle = ContextBundle(checker=checker, reporter=reporter, verbose=VERBOSE)
+ats_version = ATSVersion(info_bundle=info_bundle)
 ats_version.version = '1.2.6'
 print(ats_version.version)
 print(ats_version)
-print(100 * '=')
+print(150 * '=')
+
+#
+# with DI (default ContextBundle)
+# ================================
+#
+info_bundle = ContextBundle()
+ats_version = ATSVersion(info_bundle=info_bundle)
+ats_version.version = '1.2.7'
+print(ats_version.version)
+print(ats_version)
+print(150 * '=')
