@@ -1,0 +1,44 @@
+name: ats_utilities_isp_checker
+
+on:
+  push:
+    branches: [ master ]
+    paths:
+      - 'ats_utilities/**'
+  pull_request:
+    branches: [ master ]
+    paths:
+      - 'ats_utilities/**'
+
+jobs:
+  isp_gate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository code
+        uses: actions/checkout@v4
+
+      - name: Check Interface Segregation Principle violations
+        run: |
+          errors_found=0
+          
+          # Find all interface files (files starting with 'i' in their name)
+          interfaces=($(find ats_utilities/ -type f -name 'i*.py'))
+          
+          for iface in "${interfaces[@]}"; do
+            # Count only abstract methods by searching for the @abstractmethod decorator
+            # This ignores docstrings, regular comments, and non-abstract items
+            method_count=$(grep -c "@abstractmethod" "$iface" || true)
+            
+            if [ "$method_count" -gt 5 ]; then
+              echo "❌ ISP Violation: Interface '$iface' defines $method_count abstract methods (Max allowed is 5). Segregate this interface!"
+              errors_found=1
+            fi
+          done
+          
+          if [ $errors_found -eq 1 ]; then
+            echo "---"
+            echo "Quality Gate Failed! Fat interfaces detected based on @abstractmethod count. Keep interfaces under 5 methods."
+            exit 1
+          else
+            echo "✅ Quality Gate Pass: Interface segregation requirements are satisfied."
+          fi

@@ -1,0 +1,57 @@
+name: ats_utilities_interface_checker
+
+on:
+  push:
+    branches: [ master ]
+    paths:
+      - 'ats_utilities/**'
+  pull_request:
+    branches: [ master ]
+    paths:
+      - 'ats_utilities/**'
+
+jobs:
+  interface_gate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository code
+        uses: actions/checkout@v4
+
+      - name: Verify that each class module has a corresponding interface
+        run: |
+          errors_found=0
+          
+          # Find all Python files within the package, ignoring __init__.py files
+          modules=($(find ats_utilities/ -type f -name '*.py' -not -name '__init__.py'))
+          
+          for mod in "${modules[@]}"; do
+            filename=$(basename "$mod")
+            
+            # Check if the module contains a class definition and is not already an interface file
+            if grep -q "^class " "$mod" && [[ ! "$filename" =~ ^i ]]; then
+              
+              dir=$(dirname "$mod")
+              expected_interface="$dir/i$filename"
+              
+              # 1. Check if the corresponding interface file physically exists
+              if [ ! -f "$expected_interface" ]; then
+                echo "❌ QG-Check Fail: Module '$mod' defines a class, but its required interface file '$expected_interface' is missing!"
+                errors_found=1
+              else
+                # 2. Check if the interface file actually contains a class definition starting with a capital 'I'
+                # This matches 'class IName...' but fails on 'class Name...'
+                if ! grep -q "^class I[A-Z]" "$expected_interface"; then
+                  echo "❌ QG-Check Fail: Interface file '$expected_interface' exists, but it does not define a class starting with a capital 'I'!"
+                  errors_found=1
+                fi
+              fi
+            fi
+          done
+          
+          if [ $errors_found -eq 1 ]; then
+            echo "---"
+            echo "Architectural validation failed! Every concrete implementation module containing a class must have a matching interface file with a class name starting with 'I'."
+            exit 1
+          else
+            echo "✅ QG-Check Pass: All concrete class modules have valid corresponding interface files and properly named interface classes."
+          fi
