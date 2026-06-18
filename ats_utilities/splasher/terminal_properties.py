@@ -85,8 +85,8 @@ class TerminalProperties(ITerminalProperties):
             :return: Window size of terminal.
             :rtype: <Tuple[Any, ...]>
             :exceptions:
-                | ATSTypeError, ATSValueError by validator
-                | RuntimeError, AttributeError by vreporter
+                | ATSTypeError, ATSValueError, RuntimeError, AttributeError
+                | RuntimeError, AttributeError
         '''
         self.__window_size = unpack('HHHH', ioctl(file_descriptor, TIOCGWINSZ, pack('HHHH', 0, 0, 0, 0)))
 
@@ -97,7 +97,7 @@ class TerminalProperties(ITerminalProperties):
         '''
             Sets size for all descriptors.
 
-            :exceptions: RuntimeError, AttributeError by vreporter
+            :exceptions: RuntimeError, AttributeError
         '''
         std_in: Tuple[Any, ...] = self.ioctl_get_window_size(0)
         std_out: Tuple[Any, ...] = self.ioctl_get_window_size(1)
@@ -111,7 +111,7 @@ class TerminalProperties(ITerminalProperties):
 
             :return: Window size
             :rtype: <Tuple[Any, ...]>
-            :exceptions: RuntimeError, AttributeError by vreporter
+            :exceptions: RuntimeError, AttributeError
         '''
         self.ioctl_for_all_descriptors()
         file_descriptor: int = os.open(os.ctermid(), os.O_RDONLY)

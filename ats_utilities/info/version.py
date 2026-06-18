@@ -76,7 +76,7 @@ class ATSVersion(IVersion):
 
             :return: The ATS version in string format | None
             :rtype: <Optional[str]>
-            :exceptions: RuntimeError, AttributeError by vreporter
+            :exceptions: RuntimeError, AttributeError
         '''
         return self.__version
 
@@ -90,8 +90,8 @@ class ATSVersion(IVersion):
             :param version: The ATS version in string format | None
             :type version: <Optional[str]>
             :exceptions:
-                | ATSTypeError, ATSValueError by validator
-                | RuntimeError, AttributeError by vreporter
+                | ATSTypeError, ATSValueError, RuntimeError, AttributeError
+                | RuntimeError, AttributeError
         '''
         self.__version = version
 
@@ -102,7 +102,7 @@ class ATSVersion(IVersion):
 
             :return: True (success) | False (fail)
             :rtype: <bool>
-            :exceptions: RuntimeError, AttributeError by vreporter
+            :exceptions: RuntimeError, AttributeError
         '''
         return self.__version is not None
 

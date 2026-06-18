@@ -2,7 +2,7 @@
 
 '''
 Module
-    cfg_loader.py
+    ini_loader.py
 Copyright
     Copyright (C) 2017 - 2026 Vladimir Roncevic <elektron.ronca@gmail.com>
     ats_utilities is free software: you can redistribute it and/or modify it
@@ -16,20 +16,20 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines class CfgLoader with attribute(s) and method(s).
+    Defines class INILoader with attribute(s) and method(s).
     Loads the ATS configuration for the ATS.
 '''
 
 from typing import Dict, List, Optional
 from ats_utilities.config_io.iread import IRead
 from ats_utilities.context_bundle import ContextBundle
-from ats_utilities.config_io.cfg.icfg_loader import ICfgLoader
+from ats_utilities.config_io.ini.iini_loader import IINILoader
 from ats_utilities.config_io.ifile_check import IFileCheck
 from ats_utilities.config_io.file_check import FileCheck
 from ats_utilities.config_io.config_file_bundle import ATSConfigFileBundle
-from ats_utilities.config_io.cfg.cfg2object import Cfg2Object
-from ats_utilities.config_io.cfg.cfg_processor import ATSCFGProcessor
-from ats_utilities.config_io.cfg.icfg_processor import ICFGProcessor
+from ats_utilities.config_io.ini.ini2object import Ini2Object
+from ats_utilities.config_io.ini.ini_processor import ATSINIProcessor
+from ats_utilities.config_io.ini.iini_processor import IINIProcessor
 from ats_utilities.factory_context_bundle import factory_context_bundle
 from ats_utilities.factory_component import make_component, validate_component
 from ats_utilities.factory_class import get_private_attr, format_instance_to_string
@@ -44,11 +44,11 @@ __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
 
 
-class CfgLoader(ICfgLoader):
+class INILoader(IINILoader):
     '''
-        Defines class CfgLoader with attribute(s) and method(s).
+        Defines class INILoader with attribute(s) and method(s).
         Loads the ATS configuration for the ATS.
-        CFG configuration-based API support.
+        INI configuration-based API support.
 
         It defines:
 
@@ -56,26 +56,26 @@ class CfgLoader(ICfgLoader):
                 | __checker - Factoriezed parameters checker (default ATSChecker).
                 | __reporter - Factoriezed reporter for messaging (default ATSReporter).
                 | __verbose - Factoriezed Enable/Disable verbose option (default False).
-                | __configuration - CFG processor configuration (default None).
+                | __configuration - INI processor configuration (default None).
             :methods:
-                | __init__ - Initials CfgLoader constructor.
+                | __init__ - Initials INILoader constructor.
                 | __str__ - Returns the string representation of cfgbase.
     '''
 
     def __init__(
         self,
         info_file: Optional[str] = None,
-        cfg2object: Optional[IRead] = None,
+        ini2object: Optional[IRead] = None,
         config_bundle: Optional[ATSConfigFileBundle] = None,
-        cfg_processor: Optional[ICFGProcessor] = None
+        ini_processor: Optional[IINIProcessor] = None
     ) -> None:
         '''
-            Initials CfgLoader constructor.
+            Initials INILoader constructor.
 
             :param info_file: Path to the info file | None
             :type info_file: <Optional[str]>
-            :param cfg2object: In API for information | None
-            :type cfg2object: <Optional[IRead]>
+            :param ini2object: In API for information | None
+            :type ini2object: <Optional[IRead]>
             :param config_bundle: Configuration bundle | None
             :type config_bundle: <Optional[ATSConfigFileBundle]>
             :exceptions: ATSTypeError by validate_component()
@@ -91,22 +91,22 @@ class CfgLoader(ICfgLoader):
             config_file_bundle.file_checker, FileCheck, {'config_bundle': context_bundle_shared}
         )
         validate_component(file_checker, type(file_checker), type(file_checker).__name__)
-        processor: ICFGProcessor = make_component(cfg_processor, ATSCFGProcessor, None)
+        processor: IINIProcessor = make_component(ini_processor, ATSINIProcessor, None)
         validate_component(processor, type(processor), type(processor).__name__)
-        cfg2obj: IRead = make_component(cfg2object, Cfg2Object, {
-            'config_file': info_file, 'config_bundle': config_file_bundle, 'cfg_processor': processor
+        ini2obj: IRead = make_component(ini2object, Ini2Object, {
+            'config_file': info_file, 'config_bundle': config_file_bundle, 'ini_processor': processor
         })
-        validate_component(cfg2obj, type(cfg2obj), type(cfg2obj).__name__)
-        self.__configuration: Optional[ICFGProcessor] = None
+        validate_component(ini2obj, type(ini2obj), type(ini2obj).__name__)
+        self.__configuration: Optional[IINIProcessor] = None
 
-        if bool(cfg2obj):
-            self.__configuration = cfg2obj.read_configuration()
+        if bool(ini2obj):
+            self.__configuration = ini2obj.read_configuration()
 
     def get_configuration(self) -> Dict[str, str]:
         '''
             Gets the ATS configuration in dictionary format.
 
-            :return: Dictionary with CFG information
+            :return: Dictionary with INI information
             :rtype: <Dict[str, str]>
             :exceptions: None
         '''
@@ -117,9 +117,9 @@ class CfgLoader(ICfgLoader):
 
     def __str__(self) -> str:
         '''
-            Returns the string representation of CFG base object.
+            Returns the string representation of INI base object.
 
-            :return: The CFG base object as string representation
+            :return: The INI base object as string representation
             :rtype: <str>
             :exceptions: None
         '''

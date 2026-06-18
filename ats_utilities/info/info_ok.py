@@ -75,7 +75,7 @@ class ATSInfoOk(IInfoOk):
 
             :return: The ATS information status in bool format
             :rtype: <bool>
-            :exceptions: RuntimeError, AttributeError by vreporter
+            :exceptions: RuntimeError, AttributeError
         '''
         return self.__info_ok
 
@@ -89,8 +89,8 @@ class ATSInfoOk(IInfoOk):
             :param info_ok: The ATS information status in bool format
             :type info_ok: <bool>
             :exceptions:
-                | ATSTypeError, ATSValueError by validator
-                | RuntimeError, AttributeError by vreporter
+                | ATSTypeError, ATSValueError, RuntimeError, AttributeError
+                | RuntimeError, AttributeError
         '''
         self.__info_ok = info_ok
 

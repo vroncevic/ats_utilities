@@ -87,8 +87,8 @@ class FileCheck(IFileCheck):
             :param file_path: File path in string format | None
             :type file_path: <Optional[str]>
             :exceptions:
-                | ATSTypeError, ATSValueError by validator
-                | RuntimeError, AttributeError by vreporter
+                | ATSTypeError, ATSValueError, RuntimeError, AttributeError
+                | RuntimeError, AttributeError
         '''
         self.__file_path_ok = isfile(file_path)  # type: ignore
 
@@ -104,8 +104,8 @@ class FileCheck(IFileCheck):
             :param file_mode: File mode in string format ('r', 'w', 'a', 'b', 'x', 't', '+')
             :type file_mode: <Optional[str]>
             :exceptions:
-                | ATSTypeError, ATSValueError by validator
-                | RuntimeError, AttributeError by vreporter
+                | ATSTypeError, ATSValueError, RuntimeError, AttributeError
+                | RuntimeError, AttributeError
         '''
         self.__file_mode_ok = bool(file_mode) and all(
             char in self.MODES for char in file_mode  # type: ignore
@@ -125,8 +125,8 @@ class FileCheck(IFileCheck):
             :param file_format: File format (file extension) | None
             :type file_format: <Optional[str]>
             :exceptions:
-                | ATSTypeError, ATSValueError by validator
-                | RuntimeError, AttributeError by vreporter
+                | ATSTypeError, ATSValueError, RuntimeError, AttributeError
+                | RuntimeError, AttributeError
         '''
         extension: Optional[str] = None
         fmt_str, path_str = str(file_format), str(file_path)
@@ -154,7 +154,7 @@ class FileCheck(IFileCheck):
 
             :return: True (success) | False (fail)
             :rtype: <bool>
-            :exceptions: RuntimeError, AttributeError by vreporter
+            :exceptions: RuntimeError, AttributeError
         '''
         return all([self.__file_path_ok, self.__file_mode_ok, self.__file_format_ok])
 

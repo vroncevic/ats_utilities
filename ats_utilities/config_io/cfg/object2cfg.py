@@ -56,7 +56,6 @@ class Object2Cfg(IWrite):
             :attributes:
                 | __EXT - File extension of the configuration file.
                 | __MODE - File open mode.
-                | __REGEX_EXP - Regular expression for matching line.
                 | __config_file_bundle - Configuration file bundle parameters (default None).
                 | __checker - Factoriezed parameters checker (default ATSChecker).
                 | __reporter - Factoriezed reporter for messaging (default ATSReporter).
@@ -115,8 +114,8 @@ class Object2Cfg(IWrite):
             :return: True (success) | False (fail)
             :rtype: <bool>
             :exceptions:
-                | ATSTypeError, ATSValueError by validator
-                | RuntimeError, AttributeError by vreporter
+                | ATSTypeError, ATSValueError, RuntimeError, AttributeError
+                | RuntimeError, AttributeError
         '''
         status: bool = False
 
@@ -134,9 +133,9 @@ class Object2Cfg(IWrite):
 
     def __str__(self) -> str:
         '''
-            Returns the string representation of CFG object.
+            Returns the string representation of object2cfg.
 
-            :return: The CFG object as string representation
+            :return: The object2cfg as string representation
             :rtype: <str>
             :exceptions: None
         '''

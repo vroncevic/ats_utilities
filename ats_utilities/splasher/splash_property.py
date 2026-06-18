@@ -88,7 +88,7 @@ class SplashProperty(ISplashProperty):
 
             :return: Formatted splash property in dict format | None
             :rtype: <Optional[str]>
-            :exceptions: RuntimeError, AttributeError by vreporter
+            :exceptions: RuntimeError, AttributeError
         '''
         return self.__splash_property
 
@@ -102,8 +102,8 @@ class SplashProperty(ISplashProperty):
             :param splash_property_setup: Project splash property in dict format | None
             :type splash_property_setup: <Optional[Dict[Any, Any]]>
             :exceptions:
-                | ATSTypeError, ATSValueError by validator
-                | RuntimeError, AttributeError by vreporter
+                | ATSTypeError, ATSValueError, RuntimeError, AttributeError
+                | RuntimeError, AttributeError
         '''
         self.__splash_property = splash_property_setup
 
@@ -114,7 +114,7 @@ class SplashProperty(ISplashProperty):
 
             :return: True (splash property ok) else False (splash property not ok)
             :rtype: <bool>
-            :exceptions: RuntimeError, AttributeError by vreporter
+            :exceptions: RuntimeError, AttributeError
         '''
         if not self.__splash_property:
             self._reporter.error(['missing splash property'])

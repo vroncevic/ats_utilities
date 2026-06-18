@@ -87,7 +87,7 @@ class ATSArgParserStrategy(IArgParserStrategy):
 
             :param parameters: Parameters for logger
             :type parameters: <Dict[str, str]>
-            :exceptions: ATSTypeError, ATSValueError by validator
+            :exceptions: ATSTypeError, ATSValueError, RuntimeError, AttributeError
         '''
         self.__parser = ATSArgumentParser(
             option_bundle=self.__shared_bundle,

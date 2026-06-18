@@ -118,8 +118,8 @@ class ATSOptionManager(IOptionManager):
             :param version: The ATS version in string format | None
             :type version: <Optional[str]>
             :exceptions:
-                | ATSTypeError, ATSValueError by validator
-                | RuntimeError, AttributeError by vreporter
+                | ATSTypeError, ATSValueError, RuntimeError, AttributeError
+                | RuntimeError, AttributeError
         '''
         if version:
             self.__strategy.add_version(version)
@@ -133,7 +133,7 @@ class ATSOptionManager(IOptionManager):
             :type arguments: <OptArgs>
             :return: Option namespace object
             :rtype: <OptionNamespace>
-            :exceptions: RuntimeError, AttributeError by vreporter
+            :exceptions: RuntimeError, AttributeError
         '''
         args = self.__strategy.parse(arguments, known_only=False)
         return args
@@ -147,7 +147,7 @@ class ATSOptionManager(IOptionManager):
             :type arguments: <OptArgs>
             :return: Option namespace object
             :rtype: <OptionNamespace>
-            :exceptions: RuntimeError, AttributeError by vreporter
+            :exceptions: RuntimeError, AttributeError
         '''
         args = self.__strategy.parse(arguments, known_only=True)
         return args

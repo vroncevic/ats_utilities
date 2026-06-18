@@ -68,7 +68,6 @@ class Cfg2Object(IRead):
             :methods:
                 | __init__ - Initials Cfg2Object constructor.
                 | read_configuration - Reads configuration from a CFG file.
-                | _cfg_processor - Property method for getting the internal cfg processor.
                 | __str__ - Returns the string representation of cfg2object.
     '''
 
@@ -118,31 +117,21 @@ class Cfg2Object(IRead):
 
             :return: Configuration object | None
             :rtype: <Optional[ICFGProcessor]>
-            :exceptions: RuntimeError, AttributeError by vreporter
+            :exceptions: RuntimeError, AttributeError
         '''
         with ConfFile(self.__file_bundle_shared, self.__config_file_bundle) as cfg:
             if bool(cfg):
-                lines = cfg.readlines()
-                if self._cfg_processor.from_lines(lines):
-                    return self._cfg_processor
+                lines: List[str] = cfg.readlines()
+                if self.__cfg_processor.from_lines(lines):
+                    return self.__cfg_processor
+
         return None
-
-    @property
-    def _cfg_processor(self) -> ICFGProcessor:
-        '''
-            Property method for getting the internal cfg processor.
-
-            :return: The cfg processor instance in ICFGProcessor format
-            :rtype: <ICFGProcessor>
-            :exceptions: None
-        '''
-        return get_private_attr(self, 'cfg_processor')
 
     def __str__(self) -> str:
         '''
-            Returns the string representation of CFG object.
+            Returns the string representation of cfg2object.
 
-            :return: The CFG object as string representation
+            :return: The cfg2object as string representation
             :rtype: <str>
             :exceptions: None
         '''

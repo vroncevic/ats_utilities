@@ -77,7 +77,7 @@ class TemplateDir(ITemplateDir):
 
             :return: Formatted template dir in string format | None
             :rtype: <Optional[str]>
-            :exceptions: RuntimeError, AttributeError by vreporter
+            :exceptions: RuntimeError, AttributeError
         '''
         return self.__template_dir
 
@@ -91,8 +91,8 @@ class TemplateDir(ITemplateDir):
             :param dir_path: Project template dir path in string format | None
             :type dir_path: <Optional[str]>
             :exceptions:
-                | ATSTypeError, ATSValueError by validator
-                | RuntimeError, AttributeError by vreporter
+                | ATSTypeError, ATSValueError, RuntimeError, AttributeError
+                | RuntimeError, AttributeError
         '''
         self.__template_dir = dir_path
 
@@ -103,7 +103,7 @@ class TemplateDir(ITemplateDir):
 
             :return: True (success) | False (fail)
             :rtype: <bool>
-            :exceptions: RuntimeError, AttributeError by vreporter
+            :exceptions: RuntimeError, AttributeError
         '''
         return self.__template_dir is not None
 

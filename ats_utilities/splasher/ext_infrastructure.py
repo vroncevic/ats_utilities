@@ -81,7 +81,7 @@ class ExtInfrastructure(IExtInfrastructure):
 
             :return: Formatted infrastructure property in dict format | None
             :rtype: <Optional[str]>
-            :exceptions: RuntimeError, AttributeError by vreporter
+            :exceptions: RuntimeError, AttributeError
         '''
         return self.__infrastructure_property
 
@@ -95,8 +95,8 @@ class ExtInfrastructure(IExtInfrastructure):
             :param infrastructure_property_setup: Project infrastructure property in dict format | None
             :type infrastructure_property_setup: <Optional[Dict[Any, Any]]>
             :exceptions:
-                | ATSTypeError, ATSValueError by validator
-                | RuntimeError, AttributeError by vreporter
+                | ATSTypeError, ATSValueError, RuntimeError, AttributeError
+                | RuntimeError, AttributeError
         '''
         self.__infrastructure_property = infrastructure_property_setup
 
@@ -107,7 +107,7 @@ class ExtInfrastructure(IExtInfrastructure):
 
             :return: Hyperlink with info text
             :rtype: <str>
-            :exceptions: RuntimeError, AttributeError by vreporter
+            :exceptions: RuntimeError, AttributeError
         '''
         if not self.__infrastructure_property:
             self._reporter.error(['missing infrastructure property'])
@@ -124,7 +124,7 @@ class ExtInfrastructure(IExtInfrastructure):
 
             :return: Hyperlink with issue info
             :rtype: <str>
-            :exceptions: RuntimeError, AttributeError by vreporter
+            :exceptions: RuntimeError, AttributeError
         '''
         if not self.__infrastructure_property:
             self._reporter.error(['missing infrastructure property'])
@@ -141,7 +141,7 @@ class ExtInfrastructure(IExtInfrastructure):
 
             :return: Hyperlink with author info
             :rtype: <str>
-            :exceptions: RuntimeError, AttributeError by vreporter
+            :exceptions: RuntimeError, AttributeError
         '''
         if not self.__infrastructure_property:
             self._reporter.error(['missing infrastructure property'])

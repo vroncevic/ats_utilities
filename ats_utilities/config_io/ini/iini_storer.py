@@ -2,7 +2,7 @@
 
 '''
 Module
-    icfg_loader.py
+    iini_storer.py
 Copyright
     Copyright (C) 2017 - 2026 Vladimir Roncevic <elektron.ronca@gmail.com>
     ats_utilities is free software: you can redistribute it and/or modify it
@@ -16,8 +16,8 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines interface ICfgLoader with attribute(s) and method(s).
-    Interface for loading the ATS configuration.
+    Defines interface IINIStorer with attribute(s) and method(s).
+    Interface for storing the ATS configuration.
 '''
 
 from abc import ABC, abstractmethod
@@ -33,36 +33,38 @@ __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
 
 
-class ICfgLoader(ABC):
+class IINIStorer(ABC):
     '''
-        Defines interface ICfgLoader with attribute(s) and method(s).
-        Interface for loading the ATS configuration.
+        Defines interface IINIStorer with attribute(s) and method(s).
+        Interface for storing the ATS configuration.
 
         It defines:
 
             :attributes: None
             :methods:
-                | get_configuration - Gets the ATS configuration in dictionary format (abstract).
-                | __str__ - Returns the string representation of CFG loader (abstract).
+                | store_configuration - Stores the ATS configuration from dictionary (abstract).
+                | __str__ - Returns the string representation of INI storer (abstract).
     '''
 
     @abstractmethod
-    def get_configuration(self) -> Dict[str, str]:
+    def store_configuration(self, config: Dict[str, str]) -> bool:
         '''
-            Gets the ATS configuration in dictionary format.
+            Stores the ATS configuration from dictionary format.
 
-            :return: Dictionary with CFG information
-            :rtype: <Dict[str, str]>
+            :param config: Dictionary with INI information
+            :type config: <Dict[str, str]>
+            :return: True (success) | False (fail)
+            :rtype: <bool>
             :exceptions: NotImplementedError
         '''
-        raise NotImplementedError("Method get_configuration() must be implemented.")
+        raise NotImplementedError("Method store_configuration() must be implemented.")
 
     @abstractmethod
     def __str__(self) -> str:
         '''
-            Returns the string representation of CFG loader component.
+            Returns the string representation of INI storer component.
 
-            :return: The CFG loader component as string representation
+            :return: The INI storer component as string representation
             :rtype: <str>
             :exceptions: NotImplementedError
         '''

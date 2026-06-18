@@ -76,7 +76,7 @@ class ATSLicence(ILicence):
 
             :return: The ATS licence in string format | None
             :rtype: <Optional[str]>
-            :exceptions: RuntimeError, AttributeError by vreporter
+            :exceptions: RuntimeError, AttributeError
         '''
         return self.__licence
 
@@ -90,8 +90,8 @@ class ATSLicence(ILicence):
             :param licence: The ATS licence in string format | None
             :type licence: <Optional[str]>
             :exceptions:
-                | ATSTypeError, ATSValueError by validator
-                | RuntimeError, AttributeError by vreporter
+                | ATSTypeError, ATSValueError, RuntimeError, AttributeError
+                | RuntimeError, AttributeError
         '''
         self.__licence = licence
 
@@ -102,7 +102,7 @@ class ATSLicence(ILicence):
 
             :return: True (success) | False (fail)
             :rtype: <bool>
-            :exceptions: RuntimeError, AttributeError by vreporter
+            :exceptions: RuntimeError, AttributeError
         '''
         return self.__licence is not None
 

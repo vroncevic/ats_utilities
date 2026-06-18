@@ -56,9 +56,9 @@ class ConfFile(IConfFile):
                 | __checker - Factoriezed parameters checker (default ATSChecker).
                 | __reporter - Factoriezed reporter for messaging (default ATSReporter).
                 | __verbose - Factoriezed Enable/Disable verbose option (default False).
-                | __file_path - Configuration file path (default set None).
-                | __file_mode - Configuration file mode (default set None).
-                | __file - File object (default set None).
+                | __file_path - Configuration file path (default None).
+                | __file_mode - Configuration file mode (default None).
+                | __file - File object (default None).
                 | __verbose - Enable/Disable verbose option (default False).
             :methods:
                 | __init__ - Initials ConfFile constructor.
@@ -120,7 +120,7 @@ class ConfFile(IConfFile):
 
             :return: File IO object | None
             :rtype: <File>
-            :exceptions: RuntimeError, AttributeError by vreporter
+            :exceptions: RuntimeError, AttributeError
         '''
         if self.__file_path and self.__file_mode:
             self.__file = open(self.__file_path, self.__file_mode, encoding='utf-8')
@@ -136,7 +136,7 @@ class ConfFile(IConfFile):
             :type *args: <Tuple[Any, ...]>
             :param **kwargs: Dictionary of mapped arguments
             :type **kwargs: <Dict[Any, Any]>
-            :exceptions: RuntimeError, AttributeError by vreporter
+            :exceptions: RuntimeError, AttributeError
         '''
         if self.__file and not self.__file.closed:
             self.__file.close()

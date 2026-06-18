@@ -84,7 +84,7 @@ class ProConfig(IProConfig):
 
             :return: Formatted project configuration in dict format | None
             :rtype: <Optional[Dict[Any, Any]]>
-            :exceptions: RuntimeError, AttributeError by vreporter
+            :exceptions: RuntimeError, AttributeError
         '''
         return self.__config
 
@@ -98,8 +98,8 @@ class ProConfig(IProConfig):
             :param pro_config: Project configuration in dict format | None
             :type pro_config: <Optional[Dict[Any, Any]]>
             :exceptions:
-                | ATSTypeError, ATSValueError by validator
-                | RuntimeError, AttributeError by vreporter
+                | ATSTypeError, ATSValueError, RuntimeError, AttributeError
+                | RuntimeError, AttributeError
         '''
         self.__config = pro_config
 
@@ -110,7 +110,7 @@ class ProConfig(IProConfig):
 
             :return: True (success) | False (fail)
             :rtype: <bool>
-            :exceptions: RuntimeError, AttributeError by vreporter
+            :exceptions: RuntimeError, AttributeError
         '''
         return self.__config is not None
 

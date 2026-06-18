@@ -21,7 +21,7 @@ Info
 '''
 
 from abc import ABC, abstractmethod
-from typing import Any, Dict, List
+from typing import Dict, List
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -47,12 +47,12 @@ class ICfgStorer(ABC):
     '''
 
     @abstractmethod
-    def store_configuration(self, config: Dict[Any, Any]) -> bool:
+    def store_configuration(self, config: Dict[str, str]) -> bool:
         '''
             Stores the ATS configuration from dictionary format.
 
             :param config: Dictionary with CFG information
-            :type config: <Dict[Any, Any]>
+            :type config: <Dict[str, str]>
             :return: True (success) | False (fail)
             :rtype: <bool>
             :exceptions: NotImplementedError

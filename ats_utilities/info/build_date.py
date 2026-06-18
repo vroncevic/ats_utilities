@@ -76,7 +76,7 @@ class ATSBuildDate(IBuildDate):
 
             :return: The ATS build date in string format | None
             :rtype: <Optional[str]>
-            :exceptions: RuntimeError, AttributeError by vreporter
+            :exceptions: RuntimeError, AttributeError
         '''
         return self.__build_date
 
@@ -90,8 +90,8 @@ class ATSBuildDate(IBuildDate):
             :param build_date: The ATS build date in string format | None
             :type build_date: <Optional[str]>
             :exceptions:
-                | ATSTypeError, ATSValueError by validator
-                | RuntimeError, AttributeError by vreporter
+                | ATSTypeError, ATSValueError, RuntimeError, AttributeError
+                | RuntimeError, AttributeError
         '''
         self.__build_date = build_date
 
@@ -102,7 +102,7 @@ class ATSBuildDate(IBuildDate):
 
             :return: True (success) | False (fail)
             :rtype: <bool>
-            :exceptions: RuntimeError, AttributeError by vreporter
+            :exceptions: RuntimeError, AttributeError
         '''
         return self.__build_date is not None
 

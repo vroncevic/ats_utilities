@@ -42,20 +42,20 @@ class IINIProcessor(ABC):
 
             :attributes: None
             :methods:
-                | from_stream - Load INI content from a stream (abstract).
-                | to_stream - Write INI content to a stream (abstract).
-                | get_ats_info - Get ATS information from INI (abstract).
-                | __str__ - Returns the string representation of INI configuration processor component (abstract).
+                | from_stream - Loads INI configuration from a stream (abstract).
+                | to_stream - Converts INI configuration to a stream (abstract).
+                | to_dict - Converts INI configuration to dictionary (abstract).
+                | __str__ - Returns the string representation of INI processor (abstract).
     '''
 
     @abstractmethod
     def from_stream(self, stream: Any) -> bool:
         '''
-            Load INI content from a stream.
+            Loads INI configuration from a stream.
 
             :param stream: INI content stream
             :type stream: <Any>
-            :return: True (content loaded) | False
+            :return: True (success) | False (fail)
             :rtype: <bool>
             :exceptions: NotImplementedError
         '''
@@ -64,33 +64,33 @@ class IINIProcessor(ABC):
     @abstractmethod
     def to_stream(self, stream: Any) -> bool:
         '''
-            Write INI content to a stream.
+            Converts INI configuration to a stream.
 
             :param stream: INI content stream
             :type stream: <Any>
-            :return: True (content written) | False
+            :return: True (success) | False (fail)
             :rtype: <bool>
             :exceptions: NotImplementedError
         '''
         raise NotImplementedError("Method to_stream() must be implemented.")
 
     @abstractmethod
-    def get_ats_info(self) -> Dict[str, str]:
+    def to_dict(self) -> Dict[str, str]:
         '''
-            Get ATS information from INI.
+            Converts INI configuration to dictionary.
 
             :return: Dictionary with ATS information
             :rtype: <Dict[str, str]>
             :exceptions: NotImplementedError
         '''
-        raise NotImplementedError("Method get_ats_info() must be implemented.")
+        raise NotImplementedError("Method to_dict() must be implemented.")
 
     @abstractmethod
     def __str__(self) -> str:
         '''
-            Returns the string representation of INI configuration processor component.
+            Returns the string representation of INI processor.
 
-            :return: INI configuration processor component as string
+            :return: INI processor as string representation
             :rtype: <str>
             :exceptions: NotImplementedError
         '''

@@ -21,7 +21,7 @@ Info
 '''
 
 from re import match
-from typing import Any, Dict, List
+from typing import Dict, List
 from ats_utilities.factory_class import format_instance_to_string
 from ats_utilities.config_io.cfg.icfg_processor import ICFGProcessor
 
@@ -47,10 +47,10 @@ class ATSCFGProcessor(ICFGProcessor):
                 | __data - Dictionary with CFG information.
             :methods:
                 | __init__ - Initializes ATSCFGProcessor constructor.
-                | from_lines - Load CFG content from lines.
-                | to_string - Convert CFG content to string.
-                | to_dict - Convert CFG content to dictionary.
-                | __str__ - Returns the string representation of CFG processor component.
+                | from_lines - Loads CFG configuration from lines.
+                | to_string - Converts CFG configuration to string.
+                | to_dict - Converts CFG configuration to dictionary.
+                | __str__ - Returns the string representation of CFG processor.
     '''
 
     __REGEX_EXP: str = r'^\s*$'
@@ -59,15 +59,15 @@ class ATSCFGProcessor(ICFGProcessor):
         '''
             Initializes ATSCFGProcessor constructor.
         '''
-        self.__data: Dict[Any, Any] = {}
+        self.__data: Dict[str, str] = {}
 
-    def from_lines(self, lines: list[str]) -> bool:
+    def from_lines(self, lines: List[str]) -> bool:
         '''
-            Load CFG content from lines.
+            Loads CFG configuration from lines.
 
             :param lines: CFG content as a list of strings
-            :type lines: <list[str]>
-            :return: True (content loaded) | False
+            :type lines: <List[str]>
+            :return: True (success) | False (fail)
             :rtype: <bool>
             :exceptions: None
         '''
@@ -76,14 +76,14 @@ class ATSCFGProcessor(ICFGProcessor):
         for line in lines:
             if not match(self.__REGEX_EXP, line):
                 if '=' in line:
-                    pairs = line.split('=', 1)
+                    pairs: List[str] = line.split('=', 1)
                     self.__data[pairs[0].strip()] = pairs[1].strip()
 
         return True
 
     def to_string(self) -> str:
         '''
-            Convert CFG content to string.
+            Converts CFG configuration to string.
 
             :return: CFG content as string
             :rtype: <str>
@@ -91,19 +91,19 @@ class ATSCFGProcessor(ICFGProcessor):
         '''
         return "".join([f"{k} = {v}\n" for k, v in self.__data.items()])
 
-    def to_dict(self) -> Dict[Any, Any]:
+    def to_dict(self) -> Dict[str, str]:
         '''
-            Convert CFG content to dictionary.
+            Converts CFG configuration to dictionary.
 
             :return: Dictionary with CFG information
-            :rtype: <Dict[Any, Any]>
+            :rtype: <Dict[str, str]>
             :exceptions: None
         '''
         return self.__data
 
     def __str__(self) -> str:
         '''
-            Returns the string representation of CFG processor component.
+            Returns the string representation of CFG processor.
 
             :return: CFG processor component as string representation
             :rtype: <str>

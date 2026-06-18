@@ -2,7 +2,7 @@
 
 '''
 Module
-    icfg_loader.py
+    iini_loader.py
 Copyright
     Copyright (C) 2017 - 2026 Vladimir Roncevic <elektron.ronca@gmail.com>
     ats_utilities is free software: you can redistribute it and/or modify it
@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines interface ICfgLoader with attribute(s) and method(s).
+    Defines interface IINILoader with attribute(s) and method(s).
     Interface for loading the ATS configuration.
 '''
 
@@ -33,9 +33,9 @@ __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
 
 
-class ICfgLoader(ABC):
+class IINILoader(ABC):
     '''
-        Defines interface ICfgLoader with attribute(s) and method(s).
+        Defines interface IINILoader with attribute(s) and method(s).
         Interface for loading the ATS configuration.
 
         It defines:
@@ -43,7 +43,7 @@ class ICfgLoader(ABC):
             :attributes: None
             :methods:
                 | get_configuration - Gets the ATS configuration in dictionary format (abstract).
-                | __str__ - Returns the string representation of CFG loader (abstract).
+                | __str__ - Returns the string representation of INI loader (abstract).
     '''
 
     @abstractmethod
@@ -51,7 +51,7 @@ class ICfgLoader(ABC):
         '''
             Gets the ATS configuration in dictionary format.
 
-            :return: Dictionary with CFG information
+            :return: Dictionary with INI information
             :rtype: <Dict[str, str]>
             :exceptions: NotImplementedError
         '''
@@ -60,9 +60,9 @@ class ICfgLoader(ABC):
     @abstractmethod
     def __str__(self) -> str:
         '''
-            Returns the string representation of CFG loader component.
+            Returns the string representation of INI loader component.
 
-            :return: The CFG loader component as string representation
+            :return: The INI loader component as string representation
             :rtype: <str>
             :exceptions: NotImplementedError
         '''

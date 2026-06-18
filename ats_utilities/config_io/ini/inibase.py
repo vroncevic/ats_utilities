@@ -38,6 +38,7 @@ from ats_utilities.config_io.ini.ini2object import Ini2Object
 from ats_utilities.config_io.ini.object2ini import Object2Ini
 from ats_utilities.config_io.ini.iini_processor import IINIProcessor
 from ats_utilities.config_io.ini.ini_processor import ATSINIProcessor
+from ats_utilities.factory_component import make_component, validate_component
 
 
 __author__: str = 'Vladimir Roncevic'
@@ -118,7 +119,8 @@ class IniBase:
 
         # Dependency Injection for Ini2Object and Object2Ini or use defaults if not provided
         self.__ini2obj: Optional[IRead] = ini2obj or Ini2Object(
-            info_file, ATSINIProcessor(), self.__checker, self.__reporter, self.__file_checker, self.__verbose
+            info_file, ATSINIProcessor(
+            ), self.__checker, self.__reporter, self.__file_checker, self.__verbose
         )
         self.__obj2ini: Optional[IWrite] = obj2ini or Object2Ini(
             info_file, self.__checker, self.__reporter, self.__file_checker, self.__verbose
@@ -134,7 +136,8 @@ class IniBase:
         if bool(information):
             info_dict = information.get_ats_info()
 
-            info: ATSInfo = ATSInfo(info_dict, self.__checker, self.__reporter, self.__verbose)
+            info: ATSInfo = ATSInfo(
+                info_dict, self.__checker, self.__reporter, self.__verbose)
 
             if info.ats_info_ok:
                 # Dependecy injection for option parser or use default if not provided
@@ -144,7 +147,8 @@ class IniBase:
                 )
                 self.__option_parser.add_version_operation(info.version)
                 self.__tool_operational = True
-                self.__reporter.verbose(self.__verbose, ['loaded ATS INI info'])
+                self.__reporter.verbose(
+                    self.__verbose, ['loaded ATS INI info'])
 
     @property
     def option_parser(self) -> Optional[IOptionManager]:

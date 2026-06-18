@@ -21,7 +21,7 @@ Info
 '''
 
 from abc import ABC, abstractmethod
-from typing import Any, Dict, List
+from typing import Dict, List
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -42,20 +42,20 @@ class ICFGProcessor(ABC):
 
             :attributes: None
             :methods:
-                | from_lines - Load CFG content from lines (abstract).
-                | to_string - Convert CFG content to string (abstract).
-                | to_dict - Convert CFG content to dictionary (abstract).
-                | __str__ - Returns the string representation of CFG configuration processor component (abstract).
+                | from_lines - Loads CFG configuration from lines (abstract).
+                | to_string - Converts CFG configuration to string (abstract).
+                | to_dict - Converts CFG configuration to dictionary. (abstract).
+                | __str__ - Returns the string representation of CFG processor (abstract).
     '''
 
     @abstractmethod
-    def from_lines(self, lines: list[str]) -> bool:
+    def from_lines(self, lines: List[str]) -> bool:
         '''
-            Load CFG content from lines.
+            Load CFG configuration from lines.
 
             :param lines: CFG content as a list of strings
-            :type lines: <list[str]>
-            :return: True (content loaded) | False
+            :type lines: <List[str]>
+            :return: True (success) | False (fail)
             :rtype: <bool>
             :exceptions: NotImplementedError
         '''
@@ -64,7 +64,7 @@ class ICFGProcessor(ABC):
     @abstractmethod
     def to_string(self) -> str:
         '''
-            Convert CFG content to string.
+            Convert CFG configuration to string.
 
             :return: CFG content as string
             :rtype: <str>
@@ -73,22 +73,22 @@ class ICFGProcessor(ABC):
         raise NotImplementedError("Method to_string() must be implemented.")
 
     @abstractmethod
-    def to_dict(self) -> Dict[Any, Any]:
+    def to_dict(self) -> Dict[str, str]:
         '''
-            Convert CFG content to dictionary.
+            Converts CFG configuration to dictionary.
 
-            :return: Dictionary with CFG information
-            :rtype: <Dict[Any, Any]>
+            :return: Dictionary with ATS information
+            :rtype: <Dict[str, str]>
             :exceptions: NotImplementedError
         '''
-        raise NotImplementedError("Method to_dict() must be implemented.")
+        raise NotImplementedError("Method get_ats_info() must be implemented.")
 
     @abstractmethod
     def __str__(self) -> str:
         '''
-            Returns the string representation of CFG configuration processor component.
+            Returns the string representation of CFG processor.
 
-            :return: The CFG configuration processor component as string representation
+            :return: CFG processor as string representation
             :rtype: <str>
             :exceptions: NotImplementedError
         '''

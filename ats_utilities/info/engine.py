@@ -57,7 +57,7 @@ class ATSInfoManager(IInfoManager):
 
             :attributes:
                 | _ATTR_MAP - .
-                | _components - The ATS licence (default set ATSLicence).
+                | _components - The ATS licence (default ATSLicence).
             :methods:
                 | __init__ - Initials ATSInfoManager constructor.
                 | info_ok - Checks is ATS information structure ok.
