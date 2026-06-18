@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines interface IATSLogger with attribute(s) and method(s).
+    Defines interface ILogger with attribute(s) and method(s).
     Interface for the ATS logging mechanism.
 '''
 
@@ -110,9 +110,9 @@ class LoggerLevelsProtocol(Protocol):
     ATS_LOG_CRITICAL: ClassVar[int]
 
 
-class IATSLogger(ABC):
+class ILogger(ABC):
     '''
-        Defines interface IATSLogger with attribute(s) and method(s).
+        Defines interface ILogger with attribute(s) and method(s).
         Interface for the ATS logging mechanism.
 
         It defines:
@@ -137,7 +137,7 @@ class IATSLogger(ABC):
             :type message: <Optional[str]>
             :param ctrl: Control flag (debug, warning, critical, errors, info)
             :type ctrl: <int>
-            :return: True (successfully logged message) | False
+            :return: True (success) | False (fail)
             :rtype: <bool>
             :exceptions: NotImplementedError
         '''
@@ -148,7 +148,7 @@ class IATSLogger(ABC):
         '''
             Returns the string representation of ATS logger.
 
-            :return: The ATS logger as string
+            :return: The ATS logger as string representation
             :rtype: <str>
             :exceptions: NotImplementedError
         '''

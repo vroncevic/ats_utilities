@@ -24,7 +24,7 @@ Execute
 
 from typing import List, Optional
 from unittest import TestCase, main
-from ats_utilities.pro_config.pro_name import ProName
+from ats_utilities.config_setup.pro_name import ProName
 from ats_utilities.reporter.ireporter import IReporter
 from ats_utilities.reporter.engine import ATSReporter
 from ats_utilities.exceptions.ats_type_error import ATSTypeError

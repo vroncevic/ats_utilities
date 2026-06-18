@@ -24,7 +24,7 @@ Execute
 
 from typing import List
 from unittest import TestCase, main
-from ats_utilities.logging.ats_logger_manager import ATSLoggerManager
+from ats_utilities.logging.engine import ATSLoggerManager
 from ats_utilities.reporter.ireporter import IReporter
 from ats_utilities.reporter.engine import ATSReporter
 

@@ -47,15 +47,13 @@ class IWrite(ABC):
     '''
 
     @abstractmethod
-    def write_configuration(self, config: Any, verbose: bool = False) -> bool:
+    def write_configuration(self, config: Any) -> bool:
         '''
             Write configuration to file.
 
             :param config: Configuration object | None
             :type config: <Any>
-            :param verbose: Enable/Disable verbose option (default False)
-            :type verbose: <bool>
-            :return: True if written | False
+            :return: True (success) | False (fail)
             :rtype: <bool>
             :exceptions: NotImplementedError
         '''
@@ -66,7 +64,7 @@ class IWrite(ABC):
         '''
             Returns the string representation of write configuration component.
 
-            :return: The write configuration component as string
+            :return: The write configuration component as string representation
             :rtype: <str>
             :exceptions: NotImplementedError
         '''

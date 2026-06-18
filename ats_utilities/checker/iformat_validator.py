@@ -54,7 +54,7 @@ class IATSFormatValidator(ABC):
 
             :param exp_type: The expected format string to validate
             :type exp_type: <str>
-            :return: True if the format is valid, False otherwise
+            :return: True (success), False (fail)
             :rtype: <bool>
             :exceptions: NotImplementedError
         '''

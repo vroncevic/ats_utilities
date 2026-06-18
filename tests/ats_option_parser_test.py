@@ -17,17 +17,17 @@ Copyright
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
     Defines classes OptionParserTestCase and OptionParserUnitTestCase with attribute(s) and method(s).
-    Creates test cases for checking functionalities of ATSOptionParser.
+    Creates test cases for checking functionalities of ATSOptionManager.
 Execute
     python3 -m unittest -v ats_option_parser_test
 '''
 
 from typing import List, Dict, Any
 from unittest import TestCase, main, mock
-from ats_utilities.option.ats_option_parser import ATSOptionParser
-from ats_utilities.option.ioption_parser import IATSOptionParser
-from ats_utilities.option.iparser_strategy import IATSArgParseStrategy
-from ats_utilities.option.ats_parser_strategy import ATSArgParseStrategy
+from ats_utilities.option.engine import ATSOptionManager
+from ats_utilities.option.ioption_parser import IOptionManager
+from ats_utilities.option.iparser_strategy import IArgParserStrategy
+from ats_utilities.option.parser_strategy import ATSArgParserStrategy
 from ats_utilities.checker.ichecker import IChecker
 from ats_utilities.checker.engine import ATSChecker
 from ats_utilities.reporter.ireporter import IReporter
@@ -43,8 +43,8 @@ __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
 
 
-class ATSBaseOptionParser(ATSOptionParser):
-    '''Simple Class for checking ATSOptionParser.'''
+class ATSBaseOptionParser(ATSOptionManager):
+    '''Simple Class for checking ATSOptionManager.'''
 
     def __init__(
         self,
@@ -54,7 +54,7 @@ class ATSBaseOptionParser(ATSOptionParser):
         verbose: bool = False
     ) -> None:
         '''Initial constructor.'''
-        super().__init__(ats_info, ATSArgParseStrategy(reporter), checker, reporter, verbose)
+        super().__init__(ats_info, ATSArgParserStrategy(reporter), checker, reporter, verbose)
         self._verbose = verbose
         if self.is_tool_ok():
             reporter.success(['init ATS option parser'])
@@ -72,8 +72,8 @@ class ATSBaseOptionParser(ATSOptionParser):
 class OptionParserTestCase(TestCase):
     '''
         Defines class OptionParserTestCase with attribute(s) and method(s).
-        Creates test cases for checking functionalities of ATSOptionParser.
-        ATSOptionParser unit tests.
+        Creates test cases for checking functionalities of ATSOptionManager.
+        ATSOptionManager unit tests.
 
         It defines:
             :attributes:
@@ -81,7 +81,7 @@ class OptionParserTestCase(TestCase):
             :methods:
                 | setUp - Call before test case.
                 | tearDown - Call after test case.
-                | test_not_none - Test is ATSOptionParser not None.
+                | test_not_none - Test is ATSOptionManager not None.
                 | test_add_operation - Test adding operation.
                 | test_add_version_operation - Test adding version operation.
     '''
@@ -100,7 +100,7 @@ class OptionParserTestCase(TestCase):
         '''Call after test case.'''
 
     def test_not_none(self) -> None:
-        '''Test for create ATSOptionParser'''
+        '''Test for create ATSOptionManager'''
         self.assertIsNotNone(self.option_parser)
 
     def test_add_operation(self) -> None:
@@ -116,7 +116,7 @@ class OptionParserTestCase(TestCase):
 
 class OptionParserUnitTestCase(TestCase):
     '''
-        Unit tests for IATSOptionParser interface using mocks.
+        Unit tests for IOptionManager interface using mocks.
 
         It defines:
             :methods:
@@ -127,8 +127,8 @@ class OptionParserUnitTestCase(TestCase):
 
     def setUp(self) -> None:
         '''Set up test environment.'''
-        self.mock_parser = mock.MagicMock(spec=IATSOptionParser)
-        self.mock_strategy = mock.MagicMock(spec=IATSArgParseStrategy)
+        self.mock_parser = mock.MagicMock(spec=IOptionManager)
+        self.mock_strategy = mock.MagicMock(spec=IArgParserStrategy)
         self.mock_checker = mock.MagicMock(spec=IChecker)
         self.mock_reporter = mock.MagicMock(spec=IReporter)
 

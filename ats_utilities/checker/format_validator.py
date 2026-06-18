@@ -59,7 +59,7 @@ class ATSFormatValidator(IATSFormatValidator):
 
             :param exp_type: The expected format string to validate
             :type exp_type: <str>
-            :return: True if the format is valid, False otherwise
+            :return: True (success), False (fail)
             :rtype: <bool>
             :exceptions: None
         '''
@@ -82,7 +82,7 @@ class ATSFormatValidator(IATSFormatValidator):
         '''
             Returns the string representation of ATSFormatValidator.
 
-            :return: String representation of ATSFormatValidator
+            :return: The ATSFormatValidator as string representation
             :rtype: <str>
             :exceptions: None
         '''

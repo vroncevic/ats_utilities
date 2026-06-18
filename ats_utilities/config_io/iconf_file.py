@@ -79,7 +79,7 @@ class IConfFile(ABC):
         '''
             Returns the string representation of configuration context manger.
 
-            :return: The configuration context manger as string
+            :return: The configuration context manger as string representation
             :rtype: <str>
             :exceptions: NotImplementedError
         '''

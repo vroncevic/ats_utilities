@@ -20,9 +20,11 @@ Info
     Creates an API for checking parameters for methods and functions.
 '''
 
-from typing import List
+from typing import List, Optional
 from ats_utilities.factory_class import format_instance_to_string
-from ats_utilities.checker.icheck_reporter import IATSCheckReporter, ParamMetadata
+from ats_utilities.checker.icheck_reporter import IATSCheckReporter
+from ats_utilities.checker.checker_reporter_bundle import ATSCheckerReporterBundle
+from ats_utilities.exceptions.ats_value_error import ATSValueError
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -48,32 +50,29 @@ class ATSCheckReporter(IATSCheckReporter):
                 | __str__ - Returns the string representation of ATSCheckReporter.
     '''
 
-    def build_message_format(self, context: str, parameters_meta: List[ParamMetadata], err_indices: List[int], is_fmt_err: bool) -> str:
+    def build_message_format(self, report_bundle: Optional[ATSCheckerReporterBundle] = None) -> str:
         '''
-            Builds the final message report.
+            Builds the final message report for checker.
 
-            :param context: The context string from the stack
-            :type context: <str>
-            :param parameters_meta: Metadata about processed parameters
-            :type parameters_meta: <List[ParamMetadata]>
-            :param err_indices: Indices of parameters with errors
-            :type err_indices: <List[int]>
-            :param is_fmt_err: Flag indicating a format error occurred
-            :type is_fmt_err: <bool>
+            :param report_bundle: Bundle with parameters | None
+            :type report_bundle: <Optional[ATSCheckerReporterBundle]>
             :return: Formatted message report
             :rtype: <str>
-            :exceptions: None
+            :exceptions: ATSValueError
         '''
-        message = context
-        err_set = set(err_indices)
+        if not report_bundle:
+            raise ATSValueError('Missing parameters for build_message_format()')
 
-        for i, (pname, ptype, inst) in enumerate(parameters_meta):
+        message = getattr(report_bundle, 'context')
+        err_set = set(getattr(report_bundle, 'err_indices'))
+
+        for i, (pname, ptype, inst) in enumerate(getattr(report_bundle, 'parameters_meta')):
             message += f'\n    expected {pname} <{ptype}> object at {hex(id(inst))}'
 
             if i in err_set:
                 message += ' wrong type'
 
-        if is_fmt_err or err_indices:
+        if getattr(report_bundle, 'is_fmt_err'):
             message += ' format wrong during checking parameters_meta'
 
         return message
@@ -82,7 +81,7 @@ class ATSCheckReporter(IATSCheckReporter):
         '''
             Returns the string representation of ATSCheckReporter.
 
-            :return: String representation of ATSCheckReporter
+            :return: The ATSCheckReporter as string representation
             :rtype: <str>
             :exceptions: None
         '''

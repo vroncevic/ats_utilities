@@ -59,7 +59,7 @@ class ATSTypeValidator(IATSTypeValidator):
             :type inst: <Any>
             :param expected_type_name: The expected type name
             :type expected_type_name: <str>
-            :return: True if the types match, False otherwise
+            :return: True (success), False (fail)
             :rtype: <bool>
             :exceptions: None
         '''
@@ -74,7 +74,7 @@ class ATSTypeValidator(IATSTypeValidator):
             :type inst: <Any>
             :param expected_type_name: The expected parent type name
             :type expected_type_name: <str>
-            :return: True if any class in MRO matches the name, False otherwise
+            :return: True (is), False (not)
             :rtype: <bool>
             :exceptions: None
         '''

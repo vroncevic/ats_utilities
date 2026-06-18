@@ -25,7 +25,7 @@ Execute
 from typing import List
 from os.path import dirname
 from unittest import TestCase, main
-from ats_utilities.splash.engine import Splash
+from ats_utilities.splasher.engine import Splasher
 from ats_utilities.exceptions.ats_type_error import ATSTypeError
 from ats_utilities.exceptions.ats_value_error import ATSValueError
 
@@ -43,7 +43,7 @@ class ATSSplashTestCase(TestCase):
     '''
         Defines class ATSSplashTestCase with attribute(s) and method(s).
         Creates test cases for checking functionalities of termanl properties.
-        Splash unit tests.
+        Splasher unit tests.
 
         It defines:
 
@@ -68,11 +68,11 @@ class ATSSplashTestCase(TestCase):
     def test_splash_with_none_property(self) -> None:
         '''Test splash with None'''
         with self.assertRaises(ATSTypeError):
-            Splash(None)  # type: ignore
+            Splasher(None)  # type: ignore
 
     def test_create(self) -> None:
         '''Test for create (not None)'''
-        splash: Splash = Splash(
+        splash: Splasher = Splasher(
             {
                 'ats_organization': 'App Example',
                 'ats_repository': 'app_example',
@@ -85,7 +85,7 @@ class ATSSplashTestCase(TestCase):
 
     def test_create_with_ext(self) -> None:
         '''Test for create with external'''
-        splash: Splash = Splash(
+        splash: Splasher = Splasher(
             {
                 'ats_organization': 'App Example',
                 'ats_repository': 'app_example',
@@ -98,7 +98,7 @@ class ATSSplashTestCase(TestCase):
 
     def test_wrong_parameter_center(self) -> None:
         '''Test for wrong center param'''
-        splash: Splash = Splash(
+        splash: Splasher = Splasher(
             {
                 'ats_organization': 'App Example',
                 'ats_repository': 'app_example',
@@ -112,7 +112,7 @@ class ATSSplashTestCase(TestCase):
 
     def test_empty_parameter_center(self) -> None:
         '''Test for empty center param'''
-        splash: Splash = Splash(
+        splash: Splasher = Splasher(
             {
                 'ats_organization': 'App Example',
                 'ats_repository': 'app_example',

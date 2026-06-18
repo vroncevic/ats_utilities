@@ -25,15 +25,15 @@ from ats_utilities.checker.ichecker import IChecker
 from ats_utilities.checker.engine import ATSChecker
 from ats_utilities.checker.ichecker import ErrorChecker
 from ats_utilities.info.engine import ATSInfo
-from ats_utilities.option.ioption_parser import IATSOptionParser
-from ats_utilities.option.ats_option_parser import ATSOptionParser
+from ats_utilities.option.ioption_parser import IOptionManager
+from ats_utilities.option.engine import ATSOptionManager
 from ats_utilities.reporter.ireporter import IReporter
 from ats_utilities.reporter.engine import ATSReporter
 from ats_utilities.config_io.iread import IRead
 from ats_utilities.config_io.iwrite import IWrite
 from ats_utilities.config_io.ifile_check import IFileCheck
 from ats_utilities.config_io.file_check import FileCheck
-from ats_utilities.option.iparser_strategy import IATSArgParseStrategy
+from ats_utilities.option.iparser_strategy import IArgParserStrategy
 from ats_utilities.config_io.xml.xml2object import Xml2Object
 from ats_utilities.config_io.xml.object2xml import Object2Xml
 from ats_utilities.config_io.xml.ixml_processor import IXMLProcessor
@@ -79,11 +79,11 @@ class XmlBase:
         info_file: Optional[str] = None,
         xml2obj: Optional[IRead] = None,
         obj2xml: Optional[IWrite] = None,
-        options_parser: Optional[IATSOptionParser] = None,
+        options_parser: Optional[IOptionManager] = None,
         checker: Optional[IChecker] = None,
         reporter: Optional[IReporter] = None,
         file_checker: Optional[IFileCheck] = None,
-        strategy: Optional[IATSArgParseStrategy] = None,
+        strategy: Optional[IArgParserStrategy] = None,
         verbose: bool = False
     ) -> None:
         '''
@@ -96,7 +96,7 @@ class XmlBase:
             :param obj2xml: Out API for information (Dependency Injected)
             :type obj2xml: <Optional[IWrite]>
             :param options_parser: Option parser for ATS | None
-            :type options_parser: <Optional[IATSOptionParser]>
+            :type options_parser: <Optional[IOptionManager]>
             :param checker: Error checker | None
             :type checker: <Optional[IChecker]>
             :param reporter: ATSReporter for check operations | None
@@ -113,7 +113,7 @@ class XmlBase:
         self.__file_checker: IFileCheck = file_checker or FileCheck(
             self.__checker, self.__reporter, verbose
         )
-        self.__option_parser: Optional[IATSOptionParser] = None
+        self.__option_parser: Optional[IOptionManager] = None
 
         # Dependency Injection for Xml2Object and Object2Xml or use defaults if not provided
         self.__xml2obj: Optional[IRead] = xml2obj or Xml2Object(
@@ -137,7 +137,7 @@ class XmlBase:
             if info.ats_info_ok:
                 # Dependecy injection for option parser or use default if not provided
                 # Dependecy injection for argument strategy
-                self.__option_parser = options_parser or ATSOptionParser(
+                self.__option_parser = options_parser or ATSOptionManager(
                     info_dict, strategy, self.__checker, self.__reporter, verbose
                 )
                 self.__option_parser.add_version_operation(info.version)
@@ -145,12 +145,12 @@ class XmlBase:
                 self.__reporter.verbose(self.__verbose, ['loaded ATS XML info'])
 
     @property
-    def option_parser(self) -> Optional[IATSOptionParser]:
+    def option_parser(self) -> Optional[IOptionManager]:
         '''
             Option parser for ATS.
 
             :return: Option parser for ATS
-            :rtype: <Optional[IATSOptionParser]>
+            :rtype: <Optional[IOptionManager]>
             :exceptions: None
         '''
         return self.__option_parser

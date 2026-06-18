@@ -26,15 +26,15 @@ from ats_utilities.info.imanager import IInfoManager
 from ats_utilities.config_io.ifile_check import IFileCheck
 from ats_utilities.config_io.iread import IRead
 from ats_utilities.config_io.iwrite import IWrite
-from ats_utilities.config_io.cfg.cfg_initializer import CfgInitializer
+from ats_utilities.config_io.cfg.cfg_loader import CfgLoader
 from ats_utilities.config_io.ini.inibase import IniBase
 from ats_utilities.config_io.json.jsonbase import JsonBase
 from ats_utilities.config_io.xml.xmlbase import XmlBase
 from ats_utilities.config_io.yaml.yamlbase import YamlBase
 from ats_utilities.reporter.ireporter import IReporter
 from ats_utilities.checker.ichecker import IChecker
-from ats_utilities.option.ioption_parser import IATSOptionParser
-from ats_utilities.option.iparser_strategy import IATSArgParseStrategy
+from ats_utilities.option.ioption_parser import IOptionManager
+from ats_utilities.option.iparser_strategy import IArgParserStrategy
 from ats_utilities.cli.iconfig_manager import IConfigManager
 from ats_utilities.cli.iconfig_manager import Config
 
@@ -71,8 +71,8 @@ class ATSConfigManager(IConfigManager):
         config2object: Optional[IRead] = None,
         object2config: Optional[IWrite] = None,
         info_manager: Optional[IInfoManager] = None,
-        strategy: Optional[IATSArgParseStrategy] = None,
-        options_parser: Optional[IATSOptionParser] = None,
+        strategy: Optional[IArgParserStrategy] = None,
+        options_parser: Optional[IOptionManager] = None,
         checker: Optional[IChecker] = None,
         reporter: Optional[IReporter] = None,
         file_checker: Optional[IFileCheck] = None,
@@ -87,9 +87,9 @@ class ATSConfigManager(IConfigManager):
             :param info_manager: Information manager | None
             :type info_manager: <Optional[IInfoManager]>
             :param strategy: Strategy for argument parsing | None
-            :type strategy: <Optional[IATSArgParseStrategy]>
+            :type strategy: <Optional[IArgParserStrategy]>
             :param options_parser: Option parser for CLI arguments | None
-            :type options_parser: <Optional[IATSOptionParser]>
+            :type options_parser: <Optional[IOptionManager]>
             :param checker: Checker for parameter validation | None
             :type checker: <Optional[IChecker]>
             :param reporter: Reporter for console output | None
@@ -138,7 +138,7 @@ class ATSConfigManager(IConfigManager):
 
         match file_format:
             case 'cfg':
-                return CfgInitializer(*common_base_args)
+                return CfgLoader(*common_base_args)
             case 'ini':
                 return IniBase(*common_base_args)
             case 'json':

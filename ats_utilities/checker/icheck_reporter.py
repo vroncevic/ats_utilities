@@ -21,7 +21,8 @@ Info
 '''
 
 from abc import ABC, abstractmethod
-from typing import Any, List, Tuple, TypeAlias
+from typing import List, Optional
+from ats_utilities.checker.checker_reporter_bundle import ATSCheckerReporterBundle
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -31,9 +32,6 @@ __version__: str = '3.3.7'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
-
-# Type alias for parameter metadata: (parameter name, expected type, actual value)
-ParamMetadata: TypeAlias = Tuple[str, str, Any]
 
 
 class IATSCheckReporter(ABC):
@@ -49,18 +47,12 @@ class IATSCheckReporter(ABC):
                 | __str__ - Returns a human-readable string representation of the reporter.
     '''
     @abstractmethod
-    def build_message_format(self, context: str, parameters_meta: List[ParamMetadata], err_indices: List[int], is_fmt_err: bool) -> str:
+    def build_message_format(self, report_bundle: Optional[ATSCheckerReporterBundle] = None) -> str:
         '''
             Builds the final message report for checker.
 
-            :param context: The context string from the stack
-            :type context: <str>
-            :param parameters_meta: Metadata about processed parameters
-            :type parameters_meta: <List[ParamMetadata]>
-            :param err_indices: Indices of parameters with errors
-            :type err_indices: <List[int]>
-            :param is_fmt_err: Flag indicating a format error occurred
-            :type is_fmt_err: <bool>
+            :param report_bundle: Bundle with parameters | None
+            :type report_bundle: <Optional[ATSCheckerReporterBundle]>
             :return: Formatted message report
             :rtype: <str>
             :exceptions: NotImplementedError

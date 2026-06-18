@@ -32,9 +32,9 @@ from ats_utilities.config_io.iwrite import IWrite
 from ats_utilities.config_io.ifile_check import IFileCheck
 from ats_utilities.checker.ichecker import IChecker
 from ats_utilities.reporter.ireporter import IReporter
-from ats_utilities.option.ats_option_parser import ATSOptionParser
-from ats_utilities.option.iparser_strategy import IATSArgParseStrategy
-from ats_utilities.config_io.cfg.cfg_initializer import CfgInitializer
+from ats_utilities.option.engine import ATSOptionManager
+from ats_utilities.option.iparser_strategy import IArgParserStrategy
+from ats_utilities.config_io.cfg.cfg_loader import CfgLoader
 from ats_utilities.config_io.ini.inibase import IniBase
 from ats_utilities.config_io.json.jsonbase import JsonBase
 from ats_utilities.config_io.xml.xmlbase import XmlBase
@@ -101,11 +101,11 @@ class ConfigManagerUnitTestCase(TestCase):
         '''Set up test environment.'''
         self.mock_read = mock.MagicMock(spec=IRead)
         self.mock_write = mock.MagicMock(spec=IWrite)
-        self.mock_parser = mock.MagicMock(spec=ATSOptionParser)
+        self.mock_parser = mock.MagicMock(spec=ATSOptionManager)
         self.mock_checker = mock.MagicMock(spec=IChecker)
         self.mock_reporter = mock.MagicMock(spec=IReporter)
         self.mock_file_checker = mock.MagicMock(spec=IFileCheck)
-        self.mock_strategy = mock.MagicMock(spec=IATSArgParseStrategy)
+        self.mock_strategy = mock.MagicMock(spec=IArgParserStrategy)
 
         # Configure mock_checker to always return a successful validation
         self.mock_checker.validate_parameters.return_value = ('', 0)
@@ -140,7 +140,7 @@ class ConfigManagerUnitTestCase(TestCase):
         current_dir: str = dirname(__file__)
         base_info: str = f'{current_dir}{config_file}'
         config = self.manager.load_config(base_info, True)
-        self.assertIsInstance(config, CfgInitializer)
+        self.assertIsInstance(config, CfgLoader)
 
     def test_load_config_ini(self) -> None:
         '''Test loading .ini file.'''

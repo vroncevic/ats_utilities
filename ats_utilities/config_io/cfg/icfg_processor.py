@@ -88,7 +88,7 @@ class ICFGProcessor(ABC):
         '''
             Returns the string representation of CFG configuration processor component.
 
-            :return: The CFG configuration processor component as string
+            :return: The CFG configuration processor component as string representation
             :rtype: <str>
             :exceptions: NotImplementedError
         '''

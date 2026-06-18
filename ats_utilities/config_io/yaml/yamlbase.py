@@ -25,15 +25,15 @@ from ats_utilities.checker.ichecker import IChecker
 from ats_utilities.checker.engine import ATSChecker
 from ats_utilities.checker.ichecker import ErrorChecker
 from ats_utilities.info.engine import ATSInfo
-from ats_utilities.option.ioption_parser import IATSOptionParser
-from ats_utilities.option.ats_option_parser import ATSOptionParser
+from ats_utilities.option.ioption_parser import IOptionManager
+from ats_utilities.option.engine import ATSOptionManager
 from ats_utilities.reporter.ireporter import IReporter
 from ats_utilities.reporter.engine import ATSReporter
 from ats_utilities.config_io.iread import IRead
 from ats_utilities.config_io.iwrite import IWrite
 from ats_utilities.config_io.ifile_check import IFileCheck
 from ats_utilities.config_io.file_check import FileCheck
-from ats_utilities.option.iparser_strategy import IATSArgParseStrategy
+from ats_utilities.option.iparser_strategy import IArgParserStrategy
 from ats_utilities.config_io.yaml.yaml2object import Yaml2Object
 from ats_utilities.config_io.yaml.object2yaml import Object2Yaml
 from ats_utilities.config_io.yaml.iyaml_processor import IYAMLProcessor
@@ -79,11 +79,11 @@ class YamlBase:
         info_file: Optional[str] = None,
         yaml2obj: Optional[IRead] = None,
         obj2yaml: Optional[IWrite] = None,
-        options_parser: Optional[IATSOptionParser] = None,
+        options_parser: Optional[IOptionManager] = None,
         checker: Optional[IChecker] = None,
         reporter: Optional[IReporter] = None,
         file_checker: Optional[IFileCheck] = None,
-        strategy: Optional[IATSArgParseStrategy] = None,
+        strategy: Optional[IArgParserStrategy] = None,
         verbose: bool = False
     ) -> None:
         '''
@@ -96,7 +96,7 @@ class YamlBase:
             :param obj2yaml: Out API for information (Dependency Injected)
             :type obj2yaml: <Optional[IWrite]>
             :param options_parser: Option parser for ATS | None
-            :type options_parser: <Optional[IATSOptionParser]>
+            :type options_parser: <Optional[IOptionManager]>
             :param checker: Error checker | None
             :type checker: <Optional[IChecker]>
             :param reporter: ATSReporter for check operations | None
@@ -113,7 +113,7 @@ class YamlBase:
         self.__file_checker: IFileCheck = file_checker or FileCheck(
             self.__checker, self.__reporter, verbose
         )
-        self.__option_parser: Optional[IATSOptionParser] = None
+        self.__option_parser: Optional[IOptionManager] = None
 
         # Dependency Injection for Yaml2Object and Object2Yaml or use defaults if not provided
         self.__yaml2obj: IRead = yaml2obj or Yaml2Object(
@@ -135,7 +135,7 @@ class YamlBase:
             if info.ats_info_ok:
                 # Dependecy injection for option parser or use default if not provided
                 # Dependecy injection for argument strategy
-                self.__option_parser = options_parser or ATSOptionParser(
+                self.__option_parser = options_parser or ATSOptionManager(
                     information.to_dict(), strategy, self.__checker, self.__reporter, verbose
                 )
                 self.__option_parser.add_version_operation(info.version)
@@ -143,12 +143,12 @@ class YamlBase:
                 self.__reporter.verbose(self.__verbose, ['loaded ATS INI info'])
 
     @property
-    def option_parser(self) -> Optional[IATSOptionParser]:
+    def option_parser(self) -> Optional[IOptionManager]:
         '''
             Option parser for ATS.
 
             :return: Option parser for ATS
-            :rtype: <Optional[IATSOptionParser]>
+            :rtype: <Optional[IOptionManager]>
             :exceptions: None
         '''
         return self.__option_parser

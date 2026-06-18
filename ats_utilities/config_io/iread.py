@@ -47,12 +47,10 @@ class IRead(ABC):
     '''
 
     @abstractmethod
-    def read_configuration(self, verbose: bool = False) -> Any:
+    def read_configuration(self) -> Any:
         '''
             Read configuration from file.
 
-            :param verbose: Enable/Disable verbose option (default False)
-            :type verbose: <bool>
             :return: Configuration object
             :rtype: <Any>
             :exceptions: NotImplementedError
@@ -64,7 +62,7 @@ class IRead(ABC):
         '''
             Returns the string representation of read configuration component.
 
-            :return: The read configuration component as string
+            :return: The read configuration component as string representation
             :rtype: <str>
             :exceptions: NotImplementedError
         '''

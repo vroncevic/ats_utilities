@@ -22,14 +22,13 @@ Info
 
 from typing import List, Optional
 from os.path import splitext, isfile
-from ats_utilities.factory_class import inject, get_private_attr, format_instance_to_string
 from ats_utilities.config_io.ifile_check import IFileCheck
-from ats_utilities.checker.ichecker import IChecker
-from ats_utilities.checker.engine import ATSChecker
+from ats_utilities.context_bundle import ContextBundle
 from ats_utilities.checker.proxy_validator import validator
 from ats_utilities.reporter.ireporter import IReporter
-from ats_utilities.reporter.engine import ATSReporter
 from ats_utilities.reporter.proxy_reporter import vreporter
+from ats_utilities.factory_context_bundle import factory_context_bundle
+from ats_utilities.factory_class import get_private_attr, format_instance_to_string
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -50,9 +49,9 @@ class FileCheck(IFileCheck):
         It defines:
 
             :attributes:
-                | __checker - Parameters checker (default set ATSChecker).
-                | __reporter - Reporter for messaging (default ATSReporter).
-                | __verbose - Enable/Disable verbose option (default False).
+                | __checker - Factoriezed parameters checker (default ATSChecker).
+                | __reporter - Factoriezed reporter for messaging (default ATSReporter).
+                | __verbose - Factoriezed Enable/Disable verbose option (default False).
                 | __file_path_ok - File exist, path ok (default False).
                 | __file_mode_ok - Supported file mode (default False).
                 | __file_format_ok - File format is (not) expected (default False).
@@ -62,33 +61,19 @@ class FileCheck(IFileCheck):
                 | check_mode -  Checks operation mode for file.
                 | check_format - Checks file format by extension.
                 | is_file_ok - Returns status for file.
+                | _reporter - Property method for getting the internal reporter instance.
                 | __str__ - Returns the string representation of file check component.
     '''
 
-    def __init__(
-        self,
-        checker: Optional[IChecker] = None,
-        reporter: Optional[IReporter] = None,
-        verbose: bool = False
-    ) -> None:
+    def __init__(self, config_bundle: Optional[ContextBundle] = None) -> None:
         '''
             Initials FileCheck constructor.
 
-            :param checker: Parameters checker (default set ATSChecker) | None
-            :type checker: <Optional[IChecker]>
-            :param reporter: Reporter for messaging (default set ATSReporter) | None
-            :type reporter: <Optional[IReporter]>
-            :param verbose: Enable/Disable verbose option (default False)
-            :type verbose: <bool>
+            :param config_bundle: Bundle with checker, reporter and verbose | None
+            :type config_bundle: <Optional[ContextBundle]>
             :exceptions: None
         '''
-        # No dependency injection then use default ones.
-        inject(
-            self,
-            ('checker', checker, ATSChecker, None),
-            ('reporter', reporter, ATSReporter, ['checker']),
-            ('verbose', verbose, False, None)
-        )
+        factory_context_bundle(self, config_bundle)
         self.__file_path_ok: bool = False
         self.__file_mode_ok: bool = False
         self.__file_format_ok: bool = False

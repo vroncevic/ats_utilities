@@ -26,11 +26,11 @@ from typing import List
 from unittest import TestCase, main
 from unittest.mock import MagicMock
 from os.path import dirname
-from ats_utilities.config_io.cfg.cfg_initializer import CfgInitializer
+from ats_utilities.config_io.cfg.cfg_loader import CfgLoader
 from ats_utilities.config_io.iread import IRead
 from ats_utilities.config_io.iwrite import IWrite
 from ats_utilities.checker.ichecker import IChecker
-from ats_utilities.option.ats_option_parser import ATSOptionParser
+from ats_utilities.option.engine import ATSOptionManager
 from ats_utilities.reporter.ireporter import IReporter
 from ats_utilities.reporter.engine import ATSReporter
 from ats_utilities.exceptions.ats_type_error import ATSTypeError
@@ -45,8 +45,8 @@ __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
 
 
-class ATSBaseCfg(CfgInitializer):
-    '''Simple Class for checking CfgInitializer.'''
+class ATSBaseCfg(CfgLoader):
+    '''Simple Class for checking CfgLoader.'''
 
     _CONFIG: str = '/config/correct/ats_cli_cfg_api.cfg'
     _OPS: List[str] = ['-t', '--test', '-v']
@@ -65,7 +65,7 @@ class CfgBaseTestCase(TestCase):
     '''
         Defines class CfgBaseTestCase with attribute(s) and method(s).
         Creates test cases for checking functionalities of ATS Cfg interfaces.
-        CfgInitializer unit tests.
+        CfgLoader unit tests.
 
         It defines:
 
@@ -87,7 +87,7 @@ class CfgBaseTestCase(TestCase):
         '''Call after test case.'''
 
     def test_not_none(self) -> None:
-        '''Test for create CfgInitializer'''
+        '''Test for create CfgLoader'''
         self.assertIsNotNone(self.ats_base_cfg)
 
     def test_tool_operational(self) -> None:
@@ -97,12 +97,12 @@ class CfgBaseTestCase(TestCase):
     def test_none_config_path(self) -> None:
         '''Test for None as file path'''
         with self.assertRaises(ATSTypeError):
-            CfgInitializer(None)
+            CfgLoader(None)
 
 
 class CfgBaseUnitTestCase(TestCase):
     '''
-        Unit tests for CfgInitializer class using mocks.
+        Unit tests for CfgLoader class using mocks.
 
         It defines:
 
@@ -133,7 +133,7 @@ class CfgBaseUnitTestCase(TestCase):
         self.mock_cfg2obj.read_configuration.return_value = {}
 
         # Use keyword arguments to ensure correct dependency injection
-        self.cfg_base: CfgInitializer = CfgInitializer(
+        self.cfg_base: CfgLoader = CfgLoader(
             info_file=self.config_path,
             cfg2object=self.mock_cfg2obj,
             object2cfg=self.mock_obj2cfg,
@@ -143,12 +143,12 @@ class CfgBaseUnitTestCase(TestCase):
         )
 
     def test_init(self) -> None:
-        '''Test initialization of CfgInitializer.'''
+        '''Test initialization of CfgLoader.'''
         self.assertIsNotNone(self.cfg_base)
         self.mock_cfg2obj.read_configuration.assert_called_once()
 
     def test_is_tool_ok_non_operational(self) -> None:
-        '''Test is_tool_ok status when CfgInitializer is not operational.'''
+        '''Test is_tool_ok status when CfgLoader is not operational.'''
         self.assertFalse(self.cfg_base.is_tool_ok())
 
     def test_option_parser_access_non_operational(self) -> None:
@@ -156,12 +156,12 @@ class CfgBaseUnitTestCase(TestCase):
         self.assertIsNone(self.cfg_base.option_parser)
 
     def test_operational_cfg_base(self) -> None:
-        '''Test CfgInitializer when it is operational.'''
+        '''Test CfgLoader when it is operational.'''
         operational_mock_cfg2obj = MagicMock(spec=IRead)
         operational_mock_obj2cfg = MagicMock(spec=IWrite)
         operational_mock_checker = MagicMock(spec=IChecker)
         operational_mock_reporter = MagicMock(spec=IReporter)
-        operational_mock_options_parser = MagicMock(spec=ATSOptionParser)
+        operational_mock_options_parser = MagicMock(spec=ATSOptionManager)
 
         operational_mock_checker.validate_parameters.return_value = ('', 0)
         mock_processor = MagicMock()
@@ -173,7 +173,7 @@ class CfgBaseUnitTestCase(TestCase):
         }
         operational_mock_cfg2obj.read_configuration.return_value = mock_processor
 
-        operational_cfg_base = CfgInitializer(
+        operational_cfg_base = CfgLoader(
             info_file=self.config_path,
             cfg2object=operational_mock_cfg2obj,
             object2cfg=operational_mock_obj2cfg,

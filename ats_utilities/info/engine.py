@@ -57,7 +57,6 @@ class ATSInfoManager(IInfoManager):
 
             :attributes:
                 | _ATTR_MAP - .
-                | _context_bundle - The ATS version (default set ATSName).
                 | _components - The ATS licence (default set ATSLicence).
             :methods:
                 | __init__ - Initials ATSInfoManager constructor.
@@ -89,25 +88,21 @@ class ATSInfoManager(IInfoManager):
             :type component_bundle: <Optional[ATSInfoComponentBundle]>
             :exceptions: ATSTypeError by validate_component()
         '''
-        self._context_bundle: ContextBundle = context_bundle or ContextBundle()
-        factory_args = {'info_bundle': self._context_bundle}
+        bundle: ContextBundle = context_bundle or ContextBundle()
+        factory_args = {'info_bundle': bundle}
         components: ATSInfoComponentBundle = component_bundle or ATSInfoComponentBundle()
-        name = make_component(components.name, ATSName, factory_args)
-        validate_component(name, IName, 'ATSName')
-        version = make_component(components.version, ATSVersion, factory_args)
-        validate_component(version, IVersion, 'ATSVersion')
-        licence = make_component(components.licence, ATSLicence, factory_args)
-        validate_component(licence, ILicence, 'ATSLicence')
-        build_date = make_component(components.build_date, ATSBuildDate, factory_args)
-        validate_component(build_date, IBuildDate, 'ATSBuildDate')
-        info_ok = make_component(components.info_ok, ATSInfoOk, factory_args)
-        validate_component(info_ok, IInfoOk, 'ATSInfoOk')
+        name: IName = make_component(components.name, ATSName, factory_args)
+        validate_component(name, type(name), type(name).__name__)
+        version: IVersion = make_component(components.version, ATSVersion, factory_args)
+        validate_component(version, type(version), type(version).__name__)
+        licence: ILicence = make_component(components.licence, ATSLicence, factory_args)
+        validate_component(licence, type(licence), type(licence).__name__)
+        build_date: IBuildDate = make_component(components.build_date, ATSBuildDate, factory_args)
+        validate_component(build_date, type(build_date), type(build_date).__name__)
+        info_ok: IInfoOk = make_component(components.info_ok, ATSInfoOk, factory_args)
+        validate_component(info_ok, type(info_ok), type(info_ok).__name__)
         self._components = ATSInfoComponentBundle(
-            name=name,
-            version=version,
-            licence=licence,
-            build_date=build_date,
-            info_ok=info_ok
+            name=name, version=version, licence=licence, build_date=build_date, info_ok=info_ok
         )
         self.refresh_status()
 

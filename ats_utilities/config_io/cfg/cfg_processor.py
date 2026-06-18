@@ -72,6 +72,7 @@ class ATSCFGProcessor(ICFGProcessor):
             :exceptions: None
         '''
         self.__data.clear()
+
         for line in lines:
             if not match(self.__REGEX_EXP, line):
                 if '=' in line:

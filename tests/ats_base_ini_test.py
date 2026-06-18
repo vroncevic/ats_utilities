@@ -30,7 +30,7 @@ from ats_utilities.config_io.ini.inibase import IniBase
 from ats_utilities.config_io.iread import IRead
 from ats_utilities.config_io.iwrite import IWrite
 from ats_utilities.checker.ichecker import IChecker
-from ats_utilities.option.ats_option_parser import ATSOptionParser
+from ats_utilities.option.engine import ATSOptionManager
 from ats_utilities.reporter.ireporter import IReporter
 from ats_utilities.reporter.engine import ATSReporter
 from ats_utilities.exceptions.ats_type_error import ATSTypeError
@@ -161,7 +161,7 @@ class IniBaseUnitTestCase(TestCase):
         operational_mock_obj2ini = MagicMock(spec=IWrite)
         operational_mock_checker = MagicMock(spec=IChecker)
         operational_mock_reporter = MagicMock(spec=IReporter)
-        operational_mock_options_parser = MagicMock(spec=ATSOptionParser)
+        operational_mock_options_parser = MagicMock(spec=ATSOptionManager)
 
         operational_mock_checker.validate_parameters.return_value = ('', 0)
 

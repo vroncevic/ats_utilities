@@ -77,8 +77,8 @@ class ATSCli(IATSCli):
         config2object: Optional[IRead] = None,
         object2config: Optional[IWrite] = None,
         info_manager: Optional[IInfoManager] = None,
-        strategy: Optional[IATSArgParseStrategy] = None,
-        options_parser: Optional[IATSOptionParser] = None,
+        strategy: Optional[IArgParserStrategy] = None,
+        options_parser: Optional[IOptionManager] = None,
         checker: Optional[IChecker] = None,
         reporter: Optional[IReporter] = None,
         file_checker: Optional[IFileCheck] = None,
@@ -211,8 +211,8 @@ class ATSCli(IATSCli):
 
 #from ats_utilities.info.iinfo_manager import IInfoManager
 #from ats_utilities.info.ats_info_manager import ATSInfoManager
-#from ats_utilities.option.ioption_parser import IATSOptionParser
-#from ats_utilities.option.ats_option_parser import ATSOptionParser
+#from ats_utilities.option.ioption_parser import IOptionManager
+#from ats_utilities.option.ats_option_parser import ATSOptionManager
 #from ats_utilities.config_io.base_bundle import ATSBaseBundle
 
         #if bool(information):
@@ -224,7 +224,7 @@ class ATSCli(IATSCli):
         #    })
         #
         #    if info_manager and info_manager.base_info_is_ok(information.to_dict()):
-        #        self.__option_parser = make_component(base_bundle.options_parser, ATSOptionParser, {
+        #        self.__option_parser = make_component(base_bundle.options_parser, ATSOptionManager, {
         #            'parameters': information.to_dict(),
         #            'strategy': base_bundle.strategy,
         #            'checker': self._checker,

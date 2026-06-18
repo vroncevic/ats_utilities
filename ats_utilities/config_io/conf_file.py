@@ -21,17 +21,18 @@ Info
 '''
 
 from typing import Any, List, Tuple, Dict, Optional
-from ats_utilities.factory_class import inject, get_private_attr, format_instance_to_string
 from ats_utilities.config_io.iconf_file import IConfFile
-from ats_utilities.checker.ichecker import IChecker
-from ats_utilities.checker.engine import ATSChecker
-from ats_utilities.reporter.ireporter import IReporter
-from ats_utilities.reporter.engine import ATSReporter
+from ats_utilities.context_bundle import ContextBundle
 from ats_utilities.reporter.proxy_reporter import vreporter
 from ats_utilities.config_io.ifile_check import IFileCheck
 from ats_utilities.config_io.file_check import FileCheck
 from ats_utilities.config_io.iconf_file import File
+from ats_utilities.config_io.file_bundle import ATSFileBundle
+from ats_utilities.config_io.config_file_bundle import ATSConfigFileBundle
 from ats_utilities.exceptions.ats_value_error import ATSValueError
+from ats_utilities.factory_context_bundle import factory_context_bundle
+from ats_utilities.factory_component import make_component, validate_component
+from ats_utilities.factory_class import get_private_attr, format_instance_to_string
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -52,8 +53,9 @@ class ConfFile(IConfFile):
         It defines:
 
             :attributes:
-                | __checker - Parameters checker (default set ATSChecker).
-                | __reporter - Reporter for messaging (default ATSReporter).
+                | __checker - Factoriezed parameters checker (default ATSChecker).
+                | __reporter - Factoriezed reporter for messaging (default ATSReporter).
+                | __verbose - Factoriezed Enable/Disable verbose option (default False).
                 | __file_path - Configuration file path (default set None).
                 | __file_mode - Configuration file mode (default set None).
                 | __file - File object (default set None).
@@ -67,62 +69,49 @@ class ConfFile(IConfFile):
 
     def __init__(
         self,
-        file_path: Optional[str],
-        file_mode: Optional[str],
-        file_format: Optional[str],
-        checker: Optional[IChecker] = None,
-        reporter: Optional[IReporter] = None,
-        file_checker: Optional[IFileCheck] = None,
-        verbose: bool = False
+        file_bundle: Optional[ATSFileBundle] = None,
+        config_file_bundle: Optional[ATSConfigFileBundle] = None
     ) -> None:
         '''
             Initials ConfFile constructor.
 
-            :param file_path: Configuration file path (default set None) | None
-            :type file_path: <Optional[str]>
-            :param file_mode: Configuration file mode (default set None) | None
-            :type file_mode: <Optional[str]>
-            :param file_format: Configuration file format (default set None) | None
-            :type file_format: <Optional[str]>
-            :param checker: Parameters checker (default set ATSChecker) | None
-            :type checker: <Optional[IChecker]>
-            :param reporter: Reporter for messaging (default set ATSReporter) | None
-            :type reporter: <Optional[IReporter]>
-            :param file_checker: Checking operations (default set FileCheck) | None
-            :type file_checker: <Optional[IFileCheck]>
-            :param verbose: Enable/Disable verbose option (default False)
-            :type verbose: <bool>
-            :exceptions: ATSValueError
+            :param file_bundle: File bundle parameters | None
+            :type file_bundle: <Optional[ATSFileBundle]>
+            :param config_file_bundle: File configuration bundle parameters | None
+            :type filconfig_file_bundlee_mode: <Optional[ATSConfigFileBundle]>
+            :exceptions: ATSTypeError by validate_component()
         '''
-        # No dependency injection then use default ones.
-        inject(
-            self,
-            ('checker', checker, ATSChecker, None),
-            ('reporter', reporter, ATSReporter, ['checker']),
-            ('verbose', verbose, False, None),
-            ('file_checker', file_checker, FileCheck, ['checker', 'reporter', 'verbose'])
+        bundle: ATSFileBundle = file_bundle or ATSFileBundle()
+        config_bundle: ATSConfigFileBundle = config_file_bundle or ATSConfigFileBundle()
+        factory_context_bundle(self, config_bundle.context)
+        shared_bundle: ContextBundle = ContextBundle(
+            checker=get_private_attr(self, 'checker'),
+            reporter=get_private_attr(self, 'reporter'),
+            verbose=get_private_attr(self, 'verbose')
         )
+        file_checker: IFileCheck = make_component(config_bundle.file_checker, FileCheck, {'config_bundle': shared_bundle})
+        validate_component(file_checker, type(file_checker), type(file_checker).__name__)
 
-        if not bool(file_path):
+        if not bool(bundle.file_path):
             raise ATSValueError('missing file path')
 
-        if not bool(file_mode):
+        if not bool(bundle.file_mode):
             raise ATSValueError('missing file mode')
 
-        if not bool(file_format):
+        if not bool(bundle.file_format):
             raise ATSValueError('missing file format')
 
         self.__file: Optional[File] = None
         self.__file_path: Optional[str] = None
         self.__file_mode: Optional[str] = None
 
-        self._file_checker.check_path(file_path)
-        self._file_checker.check_mode(file_mode)
-        self._file_checker.check_format(file_path, file_format)
+        file_checker.check_path(bundle.file_path)
+        file_checker.check_mode(bundle.file_mode)
+        file_checker.check_format(bundle.file_path, bundle.file_format)
 
-        if self._file_checker.is_file_ok():
-            self.__file_path = file_path
-            self.__file_mode = file_mode
+        if file_checker.is_file_ok():
+            self.__file_path = bundle.file_path
+            self.__file_mode = bundle.file_mode
 
     @vreporter('open file {file_path} with mode {file_mode}')
     def __enter__(self) -> Optional[File]:
@@ -151,17 +140,6 @@ class ConfFile(IConfFile):
         '''
         if self.__file and not self.__file.closed:
             self.__file.close()
-
-    @property
-    def _file_checker(self) -> IFileCheck:
-        '''
-            Property method for getting the internal file checker instance.
-
-            :return: The file checker instance in IFileCheck format
-            :rtype: <IFileCheck>
-            :exceptions: None
-        '''
-        return get_private_attr(self, 'file_checker')
 
     def __str__(self) -> str:
         '''

@@ -46,9 +46,9 @@ class ATSLicence(ILicence):
         It defines:
 
             :attributes:
-                | __checker - Parameters checker (default ATSChecker).
-                | __reporter - Reporter for messaging (default ATSReporter).
-                | __verbose - Enable/Disable verbose option (default False).
+                | __checker - Factoriezed parameters checker (default ATSChecker).
+                | __reporter - Factoriezed reporter for messaging (default ATSReporter).
+                | __verbose - Factoriezed Enable/Disable verbose option (default False).
                 | __licence - The ATS licence (default None).
             :methods:
                 | __init__ - Initials ATSLicence constructor.

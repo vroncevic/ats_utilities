@@ -71,9 +71,9 @@ class ATSReporter(IReporter):
         '''
         # No dependency injection then use default ones.
         self.__checker: IChecker = make_component(checker, ATSChecker, None)
-        validate_component(self.__checker, ATSChecker, "ATSChecker")
+        validate_component(self.__checker, type(self.__checker), type(self.__checker).__name__)
         self.__theme: IConsoleTheme = make_component(theme, ATSConsoleTheme, None)
-        validate_component(self.__theme, ATSConsoleTheme, "ATSConsoleTheme")
+        validate_component(self.__theme, type(self.__theme), type(self.__theme).__name__)
 
     def __report(self, message: List[Any], color: str) -> None:
         '''

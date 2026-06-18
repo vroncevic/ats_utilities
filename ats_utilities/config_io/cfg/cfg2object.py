@@ -21,19 +21,19 @@ Info
 '''
 
 from typing import List, Optional
-from ats_utilities.factory_class import inject, get_private_attr, format_instance_to_string
 from ats_utilities.config_io.iread import IRead
-from ats_utilities.checker.ichecker import IChecker
-from ats_utilities.checker.engine import ATSChecker
-from ats_utilities.reporter.ireporter import IReporter
-from ats_utilities.reporter.engine import ATSReporter
-from ats_utilities.reporter.proxy_reporter import vreporter
+from ats_utilities.context_bundle import ContextBundle
 from ats_utilities.config_io.conf_file import ConfFile
 from ats_utilities.config_io.ifile_check import IFileCheck
 from ats_utilities.config_io.file_check import FileCheck
-from ats_utilities.config_io.config_bundle import ATSConfigBundle
+from ats_utilities.config_io.file_bundle import ATSFileBundle
+from ats_utilities.config_io.config_file_bundle import ATSConfigFileBundle
 from ats_utilities.config_io.cfg.icfg_processor import ICFGProcessor
 from ats_utilities.config_io.cfg.cfg_processor import ATSCFGProcessor
+from ats_utilities.reporter.proxy_reporter import vreporter
+from ats_utilities.factory_context_bundle import factory_context_bundle
+from ats_utilities.factory_component import make_component, validate_component
+from ats_utilities.factory_class import get_private_attr, format_instance_to_string
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -57,19 +57,17 @@ class Cfg2Object(IRead):
                 | __EXT - File extension of the configuration file.
                 | __MODE - File open mode.
                 | __REGEX_EXP - Regular expression for matching line.
-                | __checker - Parameters checker (default set ATSChecker).
-                | __reporter - Reporter for messaging (default ATSReporter).
-                | __file_checker - FileCheck for checking file (default set FileCheck).
-                | __cfg_processor - Processor for CFG content (default set ATSCFGProcessor).
-                | __file_path - Configuration file path (default set None).
-                | __verbose - Enable/Disable verbose option (default False).
+                | __config_file_bundle - Configuration file bundle parameters (default None).
+                | __checker - Factoriezed parameters checker (default ATSChecker).
+                | __reporter - Factoriezed reporter for messaging (default ATSReporter).
+                | __verbose - Factoriezed Enable/Disable verbose option (default False).
+                | __file_checker - FileCheck for checking file (default FileCheck).
+                | __cfg_processor - Processor for CFG content (default ATSCFGProcessor).
+                | __file_path - Configuration file path (default None).
+                | __file_bundle_shared - File bundle parameters (default None).
             :methods:
                 | __init__ - Initials Cfg2Object constructor.
                 | read_configuration - Reads configuration from a CFG file.
-                | _checker - Property method for getting the internal checker instance.
-                | _reporter - Property method for getting the internal reporter instance.
-                | _verbose - Property method for getting the internal verbose flag.
-                | _file_checker - Property method for getting the internal file checker instance.
                 | _cfg_processor - Property method for getting the internal cfg processor.
                 | __str__ - Returns the string representation of cfg2object.
     '''
@@ -80,7 +78,7 @@ class Cfg2Object(IRead):
     def __init__(
         self,
         config_file: Optional[str],
-        config_bundle: Optional[ATSConfigBundle] = None,
+        config_bundle: Optional[ATSConfigFileBundle] = None,
         cfg_processor: Optional[ICFGProcessor] = None
     ) -> None:
         '''
@@ -88,95 +86,46 @@ class Cfg2Object(IRead):
 
             :param config_file: Configuration file path in string format | None
             :type config_file: <Optional[str]>
-            :param config_bundle: Configuration bundle (default set ATSConfigBundle) | None
-            :type config_bundle: <Optional[ATSConfigBundle]>
+            :param config_bundle: Configuration file bundle parameters | None
+            :type config_bundle: <Optional[ATSConfigFileBundle]>
             :param cfg_processor: Processor for CFG content | None
             :type cfg_processor: <Optional[ICFGProcessor]>
-            :exceptions: None
+            :exceptions: ATSTypeError by validate_component()
         '''
-        if not bool(config_bundle):
-            config_bundle = ATSConfigBundle()
-
-        # No dependency injection then use default ones.
-        inject(
-            self,
-            ('checker', config_bundle.checker, ATSChecker, None),
-            ('reporter', config_bundle.reporter, ATSReporter, ['checker']),
-            ('verbose', config_bundle.verbose, False, None),
-            ('file_checker', config_bundle.file_checker, FileCheck, ['checker', 'reporter', 'verbose']),
-            ('cfg_processor', cfg_processor, ATSCFGProcessor, None)
+        self.__config_file_bundle: ATSConfigFileBundle = config_bundle or ATSConfigFileBundle()
+        factory_context_bundle(self, self.__config_file_bundle.context)
+        context_bundle_shared: ContextBundle = ContextBundle(
+            checker=get_private_attr(self, 'checker'),
+            reporter=get_private_attr(self, 'reporter'),
+            verbose=get_private_attr(self, 'verbose')
         )
+        self.__file_checker: IFileCheck = make_component(
+            self.__config_file_bundle.file_checker, FileCheck, {'config_bundle': context_bundle_shared}
+        )
+        validate_component(self.__file_checker, type(self.__file_checker), type(self.__file_checker).__name__)
+        self.__cfg_processor: ICFGProcessor = make_component(cfg_processor, ATSCFGProcessor, None)
+        validate_component(self.__cfg_processor, type(self.__cfg_processor), type(self.__cfg_processor).__name__)
         self.__file_path: str = str(config_file)
+        self.__file_bundle_shared: ATSFileBundle = ATSFileBundle()
+        self.__file_bundle_shared.file_path = self.__file_path
+        self.__file_bundle_shared.file_mode = self.__MODE
+        self.__file_bundle_shared.file_format = self.__EXT
 
     @vreporter('read configuration from file {file_path}')
-    def read_configuration(self, verbose: bool = False) -> Optional[ICFGProcessor]:
+    def read_configuration(self) -> Optional[ICFGProcessor]:
         '''
             Reads a configuration from a CFG file.
 
-            :param verbose: Enable/Disable verbose option (default False)
-            :type verbose: <bool>
-            :return: Configuration object
+            :return: Configuration object | None
             :rtype: <Optional[ICFGProcessor]>
             :exceptions: RuntimeError, AttributeError by vreporter
         '''
-        with ConfFile(
-            self.__file_path,
-            self.__MODE,
-            self.__EXT,
-            self._checker,
-            self._reporter,
-            self._file_checker,
-            self._verbose or verbose
-        ) as cfg:
+        with ConfFile(self.__file_bundle_shared, self.__config_file_bundle) as cfg:
             if bool(cfg):
                 lines = cfg.readlines()
                 if self._cfg_processor.from_lines(lines):
                     return self._cfg_processor
         return None
-
-    @property
-    def _checker(self) -> IChecker:
-        '''
-            Property method for getting the internal checker instance.
-
-            :return: The checker instance in IChecker format
-            :rtype: <IChecker>
-            :exceptions: None
-        '''
-        return get_private_attr(self, 'checker')
-
-    @property
-    def _reporter(self) -> IReporter:
-        '''
-            Property method for getting the internal reporter instance.
-
-            :return: The reporter instance in IReporter format
-            :rtype: <IReporter>
-            :exceptions: None
-        '''
-        return get_private_attr(self, 'reporter')
-
-    @property
-    def _verbose(self) -> bool:
-        '''
-            Property method for getting the internal verbose flag.
-
-            :return: The verbose flag in bool format
-            :rtype: <bool>
-            :exceptions: None
-        '''
-        return get_private_attr(self, 'verbose')
-
-    @property
-    def _file_checker(self) -> IFileCheck:
-        '''
-            Property method for getting the internal file checker instance.
-
-            :return: The file checker instance in IFileCheck format
-            :rtype: <IFileCheck>
-            :exceptions: None
-        '''
-        return get_private_attr(self, 'file_checker')
 
     @property
     def _cfg_processor(self) -> ICFGProcessor:

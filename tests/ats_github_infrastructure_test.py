@@ -24,7 +24,7 @@ Execute
 
 from typing import List
 from unittest import TestCase, main
-from ats_utilities.splash.github_infrastructure import GitHubInfrastructure
+from ats_utilities.splasher.github_infrastructure import GitHubInfrastructure
 from ats_utilities.exceptions.ats_type_error import ATSTypeError
 
 __author__: str = 'Vladimir Roncevic'

@@ -29,7 +29,7 @@ from coverage import Coverage
 from ats_utilities.checker.engine import ATSChecker
 from ats_utilities.checker.ichecker import ErrorChecker
 from ats_utilities.reporter.engine import ATSReporter
-from ats_utilities.option.ats_option_parser import ATSOptionParser
+from ats_utilities.option.engine import ATSOptionManager
 from ats_utilities.option.option_namespace import OptionNamespace
 from ats_utilities.exceptions.ats_type_error import ATSTypeError
 from ats_utilities.exceptions.ats_file_error import ATSFileError
@@ -191,7 +191,7 @@ def update_readme(coverage: Dict[str, Any]) -> None:
 
 
 if __name__ == "__main__":
-    cli: ATSOptionParser = ATSOptionParser({
+    cli: ATSOptionManager = ATSOptionManager({
         'description': 'ats_coverage 2025',
         'version': '1.0.0',
         'licence': 'GPLv3'

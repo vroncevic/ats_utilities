@@ -22,7 +22,7 @@ Info
 
 from abc import ABC, abstractmethod
 from typing import List, Optional, Union
-from ats_utilities.config_io.cfg.cfg_initializer import CfgInitializer
+from ats_utilities.config_io.cfg.cfg_loader import CfgLoader
 from ats_utilities.config_io.ini.inibase import IniBase
 from ats_utilities.config_io.json.jsonbase import JsonBase
 from ats_utilities.config_io.xml.xmlbase import XmlBase
@@ -38,7 +38,7 @@ __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
 
 # Optional configuration type
-Config = Optional[Union[CfgInitializer, IniBase, JsonBase, XmlBase, YamlBase]]
+Config = Optional[Union[CfgLoader, IniBase, JsonBase, XmlBase, YamlBase]]
 
 class IConfigManager(ABC):
     '''

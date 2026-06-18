@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines abstract class IATSOptionParser with attribute(s) and method(s).
+    Defines abstract class IOptionManager with attribute(s) and method(s).
     Creates an interfaces for ATS option parsing.
 '''
 
@@ -35,19 +35,20 @@ __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
 
 
-class IATSOptionParser(ABC):
+class IOptionManager(ABC):
     '''
-        Defines abstract class IATSOptionParser with attribute(s) and method(s).
+        Defines abstract class IOptionManager with attribute(s) and method(s).
         Creates an interfaces for ATS option parsing.
 
         It defines:
 
             :attributes: None
             :methods:
-                | add_operation - Adds an option to the ATS parser.
-                | add_version_operation - Adds version option to the ATS parser.
-                | parse_input_args - Processes arguments from the start.
-                | parse_args - Processes arguments from the start.
+                | add_operation - Adds an option to the ATS parser (abstract).
+                | add_version_operation - Adds version option to the ATS parser (abstract).
+                | parse_input_args - Processes arguments from the start (abstract).
+                | parse_args - Processes arguments from the start (abstract).
+                | __str__ - Returns the string representation of ATS option parser (abstract).
     '''
 
     @abstractmethod
@@ -68,7 +69,7 @@ class IATSOptionParser(ABC):
         '''
             Adds version option to the ATS parser.
 
-            :param version: The ATS version
+            :param version: The ATS version in string format | None
             :type version: <Optional[str]>
             :exceptions: NotImplementedError
         '''
@@ -105,7 +106,7 @@ class IATSOptionParser(ABC):
         '''
             Returns the string representation of ATS option parser.
 
-            :return: The ATS option parser as string
+            :return: The ATS option parser as string representation
             :rtype: <str>
             :exceptions: NotImplementedError
         '''

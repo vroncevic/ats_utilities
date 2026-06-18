@@ -105,7 +105,7 @@ class IFileCheck(ABC):
         '''
             Returns the string representation of file check component.
 
-            :return: The file check component as string
+            :return: The file check component as string representation
             :rtype: <str>
             :exceptions: NotImplementedError
         '''

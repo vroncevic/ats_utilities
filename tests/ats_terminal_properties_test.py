@@ -24,7 +24,7 @@ Execute
 
 from typing import List
 from unittest import TestCase, main
-from ats_utilities.splash.terminal_properties import TerminalProperties
+from ats_utilities.splasher.terminal_properties import TerminalProperties
 from ats_utilities.exceptions.ats_type_error import ATSTypeError
 
 __author__: str = 'Vladimir Roncevic'

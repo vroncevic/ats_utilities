@@ -30,9 +30,10 @@ from ats_utilities.checker.iformat_validator import IATSFormatValidator
 from ats_utilities.checker.format_validator import ATSFormatValidator
 from ats_utilities.checker.icontext_provider import IATSContextProvider
 from ats_utilities.checker.context_provider import ATSContextProvider
-from ats_utilities.checker.icheck_reporter import IATSCheckReporter, ParamMetadata
+from ats_utilities.checker.icheck_reporter import IATSCheckReporter
 from ats_utilities.checker.check_reporter import ATSCheckReporter
 from ats_utilities.checker.component_bundle import ATSCheckerComponentBundle
+from ats_utilities.checker.checker_reporter_bundle import ATSCheckerReporterBundle, ParamMetadata
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -48,6 +49,7 @@ class ATSChecker(IChecker):
     '''
         Defines class ATSChecker with attribute(s) and method(s).
         Concrete implementation of the ATS parameter(s) checker.
+        Mechanism for application, tool, or script parameters checker.
 
         It defines:
 
@@ -76,13 +78,13 @@ class ATSChecker(IChecker):
         # No dependency injection then use default ones.
         components: ATSCheckerComponentBundle = component_bundle or ATSCheckerComponentBundle()
         self.__format_validator: IATSFormatValidator = make_component(components.format_validator, ATSFormatValidator, None)
-        validate_component(self.__format_validator, ATSFormatValidator, "ATSFormatValidator")
+        validate_component(self.__format_validator, type(self.__format_validator), type(self.__format_validator).__name__)
         self.__type_validator: IATSTypeValidator = make_component(components.type_validator, ATSTypeValidator, None)
-        validate_component(self.__type_validator, ATSTypeValidator, "ATSTypeValidator")
+        validate_component(self.__type_validator, type(self.__type_validator), type(self.__type_validator).__name__)
         self.__context_provider: IATSContextProvider = make_component(components.context_provider, ATSContextProvider, None)
-        validate_component(self.__context_provider, ATSContextProvider, "ATSContextProvider")
+        validate_component(self.__context_provider, type(self.__context_provider), type(self.__context_provider).__name__)
         self.__check_reporter: IATSCheckReporter = make_component(components.check_reporter, ATSCheckReporter, None)
-        validate_component(self.__check_reporter, ATSCheckReporter, "ATSCheckReporter")
+        validate_component(self.__check_reporter, type(self.__check_reporter), type(self.__check_reporter).__name__)
 
     def validates_parameters(self, parameters: Optional[ParametersSpecs]) -> ValidationResult:
         '''
@@ -100,7 +102,12 @@ class ATSChecker(IChecker):
         error_id: int = self.ERRORS.NO_ERROR
 
         if parameters is None:
-            return self.__check_reporter.build_message_format(context, [], [], True), self.ERRORS.FORMAT_ERROR
+            return (
+                self.__check_reporter.build_message_format(
+                    ATSCheckerReporterBundle(context, [], [], True)
+                ),
+                self.ERRORS.FORMAT_ERROR
+            )
 
         is_fmt_err: bool = False
         for index, (exp_type, inst) in enumerate(parameters):
@@ -123,14 +130,19 @@ class ATSChecker(IChecker):
                     error_id = self.ERRORS.TYPE_ERROR
 
         return self.__check_reporter.build_message_format(
-            context, params_meta, err_indices, is_fmt_err
+            ATSCheckerReporterBundle(
+                context=context,
+                parameters_meta=params_meta,
+                err_indices=err_indices,
+                is_fmt_err=is_fmt_err
+            )
         ), error_id
 
     def __str__(self) -> str:
         '''
             Returns the string representation of ATSChecker.
 
-            :return: String representation of ATSChecker instance
+            :return: The ATSChecker as string representation
             :rtype: <str>
             :exceptions: None
         '''

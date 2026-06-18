@@ -2,7 +2,7 @@
 
 '''
 Module
-    default_logger.py
+    logger.py
 Copyright
     Copyright (C) 2017 - 2026 Vladimir Roncevic <elektron.ronca@gmail.com>
     ats_utilities is free software: you can redistribute it and/or modify it
@@ -25,13 +25,13 @@ from enum import Enum
 from logging import (
     getLogger, basicConfig, Logger, DEBUG, WARNING, CRITICAL, ERROR, INFO
 )
-from ats_utilities.factory_class import inject, get_private_attr, format_instance_to_string
-from ats_utilities.logging.ilogger import IATSLogger, LogFormats
-from ats_utilities.checker.ichecker import IChecker
-from ats_utilities.checker.engine import ATSChecker
-from ats_utilities.checker.proxy_validator import validator
+from ats_utilities.logging.ilogger import ILogger, LogFormats
+from ats_utilities.context_bundle import ContextBundle
+from ats_utilities.logging.logger_bundle import LoggerBundle
 from ats_utilities.reporter.ireporter import IReporter
-from ats_utilities.reporter.engine import ATSReporter
+from ats_utilities.checker.proxy_validator import validator
+from ats_utilities.factory_context_bundle import factory_context_bundle
+from ats_utilities.factory_class import get_private_attr, format_instance_to_string
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -86,7 +86,7 @@ class LoggerLevelsProtocol(Protocol):
     ATS_LOG_CRITICAL: ClassVar[int]
 
 
-class ATSLogger(IATSLogger):
+class ATSLogger(ILogger):
     '''
         Defines class ATSLogger with attribute(s) and method(s).
         Creates an API for the ATS logging mechanism.
@@ -103,9 +103,9 @@ class ATSLogger(IATSLogger):
                 | __logger_name - ATS name.
                 | __log_stdout - Logging to stdout (default).
                 | __log_file - Logging to file.
-                | __checker - Parameters checker (default set ATSChecker).
-                | __reporter - Reporter for messaging (default ATSReporter).
-                | __verbose - Enable/Disable verbose option (default False).
+                | __checker - Factoriezed parameters checker (default ATSChecker).
+                | __reporter - Factoriezed reporter for messaging (default ATSReporter).
+                | __verbose - Factoriezed Enable/Disable verbose option (default False).
                 | __logger - Python Logger instance.
                 | 
             :methods:
@@ -120,45 +120,26 @@ class ATSLogger(IATSLogger):
 
     def __init__(
         self,
-        ats_name: Optional[str] = None,
-        ats_log_stdout: bool = True,
-        ats_log_file: Optional[str] = None,
-        configure_logging: bool = True,
-        checker: Optional[IChecker] = None,
-        reporter: Optional[IReporter] = None,
-        verbose: bool = False
+        logger_bundle: Optional[LoggerBundle] = None,
+        logging_bundle: Optional[ContextBundle] = None
     ) -> None:
         '''
             Initials ATSLogger constructor.
 
-            :param ats_name: ATS name | None
-            :type ats_name: <Optional[str]>
-            :param ats_log_stdout: Log to stdout (default True)
-            :type ats_log_stdout: <bool>
-            :param ats_log_file: Log to file (default None)
-            :type ats_log_file: <Optional[str]>
-            :param configure_logging: Configure logging (default True)
-            :type configure_logging: <bool>
-            :param checker: Parameters checker (default set ATSChecker) | None
-            :type checker: <Optional[IChecker]>
-            :param reporter: Reporter for messaging (default set ATSReporter) | None
-            :type reporter: <Optional[IReporter]>
-            :param verbose: Enable/Disable verbose option (default False)
-            :type verbose: <bool>
+            :param logger_bundle: Lugger bundle with parameters | None
+            :type logger_bundle: <Optional[LoggerBundle]>
+            :param logging_bundle: Bundle with checker, reporter and verbose | None
+            :type logging_bundle: <Optional[ContextBundle]>
             :exceptions: None
         '''
         # No dependency injection then use default ones.
-        inject(
-            self,
-            ('checker', checker, ATSChecker, None),
-            ('reporter', reporter, ATSReporter, ['checker']),
-            ('verbose', verbose, False, None)
-        )
-        self.__logger_name: Optional[str] = ats_name
-        self.__log_stdout: bool = ats_log_stdout
-        self.__log_file: Optional[str] = ats_log_file
+        factory_context_bundle(self, logging_bundle)
+        bundle: LoggerBundle = logger_bundle or LoggerBundle()
+        self.__logger_name: Optional[str] = bundle.name
+        self.__log_stdout: bool = bundle.log_stdout
+        self.__log_file: Optional[str] = bundle.log_file
 
-        if configure_logging and not getLogger().hasHandlers():
+        if bundle.configure_logging and not getLogger().hasHandlers():
             log_config: Dict[str, Any] = {
                 'format': self.LOG_FORMATS.ATS_LOG_MSG_FORMAT,
                 'datefmt': self.LOG_FORMATS.ATS_LOG_DATE_FORMAT,
@@ -168,7 +149,7 @@ class ATSLogger(IATSLogger):
                 # Force logging to file in case file name is provided
                 self.__log_stdout = False
             if self.__log_file and not self.__log_stdout:
-                log_config['filename'] = ats_log_file
+                log_config['filename'] = self.__log_file
             basicConfig(**log_config)
 
         self.__logger: Logger = getLogger(self.__logger_name)
@@ -217,7 +198,7 @@ class ATSLogger(IATSLogger):
         '''
             Returns the string representation of ATS logger.
 
-            :return: The ATS logger as string
+            :return: The ATS logger as string representation
             :rtype: <str>
             :exceptions: None
         '''

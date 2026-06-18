@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines abstract class IATSOptionParser with attribute(s) and method(s).
+    Defines abstract class IArgParserStrategy with attribute(s) and method(s).
     Creates an interfaces for ATS option parsing.
 '''
 
@@ -35,9 +35,9 @@ __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
 
 
-class IATSArgParseStrategy(ABC):
+class IArgParserStrategy(ABC):
     '''
-        Defines abstract class IATSArgParseStrategy with attribute(s) and method(s).
+        Defines abstract class IArgParserStrategy with attribute(s) and method(s).
         Interface for concrete parsing engines (Strategy Pattern).
         Allows third-party parsers to be injected from the outside.
 
@@ -45,11 +45,11 @@ class IATSArgParseStrategy(ABC):
 
             :attributes: None
             :methods:
-                | setup - Initializes the underlying parser with metadata parameters.
-                | add_argument - Adds an operational argument/flag to the parser.
-                | add_version - Adds a version display option to the parser.
-                | parse - Parses the input arguments and returns an OptionNamespace.
-                | __str__ - Returns the string representation of ATS parser strategy.
+                | setup - Initializes the underlying parser with metadata parameters (abstract).
+                | add_argument - Adds an operational argument/flag to the parser (abstract).
+                | add_version - Adds a version display option to the parser (abstract).
+                | parse - Parses the input arguments and returns an OptionNamespace (abstract).
+                | __str__ - Returns the string representation of ATS parser strategy (abstract).
     '''
 
     @abstractmethod
@@ -57,7 +57,7 @@ class IATSArgParseStrategy(ABC):
         '''
             Initializes the underlying parser with metadata parameters.
 
-            :param parameters: Parameters for logger
+            :param parameters: Parameters for logger in dict format
             :type parameters: <Dict[str, str]>
             :exceptions: NotImplementedError
         '''
@@ -81,7 +81,7 @@ class IATSArgParseStrategy(ABC):
         '''
             Adds a version display option to the parser.
 
-            :param version: The ATS version
+            :param version: The ATS version in string format | None
             :type version: <Optional[str]>
             :exceptions: NotImplementedError
         '''
@@ -107,7 +107,7 @@ class IATSArgParseStrategy(ABC):
         '''
             Returns the string representation of ATS parser strategy.
 
-            :return: The ATS parser strategy as string
+            :return: The ATS parser strategy as string representation
             :rtype: <str>
             :exceptions: NotImplementedError
         '''

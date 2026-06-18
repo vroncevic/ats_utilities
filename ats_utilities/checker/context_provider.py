@@ -56,7 +56,7 @@ class ATSContextProvider(IATSContextProvider):
         '''
             Initializes ATSContextProvider.
 
-            :param stack_index_caller: Index in the call stack to identify the caller.
+            :param stack_index_caller: Index in the call stack to identify the caller (default 2).
             :type stack_index_caller: <int>
             :exceptions: None
         '''
@@ -78,7 +78,7 @@ class ATSContextProvider(IATSContextProvider):
             It uses the instance's STACK_INDEX_CALLER to determine the correct
             frame in the call stack.
 
-            :return: Context information string
+            :return: Context information in string format
             :rtype: <str>
             :exceptions: None
         '''
@@ -93,7 +93,7 @@ class ATSContextProvider(IATSContextProvider):
         '''
             Returns the string representation of ATSContextProvider.
 
-            :return: String representation of ATSContextProvider
+            :return: The ATSContextProvider as string representation 
             :rtype: <str>
             :exceptions: None
         '''

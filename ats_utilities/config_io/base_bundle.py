@@ -23,8 +23,8 @@ Info
 from dataclasses import dataclass
 from typing import List, Optional
 from ats_utilities.info.imanager import IInfoManager
-from ats_utilities.option.iparser_strategy import IATSArgParseStrategy
-from ats_utilities.option.ioption_parser import IATSOptionParser
+from ats_utilities.option.iparser_strategy import IArgParserStrategy
+from ats_utilities.option.ioption_parser import IOptionManager
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -42,13 +42,14 @@ class ATSBaseBundle:
         Encapsulates the core metadata management, parsing strategies, and option parsing components.
         Acts as a Parameter Object to simplify constructors for tool-related infrastructure.
 
-        :param info_manager: Metadata and tool information manager implementation | None
-        :type info_manager: <Optional[IInfoManager]>
-        :param strategy: Argument parsing strategy implementation | None
-        :type strategy: <Optional[IATSArgParseStrategy]>
-        :param options_parser: Command line option parser implementation | None
-        :type options_parser: <Optional[IATSOptionParser]>
+        It defines:
+
+            :attributes:
+                | info_manager - Metadata and tool information manager implementation (default None)
+                | strategy - Argument parsing strategy implementation (default None)
+                | options_parser - Command line option parser implementation (default None)
     '''
+
     info_manager: Optional[IInfoManager] = None
-    strategy: Optional[IATSArgParseStrategy] = None
-    options_parser: Optional[IATSOptionParser] = None
+    strategy: Optional[IArgParserStrategy] = None
+    options_parser: Optional[IOptionManager] = None

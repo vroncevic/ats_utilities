@@ -72,7 +72,7 @@ class IATSTypeValidator(ABC):
             :type inst: <Any>
             :param expected_type_name: The expected parent type name
             :type expected_type_name: <str>
-            :return: True if inst is a subtype, False otherwise
+            :return: True (is), False (not)
             :rtype: <bool>
             :exceptions: NotImplementedError
         '''
