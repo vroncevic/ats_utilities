@@ -19,9 +19,11 @@ Info
     Defines class ATSJSONProcessor with attribute(s) and method(s).
     Provides a default implementation for processing JSON content.
 '''
-import json
-from typing import Any, Dict, List
+
+from typing import Dict, List
+from json import loads, dumps, JSONDecodeError
 from ats_utilities.config_io.json.ijson_processor import IJSONProcessor
+from ats_utilities.factory_class import format_instance_to_string
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -52,37 +54,50 @@ class ATSJSONProcessor(IJSONProcessor):
         '''
             Initials ATSJSONProcessor constructor.
         '''
-        self.__data: Dict[Any, Any] = {}
+        self.__data: Dict[str, str] = {}
 
     def decode(self, json_string: str) -> bool:
         '''
-            Convert raw JSON text to an internal object/structure.
+            Converts raw JSON text to an internal object/structure.
 
-            :param json_string: Raw JSON text
+            :param json_string: Raw JSON text in string format
             :type json_string: <str>
-            :return: True (content decoded) | False
+            :return: True (success) | False (fail)
             :rtype: <bool>
+            :exceptions: None
         '''
         try:
-            self.__data = json.loads(json_string)
+            self.__data = loads(json_string)
             return True
-        except json.JSONDecodeError:
+        except JSONDecodeError:
             return False
 
     def encode(self) -> str:
         '''
-            Convert an internal object/structure back to a JSON string.
+            Converts an internal object/structure back to a JSON string.
 
-            :return: JSON content as string
+            :return: JSON content in string format
             :rtype: <str>
+            :exceptions: None
         '''
-        return json.dumps(self.__data, indent=4)
+        return dumps(self.__data, indent=4)
 
-    def to_dict(self) -> Dict[Any, Any]:
+    def to_dict(self) -> Dict[str, str]:
         '''
-            Return data as a flat dictionary.
+            Converts data as a flat dictionary (abstract).
 
-            :return: Dictionary with JSON information
-            :rtype: <Dict[Any, Any]>
+            :return: Dictionary with JSON configuration
+            :rtype: <Dict[str, str]>
+            :exceptions: None
         '''
         return self.__data
+
+    def __str__(self) -> str:
+        '''
+            Returns the string representation of JSON processor.
+
+            :return: The JSON processor as string representation
+            :rtype: <str>
+            :exceptions: None
+        '''
+        return format_instance_to_string(self)

@@ -19,9 +19,11 @@ Info
     Use cases for ATS splasher.
 '''
 
-from typing import List, Dict
+from typing import Any, List, Dict
 from os.path import dirname, realpath
 from ats_utilities.splasher.engine import Splasher
+from ats_utilities.splasher.splash_keys import SplashKeys
+from ats_utilities.splasher.component_bundle import SplashComponentBundle
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -33,14 +35,30 @@ __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
 
 current_dir: str = dirname(realpath(__file__))
+logo_path: str = f'{current_dir}/../../tests/config/app.logo'
+mytool_property: Dict[Any, Any] = {}
+bundle: SplashComponentBundle = SplashComponentBundle(prop=mytool_property)
 
-mytool_property: Dict[str, str | bool] = {
-    'ats_organization': 'myorganization',
-    'ats_repository': 'myrepository',
-    'ats_name': 'mytool',
-    'ats_logo_path': f'{current_dir}/../../tests/config/app.logo',
-    'ats_use_github_infrastructure': True
-}
+#
+# default [with GitHub]
+# ======================
+#
+bundle.prop[SplashKeys.ATS_ORGANIZATION] = 'myorganization'
+bundle.prop[SplashKeys.ATS_REPOSITORY] = 'myrepository'
+bundle.prop[SplashKeys.ATS_NAME] = 'mytool'
+bundle.prop[SplashKeys.ATS_LOGO_PATH] = logo_path
+bundle.prop[SplashKeys.ATS_USE_GITHUB_INFRASTRUCTURE] = True
 
-ats_splash = Splasher(mytool_property)
-print(ats_splash)
+ats_splash_with_github: Splasher = Splasher(bundle)
+print(ats_splash_with_github)
+print(50 * '=')
+
+#
+# default [without GitHub]
+# =========================
+#
+bundle.prop[SplashKeys.ATS_USE_GITHUB_INFRASTRUCTURE] = False
+
+ats_splash_without_github = Splasher(bundle)
+print(ats_splash_without_github)
+print(50 * '=')

@@ -20,17 +20,20 @@ Info
     Creates an API for reading a configuration from a XML file.
 '''
 
-from typing import ClassVar, List, Optional
-from ats_utilities.checker.ichecker import IChecker, ErrorChecker
-from ats_utilities.checker.engine import ATSChecker
-from ats_utilities.reporter.ireporter import IReporter
-from ats_utilities.reporter.engine import ATSReporter
-from ats_utilities.exceptions.ats_type_error import ATSTypeError
+from typing import List, Optional
 from ats_utilities.config_io.iread import IRead
+from ats_utilities.context_bundle import ContextBundle
 from ats_utilities.config_io.conf_file import ConfFile
 from ats_utilities.config_io.ifile_check import IFileCheck
 from ats_utilities.config_io.file_check import FileCheck
+from ats_utilities.config_io.file_bundle import ATSFileBundle
+from ats_utilities.config_io.config_file_bundle import ATSConfigFileBundle
 from ats_utilities.config_io.xml.ixml_processor import IXMLProcessor
+from ats_utilities.config_io.xml.xml_processor import ATSXMLProcessor
+from ats_utilities.reporter.proxy_reporter import vreporter
+from ats_utilities.factory_context_bundle import factory_context_bundle
+from ats_utilities.factory_component import make_component, validate_component
+from ats_utilities.factory_class import get_private_attr, format_instance_to_string
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -51,71 +54,66 @@ class Xml2Object(IRead):
         It defines:
 
             :attributes:
-                | _EXT - File extension of the configuration file.
-                | _verbose - Enable/Disable verbose option.
-                | _file_path - Configuration file path.
+                | __EXT - File extension of the configuration file.
+                | __MODE - File open mode.
+                | __config_file_bundle - Configuration file bundle parameters (default None).
+                | __checker - Factoriezed parameters checker (default ATSChecker).
+                | __reporter - Factoriezed reporter for messaging (default ATSReporter).
+                | __verbose - Factoriezed Enable/Disable verbose option (default False).
+                | __file_checker - FileCheck for checking file (default FileCheck).
+                | __xml_processor - Processor for XML content (default ATSXMLProcessor).
+                | __file_path - Configuration file path (default None).
+                | __file_bundle_shared - File bundle parameters (default None).
             :methods:
                 | __init__ - Initials Xml2Object constructor.
-                | read_configuration - Reads a configuration from an XML file.
+                | read_configuration - Reads a configuration from a XML file.
+                | __str__ - Returns the string representation of XML object.
     '''
 
-    ERRORS: ClassVar[type[ErrorChecker]] = ErrorChecker
     __EXT: str = 'xml'
     __MODE: str = 'r'
 
     def __init__(
         self,
         config_file: Optional[str],
-        xml_processor: IXMLProcessor,
-        checker: Optional[IChecker] = None,
-        reporter: Optional[IReporter] = None,
-        file_checker: Optional[IFileCheck] = None,
-        verbose: bool = False
+        config_bundle: Optional[ATSConfigFileBundle] = None,
+        xml_processor: Optional[IXMLProcessor] = None
     ) -> None:
         '''
             Initials Xml2Object constructor.
 
-            :param config_file: Configuration file path | None
+            :param config_file: Configuration file path in string format | None
             :type config_file: <Optional[str]>
-            :param xml_processor: IXMLProcessor for processing XML content
-            :type xml_processor: <IXMLProcessor>
-            :param checker: ATSChecker for check operations | None
-            :type checker: <Optional[IChecker]>
-            :param reporter: ATSReporter for check operations | None
-            :type reporter: <Optional[IReporter]>
-            :param file_checker: FileCheck for checking file | None
-            :type file_checker: <Optional[IFileCheck]>
-            :param verbose: Enable/Disable verbose option (default False)
-            :type verbose: <bool>
-            :exceptions:  ATSTypeError
+            :param config_bundle: Configuration file bundle parameters | None
+            :type config_bundle: <Optional[ATSConfigFileBundle]>
+            :param xml_processor: Processor for XML content | None
+            :type xml_processor: <Optional[IJSONProcessor]>
+            :exceptions: ATSTypeError
         '''
-        self.__checker: IChecker = checker or ATSChecker()
-        self.__reporter: IReporter = reporter or ATSReporter()
-        self.__verbose: bool = verbose
-        self.__file_checker: IFileCheck = file_checker or FileCheck(
-            self.__checker, self.__reporter, self.__verbose
+        self.__config_file_bundle: ATSConfigFileBundle = config_bundle or ATSConfigFileBundle()
+        factory_context_bundle(self, self.__config_file_bundle.context)
+        context_bundle_shared: ContextBundle = ContextBundle(
+            checker=get_private_attr(self, 'checker'),
+            reporter=get_private_attr(self, 'reporter'),
+            verbose=get_private_attr(self, 'verbose')
         )
-
-        error_msg: Optional[str] = None
-        error_id: Optional[int] = None
-        error_msg, error_id = self.__checker.validate_parameters([
-            ('str:config_file', config_file)
-        ])
-
-        if error_id == self.ERRORS.TYPE_ERROR:
-            raise ATSTypeError(error_msg)
-
-
+        self.__file_checker: IFileCheck = make_component(
+            self.__config_file_bundle.file_checker, FileCheck, {'config_bundle': context_bundle_shared}
+        )
+        validate_component(self.__file_checker, type(self.__file_checker), type(self.__file_checker).__name__)
+        self.__xml_processor: IXMLProcessor = make_component(xml_processor, ATSXMLProcessor, None)
+        validate_component(self.__xml_processor, type(self.__xml_processor), type(self.__xml_processor).__name__)
         self.__file_path: str = str(config_file)
-        self.__xml_processor: IXMLProcessor = xml_processor
-        self.__reporter.verbose(self.__verbose, [f'configuration {config_file}'])
+        self.__file_bundle_shared: ATSFileBundle = ATSFileBundle()
+        self.__file_bundle_shared.file_path = self.__file_path
+        self.__file_bundle_shared.file_mode = self.__MODE
+        self.__file_bundle_shared.file_format = self.__EXT
 
-    def read_configuration(self, verbose: bool = False) -> Optional[IXMLProcessor]:
+    @vreporter('read configuration from file {file_path}')
+    def read_configuration(self) -> Optional[IXMLProcessor]:
         '''
-            Reads a configuration from an XML file.
+            Reads a configuration from a XML file.
 
-            :param verbose: Enable/Disable verbose option (default False)
-            :type verbose: <bool>
             :return: Configuration object | None
             :rtype: <Optional[IXMLProcessor]>
             :exceptions: None
@@ -123,15 +121,7 @@ class Xml2Object(IRead):
         content: Optional[str] = None
         config: Optional[IXMLProcessor] = None
 
-        with ConfFile(
-            self.__file_path,
-            self.__MODE,
-            self.__EXT,
-            self.__checker,
-            self.__reporter,
-            self.__file_checker,
-            self.__verbose or verbose
-        ) as xml:
+        with ConfFile(self.__file_bundle_shared, self.__config_file_bundle) as xml:
             if bool(xml):
                 content = xml.read()
 
@@ -139,6 +129,14 @@ class Xml2Object(IRead):
                     if self.__xml_processor.from_string(str(content)):
                         config = self.__xml_processor
 
-        self.__reporter.verbose(self.__verbose or verbose, [f'configuration {config}'])
-
         return config
+
+    def __str__(self) -> str:
+        '''
+            Returns the string representation of XML object.
+
+            :return: The XML object as string representation
+            :rtype: <str>
+            :exceptions: None
+        '''
+        return format_instance_to_string(self)

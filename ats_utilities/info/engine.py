@@ -20,12 +20,9 @@ Info
     Creates an API for the ATS information in one container object.
 '''
 
-from typing import List, Optional
-from ats_utilities.factory_class import format_instance_to_string
-from ats_utilities.factory_component import make_component, validate_component
+from typing import Dict, List, Optional
 from ats_utilities.info.imanager import IInfoManager
 from ats_utilities.info.component_bundle import ATSInfoComponentBundle
-from ats_utilities.context_bundle import ContextBundle
 from ats_utilities.info.iname import IName
 from ats_utilities.info.name import ATSName
 from ats_utilities.info.iversion import IVersion
@@ -36,6 +33,10 @@ from ats_utilities.info.ibuild_date import IBuildDate
 from ats_utilities.info.build_date import ATSBuildDate
 from ats_utilities.info.iinfo_ok import IInfoOk
 from ats_utilities.info.info_ok import ATSInfoOk
+from ats_utilities.info.info_keys import ATSInfoKeys
+from ats_utilities.factory_class import format_instance_to_string
+from ats_utilities.factory_component import make_component, validate_component
+from ats_utilities.context_bundle import ContextBundle
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -60,6 +61,7 @@ class ATSInfoManager(IInfoManager):
                 | _components - The ATS licence (default ATSLicence).
             :methods:
                 | __init__ - Initials ATSInfoManager constructor.
+                | set_info - Sets the ATS information.
                 | info_ok - Checks is ATS information structure ok.
                 | __getattr__ - Gets attribute from instance components dinamicly.
                 | __setattr__ - Sets attribute to instance components dinamicly and refreshes status.
@@ -86,7 +88,7 @@ class ATSInfoManager(IInfoManager):
             :type context_bundle: <Optional[ContextBundle]>
             :param component_bundle: Bundle with components | None
             :type component_bundle: <Optional[ATSInfoComponentBundle]>
-            :exceptions: ATSTypeError by validate_component()
+            :exceptions: ATSTypeError
         '''
         bundle: ContextBundle = context_bundle or ContextBundle()
         factory_args = {'info_bundle': bundle}
@@ -105,6 +107,19 @@ class ATSInfoManager(IInfoManager):
             name=name, version=version, licence=licence, build_date=build_date, info_ok=info_ok
         )
         self.refresh_status()
+
+    def set_info(self, info: Dict[str, str]) -> None:
+        '''
+            Sets the ATS information.
+
+            :param info: Dictionary with ATS information
+            :type info: <Dict[str, str]>
+            :exceptions: ATSTypeError
+        '''
+        self.name = info.get(ATSInfoKeys.ATS_NAME)
+        self.version = info.get(ATSInfoKeys.ATS_VERSION)
+        self.build_date = info.get(ATSInfoKeys.ATS_BUILD_DATE)
+        self.licence = info.get(ATSInfoKeys.ATS_LICENCE)
 
     def __getattr__(self, name: str) -> Optional[str]:
         '''

@@ -2,7 +2,7 @@
 
 '''
 Module
-    icli.py
+    ibase.py
 Copyright
     Copyright (C) 2017 - 2026 Vladimir Roncevic <elektron.ronca@gmail.com>
     ats_utilities is free software: you can redistribute it and/or modify it
@@ -16,8 +16,8 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines interface IATSCli with attribute(s) and method(s).
-    Interface for command-line interface configuration.
+    Defines interface IBase with attribute(s) and method(s).
+    Interface for ATS base setup.
 '''
 
 from abc import ABC, abstractmethod
@@ -37,20 +37,20 @@ __status__: str = 'Updated'
 ArgSeq: TypeAlias = Optional[Sequence[str]]
 
 
-class IATSCli(ABC):
+class IBase(ABC):
     '''
-        Defines interface IATSCli with attribute(s) and method(s).
-        Interface for command-line interface configuration.
+        Defines interface IBase with attribute(s) and method(s).
+        Interface for ATS base setup.
 
         It defines:
 
             :attributes: None
             :methods:
-                | is_operational - Checks is tool | generator operational (abstract).
+                | is_operational - Checks is ATS operational (abstract).
                 | add_new_option - Adds a new option for the the CL interface (abstract).
                 | parse_args - Parses the CLI arguments (abstract).
-                | process - Processes and runs tool operations (abstract).
-                | __str__ - Returns the string representation of command line interface component (abstract).
+                | process - Processes and runs ATS operations (abstract).
+                | __str__ - Returns the string representation of ATS base (abstract).
     '''
 
     @abstractmethod
@@ -58,7 +58,7 @@ class IATSCli(ABC):
         '''
             Checks is ATS operational.
 
-            :return: True (ATS is operational) | False (ATS is not operational)
+            :return: True (operational) | False (not operational)
             :rtype: <bool>
             :exceptions: NotImplementedError
         '''
@@ -106,9 +106,9 @@ class IATSCli(ABC):
     @abstractmethod
     def __str__(self) -> str:
         '''
-            Returns the string representation of command line interface component.
+            Returns the string representation of ATS base.
 
-            :return: The command line interface component as string
+            :return: The ATS base as string representation
             :rtype: <str>
             :exceptions: NotImplementedError
         '''

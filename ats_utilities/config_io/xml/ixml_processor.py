@@ -42,20 +42,20 @@ class IXMLProcessor(ABC):
 
             :attributes: None
             :methods:
-                | from_string - Load XML content from string (abstract).
-                | to_string - Convert XML content to string (abstract).
-                | get_ats_info - Get ATS information from XML (abstract).
-                | __str__ - Returns the string representation of XML configuration processor component (abstract).
+                | from_string - Loads XML content from string (abstract).
+                | to_string - Converts XML content to string (abstract).
+                | to_dict - Gets ATS information from XML (abstract).
+                | __str__ - Returns the string representation of XML processor (abstract).
     '''
 
     @abstractmethod
     def from_string(self, xml_content: str) -> bool:
         '''
-            Load XML content from string.
+            Loads XML content from string.
 
             :param xml_content: XML content as string
             :type xml_content: <str>
-            :return: True (content loaded) | False
+            :return: True (success) | False (fail)
             :rtype: <bool>
             :exceptions: NotImplementedError
         '''
@@ -64,7 +64,7 @@ class IXMLProcessor(ABC):
     @abstractmethod
     def to_string(self) -> str:
         '''
-            Convert XML content to string.
+            Converts XML content to string.
 
             :return: XML content as string
             :rtype: <str>
@@ -73,22 +73,22 @@ class IXMLProcessor(ABC):
         raise NotImplementedError("Method to_string() must be implemented.")
 
     @abstractmethod
-    def get_ats_info(self) -> Dict[str, str]:
+    def to_dict(self) -> Dict[str, str]:
         '''
-            Get ATS information from XML.
+            Gets ATS information from XML.
 
             :return: Dictionary with ATS information
             :rtype: <Dict[str, str]>
             :exceptions: NotImplementedError
         '''
-        raise NotImplementedError("Method get_ats_info() must be implemented.")
+        raise NotImplementedError("Method to_dict() must be implemented.")
 
     @abstractmethod
     def __str__(self) -> str:
         '''
-            Returns the string representation of XML configuration processor component.
+            Returns the string representation of XML processor.
 
-            :return: The XML configuration processor component as string
+            :return: The XML processor as string representation
             :rtype: <str>
             :exceptions: NotImplementedError
         '''

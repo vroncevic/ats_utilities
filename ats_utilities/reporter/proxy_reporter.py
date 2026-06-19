@@ -37,7 +37,6 @@ __status__: str = 'Updated'
 # Allows decorator to remember signature wrapped method
 F = TypeVar('F', bound=Callable[..., Any])
 
-
 def vreporter(templates: Union[str, List[str]]) -> Callable[[F], F]:
     '''
         Decorator supporting class methods and property operations.

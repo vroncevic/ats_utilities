@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines interface ICfgLoader with attribute(s) and method(s).
+    Defines interface ICFGLoader with attribute(s) and method(s).
     Interface for loading the ATS configuration.
 '''
 
@@ -33,9 +33,9 @@ __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
 
 
-class ICfgLoader(ABC):
+class ICFGLoader(ABC):
     '''
-        Defines interface ICfgLoader with attribute(s) and method(s).
+        Defines interface ICFGLoader with attribute(s) and method(s).
         Interface for loading the ATS configuration.
 
         It defines:

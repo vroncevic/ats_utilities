@@ -42,17 +42,17 @@ class IReporter(ABC):
 
             :attributes: None
             :methods:
-                | error - Report error message (abstract).
-                | success - Report success message (abstract).
-                | verbose - Report verbose message (abstract).
-                | warning - Report warning message (abstract).
+                | error - Reports error message (abstract).
+                | success - Reports success message (abstract).
+                | verbose - Reports verbose message (abstract).
+                | warning - Reports warning message (abstract).
                 | __str__ - Returns the string representation of ATS reporter (abstract).
     '''
 
     @abstractmethod
     def verbose(self, is_verbose: bool, message: List[Any]) -> None:
         '''
-            Report verbose message.
+            Reports verbose message.
 
             :param is_verbose: Enable/Disable verbose option
             :type is_verbose: <bool>
@@ -65,7 +65,7 @@ class IReporter(ABC):
     @abstractmethod
     def success(self, message: List[Any]) -> None:
         '''
-            Report success message.
+            Reports success message.
 
             :param message: List with message
             :type message: <List[Any]>
@@ -76,7 +76,7 @@ class IReporter(ABC):
     @abstractmethod
     def warning(self, message: List[Any]) -> None:
         '''
-            Report warning message.
+            Reports warning message.
 
             :param message: List with message
             :type message: <List[Any]>
@@ -87,7 +87,7 @@ class IReporter(ABC):
     @abstractmethod
     def error(self, message: List[Any]) -> None:
         '''
-            Report error message.
+            Reports error message.
 
             :param message: List with message
             :type message: <List[Any]>
@@ -100,7 +100,7 @@ class IReporter(ABC):
         '''
             Returns the string representation of ATS reporter.
 
-            :return: ATS reporter instance as string representation
+            :return: ATS reporter as string representation
             :rtype: <str>
             :exceptions: NotImplementedError
         '''

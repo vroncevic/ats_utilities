@@ -1,8 +1,8 @@
-# -*- coding: UTF-8 -*-
+# -*- coding: utf-8 -*-
 
 '''
 Module
-    __init__.py
+    story_context_bundle.py
 Copyright
     Copyright (C) 2017 - 2026 Vladimir Roncevic <elektron.ronca@gmail.com>
     ats_utilities is free software: you can redistribute it and/or modify it
@@ -16,10 +16,15 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Initialization for ats_utilities.cli package.
+    Use cases for ATS context bundle.
 '''
 
 from typing import List
+from ats_utilities.context_bundle import ContextBundle
+from ats_utilities.checker.engine import ATSChecker
+from ats_utilities.reporter.engine import ATSReporter
+from ats_utilities.reporter.theme.engine import ATSConsoleTheme 
+from ats_utilities.reporter.component_bundle import ReporterComponentBundle
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -29,3 +34,14 @@ __version__: str = '3.3.7'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
+
+#
+# default [without DI]
+# ======================
+#
+ats_context_bundle: ContextBundle = ContextBundle()
+print(ats_context_bundle)
+print(ats_context_bundle.checker)
+print(ats_context_bundle.reporter)
+print(ats_context_bundle.verbose)
+print(50 * '=')

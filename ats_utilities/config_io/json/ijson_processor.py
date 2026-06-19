@@ -20,7 +20,7 @@ Info
     Creates an interface for processing JSON content.
 '''
 from abc import ABC, abstractmethod
-from typing import Any, Dict, List
+from typing import Dict, List
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -40,20 +40,20 @@ class IJSONProcessor(ABC):
 
             :attributes: None
             :methods:
-                | decode - Convert raw JSON text to an internal object/structure (abstract).
-                | encode - Convert an internal object/structure back to a JSON string (abstract).
-                | to_dict - Return data as a flat dictionary required for ATSInfo (abstract).
-                | __str__ - Returns the string representation of JSON configuration processor component (abstract).
+                | decode - Converts raw JSON text to an internal object/structure (abstract).
+                | encode - Converts an internal object/structure back to a JSON string (abstract).
+                | to_dict - Converts data as a flat dictionary (abstract).
+                | __str__ - Returns the string representation of JSON processor (abstract).
     '''
 
     @abstractmethod
     def decode(self, json_string: str) -> bool:
         '''
-            Convert raw JSON text to an internal object/structure.
+            Converts raw JSON text to an internal object/structure.
 
-            :param json_string: Raw JSON text
+            :param json_string: Raw JSON text in string format
             :type json_string: <str>
-            :return: True (content decoded) | False
+            :return: True (success) | False (fail)
             :rtype: <bool>
             :exceptions: NotImplementedError
         '''
@@ -62,21 +62,21 @@ class IJSONProcessor(ABC):
     @abstractmethod
     def encode(self) -> str:
         '''
-            Convert an internal object/structure back to a JSON string.
+            Converts an internal object/structure back to a JSON string.
 
-            :return: JSON content as string
+            :return: JSON content in string format
             :rtype: <str>
             :exceptions: NotImplementedError
         '''
         raise NotImplementedError("Method encode() must be implemented.")
 
     @abstractmethod
-    def to_dict(self) -> Dict[Any, Any]:
+    def to_dict(self) -> Dict[str, str]:
         '''
-            Return data as a flat dictionary required for ATSInfo.
+            Converts data as a flat dictionary (abstract).
 
-            :return: Dictionary with JSON information
-            :rtype: <Dict[Any, Any]>
+            :return: Dictionary with JSON configuration
+            :rtype: <Dict[str, str]>
             :exceptions: NotImplementedError
         '''
         raise NotImplementedError("Method to_dict() must be implemented.")
@@ -84,9 +84,9 @@ class IJSONProcessor(ABC):
     @abstractmethod
     def __str__(self) -> str:
         '''
-            Returns the string representation of JSON configuration processor component.
+            Returns the string representation of JSON processor.
 
-            :return: The JSON configuration processor component as string
+            :return: The JSON processor as string representation
             :rtype: <str>
             :exceptions: NotImplementedError
         '''

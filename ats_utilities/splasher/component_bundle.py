@@ -16,16 +16,17 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines component bundle data classe for dependency group simplification.
-    Encapsulates core utilities to minimize constructor overhead.
+    Defines component bundle dataclass for dependency grouping and management.
+    Encapsulates splash screen components to minimize constructor overhead.
 '''
 
-from typing import List, Optional
-from dataclasses import dataclass
+from typing import Any, Dict, List, Optional
+from dataclasses import dataclass, field
+from ats_utilities.splasher.isplash_property import ISplashProperty
+from ats_utilities.splasher.iterminal_properties import ITerminalProperties
 from ats_utilities.splasher.iext_infrastructure import IExtInfrastructure
 from ats_utilities.splasher.iprogress_bar import IProgressBar
-from ats_utilities.splasher.iterminal_properties import ITerminalProperties
-from ats_utilities.splasher.isplash_property import ISplashProperty
+from ats_utilities.context_bundle import ContextBundle
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -38,24 +39,28 @@ __status__: str = 'Updated'
 
 
 @dataclass
-class ATSSplashComponentBundle:
+class SplashComponentBundle:
     '''
-        Parameter Object pattern wrapper encapsulating all core splash domain elements.
-        Simplifies dependency passing and signatures for higher-level managers.
+        Defines component bundle dataclass for dependency grouping and management.
+        Encapsulates splash screen components to minimize constructor overhead.
 
         It defines:
 
             :attributes:
-                | splash_property - Splasher property API (default None).
+                | prop - Splash screen property in dict format (default None).
+                | splash_property - Splash screen property API (default None).
                 | terminal_property - Terminal properties API (default None).
                 | github - GitHub infrastructure for hyperlinks (default None).
                 | ext - Generic external infrastructure for hyperlinks (default None).
                 | pb - Progress bar component (default None).
+                | context_bundle - Context bundle for dependency injection (default ContextBundle).
             :methods: None
     '''
 
+    prop: Optional[Dict[Any, Any]] = None
     splash_property: Optional[ISplashProperty] = None
     terminal_property: Optional[ITerminalProperties] = None
     github: Optional[IExtInfrastructure] = None
     ext: Optional[IExtInfrastructure] = None
     pb: Optional[IProgressBar] = None
+    context_bundle: Optional[ContextBundle] = field(default_factory=ContextBundle)

@@ -84,7 +84,7 @@ class Object2Cfg(IWrite):
             :type config_file: <Optional[str]>
             :param config_bundle: Configuration file bundle parameters | None
             :type config_bundle: <Optional[ATSConfigFileBundle]>
-            :exceptions: ATSTypeError by validate_component()
+            :exceptions: ATSTypeError
         '''
         self.__config_file_bundle: ATSConfigFileBundle = config_bundle or ATSConfigFileBundle()
         factory_context_bundle(self, self.__config_file_bundle.context)

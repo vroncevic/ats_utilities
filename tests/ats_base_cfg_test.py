@@ -26,7 +26,7 @@ from typing import List
 from unittest import TestCase, main
 from unittest.mock import MagicMock
 from os.path import dirname
-from ats_utilities.config_io.cfg.cfg_loader import CfgLoader
+from ats_utilities.config_io.cfg.cfg_loader import CFGLoader
 from ats_utilities.config_io.iread import IRead
 from ats_utilities.config_io.iwrite import IWrite
 from ats_utilities.checker.ichecker import IChecker
@@ -45,8 +45,8 @@ __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
 
 
-class ATSBaseCfg(CfgLoader):
-    '''Simple Class for checking CfgLoader.'''
+class ATSBaseCfg(CFGLoader):
+    '''Simple Class for checking CFGLoader.'''
 
     _CONFIG: str = '/config/correct/ats_cli_cfg_api.cfg'
     _OPS: List[str] = ['-t', '--test', '-v']
@@ -65,7 +65,7 @@ class CfgBaseTestCase(TestCase):
     '''
         Defines class CfgBaseTestCase with attribute(s) and method(s).
         Creates test cases for checking functionalities of ATS Cfg interfaces.
-        CfgLoader unit tests.
+        CFGLoader unit tests.
 
         It defines:
 
@@ -87,7 +87,7 @@ class CfgBaseTestCase(TestCase):
         '''Call after test case.'''
 
     def test_not_none(self) -> None:
-        '''Test for create CfgLoader'''
+        '''Test for create CFGLoader'''
         self.assertIsNotNone(self.ats_base_cfg)
 
     def test_tool_operational(self) -> None:
@@ -97,12 +97,12 @@ class CfgBaseTestCase(TestCase):
     def test_none_config_path(self) -> None:
         '''Test for None as file path'''
         with self.assertRaises(ATSTypeError):
-            CfgLoader(None)
+            CFGLoader(None)
 
 
 class CfgBaseUnitTestCase(TestCase):
     '''
-        Unit tests for CfgLoader class using mocks.
+        Unit tests for CFGLoader class using mocks.
 
         It defines:
 
@@ -133,7 +133,7 @@ class CfgBaseUnitTestCase(TestCase):
         self.mock_cfg2obj.read_configuration.return_value = {}
 
         # Use keyword arguments to ensure correct dependency injection
-        self.cfg_base: CfgLoader = CfgLoader(
+        self.cfg_base: CFGLoader = CFGLoader(
             info_file=self.config_path,
             cfg2object=self.mock_cfg2obj,
             object2cfg=self.mock_obj2cfg,
@@ -143,12 +143,12 @@ class CfgBaseUnitTestCase(TestCase):
         )
 
     def test_init(self) -> None:
-        '''Test initialization of CfgLoader.'''
+        '''Test initialization of CFGLoader.'''
         self.assertIsNotNone(self.cfg_base)
         self.mock_cfg2obj.read_configuration.assert_called_once()
 
     def test_is_tool_ok_non_operational(self) -> None:
-        '''Test is_tool_ok status when CfgLoader is not operational.'''
+        '''Test is_tool_ok status when CFGLoader is not operational.'''
         self.assertFalse(self.cfg_base.is_tool_ok())
 
     def test_option_parser_access_non_operational(self) -> None:
@@ -156,7 +156,7 @@ class CfgBaseUnitTestCase(TestCase):
         self.assertIsNone(self.cfg_base.option_parser)
 
     def test_operational_cfg_base(self) -> None:
-        '''Test CfgLoader when it is operational.'''
+        '''Test CFGLoader when it is operational.'''
         operational_mock_cfg2obj = MagicMock(spec=IRead)
         operational_mock_obj2cfg = MagicMock(spec=IWrite)
         operational_mock_checker = MagicMock(spec=IChecker)
@@ -173,7 +173,7 @@ class CfgBaseUnitTestCase(TestCase):
         }
         operational_mock_cfg2obj.read_configuration.return_value = mock_processor
 
-        operational_cfg_base = CfgLoader(
+        operational_cfg_base = CFGLoader(
             info_file=self.config_path,
             cfg2object=operational_mock_cfg2obj,
             object2cfg=operational_mock_obj2cfg,

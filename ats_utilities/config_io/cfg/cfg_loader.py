@@ -16,14 +16,14 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines class CfgLoader with attribute(s) and method(s).
+    Defines class CFGLoader with attribute(s) and method(s).
     Loads the ATS configuration for the ATS.
 '''
 
 from typing import Dict, List, Optional
 from ats_utilities.config_io.iread import IRead
 from ats_utilities.context_bundle import ContextBundle
-from ats_utilities.config_io.cfg.icfg_loader import ICfgLoader
+from ats_utilities.config_io.cfg.icfg_loader import ICFGLoader
 from ats_utilities.config_io.ifile_check import IFileCheck
 from ats_utilities.config_io.file_check import FileCheck
 from ats_utilities.config_io.config_file_bundle import ATSConfigFileBundle
@@ -44,9 +44,9 @@ __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
 
 
-class CfgLoader(ICfgLoader):
+class CFGLoader(ICFGLoader):
     '''
-        Defines class CfgLoader with attribute(s) and method(s).
+        Defines class CFGLoader with attribute(s) and method(s).
         Loads the ATS configuration for the ATS.
         CFG configuration-based API support.
 
@@ -58,7 +58,7 @@ class CfgLoader(ICfgLoader):
                 | __verbose - Factoriezed Enable/Disable verbose option (default False).
                 | __configuration - CFG processor configuration (default None).
             :methods:
-                | __init__ - Initials CfgLoader constructor.
+                | __init__ - Initials CFGLoader constructor.
                 | __str__ - Returns the string representation of cfgbase.
     '''
 
@@ -70,7 +70,7 @@ class CfgLoader(ICfgLoader):
         cfg_processor: Optional[ICFGProcessor] = None
     ) -> None:
         '''
-            Initials CfgLoader constructor.
+            Initials CFGLoader constructor.
 
             :param info_file: Path to the info file | None
             :type info_file: <Optional[str]>
@@ -78,7 +78,7 @@ class CfgLoader(ICfgLoader):
             :type cfg2object: <Optional[IRead]>
             :param config_bundle: Configuration bundle | None
             :type config_bundle: <Optional[ATSConfigFileBundle]>
-            :exceptions: ATSTypeError by validate_component()
+            :exceptions: ATSTypeError
         '''
         config_file_bundle: ATSConfigFileBundle = config_bundle or ATSConfigFileBundle()
         factory_context_bundle(self, config_file_bundle.context)

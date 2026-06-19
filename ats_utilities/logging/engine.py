@@ -22,6 +22,8 @@ Info
 
 from typing import List, Optional
 from ats_utilities.logging.ilogger import ILogger
+from ats_utilities.logging.ilogger_manager import ILoggerManager
+from ats_utilities.logging.component_bundle import ATSLoggingComponentBundle
 from ats_utilities.context_bundle import ContextBundle
 from ats_utilities.logging.logger_bundle import LoggerBundle
 from ats_utilities.logging.logger import ATSLogger, ATSLogLevels
@@ -39,7 +41,7 @@ __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
 
 
-class ATSLoggerManager:
+class ATSLoggerManager(ILoggerManager):
     '''
         Defines class ATSLoggerManager with attribute(s) and method(s).
         Creates an API for the ATS logging mechanism.
@@ -69,30 +71,25 @@ class ATSLoggerManager:
     ATS_INFO = ATSLogLevels.ATS_LOG_INFO
     ATS_WARNING = ATSLogLevels.ATS_LOG_WARNING
 
-    def __init__(
-        self,
-        logger: Optional[ILogger] = None,
-        logger_bundle: Optional[LoggerBundle] = None,
-        logging_bundle: Optional[ContextBundle] = None
-    ) -> None:
+    def __init__(self, component_bundle: Optional[ATSLoggingComponentBundle] = None) -> None:
         '''
             Initials ATSLoggerManager constructor.
 
-            :param logger_bundle: Lugger bundle with parameters | None
-            :type logger_bundle: <Optional[LoggerBundle]>
-            :param logging_bundle: Bundle with checker, reporter and verbose | None
-            :type logging_bundle: <Optional[ContextBundle]>
-            :exceptions: ATSTypeError by validate_component()
+            :param component_bundle: Logging component bundle with parameters | None
+            :type component_bundle: <Optional[ATSLoggingComponentBundle]>
+            :exceptions: ATSTypeError
         '''
-        # No dependency injection then use default ones.
-        factory_context_bundle(self, logging_bundle)
+        bundle = component_bundle or ATSLoggingComponentBundle()
+        factory_context_bundle(self, bundle.logging_bundle)
         shared_bundle: ContextBundle = ContextBundle(
             checker=get_private_attr(self, 'checker'),
             reporter=get_private_attr(self, 'reporter'),
             verbose=get_private_attr(self, 'verbose')
         )
-        bundle: LoggerBundle = logger_bundle or LoggerBundle()
-        self.__logger: ILogger = make_component(logger, ATSLogger, {'logger_bundle': bundle, 'logging_bundle': shared_bundle})
+        log_bundle: LoggerBundle = bundle.logger_bundle or LoggerBundle()
+        self.__logger: ILogger = make_component(
+            bundle.logger, ATSLogger, {'logger_bundle': log_bundle, 'logging_bundle': shared_bundle}
+        )
         validate_component(self.__logger, type(self.__logger), type(self.__logger).__name__)
 
     def get_logger(self) -> ILogger:

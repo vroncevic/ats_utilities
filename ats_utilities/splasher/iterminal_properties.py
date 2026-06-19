@@ -42,16 +42,16 @@ class ITerminalProperties(ABC):
 
             :attributes: None
             :methods:
-                | ioctl_get_window_size - Gets size for descriptor (abstract).
-                | ioctl_for_all_descriptors - Sets size for all descriptors (abstract).
-                | size - Gets size of terminal window (abstract).
+                | ioctl_get_window_size - Gets size for file descriptor (abstract).
+                | ioctl_for_all_descriptors - Sets size for all file descriptors (abstract).
+                | size - Gets terminal window size (abstract).
                 | __str__ - Returns the string representation of terminal properties (abstract).
     '''
 
     @abstractmethod
     def ioctl_get_window_size(self, file_descriptor: int) -> Tuple[Any, ...]:
         '''
-            Gets size for descriptor.
+            Gets size for file descriptor.
 
             :param file_descriptor: file descriptor
             :type file_descriptor: <int>
@@ -64,7 +64,7 @@ class ITerminalProperties(ABC):
     @abstractmethod
     def ioctl_for_all_descriptors(self) -> None:
         '''
-            Sets size for all descriptors.
+            Sets size for all file descriptors.
 
             :exceptions: NotImplementedError
         '''
@@ -73,9 +73,9 @@ class ITerminalProperties(ABC):
     @abstractmethod
     def size(self) -> Tuple[Any, ...]:
         '''
-            Gets size of terminal window.
+            Gets terminal window size.
 
-            :return: Window size
+            :return: Terminal window size
             :rtype: <Tuple[Any, ...]>
             :exceptions: NotImplementedError
         '''

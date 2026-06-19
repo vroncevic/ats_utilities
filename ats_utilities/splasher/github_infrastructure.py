@@ -22,13 +22,13 @@ Info
 
 from typing import Any, Dict, List, Optional
 from ats_utilities.splasher.iext_infrastructure import IExtInfrastructure
+from ats_utilities.splasher.splash_keys import SplashKeys
 from ats_utilities.context_bundle import ContextBundle
 from ats_utilities.reporter.ireporter import IReporter
 from ats_utilities.factory_context_bundle import factory_context_bundle
 from ats_utilities.factory_class import get_private_attr, format_instance_to_string
 from ats_utilities.checker.proxy_validator import validator
 from ats_utilities.reporter.proxy_reporter import vreporter
-
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -44,7 +44,6 @@ class GitHubInfrastructure(IExtInfrastructure):
     '''
         Defines class GitHubInfrastructure with attribute(s) and method(s).
         Creates an API for processing hyperlinks for splash screen.
-        API for GitHub information.
 
         It defines:
 
@@ -59,18 +58,18 @@ class GitHubInfrastructure(IExtInfrastructure):
                 | get_issue_text - Pre-processes issue text.
                 | get_author_text - Pre-processes author text.
                 | _reporter - Property method for getting the internal reporter instance.
-                | __str__ - Returns the string representation of external infrastructure.
+                | __str__ - Returns the string representation of GitHubInfrastructure.
     '''
 
-    def __init__(self, splash_bundle: Optional[ContextBundle] = None) -> None:
+    def __init__(self, context_bundle: Optional[ContextBundle] = None) -> None:
         '''
             Initials GitHubInfrastructure constructor.
 
-            :param splash_bundle: Bundle with checker, reporter and verbose | None
-            :type splash_bundle: <Optional[ContextBundle]>
+            :param context_bundle: Context bundle for GitHub infrastructure | None
+            :type context_bundle: <Optional[ContextBundle]>
             :exceptions: None
         '''
-        factory_context_bundle(self, splash_bundle)
+        factory_context_bundle(self, context_bundle)
         self.__infrastructure_property: Optional[Dict[Any, Any]] = None
 
     @property
@@ -112,8 +111,8 @@ class GitHubInfrastructure(IExtInfrastructure):
             self._reporter.error(['missing infrastructure property'])
             return ''
 
-        org: str = self.__infrastructure_property['ats_organization']
-        repo: str = self.__infrastructure_property['ats_repository']
+        org: str = self.__infrastructure_property[SplashKeys.ATS_ORGANIZATION]
+        repo: str = self.__infrastructure_property[SplashKeys.ATS_REPOSITORY]
         url_short: str = f'github.io/{repo}'
         url_long: str = f'https://{org}.github.io/{repo}'
 
@@ -131,8 +130,8 @@ class GitHubInfrastructure(IExtInfrastructure):
             self._reporter.error(['missing infrastructure property'])
             return ''
 
-        org: str = self.__infrastructure_property['ats_organization']
-        repo: str = self.__infrastructure_property['ats_repository']
+        org: str = self.__infrastructure_property[SplashKeys.ATS_ORGANIZATION]
+        repo: str = self.__infrastructure_property[SplashKeys.ATS_REPOSITORY]
         url: str = f'https://github.com/{org}/{repo}/issues/new/choose'
 
         return f'\x1b]8;;{url}\agithub.io/issue\x1b]8;;\a'
@@ -149,7 +148,7 @@ class GitHubInfrastructure(IExtInfrastructure):
             self._reporter.error(['missing infrastructure property'])
             return ''
 
-        org: str = self.__infrastructure_property['ats_organization']
+        org: str = self.__infrastructure_property[SplashKeys.ATS_ORGANIZATION]
         org_short: str = f"{org}.github.io"
         org_long: str = f"https://{org}.github.io/bio/"
 
@@ -168,9 +167,9 @@ class GitHubInfrastructure(IExtInfrastructure):
 
     def __str__(self) -> str:
         '''
-            Returns the string representation of github infrastructure.
+            Returns the string representation of GitHubInfrastructure.
 
-            :return: The external infrastructure as string representation
+            :return: The GitHubInfrastructure as string representation
             :rtype: <str>
             :exceptions: None
         '''

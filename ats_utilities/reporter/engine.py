@@ -17,18 +17,19 @@ Copyright
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
     Defines class ATSReporter with attribute(s) and method(s).
-    Creates an API for reporting messages.
+    Implements an API for reporting messages to the console.
 '''
 
 from typing import Any, List, Optional
-from ats_utilities.factory_class import format_instance_to_string
-from ats_utilities.factory_component import make_component, validate_component
 from ats_utilities.reporter.ireporter import IReporter
+from ats_utilities.reporter.component_bundle import ReporterComponentBundle
 from ats_utilities.checker.ichecker import IChecker
 from ats_utilities.checker.engine import ATSChecker
-from ats_utilities.checker.proxy_validator import validator
 from ats_utilities.reporter.theme.iconsole_theme import IConsoleTheme
 from ats_utilities.reporter.theme.engine import ATSConsoleTheme
+from ats_utilities.checker.proxy_validator import validator
+from ats_utilities.factory_class import format_instance_to_string
+from ats_utilities.factory_component import make_component, validate_component
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -43,8 +44,7 @@ __status__: str = 'Updated'
 class ATSReporter(IReporter):
     '''
         Defines class ATSReporter with attribute(s) and method(s).
-        Creates an API for reporting messages.
-        Reports status messages to the console.
+        Implements an API for reporting messages to the console.
 
         It defines:
 
@@ -52,27 +52,28 @@ class ATSReporter(IReporter):
                 | __checker - Parameters checker (default ATSChecker).
                 | __theme - Theme for styling messages (default ATSConsoleTheme).
             :methods:
-                | error - Report error message to console.
-                | success - Report success message to console.
-                | verbose - Report verbose message to console.
-                | warning - Report warning message to console.
+                | __init__ - Initializes ATSReporter constructor.
+                | __report - Utility method for reporting messages to console.
+                | error - Reports error message to console.
+                | success - Reports success message to console.
+                | verbose - Reports verbose message to console.
+                | warning - Reports warning message to console.
                 | __str__ - Returns the string representation of ATSReporter.
     '''
 
-    def __init__(self, checker: Optional[IChecker] = None, theme: Optional[IConsoleTheme] = None) -> None:
+    def __init__(self, component_bundle: Optional[ReporterComponentBundle] = None) -> None:
         '''
             Initializes ATSReporter constructor.
 
-            :param checker: Parameters checker (default ATSChecker) | None
-            :type checker: <Optional[IChecker]>
-            :param theme: Theme for styling messages (default ATSConsoleTheme) | None
-            :type theme: <Optional[IConsoleTheme]>
-            :exceptions: ATSTypeError by validate_component()
+            :param component_bundle: Reporter component bundle | None
+            :type component_bundle: <Optional[ReporterComponentBundle]>
+            :exceptions: ATSTypeError
         '''
         # No dependency injection then use default ones.
-        self.__checker: IChecker = make_component(checker, ATSChecker, None)
+        bundle: ReporterComponentBundle = component_bundle or ReporterComponentBundle()
+        self.__checker: IChecker = make_component(bundle.checker, ATSChecker, None)
         validate_component(self.__checker, type(self.__checker), type(self.__checker).__name__)
-        self.__theme: IConsoleTheme = make_component(theme, ATSConsoleTheme, None)
+        self.__theme: IConsoleTheme = make_component(bundle.theme, ATSConsoleTheme, None)
         validate_component(self.__theme, type(self.__theme), type(self.__theme).__name__)
 
     def __report(self, message: List[Any], color: str) -> None:
@@ -93,7 +94,7 @@ class ATSReporter(IReporter):
     @validator([('bool:is_verbose', None), ('list:message', None)])
     def verbose(self, is_verbose: bool, message: List[Any]) -> None:
         '''
-            Report verbose message to console.
+            Reports verbose message to console.
 
             :param is_verbose: Enable/Disable verbose option
             :type is_verbose: <bool>
@@ -107,7 +108,7 @@ class ATSReporter(IReporter):
     @validator([('list:message', None)])
     def success(self, message: List[Any]) -> None:
         '''
-            Report success message to console.
+            Reports success message to console.
 
             :param messages: List with message components
             :type messages: <List[Any]>
@@ -118,7 +119,7 @@ class ATSReporter(IReporter):
     @validator([('list:message', None)])
     def warning(self, message: List[Any]) -> None:
         '''
-            Report warning message to console.
+            Reports warning message to console.
 
             :param messages: List with message components
             :type messages: <List[Any]>
@@ -129,7 +130,7 @@ class ATSReporter(IReporter):
     @validator([('list:message', None)])
     def error(self, message: List[Any]) -> None:
         '''
-            Report error message to console.
+            Reports error message to console.
 
             :param messages: List with message components
             :type messages: <List[Any]>
@@ -141,7 +142,7 @@ class ATSReporter(IReporter):
         '''
             Returns the string representation of ATSReporter.
 
-            :return: ATS reporter instance as string representation
+            :return: The ATSReporter as string representation
             :rtype: <str>
             :exceptions: None
         '''

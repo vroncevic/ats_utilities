@@ -31,6 +31,7 @@ from ats_utilities.checker.proxy_validator import validator
 from ats_utilities.option.option_namespace import OptionNamespace
 from ats_utilities.option.option_namespace import OptArgs
 from ats_utilities.option.option_namespace import KnownArgs
+from ats_utilities.info.info_keys import ATSInfoKeys
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -91,9 +92,9 @@ class ATSArgParserStrategy(IArgParserStrategy):
         '''
         self.__parser = ATSArgumentParser(
             option_bundle=self.__shared_bundle,
-            prog=f'{parameters.get('name')} {parameters.get('version')}',
-            epilog=parameters.get('epilog'),
-            description=parameters.get('description')
+            prog=f'{parameters.get(ATSInfoKeys.ATS_NAME)} {parameters.get(ATSInfoKeys.ATS_VERSION)}',
+            epilog=f'{parameters.get(ATSInfoKeys.ATS_NAME)} copyright (c) {parameters.get(ATSInfoKeys.ATS_LICENCE)}',
+            description=f'{parameters.get(ATSInfoKeys.ATS_NAME)} build date {parameters.get(ATSInfoKeys.ATS_BUILD_DATE)}'
         )
 
     def add_argument(self, *args: str, **kwargs: Any) -> None:

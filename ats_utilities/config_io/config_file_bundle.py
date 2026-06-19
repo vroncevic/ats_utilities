@@ -44,7 +44,7 @@ class ATSConfigFileBundle:
         It defines:
 
             :attributes:
-                | context - Context bundle for (checker, reporter and verbose)
+                | context - Context bundle for checker, reporter and verbose (default ContextBundle())
                 | file_checker - Parameters checker implementation (default None)
     '''
 

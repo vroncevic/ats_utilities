@@ -16,13 +16,13 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines class CfgStorer with attribute(s) and method(s).
+    Defines class CFGStorer with attribute(s) and method(s).
     Stores the ATS configuration for the ATS.
 '''
 
 from typing import Dict, List, Optional
 from ats_utilities.config_io.iwrite import IWrite
-from ats_utilities.config_io.cfg.icfg_storer import ICfgStorer
+from ats_utilities.config_io.cfg.icfg_storer import ICFGStorer
 from ats_utilities.config_io.config_file_bundle import ATSConfigFileBundle
 from ats_utilities.config_io.cfg.object2cfg import Object2Cfg
 from ats_utilities.config_io.cfg.cfg_processor import ATSCFGProcessor
@@ -42,9 +42,9 @@ __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
 
 
-class CfgStorer(ICfgStorer):
+class CFGStorer(ICFGStorer):
     '''
-        Defines class CfgStorer with attribute(s) and method(s).
+        Defines class CFGStorer with attribute(s) and method(s).
         Stores the ATS configuration for the ATS.
         CFG configuration-based storage support.
 
@@ -57,7 +57,7 @@ class CfgStorer(ICfgStorer):
                 | __processor - Processor for CFG content (default ATSCFGProcessor).
                 | __obj2cfg - Out API for information (default Object2Cfg).
             :methods:
-                | __init__ - Initials CfgStorer constructor.
+                | __init__ - Initials CFGStorer constructor.
                 | store_configuration - Stores the ATS configuration.
                 | __str__ - Returns the string representation of cfgstorer.
     '''
@@ -70,7 +70,7 @@ class CfgStorer(ICfgStorer):
         cfg_processor: Optional[ICFGProcessor] = None
     ) -> None:
         '''
-            Initials CfgStorer constructor.
+            Initials CFGStorer constructor.
 
             :param info_file: Path to the info file | None
             :type info_file: <Optional[str]>
@@ -80,7 +80,7 @@ class CfgStorer(ICfgStorer):
             :type config_bundle: <Optional[ATSConfigFileBundle]>
             :param cfg_processor: Processor for CFG content | None
             :type cfg_processor: <Optional[ICFGProcessor]>
-            :exceptions: ATSTypeError by validate_component()
+            :exceptions: ATSTypeError
         '''
         config_file_bundle: ATSConfigFileBundle = config_bundle or ATSConfigFileBundle()
         factory_context_bundle(self, config_file_bundle.context)

@@ -22,6 +22,7 @@ Info
 
 from typing import Any, List, Dict, Optional
 from ats_utilities.option.ioption_parser import IOptionManager
+from ats_utilities.option.component_bundle import ATSOptionComponentBundle
 from ats_utilities.context_bundle import ContextBundle
 from ats_utilities.option.iparser_strategy import IArgParserStrategy
 from ats_utilities.option.parser_strategy import ATSArgParserStrategy
@@ -65,37 +66,28 @@ class ATSOptionManager(IOptionManager):
                 | __str__ - Returns the string representation of ATSOptionManager.
     '''
 
-    def __init__(
-        self,
-        parameters: Dict[str, str],
-        strategy: Optional[IArgParserStrategy] = None,
-        option_bundle: Optional[ContextBundle] = None
-    ) -> None:
+    def __init__(self, option_component_bundle: Optional[ATSOptionComponentBundle] = None) -> None:
         '''
             Initials ATSOptionManager constructor.
 
-            :param parameters: Parameters for logger in dict format
-            :type parameters: <Dict[str, str]>
-            :param strategy: Strategy for argument parsing | None
-            :type strategy: <Optional[IArgParserStrategy]>
-            :param option_bundle: Bundle with checker, reporter and verbose | None
-            :type option_bundle: <Optional[ContextBundle]>
-            :exceptions: ATSTypeError by validate_component()
+            :param option_component_bundle: Bundle with parameters | None
+            :type option_component_bundle: <Optional[ATSOptionComponentBundle]>
+            :exceptions: ATSTypeError
         '''
-        # No dependency injection then use default ones.
-        factory_context_bundle(self, option_bundle)
+        component_bundle: ATSOptionComponentBundle = option_component_bundle or ATSOptionComponentBundle()
+        factory_context_bundle(self, component_bundle.option_bundle)
         shared_bundle: ContextBundle = ContextBundle(
             checker=get_private_attr(self, 'checker'),
             reporter=get_private_attr(self, 'reporter'),
             verbose=get_private_attr(self, 'verbose')
         )
         self.__strategy: IArgParserStrategy = make_component(
-            strategy, ATSArgParserStrategy, {'option_bundle': shared_bundle}
+            component_bundle.strategy, ATSArgParserStrategy, {'option_bundle': shared_bundle}
         )
         validate_component(
             self.__strategy, type(self.__strategy), type(self.__strategy).__name__
         )
-        self.__strategy.setup(parameters)
+        self.__strategy.setup(component_bundle.parameters)
 
     def add_operation(self, *args: str, **kwargs: Any) -> None:
         '''

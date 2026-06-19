@@ -88,7 +88,7 @@ class Ini2Object(IRead):
             :type config_bundle: <Optional[ATSConfigFileBundle]>
             :param ini_processor: Processor for INI content | None
             :type ini_processor: <Optional[IINIProcessor]>
-            :exceptions: ATSTypeError by validate_component()
+            :exceptions: ATSTypeError
         '''
         self.__config_file_bundle: ATSConfigFileBundle = config_bundle or ATSConfigFileBundle()
         factory_context_bundle(self, self.__config_file_bundle.context)

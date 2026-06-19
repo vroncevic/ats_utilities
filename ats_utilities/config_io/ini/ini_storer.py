@@ -61,7 +61,7 @@ class INIStorer(IINIStorer):
             :methods:
                 | __init__ - Initials INIStorer constructor.
                 | store_configuration - Stores the ATS configuration.
-                | __str__ - Returns the string representation of cfgstorer.
+                | __str__ - Returns the string representation of INIStorer.
     '''
 
     __SECTION: str = '[ats_info]'
@@ -84,7 +84,7 @@ class INIStorer(IINIStorer):
             :type config_bundle: <Optional[ATSConfigFileBundle]>
             :param ini_processor: Processor for INI content | None
             :type ini_processor: <Optional[IINIProcessor]>
-            :exceptions: ATSTypeError by validate_component()
+            :exceptions: ATSTypeError
         '''
         config_file_bundle: ATSConfigFileBundle = config_bundle or ATSConfigFileBundle()
         factory_context_bundle(self, config_file_bundle.context)
@@ -120,9 +120,9 @@ class INIStorer(IINIStorer):
 
     def __str__(self) -> str:
         '''
-            Returns the string representation of INI storer object.
+            Returns the string representation of INIStorer.
 
-            :return: The INI storer object as string representation
+            :return: The INIStorer as string representation
             :rtype: <str>
             :exceptions: None
         '''

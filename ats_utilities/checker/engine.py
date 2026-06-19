@@ -73,7 +73,7 @@ class ATSChecker(IChecker):
 
             :param component_bundle: Bundle with components | None
             :type component_bundle: <Optional[ATSCheckerComponentBundle]>
-            :exceptions: ATSTypeError by validate_component()
+            :exceptions: ATSTypeError
         '''
         # No dependency injection then use default ones.
         components: ATSCheckerComponentBundle = component_bundle or ATSCheckerComponentBundle()

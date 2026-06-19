@@ -43,9 +43,9 @@ class IExtInfrastructure(ABC):
             :attributes: None
             :methods:
                 | infrastructure_property - Property method for get/set infrastructure property (abstract).
-                | get_info_text - Pre-processes info text (abstract).
-                | get_issue_text - Pre-processes issue text (abstract).
-                | get_author_text - Pre-processes author text (abstract).
+                | get_info_text - Pre-processes info text for splash screen (abstract).
+                | get_issue_text - Pre-processes issue text for splash screen (abstract).
+                | get_author_text - Pre-processes author text for splash screen (abstract).
                 | __str__ - Returns the string representation of external infrastructure (abstract).
     '''
 
@@ -76,7 +76,7 @@ class IExtInfrastructure(ABC):
     @abstractmethod
     def get_info_text(self) -> str:
         '''
-            Pre-processes info text for splash.
+            Pre-processes info text for splash screen.
 
             :return: Hyperlink with info text
             :rtype: <str>
@@ -87,7 +87,7 @@ class IExtInfrastructure(ABC):
     @abstractmethod
     def get_issue_text(self) -> str:
         '''
-            Pre-processes issue text for splash.
+            Pre-processes issue text for splash screen.
 
             :return: Hyperlink with issue info
             :rtype: <str>
@@ -98,7 +98,7 @@ class IExtInfrastructure(ABC):
     @abstractmethod
     def get_author_text(self) -> str:
         '''
-            Pre-processes author text for splash.
+            Pre-processes author text for splash screen.
 
             :return: Hyperlink with author info
             :rtype: <str>

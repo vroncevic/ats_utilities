@@ -46,7 +46,6 @@ class TerminalProperties(ITerminalProperties):
     '''
         Defines class TerminalProperties with attribute(s) and method(s).
         Creates an API for getting terminal properties.
-        API for terminal properties.
 
         It defines:
 
@@ -57,28 +56,28 @@ class TerminalProperties(ITerminalProperties):
                 | __window_size - Terminal window size.
             :methods:
                 | __init__ - Initials TerminalProperties constructor.
-                | ioctl_get_window_size - Gets size for descriptor.
-                | ioctl_for_all_descriptors - Sets size for all descriptors.
-                | size - Gets size of terminal window.
-                | __str__ - Returns the string representation of terminal properties.
+                | ioctl_get_window_size - Gets size for file descriptor.
+                | ioctl_for_all_descriptors - Sets size for all file descriptors.
+                | size - Gets terminal window size.
+                | __str__ - Returns the string representation of TerminalProperties.
     '''
 
-    def __init__(self, splash_bundle: Optional[ContextBundle] = None) -> None:
+    def __init__(self, context_bundle: Optional[ContextBundle] = None) -> None:
         '''
             Initials TerminalProperties constructor.
 
-            :param splash_bundle: Bundle with checker, reporter and verbose | None
-            :type splash_bundle: <Optional[ContextBundle]>
+            :param context_bundle: Bundle with checker, reporter and verbose | None
+            :type context_bundle: <Optional[ContextBundle]>
             :exceptions: None
         '''
-        factory_context_bundle(self, splash_bundle)
+        factory_context_bundle(self, context_bundle)
         self.__window_size: Tuple[Any, ...]
 
     @validator([('int:file_descriptor', None)])
     @vreporter('ioctl get window size {window_size}')
     def ioctl_get_window_size(self, file_descriptor: int) -> Tuple[Any, ...]:
         '''
-            Gets size for descriptor.
+            Gets size for file descriptor.
 
             :param file_descriptor: file descriptor.
             :type file_descriptor: <int>
@@ -95,7 +94,7 @@ class TerminalProperties(ITerminalProperties):
     @vreporter('ioctl for all descriptors {window_size}')
     def ioctl_for_all_descriptors(self) -> None:
         '''
-            Sets size for all descriptors.
+            Sets size for all file descriptors.
 
             :exceptions: RuntimeError, AttributeError
         '''
@@ -107,24 +106,33 @@ class TerminalProperties(ITerminalProperties):
     @vreporter('size {window_size}')
     def size(self) -> Tuple[Any, ...]:
         '''
-            Gets size of terminal window.
+            Gets terminal window size.
 
-            :return: Window size
+            :return: Terminal window size
             :rtype: <Tuple[Any, ...]>
             :exceptions: RuntimeError, AttributeError
         '''
-        self.ioctl_for_all_descriptors()
-        file_descriptor: int = os.open(os.ctermid(), os.O_RDONLY)
-        self.__window_size = self.ioctl_get_window_size(file_descriptor)
-        os.close(file_descriptor)
+        try:
+            self.ioctl_for_all_descriptors()
+        except OSError:
+            pass
+
+        try:
+            file_descriptor: int = os.open(os.ctermid(), os.O_RDONLY)
+            self.__window_size = self.ioctl_get_window_size(file_descriptor)
+            os.close(file_descriptor)
+        except OSError:
+            # Fall back to self.__window_size if set, otherwise default to (24, 80, 0, 0)
+            if not hasattr(self, '_TerminalProperties__window_size') or not self.__window_size:
+                self.__window_size = (24, 80, 0, 0)
 
         return self.__window_size
 
     def __str__(self) -> str:
         '''
-            Returns the string representation of terminal properties.
+            Returns the string representation of TerminalProperties.
 
-            :return: The terminal properties as string
+            :return: The TerminalProperties as string representation
             :rtype: <str>
             :exceptions: None
         '''

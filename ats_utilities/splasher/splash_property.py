@@ -17,11 +17,12 @@ Copyright
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
     Defines class SplashProperty with attribute(s) and method(s).
-    Creates an API for checking splash property.
+    Creates an API for checking splash screen property.
 '''
 
 from typing import Any, Dict, List, Optional
 from ats_utilities.splasher.isplash_property import ISplashProperty
+from ats_utilities.splasher.splash_keys import SplashKeys
 from ats_utilities.context_bundle import ContextBundle
 from ats_utilities.reporter.ireporter import IReporter
 from ats_utilities.factory_context_bundle import factory_context_bundle
@@ -42,8 +43,7 @@ __status__: str = 'Updated'
 class SplashProperty(ISplashProperty):
     '''
         Defines class SplashProperty with attribute(s) and method(s).
-        Creates an API for checking splash property.
-        Splasher screen property API.
+        Creates an API for checking splash screen property.
 
         It defines:
 
@@ -52,41 +52,41 @@ class SplashProperty(ISplashProperty):
                 | __checker - Factoriezed parameters checker (default ATSChecker).
                 | __reporter - Factoriezed reporter for messaging (default ATSReporter).
                 | __verbose - Factoriezed Enable/Disable verbose option (default False).
-                | __splash_property - Splasher property in dict format (default None).
+                | __splash_property - Splash screen property in dict format (default None).
             :methods:
                 | __init__ - Initials SplashProperty constructor.
                 | splash_property - Property method for get/set splash property.  
-                | validation - Validates splash property.
+                | validation - Validates splash screen property.
                 | _reporter - Property method for getting the internal reporter instance.
-                | __str__ - Returns the string representation of splash property.
+                | __str__ - Returns the string representation of SplashProperty.
     '''
 
     _EXPECTED_PROP_KEYS: List[str] = [
-        'ats_organization',
-        'ats_repository',
-        'ats_name',
-        'ats_logo_path',
-        'ats_use_github_infrastructure'
+        SplashKeys.ATS_ORGANIZATION,
+        SplashKeys.ATS_REPOSITORY,
+        SplashKeys.ATS_NAME,
+        SplashKeys.ATS_LOGO_PATH,
+        SplashKeys.ATS_USE_GITHUB_INFRASTRUCTURE
     ]
 
-    def __init__(self, splash_bundle: Optional[ContextBundle] = None) -> None:
+    def __init__(self, context_bundle: Optional[ContextBundle] = None) -> None:
         '''
             Initials SplashProperty constructor.
 
-            :param splash_bundle: Bundle with checker, reporter and verbose | None
-            :type splash_bundle: <Optional[ContextBundle]>
+            :param context_bundle: Context bundle for splash screen property | None
+            :type context_bundle: <Optional[ContextBundle]>
             :exceptions: None
         '''
-        factory_context_bundle(self, splash_bundle)
+        factory_context_bundle(self, context_bundle)
         self.__splash_property:  Optional[Dict[Any, Any]] = None
 
     @property
     @vreporter('get splash property {splash_property}')
     def splash_property(self) -> Optional[Dict[Any, Any]]:
         '''
-            Property method for getting splash property.
+            Property method for getting splash screen property.
 
-            :return: Formatted splash property in dict format | None
+            :return: Formatted splash screen property in dict format | None
             :rtype: <Optional[str]>
             :exceptions: RuntimeError, AttributeError
         '''
@@ -97,7 +97,7 @@ class SplashProperty(ISplashProperty):
     @vreporter('set splash property {splash_property}')
     def splash_property(self, splash_property_setup: Optional[Dict[Any, Any]]) -> None:
         '''
-            Property method for setting project splash property.
+            Property method for setting project splash screen property.
 
             :param splash_property_setup: Project splash property in dict format | None
             :type splash_property_setup: <Optional[Dict[Any, Any]]>
@@ -110,19 +110,19 @@ class SplashProperty(ISplashProperty):
     @vreporter('validation or splash property {splash_property}')
     def validates(self) -> bool:
         '''
-            Validates splash property.
+            Validates splash screen property.
 
-            :return: True (splash property ok) else False (splash property not ok)
+            :return: True (success) else False (fail)
             :rtype: <bool>
             :exceptions: RuntimeError, AttributeError
         '''
         if not self.__splash_property:
-            self._reporter.error(['missing splash property'])
+            self._reporter.error(['missing complete splash screen property'])
             return False
 
         for key in self._EXPECTED_PROP_KEYS:
             if key not in self.__splash_property.keys():
-                self._reporter.error([f'missing property {key}'])
+                self._reporter.error([f'missing splash screen property [{key}]'])
                 return False
 
         return True
@@ -140,9 +140,9 @@ class SplashProperty(ISplashProperty):
 
     def __str__(self) -> str:
         '''
-            Returns the string representation of splash property.
+            Returns the string representation of SplashProperty.
 
-            :return: The splash property as string representation
+            :return: The SplashProperty as string representation
             :rtype: <str>
             :exceptions: None
         '''

@@ -89,7 +89,7 @@ class Cfg2Object(IRead):
             :type config_bundle: <Optional[ATSConfigFileBundle]>
             :param cfg_processor: Processor for CFG content | None
             :type cfg_processor: <Optional[ICFGProcessor]>
-            :exceptions: ATSTypeError by validate_component()
+            :exceptions: ATSTypeError
         '''
         self.__config_file_bundle: ATSConfigFileBundle = config_bundle or ATSConfigFileBundle()
         factory_context_bundle(self, self.__config_file_bundle.context)

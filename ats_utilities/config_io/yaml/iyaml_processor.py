@@ -20,7 +20,7 @@ Info
     Creates an interface for processing YAML content.
 '''
 from abc import ABC, abstractmethod
-from typing import Any, Dict, List
+from typing import Dict, List
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -40,20 +40,20 @@ class IYAMLProcessor(ABC):
 
             :attributes: None
             :methods:
-                | decode - Convert raw YAML text to an internal object/structure (abstract).
-                | encode - Convert an internal object/structure back to a YAML string (abstract).
-                | to_dict - Return data as a flat dictionary required for ATSInfo (abstract).
-                | __str__ - Returns the string representation of YAML configuration processor component (abstract).
+                | decode - Converts raw YAML text to an internal object/structure (abstract).
+                | encode - Converts an internal object/structure back to a YAML string (abstract).
+                | to_dict - Returns configuration as a flat dictionary required for ATSInfo (abstract).
+                | __str__ - Returns the string representation of YAML processor (abstract).
     '''
 
     @abstractmethod
     def decode(self, yaml_string: str) -> bool:
         '''
-            Convert raw YAML text to an internal object/structure.
+            Converts raw YAML text to an internal object/structure.
 
             :param yaml_string: Raw YAML text
             :type yaml_string: <str>
-            :return: True (content decoded) | False
+            :return: True (success) | False (fail)
             :rtype: <bool>
             :exceptions: NotImplementedError
         '''
@@ -62,7 +62,7 @@ class IYAMLProcessor(ABC):
     @abstractmethod
     def encode(self) -> str:
         '''
-            Convert an internal object/structure back to a YAML string.
+            Converts an internal object/structure back to a YAML string.
 
             :return: YAML content as string
             :rtype: <str>
@@ -71,12 +71,12 @@ class IYAMLProcessor(ABC):
         raise NotImplementedError("Method encode() must be implemented.")
 
     @abstractmethod
-    def to_dict(self) -> Dict[Any, Any]:
+    def to_dict(self) -> Dict[str, str]:
         '''
-            Return data as a flat dictionary.
+            Return configuration as a flat dictionary.
 
-            :return: Dictionary with YAML information
-            :rtype: <Dict[Any, Any]>
+            :return: Dictionary with YAML configuration
+            :rtype: <Dict[str, str]>
             :exceptions: NotImplementedError
         '''
         raise NotImplementedError("Method to_dict() must be implemented.")
@@ -84,9 +84,9 @@ class IYAMLProcessor(ABC):
     @abstractmethod
     def __str__(self) -> str:
         '''
-            Returns the string representation of YAML configuration processor component.
+            Returns the string representation of YAML processor.
 
-            :return: The YAML configuration processor component as string
+            :return: The YAML processor as string representation
             :rtype: <str>
             :exceptions: NotImplementedError
         '''

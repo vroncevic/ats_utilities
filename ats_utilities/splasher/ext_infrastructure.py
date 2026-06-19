@@ -22,6 +22,7 @@ Info
 
 from typing import Any, Dict, List, Optional
 from ats_utilities.splasher.iext_infrastructure import IExtInfrastructure
+from ats_utilities.splasher.splash_keys import SplashKeys
 from ats_utilities.context_bundle import ContextBundle
 from ats_utilities.reporter.ireporter import IReporter
 from ats_utilities.factory_context_bundle import factory_context_bundle
@@ -43,7 +44,6 @@ class ExtInfrastructure(IExtInfrastructure):
     '''
         Defines class ExtInfrastructure with attribute(s) and method(s).
         Creates an API for processing hyperlinks for splash screen.
-        API for GitHub information.
 
         It defines:
 
@@ -59,18 +59,18 @@ class ExtInfrastructure(IExtInfrastructure):
                 | get_issue_text - Pre-processes issue text.
                 | get_author_text - Pre-processes author text.
                 | _reporter - Property method for getting the internal reporter instance.
-                | __str__ - Returns the string representation of external infrastructure.
+                | __str__ - Returns the string representation of ExtInfrastructure.
     '''
 
-    def __init__(self, splash_bundle: Optional[ContextBundle] = None) -> None:
+    def __init__(self, context_bundle: Optional[ContextBundle] = None) -> None:
         '''
             Initials ExtInfrastructure constructor.
 
-            :param splash_bundle: Bundle with checker, reporter and verbose | None
-            :type splash_bundle: <Optional[ContextBundle]>
+            :param context_bundle: Context bundle for external infrastructure | None
+            :type context_bundle: <Optional[ContextBundle]>
             :exceptions: None
         '''
-        factory_context_bundle(self, splash_bundle)
+        factory_context_bundle(self, context_bundle)
         self.__infrastructure_property: Optional[Dict[Any, Any]] = None
 
     @property
@@ -113,7 +113,7 @@ class ExtInfrastructure(IExtInfrastructure):
             self._reporter.error(['missing infrastructure property'])
             return ''
 
-        name: str = self.__infrastructure_property['ats_name']
+        name: str = self.__infrastructure_property[SplashKeys.ATS_NAME]
 
         return f'\x1b]8;;{name}\a{name}\x1b]8;;\a'
 
@@ -130,7 +130,7 @@ class ExtInfrastructure(IExtInfrastructure):
             self._reporter.error(['missing infrastructure property'])
             return ''
 
-        repo: str = self.__infrastructure_property['ats_repository']
+        repo: str = self.__infrastructure_property[SplashKeys.ATS_REPOSITORY]
 
         return f'\x1b]8;;{repo}\a{repo}\x1b]8;;\a'
 
@@ -147,7 +147,7 @@ class ExtInfrastructure(IExtInfrastructure):
             self._reporter.error(['missing infrastructure property'])
             return ''
 
-        org: str = self.__infrastructure_property['ats_organization']
+        org: str = self.__infrastructure_property[SplashKeys.ATS_ORGANIZATION]
 
         return f'\x1b]8;;{org}\a{org}\x1b]8;;\a'
 
@@ -164,9 +164,9 @@ class ExtInfrastructure(IExtInfrastructure):
 
     def __str__(self) -> str:
         '''
-            Returns the string representation of external infrastructure.
+            Returns the string representation of ExtInfrastructure.
 
-            :return: The external infrastructure as string representation
+            :return: The ExtInfrastructure as string representation
             :rtype: <str>
             :exceptions: None
         '''

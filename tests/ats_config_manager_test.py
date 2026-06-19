@@ -17,7 +17,7 @@ Copyright
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
     Defines classes ConfigManagerTestCase and ConfigManagerUnitTestCase with attribute(s) and method(s).
-    Creates test cases for checking functionalities of ATSConfigManager.
+    Creates test cases for checking functionalities of ATSConfigLoader.
 Execute
     python3 -m unittest -v ats_config_manager_test
 '''
@@ -25,8 +25,8 @@ Execute
 from typing import List
 from os.path import dirname
 from unittest import TestCase, main, mock
-from ats_utilities.cli.config_manager import ATSConfigManager
-from ats_utilities.cli.iconfig_manager import IConfigManager
+from ats_utilities.config_io.config_loader import ATSConfigLoader
+from ats_utilities.config_io.iconfig_loader import IConfigLoader
 from ats_utilities.config_io.iread import IRead
 from ats_utilities.config_io.iwrite import IWrite
 from ats_utilities.config_io.ifile_check import IFileCheck
@@ -34,7 +34,7 @@ from ats_utilities.checker.ichecker import IChecker
 from ats_utilities.reporter.ireporter import IReporter
 from ats_utilities.option.engine import ATSOptionManager
 from ats_utilities.option.iparser_strategy import IArgParserStrategy
-from ats_utilities.config_io.cfg.cfg_loader import CfgLoader
+from ats_utilities.config_io.cfg.cfg_loader import CFGLoader
 from ats_utilities.config_io.ini.inibase import IniBase
 from ats_utilities.config_io.json.jsonbase import JsonBase
 from ats_utilities.config_io.xml.xmlbase import XmlBase
@@ -53,30 +53,30 @@ __status__: str = 'Updated'
 class ConfigManagerTestCase(TestCase):
     '''
         Defines class ConfigManagerTestCase with attribute(s) and method(s).
-        Creates test cases for checking functionalities of ATSConfigManager.
+        Creates test cases for checking functionalities of ATSConfigLoader.
 
         It defines:
 
             :attributes:
-                | manager - API for checking ATSConfigManager.
+                | manager - API for checking ATSConfigLoader.
             :methods:
                 | setUp - Call before test case.
-                | test_not_none - Test is ATSConfigManager not None.
+                | test_not_none - Test is ATSConfigLoader not None.
     '''
 
     def setUp(self) -> None:
         '''Call before test case.'''
-        self.manager: ATSConfigManager = ATSConfigManager()
+        self.manager: ATSConfigLoader = ATSConfigLoader()
 
     def test_not_none(self) -> None:
-        '''Test for create ATSConfigManager'''
+        '''Test for create ATSConfigLoader'''
         self.assertIsNotNone(self.manager)
-        self.assertTrue(isinstance(self.manager, IConfigManager))  # type: ignore
+        self.assertTrue(isinstance(self.manager, IConfigLoader))  # type: ignore
 
 
 class ConfigManagerUnitTestCase(TestCase):
     '''
-        Unit tests for ATSConfigManager class using mocks.
+        Unit tests for ATSConfigLoader class using mocks.
 
         It defines:
 
@@ -85,16 +85,16 @@ class ConfigManagerUnitTestCase(TestCase):
                 | mock_write - Mocked IWrite interface.
                 | mock_checker - Mocked IChecker.
                 | mock_reporter - Mocked IReporter.
-                | manager - ATSConfigManager instance with mocks.
+                | manager - ATSConfigLoader instance with mocks.
             :methods:
                 | setUp - Set up test environment with mocks.
-                | test_load_config_cfg - Test loading .cfg file.
-                | test_load_config_ini - Test loading .ini file.
-                | test_load_config_json - Test loading .json file.
-                | test_load_config_xml - Test loading .xml file.
-                | test_load_config_yaml - Test loading .yaml file.
-                | test_load_config_none - Test loading with None.
-                | test_load_config_unsupported - Test loading unsupported format.
+                | test_setup_config_loader_cfg - Test loading .cfg file.
+                | test_setup_config_loader_ini - Test loading .ini file.
+                | test_setup_config_loader_json - Test loading .json file.
+                | test_setup_config_loader_xml - Test loading .xml file.
+                | test_setup_config_loader_yaml - Test loading .yaml file.
+                | test_setup_config_loader_none - Test loading with None.
+                | test_setup_config_loader_unsupported - Test loading unsupported format.
     '''
 
     def setUp(self) -> None:
@@ -124,7 +124,7 @@ class ConfigManagerUnitTestCase(TestCase):
         mock_processor.get_ats_info.return_value = mock_ats_info_getter
         self.mock_read.read_configuration.return_value = mock_processor
 
-        self.manager = ATSConfigManager(
+        self.manager = ATSConfigLoader(
             config2object=self.mock_read,
             object2config=self.mock_write,
             options_parser=self.mock_parser,
@@ -134,54 +134,54 @@ class ConfigManagerUnitTestCase(TestCase):
             strategy=self.mock_strategy
         )
 
-    def test_load_config_cfg(self) -> None:
+    def test_setup_config_loader_cfg(self) -> None:
         '''Test loading .cfg file.'''
         config_file: str = '/config/correct/ats_cli_cfg_api.cfg'
         current_dir: str = dirname(__file__)
         base_info: str = f'{current_dir}{config_file}'
-        config = self.manager.load_config(base_info, True)
-        self.assertIsInstance(config, CfgLoader)
+        config = self.manager.setup_config_loader(base_info, True)
+        self.assertIsInstance(config, CFGLoader)
 
-    def test_load_config_ini(self) -> None:
+    def test_setup_config_loader_ini(self) -> None:
         '''Test loading .ini file.'''
         config_file: str = '/config/correct/ats_cli_ini_api.ini'
         current_dir: str = dirname(__file__)
         base_info: str = f'{current_dir}{config_file}'
-        config = self.manager.load_config(base_info)
+        config = self.manager.setup_config_loader(base_info)
         self.assertIsInstance(config, IniBase)
 
-    def test_load_config_json(self) -> None:
+    def test_setup_config_loader_json(self) -> None:
         '''Test loading .json file.'''
         config_file: str = '/config/correct/ats_cli_json_api.json'
         current_dir: str = dirname(__file__)
         base_info: str = f'{current_dir}{config_file}'
-        config = self.manager.load_config(base_info)
+        config = self.manager.setup_config_loader(base_info)
         self.assertIsInstance(config, JsonBase)
 
-    def test_load_config_xml(self) -> None:
+    def test_setup_config_loader_xml(self) -> None:
         '''Test loading .xml file.'''
         config_file: str = '/config/correct/ats_cli_xml_api.xml'
         current_dir: str = dirname(__file__)
         base_info: str = f'{current_dir}{config_file}'
-        config = self.manager.load_config(base_info)
+        config = self.manager.setup_config_loader(base_info)
         self.assertIsInstance(config, XmlBase)
 
-    def test_load_config_yaml(self) -> None:
+    def test_setup_config_loader_yaml(self) -> None:
         '''Test loading .yaml file.'''
         config_file: str = '/config/correct/ats_cli_yaml_api.yaml'
         current_dir: str = dirname(__file__)
         base_info: str = f'{current_dir}{config_file}'
-        config = self.manager.load_config(base_info)
+        config = self.manager.setup_config_loader(base_info)
         self.assertIsInstance(config, YamlBase)
 
-    def test_load_config_none(self) -> None:
+    def test_setup_config_loader_none(self) -> None:
         '''Test loading with None.'''
-        config = self.manager.load_config(None)
+        config = self.manager.setup_config_loader(None)
         self.assertIsNone(config)
 
-    def test_load_config_unsupported(self) -> None:
+    def test_setup_config_loader_unsupported(self) -> None:
         '''Test loading unsupported format.'''
-        config = self.manager.load_config('test.txt')
+        config = self.manager.setup_config_loader('test.txt')
         self.assertIsNone(config)
 
 

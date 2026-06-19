@@ -2,7 +2,7 @@
 
 '''
 Module
-    story_context_bundle.py
+    component_bundle.py
 Copyright
     Copyright (C) 2017 - 2026 Vladimir Roncevic <elektron.ronca@gmail.com>
     ats_utilities is free software: you can redistribute it and/or modify it
@@ -16,11 +16,14 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Use cases for ATS context bundle.
+    Defines component bundle data classe for dependency group simplification.
+    Encapsulates core utilities to minimize constructor overhead.
 '''
 
-from typing import List
+from typing import Dict, List, Optional
+from dataclasses import dataclass, field
 from ats_utilities.context_bundle import ContextBundle
+from ats_utilities.option.iparser_strategy import IArgParserStrategy
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -31,8 +34,21 @@ __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
 
-ats_context_bundle: ContextBundle = ContextBundle()
-print(ats_context_bundle)
-print(ats_context_bundle.checker)
-print(ats_context_bundle.reporter)
-print(ats_context_bundle.verbose)
+
+@dataclass
+class ATSOptionComponentBundle:
+    '''
+        Parameter Object pattern wrapper encapsulating all core option domain elements.
+        Simplifies dependency passing and signatures for higher-level managers.
+
+        It defines:
+
+            :attributes:
+                | parameters - Configuration parameters
+                | strategy - Strategy for argument parsing
+                | option_bundle - Bundle with context (default ContextBundle)
+    '''
+
+    parameters: Optional[Dict[str, str]] = None
+    strategy: Optional[IArgParserStrategy] = None
+    option_bundle: Optional[ContextBundle] = field(default_factory=ContextBundle)

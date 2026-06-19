@@ -45,7 +45,7 @@ class IProgressBar(ABC):
                 | set_level - Sets level of progress (abstract).
                 | plot_progress - Plots progress (abstract).
                 | set_and_plot - Sets and plots progress (abstract).
-                | __str__ - Returns the string representation of progress bar component (abstract).
+                | __str__ - Returns the string representation of progress bar (abstract).
     '''
 
     @abstractmethod
@@ -86,9 +86,9 @@ class IProgressBar(ABC):
     @abstractmethod
     def __str__(self) -> str:
         '''
-            Returns the string representation of progress bar component.
+            Returns the string representation of progress bar.
 
-            :return: The progress bar component as string representation
+            :return: The progress bar as string representation
             :rtype: <str>
             :exceptions: NotImplementedError
         '''

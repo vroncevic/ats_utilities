@@ -2,7 +2,7 @@
 
 '''
 Module
-    iconfig_manager.py
+    ixml_loader.py
 Copyright
     Copyright (C) 2017 - 2026 Vladimir Roncevic <elektron.ronca@gmail.com>
     ats_utilities is free software: you can redistribute it and/or modify it
@@ -16,17 +16,12 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines interface IConfigManager with attribute(s) and method(s).
-    Interface for managing CLI configuration loading.
+    Defines interface IXMLLoader with attribute(s) and method(s).
+    Interface for loading the ATS configuration.
 '''
 
 from abc import ABC, abstractmethod
-from typing import List, Optional, Union
-from ats_utilities.config_io.cfg.cfg_loader import CfgLoader
-from ats_utilities.config_io.ini.inibase import IniBase
-from ats_utilities.config_io.json.jsonbase import JsonBase
-from ats_utilities.config_io.xml.xmlbase import XmlBase
-from ats_utilities.config_io.yaml.yamlbase import YamlBase
+from typing import Dict, List
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -37,43 +32,37 @@ __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
 
-# Optional configuration type
-Config = Optional[Union[CfgLoader, IniBase, JsonBase, XmlBase, YamlBase]]
 
-class IConfigManager(ABC):
+class IXMLLoader(ABC):
     '''
-        Defines interface IConfigManager with attribute(s) and method(s).
-        Interface for managing CLI configuration loading.
+        Defines interface IXMLLoader with attribute(s) and method(s).
+        Interface for loading the ATS configuration.
 
         It defines:
 
             :attributes: None
             :methods:
-                | load_config - Loads the appropriate configuration base based on file type (abstract).
-                | __str__ - Returns the string representation of configuration manager (abstract).
+                | get_configuration - Gets the ATS configuration in dictionary format (abstract).
+                | __str__ - Returns the string representation of XML loader (abstract).
     '''
 
     @abstractmethod
-    def load_config(self, info_file: Optional[str], verbose: bool = False) -> Config:
+    def get_configuration(self) -> Dict[str, str]:
         '''
-            Loads the appropriate configuration base based on file type.
+            Gets the ATS configuration in dictionary format.
 
-            :param info_file: Path to information file.
-            :type info_file: <Optional[str]>
-            :param verbose: Verbose flag.
-            :type verbose: <bool>
-            :return: Configuration object.
-            :rtype: <Config>
+            :return: Dictionary with XML information
+            :rtype: <Dict[str, str]>
             :exceptions: NotImplementedError
         '''
-        raise NotImplementedError("Method load_config() must be implemented.")
+        raise NotImplementedError("Method get_configuration() must be implemented.")
 
     @abstractmethod
     def __str__(self) -> str:
         '''
-            Returns the string representation of configuration manager.
+            Returns the string representation of XML loader component.
 
-            :return: The configuration manager as string
+            :return: The XML loader component as string representation
             :rtype: <str>
             :exceptions: NotImplementedError
         '''

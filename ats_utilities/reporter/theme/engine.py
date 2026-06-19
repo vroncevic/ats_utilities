@@ -17,7 +17,7 @@ Copyright
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
     Defines class ATSConsoleTheme with attribute(s) and method(s).
-    Concrete implementation of IConsoleTheme preparing console styling.
+    Implements a console theme for console styling.
 '''
 
 from typing import List, Dict, Optional
@@ -37,7 +37,7 @@ __status__: str = 'Updated'
 class ATSConsoleTheme(IConsoleTheme):
     '''
         Defines class ATSConsoleTheme with attribute(s) and method(s).
-        Concrete implementation of IConsoleTheme preparing console styling.
+        Implements a console theme for console styling.
 
         It defines:
 
@@ -65,6 +65,7 @@ class ATSConsoleTheme(IConsoleTheme):
             :type palette: <Dict[str, str]>
             :exceptions: None
         '''
+        # No dependency injection then use default ones.
         self.__palette: Dict[str, str] = palette or self.DEFAULT_PALETE_COLORS
 
     def get_color(self, color_type: str) -> str:

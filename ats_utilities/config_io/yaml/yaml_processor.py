@@ -20,9 +20,10 @@ Info
     Provides a default implementation for processing YAML content.
 '''
 
-from typing import Any, Dict, List
-from yaml import load, dump, FullLoader, YAMLError
+import yaml
+from typing import Dict, List
 from ats_utilities.config_io.yaml.iyaml_processor import IYAMLProcessor
+from ats_utilities.exceptions.ats_error import ATSError
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -44,46 +45,46 @@ class ATSYAMLProcessor(IYAMLProcessor):
                 | __data - Internal dictionary to store YAML data.
             :methods:
                 | __init__ - Initials ATSYAMLProcessor constructor.
-                | decode - Convert raw YAML text to an internal object/structure.
-                | encode - Convert an internal object/structure back to a YAML string.
-                | to_dict - Return data as a flat dictionary.
+                | decode - Converts raw YAML text to an internal object/structure.
+                | encode - Converts an internal object/structure back to a YAML string.
+                | to_dict - Returns configuration as a flat dictionary.
     '''
 
     def __init__(self) -> None:
         '''
             Initials ATSYAMLProcessor constructor.
         '''
-        self.__data: Dict[Any, Any] = {}
+        self.__data: Dict[str, str] = {}
 
     def decode(self, yaml_string: str) -> bool:
         '''
-            Convert raw YAML text to an internal object/structure.
+            Converts raw YAML text to an internal object/structure.
 
             :param yaml_string: Raw YAML text
             :type yaml_string: <str>
-            :return: True (content decoded) | False
+            :return: True (success) | False (fail)
             :rtype: <bool>
         '''
         try:
-            self.__data = load(yaml_string, Loader=FullLoader)
+            self.__data = yaml.safe_load(yaml_string)
             return True
-        except YAMLError:
+        except ATSError:
             return False
 
     def encode(self) -> str:
         '''
-            Convert an internal object/structure back to a YAML string.
+            Converts an internal object/structure back to a YAML string.
 
             :return: YAML content as string
             :rtype: <str>
         '''
-        return dump(self.__data, default_flow_style=False)
+        return yaml.safe_dump(self.__data, default_flow_style=False)
 
-    def to_dict(self) -> Dict[Any, Any]:
+    def to_dict(self) -> Dict[str, str]:
         '''
-            Return data as a flat dictionary.
+            Returns configuration as a flat dictionary.
 
             :return: Dictionary with YAML information
-            :rtype: <Dict[Any, Any]>
+            :rtype: <Dict[str, str]>
         '''
         return self.__data

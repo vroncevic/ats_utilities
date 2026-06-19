@@ -59,7 +59,8 @@ class INILoader(IINILoader):
                 | __configuration - INI processor configuration (default None).
             :methods:
                 | __init__ - Initials INILoader constructor.
-                | __str__ - Returns the string representation of cfgbase.
+                | get_configuration - Gets the ATS configuration in dictionary format.
+                | __str__ - Returns the string representation of INILodaer.
     '''
 
     def __init__(
@@ -78,7 +79,7 @@ class INILoader(IINILoader):
             :type ini2object: <Optional[IRead]>
             :param config_bundle: Configuration bundle | None
             :type config_bundle: <Optional[ATSConfigFileBundle]>
-            :exceptions: ATSTypeError by validate_component()
+            :exceptions: ATSTypeError
         '''
         config_file_bundle: ATSConfigFileBundle = config_bundle or ATSConfigFileBundle()
         factory_context_bundle(self, config_file_bundle.context)
@@ -117,9 +118,9 @@ class INILoader(IINILoader):
 
     def __str__(self) -> str:
         '''
-            Returns the string representation of INI base object.
+            Returns the string representation of INILodaer.
 
-            :return: The INI base object as string representation
+            :return: The INILodaer as string representation
             :rtype: <str>
             :exceptions: None
         '''

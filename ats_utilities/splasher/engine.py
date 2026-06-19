@@ -17,25 +17,28 @@ Copyright
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
     Defines class Splasher with attribute(s) and method(s).
-    Loads a splash screen info and adds hyperlinks.
+    Implements a splash screen with hyperlinks.
 '''
 
 from typing import Any, Dict, Tuple, List, Optional
 from time import sleep
-from ats_utilities.factory_class import format_instance_to_string
-from ats_utilities.factory_component import make_component, validate_component
 from ats_utilities.splasher.isplasher import ISplasher
-from ats_utilities.context_bundle import ContextBundle
-from ats_utilities.splasher.component_bundle import ATSSplashComponentBundle
-from ats_utilities.splasher.iext_infrastructure import IExtInfrastructure
-from ats_utilities.splasher.github_infrastructure import GitHubInfrastructure
-from ats_utilities.splasher.ext_infrastructure import ExtInfrastructure
-from ats_utilities.splasher.iprogress_bar import IProgressBar
-from ats_utilities.splasher.progress_bar import ProgressBar
-from ats_utilities.splasher.iterminal_properties import ITerminalProperties
-from ats_utilities.splasher.terminal_properties import TerminalProperties
+from ats_utilities.splasher.component_bundle import SplashComponentBundle
 from ats_utilities.splasher.isplash_property import ISplashProperty
 from ats_utilities.splasher.splash_property import SplashProperty
+from ats_utilities.splasher.splash_center_bundle import SplashCenterBundle
+from ats_utilities.splasher.iterminal_properties import ITerminalProperties
+from ats_utilities.splasher.terminal_properties import TerminalProperties
+from ats_utilities.splasher.iext_infrastructure import IExtInfrastructure
+from ats_utilities.splasher.ext_infrastructure import ExtInfrastructure
+from ats_utilities.splasher.github_infrastructure import GitHubInfrastructure
+from ats_utilities.splasher.iprogress_bar import IProgressBar
+from ats_utilities.splasher.progress_bar import ProgressBar
+from ats_utilities.splasher.splash_keys import SplashKeys
+from ats_utilities.factory_class import format_instance_to_string
+from ats_utilities.factory_component import make_component, validate_component
+from ats_utilities.exceptions.ats_type_error import ATSTypeError
+from ats_utilities.exceptions.ats_value_error import ATSValueError
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -50,71 +53,75 @@ __status__: str = 'Updated'
 class Splasher(ISplasher):
     '''
         Defines class Splasher with attribute(s) and method(s).
-        Loads a splash screen info and adds hyperlinks.
-        API splash component.
+        Implements a splash screen with hyperlinks.
 
         It defines:
 
             :attributes: None
             :methods:
                 | __init__ - Initials Splasher constructor.
-                | center - Center console line.
-                | __str__ - Returns the string representation of splash.
+                | center - Centers console line.
+                | __str__ - Returns the string representation of Splasher.
     '''
 
-    def __init__(
-        self,
-        prop: Dict[Any, Any],
-        component_bundle: Optional[ATSSplashComponentBundle] = None,
-        splash_bundle: Optional[ContextBundle] = None
-    ) -> None:
+    def __init__(self, component_bundle: Optional[SplashComponentBundle] = None) -> None:
         '''
             Initials Splasher constructor.
 
-            :param prop: Splasher property in dict format
-            :type prop: <Dict[Any, Any]>
-            :param component_bundle: Bundle with components | None
-            :type component_bundle: <Optional[ATSSplashComponentBundle]>
-            :param splash_bundle: Bundle with checker, reporter and verbose | None
-            :type splash_bundle: <Optional[ContextBundle]>
-            :exceptions: None
+            :param component_bundle: Splash screen component bundle | None
+            :type component_bundle: <Optional[SplashComponentBundle]>
+            :exceptions: ATSTypeError
         '''
-        context_bundle: ContextBundle = splash_bundle or ContextBundle()
-        bundle: ATSSplashComponentBundle = component_bundle or ATSSplashComponentBundle()
-        factory_args: Dict[str, Any] = {'splash_bundle': context_bundle}
+        # No dependency injection then use default ones.
+        bundle: SplashComponentBundle = component_bundle or SplashComponentBundle()
+        factory_args: Dict[str, Any] = {'context_bundle': bundle.context_bundle}
         property_splash: ISplashProperty = make_component(bundle.splash_property, SplashProperty, factory_args)
         validate_component(property_splash, type(property_splash), type(property_splash).__name__)
-        property_splash.splash_property = prop
+        property_splash.splash_property = bundle.prop
 
         if property_splash.validates():
             terminal_property: ITerminalProperties = make_component(bundle.terminal_property, TerminalProperties, factory_args)
             validate_component(terminal_property, type(terminal_property), type(terminal_property).__name__)
             size: Tuple[Any, ...] = terminal_property.size()
+            splash_center_bundle: SplashCenterBundle = SplashCenterBundle()
 
-            if bool(prop['ats_use_github_infrastructure']):
+            if bool(bundle.prop[SplashKeys.ATS_USE_GITHUB_INFRASTRUCTURE]):
                 print("\n")
 
-                with open(prop['ats_logo_path'], 'r', encoding='utf-8') as scr:
+                with open(bundle.prop[SplashKeys.ATS_LOGO_PATH], 'r', encoding='utf-8') as scr:
                     for line in scr:
                         processed_line: str = line.rstrip()
 
                         if bool(processed_line):
-                            self.center(int(size[1]), 0, processed_line)
+                            splash_center_bundle.columns = int(size[1])
+                            splash_center_bundle.additional_shifter = 0
+                            splash_center_bundle.text = processed_line
+                            self.center(splash_center_bundle)
 
                 github: IExtInfrastructure = make_component(bundle.github, GitHubInfrastructure, factory_args)
                 validate_component(github, type(github), type(github).__name__)
-                github.infrastructure_property = prop
-                self.center(int(size[1]), 2, github.get_info_text())
-                self.center(int(size[1]), 2, github.get_issue_text())
-                self.center(int(size[1]), 2, github.get_author_text())
+                github.infrastructure_property = bundle.prop
+                splash_center_bundle.columns = int(size[1])
+                splash_center_bundle.additional_shifter = 2
+                splash_center_bundle.text = github.get_info_text()
+                self.center(splash_center_bundle)
+                splash_center_bundle.text = github.get_issue_text()
+                self.center(splash_center_bundle)
+                splash_center_bundle.text = github.get_author_text()
+                self.center(splash_center_bundle)
                 print("\n")
             else:
                 ext: IExtInfrastructure = make_component(bundle.ext, ExtInfrastructure, factory_args)
                 validate_component(ext, type(ext), type(ext).__name__)
-                ext.infrastructure_property = prop
-                self.center(int(size[1]), 2, ext.get_info_text())
-                self.center(int(size[1]), 2, ext.get_issue_text())
-                self.center(int(size[1]), 2, ext.get_author_text())
+                ext.infrastructure_property = bundle.prop
+                splash_center_bundle.columns = int(size[1])
+                splash_center_bundle.additional_shifter = 2
+                splash_center_bundle.text = ext.get_info_text()
+                self.center(splash_center_bundle)
+                splash_center_bundle.text = ext.get_issue_text()
+                self.center(splash_center_bundle)
+                splash_center_bundle.text = ext.get_author_text()
+                self.center(splash_center_bundle)
                 print("\n")
             pb: IProgressBar = bundle.pb or ProgressBar(int(size[1]) - int(int(size[1]) / 2))
 
@@ -123,32 +130,42 @@ class Splasher(ISplasher):
                 sleep(0.01)
             del pb
 
-    def center(
-        self,
-        columns: int,
-        additional_shifter: int,
-        text: Optional[str]
-    ) -> None:
+    def center(self, splash_center_bundle: Optional[SplashCenterBundle] = None) -> None:
         '''
-            Center console line.
+            Centers console line.
 
-            :param columns: Colums for console session
-            :type columns: <int>
-            :param additional_shifter: Additional shifters
-            :type additional_shifter: <int>
-            :param text: Text for console session | None
-            :type text: <Optional[str]>
-            :exceptions: ATSTypeError | ATSValueError
+            :param splash_center_bundle: Splash center bundle for centering console output | None
+            :type splash_center_bundle: <Optional[SplashCenterBundle]>
+            :exceptions: ATSTypeError, ATSValueError
         '''
-        start_position: float = (columns / 2) - 30
-        number_of_tabs = int((start_position / 8) - 1 + additional_shifter)
-        print('{0}{1}'.format('\011' * number_of_tabs, text))
+        if splash_center_bundle is None:
+            raise ATSTypeError("splash_center_bundle cannot be None")
+
+        if not isinstance(splash_center_bundle, SplashCenterBundle):
+            raise ATSTypeError("splash_center_bundle must be of type SplashCenterBundle")
+
+        if not isinstance(splash_center_bundle.columns, int):
+            raise ATSTypeError("columns must be of type int")
+
+        if not isinstance(splash_center_bundle.additional_shifter, int):
+            raise ATSTypeError("additional_shifter must be of type int")
+
+        if splash_center_bundle.text is None:
+            pass
+        elif not isinstance(splash_center_bundle.text, str):
+            raise ATSTypeError("text must be of type str")
+        elif splash_center_bundle.text == '':
+            raise ATSValueError("text cannot be empty")
+
+        start_position: float = (splash_center_bundle.columns / 2) - 30
+        number_of_tabs = int((start_position / 8) - 1 + splash_center_bundle.additional_shifter)
+        print('{0}{1}'.format('\011' * number_of_tabs, splash_center_bundle.text))
 
     def __str__(self) -> str:
         '''
-            Returns the string representation of splash.
+            Returns the string representation of Splasher.
 
-            :return: The splash as string representation
+            :return: The Splasher as string representation
             :rtype: <str>
             :exceptions: None
         '''

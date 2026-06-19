@@ -79,7 +79,7 @@ class ConfFile(IConfFile):
             :type file_bundle: <Optional[ATSFileBundle]>
             :param config_file_bundle: File configuration bundle parameters | None
             :type filconfig_file_bundlee_mode: <Optional[ATSConfigFileBundle]>
-            :exceptions: ATSTypeError by validate_component()
+            :exceptions: ATSTypeError
         '''
         bundle: ATSFileBundle = file_bundle or ATSFileBundle()
         config_bundle: ATSConfigFileBundle = config_file_bundle or ATSConfigFileBundle()

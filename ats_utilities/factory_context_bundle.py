@@ -26,6 +26,7 @@ from ats_utilities.factory_class import inject
 from ats_utilities.context_bundle import ContextBundle
 from ats_utilities.checker.engine import ATSChecker
 from ats_utilities.reporter.engine import ATSReporter
+from ats_utilities.reporter.component_bundle import ReporterComponentBundle
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -50,6 +51,13 @@ def factory_context_bundle(instance: Any, context: Optional[ContextBundle] = Non
     # No dependency injection then use default ones.
     if not bool(context):
         context = ContextBundle()
+
+    if context.checker is None:
+        context.checker = ATSChecker()
+
+    if context.reporter is None:
+        reporter_bundle = ReporterComponentBundle(checker=context.checker)
+        context.reporter = ATSReporter(component_bundle=reporter_bundle)
 
     inject(
         instance,

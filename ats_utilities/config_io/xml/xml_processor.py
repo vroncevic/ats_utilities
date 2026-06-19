@@ -16,13 +16,14 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines class ATSXmlProcessor with attribute(s) and method(s).
+    Defines class ATSXMLProcessor with attribute(s) and method(s).
     Default implementation for processing XML content.
 '''
 
 import xml.etree.ElementTree as ET
 from typing import Dict, List
 from ats_utilities.config_io.xml.ixml_processor import IXMLProcessor
+from ats_utilities.factory_class import format_instance_to_string
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -34,35 +35,46 @@ __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
 
 
-class ATSXmlProcessor(IXMLProcessor):
+class ATSXMLProcessor(IXMLProcessor):
     '''
-        Defines class ATSXmlProcessor with attribute(s) and method(s).
+        Defines class ATSXMLProcessor with attribute(s) and method(s).
         Default implementation for processing XML content.
 
         It defines:
 
             :attributes:
+                | __NAME - Option name for ATS configuration.
+                | __VERSION - Option version for ATS configuration.
+                | __BUILD_DATE - Option build date for ATS configuration.
+                | __LICENCE - Option licence for ATS configuration.
                 | __root - Root element of the XML document.
             :methods:
-                | __init__ - Initials ATSXmlProcessor constructor.
-                | from_string - Load XML content from string.
-                | to_string - Convert XML content to string.
-                | get_ats_info - Get ATS information from XML.
+                | __init__ - Initials ATSXMLProcessor constructor.
+                | from_string - Loads XML content from string.
+                | to_string - Converts XML content to string.
+                | to_dict - Gets ATS information from XML.
+                | __get_val - Internal helper for getting tag value.
+                | 
     '''
+
+    __NAME: str = 'ats_name'
+    __VERSION: str = 'ats_version'
+    __BUILD_DATE: str = 'ats_build_date'
+    __LICENCE: str = 'ats_licence'
 
     def __init__(self):
         '''
-            Initials ATSXmlProcessor constructor.
+            Initials ATSXMLProcessor constructor.
         '''
         self.__root = None
 
     def from_string(self, xml_content: str) -> bool:
         '''
-            Load XML content from string.
+            Loads XML content from string.
 
             :param xml_content: XML content as string
             :type xml_content: <str>
-            :return: True (content loaded) | False
+            :return: True (success) | False (fail)
             :rtype: <bool>
             :exceptions: None
         '''
@@ -72,7 +84,7 @@ class ATSXmlProcessor(IXMLProcessor):
 
     def to_string(self) -> str:
         '''
-            Convert XML content to string.
+            Converts XML content to string.
 
             :return: XML content as string
             :rtype: <str>
@@ -83,9 +95,9 @@ class ATSXmlProcessor(IXMLProcessor):
 
         return ""
 
-    def get_ats_info(self) -> Dict[str, str]:
+    def to_dict(self) -> Dict[str, str]:
         '''
-            Get ATS information from XML.
+            Gets ATS information from XML.
 
             :return: Dictionary with ATS information
             :rtype: <Dict[str, str]>
@@ -95,10 +107,10 @@ class ATSXmlProcessor(IXMLProcessor):
             return {}
 
         ats_info: Dict[str, str] = {
-            'ats_name': self.__get_val('ats_name'),
-            'ats_version': self.__get_val('ats_version'),
-            'ats_build_date': self.__get_val('ats_build_date'),
-            'ats_licence': self.__get_val('ats_licence')
+            self.__NAME: self.__get_val(self.__NAME),
+            self.__VERSION: self.__get_val(self.__VERSION),
+            self.__BUILD_DATE: self.__get_val(self.__BUILD_DATE),
+            self.__LICENCE: self.__get_val(self.__LICENCE)
         }
 
         return ats_info
@@ -121,3 +133,13 @@ class ATSXmlProcessor(IXMLProcessor):
             return ""
 
         return node.text if node.text is not None else ""
+
+    def __str__(self) -> str:
+        '''
+            Returns the string representation of ATSXMLProcessor.
+
+            :return: The ATSXMLProcessor as string representation
+            :rtype: <str>
+            :exceptions: None
+        '''
+        return format_instance_to_string(self)

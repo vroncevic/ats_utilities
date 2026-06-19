@@ -2,7 +2,7 @@
 
 '''
 Module
-    isplash_screen.py
+    isplash_property.py
 Copyright
     Copyright (C) 2017 - 2026 Vladimir Roncevic <elektron.ronca@gmail.com>
     ats_utilities is free software: you can redistribute it and/or modify it
@@ -17,7 +17,7 @@ Copyright
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
     Defines interface ISplashProperty with attribute(s) and method(s).
-    Interface for checking splash property.
+    Interface for checking splash screen property.
 '''
 
 from abc import ABC, abstractmethod
@@ -36,24 +36,24 @@ __status__: str = 'Updated'
 class ISplashProperty(ABC):
     '''
         Defines interface ISplashProperty with attribute(s) and method(s).
-        Interface for checking splash property.
+        Interface for checking splash screen property.
 
         It defines:
 
             :attributes: None
             :methods:
-                | validates - Validates splash property (abstract).
-                | splash_property - Splasher property (abstract).
-                | __str__ - Returns the string representation of splash property (abstract).
+                | splash_property - Property method for get/set splash screen property (abstract).
+                | validates - Validates splash screen property (abstract).
+                | __str__ - Returns the string representation of splash screen property (abstract).
     '''
 
     @property
     @abstractmethod
     def splash_property(self) -> Optional[Dict[Any, Any]]:
         '''
-            Property method for getting splash property.
+            Property method for getting splash screen property.
 
-            :return: Formatted splash property in dict format | None
+            :return: Formatted splash screen property in dict format | None
             :rtype: <Optional[str]>
             :exceptions: NotImplementedError
         '''
@@ -63,9 +63,9 @@ class ISplashProperty(ABC):
     @abstractmethod
     def splash_property(self, splash_property_setup: Optional[Dict[Any, Any]]) -> None:
         '''
-            Property method for setting project splash property.
+            Property method for setting project splash screen property.
 
-            :param splash_property_setup: Project splash property in dict format | None
+            :param splash_property_setup: Project splash screen property in dict format | None
             :type splash_property_setup: <Optional[Dict[Any, Any]]>
             :exceptions: NotImplementedError
         '''
@@ -74,9 +74,9 @@ class ISplashProperty(ABC):
     @abstractmethod
     def validates(self) -> bool:
         '''
-            Validates splash property.
+            Validates splash screen property.
 
-            :return: True (property ok) else False (property not ok)
+            :return: True (success) else False (fail)
             :rtype: <bool>
             :exceptions: NotImplementedError
         '''
@@ -85,9 +85,9 @@ class ISplashProperty(ABC):
     @abstractmethod
     def __str__(self) -> str:
         '''
-            Returns the string representation of splash property.
+            Returns the string representation of splash screen property.
 
-            :return: The splash property as string representation
+            :return: The splash screen property as string representation
             :rtype: <str>
             :exceptions: NotImplementedError
         '''

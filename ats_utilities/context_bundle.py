@@ -16,8 +16,8 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines parameter bundle data classes for dependency group simplification.
-    Encapsulates core utilities to minimize constructor overhead.
+    Defines parameter bundle dataclass for component dependency management.
+    Encapsulates core runtime components for simplifcation.
 '''
 
 from dataclasses import dataclass
@@ -38,14 +38,14 @@ __status__: str = 'Updated'
 @dataclass
 class ContextBundle:
     '''
-        Encapsulates the core system tracking, verification, and infrastructure components.
-        Simplifies dependency passing for checker, reporter and verbosity settings.
+        Encapsulates core runtime components for simplifcation.
+        Enables passing dependencies to other components.
 
         It defines:
 
             :attributes:
-                | checker - Component for parameters validation (default None).
-                | reporter - Component for status reporting (default None).
+                | checker - Checker for parameters (default None).
+                | reporter - Reporter for providing all types of messages (default None).
                 | verbose - Flag for enabling verbose output (default False).
             :methods: None
     '''

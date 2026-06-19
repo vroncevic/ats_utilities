@@ -22,6 +22,7 @@ Info
 
 from abc import ABC, abstractmethod
 from typing import List, Optional
+from ats_utilities.splasher.splash_center_bundle import SplashCenterBundle
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -42,26 +43,17 @@ class ISplasher(ABC):
 
             :attributes: None
             :methods:
-                | center - Center console line (abstract).
+                | center - Centers console line (abstract).
                 | __str__ - Returns the string representation of splash screen component (abstract).
     '''
 
     @abstractmethod
-    def center(
-        self,
-        columns: int,
-        additional_shifter: int,
-        text: Optional[str]
-    ) -> None:
+    def center(self, splash_center_bundle: Optional[SplashCenterBundle] = None) -> None:
         '''
-            Center console line.
+            Centers console line.
 
-            :param columns: Colums for console session
-            :type columns: <int>
-            :param additional_shifter: Additional shifters
-            :type additional_shifter: <int>
-            :param text: Text for console session | None
-            :type text: <Optional[str]>
+            :param splash_center_bundle: Splash center bundle for centering console output | None
+            :type splash_center_bundle: <Optional[SplashCenterBundle]>
             :exceptions: NotImplementedError
         '''
         raise NotImplementedError("Method center method")

@@ -20,19 +20,20 @@ Info
     Creates an API for reading a configuration from a JSON file.
 '''
 
-from typing import ClassVar, List, Optional
-from ats_utilities.checker.ichecker import IChecker
-from ats_utilities.checker.engine import ATSChecker
-from ats_utilities.checker.ichecker import ErrorChecker
-from ats_utilities.reporter.ireporter import IReporter
-from ats_utilities.reporter.engine import ATSReporter
-from ats_utilities.exceptions.ats_type_error import ATSTypeError
+from typing import List, Optional
 from ats_utilities.config_io.iread import IRead
+from ats_utilities.context_bundle import ContextBundle
 from ats_utilities.config_io.conf_file import ConfFile
 from ats_utilities.config_io.ifile_check import IFileCheck
 from ats_utilities.config_io.file_check import FileCheck
+from ats_utilities.config_io.file_bundle import ATSFileBundle
+from ats_utilities.config_io.config_file_bundle import ATSConfigFileBundle
 from ats_utilities.config_io.json.ijson_processor import IJSONProcessor
 from ats_utilities.config_io.json.json_processor import ATSJSONProcessor
+from ats_utilities.reporter.proxy_reporter import vreporter
+from ats_utilities.factory_context_bundle import factory_context_bundle
+from ats_utilities.factory_component import make_component, validate_component
+from ats_utilities.factory_class import get_private_attr, format_instance_to_string
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -53,86 +54,84 @@ class Json2Object(IRead):
         It defines:
 
             :attributes:
-                | _EXT - File extension of the configuration file.
-                | _verbose - Enable/Disable verbose option.
-                | _file_path - Configuration file path.
+                | __EXT - File extension of the configuration file.
+                | __MODE - File open mode.
+                | __config_file_bundle - Configuration file bundle parameters (default None).
+                | __checker - Factoriezed parameters checker (default ATSChecker).
+                | __reporter - Factoriezed reporter for messaging (default ATSReporter).
+                | __verbose - Factoriezed Enable/Disable verbose option (default False).
+                | __file_checker - FileCheck for checking file (default FileCheck).
+                | __json_processor - Processor for JSON content (default ATSJSONProcessor).
+                | __file_path - Configuration file path (default None).
+                | __file_bundle_shared - File bundle parameters (default None).
             :methods:
                 | __init__ - Initials Json2Object constructor.
                 | read_configuration - Reads configuration from a JSON file.
+                | __str__ - Returns the string representation of JSON object.
     '''
 
-    ERRORS: ClassVar[type[ErrorChecker]] = ErrorChecker
     __EXT: str = 'json'
     __MODE: str = 'r'
 
     def __init__(
         self,
         config_file: Optional[str],
-        json_processor: Optional[IJSONProcessor] = None,
-        checker: Optional[IChecker] = None,
-        reporter: Optional[IReporter] = None,
-        file_checker: Optional[IFileCheck] = None,
-        verbose: bool = False
+        config_bundle: Optional[ATSConfigFileBundle] = None,
+        json_processor: Optional[IJSONProcessor] = None
     ) -> None:
         '''
             Initials Json2Object constructor.
 
-            :param config_file: Configuration file path | None
+            :param config_file: Configuration file path in string format | None
             :type config_file: <Optional[str]>
-            :param json_processor: IJSONProcessor for processing JSON | None
+            :param config_bundle: Configuration file bundle parameters | None
+            :type config_bundle: <Optional[ATSConfigFileBundle]>
+            :param json_processor: Processor for INI content | None
             :type json_processor: <Optional[IJSONProcessor]>
-            :param checker: ATSChecker for check operations | None
-            :type checker: <Optional[IChecker]>
-            :param reporter: ATSReporter for check operations | None
-            :type reporter: <Optional[IReporter]>
-            :param file_checker: FileCheck for checking file | None
-            :type file_checker: <Optional[IFileCheck]>
-            :param verbose: Enable/Disable verbose option (default False)
-            :type verbose: <bool>
             :exceptions: ATSTypeError
         '''
-        self.__checker: IChecker = checker or ATSChecker()
-        self.__reporter: IReporter = reporter or ATSReporter()
-        self.__file_checker: IFileCheck = file_checker or FileCheck(checker, reporter, verbose)
-        self.__verbose: bool = verbose
-
-        error_msg: Optional[str] = None
-        error_id: Optional[int] = None
-        error_msg, error_id = self.__checker.validate_parameters([
-            ('str:config_file', config_file)
-        ])
-
-        if error_id == self.ERRORS.TYPE_ERROR:
-            raise ATSTypeError(error_msg)
-
+        self.__config_file_bundle: ATSConfigFileBundle = config_bundle or ATSConfigFileBundle()
+        factory_context_bundle(self, self.__config_file_bundle.context)
+        context_bundle_shared: ContextBundle = ContextBundle(
+            checker=get_private_attr(self, 'checker'),
+            reporter=get_private_attr(self, 'reporter'),
+            verbose=get_private_attr(self, 'verbose')
+        )
+        self.__file_checker: IFileCheck = make_component(
+            self.__config_file_bundle.file_checker, FileCheck, {'config_bundle': context_bundle_shared}
+        )
+        validate_component(self.__file_checker, type(self.__file_checker), type(self.__file_checker).__name__)
+        self.__json_processor: IJSONProcessor = make_component(json_processor, ATSJSONProcessor, None)
+        validate_component(self.__json_processor, type(self.__json_processor), type(self.__json_processor).__name__)
         self.__file_path: str = str(config_file)
-        self.__json_processor: IJSONProcessor = json_processor or ATSJSONProcessor()
-        self.__reporter.verbose(self.__verbose, [f'configuration {config_file}'])
+        self.__file_bundle_shared: ATSFileBundle = ATSFileBundle()
+        self.__file_bundle_shared.file_path = self.__file_path
+        self.__file_bundle_shared.file_mode = self.__MODE
+        self.__file_bundle_shared.file_format = self.__EXT
 
-    def read_configuration(self, verbose: bool = False) -> Optional[IJSONProcessor]:
+    @vreporter('read configuration from file {file_path}')
+    def read_configuration(self) -> Optional[IJSONProcessor]:
         '''
             Reads a configuration from a JSON file.
 
-            :param verbose: Enable/Disable verbose option (default False)
-            :type verbose: <bool>
             :return: Configuration object
             :rtype: <Optional[IJSONProcessor]>
             :exceptions: None
         '''
-        with ConfFile(
-            self.__file_path,
-            self.__MODE,
-            self.__EXT,
-            self.__checker,
-            self.__reporter,
-            self.__file_checker,
-            self.__verbose or verbose
-        ) as json:
+        with ConfFile(self.__file_bundle_shared, self.__config_file_bundle) as json:
             if bool(json):
                 content: str = json.read()
                 if content and self.__json_processor.decode(content):
-                    self.__reporter.verbose(
-                        self.__verbose or verbose, [f'configuration {content}']
-                    )
                     return self.__json_processor
+
         return None
+
+    def __str__(self) -> str:
+        '''
+            Returns the string representation of JSON object.
+
+            :return: The JSON object as string representation
+            :rtype: <str>
+            :exceptions: None
+        '''
+        return format_instance_to_string(self)

@@ -17,7 +17,7 @@ Copyright
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
     Defineds class ProgressBar with attribute(s) and method(s).
-    Loads a progressbar as part of splash screen.
+    Implements a progressbar as part of splash screen.
 '''
 
 import sys
@@ -38,8 +38,7 @@ __status__: str = 'Updated'
 class ProgressBar(IProgressBar):
     '''
         Defineds class ProgressBar with attribute(s) and method(s).
-        Loads a progressbar as part of splash screen.
-        Progress bar component.
+        Implements a progressbar as part of splash screen.
 
         It defines:
 
@@ -55,11 +54,11 @@ class ProgressBar(IProgressBar):
                 | __level_chars - Level progress chars.
             :methods:
                 | __init__ - Initials ProgressBar constructor.
-                | set_level - Sets level of progress.
-                | plot_progress - Plots progress.
-                | set_and_plot - Sets and plots progress.
-                | __del__ - Dunder del method for ProgressBar.
-                | __str__ - Returns the string representation of progress bar component.
+                | set_level - Sets level for progress bar.
+                | plot_progress - Plots progress bar.
+                | set_and_plot - Sets and plots progress bar.
+                | __del__ - Dunder del method for progress bar.
+                | __str__ - Returns the string representation of ProgressBar.
     '''
 
     DEFAULT_BAR_LENGTH: int = 60
@@ -83,7 +82,7 @@ class ProgressBar(IProgressBar):
 
     def set_level(self, level: int) -> None:
         '''
-            Sets level.
+            Sets level for progress bar.
 
             :param level: Level of progress
             :type level: <int>
@@ -102,7 +101,7 @@ class ProgressBar(IProgressBar):
 
     def plot_progress(self, columns: int) -> None:
         '''
-            Plots progress.
+            Plots progress bar.
 
             :param columns: Colums for open console session
             :type columns: <int>
@@ -124,7 +123,7 @@ class ProgressBar(IProgressBar):
 
     def set_and_plot(self, level: int, columns: int) -> None:
         '''
-            Sets and plots progress.
+            Sets and plots progress bar.
 
             :param level: Level of progress
             :type level: <int>
@@ -147,9 +146,9 @@ class ProgressBar(IProgressBar):
 
     def __str__(self) -> str:
         '''
-            Returns the string representation of progress bar component.
+            Returns the string representation of ProgressBar.
 
-            :return: The progress bar component as string representation
+            :return: The ProgressBar as string representation
             :rtype: <str>
             :exceptions: NotImplementedError
         '''

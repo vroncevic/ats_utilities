@@ -26,7 +26,7 @@ from typing import List
 from unittest.mock import MagicMock
 from unittest import TestCase, main
 from os.path import dirname
-from ats_utilities.cli.ats_cli import ATSCli
+from ats_utilities.base.engine import ATSBase
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -38,7 +38,7 @@ __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
 
 
-class ATSCliCfgAPI(ATSCli):
+class ATSCliCfgAPI(ATSBase):
     '''Simple Class for checking CfgCLI.'''
 
     _CONFIG: str = '/config/ats_cli_cfg_api.cfg'
