@@ -27,6 +27,9 @@ from unittest import TestCase, main
 from ats_utilities.logging.engine import ATSLoggerManager
 from ats_utilities.reporter.ireporter import IReporter
 from ats_utilities.reporter.engine import Reporter
+from ats_utilities.logging.component_bundle import LoggingComponentBundle
+from ats_utilities.logging.logger_bundle import LoggerBundle
+from ats_utilities.context_bundle import ContextBundle
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -43,16 +46,21 @@ class ATSBaseLoggingStream(ATSLoggerManager):
 
     def __init__(self, reporter: IReporter = Reporter(), verbose: bool = False) -> None:
         '''Initial constructor.'''
-        super().__init__(
-            ats_name='simple_test',
-            ats_log_stdout=True,
-            ats_log_file=None,
-            reporter=reporter,
-            verbose=verbose
+        context = ContextBundle(reporter=reporter, verbose=verbose)
+        logger_bundle = LoggerBundle(
+            name='simple_test',
+            log_stdout=True,
+            log_file=None
         )
+        component_bundle = LoggingComponentBundle(
+            logger_bundle=logger_bundle,
+            context_bundle=context
+        )
+        super().__init__(component_bundle)
         self._verbose = verbose
         if self.is_tool_ok():
             reporter.success(['init ATS logging stdout'])
+
 
     def is_tool_ok(self) -> bool:
         '''

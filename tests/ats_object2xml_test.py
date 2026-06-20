@@ -68,6 +68,11 @@ class IXMLProcessor(BaseIXMLProcessor):
         '''Implementation of abstract method.'''
         return self.get_ats_info_mock()
 
+    def __str__(self) -> str:
+        '''Implementation of abstract method.'''
+        return ""
+
+
 class Object2XmlTestCase(TestCase):
     '''
         Defines class Object2XmlTestCase with attribute(s) and method(s).
@@ -115,8 +120,7 @@ class Object2XmlTestCase(TestCase):
         obj2xml: Object2Xml = Object2Xml(
             f'{dirname(__file__)}/config/ats_cli_xml_api_none.xml'
         )
-        with self.assertRaises(ATSTypeError):
-            obj2xml.write_configuration(None)  # type: ignore
+        self.assertFalse(obj2xml.write_configuration(None))  # type: ignore
 
     def test_write_empty_configuration(self) -> None:
         '''Test for write empty configuration'''
@@ -126,9 +130,11 @@ class Object2XmlTestCase(TestCase):
 
     def test_none_config_path(self) -> None:
         '''Test for None as file path'''
-        with self.assertRaises(ATSTypeError):
-            Object2Xml(None)
+        writer = Object2Xml(None)
+        mock_config = IXMLProcessor()
+        self.assertFalse(writer.write_configuration(mock_config))
 
 
 if __name__ == '__main__':
     main()
+

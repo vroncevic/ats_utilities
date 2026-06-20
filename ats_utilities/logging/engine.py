@@ -114,9 +114,9 @@ class ATSLoggerManager(ILoggerManager):
             :type ctrl: <int>
             :return: True (success) | False (fail).
             :rtype: <bool>
-            :exceptions: None
+            :exceptions: None.
         '''
-        return self.__logger.write_log(message, ctrl)
+        return self.__logger.write_log(message, int(ctrl))
 
     def ok(self) -> bool:
         '''

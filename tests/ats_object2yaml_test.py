@@ -62,6 +62,11 @@ class IYAMLProcessor(BaseIYAMLProcessor):
         '''Implementation of abstract method.'''
         return self.encode_mock()
 
+    def __str__(self) -> str:
+        '''Implementation of abstract method.'''
+        return ""
+
+
 
 class Object2YamlTestCase(TestCase):
     '''
@@ -111,8 +116,7 @@ class Object2YamlTestCase(TestCase):
         obj2yaml: Object2Yaml = Object2Yaml(
             f'{dirname(__file__)}/config/ats_cli_yaml_api_none.yaml'
         )
-        with self.assertRaises(ATSTypeError):
-            obj2yaml.write_configuration(None)  # type: ignore
+        self.assertFalse(obj2yaml.write_configuration(None))  # type: ignore
 
     def test_write_empty_configuration(self) -> None:
         '''Test for write empty configuration'''
@@ -124,9 +128,11 @@ class Object2YamlTestCase(TestCase):
 
     def test_none_config_path(self) -> None:
         '''Test for None as file path'''
-        with self.assertRaises(ATSTypeError):
-            Object2Yaml(None)
+        writer = Object2Yaml(None)
+        mock_config = IYAMLProcessor()
+        self.assertFalse(writer.write_configuration(mock_config))
 
 
 if __name__ == '__main__':
     main()
+

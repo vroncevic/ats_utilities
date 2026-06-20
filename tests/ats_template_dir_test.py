@@ -104,8 +104,9 @@ class TemplateDirTestCase(TestCase):
     def test_set_dir_none(self) -> None:
         '''Sets None template dir'''
         none_dir: Optional[str] = None
-        with self.assertRaises(ATSTypeError):
-            self.ats_base_template_dir.template_dir = none_dir
+        self.ats_base_template_dir.template_dir = none_dir
+        self.assertIsNone(self.ats_base_template_dir.template_dir)
+        self.assertFalse(self.ats_base_template_dir.is_tool_ok())
 
     def test_set_dir(self) -> None:
         '''Sets simple template dir'''

@@ -75,9 +75,10 @@ class Yaml2ObjectTestCase(TestCase):
 
     def test_none_config_path(self) -> None:
         '''Test for None as file path'''
-        with self.assertRaises(ATSTypeError):
-            Yaml2Object(None)
+        yaml2obj = Yaml2Object(None)
+        self.assertIsNone(yaml2obj.read_configuration())
 
 
 if __name__ == '__main__':
     main()
+

@@ -88,10 +88,11 @@ class FileCheck(IFileCheck):
             :type file_path: <Optional[str]>
             :exceptions: ATSTypeError, ATSValueError, RuntimeError, AttributeError.
         '''
-        self.__file_path_ok = isfile(file_path)  # type: ignore
+        self.__file_path_ok = isfile(file_path) if file_path is not None else False
 
         if not self.__file_path_ok:
             self._reporter.error([f'check file {file_path}'])
+
 
     @validator([('Optional[str]:file_mode', None)])
     @vreporter('check file mode {file_mode_ok}')

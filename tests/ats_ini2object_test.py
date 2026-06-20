@@ -75,9 +75,10 @@ class Ini2ObjectTestCase(TestCase):
 
     def test_none_config_path(self) -> None:
         '''Test for None as file path'''
-        with self.assertRaises(ATSTypeError):
-            Ini2Object(None)
+        ini2obj = Ini2Object(None)
+        self.assertIsNone(ini2obj.read_configuration())
 
 
 if __name__ == '__main__':
     main()
+

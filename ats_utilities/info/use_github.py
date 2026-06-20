@@ -81,19 +81,19 @@ class UseGitHub(IUseGitHub):
         return self.__use_github
 
     @use_github.setter
-    @validator([('Optional[str]:use_github', None)])
+    @validator([('Optional[bool]:use_github', None)])
     @vreporter('set use_github {use_github}')
-    def use_github(self, use_github: Optional[str]) -> None:
-        '''
-            Property method for setting ATS use GitHub infrastructure status.
+    def use_github(self, use_github: Optional[bool]) -> None:
+         '''
+             Property method for setting ATS use GitHub infrastructure status.
 
-            :param use_github: The ATS use GitHub infrastructure status | None.
-            :type use_github: <Optional[str]>
-            :exceptions:
-                | ATSTypeError, ATSValueError, RuntimeError, AttributeError.
-                | RuntimeError, AttributeError.
-        '''
-        self.__use_github = True if use_github == 'True' else False
+             :param use_github: The ATS use GitHub infrastructure status | None.
+             :type use_github: <Optional[bool]>
+             :exceptions:
+                 | ATSTypeError, ATSValueError, RuntimeError, AttributeError.
+                 | RuntimeError, AttributeError.
+         '''
+         self.__use_github = use_github
 
     @vreporter('check use_github {use_github}')
     def not_none(self) -> bool:

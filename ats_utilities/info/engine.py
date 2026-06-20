@@ -85,7 +85,8 @@ class InfoManager(IInfoManager):
         'repository': 'repository',
         'organization': 'organization',
         'use_github': 'use_github',
-        'logo_path': 'logo_path'
+        'logo_path': 'logo_path',
+        'info_ok': 'info_ok'
     }
 
     def __init__(self, component_bundle: Optional[InfoComponentBundle] = None) -> None:
@@ -138,7 +139,10 @@ class InfoManager(IInfoManager):
         self.licence = info.get(InfoKeys.ATS_LICENCE)
         self.repository = info.get(InfoKeys.ATS_REPOSITORY)
         self.organization = info.get(InfoKeys.ATS_ORGANIZATION)
-        self.use_github = info.get(InfoKeys.ATS_USE_GITHUB_INFRASTRUCTURE)
+        use_github = info.get(InfoKeys.ATS_USE_GITHUB_INFRASTRUCTURE)
+        if isinstance(use_github, str):
+            use_github = True if use_github == 'True' else False
+        self.use_github = use_github
         self.logo_path = info.get(InfoKeys.ATS_LOGO_PATH)
 
     def get_info(self) -> Dict[str, Any]:
@@ -208,7 +212,8 @@ class InfoManager(IInfoManager):
             :rtype: <bool>
             :exceptions: None.
         '''
-        return getattr(self._components, 'info_ok', False)
+        component = getattr(self._components, 'info_ok', None)
+        return component.info_ok if component else False
 
     def refresh_status(self) -> None:
         '''

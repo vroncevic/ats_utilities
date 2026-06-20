@@ -64,6 +64,11 @@ class ICFGProcessor(BaseICFGProcessor):
         '''Implementation of abstract method.'''
         return self.to_string_mock()
 
+    def __str__(self) -> str:
+        '''Implementation of abstract method.'''
+        return ""
+
+
 
 class Object2CfgTestCase(TestCase):
     '''
@@ -104,8 +109,7 @@ class Object2CfgTestCase(TestCase):
 
     def test_write_none_configuration(self) -> None:
         '''Test for read configuration'''
-        with self.assertRaises(ATSTypeError):
-            self.obj2cfg.write_configuration(None)  # type: ignore
+        self.assertFalse(self.obj2cfg.write_configuration(None))  # type: ignore
 
     def test_write_empty_configuration(self) -> None:
         '''Test for read configuration'''
@@ -114,9 +118,11 @@ class Object2CfgTestCase(TestCase):
 
     def test_none_config_path(self) -> None:
         '''Test for None as file path'''
-        with self.assertRaises(ATSTypeError):
-            Object2Cfg(None)
+        writer = Object2Cfg(None)
+        mock_config = ICFGProcessor()
+        self.assertFalse(writer.write_configuration(mock_config))
 
 
 if __name__ == '__main__':
     main()
+

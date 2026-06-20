@@ -104,8 +104,9 @@ class ProNameTestCase(TestCase):
     def test_set_pro_name_none(self) -> None:
         '''Sets None name'''
         none_name: Optional[str] = None
-        with self.assertRaises(ATSTypeError):
-            self.ats_base_pro_name.pro_name = none_name
+        self.ats_base_pro_name.pro_name = none_name
+        self.assertIsNone(self.ats_base_pro_name.pro_name)
+        self.assertFalse(self.ats_base_pro_name.is_tool_ok())
 
     def test_set_pro_name(self) -> None:
         '''Sets simple project name'''

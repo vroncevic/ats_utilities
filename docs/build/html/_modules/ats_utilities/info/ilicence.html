@@ -54,7 +54,7 @@
 <span class="sd">    You should have received a copy of the GNU General Public License along</span>
 <span class="sd">    with this program. If not, see &lt;http://www.gnu.org/licenses/&gt;.</span>
 <span class="sd">Info</span>
-<span class="sd">    Defines interface IATSLicence with attribute(s) and method(s).</span>
+<span class="sd">    Defines abstract class ILicence with method(s).</span>
 <span class="sd">    Interface for the ATS licence mechanism.</span>
 <span class="sd">&#39;&#39;&#39;</span>
 
@@ -65,25 +65,26 @@
 <span class="n">__copyright__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;(C) 2026, https://vroncevic.github.io/ats_utilities&#39;</span>
 <span class="n">__credits__</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Vladimir Roncevic&#39;</span><span class="p">,</span> <span class="s1">&#39;Python Software Foundation&#39;</span><span class="p">]</span>
 <span class="n">__license__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE&#39;</span>
-<span class="n">__version__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;3.3.7&#39;</span>
+<span class="n">__version__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;3.3.8&#39;</span>
 <span class="n">__maintainer__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;Vladimir Roncevic&#39;</span>
 <span class="n">__email__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;elektron.ronca@gmail.com&#39;</span>
 <span class="n">__status__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;Updated&#39;</span>
 
 
-<div class="viewcode-block" id="IATSLicence">
-<a class="viewcode-back" href="../../../ats_utilities.info.ilicence.html#ats_utilities.info.ilicence.IATSLicence">[docs]</a>
-<span class="k">class</span> <span class="nc">IATSLicence</span><span class="p">(</span><span class="n">ABC</span><span class="p">):</span>
+<div class="viewcode-block" id="ILicence">
+<a class="viewcode-back" href="../../../ats_utilities.info.ilicence.html#ats_utilities.info.ilicence.ILicence">[docs]</a>
+<span class="k">class</span> <span class="nc">ILicence</span><span class="p">(</span><span class="n">ABC</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">        Defines interface IATSLicence with attribute(s) and method(s).</span>
+<span class="sd">        Defines abstract class ILicence with method(s).</span>
 <span class="sd">        Interface for the ATS licence mechanism.</span>
 
 <span class="sd">        It defines:</span>
 
-<span class="sd">            :attributes: None.</span>
+<span class="sd">            :attributes: None</span>
 <span class="sd">            :methods:</span>
 <span class="sd">                | licence - Property methods for set/get operations.</span>
-<span class="sd">                | is_licence_not_none - Checks is ATS licence not None.</span>
+<span class="sd">                | not_none - Checks if ATS licence is not None.</span>
+<span class="sd">                | __str__ - Returns the ATS licence as string representation.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
 
     <span class="nd">@property</span>
@@ -92,11 +93,11 @@
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Property method for getting ATS licence.</span>
 
-<span class="sd">            :return: The ATS licence | None</span>
+<span class="sd">            :return: The ATS licence in string format | None</span>
 <span class="sd">            :rtype: &lt;Optional[str]&gt;</span>
 <span class="sd">            :exceptions: NotImplementedError</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s2">&quot;Subclasses must implement licence getter&quot;</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s2">&quot;Method licence() must be implemented.&quot;</span><span class="p">)</span>
 
     <span class="nd">@licence</span><span class="o">.</span><span class="n">setter</span>
     <span class="nd">@abstractmethod</span>
@@ -104,25 +105,36 @@
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Property method for setting ATS licence.</span>
 
-<span class="sd">            :param licence: The ATS licence | None</span>
+<span class="sd">            :param licence: The ATS licence in string format | None</span>
 <span class="sd">            :type licence: &lt;Optional[str]&gt;</span>
 <span class="sd">            :exceptions: NotImplementedError</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s2">&quot;Subclasses must implement licence setter&quot;</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s2">&quot;Method licence() must be implemented.&quot;</span><span class="p">)</span>
 
-<div class="viewcode-block" id="IATSLicence.is_licence_not_none">
-<a class="viewcode-back" href="../../../ats_utilities.info.ilicence.html#ats_utilities.info.ilicence.IATSLicence.is_licence_not_none">[docs]</a>
+<div class="viewcode-block" id="ILicence.not_none">
+<a class="viewcode-back" href="../../../ats_utilities.info.ilicence.html#ats_utilities.info.ilicence.ILicence.not_none">[docs]</a>
     <span class="nd">@abstractmethod</span>
-    <span class="k">def</span> <span class="nf">is_licence_not_none</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">not_none</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">            Checks is ATS licence not None.</span>
+<span class="sd">            Checks if ATS licence is not None.</span>
 
-<span class="sd">            :return: True (ATS licence is not None) | False.</span>
+<span class="sd">            :return: True (success) | False (fail).</span>
 <span class="sd">            :rtype: &lt;bool&gt;</span>
 <span class="sd">            :exceptions: NotImplementedError</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s2">&quot;Subclasses must implement is_licence_not_none method&quot;</span><span class="p">)</span></div>
-</div>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s2">&quot;Method not_none() must be implemented.&quot;</span><span class="p">)</span></div>
+
+
+    <span class="nd">@abstractmethod</span>
+    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">            Returns the ATS licence as string representation.</span>
+
+<span class="sd">            :return: The ATS licence as string representation.</span>
+<span class="sd">            :rtype: &lt;str&gt;</span>
+<span class="sd">            :exceptions: NotImplementedError</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s2">&quot;Method __str__() must be implemented.&quot;</span><span class="p">)</span></div>
 
 </pre></div>
 

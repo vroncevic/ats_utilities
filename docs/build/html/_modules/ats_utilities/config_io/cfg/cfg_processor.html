@@ -40,7 +40,7 @@
 
 <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">Module</span>
-<span class="sd">    default_cfg_processor.py</span>
+<span class="sd">    cfg_processor.py</span>
 <span class="sd">Copyright</span>
 <span class="sd">    Copyright (C) 2017 - 2026 Vladimir Roncevic &lt;elektron.ronca@gmail.com&gt;</span>
 <span class="sd">    ats_utilities is free software: you can redistribute it and/or modify it</span>
@@ -54,29 +54,30 @@
 <span class="sd">    You should have received a copy of the GNU General Public License along</span>
 <span class="sd">    with this program. If not, see &lt;http://www.gnu.org/licenses/&gt;.</span>
 <span class="sd">Info</span>
-<span class="sd">    Defines class ATSCFGProcessor with attribute(s) and method(s).</span>
+<span class="sd">    Defines class CFGProcessor with attribute(s) and method(s).</span>
 <span class="sd">    Default implementation for processing CFG content.</span>
 <span class="sd">&#39;&#39;&#39;</span>
 
 <span class="kn">from</span> <span class="nn">re</span> <span class="kn">import</span> <span class="n">match</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.factory_class</span> <span class="kn">import</span> <span class="n">format_instance_to_string</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.config_io.cfg.icfg_processor</span> <span class="kn">import</span> <span class="n">ICFGProcessor</span>
 
 <span class="n">__author__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;Vladimir Roncevic&#39;</span>
 <span class="n">__copyright__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;(C) 2026, https://vroncevic.github.io/ats_utilities&#39;</span>
 <span class="n">__credits__</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Vladimir Roncevic&#39;</span><span class="p">,</span> <span class="s1">&#39;Python Software Foundation&#39;</span><span class="p">]</span>
 <span class="n">__license__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE&#39;</span>
-<span class="n">__version__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;3.3.7&#39;</span>
+<span class="n">__version__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;3.3.8&#39;</span>
 <span class="n">__maintainer__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;Vladimir Roncevic&#39;</span>
 <span class="n">__email__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;elektron.ronca@gmail.com&#39;</span>
 <span class="n">__status__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;Updated&#39;</span>
 
 
-<div class="viewcode-block" id="ATSCFGProcessor">
-<a class="viewcode-back" href="../../../../ats_utilities.config_io.cfg.cfg_processor.html#ats_utilities.config_io.cfg.cfg_processor.ATSCFGProcessor">[docs]</a>
-<span class="k">class</span> <span class="nc">ATSCFGProcessor</span><span class="p">(</span><span class="n">ICFGProcessor</span><span class="p">):</span>
+<div class="viewcode-block" id="CFGProcessor">
+<a class="viewcode-back" href="../../../../ats_utilities.config_io.cfg.cfg_processor.html#ats_utilities.config_io.cfg.cfg_processor.CFGProcessor">[docs]</a>
+<span class="k">class</span> <span class="nc">CFGProcessor</span><span class="p">(</span><span class="n">ICFGProcessor</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">        Defines class ATSCFGProcessor with attribute(s) and method(s).</span>
+<span class="sd">        Defines class CFGProcessor with attribute(s) and method(s).</span>
 <span class="sd">        Default implementation for processing CFG content.</span>
 
 <span class="sd">        It defines:</span>
@@ -85,66 +86,83 @@
 <span class="sd">                | __REGEX_EXP - Regular expression for matching line.</span>
 <span class="sd">                | __data - Dictionary with CFG information.</span>
 <span class="sd">            :methods:</span>
-<span class="sd">                | __init__ - Initializes ATSCFGProcessor constructor.</span>
-<span class="sd">                | from_lines - Load CFG content from lines.</span>
-<span class="sd">                | to_string - Convert CFG content to string.</span>
-<span class="sd">                | to_dict - Convert CFG content to dictionary.</span>
+<span class="sd">                | __init__ - Initializes CFGProcessor constructor.</span>
+<span class="sd">                | from_lines - Loads CFG configuration from lines.</span>
+<span class="sd">                | to_string - Converts CFG configuration to string.</span>
+<span class="sd">                | to_dict - Converts CFG configuration to dictionary.</span>
+<span class="sd">                | __str__ - Returns the CFGProcessor as string representation.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
 
     <span class="n">__REGEX_EXP</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;^\s*$&#39;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">            Initializes ATSCFGProcessor constructor.</span>
+<span class="sd">            Initializes CFGProcessor constructor.</span>
+
+<span class="sd">            :return: None.</span>
+<span class="sd">            :rtype: &lt;None&gt;</span>
+<span class="sd">            :exceptions: None.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">__data</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__data</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
 
-<div class="viewcode-block" id="ATSCFGProcessor.from_lines">
-<a class="viewcode-back" href="../../../../ats_utilities.config_io.cfg.cfg_processor.html#ats_utilities.config_io.cfg.cfg_processor.ATSCFGProcessor.from_lines">[docs]</a>
-    <span class="k">def</span> <span class="nf">from_lines</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">lines</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<div class="viewcode-block" id="CFGProcessor.from_lines">
+<a class="viewcode-back" href="../../../../ats_utilities.config_io.cfg.cfg_processor.html#ats_utilities.config_io.cfg.cfg_processor.CFGProcessor.from_lines">[docs]</a>
+    <span class="k">def</span> <span class="nf">from_lines</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">lines</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">            Load CFG content from lines.</span>
+<span class="sd">            Loads CFG configuration from lines.</span>
 
-<span class="sd">            :param lines: CFG content as a list of strings</span>
-<span class="sd">            :type lines: &lt;list[str]&gt;</span>
-<span class="sd">            :return: True (content loaded) | False</span>
+<span class="sd">            :param lines: CFG content as a list of strings.</span>
+<span class="sd">            :type lines: &lt;List[str]&gt;</span>
+<span class="sd">            :return: True (success) | False (fail).</span>
 <span class="sd">            :rtype: &lt;bool&gt;</span>
-<span class="sd">            :exceptions: None</span>
+<span class="sd">            :exceptions: None.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__data</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+
         <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">lines</span><span class="p">:</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="n">match</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__REGEX_EXP</span><span class="p">,</span> <span class="n">line</span><span class="p">):</span>
                 <span class="k">if</span> <span class="s1">&#39;=&#39;</span> <span class="ow">in</span> <span class="n">line</span><span class="p">:</span>
-                    <span class="n">pairs</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;=&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+                    <span class="n">pairs</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;=&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">__data</span><span class="p">[</span><span class="n">pairs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()]</span> <span class="o">=</span> <span class="n">pairs</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+
         <span class="k">return</span> <span class="kc">True</span></div>
 
 
-<div class="viewcode-block" id="ATSCFGProcessor.to_string">
-<a class="viewcode-back" href="../../../../ats_utilities.config_io.cfg.cfg_processor.html#ats_utilities.config_io.cfg.cfg_processor.ATSCFGProcessor.to_string">[docs]</a>
+<div class="viewcode-block" id="CFGProcessor.to_string">
+<a class="viewcode-back" href="../../../../ats_utilities.config_io.cfg.cfg_processor.html#ats_utilities.config_io.cfg.cfg_processor.CFGProcessor.to_string">[docs]</a>
     <span class="k">def</span> <span class="nf">to_string</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">            Convert CFG content to string.</span>
+<span class="sd">            Converts CFG configuration to string.</span>
 
-<span class="sd">            :return: CFG content as string</span>
+<span class="sd">            :return: CFG content as string.</span>
 <span class="sd">            :rtype: &lt;str&gt;</span>
-<span class="sd">            :exceptions: None</span>
+<span class="sd">            :exceptions: None.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="k">return</span> <span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s2"> = </span><span class="si">{</span><span class="n">v</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">__data</span><span class="o">.</span><span class="n">items</span><span class="p">()])</span></div>
 
 
-<div class="viewcode-block" id="ATSCFGProcessor.to_dict">
-<a class="viewcode-back" href="../../../../ats_utilities.config_io.cfg.cfg_processor.html#ats_utilities.config_io.cfg.cfg_processor.ATSCFGProcessor.to_dict">[docs]</a>
-    <span class="k">def</span> <span class="nf">to_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+<div class="viewcode-block" id="CFGProcessor.to_dict">
+<a class="viewcode-back" href="../../../../ats_utilities.config_io.cfg.cfg_processor.html#ats_utilities.config_io.cfg.cfg_processor.CFGProcessor.to_dict">[docs]</a>
+    <span class="k">def</span> <span class="nf">to_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">            Convert CFG content to dictionary.</span>
+<span class="sd">            Converts CFG configuration to dictionary.</span>
 
-<span class="sd">            :return: Dictionary with CFG information</span>
-<span class="sd">            :rtype: &lt;Dict[Any, Any]&gt;</span>
-<span class="sd">            :exceptions: None</span>
+<span class="sd">            :return: Dictionary with CFG information.</span>
+<span class="sd">            :rtype: &lt;Dict[str, str]&gt;</span>
+<span class="sd">            :exceptions: None.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__data</span></div>
-</div>
+
+
+    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">            Returns the CFGProcessor as string representation.</span>
+
+<span class="sd">            :return: The CFGProcessor as string representation.</span>
+<span class="sd">            :rtype: &lt;str&gt;</span>
+<span class="sd">            :exceptions: None.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="n">format_instance_to_string</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div>
 
 </pre></div>
 

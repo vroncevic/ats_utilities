@@ -24,6 +24,7 @@ import yaml
 from typing import Dict, List
 from ats_utilities.config_io.yaml.iyaml_processor import IYAMLProcessor
 from ats_utilities.exceptions.ats_error import ATSError
+from ats_utilities.factory_class import format_instance_to_string
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -48,6 +49,7 @@ class YAMLProcessor(IYAMLProcessor):
                 | decode - Converts raw YAML text to an internal object/structure.
                 | encode - Converts an internal object/structure back to a YAML string.
                 | to_dict - Returns configuration as a flat dictionary.
+                | __str__ - Returns the YAMLProcessor as string representation.
     '''
 
     def __init__(self) -> None:
@@ -95,3 +97,13 @@ class YAMLProcessor(IYAMLProcessor):
             :exceptions: None.
         '''
         return self.__data
+
+    def __str__(self) -> str:
+        '''
+            Returns the YAMLProcessor as string representation.
+
+            :return: The YAMLProcessor as string representation.
+            :rtype: <str>
+            :exceptions: None.
+        '''
+        return format_instance_to_string(self)

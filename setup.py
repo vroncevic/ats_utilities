@@ -45,7 +45,7 @@ SUPPORTED_PY_VERSIONS: List[str] = [
 PYP_CLASSIFIERS: List[str] = SUPPORTED_PY_VERSIONS
 setup(
     name='ats_utilities',
-    version='3.3.7',
+    version='3.3.8',
     description='Python App/Tool/Script Utilities',
     author='Vladimir Roncevic',
     author_email='elektron.ronca@gmail.com',

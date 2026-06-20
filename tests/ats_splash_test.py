@@ -24,7 +24,7 @@ Execute
 
 from typing import List
 from os.path import dirname
-from unittest import TestCase, main
+from unittest import TestCase, main, mock
 from ats_utilities.splasher.engine import Splasher
 from ats_utilities.splasher.component_bundle import SplashComponentBundle
 from ats_utilities.splasher.splash_center_bundle import SplashCenterBundle
@@ -73,7 +73,10 @@ class ATSSplashTestCase(TestCase):
         with self.assertRaises(ATSTypeError):
             Splasher(None)  # type: ignore
 
-    def test_create(self) -> None:
+    @mock.patch('sys.stdout')
+    @mock.patch('builtins.print')
+    @mock.patch('ats_utilities.splasher.engine.sleep')
+    def test_create(self, mock_sleep, mock_print, mock_stdout) -> None:
         '''Test for create (not None)'''
         bundle = SplashComponentBundle(
             prop={
@@ -87,7 +90,10 @@ class ATSSplashTestCase(TestCase):
         splash: Splasher = Splasher(bundle)
         self.assertIsNotNone(splash)
 
-    def test_create_with_ext(self) -> None:
+    @mock.patch('sys.stdout')
+    @mock.patch('builtins.print')
+    @mock.patch('ats_utilities.splasher.engine.sleep')
+    def test_create_with_ext(self, mock_sleep, mock_print, mock_stdout) -> None:
         '''Test for create with external'''
         bundle = SplashComponentBundle(
             prop={
@@ -101,7 +107,10 @@ class ATSSplashTestCase(TestCase):
         splash: Splasher = Splasher(bundle)
         self.assertIsNotNone(splash)
 
-    def test_wrong_parameter_center(self) -> None:
+    @mock.patch('sys.stdout')
+    @mock.patch('builtins.print')
+    @mock.patch('ats_utilities.splasher.engine.sleep')
+    def test_wrong_parameter_center(self, mock_sleep, mock_print, mock_stdout) -> None:
         '''Test for wrong center param'''
         bundle = SplashComponentBundle(
             prop={
@@ -118,7 +127,10 @@ class ATSSplashTestCase(TestCase):
         with self.assertRaises(ATSTypeError):
             splash.center(SplashCenterBundle(columns='wrong_type', text='test'))  # type: ignore
 
-    def test_empty_parameter_center(self) -> None:
+    @mock.patch('sys.stdout')
+    @mock.patch('builtins.print')
+    @mock.patch('ats_utilities.splasher.engine.sleep')
+    def test_empty_parameter_center(self, mock_sleep, mock_print, mock_stdout) -> None:
         '''Test for empty center param'''
         bundle = SplashComponentBundle(
             prop={

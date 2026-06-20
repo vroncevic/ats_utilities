@@ -63,16 +63,16 @@ See the GNU General Public License for more details.
 You should have received a copy of the GNU General Public License along
 with this program. If not, see &lt;<a class="reference external" href="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</a>&gt;.</p>
 </dd>
-<dt>Info</dt><dd><p>Defines abstract class IATSChecker with attribute(s) and method(s).
-Creates an interface for ATSChecker and other checker implementations.</p>
+<dt>Info</dt><dd><p>Defines abstract class IChecker with attribute(s) and method(s).
+Creates an interface for Checker and other checker implementations.</p>
 </dd>
 </dl>
 <dl class="py class">
 <dt class="sig sig-object py" id="ats_utilities.checker.ichecker.ErrorChecker">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ats_utilities.checker.ichecker.</span></span><span class="sig-name descname"><span class="pre">ErrorChecker</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">names=&lt;not</span> <span class="pre">given&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">*values</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">module=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qualname=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">type=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start=1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">boundary=None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ats_utilities/checker/ichecker.html#ErrorChecker"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.checker.ichecker.ErrorChecker" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></p>
-<p>Defines class ErrorChecker with attribute(s) and method(s).
-Marks error types for the ATSChecker.</p>
+<p>Defines class ErrorChecker with attribute(s).
+Marks error types for the Checker.</p>
 <p>It defines:</p>
 <blockquote>
 <div><dl class="field-list">
@@ -162,8 +162,8 @@ last_values: the list of values assigned</p>
 <dt class="sig sig-object py" id="ats_utilities.checker.ichecker.ErrorCheckerProtocol">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ats_utilities.checker.ichecker.</span></span><span class="sig-name descname"><span class="pre">ErrorCheckerProtocol</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ats_utilities/checker/ichecker.html#ErrorCheckerProtocol"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.checker.ichecker.ErrorCheckerProtocol" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Protocol</span></code></p>
-<p>Defines class ErrorCheckerProtocol with attribute(s) and method(s).
-Protocol for error types for the ATSChecker.</p>
+<p>Defines class ErrorCheckerProtocol with attribute(s).
+Protocol for error types for the Checker.</p>
 <p>It defines:</p>
 <blockquote>
 <div><dl class="field-list">
@@ -207,11 +207,11 @@ Protocol for error types for the ATSChecker.</p>
 </dd></dl>
 
 <dl class="py class">
-<dt class="sig sig-object py" id="ats_utilities.checker.ichecker.IATSChecker">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ats_utilities.checker.ichecker.</span></span><span class="sig-name descname"><span class="pre">IATSChecker</span></span><a class="reference internal" href="_modules/ats_utilities/checker/ichecker.html#IATSChecker"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.checker.ichecker.IATSChecker" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ats_utilities.checker.ichecker.IChecker">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ats_utilities.checker.ichecker.</span></span><span class="sig-name descname"><span class="pre">IChecker</span></span><a class="reference internal" href="_modules/ats_utilities/checker/ichecker.html#IChecker"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.checker.ichecker.IChecker" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">ABC</span></code></p>
-<p>Defines abstract class IATSChecker with attribute(s) and method(s).
-Creates an interface for ATSChecker and other checker implementations.</p>
+<p>Defines abstract class IChecker with attribute(s) and method(s).
+Creates an interface for Checker and other checker implementations.</p>
 <p>It defines:</p>
 <blockquote>
 <div><dl class="field-list">
@@ -222,25 +222,26 @@ Creates an interface for ATSChecker and other checker implementations.</p>
 </dd>
 <dt class="field-even">methods<span class="colon">:</span></dt>
 <dd class="field-even"><div class="line-block">
-<div class="line">validate_parameters - Validates parameters for method(s) or function(s) (abstract).</div>
+<div class="line">validates_parameters - Validates parameters for method(s) or function(s) (abstract).</div>
+<div class="line">__str__ - Returns the checker as string representation.</div>
 </div>
 </dd>
 </dl>
 </div></blockquote>
 <dl class="py attribute">
-<dt class="sig sig-object py" id="ats_utilities.checker.ichecker.IATSChecker.ERRORS">
-<span class="sig-name descname"><span class="pre">ERRORS</span></span><a class="headerlink" href="#ats_utilities.checker.ichecker.IATSChecker.ERRORS" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ats_utilities.checker.ichecker.IChecker.ERRORS">
+<span class="sig-name descname"><span class="pre">ERRORS</span></span><a class="headerlink" href="#ats_utilities.checker.ichecker.IChecker.ERRORS" title="Link to this definition">¶</a></dt>
 <dd><p>alias of <a class="reference internal" href="#ats_utilities.checker.ichecker.ErrorChecker" title="ats_utilities.checker.ichecker.ErrorChecker"><code class="xref py py-class docutils literal notranslate"><span class="pre">ErrorChecker</span></code></a></p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="ats_utilities.checker.ichecker.IATSChecker._abc_impl">
-<span class="sig-name descname"><span class="pre">_abc_impl</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;_abc._abc_data</span> <span class="pre">object&gt;</span></em><a class="headerlink" href="#ats_utilities.checker.ichecker.IATSChecker._abc_impl" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ats_utilities.checker.ichecker.IChecker._abc_impl">
+<span class="sig-name descname"><span class="pre">_abc_impl</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;_abc._abc_data</span> <span class="pre">object&gt;</span></em><a class="headerlink" href="#ats_utilities.checker.ichecker.IChecker._abc_impl" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="ats_utilities.checker.ichecker.IATSChecker.validate_parameters">
-<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">validate_parameters</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parameters</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/ats_utilities/checker/ichecker.html#IATSChecker.validate_parameters"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.checker.ichecker.IATSChecker.validate_parameters" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ats_utilities.checker.ichecker.IChecker.validates_parameters">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">validates_parameters</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parameters</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/ats_utilities/checker/ichecker.html#IChecker.validates_parameters"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.checker.ichecker.IChecker.validates_parameters" title="Link to this definition">¶</a></dt>
 <dd><p>Validates parameters for a method(s) or function(s).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -296,10 +297,10 @@ Creates an interface for ATSChecker and other checker implementations.</p>
 <li><a class="reference internal" href="#ats_utilities.checker.ichecker.ErrorCheckerProtocol._is_protocol"><code class="docutils literal notranslate"><span class="pre">ErrorCheckerProtocol._is_protocol</span></code></a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#ats_utilities.checker.ichecker.IATSChecker"><code class="docutils literal notranslate"><span class="pre">IATSChecker</span></code></a><ul>
-<li><a class="reference internal" href="#ats_utilities.checker.ichecker.IATSChecker.ERRORS"><code class="docutils literal notranslate"><span class="pre">IATSChecker.ERRORS</span></code></a></li>
-<li><a class="reference internal" href="#ats_utilities.checker.ichecker.IATSChecker._abc_impl"><code class="docutils literal notranslate"><span class="pre">IATSChecker._abc_impl</span></code></a></li>
-<li><a class="reference internal" href="#ats_utilities.checker.ichecker.IATSChecker.validate_parameters"><code class="docutils literal notranslate"><span class="pre">IATSChecker.validate_parameters()</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.checker.ichecker.IChecker"><code class="docutils literal notranslate"><span class="pre">IChecker</span></code></a><ul>
+<li><a class="reference internal" href="#ats_utilities.checker.ichecker.IChecker.ERRORS"><code class="docutils literal notranslate"><span class="pre">IChecker.ERRORS</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.checker.ichecker.IChecker._abc_impl"><code class="docutils literal notranslate"><span class="pre">IChecker._abc_impl</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.checker.ichecker.IChecker.validates_parameters"><code class="docutils literal notranslate"><span class="pre">IChecker.validates_parameters()</span></code></a></li>
 </ul>
 </li>
 </ul>

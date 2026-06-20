@@ -26,6 +26,7 @@ from typing import List
 from unittest import TestCase, main
 from os.path import dirname
 from ats_utilities.config_io.conf_file import ConfFile
+from ats_utilities.config_io.file_bundle import ATSFileBundle
 from ats_utilities.exceptions.ats_type_error import ATSTypeError
 from ats_utilities.exceptions.ats_value_error import ATSValueError
 
@@ -69,37 +70,43 @@ class ConfigFileTestCase(TestCase):
 
     def test_config_path(self) -> None:
         '''Test for file path'''
-        with ConfFile(self.file_path, 'r', 'Makefile') as cfg:
+        bundle = ATSFileBundle(file_path=self.file_path, file_mode='r', file_format='Makefile')
+        with ConfFile(bundle) as cfg:
             self.assertIsNotNone(cfg)
 
     def test_none_file(self) -> None:
         '''Test for None file'''
-        with self.assertRaises(ATSTypeError):
-            with ConfFile(None, 'r', 'Makefile'):
+        with self.assertRaises(ATSValueError):
+            bundle = ATSFileBundle(file_path=None, file_mode='r', file_format='Makefile')
+            with ConfFile(bundle):
                 pass
 
     def test_wrong_path_file(self) -> None:
         '''Test for wrong file path'''
-        with ConfFile('test', 'r', 'Makefile') as cfg:
+        bundle = ATSFileBundle(file_path='test', file_mode='r', file_format='Makefile')
+        with ConfFile(bundle) as cfg:
             self.assertIsNone(cfg)
 
     def test_empty_path_file(self) -> None:
         '''Test for missing file path'''
         with self.assertRaises(ATSValueError):
-            with ConfFile('', 'r', 'Makefile') as cfg:
-                self.assertIsNone(cfg)
+            bundle = ATSFileBundle(file_path='', file_mode='r', file_format='Makefile')
+            with ConfFile(bundle):
+                pass
 
     def test_empty_type_file(self) -> None:
         '''Test for missing file format'''
         with self.assertRaises(ATSValueError):
-            with ConfFile('test', 'r', '') as cfg:
-                self.assertIsNone(cfg)
+            bundle = ATSFileBundle(file_path='test', file_mode='r', file_format='')
+            with ConfFile(bundle):
+                pass
 
     def test_empty_mode_file(self) -> None:
         '''Test for missing file mode'''
         with self.assertRaises(ATSValueError):
-            with ConfFile('test', '', 'Makefile') as cfg:
-                self.assertIsNone(cfg)
+            bundle = ATSFileBundle(file_path='test', file_mode='', file_format='Makefile')
+            with ConfFile(bundle):
+                pass
 
 
 if __name__ == '__main__':

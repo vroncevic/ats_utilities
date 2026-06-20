@@ -54,28 +54,29 @@
 <span class="sd">    You should have received a copy of the GNU General Public License along</span>
 <span class="sd">    with this program. If not, see &lt;http://www.gnu.org/licenses/&gt;.</span>
 <span class="sd">Info</span>
-<span class="sd">    Defines class ATSTypeValidator with attribute(s) and method(s).</span>
+<span class="sd">    Defines class TypeValidator with attribute(s) and method(s).</span>
 <span class="sd">    Creates an API for handling type validation parameters for method(s) and function(s).</span>
 <span class="sd">&#39;&#39;&#39;</span>
 
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">List</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.checker.itype_validator</span> <span class="kn">import</span> <span class="n">IATSTypeValidator</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.factory_class</span> <span class="kn">import</span> <span class="n">format_instance_to_string</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.checker.itype_validator</span> <span class="kn">import</span> <span class="n">ITypeValidator</span>
 
 <span class="n">__author__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;Vladimir Roncevic&#39;</span>
 <span class="n">__copyright__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;(C) 2026, https://vroncevic.github.io/ats_utilities&#39;</span>
 <span class="n">__credits__</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Vladimir Roncevic&#39;</span><span class="p">,</span> <span class="s1">&#39;Python Software Foundation&#39;</span><span class="p">]</span>
 <span class="n">__license__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE&#39;</span>
-<span class="n">__version__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;3.3.7&#39;</span>
+<span class="n">__version__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;3.3.8&#39;</span>
 <span class="n">__maintainer__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;Vladimir Roncevic&#39;</span>
 <span class="n">__email__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;elektron.ronca@gmail.com&#39;</span>
 <span class="n">__status__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;Updated&#39;</span>
 
 
-<div class="viewcode-block" id="ATSTypeValidator">
-<a class="viewcode-back" href="../../../ats_utilities.checker.type_validator.html#ats_utilities.checker.type_validator.ATSTypeValidator">[docs]</a>
-<span class="k">class</span> <span class="nc">ATSTypeValidator</span><span class="p">(</span><span class="n">IATSTypeValidator</span><span class="p">):</span>
+<div class="viewcode-block" id="TypeValidator">
+<a class="viewcode-back" href="../../../ats_utilities.checker.type_validator.html#ats_utilities.checker.type_validator.TypeValidator">[docs]</a>
+<span class="k">class</span> <span class="nc">TypeValidator</span><span class="p">(</span><span class="n">ITypeValidator</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">        Defines class ATSTypeValidator with attribute(s) and method(s).</span>
+<span class="sd">        Defines class TypeValidator with attribute(s) and method(s).</span>
 <span class="sd">        Creates an API for type validation between instances and type names.</span>
 <span class="sd">        Mechanism for validating function or method parameters (type).</span>
 
@@ -86,58 +87,69 @@
 <span class="sd">                | is_match - Compares instance type with expected type name.</span>
 <span class="sd">                | is_subtype - Checks if instance is a subtype of expected type name.</span>
 <span class="sd">                | get_type_name - Returns the string representation of an instance type.</span>
+<span class="sd">                | __str__ - Returns the ATS type validator as string representation.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
 
-<div class="viewcode-block" id="ATSTypeValidator.is_match">
-<a class="viewcode-back" href="../../../ats_utilities.checker.type_validator.html#ats_utilities.checker.type_validator.ATSTypeValidator.is_match">[docs]</a>
+<div class="viewcode-block" id="TypeValidator.is_match">
+<a class="viewcode-back" href="../../../ats_utilities.checker.type_validator.html#ats_utilities.checker.type_validator.TypeValidator.is_match">[docs]</a>
     <span class="k">def</span> <span class="nf">is_match</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">inst</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">expected_type_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Compares instance type with expected type name.</span>
 <span class="sd">            Compares the __name__ of the instance type with expected string.</span>
 
-<span class="sd">            :param inst: The instance to check</span>
+<span class="sd">            :param inst: The instance to check.</span>
 <span class="sd">            :type inst: &lt;Any&gt;</span>
-<span class="sd">            :param expected_type_name: The expected type name</span>
+<span class="sd">            :param expected_type_name: The expected type name.</span>
 <span class="sd">            :type expected_type_name: &lt;str&gt;</span>
-<span class="sd">            :return: True if the types match, False otherwise</span>
+<span class="sd">            :return: True (success), False (fail).</span>
 <span class="sd">            :rtype: &lt;bool&gt;</span>
-<span class="sd">            :exceptions: None</span>
+<span class="sd">            :exceptions: None.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="k">return</span> <span class="nb">type</span><span class="p">(</span><span class="n">inst</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span> <span class="o">==</span> <span class="n">expected_type_name</span></div>
 
 
-<div class="viewcode-block" id="ATSTypeValidator.is_subtype">
-<a class="viewcode-back" href="../../../ats_utilities.checker.type_validator.html#ats_utilities.checker.type_validator.ATSTypeValidator.is_subtype">[docs]</a>
+<div class="viewcode-block" id="TypeValidator.is_subtype">
+<a class="viewcode-back" href="../../../ats_utilities.checker.type_validator.html#ats_utilities.checker.type_validator.TypeValidator.is_subtype">[docs]</a>
     <span class="k">def</span> <span class="nf">is_subtype</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">inst</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">expected_type_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Checks if instance is a subtype of expected type name.</span>
 <span class="sd">            Traverses the Method Resolution Order (MRO) to find a match.</span>
 
-<span class="sd">            :param inst: The instance to check</span>
+<span class="sd">            :param inst: The instance to check.</span>
 <span class="sd">            :type inst: &lt;Any&gt;</span>
-<span class="sd">            :param expected_type_name: The expected parent type name</span>
+<span class="sd">            :param expected_type_name: The expected parent type name.</span>
 <span class="sd">            :type expected_type_name: &lt;str&gt;</span>
-<span class="sd">            :return: True if any class in MRO matches the name, False otherwise</span>
+<span class="sd">            :return: True (is), False (not).</span>
 <span class="sd">            :rtype: &lt;bool&gt;</span>
-<span class="sd">            :exceptions: None</span>
+<span class="sd">            :exceptions: None.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="k">return</span> <span class="nb">any</span><span class="p">(</span><span class="bp">cls</span><span class="o">.</span><span class="vm">__name__</span> <span class="o">==</span> <span class="n">expected_type_name</span> <span class="k">for</span> <span class="bp">cls</span> <span class="ow">in</span> <span class="nb">type</span><span class="p">(</span><span class="n">inst</span><span class="p">)</span><span class="o">.</span><span class="n">mro</span><span class="p">())</span></div>
 
 
-<div class="viewcode-block" id="ATSTypeValidator.get_type_name">
-<a class="viewcode-back" href="../../../ats_utilities.checker.type_validator.html#ats_utilities.checker.type_validator.ATSTypeValidator.get_type_name">[docs]</a>
+<div class="viewcode-block" id="TypeValidator.get_type_name">
+<a class="viewcode-back" href="../../../ats_utilities.checker.type_validator.html#ats_utilities.checker.type_validator.TypeValidator.get_type_name">[docs]</a>
     <span class="k">def</span> <span class="nf">get_type_name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">inst</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Returns the string representation of an instance type.</span>
 
-<span class="sd">            :param inst: The instance to inspect</span>
+<span class="sd">            :param inst: The instance to inspect.</span>
 <span class="sd">            :type inst: &lt;Any&gt;</span>
-<span class="sd">            :return: String name of the type</span>
+<span class="sd">            :return: String name of the type.</span>
 <span class="sd">            :rtype: &lt;str&gt;</span>
-<span class="sd">            :exceptions: None</span>
+<span class="sd">            :exceptions: None.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="k">return</span> <span class="nb">type</span><span class="p">(</span><span class="n">inst</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span></div>
-</div>
+
+
+    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">            Returns the ATS type validator as string representation.</span>
+
+<span class="sd">            :return: The ATS type validator as string representation.</span>
+<span class="sd">            :rtype: &lt;str&gt;</span>
+<span class="sd">            :exceptions: None.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="n">format_instance_to_string</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div>
 
 </pre></div>
 

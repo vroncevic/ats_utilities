@@ -61,7 +61,7 @@ class Xml2ObjectTestCase(TestCase):
         '''Call before test case.'''
         self.xml_processor = mock.MagicMock(spec=IXMLProcessor)
         self.xml2obj: Xml2Object = Xml2Object(
-            f'{dirname(__file__)}/config/ats_cli_xml_api.xml', self.xml_processor
+            f'{dirname(__file__)}/config/ats_cli_xml_api.xml', xml_processor=self.xml_processor
         )
 
     def tearDown(self) -> None:
@@ -77,9 +77,11 @@ class Xml2ObjectTestCase(TestCase):
 
     def test_none_config_path(self) -> None:
         '''Test for None as file path'''
-        with self.assertRaises(ATSTypeError):
-            Xml2Object(None, self.xml_processor)
+        xml2obj = Xml2Object(None, xml_processor=self.xml_processor)
+        self.assertIsNone(xml2obj.read_configuration())
 
 
 if __name__ == '__main__':
     main()
+
+

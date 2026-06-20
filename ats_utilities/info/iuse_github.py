@@ -61,12 +61,12 @@ class IUseGitHub(ABC):
 
     @use_github.setter
     @abstractmethod
-    def use_github(self, use_github: Optional[str]) -> None:
+    def use_github(self, use_github: Optional[bool]) -> None:
         '''
             Property method for setting ATS use GitHub infrastructure status.
 
             :param use_github: The ATS use GitHub infrastructure status | None.
-            :type use_github: <Optional[str]>
+            :type use_github: <Optional[bool]>
             :exceptions: NotImplementedError.
         '''
         raise NotImplementedError("Method use_github() must be implemented.")

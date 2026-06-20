@@ -27,6 +27,8 @@ from unittest.mock import MagicMock
 from unittest import TestCase, main
 from os.path import dirname
 from ats_utilities.base.engine import Base
+from ats_utilities.base.component_bundle import BaseComponentBundle
+from ats_utilities.splasher.isplasher import ISplasher
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -41,14 +43,16 @@ __status__: str = 'Updated'
 class ATSCliCfgAPI(Base):
     '''Simple Class for checking CfgCLI.'''
 
-    _CONFIG: str = '/config/ats_cli_cfg_api.cfg'
+    _CONFIG: str = '/config/correct/ats_cli_cfg_api.cfg'
     _OPS: List[str] = ['-t', '--test', '-v']
 
     def __init__(self, verbose: bool = False) -> None:
         '''Initial constructor.'''
         current_dir: str = dirname(__file__)
         base_info: str = f'{current_dir}{self._CONFIG}'
-        super().__init__(base_info)
+        mock_splasher = MagicMock(spec=ISplasher)
+        bundle = BaseComponentBundle(info_file=base_info, splasher=mock_splasher)
+        super().__init__(bundle)
         if self.is_operational():
             self.add_new_option(
                 self._OPS[0], self._OPS[1], dest='test',

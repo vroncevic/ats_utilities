@@ -67,6 +67,11 @@ class IJSONProcessor(BaseIJSONProcessor):
         '''Implementation of abstract method.'''
         return self.encode_mock()
 
+    def __str__(self) -> str:
+        '''Implementation of abstract method.'''
+        return ""
+
+
 
 class Object2JsonTestCase(TestCase):
     '''
@@ -111,8 +116,7 @@ class Object2JsonTestCase(TestCase):
 
     def test_write_none_configuration(self) -> None:
         '''Test for write none configuration'''
-        with self.assertRaises(ATSTypeError):
-            self.obj2json.write_configuration(None)  # type: ignore
+        self.assertFalse(self.obj2json.write_configuration(None))  # type: ignore
 
     def test_write_empty_configuration(self) -> None:
         '''Test for write empty configuration'''
@@ -121,9 +125,11 @@ class Object2JsonTestCase(TestCase):
 
     def test_none_config_path(self) -> None:
         '''Test for None as file path'''
-        with self.assertRaises(ATSTypeError):
-            Object2Json(None)
+        writer = Object2Json(None)
+        mock_config = IJSONProcessor()
+        self.assertFalse(writer.write_configuration(mock_config))
 
 
 if __name__ == '__main__':
     main()
+

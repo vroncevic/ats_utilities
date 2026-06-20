@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="./">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>ats_utilities.config_setup.component_bundle module &#8212; ats_utilities https://github.com/vroncevic/ats_utilities/releases documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="_static/classic.css?v=514cf933" />
+    
+    <script src="_static/documentation_options.js?v=893dd00a"></script>
+    <script src="_static/doctools.js?v=888ff710"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="ats_utilities.config_setup.ipro_config module" href="ats_utilities.config_setup.ipro_config.html" />
+    <link rel="prev" title="ats_utilities.config_setup package" href="ats_utilities.config_setup.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="ats_utilities.config_setup.ipro_config.html" title="ats_utilities.config_setup.ipro_config module"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="ats_utilities.config_setup.html" title="ats_utilities.config_setup package"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">ats_utilities https://github.com/vroncevic/ats_utilities/releases documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="modules.html" >ats_utilities</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="ats_utilities.html" >ats_utilities package</a> &#187;</li>
+          <li class="nav-item nav-item-3"><a href="ats_utilities.config_setup.html" accesskey="U">ats_utilities.config_setup package</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">ats_utilities.config_setup.component_bundle module</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="module-ats_utilities.config_setup.component_bundle">
+<span id="ats-utilities-config-setup-component-bundle-module"></span><h1>ats_utilities.config_setup.component_bundle module<a class="headerlink" href="#module-ats_utilities.config_setup.component_bundle" title="Link to this heading">¶</a></h1>
+<dl class="simple">
+<dt>Module</dt><dd><p>component_bundle.py</p>
+</dd>
+<dt>Copyright</dt><dd><p>Copyright (C) 2017 - 2026 Vladimir Roncevic &lt;<a class="reference external" href="mailto:elektron&#46;ronca&#37;&#52;&#48;gmail&#46;com">elektron<span>&#46;</span>ronca<span>&#64;</span>gmail<span>&#46;</span>com</a>&gt;
+ats_utilities is free software: you can redistribute it and/or modify it
+under the terms of the GNU General Public License as published by the
+Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+ats_utilities is distributed in the hope that it will be useful, but
+WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+See the GNU General Public License for more details.
+You should have received a copy of the GNU General Public License along
+with this program. If not, see &lt;<a class="reference external" href="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</a>&gt;.</p>
+</dd>
+<dt>Info</dt><dd><p>Defines component bundle dataclass for dependency grouping and management.
+Encapsulates config setup components to minimize constructor overhead.</p>
+</dd>
+</dl>
+<dl class="py class">
+<dt class="sig sig-object py" id="ats_utilities.config_setup.component_bundle.ConfigSetupComponentBundle">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ats_utilities.config_setup.component_bundle.</span></span><span class="sig-name descname"><span class="pre">ConfigSetupComponentBundle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pro_config:</span> <span class="pre">~ats_utilities.config_setup.ipro_config.IProConfig</span> <span class="pre">|</span> <span class="pre">None</span> <span class="pre">=</span> <span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pro_name:</span> <span class="pre">~ats_utilities.config_setup.ipro_name.IProName</span> <span class="pre">|</span> <span class="pre">None</span> <span class="pre">=</span> <span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">template_dir:</span> <span class="pre">~ats_utilities.config_setup.itemplate_dir.ITemplateDir</span> <span class="pre">|</span> <span class="pre">None</span> <span class="pre">=</span> <span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">context_bundle:</span> <span class="pre">~ats_utilities.context_bundle.ContextBundle</span> <span class="pre">|</span> <span class="pre">None</span> <span class="pre">=</span> <span class="pre">&lt;factory&gt;</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ats_utilities/config_setup/component_bundle.html#ConfigSetupComponentBundle"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.config_setup.component_bundle.ConfigSetupComponentBundle" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Defines component bundle dataclass for dependency grouping and management.
+Encapsulates config setup components to minimize constructor overhead.</p>
+<p>It defines:</p>
+<blockquote>
+<div><dl class="field-list">
+<dt class="field-odd">attributes<span class="colon">:</span></dt>
+<dd class="field-odd"><div class="line-block">
+<div class="line">pro_config - Project configuration mechanism (default None).</div>
+<div class="line">pro_name - Project name mechanism (default None).</div>
+<div class="line">template_dir - Project template directory mechanism (default None).</div>
+<div class="line">context_bundle - Context bundle for configuration utilities (default ContextBundle()).</div>
+</div>
+</dd>
+<dt class="field-even">methods<span class="colon">:</span></dt>
+<dd class="field-even"><div class="line-block">
+<div class="line">validate - Validates that essential components are set.</div>
+<div class="line">merge - Merges non-None values from another bundle into this one.</div>
+<div class="line">to_dict - Converts the bundle attributes to a dictionary.</div>
+</div>
+</dd>
+</dl>
+</div></blockquote>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ats_utilities.config_setup.component_bundle.ConfigSetupComponentBundle.context_bundle">
+<span class="sig-name descname"><span class="pre">context_bundle</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="ats_utilities.context_bundle.html#ats_utilities.context_bundle.ContextBundle" title="ats_utilities.context_bundle.ContextBundle"><span class="pre">ContextBundle</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#ats_utilities.config_setup.component_bundle.ConfigSetupComponentBundle.context_bundle" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ats_utilities.config_setup.component_bundle.ConfigSetupComponentBundle.merge">
+<span class="sig-name descname"><span class="pre">merge</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#ats_utilities.config_setup.component_bundle.ConfigSetupComponentBundle" title="ats_utilities.config_setup.component_bundle.ConfigSetupComponentBundle"><span class="pre">ConfigSetupComponentBundle</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/ats_utilities/config_setup/component_bundle.html#ConfigSetupComponentBundle.merge"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.config_setup.component_bundle.ConfigSetupComponentBundle.merge" title="Link to this definition">¶</a></dt>
+<dd><p>Merges non-None values from another bundle into this one.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>other</strong> (<em>&lt;ConfigSetupComponentBundle&gt;</em>) – Another bundle to merge into this one.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>&lt;None&gt;</p>
+</dd>
+<dt class="field-even">Exceptions<span class="colon">:</span></dt>
+<dd class="field-even"><p>None.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ats_utilities.config_setup.component_bundle.ConfigSetupComponentBundle.pro_config">
+<span class="sig-name descname"><span class="pre">pro_config</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="ats_utilities.config_setup.ipro_config.html#ats_utilities.config_setup.ipro_config.IProConfig" title="ats_utilities.config_setup.ipro_config.IProConfig"><span class="pre">IProConfig</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#ats_utilities.config_setup.component_bundle.ConfigSetupComponentBundle.pro_config" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ats_utilities.config_setup.component_bundle.ConfigSetupComponentBundle.pro_name">
+<span class="sig-name descname"><span class="pre">pro_name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="ats_utilities.config_setup.ipro_name.html#ats_utilities.config_setup.ipro_name.IProName" title="ats_utilities.config_setup.ipro_name.IProName"><span class="pre">IProName</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#ats_utilities.config_setup.component_bundle.ConfigSetupComponentBundle.pro_name" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ats_utilities.config_setup.component_bundle.ConfigSetupComponentBundle.template_dir">
+<span class="sig-name descname"><span class="pre">template_dir</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="ats_utilities.config_setup.itemplate_dir.html#ats_utilities.config_setup.itemplate_dir.ITemplateDir" title="ats_utilities.config_setup.itemplate_dir.ITemplateDir"><span class="pre">ITemplateDir</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#ats_utilities.config_setup.component_bundle.ConfigSetupComponentBundle.template_dir" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ats_utilities.config_setup.component_bundle.ConfigSetupComponentBundle.to_dict">
+<span class="sig-name descname"><span class="pre">to_dict</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="reference internal" href="_modules/ats_utilities/config_setup/component_bundle.html#ConfigSetupComponentBundle.to_dict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.config_setup.component_bundle.ConfigSetupComponentBundle.to_dict" title="Link to this definition">¶</a></dt>
+<dd><p>Converts the bundle attributes to a dictionary.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Dictionary representation of the bundle attributes.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>&lt;dict&gt;</p>
+</dd>
+<dt class="field-odd">Exceptions<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ats_utilities.config_setup.component_bundle.ConfigSetupComponentBundle.validate">
+<span class="sig-name descname"><span class="pre">validate</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/ats_utilities/config_setup/component_bundle.html#ConfigSetupComponentBundle.validate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.config_setup.component_bundle.ConfigSetupComponentBundle.validate" title="Link to this definition">¶</a></dt>
+<dd><p>Validates that essential components are set.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>&lt;None&gt;</p>
+</dd>
+<dt class="field-odd">Exceptions<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ValueError</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h3><a href="index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">ats_utilities.config_setup.component_bundle module</a><ul>
+<li><a class="reference internal" href="#ats_utilities.config_setup.component_bundle.ConfigSetupComponentBundle"><code class="docutils literal notranslate"><span class="pre">ConfigSetupComponentBundle</span></code></a><ul>
+<li><a class="reference internal" href="#ats_utilities.config_setup.component_bundle.ConfigSetupComponentBundle.context_bundle"><code class="docutils literal notranslate"><span class="pre">ConfigSetupComponentBundle.context_bundle</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.config_setup.component_bundle.ConfigSetupComponentBundle.merge"><code class="docutils literal notranslate"><span class="pre">ConfigSetupComponentBundle.merge()</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.config_setup.component_bundle.ConfigSetupComponentBundle.pro_config"><code class="docutils literal notranslate"><span class="pre">ConfigSetupComponentBundle.pro_config</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.config_setup.component_bundle.ConfigSetupComponentBundle.pro_name"><code class="docutils literal notranslate"><span class="pre">ConfigSetupComponentBundle.pro_name</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.config_setup.component_bundle.ConfigSetupComponentBundle.template_dir"><code class="docutils literal notranslate"><span class="pre">ConfigSetupComponentBundle.template_dir</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.config_setup.component_bundle.ConfigSetupComponentBundle.to_dict"><code class="docutils literal notranslate"><span class="pre">ConfigSetupComponentBundle.to_dict()</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.config_setup.component_bundle.ConfigSetupComponentBundle.validate"><code class="docutils literal notranslate"><span class="pre">ConfigSetupComponentBundle.validate()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="ats_utilities.config_setup.html"
+                          title="previous chapter">ats_utilities.config_setup package</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="ats_utilities.config_setup.ipro_config.html"
+                          title="next chapter">ats_utilities.config_setup.ipro_config module</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/ats_utilities.config_setup.component_bundle.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="ats_utilities.config_setup.ipro_config.html" title="ats_utilities.config_setup.ipro_config module"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="ats_utilities.config_setup.html" title="ats_utilities.config_setup package"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">ats_utilities https://github.com/vroncevic/ats_utilities/releases documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="modules.html" >ats_utilities</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="ats_utilities.html" >ats_utilities package</a> &#187;</li>
+          <li class="nav-item nav-item-3"><a href="ats_utilities.config_setup.html" >ats_utilities.config_setup package</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">ats_utilities.config_setup.component_bundle module</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+    &#169; Copyright 2026, https://vroncevic.github.io/ats_utilities.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.2.6.
+    </div>
+  </body>
+</html>

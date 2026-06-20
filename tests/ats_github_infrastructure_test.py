@@ -59,53 +59,45 @@ class ATSGitHubTestCase(TestCase):
 
     def setUp(self) -> None:
         '''Call before test case.'''
+        self.splash_property: dict = {
+            'ats_organization': 'App Example',
+            'ats_repository': 'app_example'
+        }
 
     def tearDown(self) -> None:
         '''Call after test case.'''
 
     def test_create(self) -> None:
         '''Test for create'''
-        splash_property: dict[str, str] = {
-            'ats_organization': 'App Example',
-            'ats_repository': 'app_example'
-        }
-        self.assertIsNotNone(GitHubInfrastructure(splash_property))
+        infra = GitHubInfrastructure()
+        infra.infrastructure_property = self.splash_property
+        self.assertIsNotNone(infra)
 
     def test_none_property(self) -> None:
         '''Test None splash property'''
+        infra = GitHubInfrastructure()
         with self.assertRaises(ATSTypeError):
-            GitHubInfrastructure(None)  # type: ignore
+            infra.infrastructure_property = None  # type: ignore
 
     def test_get_info(self) -> None:
         '''Test get info'''
-        info: GitHubInfrastructure = GitHubInfrastructure(
-            {
-                'ats_organization': 'App Example',
-                'ats_repository': 'app_example'
-            }
-        )
+        info = GitHubInfrastructure()
+        info.infrastructure_property = self.splash_property
         self.assertIsNotNone(info.get_info_text())
 
     def test_get_issue(self) -> None:
         '''Test get issue info'''
-        info: GitHubInfrastructure = GitHubInfrastructure(
-            {
-                'ats_organization': 'App Example',
-                'ats_repository': 'app_example'
-            }
-        )
+        info = GitHubInfrastructure()
+        info.infrastructure_property = self.splash_property
         self.assertIsNotNone(info.get_issue_text())
 
     def test_get_author(self) -> None:
         '''Test get author info'''
-        info: GitHubInfrastructure = GitHubInfrastructure(
-            {
-                'ats_organization': 'App Example',
-                'ats_repository': 'app_example'
-            }
-        )
+        info = GitHubInfrastructure()
+        info.infrastructure_property = self.splash_property
         self.assertIsNotNone(info.get_author_text())
 
 
 if __name__ == '__main__':
     main()
+

@@ -56,16 +56,23 @@ other information that should be provided before the modules are installed.</p>
 <li class="toctree-l1"><a class="reference internal" href="modules.html">ats_utilities</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="ats_utilities.html">ats_utilities package</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="ats_utilities.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ats_utilities.base.html">ats_utilities.base package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ats_utilities.checker.html">ats_utilities.checker package</a></li>
-<li class="toctree-l4"><a class="reference internal" href="ats_utilities.cli.html">ats_utilities.cli package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ats_utilities.config_io.html">ats_utilities.config_io package</a></li>
-<li class="toctree-l4"><a class="reference internal" href="ats_utilities.console_io.html">ats_utilities.console_io package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ats_utilities.config_setup.html">ats_utilities.config_setup package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ats_utilities.exceptions.html">ats_utilities.exceptions package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ats_utilities.info.html">ats_utilities.info package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ats_utilities.logging.html">ats_utilities.logging package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ats_utilities.option.html">ats_utilities.option package</a></li>
-<li class="toctree-l4"><a class="reference internal" href="ats_utilities.pro_config.html">ats_utilities.pro_config package</a></li>
-<li class="toctree-l4"><a class="reference internal" href="ats_utilities.splash.html">ats_utilities.splash package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ats_utilities.reporter.html">ats_utilities.reporter package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ats_utilities.splasher.html">ats_utilities.splasher package</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="ats_utilities.html#submodules">Submodules</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ats_utilities.context_bundle.html">ats_utilities.context_bundle module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ats_utilities.factory_class.html">ats_utilities.factory_class module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ats_utilities.factory_component.html">ats_utilities.factory_component module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ats_utilities.factory_context_bundle.html">ats_utilities.factory_context_bundle module</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="ats_utilities.html#module-ats_utilities">Module contents</a></li>
@@ -129,10 +136,17 @@ pip3<span class="w"> </span>install<span class="w"> </span>ats_utilities
 <p><strong>ats_utilities</strong> is based on OOP.</p>
 <p>Framework structure</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ats_utilities/
+<span class="w">    </span>├──<span class="w"> </span>base/
+<span class="w">    </span>│<span class="w">   </span>├──<span class="w"> </span>component_bundle.py
+<span class="w">    </span>│<span class="w">   </span>├──<span class="w"> </span>engine.py
+<span class="w">    </span>│<span class="w">   </span>├──<span class="w"> </span>ibase.py
+<span class="w">    </span>│<span class="w">   </span>└──<span class="w"> </span>__init__.py
 <span class="w">    </span>├──<span class="w"> </span>checker/
-<span class="w">    </span>│<span class="w">   </span>├──<span class="w"> </span>ats_checker.py
+<span class="w">    </span>│<span class="w">   </span>├──<span class="w"> </span>checker_reporter_bundle.py
 <span class="w">    </span>│<span class="w">   </span>├──<span class="w"> </span>check_reporter.py
+<span class="w">    </span>│<span class="w">   </span>├──<span class="w"> </span>component_bundle.py
 <span class="w">    </span>│<span class="w">   </span>├──<span class="w"> </span>context_provider.py
+<span class="w">    </span>│<span class="w">   </span>├──<span class="w"> </span>engine.py
 <span class="w">    </span>│<span class="w">   </span>├──<span class="w"> </span>format_validator.py
 <span class="w">    </span>│<span class="w">   </span>├──<span class="w"> </span>ichecker.py
 <span class="w">    </span>│<span class="w">   </span>├──<span class="w"> </span>icheck_reporter.py
@@ -140,64 +154,73 @@ pip3<span class="w"> </span>install<span class="w"> </span>ats_utilities
 <span class="w">    </span>│<span class="w">   </span>├──<span class="w"> </span>iformat_validator.py
 <span class="w">    </span>│<span class="w">   </span>├──<span class="w"> </span>__init__.py
 <span class="w">    </span>│<span class="w">   </span>├──<span class="w"> </span>itype_validator.py
+<span class="w">    </span>│<span class="w">   </span>├──<span class="w"> </span>proxy_validator.py
 <span class="w">    </span>│<span class="w">   </span>└──<span class="w"> </span>type_validator.py
-<span class="w">    </span>├──<span class="w"> </span>cli/
-<span class="w">    </span>│<span class="w">   </span>├──<span class="w"> </span>ats_cli.py
-<span class="w">    </span>│<span class="w">   </span>├──<span class="w"> </span>config_manager.py
-<span class="w">    </span>│<span class="w">   </span>├──<span class="w"> </span>icli.py
-<span class="w">    </span>│<span class="w">   </span>├──<span class="w"> </span>iconfig_manager.py
-<span class="w">    </span>│<span class="w">   </span>└──<span class="w"> </span>__init__.py
 <span class="w">    </span>├──<span class="w"> </span>config_io/
 <span class="w">    </span>│<span class="w">   </span>├──<span class="w"> </span>cfg/
 <span class="w">    </span>│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>cfg2object.py
-<span class="w">    </span>│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>cfgbase.py
+<span class="w">    </span>│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>cfg_loader.py
 <span class="w">    </span>│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>cfg_processor.py
+<span class="w">    </span>│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>cfg_storer.py
 <span class="w">    </span>│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>icfg_processor.py
 <span class="w">    </span>│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>__init__.py
 <span class="w">    </span>│<span class="w">   </span>│<span class="w">   </span>└──<span class="w"> </span>object2cfg.py
 <span class="w">    </span>│<span class="w">   </span>├──<span class="w"> </span>conf_file.py
+<span class="w">    </span>│<span class="w">   </span>├──<span class="w"> </span>config_file_bundle.py
+<span class="w">    </span>│<span class="w">   </span>├──<span class="w"> </span>config_loader_bundle.py
+<span class="w">    </span>│<span class="w">   </span>├──<span class="w"> </span>config_loader.py
+<span class="w">    </span>│<span class="w">   </span>├──<span class="w"> </span>file_bundle.py
 <span class="w">    </span>│<span class="w">   </span>├──<span class="w"> </span>file_check.py
 <span class="w">    </span>│<span class="w">   </span>├──<span class="w"> </span>iconf_file.py
+<span class="w">    </span>│<span class="w">   </span>├──<span class="w"> </span>iconfig_loader.py
 <span class="w">    </span>│<span class="w">   </span>├──<span class="w"> </span>ifile_check.py
+<span class="w">    </span>│<span class="w">   </span>├──<span class="w"> </span>iloader.py
 <span class="w">    </span>│<span class="w">   </span>├──<span class="w"> </span>ini/
 <span class="w">    </span>│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>iini_processor.py
 <span class="w">    </span>│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>ini2object.py
-<span class="w">    </span>│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>inibase.py
+<span class="w">    </span>│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>ini_loader.py
 <span class="w">    </span>│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>ini_processor.py
+<span class="w">    </span>│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>ini_storer.py
 <span class="w">    </span>│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>__init__.py
 <span class="w">    </span>│<span class="w">   </span>│<span class="w">   </span>└──<span class="w"> </span>object2ini.py
 <span class="w">    </span>│<span class="w">   </span>├──<span class="w"> </span>__init__.py
 <span class="w">    </span>│<span class="w">   </span>├──<span class="w"> </span>iread.py
+<span class="w">    </span>│<span class="w">   </span>├──<span class="w"> </span>istorer.py
 <span class="w">    </span>│<span class="w">   </span>├──<span class="w"> </span>iwrite.py
 <span class="w">    </span>│<span class="w">   </span>├──<span class="w"> </span>json/
 <span class="w">    </span>│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>ijson_processor.py
 <span class="w">    </span>│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>__init__.py
 <span class="w">    </span>│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>json2object.py
-<span class="w">    </span>│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>jsonbase.py
+<span class="w">    </span>│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>json_loader.py
 <span class="w">    </span>│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>json_processor.py
+<span class="w">    </span>│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>json_storer.py
 <span class="w">    </span>│<span class="w">   </span>│<span class="w">   </span>└──<span class="w"> </span>object2json.py
 <span class="w">    </span>│<span class="w">   </span>├──<span class="w"> </span>xml/
 <span class="w">    </span>│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>__init__.py
 <span class="w">    </span>│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>ixml_processor.py
 <span class="w">    </span>│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>object2xml.py
 <span class="w">    </span>│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>xml2object.py
-<span class="w">    </span>│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>xmlbase.py
-<span class="w">    </span>│<span class="w">   </span>│<span class="w">   </span>└──<span class="w"> </span>xml_processor.py
+<span class="w">    </span>│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>xml_loader.py
+<span class="w">    </span>│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>xml_processor.py
+<span class="w">    </span>│<span class="w">   </span>│<span class="w">   </span>└──<span class="w"> </span>xml_storer.py
 <span class="w">    </span>│<span class="w">   </span>└──<span class="w"> </span>yaml/
 <span class="w">    </span>│<span class="w">       </span>├──<span class="w"> </span>__init__.py
 <span class="w">    </span>│<span class="w">       </span>├──<span class="w"> </span>iyaml_processor.py
 <span class="w">    </span>│<span class="w">       </span>├──<span class="w"> </span>object2yaml.py
 <span class="w">    </span>│<span class="w">       </span>├──<span class="w"> </span>yaml2object.py
-<span class="w">    </span>│<span class="w">       </span>├──<span class="w"> </span>yamlbase.py
-<span class="w">    </span>│<span class="w">       </span>└──<span class="w"> </span>yaml_processor.py
-<span class="w">    </span>├──<span class="w"> </span>console_io/
+<span class="w">    </span>│<span class="w">       </span>├──<span class="w"> </span>yaml_loader.py
+<span class="w">    </span>│<span class="w">       </span>├──<span class="w"> </span>yaml_processor.py
+<span class="w">    </span>│<span class="w">       </span>└──<span class="w"> </span>yaml_storer.py
+<span class="w">    </span>├──<span class="w"> </span>config_setup/
+<span class="w">    </span>│<span class="w">   </span>├──<span class="w"> </span>component_bundle.py
 <span class="w">    </span>│<span class="w">   </span>├──<span class="w"> </span>__init__.py
-<span class="w">    </span>│<span class="w">   </span>├──<span class="w"> </span>ireporter.py
-<span class="w">    </span>│<span class="w">   </span>├──<span class="w"> </span>reporter.py
-<span class="w">    </span>│<span class="w">   </span>└──<span class="w"> </span>theme/
-<span class="w">    </span>│<span class="w">       </span>├──<span class="w"> </span>default_theme.py
-<span class="w">    </span>│<span class="w">       </span>├──<span class="w"> </span>iconsole_theme.py
-<span class="w">    </span>│<span class="w">       </span>└──<span class="w"> </span>__init__.py
+<span class="w">    </span>│<span class="w">   </span>├──<span class="w"> </span>ipro_config.py
+<span class="w">    </span>│<span class="w">   </span>├──<span class="w"> </span>ipro_name.py
+<span class="w">    </span>│<span class="w">   </span>├──<span class="w"> </span>itemplate_dir.py
+<span class="w">    </span>│<span class="w">   </span>├──<span class="w"> </span>pro_config.py
+<span class="w">    </span>│<span class="w">   </span>├──<span class="w"> </span>pro_name.py
+<span class="w">    </span>│<span class="w">   </span>└──<span class="w"> </span>template_dir.py
+<span class="w">    </span>├──<span class="w"> </span>context_bundle.py
 <span class="w">    </span>├──<span class="w"> </span>exceptions/
 <span class="w">    </span>│<span class="w">   </span>├──<span class="w"> </span>ats_attribute_error.py
 <span class="w">    </span>│<span class="w">   </span>├──<span class="w"> </span>ats_bad_call_error.py
@@ -209,56 +232,80 @@ pip3<span class="w"> </span>install<span class="w"> </span>ats_utilities
 <span class="w">    </span>│<span class="w">   </span>├──<span class="w"> </span>ats_type_error.py
 <span class="w">    </span>│<span class="w">   </span>├──<span class="w"> </span>ats_value_error.py
 <span class="w">    </span>│<span class="w">   </span>└──<span class="w"> </span>__init__.py
+<span class="w">    </span>├──<span class="w"> </span>factory_class.py
+<span class="w">    </span>├──<span class="w"> </span>factory_component.py
+<span class="w">    </span>├──<span class="w"> </span>factory_context_bundle.py
 <span class="w">    </span>├──<span class="w"> </span>info/
-<span class="w">    </span>│<span class="w">   </span>├──<span class="w"> </span>ats_info.py
 <span class="w">    </span>│<span class="w">   </span>├──<span class="w"> </span>build_date.py
+<span class="w">    </span>│<span class="w">   </span>├──<span class="w"> </span>component_bundle.py
+<span class="w">    </span>│<span class="w">   </span>├──<span class="w"> </span>engine.py
 <span class="w">    </span>│<span class="w">   </span>├──<span class="w"> </span>ibuild_date.py
 <span class="w">    </span>│<span class="w">   </span>├──<span class="w"> </span>iinfo_ok.py
 <span class="w">    </span>│<span class="w">   </span>├──<span class="w"> </span>ilicence.py
+<span class="w">    </span>│<span class="w">   </span>├──<span class="w"> </span>ilogo_path.py
+<span class="w">    </span>│<span class="w">   </span>├──<span class="w"> </span>imanager.py
 <span class="w">    </span>│<span class="w">   </span>├──<span class="w"> </span>iname.py
+<span class="w">    </span>│<span class="w">   </span>├──<span class="w"> </span>info_keys.py
 <span class="w">    </span>│<span class="w">   </span>├──<span class="w"> </span>info_ok.py
 <span class="w">    </span>│<span class="w">   </span>├──<span class="w"> </span>__init__.py
+<span class="w">    </span>│<span class="w">   </span>├──<span class="w"> </span>iorganization.py
+<span class="w">    </span>│<span class="w">   </span>├──<span class="w"> </span>irepository.py
+<span class="w">    </span>│<span class="w">   </span>├──<span class="w"> </span>iuse_github.py
 <span class="w">    </span>│<span class="w">   </span>├──<span class="w"> </span>iversion.py
 <span class="w">    </span>│<span class="w">   </span>├──<span class="w"> </span>licence.py
+<span class="w">    </span>│<span class="w">   </span>├──<span class="w"> </span>logo.py
 <span class="w">    </span>│<span class="w">   </span>├──<span class="w"> </span>name.py
+<span class="w">    </span>│<span class="w">   </span>├──<span class="w"> </span>organization.py
+<span class="w">    </span>│<span class="w">   </span>├──<span class="w"> </span>repository.py
+<span class="w">    </span>│<span class="w">   </span>├──<span class="w"> </span>use_github.py
 <span class="w">    </span>│<span class="w">   </span>└──<span class="w"> </span>version.py
 <span class="w">    </span>├──<span class="w"> </span>__init__.py
 <span class="w">    </span>├──<span class="w"> </span>logging/
-<span class="w">    </span>│<span class="w">   </span>├──<span class="w"> </span>ats_logger_manager.py
+<span class="w">    </span>│<span class="w">   </span>├──<span class="w"> </span>component_bundle.py
+<span class="w">    </span>│<span class="w">   </span>├──<span class="w"> </span>engine.py
+<span class="w">    </span>│<span class="w">   </span>├──<span class="w"> </span>ilogger_manager.py
 <span class="w">    </span>│<span class="w">   </span>├──<span class="w"> </span>ilogger.py
 <span class="w">    </span>│<span class="w">   </span>├──<span class="w"> </span>__init__.py
+<span class="w">    </span>│<span class="w">   </span>├──<span class="w"> </span>logger_bundle.py
 <span class="w">    </span>│<span class="w">   </span>└──<span class="w"> </span>logger.py
 <span class="w">    </span>├──<span class="w"> </span>option/
-<span class="w">    </span>│<span class="w">   </span>├──<span class="w"> </span>ats_option_parser.py
-<span class="w">    </span>│<span class="w">   </span>├──<span class="w"> </span>ats_parser_strategy.py
+<span class="w">    </span>│<span class="w">   </span>├──<span class="w"> </span>arg_parser.py
+<span class="w">    </span>│<span class="w">   </span>├──<span class="w"> </span>component_bundle.py
+<span class="w">    </span>│<span class="w">   </span>├──<span class="w"> </span>engine.py
 <span class="w">    </span>│<span class="w">   </span>├──<span class="w"> </span>__init__.py
 <span class="w">    </span>│<span class="w">   </span>├──<span class="w"> </span>ioption_parser.py
 <span class="w">    </span>│<span class="w">   </span>├──<span class="w"> </span>iparser_strategy.py
-<span class="w">    </span>│<span class="w">   </span>└──<span class="w"> </span>option_namespace.py
-<span class="w">    </span>├──<span class="w"> </span>pro_config/
-<span class="w">    </span>│<span class="w">   </span>├──<span class="w"> </span>__init__.py
-<span class="w">    </span>│<span class="w">   </span>├──<span class="w"> </span>ipro_config.py
-<span class="w">    </span>│<span class="w">   </span>├──<span class="w"> </span>ipro_name.py
-<span class="w">    </span>│<span class="w">   </span>├──<span class="w"> </span>itemplate_dir.py
-<span class="w">    </span>│<span class="w">   </span>├──<span class="w"> </span>pro_config.py
-<span class="w">    </span>│<span class="w">   </span>├──<span class="w"> </span>pro_name.py
-<span class="w">    </span>│<span class="w">   </span>└──<span class="w"> </span>template_dir.py
+<span class="w">    </span>│<span class="w">   </span>├──<span class="w"> </span>option_namespace.py
+<span class="w">    </span>│<span class="w">   </span>└──<span class="w"> </span>parser_strategy.py
 <span class="w">    </span>├──<span class="w"> </span>py.typed
-<span class="w">    </span>└──<span class="w"> </span>splash/
-<span class="w">        </span>├──<span class="w"> </span>ats_splash.py
+<span class="w">    </span>├──<span class="w"> </span>reporter/
+<span class="w">    </span>│<span class="w">   </span>├──<span class="w"> </span>component_bundle.py
+<span class="w">    </span>│<span class="w">   </span>├──<span class="w"> </span>engine.py
+<span class="w">    </span>│<span class="w">   </span>├──<span class="w"> </span>__init__.py
+<span class="w">    </span>│<span class="w">   </span>├──<span class="w"> </span>ireporter.py
+<span class="w">    </span>│<span class="w">   </span>├──<span class="w"> </span>proxy_reporter.py
+<span class="w">    </span>│<span class="w">   </span>└──<span class="w"> </span>theme/
+<span class="w">    </span>│<span class="w">       </span>├──<span class="w"> </span>engine.py
+<span class="w">    </span>│<span class="w">       </span>├──<span class="w"> </span>iconsole_theme.py
+<span class="w">    </span>│<span class="w">       </span>└──<span class="w"> </span>__init__.py
+<span class="w">    </span>└──<span class="w"> </span>splasher/
+<span class="w">        </span>├──<span class="w"> </span>component_bundle.py
+<span class="w">        </span>├──<span class="w"> </span>engine.py
 <span class="w">        </span>├──<span class="w"> </span>ext_infrastructure.py
 <span class="w">        </span>├──<span class="w"> </span>github_infrastructure.py
 <span class="w">        </span>├──<span class="w"> </span>iext_infrastructure.py
 <span class="w">        </span>├──<span class="w"> </span>__init__.py
 <span class="w">        </span>├──<span class="w"> </span>iprogress_bar.py
-<span class="w">        </span>├──<span class="w"> </span>isplash.py
-<span class="w">        </span>├──<span class="w"> </span>isplash_screen.py
+<span class="w">        </span>├──<span class="w"> </span>isplasher.py
+<span class="w">        </span>├──<span class="w"> </span>isplash_property.py
 <span class="w">        </span>├──<span class="w"> </span>iterminal_properties.py
 <span class="w">        </span>├──<span class="w"> </span>progress_bar.py
+<span class="w">        </span>├──<span class="w"> </span>splash_center_bundle.py
+<span class="w">        </span>├──<span class="w"> </span>splash_keys.py
 <span class="w">        </span>├──<span class="w"> </span>splash_property.py
 <span class="w">        </span>└──<span class="w"> </span>terminal_properties.py
 
-<span class="m">17</span><span class="w"> </span>directories,<span class="w"> </span><span class="m">112</span><span class="w"> </span>files
+<span class="m">17</span><span class="w"> </span>directories,<span class="w"> </span><span class="m">152</span><span class="w"> </span>files
 </pre></div>
 </div>
 </section>

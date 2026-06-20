@@ -55,6 +55,7 @@ class ReporterTestCase(TestCase):
                 | test_error - Test error message.
                 | test_warning - Test warning message.
                 | test_verbose - Test info message.
+                | test_verbose_disabled - Test info message when verbose is disabled.
     '''
 
     def setUp(self) -> None:
@@ -65,24 +66,38 @@ class ReporterTestCase(TestCase):
         '''Call after test case.'''
 
     def test_not_none(self) -> None:
-        '''Test for create Reporter'''
+        '''Test for create Reporter.'''
         self.assertIsNotNone(self.reporter)
 
-    def test_success(self) -> None:
-        '''Test success message'''
+    @mock.patch('builtins.print')
+    def test_success(self, mock_print: mock.MagicMock) -> None:
+        '''Test success message.'''
         self.reporter.success(['test success'])
+        mock_print.assert_called_once_with('\x1b[32mtest success\x1b[0m')
 
-    def test_error(self) -> None:
-        '''Test error message'''
+    @mock.patch('builtins.print')
+    def test_error(self, mock_print: mock.MagicMock) -> None:
+        '''Test error message.'''
         self.reporter.error(['test error'])
+        mock_print.assert_called_once_with('\x1b[31mtest error\x1b[0m')
 
-    def test_warning(self) -> None:
-        '''Test warning message'''
+    @mock.patch('builtins.print')
+    def test_warning(self, mock_print: mock.MagicMock) -> None:
+        '''Test warning message.'''
         self.reporter.warning(['test warning'])
+        mock_print.assert_called_once_with('\x1b[33mtest warning\x1b[0m')
 
-    def test_verbose(self) -> None:
-        '''Test info message'''
+    @mock.patch('builtins.print')
+    def test_verbose(self, mock_print: mock.MagicMock) -> None:
+        '''Test info message.'''
         self.reporter.verbose(True, ['test info'])
+        mock_print.assert_called_once_with('\x1b[34mtest info\x1b[0m')
+
+    @mock.patch('builtins.print')
+    def test_verbose_disabled(self, mock_print: mock.MagicMock) -> None:
+        '''Test info message when verbose is disabled.'''
+        self.reporter.verbose(False, ['test info'])
+        mock_print.assert_not_called()
 
 
 class ReporterUnitTestCase(TestCase):

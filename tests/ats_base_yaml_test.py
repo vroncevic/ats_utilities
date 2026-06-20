@@ -27,14 +27,9 @@ from typing import List
 from unittest import TestCase, main
 from unittest.mock import MagicMock
 from os.path import dirname
-from ats_utilities.config_io.yaml.yamlbase import YamlBase
+from ats_utilities.config_io.yaml.yaml_loader import YAMLLoader
 from ats_utilities.config_io.iread import IRead
-from ats_utilities.config_io.iwrite import IWrite
-from ats_utilities.checker.ichecker import IChecker
-from ats_utilities.option.engine import OptionManager
-from ats_utilities.reporter.ireporter import IReporter
-from ats_utilities.reporter.engine import Reporter
-from ats_utilities.exceptions.ats_type_error import ATSTypeError
+from ats_utilities.config_io.yaml.iyaml_processor import IYAMLProcessor
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -46,27 +41,23 @@ __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
 
 
-class ATSBaseYaml(YamlBase):
-    '''Simple Class for checking YamlBase.'''
+class ATSBaseYaml(YAMLLoader):
+    '''Simple Class for checking YAMLLoader.'''
 
     _CONFIG: str = '/config/correct/ats_cli_yaml_api.yaml'
-    _OPS: List[str] = ['-t', '--test', '-v']
 
-    def __init__(self, reporter: IReporter = Reporter(), verbose: bool = False) -> None:
+    def __init__(self) -> None:
         '''Initial constructor.'''
         current_dir: str = dirname(__file__)
         base_info: str = f'{current_dir}{self._CONFIG}'
-        super().__init__(info_file=base_info, reporter=reporter, verbose=verbose)
-        self._verbose = verbose
-        if self.is_tool_ok():
-            reporter.success(['init ATS yaml cli'])
+        super().__init__(info_file=base_info)
 
 
 class YamlBaseTestCase(TestCase):
     '''
         Defines class YamlBaseTestCase with attribute(s) and method(s).
         Creates test cases for checking functionalities of ATS Yaml interfaces.
-        YamlBase unit tests.
+        YAMLLoader unit tests.
 
         It defines:
 
@@ -76,118 +67,95 @@ class YamlBaseTestCase(TestCase):
                 | setUp - Call before test case.
                 | tearDown - Call after test case.
                 | test_not_none - Test is ATSBaseYaml not None.
-                | test_tool_operational - Test is tool operational.
-                | test_none_config_path - Test for None as file path.
+                | test_load_configuration - Test loading configuration.
+                | test_none_config_path_returns_empty_dict - Test for None as file path.
     '''
 
     def setUp(self) -> None:
         '''Call before test case.'''
-        self.ats_base_yaml: ATSBaseYaml = ATSBaseYaml(verbose=True)
+        self.ats_base_yaml: ATSBaseYaml = ATSBaseYaml()
 
     def tearDown(self) -> None:
         '''Call after test case.'''
 
     def test_not_none(self) -> None:
-        '''Test for create YamlBase'''
+        '''Test for create YAMLLoader.'''
         self.assertIsNotNone(self.ats_base_yaml)
 
-    def test_tool_operational(self) -> None:
-        '''Test is tool operational'''
-        self.assertTrue(self.ats_base_yaml.is_tool_ok())
+    def test_load_configuration(self) -> None:
+        '''Test loading configuration.'''
+        config = self.ats_base_yaml.load_configuration()
+        self.assertIsInstance(config, dict)
+        self.assertEqual(config.get('ats_name'), 'ats_cli_test')
+        self.assertEqual(config.get('ats_version'), '1.0.0')
 
-    def test_none_config_path(self) -> None:
-        '''Test for None as file path'''
-        with self.assertRaises(ATSTypeError):
-            YamlBase(None)
+    def test_none_config_path_returns_empty_dict(self) -> None:
+        '''Test for None as file path.'''
+        loader = YAMLLoader(None)
+        self.assertEqual(loader.load_configuration(), {})
 
 
 class YamlBaseUnitTestCase(TestCase):
     '''
-        Unit tests for YamlBase class using mocks.
+        Unit tests for YAMLLoader class using mocks.
 
         It defines:
 
             :attributes:
                 | config_path - Path for configuration file.
-                | mock_checker - Mocked IChecker.
-                | mock_reporter - Mocked IReporter.
                 | mock_yaml2obj - Mocked IRead interface.
-                | mock_obj2yaml - Mocked IWrite interface.
+                | mock_processor - Mocked IYAMLProcessor interface.
             :methods:
                 | setUp - Set up test environment with mocks.
                 | test_init - Test initialization.
-                | test_is_tool_ok_non_operational - Test non-operational status.
-                | test_option_parser_access_non_operational - Test property error.
-                | test_operational_yaml_base - Test operational state.
+                | test_load_configuration - Test load configuration.
+                | test_load_configuration_empty - Test load configuration when empty.
     '''
 
     def setUp(self) -> None:
         '''Set up test environment.'''
         self.config_path = 'ats_cli_yaml_api.yaml'
-        self.mock_checker = MagicMock(spec=IChecker)
-        self.mock_reporter = MagicMock(spec=IReporter)
         self.mock_yaml2obj = MagicMock(spec=IRead)
-        self.mock_obj2yaml = MagicMock(spec=IWrite)
+        self.mock_processor = MagicMock(spec=IYAMLProcessor)
 
         # Setup mock behavior
-        self.mock_checker.validate_parameters.return_value = ('', 0)
-        self.mock_yaml2obj.read_configuration.return_value = {}
+        self.mock_yaml2obj.read_configuration.return_value = self.mock_processor
+        self.mock_processor.to_dict.return_value = {
+            'ats_name': 'Test Tool',
+            'ats_version': '1.0.0'
+        }
 
-        # Use keyword arguments to ensure correct dependency injection
-        self.yaml_base: YamlBase = YamlBase(
+        self.yaml_loader: YAMLLoader = YAMLLoader(
             info_file=self.config_path,
-            yaml2obj=self.mock_yaml2obj,
-            obj2yaml=self.mock_obj2yaml,
-            checker=self.mock_checker,
-            reporter=self.mock_reporter,
-            verbose=True
+            yaml2object=self.mock_yaml2obj,
+            yaml_processor=self.mock_processor
         )
 
     def test_init(self) -> None:
-        '''Test initialization of YamlBase.'''
-        self.assertIsNotNone(self.yaml_base)
+        '''Test initialization of YAMLLoader.'''
+        self.assertIsNotNone(self.yaml_loader)
         self.mock_yaml2obj.read_configuration.assert_called_once()
 
-    def test_is_tool_ok_non_operational(self) -> None:
-        '''Test is_tool_ok status when YamlBase is not operational.'''
-        self.assertFalse(self.yaml_base.is_tool_ok())
-
-    def test_option_parser_access_non_operational(self) -> None:
-        '''Test if option_parser access returns None when not operational.'''
-        self.assertIsNone(self.yaml_base.option_parser)
-
-    def test_operational_yaml_base(self) -> None:
-        '''Test YamlBase when it is operational.'''
-        operational_mock_yaml2obj = MagicMock(spec=IRead)
-        operational_mock_obj2yaml = MagicMock(spec=IWrite)
-        operational_mock_checker = MagicMock(spec=IChecker)
-        operational_mock_reporter = MagicMock(spec=IReporter)
-        operational_mock_options_parser = MagicMock(spec=OptionManager)
-
-        operational_mock_checker.validate_parameters.return_value = ('', 0)
-        mock_processor = MagicMock()
-        mock_processor.to_dict.return_value = {
+    def test_load_configuration(self) -> None:
+        '''Test load configuration.'''
+        config = self.yaml_loader.load_configuration()
+        self.assertEqual(config, {
             'ats_name': 'Test Tool',
-            'ats_version': '1.0.0',
-            'ats_licence': 'MIT',
-            'ats_build_date': '2023-01-01'
-        }
-        operational_mock_yaml2obj.read_configuration.return_value = mock_processor
+            'ats_version': '1.0.0'
+        })
+        self.mock_processor.to_dict.assert_called_once()
 
-        operational_yaml_base = YamlBase(
+    def test_load_configuration_empty(self) -> None:
+        '''Test load configuration when empty.'''
+        # Setup loader with no configuration loaded
+        mock_yaml2obj_empty = MagicMock(spec=IRead)
+        mock_yaml2obj_empty.read_configuration.return_value = None
+        loader = YAMLLoader(
             info_file=self.config_path,
-            yaml2obj=operational_mock_yaml2obj,
-            obj2yaml=operational_mock_obj2yaml,
-            options_parser=operational_mock_options_parser,
-            checker=operational_mock_checker,
-            reporter=operational_mock_reporter,
-            verbose=True
+            yaml2object=mock_yaml2obj_empty
         )
+        self.assertEqual(loader.load_configuration(), {})
 
-        self.assertTrue(operational_yaml_base.is_tool_ok())
-        self.assertIsNotNone(operational_yaml_base.option_parser)
-        operational_mock_yaml2obj.read_configuration.assert_called_once()
-        operational_mock_options_parser.add_version_operation.assert_called_once_with('1.0.0')
 
 
 if __name__ == '__main__':

@@ -9,8 +9,9 @@ Submodules
 
    ats_utilities.config_io.ini.iini_processor
    ats_utilities.config_io.ini.ini2object
+   ats_utilities.config_io.ini.ini_loader
    ats_utilities.config_io.ini.ini_processor
-   ats_utilities.config_io.ini.inibase
+   ats_utilities.config_io.ini.ini_storer
    ats_utilities.config_io.ini.object2ini
 
 Module contents

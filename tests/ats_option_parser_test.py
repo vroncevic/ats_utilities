@@ -32,6 +32,8 @@ from ats_utilities.checker.ichecker import IChecker
 from ats_utilities.checker.engine import Checker
 from ats_utilities.reporter.ireporter import IReporter
 from ats_utilities.reporter.engine import Reporter
+from ats_utilities.option.component_bundle import OptionComponentBundle
+from ats_utilities.context_bundle import ContextBundle
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -54,10 +56,21 @@ class ATSBaseOptionParser(OptionManager):
         verbose: bool = False
     ) -> None:
         '''Initial constructor.'''
-        super().__init__(ats_info, ParserStrategy(reporter), checker, reporter, verbose)
+        context = ContextBundle(
+            checker=checker,
+            reporter=reporter,
+            verbose=verbose
+        )
+        bundle = OptionComponentBundle(
+            parameters=ats_info,
+            strategy=ParserStrategy(),
+            context_bundle=context
+        )
+        super().__init__(bundle)
         self._verbose = verbose
         if self.is_tool_ok():
             reporter.success(['init ATS option parser'])
+
 
     def is_tool_ok(self) -> bool:
         '''

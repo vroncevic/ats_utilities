@@ -75,9 +75,10 @@ class Cfg2ObjectTestCase(TestCase):
 
     def test_none_config_path(self) -> None:
         '''Test for None as file path'''
-        with self.assertRaises(ATSTypeError):
-            Cfg2Object(None)
+        cfg2obj = Cfg2Object(None)
+        self.assertIsNone(cfg2obj.read_configuration())
 
 
 if __name__ == '__main__':
     main()
+

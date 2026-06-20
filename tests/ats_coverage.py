@@ -30,6 +30,7 @@ from ats_utilities.checker.engine import Checker
 from ats_utilities.checker.ichecker import ErrorChecker
 from ats_utilities.reporter.engine import Reporter
 from ats_utilities.option.engine import OptionManager
+from ats_utilities.option.component_bundle import OptionComponentBundle
 from ats_utilities.option.option_namespace import OptionNamespace
 from ats_utilities.exceptions.ats_type_error import ATSTypeError
 from ats_utilities.exceptions.ats_file_error import ATSFileError
@@ -85,7 +86,7 @@ def load_report(report_file_path: str) -> Dict[str, Any]:
     checker: Checker = Checker()
     error_msg: Optional[str] = None
     error_id: Optional[int] = None
-    error_msg, error_id = checker.validate_parameters([(
+    error_msg, error_id = checker.validates_parameters([(
         'str:report_file_path', report_file_path
     )])
     if error_id == ErrorChecker.TYPE_ERROR:
@@ -109,7 +110,7 @@ def find_root_package(module_path: str) -> Optional[Path]:
     checker: Checker = Checker()
     error_msg: Optional[str] = None
     error_id: Optional[int] = None
-    error_msg, error_id = checker.validate_parameters([(
+    error_msg, error_id = checker.validates_parameters([(
         'str:module_path', module_path
     )])
     if error_id == ErrorChecker.TYPE_ERROR:
@@ -134,7 +135,7 @@ def update_readme(coverage: Dict[str, Any]) -> None:
     checker: Checker = Checker()
     error_msg: Optional[str] = None
     error_id: Optional[int] = None
-    error_msg, error_id = checker.validate_parameters([('dict:coverage', coverage)])
+    error_msg, error_id = checker.validates_parameters([('dict:coverage', coverage)])
     if error_id == ErrorChecker.TYPE_ERROR:
         raise ATSTypeError(error_msg)
     readme_path: str = '../README.md'
@@ -191,11 +192,11 @@ def update_readme(coverage: Dict[str, Any]) -> None:
 
 
 if __name__ == "__main__":
-    cli: OptionManager = OptionManager({
+    cli: OptionManager = OptionManager(OptionComponentBundle(parameters={
         'description': 'ats_coverage 2025',
         'version': '1.0.0',
         'licence': 'GPLv3'
-    })
+    }))
     cli.add_operation(
         '-n', '--name', dest='name',
         help='generate coverage report for project (provide name)'

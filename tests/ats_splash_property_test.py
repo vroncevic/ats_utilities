@@ -58,53 +58,53 @@ class ATSSplashPropTestCase(TestCase):
 
     def setUp(self) -> None:
         '''Call before test case.'''
+        self.splash_data = {
+            'ats_organization': 'App Example',
+            'ats_repository': 'app_example',
+            'ats_name': 'appexample',
+            'ats_logo_path': '',
+            'ats_use_github_infrastructure': ''
+        }
 
     def tearDown(self) -> None:
         '''Call after test case.'''
 
     def test_create(self) -> None:
         '''Test for create'''
-        splash: SplashProperty = SplashProperty(
-            {
-                'ats_organization': 'App Example',
-                'ats_repository': 'app_example',
-                'ats_name': 'appexample',
-                'ats_logo_path': '',
-                'ats_use_github_infrastructure': ''
-            }
-        )
+        splash = SplashProperty()
+        splash.splash_property = self.splash_data
         self.assertIsNotNone(splash)
 
     def test_crete_with_none_property(self) -> None:
         '''Test create with None property'''
+        splash = SplashProperty()
         with self.assertRaises(ATSTypeError):
-            SplashProperty(None)  # type: ignore
+            splash.splash_property = None  # type: ignore
 
     def test_property(self) -> None:
         '''Test property'''
-        splash: SplashProperty = SplashProperty(
-            {
-                'ats_organization': 'App Example',
-                'ats_repository': 'app_example',
-                'ats_name': 'appexample',
-                'ats_logo_path': 'app logo',
-                'ats_use_github_infrastructure': 'yes'
-            }
-        )
-        self.assertTrue(splash.validate())
+        splash = SplashProperty()
+        splash.splash_property = {
+            'ats_organization': 'App Example',
+            'ats_repository': 'app_example',
+            'ats_name': 'appexample',
+            'ats_logo_path': 'app logo',
+            'ats_use_github_infrastructure': 'yes'
+        }
+        self.assertTrue(splash.validates())
 
     def test_wrong_property(self) -> None:
         '''Test wrong property'''
-        splash: SplashProperty = SplashProperty(
-            {
-                'ats_organization': 'App Example',
-                'ats_repository': 'app_example',
-                'ats_name': 'appexample',
-                'ats_logo_path': 'app logo'
-            }
-        )
-        self.assertFalse(splash.validate())
+        splash = SplashProperty()
+        splash.splash_property = {
+            'ats_organization': 'App Example',
+            'ats_repository': 'app_example',
+            'ats_name': 'appexample',
+            'ats_logo_path': 'app logo'
+        }
+        self.assertFalse(splash.validates())
 
 
 if __name__ == '__main__':
     main()
+

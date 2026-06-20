@@ -20,10 +20,17 @@ Submodules
    :maxdepth: 4
 
    ats_utilities.config_io.conf_file
+   ats_utilities.config_io.config_file_bundle
+   ats_utilities.config_io.config_loader
+   ats_utilities.config_io.config_loader_bundle
+   ats_utilities.config_io.file_bundle
    ats_utilities.config_io.file_check
    ats_utilities.config_io.iconf_file
+   ats_utilities.config_io.iconfig_loader
    ats_utilities.config_io.ifile_check
+   ats_utilities.config_io.iloader
    ats_utilities.config_io.iread
+   ats_utilities.config_io.istorer
    ats_utilities.config_io.iwrite
 
 Module contents

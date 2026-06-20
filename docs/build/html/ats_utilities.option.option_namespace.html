@@ -15,7 +15,7 @@
     
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="ats_utilities.pro_config package" href="ats_utilities.pro_config.html" />
+    <link rel="next" title="ats_utilities.option.parser_strategy module" href="ats_utilities.option.parser_strategy.html" />
     <link rel="prev" title="ats_utilities.option.iparser_strategy module" href="ats_utilities.option.iparser_strategy.html" /> 
   </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
@@ -28,7 +28,7 @@
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="ats_utilities.pro_config.html" title="ats_utilities.pro_config package"
+          <a href="ats_utilities.option.parser_strategy.html" title="ats_utilities.option.parser_strategy module"
              accesskey="N">next</a> |</li>
         <li class="right" >
           <a href="ats_utilities.option.iparser_strategy.html" title="ats_utilities.option.iparser_strategy module"
@@ -63,15 +63,15 @@ See the GNU General Public License for more details.
 You should have received a copy of the GNU General Public License along
 with this program. If not, see &lt;<a class="reference external" href="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</a>&gt;.</p>
 </dd>
-<dt>Info</dt><dd><p>Defines abstract class IATSOptionParser with attribute(s) and method(s).
-Creates an interfaces for ATS option parsing.</p>
+<dt>Info</dt><dd><p>Defines protocol OptionNamespace and type aliases.
+Creates namespace definitions and type aliases for options.</p>
 </dd>
 </dl>
 <dl class="py class">
 <dt class="sig sig-object py" id="ats_utilities.option.option_namespace.OptionNamespace">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ats_utilities.option.option_namespace.</span></span><span class="sig-name descname"><span class="pre">OptionNamespace</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ats_utilities/option/option_namespace.html#OptionNamespace"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.option.option_namespace.OptionNamespace" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Protocol</span></code></p>
-<p>Defines class OptionNamespace with attribute(s) and method(s).
+<p>Defines protocol OptionNamespace with attribute(s).
 Creates protocol representing a Namespace-like result from an option parser.</p>
 <p>Implementations only need to provide a <cite>__dict__</cite> mapping (e.g. argparse.Namespace,
 types.SimpleNamespace, or a custom object) so callers can access attributes
@@ -131,8 +131,8 @@ and call <cite>vars()</cite> to obtain a dict.</p>
   </div>
   <div>
     <h4>Next topic</h4>
-    <p class="topless"><a href="ats_utilities.pro_config.html"
-                          title="next chapter">ats_utilities.pro_config package</a></p>
+    <p class="topless"><a href="ats_utilities.option.parser_strategy.html"
+                          title="next chapter">ats_utilities.option.parser_strategy module</a></p>
   </div>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
@@ -165,7 +165,7 @@ and call <cite>vars()</cite> to obtain a dict.</p>
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="ats_utilities.pro_config.html" title="ats_utilities.pro_config package"
+          <a href="ats_utilities.option.parser_strategy.html" title="ats_utilities.option.parser_strategy module"
              >next</a> |</li>
         <li class="right" >
           <a href="ats_utilities.option.iparser_strategy.html" title="ats_utilities.option.iparser_strategy module"

@@ -104,8 +104,9 @@ class ProConfigTestCase(TestCase):
     def test_set_config_none(self) -> None:
         '''Sets None configuration'''
         none_config: Dict[Any, Any] | None = None
-        with self.assertRaises(ATSTypeError):
-            self.ats_base_pro_config.config = none_config
+        self.ats_base_pro_config.config = none_config
+        self.assertIsNone(self.ats_base_pro_config.config)
+        self.assertFalse(self.ats_base_pro_config.is_tool_ok())
 
     def test_set_config(self) -> None:
         '''Sets simple configuration'''

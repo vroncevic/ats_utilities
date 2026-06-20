@@ -40,7 +40,7 @@
 
 <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">Module</span>
-<span class="sd">    default_logger.py</span>
+<span class="sd">    logger.py</span>
 <span class="sd">Copyright</span>
 <span class="sd">    Copyright (C) 2017 - 2026 Vladimir Roncevic &lt;elektron.ronca@gmail.com&gt;</span>
 <span class="sd">    ats_utilities is free software: you can redistribute it and/or modify it</span>
@@ -63,18 +63,19 @@
 <span class="kn">from</span> <span class="nn">logging</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">getLogger</span><span class="p">,</span> <span class="n">basicConfig</span><span class="p">,</span> <span class="n">Logger</span><span class="p">,</span> <span class="n">DEBUG</span><span class="p">,</span> <span class="n">WARNING</span><span class="p">,</span> <span class="n">CRITICAL</span><span class="p">,</span> <span class="n">ERROR</span><span class="p">,</span> <span class="n">INFO</span>
 <span class="p">)</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.checker.ichecker</span> <span class="kn">import</span> <span class="n">IATSChecker</span><span class="p">,</span> <span class="n">ErrorChecker</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.checker.ats_checker</span> <span class="kn">import</span> <span class="n">ATSChecker</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.console_io.ireporter</span> <span class="kn">import</span> <span class="n">IATSReporter</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.console_io.reporter</span> <span class="kn">import</span> <span class="n">ATSReporter</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.exceptions.ats_type_error</span> <span class="kn">import</span> <span class="n">ATSTypeError</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.logging.ilogger</span> <span class="kn">import</span> <span class="n">IATSLogger</span><span class="p">,</span> <span class="n">LogFormats</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.logging.ilogger</span> <span class="kn">import</span> <span class="n">ILogger</span><span class="p">,</span> <span class="n">LogFormats</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.context_bundle</span> <span class="kn">import</span> <span class="n">ContextBundle</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.logging.logger_bundle</span> <span class="kn">import</span> <span class="n">LoggerBundle</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.reporter.ireporter</span> <span class="kn">import</span> <span class="n">IReporter</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.checker.proxy_validator</span> <span class="kn">import</span> <span class="n">validator</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.factory_context_bundle</span> <span class="kn">import</span> <span class="n">factory_context_bundle</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.factory_class</span> <span class="kn">import</span> <span class="n">get_private_attr</span><span class="p">,</span> <span class="n">format_instance_to_string</span>
 
 <span class="n">__author__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;Vladimir Roncevic&#39;</span>
 <span class="n">__copyright__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;(C) 2026, https://vroncevic.github.io/ats_utilities&#39;</span>
 <span class="n">__credits__</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Vladimir Roncevic&#39;</span><span class="p">,</span> <span class="s1">&#39;Python Software Foundation&#39;</span><span class="p">]</span>
 <span class="n">__license__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE&#39;</span>
-<span class="n">__version__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;3.3.7&#39;</span>
+<span class="n">__version__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;3.3.8&#39;</span>
 <span class="n">__maintainer__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;Vladimir Roncevic&#39;</span>
 <span class="n">__email__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;elektron.ronca@gmail.com&#39;</span>
 <span class="n">__status__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;Updated&#39;</span>
@@ -84,7 +85,7 @@
 <a class="viewcode-back" href="../../../ats_utilities.logging.logger.html#ats_utilities.logging.logger.ATSLogLevels">[docs]</a>
 <span class="k">class</span> <span class="nc">ATSLogLevels</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="n">Enum</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">        Defines class ATSLogLevels with attribute(s) and method(s).</span>
+<span class="sd">        Defines class ATSLogLevels with attribute(s).</span>
 <span class="sd">        Log levels for the ATS default logging mechanism.</span>
 <span class="sd">        It defines:</span>
 
@@ -108,7 +109,7 @@
 <a class="viewcode-back" href="../../../ats_utilities.logging.logger.html#ats_utilities.logging.logger.LoggerLevelsProtocol">[docs]</a>
 <span class="k">class</span> <span class="nc">LoggerLevelsProtocol</span><span class="p">(</span><span class="n">Protocol</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">        Defines class LoggerLevelsProtocol with attribute(s) and method(s).</span>
+<span class="sd">        Defines class LoggerLevelsProtocol with attribute(s).</span>
 <span class="sd">        Protocol for log levels in the ATS logging mechanism.</span>
 
 <span class="sd">        It defines:</span>
@@ -131,7 +132,7 @@
 
 <div class="viewcode-block" id="ATSLogger">
 <a class="viewcode-back" href="../../../ats_utilities.logging.logger.html#ats_utilities.logging.logger.ATSLogger">[docs]</a>
-<span class="k">class</span> <span class="nc">ATSLogger</span><span class="p">(</span><span class="n">IATSLogger</span><span class="p">):</span>
+<span class="k">class</span> <span class="nc">ATSLogger</span><span class="p">(</span><span class="n">ILogger</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Defines class ATSLogger with attribute(s) and method(s).</span>
 <span class="sd">        Creates an API for the ATS logging mechanism.</span>
@@ -148,54 +149,41 @@
 <span class="sd">                | __logger_name - ATS name.</span>
 <span class="sd">                | __log_stdout - Logging to stdout (default).</span>
 <span class="sd">                | __log_file - Logging to file.</span>
-<span class="sd">                | __checker - Checker for parameter validation.</span>
-<span class="sd">                | __reporter - Formatter for error reports.</span>
+<span class="sd">                | __checker - Factoriezed parameters checker (default Checker).</span>
+<span class="sd">                | __reporter - Factoriezed reporter for messaging (default Reporter).</span>
+<span class="sd">                | __verbose - Factoriezed Enable/Disable verbose option (default False).</span>
 <span class="sd">                | __logger - Python Logger instance.</span>
-<span class="sd">                | __verbose - Enable/Disable verbose option.</span>
 <span class="sd">                | </span>
 <span class="sd">            :methods:</span>
 <span class="sd">                | __init__ - Initials ATSLogger constructor.</span>
-<span class="sd">                | write_log - Writes message to log file.</span>
+<span class="sd">                | write_log - Writes message to log.</span>
+<span class="sd">                | _reporter - Property method for getting the internal reporter instance.</span>
+<span class="sd">                | __str__ - Returns the string representation of ATS logger.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
 
     <span class="n">LOG_FORMATS</span><span class="p">:</span> <span class="n">ClassVar</span><span class="p">[</span><span class="nb">type</span><span class="p">[</span><span class="n">LogFormats</span><span class="p">]]</span> <span class="o">=</span> <span class="n">LogFormats</span>
     <span class="n">LOG_LEVELS</span><span class="p">:</span> <span class="n">ClassVar</span><span class="p">[</span><span class="nb">type</span><span class="p">[</span><span class="n">ATSLogLevels</span><span class="p">]]</span> <span class="o">=</span> <span class="n">ATSLogLevels</span>
-    <span class="n">ERRORS</span><span class="p">:</span> <span class="n">ClassVar</span><span class="p">[</span><span class="nb">type</span><span class="p">[</span><span class="n">ErrorChecker</span><span class="p">]]</span> <span class="o">=</span> <span class="n">ErrorChecker</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span>
-        <span class="n">ats_name</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-        <span class="n">ats_log_stdout</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
-        <span class="n">ats_log_file</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-        <span class="n">checker</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">IATSChecker</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-        <span class="n">reporter</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">IATSReporter</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-        <span class="n">configure_logging</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
-        <span class="n">verbose</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">logger_bundle</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">LoggerBundle</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">context_bundle</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ContextBundle</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">            Initials ATSLogger constructor.</span>
+<span class="sd">            Initializes ATSLogger constructor.</span>
 
-<span class="sd">            :param ats_name: ATS name | None</span>
-<span class="sd">            :type ats_name: &lt;Optional[str]&gt;</span>
-<span class="sd">            :param ats_log_stdout: Log to stdout (default True)</span>
-<span class="sd">            :type ats_log_stdout: &lt;bool&gt;</span>
-<span class="sd">            :param ats_log_file: Log to file (default None)</span>
-<span class="sd">            :type ats_log_file: &lt;Optional[str]&gt;</span>
-<span class="sd">            :param checker: Checker for parameter validation | None</span>
-<span class="sd">            :type checker: &lt;Optional[IATSChecker]&gt;</span>
-<span class="sd">            :param reporter: ATSReporter for verbose output | None</span>
-<span class="sd">            :type reporter: &lt;Optional[IATSReporter]&gt;</span>
-<span class="sd">            :param configure_logging: Configure logging | True</span>
-<span class="sd">            :type configure_logging: &lt;bool&gt;</span>
-<span class="sd">            :param verbose: Enable/Disable verbose option</span>
-<span class="sd">            :type verbose: &lt;bool&gt;</span>
+<span class="sd">            :param logger_bundle: Logger bundle with parameters | None.</span>
+<span class="sd">            :type logger_bundle: &lt;Optional[LoggerBundle]&gt;</span>
+<span class="sd">            :param context_bundle: Context bundle for logger | None.</span>
+<span class="sd">            :type context_bundle: &lt;Optional[ContextBundle]&gt;</span>
 <span class="sd">            :exceptions: None</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">__logger_name</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">ats_name</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">__log_stdout</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="n">ats_log_stdout</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">__log_file</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">ats_log_file</span>
+        <span class="c1"># No dependency injection then use default ones.</span>
+        <span class="n">factory_context_bundle</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context_bundle</span><span class="p">)</span>
+        <span class="n">bundle</span><span class="p">:</span> <span class="n">LoggerBundle</span> <span class="o">=</span> <span class="n">logger_bundle</span> <span class="ow">or</span> <span class="n">LoggerBundle</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__logger_name</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">bundle</span><span class="o">.</span><span class="n">name</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__log_stdout</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="n">bundle</span><span class="o">.</span><span class="n">log_stdout</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__log_file</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">bundle</span><span class="o">.</span><span class="n">log_file</span>
 
-        <span class="k">if</span> <span class="n">configure_logging</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">getLogger</span><span class="p">()</span><span class="o">.</span><span class="n">hasHandlers</span><span class="p">():</span>
+        <span class="k">if</span> <span class="n">bundle</span><span class="o">.</span><span class="n">configure_logging</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">getLogger</span><span class="p">()</span><span class="o">.</span><span class="n">hasHandlers</span><span class="p">():</span>
             <span class="n">log_config</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
                 <span class="s1">&#39;format&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">LOG_FORMATS</span><span class="o">.</span><span class="n">ATS_LOG_MSG_FORMAT</span><span class="p">,</span>
                 <span class="s1">&#39;datefmt&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">LOG_FORMATS</span><span class="o">.</span><span class="n">ATS_LOG_DATE_FORMAT</span><span class="p">,</span>
@@ -205,14 +193,10 @@
                 <span class="c1"># Force logging to file in case file name is provided</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">__log_stdout</span> <span class="o">=</span> <span class="kc">False</span>
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__log_file</span> <span class="ow">and</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">__log_stdout</span><span class="p">:</span>
-                <span class="n">log_config</span><span class="p">[</span><span class="s1">&#39;filename&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">ats_log_file</span>
+                <span class="n">log_config</span><span class="p">[</span><span class="s1">&#39;filename&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__log_file</span>
             <span class="n">basicConfig</span><span class="p">(</span><span class="o">**</span><span class="n">log_config</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">__logger</span><span class="p">:</span> <span class="n">Logger</span> <span class="o">=</span> <span class="n">getLogger</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__logger_name</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">__checker</span><span class="p">:</span> <span class="n">IATSChecker</span> <span class="o">=</span> <span class="n">checker</span> <span class="ow">or</span> <span class="n">ATSChecker</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">__reporter</span><span class="p">:</span> <span class="n">IATSReporter</span> <span class="o">=</span> <span class="n">reporter</span> <span class="ow">or</span> <span class="n">ATSReporter</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">__verbose</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="n">verbose</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">__reporter</span><span class="o">.</span><span class="n">verbose</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__verbose</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;init default ATS logger&#39;</span><span class="p">])</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__log_methods</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">Callable</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="kc">None</span><span class="p">]]</span> <span class="o">=</span> <span class="p">{</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">LOG_LEVELS</span><span class="o">.</span><span class="n">ATS_LOG_DEBUG</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">__logger</span><span class="o">.</span><span class="n">debug</span><span class="p">,</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">LOG_LEVELS</span><span class="o">.</span><span class="n">ATS_LOG_INFO</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">__logger</span><span class="o">.</span><span class="n">info</span><span class="p">,</span>
@@ -223,37 +207,62 @@
 
 <div class="viewcode-block" id="ATSLogger.write_log">
 <a class="viewcode-back" href="../../../ats_utilities.logging.logger.html#ats_utilities.logging.logger.ATSLogger.write_log">[docs]</a>
-    <span class="k">def</span> <span class="nf">write_log</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">ctrl</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">verbose</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+    <span class="nd">@validator</span><span class="p">([(</span><span class="s1">&#39;Optional[str]:message&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;int:ctrl&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)])</span>
+    <span class="k">def</span> <span class="nf">write_log</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">ctrl</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">            Writes message to log file.</span>
+<span class="sd">            Writes message to log.</span>
 
-<span class="sd">            :param message: Log message for log file | None</span>
+<span class="sd">            :param message: Log message in string format for log | None.</span>
 <span class="sd">            :type message: &lt;Optional[str]&gt;</span>
-<span class="sd">            :param ctrl: Control flag (debug, warning, critical, errors, info)</span>
+<span class="sd">            :param ctrl: Control flag (debug, warning, critical, errors, info).</span>
 <span class="sd">            :type ctrl: &lt;int&gt;</span>
-<span class="sd">            :param verbose: Enable/Disable verbose option</span>
-<span class="sd">            :type verbose: &lt;bool&gt;</span>
-<span class="sd">            :return: True (successfully logged message) | False</span>
+<span class="sd">            :return: True (success) | False (fail).</span>
 <span class="sd">            :rtype: &lt;bool&gt;</span>
-<span class="sd">            :exceptions: ATSTypeError</span>
+<span class="sd">            :exceptions: ATSTypeError by validates_parameters</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="n">error_msg</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
-        <span class="n">error_id</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
-        <span class="n">error_msg</span><span class="p">,</span> <span class="n">error_id</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__checker</span><span class="o">.</span><span class="n">validate_parameters</span><span class="p">([(</span><span class="s1">&#39;str:message&#39;</span><span class="p">,</span> <span class="n">message</span><span class="p">)])</span>
-
-        <span class="k">if</span> <span class="n">error_id</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">ERRORS</span><span class="o">.</span><span class="n">TYPE_ERROR</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="n">ATSTypeError</span><span class="p">(</span><span class="n">error_msg</span><span class="p">)</span>
-
-        <span class="bp">self</span><span class="o">.</span><span class="n">__reporter</span><span class="o">.</span><span class="n">verbose</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__verbose</span> <span class="ow">or</span> <span class="n">verbose</span><span class="p">,</span> <span class="p">[</span><span class="sa">f</span><span class="s1">&#39;log message: </span><span class="si">{</span><span class="n">message</span><span class="si">}</span><span class="s1"> </span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">ctrl</span><span class="p">)</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">])</span>
         <span class="n">log_call</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__log_methods</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">ctrl</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="n">log_call</span><span class="p">:</span>
             <span class="n">log_call</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
             <span class="k">return</span> <span class="kc">True</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">__reporter</span><span class="o">.</span><span class="n">error</span><span class="p">([</span><span class="sa">f</span><span class="s1">&#39;not supported log level [</span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">ctrl</span><span class="p">)</span><span class="si">}</span><span class="s1">]&#39;</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_reporter</span><span class="o">.</span><span class="n">error</span><span class="p">([</span><span class="sa">f</span><span class="s1">&#39;not supported log level [</span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">ctrl</span><span class="p">)</span><span class="si">}</span><span class="s1">]&#39;</span><span class="p">])</span>
         <span class="k">return</span> <span class="kc">False</span></div>
-</div>
+
+
+<div class="viewcode-block" id="ATSLogger.ok">
+<a class="viewcode-back" href="../../../ats_utilities.logging.logger.html#ats_utilities.logging.logger.ATSLogger.ok">[docs]</a>
+    <span class="k">def</span> <span class="nf">ok</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">            Checks if logger component is ok.</span>
+
+<span class="sd">            :return: True (success) | False (fail)</span>
+<span class="sd">            :rtype: &lt;bool&gt;</span>
+<span class="sd">            :exceptions: None.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__logger</span><span class="o">.</span><span class="n">isEnabledFor</span><span class="p">(</span><span class="n">INFO</span><span class="p">)</span></div>
+
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">_reporter</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">IReporter</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">            Property method for getting the internal reporter instance.</span>
+
+<span class="sd">            :return: The reporter instance in IReporter format.</span>
+<span class="sd">            :rtype: &lt;IReporter&gt;</span>
+<span class="sd">            :exceptions: None</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="n">get_private_attr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;reporter&#39;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">            Returns the string representation of ATS logger.</span>
+
+<span class="sd">            :return: The ATS logger as string representation.</span>
+<span class="sd">            :rtype: &lt;str&gt;</span>
+<span class="sd">            :exceptions: None</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="n">format_instance_to_string</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div>
 
 </pre></div>
 

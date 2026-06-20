@@ -9,8 +9,9 @@ Submodules
 
    ats_utilities.config_io.json.ijson_processor
    ats_utilities.config_io.json.json2object
+   ats_utilities.config_io.json.json_loader
    ats_utilities.config_io.json.json_processor
-   ats_utilities.config_io.json.jsonbase
+   ats_utilities.config_io.json.json_storer
    ats_utilities.config_io.json.object2json
 
 Module contents

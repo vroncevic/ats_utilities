@@ -16,7 +16,6 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines classes JsonBaseTestCase with attribute(s) and method(s).
     Defines classes JsonBaseTestCase and JsonBaseUnitTestCase with attribute(s) and method(s).
     Creates test cases for checking functionalities of Json.
 Execute
@@ -27,14 +26,9 @@ from typing import List
 from unittest import TestCase, main
 from unittest.mock import MagicMock
 from os.path import dirname
-from ats_utilities.config_io.json.jsonbase import JsonBase
+from ats_utilities.config_io.json.json_loader import JSONLoader
 from ats_utilities.config_io.iread import IRead
-from ats_utilities.config_io.iwrite import IWrite
-from ats_utilities.checker.ichecker import IChecker
-from ats_utilities.option.engine import OptionManager
-from ats_utilities.reporter.ireporter import IReporter
-from ats_utilities.reporter.engine import Reporter
-from ats_utilities.exceptions.ats_type_error import ATSTypeError
+from ats_utilities.config_io.json.ijson_processor import IJSONProcessor
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -46,27 +40,23 @@ __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
 
 
-class ATSBaseJson(JsonBase):
-    '''Simple Class for checking JsonBase.'''
+class ATSBaseJson(JSONLoader):
+    '''Simple Class for checking JSONLoader.'''
 
     _CONFIG: str = '/config/correct/ats_cli_json_api.json'
-    _OPS: List[str] = ['-t', '--test', '-v']
 
-    def __init__(self, reporter: IReporter = Reporter(), verbose: bool = False) -> None:
+    def __init__(self) -> None:
         '''Initial constructor.'''
         current_dir: str = dirname(__file__)
         base_info: str = f'{current_dir}{self._CONFIG}'
-        super().__init__(info_file=base_info, verbose=verbose)
-        self._verbose = verbose
-        if self.is_tool_ok():
-            reporter.success(['init ATS json cli'])
+        super().__init__(info_file=base_info)
 
 
 class JsonBaseTestCase(TestCase):
     '''
         Defines class JsonBaseTestCase with attribute(s) and method(s).
         Creates test cases for checking functionalities of ATS Json interfaces.
-        JsonBase unit tests.
+        JSONLoader unit tests.
 
         It defines:
 
@@ -76,8 +66,8 @@ class JsonBaseTestCase(TestCase):
                 | setUp - Call before test case.
                 | tearDown - Call after test case.
                 | test_not_none - Test is ATSBaseJson not None.
-                | test_tool_operational - Test is tool operational.
-                | test_none_config_path - Test for None as file path.
+                | test_load_configuration - Test loading configuration.
+                | test_none_config_path_returns_empty_dict - Test for None as file path.
     '''
 
     def setUp(self) -> None:
@@ -88,106 +78,82 @@ class JsonBaseTestCase(TestCase):
         '''Call after test case.'''
 
     def test_not_none(self) -> None:
-        '''Test for create JsonBase'''
+        '''Test for create JSONLoader.'''
         self.assertIsNotNone(self.ats_base_json)
 
-    def test_tool_operational(self) -> None:
-        '''Test is tool operational'''
-        self.assertTrue(self.ats_base_json.is_tool_ok())
+    def test_load_configuration(self) -> None:
+        '''Test loading configuration.'''
+        config = self.ats_base_json.load_configuration()
+        self.assertIsInstance(config, dict)
+        self.assertEqual(config.get('ats_name'), 'ats_cli_test')
+        self.assertEqual(config.get('ats_version'), '1.0.0')
 
-    def test_none_config_path(self) -> None:
-        '''Test for None as file path'''
-        with self.assertRaises(ATSTypeError):
-            JsonBase(None)
+    def test_none_config_path_returns_empty_dict(self) -> None:
+        '''Test for None as file path.'''
+        loader = JSONLoader(None)
+        self.assertEqual(loader.load_configuration(), {})
 
 
 class JsonBaseUnitTestCase(TestCase):
     '''
-        Unit tests for JsonBase class using mocks.
+        Unit tests for JSONLoader class using mocks.
 
         It defines:
 
             :attributes:
                 | config_path - Path for configuration file.
-                | mock_checker - Mocked IChecker.
-                | mock_reporter - Mocked IReporter.
                 | mock_json2obj - Mocked IRead interface.
-                | mock_obj2json - Mocked IWrite interface.
+                | mock_processor - Mocked IJSONProcessor interface.
             :methods:
                 | setUp - Set up test environment with mocks.
                 | test_init - Test initialization.
-                | test_is_tool_ok_non_operational - Test non-operational status.
-                | test_option_parser_access_non_operational - Test property error.
-                | test_operational_json_base - Test operational state.
+                | test_load_configuration - Test load configuration.
+                | test_load_configuration_empty - Test load configuration when empty.
     '''
 
     def setUp(self) -> None:
         '''Set up test environment.'''
         self.config_path = 'ats_cli_json_api.json'
-        self.mock_checker = MagicMock(spec=IChecker)
-        self.mock_reporter = MagicMock(spec=IReporter)
         self.mock_json2obj = MagicMock(spec=IRead)
-        self.mock_obj2json = MagicMock(spec=IWrite)
+        self.mock_processor = MagicMock(spec=IJSONProcessor)
 
         # Setup mock behavior
-        self.mock_checker.validate_parameters.return_value = ('', 0)
-        self.mock_json2obj.read_configuration.return_value = {}
+        self.mock_json2obj.read_configuration.return_value = self.mock_processor
+        self.mock_processor.to_dict.return_value = {
+            'ats_name': 'Test Tool',
+            'ats_version': '1.0.0'
+        }
 
-        # Use keyword arguments to ensure correct dependency injection
-        self.json_base: JsonBase = JsonBase(
+        self.json_loader: JSONLoader = JSONLoader(
             info_file=self.config_path,
-            json2obj=self.mock_json2obj,
-            obj2json=self.mock_obj2json,
-            checker=self.mock_checker,
-            reporter=self.mock_reporter,
-            verbose=True
+            json2object=self.mock_json2obj,
+            json_processor=self.mock_processor
         )
 
     def test_init(self) -> None:
-        '''Test initialization of JsonBase.'''
-        self.assertIsNotNone(self.json_base)
+        '''Test initialization of JSONLoader.'''
+        self.assertIsNotNone(self.json_loader)
         self.mock_json2obj.read_configuration.assert_called_once()
 
-    def test_is_tool_ok_non_operational(self) -> None:
-        '''Test is_tool_ok status when JsonBase is not operational.'''
-        self.assertFalse(self.json_base.is_tool_ok())
-
-    def test_option_parser_access_non_operational(self) -> None:
-        '''Test if option_parser access returns None when not operational.'''
-        self.assertIsNone(self.json_base.option_parser)
-
-    def test_operational_json_base(self) -> None:
-        '''Test JsonBase when it is operational.'''
-        operational_mock_json2obj = MagicMock(spec=IRead)
-        operational_mock_obj2json = MagicMock(spec=IWrite)
-        operational_mock_checker = MagicMock(spec=IChecker)
-        operational_mock_reporter = MagicMock(spec=IReporter)
-        operational_mock_options_parser = MagicMock(spec=OptionManager)
-
-        operational_mock_checker.validate_parameters.return_value = ('', 0)
-        mock_processor = MagicMock()
-        mock_processor.to_dict.return_value = {
+    def test_load_configuration(self) -> None:
+        '''Test load configuration.'''
+        config = self.json_loader.load_configuration()
+        self.assertEqual(config, {
             'ats_name': 'Test Tool',
-            'ats_version': '1.0.0',
-            'ats_licence': 'MIT',
-            'ats_build_date': '2023-01-01'
-        }
-        operational_mock_json2obj.read_configuration.return_value = mock_processor
+            'ats_version': '1.0.0'
+        })
+        self.mock_processor.to_dict.assert_called_once()
 
-        operational_json_base = JsonBase(
+    def test_load_configuration_empty(self) -> None:
+        '''Test load configuration when empty.'''
+        # Setup loader with no configuration loaded
+        mock_json2obj_empty = MagicMock(spec=IRead)
+        mock_json2obj_empty.read_configuration.return_value = None
+        loader = JSONLoader(
             info_file=self.config_path,
-            json2obj=operational_mock_json2obj,
-            obj2json=operational_mock_obj2json,
-            options_parser=operational_mock_options_parser,
-            checker=operational_mock_checker,
-            reporter=operational_mock_reporter,
-            verbose=True
+            json2object=mock_json2obj_empty
         )
-
-        self.assertTrue(operational_json_base.is_tool_ok())
-        self.assertIsNotNone(operational_json_base.option_parser)
-        operational_mock_json2obj.read_configuration.assert_called_once()
-        operational_mock_options_parser.add_version_operation.assert_called_once_with('1.0.0')
+        self.assertEqual(loader.load_configuration(), {})
 
 
 if __name__ == '__main__':
