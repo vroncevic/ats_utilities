@@ -24,7 +24,6 @@ other information that should be provided before the modules are installed.
 - [Dependencies](#dependencies)
 - [Framework structure](#framework-structure)
 - [Code coverage](#code-coverage)
-- [Use Cases](#use-cases)
 - [Docs](#docs)
 - [Contributing](#contributing)
 - [Copyright and Licence](#copyright-and-licence)
