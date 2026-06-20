@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+# -*- coding: UTF-8 -*-
 
 '''
 Module
@@ -34,7 +34,7 @@ __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.3.7'
+__version__: str = '3.3.8'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
@@ -49,29 +49,29 @@ class FileCheck(IFileCheck):
         It defines:
 
             :attributes:
-                | __checker - Factoriezed parameters checker (default ATSChecker).
-                | __reporter - Factoriezed reporter for messaging (default ATSReporter).
+                | __checker - Factoriezed parameters checker (default Checker).
+                | __reporter - Factoriezed reporter for messaging (default Reporter).
                 | __verbose - Factoriezed Enable/Disable verbose option (default False).
                 | __file_path_ok - File exist, path ok (default False).
                 | __file_mode_ok - Supported file mode (default False).
                 | __file_format_ok - File format is (not) expected (default False).
             :methods:
-                | __init__ - Initials FileCheck constructor.
+                | __init__ - Initializes FileCheck constructor.
                 | check_path - Checks file path.
-                | check_mode -  Checks operation mode for file.
+                | check_mode - Checks operation mode for file.
                 | check_format - Checks file format by extension.
                 | is_file_ok - Returns status for file.
                 | _reporter - Property method for getting the internal reporter instance.
-                | __str__ - Returns the string representation of file check component.
+                | __str__ - Returns the FileCheck as string representation.
     '''
 
     def __init__(self, config_bundle: Optional[ContextBundle] = None) -> None:
         '''
-            Initials FileCheck constructor.
+            Initializes FileCheck constructor.
 
-            :param config_bundle: Bundle with checker, reporter and verbose | None
+            :param config_bundle: Bundle with checker, reporter and verbose | None.
             :type config_bundle: <Optional[ContextBundle]>
-            :exceptions: None
+            :exceptions: None.
         '''
         factory_context_bundle(self, config_bundle)
         self.__file_path_ok: bool = False
@@ -84,11 +84,9 @@ class FileCheck(IFileCheck):
         '''
             Checks file path in string format.
 
-            :param file_path: File path in string format | None
+            :param file_path: File path in string format | None.
             :type file_path: <Optional[str]>
-            :exceptions:
-                | ATSTypeError, ATSValueError, RuntimeError, AttributeError
-                | RuntimeError, AttributeError
+            :exceptions: ATSTypeError, ATSValueError, RuntimeError, AttributeError.
         '''
         self.__file_path_ok = isfile(file_path)  # type: ignore
 
@@ -101,11 +99,9 @@ class FileCheck(IFileCheck):
         '''
             Checks operation mode for file.
 
-            :param file_mode: File mode in string format ('r', 'w', 'a', 'b', 'x', 't', '+')
+            :param file_mode: File mode in string format ('r', 'w', 'a', 'b', 'x', 't', '+').
             :type file_mode: <Optional[str]>
-            :exceptions:
-                | ATSTypeError, ATSValueError, RuntimeError, AttributeError
-                | RuntimeError, AttributeError
+            :exceptions: ATSTypeError, ATSValueError, RuntimeError, AttributeError.
         '''
         self.__file_mode_ok = bool(file_mode) and all(
             char in self.MODES for char in file_mode  # type: ignore
@@ -120,13 +116,11 @@ class FileCheck(IFileCheck):
         '''
             Checks file format by extension.
 
-            :param file_path: File path in string format | None
+            :param file_path: File path in string format | None.
             :type file_path: <Optional[str]>
-            :param file_format: File format (file extension) | None
+            :param file_format: File format (file extension) | None.
             :type file_format: <Optional[str]>
-            :exceptions:
-                | ATSTypeError, ATSValueError, RuntimeError, AttributeError
-                | RuntimeError, AttributeError
+            :exceptions: ATSTypeError, ATSValueError, RuntimeError, AttributeError.
         '''
         extension: Optional[str] = None
         fmt_str, path_str = str(file_format), str(file_path)
@@ -152,9 +146,9 @@ class FileCheck(IFileCheck):
         '''
             Returns status for file.
 
-            :return: True (success) | False (fail)
+            :return: True (success) | False (fail).
             :rtype: <bool>
-            :exceptions: RuntimeError, AttributeError
+            :exceptions: RuntimeError, AttributeError.
         '''
         return all([self.__file_path_ok, self.__file_mode_ok, self.__file_format_ok])
 
@@ -163,18 +157,18 @@ class FileCheck(IFileCheck):
         '''
             Property method for getting the internal reporter instance.
 
-            :return: The reporter instance in IReporter format
+            :return: The reporter instance in IReporter format.
             :rtype: <IReporter>
-            :exceptions: None
+            :exceptions: None.
         '''
         return get_private_attr(self, 'reporter')
 
     def __str__(self) -> str:
         '''
-            Returns the string representation of file check component.
+            Returns the FileCheck as string representation.
 
-            :return: The file check component as string representation
+            :return: The FileCheck as string representation.
             :rtype: <str>
-            :exceptions: None
+            :exceptions: None.
         '''
         return format_instance_to_string(self)

@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines interface ILicence with attribute(s) and method(s).
+    Defines abstract class ILicence with method(s).
     Interface for the ATS licence mechanism.
 '''
 
@@ -27,7 +27,7 @@ __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.3.7'
+__version__: str = '3.3.8'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
@@ -35,16 +35,16 @@ __status__: str = 'Updated'
 
 class ILicence(ABC):
     '''
-        Defines interface ILicence with attribute(s) and method(s).
+        Defines abstract class ILicence with method(s).
         Interface for the ATS licence mechanism.
 
         It defines:
 
-            :attributes: None.
+            :attributes: None
             :methods:
-                | licence - Property methods for set/get operations (abstract).
-                | not_none - Checks ATS licence is not None (abstract).
-                | __str__ - Returns the string representation of ATS licence (abstract).
+                | licence - Property methods for set/get operations.
+                | not_none - Checks if ATS licence is not None.
+                | __str__ - Returns the ATS licence as string representation.
     '''
 
     @property
@@ -74,7 +74,7 @@ class ILicence(ABC):
     @abstractmethod
     def not_none(self) -> bool:
         '''
-            Checks ATS licence is not None.
+            Checks if ATS licence is not None.
 
             :return: True (success) | False (fail).
             :rtype: <bool>
@@ -85,9 +85,9 @@ class ILicence(ABC):
     @abstractmethod
     def __str__(self) -> str:
         '''
-            Returns the string representation of ATS licence.
+            Returns the ATS licence as string representation.
 
-            :return: The ATS licence instance as string representation
+            :return: The ATS licence as string representation.
             :rtype: <str>
             :exceptions: NotImplementedError
         '''

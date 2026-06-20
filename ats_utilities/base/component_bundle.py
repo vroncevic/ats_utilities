@@ -16,16 +16,17 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines component bundle dataclass for dependency group simplification.
-    Encapsulates checker components to minimize constructor overhead.
+    Defines component bundle dataclass for dependency grouping and management.
+    Encapsulates base components to minimize constructor overhead.
 '''
 
 from typing import List, Optional
-from dataclasses import dataclass
-from ats_utilities.checker.itype_validator import ITypeValidator
-from ats_utilities.checker.iformat_validator import IFormatValidator
-from ats_utilities.checker.icontext_provider import IContextProvider
-from ats_utilities.checker.icheck_reporter import ICheckReporter
+from dataclasses import dataclass, field
+from ats_utilities.context_bundle import ContextBundle
+from ats_utilities.config_io.iconfig_loader import IConfigLoader
+from ats_utilities.info.imanager import IInfoManager
+from ats_utilities.option.ioption_parser import IOptionManager
+from ats_utilities.logging.ilogger_manager import ILoggerManager
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -38,28 +39,32 @@ __status__: str = 'Updated'
 
 
 @dataclass
-class CheckerComponentBundle:
+class BaseComponentBundle:
     '''
-        Defines component bundle dataclass for dependency group simplification.
-        Encapsulates checker components to minimize constructor overhead.
+        Defines component bundle dataclass for dependency grouping and management.
+        Encapsulates base components to minimize constructor overhead.
 
         It defines:
 
             :attributes:
-                | format_validator - Validator for parameters format (default None).
-                | type_validator - Validator for parameters type (default None).
-                | context_provider - Provider for call context (default None).
-                | check_reporter - Formatter for message reports (default None).
+                | info_file - Information file path (default None).
+                | config_loader - Configuration manager (default None).
+                | info_manager - Information manager (default None).
+                | options_parser - Options manager (default None).
+                | logger_manager - Logger manager (default None).
+                | context_bundle - Context bundle for dependency injection (default ContextBundle).
             :methods:
                 | validate - Validates that essential components are set.
                 | merge - Merges non-None values from another bundle into this one.
                 | to_dict - Converts the bundle attributes to a dictionary.
     '''
 
-    format_validator: Optional[IFormatValidator] = None
-    type_validator: Optional[ITypeValidator] = None
-    context_provider: Optional[IContextProvider] = None
-    check_reporter: Optional[ICheckReporter] = None
+    info_file: Optional[str] = None
+    config_loader: Optional[IConfigLoader] = None
+    info_manager: Optional[IInfoManager] = None
+    options_parser: Optional[IOptionManager] = None
+    logger_manager: Optional[ILoggerManager] = None
+    context_bundle: Optional[ContextBundle] = field(default_factory=ContextBundle)
 
     def validate(self) -> None:
         '''
@@ -69,14 +74,15 @@ class CheckerComponentBundle:
             :rtype: <None>
             :exceptions: ValueError
         '''
-        pass
+        if self.info_file is None:
+            raise ValueError("Information file path 'info_file' must be provided.")
 
-    def merge(self, other: 'CheckerComponentBundle') -> None:
+    def merge(self, other: 'BaseComponentBundle') -> None:
         '''
             Merges non-None values from another bundle into this one.
 
             :param other: Another bundle to merge into this one.
-            :type other: <CheckerComponentBundle>
+            :type other: <BaseComponentBundle>
             :return: None.
             :rtype: <None>
             :exceptions: None.
@@ -99,4 +105,3 @@ class CheckerComponentBundle:
             for name, value in self.__dict__.items()
             if not name.startswith('_')
         }
-

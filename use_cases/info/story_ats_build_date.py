@@ -20,18 +20,18 @@ Info
 '''
 
 from typing import List
-from ats_utilities.info.build_date import ATSBuildDate
+from ats_utilities.info.build_date import BuildDate
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.3.7'
+__version__: str = '3.3.8'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
 
-ats_build_date = ATSBuildDate(verbose=False)
+ats_build_date = BuildDate(verbose=False)
 ats_build_date.build_date = 'Sun Jun 14 03:06:12 PM CEST 2026'
 print(ats_build_date.build_date)
 print(ats_build_date)

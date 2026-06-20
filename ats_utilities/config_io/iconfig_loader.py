@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines interface IConfigLoader with attribute(s) and method(s).
+    Defines interface IConfigLoader with method(s).
     Interface for managing configuration loading.
 '''
 
@@ -37,7 +37,7 @@ __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.3.7'
+__version__: str = '3.3.8'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
@@ -50,7 +50,7 @@ IConfigProcessor = Optional[Union[ICFGProcessor, IINIProcessor, IJSONProcessor, 
 
 class IConfigLoader(ABC):
     '''
-        Defines interface IConfigLoader with attribute(s) and method(s).
+        Defines interface IConfigLoader with method(s).
         Interface for managing CLI configuration loading.
 
         It defines:
@@ -58,7 +58,7 @@ class IConfigLoader(ABC):
             :attributes: None
             :methods:
                 | setup_config_loader - Loads the appropriate configuration base based on file type (abstract).
-                | __str__ - Returns the string representation of configuration loader (abstract).
+                | __str__ - Returns the IConfigLoader as string representation.
     '''
 
     @abstractmethod
@@ -66,19 +66,19 @@ class IConfigLoader(ABC):
         '''
             Setup config loader based on configuration file type.
 
-            :return: Configuration loaader object.
+            :return: Configuration loader object.
             :rtype: <Config>
-            :exceptions: NotImplementedError
+            :exceptions: NotImplementedError.
         '''
         raise NotImplementedError("Method setup_config_loader() must be implemented.")
 
     @abstractmethod
     def __str__(self) -> str:
         '''
-            Returns the string representation of configuration loader.
+            Returns the IConfigLoader as string representation.
 
-            :return: The configuration loader as string representation
+            :return: The IConfigLoader as string representation.
             :rtype: <str>
-            :exceptions: NotImplementedError
+            :exceptions: NotImplementedError.
         '''
         raise NotImplementedError("Method __str__() must be implemented.")

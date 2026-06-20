@@ -16,29 +16,29 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines class ATSCheckReporter with attribute(s) and method(s).
+    Defines class CheckReporter with attribute(s) and method(s).
     Creates an API for checking parameters for methods and functions.
 '''
 
 from typing import List, Optional
 from ats_utilities.factory_class import format_instance_to_string
-from ats_utilities.checker.icheck_reporter import IATSCheckReporter
-from ats_utilities.checker.checker_reporter_bundle import ATSCheckerReporterBundle
+from ats_utilities.checker.icheck_reporter import ICheckReporter
+from ats_utilities.checker.checker_reporter_bundle import CheckerReporterBundle
 from ats_utilities.exceptions.ats_value_error import ATSValueError
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.3.7'
+__version__: str = '3.3.8'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
 
 
-class ATSCheckReporter(IATSCheckReporter):
+class CheckReporter(ICheckReporter):
     '''
-        Defines class ATSCheckReporter with attribute(s) and method(s).
+        Defines class CheckReporter with attribute(s) and method(s).
         Standard human-readable report formatter.
         Mechanism for checking function or method parameters (report).
 
@@ -47,18 +47,18 @@ class ATSCheckReporter(IATSCheckReporter):
             :attributes: None
             :methods:
                 | build_message_format - Builds the final message report.
-                | __str__ - Returns the string representation of ATSCheckReporter.
+                | __str__ - Returns the ATS check reporter as string representation.
     '''
 
-    def build_message_format(self, report_bundle: Optional[ATSCheckerReporterBundle] = None) -> str:
+    def build_message_format(self, report_bundle: Optional[CheckerReporterBundle] = None) -> str:
         '''
             Builds the final message report for checker.
 
-            :param report_bundle: Bundle with parameters | None
-            :type report_bundle: <Optional[ATSCheckerReporterBundle]>
-            :return: Formatted message report
+            :param report_bundle: Bundle with parameters | None.
+            :type report_bundle: <Optional[CheckerReporterBundle]>
+            :return: Formatted message report.
             :rtype: <str>
-            :exceptions: ATSValueError
+            :exceptions: ATSValueError.
         '''
         if not report_bundle:
             raise ATSValueError('Missing parameters for build_message_format()')
@@ -79,10 +79,10 @@ class ATSCheckReporter(IATSCheckReporter):
 
     def __str__(self) -> str:
         '''
-            Returns the string representation of ATSCheckReporter.
+            Returns the ATS check reporter as string representation.
 
-            :return: The ATSCheckReporter as string representation
+            :return: The ATS check reporter as string representation.
             :rtype: <str>
-            :exceptions: None
+            :exceptions: None.
         '''
         return format_instance_to_string(self)

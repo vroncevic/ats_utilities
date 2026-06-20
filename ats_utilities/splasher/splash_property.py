@@ -34,7 +34,7 @@ __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.3.7'
+__version__: str = '3.3.8'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
@@ -49,14 +49,14 @@ class SplashProperty(ISplashProperty):
 
             :attributes:
                 | _EXPECTED_PROP_KEYS - Expected property names.
-                | __checker - Factoriezed parameters checker (default ATSChecker).
-                | __reporter - Factoriezed reporter for messaging (default ATSReporter).
+                | __checker - Factoriezed parameters checker (default Checker).
+                | __reporter - Factoriezed reporter for messaging (default Reporter).
                 | __verbose - Factoriezed Enable/Disable verbose option (default False).
                 | __splash_property - Splash screen property in dict format (default None).
             :methods:
                 | __init__ - Initials SplashProperty constructor.
                 | splash_property - Property method for get/set splash property.  
-                | validation - Validates splash screen property.
+                | validates - Validates splash screen property.
                 | _reporter - Property method for getting the internal reporter instance.
                 | __str__ - Returns the string representation of SplashProperty.
     '''
@@ -86,8 +86,8 @@ class SplashProperty(ISplashProperty):
         '''
             Property method for getting splash screen property.
 
-            :return: Formatted splash screen property in dict format | None
-            :rtype: <Optional[str]>
+            :return: Formatted splash screen property in dict format | None.
+            :rtype: <Optional[Dict[Any, Any]]>
             :exceptions: RuntimeError, AttributeError
         '''
         return self.__splash_property
@@ -99,11 +99,9 @@ class SplashProperty(ISplashProperty):
         '''
             Property method for setting project splash screen property.
 
-            :param splash_property_setup: Project splash property in dict format | None
+            :param splash_property_setup: Project splash property in dict format | None.
             :type splash_property_setup: <Optional[Dict[Any, Any]]>
-            :exceptions:
-                | ATSTypeError, ATSValueError, RuntimeError, AttributeError
-                | RuntimeError, AttributeError
+            :exceptions: ATSTypeError, ATSValueError, RuntimeError, AttributeError
         '''
         self.__splash_property = splash_property_setup
 
@@ -112,7 +110,7 @@ class SplashProperty(ISplashProperty):
         '''
             Validates splash screen property.
 
-            :return: True (success) else False (fail)
+            :return: True (success) else False (fail).
             :rtype: <bool>
             :exceptions: RuntimeError, AttributeError
         '''
@@ -132,7 +130,7 @@ class SplashProperty(ISplashProperty):
         '''
             Property method for getting the internal reporter instance.
 
-            :return: The reporter instance in IReporter format
+            :return: The reporter instance in IReporter format.
             :rtype: <IReporter>
             :exceptions: None
         '''
@@ -142,7 +140,7 @@ class SplashProperty(ISplashProperty):
         '''
             Returns the string representation of SplashProperty.
 
-            :return: The SplashProperty as string representation
+            :return: The SplashProperty as string representation.
             :rtype: <str>
             :exceptions: None
         '''

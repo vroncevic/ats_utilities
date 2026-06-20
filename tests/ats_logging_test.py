@@ -27,13 +27,13 @@ from unittest import TestCase, main
 from os.path import dirname
 from ats_utilities.logging.engine import ATSLoggerManager
 from ats_utilities.reporter.ireporter import IReporter
-from ats_utilities.reporter.engine import ATSReporter
+from ats_utilities.reporter.engine import Reporter
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.3.7'
+__version__: str = '3.3.8'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
@@ -42,7 +42,7 @@ __status__: str = 'Updated'
 class ATSBaseLoggingFile(ATSLoggerManager):
     '''Simple Class for checking ATSLoggerManager.'''
 
-    def __init__(self, log_file: str, reporter: IReporter = ATSReporter(), verbose: bool = False) -> None:
+    def __init__(self, log_file: str, reporter: IReporter = Reporter(), verbose: bool = False) -> None:
         '''Initial constructor.'''
         super().__init__(
             ats_name='simple_test',

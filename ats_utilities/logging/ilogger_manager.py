@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines interface ILoggerManager with attribute(s) and method(s).
+    Defines abstract class ILoggerManager with method(s).
     Interface for the ATS logging manager mechanism.
 '''
 
@@ -28,7 +28,7 @@ __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.3.7'
+__version__: str = '3.3.8'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
@@ -36,16 +36,16 @@ __status__: str = 'Updated'
 
 class ILoggerManager(ABC):
     '''
-        Defines interface ILoggerManager with attribute(s) and method(s).
+        Defines abstract class ILoggerManager with method(s).
         Interface for the ATS logging manager mechanism.
 
         It defines:
 
             :attributes: None
             :methods:
-                | get_logger - Gets logger instance (abstract).
-                | write_log - Writes message to log output (abstract).
-                | __str__ - Returns the string representation of ATS logger manager (abstract).
+                | get_logger - Gets logger instance.
+                | write_log - Writes message to log output.
+                | __str__ - Returns the ATS logger manager as string representation.
     '''
 
     @abstractmethod
@@ -77,9 +77,9 @@ class ILoggerManager(ABC):
     @abstractmethod
     def __str__(self) -> str:
         '''
-            Returns the string representation of ATS logger manager.
+            Returns the ATS logger manager as string representation.
 
-            :return: The ATS logger manager as string representation
+            :return: The ATS logger manager as string representation.
             :rtype: <str>
             :exceptions: NotImplementedError
         '''

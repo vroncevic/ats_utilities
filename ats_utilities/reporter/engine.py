@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+# -*- coding: UTF-8 -*-
 
 '''
 Module
@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines class ATSReporter with attribute(s) and method(s).
+    Defines class Reporter with attribute(s) and method(s).
     Implements an API for reporting messages to the console.
 '''
 
@@ -24,7 +24,7 @@ from typing import Any, List, Optional
 from ats_utilities.reporter.ireporter import IReporter
 from ats_utilities.reporter.component_bundle import ReporterComponentBundle
 from ats_utilities.checker.ichecker import IChecker
-from ats_utilities.checker.engine import ATSChecker
+from ats_utilities.checker.engine import Checker
 from ats_utilities.reporter.theme.iconsole_theme import IConsoleTheme
 from ats_utilities.reporter.theme.engine import ATSConsoleTheme
 from ats_utilities.checker.proxy_validator import validator
@@ -35,43 +35,43 @@ __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.3.7'
+__version__: str = '3.3.8'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
 
 
-class ATSReporter(IReporter):
+class Reporter(IReporter):
     '''
-        Defines class ATSReporter with attribute(s) and method(s).
+        Defines class Reporter with attribute(s) and method(s).
         Implements an API for reporting messages to the console.
 
         It defines:
 
             :attributes:
-                | __checker - Parameters checker (default ATSChecker).
+                | __checker - Parameters checker (default Checker).
                 | __theme - Theme for styling messages (default ATSConsoleTheme).
             :methods:
-                | __init__ - Initializes ATSReporter constructor.
+                | __init__ - Initializes Reporter constructor.
                 | __report - Utility method for reporting messages to console.
                 | error - Reports error message to console.
                 | success - Reports success message to console.
                 | verbose - Reports verbose message to console.
                 | warning - Reports warning message to console.
-                | __str__ - Returns the string representation of ATSReporter.
+                | __str__ - Returns the string representation of Reporter.
     '''
 
     def __init__(self, component_bundle: Optional[ReporterComponentBundle] = None) -> None:
         '''
-            Initializes ATSReporter constructor.
+            Initializes Reporter constructor.
 
-            :param component_bundle: Reporter component bundle | None
+            :param component_bundle: Reporter component bundle | None.
             :type component_bundle: <Optional[ReporterComponentBundle]>
             :exceptions: ATSTypeError
         '''
         # No dependency injection then use default ones.
         bundle: ReporterComponentBundle = component_bundle or ReporterComponentBundle()
-        self.__checker: IChecker = make_component(bundle.checker, ATSChecker, None)
+        self.__checker: IChecker = make_component(bundle.checker, Checker, None)
         validate_component(self.__checker, type(self.__checker), type(self.__checker).__name__)
         self.__theme: IConsoleTheme = make_component(bundle.theme, ATSConsoleTheme, None)
         validate_component(self.__theme, type(self.__theme), type(self.__theme).__name__)
@@ -80,9 +80,9 @@ class ATSReporter(IReporter):
         '''
             Utility method for reporting message to console.
 
-            :param message: List with message components
+            :param message: List with message components.
             :type message: <List[Any]>
-            :param color: Theme color for the message
+            :param color: Theme color for the message.
             :type color: <str>
             :exceptions: ATSTypeError
         '''
@@ -96,10 +96,10 @@ class ATSReporter(IReporter):
         '''
             Reports verbose message to console.
 
-            :param is_verbose: Enable/Disable verbose option
+            :param is_verbose: Enable/Disable verbose option.
             :type is_verbose: <bool>
-            :param messages: List with message components
-            :type messages: <List[Any]>
+            :param message: List with message components.
+            :type message: <List[Any]>
             :exceptions: None
         '''
         if is_verbose:
@@ -110,8 +110,8 @@ class ATSReporter(IReporter):
         '''
             Reports success message to console.
 
-            :param messages: List with message components
-            :type messages: <List[Any]>
+            :param message: List with message components.
+            :type message: <List[Any]>
             :exceptions: None
         '''
         self.__report(message, self.__theme.get_color('success'))
@@ -121,8 +121,8 @@ class ATSReporter(IReporter):
         '''
             Reports warning message to console.
 
-            :param messages: List with message components
-            :type messages: <List[Any]>
+            :param message: List with message components.
+            :type message: <List[Any]>
             :exceptions: None
         '''
         self.__report(message, self.__theme.get_color('warning'))
@@ -132,17 +132,17 @@ class ATSReporter(IReporter):
         '''
             Reports error message to console.
 
-            :param messages: List with message components
-            :type messages: <List[Any]>
+            :param message: List with message components.
+            :type message: <List[Any]>
             :exceptions: None
         '''
         self.__report(message, self.__theme.get_color('error'))
 
     def __str__(self) -> str:
         '''
-            Returns the string representation of ATSReporter.
+            Returns the string representation of Reporter.
 
-            :return: The ATSReporter as string representation
+            :return: The Reporter as string representation.
             :rtype: <str>
             :exceptions: None
         '''

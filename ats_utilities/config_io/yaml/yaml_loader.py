@@ -38,7 +38,7 @@ __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.3.7'
+__version__: str = '3.3.8'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
@@ -53,14 +53,14 @@ class YAMLLoader(IINILoader):
         It defines:
 
             :attributes:
-                | __checker - Factoriezed parameters checker (default ATSChecker).
-                | __reporter - Factoriezed reporter for messaging (default ATSReporter).
+                | __checker - Factoriezed parameters checker (default Checker).
+                | __reporter - Factoriezed reporter for messaging (default Reporter).
                 | __verbose - Factoriezed Enable/Disable verbose option (default False).
                 | __configuration - YAML processor configuration (default None).
             :methods:
-                | __init__ - Initials YAMLLoader constructor.
+                | __init__ - Initializes YAMLLoader constructor.
                 | get_configuration - Gets the ATS configuration in dictionary format.
-                | __str__ - Returns the string representation of cfgbase.
+                | __str__ - Returns the YAMLLoader as string representation.
     '''
 
     def __init__(
@@ -71,17 +71,17 @@ class YAMLLoader(IINILoader):
         yaml_processor: Optional[IYAMLProcessor] = None
     ) -> None:
         '''
-            Initials YAMLLoader constructor.
+            Initializes YAMLLoader constructor.
 
-            :param info_file: Path to the info file | None
+            :param info_file: Path to the info file | None.
             :type info_file: <Optional[str]>
-            :param yaml2object: In API for information | None
+            :param yaml2object: An API for information | None.
             :type yaml2object: <Optional[IRead]>
-            :param config_bundle: Configuration bundle | None
+            :param config_bundle: Configuration bundle | None.
             :type config_bundle: <Optional[ATSConfigFileBundle]>
-            :param yaml_processor: Configuration processor for YAML | None
+            :param yaml_processor: Configuration processor for YAML | None.
             :type yaml_processor: <Optional[IYAMLProcessor]>
-            :exceptions: ATSTypeError
+            :exceptions: ATSTypeError.
         '''
         config_file_bundle: ATSConfigFileBundle = config_bundle or ATSConfigFileBundle()
         factory_context_bundle(self, config_file_bundle.context)
@@ -109,9 +109,9 @@ class YAMLLoader(IINILoader):
         '''
             Gets the ATS configuration in dictionary format.
 
-            :return: Dictionary with YAML information
+            :return: Dictionary with YAML information.
             :rtype: <Dict[str, str]>
-            :exceptions: None
+            :exceptions: None.
         '''
         if not self.__configuration:
             return {}
@@ -120,10 +120,10 @@ class YAMLLoader(IINILoader):
 
     def __str__(self) -> str:
         '''
-            Returns the string representation of YAML base object.
+            Returns the YAMLLoader as string representation.
 
-            :return: The YAML base object as string representation
+            :return: The YAMLLoader as string representation.
             :rtype: <str>
-            :exceptions: None
+            :exceptions: None.
         '''
         return format_instance_to_string(self)

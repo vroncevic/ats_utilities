@@ -17,7 +17,7 @@ Copyright
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
     Defines classes ReporterTestCase and ReporterUnitTestCase with attribute(s) and method(s).
-    Creates test cases for checking functionalities of ATSReporter.
+    Creates test cases for checking functionalities of Reporter.
 Execute
     python3 -m unittest -v ats_reporter_test
 '''
@@ -25,13 +25,13 @@ Execute
 from typing import List
 from unittest import TestCase, main, mock
 from ats_utilities.reporter.ireporter import IReporter
-from ats_utilities.reporter.engine import ATSReporter
+from ats_utilities.reporter.engine import Reporter
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.3.7'
+__version__: str = '3.3.8'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
@@ -40,17 +40,17 @@ __status__: str = 'Updated'
 class ReporterTestCase(TestCase):
     '''
         Defines class ReporterTestCase with attribute(s) and method(s).
-        Creates test cases for checking functionalities of ATSReporter.
-        ATSReporter unit tests.
+        Creates test cases for checking functionalities of Reporter.
+        Reporter unit tests.
 
         It defines:
 
             :attributes:
-                | reporter - API for checking ATSReporter.
+                | reporter - API for checking Reporter.
             :methods:
                 | setUp - Call before test case.
                 | tearDown - Call after test case.
-                | test_not_none - Test is ATSReporter not None.
+                | test_not_none - Test is Reporter not None.
                 | test_success - Test success message.
                 | test_error - Test error message.
                 | test_warning - Test warning message.
@@ -59,13 +59,13 @@ class ReporterTestCase(TestCase):
 
     def setUp(self) -> None:
         '''Call before test case.'''
-        self.reporter: ATSReporter = ATSReporter()
+        self.reporter: Reporter = Reporter()
 
     def tearDown(self) -> None:
         '''Call after test case.'''
 
     def test_not_none(self) -> None:
-        '''Test for create ATSReporter'''
+        '''Test for create Reporter'''
         self.assertIsNotNone(self.reporter)
 
     def test_success(self) -> None:

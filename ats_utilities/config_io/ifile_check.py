@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+# -*- coding: UTF-8 -*-
 
 '''
 Module
@@ -27,9 +27,9 @@ __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.3.7'
+__version__: str = '3.3.8'
 __maintainer__: str = 'Vladimir Roncevic'
-__email__: str = 'elektron.roncevic@gmail.com'
+__email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
 
 
@@ -44,11 +44,11 @@ class IFileCheck(ABC):
                 | MODES - Mode file operations.
                 | TRUSTED_EXTENSIONS - List of trusted file extensions.
             :methods:
-                | check_path - Checks file path (abstract).
-                | check_mode - Checks file mode (abstract).
-                | check_format - Checks file format by extension (abstract).
-                | is_file_ok - Returns aggregated file status (abstract).
-                | __str__ - Returns the string representation of file check component (abstract).
+                | check_path - Checks file path.
+                | check_mode - Checks file mode.
+                | check_format - Checks file format by extension.
+                | is_file_ok - Returns aggregated file status.
+                | __str__ - Returns the IFileCheck as string representation.
     '''
 
     MODES: List[str] = ['r', 'w', 'a', 'b', 'x', 't', '+']
@@ -59,9 +59,9 @@ class IFileCheck(ABC):
         '''
             Checks file path in string format.
 
-            :param file_path: File path in string format | None
+            :param file_path: File path in string format | None.
             :type file_path: <Optional[str]>
-            :exceptions: NotImplementedError
+            :exceptions: NotImplementedError.
         '''
         raise NotImplementedError("Method check_path() must be implemented.")
 
@@ -70,9 +70,9 @@ class IFileCheck(ABC):
         '''
             Checks file mode in string format.
 
-            :param file_mode: File mode in string format | None
+            :param file_mode: File mode in string format | None.
             :type file_mode: <Optional[str]>
-            :exceptions: NotImplementedError
+            :exceptions: NotImplementedError.
         '''
         raise NotImplementedError("Method check_mode() must be implemented.")
 
@@ -81,11 +81,11 @@ class IFileCheck(ABC):
         '''
             Checks file format by extension.
 
-            :param file_path: File path in string format | None
+            :param file_path: File path in string format | None.
             :type file_path: <Optional[str]>
-            :param file_format: File format in string format (extension) | None
+            :param file_format: File format in string format (extension) | None.
             :type file_format: <Optional[str]>
-            :exceptions: NotImplementedError
+            :exceptions: NotImplementedError.
         '''
         raise NotImplementedError("Method check_format() must be implemented.")
 
@@ -94,19 +94,19 @@ class IFileCheck(ABC):
         '''
             Returns aggregated file status.
 
-            :return: True (success) | False (fail)
+            :return: True (success) | False (fail).
             :rtype: <bool>
-            :exceptions: NotImplementedError
+            :exceptions: NotImplementedError.
         '''
         raise NotImplementedError("Method is_file_ok() must be implemented.")
 
     @abstractmethod
     def __str__(self) -> str:
         '''
-            Returns the string representation of file check component.
+            Returns the IFileCheck as string representation.
 
-            :return: The file check component as string representation
+            :return: The IFileCheck as string representation.
             :rtype: <str>
-            :exceptions: NotImplementedError
+            :exceptions: NotImplementedError.
         '''
         raise NotImplementedError("Method __str__() must be implemented.")

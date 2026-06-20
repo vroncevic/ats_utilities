@@ -17,7 +17,7 @@ Copyright
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
     Defines class Xml2Object with attribute(s) and method(s).
-    Creates an API for reading a configuration from a XML file.
+    Creates an API for reading a configuration from an XML file.
 '''
 
 from typing import List, Optional
@@ -39,7 +39,7 @@ __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.3.7'
+__version__: str = '3.3.8'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
@@ -48,7 +48,7 @@ __status__: str = 'Updated'
 class Xml2Object(IRead):
     '''
         Defines class Xml2Object with attribute(s) and method(s).
-        Creates an API for reading a configuration from a XML file.
+        Creates an API for reading a configuration from an XML file.
         Conversion of XML content to Python object.
 
         It defines:
@@ -57,17 +57,17 @@ class Xml2Object(IRead):
                 | __EXT - File extension of the configuration file.
                 | __MODE - File open mode.
                 | __config_file_bundle - Configuration file bundle parameters (default None).
-                | __checker - Factoriezed parameters checker (default ATSChecker).
-                | __reporter - Factoriezed reporter for messaging (default ATSReporter).
+                | __checker - Factoriezed parameters checker (default Checker).
+                | __reporter - Factoriezed reporter for messaging (default Reporter).
                 | __verbose - Factoriezed Enable/Disable verbose option (default False).
                 | __file_checker - FileCheck for checking file (default FileCheck).
                 | __xml_processor - Processor for XML content (default ATSXMLProcessor).
                 | __file_path - Configuration file path (default None).
                 | __file_bundle_shared - File bundle parameters (default None).
             :methods:
-                | __init__ - Initials Xml2Object constructor.
-                | read_configuration - Reads a configuration from a XML file.
-                | __str__ - Returns the string representation of XML object.
+                | __init__ - Initializes Xml2Object constructor.
+                | read_configuration - Reads a configuration from an XML file.
+                | __str__ - Returns the Xml2Object as string representation.
     '''
 
     __EXT: str = 'xml'
@@ -80,15 +80,15 @@ class Xml2Object(IRead):
         xml_processor: Optional[IXMLProcessor] = None
     ) -> None:
         '''
-            Initials Xml2Object constructor.
+            Initializes Xml2Object constructor.
 
-            :param config_file: Configuration file path in string format | None
+            :param config_file: Configuration file path in string format | None.
             :type config_file: <Optional[str]>
-            :param config_bundle: Configuration file bundle parameters | None
+            :param config_bundle: Configuration file bundle parameters | None.
             :type config_bundle: <Optional[ATSConfigFileBundle]>
-            :param xml_processor: Processor for XML content | None
-            :type xml_processor: <Optional[IJSONProcessor]>
-            :exceptions: ATSTypeError
+            :param xml_processor: Processor for XML content | None.
+            :type xml_processor: <Optional[IXMLProcessor]>
+            :exceptions: ATSTypeError.
         '''
         self.__config_file_bundle: ATSConfigFileBundle = config_bundle or ATSConfigFileBundle()
         factory_context_bundle(self, self.__config_file_bundle.context)
@@ -112,11 +112,11 @@ class Xml2Object(IRead):
     @vreporter('read configuration from file {file_path}')
     def read_configuration(self) -> Optional[IXMLProcessor]:
         '''
-            Reads a configuration from a XML file.
+            Reads a configuration from an XML file.
 
-            :return: Configuration object | None
+            :return: Configuration object | None.
             :rtype: <Optional[IXMLProcessor]>
-            :exceptions: None
+            :exceptions: None.
         '''
         content: Optional[str] = None
         config: Optional[IXMLProcessor] = None
@@ -133,10 +133,10 @@ class Xml2Object(IRead):
 
     def __str__(self) -> str:
         '''
-            Returns the string representation of XML object.
+            Returns the Xml2Object as string representation.
 
-            :return: The XML object as string representation
+            :return: The Xml2Object as string representation.
             :rtype: <str>
-            :exceptions: None
+            :exceptions: None.
         '''
         return format_instance_to_string(self)

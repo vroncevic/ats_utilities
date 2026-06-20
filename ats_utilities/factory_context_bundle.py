@@ -24,15 +24,15 @@ Info
 from typing import Any, List, Optional
 from ats_utilities.factory_class import inject
 from ats_utilities.context_bundle import ContextBundle
-from ats_utilities.checker.engine import ATSChecker
-from ats_utilities.reporter.engine import ATSReporter
+from ats_utilities.checker.engine import Checker
+from ats_utilities.reporter.engine import Reporter
 from ats_utilities.reporter.component_bundle import ReporterComponentBundle
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.3.7'
+__version__: str = '3.3.8'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
@@ -53,15 +53,15 @@ def factory_context_bundle(instance: Any, context: Optional[ContextBundle] = Non
         context = ContextBundle()
 
     if context.checker is None:
-        context.checker = ATSChecker()
+        context.checker = Checker()
 
     if context.reporter is None:
         reporter_bundle = ReporterComponentBundle(checker=context.checker)
-        context.reporter = ATSReporter(component_bundle=reporter_bundle)
+        context.reporter = Reporter(component_bundle=reporter_bundle)
 
     inject(
         instance,
-        ('checker', context.checker, ATSChecker, None),
-        ('reporter', context.reporter, ATSReporter, ['checker']),
+        ('checker', context.checker, Checker, None),
+        ('reporter', context.reporter, Reporter, ['checker']),
         ('verbose', context.verbose, False, None)
     )

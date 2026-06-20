@@ -32,7 +32,7 @@ __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.3.7'
+__version__: str = '3.3.8'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
@@ -47,26 +47,26 @@ class ProName(IProName):
         It defines:
 
             :attributes:
-                | __checker - Factoriezed parameters checker (default ATSChecker).
-                | __reporter - Factoriezed reporter for messaging (default ATSReporter).
+                | __checker - Factoriezed parameters checker (default Checker).
+                | __reporter - Factoriezed reporter for messaging (default Reporter).
                 | __verbose - Factoriezed Enable/Disable verbose option (default False).
                 | __pro_name - Project name.
             :methods:
-                | __init__ - Initials ProName constructor.
+                | __init__ - Initializes ProName constructor.
                 | pro_name - Property methods for set/get operations.
                 | not_none - Checks project name is not None.
-                | __str__ - Returns the string representation of ATS project name.
+                | __str__ - Returns the ATS project name as string representation.
     '''
 
-    def __init__(self, pro_config_bundle: Optional[ContextBundle] = None) -> None:
+    def __init__(self, context_bundle: Optional[ContextBundle] = None) -> None:
         '''
-            Initials ProName constructor.
+            Initializes ProName constructor.
 
-            :param pro_config_bundle: Bundle with checker, reporter and verbose | None
-            :type pro_config_bundle: <Optional[ContextBundle]>
-            :exceptions: None
+            :param context_bundle: Contex bundle for project name | None.
+            :type context_bundle: <Optional[ContextBundle]>
+            :exceptions: None.
         '''
-        factory_context_bundle(self, pro_config_bundle)
+        factory_context_bundle(self, context_bundle)
         self.__pro_name: Optional[str] = None
 
     @property
@@ -75,9 +75,9 @@ class ProName(IProName):
         '''
             Property method for getting project name in string format.
 
-            :return: Formatted project name in string format | None
+            :return: Formatted project name in string format | None.
             :rtype: <Optional[str]>
-            :exceptions: RuntimeError, AttributeError
+            :exceptions: RuntimeError, AttributeError.
         '''
         return self.__pro_name
 
@@ -88,11 +88,11 @@ class ProName(IProName):
         '''
             Property method for setting project name.
 
-            :param name: Project name in string format | None
+            :param name: Project name in string format | None.
             :type name: <Optional[str]>
             :exceptions:
-                | ATSTypeError, ATSValueError, RuntimeError, AttributeError
-                | RuntimeError, AttributeError
+                | ATSTypeError, ATSValueError, RuntimeError, AttributeError.
+                | RuntimeError, AttributeError.
         '''
         self.__pro_name = name
 
@@ -101,18 +101,18 @@ class ProName(IProName):
         '''
             Checks project name is not None.
 
-            :return: True (success) | False (fail)
+            :return: True (success) | False (fail).
             :rtype: <bool>
-            :exceptions: RuntimeError, AttributeError
+            :exceptions: RuntimeError, AttributeError.
         '''
         return self.__pro_name is not None
 
     def __str__(self) -> str:
         '''
-            Returns the string representation of ATS project name.
+            Returns the ATS project name as string representation.
 
-            :return: The ATS project name as string
+            :return: The ATS project name as string representation.
             :rtype: <str>
-            :exceptions: None
+            :exceptions: None.
         '''
         return format_instance_to_string(self)

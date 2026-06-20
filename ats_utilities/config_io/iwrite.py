@@ -16,18 +16,18 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines abstract class IWrite with attribute(s) and method(s).
+    Defines abstract class IWrite with method(s).
     Creates an interface for writing to configuration files.
 '''
 
 from abc import ABC, abstractmethod
-from typing import Any
+from typing import Any, List
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
+__credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.3.7'
+__version__: str = '3.3.8'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
@@ -35,7 +35,7 @@ __status__: str = 'Updated'
 
 class IWrite(ABC):
     '''
-        Defines abstract class IWrite with attribute(s) and method(s).
+        Defines abstract class IWrite with method(s).
         Creates an interface for writing to configuration files.
 
         It defines:
@@ -43,7 +43,7 @@ class IWrite(ABC):
             :attributes: None
             :methods:
                 | write_configuration - Write configuration to file (abstract).
-                | __str__ - Returns the string representation of write configuration component (abstract).
+                | __str__ - Returns the IWrite as string representation.
     '''
 
     @abstractmethod
@@ -51,21 +51,21 @@ class IWrite(ABC):
         '''
             Write configuration to file.
 
-            :param config: Configuration object | None
+            :param config: Configuration object | None.
             :type config: <Any>
-            :return: True (success) | False (fail)
+            :return: True (success) | False (fail).
             :rtype: <bool>
-            :exceptions: NotImplementedError
+            :exceptions: NotImplementedError.
         '''
         raise NotImplementedError("Method write_configuration() must be implemented.")
 
     @abstractmethod
     def __str__(self) -> str:
         '''
-            Returns the string representation of write configuration component.
+            Returns the IWrite as string representation.
 
-            :return: The write configuration component as string representation
+            :return: The IWrite as string representation.
             :rtype: <str>
-            :exceptions: NotImplementedError
+            :exceptions: NotImplementedError.
         '''
         raise NotImplementedError("Method __str__() must be implemented.")

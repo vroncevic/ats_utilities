@@ -1,8 +1,8 @@
-# -*- coding: utf-8 -*-
+# -*- coding: UTF-8 -*-
 
 '''
 Module
-    component_bundle.py
+    checker_reporter_bundle.py
 Copyright
     Copyright (C) 2017 - 2026 Vladimir Roncevic <elektron.ronca@gmail.com>
     ats_utilities is free software: you can redistribute it and/or modify it
@@ -16,8 +16,8 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines component bundle data classe for dependency group simplification.
-    Encapsulates core utilities to minimize constructor overhead.
+    Defines component bundle dataclass for dependency group simplification.
+    Encapsulates checker reporter parameters to minimize constructor overhead.
 '''
 
 from typing import Any, List, Tuple, TypeAlias, Optional
@@ -27,7 +27,7 @@ __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.3.7'
+__version__: str = '3.3.8'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
@@ -35,11 +35,12 @@ __status__: str = 'Updated'
 # Type alias for parameter metadata: (parameter name, expected type, actual value)
 ParamMetadata: TypeAlias = Tuple[str, str, Any]
 
+
 @dataclass
-class ATSCheckerReporterBundle:
+class CheckerReporterBundle:
     '''
-        Parameter Object pattern wrapper encapsulating all core checker domain elements.
-        Simplifies dependency passing and signatures for higher-level managers.
+        Defines component bundle dataclass for dependency group simplification.
+        Encapsulates checker reporter parameters to minimize constructor overhead.
 
         It defines:
 
@@ -48,10 +49,56 @@ class ATSCheckerReporterBundle:
                 | parameters_meta - parameter name and parameter type (default None).
                 | err_indices - Error set (default None).
                 | is_fmt_err - Check for format error type (default False).
-            :methods: None
+            :methods:
+                | validate - Validates that essential components are set.
+                | merge - Merges non-None values from another bundle into this one.
+                | to_dict - Converts the bundle attributes to a dictionary.
     '''
 
     context: Optional[str] = None
     parameters_meta: Optional[List[ParamMetadata]] = None
     err_indices: Optional[List[int]] = None
     is_fmt_err: bool = False
+
+    def validate(self) -> None:
+        '''
+            Validates that essential components are set.
+
+            :return: None.
+            :rtype: <None>
+            :exceptions: ValueError
+        '''
+        if self.context is None:
+            raise ValueError("Context must be provided.")
+        if self.parameters_meta is None:
+            raise ValueError("Parameters metadata 'parameters_meta' must be provided.")
+
+    def merge(self, other: 'CheckerReporterBundle') -> None:
+        '''
+            Merges non-None values from another bundle into this one.
+
+            :param other: Another bundle to merge into this one.
+            :type other: <CheckerReporterBundle>
+            :return: None.
+            :rtype: <None>
+            :exceptions: None.
+        '''
+        for field_name in self.__dataclass_fields__:
+            other_value = getattr(other, field_name)
+            if other_value is not None:
+                setattr(self, field_name, other_value)
+
+    def to_dict(self) -> dict:
+        '''
+            Converts the bundle attributes to a dictionary.
+
+            :return: Dictionary representation of the bundle attributes.
+            :rtype: <dict>
+            :exceptions: None.
+        '''
+        return {
+            name: value
+            for name, value in self.__dict__.items()
+            if not name.startswith('_')
+        }
+

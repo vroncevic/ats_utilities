@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines interface ITerminalProperties with attribute(s) and method(s).
+    Defines abstract class ITerminalProperties with method(s).
     Interface for getting terminal properties.
 '''
 
@@ -27,7 +27,7 @@ __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.3.7'
+__version__: str = '3.3.8'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
@@ -35,17 +35,17 @@ __status__: str = 'Updated'
 
 class ITerminalProperties(ABC):
     '''
-        Defines interface ITerminalProperties with attribute(s) and method(s).
+        Defines abstract class ITerminalProperties with method(s).
         Interface for getting terminal properties.
 
         It defines:
 
             :attributes: None
             :methods:
-                | ioctl_get_window_size - Gets size for file descriptor (abstract).
-                | ioctl_for_all_descriptors - Sets size for all file descriptors (abstract).
-                | size - Gets terminal window size (abstract).
-                | __str__ - Returns the string representation of terminal properties (abstract).
+                | ioctl_get_window_size - Gets size for file descriptor.
+                | ioctl_for_all_descriptors - Sets size for all file descriptors.
+                | size - Gets terminal window size.
+                | __str__ - Returns the terminal properties as string representation.
     '''
 
     @abstractmethod
@@ -53,9 +53,9 @@ class ITerminalProperties(ABC):
         '''
             Gets size for file descriptor.
 
-            :param file_descriptor: file descriptor
+            :param file_descriptor: File descriptor.
             :type file_descriptor: <int>
-            :return: Window size of terminal
+            :return: Window size of terminal.
             :rtype: <Tuple[Any, ...]>
             :exceptions: NotImplementedError
         '''
@@ -75,7 +75,7 @@ class ITerminalProperties(ABC):
         '''
             Gets terminal window size.
 
-            :return: Terminal window size
+            :return: Terminal window size.
             :rtype: <Tuple[Any, ...]>
             :exceptions: NotImplementedError
         '''
@@ -84,9 +84,9 @@ class ITerminalProperties(ABC):
     @abstractmethod
     def __str__(self) -> str:
         '''
-            Returns the string representation of terminal properties.
+            Returns the terminal properties as string representation.
 
-            :return: The terminal properties as string representation
+            :return: The terminal properties as string representation.
             :rtype: <str>
             :exceptions: NotImplementedError
         '''

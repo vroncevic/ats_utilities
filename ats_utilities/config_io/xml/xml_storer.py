@@ -38,7 +38,7 @@ __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.3.7'
+__version__: str = '3.3.8'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
@@ -54,15 +54,15 @@ class XMLStorer(IXMLStorer):
 
             :attributes:
                 | __SECTION - Section name for ATS configuration.
-                | __checker - Factoriezed parameters checker (default ATSChecker).
-                | __reporter - Factoriezed reporter for messaging (default ATSReporter).
+                | __checker - Factoriezed parameters checker (default Checker).
+                | __reporter - Factoriezed reporter for messaging (default Reporter).
                 | __verbose - Factoriezed Enable/Disable verbose option (default False).
                 | __processor - Processor for XML content (default ATSXMLProcessor).
                 | __obj2xml - Out API for information (default Object2Xml).
             :methods:
-                | __init__ - Initials XMLStorer constructor.
+                | __init__ - Initializes XMLStorer constructor.
                 | store_configuration - Stores the ATS configuration.
-                | __str__ - Returns the string representation of XMLStorer.
+                | __str__ - Returns the XMLStorer as string representation.
     '''
 
     __SECTION: str = '[ats_info]'
@@ -75,17 +75,17 @@ class XMLStorer(IXMLStorer):
         xml_processor: Optional[IXMLProcessor] = None
     ) -> None:
         '''
-            Initials XMLStorer constructor.
+            Initializes XMLStorer constructor.
 
-            :param info_file: Path to the info file | None
+            :param info_file: Path to the info file | None.
             :type info_file: <Optional[str]>
-            :param object2xml: Out API for information | None
+            :param object2xml: An API for information | None.
             :type object2xml: <Optional[IWrite]>
-            :param config_bundle: Configuration bundle | None
+            :param config_bundle: Configuration bundle | None.
             :type config_bundle: <Optional[ATSConfigFileBundle]>
-            :param xml_processor: Processor for XML content | None
+            :param xml_processor: Processor for XML content | None.
             :type xml_processor: <Optional[IXMLProcessor]>
-            :exceptions: ATSTypeError
+            :exceptions: ATSTypeError.
         '''
         config_file_bundle: ATSConfigFileBundle = config_bundle or ATSConfigFileBundle()
         factory_context_bundle(self, config_file_bundle.context)
@@ -101,11 +101,11 @@ class XMLStorer(IXMLStorer):
         '''
             Stores the ATS configuration from dictionary format.
 
-            :param config: Dictionary with XML information
+            :param config: Dictionary with XML information.
             :type config: <Dict[str, str]>
-            :return: True (success) | False (fail)
+            :return: True (success) | False (fail).
             :rtype: <bool>
-            :exceptions: ATSTypeError, ATSValueError, RuntimeError, AttributeError
+            :exceptions: ATSTypeError, ATSValueError, RuntimeError, AttributeError.
         '''
         try:
             root = Element('configuration')
@@ -128,10 +128,10 @@ class XMLStorer(IXMLStorer):
 
     def __str__(self) -> str:
         '''
-            Returns the string representation of XMLStorer.
+            Returns the XMLStorer as string representation.
 
-            :return: The XMLStorer as string representation
+            :return: The XMLStorer as string representation.
             :rtype: <str>
-            :exceptions: None
+            :exceptions: None.
         '''
         return format_instance_to_string(self)

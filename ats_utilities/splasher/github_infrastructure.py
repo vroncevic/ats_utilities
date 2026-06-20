@@ -34,7 +34,7 @@ __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.3.7'
+__version__: str = '3.3.8'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
@@ -48,8 +48,8 @@ class GitHubInfrastructure(IExtInfrastructure):
         It defines:
 
             :attributes:
-                | __checker - Factoriezed parameters checker (default ATSChecker).
-                | __reporter - Factoriezed reporter for messaging (default ATSReporter).
+                | __checker - Factoriezed parameters checker (default Checker).
+                | __reporter - Factoriezed reporter for messaging (default Reporter).
                 | __verbose - Factoriezed Enable/Disable verbose option (default False).
                 | __infrastructure_property - Splasher property in dict format.
             :methods:
@@ -65,7 +65,7 @@ class GitHubInfrastructure(IExtInfrastructure):
         '''
             Initials GitHubInfrastructure constructor.
 
-            :param context_bundle: Context bundle for GitHub infrastructure | None
+            :param context_bundle: Context bundle for GitHub infrastructure | None.
             :type context_bundle: <Optional[ContextBundle]>
             :exceptions: None
         '''
@@ -78,8 +78,8 @@ class GitHubInfrastructure(IExtInfrastructure):
         '''
             Property method for getting infrastructure property.
 
-            :return: Formatted infrastructure property in dict format | None
-            :rtype: <Optional[str]>
+            :return: Formatted infrastructure property in dict format | None.
+            :rtype: <Optional[Dict[Any, Any]]>
             :exceptions: RuntimeError, AttributeError
         '''
         return self.__infrastructure_property
@@ -91,11 +91,9 @@ class GitHubInfrastructure(IExtInfrastructure):
         '''
             Property method for setting project infrastructure property.
 
-            :param infrastructure_property_setup: Project infrastructure property in dict format | None
+            :param infrastructure_property_setup: Project infrastructure property in dict format | None.
             :type infrastructure_property_setup: <Optional[Dict[Any, Any]]>
-            :exceptions:
-                | ATSTypeError, ATSValueError, RuntimeError, AttributeError
-                | RuntimeError, AttributeError
+            :exceptions: ATSTypeError, ATSValueError, RuntimeError, AttributeError
         '''
         self.__infrastructure_property = infrastructure_property_setup
 
@@ -103,7 +101,7 @@ class GitHubInfrastructure(IExtInfrastructure):
         '''
             Pre-processes info text for splash.
 
-            :return: Hyperlink with info text
+            :return: Hyperlink with info text.
             :rtype: <str>
             :exceptions: RuntimeError, AttributeError
         '''
@@ -122,7 +120,7 @@ class GitHubInfrastructure(IExtInfrastructure):
         '''
             Pre-processes issue text for splash.
 
-            :return: Hyperlink with issue info
+            :return: Hyperlink with issue info.
             :rtype: <str>
             :exceptions: RuntimeError, AttributeError
         '''
@@ -140,7 +138,7 @@ class GitHubInfrastructure(IExtInfrastructure):
         '''
             Pre-processes author text for splash.
 
-            :return: Hyperlink with author info
+            :return: Hyperlink with author info.
             :rtype: <str>
             :exceptions: RuntimeError, AttributeError
         '''
@@ -159,7 +157,7 @@ class GitHubInfrastructure(IExtInfrastructure):
         '''
             Property method for getting the internal reporter instance.
 
-            :return: The reporter instance in IReporter format
+            :return: The reporter instance in IReporter format.
             :rtype: <IReporter>
             :exceptions: None
         '''
@@ -169,7 +167,7 @@ class GitHubInfrastructure(IExtInfrastructure):
         '''
             Returns the string representation of GitHubInfrastructure.
 
-            :return: The GitHubInfrastructure as string representation
+            :return: The GitHubInfrastructure as string representation.
             :rtype: <str>
             :exceptions: None
         '''

@@ -24,25 +24,25 @@ Execute
 
 from typing import Any, Dict, Tuple, List, Set, Optional
 from unittest import TestCase, main, mock
-from ats_utilities.checker.engine import ATSChecker
+from ats_utilities.checker.engine import Checker
 from ats_utilities.checker.ichecker import ErrorChecker, IChecker, ParametersSpecs
 from ats_utilities.reporter.ireporter import IReporter
-from ats_utilities.reporter.engine import ATSReporter
+from ats_utilities.reporter.engine import Reporter
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.3.7'
+__version__: str = '3.3.8'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
 
 
-class ATSBaseChecker(ATSChecker):
-    '''Simple Class for checking ATSChecker.'''
+class ATSBaseChecker(Checker):
+    '''Simple Class for checking Checker.'''
 
-    def __init__(self, reporter: IReporter = ATSReporter(), verbose: bool = False) -> None:
+    def __init__(self, reporter: IReporter = Reporter(), verbose: bool = False) -> None:
         '''Initial constructor.'''
         super().__init__()
         self._verbose = verbose
@@ -63,13 +63,13 @@ class ATSCheckerTestCase(TestCase):
     '''
         Defines class ATSCheckerTestCase with attribute(s) and method(s).
         Creates test cases for checking functionalities of ATS param checker.
-        ATSChecker unit tests.
+        Checker unit tests.
 
         It defines:
             :attributes:
                 | ats_base_checker - API for checking base parameters.
-                | error_msg - Error message from ATSChecker.
-                | error_id - Error status from ATSChecker.
+                | error_msg - Error message from Checker.
+                | error_id - Error status from Checker.
             :methods:
                 | setUp - Call before test case.
                 | tearDown - Call after test case.
@@ -104,7 +104,7 @@ class ATSCheckerTestCase(TestCase):
 
     def test_format_error_detection(self) -> None:
         '''Test detection of invalid format strings.'''
-        # ATSFormatValidator expects "type:name"
+        # FormatValidator expects "type:name"
         self.error_msg, self.error_id = self.ats_base_checker.validate_parameters([
             ('invalid_format', 'some_value')
         ])

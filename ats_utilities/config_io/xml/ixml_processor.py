@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines interface IXMLProcessor with attribute(s) and method(s).
+    Defines abstract class IXMLProcessor with method(s).
     Interface for processing XML content.
 '''
 
@@ -27,7 +27,7 @@ __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.3.7'
+__version__: str = '3.3.8'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
@@ -35,17 +35,17 @@ __status__: str = 'Updated'
 
 class IXMLProcessor(ABC):
     '''
-        Defines interface IXMLProcessor with attribute(s) and method(s).
+        Defines abstract class IXMLProcessor with method(s).
         Interface for processing XML content.
 
         It defines:
 
             :attributes: None
             :methods:
-                | from_string - Loads XML content from string (abstract).
-                | to_string - Converts XML content to string (abstract).
-                | to_dict - Gets ATS information from XML (abstract).
-                | __str__ - Returns the string representation of XML processor (abstract).
+                | from_string - Loads XML content from string.
+                | to_string - Converts XML content to string.
+                | to_dict - Gets ATS information from XML.
+                | __str__ - Returns the XML processor as string representation.
     '''
 
     @abstractmethod
@@ -86,9 +86,9 @@ class IXMLProcessor(ABC):
     @abstractmethod
     def __str__(self) -> str:
         '''
-            Returns the string representation of XML processor.
+            Returns the XML processor as string representation.
 
-            :return: The XML processor as string representation
+            :return: The XML processor as string representation.
             :rtype: <str>
             :exceptions: NotImplementedError
         '''

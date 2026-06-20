@@ -26,14 +26,14 @@ from typing import List, Optional
 from unittest import TestCase, main
 from ats_utilities.config_setup.template_dir import TemplateDir
 from ats_utilities.reporter.ireporter import IReporter
-from ats_utilities.reporter.engine import ATSReporter
+from ats_utilities.reporter.engine import Reporter
 from ats_utilities.exceptions.ats_type_error import ATSTypeError
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.3.7'
+__version__: str = '3.3.8'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
@@ -42,7 +42,7 @@ __status__: str = 'Updated'
 class ATSBaseTemplateDir(TemplateDir):
     '''Simple Class for checking TemplateDir.'''
 
-    def __init__(self, reporter: IReporter = ATSReporter(), verbose: bool = False) -> None:
+    def __init__(self, reporter: IReporter = Reporter(), verbose: bool = False) -> None:
         '''Initial constructor.'''
         super().__init__()
         self._verbose = verbose

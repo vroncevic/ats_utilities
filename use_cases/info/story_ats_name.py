@@ -20,18 +20,18 @@ Info
 '''
 
 from typing import List
-from ats_utilities.info.name import ATSName
+from ats_utilities.info.name import Name
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.3.7'
+__version__: str = '3.3.8'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
 
-ats_name = ATSName(verbose=False)
+ats_name = Name(verbose=False)
 ats_name.name = 'mytool'
 print(ats_name.name)
 print(ats_name)

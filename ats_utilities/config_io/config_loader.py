@@ -42,13 +42,14 @@ __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.3.7'
+__version__: str = '3.3.8'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
 
 class ATSConfigLoader(IConfigLoader):
     '''
+        Defines class ATSConfigLoader with attribute(s) and method(s).
         Default implementation of IConfigLoader that encapsulates factory logic.
 
         It defines:
@@ -59,17 +60,17 @@ class ATSConfigLoader(IConfigLoader):
                 | __config_bundle - ATS configuration file bundle (default None).
                 | __processor - Interface for configuration processor (default None).
             :methods:
-                | setup_config_loader - Setup config loader based on configuration file type..
-                | __str__ - Returns the string representation of configuration loader.
+                | setup_config_loader - Setup config loader based on configuration file type.
+                | __str__ - Returns the ATSConfigLoader as string representation.
     '''
 
     def __init__(self, config_loader_bundle: Optional[ATSConfigLoaderBundle] = None) -> None:
         '''
             Initializes ATSConfigLoader constructor.
 
-            :param config_loader_bundle: Configuration file for loading process | None
+            :param config_loader_bundle: Configuration file for loading process | None.
             :type config_loader_bundle: <Optional[ATSConfigLoaderBundle]>
-            :exceptions: None
+            :exceptions: None.
         '''
         self.__info_file = config_loader_bundle.info_file
         self.__config2object = config_loader_bundle.config2object
@@ -82,7 +83,7 @@ class ATSConfigLoader(IConfigLoader):
 
             :return: Configuration loader object.
             :rtype: <Config>
-            :exceptions: None
+            :exceptions: None.
         '''
         if not self.__info_file:
             return None
@@ -106,10 +107,10 @@ class ATSConfigLoader(IConfigLoader):
 
     def __str__(self) -> str:
         '''
-            Returns the string representation of configuration loader.
+            Returns the ATSConfigLoader as string representation.
 
-            :return: The configuration loader as string representation
+            :return: The ATSConfigLoader as string representation.
             :rtype: <str>
-            :exceptions: NotImplementedError
+            :exceptions: NotImplementedError.
         '''
         return format_instance_to_string(self)

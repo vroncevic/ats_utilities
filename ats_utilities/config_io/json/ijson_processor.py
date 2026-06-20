@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines abstract class IJSONProcessor with attribute(s) and method(s).
+    Defines abstract class IJSONProcessor with method(s).
     Creates an interface for processing JSON content.
 '''
 from abc import ABC, abstractmethod
@@ -26,24 +26,24 @@ __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.3.7'
+__version__: str = '3.3.8'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
 
 class IJSONProcessor(ABC):
     '''
-        Defines interface IJSONProcessor with attribute(s) and method(s).
+        Defines abstract class IJSONProcessor with method(s).
         Interface for processing JSON content.
 
         It defines:
 
             :attributes: None
             :methods:
-                | decode - Converts raw JSON text to an internal object/structure (abstract).
-                | encode - Converts an internal object/structure back to a JSON string (abstract).
-                | to_dict - Converts data as a flat dictionary (abstract).
-                | __str__ - Returns the string representation of JSON processor (abstract).
+                | decode - Converts raw JSON text to an internal object/structure.
+                | encode - Converts an internal object/structure back to a JSON string.
+                | to_dict - Converts data as a flat dictionary.
+                | __str__ - Returns the JSON processor as string representation.
     '''
 
     @abstractmethod
@@ -73,7 +73,7 @@ class IJSONProcessor(ABC):
     @abstractmethod
     def to_dict(self) -> Dict[str, str]:
         '''
-            Converts data as a flat dictionary (abstract).
+            Converts data as a flat dictionary.
 
             :return: Dictionary with JSON configuration
             :rtype: <Dict[str, str]>
@@ -84,9 +84,9 @@ class IJSONProcessor(ABC):
     @abstractmethod
     def __str__(self) -> str:
         '''
-            Returns the string representation of JSON processor.
+            Returns the JSON processor as string representation.
 
-            :return: The JSON processor as string representation
+            :return: The JSON processor as string representation.
             :rtype: <str>
             :exceptions: NotImplementedError
         '''

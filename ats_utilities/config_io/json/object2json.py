@@ -39,7 +39,7 @@ __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.3.7'
+__version__: str = '3.3.8'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
@@ -57,16 +57,16 @@ class Object2Json(IWrite):
                 | __EXT - File extension of the configuration file.
                 | __MODE - File open mode.
                 | __config_file_bundle - Configuration file bundle parameters (default None).
-                | __checker - Factoriezed parameters checker (default ATSChecker).
-                | __reporter - Factoriezed reporter for messaging (default ATSReporter).
+                | __checker - Factoriezed parameters checker (default Checker).
+                | __reporter - Factoriezed reporter for messaging (default Reporter).
                 | __verbose - Factoriezed Enable/Disable verbose option (default False).
                 | __file_checker - FileCheck for checking file (default FileCheck).
                 | __file_path - Configuration file path (default None).
                 | __file_bundle_shared - File bundle parameters (default None).
             :methods:
-                | __init__ - Initials Object2Json constructor.
+                | __init__ - Initializes Object2Json constructor.
                 | write_configuration - Writes configuration to a JSON file.
-                | __str__ - Returns the string representation of object2json.
+                | __str__ - Returns the Object2Json as string representation.
     '''
 
     __EXT: str = 'json'
@@ -78,13 +78,13 @@ class Object2Json(IWrite):
         config_bundle: Optional[ATSConfigFileBundle] = None
     ) -> None:
         '''
-            Initials Object2Json constructor.
+            Initializes Object2Json constructor.
 
-            :param config_file: Configuration file path in string format | None
+            :param config_file: Configuration file path in string format | None.
             :type config_file: <Optional[str]>
-            :param config_bundle: Configuration file bundle parameters | None
+            :param config_bundle: Configuration file bundle parameters | None.
             :type config_bundle: <Optional[ATSConfigFileBundle]>
-            :exceptions: ATSTypeError
+            :exceptions: ATSTypeError.
         '''
         self.__config_file_bundle: ATSConfigFileBundle = config_bundle or ATSConfigFileBundle()
         factory_context_bundle(self, self.__config_file_bundle.context)
@@ -109,13 +109,11 @@ class Object2Json(IWrite):
         '''
             Writes configuration to a JSON file.
 
-            :param config: Configuration object | None
+            :param config: Configuration object | None.
             :type config: <Optional[IJSONProcessor]>
-            :return: True (success) | False (fail)
+            :return: True (success) | False (fail).
             :rtype: <bool>
-            :exceptions:
-                | ATSTypeError, ATSValueError, RuntimeError, AttributeError
-                | RuntimeError, AttributeError
+            :exceptions: ATSTypeError, ATSValueError, RuntimeError, AttributeError.
         '''
         status: bool = False
 
@@ -131,10 +129,10 @@ class Object2Json(IWrite):
 
     def __str__(self) -> str:
         '''
-            Returns the string representation of object2json.
+            Returns the Object2Json as string representation.
 
-            :return: The object2json as string representation
+            :return: The Object2Json as string representation.
             :rtype: <str>
-            :exceptions: None
+            :exceptions: None.
         '''
         return format_instance_to_string(self)

@@ -29,7 +29,7 @@ __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.3.7'
+__version__: str = '3.3.8'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
@@ -44,15 +44,20 @@ class ATSJSONProcessor(IJSONProcessor):
             :attributes:
                 | __data - Internal dictionary to store JSON data.
             :methods:
-                | __init__ - Initials ATSJSONProcessor constructor.
+                | __init__ - Initializes ATSJSONProcessor constructor.
                 | decode - Convert raw JSON text to an internal object/structure.
                 | encode - Convert an internal object/structure back to a JSON string.
                 | to_dict - Return data as a flat dictionary.
+                | __str__ - Returns the ATSJSONProcessor as string representation.
     '''
 
     def __init__(self) -> None:
         '''
-            Initials ATSJSONProcessor constructor.
+            Initializes ATSJSONProcessor constructor.
+
+            :return: None.
+            :rtype: <None>
+            :exceptions: None.
         '''
         self.__data: Dict[str, str] = {}
 
@@ -60,11 +65,11 @@ class ATSJSONProcessor(IJSONProcessor):
         '''
             Converts raw JSON text to an internal object/structure.
 
-            :param json_string: Raw JSON text in string format
+            :param json_string: Raw JSON text in string format.
             :type json_string: <str>
-            :return: True (success) | False (fail)
+            :return: True (success) | False (fail).
             :rtype: <bool>
-            :exceptions: None
+            :exceptions: None.
         '''
         try:
             self.__data = loads(json_string)
@@ -76,9 +81,9 @@ class ATSJSONProcessor(IJSONProcessor):
         '''
             Converts an internal object/structure back to a JSON string.
 
-            :return: JSON content in string format
+            :return: JSON content in string format.
             :rtype: <str>
-            :exceptions: None
+            :exceptions: None.
         '''
         return dumps(self.__data, indent=4)
 
@@ -86,18 +91,18 @@ class ATSJSONProcessor(IJSONProcessor):
         '''
             Converts data as a flat dictionary (abstract).
 
-            :return: Dictionary with JSON configuration
+            :return: Dictionary with JSON configuration.
             :rtype: <Dict[str, str]>
-            :exceptions: None
+            :exceptions: None.
         '''
         return self.__data
 
     def __str__(self) -> str:
         '''
-            Returns the string representation of JSON processor.
+            Returns the ATSJSONProcessor as string representation.
 
-            :return: The JSON processor as string representation
+            :return: The ATSJSONProcessor as string representation.
             :rtype: <str>
-            :exceptions: None
+            :exceptions: None.
         '''
         return format_instance_to_string(self)

@@ -38,7 +38,7 @@ __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.3.7'
+__version__: str = '3.3.8'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
@@ -53,18 +53,18 @@ class ConfFile(IConfFile):
         It defines:
 
             :attributes:
-                | __checker - Factoriezed parameters checker (default ATSChecker).
-                | __reporter - Factoriezed reporter for messaging (default ATSReporter).
+                | __checker - Factoriezed parameters checker (default Checker).
+                | __reporter - Factoriezed reporter for messaging (default Reporter).
                 | __verbose - Factoriezed Enable/Disable verbose option (default False).
                 | __file_path - Configuration file path (default None).
                 | __file_mode - Configuration file mode (default None).
                 | __file - File object (default None).
                 | __verbose - Enable/Disable verbose option (default False).
             :methods:
-                | __init__ - Initials ConfFile constructor.
+                | __init__ - Initializes ConfFile constructor.
                 | __enter__ - Opens configuration file in mode.
                 | __exit__ - Closes configuration file.
-                | __str__ - Returns the string representation of configuration file component.
+                | __str__ - Returns the ConfFile as string representation.
     '''
 
     def __init__(
@@ -73,13 +73,13 @@ class ConfFile(IConfFile):
         config_file_bundle: Optional[ATSConfigFileBundle] = None
     ) -> None:
         '''
-            Initials ConfFile constructor.
+            Initializes ConfFile constructor.
 
-            :param file_bundle: File bundle parameters | None
+            :param file_bundle: File bundle parameters | None.
             :type file_bundle: <Optional[ATSFileBundle]>
-            :param config_file_bundle: File configuration bundle parameters | None
-            :type filconfig_file_bundlee_mode: <Optional[ATSConfigFileBundle]>
-            :exceptions: ATSTypeError
+            :param config_file_bundle: File configuration bundle parameters | None.
+            :type config_file_bundle: <Optional[ATSConfigFileBundle]>
+            :exceptions: ATSTypeError.
         '''
         bundle: ATSFileBundle = file_bundle or ATSFileBundle()
         config_bundle: ATSConfigFileBundle = config_file_bundle or ATSConfigFileBundle()
@@ -118,9 +118,9 @@ class ConfFile(IConfFile):
         '''
             Opens configuration file in mode.
 
-            :return: File IO object | None
+            :return: File IO object | None.
             :rtype: <File>
-            :exceptions: RuntimeError, AttributeError
+            :exceptions: RuntimeError, AttributeError.
         '''
         if self.__file_path and self.__file_mode:
             self.__file = open(self.__file_path, self.__file_mode, encoding='utf-8')
@@ -132,21 +132,23 @@ class ConfFile(IConfFile):
         '''
             Closes configuration file.
 
-            :param *args: List of arguments
-            :type *args: <Tuple[Any, ...]>
-            :param **kwargs: Dictionary of mapped arguments
-            :type **kwargs: <Dict[Any, Any]>
-            :exceptions: RuntimeError, AttributeError
+            :param args: List of arguments.
+            :type args: <Tuple[Any, ...]>
+            :param kwargs: Dictionary of mapped arguments.
+            :type kwargs: <Dict[Any, Any]>
+            :return: None.
+            :rtype: <None>
+            :exceptions: RuntimeError, AttributeError.
         '''
         if self.__file and not self.__file.closed:
             self.__file.close()
 
     def __str__(self) -> str:
         '''
-            Returns the string representation of configuration file component.
+            Returns the ConfFile as string representation.
 
-            :return: The configuration file component as string representation
+            :return: The ConfFile as string representation.
             :rtype: <str>
-            :exceptions: None
+            :exceptions: None.
         '''
         return format_instance_to_string(self)

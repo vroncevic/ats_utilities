@@ -28,7 +28,7 @@ __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.3.7'
+__version__: str = '3.3.8'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
@@ -59,10 +59,10 @@ class ATSConsoleTheme(IConsoleTheme):
 
     def __init__(self, palette: Optional[Dict[str, str]] = None) -> None:
         '''
-            Initials ATSConsoleTheme constructor.
+            Initializes ATSConsoleTheme constructor.
 
-            :param palette: Dictionary with color codes | None
-            :type palette: <Dict[str, str]>
+            :param palette: Dictionary with color codes | None.
+            :type palette: <Optional[Dict[str, str]]>
             :exceptions: None
         '''
         # No dependency injection then use default ones.
@@ -72,9 +72,9 @@ class ATSConsoleTheme(IConsoleTheme):
         '''
             Returns color code from palette.
 
-            :param color_type: Type of the message (key in palette)
+            :param color_type: Type of the message (key in palette).
             :type color_type: <str>
-            :return: Color code in string format
+            :return: Color code in string format.
             :rtype: <str>
             :exceptions: None
         '''
@@ -84,7 +84,7 @@ class ATSConsoleTheme(IConsoleTheme):
         '''
             Returns the string representation of ATSConsoleTheme.
 
-            :return: String representation of ATSConsoleTheme
+            :return: The ATSConsoleTheme as string representation.
             :rtype: <str>
             :exceptions: None
         '''

@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines interface IProgressBar with attribute(s) and method(s).
+    Defines abstract class IProgressBar with method(s).
     Interface for progress bar component.
 '''
 
@@ -27,7 +27,7 @@ __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.3.7'
+__version__: str = '3.3.8'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
@@ -35,17 +35,17 @@ __status__: str = 'Updated'
 
 class IProgressBar(ABC):
     '''
-        Defines interface IProgressBar with attribute(s) and method(s).
+        Defines abstract class IProgressBar with method(s).
         Interface for progress bar component.
 
         It defines:
 
             :attributes: None
             :methods:
-                | set_level - Sets level of progress (abstract).
-                | plot_progress - Plots progress (abstract).
-                | set_and_plot - Sets and plots progress (abstract).
-                | __str__ - Returns the string representation of progress bar (abstract).
+                | set_level - Sets level of progress.
+                | plot_progress - Plots progress.
+                | set_and_plot - Sets and plots progress.
+                | __str__ - Returns the progress bar as string representation.
     '''
 
     @abstractmethod
@@ -53,7 +53,7 @@ class IProgressBar(ABC):
         '''
             Sets level of progress.
 
-            :param level: Level of progress
+            :param level: Level of progress.
             :type level: <int>
             :exceptions: NotImplementedError
         '''
@@ -64,7 +64,7 @@ class IProgressBar(ABC):
         '''
             Plots progress.
 
-            :param columns: Colums for open console session
+            :param columns: Columns for open console session.
             :type columns: <int>
             :exceptions: NotImplementedError
         '''
@@ -75,9 +75,9 @@ class IProgressBar(ABC):
         '''
             Sets and plots progress.
 
-            :param level: Level of progress
+            :param level: Level of progress.
             :type level: <int>
-            :param columns: colums for open console session
+            :param columns: Columns for open console session.
             :type columns: <int>
             :exceptions: NotImplementedError
         '''
@@ -86,9 +86,9 @@ class IProgressBar(ABC):
     @abstractmethod
     def __str__(self) -> str:
         '''
-            Returns the string representation of progress bar.
+            Returns the progress bar as string representation.
 
-            :return: The progress bar as string representation
+            :return: The progress bar as string representation.
             :rtype: <str>
             :exceptions: NotImplementedError
         '''

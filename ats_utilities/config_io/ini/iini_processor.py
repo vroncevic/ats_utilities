@@ -1,4 +1,3 @@
-
 # -*- coding: UTF-8 -*-
 
 '''
@@ -17,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines abstract class IINIProcessor with attribute(s) and method(s).
+    Defines abstract class IINIProcessor with method(s).
     Creates an interface for processing INI content.
 '''
 from abc import ABC, abstractmethod
@@ -27,7 +26,7 @@ __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.3.7'
+__version__: str = '3.3.8'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
@@ -35,17 +34,17 @@ __status__: str = 'Updated'
 
 class IINIProcessor(ABC):
     '''
-        Defines interface IINIProcessor with attribute(s) and method(s).
+        Defines abstract class IINIProcessor with method(s).
         Interface for processing INI content.
 
         It defines:
 
             :attributes: None
             :methods:
-                | from_stream - Loads INI configuration from a stream (abstract).
-                | to_stream - Converts INI configuration to a stream (abstract).
-                | to_dict - Converts INI configuration to dictionary (abstract).
-                | __str__ - Returns the string representation of INI processor (abstract).
+                | from_stream - Loads INI configuration from a stream.
+                | to_stream - Converts INI configuration to a stream.
+                | to_dict - Converts INI configuration to dictionary.
+                | __str__ - Returns the INI processor as string representation.
     '''
 
     @abstractmethod
@@ -88,9 +87,9 @@ class IINIProcessor(ABC):
     @abstractmethod
     def __str__(self) -> str:
         '''
-            Returns the string representation of INI processor.
+            Returns the INI processor as string representation.
 
-            :return: INI processor as string representation
+            :return: The INI processor as string representation.
             :rtype: <str>
             :exceptions: NotImplementedError
         '''

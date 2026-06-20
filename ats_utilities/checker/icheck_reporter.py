@@ -16,27 +16,27 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines abstract class IATSCheckReporter with attribute(s) and method(s).
+    Defines abstract class ICheckReporter with method(s).
     Creates an interface for formating message report in context of checker.
 '''
 
 from abc import ABC, abstractmethod
 from typing import List, Optional
-from ats_utilities.checker.checker_reporter_bundle import ATSCheckerReporterBundle
+from ats_utilities.checker.checker_reporter_bundle import CheckerReporterBundle
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.3.7'
+__version__: str = '3.3.8'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
 
 
-class IATSCheckReporter(ABC):
+class ICheckReporter(ABC):
     '''
-        Defines abstract class IATSCheckReporter with attribute(s) and method(s).
+        Defines abstract class ICheckReporter with method(s).
         Creates an interface for formating message report in context of checker.
 
         It defines:
@@ -44,15 +44,15 @@ class IATSCheckReporter(ABC):
             :attributes: None
             :methods:
                 | build_message_format - Builds the final message report for checker.
-                | __str__ - Returns a human-readable string representation of the reporter.
+                | __str__ - Returns the reporter as string representation.
     '''
     @abstractmethod
-    def build_message_format(self, report_bundle: Optional[ATSCheckerReporterBundle] = None) -> str:
+    def build_message_format(self, report_bundle: Optional[CheckerReporterBundle] = None) -> str:
         '''
             Builds the final message report for checker.
 
             :param report_bundle: Bundle with parameters | None
-            :type report_bundle: <Optional[ATSCheckerReporterBundle]>
+            :type report_bundle: <Optional[CheckerReporterBundle]>
             :return: Formatted message report
             :rtype: <str>
             :exceptions: NotImplementedError
@@ -62,9 +62,9 @@ class IATSCheckReporter(ABC):
     @abstractmethod
     def __str__(self) -> str:
         '''
-            Returns a human-readable string representation of the reporter.
+            Returns the reporter as string representation.
 
-            :return: String representation
+            :return: The reporter as string representation.
             :rtype: <str>
             :exceptions: NotImplementedError
         '''

@@ -21,8 +21,8 @@ Info
 
 from typing import List
 from ats_utilities.context_bundle import ContextBundle
-from ats_utilities.checker.engine import ATSChecker
-from ats_utilities.reporter.engine import ATSReporter
+from ats_utilities.checker.engine import Checker
+from ats_utilities.reporter.engine import Reporter
 from ats_utilities.reporter.theme.engine import ATSConsoleTheme 
 from ats_utilities.reporter.component_bundle import ReporterComponentBundle
 
@@ -30,7 +30,7 @@ __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.3.7'
+__version__: str = '3.3.8'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
@@ -39,14 +39,14 @@ __status__: str = 'Updated'
 # [with complex DI]
 # ==================
 #
-mychecker: ATSChecker = ATSChecker()
+mychecker: Checker = Checker()
 mytheme: ATSConsoleTheme = ATSConsoleTheme()
 component_bundle: ReporterComponentBundle = ReporterComponentBundle(
     checker=mychecker,
     theme=mytheme
 )
 
-myreporter: ATSReporter = ATSReporter(component_bundle=component_bundle)
+myreporter: Reporter = Reporter(component_bundle=component_bundle)
 
 ats_context_bundle_di: ContextBundle = ContextBundle(
     checker=mychecker,

@@ -21,15 +21,15 @@ Info
 
 from typing import List
 from ats_utilities.context_bundle import ContextBundle
-from ats_utilities.info.version import ATSVersion
-from ats_utilities.checker.engine import ATSChecker
-from ats_utilities.reporter.engine import ATSReporter
+from ats_utilities.info.version import Version
+from ats_utilities.checker.engine import Checker
+from ats_utilities.reporter.engine import Reporter
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.3.7'
+__version__: str = '3.3.8'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
@@ -40,7 +40,7 @@ VERBOSE: bool = False
 # default [without DI]
 # =====================
 #
-ats_version = ATSVersion()
+ats_version = Version()
 ats_version.version = '1.2.5'
 print(ats_version.version)
 print(ats_version)
@@ -50,10 +50,10 @@ print(150 * '=')
 # with DI
 # ========
 #
-checker = ATSChecker()
-reporter = ATSReporter(checker=checker)
+checker = Checker()
+reporter = Reporter(checker=checker)
 info_bundle = ContextBundle(checker=checker, reporter=reporter, verbose=VERBOSE)
-ats_version = ATSVersion(info_bundle=info_bundle)
+ats_version = Version(info_bundle=info_bundle)
 ats_version.version = '1.2.6'
 print(ats_version.version)
 print(ats_version)
@@ -64,7 +64,7 @@ print(150 * '=')
 # ================================
 #
 info_bundle = ContextBundle()
-ats_version = ATSVersion(info_bundle=info_bundle)
+ats_version = Version(info_bundle=info_bundle)
 ats_version.version = '1.2.7'
 print(ats_version.version)
 print(ats_version)

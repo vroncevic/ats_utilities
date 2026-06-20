@@ -28,7 +28,7 @@ __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.3.7'
+__version__: str = '3.3.8'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
@@ -53,6 +53,7 @@ def make_component(passed_obj: Any, default_class: Any, factory_args: Optional[D
     if factory_args is None:
         factory_args = {}
 
+    # No dependency injection then use default ones.
     return default_class(**factory_args)
 
 def validate_component(instance: Any, expected_class: Type[Any], component_name: str) -> None:

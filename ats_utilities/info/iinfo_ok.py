@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines interface IInfoOk with attribute(s) and method(s).
+    Defines abstract class IInfoOk with method(s).
     Interface for the ATS info status mechanism.
 '''
 
@@ -27,7 +27,7 @@ __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.3.7'
+__version__: str = '3.3.8'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
@@ -35,15 +35,15 @@ __status__: str = 'Updated'
 
 class IInfoOk(ABC):
     '''
-        Defines interface IInfoOk with attribute(s) and method(s).
+        Defines abstract class IInfoOk with method(s).
         Interface for the ATS info status mechanism.
 
         It defines:
 
-            :attributes: None.
+            :attributes: None
             :methods:
-                | info_ok - Property methods for set/get operations (abstract).
-                | __str__ - Returns the string representation of ATS info status (abstract).
+                | info_ok - Property methods for set/get operations.
+                | __str__ - Returns the ATS info status as string representation.
     '''
 
     @property
@@ -56,7 +56,7 @@ class IInfoOk(ABC):
             :rtype: <bool>
             :exceptions: NotImplementedError
         '''
-        raise NotImplementedError("Method info_ok must be implemented.")
+        raise NotImplementedError("Method info_ok() must be implemented.")
 
     @info_ok.setter
     @abstractmethod
@@ -73,9 +73,9 @@ class IInfoOk(ABC):
     @abstractmethod
     def __str__(self) -> str:
         '''
-            Returns the string representation of ATS info status.
+            Returns the ATS info status as string representation.
 
-            :return: The ATS info status instance as string representation
+            :return: The ATS info status as string representation.
             :rtype: <str>
             :exceptions: NotImplementedError
         '''

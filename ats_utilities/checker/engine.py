@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines class ATSChecker with attribute(s) and method(s).
+    Defines class Checker with attribute(s) and method(s).
     Concrete implementation of the ATS parameter(s) checker.
 '''
 
@@ -24,30 +24,30 @@ from typing import ClassVar, List, Optional
 from ats_utilities.factory_class import format_instance_to_string
 from ats_utilities.factory_component import make_component, validate_component
 from ats_utilities.checker.ichecker import IChecker, ErrorChecker, ValidationResult, ParametersSpecs
-from ats_utilities.checker.itype_validator import IATSTypeValidator
-from ats_utilities.checker.type_validator import ATSTypeValidator
-from ats_utilities.checker.iformat_validator import IATSFormatValidator
-from ats_utilities.checker.format_validator import ATSFormatValidator
-from ats_utilities.checker.icontext_provider import IATSContextProvider
-from ats_utilities.checker.context_provider import ATSContextProvider
-from ats_utilities.checker.icheck_reporter import IATSCheckReporter
-from ats_utilities.checker.check_reporter import ATSCheckReporter
-from ats_utilities.checker.component_bundle import ATSCheckerComponentBundle
-from ats_utilities.checker.checker_reporter_bundle import ATSCheckerReporterBundle, ParamMetadata
+from ats_utilities.checker.itype_validator import ITypeValidator
+from ats_utilities.checker.type_validator import TypeValidator
+from ats_utilities.checker.iformat_validator import IFormatValidator
+from ats_utilities.checker.format_validator import FormatValidator
+from ats_utilities.checker.icontext_provider import IContextProvider
+from ats_utilities.checker.context_provider import ContextProvider
+from ats_utilities.checker.icheck_reporter import ICheckReporter
+from ats_utilities.checker.check_reporter import CheckReporter
+from ats_utilities.checker.component_bundle import CheckerComponentBundle
+from ats_utilities.checker.checker_reporter_bundle import CheckerReporterBundle, ParamMetadata
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.3.7'
+__version__: str = '3.3.8'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
 
 
-class ATSChecker(IChecker):
+class Checker(IChecker):
     '''
-        Defines class ATSChecker with attribute(s) and method(s).
+        Defines class Checker with attribute(s) and method(s).
         Concrete implementation of the ATS parameter(s) checker.
         Mechanism for application, tool, or script parameters checker.
 
@@ -55,46 +55,46 @@ class ATSChecker(IChecker):
 
             :attributes:
                 | ERRORS - Marks error types for message reports.
-                | __format_validator - Validator for parameters format (default ATSFormatValidator).
-                | __type_validator - Validator for parameters type (default ATSTypeValidator).
-                | __context_provider - Provider for call context (default ATSContextProvider).
-                | __check_reporter - Formatter for message reports (default ATSCheckReporter).
+                | __format_validator - Validator for parameters format (default FormatValidator).
+                | __type_validator - Validator for parameters type (default TypeValidator).
+                | __context_provider - Provider for call context (default ContextProvider).
+                | __check_reporter - Formatter for message reports (default CheckReporter).
             :methods:
-                | __init__ - Initials ATSChecker constructor.
+                | __init__ - Initializes Checker constructor.
                 | validates_parameters - Validates parameter(s) for method(s) or function(s).
-                | __str__ - Returns the string representation of ATSChecker.
+                | __str__ - Returns the ATS checker as string representation.
     '''
 
     ERRORS: ClassVar[type[ErrorChecker]] = ErrorChecker
 
-    def __init__(self, component_bundle: Optional[ATSCheckerComponentBundle] = None) -> None:
+    def __init__(self, component_bundle: Optional[CheckerComponentBundle] = None) -> None:
         '''
-            Initials ATSChecker constructor.
+            Initializes Checker constructor.
 
-            :param component_bundle: Bundle with components | None
-            :type component_bundle: <Optional[ATSCheckerComponentBundle]>
-            :exceptions: ATSTypeError
+            :param component_bundle: Bundle with components | None.
+            :type component_bundle: <Optional[CheckerComponentBundle]>
+            :exceptions: ATSTypeError.
         '''
         # No dependency injection then use default ones.
-        components: ATSCheckerComponentBundle = component_bundle or ATSCheckerComponentBundle()
-        self.__format_validator: IATSFormatValidator = make_component(components.format_validator, ATSFormatValidator, None)
+        components: CheckerComponentBundle = component_bundle or CheckerComponentBundle()
+        self.__format_validator: IFormatValidator = make_component(components.format_validator, FormatValidator, None)
         validate_component(self.__format_validator, type(self.__format_validator), type(self.__format_validator).__name__)
-        self.__type_validator: IATSTypeValidator = make_component(components.type_validator, ATSTypeValidator, None)
+        self.__type_validator: ITypeValidator = make_component(components.type_validator, TypeValidator, None)
         validate_component(self.__type_validator, type(self.__type_validator), type(self.__type_validator).__name__)
-        self.__context_provider: IATSContextProvider = make_component(components.context_provider, ATSContextProvider, None)
+        self.__context_provider: IContextProvider = make_component(components.context_provider, ContextProvider, None)
         validate_component(self.__context_provider, type(self.__context_provider), type(self.__context_provider).__name__)
-        self.__check_reporter: IATSCheckReporter = make_component(components.check_reporter, ATSCheckReporter, None)
+        self.__check_reporter: ICheckReporter = make_component(components.check_reporter, CheckReporter, None)
         validate_component(self.__check_reporter, type(self.__check_reporter), type(self.__check_reporter).__name__)
 
     def validates_parameters(self, parameters: Optional[ParametersSpecs]) -> ValidationResult:
         '''
             Validates parameters for method(s) or function(s).
 
-            :param parameters: Specification for parameters | None
+            :param parameters: Specification for parameters | None.
             :type parameters: <Optional[ParametersSpecs]>
-            :return: Tuple of error message report and error id
+            :return: Tuple of error message report and error id.
             :rtype: <ValidationResult>
-            :exceptions: None
+            :exceptions: None.
         '''
         context: str = self.__context_provider.get_context()
         params_meta: List[ParamMetadata] = []
@@ -104,7 +104,7 @@ class ATSChecker(IChecker):
         if parameters is None:
             return (
                 self.__check_reporter.build_message_format(
-                    ATSCheckerReporterBundle(context, [], [], True)
+                    CheckerReporterBundle(context, [], [], True)
                 ),
                 self.ERRORS.FORMAT_ERROR
             )
@@ -130,7 +130,7 @@ class ATSChecker(IChecker):
                     error_id = self.ERRORS.TYPE_ERROR
 
         return self.__check_reporter.build_message_format(
-            ATSCheckerReporterBundle(
+            CheckerReporterBundle(
                 context=context,
                 parameters_meta=params_meta,
                 err_indices=err_indices,
@@ -140,10 +140,10 @@ class ATSChecker(IChecker):
 
     def __str__(self) -> str:
         '''
-            Returns the string representation of ATSChecker.
+            Returns the ATS checker as string representation.
 
-            :return: The ATSChecker as string representation
+            :return: The ATS checker as string representation.
             :rtype: <str>
-            :exceptions: None
+            :exceptions: None.
         '''
         return format_instance_to_string(self)

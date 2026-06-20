@@ -2,7 +2,7 @@
 
 '''
 Module
-    default_cfg_processor.py
+    cfg_processor.py
 Copyright
     Copyright (C) 2017 - 2026 Vladimir Roncevic <elektron.ronca@gmail.com>
     ats_utilities is free software: you can redistribute it and/or modify it
@@ -29,7 +29,7 @@ __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.3.7'
+__version__: str = '3.3.8'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
@@ -50,7 +50,7 @@ class ATSCFGProcessor(ICFGProcessor):
                 | from_lines - Loads CFG configuration from lines.
                 | to_string - Converts CFG configuration to string.
                 | to_dict - Converts CFG configuration to dictionary.
-                | __str__ - Returns the string representation of CFG processor.
+                | __str__ - Returns the ATSCFGProcessor as string representation.
     '''
 
     __REGEX_EXP: str = r'^\s*$'
@@ -58,6 +58,10 @@ class ATSCFGProcessor(ICFGProcessor):
     def __init__(self) -> None:
         '''
             Initializes ATSCFGProcessor constructor.
+
+            :return: None.
+            :rtype: <None>
+            :exceptions: None.
         '''
         self.__data: Dict[str, str] = {}
 
@@ -65,11 +69,11 @@ class ATSCFGProcessor(ICFGProcessor):
         '''
             Loads CFG configuration from lines.
 
-            :param lines: CFG content as a list of strings
+            :param lines: CFG content as a list of strings.
             :type lines: <List[str]>
-            :return: True (success) | False (fail)
+            :return: True (success) | False (fail).
             :rtype: <bool>
-            :exceptions: None
+            :exceptions: None.
         '''
         self.__data.clear()
 
@@ -85,9 +89,9 @@ class ATSCFGProcessor(ICFGProcessor):
         '''
             Converts CFG configuration to string.
 
-            :return: CFG content as string
+            :return: CFG content as string.
             :rtype: <str>
-            :exceptions: None
+            :exceptions: None.
         '''
         return "".join([f"{k} = {v}\n" for k, v in self.__data.items()])
 
@@ -95,18 +99,18 @@ class ATSCFGProcessor(ICFGProcessor):
         '''
             Converts CFG configuration to dictionary.
 
-            :return: Dictionary with CFG information
+            :return: Dictionary with CFG information.
             :rtype: <Dict[str, str]>
-            :exceptions: None
+            :exceptions: None.
         '''
         return self.__data
 
     def __str__(self) -> str:
         '''
-            Returns the string representation of CFG processor.
+            Returns the ATSCFGProcessor as string representation.
 
-            :return: CFG processor component as string representation
+            :return: The ATSCFGProcessor as string representation.
             :rtype: <str>
-            :exceptions: None
+            :exceptions: None.
         '''
         return format_instance_to_string(self)

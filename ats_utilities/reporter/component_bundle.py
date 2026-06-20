@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+# -*- coding: UTF-8 -*-
 
 '''
 Module
@@ -29,7 +29,7 @@ __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.3.7'
+__version__: str = '3.3.8'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
@@ -46,8 +46,52 @@ class ReporterComponentBundle:
             :attributes:
                 | checker - Parameters checker API (default None).
                 | theme - Theme for styling messages (default None).
-            :methods: None
+            :methods:
+                | validate - Validates that essential components are set.
+                | merge - Merges non-None values from another bundle into this one.
+                | to_dict - Converts the bundle attributes to a dictionary.
     '''
 
     checker: Optional[IChecker] = None
     theme: Optional[IConsoleTheme] = None
+
+    def validate(self) -> None:
+        '''
+            Validates that essential components are set.
+
+            :return: None
+            :rtype: <None>
+            :exceptions: ValueError
+        '''
+        if self.checker is None:
+            raise ValueError("Checker must be provided.")
+
+    def merge(self, other: 'ReporterComponentBundle') -> None:
+        '''
+            Merges non-None values from another bundle into this one.
+
+            :param other: Another bundle to merge into this one.
+            :type other: <ReporterComponentBundle>
+            :return: None
+            :rtype: <None>
+            :exceptions: None
+        '''
+        for field_name in self.__dataclass_fields__:
+            other_value = getattr(other, field_name)
+            if other_value is not None:
+                setattr(self, field_name, other_value)
+
+    def to_dict(self) -> dict:
+        '''
+            Converts the bundle attributes to a dictionary.
+
+            :return: Dictionary representation of the bundle attributes.
+            :rtype: <dict>
+            :exceptions: None
+        '''
+        return {
+            name: value
+            for name, value in self.__dict__.items()
+            if not name.startswith('_')
+        }
+

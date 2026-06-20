@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines interface IConsoleTheme with attribute(s) and method(s).
+    Defines abstract class IConsoleTheme with method(s).
     Defines interface for console styling.
 '''
 
@@ -27,7 +27,7 @@ __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.3.7'
+__version__: str = '3.3.8'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
@@ -35,15 +35,15 @@ __status__: str = 'Updated'
 
 class IConsoleTheme(ABC):
     '''
-        Defines interface IConsoleTheme with attribute(s) and method(s).
+        Defines abstract class IConsoleTheme with method(s).
         Defines interface for console styling.
 
         It defines:
 
             :attributes: None
             :methods:
-                | get_color - Returns color code based on type (abstract).
-                | __str__ - Returns a human-readable string representation of the theme.
+                | get_color - Returns color code based on type.
+                | __str__ - Returns the console theme as string representation.
     '''
 
     @abstractmethod
@@ -51,20 +51,20 @@ class IConsoleTheme(ABC):
         '''
             Returns color code based on type.
 
-            :param color_type: Type of the message (error, success, etc.)
+            :param color_type: Type of the message (error, success, etc.).
             :type color_type: <str>
             :return: Color code.
             :rtype: <str>
             :exceptions: NotImplementedError
         '''
-        raise NotImplementedError()
+        raise NotImplementedError("Method get_color() must be implemented.")
 
     @abstractmethod
     def __str__(self) -> str:
         '''
-            Returns the string representation of console theme.
+            Returns the console theme as string representation.
 
-            :return: Console theme instance as string representation
+            :return: The console theme as string representation.
             :rtype: <str>
             :exceptions: NotImplementedError
         '''

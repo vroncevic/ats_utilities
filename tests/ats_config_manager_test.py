@@ -32,8 +32,8 @@ from ats_utilities.config_io.iwrite import IWrite
 from ats_utilities.config_io.ifile_check import IFileCheck
 from ats_utilities.checker.ichecker import IChecker
 from ats_utilities.reporter.ireporter import IReporter
-from ats_utilities.option.engine import ATSOptionManager
-from ats_utilities.option.iparser_strategy import IArgParserStrategy
+from ats_utilities.option.engine import OptionManager
+from ats_utilities.option.iparser_strategy import IParserStrategy
 from ats_utilities.config_io.cfg.cfg_loader import CFGLoader
 from ats_utilities.config_io.ini.inibase import IniBase
 from ats_utilities.config_io.json.jsonbase import JsonBase
@@ -44,7 +44,7 @@ __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.3.7'
+__version__: str = '3.3.8'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
@@ -101,11 +101,11 @@ class ConfigManagerUnitTestCase(TestCase):
         '''Set up test environment.'''
         self.mock_read = mock.MagicMock(spec=IRead)
         self.mock_write = mock.MagicMock(spec=IWrite)
-        self.mock_parser = mock.MagicMock(spec=ATSOptionManager)
+        self.mock_parser = mock.MagicMock(spec=OptionManager)
         self.mock_checker = mock.MagicMock(spec=IChecker)
         self.mock_reporter = mock.MagicMock(spec=IReporter)
         self.mock_file_checker = mock.MagicMock(spec=IFileCheck)
-        self.mock_strategy = mock.MagicMock(spec=IArgParserStrategy)
+        self.mock_strategy = mock.MagicMock(spec=IParserStrategy)
 
         # Configure mock_checker to always return a successful validation
         self.mock_checker.validate_parameters.return_value = ('', 0)

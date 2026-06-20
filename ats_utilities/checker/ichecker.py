@@ -17,7 +17,7 @@ Copyright
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
     Defines abstract class IChecker with attribute(s) and method(s).
-    Creates an interface for ATSChecker and other checker implementations.
+    Creates an interface for Checker and other checker implementations.
 '''
 
 from abc import ABC, abstractmethod
@@ -28,7 +28,7 @@ __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.3.7'
+__version__: str = '3.3.8'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
@@ -43,7 +43,7 @@ ParametersSpecs: TypeAlias = List[Tuple[str, Any]]
 class ErrorChecker(int, Enum):
     '''
         Defines class ErrorChecker with attribute(s).
-        Marks error types for the ATSChecker.
+        Marks error types for the Checker.
 
         It defines:
 
@@ -61,7 +61,7 @@ class ErrorChecker(int, Enum):
 class ErrorCheckerProtocol(Protocol):
     '''
         Defines class ErrorCheckerProtocol with attribute(s).
-        Protocol for error types for the ATSChecker.
+        Protocol for error types for the Checker.
 
         It defines:
 
@@ -79,7 +79,7 @@ class ErrorCheckerProtocol(Protocol):
 class IChecker(ABC):
     '''
         Defines abstract class IChecker with attribute(s) and method(s).
-        Creates an interface for ATSChecker and other checker implementations.
+        Creates an interface for Checker and other checker implementations.
 
         It defines:
 
@@ -87,7 +87,7 @@ class IChecker(ABC):
                 | ERRORS - Marks error types for message reports (0 | 1 | 2).
             :methods:
                 | validates_parameters - Validates parameters for method(s) or function(s) (abstract).
-                | __str__ - Returns the string representation of the checker.
+                | __str__ - Returns the checker as string representation.
     '''
 
     ERRORS: ClassVar[EnumMeta] = ErrorChecker
@@ -108,9 +108,9 @@ class IChecker(ABC):
     @abstractmethod
     def __str__(self) -> str:
         '''
-            Returns the string representation of the checker.
+            Returns the checker as string representation.
 
-            :return: String representation of the checker instance
+            :return: The checker as string representation.
             :rtype: <str>
             :exceptions: NotImplementedError
         '''

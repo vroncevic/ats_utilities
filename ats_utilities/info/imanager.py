@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines interface IInfoManager with attribute(s) and method(s).
+    Defines abstract class IInfoManager with method(s).
     Interface for the ATS info manager mechanism.
 '''
 
@@ -28,7 +28,7 @@ __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.3.7'
+__version__: str = '3.3.8'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
@@ -36,17 +36,17 @@ __status__: str = 'Updated'
 
 class IInfoManager(ABC):
     '''
-        Defines interface IInfoManager with attribute(s) and method(s).
+        Defines abstract class IInfoManager with method(s).
         Interface for the ATS info manager mechanism.
 
         It defines:
 
-            :attributes: None.
+            :attributes: None
             :methods:
-                | set_info - Sets the ATS information (abstract).
-                | info_ok - Checks is ATS information structure ok (abstract).
-                | refresh_status - Refresh status for ATS information structure (abstract).
-                | __str__ - Returns the string representation of ATS info manager (abstract).
+                | set_info - Sets the ATS information.
+                | info_ok - Checks if ATS information structure is ok.
+                | refresh_status - Refreshes status for ATS information structure.
+                | __str__ - Returns the ATS info manager as string representation.
     '''
 
     @abstractmethod
@@ -64,8 +64,8 @@ class IInfoManager(ABC):
     @abstractmethod
     def info_ok(self) -> bool:
         '''
-            Checks is ATS information structure ok.
-        
+            Checks if ATS information structure is ok.
+
             :return: True (success) | False (fail)
             :rtype: <bool>
             :exceptions: NotImplementedError
@@ -75,7 +75,7 @@ class IInfoManager(ABC):
     @abstractmethod
     def refresh_status(self) -> None:
         '''
-            Refresh status for ATS information structure.
+            Refreshes status for ATS information structure.
 
             :exceptions: NotImplementedError
         '''
@@ -84,9 +84,9 @@ class IInfoManager(ABC):
     @abstractmethod
     def __str__(self) -> str:
         '''
-            Returns the string representation of ATS info manager.
+            Returns the ATS info manager as string representation.
 
-            :return: The ATS info manager string
+            :return: The ATS info manager as string representation.
             :rtype: <str>
             :exceptions: NotImplementedError
         '''

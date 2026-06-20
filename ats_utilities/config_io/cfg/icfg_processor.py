@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines abstract class ICFGProcessor with attribute(s) and method(s).
+    Defines abstract class ICFGProcessor with method(s).
     Creates an interface for processing CFG content.
 '''
 
@@ -27,7 +27,7 @@ __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.3.7'
+__version__: str = '3.3.8'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
@@ -35,23 +35,23 @@ __status__: str = 'Updated'
 
 class ICFGProcessor(ABC):
     '''
-        Defines interface ICFGProcessor with attribute(s) and method(s).
+        Defines abstract class ICFGProcessor with method(s).
         Interface for processing CFG content.
 
         It defines:
 
             :attributes: None
             :methods:
-                | from_lines - Loads CFG configuration from lines (abstract).
-                | to_string - Converts CFG configuration to string (abstract).
-                | to_dict - Converts CFG configuration to dictionary. (abstract).
-                | __str__ - Returns the string representation of CFG processor (abstract).
+                | from_lines - Loads CFG configuration from lines.
+                | to_string - Converts CFG configuration to string.
+                | to_dict - Converts CFG configuration to dictionary.
+                | __str__ - Returns the CFG processor as string representation.
     '''
 
     @abstractmethod
     def from_lines(self, lines: List[str]) -> bool:
         '''
-            Load CFG configuration from lines.
+            Loads CFG configuration from lines.
 
             :param lines: CFG content as a list of strings
             :type lines: <List[str]>
@@ -64,7 +64,7 @@ class ICFGProcessor(ABC):
     @abstractmethod
     def to_string(self) -> str:
         '''
-            Convert CFG configuration to string.
+            Converts CFG configuration to string.
 
             :return: CFG content as string
             :rtype: <str>
@@ -81,14 +81,14 @@ class ICFGProcessor(ABC):
             :rtype: <Dict[str, str]>
             :exceptions: NotImplementedError
         '''
-        raise NotImplementedError("Method get_ats_info() must be implemented.")
+        raise NotImplementedError("Method to_dict() must be implemented.")
 
     @abstractmethod
     def __str__(self) -> str:
         '''
-            Returns the string representation of CFG processor.
+            Returns the CFG processor as string representation.
 
-            :return: CFG processor as string representation
+            :return: The CFG processor as string representation.
             :rtype: <str>
             :exceptions: NotImplementedError
         '''

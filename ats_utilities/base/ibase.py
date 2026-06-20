@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines interface IBase with attribute(s) and method(s).
+    Defines abstract class IBase with method(s).
     Interface for ATS base setup.
 '''
 
@@ -28,7 +28,7 @@ __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.3.7'
+__version__: str = '3.3.8'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
@@ -39,24 +39,24 @@ ArgSeq: TypeAlias = Optional[Sequence[str]]
 
 class IBase(ABC):
     '''
-        Defines interface IBase with attribute(s) and method(s).
+        Defines abstract class IBase with method(s).
         Interface for ATS base setup.
 
         It defines:
 
             :attributes: None
             :methods:
-                | is_operational - Checks is ATS operational (abstract).
-                | add_new_option - Adds a new option for the the CL interface (abstract).
-                | parse_args - Parses the CLI arguments (abstract).
-                | process - Processes and runs ATS operations (abstract).
-                | __str__ - Returns the string representation of ATS base (abstract).
+                | is_operational - Checks if ATS is operational.
+                | add_new_option - Adds a new option for the CL interface.
+                | parse_args - Parses the CLI arguments.
+                | process - Processes and runs tool operations.
+                | __str__ - Returns the ATS base as string representation.
     '''
 
     @abstractmethod
     def is_operational(self) -> bool:
         '''
-            Checks is ATS operational.
+            Checks if ATS is operational.
 
             :return: True (operational) | False (not operational)
             :rtype: <bool>
@@ -71,7 +71,7 @@ class IBase(ABC):
 
             :param args: Arguments in string form
             :type args: <str>
-            :param kwargs: arguments in Any form
+            :param kwargs: Arguments in Any form
             :type kwargs: <Any>
             :exceptions: NotImplementedError
         '''
@@ -106,9 +106,9 @@ class IBase(ABC):
     @abstractmethod
     def __str__(self) -> str:
         '''
-            Returns the string representation of ATS base.
+            Returns the ATS base as string representation.
 
-            :return: The ATS base as string representation
+            :return: The ATS base as string representation.
             :rtype: <str>
             :exceptions: NotImplementedError
         '''

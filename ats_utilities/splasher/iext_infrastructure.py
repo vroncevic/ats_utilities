@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines interface IExtInfrastructure with attribute(s) and method(s).
+    Defines abstract class IExtInfrastructure with method(s).
     Interface for processing hyperlinks for splash screen.
 '''
 
@@ -27,7 +27,7 @@ __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.3.7'
+__version__: str = '3.3.8'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
@@ -35,18 +35,18 @@ __status__: str = 'Updated'
 
 class IExtInfrastructure(ABC):
     '''
-        Defines interface IExtInfrastructure with attribute(s) and method(s).
+        Defines abstract class IExtInfrastructure with method(s).
         Interface for processing hyperlinks for splash screen.
 
         It defines:
 
             :attributes: None
             :methods:
-                | infrastructure_property - Property method for get/set infrastructure property (abstract).
-                | get_info_text - Pre-processes info text for splash screen (abstract).
-                | get_issue_text - Pre-processes issue text for splash screen (abstract).
-                | get_author_text - Pre-processes author text for splash screen (abstract).
-                | __str__ - Returns the string representation of external infrastructure (abstract).
+                | infrastructure_property - Property methods for set/get operations.
+                | get_info_text - Pre-processes info text for splash screen.
+                | get_issue_text - Pre-processes issue text for splash screen.
+                | get_author_text - Pre-processes author text for splash screen.
+                | __str__ - Returns the external infrastructure as string representation.
     '''
 
     @property
@@ -55,8 +55,8 @@ class IExtInfrastructure(ABC):
         '''
             Property method for getting infrastructure property.
 
-            :return: Formatted infrastructure property in dict format | None
-            :rtype: <Optional[str]>
+            :return: Formatted infrastructure property in dict format | None.
+            :rtype: <Optional[Dict[Any, Any]]>
             :exceptions: NotImplementedError
         '''
         raise NotImplementedError("Method infrastructure_property() must be implemented.")
@@ -67,7 +67,7 @@ class IExtInfrastructure(ABC):
         '''
             Property method for setting project infrastructure property.
 
-            :param infrastructure_property_setup: Project infrastructure property in dict format | None
+            :param infrastructure_property_setup: Project infrastructure property in dict format | None.
             :type infrastructure_property_setup: <Optional[Dict[Any, Any]]>
             :exceptions: NotImplementedError
         '''
@@ -78,7 +78,7 @@ class IExtInfrastructure(ABC):
         '''
             Pre-processes info text for splash screen.
 
-            :return: Hyperlink with info text
+            :return: Hyperlink with info text.
             :rtype: <str>
             :exceptions: NotImplementedError
         '''
@@ -89,7 +89,7 @@ class IExtInfrastructure(ABC):
         '''
             Pre-processes issue text for splash screen.
 
-            :return: Hyperlink with issue info
+            :return: Hyperlink with issue info.
             :rtype: <str>
             :exceptions: NotImplementedError
         '''
@@ -100,7 +100,7 @@ class IExtInfrastructure(ABC):
         '''
             Pre-processes author text for splash screen.
 
-            :return: Hyperlink with author info
+            :return: Hyperlink with author info.
             :rtype: <str>
             :exceptions: NotImplementedError
         '''
@@ -109,9 +109,9 @@ class IExtInfrastructure(ABC):
     @abstractmethod
     def __str__(self) -> str:
         '''
-            Returns the string representation of external infrastructure.
+            Returns the external infrastructure as string representation.
 
-            :return: The external infrastructure as string representation
+            :return: The external infrastructure as string representation.
             :rtype: <str>
             :exceptions: NotImplementedError
         '''

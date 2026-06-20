@@ -20,18 +20,18 @@ Info
 '''
 
 from typing import List, Dict, Any
-from ats_utilities.info.version import ATSVersion
-from ats_utilities.info.name import ATSName
-from ats_utilities.info.licence import ATSLicence
-from ats_utilities.info.build_date import ATSBuildDate
-from ats_utilities.info.info_ok import ATSInfoOk
-from ats_utilities.info.engine import ATSInfoManager, ATSInfoComponentBundle
+from ats_utilities.info.version import Version
+from ats_utilities.info.name import Name
+from ats_utilities.info.licence import Licence
+from ats_utilities.info.build_date import BuildDate
+from ats_utilities.info.info_ok import InfoOk
+from ats_utilities.info.engine import InfoManager, InfoComponentBundle
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.3.7'
+__version__: str = '3.3.8'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
@@ -48,22 +48,22 @@ ats_info: Dict[Any, Any] = {
     'ats_licence': 'gplv3',
     'ats_build_date': 'Sun Jun 14 03:06:10 PM CEST 2026'
 }
-ats_info_manager_without_di = ATSInfoManager(info=ats_info, verbose=VERBOSE)
+ats_info_manager_without_di = InfoManager(info=ats_info, verbose=VERBOSE)
 print(ats_info_manager_without_di)
 
 #
 # default [with DI and with case overwrite info (should get warning message)]
 # ============================================================================
 #
-ats_name = ATSName(verbose=VERBOSE)
+ats_name = Name(verbose=VERBOSE)
 ats_name.name = 'mytool2'
-ats_version = ATSVersion(verbose=VERBOSE)
+ats_version = Version(verbose=VERBOSE)
 ats_version.version = '1.0.1'
-ats_licence = ATSLicence(verbose=VERBOSE)
+ats_licence = Licence(verbose=VERBOSE)
 ats_licence.licence = 'gplv3'
-ats_build_date = ATSBuildDate(verbose=VERBOSE)
+ats_build_date = BuildDate(verbose=VERBOSE)
 ats_build_date.build_date = 'Sun Jun 14 03:06:11 PM CEST 2026'
-ats_info_ok = ATSInfoOk(verbose=VERBOSE)
+ats_info_ok = InfoOk(verbose=VERBOSE)
 ats_info_ok.info_ok = True
 
 ats_info_overwrite: Dict[Any, Any] = {
@@ -73,7 +73,7 @@ ats_info_overwrite: Dict[Any, Any] = {
     'ats_build_date': 'Sun Jun 14 03:06:12 PM CEST 2026'
 }
 
-bundle: ATSInfoComponentBundle = ATSInfoComponentBundle(
+bundle: InfoComponentBundle = InfoComponentBundle(
     name=ats_name,
     version=ats_version,
     licence=ats_licence,
@@ -81,7 +81,7 @@ bundle: ATSInfoComponentBundle = ATSInfoComponentBundle(
     info_ok=ats_info_ok
 )
 
-ats_info_manager_with_di_and_case_overwrite = ATSInfoManager(
+ats_info_manager_with_di_and_case_overwrite = InfoManager(
     info=ats_info_overwrite, bundle=bundle, verbose=VERBOSE
 )
 print(ats_info_manager_with_di_and_case_overwrite)
@@ -90,18 +90,18 @@ print(ats_info_manager_with_di_and_case_overwrite)
 # default [with DI and without case overwrite info (without warning message)]
 # ============================================================================
 #
-ats_name = ATSName(verbose=VERBOSE)
+ats_name = Name(verbose=VERBOSE)
 ats_name.name = 'mytool4'
-ats_version = ATSVersion(verbose=VERBOSE)
+ats_version = Version(verbose=VERBOSE)
 ats_version.version = '1.0.3'
-ats_licence = ATSLicence(verbose=VERBOSE)
+ats_licence = Licence(verbose=VERBOSE)
 ats_licence.licence = 'gplv3'
-ats_build_date = ATSBuildDate(verbose=VERBOSE)
+ats_build_date = BuildDate(verbose=VERBOSE)
 ats_build_date.build_date = 'Sun Jun 14 03:06:13 PM CEST 2026'
-ats_info_ok = ATSInfoOk(verbose=VERBOSE)
+ats_info_ok = InfoOk(verbose=VERBOSE)
 ats_info_ok.info_ok = True
 
-bundle: ATSInfoComponentBundle = ATSInfoComponentBundle(
+bundle: InfoComponentBundle = InfoComponentBundle(
     name=ats_name,
     version=ats_version,
     licence=ats_licence,
@@ -109,7 +109,7 @@ bundle: ATSInfoComponentBundle = ATSInfoComponentBundle(
     info_ok=ats_info_ok
 )
 
-ats_info_manager_with_di_and_without_case_overwrite = ATSInfoManager(
+ats_info_manager_with_di_and_without_case_overwrite = InfoManager(
     bundle=bundle, verbose=VERBOSE
 )
 print(ats_info_manager_with_di_and_without_case_overwrite)

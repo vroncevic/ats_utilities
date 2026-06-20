@@ -29,7 +29,7 @@ __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.3.7'
+__version__: str = '3.3.8'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
@@ -49,12 +49,12 @@ class ATSXMLProcessor(IXMLProcessor):
                 | __LICENCE - Option licence for ATS configuration.
                 | __root - Root element of the XML document.
             :methods:
-                | __init__ - Initials ATSXMLProcessor constructor.
+                | __init__ - Initializes ATSXMLProcessor constructor.
                 | from_string - Loads XML content from string.
                 | to_string - Converts XML content to string.
                 | to_dict - Gets ATS information from XML.
                 | __get_val - Internal helper for getting tag value.
-                | 
+                | __str__ - Returns the ATSXMLProcessor as string representation.
     '''
 
     __NAME: str = 'ats_name'
@@ -62,9 +62,13 @@ class ATSXMLProcessor(IXMLProcessor):
     __BUILD_DATE: str = 'ats_build_date'
     __LICENCE: str = 'ats_licence'
 
-    def __init__(self):
+    def __init__(self) -> None:
         '''
-            Initials ATSXMLProcessor constructor.
+            Initializes ATSXMLProcessor constructor.
+
+            :return: None.
+            :rtype: <None>
+            :exceptions: None.
         '''
         self.__root = None
 
@@ -72,11 +76,11 @@ class ATSXMLProcessor(IXMLProcessor):
         '''
             Loads XML content from string.
 
-            :param xml_content: XML content as string
+            :param xml_content: XML content as string.
             :type xml_content: <str>
-            :return: True (success) | False (fail)
+            :return: True (success) | False (fail).
             :rtype: <bool>
-            :exceptions: None
+            :exceptions: None.
         '''
         self.__root = ET.fromstring(xml_content)
 
@@ -86,9 +90,9 @@ class ATSXMLProcessor(IXMLProcessor):
         '''
             Converts XML content to string.
 
-            :return: XML content as string
+            :return: XML content as string.
             :rtype: <str>
-            :exceptions: None
+            :exceptions: None.
         '''
         if self.__root is not None:
             return ET.tostring(self.__root, encoding='utf-8').decode('utf-8')
@@ -99,9 +103,9 @@ class ATSXMLProcessor(IXMLProcessor):
         '''
             Gets ATS information from XML.
 
-            :return: Dictionary with ATS information
+            :return: Dictionary with ATS information.
             :rtype: <Dict[str, str]>
-            :exceptions: None
+            :exceptions: None.
         '''
         if self.__root is None:
             return {}
@@ -119,10 +123,11 @@ class ATSXMLProcessor(IXMLProcessor):
         '''
             Internal helper for getting tag value.
 
-            :param tag: XML tag name
+            :param tag: XML tag name.
             :type tag: <str>
-            :return: Tag value or empty string
+            :return: Tag value or empty string.
             :rtype: <str>
+            :exceptions: None.
         '''
         if self.__root is None:
             return ""
@@ -136,10 +141,10 @@ class ATSXMLProcessor(IXMLProcessor):
 
     def __str__(self) -> str:
         '''
-            Returns the string representation of ATSXMLProcessor.
+            Returns the ATSXMLProcessor as string representation.
 
-            :return: The ATSXMLProcessor as string representation
+            :return: The ATSXMLProcessor as string representation.
             :rtype: <str>
-            :exceptions: None
+            :exceptions: None.
         '''
         return format_instance_to_string(self)

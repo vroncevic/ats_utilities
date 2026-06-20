@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines interface IJSONStorer with attribute(s) and method(s).
+    Defines abstract class IJSONStorer with method(s).
     Interface for storing the ATS configuration.
 '''
 
@@ -27,7 +27,7 @@ __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.3.7'
+__version__: str = '3.3.8'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
@@ -35,15 +35,15 @@ __status__: str = 'Updated'
 
 class IJSONStorer(ABC):
     '''
-        Defines interface IJSONStorer with attribute(s) and method(s).
+        Defines abstract class IJSONStorer with method(s).
         Interface for storing the ATS configuration.
 
         It defines:
 
             :attributes: None
             :methods:
-                | store_configuration - Stores the ATS configuration from dictionary (abstract).
-                | __str__ - Returns the string representation of JSON storer (abstract).
+                | store_configuration - Stores the ATS configuration from dictionary.
+                | __str__ - Returns the JSON storer component as string representation.
     '''
 
     @abstractmethod
@@ -62,9 +62,9 @@ class IJSONStorer(ABC):
     @abstractmethod
     def __str__(self) -> str:
         '''
-            Returns the string representation of JSON storer component.
+            Returns the JSON storer component as string representation.
 
-            :return: The JSON storer component as string representation
+            :return: The JSON storer component as string representation.
             :rtype: <str>
             :exceptions: NotImplementedError
         '''

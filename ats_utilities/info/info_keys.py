@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+# -*- coding: UTF-8 -*-
 
 '''
 Module
@@ -16,6 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
+    Defines class ATSInfoKeys with attribute(s).
     Defines constants for ATS information keys.
 '''
 
@@ -26,7 +27,7 @@ __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.3.7'
+__version__: str = '3.3.8'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
@@ -34,6 +35,20 @@ __status__: str = 'Updated'
 
 @dataclass(frozen=True)
 class ATSInfoKeys:
+    '''
+        Defines class ATSInfoKeys with attribute(s).
+        Defines constants for ATS information keys.
+
+        It defines:
+
+            :attributes:
+                | ATS_NAME - The key for ATS name.
+                | ATS_VERSION - The key for ATS version.
+                | ATS_BUILD_DATE - The key for ATS build date.
+                | ATS_LICENCE - The key for ATS licence.
+            :methods: None
+    '''
+
     ATS_NAME: ClassVar[str] = 'ats_name'
     ATS_VERSION: ClassVar[str] = 'ats_version'
     ATS_BUILD_DATE: ClassVar[str] = 'ats_build_date'

@@ -30,7 +30,7 @@ __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.3.7'
+__version__: str = '3.3.8'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
@@ -55,7 +55,7 @@ class ATSINIProcessor(IINIProcessor):
                 | from_stream - Loads INI configuration from a stream.
                 | to_stream - Converts INI configuration to a stream.
                 | to_dict - Converts INI configuration to dictionary.
-                | __str__ - Returns the string representation of INI processor.
+                | __str__ - Returns the ATSINIProcessor as string representation.
     '''
 
     __SECTION: str = 'ats_info'
@@ -67,6 +67,10 @@ class ATSINIProcessor(IINIProcessor):
     def __init__(self) -> None:
         '''
             Initializes ATSINIProcessor constructor.
+
+            :return: None.
+            :rtype: <None>
+            :exceptions: None.
         '''
         self.__config = ConfigParser()
 
@@ -74,11 +78,11 @@ class ATSINIProcessor(IINIProcessor):
         '''
             Loads INI configuration from a stream.
 
-            :param stream: INI content stream
+            :param stream: INI content stream.
             :type stream: <Any>
-            :return: True (success) | False (fail)
+            :return: True (success) | False (fail).
             :rtype: <bool>
-            :exceptions: None
+            :exceptions: None.
         '''
         try:
             self.__config.read_file(stream)
@@ -90,11 +94,11 @@ class ATSINIProcessor(IINIProcessor):
         '''
             Converts INI configuration to a stream.
 
-            :param stream: INI content stream
+            :param stream: INI content stream.
             :type stream: <Any>
-            :return: True (success) | False (fail)
+            :return: True (success) | False (fail).
             :rtype: <bool>
-            :exceptions: None
+            :exceptions: None.
         '''
         try:
             self.__config.write(stream, space_around_delimiters=True)
@@ -106,9 +110,9 @@ class ATSINIProcessor(IINIProcessor):
         '''
             Converts INI configuration to dictionary.
 
-            :return: Dictionary with ATS information
+            :return: Dictionary with ATS information.
             :rtype: <Dict[str, str]>
-            :exceptions: None
+            :exceptions: None.
         '''
         if not self.__config.has_section(self.__SECTION):
             return {}
@@ -121,10 +125,10 @@ class ATSINIProcessor(IINIProcessor):
 
     def __str__(self) -> str:
         '''
-            Returns the string representation of INI processor.
+            Returns the ATSINIProcessor as string representation.
 
-            :return: INI processor as string representation
+            :return: The ATSINIProcessor as string representation.
             :rtype: <str>
-            :exceptions: None
+            :exceptions: None.
         '''
         return format_instance_to_string(self)

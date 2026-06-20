@@ -32,7 +32,7 @@ __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.3.7'
+__version__: str = '3.3.8'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
@@ -47,26 +47,26 @@ class TemplateDir(ITemplateDir):
         It defines:
 
             :attributes:
-                | __checker - Factoriezed parameters checker (default ATSChecker).
-                | __reporter - Factoriezed reporter for messaging (default ATSReporter).
+                | __checker - Factoriezed parameters checker (default Checker).
+                | __reporter - Factoriezed reporter for messaging (default Reporter).
                 | __verbose - Factoriezed Enable/Disable verbose option (default False).
                 | __template_dir - Project template dir path (default None).
             :methods:
-                | __init__ - Initials TemplateDir constructor.
+                | __init__ - Initializes TemplateDir constructor.
                 | template_dir - Property methods for set/get operations.
                 | not_none - Checks template dir is not None.
-                | __str__ - Returns the string representation of ATS project template directory.
+                | __str__ - Returns the ATS project template directory as string representation.
     '''
 
-    def __init__(self, pro_config_bundle: Optional[ContextBundle] = None) -> None:
+    def __init__(self, context_bundle: Optional[ContextBundle] = None) -> None:
         '''
-            Initials TemplateDir constructor.
+            Initializes TemplateDir constructor.
 
-            :param pro_config_bundle: Bundle with checker, reporter and verbose | None
-            :type pro_config_bundle: <Optional[ContextBundle]>
-            :exceptions: None
+            :param context_bundle: Context bundle for template dir | None.
+            :type context_bundle: <Optional[ContextBundle]>
+            :exceptions: None.
         '''
-        factory_context_bundle(self, pro_config_bundle)
+        factory_context_bundle(self, context_bundle)
         self.__template_dir: Optional[str] = None
 
     @property
@@ -75,9 +75,9 @@ class TemplateDir(ITemplateDir):
         '''
             Property method for getting template dir.
 
-            :return: Formatted template dir in string format | None
+            :return: Formatted template dir in string format | None.
             :rtype: <Optional[str]>
-            :exceptions: RuntimeError, AttributeError
+            :exceptions: RuntimeError, AttributeError.
         '''
         return self.__template_dir
 
@@ -88,11 +88,11 @@ class TemplateDir(ITemplateDir):
         '''
             Property method for setting project template dir.
 
-            :param dir_path: Project template dir path in string format | None
+            :param dir_path: Project template dir path in string format | None.
             :type dir_path: <Optional[str]>
             :exceptions:
-                | ATSTypeError, ATSValueError, RuntimeError, AttributeError
-                | RuntimeError, AttributeError
+                | ATSTypeError, ATSValueError, RuntimeError, AttributeError.
+                | RuntimeError, AttributeError.
         '''
         self.__template_dir = dir_path
 
@@ -101,18 +101,18 @@ class TemplateDir(ITemplateDir):
         '''
             Checks project template dir is not None.
 
-            :return: True (success) | False (fail)
+            :return: True (success) | False (fail).
             :rtype: <bool>
-            :exceptions: RuntimeError, AttributeError
+            :exceptions: RuntimeError, AttributeError.
         '''
         return self.__template_dir is not None
 
     def __str__(self) -> str:
         '''
-            Returns the string representation of ATS project template directory.
+            Returns the ATS project template directory as string representation.
 
-            :return: The ATS project directory as string representation
+            :return: The ATS project template directory as string representation.
             :rtype: <str>
-            :exceptions: None
+            :exceptions: None.
         '''
         return format_instance_to_string(self)

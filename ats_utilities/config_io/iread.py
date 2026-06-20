@@ -16,18 +16,18 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines abstract class IRead with attribute(s) and method(s).
+    Defines abstract class IRead with method(s).
     Creates an interface for reading from configuration files.
 '''
 
 from abc import ABC, abstractmethod
-from typing import Any
+from typing import Any, List
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
+__credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.3.7'
+__version__: str = '3.3.8'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
@@ -35,7 +35,7 @@ __status__: str = 'Updated'
 
 class IRead(ABC):
     '''
-        Defines abstract class IRead with attribute(s) and method(s).
+        Defines abstract class IRead with method(s).
         Creates an interface for reading from configuration files.
 
         It defines:
@@ -43,7 +43,7 @@ class IRead(ABC):
             :attributes: None
             :methods:
                 | read_configuration - Read configuration from file (abstract).
-                | __str__ - Returns the string representation of read configuration component (abstract).
+                | __str__ - Returns the IRead as string representation.
     '''
 
     @abstractmethod
@@ -51,19 +51,19 @@ class IRead(ABC):
         '''
             Read configuration from file.
 
-            :return: Configuration object
+            :return: Configuration object.
             :rtype: <Any>
-            :exceptions: NotImplementedError
+            :exceptions: NotImplementedError.
         '''
         raise NotImplementedError("Method read_configuration() must be implemented.")
 
     @abstractmethod
     def __str__(self) -> str:
         '''
-            Returns the string representation of read configuration component.
+            Returns the IRead as string representation.
 
-            :return: The read configuration component as string representation
+            :return: The IRead as string representation.
             :rtype: <str>
-            :exceptions: NotImplementedError
+            :exceptions: NotImplementedError.
         '''
         raise NotImplementedError("Method __str__() must be implemented.")

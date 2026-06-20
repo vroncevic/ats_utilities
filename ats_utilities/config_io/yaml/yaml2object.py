@@ -39,7 +39,7 @@ __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.3.7'
+__version__: str = '3.3.8'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
@@ -57,17 +57,17 @@ class Yaml2Object(IRead):
                 | __EXT - File extension of the configuration file.
                 | __MODE - File open mode.
                 | __config_file_bundle - Configuration file bundle parameters (default None).
-                | __checker - Factoriezed parameters checker (default ATSChecker).
-                | __reporter - Factoriezed reporter for messaging (default ATSReporter).
+                | __checker - Factoriezed parameters checker (default Checker).
+                | __reporter - Factoriezed reporter for messaging (default Reporter).
                 | __verbose - Factoriezed Enable/Disable verbose option (default False).
                 | __file_checker - FileCheck for checking file (default FileCheck).
                 | __yaml_processor - Processor for YAML content (default ATSYAMLProcessor).
                 | __file_path - Configuration file path (default None).
                 | __file_bundle_shared - File bundle parameters (default None).
             :methods:
-                | __init__ - Initials Yaml2Object constructor.
+                | __init__ - Initializes Yaml2Object constructor.
                 | read_configuration - Reads a configuration from a YAML file.
-                | __str__ - Returns the string representation of YAML object.
+                | __str__ - Returns the Yaml2Object as string representation.
     '''
 
     __EXT: str = 'yaml'
@@ -80,15 +80,15 @@ class Yaml2Object(IRead):
         yaml_processor: Optional[IYAMLProcessor] = None
     ) -> None:
         '''
-            Initials Yaml2Object constructor.
+            Initializes Yaml2Object constructor.
 
-            :param config_file: Configuration file path in string format | None
+            :param config_file: Configuration file path in string format | None.
             :type config_file: <Optional[str]>
-            :param config_bundle: Configuration file bundle parameters | None
+            :param config_bundle: Configuration file bundle parameters | None.
             :type config_bundle: <Optional[ATSConfigFileBundle]>
-            :param yaml_processor: Processor for YAML content | None
-            :type yaml_processor: <Optional[IJSONProcessor]>
-            :exceptions: ATSTypeError
+            :param yaml_processor: Processor for YAML content | None.
+            :type yaml_processor: <Optional[IYAMLProcessor]>
+            :exceptions: ATSTypeError.
         '''
         self.__config_file_bundle: ATSConfigFileBundle = config_bundle or ATSConfigFileBundle()
         factory_context_bundle(self, self.__config_file_bundle.context)
@@ -114,9 +114,9 @@ class Yaml2Object(IRead):
         '''
             Reads a configuration from a YAML file.
 
-            :return: Python object
+            :return: Configuration object | None.
             :rtype: <Optional[IYAMLProcessor]>
-            :exceptions: None
+            :exceptions: None.
         '''
         with ConfFile(self.__file_bundle_shared, self.__config_file_bundle) as yaml:
             if bool(yaml):
@@ -129,10 +129,10 @@ class Yaml2Object(IRead):
 
     def __str__(self) -> str:
         '''
-            Returns the string representation of YAML object.
+            Returns the Yaml2Object as string representation.
 
-            :return: The YAML object as string representation
+            :return: The Yaml2Object as string representation.
             :rtype: <str>
-            :exceptions: None
+            :exceptions: None.
         '''
         return format_instance_to_string(self)

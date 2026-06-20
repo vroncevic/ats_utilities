@@ -17,7 +17,7 @@ Copyright
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
     Defines validator decorator for checking method parameters.
-    Utility for parameter validation borrowing ATSChecker from class instances.
+    Utility for parameter validation borrowing Checker from class instances.
 '''
 
 import inspect
@@ -31,7 +31,7 @@ __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.3.7'
+__version__: str = '3.3.8'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
@@ -44,11 +44,11 @@ def proxy_validator_split(exp_type: str) -> Tuple[str, str]:
     '''
         Splits the format string into type and name parts.
 
-        :param exp_type: The format string to split
+        :param exp_type: The format string to split.
         :type exp_type: <str>
-        :return: A tuple containing the split components
+        :return: A tuple containing the split components.
         :rtype: <Tuple[str, str]>
-        :exceptions: None
+        :exceptions: None.
     '''
     parts = exp_type.split(sep=':')
     return parts[0], parts[1]
@@ -60,11 +60,11 @@ def validator(specs: List[Tuple[str, Any]]) -> Callable[[F], F]:
         Borrows the checker object dynamically from the class instance 
         to validate method parameters.
 
-        :param specs: Specification for parameters
+        :param specs: Specification for parameters.
         :type specs: <List[Tuple[str, Any]]>
-        :return: Wrapped function
+        :return: Wrapped function.
         :rtype: <Callable[[F], F]>
-        :exceptions: ATSTypeError, ATSValueError, RuntimeError, AttributeError
+        :exceptions: ATSTypeError, ATSValueError, RuntimeError, AttributeError.
     '''
     def decorator(func: F) -> F:
         @wraps(func)
@@ -127,7 +127,7 @@ def validator(specs: List[Tuple[str, Any]]) -> Callable[[F], F]:
                             runtime_parameters.append((f"{target_type}:{pname}", actual_value))
                             continue
 
-                    # We form a cleaned specification string for ATSChecker (eg "str:version")
+                    # We form a cleaned specification string for Checker (eg "str:version")
                     clean_exp_type = f"{target_type}:{pname}"
                     runtime_parameters.append((clean_exp_type, actual_value))
 

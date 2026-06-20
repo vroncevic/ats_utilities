@@ -31,16 +31,16 @@ from ats_utilities.config_io.xml.xmlbase import XmlBase
 from ats_utilities.config_io.iread import IRead
 from ats_utilities.config_io.iwrite import IWrite
 from ats_utilities.checker.ichecker import IChecker
-from ats_utilities.option.engine import ATSOptionManager
+from ats_utilities.option.engine import OptionManager
 from ats_utilities.reporter.ireporter import IReporter
-from ats_utilities.reporter.engine import ATSReporter
+from ats_utilities.reporter.engine import Reporter
 from ats_utilities.exceptions.ats_type_error import ATSTypeError
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.3.7'
+__version__: str = '3.3.8'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
@@ -52,7 +52,7 @@ class ATSBaseXml(XmlBase):
     _CONFIG: str = '/config/correct/ats_cli_xml_api.xml'
     _OPS: List[str] = ['-t', '--test', '-v']
 
-    def __init__(self, reporter: IReporter = ATSReporter(), verbose: bool = False) -> None:
+    def __init__(self, reporter: IReporter = Reporter(), verbose: bool = False) -> None:
         '''Initial constructor.'''
         current_dir: str = dirname(__file__)
         base_info: str = f'{current_dir}{self._CONFIG}'
@@ -162,7 +162,7 @@ class XmlBaseUnitTestCase(TestCase):
         operational_mock_obj2xml = MagicMock(spec=IWrite)
         operational_mock_checker = MagicMock(spec=IChecker)
         operational_mock_reporter = MagicMock(spec=IReporter)
-        operational_mock_options_parser = MagicMock(spec=ATSOptionManager)
+        operational_mock_options_parser = MagicMock(spec=OptionManager)
 
         operational_mock_checker.validate_parameters.return_value = ('', 0)
 

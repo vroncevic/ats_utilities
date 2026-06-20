@@ -17,7 +17,7 @@ Copyright
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
     Defines class Object2Xml with attribute(s) and method(s).
-    Creates an API for writing a configuration to a XML file.
+    Creates an API for writing a configuration to an XML file.
 '''
 from typing import List, Optional
 from ats_utilities.config_io.iwrite import IWrite
@@ -38,7 +38,7 @@ __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.3.7'
+__version__: str = '3.3.8'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
@@ -47,7 +47,7 @@ __status__: str = 'Updated'
 class Object2Xml(IWrite):
     '''
         Defines class Object2Xml with attribute(s) and method(s).
-        Creates an API for writing a configuration to a XML file.
+        Creates an API for writing a configuration to an XML file.
         Conversion of Python object to XML content.
 
         It defines:
@@ -56,16 +56,16 @@ class Object2Xml(IWrite):
                 | __EXT - File extension of the configuration file.
                 | __MODE - File open mode.
                 | __config_file_bundle - Configuration file bundle parameters (default None).
-                | __checker - Factoriezed parameters checker (default ATSChecker).
-                | __reporter - Factoriezed reporter for messaging (default ATSReporter).
+                | __checker - Factoriezed parameters checker (default Checker).
+                | __reporter - Factoriezed reporter for messaging (default Reporter).
                 | __verbose - Factoriezed Enable/Disable verbose option (default False).
                 | __file_checker - FileCheck for checking file (default FileCheck).
                 | __file_path - Configuration file path (default None).
                 | __file_bundle_shared - File bundle parameters (default None).
             :methods:
-                | __init__ - Initials Object2Xml constructor.
-                | write_configuration - Writes configuration to a XML file.
-                | __str__ - Returns the string representation of object2xml.
+                | __init__ - Initializes Object2Xml constructor.
+                | write_configuration - Writes configuration to an XML file.
+                | __str__ - Returns the Object2Xml as string representation.
     '''
 
     __EXT: str = 'xml'
@@ -77,13 +77,13 @@ class Object2Xml(IWrite):
         config_bundle: Optional[ATSConfigFileBundle] = None
     ) -> None:
         '''
-            Initials Object2Xml constructor.
+            Initializes Object2Xml constructor.
 
-            :param config_file: Configuration file path in string format | None
+            :param config_file: Configuration file path in string format | None.
             :type config_file: <Optional[str]>
-            :param config_bundle: Configuration file bundle parameters | None
+            :param config_bundle: Configuration file bundle parameters | None.
             :type config_bundle: <Optional[ATSConfigFileBundle]>
-            :exceptions: ATSTypeError
+            :exceptions: ATSTypeError.
         '''
         self.__config_file_bundle: ATSConfigFileBundle = config_bundle or ATSConfigFileBundle()
         factory_context_bundle(self, self.__config_file_bundle.context)
@@ -106,15 +106,13 @@ class Object2Xml(IWrite):
     @vreporter('write configuration to file {file_path}')
     def write_configuration(self, config: Optional[IXMLProcessor]) -> bool:
         '''
-            Writes configuration to a XML file.
+            Writes configuration to an XML file.
 
-            :param config: Configuration object | None
+            :param config: Configuration object | None.
             :type config: <Optional[IXMLProcessor]>
-            :return: True (success) | False (fail)
+            :return: True (success) | False (fail).
             :rtype: <bool>
-            :exceptions:
-                | ATSTypeError, ATSValueError, RuntimeError, AttributeError
-                | RuntimeError, AttributeError
+            :exceptions: ATSTypeError, ATSValueError, RuntimeError, AttributeError.
         '''
         status: bool = False
 
@@ -135,10 +133,10 @@ class Object2Xml(IWrite):
 
     def __str__(self) -> str:
         '''
-            Returns the string representation of object2xml.
+            Returns the Object2Xml as string representation.
 
-            :return: The object2xml as string representation
+            :return: The Object2Xml as string representation.
             :rtype: <str>
-            :exceptions: None
+            :exceptions: None.
         '''
         return format_instance_to_string(self)

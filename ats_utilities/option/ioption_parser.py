@@ -16,8 +16,8 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines abstract class IOptionManager with attribute(s) and method(s).
-    Creates an interfaces for ATS option parsing.
+    Defines abstract class IOptionManager with method(s).
+    Creates an interface for ATS option parsing.
 '''
 
 from abc import ABC, abstractmethod
@@ -29,7 +29,7 @@ __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.3.7'
+__version__: str = '3.3.8'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
@@ -37,18 +37,18 @@ __status__: str = 'Updated'
 
 class IOptionManager(ABC):
     '''
-        Defines abstract class IOptionManager with attribute(s) and method(s).
-        Creates an interfaces for ATS option parsing.
+        Defines abstract class IOptionManager with method(s).
+        Creates an interface for ATS option parsing.
 
         It defines:
 
             :attributes: None
             :methods:
-                | add_operation - Adds an option to the ATS parser (abstract).
-                | add_version_operation - Adds version option to the ATS parser (abstract).
-                | parse_input_args - Processes arguments from the start (abstract).
-                | parse_args - Processes arguments from the start (abstract).
-                | __str__ - Returns the string representation of ATS option parser (abstract).
+                | add_operation - Adds an option to the ATS parser.
+                | add_version_operation - Adds version option to the ATS parser.
+                | parse_input_args - Processes arguments from the start.
+                | parse_args - Processes arguments from the start.
+                | __str__ - Returns the ATS option parser as string representation.
     '''
 
     @abstractmethod
@@ -56,9 +56,9 @@ class IOptionManager(ABC):
         '''
             Adds an option to the ATS parser.
 
-            :param args: List of flags for the ATS
+            :param args: Arguments in string form
             :type args: <str>
-            :param kwargs: Arguments in shape of dictionary
+            :param kwargs: Arguments in Any form
             :type kwargs: <Any>
             :exceptions: NotImplementedError
         '''
@@ -82,7 +82,7 @@ class IOptionManager(ABC):
 
             :param arguments: Sequence of arguments | None
             :type arguments: <OptArgs>
-            :return: option namespace object
+            :return: Option namespace object
             :rtype: <OptionNamespace>
             :exceptions: NotImplementedError
         '''
@@ -104,9 +104,9 @@ class IOptionManager(ABC):
     @abstractmethod
     def __str__(self) -> str:
         '''
-            Returns the string representation of ATS option parser.
+            Returns the ATS option parser as string representation.
 
-            :return: The ATS option parser as string representation
+            :return: The ATS option parser as string representation.
             :rtype: <str>
             :exceptions: NotImplementedError
         '''

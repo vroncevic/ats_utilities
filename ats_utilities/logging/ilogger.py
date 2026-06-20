@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines interface ILogger with attribute(s) and method(s).
+    Defines abstract class ILogger with attribute(s) and method(s).
     Interface for the ATS logging mechanism.
 '''
 
@@ -28,7 +28,7 @@ __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.3.7'
+__version__: str = '3.3.8'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
@@ -36,7 +36,7 @@ __status__: str = 'Updated'
 
 class LogFormats(str, Enum):
     '''
-        Defines class LogFormats with attribute(s) and method(s).
+        Defines class LogFormats with attribute(s).
         Log formats for the ATS logging mechanism.
 
         It defines:
@@ -52,7 +52,7 @@ class LogFormats(str, Enum):
 
 class LoggerFormatsProtocol(Protocol):
     '''
-        Defines class LoggerFormatsProtocol with attribute(s) and method(s).
+        Defines protocol LoggerFormatsProtocol with attribute(s).
         Protocol for log formats in the ATS logging mechanism.
 
         It defines:
@@ -68,7 +68,7 @@ class LoggerFormatsProtocol(Protocol):
 
 class LogLevels(int, Enum):
     '''
-        Defines class LogLevels with attribute(s) and method(s).
+        Defines class LogLevels with attribute(s).
         Log levels for the ATS logging mechanism.
 
         It defines:
@@ -90,7 +90,7 @@ class LogLevels(int, Enum):
 
 class LoggerLevelsProtocol(Protocol):
     '''
-        Defines class LoggerLevelsProtocol with attribute(s) and method(s).
+        Defines protocol LoggerLevelsProtocol with attribute(s).
         Protocol for log levels in the ATS logging mechanism.
 
         It defines:
@@ -112,7 +112,7 @@ class LoggerLevelsProtocol(Protocol):
 
 class ILogger(ABC):
     '''
-        Defines interface ILogger with attribute(s) and method(s).
+        Defines abstract class ILogger with attribute(s) and method(s).
         Interface for the ATS logging mechanism.
 
         It defines:
@@ -122,7 +122,7 @@ class ILogger(ABC):
                 | LOG_LEVELS - Log levels.
             :methods:
                 | write_log - Writes message to log output.
-                | __str__ - Returns the string representation of ATS logger.
+                | __str__ - Returns the ATS logger as string representation.
     '''
 
     LOG_FORMATS: ClassVar[EnumMeta] = LogFormats
@@ -141,14 +141,14 @@ class ILogger(ABC):
             :rtype: <bool>
             :exceptions: NotImplementedError
         '''
-        raise NotImplementedError("Method write_log method")
+        raise NotImplementedError("Method write_log() must be implemented.")
 
     @abstractmethod
     def __str__(self) -> str:
         '''
-            Returns the string representation of ATS logger.
+            Returns the ATS logger as string representation.
 
-            :return: The ATS logger as string representation
+            :return: The ATS logger as string representation.
             :rtype: <str>
             :exceptions: NotImplementedError
         '''

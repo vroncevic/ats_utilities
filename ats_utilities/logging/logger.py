@@ -37,7 +37,7 @@ __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.3.7'
+__version__: str = '3.3.8'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
@@ -45,7 +45,7 @@ __status__: str = 'Updated'
 
 class ATSLogLevels(int, Enum):
     '''
-        Defines class ATSLogLevels with attribute(s) and method(s).
+        Defines class ATSLogLevels with attribute(s).
         Log levels for the ATS default logging mechanism.
         It defines:
 
@@ -66,7 +66,7 @@ class ATSLogLevels(int, Enum):
 
 class LoggerLevelsProtocol(Protocol):
     '''
-        Defines class LoggerLevelsProtocol with attribute(s) and method(s).
+        Defines class LoggerLevelsProtocol with attribute(s).
         Protocol for log levels in the ATS logging mechanism.
 
         It defines:
@@ -103,8 +103,8 @@ class ATSLogger(ILogger):
                 | __logger_name - ATS name.
                 | __log_stdout - Logging to stdout (default).
                 | __log_file - Logging to file.
-                | __checker - Factoriezed parameters checker (default ATSChecker).
-                | __reporter - Factoriezed reporter for messaging (default ATSReporter).
+                | __checker - Factoriezed parameters checker (default Checker).
+                | __reporter - Factoriezed reporter for messaging (default Reporter).
                 | __verbose - Factoriezed Enable/Disable verbose option (default False).
                 | __logger - Python Logger instance.
                 | 
@@ -121,19 +121,19 @@ class ATSLogger(ILogger):
     def __init__(
         self,
         logger_bundle: Optional[LoggerBundle] = None,
-        logging_bundle: Optional[ContextBundle] = None
+        context_bundle: Optional[ContextBundle] = None
     ) -> None:
         '''
-            Initials ATSLogger constructor.
+            Initializes ATSLogger constructor.
 
-            :param logger_bundle: Lugger bundle with parameters | None
+            :param logger_bundle: Logger bundle with parameters | None.
             :type logger_bundle: <Optional[LoggerBundle]>
-            :param logging_bundle: Bundle with checker, reporter and verbose | None
-            :type logging_bundle: <Optional[ContextBundle]>
+            :param context_bundle: Context bundle for logger | None.
+            :type context_bundle: <Optional[ContextBundle]>
             :exceptions: None
         '''
         # No dependency injection then use default ones.
-        factory_context_bundle(self, logging_bundle)
+        factory_context_bundle(self, context_bundle)
         bundle: LoggerBundle = logger_bundle or LoggerBundle()
         self.__logger_name: Optional[str] = bundle.name
         self.__log_stdout: bool = bundle.log_stdout
@@ -166,11 +166,11 @@ class ATSLogger(ILogger):
         '''
             Writes message to log.
 
-            :param message: Log message in string format for log | None
+            :param message: Log message in string format for log | None.
             :type message: <Optional[str]>
-            :param ctrl: Control flag (debug, warning, critical, errors, info)
+            :param ctrl: Control flag (debug, warning, critical, errors, info).
             :type ctrl: <int>
-            :return: True (success) | False (fail)
+            :return: True (success) | False (fail).
             :rtype: <bool>
             :exceptions: ATSTypeError by validates_parameters
         '''
@@ -188,7 +188,7 @@ class ATSLogger(ILogger):
         '''
             Property method for getting the internal reporter instance.
 
-            :return: The reporter instance in IReporter format
+            :return: The reporter instance in IReporter format.
             :rtype: <IReporter>
             :exceptions: None
         '''
@@ -198,7 +198,7 @@ class ATSLogger(ILogger):
         '''
             Returns the string representation of ATS logger.
 
-            :return: The ATS logger as string representation
+            :return: The ATS logger as string representation.
             :rtype: <str>
             :exceptions: None
         '''

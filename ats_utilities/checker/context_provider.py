@@ -16,28 +16,28 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines class ATSContextProvider with attribute(s) and method(s).
+    Defines class ContextProvider with attribute(s) and method(s).
     Creates an API for retrieving execution context.
 '''
 
 from inspect import stack
 from typing import List
 from ats_utilities.factory_class import format_instance_to_string
-from ats_utilities.checker.icontext_provider import IATSContextProvider
+from ats_utilities.checker.icontext_provider import IContextProvider
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.3.7'
+__version__: str = '3.3.8'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
 
 
-class ATSContextProvider(IATSContextProvider):
+class ContextProvider(IContextProvider):
     '''
-        Defines class ATSContextProvider with attribute(s) and method(s).
+        Defines class ContextProvider with attribute(s) and method(s).
         Retrieves context using the call stack.
         Mechanism for getting context for function or method parameters.
 
@@ -46,19 +46,19 @@ class ATSContextProvider(IATSContextProvider):
             :attributes:
                 | __stack_index_caller - Index in the call stack to identify the caller (instance attribute).
             :methods:
-                | __init__ - Initializes ATSContextProvider.
+                | __init__ - Initializes ContextProvider constructor.
                 | set_stack_index_caller - Sets the index in the call stack to identify the caller.
                 | get_context - Returns a string representing the calling context.
-                | __str__ - Returns the string representation of ATSContextProvider.
+                | __str__ - Returns the ATS context provider as string representation.
     '''
 
     def __init__(self, stack_index_caller: int = 2) -> None:
         '''
-            Initializes ATSContextProvider.
+            Initializes ContextProvider constructor.
 
             :param stack_index_caller: Index in the call stack to identify the caller (default 2).
             :type stack_index_caller: <int>
-            :exceptions: None
+            :exceptions: None.
         '''
         self.__stack_index_caller: int = stack_index_caller
 
@@ -68,7 +68,7 @@ class ATSContextProvider(IATSContextProvider):
 
             :param stack_index_caller: Index in the call stack to identify the caller.
             :type stack_index_caller: <int>
-            :exceptions: None
+            :exceptions: None.
         '''
         self.__stack_index_caller = stack_index_caller
 
@@ -78,9 +78,9 @@ class ATSContextProvider(IATSContextProvider):
             It uses the instance's STACK_INDEX_CALLER to determine the correct
             frame in the call stack.
 
-            :return: Context information in string format
+            :return: Context information in string format.
             :rtype: <str>
-            :exceptions: None
+            :exceptions: None.
         '''
         current_stack = stack()
         target_index = self.__stack_index_caller
@@ -91,10 +91,10 @@ class ATSContextProvider(IATSContextProvider):
 
     def __str__(self) -> str:
         '''
-            Returns the string representation of ATSContextProvider.
+            Returns the ATS context provider as string representation.
 
-            :return: The ATSContextProvider as string representation 
+            :return: The ATS context provider as string representation.
             :rtype: <str>
-            :exceptions: None
+            :exceptions: None.
         '''
         return format_instance_to_string(self)

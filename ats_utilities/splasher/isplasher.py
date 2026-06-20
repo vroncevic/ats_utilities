@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines interface ISplasher with attribute(s) and method(s).
+    Defines abstract class ISplasher with method(s).
     Interface for splash screen component.
 '''
 
@@ -28,7 +28,7 @@ __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.3.7'
+__version__: str = '3.3.8'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
@@ -36,15 +36,15 @@ __status__: str = 'Updated'
 
 class ISplasher(ABC):
     '''
-        Defines interface ISplasher with attribute(s) and method(s).
+        Defines abstract class ISplasher with method(s).
         Interface for splash screen component.
 
         It defines:
 
             :attributes: None
             :methods:
-                | center - Centers console line (abstract).
-                | __str__ - Returns the string representation of splash screen component (abstract).
+                | center - Centers console line.
+                | __str__ - Returns the splash screen component as string representation.
     '''
 
     @abstractmethod
@@ -52,18 +52,18 @@ class ISplasher(ABC):
         '''
             Centers console line.
 
-            :param splash_center_bundle: Splash center bundle for centering console output | None
+            :param splash_center_bundle: Splash center bundle for centering console output | None.
             :type splash_center_bundle: <Optional[SplashCenterBundle]>
             :exceptions: NotImplementedError
         '''
-        raise NotImplementedError("Method center method")
+        raise NotImplementedError("Method center() must be implemented.")
 
     @abstractmethod
     def __str__(self) -> str:
         '''
-            Returns the string representation of splash screen component.
+            Returns the splash screen component as string representation.
 
-            :return: The splash screen component as string representation
+            :return: The splash screen component as string representation.
             :rtype: <str>
             :exceptions: NotImplementedError
         '''

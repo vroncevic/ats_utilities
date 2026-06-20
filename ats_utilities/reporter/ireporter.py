@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+# -*- coding: UTF-8 -*-
 
 '''
 Module
@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines abstract class IReporter with attribute(s) and method(s).
+    Defines abstract class IReporter with method(s).
     Creates an interface for reporting message.
 '''
 
@@ -27,7 +27,7 @@ __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.3.7'
+__version__: str = '3.3.8'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
@@ -35,18 +35,18 @@ __status__: str = 'Updated'
 
 class IReporter(ABC):
     '''
-        Defines abstract class IReporter with attribute(s) and method(s).
+        Defines abstract class IReporter with method(s).
         Creates an interface for reporting message.
 
         It defines:
 
             :attributes: None
             :methods:
-                | error - Reports error message (abstract).
-                | success - Reports success message (abstract).
-                | verbose - Reports verbose message (abstract).
-                | warning - Reports warning message (abstract).
-                | __str__ - Returns the string representation of ATS reporter (abstract).
+                | error - Reports error message.
+                | success - Reports success message.
+                | verbose - Reports verbose message.
+                | warning - Reports warning message.
+                | __str__ - Returns the ATS reporter as string representation.
     '''
 
     @abstractmethod
@@ -54,9 +54,9 @@ class IReporter(ABC):
         '''
             Reports verbose message.
 
-            :param is_verbose: Enable/Disable verbose option
+            :param is_verbose: Enable/Disable verbose option.
             :type is_verbose: <bool>
-            :param message: List with message
+            :param message: List with message.
             :type message: <List[Any]>
             :exceptions: NotImplementedError
         '''
@@ -67,7 +67,7 @@ class IReporter(ABC):
         '''
             Reports success message.
 
-            :param message: List with message
+            :param message: List with message.
             :type message: <List[Any]>
             :exceptions: NotImplementedError
         '''
@@ -78,7 +78,7 @@ class IReporter(ABC):
         '''
             Reports warning message.
 
-            :param message: List with message
+            :param message: List with message.
             :type message: <List[Any]>
             :exceptions: NotImplementedError
         '''
@@ -89,7 +89,7 @@ class IReporter(ABC):
         '''
             Reports error message.
 
-            :param message: List with message
+            :param message: List with message.
             :type message: <List[Any]>
             :exceptions: NotImplementedError
         '''
@@ -98,9 +98,9 @@ class IReporter(ABC):
     @abstractmethod
     def __str__(self) -> str:
         '''
-            Returns the string representation of ATS reporter.
+            Returns the ATS reporter as string representation.
 
-            :return: ATS reporter as string representation
+            :return: The ATS reporter as string representation.
             :rtype: <str>
             :exceptions: NotImplementedError
         '''

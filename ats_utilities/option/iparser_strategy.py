@@ -16,8 +16,8 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines abstract class IArgParserStrategy with attribute(s) and method(s).
-    Creates an interfaces for ATS option parsing.
+    Defines abstract class IParserStrategy with method(s).
+    Creates an interface for ATS option parsing.
 '''
 
 from abc import ABC, abstractmethod
@@ -29,15 +29,15 @@ __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.3.7'
+__version__: str = '3.3.8'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
 
 
-class IArgParserStrategy(ABC):
+class IParserStrategy(ABC):
     '''
-        Defines abstract class IArgParserStrategy with attribute(s) and method(s).
+        Defines abstract class IParserStrategy with method(s).
         Interface for concrete parsing engines (Strategy Pattern).
         Allows third-party parsers to be injected from the outside.
 
@@ -45,11 +45,11 @@ class IArgParserStrategy(ABC):
 
             :attributes: None
             :methods:
-                | setup - Initializes the underlying parser with metadata parameters (abstract).
-                | add_argument - Adds an operational argument/flag to the parser (abstract).
-                | add_version - Adds a version display option to the parser (abstract).
-                | parse - Parses the input arguments and returns an OptionNamespace (abstract).
-                | __str__ - Returns the string representation of ATS parser strategy (abstract).
+                | setup - Initializes the underlying parser with metadata parameters.
+                | add_argument - Adds an operational argument/flag to the parser.
+                | add_version - Adds a version display option to the parser.
+                | parse - Parses the input arguments and returns an OptionNamespace.
+                | __str__ - Returns the ATS parser strategy as string representation.
     '''
 
     @abstractmethod
@@ -68,9 +68,9 @@ class IArgParserStrategy(ABC):
         '''
             Adds an operational argument/flag to the parser.
 
-            :param args: List of flags for the ATS
+            :param args: Arguments in string form
             :type args: <str>
-            :param kwargs: Arguments in shape of dictionary
+            :param kwargs: Arguments in Any form
             :type kwargs: <Any>
             :exceptions: NotImplementedError
         '''
@@ -105,9 +105,9 @@ class IArgParserStrategy(ABC):
     @abstractmethod
     def __str__(self) -> str:
         '''
-            Returns the string representation of ATS parser strategy.
+            Returns the ATS parser strategy as string representation.
 
-            :return: The ATS parser strategy as string representation
+            :return: The ATS parser strategy as string representation.
             :rtype: <str>
             :exceptions: NotImplementedError
         '''

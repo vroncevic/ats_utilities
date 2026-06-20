@@ -29,7 +29,7 @@ __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.3.7'
+__version__: str = '3.3.8'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
@@ -44,9 +44,9 @@ def vreporter(templates: Union[str, List[str]]) -> Callable[[F], F]:
         class instance to automatically format and report status messages.
         Supports single or multiple message templates with multiple variables.
 
-        :param templates: Single template string or a list of template strings
+        :param templates: Single template string or a list of template strings.
         :type templates: <Union[str, List[str]]>
-        :return: Wrapped function
+        :return: Wrapped function.
         :rtype: <Callable[[F], F]>
         :exceptions: RuntimeError, AttributeError
     '''

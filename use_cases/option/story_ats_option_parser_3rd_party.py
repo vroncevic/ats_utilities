@@ -24,21 +24,21 @@ import types
 from typing import List, Any, Optional
 from fire import Fire  # type: ignore
 from ats_utilities.factory_class import format_instance_to_string
-from ats_utilities.option.engine import ATSOptionManager
+from ats_utilities.option.engine import OptionManager
 from ats_utilities.option.option_namespace import OptionNamespace, OptArgs
-from ats_utilities.option.iparser_strategy import IArgParserStrategy
+from ats_utilities.option.iparser_strategy import IParserStrategy
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.3.7'
+__version__: str = '3.3.8'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
 
 
-class MyAppFireStrategy(IArgParserStrategy):
+class MyAppFireStrategy(IParserStrategy):
     '''
         Define class MyAppFireStrategy with attribute(s) and method(s).
         3rd party option parser based on Fire.
@@ -101,7 +101,7 @@ opt_parser = {
     'name': 'mytool'
 }
 OPS: List[str] = ['-n', '--name', '-v', '--verbose']
-parser2 = ATSOptionManager(parameters=opt_parser, strategy=fire_strategy)
+parser2 = OptionManager(parameters=opt_parser, strategy=fire_strategy)
 parser2.add_version_operation('1.2.5')
 parser2.add_operation(OPS[0], OPS[1], dest='name', help='generate project (provide name)')
 parser2.add_operation('--db-name', default='test_db')

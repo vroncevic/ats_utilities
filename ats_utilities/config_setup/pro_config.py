@@ -32,7 +32,7 @@ __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.3.7'
+__version__: str = '3.3.8'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
@@ -50,30 +50,30 @@ class ProConfig(IProConfig):
                 | TEMPLATES - Templates key used for processing template files.
                 | MODULES - Modules key used for processing template files.
                 | FORMAT - Format for template file extension.
-                | __checker - Factoriezed parameters checker (default ATSChecker).
-                | __reporter - Factoriezed reporter for messaging (default ATSReporter).
+                | __checker - Factoriezed parameters checker (default Checker).
+                | __reporter - Factoriezed reporter for messaging (default Reporter).
                 | __verbose - Factoriezed Enable/Disable verbose option (default False).
                 | __config - Tool configuration in dictionary format (default None).
             :methods:
-                | __init__ - Initials ProConfig constructor.
+                | __init__ - Initializes ProConfig constructor.
                 | config - Property methods for set/get operations.
                 | not_none - Checks project configuration is not None.
-                | __str__ - Returns the string representation of ATS project configuration.
+                | __str__ - Returns the ATS project configuration as string representation.
     '''
 
     TEMPLATES: str = 'templates'
     MODULES: str = 'modules'
     FORMAT: str = 'template'
 
-    def __init__(self, pro_config_bundle: Optional[ContextBundle] = None) -> None:
+    def __init__(self, context_bundle: Optional[ContextBundle] = None) -> None:
         '''
-            Initials ProConfig constructor.
+            Initializes ProConfig constructor.
 
-            :param pro_config_bundle: Bundle with checker, reporter and verbose | None
-            :type pro_config_bundle: <Optional[ContextBundle]>
-            :exceptions: None
+            :param context_bundle: Context bundle for project configuration | None.
+            :type context_bundle: <Optional[ContextBundle]>
+            :exceptions: None.
         '''
-        factory_context_bundle(self, pro_config_bundle)
+        factory_context_bundle(self, context_bundle)
         self.__config: Optional[Dict[Any, Any]] = None
 
     @property
@@ -82,9 +82,9 @@ class ProConfig(IProConfig):
         '''
             Property method for getting project configuration.
 
-            :return: Formatted project configuration in dict format | None
+            :return: Formatted project configuration in dict format | None.
             :rtype: <Optional[Dict[Any, Any]]>
-            :exceptions: RuntimeError, AttributeError
+            :exceptions: RuntimeError, AttributeError.
         '''
         return self.__config
 
@@ -95,11 +95,11 @@ class ProConfig(IProConfig):
         '''
             Property method for setting project configuration.
 
-            :param pro_config: Project configuration in dict format | None
+            :param pro_config: Project configuration in dict format | None.
             :type pro_config: <Optional[Dict[Any, Any]]>
             :exceptions:
-                | ATSTypeError, ATSValueError, RuntimeError, AttributeError
-                | RuntimeError, AttributeError
+                | ATSTypeError, ATSValueError, RuntimeError, AttributeError.
+                | RuntimeError, AttributeError.
         '''
         self.__config = pro_config
 
@@ -108,18 +108,18 @@ class ProConfig(IProConfig):
         '''
             Checks project configuration is not None.
 
-            :return: True (success) | False (fail)
+            :return: True (success) | False (fail).
             :rtype: <bool>
-            :exceptions: RuntimeError, AttributeError
+            :exceptions: RuntimeError, AttributeError.
         '''
         return self.__config is not None
 
     def __str__(self) -> str:
         '''
-            Returns the string representation of ATS project configuration.
+            Returns the ATS project configuration as string representation.
 
-            :return: The ATS project configuration as string
+            :return: The ATS project configuration as string representation.
             :rtype: <str>
-            :exceptions: None
+            :exceptions: None.
         '''
         return format_instance_to_string(self)
