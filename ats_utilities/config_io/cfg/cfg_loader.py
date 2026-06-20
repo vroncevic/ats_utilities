@@ -23,12 +23,12 @@ Info
 from typing import Dict, List, Optional
 from ats_utilities.config_io.iread import IRead
 from ats_utilities.context_bundle import ContextBundle
-from ats_utilities.config_io.cfg.icfg_loader import ICFGLoader
+from ats_utilities.config_io.iloader import ILoader
 from ats_utilities.config_io.ifile_check import IFileCheck
 from ats_utilities.config_io.file_check import FileCheck
 from ats_utilities.config_io.config_file_bundle import ATSConfigFileBundle
 from ats_utilities.config_io.cfg.cfg2object import Cfg2Object
-from ats_utilities.config_io.cfg.cfg_processor import ATSCFGProcessor
+from ats_utilities.config_io.cfg.cfg_processor import CFGProcessor
 from ats_utilities.config_io.cfg.icfg_processor import ICFGProcessor
 from ats_utilities.factory_context_bundle import factory_context_bundle
 from ats_utilities.factory_component import make_component, validate_component
@@ -44,7 +44,7 @@ __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
 
 
-class CFGLoader(ICFGLoader):
+class CFGLoader(ILoader):
     '''
         Defines class CFGLoader with attribute(s) and method(s).
         Loads the ATS configuration for the ATS.
@@ -59,7 +59,7 @@ class CFGLoader(ICFGLoader):
                 | __configuration - CFG processor configuration (default None).
             :methods:
                 | __init__ - Initializes CFGLoader constructor.
-                | get_configuration - Gets the ATS configuration in dictionary format.
+                | load_configuration - Loads the ATS configuration in dictionary format.
                 | __str__ - Returns the CFGLoader as string representation.
     '''
 
@@ -94,7 +94,7 @@ class CFGLoader(ICFGLoader):
             config_file_bundle.file_checker, FileCheck, {'config_bundle': context_bundle_shared}
         )
         validate_component(file_checker, type(file_checker), type(file_checker).__name__)
-        processor: ICFGProcessor = make_component(cfg_processor, ATSCFGProcessor, None)
+        processor: ICFGProcessor = make_component(cfg_processor, CFGProcessor, None)
         validate_component(processor, type(processor), type(processor).__name__)
         cfg2obj: IRead = make_component(cfg2object, Cfg2Object, {
             'config_file': info_file, 'config_bundle': config_file_bundle, 'cfg_processor': processor
@@ -105,9 +105,9 @@ class CFGLoader(ICFGLoader):
         if bool(cfg2obj):
             self.__configuration = cfg2obj.read_configuration()
 
-    def get_configuration(self) -> Dict[str, str]:
+    def load_configuration(self) -> Dict[str, str]:
         '''
-            Gets the ATS configuration in dictionary format.
+            Loads the ATS configuration in dictionary format.
 
             :return: Dictionary with CFG information.
             :rtype: <Dict[str, str]>

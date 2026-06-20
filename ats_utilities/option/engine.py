@@ -142,6 +142,16 @@ class OptionManager(IOptionManager):
         args = self.__strategy.parse(arguments, known_only=True)
         return args
 
+    def ok(self) -> bool:
+        '''
+            Checks if option parser component is ok.
+
+            :return: True (success) | False (fail)
+            :rtype: <bool>
+            :exceptions: None.
+        '''
+        return self.__strategy.ok()
+
     def __str__(self) -> str:
         '''
             Returns the string representation of OptionManager.

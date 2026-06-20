@@ -49,6 +49,7 @@ class IParserStrategy(ABC):
                 | add_argument - Adds an operational argument/flag to the parser.
                 | add_version - Adds a version display option to the parser.
                 | parse - Parses the input arguments and returns an OptionNamespace.
+                | ok - Checks if parser strategy component is ok.
                 | __str__ - Returns the ATS parser strategy as string representation.
     '''
 
@@ -101,6 +102,17 @@ class IParserStrategy(ABC):
             :exceptions: NotImplementedError
         '''
         raise NotImplementedError("Method parse() must be implemented.")
+
+    @abstractmethod
+    def ok(self) -> bool:
+        '''
+            Checks if parser strategy component is ok.
+
+            :return: True (success) | False (fail)
+            :rtype: <bool>
+            :exceptions: NotImplementedError
+        '''
+        raise NotImplementedError("Method ok() must be implemented.")
 
     @abstractmethod
     def __str__(self) -> str:

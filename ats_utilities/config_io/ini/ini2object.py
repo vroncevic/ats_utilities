@@ -29,7 +29,7 @@ from ats_utilities.config_io.file_check import FileCheck
 from ats_utilities.config_io.file_bundle import ATSFileBundle
 from ats_utilities.config_io.config_file_bundle import ATSConfigFileBundle
 from ats_utilities.config_io.ini.iini_processor import IINIProcessor
-from ats_utilities.config_io.ini.ini_processor import ATSINIProcessor
+from ats_utilities.config_io.ini.ini_processor import INIProcessor
 from ats_utilities.reporter.proxy_reporter import vreporter
 from ats_utilities.factory_context_bundle import factory_context_bundle
 from ats_utilities.factory_component import make_component, validate_component
@@ -61,7 +61,7 @@ class Ini2Object(IRead):
                 | __reporter - Factoriezed reporter for messaging (default Reporter).
                 | __verbose - Factoriezed Enable/Disable verbose option (default False).
                 | __file_checker - FileCheck for checking file (default FileCheck).
-                | __ini_processor - Processor for INI content (default ATSINIProcessor).
+                | __ini_processor - Processor for INI content (default INIProcessor).
                 | __file_path - Configuration file path (default None).
                 | __file_bundle_shared - File bundle parameters (default None).
             :methods:
@@ -101,7 +101,7 @@ class Ini2Object(IRead):
             self.__config_file_bundle.file_checker, FileCheck, {'config_bundle': context_bundle_shared}
         )
         validate_component(self.__file_checker, type(self.__file_checker), type(self.__file_checker).__name__)
-        self.__ini_processor: IINIProcessor = make_component(ini_processor, ATSINIProcessor, None)
+        self.__ini_processor: IINIProcessor = make_component(ini_processor, INIProcessor, None)
         validate_component(self.__ini_processor, type(self.__ini_processor), type(self.__ini_processor).__name__)
         self.__file_path: str = str(config_file)
         self.__file_bundle_shared: ATSFileBundle = ATSFileBundle()

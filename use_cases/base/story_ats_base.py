@@ -20,7 +20,8 @@ Info
 '''
 
 from typing import List
-from ats_utilities.base.engine import ATSBase
+from os.path import dirname, realpath
+from ats_utilities.base.engine import Base
 from ats_utilities.base.component_bundle import BaseComponentBundle
 
 __author__: str = 'Vladimir Roncevic'
@@ -32,13 +33,25 @@ __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
 
-class ConcreteATSBase(ATSBase):
-    '''Concrete implementation of ATSBase for use case illustration.'''
+class MyTool(Base):
+    '''Concrete implementation of Base for use case illustration.'''
+
+    _INFO_FILE: str = '../../tests/config/correct/ats_cli_cfg_api.cfg'
+
+    def __init__(self):
+        current_dir: str = dirname(realpath(__file__))
+        super().__init__(BaseComponentBundle(info_file=f'{current_dir}/{self._INFO_FILE}'))
 
     def process(self, verbose: bool = False) -> bool:
-        return True
+        print(f'Overwrite result {verbose} ...')
+        return verbose
 
-info_file: str = '/data/dev/python/ats_utilities/github/ats_utilities/tests/config/correct/ats_cli_cfg_api.cfg'
-bundle: BaseComponentBundle = BaseComponentBundle(info_file=info_file)
-ats_base: ConcreteATSBase = ConcreteATSBase(component_bundle=bundle)
-print(ats_base)
+tool: MyTool = MyTool()
+
+result: bool = False
+print(f'Result: {result}')
+
+if tool.is_operational():
+    result = tool.process(True)
+
+print(f'Result: {result}')

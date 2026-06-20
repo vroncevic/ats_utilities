@@ -2,7 +2,7 @@
 
 '''
 Module
-    iyaml_loader.py
+    iloader.py
 Copyright
     Copyright (C) 2017 - 2026 Vladimir Roncevic <elektron.ronca@gmail.com>
     ats_utilities is free software: you can redistribute it and/or modify it
@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines abstract class IYAMLLoader with method(s).
+    Defines abstract class ILoader with method(s).
     Interface for loading the ATS configuration.
 '''
 
@@ -33,37 +33,37 @@ __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
 
 
-class IYAMLLoader(ABC):
+class ILoader(ABC):
     '''
-        Defines abstract class IYAMLLoader with method(s).
+        Defines abstract class ILoader with method(s).
         Interface for loading the ATS configuration.
 
         It defines:
 
             :attributes: None
             :methods:
-                | get_configuration - Gets the ATS configuration in dictionary format.
-                | __str__ - Returns the YAML loader component as string representation.
+                | load_configuration - Loads the ATS configuration in dictionary format.
+                | __str__ - Returns the loader component as string representation.
     '''
 
     @abstractmethod
-    def get_configuration(self) -> Dict[str, str]:
+    def load_configuration(self) -> Dict[str, str]:
         '''
-            Gets the ATS configuration in dictionary format.
+            Loads the ATS configuration in dictionary format.
 
-            :return: Dictionary with YAML information
+            :return: Dictionary with configuration information.
             :rtype: <Dict[str, str]>
-            :exceptions: NotImplementedError
+            :exceptions: NotImplementedError.
         '''
-        raise NotImplementedError("Method get_configuration() must be implemented.")
+        raise NotImplementedError("Method load_configuration() must be implemented.")
 
     @abstractmethod
     def __str__(self) -> str:
         '''
-            Returns the YAML loader component as string representation.
+            Returns the loader component as string representation.
 
-            :return: The YAML loader component as string representation.
+            :return: The loader component as string representation.
             :rtype: <str>
-            :exceptions: NotImplementedError
+            :exceptions: NotImplementedError.
         '''
         raise NotImplementedError("Method __str__() must be implemented.")

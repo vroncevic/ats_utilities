@@ -29,7 +29,7 @@ from ats_utilities.config_io.file_check import FileCheck
 from ats_utilities.config_io.file_bundle import ATSFileBundle
 from ats_utilities.config_io.config_file_bundle import ATSConfigFileBundle
 from ats_utilities.config_io.cfg.icfg_processor import ICFGProcessor
-from ats_utilities.config_io.cfg.cfg_processor import ATSCFGProcessor
+from ats_utilities.config_io.cfg.cfg_processor import CFGProcessor
 from ats_utilities.reporter.proxy_reporter import vreporter
 from ats_utilities.factory_context_bundle import factory_context_bundle
 from ats_utilities.factory_component import make_component, validate_component
@@ -62,7 +62,7 @@ class Cfg2Object(IRead):
                 | __reporter - Factoriezed reporter for messaging (default Reporter).
                 | __verbose - Factoriezed Enable/Disable verbose option (default False).
                 | __file_checker - FileCheck for checking file (default FileCheck).
-                | __cfg_processor - Processor for CFG content (default ATSCFGProcessor).
+                | __cfg_processor - Processor for CFG content (default CFGProcessor).
                 | __file_path - Configuration file path (default None).
                 | __file_bundle_shared - File bundle parameters (default None).
             :methods:
@@ -102,7 +102,7 @@ class Cfg2Object(IRead):
             self.__config_file_bundle.file_checker, FileCheck, {'config_bundle': context_bundle_shared}
         )
         validate_component(self.__file_checker, type(self.__file_checker), type(self.__file_checker).__name__)
-        self.__cfg_processor: ICFGProcessor = make_component(cfg_processor, ATSCFGProcessor, None)
+        self.__cfg_processor: ICFGProcessor = make_component(cfg_processor, CFGProcessor, None)
         validate_component(self.__cfg_processor, type(self.__cfg_processor), type(self.__cfg_processor).__name__)
         self.__file_path: str = str(config_file)
         self.__file_bundle_shared: ATSFileBundle = ATSFileBundle()

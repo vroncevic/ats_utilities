@@ -23,12 +23,12 @@ Info
 from typing import Dict, List, Optional
 from ats_utilities.config_io.iread import IRead
 from ats_utilities.context_bundle import ContextBundle
-from ats_utilities.config_io.ini.iini_loader import IINILoader
+from ats_utilities.config_io.iloader import ILoader
 from ats_utilities.config_io.ifile_check import IFileCheck
 from ats_utilities.config_io.file_check import FileCheck
 from ats_utilities.config_io.config_file_bundle import ATSConfigFileBundle
 from ats_utilities.config_io.ini.ini2object import Ini2Object
-from ats_utilities.config_io.ini.ini_processor import ATSINIProcessor
+from ats_utilities.config_io.ini.ini_processor import INIProcessor
 from ats_utilities.config_io.ini.iini_processor import IINIProcessor
 from ats_utilities.factory_context_bundle import factory_context_bundle
 from ats_utilities.factory_component import make_component, validate_component
@@ -44,7 +44,7 @@ __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
 
 
-class INILoader(IINILoader):
+class INILoader(ILoader):
     '''
         Defines class INILoader with attribute(s) and method(s).
         Loads the ATS configuration for the ATS.
@@ -59,7 +59,7 @@ class INILoader(IINILoader):
                 | __configuration - INI processor configuration (default None).
             :methods:
                 | __init__ - Initializes INILoader constructor.
-                | get_configuration - Gets the ATS configuration in dictionary format.
+                | load_configuration - Loads the ATS configuration in dictionary format.
                 | __str__ - Returns the INILoader as string representation.
     '''
 
@@ -94,7 +94,7 @@ class INILoader(IINILoader):
             config_file_bundle.file_checker, FileCheck, {'config_bundle': context_bundle_shared}
         )
         validate_component(file_checker, type(file_checker), type(file_checker).__name__)
-        processor: IINIProcessor = make_component(ini_processor, ATSINIProcessor, None)
+        processor: IINIProcessor = make_component(ini_processor, INIProcessor, None)
         validate_component(processor, type(processor), type(processor).__name__)
         ini2obj: IRead = make_component(ini2object, Ini2Object, {
             'config_file': info_file, 'config_bundle': config_file_bundle, 'ini_processor': processor
@@ -105,9 +105,9 @@ class INILoader(IINILoader):
         if bool(ini2obj):
             self.__configuration = ini2obj.read_configuration()
 
-    def get_configuration(self) -> Dict[str, str]:
+    def load_configuration(self) -> Dict[str, str]:
         '''
-            Gets the ATS configuration in dictionary format.
+            Loads the ATS configuration in dictionary format.
 
             :return: Dictionary with INI information.
             :rtype: <Dict[str, str]>

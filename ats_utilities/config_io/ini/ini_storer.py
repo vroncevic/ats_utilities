@@ -23,10 +23,10 @@ Info
 from typing import Dict, List, Optional
 from io import StringIO
 from ats_utilities.config_io.iwrite import IWrite
-from ats_utilities.config_io.ini.iini_storer import IINIStorer
+from ats_utilities.config_io.istorer import IStorer
 from ats_utilities.config_io.config_file_bundle import ATSConfigFileBundle
 from ats_utilities.config_io.ini.object2ini import Object2Ini
-from ats_utilities.config_io.ini.ini_processor import ATSINIProcessor
+from ats_utilities.config_io.ini.ini_processor import INIProcessor
 from ats_utilities.config_io.ini.iini_processor import IINIProcessor
 from ats_utilities.checker.proxy_validator import validator
 from ats_utilities.factory_context_bundle import factory_context_bundle
@@ -43,7 +43,7 @@ __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
 
 
-class INIStorer(IINIStorer):
+class INIStorer(IStorer):
     '''
         Defines class INIStorer with attribute(s) and method(s).
         Stores the ATS configuration for the ATS.
@@ -56,7 +56,7 @@ class INIStorer(IINIStorer):
                 | __checker - Factoriezed parameters checker (default Checker).
                 | __reporter - Factoriezed reporter for messaging (default Reporter).
                 | __verbose - Factoriezed Enable/Disable verbose option (default False).
-                | __processor - Processor for INI content (default ATSINIProcessor).
+                | __processor - Processor for INI content (default INIProcessor).
                 | __obj2ini - Out API for information (default Object2Ini).
             :methods:
                 | __init__ - Initializes INIStorer constructor.
@@ -88,7 +88,7 @@ class INIStorer(IINIStorer):
         '''
         config_file_bundle: ATSConfigFileBundle = config_bundle or ATSConfigFileBundle()
         factory_context_bundle(self, config_file_bundle.context)
-        self.__processor: IINIProcessor = make_component(ini_processor, ATSINIProcessor, None)
+        self.__processor: IINIProcessor = make_component(ini_processor, INIProcessor, None)
         validate_component(self.__processor, type(self.__processor), type(self.__processor).__name__)
         self.__obj2ini: IWrite = make_component(object2ini, Object2Ini, {
             'config_file': info_file, 'config_bundle': config_file_bundle

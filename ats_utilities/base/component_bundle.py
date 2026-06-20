@@ -27,6 +27,7 @@ from ats_utilities.config_io.iconfig_loader import IConfigLoader
 from ats_utilities.info.imanager import IInfoManager
 from ats_utilities.option.ioption_parser import IOptionManager
 from ats_utilities.logging.ilogger_manager import ILoggerManager
+from ats_utilities.splasher.isplasher import ISplasher
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -52,6 +53,7 @@ class BaseComponentBundle:
                 | info_manager - Information manager (default None).
                 | options_parser - Options manager (default None).
                 | logger_manager - Logger manager (default None).
+                | splasher - Splasher (default None).
                 | context_bundle - Context bundle for dependency injection (default ContextBundle).
             :methods:
                 | validate - Validates that essential components are set.
@@ -64,6 +66,7 @@ class BaseComponentBundle:
     info_manager: Optional[IInfoManager] = None
     options_parser: Optional[IOptionManager] = None
     logger_manager: Optional[ILoggerManager] = None
+    splasher: Optional[ISplasher] = None
     context_bundle: Optional[ContextBundle] = field(default_factory=ContextBundle)
 
     def validate(self) -> None:

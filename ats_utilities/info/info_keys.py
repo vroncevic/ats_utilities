@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines class ATSInfoKeys with attribute(s).
+    Defines class InfoKeys with attribute(s).
     Defines constants for ATS information keys.
 '''
 
@@ -34,9 +34,9 @@ __status__: str = 'Updated'
 
 
 @dataclass(frozen=True)
-class ATSInfoKeys:
+class InfoKeys:
     '''
-        Defines class ATSInfoKeys with attribute(s).
+        Defines class InfoKeys with attribute(s).
         Defines constants for ATS information keys.
 
         It defines:
@@ -46,6 +46,10 @@ class ATSInfoKeys:
                 | ATS_VERSION - The key for ATS version.
                 | ATS_BUILD_DATE - The key for ATS build date.
                 | ATS_LICENCE - The key for ATS licence.
+                | ATS_REPOSITORY - The key for ATS repository.
+                | ATS_ORGANIZATION - The key for ATS organization.
+                | ATS_USE_GITHUB_INFRASTRUCTURE - The key for ATS use github infrastructure.
+                | ATS_LOGO_PATH - The key for ATS logo path.
             :methods: None
     '''
 
@@ -53,3 +57,7 @@ class ATSInfoKeys:
     ATS_VERSION: ClassVar[str] = 'ats_version'
     ATS_BUILD_DATE: ClassVar[str] = 'ats_build_date'
     ATS_LICENCE: ClassVar[str] = 'ats_licence'
+    ATS_REPOSITORY: ClassVar[str] = 'ats_repository'
+    ATS_ORGANIZATION: ClassVar[str] = 'ats_organization'
+    ATS_USE_GITHUB_INFRASTRUCTURE: ClassVar[str] = 'ats_use_github_infrastructure'
+    ATS_LOGO_PATH: ClassVar[str] = 'ats_logo_path'

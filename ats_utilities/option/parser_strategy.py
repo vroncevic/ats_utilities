@@ -28,7 +28,7 @@ from ats_utilities.option.arg_parser import ArgParser
 from ats_utilities.option.option_namespace import OptionNamespace
 from ats_utilities.option.option_namespace import OptArgs
 from ats_utilities.option.option_namespace import KnownArgs
-from ats_utilities.info.info_keys import ATSInfoKeys
+from ats_utilities.info.info_keys import InfoKeys
 from ats_utilities.checker.proxy_validator import validator
 from ats_utilities.factory_context_bundle import factory_context_bundle
 from ats_utilities.factory_component import make_component, validate_component
@@ -63,6 +63,7 @@ class ParserStrategy(IParserStrategy):
                 | add_argument - Adds an operational argument/flag to the parser.
                 | add_version - Adds a version display option to the parser.
                 | parse - Parses the input arguments and returns an OptionNamespace.
+                | ok - Checks if parser strategy component is ok.
                 | __str__ - Returns the string representation of ParserStrategy.
     '''
 
@@ -93,9 +94,9 @@ class ParserStrategy(IParserStrategy):
         '''
         self.__parser = make_component(None, ArgParser, {
             'context_bundle': self.__shared_bundle,
-            'prog': f'{parameters.get(ATSInfoKeys.ATS_NAME)} {parameters.get(ATSInfoKeys.ATS_VERSION)}',
-            'epilog': f'{parameters.get(ATSInfoKeys.ATS_NAME)} copyright (c) {parameters.get(ATSInfoKeys.ATS_LICENCE)}',
-            'description': f'{parameters.get(ATSInfoKeys.ATS_NAME)} build date {parameters.get(ATSInfoKeys.ATS_BUILD_DATE)}'
+            'prog': f'{parameters.get(InfoKeys.ATS_NAME)} {parameters.get(InfoKeys.ATS_VERSION)}',
+            'epilog': f'{parameters.get(InfoKeys.ATS_NAME)} copyright (c) {parameters.get(InfoKeys.ATS_LICENCE)}',
+            'description': f'{parameters.get(InfoKeys.ATS_NAME)} build date {parameters.get(InfoKeys.ATS_BUILD_DATE)}'
         })
         validate_component(self.__parser, type(self.__parser), type(self.__parser).__name__)
 
@@ -142,6 +143,16 @@ class ParserStrategy(IParserStrategy):
             known_args: KnownArgs = self.__parser.parse_known_args(arguments)
             return known_args[0]
         return self.__parser.parse_args(arguments)
+
+    def ok(self) -> bool:
+        '''
+            Checks if parser strategy component is ok.
+
+            :return: True (success) | False (fail)
+            :rtype: <bool>
+            :exceptions: None.
+        '''
+        return True if self.__parser is not None else False
 
     def __str__(self) -> str:
         '''

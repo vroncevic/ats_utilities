@@ -2,7 +2,7 @@
 
 '''
 Module
-    icfg_loader.py
+    istorer.py
 Copyright
     Copyright (C) 2017 - 2026 Vladimir Roncevic <elektron.ronca@gmail.com>
     ats_utilities is free software: you can redistribute it and/or modify it
@@ -16,8 +16,8 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines abstract class ICFGLoader with method(s).
-    Interface for loading the ATS configuration.
+    Defines abstract class IStorer with method(s).
+    Interface for storing the ATS configuration.
 '''
 
 from abc import ABC, abstractmethod
@@ -33,37 +33,39 @@ __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
 
 
-class ICFGLoader(ABC):
+class IStorer(ABC):
     '''
-        Defines abstract class ICFGLoader with method(s).
-        Interface for loading the ATS configuration.
+        Defines abstract class IStorer with method(s).
+        Interface for storing the ATS configuration.
 
         It defines:
 
             :attributes: None
             :methods:
-                | get_configuration - Gets the ATS configuration in dictionary format.
-                | __str__ - Returns the CFG loader component as string representation.
+                | store_configuration - Stores the ATS configuration from dictionary.
+                | __str__ - Returns the storer component as string representation.
     '''
 
     @abstractmethod
-    def get_configuration(self) -> Dict[str, str]:
+    def store_configuration(self, config: Dict[str, str]) -> bool:
         '''
-            Gets the ATS configuration in dictionary format.
+            Stores the ATS configuration from dictionary format.
 
-            :return: Dictionary with CFG information
-            :rtype: <Dict[str, str]>
-            :exceptions: NotImplementedError
+            :param config: Dictionary with configuration information.
+            :type config: <Dict[str, str]>
+            :return: True (success) | False (fail).
+            :rtype: <bool>
+            :exceptions: NotImplementedError.
         '''
-        raise NotImplementedError("Method get_configuration() must be implemented.")
+        raise NotImplementedError("Method store_configuration() must be implemented.")
 
     @abstractmethod
     def __str__(self) -> str:
         '''
-            Returns the CFG loader component as string representation.
+            Returns the storer component as string representation.
 
-            :return: The CFG loader component as string representation.
+            :return: The storer component as string representation.
             :rtype: <str>
-            :exceptions: NotImplementedError
+            :exceptions: NotImplementedError.
         '''
         raise NotImplementedError("Method __str__() must be implemented.")

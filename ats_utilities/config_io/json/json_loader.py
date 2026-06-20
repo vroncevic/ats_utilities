@@ -23,12 +23,12 @@ Info
 from typing import Dict, List, Optional
 from ats_utilities.config_io.iread import IRead
 from ats_utilities.context_bundle import ContextBundle
-from ats_utilities.config_io.json.ijson_loader import IJSONLoader
+from ats_utilities.config_io.iloader import ILoader
 from ats_utilities.config_io.ifile_check import IFileCheck
 from ats_utilities.config_io.file_check import FileCheck
 from ats_utilities.config_io.config_file_bundle import ATSConfigFileBundle
 from ats_utilities.config_io.json.json2object import Json2Object
-from ats_utilities.config_io.json.json_processor import ATSJSONProcessor
+from ats_utilities.config_io.json.json_processor import JSONProcessor
 from ats_utilities.config_io.json.ijson_processor import IJSONProcessor
 from ats_utilities.factory_context_bundle import factory_context_bundle
 from ats_utilities.factory_component import make_component, validate_component
@@ -44,7 +44,7 @@ __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
 
 
-class JSONLoader(IJSONLoader):
+class JSONLoader(ILoader):
     '''
         Defines class JSONLoader with attribute(s) and method(s).
         Loads the ATS configuration for the ATS.
@@ -59,7 +59,7 @@ class JSONLoader(IJSONLoader):
                 | __configuration - JSON processor configuration (default None).
             :methods:
                 | __init__ - Initializes JSONLoader constructor.
-                | get_configuration - Gets the ATS configuration in dictionary format.
+                | load_configuration - Loads the ATS configuration in dictionary format.
                 | __str__ - Returns the JSONLoader as string representation.
     '''
 
@@ -94,7 +94,7 @@ class JSONLoader(IJSONLoader):
             config_file_bundle.file_checker, FileCheck, {'config_bundle': context_bundle_shared}
         )
         validate_component(file_checker, type(file_checker), type(file_checker).__name__)
-        processor: IJSONProcessor = make_component(json_processor, ATSJSONProcessor, None)
+        processor: IJSONProcessor = make_component(json_processor, JSONProcessor, None)
         validate_component(processor, type(processor), type(processor).__name__)
         json2obj: IRead = make_component(json2object, Json2Object, {
             'config_file': info_file, 'config_bundle': config_file_bundle, 'json_processor': processor
@@ -105,9 +105,9 @@ class JSONLoader(IJSONLoader):
         if bool(json2obj):
             self.__configuration = json2obj.read_configuration()
 
-    def get_configuration(self) -> Dict[str, str]:
+    def load_configuration(self) -> Dict[str, str]:
         '''
-            Gets the ATS configuration in dictionary format.
+            Loads the ATS configuration in dictionary format.
 
             :return: Dictionary with JSON information.
             :rtype: <Dict[str, str]>

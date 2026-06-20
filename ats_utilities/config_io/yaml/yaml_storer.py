@@ -23,10 +23,10 @@ Info
 from typing import Dict, List, Optional
 from yaml import dump, YAMLError
 from ats_utilities.config_io.iwrite import IWrite
-from ats_utilities.config_io.yaml.iyaml_storer import IYAMLStorer
+from ats_utilities.config_io.istorer import IStorer
 from ats_utilities.config_io.config_file_bundle import ATSConfigFileBundle
 from ats_utilities.config_io.yaml.object2yaml import Object2Yaml
-from ats_utilities.config_io.yaml.yaml_processor import ATSYAMLProcessor
+from ats_utilities.config_io.yaml.yaml_processor import YAMLProcessor
 from ats_utilities.config_io.yaml.iyaml_processor import IYAMLProcessor
 from ats_utilities.checker.proxy_validator import validator
 from ats_utilities.factory_context_bundle import factory_context_bundle
@@ -43,7 +43,7 @@ __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
 
 
-class YAMLStorer(IYAMLStorer):
+class YAMLStorer(IStorer):
     '''
         Defines class YAMLStorer with attribute(s) and method(s).
         Stores the ATS configuration for the ATS.
@@ -55,7 +55,7 @@ class YAMLStorer(IYAMLStorer):
                 | __checker - Factoriezed parameters checker (default Checker).
                 | __reporter - Factoriezed reporter for messaging (default Reporter).
                 | __verbose - Factoriezed Enable/Disable verbose option (default False).
-                | __processor - Processor for YAML content (default ATSYAMLProcessor).
+                | __processor - Processor for YAML content (default YAMLProcessor).
                 | __obj2yaml - Out API for information (default Object2Yaml).
             :methods:
                 | __init__ - Initializes YAMLStorer constructor.
@@ -85,7 +85,7 @@ class YAMLStorer(IYAMLStorer):
         '''
         config_file_bundle: ATSConfigFileBundle = config_bundle or ATSConfigFileBundle()
         factory_context_bundle(self, config_file_bundle.context)
-        self.__processor: IYAMLProcessor = make_component(yaml_processor, ATSYAMLProcessor, None)
+        self.__processor: IYAMLProcessor = make_component(yaml_processor, YAMLProcessor, None)
         validate_component(self.__processor, type(self.__processor), type(self.__processor).__name__)
         self.__obj2yaml: IWrite = make_component(object2yaml, Object2Yaml, {
             'config_file': info_file, 'config_bundle': config_file_bundle

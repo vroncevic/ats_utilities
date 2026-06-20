@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines class ATSJSONProcessor with attribute(s) and method(s).
+    Defines class JSONProcessor with attribute(s) and method(s).
     Provides a default implementation for processing JSON content.
 '''
 
@@ -34,9 +34,9 @@ __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
 
-class ATSJSONProcessor(IJSONProcessor):
+class JSONProcessor(IJSONProcessor):
     '''
-        Defines class ATSJSONProcessor with attribute(s) and method(s).
+        Defines class JSONProcessor with attribute(s) and method(s).
         Provides a default implementation for processing JSON content.
 
         It defines:
@@ -44,16 +44,16 @@ class ATSJSONProcessor(IJSONProcessor):
             :attributes:
                 | __data - Internal dictionary to store JSON data.
             :methods:
-                | __init__ - Initializes ATSJSONProcessor constructor.
+                | __init__ - Initializes JSONProcessor constructor.
                 | decode - Convert raw JSON text to an internal object/structure.
                 | encode - Convert an internal object/structure back to a JSON string.
                 | to_dict - Return data as a flat dictionary.
-                | __str__ - Returns the ATSJSONProcessor as string representation.
+                | __str__ - Returns the JSONProcessor as string representation.
     '''
 
     def __init__(self) -> None:
         '''
-            Initializes ATSJSONProcessor constructor.
+            Initializes JSONProcessor constructor.
 
             :return: None.
             :rtype: <None>
@@ -99,9 +99,9 @@ class ATSJSONProcessor(IJSONProcessor):
 
     def __str__(self) -> str:
         '''
-            Returns the ATSJSONProcessor as string representation.
+            Returns the JSONProcessor as string representation.
 
-            :return: The ATSJSONProcessor as string representation.
+            :return: The JSONProcessor as string representation.
             :rtype: <str>
             :exceptions: None.
         '''

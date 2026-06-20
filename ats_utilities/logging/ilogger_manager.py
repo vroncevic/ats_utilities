@@ -45,6 +45,7 @@ class ILoggerManager(ABC):
             :methods:
                 | get_logger - Gets logger instance.
                 | write_log - Writes message to log output.
+                | ok - Checks if logger manager component is ok.
                 | __str__ - Returns the ATS logger manager as string representation.
     '''
 
@@ -73,6 +74,17 @@ class ILoggerManager(ABC):
             :exceptions: NotImplementedError
         '''
         raise NotImplementedError("Method write_log() must be implemented.")
+
+    @abstractmethod
+    def ok(self) -> bool:
+        '''
+            Checks if logger component is ok.
+
+            :return: True (success) | False (fail)
+            :rtype: <bool>
+            :exceptions: NotImplementedError
+        '''
+        raise NotImplementedError("Method ok() must be implemented.")
 
     @abstractmethod
     def __str__(self) -> str:

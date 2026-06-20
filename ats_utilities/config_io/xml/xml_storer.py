@@ -24,10 +24,10 @@ from typing import Dict, List, Optional
 from xml.etree.ElementTree import Element, SubElement, tostring, ParseError
 from xml.dom.minidom import parseString
 from ats_utilities.config_io.iwrite import IWrite
-from ats_utilities.config_io.xml.ixml_storer import IXMLStorer
+from ats_utilities.config_io.istorer import IStorer
 from ats_utilities.config_io.config_file_bundle import ATSConfigFileBundle
 from ats_utilities.config_io.xml.object2xml import Object2Xml
-from ats_utilities.config_io.xml.xml_processor import ATSXMLProcessor
+from ats_utilities.config_io.xml.xml_processor import XMLProcessor
 from ats_utilities.config_io.xml.ixml_processor import IXMLProcessor
 from ats_utilities.checker.proxy_validator import validator
 from ats_utilities.factory_context_bundle import factory_context_bundle
@@ -44,7 +44,7 @@ __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
 
 
-class XMLStorer(IXMLStorer):
+class XMLStorer(IStorer):
     '''
         Defines class XMLStorer with attribute(s) and method(s).
         Stores the ATS configuration for the ATS.
@@ -57,7 +57,7 @@ class XMLStorer(IXMLStorer):
                 | __checker - Factoriezed parameters checker (default Checker).
                 | __reporter - Factoriezed reporter for messaging (default Reporter).
                 | __verbose - Factoriezed Enable/Disable verbose option (default False).
-                | __processor - Processor for XML content (default ATSXMLProcessor).
+                | __processor - Processor for XML content (default XMLProcessor).
                 | __obj2xml - Out API for information (default Object2Xml).
             :methods:
                 | __init__ - Initializes XMLStorer constructor.
@@ -89,7 +89,7 @@ class XMLStorer(IXMLStorer):
         '''
         config_file_bundle: ATSConfigFileBundle = config_bundle or ATSConfigFileBundle()
         factory_context_bundle(self, config_file_bundle.context)
-        self.__processor: IXMLProcessor = make_component(xml_processor, ATSXMLProcessor, None)
+        self.__processor: IXMLProcessor = make_component(xml_processor, XMLProcessor, None)
         validate_component(self.__processor, type(self.__processor), type(self.__processor).__name__)
         self.__obj2xml: IWrite = make_component(object2xml, Object2Xml, {
             'config_file': info_file, 'config_bundle': config_file_bundle

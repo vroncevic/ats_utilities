@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines class ATSCFGProcessor with attribute(s) and method(s).
+    Defines class CFGProcessor with attribute(s) and method(s).
     Default implementation for processing CFG content.
 '''
 
@@ -35,9 +35,9 @@ __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
 
 
-class ATSCFGProcessor(ICFGProcessor):
+class CFGProcessor(ICFGProcessor):
     '''
-        Defines class ATSCFGProcessor with attribute(s) and method(s).
+        Defines class CFGProcessor with attribute(s) and method(s).
         Default implementation for processing CFG content.
 
         It defines:
@@ -46,18 +46,18 @@ class ATSCFGProcessor(ICFGProcessor):
                 | __REGEX_EXP - Regular expression for matching line.
                 | __data - Dictionary with CFG information.
             :methods:
-                | __init__ - Initializes ATSCFGProcessor constructor.
+                | __init__ - Initializes CFGProcessor constructor.
                 | from_lines - Loads CFG configuration from lines.
                 | to_string - Converts CFG configuration to string.
                 | to_dict - Converts CFG configuration to dictionary.
-                | __str__ - Returns the ATSCFGProcessor as string representation.
+                | __str__ - Returns the CFGProcessor as string representation.
     '''
 
     __REGEX_EXP: str = r'^\s*$'
 
     def __init__(self) -> None:
         '''
-            Initializes ATSCFGProcessor constructor.
+            Initializes CFGProcessor constructor.
 
             :return: None.
             :rtype: <None>
@@ -107,9 +107,9 @@ class ATSCFGProcessor(ICFGProcessor):
 
     def __str__(self) -> str:
         '''
-            Returns the ATSCFGProcessor as string representation.
+            Returns the CFGProcessor as string representation.
 
-            :return: The ATSCFGProcessor as string representation.
+            :return: The CFGProcessor as string representation.
             :rtype: <str>
             :exceptions: None.
         '''

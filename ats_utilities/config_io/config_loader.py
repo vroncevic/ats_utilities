@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines class ATSConfigLoader with attribute(s) and method(s).
+    Defines class ConfigLoader with attribute(s) and method(s).
     Default implementation of IConfigLoader that encapsulates factory logic.
 '''
 
@@ -24,6 +24,7 @@ from typing import List, Optional, cast
 from os.path import basename
 from ats_utilities.config_io.iconfig_loader import IConfigLoader
 from ats_utilities.config_io.iconfig_loader import IConfigProcessor, Config
+from ats_utilities.config_io.config_file_bundle import ATSConfigFileBundle
 from ats_utilities.config_io.config_loader_bundle import ATSConfigLoaderBundle
 from ats_utilities.config_io.iread import IRead
 from ats_utilities.config_io.cfg.icfg_processor import ICFGProcessor
@@ -47,9 +48,9 @@ __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
 
-class ATSConfigLoader(IConfigLoader):
+class ConfigLoader(IConfigLoader):
     '''
-        Defines class ATSConfigLoader with attribute(s) and method(s).
+        Defines class ConfigLoader with attribute(s) and method(s).
         Default implementation of IConfigLoader that encapsulates factory logic.
 
         It defines:
@@ -61,21 +62,21 @@ class ATSConfigLoader(IConfigLoader):
                 | __processor - Interface for configuration processor (default None).
             :methods:
                 | setup_config_loader - Setup config loader based on configuration file type.
-                | __str__ - Returns the ATSConfigLoader as string representation.
+                | __str__ - Returns the ConfigLoader as string representation.
     '''
 
     def __init__(self, config_loader_bundle: Optional[ATSConfigLoaderBundle] = None) -> None:
         '''
-            Initializes ATSConfigLoader constructor.
+            Initializes ConfigLoader constructor.
 
             :param config_loader_bundle: Configuration file for loading process | None.
             :type config_loader_bundle: <Optional[ATSConfigLoaderBundle]>
             :exceptions: None.
         '''
-        self.__info_file = config_loader_bundle.info_file
-        self.__config2object = config_loader_bundle.config2object
-        self.__config_bundle = config_loader_bundle.config_bundle
-        self.__processor = config_loader_bundle.processor
+        self.__info_file: Optional[str] = config_loader_bundle.info_file
+        self.__config2object: Optional[IRead] = config_loader_bundle.config2object
+        self.__config_bundle: Optional[ATSConfigFileBundle] = config_loader_bundle.config_bundle
+        self.__processor: Optional[IConfigProcessor] = config_loader_bundle.processor
 
     def setup_config_loader(self) -> Config:
         '''
@@ -107,9 +108,9 @@ class ATSConfigLoader(IConfigLoader):
 
     def __str__(self) -> str:
         '''
-            Returns the ATSConfigLoader as string representation.
+            Returns the ConfigLoader as string representation.
 
-            :return: The ATSConfigLoader as string representation.
+            :return: The ConfigLoader as string representation.
             :rtype: <str>
             :exceptions: NotImplementedError.
         '''

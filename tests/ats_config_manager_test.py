@@ -17,7 +17,7 @@ Copyright
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
     Defines classes ConfigManagerTestCase and ConfigManagerUnitTestCase with attribute(s) and method(s).
-    Creates test cases for checking functionalities of ATSConfigLoader.
+    Creates test cases for checking functionalities of ConfigLoader.
 Execute
     python3 -m unittest -v ats_config_manager_test
 '''
@@ -25,7 +25,7 @@ Execute
 from typing import List
 from os.path import dirname
 from unittest import TestCase, main, mock
-from ats_utilities.config_io.config_loader import ATSConfigLoader
+from ats_utilities.config_io.config_loader import ConfigLoader
 from ats_utilities.config_io.iconfig_loader import IConfigLoader
 from ats_utilities.config_io.iread import IRead
 from ats_utilities.config_io.iwrite import IWrite
@@ -53,30 +53,30 @@ __status__: str = 'Updated'
 class ConfigManagerTestCase(TestCase):
     '''
         Defines class ConfigManagerTestCase with attribute(s) and method(s).
-        Creates test cases for checking functionalities of ATSConfigLoader.
+        Creates test cases for checking functionalities of ConfigLoader.
 
         It defines:
 
             :attributes:
-                | manager - API for checking ATSConfigLoader.
+                | manager - API for checking ConfigLoader.
             :methods:
                 | setUp - Call before test case.
-                | test_not_none - Test is ATSConfigLoader not None.
+                | test_not_none - Test is ConfigLoader not None.
     '''
 
     def setUp(self) -> None:
         '''Call before test case.'''
-        self.manager: ATSConfigLoader = ATSConfigLoader()
+        self.manager: ConfigLoader = ConfigLoader()
 
     def test_not_none(self) -> None:
-        '''Test for create ATSConfigLoader'''
+        '''Test for create ConfigLoader'''
         self.assertIsNotNone(self.manager)
         self.assertTrue(isinstance(self.manager, IConfigLoader))  # type: ignore
 
 
 class ConfigManagerUnitTestCase(TestCase):
     '''
-        Unit tests for ATSConfigLoader class using mocks.
+        Unit tests for ConfigLoader class using mocks.
 
         It defines:
 
@@ -85,7 +85,7 @@ class ConfigManagerUnitTestCase(TestCase):
                 | mock_write - Mocked IWrite interface.
                 | mock_checker - Mocked IChecker.
                 | mock_reporter - Mocked IReporter.
-                | manager - ATSConfigLoader instance with mocks.
+                | manager - ConfigLoader instance with mocks.
             :methods:
                 | setUp - Set up test environment with mocks.
                 | test_setup_config_loader_cfg - Test loading .cfg file.
@@ -124,7 +124,7 @@ class ConfigManagerUnitTestCase(TestCase):
         mock_processor.get_ats_info.return_value = mock_ats_info_getter
         self.mock_read.read_configuration.return_value = mock_processor
 
-        self.manager = ATSConfigLoader(
+        self.manager = ConfigLoader(
             config2object=self.mock_read,
             object2config=self.mock_write,
             options_parser=self.mock_parser,

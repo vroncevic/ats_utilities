@@ -17,7 +17,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines class ATSINIProcessor with attribute(s) and method(s).
+    Defines class INIProcessor with attribute(s) and method(s).
     Default implementation for processing INI content.
 '''
 
@@ -36,9 +36,9 @@ __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
 
 
-class ATSINIProcessor(IINIProcessor):
+class INIProcessor(IINIProcessor):
     '''
-        Defines class ATSINIProcessor with attribute(s) and method(s).
+        Defines class INIProcessor with attribute(s) and method(s).
         Default implementation for processing INI content.
 
         It defines:
@@ -51,11 +51,11 @@ class ATSINIProcessor(IINIProcessor):
                 | __LICENCE - Option licence for ATS configuration.
                 | __config - ConfigParser instance for INI parsing.
             :methods:
-                | __init__ - Initializes ATSINIProcessor constructor.
+                | __init__ - Initializes INIProcessor constructor.
                 | from_stream - Loads INI configuration from a stream.
                 | to_stream - Converts INI configuration to a stream.
                 | to_dict - Converts INI configuration to dictionary.
-                | __str__ - Returns the ATSINIProcessor as string representation.
+                | __str__ - Returns the INIProcessor as string representation.
     '''
 
     __SECTION: str = 'ats_info'
@@ -66,7 +66,7 @@ class ATSINIProcessor(IINIProcessor):
 
     def __init__(self) -> None:
         '''
-            Initializes ATSINIProcessor constructor.
+            Initializes INIProcessor constructor.
 
             :return: None.
             :rtype: <None>
@@ -125,9 +125,9 @@ class ATSINIProcessor(IINIProcessor):
 
     def __str__(self) -> str:
         '''
-            Returns the ATSINIProcessor as string representation.
+            Returns the INIProcessor as string representation.
 
-            :return: The ATSINIProcessor as string representation.
+            :return: The INIProcessor as string representation.
             :rtype: <str>
             :exceptions: None.
         '''

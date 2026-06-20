@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines class ATSXMLProcessor with attribute(s) and method(s).
+    Defines class XMLProcessor with attribute(s) and method(s).
     Default implementation for processing XML content.
 '''
 
@@ -35,9 +35,9 @@ __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
 
 
-class ATSXMLProcessor(IXMLProcessor):
+class XMLProcessor(IXMLProcessor):
     '''
-        Defines class ATSXMLProcessor with attribute(s) and method(s).
+        Defines class XMLProcessor with attribute(s) and method(s).
         Default implementation for processing XML content.
 
         It defines:
@@ -49,12 +49,12 @@ class ATSXMLProcessor(IXMLProcessor):
                 | __LICENCE - Option licence for ATS configuration.
                 | __root - Root element of the XML document.
             :methods:
-                | __init__ - Initializes ATSXMLProcessor constructor.
+                | __init__ - Initializes XMLProcessor constructor.
                 | from_string - Loads XML content from string.
                 | to_string - Converts XML content to string.
                 | to_dict - Gets ATS information from XML.
                 | __get_val - Internal helper for getting tag value.
-                | __str__ - Returns the ATSXMLProcessor as string representation.
+                | __str__ - Returns the XMLProcessor as string representation.
     '''
 
     __NAME: str = 'ats_name'
@@ -64,7 +64,7 @@ class ATSXMLProcessor(IXMLProcessor):
 
     def __init__(self) -> None:
         '''
-            Initializes ATSXMLProcessor constructor.
+            Initializes XMLProcessor constructor.
 
             :return: None.
             :rtype: <None>
@@ -141,9 +141,9 @@ class ATSXMLProcessor(IXMLProcessor):
 
     def __str__(self) -> str:
         '''
-            Returns the ATSXMLProcessor as string representation.
+            Returns the XMLProcessor as string representation.
 
-            :return: The ATSXMLProcessor as string representation.
+            :return: The XMLProcessor as string representation.
             :rtype: <str>
             :exceptions: None.
         '''

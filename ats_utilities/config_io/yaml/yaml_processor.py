@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines class ATSYAMLProcessor with attribute(s) and method(s).
+    Defines class YAMLProcessor with attribute(s) and method(s).
     Provides a default implementation for processing YAML content.
 '''
 
@@ -34,9 +34,9 @@ __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
 
-class ATSYAMLProcessor(IYAMLProcessor):
+class YAMLProcessor(IYAMLProcessor):
     '''
-        Defines class ATSYAMLProcessor with attribute(s) and method(s).
+        Defines class YAMLProcessor with attribute(s) and method(s).
         Provides a default implementation for processing YAML content.
 
         It defines:
@@ -44,7 +44,7 @@ class ATSYAMLProcessor(IYAMLProcessor):
             :attributes:
                 | __data - Internal dictionary to store YAML data.
             :methods:
-                | __init__ - Initializes ATSYAMLProcessor constructor.
+                | __init__ - Initializes YAMLProcessor constructor.
                 | decode - Converts raw YAML text to an internal object/structure.
                 | encode - Converts an internal object/structure back to a YAML string.
                 | to_dict - Returns configuration as a flat dictionary.
@@ -52,7 +52,7 @@ class ATSYAMLProcessor(IYAMLProcessor):
 
     def __init__(self) -> None:
         '''
-            Initializes ATSYAMLProcessor constructor.
+            Initializes YAMLProcessor constructor.
 
             :return: None.
             :rtype: <None>

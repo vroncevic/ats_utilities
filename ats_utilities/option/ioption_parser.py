@@ -48,6 +48,7 @@ class IOptionManager(ABC):
                 | add_version_operation - Adds version option to the ATS parser.
                 | parse_input_args - Processes arguments from the start.
                 | parse_args - Processes arguments from the start.
+                | ok - Checks if option parser component is ok.
                 | __str__ - Returns the ATS option parser as string representation.
     '''
 
@@ -100,6 +101,17 @@ class IOptionManager(ABC):
             :exceptions: NotImplementedError
         '''
         raise NotImplementedError("Method parse_args() must be implemented.")
+
+    @abstractmethod
+    def ok(self) -> bool:
+        '''
+            Checks if option parser component is ok.
+
+            :return: True (success) | False (fail)
+            :rtype: <bool>
+            :exceptions: NotImplementedError
+        '''
+        raise NotImplementedError("Method ok() must be implemented.")
 
     @abstractmethod
     def __str__(self) -> str:

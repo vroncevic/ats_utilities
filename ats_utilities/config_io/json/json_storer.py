@@ -23,10 +23,10 @@ Info
 from typing import Dict, List, Optional
 from json import dumps
 from ats_utilities.config_io.iwrite import IWrite
-from ats_utilities.config_io.json.ijson_storer import IJSONStorer
+from ats_utilities.config_io.istorer import IStorer
 from ats_utilities.config_io.config_file_bundle import ATSConfigFileBundle
 from ats_utilities.config_io.json.object2json import Object2Json
-from ats_utilities.config_io.json.json_processor import ATSJSONProcessor
+from ats_utilities.config_io.json.json_processor import JSONProcessor
 from ats_utilities.config_io.json.ijson_processor import IJSONProcessor
 from ats_utilities.checker.proxy_validator import validator
 from ats_utilities.factory_context_bundle import factory_context_bundle
@@ -43,7 +43,7 @@ __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
 
 
-class JSONStorer(IJSONStorer):
+class JSONStorer(IStorer):
     '''
         Defines class JSONStorer with attribute(s) and method(s).
         Stores the ATS configuration for the ATS.
@@ -55,7 +55,7 @@ class JSONStorer(IJSONStorer):
                 | __checker - Factoriezed parameters checker (default Checker).
                 | __reporter - Factoriezed reporter for messaging (default Reporter).
                 | __verbose - Factoriezed Enable/Disable verbose option (default False).
-                | __processor - Processor for JSON content (default ATSJSONProcessor).
+                | __processor - Processor for JSON content (default JSONProcessor).
                 | __obj2json - Out API for information (default Object2Json).
             :methods:
                 | __init__ - Initializes JSONStorer constructor.
@@ -85,7 +85,7 @@ class JSONStorer(IJSONStorer):
         '''
         config_file_bundle: ATSConfigFileBundle = config_bundle or ATSConfigFileBundle()
         factory_context_bundle(self, config_file_bundle.context)
-        self.__processor: IJSONProcessor = make_component(json_processor, ATSJSONProcessor, None)
+        self.__processor: IJSONProcessor = make_component(json_processor, JSONProcessor, None)
         validate_component(self.__processor, type(self.__processor), type(self.__processor).__name__)
         self.__obj2json: IWrite = make_component(object2json, Object2Json, {
             'config_file': info_file, 'config_bundle': config_file_bundle

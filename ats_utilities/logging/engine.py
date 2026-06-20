@@ -62,6 +62,7 @@ class ATSLoggerManager(ILoggerManager):
             :methods:
                 | __init__ - Initials ATSLoggerManager constructor.
                 | get_logger - Gets logger instance.
+                | ok - Checks if logger manager component is ok.
                 | write_log - Writes message to log output.
     '''
 
@@ -116,6 +117,16 @@ class ATSLoggerManager(ILoggerManager):
             :exceptions: None
         '''
         return self.__logger.write_log(message, ctrl)
+
+    def ok(self) -> bool:
+        '''
+            Checks if logger component is ok.
+
+            :return: True (success) | False (fail)
+            :rtype: <bool>
+            :exceptions: None.
+        '''
+        return self.__logger.ok()
 
     def __str__(self) -> str:
         '''

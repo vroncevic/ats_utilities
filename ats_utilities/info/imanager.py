@@ -20,6 +20,7 @@ Info
     Interface for the ATS info manager mechanism.
 '''
 
+from typing import Any
 from typing import Dict
 from abc import ABC, abstractmethod
 from typing import List
@@ -44,6 +45,7 @@ class IInfoManager(ABC):
             :attributes: None
             :methods:
                 | set_info - Sets the ATS information.
+                | get_info - Gets the ATS information.
                 | info_ok - Checks if ATS information structure is ok.
                 | refresh_status - Refreshes status for ATS information structure.
                 | __str__ - Returns the ATS info manager as string representation.
@@ -60,9 +62,19 @@ class IInfoManager(ABC):
         '''
         raise NotImplementedError("Method set_info() must be implemented.")
 
-    @property
     @abstractmethod
-    def info_ok(self) -> bool:
+    def get_info(self) -> Dict[str, Any]:
+        '''
+            Gets the ATS information.
+
+            :return: Dictionary with ATS information.
+            :rtype: <Dict[str, Any]>
+            :exceptions: NotImplementedError
+        '''
+        raise NotImplemented("Method get_info() must be implemented.")
+
+    @abstractmethod
+    def ok(self) -> bool:
         '''
             Checks if ATS information structure is ok.
 
@@ -70,7 +82,7 @@ class IInfoManager(ABC):
             :rtype: <bool>
             :exceptions: NotImplementedError
         '''
-        raise NotImplementedError("Method info_ok() must be implemented.")
+        raise NotImplementedError("Method ok() must be implemented.")
 
     @abstractmethod
     def refresh_status(self) -> None:

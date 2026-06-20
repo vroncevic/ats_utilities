@@ -23,12 +23,12 @@ Info
 from typing import Dict, List, Optional
 from ats_utilities.config_io.iread import IRead
 from ats_utilities.context_bundle import ContextBundle
-from ats_utilities.config_io.ini.iini_loader import IINILoader
+from ats_utilities.config_io.iloader import ILoader
 from ats_utilities.config_io.ifile_check import IFileCheck
 from ats_utilities.config_io.file_check import FileCheck
 from ats_utilities.config_io.config_file_bundle import ATSConfigFileBundle
 from ats_utilities.config_io.yaml.yaml2object import Yaml2Object
-from ats_utilities.config_io.yaml.yaml_processor import ATSYAMLProcessor
+from ats_utilities.config_io.yaml.yaml_processor import YAMLProcessor
 from ats_utilities.config_io.yaml.iyaml_processor import IYAMLProcessor
 from ats_utilities.factory_context_bundle import factory_context_bundle
 from ats_utilities.factory_component import make_component, validate_component
@@ -44,7 +44,7 @@ __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
 
 
-class YAMLLoader(IINILoader):
+class YAMLLoader(ILoader):
     '''
         Defines class YAMLLoader with attribute(s) and method(s).
         Loads the ATS configuration for the ATS.
@@ -59,7 +59,7 @@ class YAMLLoader(IINILoader):
                 | __configuration - YAML processor configuration (default None).
             :methods:
                 | __init__ - Initializes YAMLLoader constructor.
-                | get_configuration - Gets the ATS configuration in dictionary format.
+                | load_configuration - Loads the ATS configuration in dictionary format.
                 | __str__ - Returns the YAMLLoader as string representation.
     '''
 
@@ -94,7 +94,7 @@ class YAMLLoader(IINILoader):
             config_file_bundle.file_checker, FileCheck, {'config_bundle': context_bundle_shared}
         )
         validate_component(file_checker, type(file_checker), type(file_checker).__name__)
-        processor: IYAMLProcessor = make_component(yaml_processor, ATSYAMLProcessor, None)
+        processor: IYAMLProcessor = make_component(yaml_processor, YAMLProcessor, None)
         validate_component(processor, type(processor), type(processor).__name__)
         yaml2obj: IRead = make_component(yaml2object, Yaml2Object, {
             'config_file': info_file, 'config_bundle': config_file_bundle, 'yaml_processor': processor
@@ -105,9 +105,9 @@ class YAMLLoader(IINILoader):
         if bool(yaml2obj):
             self.__configuration = yaml2obj.read_configuration()
 
-    def get_configuration(self) -> Dict[str, str]:
+    def load_configuration(self) -> Dict[str, str]:
         '''
-            Gets the ATS configuration in dictionary format.
+            Loads the ATS configuration in dictionary format.
 
             :return: Dictionary with YAML information.
             :rtype: <Dict[str, str]>

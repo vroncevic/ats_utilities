@@ -29,7 +29,7 @@ from ats_utilities.config_io.file_check import FileCheck
 from ats_utilities.config_io.file_bundle import ATSFileBundle
 from ats_utilities.config_io.config_file_bundle import ATSConfigFileBundle
 from ats_utilities.config_io.yaml.iyaml_processor import IYAMLProcessor
-from ats_utilities.config_io.yaml.yaml_processor import ATSYAMLProcessor
+from ats_utilities.config_io.yaml.yaml_processor import YAMLProcessor
 from ats_utilities.reporter.proxy_reporter import vreporter
 from ats_utilities.factory_context_bundle import factory_context_bundle
 from ats_utilities.factory_component import make_component, validate_component
@@ -61,7 +61,7 @@ class Yaml2Object(IRead):
                 | __reporter - Factoriezed reporter for messaging (default Reporter).
                 | __verbose - Factoriezed Enable/Disable verbose option (default False).
                 | __file_checker - FileCheck for checking file (default FileCheck).
-                | __yaml_processor - Processor for YAML content (default ATSYAMLProcessor).
+                | __yaml_processor - Processor for YAML content (default YAMLProcessor).
                 | __file_path - Configuration file path (default None).
                 | __file_bundle_shared - File bundle parameters (default None).
             :methods:
@@ -101,7 +101,7 @@ class Yaml2Object(IRead):
             self.__config_file_bundle.file_checker, FileCheck, {'config_bundle': context_bundle_shared}
         )
         validate_component(self.__file_checker, type(self.__file_checker), type(self.__file_checker).__name__)
-        self.__yaml_processor: IYAMLProcessor = make_component(yaml_processor, ATSYAMLProcessor, None)
+        self.__yaml_processor: IYAMLProcessor = make_component(yaml_processor, YAMLProcessor, None)
         validate_component(self.__yaml_processor, type(self.__yaml_processor), type(self.__yaml_processor).__name__)
         self.__file_path: str = str(config_file)
         self.__file_bundle_shared: ATSFileBundle = ATSFileBundle()

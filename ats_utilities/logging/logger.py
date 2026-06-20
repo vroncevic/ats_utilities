@@ -119,9 +119,7 @@ class ATSLogger(ILogger):
     LOG_LEVELS: ClassVar[type[ATSLogLevels]] = ATSLogLevels
 
     def __init__(
-        self,
-        logger_bundle: Optional[LoggerBundle] = None,
-        context_bundle: Optional[ContextBundle] = None
+        self, logger_bundle: Optional[LoggerBundle] = None, context_bundle: Optional[ContextBundle] = None
     ) -> None:
         '''
             Initializes ATSLogger constructor.
@@ -182,6 +180,16 @@ class ATSLogger(ILogger):
 
         self._reporter.error([f'not supported log level [{str(ctrl)}]'])
         return False
+
+    def ok(self) -> bool:
+        '''
+            Checks if logger component is ok.
+
+            :return: True (success) | False (fail)
+            :rtype: <bool>
+            :exceptions: None.
+        '''
+        return self.__logger.isEnabledFor(INFO)
 
     @property
     def _reporter(self) -> IReporter:

@@ -22,10 +22,10 @@ Info
 
 from typing import Dict, List, Optional
 from ats_utilities.config_io.iwrite import IWrite
-from ats_utilities.config_io.cfg.icfg_storer import ICFGStorer
+from ats_utilities.config_io.istorer import IStorer
 from ats_utilities.config_io.config_file_bundle import ATSConfigFileBundle
 from ats_utilities.config_io.cfg.object2cfg import Object2Cfg
-from ats_utilities.config_io.cfg.cfg_processor import ATSCFGProcessor
+from ats_utilities.config_io.cfg.cfg_processor import CFGProcessor
 from ats_utilities.config_io.cfg.icfg_processor import ICFGProcessor
 from ats_utilities.checker.proxy_validator import validator
 from ats_utilities.factory_context_bundle import factory_context_bundle
@@ -42,7 +42,7 @@ __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
 
 
-class CFGStorer(ICFGStorer):
+class CFGStorer(IStorer):
     '''
         Defines class CFGStorer with attribute(s) and method(s).
         Stores the ATS configuration for the ATS.
@@ -54,7 +54,7 @@ class CFGStorer(ICFGStorer):
                 | __checker - Factoriezed parameters checker (default Checker).
                 | __reporter - Factoriezed reporter for messaging (default Reporter).
                 | __verbose - Factoriezed Enable/Disable verbose option (default False).
-                | __processor - Processor for CFG content (default ATSCFGProcessor).
+                | __processor - Processor for CFG content (default CFGProcessor).
                 | __obj2cfg - Out API for information (default Object2Cfg).
             :methods:
                 | __init__ - Initializes CFGStorer constructor.
@@ -84,7 +84,7 @@ class CFGStorer(ICFGStorer):
         '''
         config_file_bundle: ATSConfigFileBundle = config_bundle or ATSConfigFileBundle()
         factory_context_bundle(self, config_file_bundle.context)
-        self.__processor: ICFGProcessor = make_component(cfg_processor, ATSCFGProcessor, None)
+        self.__processor: ICFGProcessor = make_component(cfg_processor, CFGProcessor, None)
         validate_component(self.__processor, type(self.__processor), type(self.__processor).__name__)
         self.__obj2cfg: IWrite = make_component(object2cfg, Object2Cfg, {
             'config_file': info_file, 'config_bundle': config_file_bundle

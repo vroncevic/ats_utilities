@@ -16,13 +16,12 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines class ATSBase with attribute(s) and method(s).
+    Defines class Base with attribute(s) and method(s).
     Creates an API for setup ATS (application, tool, script).
 '''
 
-from typing import Any, Dict, List, Optional
 from abc import abstractmethod
-
+from typing import Any, Dict, List, Optional
 from ats_utilities.base.ibase import IBase
 from ats_utilities.base.ibase import ArgSeq
 from ats_utilities.context_bundle import ContextBundle
@@ -34,10 +33,13 @@ from ats_utilities.logging.component_bundle import LoggingComponentBundle
 from ats_utilities.logging.engine import ATSLoggerManager
 from ats_utilities.logging.ilogger_manager import ILoggerManager
 from ats_utilities.config_io.iconfig_loader import IConfigLoader, Config
-from ats_utilities.config_io.config_loader import ATSConfigLoader
+from ats_utilities.config_io.config_loader import ConfigLoader
 from ats_utilities.info.imanager import IInfoManager
 from ats_utilities.info.engine import InfoManager
 from ats_utilities.info.component_bundle import InfoComponentBundle
+from ats_utilities.splasher.isplasher import ISplasher
+from ats_utilities.splasher.engine import Splasher
+from ats_utilities.splasher.component_bundle import SplashComponentBundle
 from ats_utilities.option.ioption_parser import IOptionManager
 from ats_utilities.option.engine import OptionManager
 from ats_utilities.option.option_namespace import OptionNamespace
@@ -55,34 +57,41 @@ __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
 
 
-class ATSBase(IBase):
+class Base(IBase):
     '''
-        Defines class ATSBase with attribute(s) and method(s).
+        Defines class Base with attribute(s) and method(s).
         Creates an API for setup ATS (application, tool, script).
 
         It defines:
 
             :attributes:
-                | __config - CLI configuration object.
+                | __checker - Factoriezed parameters checker (default Checker).
+                | __reporter - Factoriezed reporter for messaging (default Reporter).
+                | __verbose - Factoriezed Enable/Disable verbose option (default False).
+                | __operational - Status for ATS (default False).
                 | __config_loader - Manager for configuration loading.
-                | __operational - Status for tool | generator (default False).
-                | __verbose - Enable/Disable verbose option.
+                | __info_manager - Manager for info component.
+                | __splasher - Manager for splash component.
+                | __options_parser - Manager for options parser.
+                | __logger_manager - Manager for logger component.
             :methods:
-                | __init__ - Initializes ATSBase constructor.
-                | is_operational - Checks is tool | generator operational.
+                | __init__ - Initializes Base constructor.
+                | is_operational - Checks is ATS operational.
                 | add_new_option - Adds a new option for the the CL interface.
                 | parse_args - Parses the CLI arguments.
                 | process - Processes and runs tool operations (Abstract).
+                | __str__ - Returns the ATS base as string representation.
     '''
 
     def __init__(self, component_bundle: Optional[BaseComponentBundle] = None) -> None:
         '''
-            Initializes ATSBase constructor.
+            Initializes Base constructor.
 
             :param component_bundle: Component bundle for base package | None.
             :type component_bundle: <Optional[BaseComponentBundle]>
             :exceptions: ATSTypeError.
         '''
+        # No dependency injection then use default ones.
         bundle: BaseComponentBundle = component_bundle or BaseComponentBundle()
         factory_context_bundle(self, bundle.context_bundle)
         shared_context: ContextBundle = ContextBundle(
@@ -90,57 +99,58 @@ class ATSBase(IBase):
             reporter=get_private_attr(self, 'reporter'),
             verbose=get_private_attr(self, 'verbose')
         )
+        self.__operational: bool = False
         shared_config_file_bundle: ATSConfigFileBundle = ATSConfigFileBundle(context=shared_context)
-
         share_config_loader_bundle: ATSConfigLoaderBundle = ATSConfigLoaderBundle(
             info_file=bundle.info_file, config_bundle=shared_config_file_bundle
         )
+        info_component_bundle: InfoComponentBundle = InfoComponentBundle(context_bundle=shared_context)
 
         self.__config_loader: IConfigLoader = make_component(
-            bundle.config_loader, ATSConfigLoader, {'config_loader_bundle': share_config_loader_bundle}
+            bundle.config_loader, ConfigLoader, {'config_loader_bundle': share_config_loader_bundle}
         )
         validate_component(self.__config_loader, type(self.__config_loader), type(self.__config_loader).__name__)
         loader: Config = self.__config_loader.setup_config_loader()
-        configuration: Dict[str, str] = loader.get_configuration()
 
-        info_component_bundle: InfoComponentBundle = InfoComponentBundle(
-            context_bundle=shared_context
+        self.__info_manager: IInfoManager = make_component(bundle.info_manager, InfoManager, {'component_bundle': info_component_bundle})
+        validate_component(self.__info_manager, type(self.__info_manager), type(self.__info_manager).__name__)
+        self.__info_manager.set_info(loader.load_configuration())
+
+        splash_component_bundle: SplashComponentBundle = SplashComponentBundle(
+            prop=self.__info_manager.get_info(), context_bundle=shared_context
         )
 
-        self.__info_manager = make_component(bundle.info_manager, InfoManager, {'component_bundle': info_component_bundle})
-        validate_component(self.__info_manager, type(self.__info_manager), type(self.__info_manager).__name__)
-        self.__info_manager.set_info(configuration)
+        self.__splasher: ISplasher = make_component(bundle.splasher, Splasher, {'component_bundle': splash_component_bundle})
+        validate_component(self.__splasher, type(self.__splasher), type(self.__splasher).__name__)
 
         option_component_bundle: OptionComponentBundle = OptionComponentBundle(
-            parameters=configuration, context_bundle=shared_context
+            parameters=self.__info_manager.get_info(), context_bundle=shared_context
         )
 
-        self.__options_parser = make_component(
+        self.__options_parser: IOptionManager = make_component(
             bundle.options_parser, OptionManager, {'component_bundle': option_component_bundle}
         )
         validate_component(self.__options_parser, type(self.__options_parser), type(self.__options_parser).__name__)
 
-        logging_component_bundle: LoggingComponentBundle = LoggingComponentBundle(
-            context_bundle=shared_context
-        )
+        logging_component_bundle: LoggingComponentBundle = LoggingComponentBundle(context_bundle=shared_context)
 
         self.__logger_manager: ILoggerManager = make_component(
             bundle.logger_manager, ATSLoggerManager, {'component_bundle': logging_component_bundle}
         )
         validate_component(self.__logger_manager, type(self.__logger_manager), type(self.__logger_manager).__name__)
 
-        self.__operational: bool = False
+        self.__operational: bool = all(
+            component.ok() for component in [self.__info_manager, self.__options_parser, self.__logger_manager]
+        )
 
     def is_operational(self) -> bool:
         '''
-            Checks is tool | generator operational.
+            Checks is ATS operational.
 
-            :return: True (tool | generator is operational) | False.
+            :return: True (success) | False (fail).
             :rtype: <bool>
             :exceptions: None.
         '''
-        if self.__config:
-            self.__operational = self.__config.is_tool_ok()
         return self.__operational
 
     def add_new_option(self, *args: str, **kwargs: Any) -> None:
@@ -153,8 +163,8 @@ class ATSBase(IBase):
             :type kwargs: <Any>
             :exceptions: None.
         '''
-        if self.__config and self.__config.option_parser:
-            self.__config.option_parser.add_operation(*args, **kwargs)
+        if self.__options_parser:
+            self.__options_parser.add_operation(*args, **kwargs)
 
     def parse_args(self, argv: ArgSeq) -> Optional[OptionNamespace]:
         '''
@@ -166,8 +176,9 @@ class ATSBase(IBase):
             :rtype: <Optional[OptionNamespace]>
             :exceptions: ATSTypeError.
         '''
-        if self.__config and self.__config.option_parser:
-            return self.__config.option_parser.parse_args(argv)
+        if self.__options_parser:
+            return self.__options_parser.parse_args(argv)
+
         return None
 
     @abstractmethod
@@ -177,7 +188,7 @@ class ATSBase(IBase):
 
             :param verbose: Enable/Disable verbose option (default False).
             :type verbose: <bool>
-            :return: True (successfully finished) | False.
+            :return: True (success) | False (fail).
             :rtype: <bool>
             :exceptions: TypeError.
         '''

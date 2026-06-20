@@ -26,6 +26,10 @@ from ats_utilities.info.iname import IName
 from ats_utilities.info.iversion import IVersion
 from ats_utilities.info.ilicence import ILicence
 from ats_utilities.info.ibuild_date import IBuildDate
+from ats_utilities.info.irepository import IRepository
+from ats_utilities.info.iorganization import IOrganization
+from ats_utilities.info.iuse_github import IUseGitHub
+from ats_utilities.info.ilogo_path import ILogoPath
 from ats_utilities.info.iinfo_ok import IInfoOk
 from ats_utilities.context_bundle import ContextBundle
 
@@ -52,6 +56,10 @@ class InfoComponentBundle:
                 | version - The ATS version (default None).
                 | licence - The ATS licence (default None).
                 | build_date - The ATS build date (default None).
+                | repository - The ATS repository (default None).
+                | organization - The ATS organization (default None).
+                | use_github - The ATS use GitHub infrastructure status (default None).
+                | logo_path - The ATS logo path (default None).
                 | info_ok - The ATS information status (default None).
                 | context_bundle - The context bundle (default ContextBundle).
             :methods:
@@ -64,6 +72,10 @@ class InfoComponentBundle:
     version: Optional[IVersion] = None
     licence: Optional[ILicence] = None
     build_date: Optional[IBuildDate] = None
+    repository: Optional[IRepository] = None
+    organization: Optional[IOrganization] = None
+    use_github: Optional[IUseGitHub] = None
+    logo_path: Optional[ILogoPath] = None
     info_ok: Optional[IInfoOk] = None
     context_bundle: Optional[ContextBundle] = field(default_factory=ContextBundle)
 
@@ -83,6 +95,14 @@ class InfoComponentBundle:
             raise ValueError("Licence must be provided.")
         if self.build_date is None:
             raise ValueError("Build date must be provided.")
+        if self.repository is None:
+            raise ValueError("Repository must be provided.")
+        if self.organization is None:
+            raise ValueError("Organization must be provided.")
+        if self.use_github is None:
+            raise ValueError("Use GitHub must be provided.")
+        if self.logo_path is None:
+            raise ValueError("Logo path must be provided.")
         if self.info_ok is None:
             raise ValueError("Info ok must be provided.")
 

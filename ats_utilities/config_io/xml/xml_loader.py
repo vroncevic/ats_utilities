@@ -23,12 +23,12 @@ Info
 from typing import Dict, List, Optional
 from ats_utilities.config_io.iread import IRead
 from ats_utilities.context_bundle import ContextBundle
-from ats_utilities.config_io.xml.ixml_loader import IXMLLoader
+from ats_utilities.config_io.iloader import ILoader
 from ats_utilities.config_io.ifile_check import IFileCheck
 from ats_utilities.config_io.file_check import FileCheck
 from ats_utilities.config_io.config_file_bundle import ATSConfigFileBundle
 from ats_utilities.config_io.xml.xml2object import Xml2Object
-from ats_utilities.config_io.xml.xml_processor import ATSXMLProcessor
+from ats_utilities.config_io.xml.xml_processor import XMLProcessor
 from ats_utilities.config_io.xml.ixml_processor import IXMLProcessor
 from ats_utilities.factory_context_bundle import factory_context_bundle
 from ats_utilities.factory_component import make_component, validate_component
@@ -44,7 +44,7 @@ __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
 
 
-class XMLLoader(IXMLLoader):
+class XMLLoader(ILoader):
     '''
         Defines class XMLLoader with attribute(s) and method(s).
         Loads the ATS configuration for the ATS.
@@ -59,7 +59,7 @@ class XMLLoader(IXMLLoader):
                 | __configuration - XML processor configuration (default None).
             :methods:
                 | __init__ - Initializes XMLLoader constructor.
-                | get_configuration - Gets the ATS configuration in dictionary format.
+                | load_configuration - Loads the ATS configuration in dictionary format.
                 | __str__ - Returns the XMLLoader as string representation.
     '''
 
@@ -94,7 +94,7 @@ class XMLLoader(IXMLLoader):
             config_file_bundle.file_checker, FileCheck, {'config_bundle': context_bundle_shared}
         )
         validate_component(file_checker, type(file_checker), type(file_checker).__name__)
-        processor: IXMLProcessor = make_component(xml_processor, ATSXMLProcessor, None)
+        processor: IXMLProcessor = make_component(xml_processor, XMLProcessor, None)
         validate_component(processor, type(processor), type(processor).__name__)
         xml2obj: IRead = make_component(xml2object, Xml2Object, {
             'config_file': info_file, 'config_bundle': config_file_bundle, 'xml_processor': processor
@@ -105,9 +105,9 @@ class XMLLoader(IXMLLoader):
         if bool(xml2obj):
             self.__configuration = xml2obj.read_configuration()
 
-    def get_configuration(self) -> Dict[str, str]:
+    def load_configuration(self) -> Dict[str, str]:
         '''
-            Gets the ATS configuration in dictionary format.
+            Loads the ATS configuration in dictionary format.
 
             :return: Dictionary with XML information.
             :rtype: <Dict[str, str]>
