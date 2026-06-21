@@ -139,53 +139,69 @@ def update_readme(coverage: dict[str, Any]) -> None:
     if error_id == ErrorChecker.TYPE_ERROR:
         raise ATSTypeError(error_msg)
     readme_path: str = '../README.md'
-    start_marker: str = '### Code coverage'
-    end_marker: str = '### Docs'
     lines: list[str] = []
     with open(readme_path, 'r', encoding='utf-8') as current_file:
         lines = current_file.readlines()
     new_lines: list[str] = []
-    inside_block: bool = False
+    inside_coverage: bool = False
+    inside_table: bool = False
     stmts: str = 'num_statements'
     miss: str = 'missing_lines'
     cover: str = 'percent_covered_display'
     for line in lines:
-        if start_marker in line:
-            inside_block = True
-            new_lines.append(line)
-            new_lines.append('\n')
-            new_lines.append('| Name | Stmts | Miss | Cover |\n')
-            new_lines.append('|------|-------|------|-------|\n')
-            file_names: list[str] = coverage['files']
-            for name in file_names:
-                root_package: Path | None = find_root_package(name)
-                module: str = ''
-                if name.startswith(str(root_package)):
-                    result: str = name[len(str(root_package)):]
-                    result = result.lstrip('/')
-                    module = f'{basename(str(root_package))}/{result}'
-                file_summary: dict[str, Any] = coverage['files'][name]
-                statements: str = file_summary['summary'][stmts]
-                missing: str = file_summary['summary'][miss]
-                covered: str = file_summary['summary'][cover]
-                new_lines.append(
-                    f'| `{module}` | {statements} | {missing} | {covered}%|\n'
-                )
-            total: str = '| **Total** |'
-            total_statements: str = coverage['totals'][stmts]
-            total_missing: str = coverage['totals'][miss]
-            total_covered: str = coverage['totals'][cover]
-            total += f' {total_statements} |'
-            total += f' {total_missing} |'
-            total += f' {total_covered}% |\n'
-            new_lines.append(total)
-            continue
-        elif end_marker in line:
-            inside_block = False
-            new_lines.append('\n')
+        if '### Code coverage' in line:
+            inside_coverage = True
             new_lines.append(line)
             continue
-        if not inside_block:
+
+        if inside_coverage:
+            if '### Docs' in line:
+                inside_coverage = False
+                inside_table = False
+                new_lines.append(line)
+                continue
+
+            if '</summary>' in line:
+                inside_table = True
+                new_lines.append(line)
+                new_lines.append('\n')
+                new_lines.append('| Name | Stmts | Miss | Cover |\n')
+                new_lines.append('|------|-------|------|-------|\n')
+                file_names: list[str] = coverage['files']
+                for name in file_names:
+                    root_package: Path | None = find_root_package(name)
+                    module: str = ''
+                    if name.startswith(str(root_package)):
+                        result: str = name[len(str(root_package)):]
+                        result = result.lstrip('/')
+                        module = f'{basename(str(root_package))}/{result}'
+                    file_summary: dict[str, Any] = coverage['files'][name]
+                    statements: str = file_summary['summary'][stmts]
+                    missing: str = file_summary['summary'][miss]
+                    covered: str = file_summary['summary'][cover]
+                    new_lines.append(
+                        f'| `{module}` | {statements} | {missing} | {covered}%|\n'
+                    )
+                total: str = '| **Total** |'
+                total_statements: str = coverage['totals'][stmts]
+                total_missing: str = coverage['totals'][miss]
+                total_covered: str = coverage['totals'][cover]
+                total += f' {total_statements} |'
+                total += f' {total_missing} |'
+                total += f' {total_covered}% |\n'
+                new_lines.append(total)
+                continue
+
+            if '</details>' in line:
+                inside_table = False
+                new_lines.append('\n')
+                new_lines.append(line)
+                continue
+
+            if inside_table:
+                continue
+
+        if not inside_table:
             new_lines.append(line)
     with open(readme_path, 'w', encoding='utf-8') as update_file:
         update_file.writelines(new_lines)
