@@ -1,0 +1,136 @@
+name: ats_utilities_interface_checker
+
+on:
+  push:
+    branches: [ master ]
+    paths:
+      - 'ats_utilities/**'
+  pull_request:
+    branches: [ master ]
+    paths:
+      - 'ats_utilities/**'
+
+jobs:
+  interface_gate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository code
+        uses: actions/checkout@v4
+
+      - name: Verify that each concrete class implements a valid interface
+        run: |
+          python3 - <<'EOF'
+          import os
+          import ast
+          import sys
+
+          def get_base_name(node):
+              if isinstance(node, ast.Name):
+                  return node.id
+              elif isinstance(node, ast.Attribute):
+                  return node.attr
+              return None
+
+          def is_dataclass(class_node):
+              for decorator in class_node.decorator_list:
+                  if isinstance(decorator, ast.Name) and decorator.id == 'dataclass':
+                      return True
+                  elif isinstance(decorator, ast.Call) and isinstance(decorator.func, ast.Name) and decorator.func.id == 'dataclass':
+                      return True
+              return False
+
+          def inherits_from(class_node, exception_names):
+              for base in class_node.bases:
+                  name = get_base_name(base)
+                  if name in exception_names:
+                      return True
+              return False
+
+          def main():
+              package_dir = 'ats_utilities'
+              errors = []
+              
+              defined_interfaces = {}
+              
+              # 1. Scan codebase for interface definitions (classes starting with 'I' followed by uppercase)
+              for root, _, files in os.walk(package_dir):
+                  if 'exceptions' in root:
+                      continue
+                  for file in files:
+                      if not file.endswith('.py') or file == '__init__.py':
+                          continue
+                      path = os.path.join(root, file)
+                      try:
+                          with open(path, 'r', encoding='utf-8') as f:
+                              tree = ast.parse(f.read(), filename=path)
+                          for node in ast.walk(tree):
+                              if isinstance(node, ast.ClassDef):
+                                  if node.name.startswith('I') and len(node.name) > 1 and node.name[1].isupper():
+                                      defined_interfaces[node.name] = path
+                      except Exception as e:
+                          print(f"Error parsing {path}: {e}")
+
+              ignored_bases = {
+                  'Exception', 'ValueError', 'TypeError', 'KeyError', 'AttributeError', 
+                  'LookupError', 'Enum', 'int', 'str', 'Protocol', 'ArgumentParser'
+              }
+
+              # 2. Verify concrete classes
+              for root, _, files in os.walk(package_dir):
+                  if 'exceptions' in root:
+                      continue
+                  for file in files:
+                      if not file.endswith('.py') or file == '__init__.py':
+                          continue
+                      path = os.path.join(root, file)
+                      
+                      if file.startswith('i') and len(file) > 1 and file[1].isupper():
+                          continue
+                          
+                      try:
+                          with open(path, 'r', encoding='utf-8') as f:
+                              tree = ast.parse(f.read(), filename=path)
+                          for node in ast.walk(tree):
+                              if not isinstance(node, ast.ClassDef):
+                                  continue
+                              
+                              if node.name.startswith('I') and len(node.name) > 1 and node.name[1].isupper():
+                                  continue
+                              
+                              if is_dataclass(node):
+                                  continue
+                                  
+                              if inherits_from(node, ignored_bases):
+                                  continue
+                              
+                              interfaces_inherited = []
+                              for base in node.bases:
+                                  base_name = get_base_name(base)
+                                  if base_name and base_name.startswith('I') and len(base_name) > 1 and base_name[1].isupper():
+                                      interfaces_inherited.append(base_name)
+                              
+                              if not interfaces_inherited:
+                                  errors.append(f"❌ Class '{node.name}' in module '{path}' does not inherit from any interface.")
+                                  continue
+                                  
+                              for base_name in interfaces_inherited:
+                                  if base_name not in defined_interfaces:
+                                      errors.append(f"❌ Class '{node.name}' in module '{path}' inherits from '{base_name}', but this interface is not defined in the codebase.")
+                                      
+                      except Exception as e:
+                          print(f"Error parsing {path}: {e}")
+
+              if errors:
+                  for err in errors:
+                      print(err)
+                  print("---")
+                  print("Quality Gate Failed! Concrete class implementation is missing its interface or inherits from an undefined interface.")
+                  sys.exit(1)
+              else:
+                  print("✅ Quality Gate Pass: Interface segregation requirements and interface definitions are respected.")
+                  sys.exit(0)
+
+          if __name__ == '__main__':
+              main()
+          EOF
+

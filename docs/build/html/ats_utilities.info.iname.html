@@ -15,8 +15,8 @@
     
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="ats_utilities.info.info_ok module" href="ats_utilities.info.info_ok.html" />
-    <link rel="prev" title="ats_utilities.info.ilicence module" href="ats_utilities.info.ilicence.html" /> 
+    <link rel="next" title="ats_utilities.info.info_keys module" href="ats_utilities.info.info_keys.html" />
+    <link rel="prev" title="ats_utilities.info.imanager module" href="ats_utilities.info.imanager.html" /> 
   </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
@@ -28,10 +28,10 @@
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="ats_utilities.info.info_ok.html" title="ats_utilities.info.info_ok module"
+          <a href="ats_utilities.info.info_keys.html" title="ats_utilities.info.info_keys module"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="ats_utilities.info.ilicence.html" title="ats_utilities.info.ilicence module"
+          <a href="ats_utilities.info.imanager.html" title="ats_utilities.info.imanager module"
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">ats_utilities https://github.com/vroncevic/ats_utilities/releases documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="modules.html" >ats_utilities</a> &#187;</li>
@@ -63,65 +63,66 @@ See the GNU General Public License for more details.
 You should have received a copy of the GNU General Public License along
 with this program. If not, see &lt;<a class="reference external" href="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</a>&gt;.</p>
 </dd>
-<dt>Info</dt><dd><p>Defines interface IATSName with attribute(s) and method(s).
+<dt>Info</dt><dd><p>Defines abstract class IName with method(s).
 Interface for the ATS name mechanism.</p>
 </dd>
 </dl>
 <dl class="py class">
-<dt class="sig sig-object py" id="ats_utilities.info.iname.IATSName">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ats_utilities.info.iname.</span></span><span class="sig-name descname"><span class="pre">IATSName</span></span><a class="reference internal" href="_modules/ats_utilities/info/iname.html#IATSName"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.info.iname.IATSName" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ats_utilities.info.iname.IName">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ats_utilities.info.iname.</span></span><span class="sig-name descname"><span class="pre">IName</span></span><a class="reference internal" href="_modules/ats_utilities/info/iname.html#IName"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.info.iname.IName" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">ABC</span></code></p>
-<p>Defines interface IATSName with attribute(s) and method(s).
+<p>Defines abstract class IName with method(s).
 Interface for the ATS name mechanism.</p>
 <p>It defines:</p>
 <blockquote>
 <div><dl class="field-list">
 <dt class="field-odd">attributes<span class="colon">:</span></dt>
-<dd class="field-odd"><p>None.</p>
+<dd class="field-odd"><p>None</p>
 </dd>
 <dt class="field-even">methods<span class="colon">:</span></dt>
 <dd class="field-even"><div class="line-block">
 <div class="line">name - Property methods for set/get operations.</div>
-<div class="line">is_name_not_none - Checks is ATS name not None.</div>
+<div class="line">not_none - Checks if ATS name is not None.</div>
+<div class="line">__str__ - Returns the ATS name as string representation.</div>
 </div>
 </dd>
 </dl>
 </div></blockquote>
 <dl class="py attribute">
-<dt class="sig sig-object py" id="ats_utilities.info.iname.IATSName._abc_impl">
-<span class="sig-name descname"><span class="pre">_abc_impl</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;_abc._abc_data</span> <span class="pre">object&gt;</span></em><a class="headerlink" href="#ats_utilities.info.iname.IATSName._abc_impl" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ats_utilities.info.iname.IName._abc_impl">
+<span class="sig-name descname"><span class="pre">_abc_impl</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;_abc._abc_data</span> <span class="pre">object&gt;</span></em><a class="headerlink" href="#ats_utilities.info.iname.IName._abc_impl" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="py method">
-<dt class="sig sig-object py" id="ats_utilities.info.iname.IATSName.is_name_not_none">
-<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">is_name_not_none</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="_modules/ats_utilities/info/iname.html#IATSName.is_name_not_none"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.info.iname.IATSName.is_name_not_none" title="Link to this definition">¶</a></dt>
-<dd><p>Checks is ATS name not None.</p>
+<dl class="py property">
+<dt class="sig sig-object py" id="ats_utilities.info.iname.IName.name">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#ats_utilities.info.iname.IName.name" title="Link to this definition">¶</a></dt>
+<dd><p>Property method for getting ATS name.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>True (ATS name is not None) | False.</p>
+<dd class="field-odd"><p>The ATS name in string format | None</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>&lt;str | None&gt;</p>
+</dd>
+<dt class="field-odd">Exceptions<span class="colon">:</span></dt>
+<dd class="field-odd"><p>NotImplementedError.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ats_utilities.info.iname.IName.not_none">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">not_none</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="_modules/ats_utilities/info/iname.html#IName.not_none"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.info.iname.IName.not_none" title="Link to this definition">¶</a></dt>
+<dd><p>Checks if ATS name is not None.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>True (success) | False (fail).</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p>&lt;bool&gt;</p>
 </dd>
 <dt class="field-odd">Exceptions<span class="colon">:</span></dt>
-<dd class="field-odd"><p>NotImplementedError</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py property">
-<dt class="sig sig-object py" id="ats_utilities.info.iname.IATSName.name">
-<em class="property"><span class="pre">abstract</span><span class="w"> </span><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#ats_utilities.info.iname.IATSName.name" title="Link to this definition">¶</a></dt>
-<dd><p>Property method for getting ATS name.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>The ATS name | None</p>
-</dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>&lt;Optional[str]&gt;</p>
-</dd>
-<dt class="field-odd">Exceptions<span class="colon">:</span></dt>
-<dd class="field-odd"><p>NotImplementedError</p>
+<dd class="field-odd"><p>NotImplementedError.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -141,10 +142,10 @@ Interface for the ATS name mechanism.</p>
     <h3><a href="index.html">Table of Contents</a></h3>
     <ul>
 <li><a class="reference internal" href="#">ats_utilities.info.iname module</a><ul>
-<li><a class="reference internal" href="#ats_utilities.info.iname.IATSName"><code class="docutils literal notranslate"><span class="pre">IATSName</span></code></a><ul>
-<li><a class="reference internal" href="#ats_utilities.info.iname.IATSName._abc_impl"><code class="docutils literal notranslate"><span class="pre">IATSName._abc_impl</span></code></a></li>
-<li><a class="reference internal" href="#ats_utilities.info.iname.IATSName.is_name_not_none"><code class="docutils literal notranslate"><span class="pre">IATSName.is_name_not_none()</span></code></a></li>
-<li><a class="reference internal" href="#ats_utilities.info.iname.IATSName.name"><code class="docutils literal notranslate"><span class="pre">IATSName.name</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.info.iname.IName"><code class="docutils literal notranslate"><span class="pre">IName</span></code></a><ul>
+<li><a class="reference internal" href="#ats_utilities.info.iname.IName._abc_impl"><code class="docutils literal notranslate"><span class="pre">IName._abc_impl</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.info.iname.IName.name"><code class="docutils literal notranslate"><span class="pre">IName.name</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.info.iname.IName.not_none"><code class="docutils literal notranslate"><span class="pre">IName.not_none()</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -154,13 +155,13 @@ Interface for the ATS name mechanism.</p>
   </div>
   <div>
     <h4>Previous topic</h4>
-    <p class="topless"><a href="ats_utilities.info.ilicence.html"
-                          title="previous chapter">ats_utilities.info.ilicence module</a></p>
+    <p class="topless"><a href="ats_utilities.info.imanager.html"
+                          title="previous chapter">ats_utilities.info.imanager module</a></p>
   </div>
   <div>
     <h4>Next topic</h4>
-    <p class="topless"><a href="ats_utilities.info.info_ok.html"
-                          title="next chapter">ats_utilities.info.info_ok module</a></p>
+    <p class="topless"><a href="ats_utilities.info.info_keys.html"
+                          title="next chapter">ats_utilities.info.info_keys module</a></p>
   </div>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
@@ -193,10 +194,10 @@ Interface for the ATS name mechanism.</p>
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="ats_utilities.info.info_ok.html" title="ats_utilities.info.info_ok module"
+          <a href="ats_utilities.info.info_keys.html" title="ats_utilities.info.info_keys module"
              >next</a> |</li>
         <li class="right" >
-          <a href="ats_utilities.info.ilicence.html" title="ats_utilities.info.ilicence module"
+          <a href="ats_utilities.info.imanager.html" title="ats_utilities.info.imanager module"
              >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">ats_utilities https://github.com/vroncevic/ats_utilities/releases documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="modules.html" >ats_utilities</a> &#187;</li>

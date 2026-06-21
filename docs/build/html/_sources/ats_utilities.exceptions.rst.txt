@@ -14,6 +14,7 @@ Submodules
    ats_utilities.exceptions.ats_key_error
    ats_utilities.exceptions.ats_lookup_error
    ats_utilities.exceptions.ats_parameter_error
+   ats_utilities.exceptions.ats_runtime_error
    ats_utilities.exceptions.ats_type_error
    ats_utilities.exceptions.ats_value_error
 

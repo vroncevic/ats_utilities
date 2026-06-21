@@ -16,97 +16,95 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines class ATSInfoOk with attribute(s) and method(s).
+    Defines class InfoOk with attribute(s) and method(s).
     Creates an API for the ATS info status in one property object.
 '''
 
-from typing import ClassVar, List, Optional
-from ats_utilities.checker.ichecker import IATSChecker, ErrorChecker
-from ats_utilities.checker.ats_checker import ATSChecker
-from ats_utilities.console_io.ireporter import IATSReporter
-from ats_utilities.console_io.reporter import ATSReporter
-from ats_utilities.exceptions.ats_type_error import ATSTypeError
-from ats_utilities.info.iinfo_ok import IATSInfoOk
+from ats_utilities.info.iinfo_ok import IInfoOk
+from ats_utilities.context_bundle import ContextBundle
+from ats_utilities.checker.ichecker import IChecker
+from ats_utilities.reporter.ireporter import IReporter
+from ats_utilities.factory_context_bundle import factory_context_bundle
+from ats_utilities.factory_class import format_instance_to_string
+from ats_utilities.checker.proxy_validator import validator
+from ats_utilities.reporter.proxy_reporter import vreporter
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
+__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.3.7'
+__version__: str = '3.3.8'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
 
 
-class ATSInfoOk(IATSInfoOk):
+class InfoOk(IInfoOk):
     '''
-        Defines class ATSInfoOk with attribute(s) and method(s).
+        Defines class InfoOk with attribute(s) and method(s).
         Creates an API for the ATS info status in one property object.
-        The ATS info status container.
 
         It defines:
 
             :attributes:
-                | ERRORS - Error checker mapping.
-                | __checker - Error checker.
-                | __reporter - ATSReporter for messaging.
-                | __verbose - Enable/Disable verbose option.
-                | __ats_info_ok - The ATS information status.
+                | _checker - Factoriezed parameters checker (default Checker).
+                | _reporter - Factoriezed reporter for messaging (default Reporter).
+                | _verbose - Factoriezed Enable/Disable verbose option (default False).
+                | _info_ok - The ATS information status (default False).
             :methods:
-                | __init__ - Initials ATSInfoOk constructor.
-                | ats_info_ok - Property methods for set/get operations.
+                | __init__ - Initializes InfoOk constructor.
+                | info_ok - Property methods for set/get information status.
+                | __str__ - Returns the ATS info status as string representation.
     '''
 
-    ERRORS: ClassVar[type[ErrorChecker]] = ErrorChecker
+    _checker: IChecker
+    _reporter: IReporter
+    _verbose: bool
 
-    def __init__(
-        self,
-        checker: Optional[IATSChecker] = None,
-        reporter: Optional[IATSReporter] = None,
-        verbose: bool = False
-    ) -> None:
+    def __init__(self, context_bundle: ContextBundle | None = None) -> None:
         '''
-            Initials ATSInfoOk constructor.
+            Initializes InfoOk constructor.
 
-            :param checker: Error checker | None
-            :type checker: <Optional[IATSChecker]>
-            :param reporter: ATSReporter for messaging | None
-            :type reporter: <Optional[IATSReporter]>
-            :param verbose: Enable/Disable verbose option
-            :type verbose: <bool>
-            :exceptions: None
+            :param context_bundle: Context bundle for info ok status | None.
+            :type context_bundle: <ContextBundle | None>
+            :exceptions: None..
         '''
-        self.__checker: IATSChecker = checker or ATSChecker()
-        self.__reporter: IATSReporter = reporter or ATSReporter()
-        self.__verbose: bool = verbose
-        self.__ats_info_ok: bool = False
+        factory_context_bundle(self, context_bundle)
+        self._info_ok: bool = False
 
     @property
-    def ats_info_ok(self) -> bool:
+    @vreporter('get info_ok {info_ok}')
+    def info_ok(self) -> bool:
         '''
             Property method for getting ATS information status.
 
-            :return: The ATS information status
+            :return: The ATS information status in bool format.
             :rtype: <bool>
-            :exceptions: None
+            :exceptions: ATSRuntimeError, ATSAttributeError.
         '''
-        return self.__ats_info_ok
+        return self._info_ok
 
-    @ats_info_ok.setter
-    def ats_info_ok(self, ats_info_ok: bool) -> None:
+    @info_ok.setter
+    @validator([('bool:info_ok', None)])
+    @vreporter('set info_ok {info_ok}')
+    def info_ok(self, info_ok: bool) -> None:
         '''
             Property method for setting ATS information status.
 
-            :param ats_info_ok: The ATS information status
-            :type ats_info_ok: <bool>
-            :exceptions: ATSTypeError
+            :param info_ok: The ATS information status in bool format.
+            :type info_ok: <bool>
+            :exceptions:
+                | ATSTypeError, ATSValueError, RuntimeError, AttributeError.
+                | RuntimeError, AttributeError.
         '''
-        error_msg: Optional[str] = None
-        error_id: Optional[int] = None
-        error_msg, error_id = self.__checker.validate_parameters([('bool:ats_info_ok', ats_info_ok)])
+        self._info_ok = info_ok
 
-        if error_id == self.ERRORS.TYPE_ERROR:
-            raise ATSTypeError(error_msg)
+    def __str__(self) -> str:
+        '''
+            Returns the ATS info status as string representation.
 
-        self.__ats_info_ok = ats_info_ok
-        self.__reporter.verbose(self.__verbose, [f'info {ats_info_ok}'])
+            :return: The ATS info status as string representation.
+            :rtype: <str>
+            :exceptions: None..
+        '''
+        return format_instance_to_string(self)

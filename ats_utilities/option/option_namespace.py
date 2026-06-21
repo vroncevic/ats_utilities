@@ -16,17 +16,18 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines abstract class IATSOptionParser with attribute(s) and method(s).
-    Creates an interfaces for ATS option parsing.
+    Defines protocol OptionNamespace and type aliases.
+    Creates namespace definitions and type aliases for options.
 '''
 
-from typing import Any, Dict, List, Tuple, Optional, Sequence, TypeAlias, Protocol
+from collections.abc import Sequence
+from typing import Any, TypeAlias, Protocol
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
+__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.3.7'
+__version__: str = '3.3.8'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
@@ -34,7 +35,7 @@ __status__: str = 'Updated'
 
 class OptionNamespace(Protocol):
     '''
-        Defines class OptionNamespace with attribute(s) and method(s).
+        Defines protocol OptionNamespace with attribute(s).
         Creates protocol representing a Namespace-like result from an option parser.
 
         Implementations only need to provide a `__dict__` mapping (e.g. argparse.Namespace,
@@ -47,10 +48,10 @@ class OptionNamespace(Protocol):
             :methods: None
     '''
 
-    __dict__: Dict[str, Any]
+    __dict__: dict[str, Any]
 
 # Type alias for optional sequence of strings representing command-line arguments
-OptArgs: TypeAlias = Optional[Sequence[str]]
+OptArgs: TypeAlias = Sequence[str] | None
 
 # Type alias for tuple containing an option namespace and a list of unknown arguments
-KnownArgs: TypeAlias = Tuple[OptionNamespace, List[str]]
+KnownArgs: TypeAlias = tuple[OptionNamespace, list[str]]

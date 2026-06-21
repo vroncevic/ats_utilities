@@ -1,0 +1,93 @@
+# -*- coding: UTF-8 -*-
+
+'''
+Module
+    ilogo_path.py
+Copyright
+    Copyright (C) 2017 - 2026 Vladimir Roncevic <elektron.ronca@gmail.com>
+    ats_utilities is free software: you can redistribute it and/or modify it
+    under the terms of the GNU General Public License as published by the
+    Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+    ats_utilities is distributed in the hope that it will be useful, but
+    WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+    See the GNU General Public License for more details.
+    You should have received a copy of the GNU General Public License along
+    with this program. If not, see <http://www.gnu.org/licenses/>.
+Info
+    Defines abstract class ILogoPath with method(s).
+    Interface for the ATS logo path mechanism.
+'''
+
+from abc import ABC, abstractmethod
+
+__author__: str = 'Vladimir Roncevic'
+__copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
+__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
+__license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__: str = '3.3.8'
+__maintainer__: str = 'Vladimir Roncevic'
+__email__: str = 'elektron.ronca@gmail.com'
+__status__: str = 'Updated'
+
+
+class ILogoPath(ABC):
+    '''
+        Defines abstract class ILogoPath with method(s).
+        Interface for the ATS logo path mechanism.
+
+        It defines:
+
+            :attributes: None
+            :methods:
+                | logo_path - Property methods for set/get operations.
+                | not_none - Checks if ATS logo path is not None.
+                | __str__ - Returns the ATS logo path as string representation.
+    '''
+
+    @property
+    @abstractmethod
+    def logo_path(self) -> str | None:
+        '''
+            Property method for getting ATS logo path.
+
+            :return: The ATS logo path in string format | None.
+            :rtype: <str | None>
+            :exceptions: NotImplementedError..
+        '''
+        raise NotImplementedError("Method logo_path() must be implemented.")
+
+    @logo_path.setter
+    @abstractmethod
+    def logo_path(self, logo_path: str | None) -> None:
+        '''
+            Property method for setting ATS logo path.
+
+            :param logo_path: The ATS logo path in string format | None.
+            :type logo_path: <str | None>
+            :exceptions: NotImplementedError..
+        '''
+        raise NotImplementedError("Method logo_path() must be implemented.")
+
+    @abstractmethod
+    def not_none(self) -> bool:
+        '''
+            Checks if ATS logo path is not None.
+
+            :return: True (success) | False (fail).
+            :rtype: <bool>
+            :exceptions: NotImplementedError..
+        '''
+        raise NotImplementedError("Method not_none() must be implemented.")
+
+    @abstractmethod
+    def __str__(self) -> str:
+        '''
+            Returns the ATS logo path as string representation.
+
+            :return: The ATS logo path as string representation.
+            :rtype: <str>
+            :exceptions: NotImplementedError..
+        '''
+        raise NotImplementedError("Method __str__() must be implemented.")

@@ -16,66 +16,77 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines abstract class IYAMLProcessor with attribute(s) and method(s).
+    Defines abstract class IYAMLProcessor with method(s).
     Creates an interface for processing YAML content.
 '''
 from abc import ABC, abstractmethod
-from typing import Any, Dict, List
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
+__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.3.7'
+__version__: str = '3.3.8'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
 
 class IYAMLProcessor(ABC):
     '''
-        Defines interface IYAMLProcessor with attribute(s) and method(s).
+        Defines abstract class IYAMLProcessor with method(s).
         Interface for processing YAML content.
 
         It defines:
 
             :attributes: None
             :methods:
-                | decode - Convert raw YAML text to an internal object/structure (abstract).
-                | encode - Convert an internal object/structure back to a YAML string (abstract).
-                | to_dict - Return data as a flat dictionary required for ATSInfo (abstract).
+                | decode - Converts raw YAML text to an internal object/structure.
+                | encode - Converts an internal object/structure back to a YAML string.
+                | to_dict - Returns configuration as a flat dictionary.
+                | __str__ - Returns the YAML processor as string representation.
     '''
 
     @abstractmethod
     def decode(self, yaml_string: str) -> bool:
         '''
-            Convert raw YAML text to an internal object/structure.
+            Converts raw YAML text to an internal object/structure.
 
             :param yaml_string: Raw YAML text
             :type yaml_string: <str>
-            :return: True (content decoded) | False
+            :return: True (success) | False (fail)
             :rtype: <bool>
-            :exceptions: NotImplementedError
+            :exceptions: NotImplementedError.
         '''
-        raise NotImplementedError("Subclasses must implement decode method")
+        raise NotImplementedError("Method decode() must be implemented.")
 
     @abstractmethod
     def encode(self) -> str:
         '''
-            Convert an internal object/structure back to a YAML string.
+            Converts an internal object/structure back to a YAML string.
 
             :return: YAML content as string
             :rtype: <str>
-            :exceptions: NotImplementedError
+            :exceptions: NotImplementedError.
         '''
-        raise NotImplementedError("Subclasses must implement encode method")
+        raise NotImplementedError("Method encode() must be implemented.")
 
     @abstractmethod
-    def to_dict(self) -> Dict[Any, Any]:
+    def to_dict(self) -> dict[str, str]:
         '''
-            Return data as a flat dictionary.
+            Returns configuration as a flat dictionary.
 
-            :return: Dictionary with YAML information
-            :rtype: <Dict[Any, Any]>
-            :exceptions: NotImplementedError
+            :return: Dictionary with YAML configuration
+            :rtype: <dict[str, str]>
+            :exceptions: NotImplementedError.
         '''
-        raise NotImplementedError("Subclasses must implement to_dict method")
+        raise NotImplementedError("Method to_dict() must be implemented.")
+
+    @abstractmethod
+    def __str__(self) -> str:
+        '''
+            Returns the YAML processor as string representation.
+
+            :return: The YAML processor as string representation.
+            :rtype: <str>
+            :exceptions: NotImplementedError.
+        '''
+        raise NotImplementedError("Method __str__() must be implemented.")

@@ -16,108 +16,107 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines class ATSLicence with attribute(s) and method(s).
+    Defines class Licence with attribute(s) and method(s).
     Creates an API for the ATS licence in one property object.
 '''
 
-from typing import ClassVar, List, Optional
-from ats_utilities.info.ilicence import IATSLicence
-from ats_utilities.checker.ichecker import IATSChecker, ErrorChecker
-from ats_utilities.checker.ats_checker import ATSChecker
-from ats_utilities.console_io.ireporter import IATSReporter
-from ats_utilities.console_io.reporter import ATSReporter
-from ats_utilities.exceptions.ats_type_error import ATSTypeError
+from ats_utilities.info.ilicence import ILicence
+from ats_utilities.context_bundle import ContextBundle
+from ats_utilities.checker.ichecker import IChecker
+from ats_utilities.reporter.ireporter import IReporter
+from ats_utilities.factory_context_bundle import factory_context_bundle
+from ats_utilities.factory_class import format_instance_to_string
+from ats_utilities.checker.proxy_validator import validator
+from ats_utilities.reporter.proxy_reporter import vreporter
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
+__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.3.7'
+__version__: str = '3.3.8'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
 
 
-class ATSLicence(IATSLicence):
+class Licence(ILicence):
     '''
-        Defines class ATSLicence with attribute(s) and method(s).
+        Defines class Licence with attribute(s) and method(s).
         Creates an API for the ATS licence in one property object.
-        The ATS license container.
 
         It defines:
 
             :attributes:
-                | ERRORS - Error checker mapping.
-                | __checker - Error checker.
-                | __reporter - ATSReporter for messaging.
-                | __verbose - Enable/Disable verbose option.
-                | __licence - The ATS licence.
+                | _checker - Factoriezed parameters checker (default Checker).
+                | _reporter - Factoriezed reporter for messaging (default Reporter).
+                | _verbose - Factoriezed Enable/Disable verbose option (default False).
+                | _licence - The ATS licence (default None).
             :methods:
-                | __init__ - Initials ATSLicence constructor.
+                | __init__ - Initializes Licence constructor.
                 | licence - Property methods for set/get operations.
-                | is_licence_not_none - Checks is ATS licence not None.
+                | not_none - Checks is ATS licence is not None.
+                | __str__ - Returns the ATS licence as string representation.
     '''
 
-    ERRORS: ClassVar[type[ErrorChecker]] = ErrorChecker
+    _checker: IChecker
+    _reporter: IReporter
+    _verbose: bool
 
-    def __init__(
-        self,
-        checker: Optional[IATSChecker] = None,
-        reporter: Optional[IATSReporter] = None,
-        verbose: bool = False
-        ) -> None:
+    def __init__(self, context_bundle: ContextBundle | None = None) -> None:
         '''
-            Initials ATSLicence constructor.
+            Initializes Licence constructor.
 
-            :param checker: Error checker | None
-            :type checker: <Optional[IATSChecker]>
-            :param reporter: ATSReporter for check operations | None
-            :type reporter: <Optional[IATSReporter]>
-            :param verbose: Enable/Disable verbose option
-            :type verbose: <bool>
-            :exceptions: None
+            :param context_bundle: Context bundle for licence | None.
+            :type context_bundle: <ContextBundle | None>
+            :exceptions: None..
         '''
-        self.__checker: IATSChecker = checker or ATSChecker()
-        self.__reporter: IATSReporter = reporter or ATSReporter()
-        self.__verbose: bool = verbose
-        self.__licence: Optional[str] = None
+        factory_context_bundle(self, context_bundle)
+        self._licence: str | None = None
 
     @property
-    def licence(self) -> Optional[str]:
+    @vreporter('get licence {licence}')
+    def licence(self) -> str | None:
         '''
             Property method for getting ATS licence.
 
-            :return: The ATS licence | None
-            :rtype: <Optional[str]>
-            :exceptions: None
+            :return: The ATS licence in string format | None.
+            :rtype: <str | None>
+            :exceptions: ATSRuntimeError, ATSAttributeError.
         '''
-        return self.__licence
+        return self._licence
 
     @licence.setter
-    def licence(self, licence: Optional[str]) -> None:
+    @validator([('str | None:licence', None)])
+    @vreporter('set licence {licence}')
+    def licence(self, licence: str | None) -> None:
         '''
             Property method for setting ATS licence.
 
-            :param licence: The ATS licence | None
-            :type licence: <Optional[str]>
-            :exceptions: ATSTypeError
+            :param licence: The ATS licence in string format | None.
+            :type licence: <str | None>
+            :exceptions:
+                | ATSTypeError, ATSValueError, RuntimeError, AttributeError.
+                | RuntimeError, AttributeError.
         '''
-        error_msg: Optional[str] = None
-        error_id: Optional[int] = None
-        error_msg, error_id = self.__checker.validate_parameters([('str:licence', licence)])
+        self._licence = licence
 
-        if error_id == self.ERRORS.TYPE_ERROR:
-            raise ATSTypeError(error_msg)
-
-        self.__licence = licence
-        self.__reporter.verbose(self.__verbose, [f'licence {licence}'])
-
-    def is_licence_not_none(self) -> bool:
+    @vreporter('check licence {licence}')
+    def not_none(self) -> bool:
         '''
             Checks is ATS licence not None.
 
-            :return: True (ATS licence is not None) | False
+            :return: True (success) | False (fail).
             :rtype: <bool>
-            :exceptions: None
+            :exceptions: ATSRuntimeError, ATSAttributeError.
         '''
-        return self.__licence is not None
+        return self._licence is not None
+
+    def __str__(self) -> str:
+        '''
+            Returns the ATS licence as string representation.
+
+            :return: The ATS licence as string representation.
+            :rtype: <str>
+            :exceptions: None..
+        '''
+        return format_instance_to_string(self)

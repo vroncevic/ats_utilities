@@ -16,67 +16,78 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines interface IATSBuildDate with attribute(s) and method(s).
+    Defines abstract class IBuildDate with method(s).
     Interface for the ATS build date mechanism.
 '''
 
 from abc import ABC, abstractmethod
-from typing import List, Optional
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
+__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.3.7'
+__version__: str = '3.3.8'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
 
 
-class IATSBuildDate(ABC):
+class IBuildDate(ABC):
     '''
-        Defines interface IATSBuildDate with attribute(s) and method(s).
+        Defines abstract class IBuildDate with method(s).
         Interface for the ATS build date mechanism.
 
         It defines:
 
-            :attributes: None.
+            :attributes: None
             :methods:
                 | build_date - Property methods for set/get operations.
-                | is_build_date_not_none - Checks is ATS build date not None.
+                | not_none - Checks if ATS build date is not None.
+                | __str__ - Returns the ATS build date as string representation.
     '''
 
     @property
     @abstractmethod
-    def build_date(self) -> Optional[str]:
+    def build_date(self) -> str | None:
         '''
             Property method for getting ATS build date.
 
-            :return: The ATS build date | None
-            :rtype: <Optional[str]>
-            :exceptions: NotImplementedError
+            :return: The ATS build date in string format | None
+            :rtype: <str | None>
+            :exceptions: NotImplementedError.
         '''
-        raise NotImplementedError("Subclasses must implement build_date getter")
+        raise NotImplementedError("Method build_date() must be implemented.")
 
     @build_date.setter
     @abstractmethod
-    def build_date(self, build_date: Optional[str]) -> None:
+    def build_date(self, build_date: str | None) -> None:
         '''
             Property method for setting ATS build date.
 
-            :param build_date: The ATS build date | None
-            :type build_date: <Optional[str]>
-            :exceptions: NotImplementedError
+            :param build_date: The ATS build date in string format | None
+            :type build_date: <str | None>
+            :exceptions: NotImplementedError.
         '''
-        raise NotImplementedError("Subclasses must implement build_date setter")
+        raise NotImplementedError("Method build_date() must be implemented.")
 
     @abstractmethod
-    def is_build_date_not_none(self) -> bool:
+    def not_none(self) -> bool:
         '''
-            Checks is ATS build date not None.
+            Checks if ATS build date is not None.
 
-            :return: True (ATS build date is not None) | False.
+            :return: True (success) | False (fail).
             :rtype: <bool>
-            :exceptions: NotImplementedError
+            :exceptions: NotImplementedError.
         '''
-        raise NotImplementedError("Subclasses must implement is_build_date_not_none method")
+        raise NotImplementedError("Method not_none() must be implemented.")
+
+    @abstractmethod
+    def __str__(self) -> str:
+        '''
+            Returns the ATS build date as string representation.
+
+            :return: The ATS build date as string representation.
+            :rtype: <str>
+            :exceptions: NotImplementedError.
+        '''
+        raise NotImplementedError("Method __str__() must be implemented.")

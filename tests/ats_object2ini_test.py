@@ -22,7 +22,7 @@ Execute
     python3 -m unittest -v ats_object2ini_test
 '''
 
-from typing import Any, List, Dict
+from typing import Any
 from unittest import TestCase, main, mock
 from os.path import dirname
 from ats_utilities.config_io.ini.ini2object import Ini2Object
@@ -32,9 +32,9 @@ from ats_utilities.exceptions.ats_type_error import ATSTypeError
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
+__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.3.7'
+__version__: str = '3.3.8'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
@@ -44,7 +44,7 @@ class IINIProcessor(BaseIINIProcessor):
     '''Mock implementation of IINIProcessor for testing.'''
 
     def __init__(self, is_empty: bool = False) -> None:
-        self.__is_empty = is_empty
+        self._is_empty = is_empty
         self.to_stream_mock = mock.MagicMock(return_value=True)
         self.to_dict_mock = mock.MagicMock(return_value={})
         self.from_stream_mock = mock.MagicMock()
@@ -52,13 +52,13 @@ class IINIProcessor(BaseIINIProcessor):
 
     def __bool__(self) -> bool:
         '''Mock method for truthiness.'''
-        return not self.__is_empty
+        return not self._is_empty
 
     def from_stream(self, stream: Any) -> bool:
         '''Implementation of abstract method.'''
         return self.from_stream_mock(stream)
 
-    def to_dict(self) -> Dict[str, str]:
+    def to_dict(self) -> dict[str, str]:
         '''Implementation of abstract method.'''
         return self.to_dict_mock()
 
@@ -66,9 +66,14 @@ class IINIProcessor(BaseIINIProcessor):
         '''Implementation of abstract method.'''
         return self.to_stream_mock(stream)
 
-    def get_ats_info(self) -> Dict[str, str]:
+    def get_ats_info(self) -> dict[str, str]:
         '''Implementation of abstract method.'''
         return self.get_ats_info_mock()
+
+    def __str__(self) -> str:
+        '''Implementation of abstract method.'''
+        return ""
+
 
 
 class Object2IniTestCase(TestCase):
@@ -114,8 +119,7 @@ class Object2IniTestCase(TestCase):
 
     def test_write_none_configuration(self) -> None:
         '''Test for read configuration'''
-        with self.assertRaises(ATSTypeError):
-            self.obj2ini.write_configuration(None)  # type: ignore
+        self.assertFalse(self.obj2ini.write_configuration(None))  # type: ignore
 
     def test_write_empty_configuration(self) -> None:
         '''Test for read configuration'''
@@ -124,9 +128,11 @@ class Object2IniTestCase(TestCase):
 
     def test_none_config_path(self) -> None:
         '''Test for None as file path'''
-        with self.assertRaises(ATSTypeError):
-            Object2Ini(None)
+        writer = Object2Ini(None)
+        mock_config = IINIProcessor()
+        self.assertFalse(writer.write_configuration(mock_config))
 
 
 if __name__ == '__main__':
     main()
+

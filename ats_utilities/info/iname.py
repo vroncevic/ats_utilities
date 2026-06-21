@@ -16,67 +16,78 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines interface IATSName with attribute(s) and method(s).
+    Defines abstract class IName with method(s).
     Interface for the ATS name mechanism.
 '''
 
 from abc import ABC, abstractmethod
-from typing import List, Optional
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
+__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.3.7'
+__version__: str = '3.3.8'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
 
 
-class IATSName(ABC):
+class IName(ABC):
     '''
-        Defines interface IATSName with attribute(s) and method(s).
+        Defines abstract class IName with method(s).
         Interface for the ATS name mechanism.
 
         It defines:
 
-            :attributes: None.
+            :attributes: None
             :methods:
                 | name - Property methods for set/get operations.
-                | is_name_not_none - Checks is ATS name not None.
+                | not_none - Checks if ATS name is not None.
+                | __str__ - Returns the ATS name as string representation.
     '''
 
     @property
     @abstractmethod
-    def name(self) -> Optional[str]:
+    def name(self) -> str | None:
         '''
             Property method for getting ATS name.
 
-            :return: The ATS name | None
-            :rtype: <Optional[str]>
-            :exceptions: NotImplementedError
+            :return: The ATS name in string format | None
+            :rtype: <str | None>
+            :exceptions: NotImplementedError.
         '''
-        raise NotImplementedError("Subclasses must implement name getter")
+        raise NotImplementedError("Method name() must be implemented.")
 
     @name.setter
     @abstractmethod
-    def name(self, name: Optional[str]) -> None:
+    def name(self, name: str | None) -> None:
         '''
             Property method for setting ATS name.
 
-            :param name: The ATS name | None
-            :type name: <Optional[str]>
-            :exceptions: NotImplementedError
+            :param name: The ATS name in string format | None
+            :type name: <str | None>
+            :exceptions: NotImplementedError.
         '''
-        raise NotImplementedError("Subclasses must implement name setter")
+        raise NotImplementedError("Method name() must be implemented.")
 
     @abstractmethod
-    def is_name_not_none(self) -> bool:
+    def not_none(self) -> bool:
         '''
-            Checks is ATS name not None.
+            Checks if ATS name is not None.
 
-            :return: True (ATS name is not None) | False.
+            :return: True (success) | False (fail).
             :rtype: <bool>
-            :exceptions: NotImplementedError
+            :exceptions: NotImplementedError.
         '''
-        raise NotImplementedError("Subclasses must implement is_name_not_none method")
+        raise NotImplementedError("Method not_none() must be implemented.")
+
+    @abstractmethod
+    def __str__(self) -> str:
+        '''
+            Returns the ATS name as string representation.
+
+            :return: The ATS name as string representation.
+            :rtype: <str>
+            :exceptions: NotImplementedError.
+        '''
+        raise NotImplementedError("Method __str__() must be implemented.")

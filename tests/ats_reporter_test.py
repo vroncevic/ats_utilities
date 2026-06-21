@@ -17,21 +17,20 @@ Copyright
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
     Defines classes ReporterTestCase and ReporterUnitTestCase with attribute(s) and method(s).
-    Creates test cases for checking functionalities of ATSReporter.
+    Creates test cases for checking functionalities of Reporter.
 Execute
     python3 -m unittest -v ats_reporter_test
 '''
 
-from typing import List
 from unittest import TestCase, main, mock
-from ats_utilities.console_io.ireporter import IATSReporter
-from ats_utilities.console_io.reporter import ATSReporter
+from ats_utilities.reporter.ireporter import IReporter
+from ats_utilities.reporter.engine import Reporter
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
+__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.3.7'
+__version__: str = '3.3.8'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
@@ -40,59 +39,74 @@ __status__: str = 'Updated'
 class ReporterTestCase(TestCase):
     '''
         Defines class ReporterTestCase with attribute(s) and method(s).
-        Creates test cases for checking functionalities of ATSReporter.
-        ATSReporter unit tests.
+        Creates test cases for checking functionalities of Reporter.
+        Reporter unit tests.
 
         It defines:
 
             :attributes:
-                | reporter - API for checking ATSReporter.
+                | reporter - API for checking Reporter.
             :methods:
                 | setUp - Call before test case.
                 | tearDown - Call after test case.
-                | test_not_none - Test is ATSReporter not None.
+                | test_not_none - Test is Reporter not None.
                 | test_success - Test success message.
                 | test_error - Test error message.
                 | test_warning - Test warning message.
                 | test_verbose - Test info message.
+                | test_verbose_disabled - Test info message when verbose is disabled.
     '''
 
     def setUp(self) -> None:
         '''Call before test case.'''
-        self.reporter: ATSReporter = ATSReporter()
+        self.reporter: Reporter = Reporter()
 
     def tearDown(self) -> None:
         '''Call after test case.'''
 
     def test_not_none(self) -> None:
-        '''Test for create ATSReporter'''
+        '''Test for create Reporter.'''
         self.assertIsNotNone(self.reporter)
 
-    def test_success(self) -> None:
-        '''Test success message'''
+    @mock.patch('builtins.print')
+    def test_success(self, mock_print: mock.MagicMock) -> None:
+        '''Test success message.'''
         self.reporter.success(['test success'])
+        mock_print.assert_called_once_with('\x1b[32mtest success\x1b[0m')
 
-    def test_error(self) -> None:
-        '''Test error message'''
+    @mock.patch('builtins.print')
+    def test_error(self, mock_print: mock.MagicMock) -> None:
+        '''Test error message.'''
         self.reporter.error(['test error'])
+        mock_print.assert_called_once_with('\x1b[31mtest error\x1b[0m')
 
-    def test_warning(self) -> None:
-        '''Test warning message'''
+    @mock.patch('builtins.print')
+    def test_warning(self, mock_print: mock.MagicMock) -> None:
+        '''Test warning message.'''
         self.reporter.warning(['test warning'])
+        mock_print.assert_called_once_with('\x1b[33mtest warning\x1b[0m')
 
-    def test_verbose(self) -> None:
-        '''Test info message'''
+    @mock.patch('builtins.print')
+    def test_verbose(self, mock_print: mock.MagicMock) -> None:
+        '''Test info message.'''
         self.reporter.verbose(True, ['test info'])
+        mock_print.assert_called_once_with('\x1b[34mtest info\x1b[0m')
+
+    @mock.patch('builtins.print')
+    def test_verbose_disabled(self, mock_print: mock.MagicMock) -> None:
+        '''Test info message when verbose is disabled.'''
+        self.reporter.verbose(False, ['test info'])
+        mock_print.assert_not_called()
 
 
 class ReporterUnitTestCase(TestCase):
     '''
-        Unit tests for IATSReporter interface using mocks.
+        Unit tests for IReporter interface using mocks.
 
         It defines:
 
             :attributes:
-                | mock_reporter - Mocked IATSReporter.
+                | mock_reporter - Mocked IReporter.
             :methods:
                 | setUp - Set up test environment with mocks.
                 | test_mock_success - Test success call on mock.
@@ -103,7 +117,7 @@ class ReporterUnitTestCase(TestCase):
 
     def setUp(self) -> None:
         '''Set up test environment.'''
-        self.mock_reporter = mock.MagicMock(spec=IATSReporter)
+        self.mock_reporter = mock.MagicMock(spec=IReporter)
 
     def test_mock_success(self) -> None:
         '''Test success call on mock.'''

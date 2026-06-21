@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+# -*- coding: UTF-8 -*-
 
 '''
 Module
@@ -21,15 +21,14 @@ Info
 '''
 
 from abc import ABC, abstractmethod
-from typing import List, Optional
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
+__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.3.7'
+__version__: str = '3.3.8'
 __maintainer__: str = 'Vladimir Roncevic'
-__email__: str = 'elektron.roncevic@gmail.com'
+__email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
 
 
@@ -44,63 +43,69 @@ class IFileCheck(ABC):
                 | MODES - Mode file operations.
                 | TRUSTED_EXTENSIONS - List of trusted file extensions.
             :methods:
-                | check_path - Check file path (abstract).
-                | check_mode - Check file mode (abstract).
-                | check_format - Check file format by extension (abstract).
-                | is_file_ok - Return aggregated file status (abstract).
+                | check_path - Checks file path.
+                | check_mode - Checks file mode.
+                | check_format - Checks file format by extension.
+                | is_file_ok - Returns aggregated file status.
+                | __str__ - Returns the IFileCheck as string representation.
     '''
 
-    MODES: List[str] = ['r', 'w', 'a', 'b', 'x', 't', '+']
-    TRUSTED_EXTENSIONS: List[str] = ['makefile']
+    MODES: list[str] = ['r', 'w', 'a', 'b', 'x', 't', '+']
+    TRUSTED_EXTENSIONS: list[str] = ['makefile']
 
     @abstractmethod
-    def check_path(self, file_path: Optional[str], verbose: bool = False) -> None:
+    def check_path(self, file_path: str | None) -> None:
         '''
-            Check file path.
+            Checks file path in string format.
 
-            :param file_path: File path | None
-            :type file_path: <Optional[str]>
-            :param verbose: Enable/Disable verbose option
-            :type verbose: <bool>
-            :exceptions: NotImplementedError
+            :param file_path: File path in string format | None.
+            :type file_path: <str | None>
+            :exceptions: NotImplementedError..
         '''
         raise NotImplementedError("Method check_path() must be implemented.")
 
     @abstractmethod
-    def check_mode(self, file_mode: Optional[str], verbose: bool = False) -> None:
+    def check_mode(self, file_mode: str | None) -> None:
         '''
-            Check file mode.
+            Checks file mode in string format.
 
-            :param file_mode: File mode | None
-            :type file_mode: <Optional[str]>
-            :param verbose: Enable/Disable verbose option
-            :type verbose: <bool>
-            :exceptions: NotImplementedError
+            :param file_mode: File mode in string format | None.
+            :type file_mode: <str | None>
+            :exceptions: NotImplementedError..
         '''
         raise NotImplementedError("Method check_mode() must be implemented.")
 
     @abstractmethod
-    def check_format(self, file_path: Optional[str], file_format: Optional[str], verbose: bool = False) -> None:
+    def check_format(self, file_path: str | None, file_format: str | None) -> None:
         '''
-            Check file format by extension.
+            Checks file format by extension.
 
-            :param file_path: File path | None
-            :type file_path: <Optional[str]>
-            :param file_format: File format (extension) | None
-            :type file_format: <Optional[str]>
-            :param verbose: Enable/Disable verbose option
-            :type verbose: <bool>
-            :exceptions: NotImplementedError
+            :param file_path: File path in string format | None.
+            :type file_path: <str | None>
+            :param file_format: File format in string format (extension) | None.
+            :type file_format: <str | None>
+            :exceptions: NotImplementedError..
         '''
         raise NotImplementedError("Method check_format() must be implemented.")
 
     @abstractmethod
     def is_file_ok(self) -> bool:
         '''
-            Return aggregated file status.
+            Returns aggregated file status.
 
-            :return: True if file checks passed | False
+            :return: True (success) | False (fail).
             :rtype: <bool>
-            :exceptions: NotImplementedError
+            :exceptions: NotImplementedError..
         '''
         raise NotImplementedError("Method is_file_ok() must be implemented.")
+
+    @abstractmethod
+    def __str__(self) -> str:
+        '''
+            Returns the IFileCheck as string representation.
+
+            :return: The IFileCheck as string representation.
+            :rtype: <str>
+            :exceptions: NotImplementedError..
+        '''
+        raise NotImplementedError("Method __str__() must be implemented.")

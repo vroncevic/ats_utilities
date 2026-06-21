@@ -10,8 +10,9 @@ Submodules
    ats_utilities.config_io.yaml.iyaml_processor
    ats_utilities.config_io.yaml.object2yaml
    ats_utilities.config_io.yaml.yaml2object
+   ats_utilities.config_io.yaml.yaml_loader
    ats_utilities.config_io.yaml.yaml_processor
-   ats_utilities.config_io.yaml.yamlbase
+   ats_utilities.config_io.yaml.yaml_storer
 
 Module contents
 ---------------

@@ -22,18 +22,18 @@ Execute
     python3 -m unittest -v ats_pro_config_test
 '''
 
-from typing import Any, Dict, List
+from typing import Any
 from unittest import TestCase, main
-from ats_utilities.pro_config.pro_config import ProConfig
-from ats_utilities.console_io.ireporter import IATSReporter
-from ats_utilities.console_io.reporter import ATSReporter
+from ats_utilities.config_setup.pro_config import ProConfig
+from ats_utilities.reporter.ireporter import IReporter
+from ats_utilities.reporter.engine import Reporter
 from ats_utilities.exceptions.ats_type_error import ATSTypeError
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
+__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.3.7'
+__version__: str = '3.3.8'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
@@ -42,7 +42,7 @@ __status__: str = 'Updated'
 class ATSBaseProConfig(ProConfig):
     '''Simple Class for checking ProConfig.'''
 
-    def __init__(self, reporter: IATSReporter = ATSReporter(), verbose: bool = False) -> None:
+    def __init__(self, reporter: IReporter = Reporter(), verbose: bool = False) -> None:
         '''Initial constructor.'''
         super().__init__()
         self._verbose = verbose
@@ -97,15 +97,16 @@ class ProConfigTestCase(TestCase):
 
     def test_set_config_empty(self) -> None:
         '''Sets empty configuration'''
-        empty_config: Dict[Any, Any] | None = {}
+        empty_config: dict[Any, Any] | None = {}
         self.ats_base_pro_config.config = empty_config
         self.assertFalse(self.ats_base_pro_config.is_tool_ok())
 
     def test_set_config_none(self) -> None:
         '''Sets None configuration'''
-        none_config: Dict[Any, Any] | None = None
-        with self.assertRaises(ATSTypeError):
-            self.ats_base_pro_config.config = none_config
+        none_config: dict[Any, Any] | None = None
+        self.ats_base_pro_config.config = none_config
+        self.assertIsNone(self.ats_base_pro_config.config)
+        self.assertFalse(self.ats_base_pro_config.is_tool_ok())
 
     def test_set_config(self) -> None:
         '''Sets simple configuration'''

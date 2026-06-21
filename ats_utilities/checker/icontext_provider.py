@@ -16,34 +16,46 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines abstract class IATSContextProvider with attribute(s) and method(s).
+    Defines abstract class IContextProvider with method(s).
     Creates an interface for getting context for method(s) and function(s).
 '''
 
 from abc import ABC, abstractmethod
-from typing import List
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
+__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.3.7'
+__version__: str = '3.3.8'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
 
 
-class IATSContextProvider(ABC):
+class IContextProvider(ABC):
     '''
-        Defines abstract class IATSContextProvider with attribute(s) and method(s).
+        Defines abstract class IContextProvider with method(s).
         Creates an interface for getting context for method(s) and function(s).
 
         It defines:
 
             :attributes: None
             :methods:
+                | set_stack_index_caller - Sets the index in the call stack to identify the caller.
                 | get_context - Returns a string representing the calling context.
+                | __str__ - Returns the context provider as string representation.
     '''
+
+    @abstractmethod
+    def set_stack_index_caller(self, stack_index_caller: int) -> None:
+        '''
+            Sets the index in the call stack to identify the caller.
+
+            :param stack_index_caller: Index in the call stack to identify the caller.
+            :type stack_index_caller: <int>
+            :exceptions: NotImplementedError.
+        '''
+        raise NotImplementedError("Method set_stack_index_caller() must be implemented.")
 
     @abstractmethod
     def get_context(self) -> str:
@@ -52,6 +64,18 @@ class IATSContextProvider(ABC):
 
             :return: Context information string
             :rtype: <str>
-            :exceptions: NotImplementedError
+            :exceptions: NotImplementedError.
         '''
         raise NotImplementedError("Method get_context() must be implemented.")
+
+    @abstractmethod
+    def __str__(self) -> str:
+        '''
+            Returns the context provider as string representation.
+
+            :return: The context provider as string representation.
+            :rtype: <str>
+            :exceptions: NotImplementedError.
+        '''
+        raise NotImplementedError("Method __str__() must be implemented.")
+

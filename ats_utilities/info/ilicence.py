@@ -16,67 +16,78 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines interface IATSLicence with attribute(s) and method(s).
+    Defines abstract class ILicence with method(s).
     Interface for the ATS licence mechanism.
 '''
 
 from abc import ABC, abstractmethod
-from typing import List, Optional
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
+__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.3.7'
+__version__: str = '3.3.8'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
 
 
-class IATSLicence(ABC):
+class ILicence(ABC):
     '''
-        Defines interface IATSLicence with attribute(s) and method(s).
+        Defines abstract class ILicence with method(s).
         Interface for the ATS licence mechanism.
 
         It defines:
 
-            :attributes: None.
+            :attributes: None
             :methods:
                 | licence - Property methods for set/get operations.
-                | is_licence_not_none - Checks is ATS licence not None.
+                | not_none - Checks if ATS licence is not None.
+                | __str__ - Returns the ATS licence as string representation.
     '''
 
     @property
     @abstractmethod
-    def licence(self) -> Optional[str]:
+    def licence(self) -> str | None:
         '''
             Property method for getting ATS licence.
 
-            :return: The ATS licence | None
-            :rtype: <Optional[str]>
-            :exceptions: NotImplementedError
+            :return: The ATS licence in string format | None
+            :rtype: <str | None>
+            :exceptions: NotImplementedError.
         '''
-        raise NotImplementedError("Subclasses must implement licence getter")
+        raise NotImplementedError("Method licence() must be implemented.")
 
     @licence.setter
     @abstractmethod
-    def licence(self, licence: Optional[str]) -> None:
+    def licence(self, licence: str | None) -> None:
         '''
             Property method for setting ATS licence.
 
-            :param licence: The ATS licence | None
-            :type licence: <Optional[str]>
-            :exceptions: NotImplementedError
+            :param licence: The ATS licence in string format | None
+            :type licence: <str | None>
+            :exceptions: NotImplementedError.
         '''
-        raise NotImplementedError("Subclasses must implement licence setter")
+        raise NotImplementedError("Method licence() must be implemented.")
 
     @abstractmethod
-    def is_licence_not_none(self) -> bool:
+    def not_none(self) -> bool:
         '''
-            Checks is ATS licence not None.
+            Checks if ATS licence is not None.
 
-            :return: True (ATS licence is not None) | False.
+            :return: True (success) | False (fail).
             :rtype: <bool>
-            :exceptions: NotImplementedError
+            :exceptions: NotImplementedError.
         '''
-        raise NotImplementedError("Subclasses must implement is_licence_not_none method")
+        raise NotImplementedError("Method not_none() must be implemented.")
+
+    @abstractmethod
+    def __str__(self) -> str:
+        '''
+            Returns the ATS licence as string representation.
+
+            :return: The ATS licence as string representation.
+            :rtype: <str>
+            :exceptions: NotImplementedError.
+        '''
+        raise NotImplementedError("Method __str__() must be implemented.")

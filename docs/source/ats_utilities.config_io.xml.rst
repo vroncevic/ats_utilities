@@ -10,8 +10,9 @@ Submodules
    ats_utilities.config_io.xml.ixml_processor
    ats_utilities.config_io.xml.object2xml
    ats_utilities.config_io.xml.xml2object
+   ats_utilities.config_io.xml.xml_loader
    ats_utilities.config_io.xml.xml_processor
-   ats_utilities.config_io.xml.xmlbase
+   ats_utilities.config_io.xml.xml_storer
 
 Module contents
 ---------------

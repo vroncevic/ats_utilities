@@ -112,10 +112,17 @@ Framework structure
 .. code-block:: bash
 
     ats_utilities/
+        ├── base/
+        │   ├── component_bundle.py
+        │   ├── engine.py
+        │   ├── ibase.py
+        │   └── __init__.py
         ├── checker/
-        │   ├── ats_checker.py
+        │   ├── checker_reporter_bundle.py
         │   ├── check_reporter.py
+        │   ├── component_bundle.py
         │   ├── context_provider.py
+        │   ├── engine.py
         │   ├── format_validator.py
         │   ├── ichecker.py
         │   ├── icheck_reporter.py
@@ -123,64 +130,73 @@ Framework structure
         │   ├── iformat_validator.py
         │   ├── __init__.py
         │   ├── itype_validator.py
+        │   ├── proxy_validator.py
         │   └── type_validator.py
-        ├── cli/
-        │   ├── ats_cli.py
-        │   ├── config_manager.py
-        │   ├── icli.py
-        │   ├── iconfig_manager.py
-        │   └── __init__.py
         ├── config_io/
         │   ├── cfg/
         │   │   ├── cfg2object.py
-        │   │   ├── cfgbase.py
+        │   │   ├── cfg_loader.py
         │   │   ├── cfg_processor.py
+        │   │   ├── cfg_storer.py
         │   │   ├── icfg_processor.py
         │   │   ├── __init__.py
         │   │   └── object2cfg.py
         │   ├── conf_file.py
+        │   ├── config_file_bundle.py
+        │   ├── config_loader_bundle.py
+        │   ├── config_loader.py
+        │   ├── file_bundle.py
         │   ├── file_check.py
         │   ├── iconf_file.py
+        │   ├── iconfig_loader.py
         │   ├── ifile_check.py
+        │   ├── iloader.py
         │   ├── ini/
         │   │   ├── iini_processor.py
         │   │   ├── ini2object.py
-        │   │   ├── inibase.py
+        │   │   ├── ini_loader.py
         │   │   ├── ini_processor.py
+        │   │   ├── ini_storer.py
         │   │   ├── __init__.py
         │   │   └── object2ini.py
         │   ├── __init__.py
         │   ├── iread.py
+        │   ├── istorer.py
         │   ├── iwrite.py
         │   ├── json/
         │   │   ├── ijson_processor.py
         │   │   ├── __init__.py
         │   │   ├── json2object.py
-        │   │   ├── jsonbase.py
+        │   │   ├── json_loader.py
         │   │   ├── json_processor.py
+        │   │   ├── json_storer.py
         │   │   └── object2json.py
         │   ├── xml/
         │   │   ├── __init__.py
         │   │   ├── ixml_processor.py
         │   │   ├── object2xml.py
         │   │   ├── xml2object.py
-        │   │   ├── xmlbase.py
-        │   │   └── xml_processor.py
+        │   │   ├── xml_loader.py
+        │   │   ├── xml_processor.py
+        │   │   └── xml_storer.py
         │   └── yaml/
         │       ├── __init__.py
         │       ├── iyaml_processor.py
         │       ├── object2yaml.py
         │       ├── yaml2object.py
-        │       ├── yamlbase.py
-        │       └── yaml_processor.py
-        ├── console_io/
+        │       ├── yaml_loader.py
+        │       ├── yaml_processor.py
+        │       └── yaml_storer.py
+        ├── config_setup/
+        │   ├── component_bundle.py
         │   ├── __init__.py
-        │   ├── ireporter.py
-        │   ├── reporter.py
-        │   └── theme/
-        │       ├── default_theme.py
-        │       ├── iconsole_theme.py
-        │       └── __init__.py
+        │   ├── ipro_config.py
+        │   ├── ipro_name.py
+        │   ├── itemplate_dir.py
+        │   ├── pro_config.py
+        │   ├── pro_name.py
+        │   └── template_dir.py
+        ├── context_bundle.py
         ├── exceptions/
         │   ├── ats_attribute_error.py
         │   ├── ats_bad_call_error.py
@@ -189,59 +205,85 @@ Framework structure
         │   ├── ats_key_error.py
         │   ├── ats_lookup_error.py
         │   ├── ats_parameter_error.py
+        │   ├── ats_runtime_error.py
         │   ├── ats_type_error.py
         │   ├── ats_value_error.py
         │   └── __init__.py
+        ├── factory_class.py
+        ├── factory_component.py
+        ├── factory_context_bundle.py
+        ├── factory_utils.py
         ├── info/
-        │   ├── ats_info.py
         │   ├── build_date.py
+        │   ├── component_bundle.py
+        │   ├── engine.py
         │   ├── ibuild_date.py
         │   ├── iinfo_ok.py
         │   ├── ilicence.py
+        │   ├── ilogo_path.py
+        │   ├── imanager.py
         │   ├── iname.py
+        │   ├── info_keys.py
         │   ├── info_ok.py
         │   ├── __init__.py
+        │   ├── iorganization.py
+        │   ├── irepository.py
+        │   ├── iuse_github.py
         │   ├── iversion.py
         │   ├── licence.py
+        │   ├── logo.py
         │   ├── name.py
+        │   ├── organization.py
+        │   ├── repository.py
+        │   ├── use_github.py
         │   └── version.py
         ├── __init__.py
         ├── logging/
-        │   ├── ats_logger_manager.py
+        │   ├── component_bundle.py
+        │   ├── engine.py
+        │   ├── ilogger_manager.py
         │   ├── ilogger.py
         │   ├── __init__.py
+        │   ├── logger_bundle.py
         │   └── logger.py
         ├── option/
-        │   ├── ats_option_parser.py
-        │   ├── ats_parser_strategy.py
+        │   ├── arg_parser.py
+        │   ├── component_bundle.py
+        │   ├── engine.py
         │   ├── __init__.py
         │   ├── ioption_parser.py
         │   ├── iparser_strategy.py
-        │   └── option_namespace.py
-        ├── pro_config/
-        │   ├── __init__.py
-        │   ├── ipro_config.py
-        │   ├── ipro_name.py
-        │   ├── itemplate_dir.py
-        │   ├── pro_config.py
-        │   ├── pro_name.py
-        │   └── template_dir.py
+        │   ├── option_namespace.py
+        │   └── parser_strategy.py
         ├── py.typed
-        └── splash/
-            ├── ats_splash.py
+        ├── reporter/
+        │   ├── component_bundle.py
+        │   ├── engine.py
+        │   ├── __init__.py
+        │   ├── ireporter.py
+        │   ├── proxy_reporter.py
+        │   └── theme/
+        │       ├── engine.py
+        │       ├── iconsole_theme.py
+        │       └── __init__.py
+        └── splasher/
+            ├── component_bundle.py
+            ├── engine.py
             ├── ext_infrastructure.py
             ├── github_infrastructure.py
             ├── iext_infrastructure.py
             ├── __init__.py
             ├── iprogress_bar.py
-            ├── isplash.py
-            ├── isplash_screen.py
+            ├── isplasher.py
+            ├── isplash_property.py
             ├── iterminal_properties.py
             ├── progress_bar.py
+            ├── splash_center_bundle.py
+            ├── splash_keys.py
             ├── splash_property.py
             └── terminal_properties.py
 
-    17 directories, 112 files
+    17 directories, 154 files
 
 Copyright and licence
 ----------------------

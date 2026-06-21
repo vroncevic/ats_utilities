@@ -16,29 +16,29 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines abstract class IATSOptionParser with attribute(s) and method(s).
-    Creates an interfaces for ATS option parsing.
+    Defines abstract class IOptionManager with method(s).
+    Creates an interface for ATS option parsing.
 '''
 
 from abc import ABC, abstractmethod
-from typing import Any, List, Optional
+from typing import Any
 from ats_utilities.option.option_namespace import OptionNamespace
 from ats_utilities.option.option_namespace import OptArgs
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
+__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.3.7'
+__version__: str = '3.3.8'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
 
 
-class IATSOptionParser(ABC):
+class IOptionManager(ABC):
     '''
-        Defines abstract class IATSOptionParser with attribute(s) and method(s).
-        Creates an interfaces for ATS option parsing.
+        Defines abstract class IOptionManager with method(s).
+        Creates an interface for ATS option parsing.
 
         It defines:
 
@@ -48,6 +48,8 @@ class IATSOptionParser(ABC):
                 | add_version_operation - Adds version option to the ATS parser.
                 | parse_input_args - Processes arguments from the start.
                 | parse_args - Processes arguments from the start.
+                | ok - Checks if option parser component is ok.
+                | __str__ - Returns the ATS option parser as string representation.
     '''
 
     @abstractmethod
@@ -55,53 +57,69 @@ class IATSOptionParser(ABC):
         '''
             Adds an option to the ATS parser.
 
-            :param args: List of flags for the ATS
+            :param args: Arguments in string form
             :type args: <str>
-            :param kwargs: Arguments in shape of dictionary
+            :param kwargs: Arguments in Any form
             :type kwargs: <Any>
-            :exceptions: NotImplementedError
+            :exceptions: NotImplementedError.
         '''
         raise NotImplementedError("Method add_operation() must be implemented.")
 
     @abstractmethod
-    def add_version_operation(self, version: Optional[str], verbose: bool = False) -> None:
+    def add_version_operation(self, version: str | None) -> None:
         '''
             Adds version option to the ATS parser.
 
-            :param version: The ATS version
-            :type version: <Optional[str]>
-            :param verbose: Enable/Disable verbose option
-            :type verbose: <bool>
-            :exceptions: NotImplementedError
+            :param version: The ATS version in string format | None
+            :type version: <str | None>
+            :exceptions: NotImplementedError.
         '''
         raise NotImplementedError("Method add_version_operation() must be implemented.")
 
     @abstractmethod
-    def parse_input_args(self, arguments: OptArgs, verbose: bool = False) -> OptionNamespace:
+    def parse_input_args(self, arguments: OptArgs) -> OptionNamespace:
         '''
             Processes arguments from the start.
 
             :param arguments: Sequence of arguments | None
             :type arguments: <OptArgs>
-            :param verbose: Enable/Disable verbose option
-            :type verbose: <bool>
-            :return: option namespace object
+            :return: Option namespace object
             :rtype: <OptionNamespace>
-            :exceptions: NotImplementedError
+            :exceptions: NotImplementedError.
         '''
         raise NotImplementedError("Method parse_input_args() must be implemented.")
 
     @abstractmethod
-    def parse_args(self, arguments: OptArgs, verbose: bool = False) -> OptionNamespace:
+    def parse_args(self, arguments: OptArgs) -> OptionNamespace:
         '''
             Processes arguments from the start.
 
             :param arguments: Sequence of arguments | None
             :type arguments: <OptArgs>
-            :param verbose: Enable/Disable verbose option
-            :type verbose: <bool>
             :return: Option namespace object
             :rtype: <OptionNamespace>
-            :exceptions: NotImplementedError
+            :exceptions: NotImplementedError.
         '''
         raise NotImplementedError("Method parse_args() must be implemented.")
+
+    @abstractmethod
+    def ok(self) -> bool:
+        '''
+            Checks if option parser component is ok.
+
+            :return: True (success) | False (fail)
+            :rtype: <bool>
+            :exceptions: NotImplementedError.
+        '''
+        raise NotImplementedError("Method ok() must be implemented.")
+
+    @abstractmethod
+    def __str__(self) -> str:
+        '''
+            Returns the ATS option parser as string representation.
+
+            :return: The ATS option parser as string representation.
+            :rtype: <str>
+            :exceptions: NotImplementedError.
+        '''
+        raise NotImplementedError("Method __str__() must be implemented.")

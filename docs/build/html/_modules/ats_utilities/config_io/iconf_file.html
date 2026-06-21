@@ -54,64 +54,79 @@
 <span class="sd">    You should have received a copy of the GNU General Public License along</span>
 <span class="sd">    with this program. If not, see &lt;http://www.gnu.org/licenses/&gt;.</span>
 <span class="sd">Info</span>
-<span class="sd">    Defines abstract class IConfFile with attribute(s) and method(s).</span>
+<span class="sd">    Defines abstract class IConfFile with method(s).</span>
 <span class="sd">    Creates an interface for configuration file context manager.</span>
 <span class="sd">&#39;&#39;&#39;</span>
 
 <span class="kn">from</span> <span class="nn">abc</span> <span class="kn">import</span> <span class="n">ABC</span><span class="p">,</span> <span class="n">abstractmethod</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">IO</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">TypeAlias</span><span class="p">,</span> <span class="n">List</span>
+<span class="kn">from</span> <span class="nn">io</span> <span class="kn">import</span> <span class="n">TextIOBase</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">TypeAlias</span>
 
 <span class="n">__author__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;Vladimir Roncevic&#39;</span>
 <span class="n">__copyright__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;(C) 2026, https://vroncevic.github.io/ats_utilities&#39;</span>
-<span class="n">__credits__</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Vladimir Roncevic&#39;</span><span class="p">,</span> <span class="s1">&#39;Python Software Foundation&#39;</span><span class="p">]</span>
+<span class="n">__credits__</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Vladimir Roncevic&#39;</span><span class="p">,</span> <span class="s1">&#39;Python Software Foundation&#39;</span><span class="p">]</span>
 <span class="n">__license__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE&#39;</span>
-<span class="n">__version__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;3.3.7&#39;</span>
+<span class="n">__version__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;3.3.8&#39;</span>
 <span class="n">__maintainer__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;Vladimir Roncevic&#39;</span>
 <span class="n">__email__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;elektron.ronca@gmail.com&#39;</span>
 <span class="n">__status__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;Updated&#39;</span>
 
 <span class="c1"># Optional bytes, str IO type</span>
-<span class="n">File</span><span class="p">:</span> <span class="n">TypeAlias</span> <span class="o">=</span> <span class="n">Optional</span><span class="p">[</span><span class="n">IO</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span>
+<span class="n">File</span><span class="p">:</span> <span class="n">TypeAlias</span> <span class="o">=</span> <span class="n">TextIOBase</span> <span class="o">|</span> <span class="kc">None</span>
 
 
 <div class="viewcode-block" id="IConfFile">
 <a class="viewcode-back" href="../../../ats_utilities.config_io.iconf_file.html#ats_utilities.config_io.iconf_file.IConfFile">[docs]</a>
 <span class="k">class</span> <span class="nc">IConfFile</span><span class="p">(</span><span class="n">ABC</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">        Defines abstract class IConfFile with attribute(s) and method(s).</span>
+<span class="sd">        Defines abstract class IConfFile with method(s).</span>
 <span class="sd">        Creates an interface for configuration file context manager.</span>
 
 <span class="sd">        It defines:</span>
 
 <span class="sd">            :attributes: None</span>
 <span class="sd">            :methods:</span>
-<span class="sd">                | __enter__ - Opens configuration file in mode (abstract).</span>
-<span class="sd">                | __exit__ - Closes configuration file (abstract).</span>
+<span class="sd">                | __enter__ - Opens configuration context manager.</span>
+<span class="sd">                | __exit__ - Closes configuration context manager.</span>
+<span class="sd">                | __str__ - Returns the IConfFile as string representation.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
 
     <span class="nd">@abstractmethod</span>
     <span class="k">def</span> <span class="fm">__enter__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">File</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">            Opens configuration file in mode.</span>
+<span class="sd">            Opens configuration context manager.</span>
 
-<span class="sd">            :return: File IO object | None</span>
+<span class="sd">            :return: File IO object | None.</span>
 <span class="sd">            :rtype: &lt;File&gt;</span>
-<span class="sd">            :exceptions: NotImplementedError</span>
+<span class="sd">            :exceptions: NotImplementedError..</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s2">&quot;Method __enter__() must be implemented.&quot;</span><span class="p">)</span>
 
     <span class="nd">@abstractmethod</span>
-    <span class="k">def</span> <span class="fm">__exit__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="o">...</span><span class="p">],</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__exit__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="o">...</span><span class="p">],</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">            Closes configuration file.</span>
+<span class="sd">            Closes configuration context manager.</span>
 
-<span class="sd">            :param *args: List of arguments</span>
-<span class="sd">            :type *args: &lt;Tuple[Any, ...]&gt;</span>
-<span class="sd">            :param **kwargs: Dictionary of mapped arguments</span>
-<span class="sd">            :type **kwargs: &lt;Dict[Any, Any]&gt;</span>
-<span class="sd">            :exceptions: NotImplementedError</span>
+<span class="sd">            :param args: List of arguments.</span>
+<span class="sd">            :type args: &lt;tuple[Any, ...]&gt;</span>
+<span class="sd">            :param kwargs: Dictionary of mapped arguments.</span>
+<span class="sd">            :type kwargs: &lt;dict[Any, Any]&gt;</span>
+<span class="sd">            :return: None.</span>
+<span class="sd">            :rtype: &lt;None&gt;</span>
+<span class="sd">            :exceptions: NotImplementedError..</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s2">&quot;Method __exit__() must be implemented.&quot;</span><span class="p">)</span></div>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s2">&quot;Method __exit__() must be implemented.&quot;</span><span class="p">)</span>
+
+    <span class="nd">@abstractmethod</span>
+    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">            Returns the IConfFile as string representation.</span>
+
+<span class="sd">            :return: The IConfFile as string representation.</span>
+<span class="sd">            :rtype: &lt;str&gt;</span>
+<span class="sd">            :exceptions: NotImplementedError..</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s2">&quot;Method __str__() must be implemented.&quot;</span><span class="p">)</span></div>
 
 </pre></div>
 

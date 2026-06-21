@@ -1,11 +1,17 @@
 name: ats_utilities_toc
+
 on:
   push:
     paths:
       - '**.md'
+
 jobs:
   generateTOC:
     name: ats_utilities_toc
     runs-on: ubuntu-latest
     steps:
-      - uses: technote-space/toc-generator@v4
+      - uses: actions/checkout@v4
+      - name: Generate TOC
+        uses: technote-space/toc-generator@v4
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

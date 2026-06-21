@@ -16,29 +16,26 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines abstract class IATSCheckReporter with attribute(s) and method(s).
+    Defines abstract class ICheckReporter with method(s).
     Creates an interface for formating message report in context of checker.
 '''
 
 from abc import ABC, abstractmethod
-from typing import Any, List, Tuple, TypeAlias
+from ats_utilities.checker.checker_reporter_bundle import CheckerReporterBundle
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
+__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.3.7'
+__version__: str = '3.3.8'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
 
-# Type alias for parameter metadata: (parameter name, expected type, actual value)
-ParamMetadata: TypeAlias = Tuple[str, str, Any]
 
-
-class IATSCheckReporter(ABC):
+class ICheckReporter(ABC):
     '''
-        Defines abstract class IATSCheckReporter with attribute(s) and method(s).
+        Defines abstract class ICheckReporter with method(s).
         Creates an interface for formating message report in context of checker.
 
         It defines:
@@ -46,22 +43,28 @@ class IATSCheckReporter(ABC):
             :attributes: None
             :methods:
                 | build_message_format - Builds the final message report for checker.
+                | __str__ - Returns the reporter as string representation.
     '''
     @abstractmethod
-    def build_message_format(self, context: str, parameters_meta: List[ParamMetadata], err_indices: List[int], is_fmt_err: bool) -> str:
+    def build_message_format(self, report_bundle: CheckerReporterBundle | None = None) -> str:
         '''
             Builds the final message report for checker.
 
-            :param context: The context string from the stack
-            :type context: <str>
-            :param parameters_meta: Metadata about processed parameters
-            :type parameters_meta: <List[ParamMetadata]>
-            :param err_indices: Indices of parameters with errors
-            :type err_indices: <List[int]>
-            :param is_fmt_err: Flag indicating a format error occurred
-            :type is_fmt_err: <bool>
+            :param report_bundle: Bundle with parameters | None
+            :type report_bundle: <CheckerReporterBundle | None>
             :return: Formatted message report
             :rtype: <str>
-            :exceptions: NotImplementedError
+            :exceptions: NotImplementedError.
         '''
         raise NotImplementedError("Method build_message_format() must be implemented.")
+
+    @abstractmethod
+    def __str__(self) -> str:
+        '''
+            Returns the reporter as string representation.
+
+            :return: The reporter as string representation.
+            :rtype: <str>
+            :exceptions: NotImplementedError.
+        '''
+        raise NotImplementedError("Method __str__() must be implemented.")

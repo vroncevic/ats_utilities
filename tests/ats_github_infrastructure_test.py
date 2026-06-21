@@ -22,16 +22,15 @@ Execute
     python3 -m unittest -v ats_github_infrastructure_test
 '''
 
-from typing import List
 from unittest import TestCase, main
-from ats_utilities.splash.github_infrastructure import GitHubInfrastructure
+from ats_utilities.splasher.github_infrastructure import GitHubInfrastructure
 from ats_utilities.exceptions.ats_type_error import ATSTypeError
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
+__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.3.7'
+__version__: str = '3.3.8'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
@@ -59,53 +58,45 @@ class ATSGitHubTestCase(TestCase):
 
     def setUp(self) -> None:
         '''Call before test case.'''
+        self.splash_property: dict = {
+            'ats_organization': 'App Example',
+            'ats_repository': 'app_example'
+        }
 
     def tearDown(self) -> None:
         '''Call after test case.'''
 
     def test_create(self) -> None:
         '''Test for create'''
-        splash_property: dict[str, str] = {
-            'ats_organization': 'App Example',
-            'ats_repository': 'app_example'
-        }
-        self.assertIsNotNone(GitHubInfrastructure(splash_property))
+        infra = GitHubInfrastructure()
+        infra.infrastructure_property = self.splash_property
+        self.assertIsNotNone(infra)
 
     def test_none_property(self) -> None:
         '''Test None splash property'''
+        infra = GitHubInfrastructure()
         with self.assertRaises(ATSTypeError):
-            GitHubInfrastructure(None)  # type: ignore
+            infra.infrastructure_property = None  # type: ignore
 
     def test_get_info(self) -> None:
         '''Test get info'''
-        info: GitHubInfrastructure = GitHubInfrastructure(
-            {
-                'ats_organization': 'App Example',
-                'ats_repository': 'app_example'
-            }
-        )
+        info = GitHubInfrastructure()
+        info.infrastructure_property = self.splash_property
         self.assertIsNotNone(info.get_info_text())
 
     def test_get_issue(self) -> None:
         '''Test get issue info'''
-        info: GitHubInfrastructure = GitHubInfrastructure(
-            {
-                'ats_organization': 'App Example',
-                'ats_repository': 'app_example'
-            }
-        )
+        info = GitHubInfrastructure()
+        info.infrastructure_property = self.splash_property
         self.assertIsNotNone(info.get_issue_text())
 
     def test_get_author(self) -> None:
         '''Test get author info'''
-        info: GitHubInfrastructure = GitHubInfrastructure(
-            {
-                'ats_organization': 'App Example',
-                'ats_repository': 'app_example'
-            }
-        )
+        info = GitHubInfrastructure()
+        info.infrastructure_property = self.splash_property
         self.assertIsNotNone(info.get_author_text())
 
 
 if __name__ == '__main__':
     main()
+

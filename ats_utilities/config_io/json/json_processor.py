@@ -16,73 +16,92 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines class ATSJSONProcessor with attribute(s) and method(s).
+    Defines class JSONProcessor with attribute(s) and method(s).
     Provides a default implementation for processing JSON content.
 '''
-import json
-from typing import Any, Dict, List
+
+from json import loads, dumps, JSONDecodeError
 from ats_utilities.config_io.json.ijson_processor import IJSONProcessor
+from ats_utilities.factory_class import format_instance_to_string
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
+__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.3.7'
+__version__: str = '3.3.8'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
 
-class ATSJSONProcessor(IJSONProcessor):
+class JSONProcessor(IJSONProcessor):
     '''
-        Defines class ATSJSONProcessor with attribute(s) and method(s).
+        Defines class JSONProcessor with attribute(s) and method(s).
         Provides a default implementation for processing JSON content.
 
         It defines:
 
             :attributes:
-                | __data - Internal dictionary to store JSON data.
+                | _data - Internal dictionary to store JSON data.
             :methods:
-                | __init__ - Initials ATSJSONProcessor constructor.
+                | __init__ - Initializes JSONProcessor constructor.
                 | decode - Convert raw JSON text to an internal object/structure.
                 | encode - Convert an internal object/structure back to a JSON string.
                 | to_dict - Return data as a flat dictionary.
+                | __str__ - Returns the JSONProcessor as string representation.
     '''
 
     def __init__(self) -> None:
         '''
-            Initials ATSJSONProcessor constructor.
+            Initializes JSONProcessor constructor.
+
+            :return: None.
+            :rtype: <None>
+            :exceptions: None..
         '''
-        self.__data: Dict[Any, Any] = {}
+        self._data: dict[str, str] = {}
 
     def decode(self, json_string: str) -> bool:
         '''
-            Convert raw JSON text to an internal object/structure.
+            Converts raw JSON text to an internal object/structure.
 
-            :param json_string: Raw JSON text
+            :param json_string: Raw JSON text in string format.
             :type json_string: <str>
-            :return: True (content decoded) | False
+            :return: True (success) | False (fail).
             :rtype: <bool>
+            :exceptions: None..
         '''
         try:
-            self.__data = json.loads(json_string)
+            self._data = loads(json_string)
             return True
-        except json.JSONDecodeError:
+        except JSONDecodeError:
             return False
 
     def encode(self) -> str:
         '''
-            Convert an internal object/structure back to a JSON string.
+            Converts an internal object/structure back to a JSON string.
 
-            :return: JSON content as string
+            :return: JSON content in string format.
             :rtype: <str>
+            :exceptions: None..
         '''
-        return json.dumps(self.__data, indent=4)
+        return dumps(self._data, indent=4)
 
-    def to_dict(self) -> Dict[Any, Any]:
+    def to_dict(self) -> dict[str, str]:
         '''
-            Return data as a flat dictionary.
+            Converts data as a flat dictionary (abstract).
 
-            :return: Dictionary with JSON information
-            :rtype: <Dict[Any, Any]>
+            :return: Dictionary with JSON configuration.
+            :rtype: <dict[str, str]>
+            :exceptions: None..
         '''
-        return self.__data
+        return self._data
+
+    def __str__(self) -> str:
+        '''
+            Returns the JSONProcessor as string representation.
+
+            :return: The JSONProcessor as string representation.
+            :rtype: <str>
+            :exceptions: None..
+        '''
+        return format_instance_to_string(self)

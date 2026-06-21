@@ -1,0 +1,98 @@
+# -*- coding: utf-8 -*-
+
+'''
+Module
+    context_bundle.py
+Copyright
+    Copyright (C) 2017 - 2026 Vladimir Roncevic <elektron.ronca@gmail.com>
+    ats_utilities is free software: you can redistribute it and/or modify it
+    under the terms of the GNU General Public License as published by the
+    Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+    ats_utilities is distributed in the hope that it will be useful, but
+    WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+    See the GNU General Public License for more details.
+    You should have received a copy of the GNU General Public License along
+    with this program. If not, see <http://www.gnu.org/licenses/>.
+Info
+    Defines parameter bundle dataclass for component dependency management.
+    Encapsulates core runtime components for simplifcation.
+'''
+
+from typing import Any
+from dataclasses import dataclass
+from ats_utilities.checker.ichecker import IChecker
+from ats_utilities.reporter.ireporter import IReporter
+from ats_utilities.exceptions.ats_value_error import ATSValueError
+
+__author__: str = 'Vladimir Roncevic'
+__copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
+__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
+__license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__: str = '3.3.8'
+__maintainer__: str = 'Vladimir Roncevic'
+__email__: str = 'elektron.ronca@gmail.com'
+__status__: str = 'Updated'
+
+
+@dataclass
+class ContextBundle:
+    '''
+        Encapsulates core runtime components for simplifcation.
+        Enables passing dependencies to other components.
+
+        It defines:
+
+            :attributes:
+                | checker - Checker for parameters (default None).
+                | reporter - Reporter for providing all types of messages (default None).
+                | verbose - Flag for enabling verbose output (default False).
+                | safe - Flag for enabling safe mode (default False).
+            :methods:
+                | validate - Validates that essential components are set.
+                | merge - Merges non-None values from another bundle into this one.
+                | to_dict - Converts the bundle attributes to a dictionary.
+    '''
+
+    checker: IChecker | None = None
+    reporter: IReporter | None = None
+    verbose: bool = False
+
+    def validate(self) -> None:
+        '''
+            Validates that essential components are set.
+
+            :exceptions: ATSValueError - Raised if the checker or reporter is not set.
+        '''
+        if self.checker is None:
+            raise ATSValueError('Required attribute checker is not set.')
+        if self.reporter is None:
+            raise ATSValueError('Required attribute reporter is not set.')
+
+    def merge(self, other: 'ContextBundle') -> None:
+        '''
+            Merges non-None values from another bundle into this one.
+
+            :param other: Another bundle to merge into this one.
+            :type other: <ContextBundle>
+            :exceptions: None.
+        '''
+        for field_name in self.__dataclass_fields__:
+            other_value = getattr(other, field_name)
+            if other_value is not None:
+                setattr(self, field_name, other_value)
+
+    def to_dict(self) -> dict[str, Any]:
+        '''
+            Converts the bundle attributes to a dictionary.
+
+            :return: Dictionary representation of the bundle attributes.
+            :rtype: <dict[str, Any]>
+            :exceptions: None.
+        '''
+        return {
+            name: value
+            for name, value in self.__dict__.items()
+            if not name.startswith('_')
+        }

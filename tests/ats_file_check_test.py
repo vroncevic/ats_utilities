@@ -22,7 +22,6 @@ Execute
     python3 -m unittest -v ats_file_check_test
 '''
 
-from typing import List
 from unittest import TestCase, main, mock
 from os.path import dirname
 from ats_utilities.config_io.file_check import FileCheck
@@ -31,9 +30,9 @@ from ats_utilities.exceptions.ats_type_error import ATSTypeError
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
+__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.3.7'
+__version__: str = '3.3.8'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
@@ -89,19 +88,20 @@ class FileCheckTestCase(TestCase):
 
     def test_none_config_path(self) -> None:
         '''Test for None as file path'''
-        with self.assertRaises(ATSTypeError):
-            self.file_check.check_path(None)
+        self.file_check.check_path(None)
+        self.assertFalse(self.file_check.is_file_ok())
 
     def test_none_config_format(self) -> None:
         '''Test for None as file format'''
         file_path: str = f'{dirname(__file__)}/config/ats_cli_json_api.json'
-        with self.assertRaises(ATSTypeError):
-            self.file_check.check_format(file_path, None)
+        self.file_check.check_format(file_path, None)
+        self.assertFalse(self.file_check.is_file_ok())
 
     def test_none_config_mode(self) -> None:
         '''Test for None as file mode'''
-        with self.assertRaises(ATSTypeError):
-            self.file_check.check_mode(None)
+        self.file_check.check_mode(None)
+        self.assertFalse(self.file_check.is_file_ok())
+
 
     def test_non_file_config_path(self) -> None:
         '''Test for directory as file path'''

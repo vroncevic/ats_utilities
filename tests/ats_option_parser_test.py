@@ -17,47 +17,60 @@ Copyright
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
     Defines classes OptionParserTestCase and OptionParserUnitTestCase with attribute(s) and method(s).
-    Creates test cases for checking functionalities of ATSOptionParser.
+    Creates test cases for checking functionalities of OptionManager.
 Execute
     python3 -m unittest -v ats_option_parser_test
 '''
 
-from typing import List, Dict, Any
+from typing import Any
 from unittest import TestCase, main, mock
-from ats_utilities.option.ats_option_parser import ATSOptionParser
-from ats_utilities.option.ioption_parser import IATSOptionParser
-from ats_utilities.option.iparser_strategy import IATSArgParseStrategy
-from ats_utilities.option.ats_parser_strategy import ATSArgParseStrategy
-from ats_utilities.checker.ichecker import IATSChecker
-from ats_utilities.checker.ats_checker import ATSChecker
-from ats_utilities.console_io.ireporter import IATSReporter
-from ats_utilities.console_io.reporter import ATSReporter
+from ats_utilities.option.engine import OptionManager
+from ats_utilities.option.ioption_parser import IOptionManager
+from ats_utilities.option.iparser_strategy import IParserStrategy
+from ats_utilities.option.parser_strategy import ParserStrategy
+from ats_utilities.checker.ichecker import IChecker
+from ats_utilities.checker.engine import Checker
+from ats_utilities.reporter.ireporter import IReporter
+from ats_utilities.reporter.engine import Reporter
+from ats_utilities.option.component_bundle import OptionComponentBundle
+from ats_utilities.context_bundle import ContextBundle
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
+__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.3.7'
+__version__: str = '3.3.8'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
 
 
-class ATSBaseOptionParser(ATSOptionParser):
-    '''Simple Class for checking ATSOptionParser.'''
+class ATSBaseOptionParser(OptionManager):
+    '''Simple Class for checking OptionManager.'''
 
     def __init__(
         self,
-        ats_info: Dict[str, Any],
-        checker: IATSChecker = ATSChecker(),
-        reporter: IATSReporter = ATSReporter(),
+        ats_info: dict[str, Any],
+        checker: IChecker = Checker(),
+        reporter: IReporter = Reporter(),
         verbose: bool = False
     ) -> None:
         '''Initial constructor.'''
-        super().__init__(ats_info, ATSArgParseStrategy(reporter), checker, reporter, verbose)
+        context = ContextBundle(
+            checker=checker,
+            reporter=reporter,
+            verbose=verbose
+        )
+        bundle = OptionComponentBundle(
+            parameters=ats_info,
+            strategy=ParserStrategy(),
+            context_bundle=context
+        )
+        super().__init__(bundle)
         self._verbose = verbose
         if self.is_tool_ok():
             reporter.success(['init ATS option parser'])
+
 
     def is_tool_ok(self) -> bool:
         '''
@@ -72,8 +85,8 @@ class ATSBaseOptionParser(ATSOptionParser):
 class OptionParserTestCase(TestCase):
     '''
         Defines class OptionParserTestCase with attribute(s) and method(s).
-        Creates test cases for checking functionalities of ATSOptionParser.
-        ATSOptionParser unit tests.
+        Creates test cases for checking functionalities of OptionManager.
+        OptionManager unit tests.
 
         It defines:
             :attributes:
@@ -81,7 +94,7 @@ class OptionParserTestCase(TestCase):
             :methods:
                 | setUp - Call before test case.
                 | tearDown - Call after test case.
-                | test_not_none - Test is ATSOptionParser not None.
+                | test_not_none - Test is OptionManager not None.
                 | test_add_operation - Test adding operation.
                 | test_add_version_operation - Test adding version operation.
     '''
@@ -100,7 +113,7 @@ class OptionParserTestCase(TestCase):
         '''Call after test case.'''
 
     def test_not_none(self) -> None:
-        '''Test for create ATSOptionParser'''
+        '''Test for create OptionManager'''
         self.assertIsNotNone(self.option_parser)
 
     def test_add_operation(self) -> None:
@@ -116,7 +129,7 @@ class OptionParserTestCase(TestCase):
 
 class OptionParserUnitTestCase(TestCase):
     '''
-        Unit tests for IATSOptionParser interface using mocks.
+        Unit tests for IOptionManager interface using mocks.
 
         It defines:
             :methods:
@@ -127,10 +140,10 @@ class OptionParserUnitTestCase(TestCase):
 
     def setUp(self) -> None:
         '''Set up test environment.'''
-        self.mock_parser = mock.MagicMock(spec=IATSOptionParser)
-        self.mock_strategy = mock.MagicMock(spec=IATSArgParseStrategy)
-        self.mock_checker = mock.MagicMock(spec=IATSChecker)
-        self.mock_reporter = mock.MagicMock(spec=IATSReporter)
+        self.mock_parser = mock.MagicMock(spec=IOptionManager)
+        self.mock_strategy = mock.MagicMock(spec=IParserStrategy)
+        self.mock_checker = mock.MagicMock(spec=IChecker)
+        self.mock_reporter = mock.MagicMock(spec=IReporter)
 
     def test_mock_add_operation(self) -> None:
         '''Test mock interaction for add_operation.'''

@@ -20,24 +20,27 @@ Info
     Creates an API for the configuration context manager.
 '''
 
-from typing import Any, ClassVar, List, Tuple, Dict, Optional
-from ats_utilities.checker.ichecker import IATSChecker
-from ats_utilities.checker.ats_checker import ATSChecker
-from ats_utilities.checker.ichecker import ErrorChecker
-from ats_utilities.console_io.ireporter import IATSReporter
-from ats_utilities.console_io.reporter import ATSReporter
-from ats_utilities.exceptions.ats_type_error import ATSTypeError
-from ats_utilities.exceptions.ats_value_error import ATSValueError
+from typing import Any
+from ats_utilities.config_io.iconf_file import IConfFile
+from ats_utilities.context_bundle import ContextBundle
+from ats_utilities.checker.ichecker import IChecker
+from ats_utilities.reporter.ireporter import IReporter
+from ats_utilities.reporter.proxy_reporter import vreporter
 from ats_utilities.config_io.ifile_check import IFileCheck
 from ats_utilities.config_io.file_check import FileCheck
-from ats_utilities.config_io.iconf_file import IConfFile
 from ats_utilities.config_io.iconf_file import File
+from ats_utilities.config_io.file_bundle import ATSFileBundle
+from ats_utilities.config_io.config_file_bundle import ATSConfigFileBundle
+from ats_utilities.exceptions.ats_value_error import ATSValueError
+from ats_utilities.factory_context_bundle import factory_context_bundle
+from ats_utilities.factory_component import make_component, validate_component
+from ats_utilities.factory_class import get_private_attr, format_instance_to_string
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
+__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.3.7'
+__version__: str = '3.3.8'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
@@ -52,119 +55,106 @@ class ConfFile(IConfFile):
         It defines:
 
             :attributes:
-                | __verbose - Enable/Disable verbose option.
-                | __checker - IATSChecker for check operations.
-                | __reporter - ATSReporter for check operations.
-                | __file_path - Configuration file name.
-                | __file_mode - File mode.
-                | __file_format - File format.
-                | __file - File object.
+                | _checker - Factoriezed parameters checker (default Checker).
+                | _reporter - Factoriezed reporter for messaging (default Reporter).
+                | _verbose - Factoriezed Enable/Disable verbose option (default False).
+                | _file_path - Configuration file path (default None).
+                | _file_mode - Configuration file mode (default None).
+                | _file - File object (default None).
+                | _verbose - Enable/Disable verbose option (default False).
             :methods:
-                | __init__ - Initials ConfFile constructor.
+                | __init__ - Initializes ConfFile constructor.
                 | __enter__ - Opens configuration file in mode.
                 | __exit__ - Closes configuration file.
+                | __str__ - Returns the ConfFile as string representation.
     '''
 
-    ERRORS: ClassVar[type[ErrorChecker]] = ErrorChecker
+    _checker: IChecker
+    _reporter: IReporter
+    _verbose: bool
 
     def __init__(
         self,
-        file_path: Optional[str],
-        file_mode: Optional[str],
-        file_format: Optional[str],
-        checker: Optional[IATSChecker] = None,
-        reporter: Optional[IATSReporter] = None,
-        file_checker: Optional[IFileCheck] = None,
-        verbose: bool = False
+        file_bundle: ATSFileBundle | None = None,
+        config_file_bundle: ATSConfigFileBundle | None = None
     ) -> None:
         '''
-            Initials ConfFile constructor.
+            Initializes ConfFile constructor.
 
-            :param file_path: Configuration file path | None
-            :type file_path: <Optional[str]>
-            :param file_mode: File mode for configuration file | None
-            :type file_mode: <Optional[str]>
-            :param file_format: File format | None
-            :type file_format: <Optional[str]>
-            :param checker: IATSChecker for check operations | None
-            :type checker: <Optional[IATSChecker]>
-            :param reporter: ATSReporter for check operations | None
-            :type reporter: <Optional[IATSReporter]>
-            :param file_checker: IFileCheck for file checking operations | None
-            :type file_checker: <Optional[IFileCheck]>
-            :param verbose: Enable/Disable verbose option
-            :type verbose: <bool>
-            :exceptions: ATSTypeError | ATSValueError
+            :param file_bundle: File bundle parameters | None.
+            :type file_bundle: <ATSFileBundle | None>
+            :param config_file_bundle: File configuration bundle parameters | None.
+            :type config_file_bundle: <ATSConfigFileBundle | None>
+            :exceptions: ATSValueError.
         '''
-        self.__checker: IATSChecker = checker or ATSChecker()
-        self.__reporter: IATSReporter = reporter or ATSReporter()
-        self.__file_checker: IFileCheck = file_checker or FileCheck(checker, reporter, verbose)
-        self.__verbose: bool = verbose
-        error_msg: Optional[str] = None
-        error_id: Optional[int] = None
-        error_msg, error_id = self.__checker.validate_parameters([
-            ('str:file_path', file_path),
-            ('str:file_mode', file_mode),
-            ('str:file_format', file_format)
-        ])
+        bundle: ATSFileBundle = file_bundle or ATSFileBundle()
+        config_bundle: ATSConfigFileBundle = config_file_bundle or ATSConfigFileBundle()
+        factory_context_bundle(self, config_bundle.context)
+        shared_bundle: ContextBundle = ContextBundle(
+            checker=get_private_attr(self, 'checker'),
+            reporter=get_private_attr(self, 'reporter'),
+            verbose=get_private_attr(self, 'verbose')
+        )
+        file_checker: IFileCheck = make_component(config_bundle.file_checker, FileCheck, {'config_bundle': shared_bundle})
+        validate_component(file_checker, type(file_checker), type(file_checker).__name__)
 
-        if error_id == self.ERRORS.TYPE_ERROR:
-            raise ATSTypeError(error_msg)
-
-        if not bool(file_path):
+        if not bool(bundle.file_path):
             raise ATSValueError('missing file path')
 
-        if not bool(file_mode):
+        if not bool(bundle.file_mode):
             raise ATSValueError('missing file mode')
 
-        if not bool(file_format):
+        if not bool(bundle.file_format):
             raise ATSValueError('missing file format')
 
-        self.__file: File = None
-        self.__file_path: Optional[str] = None
-        self.__file_mode: Optional[str] = None
-        self.__file_format: Optional[str] = None
+        self._file: File | None = None
+        self._file_path: str | None = None
+        self._file_mode: str | None = None
 
-        self.__file_checker.check_path(str(file_path), self.__verbose)
-        self.__file_checker.check_mode(str(file_mode), self.__verbose)
-        self.__file_checker.check_format(str(file_path), str(file_format), self.__verbose)
+        file_checker.check_path(bundle.file_path)
+        file_checker.check_mode(bundle.file_mode)
+        file_checker.check_format(bundle.file_path, bundle.file_format)
 
-        if self.__file_checker.is_file_ok():
-            self.__file_path = file_path
-            self.__file_mode = file_mode
-            self.__file_format = file_format
+        if file_checker.is_file_ok():
+            self._file_path = bundle.file_path
+            self._file_mode = bundle.file_mode
 
-        self.__reporter.verbose(self.__verbose, [f'set file {file_path} {file_mode}'])
-
-    def __enter__(self) -> File:
+    @vreporter('open file {file_path} with mode {file_mode}')
+    def __enter__(self) -> File | None:
         '''
             Opens configuration file in mode.
 
-            :return: File IO object | None
+            :return: File IO object | None.
             :rtype: <File>
-            :exceptions: None
+            :exceptions: ATSRuntimeError, ATSAttributeError.
         '''
-        if self.__file_checker.is_file_ok():
-            mode: str = self.__file_mode or "r"
-            self.__file = open(str(self.__file_path), mode, encoding='utf-8')
-            self.__reporter.verbose(self.__verbose, [f'open file {str(self.__file_path)} in mode [{mode}]'])
-            self.__reporter.verbose(self.__verbose, [f'format file {str(self.__file_format)} is open for processing'])
-        else:
-            self.__reporter.error([f'check file {str(self.__file_path)}'])
-            self.__file = None
+        if self._file_path and self._file_mode:
+            self._file = open(self._file_path, self._file_mode, encoding='utf-8')
 
-        return self.__file
+        return self._file
 
-    def __exit__(self, *args: Tuple[Any, ...], **kwargs: Dict[Any, Any]) -> None:
+    @vreporter('close file {file_path}')
+    def __exit__(self, *args: tuple[Any, ...], **kwargs: dict[Any, Any]) -> None:
         '''
             Closes configuration file.
 
-            :param *args: List of arguments
-            :type *args: <Tuple[Any, ...]>
-            :param **kwargs: Dictionary of mapped arguments
-            :type **kwargs: <Dict[Any, Any]>
-            :exceptions: None
+            :param args: List of arguments.
+            :type args: <tuple[Any, ...]>
+            :param kwargs: Dictionary of mapped arguments.
+            :type kwargs: <dict[Any, Any]>
+            :return: None.
+            :rtype: <None>
+            :exceptions: ATSRuntimeError, ATSAttributeError.
         '''
-        if self.__file is not None and not self.__file.closed:
-            self.__file.close()
-            self.__reporter.verbose(self.__verbose, [f'close file {str(self.__file_path)}'])
+        if self._file and not self._file.closed:
+            self._file.close()
+
+    def __str__(self) -> str:
+        '''
+            Returns the ConfFile as string representation.
+
+            :return: The ConfFile as string representation.
+            :rtype: <str>
+            :exceptions: None..
+        '''
+        return format_instance_to_string(self)

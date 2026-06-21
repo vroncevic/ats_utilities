@@ -21,13 +21,13 @@ Info
 
 import sys
 from os.path import abspath
-from typing import Any, List, Dict, Tuple
+from typing import Any
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
+__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.3.7'
+__version__: str = '3.3.8'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
@@ -37,32 +37,32 @@ sys.path.insert(0, abspath('../../'))
 project: str = 'ats_utilities'
 project_copyright: str = '2026, https://vroncevic.github.io/ats_utilities'
 author: str = 'Vladimir Roncevic <elektron.ronca@gmail.com>'
-version: str = '3.3.7'
+version: str = '3.3.8'
 release: str = 'https://github.com/vroncevic/ats_utilities/releases'
-extensions: List[str] = ['sphinx.ext.autodoc', 'sphinx.ext.viewcode', ]
-templates_path: List[str] = ['_templates']
+extensions: list[str] = ['sphinx.ext.autodoc', 'sphinx.ext.viewcode', ]
+templates_path: list[str] = ['_templates']
 source_suffix: str = '.rst'
 master_doc: str = 'index'
 language: str = 'en'
-html_static_path: List[str] = ['_static']
-exclude_patterns: List[str] = []
+html_static_path: list[str] = ['_static']
+exclude_patterns: list[str] = []
 pygments_style: str = 'sphinx'
 html_theme: str = 'classic'
-html_static_path: List[str] = ['_static']
+html_static_path: list[str] = ['_static']
 htmlhelp_basename: str = 'ats_utilitiesdoc'
-latex_elements: Dict[Any, Any] = {}
-latex_documents: List[Tuple[Any, ...]] = [(
+latex_elements: dict[Any, Any] = {}
+latex_documents: list[tuple[Any, ...]] = [(
     master_doc, 'ats_utilities.tex', 'ats\\_utilities Documentation',
     'Vladimir Roncevic \\textless{}elektron.ronca@gmail.com\\textgreater{}',
     'manual'
 )]
-man_pages: List[Tuple[Any, ...]] = [(
+man_pages: list[tuple[Any, ...]] = [(
     master_doc, 'ats_utilities', 'ats_utilities Documentation', [author], 1
 )]
-texinfo_documents: List[Tuple[Any, ...]] = [(
+texinfo_documents: list[tuple[Any, ...]] = [(
     master_doc, 'ats_utilities', 'ats_utilities Documentation',
     author, 'ats_utilities', 'One line description of project.',
     'Miscellaneous'
 )]
 epub_title: str = project
-epub_exclude_files: List[str] = ['search.html']
+epub_exclude_files: list[str] = ['search.html']

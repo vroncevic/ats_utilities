@@ -22,18 +22,20 @@ Execute
     python3 -m unittest -v ats_splash_test
 '''
 
-from typing import List
 from os.path import dirname
-from unittest import TestCase, main
-from ats_utilities.splash.ats_splash import Splash
+from unittest import TestCase, main, mock
+from ats_utilities.splasher.engine import Splasher
+from ats_utilities.splasher.component_bundle import SplashComponentBundle
+from ats_utilities.splasher.splash_center_bundle import SplashCenterBundle
+from ats_utilities.splasher.splash_keys import SplashKeys
 from ats_utilities.exceptions.ats_type_error import ATSTypeError
 from ats_utilities.exceptions.ats_value_error import ATSValueError
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
+__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.3.7'
+__version__: str = '3.3.8'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
@@ -43,7 +45,7 @@ class ATSSplashTestCase(TestCase):
     '''
         Defines class ATSSplashTestCase with attribute(s) and method(s).
         Creates test cases for checking functionalities of termanl properties.
-        Splash unit tests.
+        Splasher unit tests.
 
         It defines:
 
@@ -68,61 +70,77 @@ class ATSSplashTestCase(TestCase):
     def test_splash_with_none_property(self) -> None:
         '''Test splash with None'''
         with self.assertRaises(ATSTypeError):
-            Splash(None)  # type: ignore
+            Splasher(None)  # type: ignore
 
-    def test_create(self) -> None:
+    @mock.patch('sys.stdout')
+    @mock.patch('builtins.print')
+    @mock.patch('ats_utilities.splasher.engine.sleep')
+    def test_create(self, mock_sleep, mock_print, mock_stdout) -> None:
         '''Test for create (not None)'''
-        splash: Splash = Splash(
-            {
-                'ats_organization': 'App Example',
-                'ats_repository': 'app_example',
-                'ats_name': 'appexample',
-                'ats_logo_path': f'{dirname(__file__)}/config/app.logo',
-                'ats_use_github_infrastructure': 'yes'
+        bundle = SplashComponentBundle(
+            prop={
+                SplashKeys.ATS_ORGANIZATION: 'App Example',
+                SplashKeys.ATS_REPOSITORY: 'app_example',
+                SplashKeys.ATS_NAME: 'appexample',
+                SplashKeys.ATS_LOGO_PATH: f'{dirname(__file__)}/config/app.logo',
+                SplashKeys.ATS_USE_GITHUB_INFRASTRUCTURE: True
             }
         )
+        splash: Splasher = Splasher(bundle)
         self.assertIsNotNone(splash)
 
-    def test_create_with_ext(self) -> None:
+    @mock.patch('sys.stdout')
+    @mock.patch('builtins.print')
+    @mock.patch('ats_utilities.splasher.engine.sleep')
+    def test_create_with_ext(self, mock_sleep, mock_print, mock_stdout) -> None:
         '''Test for create with external'''
-        splash: Splash = Splash(
-            {
-                'ats_organization': 'App Example',
-                'ats_repository': 'app_example',
-                'ats_name': 'appexample',
-                'ats_logo_path': f'{dirname(__file__)}/config/app.logo',
-                'ats_use_github_infrastructure': False
+        bundle = SplashComponentBundle(
+            prop={
+                SplashKeys.ATS_ORGANIZATION: 'App Example',
+                SplashKeys.ATS_REPOSITORY: 'app_example',
+                SplashKeys.ATS_NAME: 'appexample',
+                SplashKeys.ATS_LOGO_PATH: f'{dirname(__file__)}/config/app.logo',
+                SplashKeys.ATS_USE_GITHUB_INFRASTRUCTURE: False
             }
         )
+        splash: Splasher = Splasher(bundle)
         self.assertIsNotNone(splash)
 
-    def test_wrong_parameter_center(self) -> None:
+    @mock.patch('sys.stdout')
+    @mock.patch('builtins.print')
+    @mock.patch('ats_utilities.splasher.engine.sleep')
+    def test_wrong_parameter_center(self, mock_sleep, mock_print, mock_stdout) -> None:
         '''Test for wrong center param'''
-        splash: Splash = Splash(
-            {
-                'ats_organization': 'App Example',
-                'ats_repository': 'app_example',
-                'ats_name': 'appexample',
-                'ats_logo_path': f'{dirname(__file__)}/config/app.logo',
-                'ats_use_github_infrastructure': False
+        bundle = SplashComponentBundle(
+            prop={
+                SplashKeys.ATS_ORGANIZATION: 'App Example',
+                SplashKeys.ATS_REPOSITORY: 'app_example',
+                SplashKeys.ATS_NAME: 'appexample',
+                SplashKeys.ATS_LOGO_PATH: f'{dirname(__file__)}/config/app.logo',
+                SplashKeys.ATS_USE_GITHUB_INFRASTRUCTURE: False
             }
         )
+        splash: Splasher = Splasher(bundle)
         with self.assertRaises(ATSTypeError):
-            splash.center(120, 20, None)
+            splash.center(SplashCenterBundle(columns='wrong_type', text='test'))
 
-    def test_empty_parameter_center(self) -> None:
+    @mock.patch('sys.stdout')
+    @mock.patch('builtins.print')
+    @mock.patch('ats_utilities.splasher.engine.sleep')
+    def test_empty_parameter_center(self, mock_sleep, mock_print, mock_stdout) -> None:
         '''Test for empty center param'''
-        splash: Splash = Splash(
-            {
-                'ats_organization': 'App Example',
-                'ats_repository': 'app_example',
-                'ats_name': 'appexample',
-                'ats_logo_path': f'{dirname(__file__)}/config/app.logo',
-                'ats_use_github_infrastructure': False
+        bundle = SplashComponentBundle(
+            prop={
+                SplashKeys.ATS_ORGANIZATION: 'App Example',
+                SplashKeys.ATS_REPOSITORY: 'app_example',
+                SplashKeys.ATS_NAME: 'appexample',
+                SplashKeys.ATS_LOGO_PATH: f'{dirname(__file__)}/config/app.logo',
+                SplashKeys.ATS_USE_GITHUB_INFRASTRUCTURE: False
             }
         )
+        splash: Splasher = Splasher(bundle)
         with self.assertRaises(ATSValueError):
-            splash.center(120, 20, '')
+            splash.center(SplashCenterBundle(columns=120, additional_shifter=20, text=''))
 
 
 if __name__ == '__main__':

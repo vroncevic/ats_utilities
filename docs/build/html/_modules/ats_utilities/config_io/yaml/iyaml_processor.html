@@ -54,17 +54,16 @@
 <span class="sd">    You should have received a copy of the GNU General Public License along</span>
 <span class="sd">    with this program. If not, see &lt;http://www.gnu.org/licenses/&gt;.</span>
 <span class="sd">Info</span>
-<span class="sd">    Defines abstract class IYAMLProcessor with attribute(s) and method(s).</span>
+<span class="sd">    Defines abstract class IYAMLProcessor with method(s).</span>
 <span class="sd">    Creates an interface for processing YAML content.</span>
 <span class="sd">&#39;&#39;&#39;</span>
 <span class="kn">from</span> <span class="nn">abc</span> <span class="kn">import</span> <span class="n">ABC</span><span class="p">,</span> <span class="n">abstractmethod</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span>
 
 <span class="n">__author__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;Vladimir Roncevic&#39;</span>
 <span class="n">__copyright__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;(C) 2026, https://vroncevic.github.io/ats_utilities&#39;</span>
-<span class="n">__credits__</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Vladimir Roncevic&#39;</span><span class="p">,</span> <span class="s1">&#39;Python Software Foundation&#39;</span><span class="p">]</span>
+<span class="n">__credits__</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Vladimir Roncevic&#39;</span><span class="p">,</span> <span class="s1">&#39;Python Software Foundation&#39;</span><span class="p">]</span>
 <span class="n">__license__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE&#39;</span>
-<span class="n">__version__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;3.3.7&#39;</span>
+<span class="n">__version__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;3.3.8&#39;</span>
 <span class="n">__maintainer__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;Vladimir Roncevic&#39;</span>
 <span class="n">__email__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;elektron.ronca@gmail.com&#39;</span>
 <span class="n">__status__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;Updated&#39;</span>
@@ -73,16 +72,17 @@
 <a class="viewcode-back" href="../../../../ats_utilities.config_io.yaml.iyaml_processor.html#ats_utilities.config_io.yaml.iyaml_processor.IYAMLProcessor">[docs]</a>
 <span class="k">class</span> <span class="nc">IYAMLProcessor</span><span class="p">(</span><span class="n">ABC</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">        Defines interface IYAMLProcessor with attribute(s) and method(s).</span>
+<span class="sd">        Defines abstract class IYAMLProcessor with method(s).</span>
 <span class="sd">        Interface for processing YAML content.</span>
 
 <span class="sd">        It defines:</span>
 
 <span class="sd">            :attributes: None</span>
 <span class="sd">            :methods:</span>
-<span class="sd">                | decode - Convert raw YAML text to an internal object/structure (abstract).</span>
-<span class="sd">                | encode - Convert an internal object/structure back to a YAML string (abstract).</span>
-<span class="sd">                | to_dict - Return data as a flat dictionary required for ATSInfo (abstract).</span>
+<span class="sd">                | decode - Converts raw YAML text to an internal object/structure.</span>
+<span class="sd">                | encode - Converts an internal object/structure back to a YAML string.</span>
+<span class="sd">                | to_dict - Returns configuration as a flat dictionary.</span>
+<span class="sd">                | __str__ - Returns the YAML processor as string representation.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
 
 <div class="viewcode-block" id="IYAMLProcessor.decode">
@@ -90,15 +90,15 @@
     <span class="nd">@abstractmethod</span>
     <span class="k">def</span> <span class="nf">decode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">yaml_string</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">            Convert raw YAML text to an internal object/structure.</span>
+<span class="sd">            Converts raw YAML text to an internal object/structure.</span>
 
 <span class="sd">            :param yaml_string: Raw YAML text</span>
 <span class="sd">            :type yaml_string: &lt;str&gt;</span>
-<span class="sd">            :return: True (content decoded) | False</span>
+<span class="sd">            :return: True (success) | False (fail)</span>
 <span class="sd">            :rtype: &lt;bool&gt;</span>
-<span class="sd">            :exceptions: NotImplementedError</span>
+<span class="sd">            :exceptions: NotImplementedError.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s2">&quot;Subclasses must implement decode method&quot;</span><span class="p">)</span></div>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s2">&quot;Method decode() must be implemented.&quot;</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="IYAMLProcessor.encode">
@@ -106,28 +106,39 @@
     <span class="nd">@abstractmethod</span>
     <span class="k">def</span> <span class="nf">encode</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">            Convert an internal object/structure back to a YAML string.</span>
+<span class="sd">            Converts an internal object/structure back to a YAML string.</span>
 
 <span class="sd">            :return: YAML content as string</span>
 <span class="sd">            :rtype: &lt;str&gt;</span>
-<span class="sd">            :exceptions: NotImplementedError</span>
+<span class="sd">            :exceptions: NotImplementedError.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s2">&quot;Subclasses must implement encode method&quot;</span><span class="p">)</span></div>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s2">&quot;Method encode() must be implemented.&quot;</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="IYAMLProcessor.to_dict">
 <a class="viewcode-back" href="../../../../ats_utilities.config_io.yaml.iyaml_processor.html#ats_utilities.config_io.yaml.iyaml_processor.IYAMLProcessor.to_dict">[docs]</a>
     <span class="nd">@abstractmethod</span>
-    <span class="k">def</span> <span class="nf">to_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+    <span class="k">def</span> <span class="nf">to_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">            Return data as a flat dictionary.</span>
+<span class="sd">            Returns configuration as a flat dictionary.</span>
 
-<span class="sd">            :return: Dictionary with YAML information</span>
-<span class="sd">            :rtype: &lt;Dict[Any, Any]&gt;</span>
-<span class="sd">            :exceptions: NotImplementedError</span>
+<span class="sd">            :return: Dictionary with YAML configuration</span>
+<span class="sd">            :rtype: &lt;dict[str, str]&gt;</span>
+<span class="sd">            :exceptions: NotImplementedError.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s2">&quot;Subclasses must implement to_dict method&quot;</span><span class="p">)</span></div>
-</div>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s2">&quot;Method to_dict() must be implemented.&quot;</span><span class="p">)</span></div>
+
+
+    <span class="nd">@abstractmethod</span>
+    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">            Returns the YAML processor as string representation.</span>
+
+<span class="sd">            :return: The YAML processor as string representation.</span>
+<span class="sd">            :rtype: &lt;str&gt;</span>
+<span class="sd">            :exceptions: NotImplementedError.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s2">&quot;Method __str__() must be implemented.&quot;</span><span class="p">)</span></div>
 
 </pre></div>
 

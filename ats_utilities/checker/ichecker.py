@@ -16,34 +16,34 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines abstract class IATSChecker with attribute(s) and method(s).
-    Creates an interface for ATSChecker and other checker implementations.
+    Defines abstract class IChecker with attribute(s) and method(s).
+    Creates an interface for Checker and other checker implementations.
 '''
 
 from abc import ABC, abstractmethod
-from typing import Any, ClassVar, List, Tuple, Optional, TypeAlias, Protocol
+from typing import Any, ClassVar, TypeAlias, Protocol
 from enum import Enum, EnumMeta
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
+__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.3.7'
+__version__: str = '3.3.8'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
 
 # Validation resut type: (error message report, error id)
-ValidationResult: TypeAlias = Tuple[str, int]
+ValidationResult: TypeAlias = tuple[str, int]
 
 # Specification for parameters: [(param name, param value), ...]
-ParametersSpecs: TypeAlias = List[Tuple[str, Any]]
+ParametersSpecs: TypeAlias = list[tuple[str, Any]]
 
 
 class ErrorChecker(int, Enum):
     '''
-        Defines class ErrorChecker with attribute(s) and method(s).
-        Marks error types for the ATSChecker.
+        Defines class ErrorChecker with attribute(s).
+        Marks error types for the Checker.
 
         It defines:
 
@@ -60,8 +60,8 @@ class ErrorChecker(int, Enum):
 
 class ErrorCheckerProtocol(Protocol):
     '''
-        Defines class ErrorCheckerProtocol with attribute(s) and method(s).
-        Protocol for error types for the ATSChecker.
+        Defines class ErrorCheckerProtocol with attribute(s).
+        Protocol for error types for the Checker.
 
         It defines:
 
@@ -76,30 +76,42 @@ class ErrorCheckerProtocol(Protocol):
     FORMAT_ERROR: ClassVar[int]
 
 
-class IATSChecker(ABC):
+class IChecker(ABC):
     '''
-        Defines abstract class IATSChecker with attribute(s) and method(s).
-        Creates an interface for ATSChecker and other checker implementations.
+        Defines abstract class IChecker with attribute(s) and method(s).
+        Creates an interface for Checker and other checker implementations.
 
         It defines:
 
             :attributes:
                 | ERRORS - Marks error types for message reports (0 | 1 | 2).
             :methods:
-                | validate_parameters - Validates parameters for method(s) or function(s) (abstract).
+                | validates_parameters - Validates parameters for method(s) or function(s) (abstract).
+                | __str__ - Returns the checker as string representation.
     '''
 
     ERRORS: ClassVar[EnumMeta] = ErrorChecker
 
     @abstractmethod
-    def validate_parameters(self, parameters: Optional[ParametersSpecs]) -> ValidationResult:
+    def validates_parameters(self, parameters: ParametersSpecs | None) -> ValidationResult:
         '''
             Validates parameters for a method(s) or function(s).
 
             :param parameters: Specification for parameters
-            :type parameters: <Optional[ParametersSpecs]>
+            :type parameters: <ParametersSpecs | None>
             :return: Tuple of error message report and error id
             :rtype: <ValidationResult>
-            :exceptions: NotImplementedError
+            :exceptions: NotImplementedError.
         '''
         raise NotImplementedError("Method validate_parameters() must be implemented.")
+
+    @abstractmethod
+    def __str__(self) -> str:
+        '''
+            Returns the checker as string representation.
+
+            :return: The checker as string representation.
+            :rtype: <str>
+            :exceptions: NotImplementedError.
+        '''
+        raise NotImplementedError("Method __str__() must be implemented.")

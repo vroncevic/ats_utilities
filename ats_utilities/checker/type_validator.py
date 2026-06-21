@@ -16,26 +16,27 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines class ATSTypeValidator with attribute(s) and method(s).
+    Defines class TypeValidator with attribute(s) and method(s).
     Creates an API for handling type validation parameters for method(s) and function(s).
 '''
 
-from typing import Any, List
-from ats_utilities.checker.itype_validator import IATSTypeValidator
+from typing import Any
+from ats_utilities.factory_class import format_instance_to_string
+from ats_utilities.checker.itype_validator import ITypeValidator
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
+__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.3.7'
+__version__: str = '3.3.8'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
 
 
-class ATSTypeValidator(IATSTypeValidator):
+class TypeValidator(ITypeValidator):
     '''
-        Defines class ATSTypeValidator with attribute(s) and method(s).
+        Defines class TypeValidator with attribute(s) and method(s).
         Creates an API for type validation between instances and type names.
         Mechanism for validating function or method parameters (type).
 
@@ -46,6 +47,7 @@ class ATSTypeValidator(IATSTypeValidator):
                 | is_match - Compares instance type with expected type name.
                 | is_subtype - Checks if instance is a subtype of expected type name.
                 | get_type_name - Returns the string representation of an instance type.
+                | __str__ - Returns the ATS type validator as string representation.
     '''
 
     def is_match(self, inst: Any, expected_type_name: str) -> bool:
@@ -53,13 +55,13 @@ class ATSTypeValidator(IATSTypeValidator):
             Compares instance type with expected type name.
             Compares the __name__ of the instance type with expected string.
 
-            :param inst: The instance to check
+            :param inst: The instance to check.
             :type inst: <Any>
-            :param expected_type_name: The expected type name
+            :param expected_type_name: The expected type name.
             :type expected_type_name: <str>
-            :return: True if the types match, False otherwise
+            :return: True (success), False (fail).
             :rtype: <bool>
-            :exceptions: None
+            :exceptions: None..
         '''
         return type(inst).__name__ == expected_type_name
 
@@ -68,13 +70,13 @@ class ATSTypeValidator(IATSTypeValidator):
             Checks if instance is a subtype of expected type name.
             Traverses the Method Resolution Order (MRO) to find a match.
 
-            :param inst: The instance to check
+            :param inst: The instance to check.
             :type inst: <Any>
-            :param expected_type_name: The expected parent type name
+            :param expected_type_name: The expected parent type name.
             :type expected_type_name: <str>
-            :return: True if any class in MRO matches the name, False otherwise
+            :return: True (is), False (not).
             :rtype: <bool>
-            :exceptions: None
+            :exceptions: None..
         '''
         return any(cls.__name__ == expected_type_name for cls in type(inst).mro())
 
@@ -82,10 +84,20 @@ class ATSTypeValidator(IATSTypeValidator):
         '''
             Returns the string representation of an instance type.
 
-            :param inst: The instance to inspect
+            :param inst: The instance to inspect.
             :type inst: <Any>
-            :return: String name of the type
+            :return: String name of the type.
             :rtype: <str>
-            :exceptions: None
+            :exceptions: None..
         '''
         return type(inst).__name__
+
+    def __str__(self) -> str:
+        '''
+            Returns the ATS type validator as string representation.
+
+            :return: The ATS type validator as string representation.
+            :rtype: <str>
+            :exceptions: None..
+        '''
+        return format_instance_to_string(self)

@@ -22,18 +22,20 @@ Execute
     python3 -m unittest -v ats_logging_test
 '''
 
-from typing import List
 from unittest import TestCase, main
 from os.path import dirname
-from ats_utilities.logging.ats_logger_manager import ATSLoggerManager
-from ats_utilities.console_io.ireporter import IATSReporter
-from ats_utilities.console_io.reporter import ATSReporter
+from ats_utilities.logging.engine import ATSLoggerManager
+from ats_utilities.reporter.ireporter import IReporter
+from ats_utilities.reporter.engine import Reporter
+from ats_utilities.logging.component_bundle import LoggingComponentBundle
+from ats_utilities.logging.logger_bundle import LoggerBundle
+from ats_utilities.context_bundle import ContextBundle
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
+__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.3.7'
+__version__: str = '3.3.8'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
@@ -42,15 +44,19 @@ __status__: str = 'Updated'
 class ATSBaseLoggingFile(ATSLoggerManager):
     '''Simple Class for checking ATSLoggerManager.'''
 
-    def __init__(self, log_file: str, reporter: IATSReporter = ATSReporter(), verbose: bool = False) -> None:
+    def __init__(self, log_file: str, reporter: IReporter = Reporter(), verbose: bool = False) -> None:
         '''Initial constructor.'''
-        super().__init__(
-            ats_name='simple_test',
-            ats_log_stdout=False,
-            ats_log_file=log_file,
-            reporter=reporter,
-            verbose=verbose
+        context = ContextBundle(reporter=reporter, verbose=verbose)
+        logger_bundle = LoggerBundle(
+            name='simple_test',
+            log_stdout=False,
+            log_file=log_file
         )
+        component_bundle = LoggingComponentBundle(
+            logger_bundle=logger_bundle,
+            context_bundle=context
+        )
+        super().__init__(component_bundle)
         self._verbose = verbose
         if self.is_tool_ok():
             reporter.success(['init ATS logging'])

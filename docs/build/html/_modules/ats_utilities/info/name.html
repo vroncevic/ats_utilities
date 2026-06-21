@@ -54,116 +54,115 @@
 <span class="sd">    You should have received a copy of the GNU General Public License along</span>
 <span class="sd">    with this program. If not, see &lt;http://www.gnu.org/licenses/&gt;.</span>
 <span class="sd">Info</span>
-<span class="sd">    Defines class ATSName with attribute(s) and method(s).</span>
+<span class="sd">    Defines class Name with attribute(s) and method(s).</span>
 <span class="sd">    Creates an API for the ATS name in one property object.</span>
 <span class="sd">&#39;&#39;&#39;</span>
 
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">ClassVar</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.checker.ichecker</span> <span class="kn">import</span> <span class="n">IATSChecker</span><span class="p">,</span> <span class="n">ErrorChecker</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.checker.ats_checker</span> <span class="kn">import</span> <span class="n">ATSChecker</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.console_io.ireporter</span> <span class="kn">import</span> <span class="n">IATSReporter</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.console_io.reporter</span> <span class="kn">import</span> <span class="n">ATSReporter</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.exceptions.ats_type_error</span> <span class="kn">import</span> <span class="n">ATSTypeError</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.info.iname</span> <span class="kn">import</span> <span class="n">IATSName</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.info.iname</span> <span class="kn">import</span> <span class="n">IName</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.context_bundle</span> <span class="kn">import</span> <span class="n">ContextBundle</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.checker.ichecker</span> <span class="kn">import</span> <span class="n">IChecker</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.reporter.ireporter</span> <span class="kn">import</span> <span class="n">IReporter</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.factory_context_bundle</span> <span class="kn">import</span> <span class="n">factory_context_bundle</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.factory_class</span> <span class="kn">import</span> <span class="n">format_instance_to_string</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.checker.proxy_validator</span> <span class="kn">import</span> <span class="n">validator</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.reporter.proxy_reporter</span> <span class="kn">import</span> <span class="n">vreporter</span>
 
 <span class="n">__author__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;Vladimir Roncevic&#39;</span>
 <span class="n">__copyright__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;(C) 2026, https://vroncevic.github.io/ats_utilities&#39;</span>
-<span class="n">__credits__</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Vladimir Roncevic&#39;</span><span class="p">,</span> <span class="s1">&#39;Python Software Foundation&#39;</span><span class="p">]</span>
+<span class="n">__credits__</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Vladimir Roncevic&#39;</span><span class="p">,</span> <span class="s1">&#39;Python Software Foundation&#39;</span><span class="p">]</span>
 <span class="n">__license__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE&#39;</span>
-<span class="n">__version__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;3.3.7&#39;</span>
+<span class="n">__version__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;3.3.8&#39;</span>
 <span class="n">__maintainer__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;Vladimir Roncevic&#39;</span>
 <span class="n">__email__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;elektron.ronca@gmail.com&#39;</span>
 <span class="n">__status__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;Updated&#39;</span>
 
 
-<div class="viewcode-block" id="ATSName">
-<a class="viewcode-back" href="../../../ats_utilities.info.name.html#ats_utilities.info.name.ATSName">[docs]</a>
-<span class="k">class</span> <span class="nc">ATSName</span><span class="p">(</span><span class="n">IATSName</span><span class="p">):</span>
+<div class="viewcode-block" id="Name">
+<a class="viewcode-back" href="../../../ats_utilities.info.name.html#ats_utilities.info.name.Name">[docs]</a>
+<span class="k">class</span> <span class="nc">Name</span><span class="p">(</span><span class="n">IName</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">        Defines class ATSName with attribute(s) and method(s).</span>
+<span class="sd">        Defines class Name with attribute(s) and method(s).</span>
 <span class="sd">        Creates an API for the ATS name in one property object.</span>
-<span class="sd">        The ATS name container.</span>
 
 <span class="sd">        It defines:</span>
 
 <span class="sd">            :attributes:</span>
-<span class="sd">                | ERRORS - Error checker mapping.</span>
-<span class="sd">                | __checker - Error checker.</span>
-<span class="sd">                | __reporter - ATSReporter for messaging.</span>
-<span class="sd">                | __verbose - Enable/Disable verbose option. </span>
-<span class="sd">                | __name - The ATS name.</span>
+<span class="sd">                | _checker - Factoriezed parameters checker (default Checker).</span>
+<span class="sd">                | _reporter - Factoriezed reporter for messaging (default Reporter).</span>
+<span class="sd">                | _verbose - Factoriezed Enable/Disable verbose option (default False).</span>
+<span class="sd">                | _name - The ATS name (default None).</span>
 <span class="sd">            :methods:</span>
-<span class="sd">                | __init__ - Initials ATSName constructor.</span>
-<span class="sd">                | name - Property methods for set/get operations.</span>
-<span class="sd">                | is_name_not_none - Checks is ATS name not None.</span>
+<span class="sd">                | __init__ - Initializes Name constructor.</span>
+<span class="sd">                | name - Property methods for set/get name.</span>
+<span class="sd">                | not_none - Checks is ATS name not None.</span>
+<span class="sd">                | __str__ - Returns the ATS name as string representation.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
 
-    <span class="n">ERRORS</span><span class="p">:</span> <span class="n">ClassVar</span><span class="p">[</span><span class="nb">type</span><span class="p">[</span><span class="n">ErrorChecker</span><span class="p">]]</span> <span class="o">=</span> <span class="n">ErrorChecker</span>
+    <span class="n">_checker</span><span class="p">:</span> <span class="n">IChecker</span>
+    <span class="n">_reporter</span><span class="p">:</span> <span class="n">IReporter</span>
+    <span class="n">_verbose</span><span class="p">:</span> <span class="nb">bool</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span>
-        <span class="n">checker</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">IATSChecker</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-        <span class="n">reporter</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">IATSReporter</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-        <span class="n">verbose</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context_bundle</span><span class="p">:</span> <span class="n">ContextBundle</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">            Initials ATSName constructor.</span>
+<span class="sd">            Initializes Name constructor.</span>
 
-<span class="sd">            :param checker: Error checker | None</span>
-<span class="sd">            :type checker: &lt;Optional[IATSChecker]&gt;</span>
-<span class="sd">            :param reporter: ATSReporter for messaging | None</span>
-<span class="sd">            :type reporter: &lt;Optional[IATSReporter]&gt;</span>
-<span class="sd">            :param verbose: Enable/Disable verbose option</span>
-<span class="sd">            :type verbose: &lt;bool&gt;</span>
-<span class="sd">            :exceptions: None</span>
+<span class="sd">            :param context_bundle: Context bundle for name | None.</span>
+<span class="sd">            :type context_bundle: &lt;ContextBundle | None&gt;</span>
+<span class="sd">            :exceptions: None..</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">__checker</span><span class="p">:</span> <span class="n">IATSChecker</span> <span class="o">=</span> <span class="n">checker</span> <span class="ow">or</span> <span class="n">ATSChecker</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">__reporter</span><span class="p">:</span> <span class="n">IATSReporter</span> <span class="o">=</span> <span class="n">reporter</span> <span class="ow">or</span> <span class="n">ATSReporter</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">__verbose</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="n">verbose</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">__name</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="n">factory_context_bundle</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context_bundle</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+    <span class="nd">@vreporter</span><span class="p">(</span><span class="s1">&#39;get name </span><span class="si">{name}</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Property method for getting ATS name.</span>
 
-<span class="sd">            :return: The ATS name | None</span>
-<span class="sd">            :rtype: &lt;Optional[str]&gt;</span>
-<span class="sd">            :exceptions: None</span>
+<span class="sd">            :return: The ATS name in string format | None.</span>
+<span class="sd">            :rtype: &lt;str | None&gt;</span>
+<span class="sd">            :exceptions: ATSRuntimeError, ATSAttributeError.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__name</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_name</span>
 
     <span class="nd">@name</span><span class="o">.</span><span class="n">setter</span>
-    <span class="k">def</span> <span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="nd">@validator</span><span class="p">([(</span><span class="s1">&#39;str | None:name&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)])</span>
+    <span class="nd">@vreporter</span><span class="p">(</span><span class="s1">&#39;set name </span><span class="si">{name}</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Property method for setting ATS name.</span>
 
-<span class="sd">            :param name: The ATS name | None</span>
-<span class="sd">            :type name: &lt;Optional[str]&gt;</span>
-<span class="sd">            :exceptions: ATSTypeError</span>
+<span class="sd">            :param name: The ATS name in string format | None.</span>
+<span class="sd">            :type name: &lt;str | None&gt;</span>
+<span class="sd">            :exceptions:</span>
+<span class="sd">                | ATSTypeError, ATSValueError, RuntimeError, AttributeError.</span>
+<span class="sd">                | RuntimeError, AttributeError.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="n">error_msg</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
-        <span class="n">error_id</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
-        <span class="n">error_msg</span><span class="p">,</span> <span class="n">error_id</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__checker</span><span class="o">.</span><span class="n">validate_parameters</span><span class="p">([(</span><span class="s1">&#39;str:name&#39;</span><span class="p">,</span> <span class="n">name</span><span class="p">)])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_name</span> <span class="o">=</span> <span class="n">name</span>
 
-        <span class="k">if</span> <span class="n">error_id</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">ERRORS</span><span class="o">.</span><span class="n">TYPE_ERROR</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="n">ATSTypeError</span><span class="p">(</span><span class="n">error_msg</span><span class="p">)</span>
-
-        <span class="bp">self</span><span class="o">.</span><span class="n">__name</span> <span class="o">=</span> <span class="n">name</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">__reporter</span><span class="o">.</span><span class="n">verbose</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__verbose</span><span class="p">,</span> <span class="p">[</span><span class="sa">f</span><span class="s1">&#39;name </span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">])</span>
-
-<div class="viewcode-block" id="ATSName.is_name_not_none">
-<a class="viewcode-back" href="../../../ats_utilities.info.name.html#ats_utilities.info.name.ATSName.is_name_not_none">[docs]</a>
-    <span class="k">def</span> <span class="nf">is_name_not_none</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<div class="viewcode-block" id="Name.not_none">
+<a class="viewcode-back" href="../../../ats_utilities.info.name.html#ats_utilities.info.name.Name.not_none">[docs]</a>
+    <span class="nd">@vreporter</span><span class="p">(</span><span class="s1">&#39;check name </span><span class="si">{name}</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">not_none</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Checks is ATS name not None.</span>
 
-<span class="sd">            :return: True (ATS name is not None) | False</span>
+<span class="sd">            :return: True (success) | False (fail).</span>
 <span class="sd">            :rtype: &lt;bool&gt;</span>
-<span class="sd">            :exceptions: None</span>
+<span class="sd">            :exceptions: ATSRuntimeError, ATSAttributeError.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__name</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span></div>
-</div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_name</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span></div>
+
+
+    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">            Returns the ATS name as string representation.</span>
+
+<span class="sd">            :return: The ATS name as string representation.</span>
+<span class="sd">            :rtype: &lt;str&gt;</span>
+<span class="sd">            :exceptions: None..</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="n">format_instance_to_string</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div>
 
 </pre></div>
 

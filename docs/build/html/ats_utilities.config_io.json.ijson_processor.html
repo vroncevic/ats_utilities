@@ -64,7 +64,7 @@ See the GNU General Public License for more details.
 You should have received a copy of the GNU General Public License along
 with this program. If not, see &lt;<a class="reference external" href="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</a>&gt;.</p>
 </dd>
-<dt>Info</dt><dd><p>Defines abstract class IJSONProcessor with attribute(s) and method(s).
+<dt>Info</dt><dd><p>Defines abstract class IJSONProcessor with method(s).
 Creates an interface for processing JSON content.</p>
 </dd>
 </dl>
@@ -72,7 +72,7 @@ Creates an interface for processing JSON content.</p>
 <dt class="sig sig-object py" id="ats_utilities.config_io.json.ijson_processor.IJSONProcessor">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ats_utilities.config_io.json.ijson_processor.</span></span><span class="sig-name descname"><span class="pre">IJSONProcessor</span></span><a class="reference internal" href="_modules/ats_utilities/config_io/json/ijson_processor.html#IJSONProcessor"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.config_io.json.ijson_processor.IJSONProcessor" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">ABC</span></code></p>
-<p>Defines interface IJSONProcessor with attribute(s) and method(s).
+<p>Defines abstract class IJSONProcessor with method(s).
 Interface for processing JSON content.</p>
 <p>It defines:</p>
 <blockquote>
@@ -82,9 +82,10 @@ Interface for processing JSON content.</p>
 </dd>
 <dt class="field-even">methods<span class="colon">:</span></dt>
 <dd class="field-even"><div class="line-block">
-<div class="line">decode - Convert raw JSON text to an internal object/structure (abstract).</div>
-<div class="line">encode - Convert an internal object/structure back to a JSON string (abstract).</div>
-<div class="line">to_dict - Return data as a flat dictionary required for ATSInfo (abstract).</div>
+<div class="line">decode - Converts raw JSON text to an internal object/structure.</div>
+<div class="line">encode - Converts an internal object/structure back to a JSON string.</div>
+<div class="line">to_dict - Converts data as a flat dictionary.</div>
+<div class="line">__str__ - Returns the JSON processor as string representation.</div>
 </div>
 </dd>
 </dl>
@@ -97,19 +98,19 @@ Interface for processing JSON content.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="ats_utilities.config_io.json.ijson_processor.IJSONProcessor.decode">
 <em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">decode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">json_string</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="_modules/ats_utilities/config_io/json/ijson_processor.html#IJSONProcessor.decode"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.config_io.json.ijson_processor.IJSONProcessor.decode" title="Link to this definition">¶</a></dt>
-<dd><p>Convert raw JSON text to an internal object/structure.</p>
+<dd><p>Converts raw JSON text to an internal object/structure.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>json_string</strong> (<em>&lt;str&gt;</em>) – Raw JSON text</p>
+<dd class="field-odd"><p><strong>json_string</strong> (<em>&lt;str&gt;</em>) – Raw JSON text in string format</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>True (content decoded) | False</p>
+<dd class="field-even"><p>True (success) | False (fail)</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>&lt;bool&gt;</p>
 </dd>
 <dt class="field-even">Exceptions<span class="colon">:</span></dt>
-<dd class="field-even"><p>NotImplementedError</p>
+<dd class="field-even"><p>NotImplementedError.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -117,33 +118,33 @@ Interface for processing JSON content.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="ats_utilities.config_io.json.ijson_processor.IJSONProcessor.encode">
 <em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">encode</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="_modules/ats_utilities/config_io/json/ijson_processor.html#IJSONProcessor.encode"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.config_io.json.ijson_processor.IJSONProcessor.encode" title="Link to this definition">¶</a></dt>
-<dd><p>Convert an internal object/structure back to a JSON string.</p>
+<dd><p>Converts an internal object/structure back to a JSON string.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>JSON content as string</p>
+<dd class="field-odd"><p>JSON content in string format</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p>&lt;str&gt;</p>
 </dd>
 <dt class="field-odd">Exceptions<span class="colon">:</span></dt>
-<dd class="field-odd"><p>NotImplementedError</p>
+<dd class="field-odd"><p>NotImplementedError.</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="ats_utilities.config_io.json.ijson_processor.IJSONProcessor.to_dict">
-<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">to_dict</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/ats_utilities/config_io/json/ijson_processor.html#IJSONProcessor.to_dict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.config_io.json.ijson_processor.IJSONProcessor.to_dict" title="Link to this definition">¶</a></dt>
-<dd><p>Return data as a flat dictionary required for ATSInfo.</p>
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">to_dict</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/ats_utilities/config_io/json/ijson_processor.html#IJSONProcessor.to_dict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.config_io.json.ijson_processor.IJSONProcessor.to_dict" title="Link to this definition">¶</a></dt>
+<dd><p>Converts data as a flat dictionary.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Dictionary with JSON information</p>
+<dd class="field-odd"><p>Dictionary with JSON configuration</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>&lt;Dict[Any, Any]&gt;</p>
+<dd class="field-even"><p>&lt;dict[str, str]&gt;</p>
 </dd>
 <dt class="field-odd">Exceptions<span class="colon">:</span></dt>
-<dd class="field-odd"><p>NotImplementedError</p>
+<dd class="field-odd"><p>NotImplementedError.</p>
 </dd>
 </dl>
 </dd></dl>

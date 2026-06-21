@@ -16,26 +16,26 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines abstract class IATSTypeValidator with attribute(s) and method(s).
+    Defines abstract class ITypeValidator with method(s).
     Creates an interface for validating parameters for method(s) and function(s).
 '''
 
 from abc import ABC, abstractmethod
-from typing import Any, List
+from typing import Any
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
+__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.3.7'
+__version__: str = '3.3.8'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
 
 
-class IATSTypeValidator(ABC):
+class ITypeValidator(ABC):
     '''
-        Defines abstract class IATSTypeValidator with attribute(s) and method(s).
+        Defines abstract class ITypeValidator with method(s).
         Creates an interface for validating parameters for method(s) and function(s).
 
         It defines:
@@ -45,6 +45,7 @@ class IATSTypeValidator(ABC):
                 | is_match - Compares instance type with expected type name.
                 | is_subtype - Checks if instance is a subtype of expected type name.
                 | get_type_name - Returns the string representation of an instance type.
+                | __str__ - Returns the validator as string representation.
     '''
 
     @abstractmethod
@@ -58,7 +59,7 @@ class IATSTypeValidator(ABC):
             :type expected_type_name: <str>
             :return: True if the types match, False otherwise
             :rtype: <bool>
-            :exceptions: NotImplementedError
+            :exceptions: NotImplementedError.
         '''
         raise NotImplementedError("Method is_match() must be implemented.")
 
@@ -71,9 +72,9 @@ class IATSTypeValidator(ABC):
             :type inst: <Any>
             :param expected_type_name: The expected parent type name
             :type expected_type_name: <str>
-            :return: True if inst is a subtype, False otherwise
+            :return: True (is), False (not)
             :rtype: <bool>
-            :exceptions: NotImplementedError
+            :exceptions: NotImplementedError.
         '''
         raise NotImplementedError("Method is_subtype() must be implemented.")
 
@@ -86,6 +87,17 @@ class IATSTypeValidator(ABC):
             :type inst: <Any>
             :return: String name of the type
             :rtype: <str>
-            :exceptions: NotImplementedError
+            :exceptions: NotImplementedError.
         '''
         raise NotImplementedError("Method get_type_name() must be implemented.")
+
+    @abstractmethod
+    def __str__(self) -> str:
+        '''
+            Returns the validator as string representation.
+
+            :return: The validator as string representation.
+            :rtype: <str>
+            :exceptions: NotImplementedError.
+        '''
+        raise NotImplementedError("Method __str__() must be implemented.")

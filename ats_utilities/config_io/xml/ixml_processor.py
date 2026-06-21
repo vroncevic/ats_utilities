@@ -16,18 +16,17 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines interface IXMLProcessor with attribute(s) and method(s).
+    Defines abstract class IXMLProcessor with method(s).
     Interface for processing XML content.
 '''
 
 from abc import ABC, abstractmethod
-from typing import List, Dict
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
+__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.3.7'
+__version__: str = '3.3.8'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
@@ -35,49 +34,61 @@ __status__: str = 'Updated'
 
 class IXMLProcessor(ABC):
     '''
-        Defines interface IXMLProcessor with attribute(s) and method(s).
+        Defines abstract class IXMLProcessor with method(s).
         Interface for processing XML content.
 
         It defines:
 
             :attributes: None
             :methods:
-                | from_string - Load XML content from string (abstract).
-                | to_string - Convert XML content to string (abstract).
-                | get_ats_info - Get ATS information from XML (abstract).
+                | from_string - Loads XML content from string.
+                | to_string - Converts XML content to string.
+                | to_dict - Gets ATS information from XML.
+                | __str__ - Returns the XML processor as string representation.
     '''
 
     @abstractmethod
     def from_string(self, xml_content: str) -> bool:
         '''
-            Load XML content from string.
+            Loads XML content from string.
 
             :param xml_content: XML content as string
             :type xml_content: <str>
-            :return: True (content loaded) | False
+            :return: True (success) | False (fail)
             :rtype: <bool>
-            :exceptions: NotImplementedError
+            :exceptions: NotImplementedError.
         '''
         raise NotImplementedError("Method from_string() must be implemented.")
 
     @abstractmethod
     def to_string(self) -> str:
         '''
-            Convert XML content to string.
+            Converts XML content to string.
 
             :return: XML content as string
             :rtype: <str>
-            :exceptions: NotImplementedError
+            :exceptions: NotImplementedError.
         '''
         raise NotImplementedError("Method to_string() must be implemented.")
 
     @abstractmethod
-    def get_ats_info(self) -> Dict[str, str]:
+    def to_dict(self) -> dict[str, str]:
         '''
-            Get ATS information from XML.
+            Gets ATS information from XML.
 
             :return: Dictionary with ATS information
-            :rtype: <Dict[str, str]>
-            :exceptions: NotImplementedError
+            :rtype: <dict[str, str]>
+            :exceptions: NotImplementedError.
         '''
-        raise NotImplementedError("Method get_ats_info() must be implemented.")
+        raise NotImplementedError("Method to_dict() must be implemented.")
+
+    @abstractmethod
+    def __str__(self) -> str:
+        '''
+            Returns the XML processor as string representation.
+
+            :return: The XML processor as string representation.
+            :rtype: <str>
+            :exceptions: NotImplementedError.
+        '''
+        raise NotImplementedError("Method __str__() must be implemented.")

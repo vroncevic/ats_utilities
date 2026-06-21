@@ -54,28 +54,30 @@
 <span class="sd">    You should have received a copy of the GNU General Public License along</span>
 <span class="sd">    with this program. If not, see &lt;http://www.gnu.org/licenses/&gt;.</span>
 <span class="sd">Info</span>
-<span class="sd">    Defines class ATSCheckReporter with attribute(s) and method(s).</span>
+<span class="sd">    Defines class CheckReporter with attribute(s) and method(s).</span>
 <span class="sd">    Creates an API for checking parameters for methods and functions.</span>
 <span class="sd">&#39;&#39;&#39;</span>
 
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.checker.icheck_reporter</span> <span class="kn">import</span> <span class="n">IATSCheckReporter</span><span class="p">,</span> <span class="n">ParamMetadata</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.factory_class</span> <span class="kn">import</span> <span class="n">format_instance_to_string</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.checker.icheck_reporter</span> <span class="kn">import</span> <span class="n">ICheckReporter</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.checker.checker_reporter_bundle</span> <span class="kn">import</span> <span class="n">CheckerReporterBundle</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.exceptions.ats_value_error</span> <span class="kn">import</span> <span class="n">ATSValueError</span>
 
 <span class="n">__author__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;Vladimir Roncevic&#39;</span>
 <span class="n">__copyright__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;(C) 2026, https://vroncevic.github.io/ats_utilities&#39;</span>
-<span class="n">__credits__</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Vladimir Roncevic&#39;</span><span class="p">,</span> <span class="s1">&#39;Python Software Foundation&#39;</span><span class="p">]</span>
+<span class="n">__credits__</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Vladimir Roncevic&#39;</span><span class="p">,</span> <span class="s1">&#39;Python Software Foundation&#39;</span><span class="p">]</span>
 <span class="n">__license__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE&#39;</span>
-<span class="n">__version__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;3.3.7&#39;</span>
+<span class="n">__version__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;3.3.8&#39;</span>
 <span class="n">__maintainer__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;Vladimir Roncevic&#39;</span>
 <span class="n">__email__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;elektron.ronca@gmail.com&#39;</span>
 <span class="n">__status__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;Updated&#39;</span>
 
 
-<div class="viewcode-block" id="ATSCheckReporter">
-<a class="viewcode-back" href="../../../ats_utilities.checker.check_reporter.html#ats_utilities.checker.check_reporter.ATSCheckReporter">[docs]</a>
-<span class="k">class</span> <span class="nc">ATSCheckReporter</span><span class="p">(</span><span class="n">IATSCheckReporter</span><span class="p">):</span>
+<div class="viewcode-block" id="CheckReporter">
+<a class="viewcode-back" href="../../../ats_utilities.checker.check_reporter.html#ats_utilities.checker.check_reporter.CheckReporter">[docs]</a>
+<span class="k">class</span> <span class="nc">CheckReporter</span><span class="p">(</span><span class="n">ICheckReporter</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">        Defines class ATSCheckReporter with attribute(s) and method(s).</span>
+<span class="sd">        Defines class CheckReporter with attribute(s) and method(s).</span>
 <span class="sd">        Standard human-readable report formatter.</span>
 <span class="sd">        Mechanism for checking function or method parameters (report).</span>
 
@@ -84,40 +86,48 @@
 <span class="sd">            :attributes: None</span>
 <span class="sd">            :methods:</span>
 <span class="sd">                | build_message_format - Builds the final message report.</span>
+<span class="sd">                | __str__ - Returns the ATS check reporter as string representation.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
 
-<div class="viewcode-block" id="ATSCheckReporter.build_message_format">
-<a class="viewcode-back" href="../../../ats_utilities.checker.check_reporter.html#ats_utilities.checker.check_reporter.ATSCheckReporter.build_message_format">[docs]</a>
-    <span class="k">def</span> <span class="nf">build_message_format</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">parameters_meta</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">ParamMetadata</span><span class="p">],</span> <span class="n">err_indices</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="n">is_fmt_err</span><span class="p">:</span> <span class="nb">bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<div class="viewcode-block" id="CheckReporter.build_message_format">
+<a class="viewcode-back" href="../../../ats_utilities.checker.check_reporter.html#ats_utilities.checker.check_reporter.CheckReporter.build_message_format">[docs]</a>
+    <span class="k">def</span> <span class="nf">build_message_format</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">report_bundle</span><span class="p">:</span> <span class="n">CheckerReporterBundle</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">            Builds the final message report.</span>
+<span class="sd">            Builds the final message report for checker.</span>
 
-<span class="sd">            :param context: The context string from the stack</span>
-<span class="sd">            :type context: &lt;str&gt;</span>
-<span class="sd">            :param parameters_meta: Metadata about processed parameters</span>
-<span class="sd">            :type parameters_meta: &lt;List[ParamMetadata]&gt;</span>
-<span class="sd">            :param err_indices: Indices of parameters with errors</span>
-<span class="sd">            :type err_indices: &lt;List[int]&gt;</span>
-<span class="sd">            :param is_fmt_err: Flag indicating a format error occurred</span>
-<span class="sd">            :type is_fmt_err: &lt;bool&gt;</span>
-<span class="sd">            :return: Formatted message report</span>
+<span class="sd">            :param report_bundle: Bundle with parameters | None.</span>
+<span class="sd">            :type report_bundle: &lt;CheckerReporterBundle | None&gt;</span>
+<span class="sd">            :return: Formatted message report.</span>
 <span class="sd">            :rtype: &lt;str&gt;</span>
-<span class="sd">            :exceptions: None</span>
+<span class="sd">            :exceptions: ATSValueError.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="n">message</span> <span class="o">=</span> <span class="n">context</span>
-        <span class="n">err_set</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">err_indices</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">report_bundle</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">ATSValueError</span><span class="p">(</span><span class="s1">&#39;Missing parameters for build_message_format()&#39;</span><span class="p">)</span>
 
-        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">pname</span><span class="p">,</span> <span class="n">ptype</span><span class="p">,</span> <span class="n">inst</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">parameters_meta</span><span class="p">):</span>
+        <span class="n">message</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">report_bundle</span><span class="p">,</span> <span class="s1">&#39;context&#39;</span><span class="p">)</span>
+        <span class="n">err_set</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="nb">getattr</span><span class="p">(</span><span class="n">report_bundle</span><span class="p">,</span> <span class="s1">&#39;err_indices&#39;</span><span class="p">))</span>
+
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">pname</span><span class="p">,</span> <span class="n">ptype</span><span class="p">,</span> <span class="n">inst</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="nb">getattr</span><span class="p">(</span><span class="n">report_bundle</span><span class="p">,</span> <span class="s1">&#39;parameters_meta&#39;</span><span class="p">)):</span>
             <span class="n">message</span> <span class="o">+=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">    expected </span><span class="si">{</span><span class="n">pname</span><span class="si">}</span><span class="s1"> &lt;</span><span class="si">{</span><span class="n">ptype</span><span class="si">}</span><span class="s1">&gt; object at </span><span class="si">{</span><span class="nb">hex</span><span class="p">(</span><span class="nb">id</span><span class="p">(</span><span class="n">inst</span><span class="p">))</span><span class="si">}</span><span class="s1">&#39;</span>
 
             <span class="k">if</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">err_set</span><span class="p">:</span>
                 <span class="n">message</span> <span class="o">+=</span> <span class="s1">&#39; wrong type&#39;</span>
 
-        <span class="k">if</span> <span class="n">is_fmt_err</span> <span class="ow">or</span> <span class="n">err_indices</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">report_bundle</span><span class="p">,</span> <span class="s1">&#39;is_fmt_err&#39;</span><span class="p">):</span>
             <span class="n">message</span> <span class="o">+=</span> <span class="s1">&#39; format wrong during checking parameters_meta&#39;</span>
 
         <span class="k">return</span> <span class="n">message</span></div>
-</div>
+
+
+    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">            Returns the ATS check reporter as string representation.</span>
+
+<span class="sd">            :return: The ATS check reporter as string representation.</span>
+<span class="sd">            :rtype: &lt;str&gt;</span>
+<span class="sd">            :exceptions: None..</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="n">format_instance_to_string</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div>
 
 </pre></div>
 

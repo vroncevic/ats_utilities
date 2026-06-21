@@ -3,7 +3,7 @@
 
 '''
 Module
-    default_ini_processor.py
+    ini_processor.py
 Copyright
     Copyright (C) 2017 - 2026 Vladimir Roncevic <elektron.ronca@gmail.com>
     ats_utilities is free software: you can redistribute it and/or modify it
@@ -17,90 +17,118 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines class ATSINIProcessor with attribute(s) and method(s).
+    Defines class INIProcessor with attribute(s) and method(s).
     Default implementation for processing INI content.
 '''
+
+from typing import Any
 from configparser import ConfigParser, Error as ConfigParserError
-from typing import Any, Dict
 from ats_utilities.config_io.ini.iini_processor import IINIProcessor
+from ats_utilities.factory_class import format_instance_to_string
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.3.7'
+__version__: str = '3.3.8'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
 
 
-class ATSINIProcessor(IINIProcessor):
+class INIProcessor(IINIProcessor):
     '''
-        Defines class ATSINIProcessor with attribute(s) and method(s).
+        Defines class INIProcessor with attribute(s) and method(s).
         Default implementation for processing INI content.
 
         It defines:
 
             :attributes:
-                | __config - ConfigParser instance for INI parsing.
+                | _SECTION - Section name for ATS configuration.
+                | _NAME - Option name for ATS configuration.
+                | _VERSION - Option version for ATS configuration.
+                | _BUILD_DATE - Option build date for ATS configuration.
+                | _LICENCE - Option licence for ATS configuration.
+                | _config - ConfigParser instance for INI parsing.
             :methods:
-                | __init__ - Initializes ATSINIProcessor constructor.
-                | from_stream - Load INI content from a stream.
-                | to_stream - Write INI content to a stream.
-                | get_ats_info - Get ATS information from INI.
+                | __init__ - Initializes INIProcessor constructor.
+                | from_stream - Loads INI configuration from a stream.
+                | to_stream - Converts INI configuration to a stream.
+                | to_dict - Converts INI configuration to dictionary.
+                | __str__ - Returns the INIProcessor as string representation.
     '''
+
+    _SECTION: str = 'ats_info'
+    _NAME: str = 'ats_name'
+    _VERSION: str = 'ats_version'
+    _BUILD_DATE: str = 'ats_build_date'
+    _LICENCE: str = 'ats_licence'
 
     def __init__(self) -> None:
         '''
-            Initializes ATSINIProcessor constructor.
+            Initializes INIProcessor constructor.
+
+            :return: None.
+            :rtype: <None>
+            :exceptions: None..
         '''
-        self.__config = ConfigParser()
+        self._config = ConfigParser()
 
     def from_stream(self, stream: Any) -> bool:
         '''
-            Load INI content from a stream.
+            Loads INI configuration from a stream.
 
-            :param stream: INI content stream
+            :param stream: INI content stream.
             :type stream: <Any>
-            :return: True (content loaded) | False
+            :return: True (success) | False (fail).
             :rtype: <bool>
-            :exceptions: None
+            :exceptions: None..
         '''
         try:
-            self.__config.read_file(stream)
+            self._config.read_file(stream)
             return True
         except (OSError, ConfigParserError):
             return False
 
     def to_stream(self, stream: Any) -> bool:
         '''
-            Write INI content to a stream.
+            Converts INI configuration to a stream.
 
-            :param stream: INI content stream
+            :param stream: INI content stream.
             :type stream: <Any>
-            :return: True (content written) | False
+            :return: True (success) | False (fail).
             :rtype: <bool>
-            :exceptions: None
+            :exceptions: None..
         '''
         try:
-            self.__config.write(stream, space_around_delimiters=True)
+            self._config.write(stream, space_around_delimiters=True)
             return True
         except (OSError, ConfigParserError):
             return False
 
-    def get_ats_info(self) -> Dict[str, str]:
+    def to_dict(self) -> dict[str, str]:
         '''
-            Get ATS information from INI.
+            Converts INI configuration to dictionary.
 
-            :return: Dictionary with ATS information
-            :rtype: <Dict[str, str]>
-            :exceptions: None
+            :return: Dictionary with ATS information.
+            :rtype: <dict[str, str]>
+            :exceptions: None..
         '''
-        if not self.__config.has_section('ats_info'):
+        if not self._config.has_section(self._SECTION):
             return {}
         return {
-            'ats_name': str(self.__config.get('ats_info', 'ats_name', fallback='')),
-            'ats_version': str(self.__config.get('ats_info', 'ats_version', fallback='')),
-            'ats_build_date': str(self.__config.get('ats_info', 'ats_build_date', fallback='')),
-            'ats_licence': str(self.__config.get('ats_info', 'ats_licence', fallback='')),
+            self._NAME: str(self._config.get(self._SECTION, self._NAME, fallback='')),
+            self._VERSION: str(self._config.get(self._SECTION, self._VERSION, fallback='')),
+            self._BUILD_DATE: str(self._config.get(self._SECTION, self._BUILD_DATE, fallback='')),
+            self._LICENCE: str(self._config.get(self._SECTION, self._LICENCE, fallback=''))
         }
+
+    def __str__(self) -> str:
+        '''
+            Returns the INIProcessor as string representation.
+
+            :return: The INIProcessor as string representation.
+            :rtype: <str>
+            :exceptions: None..
+        '''
+        return format_instance_to_string(self)

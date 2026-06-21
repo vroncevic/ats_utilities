@@ -16,108 +16,134 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines class ATSXmlProcessor with attribute(s) and method(s).
+    Defines class XMLProcessor with attribute(s) and method(s).
     Default implementation for processing XML content.
 '''
 
 import xml.etree.ElementTree as ET
-from typing import Dict, List
 from ats_utilities.config_io.xml.ixml_processor import IXMLProcessor
+from ats_utilities.factory_class import format_instance_to_string
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
+__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.3.7'
+__version__: str = '3.3.8'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
 
 
-class ATSXmlProcessor(IXMLProcessor):
+class XMLProcessor(IXMLProcessor):
     '''
-        Defines class ATSXmlProcessor with attribute(s) and method(s).
+        Defines class XMLProcessor with attribute(s) and method(s).
         Default implementation for processing XML content.
 
         It defines:
 
             :attributes:
-                | __root - Root element of the XML document.
+                | _NAME - Option name for ATS configuration.
+                | _VERSION - Option version for ATS configuration.
+                | _BUILD_DATE - Option build date for ATS configuration.
+                | _LICENCE - Option licence for ATS configuration.
+                | _root - Root element of the XML document.
             :methods:
-                | __init__ - Initials ATSXmlProcessor constructor.
-                | from_string - Load XML content from string.
-                | to_string - Convert XML content to string.
-                | get_ats_info - Get ATS information from XML.
+                | __init__ - Initializes XMLProcessor constructor.
+                | from_string - Loads XML content from string.
+                | to_string - Converts XML content to string.
+                | to_dict - Gets ATS information from XML.
+                | _get_val - Internal helper for getting tag value.
+                | __str__ - Returns the XMLProcessor as string representation.
     '''
 
-    def __init__(self):
+    _NAME: str = 'ats_name'
+    _VERSION: str = 'ats_version'
+    _BUILD_DATE: str = 'ats_build_date'
+    _LICENCE: str = 'ats_licence'
+
+    def __init__(self) -> None:
         '''
-            Initials ATSXmlProcessor constructor.
+            Initializes XMLProcessor constructor.
+
+            :return: None.
+            :rtype: <None>
+            :exceptions: None..
         '''
-        self.__root = None
+        self._root = None
 
     def from_string(self, xml_content: str) -> bool:
         '''
-            Load XML content from string.
+            Loads XML content from string.
 
-            :param xml_content: XML content as string
+            :param xml_content: XML content as string.
             :type xml_content: <str>
-            :return: True (content loaded) | False
+            :return: True (success) | False (fail).
             :rtype: <bool>
-            :exceptions: None
+            :exceptions: None..
         '''
-        self.__root = ET.fromstring(xml_content)
+        self._root = ET.fromstring(xml_content)
 
         return True
 
     def to_string(self) -> str:
         '''
-            Convert XML content to string.
+            Converts XML content to string.
 
-            :return: XML content as string
+            :return: XML content as string.
             :rtype: <str>
-            :exceptions: None
+            :exceptions: None..
         '''
-        if self.__root is not None:
-            return ET.tostring(self.__root, encoding='utf-8').decode('utf-8')
+        if self._root is not None:
+            return ET.tostring(self._root, encoding='utf-8').decode('utf-8')
 
         return ""
 
-    def get_ats_info(self) -> Dict[str, str]:
+    def to_dict(self) -> dict[str, str]:
         '''
-            Get ATS information from XML.
+            Gets ATS information from XML.
 
-            :return: Dictionary with ATS information
-            :rtype: <Dict[str, str]>
-            :exceptions: None
+            :return: Dictionary with ATS information.
+            :rtype: <dict[str, str]>
+            :exceptions: None..
         '''
-        if self.__root is None:
+        if self._root is None:
             return {}
 
-        ats_info: Dict[str, str] = {
-            'ats_name': self.__get_val('ats_name'),
-            'ats_version': self.__get_val('ats_version'),
-            'ats_build_date': self.__get_val('ats_build_date'),
-            'ats_licence': self.__get_val('ats_licence')
+        ats_info: dict[str, str] = {
+            self._NAME: self._get_val(self._NAME),
+            self._VERSION: self._get_val(self._VERSION),
+            self._BUILD_DATE: self._get_val(self._BUILD_DATE),
+            self._LICENCE: self._get_val(self._LICENCE)
         }
 
         return ats_info
 
-    def __get_val(self, tag: str) -> str:
+    def _get_val(self, tag: str) -> str:
         '''
             Internal helper for getting tag value.
 
-            :param tag: XML tag name
+            :param tag: XML tag name.
             :type tag: <str>
-            :return: Tag value or empty string
+            :return: Tag value or empty string.
             :rtype: <str>
+            :exceptions: None..
         '''
-        if self.__root is None:
+        if self._root is None:
             return ""
 
-        node = self.__root.find(tag)
+        node = self._root.find(tag)
 
         if node is None:
             return ""
 
         return node.text if node.text is not None else ""
+
+    def __str__(self) -> str:
+        '''
+            Returns the XMLProcessor as string representation.
+
+            :return: The XMLProcessor as string representation.
+            :rtype: <str>
+            :exceptions: None..
+        '''
+        return format_instance_to_string(self)
