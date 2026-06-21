@@ -22,7 +22,6 @@ Execute
     python3 -m unittest -v ats_pro_name_test
 '''
 
-from typing import List, Optional
 from unittest import TestCase, main
 from ats_utilities.config_setup.pro_name import ProName
 from ats_utilities.reporter.ireporter import IReporter
@@ -31,7 +30,7 @@ from ats_utilities.exceptions.ats_type_error import ATSTypeError
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
+__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
 __version__: str = '3.3.8'
 __maintainer__: str = 'Vladimir Roncevic'
@@ -97,26 +96,26 @@ class ProNameTestCase(TestCase):
 
     def test_set_pro_name_empty(self) -> None:
         '''Sets empty name'''
-        empty_name: Optional[str] = ""
+        empty_name: str | None = ""
         self.ats_base_pro_name.pro_name = empty_name
         self.assertFalse(self.ats_base_pro_name.is_tool_ok())
 
     def test_set_pro_name_none(self) -> None:
         '''Sets None name'''
-        none_name: Optional[str] = None
+        none_name: str | None = None
         self.ats_base_pro_name.pro_name = none_name
         self.assertIsNone(self.ats_base_pro_name.pro_name)
         self.assertFalse(self.ats_base_pro_name.is_tool_ok())
 
     def test_set_pro_name(self) -> None:
         '''Sets simple project name'''
-        test_name: Optional[str] = "app_example"
+        test_name: str | None = "app_example"
         self.ats_base_pro_name.pro_name = test_name
         self.assertTrue(self.ats_base_pro_name.is_tool_ok())
 
     def test_get_pro_name(self) -> None:
         '''Gets simple project name'''
-        test_name: Optional[str] = "app_example"
+        test_name: str | None = "app_example"
         self.ats_base_pro_name.pro_name = test_name
         self.assertIsNotNone(self.ats_base_pro_name.pro_name)
 

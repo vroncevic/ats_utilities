@@ -20,13 +20,13 @@ Info
     Creates an API for handling parameter description format validation.
 '''
 
-from typing import List, Tuple, Final
+from typing import Final
 from ats_utilities.factory_class import format_instance_to_string
 from ats_utilities.checker.iformat_validator import IFormatValidator
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
+__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
 __version__: str = '3.3.8'
 __maintainer__: str = 'Vladimir Roncevic'
@@ -61,19 +61,19 @@ class FormatValidator(IFormatValidator):
             :type exp_type: <str>
             :return: True (success), False (fail).
             :rtype: <bool>
-            :exceptions: None.
+            :exceptions: None..
         '''
         return len(exp_type.split(sep=':')) == self.EXPECTED_FORMAT_PARTS
 
-    def split(self, exp_type: str) -> Tuple[str, str]:
+    def split(self, exp_type: str) -> tuple[str, str]:
         '''
             Splits the format string into type and name parts.
 
             :param exp_type: The format string to split.
             :type exp_type: <str>
             :return: A tuple containing the split components.
-            :rtype: <Tuple[str, str]>
-            :exceptions: None.
+            :rtype: <tuple[str, str]>
+            :exceptions: None..
         '''
         parts = exp_type.split(sep=':')
         return parts[0], parts[1]
@@ -84,6 +84,6 @@ class FormatValidator(IFormatValidator):
 
             :return: The ATS format validator as string representation.
             :rtype: <str>
-            :exceptions: None.
+            :exceptions: None..
         '''
         return format_instance_to_string(self)

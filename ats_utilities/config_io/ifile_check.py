@@ -21,11 +21,10 @@ Info
 '''
 
 from abc import ABC, abstractmethod
-from typing import List, Optional
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
+__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
 __version__: str = '3.3.8'
 __maintainer__: str = 'Vladimir Roncevic'
@@ -51,41 +50,41 @@ class IFileCheck(ABC):
                 | __str__ - Returns the IFileCheck as string representation.
     '''
 
-    MODES: List[str] = ['r', 'w', 'a', 'b', 'x', 't', '+']
-    TRUSTED_EXTENSIONS: List[str] = ['makefile']
+    MODES: list[str] = ['r', 'w', 'a', 'b', 'x', 't', '+']
+    TRUSTED_EXTENSIONS: list[str] = ['makefile']
 
     @abstractmethod
-    def check_path(self, file_path: Optional[str]) -> None:
+    def check_path(self, file_path: str | None) -> None:
         '''
             Checks file path in string format.
 
             :param file_path: File path in string format | None.
-            :type file_path: <Optional[str]>
-            :exceptions: NotImplementedError.
+            :type file_path: <str | None>
+            :exceptions: NotImplementedError..
         '''
         raise NotImplementedError("Method check_path() must be implemented.")
 
     @abstractmethod
-    def check_mode(self, file_mode: Optional[str]) -> None:
+    def check_mode(self, file_mode: str | None) -> None:
         '''
             Checks file mode in string format.
 
             :param file_mode: File mode in string format | None.
-            :type file_mode: <Optional[str]>
-            :exceptions: NotImplementedError.
+            :type file_mode: <str | None>
+            :exceptions: NotImplementedError..
         '''
         raise NotImplementedError("Method check_mode() must be implemented.")
 
     @abstractmethod
-    def check_format(self, file_path: Optional[str], file_format: Optional[str]) -> None:
+    def check_format(self, file_path: str | None, file_format: str | None) -> None:
         '''
             Checks file format by extension.
 
             :param file_path: File path in string format | None.
-            :type file_path: <Optional[str]>
+            :type file_path: <str | None>
             :param file_format: File format in string format (extension) | None.
-            :type file_format: <Optional[str]>
-            :exceptions: NotImplementedError.
+            :type file_format: <str | None>
+            :exceptions: NotImplementedError..
         '''
         raise NotImplementedError("Method check_format() must be implemented.")
 
@@ -96,7 +95,7 @@ class IFileCheck(ABC):
 
             :return: True (success) | False (fail).
             :rtype: <bool>
-            :exceptions: NotImplementedError.
+            :exceptions: NotImplementedError..
         '''
         raise NotImplementedError("Method is_file_ok() must be implemented.")
 
@@ -107,6 +106,6 @@ class IFileCheck(ABC):
 
             :return: The IFileCheck as string representation.
             :rtype: <str>
-            :exceptions: NotImplementedError.
+            :exceptions: NotImplementedError..
         '''
         raise NotImplementedError("Method __str__() must be implemented.")

@@ -21,11 +21,11 @@ Info
 '''
 
 from abc import ABC, abstractmethod
-from typing import Any, Dict, List, Optional
+from typing import Any
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
+__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
 __version__: str = '3.3.8'
 __maintainer__: str = 'Vladimir Roncevic'
@@ -49,25 +49,25 @@ class ISplashProperty(ABC):
 
     @property
     @abstractmethod
-    def splash_property(self) -> Optional[Dict[Any, Any]]:
+    def splash_property(self) -> dict[Any, Any] | None:
         '''
             Property method for getting splash screen property.
 
             :return: Formatted splash screen property in dict format | None.
-            :rtype: <Optional[Dict[Any, Any]]>
-            :exceptions: NotImplementedError
+            :rtype: <dict[Any, Any] | None>
+            :exceptions: NotImplementedError.
         '''
         raise NotImplementedError("Method splash_property() must be implemented.")
 
     @splash_property.setter
     @abstractmethod
-    def splash_property(self, splash_property_setup: Optional[Dict[Any, Any]]) -> None:
+    def splash_property(self, splash_property_setup: dict[Any, Any] | None) -> None:
         '''
             Property method for setting project splash screen property.
 
             :param splash_property_setup: Project splash screen property in dict format | None.
-            :type splash_property_setup: <Optional[Dict[Any, Any]]>
-            :exceptions: NotImplementedError
+            :type splash_property_setup: <dict[Any, Any] | None>
+            :exceptions: NotImplementedError.
         '''
         raise NotImplementedError("Method splash_property() must be implemented.")
 
@@ -78,7 +78,7 @@ class ISplashProperty(ABC):
 
             :return: True (success) else False (fail).
             :rtype: <bool>
-            :exceptions: NotImplementedError
+            :exceptions: NotImplementedError.
         '''
         raise NotImplementedError("Method validates() must be implemented.")
 
@@ -89,6 +89,6 @@ class ISplashProperty(ABC):
 
             :return: The splash screen property as string representation.
             :rtype: <str>
-            :exceptions: NotImplementedError
+            :exceptions: NotImplementedError.
         '''
         raise NotImplementedError("Method __str__() must be implemented.")

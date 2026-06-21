@@ -21,12 +21,12 @@ Info
 '''
 
 from abc import ABC, abstractmethod
-from typing import ClassVar, List, Optional, Protocol
+from typing import ClassVar, Protocol
 from enum import Enum, EnumMeta
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
+__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
 __version__: str = '3.3.8'
 __maintainer__: str = 'Vladimir Roncevic'
@@ -130,17 +130,17 @@ class ILogger(ABC):
     LOG_LEVELS: ClassVar[EnumMeta] = LogLevels
 
     @abstractmethod
-    def write_log(self, message: Optional[str], ctrl: int) -> bool:
+    def write_log(self, message: str | None, ctrl: int) -> bool:
         '''
             Writes message to log output.
 
             :param message: Log message for log output | None
-            :type message: <Optional[str]>
+            :type message: <str | None>
             :param ctrl: Control flag (debug, warning, critical, errors, info)
             :type ctrl: <int>
             :return: True (success) | False (fail)
             :rtype: <bool>
-            :exceptions: NotImplementedError
+            :exceptions: NotImplementedError.
         '''
         raise NotImplementedError("Method write_log() must be implemented.")
 
@@ -151,7 +151,7 @@ class ILogger(ABC):
 
             :return: True (success) | False (fail)
             :rtype: <bool>
-            :exceptions: NotImplementedError
+            :exceptions: NotImplementedError.
         '''
         raise NotImplementedError("Method ok() must be implemented.")
 
@@ -162,6 +162,6 @@ class ILogger(ABC):
 
             :return: The ATS logger as string representation.
             :rtype: <str>
-            :exceptions: NotImplementedError
+            :exceptions: NotImplementedError.
         '''
         raise NotImplementedError("Method __str__() must be implemented.")

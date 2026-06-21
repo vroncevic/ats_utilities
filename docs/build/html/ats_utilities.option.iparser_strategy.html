@@ -104,12 +104,12 @@ Allows third-party parsers to be injected from the outside.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>args</strong> (<em>&lt;str&gt;</em>) – Arguments in string form</p></li>
+<li><p><strong>args</strong> (<em>&lt;str&gt;</em>) – Arguments in string format.</p></li>
 <li><p><strong>kwargs</strong> (<em>&lt;Any&gt;</em>) – Arguments in Any form</p></li>
 </ul>
 </dd>
 <dt class="field-even">Exceptions<span class="colon">:</span></dt>
-<dd class="field-even"><p>NotImplementedError</p>
+<dd class="field-even"><p>NotImplementedError.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -120,10 +120,10 @@ Allows third-party parsers to be injected from the outside.</p>
 <dd><p>Adds a version display option to the parser.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>version</strong> (<em>&lt;Optional</em><em>[</em><em>str</em><em>]</em><em>&gt;</em>) – The ATS version in string format | None</p>
+<dd class="field-odd"><p><strong>version</strong> (<em>&lt;str</em><em> | </em><em>None&gt;</em>) – The ATS version in string format | None.</p>
 </dd>
 <dt class="field-even">Exceptions<span class="colon">:</span></dt>
-<dd class="field-even"><p>NotImplementedError</p>
+<dd class="field-even"><p>NotImplementedError.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -134,13 +134,13 @@ Allows third-party parsers to be injected from the outside.</p>
 <dd><p>Checks if parser strategy component is ok.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>True (success) | False (fail)</p>
+<dd class="field-odd"><p>True (success) | False (fail).</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p>&lt;bool&gt;</p>
 </dd>
 <dt class="field-odd">Exceptions<span class="colon">:</span></dt>
-<dd class="field-odd"><p>NotImplementedError</p>
+<dd class="field-odd"><p>NotImplementedError.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -152,32 +152,32 @@ Allows third-party parsers to be injected from the outside.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>arguments</strong> (<em>&lt;OptArgs&gt;</em>) – Sequence of arguments | None</p></li>
-<li><p><strong>known_only</strong> (<em>&lt;bool&gt;</em>) – Parse only known arguments</p></li>
+<li><p><strong>arguments</strong> (<em>&lt;OptArgs&gt;</em>) – Sequence of arguments | None.</p></li>
+<li><p><strong>known_only</strong> (<em>&lt;bool&gt;</em>) – Parse only known arguments.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>Option namespace object</p>
+<dd class="field-even"><p>Option namespace object.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>&lt;OptionNamespace&gt;</p>
 </dd>
 <dt class="field-even">Exceptions<span class="colon">:</span></dt>
-<dd class="field-even"><p>NotImplementedError</p>
+<dd class="field-even"><p>NotImplementedError.</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="ats_utilities.option.iparser_strategy.IParserStrategy.setup">
-<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">setup</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parameters</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/ats_utilities/option/iparser_strategy.html#IParserStrategy.setup"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.option.iparser_strategy.IParserStrategy.setup" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">setup</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parameters</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/ats_utilities/option/iparser_strategy.html#IParserStrategy.setup"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.option.iparser_strategy.IParserStrategy.setup" title="Link to this definition">¶</a></dt>
 <dd><p>Initializes the underlying parser with metadata parameters.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>parameters</strong> (<em>&lt;Dict</em><em>[</em><em>str</em><em>, </em><em>str</em><em>]</em><em>&gt;</em>) – Parameters for logger in dict format</p>
+<dd class="field-odd"><p><strong>parameters</strong> (<em>&lt;dict</em><em>[</em><em>str</em><em>, </em><em>str</em><em>]</em><em>&gt;</em>) – Parameters for logger in dict format.</p>
 </dd>
 <dt class="field-even">Exceptions<span class="colon">:</span></dt>
-<dd class="field-even"><p>NotImplementedError</p>
+<dd class="field-even"><p>NotImplementedError.</p>
 </dd>
 </dl>
 </dd></dl>

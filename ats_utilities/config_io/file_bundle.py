@@ -21,11 +21,10 @@ Info
 '''
 
 from dataclasses import dataclass
-from typing import List, Optional
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
+__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
 __version__: str = '3.3.8'
 __maintainer__: str = 'Vladimir Roncevic'
@@ -52,9 +51,9 @@ class ATSFileBundle:
                 | to_dict - Converts the bundle attributes to a dictionary.
     '''
 
-    file_path: Optional[str] = None
-    file_mode: Optional[str] = None
-    file_format: Optional[str] = None
+    file_path: str | None = None
+    file_mode: str | None = None
+    file_format: str | None = None
 
     def validate(self) -> None:
         '''
@@ -62,7 +61,7 @@ class ATSFileBundle:
 
             :return: None.
             :rtype: <None>
-            :exceptions: None.
+            :exceptions: None..
         '''
         pass
 
@@ -74,7 +73,7 @@ class ATSFileBundle:
             :type other: <ATSFileBundle>
             :return: None.
             :rtype: <None>
-            :exceptions: None.
+            :exceptions: None..
         '''
         for field_name in self.__dataclass_fields__:
             other_value = getattr(other, field_name)
@@ -87,7 +86,7 @@ class ATSFileBundle:
 
             :return: Dictionary representation of the bundle attributes.
             :rtype: <dict>
-            :exceptions: None.
+            :exceptions: None..
         '''
         return {
             name: value

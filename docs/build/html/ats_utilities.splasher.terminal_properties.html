@@ -78,10 +78,10 @@ Creates an API for getting terminal properties.</p>
 <div><dl class="field-list">
 <dt class="field-odd">attributes<span class="colon">:</span></dt>
 <dd class="field-odd"><div class="line-block">
-<div class="line">__checker - Factoriezed parameters checker (default Checker).</div>
-<div class="line">__reporter - Factoriezed reporter for messaging (default Reporter).</div>
-<div class="line">__verbose - Factoriezed Enable/Disable verbose option (default False).</div>
-<div class="line">__window_size - Terminal window size.</div>
+<div class="line">_checker - Factoriezed parameters checker (default Checker).</div>
+<div class="line">_reporter - Factoriezed reporter for messaging (default Reporter).</div>
+<div class="line">_verbose - Factoriezed Enable/Disable verbose option (default False).</div>
+<div class="line">_window_size - Terminal window size.</div>
 </div>
 </dd>
 <dt class="field-even">methods<span class="colon">:</span></dt>
@@ -100,20 +100,35 @@ Creates an API for getting terminal properties.</p>
 <span class="sig-name descname"><span class="pre">_abc_impl</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;_abc._abc_data</span> <span class="pre">object&gt;</span></em><a class="headerlink" href="#ats_utilities.splasher.terminal_properties.TerminalProperties._abc_impl" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ats_utilities.splasher.terminal_properties.TerminalProperties._checker">
+<span class="sig-name descname"><span class="pre">_checker</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="ats_utilities.checker.ichecker.html#ats_utilities.checker.ichecker.IChecker" title="ats_utilities.checker.ichecker.IChecker"><span class="pre">IChecker</span></a></em><a class="headerlink" href="#ats_utilities.splasher.terminal_properties.TerminalProperties._checker" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ats_utilities.splasher.terminal_properties.TerminalProperties._reporter">
+<span class="sig-name descname"><span class="pre">_reporter</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="ats_utilities.reporter.ireporter.html#ats_utilities.reporter.ireporter.IReporter" title="ats_utilities.reporter.ireporter.IReporter"><span class="pre">IReporter</span></a></em><a class="headerlink" href="#ats_utilities.splasher.terminal_properties.TerminalProperties._reporter" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ats_utilities.splasher.terminal_properties.TerminalProperties._verbose">
+<span class="sig-name descname"><span class="pre">_verbose</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#ats_utilities.splasher.terminal_properties.TerminalProperties._verbose" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
 <dl class="py method">
 <dt class="sig sig-object py" id="ats_utilities.splasher.terminal_properties.TerminalProperties.ioctl_for_all_descriptors">
 <span class="sig-name descname"><span class="pre">ioctl_for_all_descriptors</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/ats_utilities/splasher/terminal_properties.html#TerminalProperties.ioctl_for_all_descriptors"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.splasher.terminal_properties.TerminalProperties.ioctl_for_all_descriptors" title="Link to this definition">¶</a></dt>
 <dd><p>Sets size for all file descriptors.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Exceptions<span class="colon">:</span></dt>
-<dd class="field-odd"><p>RuntimeError, AttributeError</p>
+<dd class="field-odd"><p>ATSRuntimeError, ATSAttributeError</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="ats_utilities.splasher.terminal_properties.TerminalProperties.ioctl_get_window_size">
-<span class="sig-name descname"><span class="pre">ioctl_get_window_size</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_descriptor</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/ats_utilities/splasher/terminal_properties.html#TerminalProperties.ioctl_get_window_size"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.splasher.terminal_properties.TerminalProperties.ioctl_get_window_size" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">ioctl_get_window_size</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_descriptor</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/ats_utilities/splasher/terminal_properties.html#TerminalProperties.ioctl_get_window_size"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.splasher.terminal_properties.TerminalProperties.ioctl_get_window_size" title="Link to this definition">¶</a></dt>
 <dd><p>Gets size for file descriptor.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -123,27 +138,27 @@ Creates an API for getting terminal properties.</p>
 <dd class="field-even"><p>Window size of terminal.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>&lt;Tuple[Any, …]&gt;</p>
+<dd class="field-odd"><p>&lt;tuple[Any, …]&gt;</p>
 </dd>
 <dt class="field-even">Exceptions<span class="colon">:</span></dt>
-<dd class="field-even"><p>ATSTypeError, ATSValueError, RuntimeError, AttributeError</p>
+<dd class="field-even"><p>ATSTypeError, ATSValueError, ATSRuntimeError, ATSAttributeError.</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="ats_utilities.splasher.terminal_properties.TerminalProperties.size">
-<span class="sig-name descname"><span class="pre">size</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/ats_utilities/splasher/terminal_properties.html#TerminalProperties.size"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.splasher.terminal_properties.TerminalProperties.size" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">size</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/ats_utilities/splasher/terminal_properties.html#TerminalProperties.size"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.splasher.terminal_properties.TerminalProperties.size" title="Link to this definition">¶</a></dt>
 <dd><p>Gets terminal window size.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Terminal window size.</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>&lt;Tuple[Any, …]&gt;</p>
+<dd class="field-even"><p>&lt;tuple[Any, …]&gt;</p>
 </dd>
 <dt class="field-odd">Exceptions<span class="colon">:</span></dt>
-<dd class="field-odd"><p>RuntimeError, AttributeError</p>
+<dd class="field-odd"><p>ATSRuntimeError, ATSAttributeError</p>
 </dd>
 </dl>
 </dd></dl>
@@ -165,6 +180,9 @@ Creates an API for getting terminal properties.</p>
 <li><a class="reference internal" href="#">ats_utilities.splasher.terminal_properties module</a><ul>
 <li><a class="reference internal" href="#ats_utilities.splasher.terminal_properties.TerminalProperties"><code class="docutils literal notranslate"><span class="pre">TerminalProperties</span></code></a><ul>
 <li><a class="reference internal" href="#ats_utilities.splasher.terminal_properties.TerminalProperties._abc_impl"><code class="docutils literal notranslate"><span class="pre">TerminalProperties._abc_impl</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.splasher.terminal_properties.TerminalProperties._checker"><code class="docutils literal notranslate"><span class="pre">TerminalProperties._checker</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.splasher.terminal_properties.TerminalProperties._reporter"><code class="docutils literal notranslate"><span class="pre">TerminalProperties._reporter</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.splasher.terminal_properties.TerminalProperties._verbose"><code class="docutils literal notranslate"><span class="pre">TerminalProperties._verbose</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.splasher.terminal_properties.TerminalProperties.ioctl_for_all_descriptors"><code class="docutils literal notranslate"><span class="pre">TerminalProperties.ioctl_for_all_descriptors()</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.splasher.terminal_properties.TerminalProperties.ioctl_get_window_size"><code class="docutils literal notranslate"><span class="pre">TerminalProperties.ioctl_get_window_size()</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.splasher.terminal_properties.TerminalProperties.size"><code class="docutils literal notranslate"><span class="pre">TerminalProperties.size()</span></code></a></li>

@@ -20,7 +20,8 @@ Info
     Creates an API for the ATS logging mechanism.
 '''
 
-from typing import Any, ClassVar, List, Dict, Optional, Callable, Protocol
+from collections.abc import Callable
+from typing import Any, ClassVar, Protocol
 from enum import Enum
 from logging import (
     getLogger, basicConfig, Logger, DEBUG, WARNING, CRITICAL, ERROR, INFO
@@ -28,6 +29,7 @@ from logging import (
 from ats_utilities.logging.ilogger import ILogger, LogFormats
 from ats_utilities.context_bundle import ContextBundle
 from ats_utilities.logging.logger_bundle import LoggerBundle
+from ats_utilities.checker.ichecker import IChecker
 from ats_utilities.reporter.ireporter import IReporter
 from ats_utilities.checker.proxy_validator import validator
 from ats_utilities.factory_context_bundle import factory_context_bundle
@@ -35,7 +37,7 @@ from ats_utilities.factory_class import get_private_attr, format_instance_to_str
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
+__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
 __version__: str = '3.3.8'
 __maintainer__: str = 'Vladimir Roncevic'
@@ -100,79 +102,82 @@ class ATSLogger(ILogger):
                 | ATS_LOG_WARNING - Warning log level (redefinition).
                 | ATS_LOG_ERROR - Error log level (redefinition).
                 | ATS_LOG_CRITICAL - Critical log level (redefinition).
-                | __logger_name - ATS name.
-                | __log_stdout - Logging to stdout (default).
-                | __log_file - Logging to file.
-                | __checker - Factoriezed parameters checker (default Checker).
-                | __reporter - Factoriezed reporter for messaging (default Reporter).
-                | __verbose - Factoriezed Enable/Disable verbose option (default False).
-                | __logger - Python Logger instance.
+                | _logger_name - ATS name.
+                | _log_stdout - Logging to stdout (default).
+                | _log_file - Logging to file.
+                | _checker - Factoriezed parameters checker (default Checker).
+                | _reporter - Factoriezed reporter for messaging (default Reporter).
+                | _verbose - Factoriezed Enable/Disable verbose option (default False).
+                | _logger - Python Logger instance.
                 | 
             :methods:
                 | __init__ - Initials ATSLogger constructor.
                 | write_log - Writes message to log.
-                | _reporter - Property method for getting the internal reporter instance.
                 | __str__ - Returns the string representation of ATS logger.
     '''
 
     LOG_FORMATS: ClassVar[type[LogFormats]] = LogFormats
     LOG_LEVELS: ClassVar[type[ATSLogLevels]] = ATSLogLevels
 
+    _checker: IChecker
+    _reporter: IReporter
+    _verbose: bool
+
     def __init__(
-        self, logger_bundle: Optional[LoggerBundle] = None, context_bundle: Optional[ContextBundle] = None
+        self, logger_bundle: LoggerBundle | None = None, context_bundle: ContextBundle | None = None
     ) -> None:
         '''
             Initializes ATSLogger constructor.
 
             :param logger_bundle: Logger bundle with parameters | None.
-            :type logger_bundle: <Optional[LoggerBundle]>
+            :type logger_bundle: <LoggerBundle | None>
             :param context_bundle: Context bundle for logger | None.
-            :type context_bundle: <Optional[ContextBundle]>
-            :exceptions: None
+            :type context_bundle: <ContextBundle | None>
+            :exceptions: None.
         '''
         # No dependency injection then use default ones.
         factory_context_bundle(self, context_bundle)
         bundle: LoggerBundle = logger_bundle or LoggerBundle()
-        self.__logger_name: Optional[str] = bundle.name
-        self.__log_stdout: bool = bundle.log_stdout
-        self.__log_file: Optional[str] = bundle.log_file
+        self._logger_name: str | None = bundle.name
+        self._log_stdout: bool = bundle.log_stdout
+        self._log_file: str | None = bundle.log_file
 
         if bundle.configure_logging and not getLogger().hasHandlers():
-            log_config: Dict[str, Any] = {
+            log_config: dict[str, Any] = {
                 'format': self.LOG_FORMATS.ATS_LOG_MSG_FORMAT,
                 'datefmt': self.LOG_FORMATS.ATS_LOG_DATE_FORMAT,
                 'level': DEBUG
             }
-            if self.__log_stdout and self.__log_file:
+            if self._log_stdout and self._log_file:
                 # Force logging to file in case file name is provided
-                self.__log_stdout = False
-            if self.__log_file and not self.__log_stdout:
-                log_config['filename'] = self.__log_file
+                self._log_stdout = False
+            if self._log_file and not self._log_stdout:
+                log_config['filename'] = self._log_file
             basicConfig(**log_config)
 
-        self.__logger: Logger = getLogger(self.__logger_name)
-        self.__log_methods: Dict[int, Callable[..., None]] = {
-            self.LOG_LEVELS.ATS_LOG_DEBUG: self.__logger.debug,
-            self.LOG_LEVELS.ATS_LOG_INFO: self.__logger.info,
-            self.LOG_LEVELS.ATS_LOG_WARNING: self.__logger.warning,
-            self.LOG_LEVELS.ATS_LOG_ERROR: self.__logger.error,
-            self.LOG_LEVELS.ATS_LOG_CRITICAL: self.__logger.critical,
+        self._logger: Logger = getLogger(self._logger_name)
+        self._log_methods: dict[int, Callable[..., None]] = {
+            self.LOG_LEVELS.ATS_LOG_DEBUG: self._logger.debug,
+            self.LOG_LEVELS.ATS_LOG_INFO: self._logger.info,
+            self.LOG_LEVELS.ATS_LOG_WARNING: self._logger.warning,
+            self.LOG_LEVELS.ATS_LOG_ERROR: self._logger.error,
+            self.LOG_LEVELS.ATS_LOG_CRITICAL: self._logger.critical,
         }
 
-    @validator([('Optional[str]:message', None), ('int:ctrl', None)])
-    def write_log(self, message: Optional[str], ctrl: int) -> bool:
+    @validator([('str | None:message', None), ('int:ctrl', None)])
+    def write_log(self, message: str | None, ctrl: int) -> bool:
         '''
             Writes message to log.
 
             :param message: Log message in string format for log | None.
-            :type message: <Optional[str]>
+            :type message: <str | None>
             :param ctrl: Control flag (debug, warning, critical, errors, info).
             :type ctrl: <int>
             :return: True (success) | False (fail).
             :rtype: <bool>
             :exceptions: ATSTypeError by validates_parameters
         '''
-        log_call = self.__log_methods.get(ctrl)
+        log_call = self._log_methods.get(ctrl)
 
         if log_call:
             log_call(message)
@@ -187,20 +192,10 @@ class ATSLogger(ILogger):
 
             :return: True (success) | False (fail)
             :rtype: <bool>
-            :exceptions: None.
+            :exceptions: None..
         '''
-        return self.__logger.isEnabledFor(INFO)
+        return self._logger.isEnabledFor(INFO)
 
-    @property
-    def _reporter(self) -> IReporter:
-        '''
-            Property method for getting the internal reporter instance.
-
-            :return: The reporter instance in IReporter format.
-            :rtype: <IReporter>
-            :exceptions: None
-        '''
-        return get_private_attr(self, 'reporter')
 
     def __str__(self) -> str:
         '''
@@ -208,6 +203,6 @@ class ATSLogger(ILogger):
 
             :return: The ATS logger as string representation.
             :rtype: <str>
-            :exceptions: None
+            :exceptions: None.
         '''
         return format_instance_to_string(self)

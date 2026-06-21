@@ -20,9 +20,10 @@ Info
     Creates an API for the ATS name in one property object.
 '''
 
-from typing import List, Optional
 from ats_utilities.info.iname import IName
 from ats_utilities.context_bundle import ContextBundle
+from ats_utilities.checker.ichecker import IChecker
+from ats_utilities.reporter.ireporter import IReporter
 from ats_utilities.factory_context_bundle import factory_context_bundle
 from ats_utilities.factory_class import format_instance_to_string
 from ats_utilities.checker.proxy_validator import validator
@@ -30,7 +31,7 @@ from ats_utilities.reporter.proxy_reporter import vreporter
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
+__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
 __version__: str = '3.3.8'
 __maintainer__: str = 'Vladimir Roncevic'
@@ -46,10 +47,10 @@ class Name(IName):
         It defines:
 
             :attributes:
-                | __checker - Factoriezed parameters checker (default Checker).
-                | __reporter - Factoriezed reporter for messaging (default Reporter).
-                | __verbose - Factoriezed Enable/Disable verbose option (default False).
-                | __name - The ATS name (default None).
+                | _checker - Factoriezed parameters checker (default Checker).
+                | _reporter - Factoriezed reporter for messaging (default Reporter).
+                | _verbose - Factoriezed Enable/Disable verbose option (default False).
+                | _name - The ATS name (default None).
             :methods:
                 | __init__ - Initializes Name constructor.
                 | name - Property methods for set/get name.
@@ -57,43 +58,47 @@ class Name(IName):
                 | __str__ - Returns the ATS name as string representation.
     '''
 
-    def __init__(self, context_bundle: Optional[ContextBundle] = None) -> None:
+    _checker: IChecker
+    _reporter: IReporter
+    _verbose: bool
+
+    def __init__(self, context_bundle: ContextBundle | None = None) -> None:
         '''
             Initializes Name constructor.
 
             :param context_bundle: Context bundle for name | None.
-            :type context_bundle: <Optional[ContextBundle]>
-            :exceptions: None.
+            :type context_bundle: <ContextBundle | None>
+            :exceptions: None..
         '''
         factory_context_bundle(self, context_bundle)
-        self.__name: Optional[str] = None
+        self._name: str | None = None
 
     @property
     @vreporter('get name {name}')
-    def name(self) -> Optional[str]:
+    def name(self) -> str | None:
         '''
             Property method for getting ATS name.
 
             :return: The ATS name in string format | None.
-            :rtype: <Optional[str]>
-            :exceptions: RuntimeError, AttributeError.
+            :rtype: <str | None>
+            :exceptions: ATSRuntimeError, ATSAttributeError.
         '''
-        return self.__name
+        return self._name
 
     @name.setter
-    @validator([('Optional[str]:name', None)])
+    @validator([('str | None:name', None)])
     @vreporter('set name {name}')
-    def name(self, name: Optional[str]) -> None:
+    def name(self, name: str | None) -> None:
         '''
             Property method for setting ATS name.
 
             :param name: The ATS name in string format | None.
-            :type name: <Optional[str]>
+            :type name: <str | None>
             :exceptions:
                 | ATSTypeError, ATSValueError, RuntimeError, AttributeError.
                 | RuntimeError, AttributeError.
         '''
-        self.__name = name
+        self._name = name
 
     @vreporter('check name {name}')
     def not_none(self) -> bool:
@@ -102,9 +107,9 @@ class Name(IName):
 
             :return: True (success) | False (fail).
             :rtype: <bool>
-            :exceptions: RuntimeError, AttributeError.
+            :exceptions: ATSRuntimeError, ATSAttributeError.
         '''
-        return self.__name is not None
+        return self._name is not None
 
     def __str__(self) -> str:
         '''
@@ -112,6 +117,6 @@ class Name(IName):
 
             :return: The ATS name as string representation.
             :rtype: <str>
-            :exceptions: None.
+            :exceptions: None..
         '''
         return format_instance_to_string(self)

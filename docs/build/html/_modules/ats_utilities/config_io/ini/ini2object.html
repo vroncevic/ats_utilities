@@ -58,9 +58,10 @@
 <span class="sd">    Creates an API for reading configuration from an INI file.</span>
 <span class="sd">&#39;&#39;&#39;</span>
 
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.config_io.iread</span> <span class="kn">import</span> <span class="n">IRead</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.context_bundle</span> <span class="kn">import</span> <span class="n">ContextBundle</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.checker.ichecker</span> <span class="kn">import</span> <span class="n">IChecker</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.reporter.ireporter</span> <span class="kn">import</span> <span class="n">IReporter</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.config_io.conf_file</span> <span class="kn">import</span> <span class="n">ConfFile</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.config_io.ifile_check</span> <span class="kn">import</span> <span class="n">IFileCheck</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.config_io.file_check</span> <span class="kn">import</span> <span class="n">FileCheck</span>
@@ -75,7 +76,7 @@
 
 <span class="n">__author__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;Vladimir Roncevic&#39;</span>
 <span class="n">__copyright__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;(C) 2026, https://vroncevic.github.io/ats_utilities&#39;</span>
-<span class="n">__credits__</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Vladimir Roncevic&#39;</span><span class="p">,</span> <span class="s1">&#39;Python Software Foundation&#39;</span><span class="p">]</span>
+<span class="n">__credits__</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Vladimir Roncevic&#39;</span><span class="p">,</span> <span class="s1">&#39;Python Software Foundation&#39;</span><span class="p">]</span>
 <span class="n">__license__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE&#39;</span>
 <span class="n">__version__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;3.3.8&#39;</span>
 <span class="n">__maintainer__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;Vladimir Roncevic&#39;</span>
@@ -94,76 +95,80 @@
 <span class="sd">        It defines:</span>
 
 <span class="sd">            :attributes:</span>
-<span class="sd">                | __EXT - File extension of the configuration file.</span>
-<span class="sd">                | __MODE - File open mode.</span>
-<span class="sd">                | __config_file_bundle - Configuration file bundle parameters (default None).</span>
-<span class="sd">                | __checker - Factoriezed parameters checker (default Checker).</span>
-<span class="sd">                | __reporter - Factoriezed reporter for messaging (default Reporter).</span>
-<span class="sd">                | __verbose - Factoriezed Enable/Disable verbose option (default False).</span>
-<span class="sd">                | __file_checker - FileCheck for checking file (default FileCheck).</span>
-<span class="sd">                | __ini_processor - Processor for INI content (default INIProcessor).</span>
-<span class="sd">                | __file_path - Configuration file path (default None).</span>
-<span class="sd">                | __file_bundle_shared - File bundle parameters (default None).</span>
+<span class="sd">                | _EXT - File extension of the configuration file.</span>
+<span class="sd">                | _MODE - File open mode.</span>
+<span class="sd">                | _config_file_bundle - Configuration file bundle parameters (default None).</span>
+<span class="sd">                | _checker - Factoriezed parameters checker (default Checker).</span>
+<span class="sd">                | _reporter - Factoriezed reporter for messaging (default Reporter).</span>
+<span class="sd">                | _verbose - Factoriezed Enable/Disable verbose option (default False).</span>
+<span class="sd">                | _file_checker - FileCheck for checking file (default FileCheck).</span>
+<span class="sd">                | _ini_processor - Processor for INI content (default INIProcessor).</span>
+<span class="sd">                | _file_path - Configuration file path (default None).</span>
+<span class="sd">                | _file_bundle_shared - File bundle parameters (default None).</span>
 <span class="sd">            :methods:</span>
 <span class="sd">                | __init__ - Initializes Ini2Object constructor.</span>
 <span class="sd">                | read_configuration - Reads configuration from an INI file.</span>
 <span class="sd">                | __str__ - Returns the Ini2Object as string representation.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
 
-    <span class="n">__EXT</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;ini&#39;</span>
-    <span class="n">__MODE</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;r&#39;</span>
+    <span class="n">_EXT</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;ini&#39;</span>
+    <span class="n">_MODE</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;r&#39;</span>
+
+    <span class="n">_checker</span><span class="p">:</span> <span class="n">IChecker</span>
+    <span class="n">_reporter</span><span class="p">:</span> <span class="n">IReporter</span>
+    <span class="n">_verbose</span><span class="p">:</span> <span class="nb">bool</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
-        <span class="n">config_file</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span>
-        <span class="n">config_bundle</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ATSConfigFileBundle</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-        <span class="n">ini_processor</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">IINIProcessor</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">config_file</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">config_bundle</span><span class="p">:</span> <span class="n">ATSConfigFileBundle</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">ini_processor</span><span class="p">:</span> <span class="n">IINIProcessor</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Initializes Ini2Object constructor.</span>
 
 <span class="sd">            :param config_file: Configuration file path in string format | None.</span>
-<span class="sd">            :type config_file: &lt;Optional[str]&gt;</span>
+<span class="sd">            :type config_file: &lt;str | None&gt;</span>
 <span class="sd">            :param config_bundle: Configuration file bundle parameters | None.</span>
-<span class="sd">            :type config_bundle: &lt;Optional[ATSConfigFileBundle]&gt;</span>
+<span class="sd">            :type config_bundle: &lt;ATSConfigFileBundle | None&gt;</span>
 <span class="sd">            :param ini_processor: Processor for INI content | None.</span>
-<span class="sd">            :type ini_processor: &lt;Optional[IINIProcessor]&gt;</span>
+<span class="sd">            :type ini_processor: &lt;IINIProcessor | None&gt;</span>
 <span class="sd">            :exceptions: ATSTypeError.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">__config_file_bundle</span><span class="p">:</span> <span class="n">ATSConfigFileBundle</span> <span class="o">=</span> <span class="n">config_bundle</span> <span class="ow">or</span> <span class="n">ATSConfigFileBundle</span><span class="p">()</span>
-        <span class="n">factory_context_bundle</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">__config_file_bundle</span><span class="o">.</span><span class="n">context</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_config_file_bundle</span><span class="p">:</span> <span class="n">ATSConfigFileBundle</span> <span class="o">=</span> <span class="n">config_bundle</span> <span class="ow">or</span> <span class="n">ATSConfigFileBundle</span><span class="p">()</span>
+        <span class="n">factory_context_bundle</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_config_file_bundle</span><span class="o">.</span><span class="n">context</span><span class="p">)</span>
         <span class="n">context_bundle_shared</span><span class="p">:</span> <span class="n">ContextBundle</span> <span class="o">=</span> <span class="n">ContextBundle</span><span class="p">(</span>
             <span class="n">checker</span><span class="o">=</span><span class="n">get_private_attr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;checker&#39;</span><span class="p">),</span>
             <span class="n">reporter</span><span class="o">=</span><span class="n">get_private_attr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;reporter&#39;</span><span class="p">),</span>
             <span class="n">verbose</span><span class="o">=</span><span class="n">get_private_attr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;verbose&#39;</span><span class="p">)</span>
         <span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">__file_checker</span><span class="p">:</span> <span class="n">IFileCheck</span> <span class="o">=</span> <span class="n">make_component</span><span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">__config_file_bundle</span><span class="o">.</span><span class="n">file_checker</span><span class="p">,</span> <span class="n">FileCheck</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;config_bundle&#39;</span><span class="p">:</span> <span class="n">context_bundle_shared</span><span class="p">}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_file_checker</span><span class="p">:</span> <span class="n">IFileCheck</span> <span class="o">=</span> <span class="n">make_component</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_config_file_bundle</span><span class="o">.</span><span class="n">file_checker</span><span class="p">,</span> <span class="n">FileCheck</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;config_bundle&#39;</span><span class="p">:</span> <span class="n">context_bundle_shared</span><span class="p">}</span>
         <span class="p">)</span>
-        <span class="n">validate_component</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__file_checker</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__file_checker</span><span class="p">),</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__file_checker</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">__ini_processor</span><span class="p">:</span> <span class="n">IINIProcessor</span> <span class="o">=</span> <span class="n">make_component</span><span class="p">(</span><span class="n">ini_processor</span><span class="p">,</span> <span class="n">INIProcessor</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
-        <span class="n">validate_component</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__ini_processor</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__ini_processor</span><span class="p">),</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__ini_processor</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">__file_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">config_file</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">__file_bundle_shared</span><span class="p">:</span> <span class="n">ATSFileBundle</span> <span class="o">=</span> <span class="n">ATSFileBundle</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">__file_bundle_shared</span><span class="o">.</span><span class="n">file_path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__file_path</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">__file_bundle_shared</span><span class="o">.</span><span class="n">file_mode</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__MODE</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">__file_bundle_shared</span><span class="o">.</span><span class="n">file_format</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__EXT</span>
+        <span class="n">validate_component</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_file_checker</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_file_checker</span><span class="p">),</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_file_checker</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_ini_processor</span><span class="p">:</span> <span class="n">IINIProcessor</span> <span class="o">=</span> <span class="n">make_component</span><span class="p">(</span><span class="n">ini_processor</span><span class="p">,</span> <span class="n">INIProcessor</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="n">validate_component</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_ini_processor</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_ini_processor</span><span class="p">),</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_ini_processor</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_file_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">config_file</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_file_bundle_shared</span><span class="p">:</span> <span class="n">ATSFileBundle</span> <span class="o">=</span> <span class="n">ATSFileBundle</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_file_bundle_shared</span><span class="o">.</span><span class="n">file_path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_file_path</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_file_bundle_shared</span><span class="o">.</span><span class="n">file_mode</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_MODE</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_file_bundle_shared</span><span class="o">.</span><span class="n">file_format</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_EXT</span>
 
 <div class="viewcode-block" id="Ini2Object.read_configuration">
 <a class="viewcode-back" href="../../../../ats_utilities.config_io.ini.ini2object.html#ats_utilities.config_io.ini.ini2object.Ini2Object.read_configuration">[docs]</a>
     <span class="nd">@vreporter</span><span class="p">(</span><span class="s1">&#39;read configuration from file </span><span class="si">{file_path}</span><span class="s1">&#39;</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">read_configuration</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">IINIProcessor</span><span class="p">]:</span>
+    <span class="k">def</span> <span class="nf">read_configuration</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">IINIProcessor</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Reads a configuration from an INI file.</span>
 
 <span class="sd">            :return: Configuration object | None.</span>
-<span class="sd">            :rtype: &lt;Optional[IINIProcessor]&gt;</span>
-<span class="sd">            :exceptions: None.</span>
+<span class="sd">            :rtype: &lt;IINIProcessor | None&gt;</span>
+<span class="sd">            :exceptions: None..</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="k">with</span> <span class="n">ConfFile</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__file_bundle_shared</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">__config_file_bundle</span><span class="p">)</span> <span class="k">as</span> <span class="n">ini</span><span class="p">:</span>
+        <span class="k">with</span> <span class="n">ConfFile</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_file_bundle_shared</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_config_file_bundle</span><span class="p">)</span> <span class="k">as</span> <span class="n">ini</span><span class="p">:</span>
             <span class="k">if</span> <span class="nb">bool</span><span class="p">(</span><span class="n">ini</span><span class="p">):</span>
-                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__ini_processor</span><span class="o">.</span><span class="n">from_stream</span><span class="p">(</span><span class="n">ini</span><span class="p">):</span>
-                    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__ini_processor</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ini_processor</span><span class="o">.</span><span class="n">from_stream</span><span class="p">(</span><span class="n">ini</span><span class="p">):</span>
+                    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ini_processor</span>
 
         <span class="k">return</span> <span class="kc">None</span></div>
 
@@ -174,7 +179,7 @@
 
 <span class="sd">            :return: The Ini2Object as string representation.</span>
 <span class="sd">            :rtype: &lt;str&gt;</span>
-<span class="sd">            :exceptions: None.</span>
+<span class="sd">            :exceptions: None..</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="k">return</span> <span class="n">format_instance_to_string</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div>
 

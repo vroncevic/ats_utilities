@@ -80,16 +80,16 @@ Conversion of YAML content to Python object.</p>
 <div><dl class="field-list">
 <dt class="field-odd">attributes<span class="colon">:</span></dt>
 <dd class="field-odd"><div class="line-block">
-<div class="line">__EXT - File extension of the configuration file.</div>
-<div class="line">__MODE - File open mode.</div>
-<div class="line">__config_file_bundle - Configuration file bundle parameters (default None).</div>
-<div class="line">__checker - Factoriezed parameters checker (default Checker).</div>
-<div class="line">__reporter - Factoriezed reporter for messaging (default Reporter).</div>
-<div class="line">__verbose - Factoriezed Enable/Disable verbose option (default False).</div>
-<div class="line">__file_checker - FileCheck for checking file (default FileCheck).</div>
-<div class="line">__yaml_processor - Processor for YAML content (default YAMLProcessor).</div>
-<div class="line">__file_path - Configuration file path (default None).</div>
-<div class="line">__file_bundle_shared - File bundle parameters (default None).</div>
+<div class="line">_EXT - File extension of the configuration file.</div>
+<div class="line">_MODE - File open mode.</div>
+<div class="line">_config_file_bundle - Configuration file bundle parameters (default None).</div>
+<div class="line">_checker - Factoriezed parameters checker (default Checker).</div>
+<div class="line">_reporter - Factoriezed reporter for messaging (default Reporter).</div>
+<div class="line">_verbose - Factoriezed Enable/Disable verbose option (default False).</div>
+<div class="line">_file_checker - FileCheck for checking file (default FileCheck).</div>
+<div class="line">_yaml_processor - Processor for YAML content (default YAMLProcessor).</div>
+<div class="line">_file_path - Configuration file path (default None).</div>
+<div class="line">_file_bundle_shared - File bundle parameters (default None).</div>
 </div>
 </dd>
 <dt class="field-even">methods<span class="colon">:</span></dt>
@@ -102,18 +102,33 @@ Conversion of YAML content to Python object.</p>
 </dl>
 </div></blockquote>
 <dl class="py attribute">
-<dt class="sig sig-object py" id="ats_utilities.config_io.yaml.yaml2object.Yaml2Object.__EXT">
-<span class="sig-name descname"><span class="pre">__EXT</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'yaml'</span></em><a class="headerlink" href="#ats_utilities.config_io.yaml.yaml2object.Yaml2Object.__EXT" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ats_utilities.config_io.yaml.yaml2object.Yaml2Object._EXT">
+<span class="sig-name descname"><span class="pre">_EXT</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'yaml'</span></em><a class="headerlink" href="#ats_utilities.config_io.yaml.yaml2object.Yaml2Object._EXT" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="ats_utilities.config_io.yaml.yaml2object.Yaml2Object.__MODE">
-<span class="sig-name descname"><span class="pre">__MODE</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'r'</span></em><a class="headerlink" href="#ats_utilities.config_io.yaml.yaml2object.Yaml2Object.__MODE" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ats_utilities.config_io.yaml.yaml2object.Yaml2Object._MODE">
+<span class="sig-name descname"><span class="pre">_MODE</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'r'</span></em><a class="headerlink" href="#ats_utilities.config_io.yaml.yaml2object.Yaml2Object._MODE" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="ats_utilities.config_io.yaml.yaml2object.Yaml2Object._abc_impl">
 <span class="sig-name descname"><span class="pre">_abc_impl</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;_abc._abc_data</span> <span class="pre">object&gt;</span></em><a class="headerlink" href="#ats_utilities.config_io.yaml.yaml2object.Yaml2Object._abc_impl" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ats_utilities.config_io.yaml.yaml2object.Yaml2Object._checker">
+<span class="sig-name descname"><span class="pre">_checker</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="ats_utilities.checker.ichecker.html#ats_utilities.checker.ichecker.IChecker" title="ats_utilities.checker.ichecker.IChecker"><span class="pre">IChecker</span></a></em><a class="headerlink" href="#ats_utilities.config_io.yaml.yaml2object.Yaml2Object._checker" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ats_utilities.config_io.yaml.yaml2object.Yaml2Object._reporter">
+<span class="sig-name descname"><span class="pre">_reporter</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="ats_utilities.reporter.ireporter.html#ats_utilities.reporter.ireporter.IReporter" title="ats_utilities.reporter.ireporter.IReporter"><span class="pre">IReporter</span></a></em><a class="headerlink" href="#ats_utilities.config_io.yaml.yaml2object.Yaml2Object._reporter" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ats_utilities.config_io.yaml.yaml2object.Yaml2Object._verbose">
+<span class="sig-name descname"><span class="pre">_verbose</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#ats_utilities.config_io.yaml.yaml2object.Yaml2Object._verbose" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -125,10 +140,10 @@ Conversion of YAML content to Python object.</p>
 <dd class="field-odd"><p>Configuration object | None.</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>&lt;Optional[<a class="reference internal" href="ats_utilities.config_io.yaml.iyaml_processor.html#ats_utilities.config_io.yaml.iyaml_processor.IYAMLProcessor" title="ats_utilities.config_io.yaml.iyaml_processor.IYAMLProcessor">IYAMLProcessor</a>]&gt;</p>
+<dd class="field-even"><p>&lt;IYAMLProcessor | None&gt;</p>
 </dd>
 <dt class="field-odd">Exceptions<span class="colon">:</span></dt>
-<dd class="field-odd"><p>None.</p>
+<dd class="field-odd"><p>None..</p>
 </dd>
 </dl>
 </dd></dl>
@@ -149,9 +164,12 @@ Conversion of YAML content to Python object.</p>
     <ul>
 <li><a class="reference internal" href="#">ats_utilities.config_io.yaml.yaml2object module</a><ul>
 <li><a class="reference internal" href="#ats_utilities.config_io.yaml.yaml2object.Yaml2Object"><code class="docutils literal notranslate"><span class="pre">Yaml2Object</span></code></a><ul>
-<li><a class="reference internal" href="#ats_utilities.config_io.yaml.yaml2object.Yaml2Object.__EXT"><code class="docutils literal notranslate"><span class="pre">Yaml2Object.__EXT</span></code></a></li>
-<li><a class="reference internal" href="#ats_utilities.config_io.yaml.yaml2object.Yaml2Object.__MODE"><code class="docutils literal notranslate"><span class="pre">Yaml2Object.__MODE</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.config_io.yaml.yaml2object.Yaml2Object._EXT"><code class="docutils literal notranslate"><span class="pre">Yaml2Object._EXT</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.config_io.yaml.yaml2object.Yaml2Object._MODE"><code class="docutils literal notranslate"><span class="pre">Yaml2Object._MODE</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.config_io.yaml.yaml2object.Yaml2Object._abc_impl"><code class="docutils literal notranslate"><span class="pre">Yaml2Object._abc_impl</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.config_io.yaml.yaml2object.Yaml2Object._checker"><code class="docutils literal notranslate"><span class="pre">Yaml2Object._checker</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.config_io.yaml.yaml2object.Yaml2Object._reporter"><code class="docutils literal notranslate"><span class="pre">Yaml2Object._reporter</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.config_io.yaml.yaml2object.Yaml2Object._verbose"><code class="docutils literal notranslate"><span class="pre">Yaml2Object._verbose</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.config_io.yaml.yaml2object.Yaml2Object.read_configuration"><code class="docutils literal notranslate"><span class="pre">Yaml2Object.read_configuration()</span></code></a></li>
 </ul>
 </li>

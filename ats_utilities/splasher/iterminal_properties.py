@@ -21,11 +21,11 @@ Info
 '''
 
 from abc import ABC, abstractmethod
-from typing import Any, List, Tuple
+from typing import Any
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
+__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
 __version__: str = '3.3.8'
 __maintainer__: str = 'Vladimir Roncevic'
@@ -49,15 +49,15 @@ class ITerminalProperties(ABC):
     '''
 
     @abstractmethod
-    def ioctl_get_window_size(self, file_descriptor: int) -> Tuple[Any, ...]:
+    def ioctl_get_window_size(self, file_descriptor: int) -> tuple[Any, ...]:
         '''
             Gets size for file descriptor.
 
             :param file_descriptor: File descriptor.
             :type file_descriptor: <int>
             :return: Window size of terminal.
-            :rtype: <Tuple[Any, ...]>
-            :exceptions: NotImplementedError
+            :rtype: <tuple[Any, ...]>
+            :exceptions: NotImplementedError.
         '''
         raise NotImplementedError("Method ioctl_get_window_size() must be implemented.")
 
@@ -66,18 +66,18 @@ class ITerminalProperties(ABC):
         '''
             Sets size for all file descriptors.
 
-            :exceptions: NotImplementedError
+            :exceptions: NotImplementedError.
         '''
         raise NotImplementedError("Method ioctl_for_all_descriptors() must be implemented.")
 
     @abstractmethod
-    def size(self) -> Tuple[Any, ...]:
+    def size(self) -> tuple[Any, ...]:
         '''
             Gets terminal window size.
 
             :return: Terminal window size.
-            :rtype: <Tuple[Any, ...]>
-            :exceptions: NotImplementedError
+            :rtype: <tuple[Any, ...]>
+            :exceptions: NotImplementedError.
         '''
         raise NotImplementedError("Method size() must be implemented.")
 
@@ -88,6 +88,6 @@ class ITerminalProperties(ABC):
 
             :return: The terminal properties as string representation.
             :rtype: <str>
-            :exceptions: NotImplementedError
+            :exceptions: NotImplementedError.
         '''
         raise NotImplementedError("Method __str__() must be implemented.")

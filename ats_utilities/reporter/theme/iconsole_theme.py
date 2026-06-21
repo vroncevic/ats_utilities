@@ -20,12 +20,11 @@ Info
     Defines interface for console styling.
 '''
 
-from typing import List
 from abc import ABC, abstractmethod
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
+__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
 __version__: str = '3.3.8'
 __maintainer__: str = 'Vladimir Roncevic'
@@ -55,7 +54,7 @@ class IConsoleTheme(ABC):
             :type color_type: <str>
             :return: Color code.
             :rtype: <str>
-            :exceptions: NotImplementedError
+            :exceptions: NotImplementedError.
         '''
         raise NotImplementedError("Method get_color() must be implemented.")
 
@@ -66,6 +65,6 @@ class IConsoleTheme(ABC):
 
             :return: The console theme as string representation.
             :rtype: <str>
-            :exceptions: NotImplementedError
+            :exceptions: NotImplementedError.
         '''
         raise NotImplementedError("Method __str__() must be implemented.")

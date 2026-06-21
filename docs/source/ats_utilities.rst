@@ -28,6 +28,7 @@ Submodules
    ats_utilities.factory_class
    ats_utilities.factory_component
    ats_utilities.factory_context_bundle
+   ats_utilities.factory_utils
 
 Module contents
 ---------------

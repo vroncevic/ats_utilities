@@ -49,7 +49,7 @@ jobs:
               /^[a-zA-Z]/ { inside_method = 0; in_docstring = 0; logical_lines = 0 }
               
               # Track block docstrings (triple quotes) inside methods
-              inside_method && (/"""/ || /'\''/'\''/'\''/) { 
+              inside_method && (/"""/ || /\x27\x27\x27/) { 
                 in_docstring = !in_docstring; 
                 next; 
               }

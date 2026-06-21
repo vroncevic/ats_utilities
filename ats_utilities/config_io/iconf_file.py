@@ -21,11 +21,12 @@ Info
 '''
 
 from abc import ABC, abstractmethod
-from typing import Any, Dict, IO, Optional, Tuple, TypeAlias, List
+from io import TextIOBase
+from typing import Any, TypeAlias
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
+__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
 __version__: str = '3.3.8'
 __maintainer__: str = 'Vladimir Roncevic'
@@ -33,7 +34,7 @@ __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
 
 # Optional bytes, str IO type
-File: TypeAlias = Optional[IO[str]]
+File: TypeAlias = TextIOBase | None
 
 
 class IConfFile(ABC):
@@ -57,22 +58,22 @@ class IConfFile(ABC):
 
             :return: File IO object | None.
             :rtype: <File>
-            :exceptions: NotImplementedError.
+            :exceptions: NotImplementedError..
         '''
         raise NotImplementedError("Method __enter__() must be implemented.")
 
     @abstractmethod
-    def __exit__(self, *args: Tuple[Any, ...], **kwargs: Dict[Any, Any]) -> None:
+    def __exit__(self, *args: tuple[Any, ...], **kwargs: dict[Any, Any]) -> None:
         '''
             Closes configuration context manager.
 
             :param args: List of arguments.
-            :type args: <Tuple[Any, ...]>
+            :type args: <tuple[Any, ...]>
             :param kwargs: Dictionary of mapped arguments.
-            :type kwargs: <Dict[Any, Any]>
+            :type kwargs: <dict[Any, Any]>
             :return: None.
             :rtype: <None>
-            :exceptions: NotImplementedError.
+            :exceptions: NotImplementedError..
         '''
         raise NotImplementedError("Method __exit__() must be implemented.")
 
@@ -83,6 +84,6 @@ class IConfFile(ABC):
 
             :return: The IConfFile as string representation.
             :rtype: <str>
-            :exceptions: NotImplementedError.
+            :exceptions: NotImplementedError..
         '''
         raise NotImplementedError("Method __str__() must be implemented.")

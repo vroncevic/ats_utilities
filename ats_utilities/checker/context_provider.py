@@ -21,13 +21,12 @@ Info
 '''
 
 from inspect import stack
-from typing import List
 from ats_utilities.factory_class import format_instance_to_string
 from ats_utilities.checker.icontext_provider import IContextProvider
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
+__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
 __version__: str = '3.3.8'
 __maintainer__: str = 'Vladimir Roncevic'
@@ -44,7 +43,7 @@ class ContextProvider(IContextProvider):
         It defines:
 
             :attributes:
-                | __stack_index_caller - Index in the call stack to identify the caller (instance attribute).
+                | _stack_index_caller - Index in the call stack to identify the caller (instance attribute).
             :methods:
                 | __init__ - Initializes ContextProvider constructor.
                 | set_stack_index_caller - Sets the index in the call stack to identify the caller.
@@ -58,9 +57,9 @@ class ContextProvider(IContextProvider):
 
             :param stack_index_caller: Index in the call stack to identify the caller (default 2).
             :type stack_index_caller: <int>
-            :exceptions: None.
+            :exceptions: None..
         '''
-        self.__stack_index_caller: int = stack_index_caller
+        self._stack_index_caller: int = stack_index_caller
 
     def set_stack_index_caller(self, stack_index_caller: int) -> None:
         '''
@@ -68,9 +67,9 @@ class ContextProvider(IContextProvider):
 
             :param stack_index_caller: Index in the call stack to identify the caller.
             :type stack_index_caller: <int>
-            :exceptions: None.
+            :exceptions: None..
         '''
-        self.__stack_index_caller = stack_index_caller
+        self._stack_index_caller = stack_index_caller
 
     def get_context(self) -> str:
         '''
@@ -80,10 +79,10 @@ class ContextProvider(IContextProvider):
 
             :return: Context information in string format.
             :rtype: <str>
-            :exceptions: None.
+            :exceptions: None..
         '''
         current_stack = stack()
-        target_index = self.__stack_index_caller
+        target_index = self._stack_index_caller
         if target_index >= len(current_stack):
             target_index = len(current_stack) - 1
         caller = current_stack[target_index]
@@ -95,6 +94,6 @@ class ContextProvider(IContextProvider):
 
             :return: The ATS context provider as string representation.
             :rtype: <str>
-            :exceptions: None.
+            :exceptions: None..
         '''
         return format_instance_to_string(self)

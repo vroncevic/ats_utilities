@@ -21,19 +21,19 @@ Info
     Provides a simple factory mechanism for dependency injection.
 '''
 
-from typing import Any, List, Dict, Type, Optional
+from typing import Any
 from ats_utilities.exceptions.ats_type_error import ATSTypeError
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
+__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
 __version__: str = '3.3.8'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
 
-def make_component(passed_obj: Any, default_class: Any, factory_args: Optional[Dict[str, Any]] = None) -> Any:
+def make_component(passed_obj: Any, default_class: Any, factory_args: dict[str, Any] | None = None) -> Any:
     '''
         Creates a component instance or returns an existing one.
 
@@ -42,10 +42,10 @@ def make_component(passed_obj: Any, default_class: Any, factory_args: Optional[D
         :param default_class: The class to instantiate if passed_obj is None
         :type default_class: <Any>
         :param factory_args: Arguments to pass to the default_class constructor | None
-        :type factory_args: <Optional[Dict[str, Any]]>
+        :type factory_args: <dict[str, Any] | None>
         :return: An instance of the component
         :rtype: <Any>
-        :exceptions: None
+        :exceptions: None.
     '''
     if passed_obj is not None:
         return passed_obj
@@ -56,7 +56,7 @@ def make_component(passed_obj: Any, default_class: Any, factory_args: Optional[D
     # No dependency injection then use default ones.
     return default_class(**factory_args)
 
-def validate_component(instance: Any, expected_class: Type[Any], component_name: str) -> None:
+def validate_component(instance: Any, expected_class: type[Any], component_name: str) -> None:
     '''
         Validates if a component instance is of the expected class type.
         Raises an ATSTypeError if the validation fails.
@@ -64,7 +64,7 @@ def validate_component(instance: Any, expected_class: Type[Any], component_name:
         :param instance: The resolved component instance to check
         :type instance: <Any>
         :param expected_class: The expected concrete class type
-        :type expected_class: <Type[Any]>
+        :type expected_class: <type[Any]>
         :param component_name: Name of the component for the error message
         :type component_name: <str>
         :exceptions: ATSTypeError

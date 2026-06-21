@@ -22,7 +22,7 @@ Execute
     python3 -m unittest -v ats_option_parser_test
 '''
 
-from typing import List, Dict, Any
+from typing import Any
 from unittest import TestCase, main, mock
 from ats_utilities.option.engine import OptionManager
 from ats_utilities.option.ioption_parser import IOptionManager
@@ -37,7 +37,7 @@ from ats_utilities.context_bundle import ContextBundle
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
+__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
 __version__: str = '3.3.8'
 __maintainer__: str = 'Vladimir Roncevic'
@@ -50,7 +50,7 @@ class ATSBaseOptionParser(OptionManager):
 
     def __init__(
         self,
-        ats_info: Dict[str, Any],
+        ats_info: dict[str, Any],
         checker: IChecker = Checker(),
         reporter: IReporter = Reporter(),
         verbose: bool = False

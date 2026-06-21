@@ -21,12 +21,13 @@ Info
 '''
 
 from abc import ABC, abstractmethod
-from typing import Any, List, Optional, Sequence, TypeAlias
+from collections.abc import Sequence
+from typing import Any, TypeAlias
 from ats_utilities.option.option_namespace import OptionNamespace
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
+__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
 __version__: str = '3.3.8'
 __maintainer__: str = 'Vladimir Roncevic'
@@ -34,7 +35,7 @@ __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
 
 # Optional string sequence type
-ArgSeq: TypeAlias = Optional[Sequence[str]]
+ArgSeq: TypeAlias = Sequence[str] | None
 
 
 class IBase(ABC):
@@ -60,7 +61,7 @@ class IBase(ABC):
 
             :return: True (operational) | False (not operational)
             :rtype: <bool>
-            :exceptions: NotImplementedError
+            :exceptions: NotImplementedError.
         '''
         raise NotImplementedError("Method is_operational() must be implemented.")
 
@@ -73,20 +74,20 @@ class IBase(ABC):
             :type args: <str>
             :param kwargs: Arguments in Any form
             :type kwargs: <Any>
-            :exceptions: NotImplementedError
+            :exceptions: NotImplementedError.
         '''
         raise NotImplementedError("Method add_new_option() must be implemented.")
 
     @abstractmethod
-    def parse_args(self, argv: ArgSeq) -> Optional[OptionNamespace]:
+    def parse_args(self, argv: ArgSeq) -> OptionNamespace | None:
         '''
             Parses the CLI arguments.
 
             :param argv: Sequence of arguments | None
             :type argv: <ArgSeq>
             :return: Options and arguments | None
-            :rtype: <Optional[OptionNamespace]>
-            :exceptions: NotImplementedError
+            :rtype: <OptionNamespace | None>
+            :exceptions: NotImplementedError.
         '''
         raise NotImplementedError("Method parse_args() must be implemented.")
 
@@ -99,7 +100,7 @@ class IBase(ABC):
             :type verbose: <bool>
             :return: True (success) | False (fail)
             :rtype: <bool>
-            :exceptions: NotImplementedError
+            :exceptions: NotImplementedError.
         '''
         raise NotImplementedError("Method process() must be implemented.")
 
@@ -110,6 +111,6 @@ class IBase(ABC):
 
             :return: The ATS base as string representation.
             :rtype: <str>
-            :exceptions: NotImplementedError
+            :exceptions: NotImplementedError.
         '''
         raise NotImplementedError("Method __str__() must be implemented.")

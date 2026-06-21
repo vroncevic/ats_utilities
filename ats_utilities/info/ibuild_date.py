@@ -21,11 +21,10 @@ Info
 '''
 
 from abc import ABC, abstractmethod
-from typing import List, Optional
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
+__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
 __version__: str = '3.3.8'
 __maintainer__: str = 'Vladimir Roncevic'
@@ -49,25 +48,25 @@ class IBuildDate(ABC):
 
     @property
     @abstractmethod
-    def build_date(self) -> Optional[str]:
+    def build_date(self) -> str | None:
         '''
             Property method for getting ATS build date.
 
             :return: The ATS build date in string format | None
-            :rtype: <Optional[str]>
-            :exceptions: NotImplementedError
+            :rtype: <str | None>
+            :exceptions: NotImplementedError.
         '''
         raise NotImplementedError("Method build_date() must be implemented.")
 
     @build_date.setter
     @abstractmethod
-    def build_date(self, build_date: Optional[str]) -> None:
+    def build_date(self, build_date: str | None) -> None:
         '''
             Property method for setting ATS build date.
 
             :param build_date: The ATS build date in string format | None
-            :type build_date: <Optional[str]>
-            :exceptions: NotImplementedError
+            :type build_date: <str | None>
+            :exceptions: NotImplementedError.
         '''
         raise NotImplementedError("Method build_date() must be implemented.")
 
@@ -78,7 +77,7 @@ class IBuildDate(ABC):
 
             :return: True (success) | False (fail).
             :rtype: <bool>
-            :exceptions: NotImplementedError
+            :exceptions: NotImplementedError.
         '''
         raise NotImplementedError("Method not_none() must be implemented.")
 
@@ -89,6 +88,6 @@ class IBuildDate(ABC):
 
             :return: The ATS build date as string representation.
             :rtype: <str>
-            :exceptions: NotImplementedError
+            :exceptions: NotImplementedError.
         '''
         raise NotImplementedError("Method __str__() must be implemented.")

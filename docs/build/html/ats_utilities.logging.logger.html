@@ -187,13 +187,13 @@ Default logger mechanism.</p>
 <div class="line">ATS_LOG_WARNING - Warning log level (redefinition).</div>
 <div class="line">ATS_LOG_ERROR - Error log level (redefinition).</div>
 <div class="line">ATS_LOG_CRITICAL - Critical log level (redefinition).</div>
-<div class="line">__logger_name - ATS name.</div>
-<div class="line">__log_stdout - Logging to stdout (default).</div>
-<div class="line">__log_file - Logging to file.</div>
-<div class="line">__checker - Factoriezed parameters checker (default Checker).</div>
-<div class="line">__reporter - Factoriezed reporter for messaging (default Reporter).</div>
-<div class="line">__verbose - Factoriezed Enable/Disable verbose option (default False).</div>
-<div class="line">__logger - Python Logger instance.</div>
+<div class="line">_logger_name - ATS name.</div>
+<div class="line">_log_stdout - Logging to stdout (default).</div>
+<div class="line">_log_file - Logging to file.</div>
+<div class="line">_checker - Factoriezed parameters checker (default Checker).</div>
+<div class="line">_reporter - Factoriezed reporter for messaging (default Reporter).</div>
+<div class="line">_verbose - Factoriezed Enable/Disable verbose option (default False).</div>
+<div class="line">_logger - Python Logger instance.</div>
 <div class="line"><br /></div>
 </div>
 </dd>
@@ -201,7 +201,6 @@ Default logger mechanism.</p>
 <dd class="field-even"><div class="line-block">
 <div class="line">__init__ - Initials ATSLogger constructor.</div>
 <div class="line">write_log - Writes message to log.</div>
-<div class="line">_reporter - Property method for getting the internal reporter instance.</div>
 <div class="line">__str__ - Returns the string representation of ATS logger.</div>
 </div>
 </dd>
@@ -224,22 +223,20 @@ Default logger mechanism.</p>
 <span class="sig-name descname"><span class="pre">_abc_impl</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;_abc._abc_data</span> <span class="pre">object&gt;</span></em><a class="headerlink" href="#ats_utilities.logging.logger.ATSLogger._abc_impl" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="py property">
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ats_utilities.logging.logger.ATSLogger._checker">
+<span class="sig-name descname"><span class="pre">_checker</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="ats_utilities.checker.ichecker.html#ats_utilities.checker.ichecker.IChecker" title="ats_utilities.checker.ichecker.IChecker"><span class="pre">IChecker</span></a></em><a class="headerlink" href="#ats_utilities.logging.logger.ATSLogger._checker" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
 <dt class="sig sig-object py" id="ats_utilities.logging.logger.ATSLogger._reporter">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">_reporter</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="ats_utilities.reporter.ireporter.html#ats_utilities.reporter.ireporter.IReporter" title="ats_utilities.reporter.ireporter.IReporter"><span class="pre">IReporter</span></a></em><a class="headerlink" href="#ats_utilities.logging.logger.ATSLogger._reporter" title="Link to this definition">¶</a></dt>
-<dd><p>Property method for getting the internal reporter instance.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>The reporter instance in IReporter format.</p>
-</dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>&lt;IReporter&gt;</p>
-</dd>
-<dt class="field-odd">Exceptions<span class="colon">:</span></dt>
-<dd class="field-odd"><p>None</p>
-</dd>
-</dl>
-</dd></dl>
+<span class="sig-name descname"><span class="pre">_reporter</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="ats_utilities.reporter.ireporter.html#ats_utilities.reporter.ireporter.IReporter" title="ats_utilities.reporter.ireporter.IReporter"><span class="pre">IReporter</span></a></em><a class="headerlink" href="#ats_utilities.logging.logger.ATSLogger._reporter" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ats_utilities.logging.logger.ATSLogger._verbose">
+<span class="sig-name descname"><span class="pre">_verbose</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#ats_utilities.logging.logger.ATSLogger._verbose" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="ats_utilities.logging.logger.ATSLogger.ok">
@@ -253,7 +250,7 @@ Default logger mechanism.</p>
 <dd class="field-even"><p>&lt;bool&gt;</p>
 </dd>
 <dt class="field-odd">Exceptions<span class="colon">:</span></dt>
-<dd class="field-odd"><p>None.</p>
+<dd class="field-odd"><p>None..</p>
 </dd>
 </dl>
 </dd></dl>
@@ -265,7 +262,7 @@ Default logger mechanism.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>message</strong> (<em>&lt;Optional</em><em>[</em><em>str</em><em>]</em><em>&gt;</em>) – Log message in string format for log | None.</p></li>
+<li><p><strong>message</strong> (<em>&lt;str</em><em> | </em><em>None&gt;</em>) – Log message in string format for log | None.</p></li>
 <li><p><strong>ctrl</strong> (<em>&lt;int&gt;</em>) – Control flag (debug, warning, critical, errors, info).</p></li>
 </ul>
 </dd>
@@ -377,7 +374,9 @@ Protocol for log levels in the ATS logging mechanism.</p>
 <li><a class="reference internal" href="#ats_utilities.logging.logger.ATSLogger.LOG_FORMATS"><code class="docutils literal notranslate"><span class="pre">ATSLogger.LOG_FORMATS</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.logging.logger.ATSLogger.LOG_LEVELS"><code class="docutils literal notranslate"><span class="pre">ATSLogger.LOG_LEVELS</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.logging.logger.ATSLogger._abc_impl"><code class="docutils literal notranslate"><span class="pre">ATSLogger._abc_impl</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.logging.logger.ATSLogger._checker"><code class="docutils literal notranslate"><span class="pre">ATSLogger._checker</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.logging.logger.ATSLogger._reporter"><code class="docutils literal notranslate"><span class="pre">ATSLogger._reporter</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.logging.logger.ATSLogger._verbose"><code class="docutils literal notranslate"><span class="pre">ATSLogger._verbose</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.logging.logger.ATSLogger.ok"><code class="docutils literal notranslate"><span class="pre">ATSLogger.ok()</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.logging.logger.ATSLogger.write_log"><code class="docutils literal notranslate"><span class="pre">ATSLogger.write_log()</span></code></a></li>
 </ul>

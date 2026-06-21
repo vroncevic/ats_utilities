@@ -69,7 +69,7 @@ Encapsulates logging components to minimize constructor overhead.</p>
 </dl>
 <dl class="py class">
 <dt class="sig sig-object py" id="ats_utilities.logging.component_bundle.LoggingComponentBundle">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ats_utilities.logging.component_bundle.</span></span><span class="sig-name descname"><span class="pre">LoggingComponentBundle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">logger:</span> <span class="pre">~ats_utilities.logging.ilogger.ILogger</span> <span class="pre">|</span> <span class="pre">None</span> <span class="pre">=</span> <span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">logger_bundle:</span> <span class="pre">~ats_utilities.logging.logger_bundle.LoggerBundle</span> <span class="pre">|</span> <span class="pre">None</span> <span class="pre">=</span> <span class="pre">&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">context_bundle:</span> <span class="pre">~ats_utilities.context_bundle.ContextBundle</span> <span class="pre">|</span> <span class="pre">None</span> <span class="pre">=</span> <span class="pre">&lt;factory&gt;</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ats_utilities/logging/component_bundle.html#LoggingComponentBundle"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.logging.component_bundle.LoggingComponentBundle" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ats_utilities.logging.component_bundle.</span></span><span class="sig-name descname"><span class="pre">LoggingComponentBundle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">logger</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="ats_utilities.logging.ilogger.html#ats_utilities.logging.ilogger.ILogger" title="ats_utilities.logging.ilogger.ILogger"><span class="pre">ILogger</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">logger_bundle</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="ats_utilities.logging.logger_bundle.html#ats_utilities.logging.logger_bundle.LoggerBundle" title="ats_utilities.logging.logger_bundle.LoggerBundle"><span class="pre">LoggerBundle</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">context_bundle</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="ats_utilities.context_bundle.html#ats_utilities.context_bundle.ContextBundle" title="ats_utilities.context_bundle.ContextBundle"><span class="pre">ContextBundle</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ats_utilities/logging/component_bundle.html#LoggingComponentBundle"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.logging.component_bundle.LoggingComponentBundle" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Defines component bundle data classe for dependency group simplification.
 Encapsulates logging components to minimize constructor overhead.</p>
@@ -79,8 +79,8 @@ Encapsulates logging components to minimize constructor overhead.</p>
 <dt class="field-odd">attributes<span class="colon">:</span></dt>
 <dd class="field-odd"><div class="line-block">
 <div class="line">logger - Logger instance (default None).</div>
-<div class="line">logger_bundle - Bundle with logger parameters (default LoggerBundle).</div>
-<div class="line">context_bundle - Bundle with context (default ContextBundle).</div>
+<div class="line">logger_bundle - Bundle with logger parameters (default None).</div>
+<div class="line">context_bundle - Bundle with context (default None).</div>
 </div>
 </dd>
 <dt class="field-even">methods<span class="colon">:</span></dt>
@@ -94,7 +94,7 @@ Encapsulates logging components to minimize constructor overhead.</p>
 </div></blockquote>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="ats_utilities.logging.component_bundle.LoggingComponentBundle.context_bundle">
-<span class="sig-name descname"><span class="pre">context_bundle</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="ats_utilities.context_bundle.html#ats_utilities.context_bundle.ContextBundle" title="ats_utilities.context_bundle.ContextBundle"><span class="pre">ContextBundle</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#ats_utilities.logging.component_bundle.LoggingComponentBundle.context_bundle" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">context_bundle</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="ats_utilities.context_bundle.html#ats_utilities.context_bundle.ContextBundle" title="ats_utilities.context_bundle.ContextBundle"><span class="pre">ContextBundle</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#ats_utilities.logging.component_bundle.LoggingComponentBundle.context_bundle" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
@@ -104,7 +104,7 @@ Encapsulates logging components to minimize constructor overhead.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="ats_utilities.logging.component_bundle.LoggingComponentBundle.logger_bundle">
-<span class="sig-name descname"><span class="pre">logger_bundle</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="ats_utilities.logging.logger_bundle.html#ats_utilities.logging.logger_bundle.LoggerBundle" title="ats_utilities.logging.logger_bundle.LoggerBundle"><span class="pre">LoggerBundle</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#ats_utilities.logging.component_bundle.LoggingComponentBundle.logger_bundle" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">logger_bundle</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="ats_utilities.logging.logger_bundle.html#ats_utilities.logging.logger_bundle.LoggerBundle" title="ats_utilities.logging.logger_bundle.LoggerBundle"><span class="pre">LoggerBundle</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#ats_utilities.logging.component_bundle.LoggingComponentBundle.logger_bundle" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -115,14 +115,8 @@ Encapsulates logging components to minimize constructor overhead.</p>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>other</strong> (<em>&lt;LoggingComponentBundle&gt;</em>) – Another bundle to merge into this one.</p>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>None</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>&lt;None&gt;</p>
-</dd>
 <dt class="field-even">Exceptions<span class="colon">:</span></dt>
-<dd class="field-even"><p>None</p>
+<dd class="field-even"><p>None.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -139,7 +133,7 @@ Encapsulates logging components to minimize constructor overhead.</p>
 <dd class="field-even"><p>&lt;dict&gt;</p>
 </dd>
 <dt class="field-odd">Exceptions<span class="colon">:</span></dt>
-<dd class="field-odd"><p>None</p>
+<dd class="field-odd"><p>None.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -149,12 +143,6 @@ Encapsulates logging components to minimize constructor overhead.</p>
 <span class="sig-name descname"><span class="pre">validate</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/ats_utilities/logging/component_bundle.html#LoggingComponentBundle.validate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.logging.component_bundle.LoggingComponentBundle.validate" title="Link to this definition">¶</a></dt>
 <dd><p>Validates that essential components are set.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>None</p>
-</dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>&lt;None&gt;</p>
-</dd>
 <dt class="field-odd">Exceptions<span class="colon">:</span></dt>
 <dd class="field-odd"><p>ValueError</p>
 </dd>

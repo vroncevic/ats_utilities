@@ -21,14 +21,13 @@ Info
 '''
 
 import yaml
-from typing import Dict, List
 from ats_utilities.config_io.yaml.iyaml_processor import IYAMLProcessor
 from ats_utilities.exceptions.ats_error import ATSError
 from ats_utilities.factory_class import format_instance_to_string
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
+__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
 __version__: str = '3.3.8'
 __maintainer__: str = 'Vladimir Roncevic'
@@ -43,7 +42,7 @@ class YAMLProcessor(IYAMLProcessor):
         It defines:
 
             :attributes:
-                | __data - Internal dictionary to store YAML data.
+                | _data - Internal dictionary to store YAML data.
             :methods:
                 | __init__ - Initializes YAMLProcessor constructor.
                 | decode - Converts raw YAML text to an internal object/structure.
@@ -58,9 +57,9 @@ class YAMLProcessor(IYAMLProcessor):
 
             :return: None.
             :rtype: <None>
-            :exceptions: None.
+            :exceptions: None..
         '''
-        self.__data: Dict[str, str] = {}
+        self._data: dict[str, str] = {}
 
     def decode(self, yaml_string: str) -> bool:
         '''
@@ -70,10 +69,10 @@ class YAMLProcessor(IYAMLProcessor):
             :type yaml_string: <str>
             :return: True (success) | False (fail).
             :rtype: <bool>
-            :exceptions: None.
+            :exceptions: None..
         '''
         try:
-            self.__data = yaml.safe_load(yaml_string)
+            self._data = yaml.safe_load(yaml_string)
             return True
         except ATSError:
             return False
@@ -84,19 +83,19 @@ class YAMLProcessor(IYAMLProcessor):
 
             :return: YAML content as string.
             :rtype: <str>
-            :exceptions: None.
+            :exceptions: None..
         '''
-        return yaml.safe_dump(self.__data, default_flow_style=False)
+        return yaml.safe_dump(self._data, default_flow_style=False)
 
-    def to_dict(self) -> Dict[str, str]:
+    def to_dict(self) -> dict[str, str]:
         '''
             Returns configuration as a flat dictionary.
 
             :return: Dictionary with YAML information.
-            :rtype: <Dict[str, str]>
-            :exceptions: None.
+            :rtype: <dict[str, str]>
+            :exceptions: None..
         '''
-        return self.__data
+        return self._data
 
     def __str__(self) -> str:
         '''
@@ -104,6 +103,6 @@ class YAMLProcessor(IYAMLProcessor):
 
             :return: The YAMLProcessor as string representation.
             :rtype: <str>
-            :exceptions: None.
+            :exceptions: None..
         '''
         return format_instance_to_string(self)

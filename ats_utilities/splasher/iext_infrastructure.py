@@ -21,11 +21,11 @@ Info
 '''
 
 from abc import ABC, abstractmethod
-from typing import Any, Dict, Optional, List
+from typing import Any
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
+__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
 __version__: str = '3.3.8'
 __maintainer__: str = 'Vladimir Roncevic'
@@ -40,7 +40,7 @@ class IExtInfrastructure(ABC):
 
         It defines:
 
-            :attributes: None
+            :attributes: None.
             :methods:
                 | infrastructure_property - Property methods for set/get operations.
                 | get_info_text - Pre-processes info text for splash screen.
@@ -51,25 +51,25 @@ class IExtInfrastructure(ABC):
 
     @property
     @abstractmethod
-    def infrastructure_property(self) -> Optional[Dict[Any, Any]]:
+    def infrastructure_property(self) -> dict[Any, Any] | None:
         '''
             Property method for getting infrastructure property.
 
             :return: Formatted infrastructure property in dict format | None.
-            :rtype: <Optional[Dict[Any, Any]]>
-            :exceptions: NotImplementedError
+            :rtype: <dict[Any, Any] | None>
+            :exceptions: NotImplementedError.
         '''
         raise NotImplementedError("Method infrastructure_property() must be implemented.")
 
     @infrastructure_property.setter
     @abstractmethod
-    def infrastructure_property(self, infrastructure_property_setup: Optional[Dict[Any, Any]]) -> None:
+    def infrastructure_property(self, infrastructure_property_setup: dict[Any, Any] | None) -> None:
         '''
             Property method for setting project infrastructure property.
 
             :param infrastructure_property_setup: Project infrastructure property in dict format | None.
-            :type infrastructure_property_setup: <Optional[Dict[Any, Any]]>
-            :exceptions: NotImplementedError
+            :type infrastructure_property_setup: <dict[Any, Any] | None>
+            :exceptions: NotImplementedError.
         '''
         raise NotImplementedError("Method infrastructure_property() must be implemented.")
 
@@ -80,7 +80,7 @@ class IExtInfrastructure(ABC):
 
             :return: Hyperlink with info text.
             :rtype: <str>
-            :exceptions: NotImplementedError
+            :exceptions: NotImplementedError.
         '''
         raise NotImplementedError("Method get_info_text() must be implemented.")
 
@@ -91,7 +91,7 @@ class IExtInfrastructure(ABC):
 
             :return: Hyperlink with issue info.
             :rtype: <str>
-            :exceptions: NotImplementedError
+            :exceptions: NotImplementedError.
         '''
         raise NotImplementedError("Method get_issue_text() must be implemented.")
 
@@ -102,7 +102,7 @@ class IExtInfrastructure(ABC):
 
             :return: Hyperlink with author info.
             :rtype: <str>
-            :exceptions: NotImplementedError
+            :exceptions: NotImplementedError.
         '''
         raise NotImplementedError("Method get_author_text() must be implemented.")
 
@@ -113,6 +113,6 @@ class IExtInfrastructure(ABC):
 
             :return: The external infrastructure as string representation.
             :rtype: <str>
-            :exceptions: NotImplementedError
+            :exceptions: NotImplementedError.
         '''
         raise NotImplementedError("Method __str__() must be implemented.")

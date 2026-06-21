@@ -21,11 +21,10 @@ Info
 '''
 
 from abc import ABC, abstractmethod
-from typing import List, Optional
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
+__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
 __version__: str = '3.3.8'
 __maintainer__: str = 'Vladimir Roncevic'
@@ -49,25 +48,25 @@ class IUseGitHub(ABC):
 
     @property
     @abstractmethod
-    def use_github(self) -> Optional[bool]:
+    def use_github(self) -> bool | None:
         '''
             Property method for getting ATS use GitHub infrastructure status.
 
             :return: The ATS use GitHub infrastructure status | None.
-            :rtype: <Optional[bool]>
-            :exceptions: NotImplementedError.
+            :rtype: <bool | None>
+            :exceptions: NotImplementedError..
         '''
         raise NotImplementedError("Method use_github() must be implemented.")
 
     @use_github.setter
     @abstractmethod
-    def use_github(self, use_github: Optional[bool]) -> None:
+    def use_github(self, use_github: bool | None) -> None:
         '''
             Property method for setting ATS use GitHub infrastructure status.
 
             :param use_github: The ATS use GitHub infrastructure status | None.
-            :type use_github: <Optional[bool]>
-            :exceptions: NotImplementedError.
+            :type use_github: <bool | None>
+            :exceptions: NotImplementedError..
         '''
         raise NotImplementedError("Method use_github() must be implemented.")
 
@@ -78,7 +77,7 @@ class IUseGitHub(ABC):
 
             :return: True (success) | False (fail).
             :rtype: <bool>
-            :exceptions: NotImplementedError.
+            :exceptions: NotImplementedError..
         '''
         raise NotImplementedError("Method not_none() must be implemented.")
 
@@ -89,6 +88,6 @@ class IUseGitHub(ABC):
 
             :return: The ATS use GitHub infrastructure as string representation.
             :rtype: <str>
-            :exceptions: NotImplementedError.
+            :exceptions: NotImplementedError..
         '''
         raise NotImplementedError("Method __str__() must be implemented.")

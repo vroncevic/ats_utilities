@@ -19,14 +19,13 @@ Info
     Use cases for ATS version.
 '''
 
-from typing import List
 from os.path import dirname, realpath
 from ats_utilities.base.engine import Base
 from ats_utilities.base.component_bundle import BaseComponentBundle
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
+__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
 __version__: str = '3.3.8'
 __maintainer__: str = 'Vladimir Roncevic'

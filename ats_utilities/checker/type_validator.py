@@ -20,13 +20,13 @@ Info
     Creates an API for handling type validation parameters for method(s) and function(s).
 '''
 
-from typing import Any, List
+from typing import Any
 from ats_utilities.factory_class import format_instance_to_string
 from ats_utilities.checker.itype_validator import ITypeValidator
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
+__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
 __version__: str = '3.3.8'
 __maintainer__: str = 'Vladimir Roncevic'
@@ -61,7 +61,7 @@ class TypeValidator(ITypeValidator):
             :type expected_type_name: <str>
             :return: True (success), False (fail).
             :rtype: <bool>
-            :exceptions: None.
+            :exceptions: None..
         '''
         return type(inst).__name__ == expected_type_name
 
@@ -76,7 +76,7 @@ class TypeValidator(ITypeValidator):
             :type expected_type_name: <str>
             :return: True (is), False (not).
             :rtype: <bool>
-            :exceptions: None.
+            :exceptions: None..
         '''
         return any(cls.__name__ == expected_type_name for cls in type(inst).mro())
 
@@ -88,7 +88,7 @@ class TypeValidator(ITypeValidator):
             :type inst: <Any>
             :return: String name of the type.
             :rtype: <str>
-            :exceptions: None.
+            :exceptions: None..
         '''
         return type(inst).__name__
 
@@ -98,6 +98,6 @@ class TypeValidator(ITypeValidator):
 
             :return: The ATS type validator as string representation.
             :rtype: <str>
-            :exceptions: None.
+            :exceptions: None..
         '''
         return format_instance_to_string(self)

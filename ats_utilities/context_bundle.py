@@ -20,14 +20,15 @@ Info
     Encapsulates core runtime components for simplifcation.
 '''
 
+from typing import Any
 from dataclasses import dataclass
-from typing import List, Optional
 from ats_utilities.checker.ichecker import IChecker
 from ats_utilities.reporter.ireporter import IReporter
+from ats_utilities.exceptions.ats_value_error import ATSValueError
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
+__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
 __version__: str = '3.3.8'
 __maintainer__: str = 'Vladimir Roncevic'
@@ -47,25 +48,27 @@ class ContextBundle:
                 | checker - Checker for parameters (default None).
                 | reporter - Reporter for providing all types of messages (default None).
                 | verbose - Flag for enabling verbose output (default False).
+                | safe - Flag for enabling safe mode (default False).
             :methods:
                 | validate - Validates that essential components are set.
                 | merge - Merges non-None values from another bundle into this one.
                 | to_dict - Converts the bundle attributes to a dictionary.
     '''
 
-    checker: Optional[IChecker] = None
-    reporter: Optional[IReporter] = None
+    checker: IChecker | None = None
+    reporter: IReporter | None = None
     verbose: bool = False
 
     def validate(self) -> None:
         '''
             Validates that essential components are set.
 
-            :return: None
-            :rtype: <None>
-            :exceptions: None
+            :exceptions: ATSValueError - Raised if the checker or reporter is not set.
         '''
-        pass
+        if self.checker is None:
+            raise ATSValueError('Required attribute checker is not set.')
+        if self.reporter is None:
+            raise ATSValueError('Required attribute reporter is not set.')
 
     def merge(self, other: 'ContextBundle') -> None:
         '''
@@ -73,26 +76,23 @@ class ContextBundle:
 
             :param other: Another bundle to merge into this one.
             :type other: <ContextBundle>
-            :return: None
-            :rtype: <None>
-            :exceptions: None
+            :exceptions: None.
         '''
         for field_name in self.__dataclass_fields__:
             other_value = getattr(other, field_name)
             if other_value is not None:
                 setattr(self, field_name, other_value)
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> dict[str, Any]:
         '''
             Converts the bundle attributes to a dictionary.
 
             :return: Dictionary representation of the bundle attributes.
-            :rtype: <dict>
-            :exceptions: None
+            :rtype: <dict[str, Any]>
+            :exceptions: None.
         '''
         return {
             name: value
             for name, value in self.__dict__.items()
             if not name.startswith('_')
         }
-

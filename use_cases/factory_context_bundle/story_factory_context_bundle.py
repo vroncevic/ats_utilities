@@ -21,14 +21,13 @@ Info
 '''
 
 from abc import ABC, abstractmethod
-from typing import List, Optional
 from ats_utilities.context_bundle import ContextBundle
 from ats_utilities.factory_context_bundle import factory_context_bundle
 from ats_utilities.factory_class import format_instance_to_string
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
+__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
 __version__: str = '3.3.8'
 __maintainer__: str = 'Vladimir Roncevic'
@@ -80,9 +79,9 @@ class MyClass(IMyClass):
         It defines:
 
             :attributes:
-                | __checker - Factoriezed parameters checker (default Checker).
-                | __reporter - Factoriezed reporter for messaging (default Reporter).
-                | __verbose - Factoriezed Enable/Disable verbose option (default False).
+                | _checker - Factoriezed parameters checker (default Checker).
+                | _reporter - Factoriezed reporter for messaging (default Reporter).
+                | _verbose - Factoriezed Enable/Disable verbose option (default False).
                 | my - Test attribute (default None).
             :methods:
                 | __init__ - Initials MyClass constructor.
@@ -90,17 +89,17 @@ class MyClass(IMyClass):
                 | __str__ - Returns the string representation of MyClass.
     '''
 
-    def __init__(self, context_bundle: Optional[ContextBundle] = None) -> None:
+    def __init__(self, context_bundle: ContextBundle | None = None) -> None:
         '''
             Initials MyClass constructor.
 
             :param context_bundle: Bundle with checker, reporter and verbose | None
-            :type context_bundle: <Optional[ContextBundle]>
-            :exceptions: None
+            :type context_bundle: <ContextBundle | None>
+            :exceptions: None.
         '''
         # No dependency injection then use default ones.
         factory_context_bundle(self, context_bundle)
-        self.my: Optional[str] = None
+        self.my: str | None = None
 
     def not_none(self) -> bool:
         '''
@@ -108,7 +107,7 @@ class MyClass(IMyClass):
 
             :return: True (success) | False (fail)
             :rtype: <bool>
-            :exceptions: RuntimeError, AttributeError
+            :exceptions: ATSRuntimeError, ATSAttributeError
         '''
         return self.my is not None
 
@@ -118,7 +117,7 @@ class MyClass(IMyClass):
 
             :return: The MyClass instance as string representation
             :rtype: <str>
-            :exceptions: None
+            :exceptions: None.
         '''
         return format_instance_to_string(self)
 
@@ -126,7 +125,7 @@ class MyClass(IMyClass):
 #
 # without DI
 #
-obj: Optional[IMyClass] = None
+obj: IMyClass | None = None
 obj = MyClass()
 print(obj)
 print(obj.not_none())

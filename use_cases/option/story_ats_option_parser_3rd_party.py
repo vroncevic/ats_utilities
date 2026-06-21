@@ -21,7 +21,7 @@ Info
 
 import sys
 import types
-from typing import List, Any, Optional
+from typing import Any
 from fire import Fire  # type: ignore
 from ats_utilities.factory_class import format_instance_to_string
 from ats_utilities.option.engine import OptionManager
@@ -30,7 +30,7 @@ from ats_utilities.option.iparser_strategy import IParserStrategy
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
+__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
 __version__: str = '3.3.8'
 __maintainer__: str = 'Vladimir Roncevic'
@@ -67,7 +67,7 @@ class MyAppFireStrategy(IParserStrategy):
             name = args[-1].lstrip('-').replace('-', '_')
             setattr(self._target, name, kwargs.get('default'))
 
-    def add_version(self, version: Optional[str]) -> None:
+    def add_version(self, version: str | None) -> None:
         if version:
             setattr(self._target, 'version', lambda: print(version))
 
@@ -100,7 +100,7 @@ fire_strategy = MyAppFireStrategy()
 opt_parser = {
     'name': 'mytool'
 }
-OPS: List[str] = ['-n', '--name', '-v', '--verbose']
+OPS: list[str] = ['-n', '--name', '-v', '--verbose']
 parser2 = OptionManager(parameters=opt_parser, strategy=fire_strategy)
 parser2.add_version_operation('1.2.5')
 parser2.add_operation(OPS[0], OPS[1], dest='name', help='generate project (provide name)')

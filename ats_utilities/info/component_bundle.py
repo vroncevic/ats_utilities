@@ -20,8 +20,7 @@ Info
     Encapsulates info components to minimize constructor overhead.
 '''
 
-from typing import List, Optional
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from ats_utilities.info.iname import IName
 from ats_utilities.info.iversion import IVersion
 from ats_utilities.info.ilicence import ILicence
@@ -35,7 +34,7 @@ from ats_utilities.context_bundle import ContextBundle
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
+__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
 __version__: str = '3.3.8'
 __maintainer__: str = 'Vladimir Roncevic'
@@ -61,23 +60,23 @@ class InfoComponentBundle:
                 | use_github - The ATS use GitHub infrastructure status (default None).
                 | logo_path - The ATS logo path (default None).
                 | info_ok - The ATS information status (default None).
-                | context_bundle - The context bundle (default ContextBundle).
+                | context_bundle - The context bundle (default None).
             :methods:
                 | validate - Validates that essential components are set.
                 | merge - Merges non-None values from another bundle into this one.
                 | to_dict - Converts the bundle attributes to a dictionary.
     '''
 
-    name: Optional[IName] = None
-    version: Optional[IVersion] = None
-    licence: Optional[ILicence] = None
-    build_date: Optional[IBuildDate] = None
-    repository: Optional[IRepository] = None
-    organization: Optional[IOrganization] = None
-    use_github: Optional[IUseGitHub] = None
-    logo_path: Optional[ILogoPath] = None
-    info_ok: Optional[IInfoOk] = None
-    context_bundle: Optional[ContextBundle] = field(default_factory=ContextBundle)
+    name: IName | None = None
+    version: IVersion | None = None
+    licence: ILicence | None = None
+    build_date: IBuildDate | None = None
+    repository: IRepository | None = None
+    organization: IOrganization | None = None
+    use_github: IUseGitHub | None = None
+    logo_path: ILogoPath | None = None
+    info_ok: IInfoOk | None = None
+    context_bundle: ContextBundle | None = None
 
     def validate(self) -> None:
         '''
@@ -114,7 +113,7 @@ class InfoComponentBundle:
             :type other: <InfoComponentBundle>
             :return: None.
             :rtype: <None>
-            :exceptions: None
+            :exceptions: None.
         '''
         for field_name in self.__dataclass_fields__:
             other_value = getattr(other, field_name)
@@ -127,7 +126,7 @@ class InfoComponentBundle:
 
             :return: Dictionary representation of the bundle attributes.
             :rtype: <dict>
-            :exceptions: None
+            :exceptions: None.
         '''
         return {
             name: value

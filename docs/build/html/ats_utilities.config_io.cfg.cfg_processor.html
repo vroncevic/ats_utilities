@@ -79,8 +79,8 @@ Default implementation for processing CFG content.</p>
 <div><dl class="field-list">
 <dt class="field-odd">attributes<span class="colon">:</span></dt>
 <dd class="field-odd"><div class="line-block">
-<div class="line">__REGEX_EXP - Regular expression for matching line.</div>
-<div class="line">__data - Dictionary with CFG information.</div>
+<div class="line">_REGEX_EXP - Regular expression for matching line.</div>
+<div class="line">_data - Dictionary with CFG information.</div>
 </div>
 </dd>
 <dt class="field-even">methods<span class="colon">:</span></dt>
@@ -95,8 +95,8 @@ Default implementation for processing CFG content.</p>
 </dl>
 </div></blockquote>
 <dl class="py attribute">
-<dt class="sig sig-object py" id="ats_utilities.config_io.cfg.cfg_processor.CFGProcessor.__REGEX_EXP">
-<span class="sig-name descname"><span class="pre">__REGEX_EXP</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'^\\s*$'</span></em><a class="headerlink" href="#ats_utilities.config_io.cfg.cfg_processor.CFGProcessor.__REGEX_EXP" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ats_utilities.config_io.cfg.cfg_processor.CFGProcessor._REGEX_EXP">
+<span class="sig-name descname"><span class="pre">_REGEX_EXP</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'^\\s*$'</span></em><a class="headerlink" href="#ats_utilities.config_io.cfg.cfg_processor.CFGProcessor._REGEX_EXP" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
@@ -106,11 +106,11 @@ Default implementation for processing CFG content.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="ats_utilities.config_io.cfg.cfg_processor.CFGProcessor.from_lines">
-<span class="sig-name descname"><span class="pre">from_lines</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lines</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="_modules/ats_utilities/config_io/cfg/cfg_processor.html#CFGProcessor.from_lines"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.config_io.cfg.cfg_processor.CFGProcessor.from_lines" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">from_lines</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lines</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="_modules/ats_utilities/config_io/cfg/cfg_processor.html#CFGProcessor.from_lines"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.config_io.cfg.cfg_processor.CFGProcessor.from_lines" title="Link to this definition">¶</a></dt>
 <dd><p>Loads CFG configuration from lines.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>lines</strong> (<em>&lt;List</em><em>[</em><em>str</em><em>]</em><em>&gt;</em>) – CFG content as a list of strings.</p>
+<dd class="field-odd"><p><strong>lines</strong> (<em>&lt;list</em><em>[</em><em>str</em><em>]</em><em>&gt;</em>) – CFG content as a list of strings.</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>True (success) | False (fail).</p>
@@ -119,24 +119,24 @@ Default implementation for processing CFG content.</p>
 <dd class="field-odd"><p>&lt;bool&gt;</p>
 </dd>
 <dt class="field-even">Exceptions<span class="colon">:</span></dt>
-<dd class="field-even"><p>None.</p>
+<dd class="field-even"><p>None..</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="ats_utilities.config_io.cfg.cfg_processor.CFGProcessor.to_dict">
-<span class="sig-name descname"><span class="pre">to_dict</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/ats_utilities/config_io/cfg/cfg_processor.html#CFGProcessor.to_dict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.config_io.cfg.cfg_processor.CFGProcessor.to_dict" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">to_dict</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/ats_utilities/config_io/cfg/cfg_processor.html#CFGProcessor.to_dict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.config_io.cfg.cfg_processor.CFGProcessor.to_dict" title="Link to this definition">¶</a></dt>
 <dd><p>Converts CFG configuration to dictionary.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Dictionary with CFG information.</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>&lt;Dict[str, str]&gt;</p>
+<dd class="field-even"><p>&lt;dict[str, str]&gt;</p>
 </dd>
 <dt class="field-odd">Exceptions<span class="colon">:</span></dt>
-<dd class="field-odd"><p>None.</p>
+<dd class="field-odd"><p>None..</p>
 </dd>
 </dl>
 </dd></dl>
@@ -153,7 +153,7 @@ Default implementation for processing CFG content.</p>
 <dd class="field-even"><p>&lt;str&gt;</p>
 </dd>
 <dt class="field-odd">Exceptions<span class="colon">:</span></dt>
-<dd class="field-odd"><p>None.</p>
+<dd class="field-odd"><p>None..</p>
 </dd>
 </dl>
 </dd></dl>
@@ -174,7 +174,7 @@ Default implementation for processing CFG content.</p>
     <ul>
 <li><a class="reference internal" href="#">ats_utilities.config_io.cfg.cfg_processor module</a><ul>
 <li><a class="reference internal" href="#ats_utilities.config_io.cfg.cfg_processor.CFGProcessor"><code class="docutils literal notranslate"><span class="pre">CFGProcessor</span></code></a><ul>
-<li><a class="reference internal" href="#ats_utilities.config_io.cfg.cfg_processor.CFGProcessor.__REGEX_EXP"><code class="docutils literal notranslate"><span class="pre">CFGProcessor.__REGEX_EXP</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.config_io.cfg.cfg_processor.CFGProcessor._REGEX_EXP"><code class="docutils literal notranslate"><span class="pre">CFGProcessor._REGEX_EXP</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.config_io.cfg.cfg_processor.CFGProcessor._abc_impl"><code class="docutils literal notranslate"><span class="pre">CFGProcessor._abc_impl</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.config_io.cfg.cfg_processor.CFGProcessor.from_lines"><code class="docutils literal notranslate"><span class="pre">CFGProcessor.from_lines()</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.config_io.cfg.cfg_processor.CFGProcessor.to_dict"><code class="docutils literal notranslate"><span class="pre">CFGProcessor.to_dict()</span></code></a></li>

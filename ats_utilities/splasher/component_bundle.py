@@ -20,8 +20,8 @@ Info
     Encapsulates splash screen components to minimize constructor overhead.
 '''
 
-from typing import Any, Dict, List, Optional
-from dataclasses import dataclass, field
+from typing import Any
+from dataclasses import dataclass
 from ats_utilities.splasher.isplash_property import ISplashProperty
 from ats_utilities.splasher.iterminal_properties import ITerminalProperties
 from ats_utilities.splasher.iext_infrastructure import IExtInfrastructure
@@ -30,7 +30,7 @@ from ats_utilities.context_bundle import ContextBundle
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
+__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
 __version__: str = '3.3.8'
 __maintainer__: str = 'Vladimir Roncevic'
@@ -53,27 +53,25 @@ class SplashComponentBundle:
                 | github - GitHub infrastructure for hyperlinks (default None).
                 | ext - Generic external infrastructure for hyperlinks (default None).
                 | pb - Progress bar component (default None).
-                | context_bundle - Context bundle for dependency injection (default ContextBundle).
+                | context_bundle - Context bundle for dependency injection (default None).
             :methods:
                 | validate - Validates that essential components are set.
                 | merge - Merges non-None values from another bundle into this one.
                 | to_dict - Converts the bundle attributes to a dictionary.
     '''
 
-    prop: Optional[Dict[Any, Any]] = None
-    splash_property: Optional[ISplashProperty] = None
-    terminal_property: Optional[ITerminalProperties] = None
-    github: Optional[IExtInfrastructure] = None
-    ext: Optional[IExtInfrastructure] = None
-    pb: Optional[IProgressBar] = None
-    context_bundle: Optional[ContextBundle] = field(default_factory=ContextBundle)
+    prop: dict[Any, Any] | None = None
+    splash_property: ISplashProperty | None = None
+    terminal_property: ITerminalProperties | None = None
+    github: IExtInfrastructure | None = None
+    ext: IExtInfrastructure | None = None
+    pb: IProgressBar | None = None
+    context_bundle: ContextBundle | None = None
 
     def validate(self) -> None:
         '''
             Validates that essential components are set.
 
-            :return: None
-            :rtype: <None>
             :exceptions: ValueError
         '''
         if self.prop is None:
@@ -85,9 +83,7 @@ class SplashComponentBundle:
 
             :param other: Another bundle to merge into this one.
             :type other: <SplashComponentBundle>
-            :return: None
-            :rtype: <None>
-            :exceptions: None
+            :exceptions: None.
         '''
         for field_name in self.__dataclass_fields__:
             other_value = getattr(other, field_name)
@@ -100,7 +96,7 @@ class SplashComponentBundle:
 
             :return: Dictionary representation of the bundle attributes.
             :rtype: <dict>
-            :exceptions: None
+            :exceptions: None.
         '''
         return {
             name: value

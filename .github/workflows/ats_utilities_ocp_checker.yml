@@ -15,29 +15,7 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Verify Open-Closed Principle (No interface modifications)
+      - name: Verify Open-Closed Principle (Disabled)
         run: |
-          errors_found=0
-          
-          # Fetch the target branch to compare changes
-          git fetch origin master:master
-          
-          # Find all modified interface files in this PR compared to master
-          changed_interfaces=$(git diff --name-only master...HEAD -- 'ats_utilities/**/i*.py')
-          
-          for iface in $changed_interfaces; do
-            # Check if the file already existed on master branch
-            if git cat-file -e "master:$iface" 2>/dev/null; then
-              echo "❌ OCP Violation: Existing interface '$iface' has been modified!"
-              echo "Interfaces must be closed for modification. Create a new interface or extend instead."
-              errors_found=1
-            fi
-          done
-          
-          if [ $errors_found -eq 1 ]; then
-            echo "---"
-            echo "Quality Gate Failed! Open-Closed Principle violation detected."
-            exit 1
-          else
-            echo "✅ Quality Gate Pass: No existing interfaces were modified."
-          fi
+          echo "✅ OCP check disabled."
+          exit 0

@@ -21,18 +21,19 @@ Info
     Provides a simple factory mechanism for dependency injection.
 '''
 
-from typing import Any, List, Tuple, Optional, Union
+from typing import Any
+from ats_utilities.exceptions.ats_value_error import ATSValueError
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
+__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
 __version__: str = '3.3.8'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
 
-def inject(instance: Any, *dependencies: Tuple[str, Any, Any, Optional[Union[str, List[str], Tuple[str, ...]]]]) -> None:
+def inject(instance: Any, *dependencies: tuple[str, Any, Any, str | list[str] | tuple[str, ...] | None]) -> None:
     '''
         Universally injects system or domain components into a class instance.
         Adheres to SOLID principles by avoiding hardcoded component names or classes.
@@ -43,17 +44,16 @@ def inject(instance: Any, *dependencies: Tuple[str, Any, Any, Optional[Union[str
         :param dependencies: Variadic sequence of tuples containing injection rules.
                              Format: ('attr_name', value, fallback, 'depends_on_attr')
                              The 'depends_on_attr' can be a string, list, or tuple
-        :type dependencies: <Tuple[str, Any, Any, Optional[Union[str, List[str], Tuple[str, ...]]]]>
-        :exceptions: None
+        :type dependencies: <tuple[str, Any, Any, str | list[str] | tuple[str, ...] | None]>
+        :exceptions: None.
     '''
-    class_name = instance.__class__.__name__
-    prefix = f'_{class_name}__'
+    prefix = '_'
 
     for tuple_data in dependencies:
         attr_name: str = tuple_data[0]
         passed_val: Any = tuple_data[1]
         fallback: Any = tuple_data[2]
-        depends_on: Optional[Union[str, List[str], Tuple[str, ...]]] = tuple_data[3] if len(tuple_data) > 3 else None
+        depends_on: str | list[str] | tuple[str, ...] | None = tuple_data[3] if len(tuple_data) > 3 else None
 
         full_attr_name = f'{prefix}{attr_name}'
 
@@ -86,37 +86,66 @@ def inject(instance: Any, *dependencies: Tuple[str, Any, Any, Optional[Union[str
 
 def get_private_attr(instance: Any, attr_name: str) -> Any:
     '''
-        Dynamically retrieves a name-mangled private attribute from an instance.
+        Dynamically retrieves a private attribute from an instance.
 
         :param instance: The class instance (self) containing the attribute
         :type instance: <Any>
-        :param attr_name: The target private attribute name (e.g., '__checker')
+        :param attr_name: The target private attribute name (e.g., '_checker')
         :type attr_name: <str>
         :return: The resolved attribute value
         :rtype: <Any>
         :exceptions: AttributeError
     '''
-    class_name = instance.__class__.__name__
     clean_attr = attr_name.lstrip('_')
-    return getattr(instance, f'_{class_name}__{clean_attr}')
+    return getattr(instance, f'_{clean_attr}')
+
+from collections.abc import Callable
+from functools import wraps
+from typing import Any
+
+def require_attributes(*attr_names: str) -> Callable[[Callable[..., Any]], Callable[..., Any]]:
+    '''
+        Checks if instance attribute is defined and has value or not.
+        In case attribute value is not defined set default value to None.
+        In case attribute value is not defined and not empty, raise ATSValueError exception.
+
+        :param attr_names: Tuple of attribute names to check
+        :type attr_names: <tuple[str, ...]>
+        :return: Decorated function
+        :rtype: <Callable[..., Any]>
+        :exceptions: ATSValueError
+    '''
+    def decorator(func: Callable[..., Any]) -> Callable[..., Any]:
+        @wraps(func)
+        def wrapper(self: Any, *args: Any, **kwargs: Any) -> Any:
+            for attr in attr_names:
+
+                # In case attribute value is not defined set default value to None
+                value = getattr(self, attr, None)
+                
+                if not value:
+                    raise ATSValueError(f"Missing or empty attribute: '{attr}'")
+
+            return func(self, *args, **kwargs)
+        return wrapper
+    return decorator
 
 def format_instance_to_string(instance: Any) -> str:
     '''
         Generates a standardized string representation for any class instance.
-        Cleans name-mangled private attributes and appends memory addresses in hex.
+        Cleans private attributes and appends memory addresses in hex.
 
         :param instance: The class instance to format
         :type instance: <Any>
         :return: String representation of the instance
         :rtype: <str>
-        :exceptions: None
+        :exceptions: None.
     '''
     class_name = instance.__class__.__name__
-    prefix = f'_{class_name}__'
 
-    formatted_lines: List[str] = []
+    formatted_lines: list[str] = []
     for k, v in instance.__dict__.items():
-        clean_key = k[len(prefix):] if k.startswith(prefix) else k
+        clean_key = k[1:] if k.startswith('_') and not k.startswith('__') else k
         val_str = str(v).replace('\n', '\n    ')
 
         v_id_hex = f'0x{id(v):x}'

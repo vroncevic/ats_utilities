@@ -22,7 +22,7 @@ Execute
     python3 -m unittest -v ats_checker_test
 '''
 
-from typing import Any, Dict, Tuple, List, Set, Optional
+from typing import Any
 from unittest import TestCase, main, mock
 from ats_utilities.checker.engine import Checker
 from ats_utilities.checker.ichecker import ErrorChecker, IChecker, ParametersSpecs
@@ -31,7 +31,7 @@ from ats_utilities.reporter.engine import Reporter
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
+__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
 __version__: str = '3.3.8'
 __maintainer__: str = 'Vladimir Roncevic'
@@ -169,7 +169,7 @@ class ATSCheckerTestCase(TestCase):
 
     def test_dict_parameter(self) -> None:
         '''Test for dict param checking.'''
-        simple_var: Dict[Any, Any] = {'a': 1, 'b': 2, 3: "test"}
+        simple_var: dict[Any, Any] = {'a': 1, 'b': 2, 3: "test"}
         self.error_msg, self.error_id = self.ats_base_checker.validates_parameters([
             ('dict:simple_var', simple_var)
         ])
@@ -185,7 +185,7 @@ class ATSCheckerTestCase(TestCase):
 
     def test_list_parameter(self) -> None:
         '''Test for list param checking.'''
-        simple_var: List[Any] = ['8', 34, 43.343533, {'a', 'bs'}]
+        simple_var: list[Any] = ['8', 34, 43.343533, {'a', 'bs'}]
         self.error_msg, self.error_id = self.ats_base_checker.validates_parameters([
             ('list:simple_var', simple_var)
         ])
@@ -193,7 +193,7 @@ class ATSCheckerTestCase(TestCase):
 
     def test_set_parameter(self) -> None:
         '''Call test for set param checking.'''
-        simple_var: Set[str] = {'apple', 'banana', 'cherry'}
+        simple_var: set[str] = {'apple', 'banana', 'cherry'}
         self.error_msg, self.error_id = self.ats_base_checker.validates_parameters([
             ('set:simple_var', simple_var)
         ])
@@ -201,7 +201,7 @@ class ATSCheckerTestCase(TestCase):
 
     def test_tuple_parameter(self) -> None:
         '''Test for tuple param checking.'''
-        simple_var: Tuple[Any, ...] = ('quick test', 8, 32.4, [-99, 8, 3.4])
+        simple_var: tuple[Any, ...] = ('quick test', 8, 32.4, [-99, 8, 3.4])
         self.error_msg, self.error_id = self.ats_base_checker.validates_parameters([
             ('tuple:simple_var', simple_var)
         ])
@@ -217,7 +217,7 @@ class ATSCheckerTestCase(TestCase):
 
     def test_type_error(self) -> None:
         '''Test for type param checking.'''
-        simple_var: Tuple[Any, ...] = ('quick test', 8, 32.4, [-99, 8, 3.4])
+        simple_var: tuple[Any, ...] = ('quick test', 8, 32.4, [-99, 8, 3.4])
         self.error_msg, self.error_id = self.ats_base_checker.validates_parameters([
             ('str:simple_var', simple_var)
         ])
@@ -256,13 +256,13 @@ class ATSCheckerTestCase(TestCase):
 
     def test_multiple_parameters_success(self) -> None:
         '''Test validation of multiple parameters.'''
-        params: Optional[ParametersSpecs] = [('str:p1', 'v1'), ('int:p2', 2), ('float:p3', 3.0)]
+        params: ParametersSpecs | None = [('str:p1', 'v1'), ('int:p2', 2), ('float:p3', 3.0)]
         self.error_msg, self.error_id = self.ats_base_checker.validates_parameters(params)
         self.assertEqual(self.error_id, ErrorChecker.NO_ERROR)
 
     def test_multiple_parameters_failure(self) -> None:
         '''Test validation of multiple parameters where one fails.'''
-        params: Optional[ParametersSpecs] = [('str:p1', 'v1'), ('int:p2', 'not_an_int')]
+        params: ParametersSpecs | None = [('str:p1', 'v1'), ('int:p2', 'not_an_int')]
         self.error_msg, self.error_id = self.ats_base_checker.validates_parameters(params)
         self.assertEqual(self.error_id, ErrorChecker.TYPE_ERROR)
 

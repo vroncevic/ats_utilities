@@ -21,18 +21,19 @@ Info
 '''
 
 import sys
-from typing import Any, List, Optional, NoReturn
+from typing import Any, NoReturn
 from argparse import ArgumentParser
 from ats_utilities.context_bundle import ContextBundle
-from ats_utilities.factory_context_bundle import factory_context_bundle
-from ats_utilities.factory_class import get_private_attr, format_instance_to_string
-from ats_utilities.checker.proxy_validator import validator
+from ats_utilities.checker.ichecker import IChecker
 from ats_utilities.reporter.ireporter import IReporter
+from ats_utilities.factory_context_bundle import factory_context_bundle
+from ats_utilities.factory_class import format_instance_to_string
+from ats_utilities.checker.proxy_validator import validator
 from ats_utilities.reporter.proxy_reporter import vreporter
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
+__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
 __version__: str = '3.3.8'
 __maintainer__: str = 'Vladimir Roncevic'
@@ -48,20 +49,24 @@ class ArgParser(ArgumentParser):
         It defines:
 
             :attributes:
-                | __checker - Parameters checker (default Checker).
-                | __reporter - Reporter for messaging (default Reporter).
-                | __verbose - Enable/Disable verbose option (default False).
+                | _checker - Factoriezed parameters checker (default Checker).
+                | _reporter - Factoriezed reporter for messaging (default Reporter).
+                | _verbose - Factoriezed Enable/Disable verbose option (default False).
             :methods:
                 | __init__ - Initials ArgParser constructor.
                 | error - Overrides default error handling to use IReporter.
-                | _reporter - Property method for getting the internal reporter instance.
+                | _reporter - Returns the reporter instance.
                 | __str__ - Returns the string representation of ArgParser.
     '''
+
+    _checker: IChecker
+    _reporter: IReporter
+    _verbose: bool
 
     def __init__(
         self,
         *args: Any,
-        context_bundle: Optional[ContextBundle] = None,
+        context_bundle: ContextBundle | None = None,
         **kwargs: Any
     ) -> None:
         '''
@@ -70,10 +75,10 @@ class ArgParser(ArgumentParser):
             :param args: Additional positional arguments.
             :type args: <Any>
             :param context_bundle: Context bundle for argument parser | None.
-            :type context_bundle: <Optional[ContextBundle]>
+            :type context_bundle: <ContextBundle | None>
             :param kwargs: Additional keyword arguments.
             :type kwargs: <Any>
-            :exceptions: None
+            :exceptions: None.
         '''
         super().__init__(*args, **kwargs)
         factory_context_bundle(self, context_bundle)
@@ -88,21 +93,10 @@ class ArgParser(ArgumentParser):
             :type message: <str>
             :return: None.
             :rtype: <NoReturn>
-            :exceptions: None
+            :exceptions: None.
         '''
         self._reporter.error([f'argument error: {message}'])
         sys.exit(2)
-
-    @property
-    def _reporter(self) -> IReporter:
-        '''
-            Property method for getting the internal reporter instance.
-
-            :return: The reporter instance in IReporter format.
-            :rtype: <IReporter>
-            :exceptions: None
-        '''
-        return get_private_attr(self, 'reporter')
 
     def __str__(self) -> str:
         '''
@@ -110,6 +104,6 @@ class ArgParser(ArgumentParser):
 
             :return: The ArgParser as string representation.
             :rtype: <str>
-            :exceptions: None
+            :exceptions: None.
         '''
         return format_instance_to_string(self)

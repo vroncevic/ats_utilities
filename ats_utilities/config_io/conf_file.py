@@ -20,9 +20,11 @@ Info
     Creates an API for the configuration context manager.
 '''
 
-from typing import Any, List, Tuple, Dict, Optional
+from typing import Any
 from ats_utilities.config_io.iconf_file import IConfFile
 from ats_utilities.context_bundle import ContextBundle
+from ats_utilities.checker.ichecker import IChecker
+from ats_utilities.reporter.ireporter import IReporter
 from ats_utilities.reporter.proxy_reporter import vreporter
 from ats_utilities.config_io.ifile_check import IFileCheck
 from ats_utilities.config_io.file_check import FileCheck
@@ -36,7 +38,7 @@ from ats_utilities.factory_class import get_private_attr, format_instance_to_str
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
+__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
 __version__: str = '3.3.8'
 __maintainer__: str = 'Vladimir Roncevic'
@@ -53,13 +55,13 @@ class ConfFile(IConfFile):
         It defines:
 
             :attributes:
-                | __checker - Factoriezed parameters checker (default Checker).
-                | __reporter - Factoriezed reporter for messaging (default Reporter).
-                | __verbose - Factoriezed Enable/Disable verbose option (default False).
-                | __file_path - Configuration file path (default None).
-                | __file_mode - Configuration file mode (default None).
-                | __file - File object (default None).
-                | __verbose - Enable/Disable verbose option (default False).
+                | _checker - Factoriezed parameters checker (default Checker).
+                | _reporter - Factoriezed reporter for messaging (default Reporter).
+                | _verbose - Factoriezed Enable/Disable verbose option (default False).
+                | _file_path - Configuration file path (default None).
+                | _file_mode - Configuration file mode (default None).
+                | _file - File object (default None).
+                | _verbose - Enable/Disable verbose option (default False).
             :methods:
                 | __init__ - Initializes ConfFile constructor.
                 | __enter__ - Opens configuration file in mode.
@@ -67,19 +69,23 @@ class ConfFile(IConfFile):
                 | __str__ - Returns the ConfFile as string representation.
     '''
 
+    _checker: IChecker
+    _reporter: IReporter
+    _verbose: bool
+
     def __init__(
         self,
-        file_bundle: Optional[ATSFileBundle] = None,
-        config_file_bundle: Optional[ATSConfigFileBundle] = None
+        file_bundle: ATSFileBundle | None = None,
+        config_file_bundle: ATSConfigFileBundle | None = None
     ) -> None:
         '''
             Initializes ConfFile constructor.
 
             :param file_bundle: File bundle parameters | None.
-            :type file_bundle: <Optional[ATSFileBundle]>
+            :type file_bundle: <ATSFileBundle | None>
             :param config_file_bundle: File configuration bundle parameters | None.
-            :type config_file_bundle: <Optional[ATSConfigFileBundle]>
-            :exceptions: ATSTypeError.
+            :type config_file_bundle: <ATSConfigFileBundle | None>
+            :exceptions: ATSValueError.
         '''
         bundle: ATSFileBundle = file_bundle or ATSFileBundle()
         config_bundle: ATSConfigFileBundle = config_file_bundle or ATSConfigFileBundle()
@@ -101,47 +107,47 @@ class ConfFile(IConfFile):
         if not bool(bundle.file_format):
             raise ATSValueError('missing file format')
 
-        self.__file: Optional[File] = None
-        self.__file_path: Optional[str] = None
-        self.__file_mode: Optional[str] = None
+        self._file: File | None = None
+        self._file_path: str | None = None
+        self._file_mode: str | None = None
 
         file_checker.check_path(bundle.file_path)
         file_checker.check_mode(bundle.file_mode)
         file_checker.check_format(bundle.file_path, bundle.file_format)
 
         if file_checker.is_file_ok():
-            self.__file_path = bundle.file_path
-            self.__file_mode = bundle.file_mode
+            self._file_path = bundle.file_path
+            self._file_mode = bundle.file_mode
 
     @vreporter('open file {file_path} with mode {file_mode}')
-    def __enter__(self) -> Optional[File]:
+    def __enter__(self) -> File | None:
         '''
             Opens configuration file in mode.
 
             :return: File IO object | None.
             :rtype: <File>
-            :exceptions: RuntimeError, AttributeError.
+            :exceptions: ATSRuntimeError, ATSAttributeError.
         '''
-        if self.__file_path and self.__file_mode:
-            self.__file = open(self.__file_path, self.__file_mode, encoding='utf-8')
+        if self._file_path and self._file_mode:
+            self._file = open(self._file_path, self._file_mode, encoding='utf-8')
 
-        return self.__file
+        return self._file
 
     @vreporter('close file {file_path}')
-    def __exit__(self, *args: Tuple[Any, ...], **kwargs: Dict[Any, Any]) -> None:
+    def __exit__(self, *args: tuple[Any, ...], **kwargs: dict[Any, Any]) -> None:
         '''
             Closes configuration file.
 
             :param args: List of arguments.
-            :type args: <Tuple[Any, ...]>
+            :type args: <tuple[Any, ...]>
             :param kwargs: Dictionary of mapped arguments.
-            :type kwargs: <Dict[Any, Any]>
+            :type kwargs: <dict[Any, Any]>
             :return: None.
             :rtype: <None>
-            :exceptions: RuntimeError, AttributeError.
+            :exceptions: ATSRuntimeError, ATSAttributeError.
         '''
-        if self.__file and not self.__file.closed:
-            self.__file.close()
+        if self._file and not self._file.closed:
+            self._file.close()
 
     def __str__(self) -> str:
         '''
@@ -149,6 +155,6 @@ class ConfFile(IConfFile):
 
             :return: The ConfFile as string representation.
             :rtype: <str>
-            :exceptions: None.
+            :exceptions: None..
         '''
         return format_instance_to_string(self)

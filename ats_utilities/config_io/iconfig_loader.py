@@ -21,7 +21,6 @@ Info
 '''
 
 from abc import ABC, abstractmethod
-from typing import List, Optional, Union
 from ats_utilities.config_io.cfg.icfg_processor import ICFGProcessor
 from ats_utilities.config_io.cfg.cfg_loader import CFGLoader
 from ats_utilities.config_io.ini.iini_processor import IINIProcessor
@@ -35,7 +34,7 @@ from ats_utilities.config_io.yaml.yaml_loader import YAMLLoader
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
+__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
 __version__: str = '3.3.8'
 __maintainer__: str = 'Vladimir Roncevic'
@@ -43,10 +42,10 @@ __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
 
 # Optional configuration type
-Config = Optional[Union[CFGLoader, INILoader, JSONLoader, XMLLoader, YAMLLoader]]
+Config = CFGLoader | INILoader | JSONLoader | XMLLoader | YAMLLoader | None
 
 # Optional configuration interface type
-IConfigProcessor = Optional[Union[ICFGProcessor, IINIProcessor, IJSONProcessor, IXMLProcessor, IYAMLProcessor]]
+IConfigProcessor = ICFGProcessor | IINIProcessor | IJSONProcessor | IXMLProcessor | IYAMLProcessor | None
 
 class IConfigLoader(ABC):
     '''
@@ -68,7 +67,7 @@ class IConfigLoader(ABC):
 
             :return: Configuration loader object.
             :rtype: <Config>
-            :exceptions: NotImplementedError.
+            :exceptions: NotImplementedError..
         '''
         raise NotImplementedError("Method setup_config_loader() must be implemented.")
 
@@ -79,6 +78,6 @@ class IConfigLoader(ABC):
 
             :return: The IConfigLoader as string representation.
             :rtype: <str>
-            :exceptions: NotImplementedError.
+            :exceptions: NotImplementedError..
         '''
         raise NotImplementedError("Method __str__() must be implemented.")

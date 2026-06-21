@@ -20,7 +20,7 @@ Info
 '''
 
 import sys
-from typing import Any, Dict, List, Optional
+from typing import Any
 from os.path import exists, basename
 from json import load
 from unittest import TestLoader, TestSuite, TextTestRunner
@@ -37,7 +37,7 @@ from ats_utilities.exceptions.ats_file_error import ATSFileError
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_coverage'
-__credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
+__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_coverage/blob/dev/LICENSE'
 __version__: str = '1.0.0'
 __maintainer__: str = 'Vladimir Roncevic'
@@ -54,8 +54,8 @@ def run_coverage(pro_name: str) -> str:
         :exceptions: ATSTypeError | ATSFileError
     '''
     checker: Checker = Checker()
-    error_msg: Optional[str] = None
-    error_id: Optional[int] = None
+    error_msg: str | None = None
+    error_id: int | None = None
     error_msg, error_id = checker.validate_parameters([('str:pro_name', pro_name)])
     if error_id == ErrorChecker.TYPE_ERROR:
         raise ATSTypeError(error_msg)
@@ -75,7 +75,7 @@ def run_coverage(pro_name: str) -> str:
     return report_file_name
 
 
-def load_report(report_file_path: str) -> Dict[str, Any]:
+def load_report(report_file_path: str) -> dict[str, Any]:
     '''
         Loads report from report file.
 
@@ -84,8 +84,8 @@ def load_report(report_file_path: str) -> Dict[str, Any]:
         :exceptions: ATSTypeError | ATSFileError
     '''
     checker: Checker = Checker()
-    error_msg: Optional[str] = None
-    error_id: Optional[int] = None
+    error_msg: str | None = None
+    error_id: int | None = None
     error_msg, error_id = checker.validates_parameters([(
         'str:report_file_path', report_file_path
     )])
@@ -93,13 +93,13 @@ def load_report(report_file_path: str) -> Dict[str, Any]:
         raise ATSTypeError(error_msg)
     if not exists(report_file_path):
         raise ATSFileError(f'{report_file_path} does not exist.')
-    data: Dict[str, Any] = {}
+    data: dict[str, Any] = {}
     with open(report_file_path, 'r', encoding='utf-8') as loaded_file:
         data = load(loaded_file)
     return data
 
 
-def find_root_package(module_path: str) -> Optional[Path]:
+def find_root_package(module_path: str) -> Path | None:
     '''
         Finds root package for project structure.
 
@@ -108,14 +108,14 @@ def find_root_package(module_path: str) -> Optional[Path]:
         :exceptions: ATSTypeError
     '''
     checker: Checker = Checker()
-    error_msg: Optional[str] = None
-    error_id: Optional[int] = None
+    error_msg: str | None = None
+    error_id: int | None = None
     error_msg, error_id = checker.validates_parameters([(
         'str:module_path', module_path
     )])
     if error_id == ErrorChecker.TYPE_ERROR:
         raise ATSTypeError(error_msg)
-    root: Optional[Path] = None
+    root: Path | None = None
     path: Path = Path(module_path).resolve()
     while path.parent != path:
         if (path / '__init__.py').exists():
@@ -124,27 +124,27 @@ def find_root_package(module_path: str) -> Optional[Path]:
     return root
 
 
-def update_readme(coverage: Dict[str, Any]) -> None:
+def update_readme(coverage: dict[str, Any]) -> None:
     '''
         Updates README.md file with code coverage report table.
 
         :param coverage: Coverage data report
-        :type coverage: <Dict[str, Any]>
+        :type coverage: <dict[str, Any]>
         :exceptions: ATSTypeError
     '''
     checker: Checker = Checker()
-    error_msg: Optional[str] = None
-    error_id: Optional[int] = None
+    error_msg: str | None = None
+    error_id: int | None = None
     error_msg, error_id = checker.validates_parameters([('dict:coverage', coverage)])
     if error_id == ErrorChecker.TYPE_ERROR:
         raise ATSTypeError(error_msg)
     readme_path: str = '../README.md'
     start_marker: str = '### Code coverage'
     end_marker: str = '### Docs'
-    lines: List[str] = []
+    lines: list[str] = []
     with open(readme_path, 'r', encoding='utf-8') as current_file:
         lines = current_file.readlines()
-    new_lines: List[str] = []
+    new_lines: list[str] = []
     inside_block: bool = False
     stmts: str = 'num_statements'
     miss: str = 'missing_lines'
@@ -156,15 +156,15 @@ def update_readme(coverage: Dict[str, Any]) -> None:
             new_lines.append('\n')
             new_lines.append('| Name | Stmts | Miss | Cover |\n')
             new_lines.append('|------|-------|------|-------|\n')
-            file_names: List[str] = coverage['files']
+            file_names: list[str] = coverage['files']
             for name in file_names:
-                root_package: Optional[Path] = find_root_package(name)
+                root_package: Path | None = find_root_package(name)
                 module: str = ''
                 if name.startswith(str(root_package)):
                     result: str = name[len(str(root_package)):]
                     result = result.lstrip('/')
                     module = f'{basename(str(root_package))}/{result}'
-                file_summary: Dict[str, Any] = coverage['files'][name]
+                file_summary: dict[str, Any] = coverage['files'][name]
                 statements: str = file_summary['summary'][stmts]
                 missing: str = file_summary['summary'][miss]
                 covered: str = file_summary['summary'][cover]
@@ -209,7 +209,7 @@ if __name__ == "__main__":
         sys.exit(127)
     try:
         pro_report_file: str = f'{getattr(args, "name")}_coverage.json'
-        report_data: Dict[str, Any] = load_report(pro_report_file)
+        report_data: dict[str, Any] = load_report(pro_report_file)
         update_readme(report_data)
     except (ATSTypeError, ATSFileError) as e:
         main_reporter.error([f'ats_coverage: {e}'])

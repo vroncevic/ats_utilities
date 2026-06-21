@@ -20,13 +20,13 @@ Info
 '''
 
 import sys
-from typing import List, Any
+from typing import Any
 from ats_utilities.option.engine import OptionManager
 from ats_utilities.option.component_bundle import OptionComponentBundle
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
+__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
 __version__: str = '3.3.8'
 __maintainer__: str = 'Vladimir Roncevic'
@@ -45,7 +45,7 @@ opt_parser = {
     'version': '1.2.4'
 }
 
-OPS: List[str] = ['-n', '--name', '-v', '--verbose']
+OPS: list[str] = ['-n', '--name', '-v', '--verbose']
 component_bundle: OptionComponentBundle = OptionComponentBundle(parameters=opt_parser)
 parser: OptionManager = OptionManager(component_bundle=component_bundle)
 parser.add_version_operation('1.2.4')

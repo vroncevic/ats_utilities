@@ -58,11 +58,12 @@
 <span class="sd">    Stores the ATS configuration for the ATS.</span>
 <span class="sd">&#39;&#39;&#39;</span>
 
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span>
 <span class="kn">from</span> <span class="nn">xml.etree.ElementTree</span> <span class="kn">import</span> <span class="n">Element</span><span class="p">,</span> <span class="n">SubElement</span><span class="p">,</span> <span class="n">tostring</span><span class="p">,</span> <span class="n">ParseError</span>
 <span class="kn">from</span> <span class="nn">xml.dom.minidom</span> <span class="kn">import</span> <span class="n">parseString</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.config_io.iwrite</span> <span class="kn">import</span> <span class="n">IWrite</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.config_io.istorer</span> <span class="kn">import</span> <span class="n">IStorer</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.checker.ichecker</span> <span class="kn">import</span> <span class="n">IChecker</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.reporter.ireporter</span> <span class="kn">import</span> <span class="n">IReporter</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.config_io.config_file_bundle</span> <span class="kn">import</span> <span class="n">ATSConfigFileBundle</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.config_io.xml.object2xml</span> <span class="kn">import</span> <span class="n">Object2Xml</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.config_io.xml.xml_processor</span> <span class="kn">import</span> <span class="n">XMLProcessor</span>
@@ -74,7 +75,7 @@
 
 <span class="n">__author__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;Vladimir Roncevic&#39;</span>
 <span class="n">__copyright__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;(C) 2026, https://vroncevic.github.io/ats_utilities&#39;</span>
-<span class="n">__credits__</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Vladimir Roncevic&#39;</span><span class="p">,</span> <span class="s1">&#39;Python Software Foundation&#39;</span><span class="p">]</span>
+<span class="n">__credits__</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Vladimir Roncevic&#39;</span><span class="p">,</span> <span class="s1">&#39;Python Software Foundation&#39;</span><span class="p">]</span>
 <span class="n">__license__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE&#39;</span>
 <span class="n">__version__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;3.3.8&#39;</span>
 <span class="n">__maintainer__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;Vladimir Roncevic&#39;</span>
@@ -93,61 +94,65 @@
 <span class="sd">        It defines:</span>
 
 <span class="sd">            :attributes:</span>
-<span class="sd">                | __SECTION - Section name for ATS configuration.</span>
-<span class="sd">                | __checker - Factoriezed parameters checker (default Checker).</span>
-<span class="sd">                | __reporter - Factoriezed reporter for messaging (default Reporter).</span>
-<span class="sd">                | __verbose - Factoriezed Enable/Disable verbose option (default False).</span>
-<span class="sd">                | __processor - Processor for XML content (default XMLProcessor).</span>
-<span class="sd">                | __obj2xml - Out API for information (default Object2Xml).</span>
+<span class="sd">                | _SECTION - Section name for ATS configuration.</span>
+<span class="sd">                | _checker - Factoriezed parameters checker (default Checker).</span>
+<span class="sd">                | _reporter - Factoriezed reporter for messaging (default Reporter).</span>
+<span class="sd">                | _verbose - Factoriezed Enable/Disable verbose option (default False).</span>
+<span class="sd">                | _processor - Processor for XML content (default XMLProcessor).</span>
+<span class="sd">                | _obj2xml - Out API for information (default Object2Xml).</span>
 <span class="sd">            :methods:</span>
 <span class="sd">                | __init__ - Initializes XMLStorer constructor.</span>
 <span class="sd">                | store_configuration - Stores the ATS configuration.</span>
 <span class="sd">                | __str__ - Returns the XMLStorer as string representation.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
 
-    <span class="n">__SECTION</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;[ats_info]&#39;</span>
+    <span class="n">_SECTION</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;[ats_info]&#39;</span>
+
+    <span class="n">_checker</span><span class="p">:</span> <span class="n">IChecker</span>
+    <span class="n">_reporter</span><span class="p">:</span> <span class="n">IReporter</span>
+    <span class="n">_verbose</span><span class="p">:</span> <span class="nb">bool</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
-        <span class="n">info_file</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-        <span class="n">object2xml</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">IWrite</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-        <span class="n">config_bundle</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ATSConfigFileBundle</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-        <span class="n">xml_processor</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">IXMLProcessor</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="n">info_file</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">object2xml</span><span class="p">:</span> <span class="n">IWrite</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">config_bundle</span><span class="p">:</span> <span class="n">ATSConfigFileBundle</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">xml_processor</span><span class="p">:</span> <span class="n">IXMLProcessor</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Initializes XMLStorer constructor.</span>
 
 <span class="sd">            :param info_file: Path to the info file | None.</span>
-<span class="sd">            :type info_file: &lt;Optional[str]&gt;</span>
+<span class="sd">            :type info_file: &lt;str | None&gt;</span>
 <span class="sd">            :param object2xml: An API for information | None.</span>
-<span class="sd">            :type object2xml: &lt;Optional[IWrite]&gt;</span>
+<span class="sd">            :type object2xml: &lt;IWrite | None&gt;</span>
 <span class="sd">            :param config_bundle: Configuration bundle | None.</span>
-<span class="sd">            :type config_bundle: &lt;Optional[ATSConfigFileBundle]&gt;</span>
+<span class="sd">            :type config_bundle: &lt;ATSConfigFileBundle | None&gt;</span>
 <span class="sd">            :param xml_processor: Processor for XML content | None.</span>
-<span class="sd">            :type xml_processor: &lt;Optional[IXMLProcessor]&gt;</span>
+<span class="sd">            :type xml_processor: &lt;IXMLProcessor | None&gt;</span>
 <span class="sd">            :exceptions: ATSTypeError.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="n">config_file_bundle</span><span class="p">:</span> <span class="n">ATSConfigFileBundle</span> <span class="o">=</span> <span class="n">config_bundle</span> <span class="ow">or</span> <span class="n">ATSConfigFileBundle</span><span class="p">()</span>
         <span class="n">factory_context_bundle</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config_file_bundle</span><span class="o">.</span><span class="n">context</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">__processor</span><span class="p">:</span> <span class="n">IXMLProcessor</span> <span class="o">=</span> <span class="n">make_component</span><span class="p">(</span><span class="n">xml_processor</span><span class="p">,</span> <span class="n">XMLProcessor</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
-        <span class="n">validate_component</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__processor</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__processor</span><span class="p">),</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__processor</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">__obj2xml</span><span class="p">:</span> <span class="n">IWrite</span> <span class="o">=</span> <span class="n">make_component</span><span class="p">(</span><span class="n">object2xml</span><span class="p">,</span> <span class="n">Object2Xml</span><span class="p">,</span> <span class="p">{</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_processor</span><span class="p">:</span> <span class="n">IXMLProcessor</span> <span class="o">=</span> <span class="n">make_component</span><span class="p">(</span><span class="n">xml_processor</span><span class="p">,</span> <span class="n">XMLProcessor</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="n">validate_component</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_processor</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_processor</span><span class="p">),</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_processor</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_obj2xml</span><span class="p">:</span> <span class="n">IWrite</span> <span class="o">=</span> <span class="n">make_component</span><span class="p">(</span><span class="n">object2xml</span><span class="p">,</span> <span class="n">Object2Xml</span><span class="p">,</span> <span class="p">{</span>
             <span class="s1">&#39;config_file&#39;</span><span class="p">:</span> <span class="n">info_file</span><span class="p">,</span> <span class="s1">&#39;config_bundle&#39;</span><span class="p">:</span> <span class="n">config_file_bundle</span>
         <span class="p">})</span>
-        <span class="n">validate_component</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__obj2xml</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__obj2xml</span><span class="p">),</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__obj2xml</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)</span>
+        <span class="n">validate_component</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_obj2xml</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_obj2xml</span><span class="p">),</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_obj2xml</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)</span>
 
 <div class="viewcode-block" id="XMLStorer.store_configuration">
 <a class="viewcode-back" href="../../../../ats_utilities.config_io.xml.xml_storer.html#ats_utilities.config_io.xml.xml_storer.XMLStorer.store_configuration">[docs]</a>
     <span class="nd">@validator</span><span class="p">([(</span><span class="s1">&#39;dict:config&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)])</span>
-    <span class="k">def</span> <span class="nf">store_configuration</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">store_configuration</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Stores the ATS configuration from dictionary format.</span>
 
 <span class="sd">            :param config: Dictionary with XML information.</span>
-<span class="sd">            :type config: &lt;Dict[str, str]&gt;</span>
+<span class="sd">            :type config: &lt;dict[str, str]&gt;</span>
 <span class="sd">            :return: True (success) | False (fail).</span>
 <span class="sd">            :rtype: &lt;bool&gt;</span>
-<span class="sd">            :exceptions: ATSTypeError, ATSValueError, RuntimeError, AttributeError.</span>
+<span class="sd">            :exceptions: ATSTypeError, ATSValueError, ATSRuntimeError, ATSAttributeError..</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="n">root</span> <span class="o">=</span> <span class="n">Element</span><span class="p">(</span><span class="s1">&#39;configuration&#39;</span><span class="p">)</span>
@@ -163,10 +168,10 @@
         <span class="k">except</span> <span class="p">(</span><span class="ne">TypeError</span><span class="p">,</span> <span class="ne">ValueError</span><span class="p">,</span> <span class="n">ParseError</span><span class="p">):</span>
             <span class="k">return</span> <span class="kc">False</span>
 
-        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">__processor</span><span class="o">.</span><span class="n">from_string</span><span class="p">(</span><span class="n">xml_content</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_processor</span><span class="o">.</span><span class="n">from_string</span><span class="p">(</span><span class="n">xml_content</span><span class="p">):</span>
             <span class="k">return</span> <span class="kc">False</span>
 
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__obj2xml</span><span class="o">.</span><span class="n">write_configuration</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__processor</span><span class="p">)</span></div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_obj2xml</span><span class="o">.</span><span class="n">write_configuration</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_processor</span><span class="p">)</span></div>
 
 
     <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
@@ -175,7 +180,7 @@
 
 <span class="sd">            :return: The XMLStorer as string representation.</span>
 <span class="sd">            :rtype: &lt;str&gt;</span>
-<span class="sd">            :exceptions: None.</span>
+<span class="sd">            :exceptions: None..</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="k">return</span> <span class="n">format_instance_to_string</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div>
 

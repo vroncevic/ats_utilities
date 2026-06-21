@@ -20,9 +20,10 @@ Info
     Defines project template directory container.
 '''
 
-from typing import List, Optional
 from ats_utilities.config_setup.itemplate_dir import ITemplateDir
 from ats_utilities.context_bundle import ContextBundle
+from ats_utilities.checker.ichecker import IChecker
+from ats_utilities.reporter.ireporter import IReporter
 from ats_utilities.factory_context_bundle import factory_context_bundle
 from ats_utilities.factory_class import format_instance_to_string
 from ats_utilities.checker.proxy_validator import validator
@@ -30,7 +31,7 @@ from ats_utilities.reporter.proxy_reporter import vreporter
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
+__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
 __version__: str = '3.3.8'
 __maintainer__: str = 'Vladimir Roncevic'
@@ -47,10 +48,10 @@ class TemplateDir(ITemplateDir):
         It defines:
 
             :attributes:
-                | __checker - Factoriezed parameters checker (default Checker).
-                | __reporter - Factoriezed reporter for messaging (default Reporter).
-                | __verbose - Factoriezed Enable/Disable verbose option (default False).
-                | __template_dir - Project template dir path (default None).
+                | _checker - Factoriezed parameters checker (default Checker).
+                | _reporter - Factoriezed reporter for messaging (default Reporter).
+                | _verbose - Factoriezed Enable/Disable verbose option (default False).
+                | _template_dir - Project template dir path (default None).
             :methods:
                 | __init__ - Initializes TemplateDir constructor.
                 | template_dir - Property methods for set/get operations.
@@ -58,43 +59,47 @@ class TemplateDir(ITemplateDir):
                 | __str__ - Returns the ATS project template directory as string representation.
     '''
 
-    def __init__(self, context_bundle: Optional[ContextBundle] = None) -> None:
+    _checker: IChecker
+    _reporter: IReporter
+    _verbose: bool
+
+    def __init__(self, context_bundle: ContextBundle | None = None) -> None:
         '''
             Initializes TemplateDir constructor.
 
             :param context_bundle: Context bundle for template dir | None.
-            :type context_bundle: <Optional[ContextBundle]>
-            :exceptions: None.
+            :type context_bundle: <ContextBundle | None>
+            :exceptions: None..
         '''
         factory_context_bundle(self, context_bundle)
-        self.__template_dir: Optional[str] = None
+        self._template_dir: str | None = None
 
     @property
     @vreporter('get template dir {template_dir}')
-    def template_dir(self) -> Optional[str]:
+    def template_dir(self) -> str | None:
         '''
             Property method for getting template dir.
 
             :return: Formatted template dir in string format | None.
-            :rtype: <Optional[str]>
-            :exceptions: RuntimeError, AttributeError.
+            :rtype: <str | None>
+            :exceptions: ATSRuntimeError, ATSAttributeError.
         '''
-        return self.__template_dir
+        return self._template_dir
 
     @template_dir.setter
-    @validator([('Optional[str]:dir_path', None)])
+    @validator([('str | None:dir_path', None)])
     @vreporter('get template dir {template_dir}')
-    def template_dir(self, dir_path: Optional[str]) -> None:
+    def template_dir(self, dir_path: str | None) -> None:
         '''
             Property method for setting project template dir.
 
             :param dir_path: Project template dir path in string format | None.
-            :type dir_path: <Optional[str]>
+            :type dir_path: <str | None>
             :exceptions:
                 | ATSTypeError, ATSValueError, RuntimeError, AttributeError.
                 | RuntimeError, AttributeError.
         '''
-        self.__template_dir = dir_path
+        self._template_dir = dir_path
 
     @vreporter('check template dir {template_dir}')
     def not_none(self) -> bool:
@@ -103,9 +108,9 @@ class TemplateDir(ITemplateDir):
 
             :return: True (success) | False (fail).
             :rtype: <bool>
-            :exceptions: RuntimeError, AttributeError.
+            :exceptions: ATSRuntimeError, ATSAttributeError.
         '''
-        return self.__template_dir is not None
+        return self._template_dir is not None
 
     def __str__(self) -> str:
         '''
@@ -113,6 +118,6 @@ class TemplateDir(ITemplateDir):
 
             :return: The ATS project template directory as string representation.
             :rtype: <str>
-            :exceptions: None.
+            :exceptions: None..
         '''
         return format_instance_to_string(self)

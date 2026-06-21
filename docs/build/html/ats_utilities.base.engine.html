@@ -78,15 +78,15 @@ Creates an API for setup ATS (application, tool, script).</p>
 <div><dl class="field-list">
 <dt class="field-odd">attributes<span class="colon">:</span></dt>
 <dd class="field-odd"><div class="line-block">
-<div class="line">__checker - Factoriezed parameters checker (default Checker).</div>
-<div class="line">__reporter - Factoriezed reporter for messaging (default Reporter).</div>
-<div class="line">__verbose - Factoriezed Enable/Disable verbose option (default False).</div>
-<div class="line">__operational - Status for ATS (default False).</div>
-<div class="line">__config_loader - Manager for configuration loading.</div>
-<div class="line">__info_manager - Manager for info component.</div>
-<div class="line">__splasher - Manager for splash component.</div>
-<div class="line">__options_parser - Manager for options parser.</div>
-<div class="line">__logger_manager - Manager for logger component.</div>
+<div class="line">_checker - Factoriezed parameters checker (default Checker).</div>
+<div class="line">_reporter - Factoriezed reporter for messaging (default Reporter).</div>
+<div class="line">_verbose - Factoriezed Enable/Disable verbose option (default False).</div>
+<div class="line">_operational - Status for ATS (default False).</div>
+<div class="line">_config_loader - Manager for configuration loading.</div>
+<div class="line">_info_manager - Manager for info component.</div>
+<div class="line">_splasher - Manager for splash component.</div>
+<div class="line">_options_parser - Manager for options parser.</div>
+<div class="line">_logger_manager - Manager for logger component.</div>
 </div>
 </dd>
 <dt class="field-even">methods<span class="colon">:</span></dt>
@@ -106,6 +106,21 @@ Creates an API for setup ATS (application, tool, script).</p>
 <span class="sig-name descname"><span class="pre">_abc_impl</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;_abc._abc_data</span> <span class="pre">object&gt;</span></em><a class="headerlink" href="#ats_utilities.base.engine.Base._abc_impl" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ats_utilities.base.engine.Base._checker">
+<span class="sig-name descname"><span class="pre">_checker</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="ats_utilities.checker.ichecker.html#ats_utilities.checker.ichecker.IChecker" title="ats_utilities.checker.ichecker.IChecker"><span class="pre">IChecker</span></a></em><a class="headerlink" href="#ats_utilities.base.engine.Base._checker" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ats_utilities.base.engine.Base._reporter">
+<span class="sig-name descname"><span class="pre">_reporter</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="ats_utilities.reporter.ireporter.html#ats_utilities.reporter.ireporter.IReporter" title="ats_utilities.reporter.ireporter.IReporter"><span class="pre">IReporter</span></a></em><a class="headerlink" href="#ats_utilities.base.engine.Base._reporter" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ats_utilities.base.engine.Base._verbose">
+<span class="sig-name descname"><span class="pre">_verbose</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#ats_utilities.base.engine.Base._verbose" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
 <dl class="py method">
 <dt class="sig sig-object py" id="ats_utilities.base.engine.Base.add_new_option">
 <span class="sig-name descname"><span class="pre">add_new_option</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/ats_utilities/base/engine.html#Base.add_new_option"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.base.engine.Base.add_new_option" title="Link to this definition">¶</a></dt>
@@ -118,7 +133,7 @@ Creates an API for setup ATS (application, tool, script).</p>
 </ul>
 </dd>
 <dt class="field-even">Exceptions<span class="colon">:</span></dt>
-<dd class="field-even"><p>None.</p>
+<dd class="field-even"><p>None..</p>
 </dd>
 </dl>
 </dd></dl>
@@ -135,7 +150,7 @@ Creates an API for setup ATS (application, tool, script).</p>
 <dd class="field-even"><p>&lt;bool&gt;</p>
 </dd>
 <dt class="field-odd">Exceptions<span class="colon">:</span></dt>
-<dd class="field-odd"><p>None.</p>
+<dd class="field-odd"><p>None..</p>
 </dd>
 </dl>
 </dd></dl>
@@ -152,7 +167,7 @@ Creates an API for setup ATS (application, tool, script).</p>
 <dd class="field-even"><p>Options and arguments.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>&lt;Optional[<a class="reference internal" href="ats_utilities.option.option_namespace.html#ats_utilities.option.option_namespace.OptionNamespace" title="ats_utilities.option.option_namespace.OptionNamespace">OptionNamespace</a>]&gt;</p>
+<dd class="field-odd"><p>&lt;OptionNamespace | None&gt;</p>
 </dd>
 <dt class="field-even">Exceptions<span class="colon">:</span></dt>
 <dd class="field-even"><p>ATSTypeError.</p>
@@ -197,6 +212,9 @@ Creates an API for setup ATS (application, tool, script).</p>
 <li><a class="reference internal" href="#">ats_utilities.base.engine module</a><ul>
 <li><a class="reference internal" href="#ats_utilities.base.engine.Base"><code class="docutils literal notranslate"><span class="pre">Base</span></code></a><ul>
 <li><a class="reference internal" href="#ats_utilities.base.engine.Base._abc_impl"><code class="docutils literal notranslate"><span class="pre">Base._abc_impl</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.base.engine.Base._checker"><code class="docutils literal notranslate"><span class="pre">Base._checker</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.base.engine.Base._reporter"><code class="docutils literal notranslate"><span class="pre">Base._reporter</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.base.engine.Base._verbose"><code class="docutils literal notranslate"><span class="pre">Base._verbose</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.base.engine.Base.add_new_option"><code class="docutils literal notranslate"><span class="pre">Base.add_new_option()</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.base.engine.Base.is_operational"><code class="docutils literal notranslate"><span class="pre">Base.is_operational()</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.base.engine.Base.parse_args"><code class="docutils literal notranslate"><span class="pre">Base.parse_args()</span></code></a></li>

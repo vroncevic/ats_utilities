@@ -21,11 +21,10 @@ Info
 '''
 
 from abc import ABC, abstractmethod
-from typing import List, Optional
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
+__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
 __version__: str = '3.3.8'
 __maintainer__: str = 'Vladimir Roncevic'
@@ -49,13 +48,13 @@ class IProName(ABC):
 
     @property
     @abstractmethod
-    def pro_name(self) -> Optional[str]:
+    def pro_name(self) -> str | None:
         '''
             Property method for getting project name.
 
             :return: Formatted project name in string format | None
-            :rtype: <Optional[str]>
-            :exceptions: NotImplementedError
+            :rtype: <str | None>
+            :exceptions: NotImplementedError.
         '''
         raise NotImplementedError("Method pro_name() must be implemented.")
 
@@ -67,7 +66,7 @@ class IProName(ABC):
 
             :param name: Project name in string format | None
             :type name: <str>
-            :exceptions: NotImplementedError
+            :exceptions: NotImplementedError.
         '''
         raise NotImplementedError("Method pro_name() must be implemented.")
 
@@ -78,7 +77,7 @@ class IProName(ABC):
 
             :return: True (success) | False (fail)
             :rtype: <bool>
-            :exceptions: NotImplementedError
+            :exceptions: NotImplementedError.
         '''
         raise NotImplementedError("Method not_none() must be implemented.")
 
@@ -89,6 +88,6 @@ class IProName(ABC):
 
             :return: The ATS project name as string representation.
             :rtype: <str>
-            :exceptions: NotImplementedError
+            :exceptions: NotImplementedError.
         '''
         raise NotImplementedError("Method __str__() must be implemented.")

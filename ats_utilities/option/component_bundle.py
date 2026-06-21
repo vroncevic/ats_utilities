@@ -20,14 +20,14 @@ Info
     Encapsulates option components to minimize constructor overhead.
 '''
 
-from typing import Dict, List, Optional
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from ats_utilities.context_bundle import ContextBundle
 from ats_utilities.option.iparser_strategy import IParserStrategy
+from ats_utilities.exceptions.ats_value_error import ATSValueError
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
+__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
 __version__: str = '3.3.8'
 __maintainer__: str = 'Vladimir Roncevic'
@@ -46,26 +46,31 @@ class OptionComponentBundle:
             :attributes:
                 | parameters - Configuration parameters (default None).
                 | strategy - Strategy for argument parsing (default None).
-                | context_bundle - Context bundle for dependency injection (default ContextBundle).
+                | context_bundle - Context bundle for dependency injection (default None).
             :methods:
                 | validate - Validates that essential components are set.
                 | merge - Merges non-None values from another bundle into this one.
                 | to_dict - Converts the bundle attributes to a dictionary.
     '''
 
-    parameters: Optional[Dict[str, str]] = None
-    strategy: Optional[IParserStrategy] = None
-    context_bundle: Optional[ContextBundle] = field(default_factory=ContextBundle)
+    parameters: dict[str, str] | None = None
+    strategy: IParserStrategy | None = None
+    context_bundle: ContextBundle | None = None
 
     def validate(self) -> None:
         '''
             Validates that essential components are set.
 
-            :return: None
-            :rtype: <None>
-            :exceptions: ValueError
+            :exceptions: ATSValueError
         '''
-        pass
+        if self.parameters is None:
+            raise ATSValueError("Parameters is required.")
+
+        if self.strategy is None:
+            raise ATSValueError("Strategy is required.")
+
+        if self.context_bundle is None:
+            raise ATSValueError("Context bundle is required.")
 
     def merge(self, other: 'OptionComponentBundle') -> None:
         '''
@@ -73,9 +78,7 @@ class OptionComponentBundle:
 
             :param other: Another bundle to merge into this one.
             :type other: <OptionComponentBundle>
-            :return: None
-            :rtype: <None>
-            :exceptions: None
+            :exceptions: None.
         '''
         for field_name in self.__dataclass_fields__:
             other_value = getattr(other, field_name)
@@ -88,7 +91,7 @@ class OptionComponentBundle:
 
             :return: Dictionary representation of the bundle attributes.
             :rtype: <dict>
-            :exceptions: None
+            :exceptions: None.
         '''
         return {
             name: value

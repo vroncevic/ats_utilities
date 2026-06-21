@@ -21,11 +21,10 @@ Info
 '''
 
 from abc import ABC, abstractmethod
-from typing import Dict, List
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
+__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
 __version__: str = '3.3.8'
 __maintainer__: str = 'Vladimir Roncevic'
@@ -47,15 +46,15 @@ class IStorer(ABC):
     '''
 
     @abstractmethod
-    def store_configuration(self, config: Dict[str, str]) -> bool:
+    def store_configuration(self, config: dict[str, str]) -> bool:
         '''
             Stores the ATS configuration from dictionary format.
 
             :param config: Dictionary with configuration information.
-            :type config: <Dict[str, str]>
+            :type config: <dict[str, str]>
             :return: True (success) | False (fail).
             :rtype: <bool>
-            :exceptions: NotImplementedError.
+            :exceptions: NotImplementedError..
         '''
         raise NotImplementedError("Method store_configuration() must be implemented.")
 
@@ -66,6 +65,6 @@ class IStorer(ABC):
 
             :return: The storer component as string representation.
             :rtype: <str>
-            :exceptions: NotImplementedError.
+            :exceptions: NotImplementedError..
         '''
         raise NotImplementedError("Method __str__() must be implemented.")

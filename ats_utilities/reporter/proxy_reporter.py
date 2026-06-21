@@ -21,23 +21,23 @@ Info
     and supports multiple message templates and variables.
 '''
 
-import re
+from collections.abc import Callable
+from re import findall
 from functools import wraps
-from typing import Any, Callable, List, Union, TypeVar, cast
+from typing import Any, cast
+from ats_utilities.exceptions.ats_attribute_error import ATSAttributeError
+from ats_utilities.exceptions.ats_runtime_error import ATSRuntimeError
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
+__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
 __version__: str = '3.3.8'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
 
-# Allows decorator to remember signature wrapped method
-F = TypeVar('F', bound=Callable[..., Any])
-
-def vreporter(templates: Union[str, List[str]]) -> Callable[[F], F]:
+def vreporter[F: Callable[..., Any]](templates: str | list[str]) -> Callable[[F], F]:
     '''
         Decorator supporting class methods and property operations.
         Borrows the reporter object and verbose flag dynamically from the 
@@ -45,12 +45,12 @@ def vreporter(templates: Union[str, List[str]]) -> Callable[[F], F]:
         Supports single or multiple message templates with multiple variables.
 
         :param templates: Single template string or a list of template strings.
-        :type templates: <Union[str, List[str]]>
+        :type templates: <str | list[str]>
         :return: Wrapped function.
         :rtype: <Callable[[F], F]>
-        :exceptions: RuntimeError, AttributeError
+        :exceptions: ATSRuntimeError, ATSAttributeError.
     '''
-    message_templates: List[str] = [templates] if isinstance(templates, str) else templates
+    message_templates: list[str] = [templates] if isinstance(templates, str) else templates
 
     def decorator(func: F) -> F:
         @wraps(func)
@@ -58,7 +58,7 @@ def vreporter(templates: Union[str, List[str]]) -> Callable[[F], F]:
             self_instance = args[0] if args else None
 
             if not self_instance:
-                raise RuntimeError(
+                raise ATSRuntimeError(
                     f"Decorator @verboser on '{func.__name__}' "
                     f"can only be used on class methods."
                 )
@@ -68,16 +68,16 @@ def vreporter(templates: Union[str, List[str]]) -> Callable[[F], F]:
             # BORROWING: Extracting reporter and verbose flag from the instance
             reporter = getattr(
                 self_instance, '_reporter',
-                getattr(self_instance, f'_{class_name}__reporter', None)
+                getattr(self_instance, f'_{class_name}_reporter', None)
             )
 
             is_verbose = getattr(
                 self_instance, '_verbose',
-                getattr(self_instance, f'_{class_name}__verbose', False)
+                getattr(self_instance, f'_{class_name}_verbose', False)
             )
 
             if reporter is None:
-                raise AttributeError(
+                raise ATSAttributeError(
                     f"Class '{class_name}' is required to provide "
                     f"a '_reporter' object to use the @verboser decorator."
                 )
@@ -85,10 +85,10 @@ def vreporter(templates: Union[str, List[str]]) -> Callable[[F], F]:
             # Executing the original method first to get updated state (critical for setters)
             result = func(*args, **kwargs)
 
-            final_messages: List[str] = []
+            final_messages: list[str] = []
 
             for template in message_templates:
-                placeholders = re.findall(r'\{([^}]+)\}', template)
+                placeholders = findall(r'\{([^}]+)\}', template)
                 format_context = {}
 
                 for placeholder in placeholders:

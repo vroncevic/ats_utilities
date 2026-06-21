@@ -20,8 +20,7 @@ Info
     Encapsulates base components to minimize constructor overhead.
 '''
 
-from typing import List, Optional
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from ats_utilities.context_bundle import ContextBundle
 from ats_utilities.config_io.iconfig_loader import IConfigLoader
 from ats_utilities.info.imanager import IInfoManager
@@ -31,7 +30,7 @@ from ats_utilities.splasher.isplasher import ISplasher
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
+__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
 __version__: str = '3.3.8'
 __maintainer__: str = 'Vladimir Roncevic'
@@ -54,20 +53,20 @@ class BaseComponentBundle:
                 | options_parser - Options manager (default None).
                 | logger_manager - Logger manager (default None).
                 | splasher - Splasher (default None).
-                | context_bundle - Context bundle for dependency injection (default ContextBundle).
+                | context_bundle - Context bundle for dependency injection (default None).
             :methods:
                 | validate - Validates that essential components are set.
                 | merge - Merges non-None values from another bundle into this one.
                 | to_dict - Converts the bundle attributes to a dictionary.
     '''
 
-    info_file: Optional[str] = None
-    config_loader: Optional[IConfigLoader] = None
-    info_manager: Optional[IInfoManager] = None
-    options_parser: Optional[IOptionManager] = None
-    logger_manager: Optional[ILoggerManager] = None
-    splasher: Optional[ISplasher] = None
-    context_bundle: Optional[ContextBundle] = field(default_factory=ContextBundle)
+    info_file: str | None = None
+    config_loader: IConfigLoader | None = None
+    info_manager: IInfoManager | None = None
+    options_parser: IOptionManager | None = None
+    logger_manager: ILoggerManager | None = None
+    splasher: ISplasher | None = None
+    context_bundle: ContextBundle | None = None
 
     def validate(self) -> None:
         '''
@@ -88,7 +87,7 @@ class BaseComponentBundle:
             :type other: <BaseComponentBundle>
             :return: None.
             :rtype: <None>
-            :exceptions: None.
+            :exceptions: None..
         '''
         for field_name in self.__dataclass_fields__:
             other_value = getattr(other, field_name)
@@ -101,7 +100,7 @@ class BaseComponentBundle:
 
             :return: Dictionary representation of the bundle attributes.
             :rtype: <dict>
-            :exceptions: None.
+            :exceptions: None..
         '''
         return {
             name: value

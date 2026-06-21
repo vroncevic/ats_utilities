@@ -21,12 +21,12 @@ Info
 '''
 
 from abc import ABC, abstractmethod
-from typing import Any, ClassVar, List, Tuple, Optional, TypeAlias, Protocol
+from typing import Any, ClassVar, TypeAlias, Protocol
 from enum import Enum, EnumMeta
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
+__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
 __version__: str = '3.3.8'
 __maintainer__: str = 'Vladimir Roncevic'
@@ -34,10 +34,10 @@ __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
 
 # Validation resut type: (error message report, error id)
-ValidationResult: TypeAlias = Tuple[str, int]
+ValidationResult: TypeAlias = tuple[str, int]
 
 # Specification for parameters: [(param name, param value), ...]
-ParametersSpecs: TypeAlias = List[Tuple[str, Any]]
+ParametersSpecs: TypeAlias = list[tuple[str, Any]]
 
 
 class ErrorChecker(int, Enum):
@@ -93,15 +93,15 @@ class IChecker(ABC):
     ERRORS: ClassVar[EnumMeta] = ErrorChecker
 
     @abstractmethod
-    def validates_parameters(self, parameters: Optional[ParametersSpecs]) -> ValidationResult:
+    def validates_parameters(self, parameters: ParametersSpecs | None) -> ValidationResult:
         '''
             Validates parameters for a method(s) or function(s).
 
             :param parameters: Specification for parameters
-            :type parameters: <Optional[ParametersSpecs]>
+            :type parameters: <ParametersSpecs | None>
             :return: Tuple of error message report and error id
             :rtype: <ValidationResult>
-            :exceptions: NotImplementedError
+            :exceptions: NotImplementedError.
         '''
         raise NotImplementedError("Method validate_parameters() must be implemented.")
 
@@ -112,6 +112,6 @@ class IChecker(ABC):
 
             :return: The checker as string representation.
             :rtype: <str>
-            :exceptions: NotImplementedError
+            :exceptions: NotImplementedError.
         '''
         raise NotImplementedError("Method __str__() must be implemented.")

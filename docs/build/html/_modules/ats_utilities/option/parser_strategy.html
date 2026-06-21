@@ -58,10 +58,12 @@
 <span class="sd">    Creates an interfaces for ATS option parsing.</span>
 <span class="sd">&#39;&#39;&#39;</span>
 
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span>
 <span class="kn">from</span> <span class="nn">argparse</span> <span class="kn">import</span> <span class="n">ArgumentParser</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.option.iparser_strategy</span> <span class="kn">import</span> <span class="n">IParserStrategy</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.context_bundle</span> <span class="kn">import</span> <span class="n">ContextBundle</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.checker.ichecker</span> <span class="kn">import</span> <span class="n">IChecker</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.reporter.ireporter</span> <span class="kn">import</span> <span class="n">IReporter</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.option.arg_parser</span> <span class="kn">import</span> <span class="n">ArgParser</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.option.option_namespace</span> <span class="kn">import</span> <span class="n">OptionNamespace</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.option.option_namespace</span> <span class="kn">import</span> <span class="n">OptArgs</span>
@@ -74,7 +76,7 @@
 
 <span class="n">__author__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;Vladimir Roncevic&#39;</span>
 <span class="n">__copyright__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;(C) 2026, https://vroncevic.github.io/ats_utilities&#39;</span>
-<span class="n">__credits__</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Vladimir Roncevic&#39;</span><span class="p">,</span> <span class="s1">&#39;Python Software Foundation&#39;</span><span class="p">]</span>
+<span class="n">__credits__</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Vladimir Roncevic&#39;</span><span class="p">,</span> <span class="s1">&#39;Python Software Foundation&#39;</span><span class="p">]</span>
 <span class="n">__license__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE&#39;</span>
 <span class="n">__version__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;3.3.8&#39;</span>
 <span class="n">__maintainer__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;Vladimir Roncevic&#39;</span>
@@ -92,11 +94,11 @@
 <span class="sd">        It defines:</span>
 
 <span class="sd">            :attributes:</span>
-<span class="sd">                | __checker - Factoriezed parameters checker (default Checker).</span>
-<span class="sd">                | __reporter - Factoriezed reporter for messaging (default Reporter).</span>
-<span class="sd">                | __verbose - Factoriezed Enable/Disable verbose option (default False).</span>
-<span class="sd">                | __shared_bundle - Bundle with checker, reporter and verbose (default ContextBundle).</span>
-<span class="sd">                | __parser - Options parser (default None).</span>
+<span class="sd">                | _checker - Factoriezed parameters checker (default Checker).</span>
+<span class="sd">                | _reporter - Factoriezed reporter for messaging (default Reporter).</span>
+<span class="sd">                | _verbose - Factoriezed Enable/Disable verbose option (default False).</span>
+<span class="sd">                | _shared_bundle - Bundle with checker, reporter and verbose (default ContextBundle).</span>
+<span class="sd">                | _parser - Options parser (default None).</span>
 <span class="sd">            :methods:</span>
 <span class="sd">                | __init__ - Initials ParserStrategy constructor.</span>
 <span class="sd">                | setup - Initializes the underlying parser with metadata parameters.</span>
@@ -107,40 +109,44 @@
 <span class="sd">                | __str__ - Returns the string representation of ParserStrategy.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context_bundle</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ContextBundle</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="n">_checker</span><span class="p">:</span> <span class="n">IChecker</span>
+    <span class="n">_reporter</span><span class="p">:</span> <span class="n">IReporter</span>
+    <span class="n">_verbose</span><span class="p">:</span> <span class="nb">bool</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context_bundle</span><span class="p">:</span> <span class="n">ContextBundle</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Initializes ParserStrategy constructor.</span>
 
 <span class="sd">            :param context_bundle: Context bundle for parser strategy | None.</span>
-<span class="sd">            :type context_bundle: &lt;Optional[ContextBundle]&gt;</span>
-<span class="sd">            :exceptions: None</span>
+<span class="sd">            :type context_bundle: &lt;ContextBundle | None&gt;</span>
+<span class="sd">            :exceptions: None.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="n">factory_context_bundle</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context_bundle</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">__shared_bundle</span><span class="p">:</span> <span class="n">ContextBundle</span> <span class="o">=</span> <span class="n">ContextBundle</span><span class="p">(</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_shared_bundle</span><span class="p">:</span> <span class="n">ContextBundle</span> <span class="o">=</span> <span class="n">ContextBundle</span><span class="p">(</span>
             <span class="n">checker</span><span class="o">=</span><span class="n">get_private_attr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;checker&#39;</span><span class="p">),</span>
             <span class="n">reporter</span><span class="o">=</span><span class="n">get_private_attr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;reporter&#39;</span><span class="p">),</span>
             <span class="n">verbose</span><span class="o">=</span><span class="n">get_private_attr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;verbose&#39;</span><span class="p">)</span>
         <span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">__parser</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ArgumentParser</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_parser</span><span class="p">:</span> <span class="n">ArgumentParser</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
 
 <div class="viewcode-block" id="ParserStrategy.setup">
 <a class="viewcode-back" href="../../../ats_utilities.option.parser_strategy.html#ats_utilities.option.parser_strategy.ParserStrategy.setup">[docs]</a>
     <span class="nd">@validator</span><span class="p">([(</span><span class="s1">&#39;dict:parameters&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)])</span>
-    <span class="k">def</span> <span class="nf">setup</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parameters</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">setup</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parameters</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Initializes the underlying parser with metadata parameters.</span>
 
 <span class="sd">            :param parameters: Parameters for logger.</span>
-<span class="sd">            :type parameters: &lt;Dict[str, str]&gt;</span>
-<span class="sd">            :exceptions: ATSTypeError, ATSValueError, RuntimeError, AttributeError</span>
+<span class="sd">            :type parameters: &lt;dict[str, str]&gt;</span>
+<span class="sd">            :exceptions: ATSTypeError, ATSValueError, ATSRuntimeError, ATSAttributeError.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">__parser</span> <span class="o">=</span> <span class="n">make_component</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="n">ArgParser</span><span class="p">,</span> <span class="p">{</span>
-            <span class="s1">&#39;context_bundle&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">__shared_bundle</span><span class="p">,</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_parser</span> <span class="o">=</span> <span class="n">make_component</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="n">ArgParser</span><span class="p">,</span> <span class="p">{</span>
+            <span class="s1">&#39;context_bundle&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_shared_bundle</span><span class="p">,</span>
             <span class="s1">&#39;prog&#39;</span><span class="p">:</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">parameters</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">InfoKeys</span><span class="o">.</span><span class="n">ATS_NAME</span><span class="p">)</span><span class="si">}</span><span class="s1"> </span><span class="si">{</span><span class="n">parameters</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">InfoKeys</span><span class="o">.</span><span class="n">ATS_VERSION</span><span class="p">)</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span>
             <span class="s1">&#39;epilog&#39;</span><span class="p">:</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">parameters</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">InfoKeys</span><span class="o">.</span><span class="n">ATS_NAME</span><span class="p">)</span><span class="si">}</span><span class="s1"> copyright (c) </span><span class="si">{</span><span class="n">parameters</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">InfoKeys</span><span class="o">.</span><span class="n">ATS_LICENCE</span><span class="p">)</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span>
             <span class="s1">&#39;description&#39;</span><span class="p">:</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">parameters</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">InfoKeys</span><span class="o">.</span><span class="n">ATS_NAME</span><span class="p">)</span><span class="si">}</span><span class="s1"> build date </span><span class="si">{</span><span class="n">parameters</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">InfoKeys</span><span class="o">.</span><span class="n">ATS_BUILD_DATE</span><span class="p">)</span><span class="si">}</span><span class="s1">&#39;</span>
         <span class="p">})</span>
-        <span class="n">validate_component</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__parser</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__parser</span><span class="p">),</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__parser</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)</span></div>
+        <span class="n">validate_component</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_parser</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_parser</span><span class="p">),</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_parser</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="ParserStrategy.add_argument">
@@ -153,24 +159,24 @@
 <span class="sd">            :type args: &lt;str&gt;</span>
 <span class="sd">            :param kwargs: Arguments in shape of dictionary.</span>
 <span class="sd">            :type kwargs: &lt;Any&gt;</span>
-<span class="sd">            :exceptions: None</span>
+<span class="sd">            :exceptions: None.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__parser</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">__parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parser</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="ParserStrategy.add_version">
 <a class="viewcode-back" href="../../../ats_utilities.option.parser_strategy.html#ats_utilities.option.parser_strategy.ParserStrategy.add_version">[docs]</a>
-    <span class="k">def</span> <span class="nf">add_version</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">version</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">add_version</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">version</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Adds a version display option to the parser.</span>
 
 <span class="sd">            :param version: The ATS version | None.</span>
-<span class="sd">            :type version: &lt;Optional[str]&gt;</span>
-<span class="sd">            :exceptions: None</span>
+<span class="sd">            :type version: &lt;str | None&gt;</span>
+<span class="sd">            :exceptions: None.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__parser</span> <span class="ow">and</span> <span class="n">version</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">__parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;--version&#39;</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s1">&#39;version&#39;</span><span class="p">,</span> <span class="n">version</span><span class="o">=</span><span class="n">version</span><span class="p">)</span></div>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parser</span> <span class="ow">and</span> <span class="n">version</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;--version&#39;</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s1">&#39;version&#39;</span><span class="p">,</span> <span class="n">version</span><span class="o">=</span><span class="n">version</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="ParserStrategy.parse">
@@ -187,13 +193,13 @@
 <span class="sd">            :rtype: &lt;OptionNamespace&gt;</span>
 <span class="sd">            :exceptions: RuntimeError</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">__parser</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parser</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s1">&#39;Parser strategy is not initialized.&#39;</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="n">known_only</span><span class="p">:</span>
-            <span class="n">known_args</span><span class="p">:</span> <span class="n">KnownArgs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__parser</span><span class="o">.</span><span class="n">parse_known_args</span><span class="p">(</span><span class="n">arguments</span><span class="p">)</span>
+            <span class="n">known_args</span><span class="p">:</span> <span class="n">KnownArgs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parser</span><span class="o">.</span><span class="n">parse_known_args</span><span class="p">(</span><span class="n">arguments</span><span class="p">)</span>
             <span class="k">return</span> <span class="n">known_args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">(</span><span class="n">arguments</span><span class="p">)</span></div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">(</span><span class="n">arguments</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="ParserStrategy.ok">
@@ -204,9 +210,9 @@
 
 <span class="sd">            :return: True (success) | False (fail)</span>
 <span class="sd">            :rtype: &lt;bool&gt;</span>
-<span class="sd">            :exceptions: None.</span>
+<span class="sd">            :exceptions: None..</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="k">return</span> <span class="kc">True</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__parser</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="kc">False</span></div>
+        <span class="k">return</span> <span class="kc">True</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parser</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="kc">False</span></div>
 
 
     <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
@@ -215,7 +221,7 @@
 
 <span class="sd">            :return: The ParserStrategy as string representation.</span>
 <span class="sd">            :rtype: &lt;str&gt;</span>
-<span class="sd">            :exceptions: None</span>
+<span class="sd">            :exceptions: None.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="k">return</span> <span class="n">format_instance_to_string</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div>
 

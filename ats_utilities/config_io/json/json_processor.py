@@ -20,14 +20,13 @@ Info
     Provides a default implementation for processing JSON content.
 '''
 
-from typing import Dict, List
 from json import loads, dumps, JSONDecodeError
 from ats_utilities.config_io.json.ijson_processor import IJSONProcessor
 from ats_utilities.factory_class import format_instance_to_string
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
+__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
 __version__: str = '3.3.8'
 __maintainer__: str = 'Vladimir Roncevic'
@@ -42,7 +41,7 @@ class JSONProcessor(IJSONProcessor):
         It defines:
 
             :attributes:
-                | __data - Internal dictionary to store JSON data.
+                | _data - Internal dictionary to store JSON data.
             :methods:
                 | __init__ - Initializes JSONProcessor constructor.
                 | decode - Convert raw JSON text to an internal object/structure.
@@ -57,9 +56,9 @@ class JSONProcessor(IJSONProcessor):
 
             :return: None.
             :rtype: <None>
-            :exceptions: None.
+            :exceptions: None..
         '''
-        self.__data: Dict[str, str] = {}
+        self._data: dict[str, str] = {}
 
     def decode(self, json_string: str) -> bool:
         '''
@@ -69,10 +68,10 @@ class JSONProcessor(IJSONProcessor):
             :type json_string: <str>
             :return: True (success) | False (fail).
             :rtype: <bool>
-            :exceptions: None.
+            :exceptions: None..
         '''
         try:
-            self.__data = loads(json_string)
+            self._data = loads(json_string)
             return True
         except JSONDecodeError:
             return False
@@ -83,19 +82,19 @@ class JSONProcessor(IJSONProcessor):
 
             :return: JSON content in string format.
             :rtype: <str>
-            :exceptions: None.
+            :exceptions: None..
         '''
-        return dumps(self.__data, indent=4)
+        return dumps(self._data, indent=4)
 
-    def to_dict(self) -> Dict[str, str]:
+    def to_dict(self) -> dict[str, str]:
         '''
             Converts data as a flat dictionary (abstract).
 
             :return: Dictionary with JSON configuration.
-            :rtype: <Dict[str, str]>
-            :exceptions: None.
+            :rtype: <dict[str, str]>
+            :exceptions: None..
         '''
-        return self.__data
+        return self._data
 
     def __str__(self) -> str:
         '''
@@ -103,6 +102,6 @@ class JSONProcessor(IJSONProcessor):
 
             :return: The JSONProcessor as string representation.
             :rtype: <str>
-            :exceptions: None.
+            :exceptions: None..
         '''
         return format_instance_to_string(self)

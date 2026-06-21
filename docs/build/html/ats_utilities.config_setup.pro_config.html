@@ -82,10 +82,10 @@ Mechanism for project configuration.</p>
 <div class="line">TEMPLATES - Templates key used for processing template files.</div>
 <div class="line">MODULES - Modules key used for processing template files.</div>
 <div class="line">FORMAT - Format for template file extension.</div>
-<div class="line">__checker - Factoriezed parameters checker (default Checker).</div>
-<div class="line">__reporter - Factoriezed reporter for messaging (default Reporter).</div>
-<div class="line">__verbose - Factoriezed Enable/Disable verbose option (default False).</div>
-<div class="line">__config - Tool configuration in dictionary format (default None).</div>
+<div class="line">_checker - Factoriezed parameters checker (default Checker).</div>
+<div class="line">_reporter - Factoriezed reporter for messaging (default Reporter).</div>
+<div class="line">_verbose - Factoriezed Enable/Disable verbose option (default False).</div>
+<div class="line">_config - Tool configuration in dictionary format (default None).</div>
 </div>
 </dd>
 <dt class="field-even">methods<span class="colon">:</span></dt>
@@ -118,19 +118,34 @@ Mechanism for project configuration.</p>
 <span class="sig-name descname"><span class="pre">_abc_impl</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;_abc._abc_data</span> <span class="pre">object&gt;</span></em><a class="headerlink" href="#ats_utilities.config_setup.pro_config.ProConfig._abc_impl" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ats_utilities.config_setup.pro_config.ProConfig._checker">
+<span class="sig-name descname"><span class="pre">_checker</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="ats_utilities.checker.ichecker.html#ats_utilities.checker.ichecker.IChecker" title="ats_utilities.checker.ichecker.IChecker"><span class="pre">IChecker</span></a></em><a class="headerlink" href="#ats_utilities.config_setup.pro_config.ProConfig._checker" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ats_utilities.config_setup.pro_config.ProConfig._reporter">
+<span class="sig-name descname"><span class="pre">_reporter</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="ats_utilities.reporter.ireporter.html#ats_utilities.reporter.ireporter.IReporter" title="ats_utilities.reporter.ireporter.IReporter"><span class="pre">IReporter</span></a></em><a class="headerlink" href="#ats_utilities.config_setup.pro_config.ProConfig._reporter" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ats_utilities.config_setup.pro_config.ProConfig._verbose">
+<span class="sig-name descname"><span class="pre">_verbose</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#ats_utilities.config_setup.pro_config.ProConfig._verbose" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
 <dl class="py property">
 <dt class="sig sig-object py" id="ats_utilities.config_setup.pro_config.ProConfig.config">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">config</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#ats_utilities.config_setup.pro_config.ProConfig.config" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">config</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#ats_utilities.config_setup.pro_config.ProConfig.config" title="Link to this definition">¶</a></dt>
 <dd><p>Property method for getting project configuration.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Formatted project configuration in dict format | None.</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>&lt;Optional[Dict[Any, Any]]&gt;</p>
+<dd class="field-even"><p>&lt;dict[Any, Any] | None&gt;</p>
 </dd>
 <dt class="field-odd">Exceptions<span class="colon">:</span></dt>
-<dd class="field-odd"><p>RuntimeError, AttributeError.</p>
+<dd class="field-odd"><p>ATSRuntimeError, ATSAttributeError.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -147,7 +162,7 @@ Mechanism for project configuration.</p>
 <dd class="field-even"><p>&lt;bool&gt;</p>
 </dd>
 <dt class="field-odd">Exceptions<span class="colon">:</span></dt>
-<dd class="field-odd"><p>RuntimeError, AttributeError.</p>
+<dd class="field-odd"><p>ATSRuntimeError, ATSAttributeError.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -172,6 +187,9 @@ Mechanism for project configuration.</p>
 <li><a class="reference internal" href="#ats_utilities.config_setup.pro_config.ProConfig.MODULES"><code class="docutils literal notranslate"><span class="pre">ProConfig.MODULES</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.config_setup.pro_config.ProConfig.TEMPLATES"><code class="docutils literal notranslate"><span class="pre">ProConfig.TEMPLATES</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.config_setup.pro_config.ProConfig._abc_impl"><code class="docutils literal notranslate"><span class="pre">ProConfig._abc_impl</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.config_setup.pro_config.ProConfig._checker"><code class="docutils literal notranslate"><span class="pre">ProConfig._checker</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.config_setup.pro_config.ProConfig._reporter"><code class="docutils literal notranslate"><span class="pre">ProConfig._reporter</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.config_setup.pro_config.ProConfig._verbose"><code class="docutils literal notranslate"><span class="pre">ProConfig._verbose</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.config_setup.pro_config.ProConfig.config"><code class="docutils literal notranslate"><span class="pre">ProConfig.config</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.config_setup.pro_config.ProConfig.not_none"><code class="docutils literal notranslate"><span class="pre">ProConfig.not_none()</span></code></a></li>
 </ul>

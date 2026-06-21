@@ -21,11 +21,10 @@ Info
 '''
 
 from abc import ABC, abstractmethod
-from typing import List, Optional
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
+__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
 __version__: str = '3.3.8'
 __maintainer__: str = 'Vladimir Roncevic'
@@ -49,25 +48,25 @@ class IVersion(ABC):
 
     @property
     @abstractmethod
-    def version(self) -> Optional[str]:
+    def version(self) -> str | None:
         '''
             Property method for getting ATS version.
 
             :return: The ATS version in string format | None
-            :rtype: <Optional[str]>
-            :exceptions: NotImplementedError
+            :rtype: <str | None>
+            :exceptions: NotImplementedError.
         '''
         raise NotImplementedError("Method version() must be implemented.")
 
     @version.setter
     @abstractmethod
-    def version(self, version: Optional[str]) -> None:
+    def version(self, version: str | None) -> None:
         '''
             Property method for setting ATS version.
 
             :param version: The ATS version in string format | None
-            :type version: <Optional[str]>
-            :exceptions: NotImplementedError
+            :type version: <str | None>
+            :exceptions: NotImplementedError.
         '''
         raise NotImplementedError("Method version() must be implemented.")
 
@@ -78,7 +77,7 @@ class IVersion(ABC):
 
             :return: True (success) | False (fail).
             :rtype: <bool>
-            :exceptions: NotImplementedError
+            :exceptions: NotImplementedError.
         '''
         raise NotImplementedError("Method not_none() must be implemented.")
 
@@ -89,6 +88,6 @@ class IVersion(ABC):
 
             :return: The ATS version as string representation.
             :rtype: <str>
-            :exceptions: NotImplementedError
+            :exceptions: NotImplementedError.
         '''
         raise NotImplementedError("Method __str__() must be implemented.")

@@ -20,15 +20,14 @@ Info
     Encapsulates core configuration and processor utilities to minimize constructor overhead.
 '''
 
-from dataclasses import dataclass, field
-from typing import List, Optional
+from dataclasses import dataclass
 from ats_utilities.config_io.iread import IRead
 from ats_utilities.config_io.config_file_bundle import ATSConfigFileBundle
 from ats_utilities.config_io.iconfig_loader import IConfigProcessor
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
+__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
 __version__: str = '3.3.8'
 __maintainer__: str = 'Vladimir Roncevic'
@@ -48,7 +47,7 @@ class ATSConfigLoaderBundle:
             :attributes:
                 | info_file - Configuration file for loading process (default None).
                 | config2object - Convertor configuration to object (default None).
-                | config_bundle - ATS configuration file bundle (default ATSConfigFileBundle()).
+                | config_bundle - ATS configuration file bundle (default None).
                 | processor - Configuration processor implementation (default None).
             :methods:
                 | validate - Validates that essential components are set.
@@ -56,10 +55,10 @@ class ATSConfigLoaderBundle:
                 | to_dict - Converts the bundle attributes to a dictionary.
     '''
 
-    info_file: Optional[str] = None
-    config2object: Optional[IRead] = None
-    config_bundle: Optional[ATSConfigFileBundle] = field(default_factory=ATSConfigFileBundle)
-    processor: Optional[IConfigProcessor] = None
+    info_file: str | None = None
+    config2object: IRead | None = None
+    config_bundle: ATSConfigFileBundle | None = None
+    processor: IConfigProcessor | None = None
 
     def validate(self) -> None:
         '''
@@ -67,7 +66,7 @@ class ATSConfigLoaderBundle:
 
             :return: None.
             :rtype: <None>
-            :exceptions: None.
+            :exceptions: None..
         '''
         pass
 
@@ -79,7 +78,7 @@ class ATSConfigLoaderBundle:
             :type other: <ATSConfigLoaderBundle>
             :return: None.
             :rtype: <None>
-            :exceptions: None.
+            :exceptions: None..
         '''
         for field_name in self.__dataclass_fields__:
             other_value = getattr(other, field_name)
@@ -92,7 +91,7 @@ class ATSConfigLoaderBundle:
 
             :return: Dictionary representation of the bundle attributes.
             :rtype: <dict>
-            :exceptions: None.
+            :exceptions: None..
         '''
         return {
             name: value

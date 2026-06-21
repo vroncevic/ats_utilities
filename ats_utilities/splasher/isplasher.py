@@ -21,12 +21,11 @@ Info
 '''
 
 from abc import ABC, abstractmethod
-from typing import List, Optional
 from ats_utilities.splasher.splash_center_bundle import SplashCenterBundle
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
+__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
 __version__: str = '3.3.8'
 __maintainer__: str = 'Vladimir Roncevic'
@@ -48,13 +47,13 @@ class ISplasher(ABC):
     '''
 
     @abstractmethod
-    def center(self, splash_center_bundle: Optional[SplashCenterBundle] = None) -> None:
+    def center(self, splash_center_bundle: SplashCenterBundle | None = None) -> None:
         '''
             Centers console line.
 
             :param splash_center_bundle: Splash center bundle for centering console output | None.
-            :type splash_center_bundle: <Optional[SplashCenterBundle]>
-            :exceptions: NotImplementedError
+            :type splash_center_bundle: <SplashCenterBundle | None>
+            :exceptions: NotImplementedError.
         '''
         raise NotImplementedError("Method center() must be implemented.")
 
@@ -65,6 +64,6 @@ class ISplasher(ABC):
 
             :return: The splash screen component as string representation.
             :rtype: <str>
-            :exceptions: NotImplementedError
+            :exceptions: NotImplementedError.
         '''
         raise NotImplementedError("Method __str__() must be implemented.")

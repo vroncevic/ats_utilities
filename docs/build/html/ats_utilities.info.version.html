@@ -78,10 +78,10 @@ Creates an API for the ATS version in one property object.</p>
 <div><dl class="field-list">
 <dt class="field-odd">attributes<span class="colon">:</span></dt>
 <dd class="field-odd"><div class="line-block">
-<div class="line">__checker - Factoriezed parameters checker (default Checker).</div>
-<div class="line">__reporter - Factoriezed reporter for messaging (default Reporter).</div>
-<div class="line">__verbose - Factoriezed Enable/Disable verbose option (default False).</div>
-<div class="line">__version - The ATS version (default None).</div>
+<div class="line">_checker - Factoriezed parameters checker (default Checker).</div>
+<div class="line">_reporter - Factoriezed reporter for messaging (default Reporter).</div>
+<div class="line">_verbose - Factoriezed Enable/Disable verbose option (default False).</div>
+<div class="line">_version - The ATS version (default None).</div>
 </div>
 </dd>
 <dt class="field-even">methods<span class="colon">:</span></dt>
@@ -99,6 +99,21 @@ Creates an API for the ATS version in one property object.</p>
 <span class="sig-name descname"><span class="pre">_abc_impl</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;_abc._abc_data</span> <span class="pre">object&gt;</span></em><a class="headerlink" href="#ats_utilities.info.version.Version._abc_impl" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ats_utilities.info.version.Version._checker">
+<span class="sig-name descname"><span class="pre">_checker</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="ats_utilities.checker.ichecker.html#ats_utilities.checker.ichecker.IChecker" title="ats_utilities.checker.ichecker.IChecker"><span class="pre">IChecker</span></a></em><a class="headerlink" href="#ats_utilities.info.version.Version._checker" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ats_utilities.info.version.Version._reporter">
+<span class="sig-name descname"><span class="pre">_reporter</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="ats_utilities.reporter.ireporter.html#ats_utilities.reporter.ireporter.IReporter" title="ats_utilities.reporter.ireporter.IReporter"><span class="pre">IReporter</span></a></em><a class="headerlink" href="#ats_utilities.info.version.Version._reporter" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ats_utilities.info.version.Version._verbose">
+<span class="sig-name descname"><span class="pre">_verbose</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#ats_utilities.info.version.Version._verbose" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
 <dl class="py method">
 <dt class="sig sig-object py" id="ats_utilities.info.version.Version.not_none">
 <span class="sig-name descname"><span class="pre">not_none</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="_modules/ats_utilities/info/version.html#Version.not_none"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.info.version.Version.not_none" title="Link to this definition">¶</a></dt>
@@ -111,7 +126,7 @@ Creates an API for the ATS version in one property object.</p>
 <dd class="field-even"><p>&lt;bool&gt;</p>
 </dd>
 <dt class="field-odd">Exceptions<span class="colon">:</span></dt>
-<dd class="field-odd"><p>RuntimeError, AttributeError.</p>
+<dd class="field-odd"><p>ATSRuntimeError, ATSAttributeError.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -125,10 +140,10 @@ Creates an API for the ATS version in one property object.</p>
 <dd class="field-odd"><p>The ATS version in string format | None.</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>&lt;Optional[str]&gt;</p>
+<dd class="field-even"><p>&lt;str | None&gt;</p>
 </dd>
 <dt class="field-odd">Exceptions<span class="colon">:</span></dt>
-<dd class="field-odd"><p>RuntimeError, AttributeError.</p>
+<dd class="field-odd"><p>ATSRuntimeError, ATSAttributeError.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -150,6 +165,9 @@ Creates an API for the ATS version in one property object.</p>
 <li><a class="reference internal" href="#">ats_utilities.info.version module</a><ul>
 <li><a class="reference internal" href="#ats_utilities.info.version.Version"><code class="docutils literal notranslate"><span class="pre">Version</span></code></a><ul>
 <li><a class="reference internal" href="#ats_utilities.info.version.Version._abc_impl"><code class="docutils literal notranslate"><span class="pre">Version._abc_impl</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.info.version.Version._checker"><code class="docutils literal notranslate"><span class="pre">Version._checker</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.info.version.Version._reporter"><code class="docutils literal notranslate"><span class="pre">Version._reporter</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.info.version.Version._verbose"><code class="docutils literal notranslate"><span class="pre">Version._verbose</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.info.version.Version.not_none"><code class="docutils literal notranslate"><span class="pre">Version.not_none()</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.info.version.Version.version"><code class="docutils literal notranslate"><span class="pre">Version.version</span></code></a></li>
 </ul>

@@ -21,11 +21,10 @@ Info
 '''
 
 from abc import ABC, abstractmethod
-from typing import List, Tuple
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
+__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
 __version__: str = '3.3.8'
 __maintainer__: str = 'Vladimir Roncevic'
@@ -56,20 +55,20 @@ class IFormatValidator(ABC):
             :type exp_type: <str>
             :return: True (success), False (fail)
             :rtype: <bool>
-            :exceptions: NotImplementedError
+            :exceptions: NotImplementedError.
         '''
         raise NotImplementedError("Method is_valid() must be implemented.")
 
     @abstractmethod
-    def split(self, exp_type: str) -> Tuple[str, str]:
+    def split(self, exp_type: str) -> tuple[str, str]:
         '''
             Splits the format string into components.
 
             :param exp_type: The format string to split
             :type exp_type: <str>
             :return: A tuple containing the split components
-            :rtype: <Tuple[str, str]>
-            :exceptions: NotImplementedError
+            :rtype: <tuple[str, str]>
+            :exceptions: NotImplementedError.
         '''
         raise NotImplementedError("Method split() must be implemented.")
 
@@ -80,6 +79,6 @@ class IFormatValidator(ABC):
 
             :return: The validator as string representation.
             :rtype: <str>
-            :exceptions: NotImplementedError
+            :exceptions: NotImplementedError.
         '''
         raise NotImplementedError("Method __str__() must be implemented.")

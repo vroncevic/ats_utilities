@@ -21,13 +21,13 @@ Info
 '''
 
 from abc import ABC, abstractmethod
-from typing import Any, Dict, List, Optional
+from typing import Any
 from ats_utilities.option.option_namespace import OptionNamespace
 from ats_utilities.option.option_namespace import OptArgs
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
+__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
 __version__: str = '3.3.8'
 __maintainer__: str = 'Vladimir Roncevic'
@@ -54,13 +54,13 @@ class IParserStrategy(ABC):
     '''
 
     @abstractmethod
-    def setup(self, parameters: Dict[str, str]) -> None:
+    def setup(self, parameters: dict[str, str]) -> None:
         '''
             Initializes the underlying parser with metadata parameters.
 
-            :param parameters: Parameters for logger in dict format
-            :type parameters: <Dict[str, str]>
-            :exceptions: NotImplementedError
+            :param parameters: Parameters for logger in dict format.
+            :type parameters: <dict[str, str]>
+            :exceptions: NotImplementedError.
         '''
         raise NotImplementedError("Method setup() must be implemented.")
 
@@ -69,22 +69,22 @@ class IParserStrategy(ABC):
         '''
             Adds an operational argument/flag to the parser.
 
-            :param args: Arguments in string form
+            :param args: Arguments in string format.
             :type args: <str>
             :param kwargs: Arguments in Any form
             :type kwargs: <Any>
-            :exceptions: NotImplementedError
+            :exceptions: NotImplementedError.
         '''
         raise NotImplementedError("Method add_argument() must be implemented.")
 
     @abstractmethod
-    def add_version(self, version: Optional[str]) -> None:
+    def add_version(self, version: str | None) -> None:
         '''
             Adds a version display option to the parser.
 
-            :param version: The ATS version in string format | None
-            :type version: <Optional[str]>
-            :exceptions: NotImplementedError
+            :param version: The ATS version in string format | None.
+            :type version: <str | None>
+            :exceptions: NotImplementedError.
         '''
         raise NotImplementedError("Method add_version() must be implemented.")
 
@@ -93,13 +93,13 @@ class IParserStrategy(ABC):
         '''
             Parses the input arguments and returns an OptionNamespace.
 
-            :param arguments: Sequence of arguments | None
+            :param arguments: Sequence of arguments | None.
             :type arguments: <OptArgs>
-            :param known_only: Parse only known arguments
+            :param known_only: Parse only known arguments.
             :type known_only: <bool>
-            :return: Option namespace object
+            :return: Option namespace object.
             :rtype: <OptionNamespace>
-            :exceptions: NotImplementedError
+            :exceptions: NotImplementedError.
         '''
         raise NotImplementedError("Method parse() must be implemented.")
 
@@ -108,9 +108,9 @@ class IParserStrategy(ABC):
         '''
             Checks if parser strategy component is ok.
 
-            :return: True (success) | False (fail)
+            :return: True (success) | False (fail).
             :rtype: <bool>
-            :exceptions: NotImplementedError
+            :exceptions: NotImplementedError.
         '''
         raise NotImplementedError("Method ok() must be implemented.")
 
@@ -121,6 +121,6 @@ class IParserStrategy(ABC):
 
             :return: The ATS parser strategy as string representation.
             :rtype: <str>
-            :exceptions: NotImplementedError
+            :exceptions: NotImplementedError.
         '''
         raise NotImplementedError("Method __str__() must be implemented.")

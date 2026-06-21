@@ -69,7 +69,7 @@ Encapsulates config setup components to minimize constructor overhead.</p>
 </dl>
 <dl class="py class">
 <dt class="sig sig-object py" id="ats_utilities.config_setup.component_bundle.ConfigSetupComponentBundle">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ats_utilities.config_setup.component_bundle.</span></span><span class="sig-name descname"><span class="pre">ConfigSetupComponentBundle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pro_config:</span> <span class="pre">~ats_utilities.config_setup.ipro_config.IProConfig</span> <span class="pre">|</span> <span class="pre">None</span> <span class="pre">=</span> <span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pro_name:</span> <span class="pre">~ats_utilities.config_setup.ipro_name.IProName</span> <span class="pre">|</span> <span class="pre">None</span> <span class="pre">=</span> <span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">template_dir:</span> <span class="pre">~ats_utilities.config_setup.itemplate_dir.ITemplateDir</span> <span class="pre">|</span> <span class="pre">None</span> <span class="pre">=</span> <span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">context_bundle:</span> <span class="pre">~ats_utilities.context_bundle.ContextBundle</span> <span class="pre">|</span> <span class="pre">None</span> <span class="pre">=</span> <span class="pre">&lt;factory&gt;</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ats_utilities/config_setup/component_bundle.html#ConfigSetupComponentBundle"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.config_setup.component_bundle.ConfigSetupComponentBundle" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ats_utilities.config_setup.component_bundle.</span></span><span class="sig-name descname"><span class="pre">ConfigSetupComponentBundle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pro_config</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="ats_utilities.config_setup.ipro_config.html#ats_utilities.config_setup.ipro_config.IProConfig" title="ats_utilities.config_setup.ipro_config.IProConfig"><span class="pre">IProConfig</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pro_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="ats_utilities.config_setup.ipro_name.html#ats_utilities.config_setup.ipro_name.IProName" title="ats_utilities.config_setup.ipro_name.IProName"><span class="pre">IProName</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">template_dir</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="ats_utilities.config_setup.itemplate_dir.html#ats_utilities.config_setup.itemplate_dir.ITemplateDir" title="ats_utilities.config_setup.itemplate_dir.ITemplateDir"><span class="pre">ITemplateDir</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">context_bundle</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="ats_utilities.context_bundle.html#ats_utilities.context_bundle.ContextBundle" title="ats_utilities.context_bundle.ContextBundle"><span class="pre">ContextBundle</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ats_utilities/config_setup/component_bundle.html#ConfigSetupComponentBundle"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.config_setup.component_bundle.ConfigSetupComponentBundle" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Defines component bundle dataclass for dependency grouping and management.
 Encapsulates config setup components to minimize constructor overhead.</p>
@@ -81,7 +81,7 @@ Encapsulates config setup components to minimize constructor overhead.</p>
 <div class="line">pro_config - Project configuration mechanism (default None).</div>
 <div class="line">pro_name - Project name mechanism (default None).</div>
 <div class="line">template_dir - Project template directory mechanism (default None).</div>
-<div class="line">context_bundle - Context bundle for configuration utilities (default ContextBundle()).</div>
+<div class="line">context_bundle - Context bundle for configuration utilities (default None).</div>
 </div>
 </dd>
 <dt class="field-even">methods<span class="colon">:</span></dt>
@@ -95,7 +95,7 @@ Encapsulates config setup components to minimize constructor overhead.</p>
 </div></blockquote>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="ats_utilities.config_setup.component_bundle.ConfigSetupComponentBundle.context_bundle">
-<span class="sig-name descname"><span class="pre">context_bundle</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="ats_utilities.context_bundle.html#ats_utilities.context_bundle.ContextBundle" title="ats_utilities.context_bundle.ContextBundle"><span class="pre">ContextBundle</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#ats_utilities.config_setup.component_bundle.ConfigSetupComponentBundle.context_bundle" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">context_bundle</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="ats_utilities.context_bundle.html#ats_utilities.context_bundle.ContextBundle" title="ats_utilities.context_bundle.ContextBundle"><span class="pre">ContextBundle</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#ats_utilities.config_setup.component_bundle.ConfigSetupComponentBundle.context_bundle" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -113,7 +113,7 @@ Encapsulates config setup components to minimize constructor overhead.</p>
 <dd class="field-odd"><p>&lt;None&gt;</p>
 </dd>
 <dt class="field-even">Exceptions<span class="colon">:</span></dt>
-<dd class="field-even"><p>None.</p>
+<dd class="field-even"><p>None..</p>
 </dd>
 </dl>
 </dd></dl>
@@ -145,7 +145,7 @@ Encapsulates config setup components to minimize constructor overhead.</p>
 <dd class="field-even"><p>&lt;dict&gt;</p>
 </dd>
 <dt class="field-odd">Exceptions<span class="colon">:</span></dt>
-<dd class="field-odd"><p>None.</p>
+<dd class="field-odd"><p>None..</p>
 </dd>
 </dl>
 </dd></dl>

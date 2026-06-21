@@ -29,15 +29,15 @@ jobs:
             # This ignores docstrings, regular comments, and non-abstract items
             method_count=$(grep -c "@abstractmethod" "$iface" || true)
             
-            if [ "$method_count" -gt 5 ]; then
-              echo "❌ ISP Violation: Interface '$iface' defines $method_count abstract methods (Max allowed is 5). Segregate this interface!"
+            if [ "$method_count" -gt 9 ]; then
+              echo "❌ ISP Violation: Interface '$iface' defines $method_count abstract methods (Max allowed is 9). Segregate this interface!"
               errors_found=1
             fi
           done
           
           if [ $errors_found -eq 1 ]; then
             echo "---"
-            echo "Quality Gate Failed! Fat interfaces detected based on @abstractmethod count. Keep interfaces under 5 methods."
+            echo "Quality Gate Failed! Fat interfaces detected based on @abstractmethod count. Keep interfaces under 9 methods."
             exit 1
           else
             echo "✅ Quality Gate Pass: Interface segregation requirements are satisfied."

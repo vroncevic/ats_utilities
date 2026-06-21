@@ -22,14 +22,13 @@ Execute
     python3 -m unittest -v ats_reporter_test
 '''
 
-from typing import List
 from unittest import TestCase, main, mock
 from ats_utilities.reporter.ireporter import IReporter
 from ats_utilities.reporter.engine import Reporter
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
+__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
 __version__: str = '3.3.8'
 __maintainer__: str = 'Vladimir Roncevic'

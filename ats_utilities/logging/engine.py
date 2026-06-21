@@ -20,11 +20,12 @@ Info
     Creates an API for the ATS logging mechanism.
 '''
 
-from typing import List, Optional
 from ats_utilities.logging.ilogger import ILogger
 from ats_utilities.logging.ilogger_manager import ILoggerManager
 from ats_utilities.logging.component_bundle import LoggingComponentBundle
 from ats_utilities.context_bundle import ContextBundle
+from ats_utilities.checker.ichecker import IChecker
+from ats_utilities.reporter.ireporter import IReporter
 from ats_utilities.logging.logger_bundle import LoggerBundle
 from ats_utilities.logging.logger import ATSLogger, ATSLogLevels
 from ats_utilities.factory_context_bundle import factory_context_bundle
@@ -33,7 +34,7 @@ from ats_utilities.factory_component import make_component, validate_component
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
+__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
 __version__: str = '3.3.8'
 __maintainer__: str = 'Vladimir Roncevic'
@@ -55,10 +56,10 @@ class ATSLoggerManager(ILoggerManager):
                 | ATS_ERROR - Error log level.
                 | ATS_INFO - Info log level.
                 | ATS_WARNING - Warning log level.
-                | __logger - Prepared logger instance or default logger.
-                | __checker - Factoriezed parameters checker (default Checker).
-                | __reporter - Factoriezed reporter for messaging (default Reporter).
-                | __verbose - Factoriezed Enable/Disable verbose option (default False).
+                | _logger - Prepared logger instance or default logger.
+                | _checker - Factoriezed parameters checker (default Checker).
+                | _reporter - Factoriezed reporter for messaging (default Reporter).
+                | _verbose - Factoriezed Enable/Disable verbose option (default False).
             :methods:
                 | __init__ - Initials ATSLoggerManager constructor.
                 | get_logger - Gets logger instance.
@@ -72,12 +73,16 @@ class ATSLoggerManager(ILoggerManager):
     ATS_INFO = ATSLogLevels.ATS_LOG_INFO
     ATS_WARNING = ATSLogLevels.ATS_LOG_WARNING
 
-    def __init__(self, component_bundle: Optional[LoggingComponentBundle] = None) -> None:
+    _checker: IChecker
+    _reporter: IReporter
+    _verbose: bool
+
+    def __init__(self, component_bundle: LoggingComponentBundle | None = None) -> None:
         '''
             Initializes ATSLoggerManager constructor.
 
             :param component_bundle: Logging component bundle with parameters | None.
-            :type component_bundle: <Optional[LoggingComponentBundle]>
+            :type component_bundle: <LoggingComponentBundle | None>
             :exceptions: ATSTypeError
         '''
         # No dependency injection then use default ones.
@@ -89,10 +94,10 @@ class ATSLoggerManager(ILoggerManager):
             verbose=get_private_attr(self, 'verbose')
         )
         log_bundle: LoggerBundle = bundle.logger_bundle or LoggerBundle()
-        self.__logger: ILogger = make_component(
+        self._logger: ILogger = make_component(
             bundle.logger, ATSLogger, {'logger_bundle': log_bundle, 'context_bundle': shared_bundle}
         )
-        validate_component(self.__logger, type(self.__logger), type(self.__logger).__name__)
+        validate_component(self._logger, type(self._logger), type(self._logger).__name__)
 
     def get_logger(self) -> ILogger:
         '''
@@ -100,23 +105,23 @@ class ATSLoggerManager(ILoggerManager):
 
             :return: Logger instance.
             :rtype: <ILogger>
-            :exceptions: None
+            :exceptions: None.
         '''
-        return self.__logger
+        return self._logger
 
-    def write_log(self, message: Optional[str], ctrl: int) -> bool:
+    def write_log(self, message: str | None, ctrl: int) -> bool:
         '''
             Writes message to log output.
 
             :param message: Log message in string format for log output | None.
-            :type message: <Optional[str]>
+            :type message: <str | None>
             :param ctrl: Control flag (debug, warning, critical, errors, info).
             :type ctrl: <int>
             :return: True (success) | False (fail).
             :rtype: <bool>
-            :exceptions: None.
+            :exceptions: None..
         '''
-        return self.__logger.write_log(message, int(ctrl))
+        return self._logger.write_log(message, int(ctrl))
 
     def ok(self) -> bool:
         '''
@@ -124,9 +129,9 @@ class ATSLoggerManager(ILoggerManager):
 
             :return: True (success) | False (fail)
             :rtype: <bool>
-            :exceptions: None.
+            :exceptions: None..
         '''
-        return self.__logger.ok()
+        return self._logger.ok()
 
     def __str__(self) -> str:
         '''
@@ -134,6 +139,6 @@ class ATSLoggerManager(ILoggerManager):
 
             :return: The ATS logger as string representation.
             :rtype: <str>
-            :exceptions: None
+            :exceptions: None.
         '''
         return format_instance_to_string(self)

@@ -20,10 +20,12 @@ Info
     Creates an option parser based on the argparse argument processor.
 '''
 
-from typing import Any, List, Optional
+from typing import Any
 from ats_utilities.option.ioption_parser import IOptionManager
 from ats_utilities.option.component_bundle import OptionComponentBundle
 from ats_utilities.context_bundle import ContextBundle
+from ats_utilities.checker.ichecker import IChecker
+from ats_utilities.reporter.ireporter import IReporter
 from ats_utilities.option.iparser_strategy import IParserStrategy
 from ats_utilities.option.parser_strategy import ParserStrategy
 from ats_utilities.option.option_namespace import OptionNamespace
@@ -36,7 +38,7 @@ from ats_utilities.factory_component import make_component, validate_component
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
+__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
 __version__: str = '3.3.8'
 __maintainer__: str = 'Vladimir Roncevic'
@@ -52,10 +54,10 @@ class OptionManager(IOptionManager):
         It defines:
 
             :attributes:
-                | __checker - Factoriezed parameters checker (default Checker).
-                | __reporter - Factoriezed reporter for messaging (default Reporter).
-                | __verbose - Factoriezed Enable/Disable verbose option (default False).
-                | __strategy - Strategy for argument parsing (default ParserStrategy).
+                | _checker - Factoriezed parameters checker (default Checker).
+                | _reporter - Factoriezed reporter for messaging (default Reporter).
+                | _verbose - Factoriezed Enable/Disable verbose option (default False).
+                | _strategy - Strategy for argument parsing (default ParserStrategy).
             :methods:
                 | __init__ - Initials OptionManager constructor.
                 | add_operation - Adds an option to the ATS parser.
@@ -65,12 +67,16 @@ class OptionManager(IOptionManager):
                 | __str__ - Returns the string representation of OptionManager.
     '''
 
-    def __init__(self, component_bundle: Optional[OptionComponentBundle] = None) -> None:
+    _checker: IChecker
+    _reporter: IReporter
+    _verbose: bool
+
+    def __init__(self, component_bundle: OptionComponentBundle | None = None) -> None:
         '''
             Initializes OptionManager constructor.
 
             :param component_bundle: Bundle with components for option manager | None.
-            :type component_bundle: <Optional[OptionComponentBundle]>
+            :type component_bundle: <OptionComponentBundle | None>
             :exceptions: ATSTypeError
         '''
         # No dependency injection then use default ones.
@@ -81,13 +87,13 @@ class OptionManager(IOptionManager):
             reporter=get_private_attr(self, 'reporter'),
             verbose=get_private_attr(self, 'verbose')
         )
-        self.__strategy: IParserStrategy = make_component(
+        self._strategy: IParserStrategy = make_component(
             bundle.strategy, ParserStrategy, {'context_bundle': shared_bundle}
         )
         validate_component(
-            self.__strategy, type(self.__strategy), type(self.__strategy).__name__
+            self._strategy, type(self._strategy), type(self._strategy).__name__
         )
-        self.__strategy.setup(bundle.parameters)
+        self._strategy.setup(bundle.parameters)
 
     def add_operation(self, *args: str, **kwargs: Any) -> None:
         '''
@@ -97,22 +103,22 @@ class OptionManager(IOptionManager):
             :type args: <str>
             :param kwargs: Arguments in shape of dictionary.
             :type kwargs: <Any>
-            :exceptions: None
+            :exceptions: None.
         '''
-        self.__strategy.add_argument(*args, **kwargs)
+        self._strategy.add_argument(*args, **kwargs)
 
-    @validator([('Optional[str]:version', None)])
+    @validator([('str | None:version', None)])
     @vreporter('add version {version}')
-    def add_version_operation(self, version: Optional[str]) -> None:
+    def add_version_operation(self, version: str | None) -> None:
         '''
             Adds version option to the ATS parser.
 
             :param version: The ATS version in string format | None.
-            :type version: <Optional[str]>
-            :exceptions: ATSTypeError, ATSValueError, RuntimeError, AttributeError
+            :type version: <str | None>
+            :exceptions: ATSTypeError, ATSValueError, ATSRuntimeError, ATSAttributeError.
         '''
         if version:
-            self.__strategy.add_version(version)
+            self._strategy.add_version(version)
 
     @vreporter('parse inout args arguments {arguments}')
     def parse_input_args(self, arguments: OptArgs) -> OptionNamespace:
@@ -123,9 +129,9 @@ class OptionManager(IOptionManager):
             :type arguments: <OptArgs>
             :return: Option namespace object.
             :rtype: <OptionNamespace>
-            :exceptions: RuntimeError, AttributeError
+            :exceptions: ATSRuntimeError, ATSAttributeError
         '''
-        args = self.__strategy.parse(arguments, known_only=False)
+        args = self._strategy.parse(arguments, known_only=False)
         return args
 
     @vreporter('parse args arguments {arguments}')
@@ -137,9 +143,9 @@ class OptionManager(IOptionManager):
             :type arguments: <OptArgs>
             :return: Option namespace object.
             :rtype: <OptionNamespace>
-            :exceptions: RuntimeError, AttributeError
+            :exceptions: ATSRuntimeError, ATSAttributeError
         '''
-        args = self.__strategy.parse(arguments, known_only=True)
+        args = self._strategy.parse(arguments, known_only=True)
         return args
 
     def ok(self) -> bool:
@@ -148,9 +154,9 @@ class OptionManager(IOptionManager):
 
             :return: True (success) | False (fail)
             :rtype: <bool>
-            :exceptions: None.
+            :exceptions: None..
         '''
-        return self.__strategy.ok()
+        return self._strategy.ok()
 
     def __str__(self) -> str:
         '''
@@ -158,6 +164,6 @@ class OptionManager(IOptionManager):
 
             :return: The ATS option parser as string representation.
             :rtype: <str>
-            :exceptions: None
+            :exceptions: None.
         '''
         return format_instance_to_string(self)

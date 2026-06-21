@@ -20,9 +20,10 @@ Info
     Loads the ATS configuration for the ATS.
 '''
 
-from typing import Dict, List, Optional
 from ats_utilities.config_io.iread import IRead
 from ats_utilities.context_bundle import ContextBundle
+from ats_utilities.checker.ichecker import IChecker
+from ats_utilities.reporter.ireporter import IReporter
 from ats_utilities.config_io.iloader import ILoader
 from ats_utilities.config_io.ifile_check import IFileCheck
 from ats_utilities.config_io.file_check import FileCheck
@@ -36,7 +37,7 @@ from ats_utilities.factory_class import get_private_attr, format_instance_to_str
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
+__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
 __version__: str = '3.3.8'
 __maintainer__: str = 'Vladimir Roncevic'
@@ -53,34 +54,38 @@ class XMLLoader(ILoader):
         It defines:
 
             :attributes:
-                | __checker - Factoriezed parameters checker (default Checker).
-                | __reporter - Factoriezed reporter for messaging (default Reporter).
-                | __verbose - Factoriezed Enable/Disable verbose option (default False).
-                | __configuration - XML processor configuration (default None).
+                | _checker - Factoriezed parameters checker (default Checker).
+                | _reporter - Factoriezed reporter for messaging (default Reporter).
+                | _verbose - Factoriezed Enable/Disable verbose option (default False).
+                | _configuration - XML processor configuration (default None).
             :methods:
                 | __init__ - Initializes XMLLoader constructor.
                 | load_configuration - Loads the ATS configuration in dictionary format.
                 | __str__ - Returns the XMLLoader as string representation.
     '''
 
+    _checker: IChecker
+    _reporter: IReporter
+    _verbose: bool
+
     def __init__(
         self,
-        info_file: Optional[str] = None,
-        xml2object: Optional[IRead] = None,
-        config_bundle: Optional[ATSConfigFileBundle] = None,
-        xml_processor: Optional[IXMLProcessor] = None
+        info_file: str | None = None,
+        xml2object: IRead | None = None,
+        config_bundle: ATSConfigFileBundle | None = None,
+        xml_processor: IXMLProcessor | None = None
     ) -> None:
         '''
             Initializes XMLLoader constructor.
 
             :param info_file: Path to the info file | None.
-            :type info_file: <Optional[str]>
+            :type info_file: <str | None>
             :param xml2object: An API for information | None.
-            :type xml2object: <Optional[IRead]>
+            :type xml2object: <IRead | None>
             :param config_bundle: Configuration bundle | None.
-            :type config_bundle: <Optional[ATSConfigFileBundle]>
+            :type config_bundle: <ATSConfigFileBundle | None>
             :param xml_processor: Processor for XML content | None.
-            :type xml_processor: <Optional[IXMLProcessor]>
+            :type xml_processor: <IXMLProcessor | None>
             :exceptions: ATSTypeError.
         '''
         config_file_bundle: ATSConfigFileBundle = config_bundle or ATSConfigFileBundle()
@@ -100,23 +105,23 @@ class XMLLoader(ILoader):
             'config_file': info_file, 'config_bundle': config_file_bundle, 'xml_processor': processor
         })
         validate_component(xml2obj, type(xml2obj), type(xml2obj).__name__)
-        self.__configuration: Optional[IXMLProcessor] = None
+        self._configuration: IXMLProcessor | None = None
 
         if bool(xml2obj):
-            self.__configuration = xml2obj.read_configuration()
+            self._configuration = xml2obj.read_configuration()
 
-    def load_configuration(self) -> Dict[str, str]:
+    def load_configuration(self) -> dict[str, str]:
         '''
             Loads the ATS configuration in dictionary format.
 
             :return: Dictionary with XML information.
-            :rtype: <Dict[str, str]>
-            :exceptions: None.
+            :rtype: <dict[str, str]>
+            :exceptions: None..
         '''
-        if not self.__configuration:
+        if not self._configuration:
             return {}
 
-        return self.__configuration.to_dict()
+        return self._configuration.to_dict()
 
     def __str__(self) -> str:
         '''
@@ -124,6 +129,6 @@ class XMLLoader(ILoader):
 
             :return: The XMLLoader as string representation.
             :rtype: <str>
-            :exceptions: None.
+            :exceptions: None..
         '''
         return format_instance_to_string(self)

@@ -59,13 +59,12 @@
 <span class="sd">&#39;&#39;&#39;</span>
 
 <span class="kn">import</span> <span class="nn">sys</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.factory_class</span> <span class="kn">import</span> <span class="n">format_instance_to_string</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.splasher.iprogress_bar</span> <span class="kn">import</span> <span class="n">IProgressBar</span>
 
 <span class="n">__author__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;Vladimir Roncevic&#39;</span>
 <span class="n">__copyright__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;(C) 2026, https://vroncevic.github.io/ats_utilities&#39;</span>
-<span class="n">__credits__</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Vladimir Roncevic&#39;</span><span class="p">,</span> <span class="s1">&#39;Python Software Foundation&#39;</span><span class="p">]</span>
+<span class="n">__credits__</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Vladimir Roncevic&#39;</span><span class="p">,</span> <span class="s1">&#39;Python Software Foundation&#39;</span><span class="p">]</span>
 <span class="n">__license__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE&#39;</span>
 <span class="n">__version__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;3.3.8&#39;</span>
 <span class="n">__maintainer__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;Vladimir Roncevic&#39;</span>
@@ -86,12 +85,12 @@
 <span class="sd">                | DEFAULT_BAR_LENGTH - Length of progressbar.</span>
 <span class="sd">                | DEFAULT_CHAR_ON - Loaded progress element.</span>
 <span class="sd">                | DEFAULT_CHAR_OFF - Unloaded progress element.</span>
-<span class="sd">                | __start - Start of level.</span>
-<span class="sd">                | __end - End of level.</span>
-<span class="sd">                | __bar_length - Progress length.</span>
-<span class="sd">                | __level - Progress level.</span>
-<span class="sd">                | __plotted - Plotted progress.</span>
-<span class="sd">                | __level_chars - Level progress chars.</span>
+<span class="sd">                | _start - Start of level.</span>
+<span class="sd">                | _end - End of level.</span>
+<span class="sd">                | _bar_length - Progress length.</span>
+<span class="sd">                | _level - Progress level.</span>
+<span class="sd">                | _plotted - Plotted progress.</span>
+<span class="sd">                | _level_chars - Level progress chars.</span>
 <span class="sd">            :methods:</span>
 <span class="sd">                | __init__ - Initials ProgressBar constructor.</span>
 <span class="sd">                | set_level - Sets level for progress bar.</span>
@@ -113,16 +112,16 @@
 <span class="sd">            :type end: &lt;int&gt;</span>
 <span class="sd">            :param start: Start level of progress (default 0).</span>
 <span class="sd">            :type start: &lt;int&gt;</span>
-<span class="sd">            :exceptions: None</span>
+<span class="sd">            :exceptions: None.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">__end</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">end</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">__start</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">start</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">__bar_length</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">DEFAULT_BAR_LENGTH</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">set_level</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__start</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">__plotted</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">__level</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_end</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">end</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_start</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">start</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_bar_length</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">DEFAULT_BAR_LENGTH</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_level</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_start</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_plotted</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_level</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_ratio</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">__level_chars</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_level_chars</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
 
 <div class="viewcode-block" id="ProgressBar.set_level">
 <a class="viewcode-back" href="../../../ats_utilities.splasher.progress_bar.html#ats_utilities.splasher.progress_bar.ProgressBar.set_level">[docs]</a>
@@ -132,18 +131,18 @@
 
 <span class="sd">            :param level: Level of progress.</span>
 <span class="sd">            :type level: &lt;int&gt;</span>
-<span class="sd">            :exceptions: None</span>
+<span class="sd">            :exceptions: None.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">__level</span> <span class="o">=</span> <span class="n">level</span>
-        <span class="k">if</span> <span class="n">level</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">__start</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">__level</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__start</span>
-        <span class="k">if</span> <span class="n">level</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">__end</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">__level</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__end</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_level</span> <span class="o">=</span> <span class="n">level</span>
+        <span class="k">if</span> <span class="n">level</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">_start</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_level</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_start</span>
+        <span class="k">if</span> <span class="n">level</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">_end</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_level</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_end</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_ratio</span> <span class="o">=</span> <span class="p">(</span>
-            <span class="nb">float</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__level</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">__start</span><span class="p">)</span> <span class="o">/</span>
-            <span class="nb">float</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__end</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">__start</span><span class="p">)</span>
+            <span class="nb">float</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_level</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">_start</span><span class="p">)</span> <span class="o">/</span>
+            <span class="nb">float</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_end</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">_start</span><span class="p">)</span>
         <span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">__level_chars</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_ratio</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">__bar_length</span><span class="p">)</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_level_chars</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_ratio</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">_bar_length</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="ProgressBar.plot_progress">
@@ -154,7 +153,7 @@
 
 <span class="sd">            :param columns: Columns for open console session.</span>
 <span class="sd">            :type columns: &lt;int&gt;</span>
-<span class="sd">            :exceptions: None</span>
+<span class="sd">            :exceptions: None.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="n">start_position</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="p">(</span><span class="n">columns</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span> <span class="o">-</span> <span class="p">(</span><span class="n">columns</span> <span class="o">/</span> <span class="mi">10</span><span class="p">)</span>
         <span class="n">number_of_tabs</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="nb">int</span><span class="p">((</span><span class="n">start_position</span><span class="o">/</span><span class="mi">8</span><span class="p">)</span> <span class="o">-</span> <span class="mi">3</span><span class="p">)</span>
@@ -162,13 +161,13 @@
             <span class="s2">&quot;</span><span class="se">\r</span><span class="s2"> </span><span class="si">%s</span><span class="s2"> </span><span class="si">%3i%%</span><span class="s2"> </span><span class="si">%s%s</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">expandtabs</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span> <span class="o">%</span> <span class="p">(</span>
                 <span class="s1">&#39;</span><span class="se">\011</span><span class="s1">&#39;</span> <span class="o">*</span> <span class="n">number_of_tabs</span><span class="p">,</span>
                 <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_ratio</span> <span class="o">*</span> <span class="mf">100.0</span><span class="p">),</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">DEFAULT_CHAR_ON</span> <span class="o">*</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__level_chars</span><span class="p">),</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">DEFAULT_CHAR_ON</span> <span class="o">*</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_level_chars</span><span class="p">),</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">DEFAULT_CHAR_OFF</span> <span class="o">*</span>
-                <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__bar_length</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">__level_chars</span><span class="p">)</span>
+                <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_bar_length</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">_level_chars</span><span class="p">)</span>
             <span class="p">)</span>
         <span class="p">)</span>
         <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">__plotted</span> <span class="o">=</span> <span class="kc">True</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_plotted</span> <span class="o">=</span> <span class="kc">True</span></div>
 
 
 <div class="viewcode-block" id="ProgressBar.set_and_plot">
@@ -181,11 +180,11 @@
 <span class="sd">            :type level: &lt;int&gt;</span>
 <span class="sd">            :param columns: Columns for open console session.</span>
 <span class="sd">            :type columns: &lt;int&gt;</span>
-<span class="sd">            :exceptions: None</span>
+<span class="sd">            :exceptions: None.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="n">old_chars</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__level_chars</span>
+        <span class="n">old_chars</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_level_chars</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">set_level</span><span class="p">(</span><span class="n">level</span><span class="p">)</span>
-        <span class="k">if</span> <span class="p">(</span><span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">__plotted</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="n">old_chars</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__level_chars</span><span class="p">):</span>
+        <span class="k">if</span> <span class="p">(</span><span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_plotted</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="n">old_chars</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_level_chars</span><span class="p">):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">plot_progress</span><span class="p">(</span><span class="n">columns</span><span class="p">)</span></div>
 
 
@@ -193,7 +192,7 @@
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Dunder del method for ProgressBar.</span>
 
-<span class="sd">            :exceptions: None</span>
+<span class="sd">            :exceptions: None.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
 
@@ -203,7 +202,7 @@
 
 <span class="sd">            :return: The ProgressBar as string representation.</span>
 <span class="sd">            :rtype: &lt;str&gt;</span>
-<span class="sd">            :exceptions: None</span>
+<span class="sd">            :exceptions: None.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="k">return</span> <span class="n">format_instance_to_string</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div>
 

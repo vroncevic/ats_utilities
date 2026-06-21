@@ -21,7 +21,7 @@ Info
     Default implementation for processing INI content.
 '''
 
-from typing import Any, Dict
+from typing import Any
 from configparser import ConfigParser, Error as ConfigParserError
 from ats_utilities.config_io.ini.iini_processor import IINIProcessor
 from ats_utilities.factory_class import format_instance_to_string
@@ -44,12 +44,12 @@ class INIProcessor(IINIProcessor):
         It defines:
 
             :attributes:
-                | __SECTION - Section name for ATS configuration.
-                | __NAME - Option name for ATS configuration.
-                | __VERSION - Option version for ATS configuration.
-                | __BUILD_DATE - Option build date for ATS configuration.
-                | __LICENCE - Option licence for ATS configuration.
-                | __config - ConfigParser instance for INI parsing.
+                | _SECTION - Section name for ATS configuration.
+                | _NAME - Option name for ATS configuration.
+                | _VERSION - Option version for ATS configuration.
+                | _BUILD_DATE - Option build date for ATS configuration.
+                | _LICENCE - Option licence for ATS configuration.
+                | _config - ConfigParser instance for INI parsing.
             :methods:
                 | __init__ - Initializes INIProcessor constructor.
                 | from_stream - Loads INI configuration from a stream.
@@ -58,11 +58,11 @@ class INIProcessor(IINIProcessor):
                 | __str__ - Returns the INIProcessor as string representation.
     '''
 
-    __SECTION: str = 'ats_info'
-    __NAME: str = 'ats_name'
-    __VERSION: str = 'ats_version'
-    __BUILD_DATE: str = 'ats_build_date'
-    __LICENCE: str = 'ats_licence'
+    _SECTION: str = 'ats_info'
+    _NAME: str = 'ats_name'
+    _VERSION: str = 'ats_version'
+    _BUILD_DATE: str = 'ats_build_date'
+    _LICENCE: str = 'ats_licence'
 
     def __init__(self) -> None:
         '''
@@ -70,9 +70,9 @@ class INIProcessor(IINIProcessor):
 
             :return: None.
             :rtype: <None>
-            :exceptions: None.
+            :exceptions: None..
         '''
-        self.__config = ConfigParser()
+        self._config = ConfigParser()
 
     def from_stream(self, stream: Any) -> bool:
         '''
@@ -82,10 +82,10 @@ class INIProcessor(IINIProcessor):
             :type stream: <Any>
             :return: True (success) | False (fail).
             :rtype: <bool>
-            :exceptions: None.
+            :exceptions: None..
         '''
         try:
-            self.__config.read_file(stream)
+            self._config.read_file(stream)
             return True
         except (OSError, ConfigParserError):
             return False
@@ -98,29 +98,29 @@ class INIProcessor(IINIProcessor):
             :type stream: <Any>
             :return: True (success) | False (fail).
             :rtype: <bool>
-            :exceptions: None.
+            :exceptions: None..
         '''
         try:
-            self.__config.write(stream, space_around_delimiters=True)
+            self._config.write(stream, space_around_delimiters=True)
             return True
         except (OSError, ConfigParserError):
             return False
 
-    def to_dict(self) -> Dict[str, str]:
+    def to_dict(self) -> dict[str, str]:
         '''
             Converts INI configuration to dictionary.
 
             :return: Dictionary with ATS information.
-            :rtype: <Dict[str, str]>
-            :exceptions: None.
+            :rtype: <dict[str, str]>
+            :exceptions: None..
         '''
-        if not self.__config.has_section(self.__SECTION):
+        if not self._config.has_section(self._SECTION):
             return {}
         return {
-            self.__NAME: str(self.__config.get(self.__SECTION, self.__NAME, fallback='')),
-            self.__VERSION: str(self.__config.get(self.__SECTION, self.__VERSION, fallback='')),
-            self.__BUILD_DATE: str(self.__config.get(self.__SECTION, self.__BUILD_DATE, fallback='')),
-            self.__LICENCE: str(self.__config.get(self.__SECTION, self.__LICENCE, fallback=''))
+            self._NAME: str(self._config.get(self._SECTION, self._NAME, fallback='')),
+            self._VERSION: str(self._config.get(self._SECTION, self._VERSION, fallback='')),
+            self._BUILD_DATE: str(self._config.get(self._SECTION, self._BUILD_DATE, fallback='')),
+            self._LICENCE: str(self._config.get(self._SECTION, self._LICENCE, fallback=''))
         }
 
     def __str__(self) -> str:
@@ -129,6 +129,6 @@ class INIProcessor(IINIProcessor):
 
             :return: The INIProcessor as string representation.
             :rtype: <str>
-            :exceptions: None.
+            :exceptions: None..
         '''
         return format_instance_to_string(self)

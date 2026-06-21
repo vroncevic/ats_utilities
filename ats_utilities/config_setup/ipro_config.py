@@ -21,11 +21,11 @@ Info
 '''
 
 from abc import ABC, abstractmethod
-from typing import Any, Dict, List, Optional
+from typing import Any
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
+__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
 __version__: str = '3.3.8'
 __maintainer__: str = 'Vladimir Roncevic'
@@ -49,25 +49,25 @@ class IProConfig(ABC):
 
     @property
     @abstractmethod
-    def config(self) -> Optional[Dict[Any, Any]]:
+    def config(self) -> dict[Any, Any] | None:
         '''
             Property method for getting project configuration.
 
             :return: Formatted project configuration in dict format | None
-            :rtype: <Optional[Dict[Any, Any]]>
-            :exceptions: NotImplementedError
+            :rtype: <dict[Any, Any] | None>
+            :exceptions: NotImplementedError.
         '''
         raise NotImplementedError("Method config() must be implemented.")
 
     @config.setter
     @abstractmethod
-    def config(self, pro_config: Optional[Dict[Any, Any]]) -> None:
+    def config(self, pro_config: dict[Any, Any] | None) -> None:
         '''
             Property method for setting project configuration.
 
             :param pro_config: Project configuration in dict format | None
-            :type pro_config: <Optional[Dict[Any, Any]]>
-            :exceptions: NotImplementedError
+            :type pro_config: <dict[Any, Any] | None>
+            :exceptions: NotImplementedError.
         '''
         raise NotImplementedError("Method config() must be implemented.")
 
@@ -78,7 +78,7 @@ class IProConfig(ABC):
 
             :return: True (success) | False (fail)
             :rtype: <bool>
-            :exceptions: NotImplementedError
+            :exceptions: NotImplementedError.
         '''
         raise NotImplementedError("Method not_none() must be implemented.")
 
@@ -89,6 +89,6 @@ class IProConfig(ABC):
 
             :return: The ATS project configuration as string representation.
             :rtype: <str>
-            :exceptions: NotImplementedError
+            :exceptions: NotImplementedError.
         '''
         raise NotImplementedError("Method __str__() must be implemented.")

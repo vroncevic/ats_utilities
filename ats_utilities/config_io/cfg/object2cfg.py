@@ -20,9 +20,10 @@ Info
     Creates an API for writing configuration to a CFG file.
 '''
 
-from typing import List, Optional
 from ats_utilities.config_io.iwrite import IWrite
 from ats_utilities.context_bundle import ContextBundle
+from ats_utilities.checker.ichecker import IChecker
+from ats_utilities.reporter.ireporter import IReporter
 from ats_utilities.config_io.conf_file import ConfFile
 from ats_utilities.config_io.ifile_check import IFileCheck
 from ats_utilities.config_io.file_check import FileCheck
@@ -37,7 +38,7 @@ from ats_utilities.factory_class import get_private_attr, format_instance_to_str
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
+__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
 __version__: str = '3.3.8'
 __maintainer__: str = 'Vladimir Roncevic'
@@ -54,66 +55,70 @@ class Object2Cfg(IWrite):
         It defines:
 
             :attributes:
-                | __EXT - File extension of the configuration file.
-                | __MODE - File open mode.
-                | __config_file_bundle - Configuration file bundle parameters (default None).
-                | __checker - Factoriezed parameters checker (default Checker).
-                | __reporter - Factoriezed reporter for messaging (default Reporter).
-                | __verbose - Factoriezed Enable/Disable verbose option (default False).
-                | __file_checker - FileCheck for checking file (default FileCheck).
-                | __file_path - Configuration file path (default None).
-                | __file_bundle_shared - File bundle parameters (default None).
+                | _EXT - File extension of the configuration file.
+                | _MODE - File open mode.
+                | _config_file_bundle - Configuration file bundle parameters (default None).
+                | _checker - Factoriezed parameters checker (default Checker).
+                | _reporter - Factoriezed reporter for messaging (default Reporter).
+                | _verbose - Factoriezed Enable/Disable verbose option (default False).
+                | _file_checker - FileCheck for checking file (default FileCheck).
+                | _file_path - Configuration file path (default None).
+                | _file_bundle_shared - File bundle parameters (default None).
             :methods:
                 | __init__ - Initializes Object2Cfg constructor.
                 | write_configuration - Writes configuration to a CFG file.
                 | __str__ - Returns the Object2Cfg as string representation.
     '''
 
-    __EXT: str = 'cfg'
-    __MODE: str = 'w'
+    _EXT: str = 'cfg'
+    _MODE: str = 'w'
+
+    _checker: IChecker
+    _reporter: IReporter
+    _verbose: bool
 
     def __init__(
         self,
-        config_file: Optional[str],
-        config_bundle: Optional[ATSConfigFileBundle] = None
+        config_file: str | None,
+        config_bundle: ATSConfigFileBundle | None = None
     ) -> None:
         '''
             Initializes Object2Cfg constructor.
 
             :param config_file: Configuration file path in string format | None.
-            :type config_file: <Optional[str]>
+            :type config_file: <str | None>
             :param config_bundle: Configuration file bundle parameters | None.
-            :type config_bundle: <Optional[ATSConfigFileBundle]>
+            :type config_bundle: <ATSConfigFileBundle | None>
             :exceptions: ATSTypeError.
         '''
-        self.__config_file_bundle: ATSConfigFileBundle = config_bundle or ATSConfigFileBundle()
-        factory_context_bundle(self, self.__config_file_bundle.context)
+        self._config_file_bundle: ATSConfigFileBundle = config_bundle or ATSConfigFileBundle()
+        factory_context_bundle(self, self._config_file_bundle.context)
         context_bundle_shared: ContextBundle = ContextBundle(
             checker=get_private_attr(self, 'checker'),
             reporter=get_private_attr(self, 'reporter'),
             verbose=get_private_attr(self, 'verbose')
         )
-        self.__file_checker: IFileCheck = make_component(
-            self.__config_file_bundle.file_checker, FileCheck, {'config_bundle': context_bundle_shared}
+        self._file_checker: IFileCheck = make_component(
+            self._config_file_bundle.file_checker, FileCheck, {'config_bundle': context_bundle_shared}
         )
-        validate_component(self.__file_checker, type(self.__file_checker), type(self.__file_checker).__name__)
-        self.__file_path: str = str(config_file)
-        self.__file_bundle_shared: ATSFileBundle = ATSFileBundle()
-        self.__file_bundle_shared.file_path = self.__file_path
-        self.__file_bundle_shared.file_mode = self.__MODE
-        self.__file_bundle_shared.file_format = self.__EXT
+        validate_component(self._file_checker, type(self._file_checker), type(self._file_checker).__name__)
+        self._file_path: str = str(config_file)
+        self._file_bundle_shared: ATSFileBundle = ATSFileBundle()
+        self._file_bundle_shared.file_path = self._file_path
+        self._file_bundle_shared.file_mode = self._MODE
+        self._file_bundle_shared.file_format = self._EXT
 
-    @validator([('Optional[ICFGProcessor]:config', None)])
+    @validator([('ICFGProcessor | None:config', None)])
     @vreporter('write configuration to file {file_path}')
-    def write_configuration(self, config: Optional[ICFGProcessor]) -> bool:
+    def write_configuration(self, config: ICFGProcessor | None) -> bool:
         '''
             Writes a configuration to a CFG file.
 
             :param config: Configuration object | None.
-            :type config: <Optional[ICFGProcessor]>
+            :type config: <ICFGProcessor | None>
             :return: True (success) | False (fail).
             :rtype: <bool>
-            :exceptions: ATSTypeError, ATSValueError, RuntimeError, AttributeError.
+            :exceptions: ATSTypeError, ATSValueError, ATSRuntimeError, ATSAttributeError..
         '''
         status: bool = False
 
@@ -122,7 +127,7 @@ class Object2Cfg(IWrite):
 
         cfg_string = config.to_string()
 
-        with ConfFile(self.__file_bundle_shared, self.__config_file_bundle) as cfg:
+        with ConfFile(self._file_bundle_shared, self._config_file_bundle) as cfg:
             if bool(cfg):
                 cfg.write(cfg_string)
                 status = True
@@ -135,6 +140,6 @@ class Object2Cfg(IWrite):
 
             :return: The Object2Cfg as string representation.
             :rtype: <str>
-            :exceptions: None.
+            :exceptions: None..
         '''
         return format_instance_to_string(self)

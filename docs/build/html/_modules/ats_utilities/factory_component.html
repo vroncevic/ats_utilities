@@ -59,12 +59,12 @@
 <span class="sd">    Provides a simple factory mechanism for dependency injection.</span>
 <span class="sd">&#39;&#39;&#39;</span>
 
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Type</span><span class="p">,</span> <span class="n">Optional</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.exceptions.ats_type_error</span> <span class="kn">import</span> <span class="n">ATSTypeError</span>
 
 <span class="n">__author__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;Vladimir Roncevic&#39;</span>
 <span class="n">__copyright__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;(C) 2026, https://vroncevic.github.io/ats_utilities&#39;</span>
-<span class="n">__credits__</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Vladimir Roncevic&#39;</span><span class="p">,</span> <span class="s1">&#39;Python Software Foundation&#39;</span><span class="p">]</span>
+<span class="n">__credits__</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Vladimir Roncevic&#39;</span><span class="p">,</span> <span class="s1">&#39;Python Software Foundation&#39;</span><span class="p">]</span>
 <span class="n">__license__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE&#39;</span>
 <span class="n">__version__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;3.3.8&#39;</span>
 <span class="n">__maintainer__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;Vladimir Roncevic&#39;</span>
@@ -73,7 +73,7 @@
 
 <div class="viewcode-block" id="make_component">
 <a class="viewcode-back" href="../../ats_utilities.factory_component.html#ats_utilities.factory_component.make_component">[docs]</a>
-<span class="k">def</span> <span class="nf">make_component</span><span class="p">(</span><span class="n">passed_obj</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">default_class</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">factory_args</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+<span class="k">def</span> <span class="nf">make_component</span><span class="p">(</span><span class="n">passed_obj</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">default_class</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">factory_args</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Creates a component instance or returns an existing one.</span>
 
@@ -82,10 +82,10 @@
 <span class="sd">        :param default_class: The class to instantiate if passed_obj is None</span>
 <span class="sd">        :type default_class: &lt;Any&gt;</span>
 <span class="sd">        :param factory_args: Arguments to pass to the default_class constructor | None</span>
-<span class="sd">        :type factory_args: &lt;Optional[Dict[str, Any]]&gt;</span>
+<span class="sd">        :type factory_args: &lt;dict[str, Any] | None&gt;</span>
 <span class="sd">        :return: An instance of the component</span>
 <span class="sd">        :rtype: &lt;Any&gt;</span>
-<span class="sd">        :exceptions: None</span>
+<span class="sd">        :exceptions: None.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
     <span class="k">if</span> <span class="n">passed_obj</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">passed_obj</span>
@@ -99,7 +99,7 @@
 
 <div class="viewcode-block" id="validate_component">
 <a class="viewcode-back" href="../../ats_utilities.factory_component.html#ats_utilities.factory_component.validate_component">[docs]</a>
-<span class="k">def</span> <span class="nf">validate_component</span><span class="p">(</span><span class="n">instance</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">expected_class</span><span class="p">:</span> <span class="n">Type</span><span class="p">[</span><span class="n">Any</span><span class="p">],</span> <span class="n">component_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="k">def</span> <span class="nf">validate_component</span><span class="p">(</span><span class="n">instance</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">expected_class</span><span class="p">:</span> <span class="nb">type</span><span class="p">[</span><span class="n">Any</span><span class="p">],</span> <span class="n">component_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Validates if a component instance is of the expected class type.</span>
 <span class="sd">        Raises an ATSTypeError if the validation fails.</span>
@@ -107,7 +107,7 @@
 <span class="sd">        :param instance: The resolved component instance to check</span>
 <span class="sd">        :type instance: &lt;Any&gt;</span>
 <span class="sd">        :param expected_class: The expected concrete class type</span>
-<span class="sd">        :type expected_class: &lt;Type[Any]&gt;</span>
+<span class="sd">        :type expected_class: &lt;type[Any]&gt;</span>
 <span class="sd">        :param component_name: Name of the component for the error message</span>
 <span class="sd">        :type component_name: &lt;str&gt;</span>
 <span class="sd">        :exceptions: ATSTypeError</span>

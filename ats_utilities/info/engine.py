@@ -20,7 +20,7 @@ Info
     Creates an API for the ATS information in one container object.
 '''
 
-from typing import Any, Dict, List, Optional, Union
+from typing import Any
 from ats_utilities.info.imanager import IInfoManager
 from ats_utilities.info.component_bundle import InfoComponentBundle
 from ats_utilities.info.iname import IName
@@ -48,7 +48,7 @@ from ats_utilities.exceptions.ats_type_error import ATSTypeError
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
+__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
 __version__: str = '3.3.8'
 __maintainer__: str = 'Vladimir Roncevic'
@@ -89,12 +89,12 @@ class InfoManager(IInfoManager):
         'info_ok': 'info_ok'
     }
 
-    def __init__(self, component_bundle: Optional[InfoComponentBundle] = None) -> None:
+    def __init__(self, component_bundle: InfoComponentBundle | None = None) -> None:
         '''
             Initializes InfoManager constructor.
 
             :param component_bundle: Bundle with components | None.
-            :type component_bundle: <Optional[InfoComponentBundle]>
+            :type component_bundle: <InfoComponentBundle | None>
             :exceptions: ATSTypeError.
         '''
         # No dependency injection then use default ones.
@@ -125,12 +125,12 @@ class InfoManager(IInfoManager):
         )
         self.refresh_status()
 
-    def set_info(self, info: Dict[str, Any]) -> None:
+    def set_info(self, info: dict[str, Any]) -> None:
         '''
             Sets the ATS information.
 
             :param info: Dictionary with ATS information.
-            :type info: <Dict[str, Any]>
+            :type info: <dict[str, Any]>
             :exceptions: ATSTypeError.
         '''
         self.name = info.get(InfoKeys.ATS_NAME)
@@ -145,13 +145,13 @@ class InfoManager(IInfoManager):
         self.use_github = use_github
         self.logo_path = info.get(InfoKeys.ATS_LOGO_PATH)
 
-    def get_info(self) -> Dict[str, Any]:
+    def get_info(self) -> dict[str, Any]:
         '''
             Gets the ATS information.
 
             :return: Dictionary with ATS information.
-            :rtype: <Dict[str, Any]>
-            :exceptions: None.
+            :rtype: <dict[str, Any]>
+            :exceptions: None..
         '''
         return {
             InfoKeys.ATS_NAME: self.name,
@@ -164,14 +164,14 @@ class InfoManager(IInfoManager):
             InfoKeys.ATS_LOGO_PATH: self.logo_path
         }
 
-    def __getattr__(self, name: str) -> Optional[Union[str, bool]]:
+    def __getattr__(self, name: str) -> str | bool | None:
         '''
             Gets attribute from instance components dynamically.
 
             :param name: Name of the attribute to look up.
             :type name: <str>
             :return: The value of the component attribute if found, otherwise None.
-            :rtype: <Optional[Union[str, bool]]>
+            :rtype: <str | bool | None>
             :exceptions: AttributeError if attribute is not in map.
         '''
         if name in self._ATTR_MAP:
@@ -181,17 +181,17 @@ class InfoManager(IInfoManager):
 
         raise AttributeError(f"'{type(self).__name__}' object has no attribute '{name}'")
 
-    def __setattr__(self, name: str, value: Optional[Union[str, bool]]) -> None:
+    def __setattr__(self, name: str, value: str | bool | None) -> None:
         '''
             Sets attribute to instance components dynamically and refreshes status.
 
             :param name: Name of the attribute to set.
             :type name: <str>
             :param value: Value to assign to the component attribute.
-            :type value: <Optional[Union[str, bool]]>
+            :type value: <str | bool | None>
             :return: None.
             :rtype: <None>
-            :exceptions: None.
+            :exceptions: None..
         '''
         if '_components' in self.__dict__ and name in self._ATTR_MAP:
             component = getattr(self._components, name, None)
@@ -210,7 +210,7 @@ class InfoManager(IInfoManager):
 
             :return: True (success) | False (fail).
             :rtype: <bool>
-            :exceptions: None.
+            :exceptions: None..
         '''
         component = getattr(self._components, 'info_ok', None)
         return component.info_ok if component else False
@@ -219,7 +219,7 @@ class InfoManager(IInfoManager):
         '''
             Refresh status for ATS information structure.
 
-            :exceptions: None.
+            :exceptions: None..
         '''
         info_ok = getattr(self._components, 'info_ok', False)
         attrs = ['name', 'version', 'licence', 'build_date']
@@ -233,7 +233,7 @@ class InfoManager(IInfoManager):
 
             :return: The ATS info manager as string representation.
             :rtype: <str>
-            :exceptions: None.
+            :exceptions: None..
         '''
         return format_instance_to_string(self)
 

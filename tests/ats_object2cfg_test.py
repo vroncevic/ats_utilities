@@ -22,7 +22,6 @@ Execute
     python3 -m unittest -v ats_object2cfg_test
 '''
 
-from typing import List, Dict
 from unittest import TestCase, main, mock
 from os.path import dirname
 from ats_utilities.config_io.cfg.object2cfg import Object2Cfg
@@ -31,7 +30,7 @@ from ats_utilities.exceptions.ats_type_error import ATSTypeError
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
+__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
 __version__: str = '3.3.8'
 __maintainer__: str = 'Vladimir Roncevic'
@@ -43,20 +42,20 @@ class ICFGProcessor(BaseICFGProcessor):
     '''Mock implementation of ICFGProcessor for testing.'''
 
     def __init__(self, is_empty: bool = False) -> None:
-        self.__is_empty = is_empty
+        self._is_empty = is_empty
         self.to_string_mock = mock.MagicMock(return_value="")
         self.to_dict_mock = mock.MagicMock(return_value={})
         self.from_lines_mock = mock.MagicMock()
 
     def __bool__(self) -> bool:
         '''Mock method for truthiness.'''
-        return not self.__is_empty
+        return not self._is_empty
 
-    def from_lines(self, lines: List[str]) -> bool:
+    def from_lines(self, lines: list[str]) -> bool:
         '''Implementation of abstract method.'''
         return self.from_lines_mock(lines)
 
-    def to_dict(self) -> Dict[str, str]:
+    def to_dict(self) -> dict[str, str]:
         '''Implementation of abstract method.'''
         return self.to_dict_mock()
 

@@ -19,7 +19,7 @@ Info
     Use cases for ATS info manager.
 '''
 
-from typing import List, Dict, Any
+from typing import Any
 from ats_utilities.info.version import Version
 from ats_utilities.info.name import Name
 from ats_utilities.info.licence import Licence
@@ -29,7 +29,7 @@ from ats_utilities.info.engine import InfoManager, InfoComponentBundle
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
+__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
 __version__: str = '3.3.8'
 __maintainer__: str = 'Vladimir Roncevic'
@@ -42,7 +42,7 @@ VERBOSE: bool = False
 # default [without DI]
 # ====================
 #
-ats_info: Dict[Any, Any] = {
+ats_info: dict[Any, Any] = {
     'ats_name': 'mytool1',
     'ats_version': '1.0.0',
     'ats_licence': 'gplv3',
@@ -66,7 +66,7 @@ ats_build_date.build_date = 'Sun Jun 14 03:06:11 PM CEST 2026'
 ats_info_ok = InfoOk(verbose=VERBOSE)
 ats_info_ok.info_ok = True
 
-ats_info_overwrite: Dict[Any, Any] = {
+ats_info_overwrite: dict[Any, Any] = {
     'ats_name': 'mytool3',
     'ats_version': '1.0.2',
     'ats_licence': 'gplv3',

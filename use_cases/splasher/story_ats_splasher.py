@@ -19,7 +19,7 @@ Info
     Use cases for ATS splasher.
 '''
 
-from typing import Any, List, Dict
+from typing import Any
 from os.path import dirname, realpath
 from ats_utilities.splasher.engine import Splasher
 from ats_utilities.splasher.splash_keys import SplashKeys
@@ -27,7 +27,7 @@ from ats_utilities.splasher.component_bundle import SplashComponentBundle
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
+__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
 __version__: str = '3.3.8'
 __maintainer__: str = 'Vladimir Roncevic'
@@ -36,7 +36,7 @@ __status__: str = 'Updated'
 
 current_dir: str = dirname(realpath(__file__))
 logo_path: str = f'{current_dir}/../../tests/config/app.logo'
-mytool_property: Dict[Any, Any] = {}
+mytool_property: dict[Any, Any] = {}
 bundle: SplashComponentBundle = SplashComponentBundle(prop=mytool_property)
 
 #

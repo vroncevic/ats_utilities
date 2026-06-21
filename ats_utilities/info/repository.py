@@ -20,9 +20,10 @@ Info
     Creates an API for the ATS repository in one property object.
 '''
 
-from typing import List, Optional
 from ats_utilities.info.irepository import IRepository
 from ats_utilities.context_bundle import ContextBundle
+from ats_utilities.checker.ichecker import IChecker
+from ats_utilities.reporter.ireporter import IReporter
 from ats_utilities.factory_context_bundle import factory_context_bundle
 from ats_utilities.factory_class import format_instance_to_string
 from ats_utilities.checker.proxy_validator import validator
@@ -30,7 +31,7 @@ from ats_utilities.reporter.proxy_reporter import vreporter
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
+__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
 __version__: str = '3.3.8'
 __maintainer__: str = 'Vladimir Roncevic'
@@ -46,10 +47,10 @@ class Repository(IRepository):
         It defines:
 
             :attributes:
-                | __checker - Factoriezed parameters checker (default Checker).
-                | __reporter - Factoriezed reporter for messaging (default Reporter).
-                | __verbose - Factoriezed Enable/Disable verbose option (default False).
-                | __repository - The ATS repository (default None).
+                | _checker - Factoriezed parameters checker (default Checker).
+                | _reporter - Factoriezed reporter for messaging (default Reporter).
+                | _verbose - Factoriezed Enable/Disable verbose option (default False).
+                | _repository - The ATS repository (default None).
             :methods:
                 | __init__ - Initializes Repository constructor.
                 | repository - Property methods for set/get repository.
@@ -57,43 +58,47 @@ class Repository(IRepository):
                 | __str__ - Returns the ATS repository as string representation.
     '''
 
-    def __init__(self, context_bundle: Optional[ContextBundle] = None) -> None:
+    _checker: IChecker
+    _reporter: IReporter
+    _verbose: bool
+
+    def __init__(self, context_bundle: ContextBundle | None = None) -> None:
         '''
             Initializes Repository constructor.
 
             :param context_bundle: Context bundle for repository | None.
-            :type context_bundle: <Optional[ContextBundle]>
-            :exceptions: None.
+            :type context_bundle: <ContextBundle | None>
+            :exceptions: None..
         '''
         factory_context_bundle(self, context_bundle)
-        self.__repository: Optional[str] = None
+        self._repository: str | None = None
 
     @property
     @vreporter('get repository {repository}')
-    def repository(self) -> Optional[str]:
+    def repository(self) -> str | None:
         '''
             Property method for getting ATS repository.
 
             :return: The ATS repository in string format | None.
-            :rtype: <Optional[str]>
-            :exceptions: RuntimeError, AttributeError.
+            :rtype: <str | None>
+            :exceptions: ATSRuntimeError, ATSAttributeError.
         '''
-        return self.__repository
+        return self._repository
 
     @repository.setter
-    @validator([('Optional[str]:repository', None)])
+    @validator([('str | None:repository', None)])
     @vreporter('set repository {repository}')
-    def repository(self, repository: Optional[str]) -> None:
+    def repository(self, repository: str | None) -> None:
         '''
             Property method for setting ATS repository.
 
             :param repository: The ATS repository in string format | None.
-            :type repository: <Optional[str]>
+            :type repository: <str | None>
             :exceptions:
                 | ATSTypeError, ATSValueError, RuntimeError, AttributeError.
                 | RuntimeError, AttributeError.
         '''
-        self.__repository = repository
+        self._repository = repository
 
     @vreporter('check repository {repository}')
     def not_none(self) -> bool:
@@ -102,9 +107,9 @@ class Repository(IRepository):
 
             :return: True (success) | False (fail).
             :rtype: <bool>
-            :exceptions: RuntimeError, AttributeError.
+            :exceptions: ATSRuntimeError, ATSAttributeError.
         '''
-        return self.__repository is not None
+        return self._repository is not None
 
     def __str__(self) -> str:
         '''
@@ -112,6 +117,6 @@ class Repository(IRepository):
 
             :return: The ATS repository as string representation.
             :rtype: <str>
-            :exceptions: None.
+            :exceptions: None..
         '''
         return format_instance_to_string(self)

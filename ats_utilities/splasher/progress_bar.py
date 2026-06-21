@@ -21,13 +21,12 @@ Info
 '''
 
 import sys
-from typing import List
 from ats_utilities.factory_class import format_instance_to_string
 from ats_utilities.splasher.iprogress_bar import IProgressBar
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
+__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
 __version__: str = '3.3.8'
 __maintainer__: str = 'Vladimir Roncevic'
@@ -46,12 +45,12 @@ class ProgressBar(IProgressBar):
                 | DEFAULT_BAR_LENGTH - Length of progressbar.
                 | DEFAULT_CHAR_ON - Loaded progress element.
                 | DEFAULT_CHAR_OFF - Unloaded progress element.
-                | __start - Start of level.
-                | __end - End of level.
-                | __bar_length - Progress length.
-                | __level - Progress level.
-                | __plotted - Plotted progress.
-                | __level_chars - Level progress chars.
+                | _start - Start of level.
+                | _end - End of level.
+                | _bar_length - Progress length.
+                | _level - Progress level.
+                | _plotted - Plotted progress.
+                | _level_chars - Level progress chars.
             :methods:
                 | __init__ - Initials ProgressBar constructor.
                 | set_level - Sets level for progress bar.
@@ -73,16 +72,16 @@ class ProgressBar(IProgressBar):
             :type end: <int>
             :param start: Start level of progress (default 0).
             :type start: <int>
-            :exceptions: None
+            :exceptions: None.
         '''
-        self.__end: int = end
-        self.__start: int = start
-        self.__bar_length: int = self.DEFAULT_BAR_LENGTH
-        self.set_level(self.__start)
-        self.__plotted: bool = False
-        self.__level: int = 0
+        self._end: int = end
+        self._start: int = start
+        self._bar_length: int = self.DEFAULT_BAR_LENGTH
+        self.set_level(self._start)
+        self._plotted: bool = False
+        self._level: int = 0
         self._ratio: float = 0.0
-        self.__level_chars: int = 0
+        self._level_chars: int = 0
 
     def set_level(self, level: int) -> None:
         '''
@@ -90,18 +89,18 @@ class ProgressBar(IProgressBar):
 
             :param level: Level of progress.
             :type level: <int>
-            :exceptions: None
+            :exceptions: None.
         '''
-        self.__level = level
-        if level < self.__start:
-            self.__level = self.__start
-        if level > self.__end:
-            self.__level = self.__end
+        self._level = level
+        if level < self._start:
+            self._level = self._start
+        if level > self._end:
+            self._level = self._end
         self._ratio = (
-            float(self.__level - self.__start) /
-            float(self.__end - self.__start)
+            float(self._level - self._start) /
+            float(self._end - self._start)
         )
-        self.__level_chars = int(self._ratio * self.__bar_length)
+        self._level_chars = int(self._ratio * self._bar_length)
 
     def plot_progress(self, columns: int) -> None:
         '''
@@ -109,7 +108,7 @@ class ProgressBar(IProgressBar):
 
             :param columns: Columns for open console session.
             :type columns: <int>
-            :exceptions: None
+            :exceptions: None.
         '''
         start_position: float = (columns / 2) - (columns / 10)
         number_of_tabs: int = int((start_position/8) - 3)
@@ -117,13 +116,13 @@ class ProgressBar(IProgressBar):
             "\r %s %3i%% %s%s".expandtabs(4) % (
                 '\011' * number_of_tabs,
                 int(self._ratio * 100.0),
-                self.DEFAULT_CHAR_ON * int(self.__level_chars),
+                self.DEFAULT_CHAR_ON * int(self._level_chars),
                 self.DEFAULT_CHAR_OFF *
-                int(self.__bar_length - self.__level_chars)
+                int(self._bar_length - self._level_chars)
             )
         )
         sys.stdout.flush()
-        self.__plotted = True
+        self._plotted = True
 
     def set_and_plot(self, level: int, columns: int) -> None:
         '''
@@ -133,18 +132,18 @@ class ProgressBar(IProgressBar):
             :type level: <int>
             :param columns: Columns for open console session.
             :type columns: <int>
-            :exceptions: None
+            :exceptions: None.
         '''
-        old_chars: int = self.__level_chars
+        old_chars: int = self._level_chars
         self.set_level(level)
-        if (not self.__plotted) or (old_chars != self.__level_chars):
+        if (not self._plotted) or (old_chars != self._level_chars):
             self.plot_progress(columns)
 
     def __del__(self) -> None:
         '''
             Dunder del method for ProgressBar.
 
-            :exceptions: None
+            :exceptions: None.
         '''
         sys.stdout.write("\n")
 
@@ -154,6 +153,6 @@ class ProgressBar(IProgressBar):
 
             :return: The ProgressBar as string representation.
             :rtype: <str>
-            :exceptions: None
+            :exceptions: None.
         '''
         return format_instance_to_string(self)

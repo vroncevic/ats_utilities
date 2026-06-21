@@ -59,10 +59,12 @@
 <span class="sd">&#39;&#39;&#39;</span>
 
 <span class="kn">from</span> <span class="nn">abc</span> <span class="kn">import</span> <span class="n">abstractmethod</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.base.ibase</span> <span class="kn">import</span> <span class="n">IBase</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.base.ibase</span> <span class="kn">import</span> <span class="n">ArgSeq</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.context_bundle</span> <span class="kn">import</span> <span class="n">ContextBundle</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.checker.ichecker</span> <span class="kn">import</span> <span class="n">IChecker</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.reporter.ireporter</span> <span class="kn">import</span> <span class="n">IReporter</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.base.component_bundle</span> <span class="kn">import</span> <span class="n">BaseComponentBundle</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.config_io.config_loader_bundle</span> <span class="kn">import</span> <span class="n">ATSConfigLoaderBundle</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.config_io.config_file_bundle</span> <span class="kn">import</span> <span class="n">ATSConfigFileBundle</span>
@@ -87,7 +89,7 @@
 
 <span class="n">__author__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;Vladimir Roncevic&#39;</span>
 <span class="n">__copyright__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;(C) 2026, https://vroncevic.github.io/ats_utilities&#39;</span>
-<span class="n">__credits__</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Vladimir Roncevic&#39;</span><span class="p">,</span> <span class="s1">&#39;Python Software Foundation&#39;</span><span class="p">]</span>
+<span class="n">__credits__</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Vladimir Roncevic&#39;</span><span class="p">,</span> <span class="s1">&#39;Python Software Foundation&#39;</span><span class="p">]</span>
 <span class="n">__license__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE&#39;</span>
 <span class="n">__version__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;3.3.8&#39;</span>
 <span class="n">__maintainer__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;Vladimir Roncevic&#39;</span>
@@ -105,15 +107,15 @@
 <span class="sd">        It defines:</span>
 
 <span class="sd">            :attributes:</span>
-<span class="sd">                | __checker - Factoriezed parameters checker (default Checker).</span>
-<span class="sd">                | __reporter - Factoriezed reporter for messaging (default Reporter).</span>
-<span class="sd">                | __verbose - Factoriezed Enable/Disable verbose option (default False).</span>
-<span class="sd">                | __operational - Status for ATS (default False).</span>
-<span class="sd">                | __config_loader - Manager for configuration loading.</span>
-<span class="sd">                | __info_manager - Manager for info component.</span>
-<span class="sd">                | __splasher - Manager for splash component.</span>
-<span class="sd">                | __options_parser - Manager for options parser.</span>
-<span class="sd">                | __logger_manager - Manager for logger component.</span>
+<span class="sd">                | _checker - Factoriezed parameters checker (default Checker).</span>
+<span class="sd">                | _reporter - Factoriezed reporter for messaging (default Reporter).</span>
+<span class="sd">                | _verbose - Factoriezed Enable/Disable verbose option (default False).</span>
+<span class="sd">                | _operational - Status for ATS (default False).</span>
+<span class="sd">                | _config_loader - Manager for configuration loading.</span>
+<span class="sd">                | _info_manager - Manager for info component.</span>
+<span class="sd">                | _splasher - Manager for splash component.</span>
+<span class="sd">                | _options_parser - Manager for options parser.</span>
+<span class="sd">                | _logger_manager - Manager for logger component.</span>
 <span class="sd">            :methods:</span>
 <span class="sd">                | __init__ - Initializes Base constructor.</span>
 <span class="sd">                | is_operational - Checks is ATS operational.</span>
@@ -123,12 +125,16 @@
 <span class="sd">                | __str__ - Returns the ATS base as string representation.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">component_bundle</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">BaseComponentBundle</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="n">_checker</span><span class="p">:</span> <span class="n">IChecker</span>
+    <span class="n">_reporter</span><span class="p">:</span> <span class="n">IReporter</span>
+    <span class="n">_verbose</span><span class="p">:</span> <span class="nb">bool</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">component_bundle</span><span class="p">:</span> <span class="n">BaseComponentBundle</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Initializes Base constructor.</span>
 
 <span class="sd">            :param component_bundle: Component bundle for base package | None.</span>
-<span class="sd">            :type component_bundle: &lt;Optional[BaseComponentBundle]&gt;</span>
+<span class="sd">            :type component_bundle: &lt;BaseComponentBundle | None&gt;</span>
 <span class="sd">            :exceptions: ATSTypeError.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="c1"># No dependency injection then use default ones.</span>
@@ -139,48 +145,48 @@
             <span class="n">reporter</span><span class="o">=</span><span class="n">get_private_attr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;reporter&#39;</span><span class="p">),</span>
             <span class="n">verbose</span><span class="o">=</span><span class="n">get_private_attr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;verbose&#39;</span><span class="p">)</span>
         <span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">__operational</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_operational</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
         <span class="n">shared_config_file_bundle</span><span class="p">:</span> <span class="n">ATSConfigFileBundle</span> <span class="o">=</span> <span class="n">ATSConfigFileBundle</span><span class="p">(</span><span class="n">context</span><span class="o">=</span><span class="n">shared_context</span><span class="p">)</span>
         <span class="n">share_config_loader_bundle</span><span class="p">:</span> <span class="n">ATSConfigLoaderBundle</span> <span class="o">=</span> <span class="n">ATSConfigLoaderBundle</span><span class="p">(</span>
             <span class="n">info_file</span><span class="o">=</span><span class="n">bundle</span><span class="o">.</span><span class="n">info_file</span><span class="p">,</span> <span class="n">config_bundle</span><span class="o">=</span><span class="n">shared_config_file_bundle</span>
         <span class="p">)</span>
         <span class="n">info_component_bundle</span><span class="p">:</span> <span class="n">InfoComponentBundle</span> <span class="o">=</span> <span class="n">InfoComponentBundle</span><span class="p">(</span><span class="n">context_bundle</span><span class="o">=</span><span class="n">shared_context</span><span class="p">)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">__config_loader</span><span class="p">:</span> <span class="n">IConfigLoader</span> <span class="o">=</span> <span class="n">make_component</span><span class="p">(</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_config_loader</span><span class="p">:</span> <span class="n">IConfigLoader</span> <span class="o">=</span> <span class="n">make_component</span><span class="p">(</span>
             <span class="n">bundle</span><span class="o">.</span><span class="n">config_loader</span><span class="p">,</span> <span class="n">ConfigLoader</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;config_loader_bundle&#39;</span><span class="p">:</span> <span class="n">share_config_loader_bundle</span><span class="p">}</span>
         <span class="p">)</span>
-        <span class="n">validate_component</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__config_loader</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__config_loader</span><span class="p">),</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__config_loader</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)</span>
-        <span class="n">loader</span><span class="p">:</span> <span class="n">Config</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__config_loader</span><span class="o">.</span><span class="n">setup_config_loader</span><span class="p">()</span>
+        <span class="n">validate_component</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_config_loader</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_config_loader</span><span class="p">),</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_config_loader</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)</span>
+        <span class="n">loader</span><span class="p">:</span> <span class="n">Config</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_config_loader</span><span class="o">.</span><span class="n">setup_config_loader</span><span class="p">()</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">__info_manager</span><span class="p">:</span> <span class="n">IInfoManager</span> <span class="o">=</span> <span class="n">make_component</span><span class="p">(</span><span class="n">bundle</span><span class="o">.</span><span class="n">info_manager</span><span class="p">,</span> <span class="n">InfoManager</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;component_bundle&#39;</span><span class="p">:</span> <span class="n">info_component_bundle</span><span class="p">})</span>
-        <span class="n">validate_component</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__info_manager</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__info_manager</span><span class="p">),</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__info_manager</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">__info_manager</span><span class="o">.</span><span class="n">set_info</span><span class="p">(</span><span class="n">loader</span><span class="o">.</span><span class="n">load_configuration</span><span class="p">())</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_info_manager</span><span class="p">:</span> <span class="n">IInfoManager</span> <span class="o">=</span> <span class="n">make_component</span><span class="p">(</span><span class="n">bundle</span><span class="o">.</span><span class="n">info_manager</span><span class="p">,</span> <span class="n">InfoManager</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;component_bundle&#39;</span><span class="p">:</span> <span class="n">info_component_bundle</span><span class="p">})</span>
+        <span class="n">validate_component</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_info_manager</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_info_manager</span><span class="p">),</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_info_manager</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_info_manager</span><span class="o">.</span><span class="n">set_info</span><span class="p">(</span><span class="n">loader</span><span class="o">.</span><span class="n">load_configuration</span><span class="p">())</span>
 
         <span class="n">splash_component_bundle</span><span class="p">:</span> <span class="n">SplashComponentBundle</span> <span class="o">=</span> <span class="n">SplashComponentBundle</span><span class="p">(</span>
-            <span class="n">prop</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">__info_manager</span><span class="o">.</span><span class="n">get_info</span><span class="p">(),</span> <span class="n">context_bundle</span><span class="o">=</span><span class="n">shared_context</span>
+            <span class="n">prop</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_info_manager</span><span class="o">.</span><span class="n">get_info</span><span class="p">(),</span> <span class="n">context_bundle</span><span class="o">=</span><span class="n">shared_context</span>
         <span class="p">)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">__splasher</span><span class="p">:</span> <span class="n">ISplasher</span> <span class="o">=</span> <span class="n">make_component</span><span class="p">(</span><span class="n">bundle</span><span class="o">.</span><span class="n">splasher</span><span class="p">,</span> <span class="n">Splasher</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;component_bundle&#39;</span><span class="p">:</span> <span class="n">splash_component_bundle</span><span class="p">})</span>
-        <span class="n">validate_component</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__splasher</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__splasher</span><span class="p">),</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__splasher</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_splasher</span><span class="p">:</span> <span class="n">ISplasher</span> <span class="o">=</span> <span class="n">make_component</span><span class="p">(</span><span class="n">bundle</span><span class="o">.</span><span class="n">splasher</span><span class="p">,</span> <span class="n">Splasher</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;component_bundle&#39;</span><span class="p">:</span> <span class="n">splash_component_bundle</span><span class="p">})</span>
+        <span class="n">validate_component</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_splasher</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_splasher</span><span class="p">),</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_splasher</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)</span>
 
         <span class="n">option_component_bundle</span><span class="p">:</span> <span class="n">OptionComponentBundle</span> <span class="o">=</span> <span class="n">OptionComponentBundle</span><span class="p">(</span>
-            <span class="n">parameters</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">__info_manager</span><span class="o">.</span><span class="n">get_info</span><span class="p">(),</span> <span class="n">context_bundle</span><span class="o">=</span><span class="n">shared_context</span>
+            <span class="n">parameters</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_info_manager</span><span class="o">.</span><span class="n">get_info</span><span class="p">(),</span> <span class="n">context_bundle</span><span class="o">=</span><span class="n">shared_context</span>
         <span class="p">)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">__options_parser</span><span class="p">:</span> <span class="n">IOptionManager</span> <span class="o">=</span> <span class="n">make_component</span><span class="p">(</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_options_parser</span><span class="p">:</span> <span class="n">IOptionManager</span> <span class="o">=</span> <span class="n">make_component</span><span class="p">(</span>
             <span class="n">bundle</span><span class="o">.</span><span class="n">options_parser</span><span class="p">,</span> <span class="n">OptionManager</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;component_bundle&#39;</span><span class="p">:</span> <span class="n">option_component_bundle</span><span class="p">}</span>
         <span class="p">)</span>
-        <span class="n">validate_component</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__options_parser</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__options_parser</span><span class="p">),</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__options_parser</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)</span>
+        <span class="n">validate_component</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_options_parser</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_options_parser</span><span class="p">),</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_options_parser</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)</span>
 
         <span class="n">logging_component_bundle</span><span class="p">:</span> <span class="n">LoggingComponentBundle</span> <span class="o">=</span> <span class="n">LoggingComponentBundle</span><span class="p">(</span><span class="n">context_bundle</span><span class="o">=</span><span class="n">shared_context</span><span class="p">)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">__logger_manager</span><span class="p">:</span> <span class="n">ILoggerManager</span> <span class="o">=</span> <span class="n">make_component</span><span class="p">(</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_logger_manager</span><span class="p">:</span> <span class="n">ILoggerManager</span> <span class="o">=</span> <span class="n">make_component</span><span class="p">(</span>
             <span class="n">bundle</span><span class="o">.</span><span class="n">logger_manager</span><span class="p">,</span> <span class="n">ATSLoggerManager</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;component_bundle&#39;</span><span class="p">:</span> <span class="n">logging_component_bundle</span><span class="p">}</span>
         <span class="p">)</span>
-        <span class="n">validate_component</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__logger_manager</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__logger_manager</span><span class="p">),</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__logger_manager</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)</span>
+        <span class="n">validate_component</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_logger_manager</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_logger_manager</span><span class="p">),</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_logger_manager</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">__operational</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="nb">all</span><span class="p">(</span>
-            <span class="n">component</span><span class="o">.</span><span class="n">ok</span><span class="p">()</span> <span class="k">for</span> <span class="n">component</span> <span class="ow">in</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">__info_manager</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">__options_parser</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">__logger_manager</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_operational</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="nb">all</span><span class="p">(</span>
+            <span class="n">component</span><span class="o">.</span><span class="n">ok</span><span class="p">()</span> <span class="k">for</span> <span class="n">component</span> <span class="ow">in</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_info_manager</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_options_parser</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_logger_manager</span><span class="p">]</span>
         <span class="p">)</span>
 
 <div class="viewcode-block" id="Base.is_operational">
@@ -191,9 +197,9 @@
 
 <span class="sd">            :return: True (success) | False (fail).</span>
 <span class="sd">            :rtype: &lt;bool&gt;</span>
-<span class="sd">            :exceptions: None.</span>
+<span class="sd">            :exceptions: None..</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__operational</span></div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_operational</span></div>
 
 
 <div class="viewcode-block" id="Base.add_new_option">
@@ -206,26 +212,26 @@
 <span class="sd">            :type args: &lt;str&gt;</span>
 <span class="sd">            :param kwargs: arguments in Any form.</span>
 <span class="sd">            :type kwargs: &lt;Any&gt;</span>
-<span class="sd">            :exceptions: None.</span>
+<span class="sd">            :exceptions: None..</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__options_parser</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">__options_parser</span><span class="o">.</span><span class="n">add_operation</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_options_parser</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_options_parser</span><span class="o">.</span><span class="n">add_operation</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="Base.parse_args">
 <a class="viewcode-back" href="../../../ats_utilities.base.engine.html#ats_utilities.base.engine.Base.parse_args">[docs]</a>
-    <span class="k">def</span> <span class="nf">parse_args</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">argv</span><span class="p">:</span> <span class="n">ArgSeq</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">OptionNamespace</span><span class="p">]:</span>
+    <span class="k">def</span> <span class="nf">parse_args</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">argv</span><span class="p">:</span> <span class="n">ArgSeq</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">OptionNamespace</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Parses the CLI arguments.</span>
 
 <span class="sd">            :param argv: Sequence of arguments | None.</span>
 <span class="sd">            :type argv: &lt;ArgSeq&gt;</span>
 <span class="sd">            :return: Options and arguments.</span>
-<span class="sd">            :rtype: &lt;Optional[OptionNamespace]&gt;</span>
+<span class="sd">            :rtype: &lt;OptionNamespace | None&gt;</span>
 <span class="sd">            :exceptions: ATSTypeError.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__options_parser</span><span class="p">:</span>
-            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__options_parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">(</span><span class="n">argv</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_options_parser</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_options_parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">(</span><span class="n">argv</span><span class="p">)</span>
 
         <span class="k">return</span> <span class="kc">None</span></div>
 
@@ -252,7 +258,7 @@
 
 <span class="sd">            :return: The ATS base as string representation.</span>
 <span class="sd">            :rtype: &lt;str&gt;</span>
-<span class="sd">            :exceptions: None.</span>
+<span class="sd">            :exceptions: None..</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="k">return</span> <span class="n">format_instance_to_string</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div>
 

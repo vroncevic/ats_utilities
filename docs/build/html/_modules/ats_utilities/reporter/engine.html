@@ -58,20 +58,20 @@
 <span class="sd">    Implements an API for reporting messages to the console.</span>
 <span class="sd">&#39;&#39;&#39;</span>
 
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.reporter.ireporter</span> <span class="kn">import</span> <span class="n">IReporter</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.reporter.component_bundle</span> <span class="kn">import</span> <span class="n">ReporterComponentBundle</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.checker.ichecker</span> <span class="kn">import</span> <span class="n">IChecker</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.checker.engine</span> <span class="kn">import</span> <span class="n">Checker</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.reporter.theme.iconsole_theme</span> <span class="kn">import</span> <span class="n">IConsoleTheme</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.reporter.theme.engine</span> <span class="kn">import</span> <span class="n">ATSConsoleTheme</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.reporter.theme.engine</span> <span class="kn">import</span> <span class="n">ConsoleTheme</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.checker.proxy_validator</span> <span class="kn">import</span> <span class="n">validator</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.factory_class</span> <span class="kn">import</span> <span class="n">format_instance_to_string</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.factory_component</span> <span class="kn">import</span> <span class="n">make_component</span><span class="p">,</span> <span class="n">validate_component</span>
 
 <span class="n">__author__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;Vladimir Roncevic&#39;</span>
 <span class="n">__copyright__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;(C) 2026, https://vroncevic.github.io/ats_utilities&#39;</span>
-<span class="n">__credits__</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Vladimir Roncevic&#39;</span><span class="p">,</span> <span class="s1">&#39;Python Software Foundation&#39;</span><span class="p">]</span>
+<span class="n">__credits__</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Vladimir Roncevic&#39;</span><span class="p">,</span> <span class="s1">&#39;Python Software Foundation&#39;</span><span class="p">]</span>
 <span class="n">__license__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE&#39;</span>
 <span class="n">__version__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;3.3.8&#39;</span>
 <span class="n">__maintainer__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;Vladimir Roncevic&#39;</span>
@@ -89,11 +89,11 @@
 <span class="sd">        It defines:</span>
 
 <span class="sd">            :attributes:</span>
-<span class="sd">                | __checker - Parameters checker (default Checker).</span>
-<span class="sd">                | __theme - Theme for styling messages (default ATSConsoleTheme).</span>
+<span class="sd">                | _checker - Factorized parameters checker (default Checker).</span>
+<span class="sd">                | _theme - Factorized theme for styling messages (default ConsoleTheme).</span>
 <span class="sd">            :methods:</span>
 <span class="sd">                | __init__ - Initializes Reporter constructor.</span>
-<span class="sd">                | __report - Utility method for reporting messages to console.</span>
+<span class="sd">                | _report - Utility method for reporting messages to console.</span>
 <span class="sd">                | error - Reports error message to console.</span>
 <span class="sd">                | success - Reports success message to console.</span>
 <span class="sd">                | verbose - Reports verbose message to console.</span>
@@ -101,27 +101,32 @@
 <span class="sd">                | __str__ - Returns the string representation of Reporter.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">component_bundle</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ReporterComponentBundle</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="n">_checker</span><span class="p">:</span> <span class="n">IChecker</span>
+    <span class="n">_theme</span><span class="p">:</span> <span class="n">IConsoleTheme</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">component_bundle</span><span class="p">:</span> <span class="n">ReporterComponentBundle</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Initializes Reporter constructor.</span>
 
 <span class="sd">            :param component_bundle: Reporter component bundle | None.</span>
-<span class="sd">            :type component_bundle: &lt;Optional[ReporterComponentBundle]&gt;</span>
+<span class="sd">            :type component_bundle: &lt;ReporterComponentBundle | None&gt;</span>
 <span class="sd">            :exceptions: ATSTypeError</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="c1"># No dependency injection then use default ones.</span>
         <span class="n">bundle</span><span class="p">:</span> <span class="n">ReporterComponentBundle</span> <span class="o">=</span> <span class="n">component_bundle</span> <span class="ow">or</span> <span class="n">ReporterComponentBundle</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">__checker</span><span class="p">:</span> <span class="n">IChecker</span> <span class="o">=</span> <span class="n">make_component</span><span class="p">(</span><span class="n">bundle</span><span class="o">.</span><span class="n">checker</span><span class="p">,</span> <span class="n">Checker</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
-        <span class="n">validate_component</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__checker</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__checker</span><span class="p">),</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__checker</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">__theme</span><span class="p">:</span> <span class="n">IConsoleTheme</span> <span class="o">=</span> <span class="n">make_component</span><span class="p">(</span><span class="n">bundle</span><span class="o">.</span><span class="n">theme</span><span class="p">,</span> <span class="n">ATSConsoleTheme</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
-        <span class="n">validate_component</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__theme</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__theme</span><span class="p">),</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__theme</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_checker</span><span class="p">:</span> <span class="n">IChecker</span> <span class="o">=</span> <span class="n">make_component</span><span class="p">(</span><span class="n">bundle</span><span class="o">.</span><span class="n">checker</span><span class="p">,</span> <span class="n">Checker</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="n">validate_component</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_checker</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_checker</span><span class="p">),</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_checker</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_theme</span><span class="p">:</span> <span class="n">IConsoleTheme</span> <span class="o">=</span> <span class="n">make_component</span><span class="p">(</span><span class="n">bundle</span><span class="o">.</span><span class="n">theme</span><span class="p">,</span> <span class="n">ConsoleTheme</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="n">validate_component</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_theme</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_theme</span><span class="p">),</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_theme</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">__report</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Any</span><span class="p">],</span> <span class="n">color</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<div class="viewcode-block" id="Reporter._report">
+<a class="viewcode-back" href="../../../ats_utilities.reporter.engine.html#ats_utilities.reporter.engine.Reporter._report">[docs]</a>
+    <span class="k">def</span> <span class="nf">_report</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">Any</span><span class="p">],</span> <span class="n">color</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Utility method for reporting message to console.</span>
 
 <span class="sd">            :param message: List with message components.</span>
-<span class="sd">            :type message: &lt;List[Any]&gt;</span>
+<span class="sd">            :type message: &lt;list[Any]&gt;</span>
 <span class="sd">            :param color: Theme color for the message.</span>
 <span class="sd">            :type color: &lt;str&gt;</span>
 <span class="sd">            :exceptions: ATSTypeError</span>
@@ -129,65 +134,66 @@
         <span class="n">message_out</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="nb">str</span><span class="p">(</span><span class="n">item</span><span class="p">)</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">message</span><span class="p">])</span>
 
         <span class="k">if</span> <span class="n">message_out</span><span class="p">:</span>
-            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">color</span><span class="si">}{</span><span class="n">message_out</span><span class="si">}{</span><span class="bp">self</span><span class="o">.</span><span class="n">__theme</span><span class="o">.</span><span class="n">get_color</span><span class="p">(</span><span class="s1">&#39;reset&#39;</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">color</span><span class="si">}{</span><span class="n">message_out</span><span class="si">}{</span><span class="bp">self</span><span class="o">.</span><span class="n">_theme</span><span class="o">.</span><span class="n">get_color</span><span class="p">(</span><span class="s1">&#39;reset&#39;</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
+
 
 <div class="viewcode-block" id="Reporter.verbose">
 <a class="viewcode-back" href="../../../ats_utilities.reporter.engine.html#ats_utilities.reporter.engine.Reporter.verbose">[docs]</a>
     <span class="nd">@validator</span><span class="p">([(</span><span class="s1">&#39;bool:is_verbose&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;list:message&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)])</span>
-    <span class="k">def</span> <span class="nf">verbose</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">is_verbose</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">verbose</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">is_verbose</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Reports verbose message to console.</span>
 
 <span class="sd">            :param is_verbose: Enable/Disable verbose option.</span>
 <span class="sd">            :type is_verbose: &lt;bool&gt;</span>
 <span class="sd">            :param message: List with message components.</span>
-<span class="sd">            :type message: &lt;List[Any]&gt;</span>
-<span class="sd">            :exceptions: None</span>
+<span class="sd">            :type message: &lt;list[Any]&gt;</span>
+<span class="sd">            :exceptions: None.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="k">if</span> <span class="n">is_verbose</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">__report</span><span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">__theme</span><span class="o">.</span><span class="n">get_color</span><span class="p">(</span><span class="s1">&#39;verbose&#39;</span><span class="p">))</span></div>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_report</span><span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_theme</span><span class="o">.</span><span class="n">get_color</span><span class="p">(</span><span class="s1">&#39;verbose&#39;</span><span class="p">))</span></div>
 
 
 <div class="viewcode-block" id="Reporter.success">
 <a class="viewcode-back" href="../../../ats_utilities.reporter.engine.html#ats_utilities.reporter.engine.Reporter.success">[docs]</a>
     <span class="nd">@validator</span><span class="p">([(</span><span class="s1">&#39;list:message&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)])</span>
-    <span class="k">def</span> <span class="nf">success</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">success</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Reports success message to console.</span>
 
 <span class="sd">            :param message: List with message components.</span>
-<span class="sd">            :type message: &lt;List[Any]&gt;</span>
-<span class="sd">            :exceptions: None</span>
+<span class="sd">            :type message: &lt;list[Any]&gt;</span>
+<span class="sd">            :exceptions: None.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">__report</span><span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">__theme</span><span class="o">.</span><span class="n">get_color</span><span class="p">(</span><span class="s1">&#39;success&#39;</span><span class="p">))</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_report</span><span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_theme</span><span class="o">.</span><span class="n">get_color</span><span class="p">(</span><span class="s1">&#39;success&#39;</span><span class="p">))</span></div>
 
 
 <div class="viewcode-block" id="Reporter.warning">
 <a class="viewcode-back" href="../../../ats_utilities.reporter.engine.html#ats_utilities.reporter.engine.Reporter.warning">[docs]</a>
     <span class="nd">@validator</span><span class="p">([(</span><span class="s1">&#39;list:message&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)])</span>
-    <span class="k">def</span> <span class="nf">warning</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">warning</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Reports warning message to console.</span>
 
 <span class="sd">            :param message: List with message components.</span>
-<span class="sd">            :type message: &lt;List[Any]&gt;</span>
-<span class="sd">            :exceptions: None</span>
+<span class="sd">            :type message: &lt;list[Any]&gt;</span>
+<span class="sd">            :exceptions: None.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">__report</span><span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">__theme</span><span class="o">.</span><span class="n">get_color</span><span class="p">(</span><span class="s1">&#39;warning&#39;</span><span class="p">))</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_report</span><span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_theme</span><span class="o">.</span><span class="n">get_color</span><span class="p">(</span><span class="s1">&#39;warning&#39;</span><span class="p">))</span></div>
 
 
 <div class="viewcode-block" id="Reporter.error">
 <a class="viewcode-back" href="../../../ats_utilities.reporter.engine.html#ats_utilities.reporter.engine.Reporter.error">[docs]</a>
     <span class="nd">@validator</span><span class="p">([(</span><span class="s1">&#39;list:message&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)])</span>
-    <span class="k">def</span> <span class="nf">error</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">error</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Reports error message to console.</span>
 
 <span class="sd">            :param message: List with message components.</span>
-<span class="sd">            :type message: &lt;List[Any]&gt;</span>
-<span class="sd">            :exceptions: None</span>
+<span class="sd">            :type message: &lt;list[Any]&gt;</span>
+<span class="sd">            :exceptions: None.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">__report</span><span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">__theme</span><span class="o">.</span><span class="n">get_color</span><span class="p">(</span><span class="s1">&#39;error&#39;</span><span class="p">))</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_report</span><span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_theme</span><span class="o">.</span><span class="n">get_color</span><span class="p">(</span><span class="s1">&#39;error&#39;</span><span class="p">))</span></div>
 
 
     <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
@@ -196,7 +202,7 @@
 
 <span class="sd">            :return: The Reporter as string representation.</span>
 <span class="sd">            :rtype: &lt;str&gt;</span>
-<span class="sd">            :exceptions: None</span>
+<span class="sd">            :exceptions: None.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="k">return</span> <span class="n">format_instance_to_string</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div>
 

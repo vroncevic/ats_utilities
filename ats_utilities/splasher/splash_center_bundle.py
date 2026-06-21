@@ -19,17 +19,13 @@ Info
     Defines splash screen bundle for centering console output.
 '''
 
-from typing import Any, Dict, List, Optional
-from dataclasses import dataclass, field
-from ats_utilities.splasher.isplash_property import ISplashProperty
-from ats_utilities.splasher.iterminal_properties import ITerminalProperties
-from ats_utilities.splasher.iext_infrastructure import IExtInfrastructure
-from ats_utilities.splasher.iprogress_bar import IProgressBar
-from ats_utilities.context_bundle import ContextBundle
+from dataclasses import dataclass
+from ats_utilities.exceptions.ats_type_error import ATSTypeError
+from ats_utilities.exceptions.ats_value_error import ATSValueError
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
+__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
 __version__: str = '3.3.8'
 __maintainer__: str = 'Vladimir Roncevic'
@@ -56,18 +52,31 @@ class SplashCenterBundle:
 
     columns: int = 0
     additional_shifter: int = 0
-    text: Optional[str] = None
+    text: str | None = None
 
     def validate(self) -> None:
         '''
             Validates that essential components are set.
 
-            :return: None
-            :rtype: <None>
-            :exceptions: ValueError
+            :exceptions: ATSTypeError, ATSValueError.
         '''
-        if self.columns <= 0:
-            raise ValueError("Columns count 'columns' must be greater than 0.")
+        if not isinstance(self.columns, int):
+            raise ATSTypeError("Columns count 'columns' must be an integer.")
+
+        if self.columns < 0:
+            raise ATSValueError("Columns count 'columns' must be greater than 0.")
+
+        if not isinstance(self.additional_shifter, int):
+            raise ATSTypeError("Additional shifter 'additional_shifter' must be an integer.")
+
+        if self.additional_shifter < 0:
+            raise ATSValueError("Additional shifter 'additional_shifter' must be greater than or equal to 0.")
+
+        if not isinstance(self.text, str) and self.text is not None:
+            raise ATSTypeError("Text 'text' must be a string or None.")
+
+        if isinstance(self.text, str) and not self.text.strip():
+            raise ATSValueError("Text 'text' cannot be empty.")
 
     def merge(self, other: 'SplashCenterBundle') -> None:
         '''
@@ -75,9 +84,7 @@ class SplashCenterBundle:
 
             :param other: Another bundle to merge into this one.
             :type other: <SplashCenterBundle>
-            :return: None
-            :rtype: <None>
-            :exceptions: None
+            :exceptions: None.
         '''
         for field_name in self.__dataclass_fields__:
             other_value = getattr(other, field_name)
@@ -90,7 +97,7 @@ class SplashCenterBundle:
 
             :return: Dictionary representation of the bundle attributes.
             :rtype: <dict>
-            :exceptions: None
+            :exceptions: None.
         '''
         return {
             name: value

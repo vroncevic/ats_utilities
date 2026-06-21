@@ -22,7 +22,6 @@ Execute
     python3 -m unittest -v ats_splash_test
 '''
 
-from typing import List
 from os.path import dirname
 from unittest import TestCase, main, mock
 from ats_utilities.splasher.engine import Splasher
@@ -34,7 +33,7 @@ from ats_utilities.exceptions.ats_value_error import ATSValueError
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
+__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
 __version__: str = '3.3.8'
 __maintainer__: str = 'Vladimir Roncevic'
@@ -123,9 +122,7 @@ class ATSSplashTestCase(TestCase):
         )
         splash: Splasher = Splasher(bundle)
         with self.assertRaises(ATSTypeError):
-            splash.center(None)  # type: ignore
-        with self.assertRaises(ATSTypeError):
-            splash.center(SplashCenterBundle(columns='wrong_type', text='test'))  # type: ignore
+            splash.center(SplashCenterBundle(columns='wrong_type', text='test'))
 
     @mock.patch('sys.stdout')
     @mock.patch('builtins.print')

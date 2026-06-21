@@ -19,14 +19,13 @@ Info
     Use cases for ATS XmlBase.
 '''
 
-from typing import List
 import xml.etree.ElementTree as ET
 from bs4 import BeautifulSoup
 from ats_utilities.config_io.xml.xmlbase import XmlBase
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
+__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
 __version__: str = '3.3.8'
 __maintainer__: str = 'Vladimir Roncevic'
@@ -64,7 +63,7 @@ framework_core = XmlBase(info_file, verbose=True)
 #        '''
 #        return str(self.soup) if self.soup else ""
 #
-#    def get_ats_info(self) -> Dict[str, str]:
+#    def get_ats_info(self) -> dict[str, str]:
 #        '''
 #            ...
 #        '''

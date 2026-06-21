@@ -16,17 +16,16 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines class ATSConsoleTheme with attribute(s) and method(s).
+    Defines class ConsoleTheme with attribute(s) and method(s).
     Implements a console theme for console styling.
 '''
 
-from typing import List, Dict, Optional
 from ats_utilities.factory_class import format_instance_to_string
 from ats_utilities.reporter.theme.iconsole_theme import IConsoleTheme
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
+__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
 __version__: str = '3.3.8'
 __maintainer__: str = 'Vladimir Roncevic'
@@ -34,22 +33,22 @@ __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
 
 
-class ATSConsoleTheme(IConsoleTheme):
+class ConsoleTheme(IConsoleTheme):
     '''
-        Defines class ATSConsoleTheme with attribute(s) and method(s).
+        Defines class ConsoleTheme with attribute(s) and method(s).
         Implements a console theme for console styling.
 
         It defines:
 
             :attributes:
-                | __palette - Dictionary with color codes for different message types.
+                | _palette - Dictionary with color codes for different message types.
             :methods:
-                | __init__ - Initializes ATSConsoleTheme constructor.
+                | __init__ - Initializes ConsoleTheme constructor.
                 | get_color - Returns color code from palette.
-                | __str__ - Returns the string representation of ATSConsoleTheme.
+                | __str__ - Returns the string representation of ConsoleTheme.
     '''
 
-    DEFAULT_PALETE_COLORS: Dict[str, str] = {
+    _default_palete_colors: dict[str, str] = {
         'verbose': '\x1b[34m', # ANSI blue
         'success': '\x1b[32m', # ANSI green
         'warning': '\x1b[33m', # ANSI yellow
@@ -57,16 +56,16 @@ class ATSConsoleTheme(IConsoleTheme):
         'reset':   '\x1b[0m'   # ANSI reset
     }
 
-    def __init__(self, palette: Optional[Dict[str, str]] = None) -> None:
+    def __init__(self, palette: dict[str, str] | None = None) -> None:
         '''
-            Initializes ATSConsoleTheme constructor.
+            Initializes ConsoleTheme constructor.
 
             :param palette: Dictionary with color codes | None.
-            :type palette: <Optional[Dict[str, str]]>
-            :exceptions: None
+            :type palette: <dict[str, str] | None>
+            :exceptions: None.
         '''
         # No dependency injection then use default ones.
-        self.__palette: Dict[str, str] = palette or self.DEFAULT_PALETE_COLORS
+        self._palette: dict[str, str] = palette or self._default_palete_colors
 
     def get_color(self, color_type: str) -> str:
         '''
@@ -76,16 +75,16 @@ class ATSConsoleTheme(IConsoleTheme):
             :type color_type: <str>
             :return: Color code in string format.
             :rtype: <str>
-            :exceptions: None
+            :exceptions: None.
         '''
-        return self.__palette.get(color_type, '')
+        return self._palette.get(color_type, '')
 
     def __str__(self) -> str:
         '''
-            Returns the string representation of ATSConsoleTheme.
+            Returns the string representation of ConsoleTheme.
 
-            :return: The ATSConsoleTheme as string representation.
+            :return: The ConsoleTheme as string representation.
             :rtype: <str>
-            :exceptions: None
+            :exceptions: None.
         '''
         return format_instance_to_string(self)

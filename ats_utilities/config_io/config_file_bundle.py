@@ -20,14 +20,13 @@ Info
     Encapsulates file check configuration to minimize constructor overhead.
 '''
 
-from dataclasses import dataclass, field
-from typing import List, Optional
+from dataclasses import dataclass
 from ats_utilities.context_bundle import ContextBundle
 from ats_utilities.config_io.ifile_check import IFileCheck
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
+__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
 __version__: str = '3.3.8'
 __maintainer__: str = 'Vladimir Roncevic'
@@ -44,7 +43,7 @@ class ATSConfigFileBundle:
         It defines:
 
             :attributes:
-                | context - Context bundle for checker, reporter and verbose (default ContextBundle()).
+                | context - Context bundle for checker, reporter and verbose (default None).
                 | file_checker - Parameters checker implementation (default None).
             :methods:
                 | validate - Validates that essential components are set.
@@ -52,8 +51,8 @@ class ATSConfigFileBundle:
                 | to_dict - Converts the bundle attributes to a dictionary.
     '''
 
-    context: Optional[ContextBundle] = field(default_factory=ContextBundle)
-    file_checker: Optional[IFileCheck] = None
+    context: ContextBundle | None = None
+    file_checker: IFileCheck | None = None
 
     def validate(self) -> None:
         '''
@@ -61,7 +60,7 @@ class ATSConfigFileBundle:
 
             :return: None.
             :rtype: <None>
-            :exceptions: None.
+            :exceptions: None..
         '''
         pass
 
@@ -73,7 +72,7 @@ class ATSConfigFileBundle:
             :type other: <ATSConfigFileBundle>
             :return: None.
             :rtype: <None>
-            :exceptions: None.
+            :exceptions: None..
         '''
         for field_name in self.__dataclass_fields__:
             other_value = getattr(other, field_name)
@@ -86,7 +85,7 @@ class ATSConfigFileBundle:
 
             :return: Dictionary representation of the bundle attributes.
             :rtype: <dict>
-            :exceptions: None.
+            :exceptions: None..
         '''
         return {
             name: value

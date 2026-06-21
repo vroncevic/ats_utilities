@@ -20,10 +20,10 @@ Info
     Creates an API for checking operations with files.
 '''
 
-from typing import List, Optional
 from os.path import splitext, isfile
 from ats_utilities.config_io.ifile_check import IFileCheck
 from ats_utilities.context_bundle import ContextBundle
+from ats_utilities.checker.ichecker import IChecker
 from ats_utilities.checker.proxy_validator import validator
 from ats_utilities.reporter.ireporter import IReporter
 from ats_utilities.reporter.proxy_reporter import vreporter
@@ -32,7 +32,7 @@ from ats_utilities.factory_class import get_private_attr, format_instance_to_str
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
+__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
 __version__: str = '3.3.8'
 __maintainer__: str = 'Vladimir Roncevic'
@@ -49,81 +49,84 @@ class FileCheck(IFileCheck):
         It defines:
 
             :attributes:
-                | __checker - Factoriezed parameters checker (default Checker).
-                | __reporter - Factoriezed reporter for messaging (default Reporter).
-                | __verbose - Factoriezed Enable/Disable verbose option (default False).
-                | __file_path_ok - File exist, path ok (default False).
-                | __file_mode_ok - Supported file mode (default False).
-                | __file_format_ok - File format is (not) expected (default False).
+                | _checker - Factoriezed parameters checker (default Checker).
+                | _reporter - Factoriezed reporter for messaging (default Reporter).
+                | _verbose - Factoriezed Enable/Disable verbose option (default False).
+                | _file_path_ok - File exist, path ok (default False).
+                | _file_mode_ok - Supported file mode (default False).
+                | _file_format_ok - File format is (not) expected (default False).
             :methods:
                 | __init__ - Initializes FileCheck constructor.
                 | check_path - Checks file path.
                 | check_mode - Checks operation mode for file.
                 | check_format - Checks file format by extension.
                 | is_file_ok - Returns status for file.
-                | _reporter - Property method for getting the internal reporter instance.
                 | __str__ - Returns the FileCheck as string representation.
     '''
 
-    def __init__(self, config_bundle: Optional[ContextBundle] = None) -> None:
+    _checker: IChecker
+    _reporter: IReporter
+    _verbose: bool
+
+    def __init__(self, config_bundle: ContextBundle | None = None) -> None:
         '''
             Initializes FileCheck constructor.
 
             :param config_bundle: Bundle with checker, reporter and verbose | None.
-            :type config_bundle: <Optional[ContextBundle]>
-            :exceptions: None.
+            :type config_bundle: <ContextBundle | None>
+            :exceptions: None..
         '''
         factory_context_bundle(self, config_bundle)
-        self.__file_path_ok: bool = False
-        self.__file_mode_ok: bool = False
-        self.__file_format_ok: bool = False
+        self._file_path_ok: bool = False
+        self._file_mode_ok: bool = False
+        self._file_format_ok: bool = False
 
-    @validator([('Optional[str]:file_path', None)])
+    @validator([('str | None:file_path', None)])
     @vreporter('check file path {file_path_ok}')
-    def check_path(self, file_path: Optional[str]) -> None:
+    def check_path(self, file_path: str | None) -> None:
         '''
             Checks file path in string format.
 
             :param file_path: File path in string format | None.
-            :type file_path: <Optional[str]>
-            :exceptions: ATSTypeError, ATSValueError, RuntimeError, AttributeError.
+            :type file_path: <str | None>
+            :exceptions: ATSTypeError, ATSValueError, ATSRuntimeError, ATSAttributeError..
         '''
-        self.__file_path_ok = isfile(file_path) if file_path is not None else False
+        self._file_path_ok = isfile(file_path) if file_path is not None else False
 
-        if not self.__file_path_ok:
+        if not self._file_path_ok:
             self._reporter.error([f'check file {file_path}'])
 
 
-    @validator([('Optional[str]:file_mode', None)])
+    @validator([('str | None:file_mode', None)])
     @vreporter('check file mode {file_mode_ok}')
-    def check_mode(self, file_mode: Optional[str]) -> None:
+    def check_mode(self, file_mode: str | None) -> None:
         '''
             Checks operation mode for file.
 
             :param file_mode: File mode in string format ('r', 'w', 'a', 'b', 'x', 't', '+').
-            :type file_mode: <Optional[str]>
-            :exceptions: ATSTypeError, ATSValueError, RuntimeError, AttributeError.
+            :type file_mode: <str | None>
+            :exceptions: ATSTypeError, ATSValueError, ATSRuntimeError, ATSAttributeError..
         '''
-        self.__file_mode_ok = bool(file_mode) and all(
+        self._file_mode_ok = bool(file_mode) and all(
             char in self.MODES for char in file_mode  # type: ignore
         )
 
-        if not self.__file_mode_ok:
+        if not self._file_mode_ok:
             self._reporter.error([f'not supported file mode [{file_mode}]'])
 
-    @validator([('Optional[str]:file_path', None), ('Optional[str]:file_format', None)])
+    @validator([('str | None:file_path', None), ('str | None:file_format', None)])
     @vreporter('check file format {file_format_ok}')
-    def check_format(self, file_path: Optional[str], file_format: Optional[str]) -> None:
+    def check_format(self, file_path: str | None, file_format: str | None) -> None:
         '''
             Checks file format by extension.
 
             :param file_path: File path in string format | None.
-            :type file_path: <Optional[str]>
+            :type file_path: <str | None>
             :param file_format: File format (file extension) | None.
-            :type file_format: <Optional[str]>
-            :exceptions: ATSTypeError, ATSValueError, RuntimeError, AttributeError.
+            :type file_format: <str | None>
+            :exceptions: ATSTypeError, ATSValueError, ATSRuntimeError, ATSAttributeError..
         '''
-        extension: Optional[str] = None
+        extension: str | None = None
         fmt_str, path_str = str(file_format), str(file_path)
 
         if fmt_str not in self.TRUSTED_EXTENSIONS:
@@ -138,9 +141,9 @@ class FileCheck(IFileCheck):
 
         if extension != fmt_str:
             self._reporter.error([f'check extension [{fmt_str}] {path_str}'])
-            self.__file_format_ok = False
+            self._file_format_ok = False
         else:
-            self.__file_format_ok = True
+            self._file_format_ok = True
 
     @vreporter('check is file ok path: {file_path_ok}, mode: {file_mode_ok}, format: {file_format_ok}')
     def is_file_ok(self) -> bool:
@@ -149,20 +152,10 @@ class FileCheck(IFileCheck):
 
             :return: True (success) | False (fail).
             :rtype: <bool>
-            :exceptions: RuntimeError, AttributeError.
+            :exceptions: ATSRuntimeError, ATSAttributeError.
         '''
-        return all([self.__file_path_ok, self.__file_mode_ok, self.__file_format_ok])
+        return all([self._file_path_ok, self._file_mode_ok, self._file_format_ok])
 
-    @property
-    def _reporter(self) -> IReporter:
-        '''
-            Property method for getting the internal reporter instance.
-
-            :return: The reporter instance in IReporter format.
-            :rtype: <IReporter>
-            :exceptions: None.
-        '''
-        return get_private_attr(self, 'reporter')
 
     def __str__(self) -> str:
         '''
@@ -170,6 +163,6 @@ class FileCheck(IFileCheck):
 
             :return: The FileCheck as string representation.
             :rtype: <str>
-            :exceptions: None.
+            :exceptions: None..
         '''
         return format_instance_to_string(self)

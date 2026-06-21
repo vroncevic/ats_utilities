@@ -20,9 +20,10 @@ Info
     Creates an API for the ATS use GitHub infrastructure in one property object.
 '''
 
-from typing import List, Optional
 from ats_utilities.info.iuse_github import IUseGitHub
 from ats_utilities.context_bundle import ContextBundle
+from ats_utilities.checker.ichecker import IChecker
+from ats_utilities.reporter.ireporter import IReporter
 from ats_utilities.factory_context_bundle import factory_context_bundle
 from ats_utilities.factory_class import format_instance_to_string
 from ats_utilities.checker.proxy_validator import validator
@@ -30,7 +31,7 @@ from ats_utilities.reporter.proxy_reporter import vreporter
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
+__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
 __version__: str = '3.3.8'
 __maintainer__: str = 'Vladimir Roncevic'
@@ -46,10 +47,10 @@ class UseGitHub(IUseGitHub):
         It defines:
 
             :attributes:
-                | __checker - Factoriezed parameters checker (default Checker).
-                | __reporter - Factoriezed reporter for messaging (default Reporter).
-                | __verbose - Factoriezed Enable/Disable verbose option (default False).
-                | __use_github - The ATS use GitHub infrastructure status (default None).
+                | _checker - Factoriezed parameters checker (default Checker).
+                | _reporter - Factoriezed reporter for messaging (default Reporter).
+                | _verbose - Factoriezed Enable/Disable verbose option (default False).
+                | _use_github - The ATS use GitHub infrastructure status (default None).
             :methods:
                 | __init__ - Initializes UseGitHub constructor.
                 | use_github - Property methods for set/get use_github.
@@ -57,43 +58,47 @@ class UseGitHub(IUseGitHub):
                 | __str__ - Returns the ATS use GitHub infrastructure as string representation.
     '''
 
-    def __init__(self, context_bundle: Optional[ContextBundle] = None) -> None:
+    _checker: IChecker
+    _reporter: IReporter
+    _verbose: bool
+
+    def __init__(self, context_bundle: ContextBundle | None = None) -> None:
         '''
             Initializes UseGitHub constructor.
 
             :param context_bundle: Context bundle for use_github | None.
-            :type context_bundle: <Optional[ContextBundle]>
-            :exceptions: None.
+            :type context_bundle: <ContextBundle | None>
+            :exceptions: None..
         '''
         factory_context_bundle(self, context_bundle)
-        self.__use_github: Optional[bool] = None
+        self._use_github: bool | None = None
 
     @property
     @vreporter('get use_github {use_github}')
-    def use_github(self) -> Optional[bool]:
+    def use_github(self) -> bool | None:
         '''
             Property method for getting ATS use GitHub infrastructure status.
 
             :return: The ATS use GitHub infrastructure status | None.
-            :rtype: <Optional[bool]>
-            :exceptions: RuntimeError, AttributeError.
+            :rtype: <bool | None>
+            :exceptions: ATSRuntimeError, ATSAttributeError.
         '''
-        return self.__use_github
+        return self._use_github
 
     @use_github.setter
-    @validator([('Optional[bool]:use_github', None)])
+    @validator([('bool | None:use_github', None)])
     @vreporter('set use_github {use_github}')
-    def use_github(self, use_github: Optional[bool]) -> None:
+    def use_github(self, use_github: bool | None) -> None:
          '''
              Property method for setting ATS use GitHub infrastructure status.
 
              :param use_github: The ATS use GitHub infrastructure status | None.
-             :type use_github: <Optional[bool]>
+             :type use_github: <bool | None>
              :exceptions:
                  | ATSTypeError, ATSValueError, RuntimeError, AttributeError.
                  | RuntimeError, AttributeError.
          '''
-         self.__use_github = use_github
+         self._use_github = use_github
 
     @vreporter('check use_github {use_github}')
     def not_none(self) -> bool:
@@ -102,9 +107,9 @@ class UseGitHub(IUseGitHub):
 
             :return: True (success) | False (fail).
             :rtype: <bool>
-            :exceptions: RuntimeError, AttributeError.
+            :exceptions: ATSRuntimeError, ATSAttributeError.
         '''
-        return self.__use_github is not None
+        return self._use_github is not None
 
     def __str__(self) -> str:
         '''
@@ -112,6 +117,6 @@ class UseGitHub(IUseGitHub):
 
             :return: The ATS use GitHub infrastructure as string representation.
             :rtype: <str>
-            :exceptions: None.
+            :exceptions: None..
         '''
         return format_instance_to_string(self)

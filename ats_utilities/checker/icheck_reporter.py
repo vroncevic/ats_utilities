@@ -21,12 +21,11 @@ Info
 '''
 
 from abc import ABC, abstractmethod
-from typing import List, Optional
 from ats_utilities.checker.checker_reporter_bundle import CheckerReporterBundle
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
+__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
 __version__: str = '3.3.8'
 __maintainer__: str = 'Vladimir Roncevic'
@@ -47,15 +46,15 @@ class ICheckReporter(ABC):
                 | __str__ - Returns the reporter as string representation.
     '''
     @abstractmethod
-    def build_message_format(self, report_bundle: Optional[CheckerReporterBundle] = None) -> str:
+    def build_message_format(self, report_bundle: CheckerReporterBundle | None = None) -> str:
         '''
             Builds the final message report for checker.
 
             :param report_bundle: Bundle with parameters | None
-            :type report_bundle: <Optional[CheckerReporterBundle]>
+            :type report_bundle: <CheckerReporterBundle | None>
             :return: Formatted message report
             :rtype: <str>
-            :exceptions: NotImplementedError
+            :exceptions: NotImplementedError.
         '''
         raise NotImplementedError("Method build_message_format() must be implemented.")
 
@@ -66,6 +65,6 @@ class ICheckReporter(ABC):
 
             :return: The reporter as string representation.
             :rtype: <str>
-            :exceptions: NotImplementedError
+            :exceptions: NotImplementedError.
         '''
         raise NotImplementedError("Method __str__() must be implemented.")

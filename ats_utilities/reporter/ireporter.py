@@ -21,11 +21,11 @@ Info
 '''
 
 from abc import ABC, abstractmethod
-from typing import Any, List
+from typing import Any
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
+__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
 __version__: str = '3.3.8'
 __maintainer__: str = 'Vladimir Roncevic'
@@ -50,48 +50,48 @@ class IReporter(ABC):
     '''
 
     @abstractmethod
-    def verbose(self, is_verbose: bool, message: List[Any]) -> None:
+    def verbose(self, is_verbose: bool, message: list[Any]) -> None:
         '''
             Reports verbose message.
 
             :param is_verbose: Enable/Disable verbose option.
             :type is_verbose: <bool>
             :param message: List with message.
-            :type message: <List[Any]>
-            :exceptions: NotImplementedError
+            :type message: <list[Any]>
+            :exceptions: NotImplementedError.
         '''
         raise NotImplementedError("Method verbose() must be implemented.")
 
     @abstractmethod
-    def success(self, message: List[Any]) -> None:
+    def success(self, message: list[Any]) -> None:
         '''
             Reports success message.
 
             :param message: List with message.
-            :type message: <List[Any]>
-            :exceptions: NotImplementedError
+            :type message: <list[Any]>
+            :exceptions: NotImplementedError.
         '''
         raise NotImplementedError("Method success() must be implemented.")
 
     @abstractmethod
-    def warning(self, message: List[Any]) -> None:
+    def warning(self, message: list[Any]) -> None:
         '''
             Reports warning message.
 
             :param message: List with message.
-            :type message: <List[Any]>
-            :exceptions: NotImplementedError
+            :type message: <list[Any]>
+            :exceptions: NotImplementedError.
         '''
         raise NotImplementedError("Method warning() must be implemented.")
 
     @abstractmethod
-    def error(self, message: List[Any]) -> None:
+    def error(self, message: list[Any]) -> None:
         '''
             Reports error message.
 
             :param message: List with message.
-            :type message: <List[Any]>
-            :exceptions: NotImplementedError
+            :type message: <list[Any]>
+            :exceptions: NotImplementedError.
         '''
         raise NotImplementedError("Method error() must be implemented.")
 
@@ -102,6 +102,6 @@ class IReporter(ABC):
 
             :return: The ATS reporter as string representation.
             :rtype: <str>
-            :exceptions: NotImplementedError
+            :exceptions: NotImplementedError.
         '''
         raise NotImplementedError("Method __str__() must be implemented.")

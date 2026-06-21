@@ -58,9 +58,10 @@
 <span class="sd">    Creates an API for the ATS version in one property object.</span>
 <span class="sd">&#39;&#39;&#39;</span>
 
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.info.iversion</span> <span class="kn">import</span> <span class="n">IVersion</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.context_bundle</span> <span class="kn">import</span> <span class="n">ContextBundle</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.checker.ichecker</span> <span class="kn">import</span> <span class="n">IChecker</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.reporter.ireporter</span> <span class="kn">import</span> <span class="n">IReporter</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.factory_context_bundle</span> <span class="kn">import</span> <span class="n">factory_context_bundle</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.factory_class</span> <span class="kn">import</span> <span class="n">format_instance_to_string</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.checker.proxy_validator</span> <span class="kn">import</span> <span class="n">validator</span>
@@ -68,7 +69,7 @@
 
 <span class="n">__author__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;Vladimir Roncevic&#39;</span>
 <span class="n">__copyright__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;(C) 2026, https://vroncevic.github.io/ats_utilities&#39;</span>
-<span class="n">__credits__</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Vladimir Roncevic&#39;</span><span class="p">,</span> <span class="s1">&#39;Python Software Foundation&#39;</span><span class="p">]</span>
+<span class="n">__credits__</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Vladimir Roncevic&#39;</span><span class="p">,</span> <span class="s1">&#39;Python Software Foundation&#39;</span><span class="p">]</span>
 <span class="n">__license__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE&#39;</span>
 <span class="n">__version__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;3.3.8&#39;</span>
 <span class="n">__maintainer__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;Vladimir Roncevic&#39;</span>
@@ -86,10 +87,10 @@
 <span class="sd">        It defines:</span>
 
 <span class="sd">            :attributes:</span>
-<span class="sd">                | __checker - Factoriezed parameters checker (default Checker).</span>
-<span class="sd">                | __reporter - Factoriezed reporter for messaging (default Reporter).</span>
-<span class="sd">                | __verbose - Factoriezed Enable/Disable verbose option (default False).</span>
-<span class="sd">                | __version - The ATS version (default None).</span>
+<span class="sd">                | _checker - Factoriezed parameters checker (default Checker).</span>
+<span class="sd">                | _reporter - Factoriezed reporter for messaging (default Reporter).</span>
+<span class="sd">                | _verbose - Factoriezed Enable/Disable verbose option (default False).</span>
+<span class="sd">                | _version - The ATS version (default None).</span>
 <span class="sd">            :methods:</span>
 <span class="sd">                | __init__ - Initializes Version constructor.</span>
 <span class="sd">                | version - Property methods for set/get version.</span>
@@ -97,43 +98,47 @@
 <span class="sd">                | __str__ - Returns the ATS version as string representation.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context_bundle</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ContextBundle</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="n">_checker</span><span class="p">:</span> <span class="n">IChecker</span>
+    <span class="n">_reporter</span><span class="p">:</span> <span class="n">IReporter</span>
+    <span class="n">_verbose</span><span class="p">:</span> <span class="nb">bool</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context_bundle</span><span class="p">:</span> <span class="n">ContextBundle</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Initializes Version constructor.</span>
 
 <span class="sd">            :param context_bundle: Context bundle for version | None.</span>
-<span class="sd">            :type context_bundle: &lt;Optional[ContextBundle]&gt;</span>
-<span class="sd">            :exceptions: None.</span>
+<span class="sd">            :type context_bundle: &lt;ContextBundle | None&gt;</span>
+<span class="sd">            :exceptions: None..</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="n">factory_context_bundle</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context_bundle</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">__version</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_version</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
 
     <span class="nd">@property</span>
     <span class="nd">@vreporter</span><span class="p">(</span><span class="s1">&#39;get version </span><span class="si">{version}</span><span class="s1">&#39;</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">version</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+    <span class="k">def</span> <span class="nf">version</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Property method for getting ATS version.</span>
 
 <span class="sd">            :return: The ATS version in string format | None.</span>
-<span class="sd">            :rtype: &lt;Optional[str]&gt;</span>
-<span class="sd">            :exceptions: RuntimeError, AttributeError.</span>
+<span class="sd">            :rtype: &lt;str | None&gt;</span>
+<span class="sd">            :exceptions: ATSRuntimeError, ATSAttributeError.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__version</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_version</span>
 
     <span class="nd">@version</span><span class="o">.</span><span class="n">setter</span>
-    <span class="nd">@validator</span><span class="p">([(</span><span class="s1">&#39;Optional[str]:version&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)])</span>
+    <span class="nd">@validator</span><span class="p">([(</span><span class="s1">&#39;str | None:version&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)])</span>
     <span class="nd">@vreporter</span><span class="p">(</span><span class="s1">&#39;set version </span><span class="si">{version}</span><span class="s1">&#39;</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">version</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">version</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">version</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">version</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Property method for setting ATS version.</span>
 
 <span class="sd">            :param version: The ATS version in string format | None.</span>
-<span class="sd">            :type version: &lt;Optional[str]&gt;</span>
+<span class="sd">            :type version: &lt;str | None&gt;</span>
 <span class="sd">            :exceptions:</span>
 <span class="sd">                | ATSTypeError, ATSValueError, RuntimeError, AttributeError.</span>
 <span class="sd">                | RuntimeError, AttributeError.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">__version</span> <span class="o">=</span> <span class="n">version</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_version</span> <span class="o">=</span> <span class="n">version</span>
 
 <div class="viewcode-block" id="Version.not_none">
 <a class="viewcode-back" href="../../../ats_utilities.info.version.html#ats_utilities.info.version.Version.not_none">[docs]</a>
@@ -144,9 +149,9 @@
 
 <span class="sd">            :return: True (success) | False (fail).</span>
 <span class="sd">            :rtype: &lt;bool&gt;</span>
-<span class="sd">            :exceptions: RuntimeError, AttributeError.</span>
+<span class="sd">            :exceptions: ATSRuntimeError, ATSAttributeError.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__version</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span></div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_version</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span></div>
 
 
     <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
@@ -155,7 +160,7 @@
 
 <span class="sd">            :return: The ATS version as string representation.</span>
 <span class="sd">            :rtype: &lt;str&gt;</span>
-<span class="sd">            :exceptions: None.</span>
+<span class="sd">            :exceptions: None..</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="k">return</span> <span class="n">format_instance_to_string</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div>
 

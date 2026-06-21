@@ -20,7 +20,7 @@ Info
     Creates an interface for processing INI content.
 '''
 from abc import ABC, abstractmethod
-from typing import Any, Dict
+from typing import Any
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -56,7 +56,7 @@ class IINIProcessor(ABC):
             :type stream: <Any>
             :return: True (success) | False (fail)
             :rtype: <bool>
-            :exceptions: NotImplementedError
+            :exceptions: NotImplementedError.
         '''
         raise NotImplementedError("Method from_stream() must be implemented.")
 
@@ -69,18 +69,18 @@ class IINIProcessor(ABC):
             :type stream: <Any>
             :return: True (success) | False (fail)
             :rtype: <bool>
-            :exceptions: NotImplementedError
+            :exceptions: NotImplementedError.
         '''
         raise NotImplementedError("Method to_stream() must be implemented.")
 
     @abstractmethod
-    def to_dict(self) -> Dict[str, str]:
+    def to_dict(self) -> dict[str, str]:
         '''
             Converts INI configuration to dictionary.
 
             :return: Dictionary with ATS information
-            :rtype: <Dict[str, str]>
-            :exceptions: NotImplementedError
+            :rtype: <dict[str, str]>
+            :exceptions: NotImplementedError.
         '''
         raise NotImplementedError("Method to_dict() must be implemented.")
 
@@ -91,6 +91,6 @@ class IINIProcessor(ABC):
 
             :return: The INI processor as string representation.
             :rtype: <str>
-            :exceptions: NotImplementedError
+            :exceptions: NotImplementedError.
         '''
         raise NotImplementedError("Method __str__() must be implemented.")

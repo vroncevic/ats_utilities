@@ -21,11 +21,10 @@ Info
 '''
 
 from abc import ABC, abstractmethod
-from typing import List, Optional
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
+__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
 __version__: str = '3.3.8'
 __maintainer__: str = 'Vladimir Roncevic'
@@ -49,25 +48,25 @@ class IOrganization(ABC):
 
     @property
     @abstractmethod
-    def organization(self) -> Optional[str]:
+    def organization(self) -> str | None:
         '''
             Property method for getting ATS organization.
 
             :return: The ATS organization in string format | None.
-            :rtype: <Optional[str]>
-            :exceptions: NotImplementedError.
+            :rtype: <str | None>
+            :exceptions: NotImplementedError..
         '''
         raise NotImplementedError("Method organization() must be implemented.")
 
     @organization.setter
     @abstractmethod
-    def organization(self, organization: Optional[str]) -> None:
+    def organization(self, organization: str | None) -> None:
         '''
             Property method for setting ATS organization.
 
             :param organization: The ATS organization in string format | None.
-            :type organization: <Optional[str]>
-            :exceptions: NotImplementedError.
+            :type organization: <str | None>
+            :exceptions: NotImplementedError..
         '''
         raise NotImplementedError("Method organization() must be implemented.")
 
@@ -78,7 +77,7 @@ class IOrganization(ABC):
 
             :return: True (success) | False (fail).
             :rtype: <bool>
-            :exceptions: NotImplementedError.
+            :exceptions: NotImplementedError..
         '''
         raise NotImplementedError("Method not_none() must be implemented.")
 
@@ -89,6 +88,6 @@ class IOrganization(ABC):
 
             :return: The ATS organization as string representation.
             :rtype: <str>
-            :exceptions: NotImplementedError.
+            :exceptions: NotImplementedError..
         '''
         raise NotImplementedError("Method __str__() must be implemented.")

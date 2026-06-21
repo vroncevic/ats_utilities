@@ -20,8 +20,7 @@ Info
     Encapsulates config setup components to minimize constructor overhead.
 '''
 
-from typing import List, Optional
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from ats_utilities.config_setup.ipro_config import IProConfig
 from ats_utilities.config_setup.ipro_name import IProName
 from ats_utilities.config_setup.itemplate_dir import ITemplateDir
@@ -29,7 +28,7 @@ from ats_utilities.context_bundle import ContextBundle
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
+__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
 __version__: str = '3.3.8'
 __maintainer__: str = 'Vladimir Roncevic'
@@ -49,17 +48,17 @@ class ConfigSetupComponentBundle:
                 | pro_config - Project configuration mechanism (default None).
                 | pro_name - Project name mechanism (default None).
                 | template_dir - Project template directory mechanism (default None).
-                | context_bundle - Context bundle for configuration utilities (default ContextBundle()).
+                | context_bundle - Context bundle for configuration utilities (default None).
             :methods:
                 | validate - Validates that essential components are set.
                 | merge - Merges non-None values from another bundle into this one.
                 | to_dict - Converts the bundle attributes to a dictionary.
     '''
 
-    pro_config: Optional[IProConfig] = None
-    pro_name: Optional[IProName] = None
-    template_dir: Optional[ITemplateDir] = None
-    context_bundle: Optional[ContextBundle] = field(default_factory=ContextBundle)
+    pro_config: IProConfig | None = None
+    pro_name: IProName | None = None
+    template_dir: ITemplateDir | None = None
+    context_bundle: ContextBundle | None = None
 
     def validate(self) -> None:
         '''
@@ -79,7 +78,7 @@ class ConfigSetupComponentBundle:
             :type other: <ConfigSetupComponentBundle>
             :return: None.
             :rtype: <None>
-            :exceptions: None.
+            :exceptions: None..
         '''
         for field_name in self.__dataclass_fields__:
             other_value = getattr(other, field_name)
@@ -92,7 +91,7 @@ class ConfigSetupComponentBundle:
 
             :return: Dictionary representation of the bundle attributes.
             :rtype: <dict>
-            :exceptions: None.
+            :exceptions: None..
         '''
         return {
             name: value

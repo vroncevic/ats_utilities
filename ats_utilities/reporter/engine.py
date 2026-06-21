@@ -20,20 +20,20 @@ Info
     Implements an API for reporting messages to the console.
 '''
 
-from typing import Any, List, Optional
+from typing import Any
 from ats_utilities.reporter.ireporter import IReporter
 from ats_utilities.reporter.component_bundle import ReporterComponentBundle
 from ats_utilities.checker.ichecker import IChecker
 from ats_utilities.checker.engine import Checker
 from ats_utilities.reporter.theme.iconsole_theme import IConsoleTheme
-from ats_utilities.reporter.theme.engine import ATSConsoleTheme
+from ats_utilities.reporter.theme.engine import ConsoleTheme
 from ats_utilities.checker.proxy_validator import validator
 from ats_utilities.factory_class import format_instance_to_string
 from ats_utilities.factory_component import make_component, validate_component
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
+__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
 __version__: str = '3.3.8'
 __maintainer__: str = 'Vladimir Roncevic'
@@ -49,11 +49,11 @@ class Reporter(IReporter):
         It defines:
 
             :attributes:
-                | __checker - Parameters checker (default Checker).
-                | __theme - Theme for styling messages (default ATSConsoleTheme).
+                | _checker - Factorized parameters checker (default Checker).
+                | _theme - Factorized theme for styling messages (default ConsoleTheme).
             :methods:
                 | __init__ - Initializes Reporter constructor.
-                | __report - Utility method for reporting messages to console.
+                | _report - Utility method for reporting messages to console.
                 | error - Reports error message to console.
                 | success - Reports success message to console.
                 | verbose - Reports verbose message to console.
@@ -61,27 +61,30 @@ class Reporter(IReporter):
                 | __str__ - Returns the string representation of Reporter.
     '''
 
-    def __init__(self, component_bundle: Optional[ReporterComponentBundle] = None) -> None:
+    _checker: IChecker
+    _theme: IConsoleTheme
+
+    def __init__(self, component_bundle: ReporterComponentBundle | None = None) -> None:
         '''
             Initializes Reporter constructor.
 
             :param component_bundle: Reporter component bundle | None.
-            :type component_bundle: <Optional[ReporterComponentBundle]>
+            :type component_bundle: <ReporterComponentBundle | None>
             :exceptions: ATSTypeError
         '''
         # No dependency injection then use default ones.
         bundle: ReporterComponentBundle = component_bundle or ReporterComponentBundle()
-        self.__checker: IChecker = make_component(bundle.checker, Checker, None)
-        validate_component(self.__checker, type(self.__checker), type(self.__checker).__name__)
-        self.__theme: IConsoleTheme = make_component(bundle.theme, ATSConsoleTheme, None)
-        validate_component(self.__theme, type(self.__theme), type(self.__theme).__name__)
+        self._checker: IChecker = make_component(bundle.checker, Checker, None)
+        validate_component(self._checker, type(self._checker), type(self._checker).__name__)
+        self._theme: IConsoleTheme = make_component(bundle.theme, ConsoleTheme, None)
+        validate_component(self._theme, type(self._theme), type(self._theme).__name__)
 
-    def __report(self, message: List[Any], color: str) -> None:
+    def _report(self, message: list[Any], color: str) -> None:
         '''
             Utility method for reporting message to console.
 
             :param message: List with message components.
-            :type message: <List[Any]>
+            :type message: <list[Any]>
             :param color: Theme color for the message.
             :type color: <str>
             :exceptions: ATSTypeError
@@ -89,54 +92,54 @@ class Reporter(IReporter):
         message_out: str = ' '.join([str(item) for item in message])
 
         if message_out:
-            print(f"{color}{message_out}{self.__theme.get_color('reset')}")
+            print(f"{color}{message_out}{self._theme.get_color('reset')}")
 
     @validator([('bool:is_verbose', None), ('list:message', None)])
-    def verbose(self, is_verbose: bool, message: List[Any]) -> None:
+    def verbose(self, is_verbose: bool, message: list[Any]) -> None:
         '''
             Reports verbose message to console.
 
             :param is_verbose: Enable/Disable verbose option.
             :type is_verbose: <bool>
             :param message: List with message components.
-            :type message: <List[Any]>
-            :exceptions: None
+            :type message: <list[Any]>
+            :exceptions: None.
         '''
         if is_verbose:
-            self.__report(message, self.__theme.get_color('verbose'))
+            self._report(message, self._theme.get_color('verbose'))
 
     @validator([('list:message', None)])
-    def success(self, message: List[Any]) -> None:
+    def success(self, message: list[Any]) -> None:
         '''
             Reports success message to console.
 
             :param message: List with message components.
-            :type message: <List[Any]>
-            :exceptions: None
+            :type message: <list[Any]>
+            :exceptions: None.
         '''
-        self.__report(message, self.__theme.get_color('success'))
+        self._report(message, self._theme.get_color('success'))
 
     @validator([('list:message', None)])
-    def warning(self, message: List[Any]) -> None:
+    def warning(self, message: list[Any]) -> None:
         '''
             Reports warning message to console.
 
             :param message: List with message components.
-            :type message: <List[Any]>
-            :exceptions: None
+            :type message: <list[Any]>
+            :exceptions: None.
         '''
-        self.__report(message, self.__theme.get_color('warning'))
+        self._report(message, self._theme.get_color('warning'))
 
     @validator([('list:message', None)])
-    def error(self, message: List[Any]) -> None:
+    def error(self, message: list[Any]) -> None:
         '''
             Reports error message to console.
 
             :param message: List with message components.
-            :type message: <List[Any]>
-            :exceptions: None
+            :type message: <list[Any]>
+            :exceptions: None.
         '''
-        self.__report(message, self.__theme.get_color('error'))
+        self._report(message, self._theme.get_color('error'))
 
     def __str__(self) -> str:
         '''
@@ -144,6 +147,6 @@ class Reporter(IReporter):
 
             :return: The Reporter as string representation.
             :rtype: <str>
-            :exceptions: None
+            :exceptions: None.
         '''
         return format_instance_to_string(self)

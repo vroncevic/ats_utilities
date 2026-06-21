@@ -58,19 +58,21 @@
 <span class="sd">    Creates an API for processing hyperlinks for splash screen.</span>
 <span class="sd">&#39;&#39;&#39;</span>
 
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.splasher.iext_infrastructure</span> <span class="kn">import</span> <span class="n">IExtInfrastructure</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.splasher.splash_keys</span> <span class="kn">import</span> <span class="n">SplashKeys</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.context_bundle</span> <span class="kn">import</span> <span class="n">ContextBundle</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.checker.ichecker</span> <span class="kn">import</span> <span class="n">IChecker</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.reporter.ireporter</span> <span class="kn">import</span> <span class="n">IReporter</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.factory_context_bundle</span> <span class="kn">import</span> <span class="n">factory_context_bundle</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.factory_class</span> <span class="kn">import</span> <span class="n">get_private_attr</span><span class="p">,</span> <span class="n">format_instance_to_string</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.factory_class</span> <span class="kn">import</span> <span class="n">require_attributes</span><span class="p">,</span> <span class="n">format_instance_to_string</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.checker.proxy_validator</span> <span class="kn">import</span> <span class="n">validator</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.reporter.proxy_reporter</span> <span class="kn">import</span> <span class="n">vreporter</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.factory_utils</span> <span class="kn">import</span> <span class="n">require_keys</span><span class="p">,</span> <span class="n">cherry_pick_dict</span>
 
 <span class="n">__author__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;Vladimir Roncevic&#39;</span>
 <span class="n">__copyright__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;(C) 2026, https://vroncevic.github.io/ats_utilities&#39;</span>
-<span class="n">__credits__</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Vladimir Roncevic&#39;</span><span class="p">,</span> <span class="s1">&#39;Python Software Foundation&#39;</span><span class="p">]</span>
+<span class="n">__credits__</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Vladimir Roncevic&#39;</span><span class="p">,</span> <span class="s1">&#39;Python Software Foundation&#39;</span><span class="p">]</span>
 <span class="n">__license__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE&#39;</span>
 <span class="n">__version__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;3.3.8&#39;</span>
 <span class="n">__maintainer__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;Vladimir Roncevic&#39;</span>
@@ -88,71 +90,76 @@
 <span class="sd">        It defines:</span>
 
 <span class="sd">            :attributes:</span>
-<span class="sd">                | __checker - Factoriezed parameters checker (default Checker).</span>
-<span class="sd">                | __reporter - Factoriezed reporter for messaging (default Reporter).</span>
-<span class="sd">                | __verbose - Factoriezed Enable/Disable verbose option (default False).</span>
-<span class="sd">                | __infrastructure_property - Splasher property in dict format.</span>
+<span class="sd">                | _required_keys - Required keys for infrastructure property (default frozenset).</span>
+<span class="sd">                | _checker - Factoriezed parameters checker (default Checker).</span>
+<span class="sd">                | _reporter - Factoriezed reporter for messaging (default Reporter).</span>
+<span class="sd">                | _verbose - Factoriezed Enable/Disable verbose option (default False).</span>
+<span class="sd">                | _infrastructure_property - Splasher GitHub hyperlinks property (default None).</span>
 <span class="sd">            :methods:</span>
 <span class="sd">                | __init__ - Initials GitHubInfrastructure constructor.</span>
 <span class="sd">                | get_info_text - Pre-processes info text.</span>
 <span class="sd">                | get_issue_text - Pre-processes issue text.</span>
 <span class="sd">                | get_author_text - Pre-processes author text.</span>
-<span class="sd">                | _reporter - Property method for getting the internal reporter instance.</span>
 <span class="sd">                | __str__ - Returns the string representation of GitHubInfrastructure.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context_bundle</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ContextBundle</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="n">_required_keys</span><span class="p">:</span> <span class="nb">frozenset</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="nb">frozenset</span><span class="p">([</span><span class="n">SplashKeys</span><span class="o">.</span><span class="n">ATS_ORGANIZATION</span><span class="p">,</span> <span class="n">SplashKeys</span><span class="o">.</span><span class="n">ATS_REPOSITORY</span><span class="p">])</span>
+
+    <span class="n">_checker</span><span class="p">:</span> <span class="n">IChecker</span>
+    <span class="n">_reporter</span><span class="p">:</span> <span class="n">IReporter</span>
+    <span class="n">_verbose</span><span class="p">:</span> <span class="nb">bool</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context_bundle</span><span class="p">:</span> <span class="n">ContextBundle</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Initials GitHubInfrastructure constructor.</span>
 
 <span class="sd">            :param context_bundle: Context bundle for GitHub infrastructure | None.</span>
-<span class="sd">            :type context_bundle: &lt;Optional[ContextBundle]&gt;</span>
-<span class="sd">            :exceptions: None</span>
+<span class="sd">            :type context_bundle: &lt;ContextBundle | None&gt;</span>
+<span class="sd">            :exceptions: None..</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="n">factory_context_bundle</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context_bundle</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">__infrastructure_property</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_infrastructure_property</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
 
     <span class="nd">@property</span>
     <span class="nd">@vreporter</span><span class="p">(</span><span class="s1">&#39;get infrastructure property </span><span class="si">{infrastructure_property}</span><span class="s1">&#39;</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">infrastructure_property</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]:</span>
+    <span class="k">def</span> <span class="nf">infrastructure_property</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Property method for getting infrastructure property.</span>
 
 <span class="sd">            :return: Formatted infrastructure property in dict format | None.</span>
-<span class="sd">            :rtype: &lt;Optional[Dict[Any, Any]]&gt;</span>
-<span class="sd">            :exceptions: RuntimeError, AttributeError</span>
+<span class="sd">            :rtype: &lt;dict[Any, Any] | None&gt;</span>
+<span class="sd">            :exceptions: ATSRuntimeError, ATSAttributeError.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__infrastructure_property</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_infrastructure_property</span>
 
     <span class="nd">@infrastructure_property</span><span class="o">.</span><span class="n">setter</span>
     <span class="nd">@validator</span><span class="p">([(</span><span class="s1">&#39;dict:infrastructure_property_setup&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)])</span>
     <span class="nd">@vreporter</span><span class="p">(</span><span class="s1">&#39;set infrastructure property </span><span class="si">{infrastructure_property}</span><span class="s1">&#39;</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">infrastructure_property</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">infrastructure_property_setup</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="n">Any</span><span class="p">]])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">infrastructure_property</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">infrastructure_property_setup</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Property method for setting project infrastructure property.</span>
 
 <span class="sd">            :param infrastructure_property_setup: Project infrastructure property in dict format | None.</span>
-<span class="sd">            :type infrastructure_property_setup: &lt;Optional[Dict[Any, Any]]&gt;</span>
-<span class="sd">            :exceptions: ATSTypeError, ATSValueError, RuntimeError, AttributeError</span>
+<span class="sd">            :type infrastructure_property_setup: &lt;dict[Any, Any] | None&gt;</span>
+<span class="sd">            :exceptions: ATSTypeError, ATSValueError, ATSRuntimeError, ATSAttributeError..</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">__infrastructure_property</span> <span class="o">=</span> <span class="n">infrastructure_property_setup</span>
+        <span class="n">require_keys</span><span class="p">(</span><span class="n">infrastructure_property_setup</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_required_keys</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_infrastructure_property</span> <span class="o">=</span> <span class="n">cherry_pick_dict</span><span class="p">(</span><span class="n">infrastructure_property_setup</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_required_keys</span><span class="p">)</span>
 
 <div class="viewcode-block" id="GitHubInfrastructure.get_info_text">
 <a class="viewcode-back" href="../../../ats_utilities.splasher.github_infrastructure.html#ats_utilities.splasher.github_infrastructure.GitHubInfrastructure.get_info_text">[docs]</a>
+    <span class="nd">@vreporter</span><span class="p">(</span><span class="s1">&#39;get info text </span><span class="si">{infrastructure_property}</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="nd">@require_attributes</span><span class="p">(</span><span class="s1">&#39;_infrastructure_property&#39;</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">get_info_text</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Pre-processes info text for splash.</span>
 
 <span class="sd">            :return: Hyperlink with info text.</span>
 <span class="sd">            :rtype: &lt;str&gt;</span>
-<span class="sd">            :exceptions: RuntimeError, AttributeError</span>
+<span class="sd">            :exceptions: ATSValueError, ATSRuntimeError, ATSAttributeError.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">__infrastructure_property</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_reporter</span><span class="o">.</span><span class="n">error</span><span class="p">([</span><span class="s1">&#39;missing infrastructure property&#39;</span><span class="p">])</span>
-            <span class="k">return</span> <span class="s1">&#39;&#39;</span>
-
-        <span class="n">org</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__infrastructure_property</span><span class="p">[</span><span class="n">SplashKeys</span><span class="o">.</span><span class="n">ATS_ORGANIZATION</span><span class="p">]</span>
-        <span class="n">repo</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__infrastructure_property</span><span class="p">[</span><span class="n">SplashKeys</span><span class="o">.</span><span class="n">ATS_REPOSITORY</span><span class="p">]</span>
+        <span class="n">org</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_infrastructure_property</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">SplashKeys</span><span class="o">.</span><span class="n">ATS_ORGANIZATION</span><span class="p">)</span>
+        <span class="n">repo</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_infrastructure_property</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">SplashKeys</span><span class="o">.</span><span class="n">ATS_REPOSITORY</span><span class="p">)</span>
         <span class="n">url_short</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;github.io/</span><span class="si">{</span><span class="n">repo</span><span class="si">}</span><span class="s1">&#39;</span>
         <span class="n">url_long</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;https://</span><span class="si">{</span><span class="n">org</span><span class="si">}</span><span class="s1">.github.io/</span><span class="si">{</span><span class="n">repo</span><span class="si">}</span><span class="s1">&#39;</span>
 
@@ -161,20 +168,18 @@
 
 <div class="viewcode-block" id="GitHubInfrastructure.get_issue_text">
 <a class="viewcode-back" href="../../../ats_utilities.splasher.github_infrastructure.html#ats_utilities.splasher.github_infrastructure.GitHubInfrastructure.get_issue_text">[docs]</a>
+    <span class="nd">@vreporter</span><span class="p">(</span><span class="s1">&#39;get info text </span><span class="si">{infrastructure_property}</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="nd">@require_attributes</span><span class="p">(</span><span class="s1">&#39;_infrastructure_property&#39;</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">get_issue_text</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Pre-processes issue text for splash.</span>
 
 <span class="sd">            :return: Hyperlink with issue info.</span>
 <span class="sd">            :rtype: &lt;str&gt;</span>
-<span class="sd">            :exceptions: RuntimeError, AttributeError</span>
+<span class="sd">            :exceptions: ATSValueError, ATSRuntimeError, ATSAttributeError.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">__infrastructure_property</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_reporter</span><span class="o">.</span><span class="n">error</span><span class="p">([</span><span class="s1">&#39;missing infrastructure property&#39;</span><span class="p">])</span>
-            <span class="k">return</span> <span class="s1">&#39;&#39;</span>
-
-        <span class="n">org</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__infrastructure_property</span><span class="p">[</span><span class="n">SplashKeys</span><span class="o">.</span><span class="n">ATS_ORGANIZATION</span><span class="p">]</span>
-        <span class="n">repo</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__infrastructure_property</span><span class="p">[</span><span class="n">SplashKeys</span><span class="o">.</span><span class="n">ATS_REPOSITORY</span><span class="p">]</span>
+        <span class="n">org</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_infrastructure_property</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">SplashKeys</span><span class="o">.</span><span class="n">ATS_ORGANIZATION</span><span class="p">)</span>
+        <span class="n">repo</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_infrastructure_property</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">SplashKeys</span><span class="o">.</span><span class="n">ATS_REPOSITORY</span><span class="p">)</span>
         <span class="n">url</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;https://github.com/</span><span class="si">{</span><span class="n">org</span><span class="si">}</span><span class="s1">/</span><span class="si">{</span><span class="n">repo</span><span class="si">}</span><span class="s1">/issues/new/choose&#39;</span>
 
         <span class="k">return</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="se">\x1b</span><span class="s1">]8;;</span><span class="si">{</span><span class="n">url</span><span class="si">}</span><span class="se">\a</span><span class="s1">github.io/issue</span><span class="se">\x1b</span><span class="s1">]8;;</span><span class="se">\a</span><span class="s1">&#39;</span></div>
@@ -182,35 +187,22 @@
 
 <div class="viewcode-block" id="GitHubInfrastructure.get_author_text">
 <a class="viewcode-back" href="../../../ats_utilities.splasher.github_infrastructure.html#ats_utilities.splasher.github_infrastructure.GitHubInfrastructure.get_author_text">[docs]</a>
+    <span class="nd">@vreporter</span><span class="p">(</span><span class="s1">&#39;get info text </span><span class="si">{infrastructure_property}</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="nd">@require_attributes</span><span class="p">(</span><span class="s1">&#39;_infrastructure_property&#39;</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">get_author_text</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Pre-processes author text for splash.</span>
 
 <span class="sd">            :return: Hyperlink with author info.</span>
 <span class="sd">            :rtype: &lt;str&gt;</span>
-<span class="sd">            :exceptions: RuntimeError, AttributeError</span>
+<span class="sd">            :exceptions: ATSValueError, ATSRuntimeError, ATSAttributeError.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">__infrastructure_property</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_reporter</span><span class="o">.</span><span class="n">error</span><span class="p">([</span><span class="s1">&#39;missing infrastructure property&#39;</span><span class="p">])</span>
-            <span class="k">return</span> <span class="s1">&#39;&#39;</span>
-
-        <span class="n">org</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__infrastructure_property</span><span class="p">[</span><span class="n">SplashKeys</span><span class="o">.</span><span class="n">ATS_ORGANIZATION</span><span class="p">]</span>
+        <span class="n">org</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_infrastructure_property</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">SplashKeys</span><span class="o">.</span><span class="n">ATS_ORGANIZATION</span><span class="p">)</span>
         <span class="n">org_short</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">org</span><span class="si">}</span><span class="s2">.github.io&quot;</span>
         <span class="n">org_long</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;https://</span><span class="si">{</span><span class="n">org</span><span class="si">}</span><span class="s2">.github.io/bio/&quot;</span>
 
         <span class="k">return</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="se">\x1b</span><span class="s1">]8;;</span><span class="si">{</span><span class="n">org_long</span><span class="si">}</span><span class="se">\a</span><span class="si">{</span><span class="n">org_short</span><span class="si">}</span><span class="se">\x1b</span><span class="s1">]8;;</span><span class="se">\a</span><span class="s1">&#39;</span></div>
 
-
-    <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">_reporter</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">IReporter</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">            Property method for getting the internal reporter instance.</span>
-
-<span class="sd">            :return: The reporter instance in IReporter format.</span>
-<span class="sd">            :rtype: &lt;IReporter&gt;</span>
-<span class="sd">            :exceptions: None</span>
-<span class="sd">        &#39;&#39;&#39;</span>
-        <span class="k">return</span> <span class="n">get_private_attr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;reporter&#39;</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
@@ -218,7 +210,7 @@
 
 <span class="sd">            :return: The GitHubInfrastructure as string representation.</span>
 <span class="sd">            :rtype: &lt;str&gt;</span>
-<span class="sd">            :exceptions: None</span>
+<span class="sd">            :exceptions: None.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="k">return</span> <span class="n">format_instance_to_string</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div>
 

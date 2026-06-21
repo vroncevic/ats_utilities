@@ -1,0 +1,7 @@
+[report]
+exclude_lines =
+    pragma: no cover
+    pass
+    raise NotImplementedError
+    @abstractmethod
+    @abc.abstractmethod

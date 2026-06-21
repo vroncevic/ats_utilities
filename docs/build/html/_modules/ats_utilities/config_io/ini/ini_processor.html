@@ -59,7 +59,7 @@
 <span class="sd">    Default implementation for processing INI content.</span>
 <span class="sd">&#39;&#39;&#39;</span>
 
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Dict</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span>
 <span class="kn">from</span> <span class="nn">configparser</span> <span class="kn">import</span> <span class="n">ConfigParser</span><span class="p">,</span> <span class="n">Error</span> <span class="k">as</span> <span class="n">ConfigParserError</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.config_io.ini.iini_processor</span> <span class="kn">import</span> <span class="n">IINIProcessor</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.factory_class</span> <span class="kn">import</span> <span class="n">format_instance_to_string</span>
@@ -84,12 +84,12 @@
 <span class="sd">        It defines:</span>
 
 <span class="sd">            :attributes:</span>
-<span class="sd">                | __SECTION - Section name for ATS configuration.</span>
-<span class="sd">                | __NAME - Option name for ATS configuration.</span>
-<span class="sd">                | __VERSION - Option version for ATS configuration.</span>
-<span class="sd">                | __BUILD_DATE - Option build date for ATS configuration.</span>
-<span class="sd">                | __LICENCE - Option licence for ATS configuration.</span>
-<span class="sd">                | __config - ConfigParser instance for INI parsing.</span>
+<span class="sd">                | _SECTION - Section name for ATS configuration.</span>
+<span class="sd">                | _NAME - Option name for ATS configuration.</span>
+<span class="sd">                | _VERSION - Option version for ATS configuration.</span>
+<span class="sd">                | _BUILD_DATE - Option build date for ATS configuration.</span>
+<span class="sd">                | _LICENCE - Option licence for ATS configuration.</span>
+<span class="sd">                | _config - ConfigParser instance for INI parsing.</span>
 <span class="sd">            :methods:</span>
 <span class="sd">                | __init__ - Initializes INIProcessor constructor.</span>
 <span class="sd">                | from_stream - Loads INI configuration from a stream.</span>
@@ -98,11 +98,11 @@
 <span class="sd">                | __str__ - Returns the INIProcessor as string representation.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
 
-    <span class="n">__SECTION</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;ats_info&#39;</span>
-    <span class="n">__NAME</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;ats_name&#39;</span>
-    <span class="n">__VERSION</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;ats_version&#39;</span>
-    <span class="n">__BUILD_DATE</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;ats_build_date&#39;</span>
-    <span class="n">__LICENCE</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;ats_licence&#39;</span>
+    <span class="n">_SECTION</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;ats_info&#39;</span>
+    <span class="n">_NAME</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;ats_name&#39;</span>
+    <span class="n">_VERSION</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;ats_version&#39;</span>
+    <span class="n">_BUILD_DATE</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;ats_build_date&#39;</span>
+    <span class="n">_LICENCE</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;ats_licence&#39;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
@@ -110,9 +110,9 @@
 
 <span class="sd">            :return: None.</span>
 <span class="sd">            :rtype: &lt;None&gt;</span>
-<span class="sd">            :exceptions: None.</span>
+<span class="sd">            :exceptions: None..</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">__config</span> <span class="o">=</span> <span class="n">ConfigParser</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_config</span> <span class="o">=</span> <span class="n">ConfigParser</span><span class="p">()</span>
 
 <div class="viewcode-block" id="INIProcessor.from_stream">
 <a class="viewcode-back" href="../../../../ats_utilities.config_io.ini.ini_processor.html#ats_utilities.config_io.ini.ini_processor.INIProcessor.from_stream">[docs]</a>
@@ -124,10 +124,10 @@
 <span class="sd">            :type stream: &lt;Any&gt;</span>
 <span class="sd">            :return: True (success) | False (fail).</span>
 <span class="sd">            :rtype: &lt;bool&gt;</span>
-<span class="sd">            :exceptions: None.</span>
+<span class="sd">            :exceptions: None..</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="k">try</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">__config</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="n">stream</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_config</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="n">stream</span><span class="p">)</span>
             <span class="k">return</span> <span class="kc">True</span>
         <span class="k">except</span> <span class="p">(</span><span class="ne">OSError</span><span class="p">,</span> <span class="n">ConfigParserError</span><span class="p">):</span>
             <span class="k">return</span> <span class="kc">False</span></div>
@@ -143,10 +143,10 @@
 <span class="sd">            :type stream: &lt;Any&gt;</span>
 <span class="sd">            :return: True (success) | False (fail).</span>
 <span class="sd">            :rtype: &lt;bool&gt;</span>
-<span class="sd">            :exceptions: None.</span>
+<span class="sd">            :exceptions: None..</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="k">try</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">__config</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">stream</span><span class="p">,</span> <span class="n">space_around_delimiters</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_config</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">stream</span><span class="p">,</span> <span class="n">space_around_delimiters</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
             <span class="k">return</span> <span class="kc">True</span>
         <span class="k">except</span> <span class="p">(</span><span class="ne">OSError</span><span class="p">,</span> <span class="n">ConfigParserError</span><span class="p">):</span>
             <span class="k">return</span> <span class="kc">False</span></div>
@@ -154,21 +154,21 @@
 
 <div class="viewcode-block" id="INIProcessor.to_dict">
 <a class="viewcode-back" href="../../../../ats_utilities.config_io.ini.ini_processor.html#ats_utilities.config_io.ini.ini_processor.INIProcessor.to_dict">[docs]</a>
-    <span class="k">def</span> <span class="nf">to_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]:</span>
+    <span class="k">def</span> <span class="nf">to_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Converts INI configuration to dictionary.</span>
 
 <span class="sd">            :return: Dictionary with ATS information.</span>
-<span class="sd">            :rtype: &lt;Dict[str, str]&gt;</span>
-<span class="sd">            :exceptions: None.</span>
+<span class="sd">            :rtype: &lt;dict[str, str]&gt;</span>
+<span class="sd">            :exceptions: None..</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">__config</span><span class="o">.</span><span class="n">has_section</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__SECTION</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_config</span><span class="o">.</span><span class="n">has_section</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_SECTION</span><span class="p">):</span>
             <span class="k">return</span> <span class="p">{}</span>
         <span class="k">return</span> <span class="p">{</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">__NAME</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__SECTION</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">__NAME</span><span class="p">,</span> <span class="n">fallback</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)),</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">__VERSION</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__SECTION</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">__VERSION</span><span class="p">,</span> <span class="n">fallback</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)),</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">__BUILD_DATE</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__SECTION</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">__BUILD_DATE</span><span class="p">,</span> <span class="n">fallback</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)),</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">__LICENCE</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__SECTION</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">__LICENCE</span><span class="p">,</span> <span class="n">fallback</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_NAME</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_SECTION</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_NAME</span><span class="p">,</span> <span class="n">fallback</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)),</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_VERSION</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_SECTION</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_VERSION</span><span class="p">,</span> <span class="n">fallback</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)),</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_BUILD_DATE</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_SECTION</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_BUILD_DATE</span><span class="p">,</span> <span class="n">fallback</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)),</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_LICENCE</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_SECTION</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_LICENCE</span><span class="p">,</span> <span class="n">fallback</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">))</span>
         <span class="p">}</span></div>
 
 
@@ -178,7 +178,7 @@
 
 <span class="sd">            :return: The INIProcessor as string representation.</span>
 <span class="sd">            :rtype: &lt;str&gt;</span>
-<span class="sd">            :exceptions: None.</span>
+<span class="sd">            :exceptions: None..</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="k">return</span> <span class="n">format_instance_to_string</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div>
 

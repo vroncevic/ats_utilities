@@ -20,15 +20,14 @@ Info
     Encapsulates logging components to minimize constructor overhead.
 '''
 
-from typing import Dict, List, Optional
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from ats_utilities.logging.ilogger import ILogger
 from ats_utilities.logging.logger_bundle import LoggerBundle
 from ats_utilities.context_bundle import ContextBundle
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
+__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
 __version__: str = '3.3.8'
 __maintainer__: str = 'Vladimir Roncevic'
@@ -46,24 +45,22 @@ class LoggingComponentBundle:
 
             :attributes:
                 | logger - Logger instance (default None).
-                | logger_bundle - Bundle with logger parameters (default LoggerBundle).
-                | context_bundle - Bundle with context (default ContextBundle).
+                | logger_bundle - Bundle with logger parameters (default None).
+                | context_bundle - Bundle with context (default None).
             :methods:
                 | validate - Validates that essential components are set.
                 | merge - Merges non-None values from another bundle into this one.
                 | to_dict - Converts the bundle attributes to a dictionary.
     '''
 
-    logger: Optional[ILogger] = None
-    logger_bundle: Optional[LoggerBundle] = field(default_factory=LoggerBundle)
-    context_bundle: Optional[ContextBundle] = field(default_factory=ContextBundle)
+    logger: ILogger | None = None
+    logger_bundle: LoggerBundle | None = None
+    context_bundle: ContextBundle | None = None
 
     def validate(self) -> None:
         '''
             Validates that essential components are set.
 
-            :return: None
-            :rtype: <None>
             :exceptions: ValueError
         '''
         pass
@@ -74,9 +71,7 @@ class LoggingComponentBundle:
 
             :param other: Another bundle to merge into this one.
             :type other: <LoggingComponentBundle>
-            :return: None
-            :rtype: <None>
-            :exceptions: None
+            :exceptions: None.
         '''
         for field_name in self.__dataclass_fields__:
             other_value = getattr(other, field_name)
@@ -89,7 +84,7 @@ class LoggingComponentBundle:
 
             :return: Dictionary representation of the bundle attributes.
             :rtype: <dict>
-            :exceptions: None
+            :exceptions: None.
         '''
         return {
             name: value

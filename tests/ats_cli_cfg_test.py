@@ -22,7 +22,6 @@ Execute
     python3 -m unittest -v ats_cli_cfg_test
 '''
 
-from typing import List
 from unittest.mock import MagicMock
 from unittest import TestCase, main
 from os.path import dirname
@@ -32,7 +31,7 @@ from ats_utilities.splasher.isplasher import ISplasher
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
+__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
 __version__: str = '3.3.8'
 __maintainer__: str = 'Vladimir Roncevic'
@@ -44,7 +43,7 @@ class ATSCliCfgAPI(Base):
     '''Simple Class for checking CfgCLI.'''
 
     _CONFIG: str = '/config/correct/ats_cli_cfg_api.cfg'
-    _OPS: List[str] = ['-t', '--test', '-v']
+    _OPS: list[str] = ['-t', '--test', '-v']
 
     def __init__(self, verbose: bool = False) -> None:
         '''Initial constructor.'''

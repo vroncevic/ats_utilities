@@ -21,11 +21,10 @@ Info
 '''
 
 from abc import ABC, abstractmethod
-from typing import List
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
+__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
 __version__: str = '3.3.8'
 __maintainer__: str = 'Vladimir Roncevic'
@@ -55,7 +54,7 @@ class IProgressBar(ABC):
 
             :param level: Level of progress.
             :type level: <int>
-            :exceptions: NotImplementedError
+            :exceptions: NotImplementedError.
         '''
         raise NotImplementedError("Method set_level() must be implemented.")
 
@@ -66,7 +65,7 @@ class IProgressBar(ABC):
 
             :param columns: Columns for open console session.
             :type columns: <int>
-            :exceptions: NotImplementedError
+            :exceptions: NotImplementedError.
         '''
         raise NotImplementedError("Method plot_progress() must be implemented.")
 
@@ -79,7 +78,7 @@ class IProgressBar(ABC):
             :type level: <int>
             :param columns: Columns for open console session.
             :type columns: <int>
-            :exceptions: NotImplementedError
+            :exceptions: NotImplementedError.
         '''
         raise NotImplementedError("Method set_and_plot() must be implemented.")
 
@@ -90,6 +89,6 @@ class IProgressBar(ABC):
 
             :return: The progress bar as string representation.
             :rtype: <str>
-            :exceptions: NotImplementedError
+            :exceptions: NotImplementedError.
         '''
         raise NotImplementedError("Method __str__() must be implemented.")

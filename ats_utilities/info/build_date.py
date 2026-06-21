@@ -20,9 +20,10 @@ Info
     Creates an API for the ATS build date in one property object.
 '''
 
-from typing import List, Optional
 from ats_utilities.info.ibuild_date import IBuildDate
 from ats_utilities.context_bundle import ContextBundle
+from ats_utilities.checker.ichecker import IChecker
+from ats_utilities.reporter.ireporter import IReporter
 from ats_utilities.factory_context_bundle import factory_context_bundle
 from ats_utilities.factory_class import format_instance_to_string
 from ats_utilities.checker.proxy_validator import validator
@@ -30,7 +31,7 @@ from ats_utilities.reporter.proxy_reporter import vreporter
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
+__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
 __version__: str = '3.3.8'
 __maintainer__: str = 'Vladimir Roncevic'
@@ -46,10 +47,10 @@ class BuildDate(IBuildDate):
         It defines:
 
             :attributes:
-                | __checker - Factoriezed parameters checker (default Checker).
-                | __reporter - Factoriezed reporter for messaging (default Reporter).
-                | __verbose - Factoriezed Enable/Disable verbose option (default False).
-                | __build_date - The ATS build date (default None).
+                | _checker - Factoriezed parameters checker (default Checker).
+                | _reporter - Factoriezed reporter for messaging (default Reporter).
+                | _verbose - Factoriezed Enable/Disable verbose option (default False).
+                | _build_date - The ATS build date (default None).
             :methods:
                 | __init__ - Initializes BuildDate constructor.
                 | build_date - Property methods for set/get build date.
@@ -57,43 +58,47 @@ class BuildDate(IBuildDate):
                 | __str__ - Returns the ATS build date as string representation.
     '''
 
-    def __init__(self, context_bundle: Optional[ContextBundle] = None) -> None:
+    _checker: IChecker
+    _reporter: IReporter
+    _verbose: bool
+
+    def __init__(self, context_bundle: ContextBundle | None = None) -> None:
         '''
             Initializes BuildDate constructor.
 
             :param context_bundle: Context bundle for build date | None.
-            :type context_bundle: <Optional[ContextBundle]>
-            :exceptions: None.
+            :type context_bundle: <ContextBundle | None>
+            :exceptions: None..
         '''
         factory_context_bundle(self, context_bundle)
-        self.__build_date: Optional[str] = None
+        self._build_date: str | None = None
 
     @property
     @vreporter('get build_date {build_date}')
-    def build_date(self) -> Optional[str]:
+    def build_date(self) -> str | None:
         '''
             Property method for getting ATS build date.
 
             :return: The ATS build date in string format | None.
-            :rtype: <Optional[str]>
-            :exceptions: RuntimeError, AttributeError.
+            :rtype: <str | None>
+            :exceptions: ATSRuntimeError, ATSAttributeError.
         '''
-        return self.__build_date
+        return self._build_date
 
     @build_date.setter
-    @validator([('Optional[str]:build_date', None)])
+    @validator([('str | None:build_date', None)])
     @vreporter('set build_date {build_date}')
-    def build_date(self, build_date: Optional[str]) -> None:
+    def build_date(self, build_date: str | None) -> None:
         '''
             Property method for setting ATS build date.
 
             :param build_date: The ATS build date in string format | None.
-            :type build_date: <Optional[str]>
+            :type build_date: <str | None>
             :exceptions:
                 | ATSTypeError, ATSValueError, RuntimeError, AttributeError.
                 | RuntimeError, AttributeError.
         '''
-        self.__build_date = build_date
+        self._build_date = build_date
 
     @vreporter('check build_date {build_date}')
     def not_none(self) -> bool:
@@ -102,9 +107,9 @@ class BuildDate(IBuildDate):
 
             :return: True (success) | False (fail).
             :rtype: <bool>
-            :exceptions: RuntimeError, AttributeError.
+            :exceptions: ATSRuntimeError, ATSAttributeError.
         '''
-        return self.__build_date is not None
+        return self._build_date is not None
 
     def __str__(self) -> str:
         '''
@@ -112,6 +117,6 @@ class BuildDate(IBuildDate):
 
             :return: The ATS build date as string representation.
             :rtype: <str>
-            :exceptions: None.
+            :exceptions: None..
         '''
         return format_instance_to_string(self)

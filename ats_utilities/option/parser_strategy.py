@@ -20,10 +20,12 @@ Info
     Creates an interfaces for ATS option parsing.
 '''
 
-from typing import Any, Dict, List, Optional
+from typing import Any
 from argparse import ArgumentParser
 from ats_utilities.option.iparser_strategy import IParserStrategy
 from ats_utilities.context_bundle import ContextBundle
+from ats_utilities.checker.ichecker import IChecker
+from ats_utilities.reporter.ireporter import IReporter
 from ats_utilities.option.arg_parser import ArgParser
 from ats_utilities.option.option_namespace import OptionNamespace
 from ats_utilities.option.option_namespace import OptArgs
@@ -36,7 +38,7 @@ from ats_utilities.factory_class import get_private_attr, format_instance_to_str
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
+__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
 __version__: str = '3.3.8'
 __maintainer__: str = 'Vladimir Roncevic'
@@ -52,11 +54,11 @@ class ParserStrategy(IParserStrategy):
         It defines:
 
             :attributes:
-                | __checker - Factoriezed parameters checker (default Checker).
-                | __reporter - Factoriezed reporter for messaging (default Reporter).
-                | __verbose - Factoriezed Enable/Disable verbose option (default False).
-                | __shared_bundle - Bundle with checker, reporter and verbose (default ContextBundle).
-                | __parser - Options parser (default None).
+                | _checker - Factoriezed parameters checker (default Checker).
+                | _reporter - Factoriezed reporter for messaging (default Reporter).
+                | _verbose - Factoriezed Enable/Disable verbose option (default False).
+                | _shared_bundle - Bundle with checker, reporter and verbose (default ContextBundle).
+                | _parser - Options parser (default None).
             :methods:
                 | __init__ - Initials ParserStrategy constructor.
                 | setup - Initializes the underlying parser with metadata parameters.
@@ -67,38 +69,42 @@ class ParserStrategy(IParserStrategy):
                 | __str__ - Returns the string representation of ParserStrategy.
     '''
 
-    def __init__(self, context_bundle: Optional[ContextBundle] = None) -> None:
+    _checker: IChecker
+    _reporter: IReporter
+    _verbose: bool
+
+    def __init__(self, context_bundle: ContextBundle | None = None) -> None:
         '''
             Initializes ParserStrategy constructor.
 
             :param context_bundle: Context bundle for parser strategy | None.
-            :type context_bundle: <Optional[ContextBundle]>
-            :exceptions: None
+            :type context_bundle: <ContextBundle | None>
+            :exceptions: None.
         '''
         factory_context_bundle(self, context_bundle)
-        self.__shared_bundle: ContextBundle = ContextBundle(
+        self._shared_bundle: ContextBundle = ContextBundle(
             checker=get_private_attr(self, 'checker'),
             reporter=get_private_attr(self, 'reporter'),
             verbose=get_private_attr(self, 'verbose')
         )
-        self.__parser: Optional[ArgumentParser] = None
+        self._parser: ArgumentParser | None = None
 
     @validator([('dict:parameters', None)])
-    def setup(self, parameters: Dict[str, str]) -> None:
+    def setup(self, parameters: dict[str, str]) -> None:
         '''
             Initializes the underlying parser with metadata parameters.
 
             :param parameters: Parameters for logger.
-            :type parameters: <Dict[str, str]>
-            :exceptions: ATSTypeError, ATSValueError, RuntimeError, AttributeError
+            :type parameters: <dict[str, str]>
+            :exceptions: ATSTypeError, ATSValueError, ATSRuntimeError, ATSAttributeError.
         '''
-        self.__parser = make_component(None, ArgParser, {
-            'context_bundle': self.__shared_bundle,
+        self._parser = make_component(None, ArgParser, {
+            'context_bundle': self._shared_bundle,
             'prog': f'{parameters.get(InfoKeys.ATS_NAME)} {parameters.get(InfoKeys.ATS_VERSION)}',
             'epilog': f'{parameters.get(InfoKeys.ATS_NAME)} copyright (c) {parameters.get(InfoKeys.ATS_LICENCE)}',
             'description': f'{parameters.get(InfoKeys.ATS_NAME)} build date {parameters.get(InfoKeys.ATS_BUILD_DATE)}'
         })
-        validate_component(self.__parser, type(self.__parser), type(self.__parser).__name__)
+        validate_component(self._parser, type(self._parser), type(self._parser).__name__)
 
     def add_argument(self, *args: str, **kwargs: Any) -> None:
         '''
@@ -108,21 +114,21 @@ class ParserStrategy(IParserStrategy):
             :type args: <str>
             :param kwargs: Arguments in shape of dictionary.
             :type kwargs: <Any>
-            :exceptions: None
+            :exceptions: None.
         '''
-        if self.__parser:
-            self.__parser.add_argument(*args, **kwargs)
+        if self._parser:
+            self._parser.add_argument(*args, **kwargs)
 
-    def add_version(self, version: Optional[str]) -> None:
+    def add_version(self, version: str | None) -> None:
         '''
             Adds a version display option to the parser.
 
             :param version: The ATS version | None.
-            :type version: <Optional[str]>
-            :exceptions: None
+            :type version: <str | None>
+            :exceptions: None.
         '''
-        if self.__parser and version:
-            self.__parser.add_argument('--version', action='version', version=version)
+        if self._parser and version:
+            self._parser.add_argument('--version', action='version', version=version)
 
     def parse(self, arguments: OptArgs, known_only: bool = False) -> OptionNamespace:
         '''
@@ -136,13 +142,13 @@ class ParserStrategy(IParserStrategy):
             :rtype: <OptionNamespace>
             :exceptions: RuntimeError
         '''
-        if not self.__parser:
+        if not self._parser:
             raise RuntimeError('Parser strategy is not initialized.')
 
         if known_only:
-            known_args: KnownArgs = self.__parser.parse_known_args(arguments)
+            known_args: KnownArgs = self._parser.parse_known_args(arguments)
             return known_args[0]
-        return self.__parser.parse_args(arguments)
+        return self._parser.parse_args(arguments)
 
     def ok(self) -> bool:
         '''
@@ -150,9 +156,9 @@ class ParserStrategy(IParserStrategy):
 
             :return: True (success) | False (fail)
             :rtype: <bool>
-            :exceptions: None.
+            :exceptions: None..
         '''
-        return True if self.__parser is not None else False
+        return True if self._parser is not None else False
 
     def __str__(self) -> str:
         '''
@@ -160,6 +166,6 @@ class ParserStrategy(IParserStrategy):
 
             :return: The ParserStrategy as string representation.
             :rtype: <str>
-            :exceptions: None
+            :exceptions: None.
         '''
         return format_instance_to_string(self)

@@ -20,12 +20,12 @@ Info
     Encapsulates checker reporter parameters to minimize constructor overhead.
 '''
 
-from typing import Any, List, Tuple, TypeAlias, Optional
+from typing import Any, TypeAlias
 from dataclasses import dataclass
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
+__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
 __version__: str = '3.3.8'
 __maintainer__: str = 'Vladimir Roncevic'
@@ -33,7 +33,7 @@ __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
 
 # Type alias for parameter metadata: (parameter name, expected type, actual value)
-ParamMetadata: TypeAlias = Tuple[str, str, Any]
+ParamMetadata: TypeAlias = tuple[str, str, Any]
 
 
 @dataclass
@@ -55,9 +55,9 @@ class CheckerReporterBundle:
                 | to_dict - Converts the bundle attributes to a dictionary.
     '''
 
-    context: Optional[str] = None
-    parameters_meta: Optional[List[ParamMetadata]] = None
-    err_indices: Optional[List[int]] = None
+    context: str | None = None
+    parameters_meta: list[ParamMetadata] | None = None
+    err_indices: list[int] | None = None
     is_fmt_err: bool = False
 
     def validate(self) -> None:
@@ -81,7 +81,7 @@ class CheckerReporterBundle:
             :type other: <CheckerReporterBundle>
             :return: None.
             :rtype: <None>
-            :exceptions: None.
+            :exceptions: None..
         '''
         for field_name in self.__dataclass_fields__:
             other_value = getattr(other, field_name)
@@ -94,7 +94,7 @@ class CheckerReporterBundle:
 
             :return: Dictionary representation of the bundle attributes.
             :rtype: <dict>
-            :exceptions: None.
+            :exceptions: None..
         '''
         return {
             name: value

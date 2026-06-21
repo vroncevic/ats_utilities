@@ -20,9 +20,10 @@ Info
     Creates an API for the ATS organization in one property object.
 '''
 
-from typing import List, Optional
 from ats_utilities.info.iorganization import IOrganization
 from ats_utilities.context_bundle import ContextBundle
+from ats_utilities.checker.ichecker import IChecker
+from ats_utilities.reporter.ireporter import IReporter
 from ats_utilities.factory_context_bundle import factory_context_bundle
 from ats_utilities.factory_class import format_instance_to_string
 from ats_utilities.checker.proxy_validator import validator
@@ -30,7 +31,7 @@ from ats_utilities.reporter.proxy_reporter import vreporter
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
+__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
 __version__: str = '3.3.8'
 __maintainer__: str = 'Vladimir Roncevic'
@@ -46,10 +47,10 @@ class Organization(IOrganization):
         It defines:
 
             :attributes:
-                | __checker - Factoriezed parameters checker (default Checker).
-                | __reporter - Factoriezed reporter for messaging (default Reporter).
-                | __verbose - Factoriezed Enable/Disable verbose option (default False).
-                | __organization - The ATS organization (default None).
+                | _checker - Factoriezed parameters checker (default Checker).
+                | _reporter - Factoriezed reporter for messaging (default Reporter).
+                | _verbose - Factoriezed Enable/Disable verbose option (default False).
+                | _organization - The ATS organization (default None).
             :methods:
                 | __init__ - Initializes Organization constructor.
                 | organization - Property methods for set/get organization.
@@ -57,43 +58,47 @@ class Organization(IOrganization):
                 | __str__ - Returns the ATS organization as string representation.
     '''
 
-    def __init__(self, context_bundle: Optional[ContextBundle] = None) -> None:
+    _checker: IChecker
+    _reporter: IReporter
+    _verbose: bool
+
+    def __init__(self, context_bundle: ContextBundle | None = None) -> None:
         '''
             Initializes Organization constructor.
 
             :param context_bundle: Context bundle for organization | None.
-            :type context_bundle: <Optional[ContextBundle]>
-            :exceptions: None.
+            :type context_bundle: <ContextBundle | None>
+            :exceptions: None..
         '''
         factory_context_bundle(self, context_bundle)
-        self.__organization: Optional[str] = None
+        self._organization: str | None = None
 
     @property
     @vreporter('get organization {organization}')
-    def organization(self) -> Optional[str]:
+    def organization(self) -> str | None:
         '''
             Property method for getting ATS organization.
 
             :return: The ATS organization in string format | None.
-            :rtype: <Optional[str]>
-            :exceptions: RuntimeError, AttributeError.
+            :rtype: <str | None>
+            :exceptions: ATSRuntimeError, ATSAttributeError.
         '''
-        return self.__organization
+        return self._organization
 
     @organization.setter
-    @validator([('Optional[str]:organization', None)])
+    @validator([('str | None:organization', None)])
     @vreporter('set organization {organization}')
-    def organization(self, organization: Optional[str]) -> None:
+    def organization(self, organization: str | None) -> None:
         '''
             Property method for setting ATS organization.
 
             :param organization: The ATS organization in string format | None.
-            :type organization: <Optional[str]>
+            :type organization: <str | None>
             :exceptions:
                 | ATSTypeError, ATSValueError, RuntimeError, AttributeError.
                 | RuntimeError, AttributeError.
         '''
-        self.__organization = organization
+        self._organization = organization
 
     @vreporter('check organization {organization}')
     def not_none(self) -> bool:
@@ -102,9 +107,9 @@ class Organization(IOrganization):
 
             :return: True (success) | False (fail).
             :rtype: <bool>
-            :exceptions: RuntimeError, AttributeError.
+            :exceptions: ATSRuntimeError, ATSAttributeError.
         '''
-        return self.__organization is not None
+        return self._organization is not None
 
     def __str__(self) -> str:
         '''
@@ -112,6 +117,6 @@ class Organization(IOrganization):
 
             :return: The ATS organization as string representation.
             :rtype: <str>
-            :exceptions: None.
+            :exceptions: None..
         '''
         return format_instance_to_string(self)

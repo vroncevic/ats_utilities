@@ -54,17 +54,16 @@
 <span class="sd">    You should have received a copy of the GNU General Public License along</span>
 <span class="sd">    with this program. If not, see &lt;http://www.gnu.org/licenses/&gt;.</span>
 <span class="sd">Info</span>
-<span class="sd">    Defines class ATSConsoleTheme with attribute(s) and method(s).</span>
+<span class="sd">    Defines class ConsoleTheme with attribute(s) and method(s).</span>
 <span class="sd">    Implements a console theme for console styling.</span>
 <span class="sd">&#39;&#39;&#39;</span>
 
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Optional</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.factory_class</span> <span class="kn">import</span> <span class="n">format_instance_to_string</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.reporter.theme.iconsole_theme</span> <span class="kn">import</span> <span class="n">IConsoleTheme</span>
 
 <span class="n">__author__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;Vladimir Roncevic&#39;</span>
 <span class="n">__copyright__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;(C) 2026, https://vroncevic.github.io/ats_utilities&#39;</span>
-<span class="n">__credits__</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Vladimir Roncevic&#39;</span><span class="p">,</span> <span class="s1">&#39;Python Software Foundation&#39;</span><span class="p">]</span>
+<span class="n">__credits__</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Vladimir Roncevic&#39;</span><span class="p">,</span> <span class="s1">&#39;Python Software Foundation&#39;</span><span class="p">]</span>
 <span class="n">__license__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE&#39;</span>
 <span class="n">__version__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;3.3.8&#39;</span>
 <span class="n">__maintainer__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;Vladimir Roncevic&#39;</span>
@@ -72,24 +71,24 @@
 <span class="n">__status__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;Updated&#39;</span>
 
 
-<div class="viewcode-block" id="ATSConsoleTheme">
-<a class="viewcode-back" href="../../../../ats_utilities.reporter.theme.engine.html#ats_utilities.reporter.theme.engine.ATSConsoleTheme">[docs]</a>
-<span class="k">class</span> <span class="nc">ATSConsoleTheme</span><span class="p">(</span><span class="n">IConsoleTheme</span><span class="p">):</span>
+<div class="viewcode-block" id="ConsoleTheme">
+<a class="viewcode-back" href="../../../../ats_utilities.reporter.theme.engine.html#ats_utilities.reporter.theme.engine.ConsoleTheme">[docs]</a>
+<span class="k">class</span> <span class="nc">ConsoleTheme</span><span class="p">(</span><span class="n">IConsoleTheme</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">        Defines class ATSConsoleTheme with attribute(s) and method(s).</span>
+<span class="sd">        Defines class ConsoleTheme with attribute(s) and method(s).</span>
 <span class="sd">        Implements a console theme for console styling.</span>
 
 <span class="sd">        It defines:</span>
 
 <span class="sd">            :attributes:</span>
-<span class="sd">                | __palette - Dictionary with color codes for different message types.</span>
+<span class="sd">                | _palette - Dictionary with color codes for different message types.</span>
 <span class="sd">            :methods:</span>
-<span class="sd">                | __init__ - Initializes ATSConsoleTheme constructor.</span>
+<span class="sd">                | __init__ - Initializes ConsoleTheme constructor.</span>
 <span class="sd">                | get_color - Returns color code from palette.</span>
-<span class="sd">                | __str__ - Returns the string representation of ATSConsoleTheme.</span>
+<span class="sd">                | __str__ - Returns the string representation of ConsoleTheme.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
 
-    <span class="n">DEFAULT_PALETE_COLORS</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="n">_default_palete_colors</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
         <span class="s1">&#39;verbose&#39;</span><span class="p">:</span> <span class="s1">&#39;</span><span class="se">\x1b</span><span class="s1">[34m&#39;</span><span class="p">,</span> <span class="c1"># ANSI blue</span>
         <span class="s1">&#39;success&#39;</span><span class="p">:</span> <span class="s1">&#39;</span><span class="se">\x1b</span><span class="s1">[32m&#39;</span><span class="p">,</span> <span class="c1"># ANSI green</span>
         <span class="s1">&#39;warning&#39;</span><span class="p">:</span> <span class="s1">&#39;</span><span class="se">\x1b</span><span class="s1">[33m&#39;</span><span class="p">,</span> <span class="c1"># ANSI yellow</span>
@@ -97,19 +96,19 @@
         <span class="s1">&#39;reset&#39;</span><span class="p">:</span>   <span class="s1">&#39;</span><span class="se">\x1b</span><span class="s1">[0m&#39;</span>   <span class="c1"># ANSI reset</span>
     <span class="p">}</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">palette</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">palette</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">            Initializes ATSConsoleTheme constructor.</span>
+<span class="sd">            Initializes ConsoleTheme constructor.</span>
 
 <span class="sd">            :param palette: Dictionary with color codes | None.</span>
-<span class="sd">            :type palette: &lt;Optional[Dict[str, str]]&gt;</span>
-<span class="sd">            :exceptions: None</span>
+<span class="sd">            :type palette: &lt;dict[str, str] | None&gt;</span>
+<span class="sd">            :exceptions: None.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="c1"># No dependency injection then use default ones.</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">__palette</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">palette</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">DEFAULT_PALETE_COLORS</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_palette</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">palette</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">_default_palete_colors</span>
 
-<div class="viewcode-block" id="ATSConsoleTheme.get_color">
-<a class="viewcode-back" href="../../../../ats_utilities.reporter.theme.engine.html#ats_utilities.reporter.theme.engine.ATSConsoleTheme.get_color">[docs]</a>
+<div class="viewcode-block" id="ConsoleTheme.get_color">
+<a class="viewcode-back" href="../../../../ats_utilities.reporter.theme.engine.html#ats_utilities.reporter.theme.engine.ConsoleTheme.get_color">[docs]</a>
     <span class="k">def</span> <span class="nf">get_color</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">color_type</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Returns color code from palette.</span>
@@ -118,18 +117,18 @@
 <span class="sd">            :type color_type: &lt;str&gt;</span>
 <span class="sd">            :return: Color code in string format.</span>
 <span class="sd">            :rtype: &lt;str&gt;</span>
-<span class="sd">            :exceptions: None</span>
+<span class="sd">            :exceptions: None.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__palette</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">color_type</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span></div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_palette</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">color_type</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span></div>
 
 
     <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">            Returns the string representation of ATSConsoleTheme.</span>
+<span class="sd">            Returns the string representation of ConsoleTheme.</span>
 
-<span class="sd">            :return: The ATSConsoleTheme as string representation.</span>
+<span class="sd">            :return: The ConsoleTheme as string representation.</span>
 <span class="sd">            :rtype: &lt;str&gt;</span>
-<span class="sd">            :exceptions: None</span>
+<span class="sd">            :exceptions: None.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="k">return</span> <span class="n">format_instance_to_string</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div>
 

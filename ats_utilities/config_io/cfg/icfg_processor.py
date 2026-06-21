@@ -21,11 +21,10 @@ Info
 '''
 
 from abc import ABC, abstractmethod
-from typing import Dict, List
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
+__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
 __version__: str = '3.3.8'
 __maintainer__: str = 'Vladimir Roncevic'
@@ -49,15 +48,15 @@ class ICFGProcessor(ABC):
     '''
 
     @abstractmethod
-    def from_lines(self, lines: List[str]) -> bool:
+    def from_lines(self, lines: list[str]) -> bool:
         '''
             Loads CFG configuration from lines.
 
             :param lines: CFG content as a list of strings
-            :type lines: <List[str]>
+            :type lines: <list[str]>
             :return: True (success) | False (fail)
             :rtype: <bool>
-            :exceptions: NotImplementedError
+            :exceptions: NotImplementedError.
         '''
         raise NotImplementedError("Method from_lines() must be implemented.")
 
@@ -68,18 +67,18 @@ class ICFGProcessor(ABC):
 
             :return: CFG content as string
             :rtype: <str>
-            :exceptions: NotImplementedError
+            :exceptions: NotImplementedError.
         '''
         raise NotImplementedError("Method to_string() must be implemented.")
 
     @abstractmethod
-    def to_dict(self) -> Dict[str, str]:
+    def to_dict(self) -> dict[str, str]:
         '''
             Converts CFG configuration to dictionary.
 
             :return: Dictionary with ATS information
-            :rtype: <Dict[str, str]>
-            :exceptions: NotImplementedError
+            :rtype: <dict[str, str]>
+            :exceptions: NotImplementedError.
         '''
         raise NotImplementedError("Method to_dict() must be implemented.")
 
@@ -90,6 +89,6 @@ class ICFGProcessor(ABC):
 
             :return: The CFG processor as string representation.
             :rtype: <str>
-            :exceptions: NotImplementedError
+            :exceptions: NotImplementedError.
         '''
         raise NotImplementedError("Method __str__() must be implemented.")

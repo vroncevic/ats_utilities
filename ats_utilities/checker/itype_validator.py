@@ -21,11 +21,11 @@ Info
 '''
 
 from abc import ABC, abstractmethod
-from typing import Any, List
+from typing import Any
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
+__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
 __version__: str = '3.3.8'
 __maintainer__: str = 'Vladimir Roncevic'
@@ -59,7 +59,7 @@ class ITypeValidator(ABC):
             :type expected_type_name: <str>
             :return: True if the types match, False otherwise
             :rtype: <bool>
-            :exceptions: NotImplementedError
+            :exceptions: NotImplementedError.
         '''
         raise NotImplementedError("Method is_match() must be implemented.")
 
@@ -74,7 +74,7 @@ class ITypeValidator(ABC):
             :type expected_type_name: <str>
             :return: True (is), False (not)
             :rtype: <bool>
-            :exceptions: NotImplementedError
+            :exceptions: NotImplementedError.
         '''
         raise NotImplementedError("Method is_subtype() must be implemented.")
 
@@ -87,7 +87,7 @@ class ITypeValidator(ABC):
             :type inst: <Any>
             :return: String name of the type
             :rtype: <str>
-            :exceptions: NotImplementedError
+            :exceptions: NotImplementedError.
         '''
         raise NotImplementedError("Method get_type_name() must be implemented.")
 
@@ -98,6 +98,6 @@ class ITypeValidator(ABC):
 
             :return: The validator as string representation.
             :rtype: <str>
-            :exceptions: NotImplementedError
+            :exceptions: NotImplementedError.
         '''
         raise NotImplementedError("Method __str__() must be implemented.")

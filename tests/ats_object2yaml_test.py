@@ -22,7 +22,6 @@ Execute
     python3 -m unittest -v ats_object2yaml_test
 '''
 
-from typing import List, Dict
 from unittest import TestCase, main, mock
 from os.path import dirname
 from ats_utilities.config_io.yaml.object2yaml import Object2Yaml
@@ -31,7 +30,7 @@ from ats_utilities.exceptions.ats_type_error import ATSTypeError
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
+__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
 __version__: str = '3.3.8'
 __maintainer__: str = 'Vladimir Roncevic'
@@ -43,19 +42,19 @@ class IYAMLProcessor(BaseIYAMLProcessor):
     '''Mock implementation of IYAMLProcessor for testing.'''
 
     def __init__(self, is_empty: bool = False) -> None:
-        self.__is_empty = is_empty
+        self._is_empty = is_empty
         self.encode_mock = mock.MagicMock(return_value="")
         self.to_dict_mock = mock.MagicMock(return_value={})
         self.decode_mock = mock.MagicMock()
 
     def __bool__(self) -> bool:
         '''Mock method for truthiness.'''
-        return not self.__is_empty
+        return not self._is_empty
 
     def decode(self, yaml_string: str) -> bool:
         return self.decode_mock(yaml_string)
 
-    def to_dict(self) -> Dict[str, str]:
+    def to_dict(self) -> dict[str, str]:
         return self.to_dict_mock()
 
     def encode(self) -> str:

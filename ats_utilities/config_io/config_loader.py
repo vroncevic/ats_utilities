@@ -20,7 +20,7 @@ Info
     Default implementation of IConfigLoader that encapsulates factory logic.
 '''
 
-from typing import List, Optional, cast
+from typing import cast
 from os.path import basename
 from ats_utilities.config_io.iconfig_loader import IConfigLoader
 from ats_utilities.config_io.iconfig_loader import IConfigProcessor, Config
@@ -41,7 +41,7 @@ from ats_utilities.factory_class import format_instance_to_string
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
+__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
 __version__: str = '3.3.8'
 __maintainer__: str = 'Vladimir Roncevic'
@@ -56,27 +56,27 @@ class ConfigLoader(IConfigLoader):
         It defines:
 
             :attributes:
-                | __info_file - Configuration file for loading process (default None).
-                | __config2object - Convertor configuration to object (default None).
-                | __config_bundle - ATS configuration file bundle (default None).
-                | __processor - Interface for configuration processor (default None).
+                | _info_file - Configuration file for loading process (default None).
+                | _config2object - Convertor configuration to object (default None).
+                | _config_bundle - ATS configuration file bundle (default None).
+                | _processor - Interface for configuration processor (default None).
             :methods:
                 | setup_config_loader - Setup config loader based on configuration file type.
                 | __str__ - Returns the ConfigLoader as string representation.
     '''
 
-    def __init__(self, config_loader_bundle: Optional[ATSConfigLoaderBundle] = None) -> None:
+    def __init__(self, config_loader_bundle: ATSConfigLoaderBundle | None = None) -> None:
         '''
             Initializes ConfigLoader constructor.
 
             :param config_loader_bundle: Configuration file for loading process | None.
-            :type config_loader_bundle: <Optional[ATSConfigLoaderBundle]>
-            :exceptions: None.
+            :type config_loader_bundle: <ATSConfigLoaderBundle | None>
+            :exceptions: None..
         '''
-        self.__info_file: Optional[str] = config_loader_bundle.info_file
-        self.__config2object: Optional[IRead] = config_loader_bundle.config2object
-        self.__config_bundle: Optional[ATSConfigFileBundle] = config_loader_bundle.config_bundle
-        self.__processor: Optional[IConfigProcessor] = config_loader_bundle.processor
+        self._info_file: str | None = config_loader_bundle.info_file
+        self._config2object: IRead | None = config_loader_bundle.config2object
+        self._config_bundle: ATSConfigFileBundle | None = config_loader_bundle.config_bundle
+        self._processor: IConfigProcessor | None = config_loader_bundle.processor
 
     def setup_config_loader(self) -> Config:
         '''
@@ -84,25 +84,25 @@ class ConfigLoader(IConfigLoader):
 
             :return: Configuration loader object.
             :rtype: <Config>
-            :exceptions: None.
+            :exceptions: None..
         '''
-        if not self.__info_file:
+        if not self._info_file:
             return None
 
-        file_format: str = basename(self.__info_file).split('.')[1]
-        common_base_args = (self.__info_file, self.__config2object, self.__config_bundle)
+        file_format: str = basename(self._info_file).split('.')[1]
+        common_base_args = (self._info_file, self._config2object, self._config_bundle)
 
         match file_format:
             case 'cfg':
-                return CFGLoader(*common_base_args, cast(ICFGProcessor, self.__processor))
+                return CFGLoader(*common_base_args, cast(ICFGProcessor, self._processor))
             case 'ini':
-                return INILoader(*common_base_args, cast(IINIProcessor, self.__processor))
+                return INILoader(*common_base_args, cast(IINIProcessor, self._processor))
             case 'json':
-                return JSONLoader(*common_base_args, cast(IJSONProcessor, self.__processor))
+                return JSONLoader(*common_base_args, cast(IJSONProcessor, self._processor))
             case 'xml':
-                return XMLLoader(*common_base_args, cast(IXMLProcessor, self.__processor))
+                return XMLLoader(*common_base_args, cast(IXMLProcessor, self._processor))
             case 'yaml':
-                return YAMLLoader(*common_base_args, cast(IYAMLProcessor, self.__processor))
+                return YAMLLoader(*common_base_args, cast(IYAMLProcessor, self._processor))
             case _:
                 return None
 
@@ -112,6 +112,6 @@ class ConfigLoader(IConfigLoader):
 
             :return: The ConfigLoader as string representation.
             :rtype: <str>
-            :exceptions: NotImplementedError.
+            :exceptions: NotImplementedError..
         '''
         return format_instance_to_string(self)

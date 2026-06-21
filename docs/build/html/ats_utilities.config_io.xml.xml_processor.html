@@ -79,11 +79,11 @@ Default implementation for processing XML content.</p>
 <div><dl class="field-list">
 <dt class="field-odd">attributes<span class="colon">:</span></dt>
 <dd class="field-odd"><div class="line-block">
-<div class="line">__NAME - Option name for ATS configuration.</div>
-<div class="line">__VERSION - Option version for ATS configuration.</div>
-<div class="line">__BUILD_DATE - Option build date for ATS configuration.</div>
-<div class="line">__LICENCE - Option licence for ATS configuration.</div>
-<div class="line">__root - Root element of the XML document.</div>
+<div class="line">_NAME - Option name for ATS configuration.</div>
+<div class="line">_VERSION - Option version for ATS configuration.</div>
+<div class="line">_BUILD_DATE - Option build date for ATS configuration.</div>
+<div class="line">_LICENCE - Option licence for ATS configuration.</div>
+<div class="line">_root - Root element of the XML document.</div>
 </div>
 </dd>
 <dt class="field-even">methods<span class="colon">:</span></dt>
@@ -92,35 +92,40 @@ Default implementation for processing XML content.</p>
 <div class="line">from_string - Loads XML content from string.</div>
 <div class="line">to_string - Converts XML content to string.</div>
 <div class="line">to_dict - Gets ATS information from XML.</div>
-<div class="line">__get_val - Internal helper for getting tag value.</div>
+<div class="line">_get_val - Internal helper for getting tag value.</div>
 <div class="line">__str__ - Returns the XMLProcessor as string representation.</div>
 </div>
 </dd>
 </dl>
 </div></blockquote>
 <dl class="py attribute">
-<dt class="sig sig-object py" id="ats_utilities.config_io.xml.xml_processor.XMLProcessor.__BUILD_DATE">
-<span class="sig-name descname"><span class="pre">__BUILD_DATE</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'ats_build_date'</span></em><a class="headerlink" href="#ats_utilities.config_io.xml.xml_processor.XMLProcessor.__BUILD_DATE" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ats_utilities.config_io.xml.xml_processor.XMLProcessor._BUILD_DATE">
+<span class="sig-name descname"><span class="pre">_BUILD_DATE</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'ats_build_date'</span></em><a class="headerlink" href="#ats_utilities.config_io.xml.xml_processor.XMLProcessor._BUILD_DATE" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="ats_utilities.config_io.xml.xml_processor.XMLProcessor.__LICENCE">
-<span class="sig-name descname"><span class="pre">__LICENCE</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'ats_licence'</span></em><a class="headerlink" href="#ats_utilities.config_io.xml.xml_processor.XMLProcessor.__LICENCE" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ats_utilities.config_io.xml.xml_processor.XMLProcessor._LICENCE">
+<span class="sig-name descname"><span class="pre">_LICENCE</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'ats_licence'</span></em><a class="headerlink" href="#ats_utilities.config_io.xml.xml_processor.XMLProcessor._LICENCE" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="ats_utilities.config_io.xml.xml_processor.XMLProcessor.__NAME">
-<span class="sig-name descname"><span class="pre">__NAME</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'ats_name'</span></em><a class="headerlink" href="#ats_utilities.config_io.xml.xml_processor.XMLProcessor.__NAME" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ats_utilities.config_io.xml.xml_processor.XMLProcessor._NAME">
+<span class="sig-name descname"><span class="pre">_NAME</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'ats_name'</span></em><a class="headerlink" href="#ats_utilities.config_io.xml.xml_processor.XMLProcessor._NAME" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="ats_utilities.config_io.xml.xml_processor.XMLProcessor.__VERSION">
-<span class="sig-name descname"><span class="pre">__VERSION</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'ats_version'</span></em><a class="headerlink" href="#ats_utilities.config_io.xml.xml_processor.XMLProcessor.__VERSION" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ats_utilities.config_io.xml.xml_processor.XMLProcessor._VERSION">
+<span class="sig-name descname"><span class="pre">_VERSION</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'ats_version'</span></em><a class="headerlink" href="#ats_utilities.config_io.xml.xml_processor.XMLProcessor._VERSION" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ats_utilities.config_io.xml.xml_processor.XMLProcessor._abc_impl">
+<span class="sig-name descname"><span class="pre">_abc_impl</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;_abc._abc_data</span> <span class="pre">object&gt;</span></em><a class="headerlink" href="#ats_utilities.config_io.xml.xml_processor.XMLProcessor._abc_impl" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="ats_utilities.config_io.xml.xml_processor.XMLProcessor.__get_val">
-<span class="sig-name descname"><span class="pre">__get_val</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tag</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#ats_utilities.config_io.xml.xml_processor.XMLProcessor.__get_val" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ats_utilities.config_io.xml.xml_processor.XMLProcessor._get_val">
+<span class="sig-name descname"><span class="pre">_get_val</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tag</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="_modules/ats_utilities/config_io/xml/xml_processor.html#XMLProcessor._get_val"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.config_io.xml.xml_processor.XMLProcessor._get_val" title="Link to this definition">¶</a></dt>
 <dd><p>Internal helper for getting tag value.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -133,15 +138,10 @@ Default implementation for processing XML content.</p>
 <dd class="field-odd"><p>&lt;str&gt;</p>
 </dd>
 <dt class="field-even">Exceptions<span class="colon">:</span></dt>
-<dd class="field-even"><p>None.</p>
+<dd class="field-even"><p>None..</p>
 </dd>
 </dl>
 </dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="ats_utilities.config_io.xml.xml_processor.XMLProcessor._abc_impl">
-<span class="sig-name descname"><span class="pre">_abc_impl</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;_abc._abc_data</span> <span class="pre">object&gt;</span></em><a class="headerlink" href="#ats_utilities.config_io.xml.xml_processor.XMLProcessor._abc_impl" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="ats_utilities.config_io.xml.xml_processor.XMLProcessor.from_string">
@@ -158,24 +158,24 @@ Default implementation for processing XML content.</p>
 <dd class="field-odd"><p>&lt;bool&gt;</p>
 </dd>
 <dt class="field-even">Exceptions<span class="colon">:</span></dt>
-<dd class="field-even"><p>None.</p>
+<dd class="field-even"><p>None..</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="ats_utilities.config_io.xml.xml_processor.XMLProcessor.to_dict">
-<span class="sig-name descname"><span class="pre">to_dict</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/ats_utilities/config_io/xml/xml_processor.html#XMLProcessor.to_dict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.config_io.xml.xml_processor.XMLProcessor.to_dict" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">to_dict</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/ats_utilities/config_io/xml/xml_processor.html#XMLProcessor.to_dict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.config_io.xml.xml_processor.XMLProcessor.to_dict" title="Link to this definition">¶</a></dt>
 <dd><p>Gets ATS information from XML.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Dictionary with ATS information.</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>&lt;Dict[str, str]&gt;</p>
+<dd class="field-even"><p>&lt;dict[str, str]&gt;</p>
 </dd>
 <dt class="field-odd">Exceptions<span class="colon">:</span></dt>
-<dd class="field-odd"><p>None.</p>
+<dd class="field-odd"><p>None..</p>
 </dd>
 </dl>
 </dd></dl>
@@ -192,7 +192,7 @@ Default implementation for processing XML content.</p>
 <dd class="field-even"><p>&lt;str&gt;</p>
 </dd>
 <dt class="field-odd">Exceptions<span class="colon">:</span></dt>
-<dd class="field-odd"><p>None.</p>
+<dd class="field-odd"><p>None..</p>
 </dd>
 </dl>
 </dd></dl>
@@ -213,12 +213,12 @@ Default implementation for processing XML content.</p>
     <ul>
 <li><a class="reference internal" href="#">ats_utilities.config_io.xml.xml_processor module</a><ul>
 <li><a class="reference internal" href="#ats_utilities.config_io.xml.xml_processor.XMLProcessor"><code class="docutils literal notranslate"><span class="pre">XMLProcessor</span></code></a><ul>
-<li><a class="reference internal" href="#ats_utilities.config_io.xml.xml_processor.XMLProcessor.__BUILD_DATE"><code class="docutils literal notranslate"><span class="pre">XMLProcessor.__BUILD_DATE</span></code></a></li>
-<li><a class="reference internal" href="#ats_utilities.config_io.xml.xml_processor.XMLProcessor.__LICENCE"><code class="docutils literal notranslate"><span class="pre">XMLProcessor.__LICENCE</span></code></a></li>
-<li><a class="reference internal" href="#ats_utilities.config_io.xml.xml_processor.XMLProcessor.__NAME"><code class="docutils literal notranslate"><span class="pre">XMLProcessor.__NAME</span></code></a></li>
-<li><a class="reference internal" href="#ats_utilities.config_io.xml.xml_processor.XMLProcessor.__VERSION"><code class="docutils literal notranslate"><span class="pre">XMLProcessor.__VERSION</span></code></a></li>
-<li><a class="reference internal" href="#ats_utilities.config_io.xml.xml_processor.XMLProcessor.__get_val"><code class="docutils literal notranslate"><span class="pre">XMLProcessor.__get_val()</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.config_io.xml.xml_processor.XMLProcessor._BUILD_DATE"><code class="docutils literal notranslate"><span class="pre">XMLProcessor._BUILD_DATE</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.config_io.xml.xml_processor.XMLProcessor._LICENCE"><code class="docutils literal notranslate"><span class="pre">XMLProcessor._LICENCE</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.config_io.xml.xml_processor.XMLProcessor._NAME"><code class="docutils literal notranslate"><span class="pre">XMLProcessor._NAME</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.config_io.xml.xml_processor.XMLProcessor._VERSION"><code class="docutils literal notranslate"><span class="pre">XMLProcessor._VERSION</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.config_io.xml.xml_processor.XMLProcessor._abc_impl"><code class="docutils literal notranslate"><span class="pre">XMLProcessor._abc_impl</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.config_io.xml.xml_processor.XMLProcessor._get_val"><code class="docutils literal notranslate"><span class="pre">XMLProcessor._get_val()</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.config_io.xml.xml_processor.XMLProcessor.from_string"><code class="docutils literal notranslate"><span class="pre">XMLProcessor.from_string()</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.config_io.xml.xml_processor.XMLProcessor.to_dict"><code class="docutils literal notranslate"><span class="pre">XMLProcessor.to_dict()</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.config_io.xml.xml_processor.XMLProcessor.to_string"><code class="docutils literal notranslate"><span class="pre">XMLProcessor.to_string()</span></code></a></li>

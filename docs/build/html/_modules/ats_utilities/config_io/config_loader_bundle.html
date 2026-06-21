@@ -58,15 +58,14 @@
 <span class="sd">    Encapsulates core configuration and processor utilities to minimize constructor overhead.</span>
 <span class="sd">&#39;&#39;&#39;</span>
 
-<span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span><span class="p">,</span> <span class="n">field</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span>
+<span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.config_io.iread</span> <span class="kn">import</span> <span class="n">IRead</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.config_io.config_file_bundle</span> <span class="kn">import</span> <span class="n">ATSConfigFileBundle</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.config_io.iconfig_loader</span> <span class="kn">import</span> <span class="n">IConfigProcessor</span>
 
 <span class="n">__author__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;Vladimir Roncevic&#39;</span>
 <span class="n">__copyright__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;(C) 2026, https://vroncevic.github.io/ats_utilities&#39;</span>
-<span class="n">__credits__</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Vladimir Roncevic&#39;</span><span class="p">,</span> <span class="s1">&#39;Python Software Foundation&#39;</span><span class="p">]</span>
+<span class="n">__credits__</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Vladimir Roncevic&#39;</span><span class="p">,</span> <span class="s1">&#39;Python Software Foundation&#39;</span><span class="p">]</span>
 <span class="n">__license__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE&#39;</span>
 <span class="n">__version__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;3.3.8&#39;</span>
 <span class="n">__maintainer__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;Vladimir Roncevic&#39;</span>
@@ -88,7 +87,7 @@
 <span class="sd">            :attributes:</span>
 <span class="sd">                | info_file - Configuration file for loading process (default None).</span>
 <span class="sd">                | config2object - Convertor configuration to object (default None).</span>
-<span class="sd">                | config_bundle - ATS configuration file bundle (default ATSConfigFileBundle()).</span>
+<span class="sd">                | config_bundle - ATS configuration file bundle (default None).</span>
 <span class="sd">                | processor - Configuration processor implementation (default None).</span>
 <span class="sd">            :methods:</span>
 <span class="sd">                | validate - Validates that essential components are set.</span>
@@ -96,10 +95,10 @@
 <span class="sd">                | to_dict - Converts the bundle attributes to a dictionary.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
 
-    <span class="n">info_file</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
-    <span class="n">config2object</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">IRead</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
-    <span class="n">config_bundle</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ATSConfigFileBundle</span><span class="p">]</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="n">ATSConfigFileBundle</span><span class="p">)</span>
-    <span class="n">processor</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">IConfigProcessor</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">info_file</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">config2object</span><span class="p">:</span> <span class="n">IRead</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">config_bundle</span><span class="p">:</span> <span class="n">ATSConfigFileBundle</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">processor</span><span class="p">:</span> <span class="n">IConfigProcessor</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
 
 <div class="viewcode-block" id="ATSConfigLoaderBundle.validate">
 <a class="viewcode-back" href="../../../ats_utilities.config_io.config_loader_bundle.html#ats_utilities.config_io.config_loader_bundle.ATSConfigLoaderBundle.validate">[docs]</a>
@@ -109,7 +108,7 @@
 
 <span class="sd">            :return: None.</span>
 <span class="sd">            :rtype: &lt;None&gt;</span>
-<span class="sd">            :exceptions: None.</span>
+<span class="sd">            :exceptions: None..</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="k">pass</span></div>
 
@@ -124,7 +123,7 @@
 <span class="sd">            :type other: &lt;ATSConfigLoaderBundle&gt;</span>
 <span class="sd">            :return: None.</span>
 <span class="sd">            :rtype: &lt;None&gt;</span>
-<span class="sd">            :exceptions: None.</span>
+<span class="sd">            :exceptions: None..</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="k">for</span> <span class="n">field_name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">__dataclass_fields__</span><span class="p">:</span>
             <span class="n">other_value</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">field_name</span><span class="p">)</span>
@@ -140,7 +139,7 @@
 
 <span class="sd">            :return: Dictionary representation of the bundle attributes.</span>
 <span class="sd">            :rtype: &lt;dict&gt;</span>
-<span class="sd">            :exceptions: None.</span>
+<span class="sd">            :exceptions: None..</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="k">return</span> <span class="p">{</span>
             <span class="n">name</span><span class="p">:</span> <span class="n">value</span>

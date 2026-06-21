@@ -58,13 +58,14 @@
 <span class="sd">    Stores the ATS configuration for the ATS.</span>
 <span class="sd">&#39;&#39;&#39;</span>
 
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.config_io.iwrite</span> <span class="kn">import</span> <span class="n">IWrite</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.config_io.istorer</span> <span class="kn">import</span> <span class="n">IStorer</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.config_io.config_file_bundle</span> <span class="kn">import</span> <span class="n">ATSConfigFileBundle</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.config_io.cfg.object2cfg</span> <span class="kn">import</span> <span class="n">Object2Cfg</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.config_io.cfg.cfg_processor</span> <span class="kn">import</span> <span class="n">CFGProcessor</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.config_io.cfg.icfg_processor</span> <span class="kn">import</span> <span class="n">ICFGProcessor</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.checker.ichecker</span> <span class="kn">import</span> <span class="n">IChecker</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.reporter.ireporter</span> <span class="kn">import</span> <span class="n">IReporter</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.checker.proxy_validator</span> <span class="kn">import</span> <span class="n">validator</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.factory_context_bundle</span> <span class="kn">import</span> <span class="n">factory_context_bundle</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.factory_component</span> <span class="kn">import</span> <span class="n">make_component</span><span class="p">,</span> <span class="n">validate_component</span>
@@ -72,7 +73,7 @@
 
 <span class="n">__author__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;Vladimir Roncevic&#39;</span>
 <span class="n">__copyright__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;(C) 2026, https://vroncevic.github.io/ats_utilities&#39;</span>
-<span class="n">__credits__</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Vladimir Roncevic&#39;</span><span class="p">,</span> <span class="s1">&#39;Python Software Foundation&#39;</span><span class="p">]</span>
+<span class="n">__credits__</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Vladimir Roncevic&#39;</span><span class="p">,</span> <span class="s1">&#39;Python Software Foundation&#39;</span><span class="p">]</span>
 <span class="n">__license__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE&#39;</span>
 <span class="n">__version__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;3.3.8&#39;</span>
 <span class="n">__maintainer__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;Vladimir Roncevic&#39;</span>
@@ -91,62 +92,66 @@
 <span class="sd">        It defines:</span>
 
 <span class="sd">            :attributes:</span>
-<span class="sd">                | __checker - Factoriezed parameters checker (default Checker).</span>
-<span class="sd">                | __reporter - Factoriezed reporter for messaging (default Reporter).</span>
-<span class="sd">                | __verbose - Factoriezed Enable/Disable verbose option (default False).</span>
-<span class="sd">                | __processor - Processor for CFG content (default CFGProcessor).</span>
-<span class="sd">                | __obj2cfg - Out API for information (default Object2Cfg).</span>
+<span class="sd">                | _checker - Factoriezed parameters checker (default Checker).</span>
+<span class="sd">                | _reporter - Factoriezed reporter for messaging (default Reporter).</span>
+<span class="sd">                | _verbose - Factoriezed Enable/Disable verbose option (default False).</span>
+<span class="sd">                | _processor - Processor for CFG content (default CFGProcessor).</span>
+<span class="sd">                | _obj2cfg - Out API for information (default Object2Cfg).</span>
 <span class="sd">            :methods:</span>
 <span class="sd">                | __init__ - Initializes CFGStorer constructor.</span>
 <span class="sd">                | store_configuration - Stores the ATS configuration.</span>
 <span class="sd">                | __str__ - Returns the CFGStorer as string representation.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
 
+    <span class="n">_checker</span><span class="p">:</span> <span class="n">IChecker</span>
+    <span class="n">_reporter</span><span class="p">:</span> <span class="n">IReporter</span>
+    <span class="n">_verbose</span><span class="p">:</span> <span class="nb">bool</span>
+
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
-        <span class="n">info_file</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-        <span class="n">object2cfg</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">IWrite</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-        <span class="n">config_bundle</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ATSConfigFileBundle</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-        <span class="n">cfg_processor</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ICFGProcessor</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="n">info_file</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">object2cfg</span><span class="p">:</span> <span class="n">IWrite</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">config_bundle</span><span class="p">:</span> <span class="n">ATSConfigFileBundle</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">cfg_processor</span><span class="p">:</span> <span class="n">ICFGProcessor</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Initializes CFGStorer constructor.</span>
 
 <span class="sd">            :param info_file: Path to the info file | None.</span>
-<span class="sd">            :type info_file: &lt;Optional[str]&gt;</span>
+<span class="sd">            :type info_file: &lt;str | None&gt;</span>
 <span class="sd">            :param object2cfg: An API for information | None.</span>
-<span class="sd">            :type object2cfg: &lt;Optional[IWrite]&gt;</span>
+<span class="sd">            :type object2cfg: &lt;IWrite | None&gt;</span>
 <span class="sd">            :param config_bundle: Configuration bundle | None.</span>
-<span class="sd">            :type config_bundle: &lt;Optional[ATSConfigFileBundle]&gt;</span>
+<span class="sd">            :type config_bundle: &lt;ATSConfigFileBundle | None&gt;</span>
 <span class="sd">            :param cfg_processor: Processor for CFG content | None.</span>
-<span class="sd">            :type cfg_processor: &lt;Optional[ICFGProcessor]&gt;</span>
+<span class="sd">            :type cfg_processor: &lt;ICFGProcessor | None&gt;</span>
 <span class="sd">            :exceptions: ATSTypeError.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="n">config_file_bundle</span><span class="p">:</span> <span class="n">ATSConfigFileBundle</span> <span class="o">=</span> <span class="n">config_bundle</span> <span class="ow">or</span> <span class="n">ATSConfigFileBundle</span><span class="p">()</span>
         <span class="n">factory_context_bundle</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config_file_bundle</span><span class="o">.</span><span class="n">context</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">__processor</span><span class="p">:</span> <span class="n">ICFGProcessor</span> <span class="o">=</span> <span class="n">make_component</span><span class="p">(</span><span class="n">cfg_processor</span><span class="p">,</span> <span class="n">CFGProcessor</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
-        <span class="n">validate_component</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__processor</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__processor</span><span class="p">),</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__processor</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">__obj2cfg</span><span class="p">:</span> <span class="n">IWrite</span> <span class="o">=</span> <span class="n">make_component</span><span class="p">(</span><span class="n">object2cfg</span><span class="p">,</span> <span class="n">Object2Cfg</span><span class="p">,</span> <span class="p">{</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_processor</span><span class="p">:</span> <span class="n">ICFGProcessor</span> <span class="o">=</span> <span class="n">make_component</span><span class="p">(</span><span class="n">cfg_processor</span><span class="p">,</span> <span class="n">CFGProcessor</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="n">validate_component</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_processor</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_processor</span><span class="p">),</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_processor</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_obj2cfg</span><span class="p">:</span> <span class="n">IWrite</span> <span class="o">=</span> <span class="n">make_component</span><span class="p">(</span><span class="n">object2cfg</span><span class="p">,</span> <span class="n">Object2Cfg</span><span class="p">,</span> <span class="p">{</span>
             <span class="s1">&#39;config_file&#39;</span><span class="p">:</span> <span class="n">info_file</span><span class="p">,</span> <span class="s1">&#39;config_bundle&#39;</span><span class="p">:</span> <span class="n">config_file_bundle</span>
         <span class="p">})</span>
-        <span class="n">validate_component</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__obj2cfg</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__obj2cfg</span><span class="p">),</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__obj2cfg</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)</span>
+        <span class="n">validate_component</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_obj2cfg</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_obj2cfg</span><span class="p">),</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_obj2cfg</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)</span>
 
 <div class="viewcode-block" id="CFGStorer.store_configuration">
 <a class="viewcode-back" href="../../../../ats_utilities.config_io.cfg.cfg_storer.html#ats_utilities.config_io.cfg.cfg_storer.CFGStorer.store_configuration">[docs]</a>
     <span class="nd">@validator</span><span class="p">([(</span><span class="s1">&#39;dict:config&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)])</span>
-    <span class="k">def</span> <span class="nf">store_configuration</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">store_configuration</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Stores the ATS configuration from dictionary format.</span>
 
 <span class="sd">            :param config: Dictionary with CFG information.</span>
-<span class="sd">            :type config: &lt;Dict[str, str]&gt;</span>
+<span class="sd">            :type config: &lt;dict[str, str]&gt;</span>
 <span class="sd">            :return: True (success) | False (fail).</span>
 <span class="sd">            :rtype: &lt;bool&gt;</span>
-<span class="sd">            :exceptions: ATSTypeError, ATSValueError, RuntimeError, AttributeError.</span>
+<span class="sd">            :exceptions: ATSTypeError, ATSValueError, ATSRuntimeError, ATSAttributeError..</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="n">lines</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s2"> = </span><span class="si">{</span><span class="n">v</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">config</span><span class="o">.</span><span class="n">items</span><span class="p">()]</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">__processor</span><span class="o">.</span><span class="n">from_lines</span><span class="p">(</span><span class="n">lines</span><span class="p">)</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__obj2cfg</span><span class="o">.</span><span class="n">write_configuration</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__processor</span><span class="p">)</span></div>
+        <span class="n">lines</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s2"> = </span><span class="si">{</span><span class="n">v</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">config</span><span class="o">.</span><span class="n">items</span><span class="p">()]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_processor</span><span class="o">.</span><span class="n">from_lines</span><span class="p">(</span><span class="n">lines</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_obj2cfg</span><span class="o">.</span><span class="n">write_configuration</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_processor</span><span class="p">)</span></div>
 
 
     <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
@@ -155,7 +160,7 @@
 
 <span class="sd">            :return: The CFGStorer as string representation.</span>
 <span class="sd">            :rtype: &lt;str&gt;</span>
-<span class="sd">            :exceptions: None.</span>
+<span class="sd">            :exceptions: None..</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="k">return</span> <span class="n">format_instance_to_string</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div>
 

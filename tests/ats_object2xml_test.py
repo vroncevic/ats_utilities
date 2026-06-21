@@ -22,7 +22,6 @@ Execute
     python3 -m unittest -v ats_object2xml_test
 '''
 
-from typing import List, Dict
 from unittest import TestCase, main, mock
 from os.path import dirname
 from ats_utilities.config_io.xml.object2xml import Object2Xml
@@ -31,7 +30,7 @@ from ats_utilities.exceptions.ats_type_error import ATSTypeError
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
+__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
 __version__: str = '3.3.8'
 __maintainer__: str = 'Vladimir Roncevic'
@@ -43,7 +42,7 @@ class IXMLProcessor(BaseIXMLProcessor):
     '''Mock implementation of IXMLProcessor for testing.'''
 
     def __init__(self, is_empty: bool = False) -> None:
-        self.__is_empty = is_empty
+        self._is_empty = is_empty
         self.to_string_mock = mock.MagicMock(return_value="")
         self.to_dict_mock = mock.MagicMock(return_value={})
         self.from_string_mock = mock.MagicMock()
@@ -51,12 +50,12 @@ class IXMLProcessor(BaseIXMLProcessor):
 
     def __bool__(self) -> bool:
         '''Mock method for truthiness.'''
-        return not self.__is_empty
+        return not self._is_empty
 
     def from_string(self, xml_content: str) -> bool:
         return self.from_string_mock(xml_content)
 
-    def to_dict(self) -> Dict[str, str]:
+    def to_dict(self) -> dict[str, str]:
         '''Implementation of abstract method.'''
         return self.to_dict_mock()
 
@@ -64,7 +63,7 @@ class IXMLProcessor(BaseIXMLProcessor):
         '''Implementation of abstract method.'''
         return self.to_string_mock()
 
-    def get_ats_info(self) -> Dict[str, str]:
+    def get_ats_info(self) -> dict[str, str]:
         '''Implementation of abstract method.'''
         return self.get_ats_info_mock()
 

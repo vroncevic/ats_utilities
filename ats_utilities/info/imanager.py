@@ -21,13 +21,11 @@ Info
 '''
 
 from typing import Any
-from typing import Dict
 from abc import ABC, abstractmethod
-from typing import List
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
+__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
 __version__: str = '3.3.8'
 __maintainer__: str = 'Vladimir Roncevic'
@@ -52,24 +50,24 @@ class IInfoManager(ABC):
     '''
 
     @abstractmethod
-    def set_info(self, info: Dict[str, str]) -> None:
+    def set_info(self, info: dict[str, str]) -> None:
         '''
             Sets the ATS information.
 
             :param info: Dictionary with ATS information
-            :type info: <Dict[str, str]>
-            :exceptions: NotImplementedError
+            :type info: <dict[str, str]>
+            :exceptions: NotImplementedError.
         '''
         raise NotImplementedError("Method set_info() must be implemented.")
 
     @abstractmethod
-    def get_info(self) -> Dict[str, Any]:
+    def get_info(self) -> dict[str, Any]:
         '''
             Gets the ATS information.
 
             :return: Dictionary with ATS information.
-            :rtype: <Dict[str, Any]>
-            :exceptions: NotImplementedError
+            :rtype: <dict[str, Any]>
+            :exceptions: NotImplementedError.
         '''
         raise NotImplemented("Method get_info() must be implemented.")
 
@@ -80,7 +78,7 @@ class IInfoManager(ABC):
 
             :return: True (success) | False (fail)
             :rtype: <bool>
-            :exceptions: NotImplementedError
+            :exceptions: NotImplementedError.
         '''
         raise NotImplementedError("Method ok() must be implemented.")
 
@@ -89,7 +87,7 @@ class IInfoManager(ABC):
         '''
             Refreshes status for ATS information structure.
 
-            :exceptions: NotImplementedError
+            :exceptions: NotImplementedError.
         '''
         raise NotImplementedError("Method refresh_status() must be implemented.")
 
@@ -100,6 +98,6 @@ class IInfoManager(ABC):
 
             :return: The ATS info manager as string representation.
             :rtype: <str>
-            :exceptions: NotImplementedError
+            :exceptions: NotImplementedError.
         '''
         raise NotImplementedError("Method __str__() must be implemented.")

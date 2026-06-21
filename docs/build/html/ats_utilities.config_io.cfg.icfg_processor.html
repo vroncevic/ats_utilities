@@ -97,11 +97,11 @@ Interface for processing CFG content.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="ats_utilities.config_io.cfg.icfg_processor.ICFGProcessor.from_lines">
-<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_lines</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lines</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="_modules/ats_utilities/config_io/cfg/icfg_processor.html#ICFGProcessor.from_lines"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.config_io.cfg.icfg_processor.ICFGProcessor.from_lines" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_lines</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lines</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="_modules/ats_utilities/config_io/cfg/icfg_processor.html#ICFGProcessor.from_lines"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.config_io.cfg.icfg_processor.ICFGProcessor.from_lines" title="Link to this definition">¶</a></dt>
 <dd><p>Loads CFG configuration from lines.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>lines</strong> (<em>&lt;List</em><em>[</em><em>str</em><em>]</em><em>&gt;</em>) – CFG content as a list of strings</p>
+<dd class="field-odd"><p><strong>lines</strong> (<em>&lt;list</em><em>[</em><em>str</em><em>]</em><em>&gt;</em>) – CFG content as a list of strings</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>True (success) | False (fail)</p>
@@ -110,24 +110,24 @@ Interface for processing CFG content.</p>
 <dd class="field-odd"><p>&lt;bool&gt;</p>
 </dd>
 <dt class="field-even">Exceptions<span class="colon">:</span></dt>
-<dd class="field-even"><p>NotImplementedError</p>
+<dd class="field-even"><p>NotImplementedError.</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="ats_utilities.config_io.cfg.icfg_processor.ICFGProcessor.to_dict">
-<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">to_dict</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/ats_utilities/config_io/cfg/icfg_processor.html#ICFGProcessor.to_dict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.config_io.cfg.icfg_processor.ICFGProcessor.to_dict" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">to_dict</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/ats_utilities/config_io/cfg/icfg_processor.html#ICFGProcessor.to_dict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.config_io.cfg.icfg_processor.ICFGProcessor.to_dict" title="Link to this definition">¶</a></dt>
 <dd><p>Converts CFG configuration to dictionary.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Dictionary with ATS information</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>&lt;Dict[str, str]&gt;</p>
+<dd class="field-even"><p>&lt;dict[str, str]&gt;</p>
 </dd>
 <dt class="field-odd">Exceptions<span class="colon">:</span></dt>
-<dd class="field-odd"><p>NotImplementedError</p>
+<dd class="field-odd"><p>NotImplementedError.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -144,7 +144,7 @@ Interface for processing CFG content.</p>
 <dd class="field-even"><p>&lt;str&gt;</p>
 </dd>
 <dt class="field-odd">Exceptions<span class="colon">:</span></dt>
-<dd class="field-odd"><p>NotImplementedError</p>
+<dd class="field-odd"><p>NotImplementedError.</p>
 </dd>
 </dl>
 </dd></dl>

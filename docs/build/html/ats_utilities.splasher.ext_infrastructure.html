@@ -78,10 +78,11 @@ Creates an API for processing hyperlinks for splash screen.</p>
 <div><dl class="field-list">
 <dt class="field-odd">attributes<span class="colon">:</span></dt>
 <dd class="field-odd"><div class="line-block">
-<div class="line">__checker - Factoriezed parameters checker (default Checker).</div>
-<div class="line">__reporter - Factoriezed reporter for messaging (default Reporter).</div>
-<div class="line">__verbose - Factoriezed Enable/Disable verbose option (default False).</div>
-<div class="line">__infrastructure_property - Infrastructure property in dict format (default None).</div>
+<div class="line">_required_keys - Required keys for infrastructure property (default frozenset).</div>
+<div class="line">_checker - Factoriezed parameters checker (default Checker).</div>
+<div class="line">_reporter - Factoriezed reporter for messaging (default Reporter).</div>
+<div class="line">_verbose - Factoriezed Enable/Disable verbose option (default False).</div>
+<div class="line">_infrastructure_property - Splasher hyperlinks property (default None).</div>
 </div>
 </dd>
 <dt class="field-even">methods<span class="colon">:</span></dt>
@@ -91,7 +92,6 @@ Creates an API for processing hyperlinks for splash screen.</p>
 <div class="line">get_info_text - Pre-processes info text.</div>
 <div class="line">get_issue_text - Pre-processes issue text.</div>
 <div class="line">get_author_text - Pre-processes author text.</div>
-<div class="line">_reporter - Property method for getting the internal reporter instance.</div>
 <div class="line">__str__ - Returns the string representation of ExtInfrastructure.</div>
 </div>
 </dd>
@@ -102,22 +102,25 @@ Creates an API for processing hyperlinks for splash screen.</p>
 <span class="sig-name descname"><span class="pre">_abc_impl</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;_abc._abc_data</span> <span class="pre">object&gt;</span></em><a class="headerlink" href="#ats_utilities.splasher.ext_infrastructure.ExtInfrastructure._abc_impl" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="py property">
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ats_utilities.splasher.ext_infrastructure.ExtInfrastructure._checker">
+<span class="sig-name descname"><span class="pre">_checker</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="ats_utilities.checker.ichecker.html#ats_utilities.checker.ichecker.IChecker" title="ats_utilities.checker.ichecker.IChecker"><span class="pre">IChecker</span></a></em><a class="headerlink" href="#ats_utilities.splasher.ext_infrastructure.ExtInfrastructure._checker" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
 <dt class="sig sig-object py" id="ats_utilities.splasher.ext_infrastructure.ExtInfrastructure._reporter">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">_reporter</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="ats_utilities.reporter.ireporter.html#ats_utilities.reporter.ireporter.IReporter" title="ats_utilities.reporter.ireporter.IReporter"><span class="pre">IReporter</span></a></em><a class="headerlink" href="#ats_utilities.splasher.ext_infrastructure.ExtInfrastructure._reporter" title="Link to this definition">¶</a></dt>
-<dd><p>Property method for getting the internal reporter instance.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>The reporter instance in IReporter format.</p>
-</dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>&lt;IReporter&gt;</p>
-</dd>
-<dt class="field-odd">Exceptions<span class="colon">:</span></dt>
-<dd class="field-odd"><p>None</p>
-</dd>
-</dl>
-</dd></dl>
+<span class="sig-name descname"><span class="pre">_reporter</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="ats_utilities.reporter.ireporter.html#ats_utilities.reporter.ireporter.IReporter" title="ats_utilities.reporter.ireporter.IReporter"><span class="pre">IReporter</span></a></em><a class="headerlink" href="#ats_utilities.splasher.ext_infrastructure.ExtInfrastructure._reporter" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ats_utilities.splasher.ext_infrastructure.ExtInfrastructure._required_keys">
+<span class="sig-name descname"><span class="pre">_required_keys</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">frozenset</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">frozenset({'ats_name',</span> <span class="pre">'ats_organization',</span> <span class="pre">'ats_repository'})</span></em><a class="headerlink" href="#ats_utilities.splasher.ext_infrastructure.ExtInfrastructure._required_keys" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ats_utilities.splasher.ext_infrastructure.ExtInfrastructure._verbose">
+<span class="sig-name descname"><span class="pre">_verbose</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#ats_utilities.splasher.ext_infrastructure.ExtInfrastructure._verbose" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="ats_utilities.splasher.ext_infrastructure.ExtInfrastructure.get_author_text">
@@ -131,7 +134,7 @@ Creates an API for processing hyperlinks for splash screen.</p>
 <dd class="field-even"><p>&lt;str&gt;</p>
 </dd>
 <dt class="field-odd">Exceptions<span class="colon">:</span></dt>
-<dd class="field-odd"><p>RuntimeError, AttributeError</p>
+<dd class="field-odd"><p>ATSValueError, ATSRuntimeError, ATSAttributeError.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -148,7 +151,7 @@ Creates an API for processing hyperlinks for splash screen.</p>
 <dd class="field-even"><p>&lt;str&gt;</p>
 </dd>
 <dt class="field-odd">Exceptions<span class="colon">:</span></dt>
-<dd class="field-odd"><p>RuntimeError, AttributeError</p>
+<dd class="field-odd"><p>ATSValueError, ATSRuntimeError, ATSAttributeError.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -165,24 +168,24 @@ Creates an API for processing hyperlinks for splash screen.</p>
 <dd class="field-even"><p>&lt;str&gt;</p>
 </dd>
 <dt class="field-odd">Exceptions<span class="colon">:</span></dt>
-<dd class="field-odd"><p>RuntimeError, AttributeError</p>
+<dd class="field-odd"><p>ATSValueError, ATSRuntimeError, ATSAttributeError.</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="ats_utilities.splasher.ext_infrastructure.ExtInfrastructure.infrastructure_property">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">infrastructure_property</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#ats_utilities.splasher.ext_infrastructure.ExtInfrastructure.infrastructure_property" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">infrastructure_property</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#ats_utilities.splasher.ext_infrastructure.ExtInfrastructure.infrastructure_property" title="Link to this definition">¶</a></dt>
 <dd><p>Property method for getting infrastructure property.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Formatted infrastructure property in dict format | None.</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>&lt;Optional[Dict[Any, Any]]&gt;</p>
+<dd class="field-even"><p>&lt;dict[Any, Any] | None&gt;</p>
 </dd>
 <dt class="field-odd">Exceptions<span class="colon">:</span></dt>
-<dd class="field-odd"><p>RuntimeError, AttributeError</p>
+<dd class="field-odd"><p>ATSRuntimeError, ATSAttributeError</p>
 </dd>
 </dl>
 </dd></dl>
@@ -204,7 +207,10 @@ Creates an API for processing hyperlinks for splash screen.</p>
 <li><a class="reference internal" href="#">ats_utilities.splasher.ext_infrastructure module</a><ul>
 <li><a class="reference internal" href="#ats_utilities.splasher.ext_infrastructure.ExtInfrastructure"><code class="docutils literal notranslate"><span class="pre">ExtInfrastructure</span></code></a><ul>
 <li><a class="reference internal" href="#ats_utilities.splasher.ext_infrastructure.ExtInfrastructure._abc_impl"><code class="docutils literal notranslate"><span class="pre">ExtInfrastructure._abc_impl</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.splasher.ext_infrastructure.ExtInfrastructure._checker"><code class="docutils literal notranslate"><span class="pre">ExtInfrastructure._checker</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.splasher.ext_infrastructure.ExtInfrastructure._reporter"><code class="docutils literal notranslate"><span class="pre">ExtInfrastructure._reporter</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.splasher.ext_infrastructure.ExtInfrastructure._required_keys"><code class="docutils literal notranslate"><span class="pre">ExtInfrastructure._required_keys</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.splasher.ext_infrastructure.ExtInfrastructure._verbose"><code class="docutils literal notranslate"><span class="pre">ExtInfrastructure._verbose</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.splasher.ext_infrastructure.ExtInfrastructure.get_author_text"><code class="docutils literal notranslate"><span class="pre">ExtInfrastructure.get_author_text()</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.splasher.ext_infrastructure.ExtInfrastructure.get_info_text"><code class="docutils literal notranslate"><span class="pre">ExtInfrastructure.get_info_text()</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.splasher.ext_infrastructure.ExtInfrastructure.get_issue_text"><code class="docutils literal notranslate"><span class="pre">ExtInfrastructure.get_issue_text()</span></code></a></li>

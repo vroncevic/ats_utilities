@@ -22,14 +22,14 @@ Execute
     python3 -m unittest -v ats_splash_property_test
 '''
 
-from typing import List
 from unittest import TestCase, main
 from ats_utilities.splasher.splash_property import SplashProperty
 from ats_utilities.exceptions.ats_type_error import ATSTypeError
+from ats_utilities.exceptions.ats_value_error import ATSValueError
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
+__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
 __version__: str = '3.3.8'
 __maintainer__: str = 'Vladimir Roncevic'
@@ -96,13 +96,13 @@ class ATSSplashPropTestCase(TestCase):
     def test_wrong_property(self) -> None:
         '''Test wrong property'''
         splash = SplashProperty()
-        splash.splash_property = {
-            'ats_organization': 'App Example',
-            'ats_repository': 'app_example',
-            'ats_name': 'appexample',
-            'ats_logo_path': 'app logo'
-        }
-        self.assertFalse(splash.validates())
+        with self.assertRaises(ATSValueError):
+            splash.splash_property = {
+                'ats_organization': 'App Example',
+                'ats_repository': 'app_example',
+                'ats_name': 'appexample',
+                'ats_logo_path': 'app logo'
+            }
 
 
 if __name__ == '__main__':

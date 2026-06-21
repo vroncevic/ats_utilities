@@ -21,13 +21,13 @@ Info
 '''
 
 from abc import ABC, abstractmethod
-from typing import Any, List, Optional
+from typing import Any
 from ats_utilities.option.option_namespace import OptionNamespace
 from ats_utilities.option.option_namespace import OptArgs
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
+__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
 __version__: str = '3.3.8'
 __maintainer__: str = 'Vladimir Roncevic'
@@ -61,18 +61,18 @@ class IOptionManager(ABC):
             :type args: <str>
             :param kwargs: Arguments in Any form
             :type kwargs: <Any>
-            :exceptions: NotImplementedError
+            :exceptions: NotImplementedError.
         '''
         raise NotImplementedError("Method add_operation() must be implemented.")
 
     @abstractmethod
-    def add_version_operation(self, version: Optional[str]) -> None:
+    def add_version_operation(self, version: str | None) -> None:
         '''
             Adds version option to the ATS parser.
 
             :param version: The ATS version in string format | None
-            :type version: <Optional[str]>
-            :exceptions: NotImplementedError
+            :type version: <str | None>
+            :exceptions: NotImplementedError.
         '''
         raise NotImplementedError("Method add_version_operation() must be implemented.")
 
@@ -85,7 +85,7 @@ class IOptionManager(ABC):
             :type arguments: <OptArgs>
             :return: Option namespace object
             :rtype: <OptionNamespace>
-            :exceptions: NotImplementedError
+            :exceptions: NotImplementedError.
         '''
         raise NotImplementedError("Method parse_input_args() must be implemented.")
 
@@ -98,7 +98,7 @@ class IOptionManager(ABC):
             :type arguments: <OptArgs>
             :return: Option namespace object
             :rtype: <OptionNamespace>
-            :exceptions: NotImplementedError
+            :exceptions: NotImplementedError.
         '''
         raise NotImplementedError("Method parse_args() must be implemented.")
 
@@ -109,7 +109,7 @@ class IOptionManager(ABC):
 
             :return: True (success) | False (fail)
             :rtype: <bool>
-            :exceptions: NotImplementedError
+            :exceptions: NotImplementedError.
         '''
         raise NotImplementedError("Method ok() must be implemented.")
 
@@ -120,6 +120,6 @@ class IOptionManager(ABC):
 
             :return: The ATS option parser as string representation.
             :rtype: <str>
-            :exceptions: NotImplementedError
+            :exceptions: NotImplementedError.
         '''
         raise NotImplementedError("Method __str__() must be implemented.")

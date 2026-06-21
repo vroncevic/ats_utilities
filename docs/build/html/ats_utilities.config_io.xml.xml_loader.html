@@ -80,10 +80,10 @@ XML configuration-based API support.</p>
 <div><dl class="field-list">
 <dt class="field-odd">attributes<span class="colon">:</span></dt>
 <dd class="field-odd"><div class="line-block">
-<div class="line">__checker - Factoriezed parameters checker (default Checker).</div>
-<div class="line">__reporter - Factoriezed reporter for messaging (default Reporter).</div>
-<div class="line">__verbose - Factoriezed Enable/Disable verbose option (default False).</div>
-<div class="line">__configuration - XML processor configuration (default None).</div>
+<div class="line">_checker - Factoriezed parameters checker (default Checker).</div>
+<div class="line">_reporter - Factoriezed reporter for messaging (default Reporter).</div>
+<div class="line">_verbose - Factoriezed Enable/Disable verbose option (default False).</div>
+<div class="line">_configuration - XML processor configuration (default None).</div>
 </div>
 </dd>
 <dt class="field-even">methods<span class="colon">:</span></dt>
@@ -100,19 +100,34 @@ XML configuration-based API support.</p>
 <span class="sig-name descname"><span class="pre">_abc_impl</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;_abc._abc_data</span> <span class="pre">object&gt;</span></em><a class="headerlink" href="#ats_utilities.config_io.xml.xml_loader.XMLLoader._abc_impl" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ats_utilities.config_io.xml.xml_loader.XMLLoader._checker">
+<span class="sig-name descname"><span class="pre">_checker</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="ats_utilities.checker.ichecker.html#ats_utilities.checker.ichecker.IChecker" title="ats_utilities.checker.ichecker.IChecker"><span class="pre">IChecker</span></a></em><a class="headerlink" href="#ats_utilities.config_io.xml.xml_loader.XMLLoader._checker" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ats_utilities.config_io.xml.xml_loader.XMLLoader._reporter">
+<span class="sig-name descname"><span class="pre">_reporter</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="ats_utilities.reporter.ireporter.html#ats_utilities.reporter.ireporter.IReporter" title="ats_utilities.reporter.ireporter.IReporter"><span class="pre">IReporter</span></a></em><a class="headerlink" href="#ats_utilities.config_io.xml.xml_loader.XMLLoader._reporter" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ats_utilities.config_io.xml.xml_loader.XMLLoader._verbose">
+<span class="sig-name descname"><span class="pre">_verbose</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#ats_utilities.config_io.xml.xml_loader.XMLLoader._verbose" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
 <dl class="py method">
 <dt class="sig sig-object py" id="ats_utilities.config_io.xml.xml_loader.XMLLoader.load_configuration">
-<span class="sig-name descname"><span class="pre">load_configuration</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/ats_utilities/config_io/xml/xml_loader.html#XMLLoader.load_configuration"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.config_io.xml.xml_loader.XMLLoader.load_configuration" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">load_configuration</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/ats_utilities/config_io/xml/xml_loader.html#XMLLoader.load_configuration"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.config_io.xml.xml_loader.XMLLoader.load_configuration" title="Link to this definition">¶</a></dt>
 <dd><p>Loads the ATS configuration in dictionary format.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Dictionary with XML information.</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>&lt;Dict[str, str]&gt;</p>
+<dd class="field-even"><p>&lt;dict[str, str]&gt;</p>
 </dd>
 <dt class="field-odd">Exceptions<span class="colon">:</span></dt>
-<dd class="field-odd"><p>None.</p>
+<dd class="field-odd"><p>None..</p>
 </dd>
 </dl>
 </dd></dl>
@@ -134,6 +149,9 @@ XML configuration-based API support.</p>
 <li><a class="reference internal" href="#">ats_utilities.config_io.xml.xml_loader module</a><ul>
 <li><a class="reference internal" href="#ats_utilities.config_io.xml.xml_loader.XMLLoader"><code class="docutils literal notranslate"><span class="pre">XMLLoader</span></code></a><ul>
 <li><a class="reference internal" href="#ats_utilities.config_io.xml.xml_loader.XMLLoader._abc_impl"><code class="docutils literal notranslate"><span class="pre">XMLLoader._abc_impl</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.config_io.xml.xml_loader.XMLLoader._checker"><code class="docutils literal notranslate"><span class="pre">XMLLoader._checker</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.config_io.xml.xml_loader.XMLLoader._reporter"><code class="docutils literal notranslate"><span class="pre">XMLLoader._reporter</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.config_io.xml.xml_loader.XMLLoader._verbose"><code class="docutils literal notranslate"><span class="pre">XMLLoader._verbose</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.config_io.xml.xml_loader.XMLLoader.load_configuration"><code class="docutils literal notranslate"><span class="pre">XMLLoader.load_configuration()</span></code></a></li>
 </ul>
 </li>

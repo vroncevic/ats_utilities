@@ -21,7 +21,7 @@ Info
     Provides a simple factory mechanism for dependency injection.
 '''
 
-from typing import Any, List, Optional
+from typing import Any
 from ats_utilities.factory_class import inject
 from ats_utilities.context_bundle import ContextBundle
 from ats_utilities.checker.engine import Checker
@@ -30,7 +30,7 @@ from ats_utilities.reporter.component_bundle import ReporterComponentBundle
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
+__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
 __version__: str = '3.3.8'
 __maintainer__: str = 'Vladimir Roncevic'
@@ -38,15 +38,15 @@ __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
 
 
-def factory_context_bundle(instance: Any, context: Optional[ContextBundle] = None):
+def factory_context_bundle(instance: Any, context: ContextBundle | None = None):
     '''
         Factory universally injects components (checker, reporter, verbose).
 
         :param instance: The object instance (self) to inject attributes into.
         :type instance: <Any>
         :param context: Context bundle of checker, reporter and verbose (default ContextBundle) | None
-        :type context: <Optional[ContextBundle]>
-        :exceptions: None
+        :type context: <ContextBundle | None>
+        :exceptions: None.
     '''
     # No dependency injection then use default ones.
     if not bool(context):

@@ -21,13 +21,12 @@ Info
 '''
 
 import xml.etree.ElementTree as ET
-from typing import Dict, List
 from ats_utilities.config_io.xml.ixml_processor import IXMLProcessor
 from ats_utilities.factory_class import format_instance_to_string
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
+__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
 __version__: str = '3.3.8'
 __maintainer__: str = 'Vladimir Roncevic'
@@ -43,24 +42,24 @@ class XMLProcessor(IXMLProcessor):
         It defines:
 
             :attributes:
-                | __NAME - Option name for ATS configuration.
-                | __VERSION - Option version for ATS configuration.
-                | __BUILD_DATE - Option build date for ATS configuration.
-                | __LICENCE - Option licence for ATS configuration.
-                | __root - Root element of the XML document.
+                | _NAME - Option name for ATS configuration.
+                | _VERSION - Option version for ATS configuration.
+                | _BUILD_DATE - Option build date for ATS configuration.
+                | _LICENCE - Option licence for ATS configuration.
+                | _root - Root element of the XML document.
             :methods:
                 | __init__ - Initializes XMLProcessor constructor.
                 | from_string - Loads XML content from string.
                 | to_string - Converts XML content to string.
                 | to_dict - Gets ATS information from XML.
-                | __get_val - Internal helper for getting tag value.
+                | _get_val - Internal helper for getting tag value.
                 | __str__ - Returns the XMLProcessor as string representation.
     '''
 
-    __NAME: str = 'ats_name'
-    __VERSION: str = 'ats_version'
-    __BUILD_DATE: str = 'ats_build_date'
-    __LICENCE: str = 'ats_licence'
+    _NAME: str = 'ats_name'
+    _VERSION: str = 'ats_version'
+    _BUILD_DATE: str = 'ats_build_date'
+    _LICENCE: str = 'ats_licence'
 
     def __init__(self) -> None:
         '''
@@ -68,9 +67,9 @@ class XMLProcessor(IXMLProcessor):
 
             :return: None.
             :rtype: <None>
-            :exceptions: None.
+            :exceptions: None..
         '''
-        self.__root = None
+        self._root = None
 
     def from_string(self, xml_content: str) -> bool:
         '''
@@ -80,9 +79,9 @@ class XMLProcessor(IXMLProcessor):
             :type xml_content: <str>
             :return: True (success) | False (fail).
             :rtype: <bool>
-            :exceptions: None.
+            :exceptions: None..
         '''
-        self.__root = ET.fromstring(xml_content)
+        self._root = ET.fromstring(xml_content)
 
         return True
 
@@ -92,34 +91,34 @@ class XMLProcessor(IXMLProcessor):
 
             :return: XML content as string.
             :rtype: <str>
-            :exceptions: None.
+            :exceptions: None..
         '''
-        if self.__root is not None:
-            return ET.tostring(self.__root, encoding='utf-8').decode('utf-8')
+        if self._root is not None:
+            return ET.tostring(self._root, encoding='utf-8').decode('utf-8')
 
         return ""
 
-    def to_dict(self) -> Dict[str, str]:
+    def to_dict(self) -> dict[str, str]:
         '''
             Gets ATS information from XML.
 
             :return: Dictionary with ATS information.
-            :rtype: <Dict[str, str]>
-            :exceptions: None.
+            :rtype: <dict[str, str]>
+            :exceptions: None..
         '''
-        if self.__root is None:
+        if self._root is None:
             return {}
 
-        ats_info: Dict[str, str] = {
-            self.__NAME: self.__get_val(self.__NAME),
-            self.__VERSION: self.__get_val(self.__VERSION),
-            self.__BUILD_DATE: self.__get_val(self.__BUILD_DATE),
-            self.__LICENCE: self.__get_val(self.__LICENCE)
+        ats_info: dict[str, str] = {
+            self._NAME: self._get_val(self._NAME),
+            self._VERSION: self._get_val(self._VERSION),
+            self._BUILD_DATE: self._get_val(self._BUILD_DATE),
+            self._LICENCE: self._get_val(self._LICENCE)
         }
 
         return ats_info
 
-    def __get_val(self, tag: str) -> str:
+    def _get_val(self, tag: str) -> str:
         '''
             Internal helper for getting tag value.
 
@@ -127,12 +126,12 @@ class XMLProcessor(IXMLProcessor):
             :type tag: <str>
             :return: Tag value or empty string.
             :rtype: <str>
-            :exceptions: None.
+            :exceptions: None..
         '''
-        if self.__root is None:
+        if self._root is None:
             return ""
 
-        node = self.__root.find(tag)
+        node = self._root.find(tag)
 
         if node is None:
             return ""
@@ -145,6 +144,6 @@ class XMLProcessor(IXMLProcessor):
 
             :return: The XMLProcessor as string representation.
             :rtype: <str>
-            :exceptions: None.
+            :exceptions: None..
         '''
         return format_instance_to_string(self)

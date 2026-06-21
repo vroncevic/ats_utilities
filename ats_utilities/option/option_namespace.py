@@ -20,11 +20,12 @@ Info
     Creates namespace definitions and type aliases for options.
 '''
 
-from typing import Any, Dict, List, Tuple, Optional, Sequence, TypeAlias, Protocol
+from collections.abc import Sequence
+from typing import Any, TypeAlias, Protocol
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
+__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
 __version__: str = '3.3.8'
 __maintainer__: str = 'Vladimir Roncevic'
@@ -47,10 +48,10 @@ class OptionNamespace(Protocol):
             :methods: None
     '''
 
-    __dict__: Dict[str, Any]
+    __dict__: dict[str, Any]
 
 # Type alias for optional sequence of strings representing command-line arguments
-OptArgs: TypeAlias = Optional[Sequence[str]]
+OptArgs: TypeAlias = Sequence[str] | None
 
 # Type alias for tuple containing an option namespace and a list of unknown arguments
-KnownArgs: TypeAlias = Tuple[OptionNamespace, List[str]]
+KnownArgs: TypeAlias = tuple[OptionNamespace, list[str]]

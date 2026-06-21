@@ -20,14 +20,14 @@ Info
     Encapsulates reporter components to minimize constructor overhead.
 '''
 
-from typing import List, Optional
 from dataclasses import dataclass
 from ats_utilities.checker.ichecker import IChecker
 from ats_utilities.reporter.theme.iconsole_theme import IConsoleTheme
+from ats_utilities.exceptions.ats_value_error import ATSValueError
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
+__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
 __version__: str = '3.3.8'
 __maintainer__: str = 'Vladimir Roncevic'
@@ -52,19 +52,17 @@ class ReporterComponentBundle:
                 | to_dict - Converts the bundle attributes to a dictionary.
     '''
 
-    checker: Optional[IChecker] = None
-    theme: Optional[IConsoleTheme] = None
+    checker: IChecker | None = None
+    theme: IConsoleTheme | None = None
 
     def validate(self) -> None:
         '''
             Validates that essential components are set.
 
-            :return: None
-            :rtype: <None>
-            :exceptions: ValueError
+            :exceptions: ATSValueError.
         '''
         if self.checker is None:
-            raise ValueError("Checker must be provided.")
+            raise ATSValueError("Checker must be provided.")
 
     def merge(self, other: 'ReporterComponentBundle') -> None:
         '''
@@ -72,9 +70,7 @@ class ReporterComponentBundle:
 
             :param other: Another bundle to merge into this one.
             :type other: <ReporterComponentBundle>
-            :return: None
-            :rtype: <None>
-            :exceptions: None
+            :exceptions: None.
         '''
         for field_name in self.__dataclass_fields__:
             other_value = getattr(other, field_name)
@@ -87,7 +83,7 @@ class ReporterComponentBundle:
 
             :return: Dictionary representation of the bundle attributes.
             :rtype: <dict>
-            :exceptions: None
+            :exceptions: None.
         '''
         return {
             name: value

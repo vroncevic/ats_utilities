@@ -21,11 +21,10 @@ Info
 '''
 
 from abc import ABC, abstractmethod
-from typing import List, Optional
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
+__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
 __version__: str = '3.3.8'
 __maintainer__: str = 'Vladimir Roncevic'
@@ -49,25 +48,25 @@ class IRepository(ABC):
 
     @property
     @abstractmethod
-    def repository(self) -> Optional[str]:
+    def repository(self) -> str | None:
         '''
             Property method for getting ATS repository.
 
             :return: The ATS repository in string format | None.
-            :rtype: <Optional[str]>
-            :exceptions: NotImplementedError.
+            :rtype: <str | None>
+            :exceptions: NotImplementedError..
         '''
         raise NotImplementedError("Method repository() must be implemented.")
 
     @repository.setter
     @abstractmethod
-    def repository(self, repository: Optional[str]) -> None:
+    def repository(self, repository: str | None) -> None:
         '''
             Property method for setting ATS repository.
 
             :param repository: The ATS repository in string format | None.
-            :type repository: <Optional[str]>
-            :exceptions: NotImplementedError.
+            :type repository: <str | None>
+            :exceptions: NotImplementedError..
         '''
         raise NotImplementedError("Method repository() must be implemented.")
 
@@ -78,7 +77,7 @@ class IRepository(ABC):
 
             :return: True (success) | False (fail).
             :rtype: <bool>
-            :exceptions: NotImplementedError.
+            :exceptions: NotImplementedError..
         '''
         raise NotImplementedError("Method not_none() must be implemented.")
 
@@ -89,6 +88,6 @@ class IRepository(ABC):
 
             :return: The ATS repository as string representation.
             :rtype: <str>
-            :exceptions: NotImplementedError.
+            :exceptions: NotImplementedError..
         '''
         raise NotImplementedError("Method __str__() must be implemented.")

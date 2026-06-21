@@ -20,10 +20,11 @@ Info
     Stores the ATS configuration for the ATS.
 '''
 
-from typing import Dict, List, Optional
 from io import StringIO
 from ats_utilities.config_io.iwrite import IWrite
 from ats_utilities.config_io.istorer import IStorer
+from ats_utilities.checker.ichecker import IChecker
+from ats_utilities.reporter.ireporter import IReporter
 from ats_utilities.config_io.config_file_bundle import ATSConfigFileBundle
 from ats_utilities.config_io.ini.object2ini import Object2Ini
 from ats_utilities.config_io.ini.ini_processor import INIProcessor
@@ -35,7 +36,7 @@ from ats_utilities.factory_class import format_instance_to_string
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
+__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
 __version__: str = '3.3.8'
 __maintainer__: str = 'Vladimir Roncevic'
@@ -52,71 +53,75 @@ class INIStorer(IStorer):
         It defines:
 
             :attributes:
-                | __SECTION - Section name for ATS configuration.
-                | __checker - Factoriezed parameters checker (default Checker).
-                | __reporter - Factoriezed reporter for messaging (default Reporter).
-                | __verbose - Factoriezed Enable/Disable verbose option (default False).
-                | __processor - Processor for INI content (default INIProcessor).
-                | __obj2ini - Out API for information (default Object2Ini).
+                | _SECTION - Section name for ATS configuration.
+                | _checker - Factoriezed parameters checker (default Checker).
+                | _reporter - Factoriezed reporter for messaging (default Reporter).
+                | _verbose - Factoriezed Enable/Disable verbose option (default False).
+                | _processor - Processor for INI content (default INIProcessor).
+                | _obj2ini - Out API for information (default Object2Ini).
             :methods:
                 | __init__ - Initializes INIStorer constructor.
                 | store_configuration - Stores the ATS configuration.
                 | __str__ - Returns the INIStorer as string representation.
     '''
 
-    __SECTION: str = '[ats_info]'
+    _SECTION: str = '[ats_info]'
+
+    _checker: IChecker
+    _reporter: IReporter
+    _verbose: bool
 
     def __init__(
         self,
-        info_file: Optional[str] = None,
-        object2ini: Optional[IWrite] = None,
-        config_bundle: Optional[ATSConfigFileBundle] = None,
-        ini_processor: Optional[IINIProcessor] = None
+        info_file: str | None = None,
+        object2ini: IWrite | None = None,
+        config_bundle: ATSConfigFileBundle | None = None,
+        ini_processor: IINIProcessor | None = None
     ) -> None:
         '''
             Initializes INIStorer constructor.
 
             :param info_file: Path to the info file | None.
-            :type info_file: <Optional[str]>
+            :type info_file: <str | None>
             :param object2ini: An API for information | None.
-            :type object2ini: <Optional[IWrite]>
+            :type object2ini: <IWrite | None>
             :param config_bundle: Configuration bundle | None.
-            :type config_bundle: <Optional[ATSConfigFileBundle]>
+            :type config_bundle: <ATSConfigFileBundle | None>
             :param ini_processor: Processor for INI content | None.
-            :type ini_processor: <Optional[IINIProcessor]>
+            :type ini_processor: <IINIProcessor | None>
             :exceptions: ATSTypeError.
         '''
         config_file_bundle: ATSConfigFileBundle = config_bundle or ATSConfigFileBundle()
         factory_context_bundle(self, config_file_bundle.context)
-        self.__processor: IINIProcessor = make_component(ini_processor, INIProcessor, None)
-        validate_component(self.__processor, type(self.__processor), type(self.__processor).__name__)
-        self.__obj2ini: IWrite = make_component(object2ini, Object2Ini, {
+        self._processor: IINIProcessor = make_component(ini_processor, INIProcessor, None)
+        validate_component(self._processor, type(self._processor), type(self._processor).__name__)
+        self._obj2ini: IWrite = make_component(object2ini, Object2Ini, {
             'config_file': info_file, 'config_bundle': config_file_bundle
         })
-        validate_component(self.__obj2ini, type(self.__obj2ini), type(self.__obj2ini).__name__)
+        validate_component(self._obj2ini, type(self._obj2ini), type(self._obj2ini).__name__)
 
     @validator([('dict:config', None)])
-    def store_configuration(self, config: Dict[str, str]) -> bool:
+    def store_configuration(self, config: dict[str, str]) -> bool:
         '''
             Stores the ATS configuration from dictionary format.
 
             :param config: Dictionary with INI information.
-            :type config: <Dict[str, str]>
+            :type config: <dict[str, str]>
             :return: True (success) | False (fail).
             :rtype: <bool>
-            :exceptions: ATSTypeError, ATSValueError, RuntimeError, AttributeError.
+            :exceptions: ATSTypeError, ATSValueError, ATSRuntimeError, ATSAttributeError..
         '''
-        ini_content = f'{self.__SECTION}\n'
+        ini_content = f'{self._SECTION}\n'
 
         for k, v in config.items():
             ini_content += f"{k} = {v}\n"
 
         stream: StringIO = StringIO(ini_content)
 
-        if not self.__processor.from_stream(stream):
+        if not self._processor.from_stream(stream):
             return False
 
-        return self.__obj2ini.write_configuration(self.__processor)
+        return self._obj2ini.write_configuration(self._processor)
 
     def __str__(self) -> str:
         '''
@@ -124,6 +129,6 @@ class INIStorer(IStorer):
 
             :return: The INIStorer as string representation.
             :rtype: <str>
-            :exceptions: None.
+            :exceptions: None..
         '''
         return format_instance_to_string(self)

@@ -59,11 +59,12 @@
 <span class="sd">    Provides a simple factory mechanism for dependency injection.</span>
 <span class="sd">&#39;&#39;&#39;</span>
 
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Union</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.exceptions.ats_value_error</span> <span class="kn">import</span> <span class="n">ATSValueError</span>
 
 <span class="n">__author__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;Vladimir Roncevic&#39;</span>
 <span class="n">__copyright__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;(C) 2026, https://vroncevic.github.io/ats_utilities&#39;</span>
-<span class="n">__credits__</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Vladimir Roncevic&#39;</span><span class="p">,</span> <span class="s1">&#39;Python Software Foundation&#39;</span><span class="p">]</span>
+<span class="n">__credits__</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Vladimir Roncevic&#39;</span><span class="p">,</span> <span class="s1">&#39;Python Software Foundation&#39;</span><span class="p">]</span>
 <span class="n">__license__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE&#39;</span>
 <span class="n">__version__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;3.3.8&#39;</span>
 <span class="n">__maintainer__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;Vladimir Roncevic&#39;</span>
@@ -72,7 +73,7 @@
 
 <div class="viewcode-block" id="inject">
 <a class="viewcode-back" href="../../ats_utilities.factory_class.html#ats_utilities.factory_class.inject">[docs]</a>
-<span class="k">def</span> <span class="nf">inject</span><span class="p">(</span><span class="n">instance</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="o">*</span><span class="n">dependencies</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="o">...</span><span class="p">]]]])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="k">def</span> <span class="nf">inject</span><span class="p">(</span><span class="n">instance</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="o">*</span><span class="n">dependencies</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Any</span><span class="p">,</span> <span class="nb">str</span> <span class="o">|</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Universally injects system or domain components into a class instance.</span>
 <span class="sd">        Adheres to SOLID principles by avoiding hardcoded component names or classes.</span>
@@ -83,17 +84,16 @@
 <span class="sd">        :param dependencies: Variadic sequence of tuples containing injection rules.</span>
 <span class="sd">                             Format: (&#39;attr_name&#39;, value, fallback, &#39;depends_on_attr&#39;)</span>
 <span class="sd">                             The &#39;depends_on_attr&#39; can be a string, list, or tuple</span>
-<span class="sd">        :type dependencies: &lt;Tuple[str, Any, Any, Optional[Union[str, List[str], Tuple[str, ...]]]]&gt;</span>
-<span class="sd">        :exceptions: None</span>
+<span class="sd">        :type dependencies: &lt;tuple[str, Any, Any, str | list[str] | tuple[str, ...] | None]&gt;</span>
+<span class="sd">        :exceptions: None.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
-    <span class="n">class_name</span> <span class="o">=</span> <span class="n">instance</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span>
-    <span class="n">prefix</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;_</span><span class="si">{</span><span class="n">class_name</span><span class="si">}</span><span class="s1">__&#39;</span>
+    <span class="n">prefix</span> <span class="o">=</span> <span class="s1">&#39;_&#39;</span>
 
     <span class="k">for</span> <span class="n">tuple_data</span> <span class="ow">in</span> <span class="n">dependencies</span><span class="p">:</span>
         <span class="n">attr_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">tuple_data</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
         <span class="n">passed_val</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="n">tuple_data</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
         <span class="n">fallback</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="n">tuple_data</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
-        <span class="n">depends_on</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="o">...</span><span class="p">]]]</span> <span class="o">=</span> <span class="n">tuple_data</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">tuple_data</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">3</span> <span class="k">else</span> <span class="kc">None</span>
+        <span class="n">depends_on</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">tuple_data</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">tuple_data</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">3</span> <span class="k">else</span> <span class="kc">None</span>
 
         <span class="n">full_attr_name</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">prefix</span><span class="si">}{</span><span class="n">attr_name</span><span class="si">}</span><span class="s1">&#39;</span>
 
@@ -129,19 +129,52 @@
 <a class="viewcode-back" href="../../ats_utilities.factory_class.html#ats_utilities.factory_class.get_private_attr">[docs]</a>
 <span class="k">def</span> <span class="nf">get_private_attr</span><span class="p">(</span><span class="n">instance</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">attr_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">        Dynamically retrieves a name-mangled private attribute from an instance.</span>
+<span class="sd">        Dynamically retrieves a private attribute from an instance.</span>
 
 <span class="sd">        :param instance: The class instance (self) containing the attribute</span>
 <span class="sd">        :type instance: &lt;Any&gt;</span>
-<span class="sd">        :param attr_name: The target private attribute name (e.g., &#39;__checker&#39;)</span>
+<span class="sd">        :param attr_name: The target private attribute name (e.g., &#39;_checker&#39;)</span>
 <span class="sd">        :type attr_name: &lt;str&gt;</span>
 <span class="sd">        :return: The resolved attribute value</span>
 <span class="sd">        :rtype: &lt;Any&gt;</span>
 <span class="sd">        :exceptions: AttributeError</span>
 <span class="sd">    &#39;&#39;&#39;</span>
-    <span class="n">class_name</span> <span class="o">=</span> <span class="n">instance</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span>
     <span class="n">clean_attr</span> <span class="o">=</span> <span class="n">attr_name</span><span class="o">.</span><span class="n">lstrip</span><span class="p">(</span><span class="s1">&#39;_&#39;</span><span class="p">)</span>
-    <span class="k">return</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">instance</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;_</span><span class="si">{</span><span class="n">class_name</span><span class="si">}</span><span class="s1">__</span><span class="si">{</span><span class="n">clean_attr</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span></div>
+    <span class="k">return</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">instance</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;_</span><span class="si">{</span><span class="n">clean_attr</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span></div>
+
+
+<span class="kn">from</span> <span class="nn">collections.abc</span> <span class="kn">import</span> <span class="n">Callable</span>
+<span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">wraps</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span>
+
+<div class="viewcode-block" id="require_attributes">
+<a class="viewcode-back" href="../../ats_utilities.factory_class.html#ats_utilities.factory_class.require_attributes">[docs]</a>
+<span class="k">def</span> <span class="nf">require_attributes</span><span class="p">(</span><span class="o">*</span><span class="n">attr_names</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">Callable</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="n">Any</span><span class="p">]],</span> <span class="n">Callable</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]:</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Checks if instance attribute is defined and has value or not.</span>
+<span class="sd">        In case attribute value is not defined set default value to None.</span>
+<span class="sd">        In case attribute value is not defined and not empty, raise ATSValueError exception.</span>
+
+<span class="sd">        :param attr_names: Tuple of attribute names to check</span>
+<span class="sd">        :type attr_names: &lt;tuple[str, ...]&gt;</span>
+<span class="sd">        :return: Decorated function</span>
+<span class="sd">        :rtype: &lt;Callable[..., Any]&gt;</span>
+<span class="sd">        :exceptions: ATSValueError</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="k">def</span> <span class="nf">decorator</span><span class="p">(</span><span class="n">func</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Callable</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+        <span class="nd">@wraps</span><span class="p">(</span><span class="n">func</span><span class="p">)</span>
+        <span class="k">def</span> <span class="nf">wrapper</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">attr</span> <span class="ow">in</span> <span class="n">attr_names</span><span class="p">:</span>
+
+                <span class="c1"># In case attribute value is not defined set default value to None</span>
+                <span class="n">value</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">attr</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+                
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">value</span><span class="p">:</span>
+                    <span class="k">raise</span> <span class="n">ATSValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Missing or empty attribute: &#39;</span><span class="si">{</span><span class="n">attr</span><span class="si">}</span><span class="s2">&#39;&quot;</span><span class="p">)</span>
+
+            <span class="k">return</span> <span class="n">func</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">wrapper</span>
+    <span class="k">return</span> <span class="n">decorator</span></div>
 
 
 <div class="viewcode-block" id="format_instance_to_string">
@@ -149,20 +182,19 @@
 <span class="k">def</span> <span class="nf">format_instance_to_string</span><span class="p">(</span><span class="n">instance</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Generates a standardized string representation for any class instance.</span>
-<span class="sd">        Cleans name-mangled private attributes and appends memory addresses in hex.</span>
+<span class="sd">        Cleans private attributes and appends memory addresses in hex.</span>
 
 <span class="sd">        :param instance: The class instance to format</span>
 <span class="sd">        :type instance: &lt;Any&gt;</span>
 <span class="sd">        :return: String representation of the instance</span>
 <span class="sd">        :rtype: &lt;str&gt;</span>
-<span class="sd">        :exceptions: None</span>
+<span class="sd">        :exceptions: None.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
     <span class="n">class_name</span> <span class="o">=</span> <span class="n">instance</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span>
-    <span class="n">prefix</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;_</span><span class="si">{</span><span class="n">class_name</span><span class="si">}</span><span class="s1">__&#39;</span>
 
-    <span class="n">formatted_lines</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">formatted_lines</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">instance</span><span class="o">.</span><span class="vm">__dict__</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-        <span class="n">clean_key</span> <span class="o">=</span> <span class="n">k</span><span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">prefix</span><span class="p">):]</span> <span class="k">if</span> <span class="n">k</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="n">prefix</span><span class="p">)</span> <span class="k">else</span> <span class="n">k</span>
+        <span class="n">clean_key</span> <span class="o">=</span> <span class="n">k</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span> <span class="k">if</span> <span class="n">k</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;_&#39;</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">k</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;__&#39;</span><span class="p">)</span> <span class="k">else</span> <span class="n">k</span>
         <span class="n">val_str</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">v</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">    &#39;</span><span class="p">)</span>
 
         <span class="n">v_id_hex</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;0x</span><span class="si">{</span><span class="nb">id</span><span class="p">(</span><span class="n">v</span><span class="p">)</span><span class="si">:</span><span class="s1">x</span><span class="si">}</span><span class="s1">&#39;</span>

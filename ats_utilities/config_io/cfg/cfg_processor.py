@@ -21,13 +21,12 @@ Info
 '''
 
 from re import match
-from typing import Dict, List
 from ats_utilities.factory_class import format_instance_to_string
 from ats_utilities.config_io.cfg.icfg_processor import ICFGProcessor
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
+__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
 __version__: str = '3.3.8'
 __maintainer__: str = 'Vladimir Roncevic'
@@ -43,8 +42,8 @@ class CFGProcessor(ICFGProcessor):
         It defines:
 
             :attributes:
-                | __REGEX_EXP - Regular expression for matching line.
-                | __data - Dictionary with CFG information.
+                | _REGEX_EXP - Regular expression for matching line.
+                | _data - Dictionary with CFG information.
             :methods:
                 | __init__ - Initializes CFGProcessor constructor.
                 | from_lines - Loads CFG configuration from lines.
@@ -53,7 +52,7 @@ class CFGProcessor(ICFGProcessor):
                 | __str__ - Returns the CFGProcessor as string representation.
     '''
 
-    __REGEX_EXP: str = r'^\s*$'
+    _REGEX_EXP: str = r'^\s*$'
 
     def __init__(self) -> None:
         '''
@@ -61,27 +60,27 @@ class CFGProcessor(ICFGProcessor):
 
             :return: None.
             :rtype: <None>
-            :exceptions: None.
+            :exceptions: None..
         '''
-        self.__data: Dict[str, str] = {}
+        self._data: dict[str, str] = {}
 
-    def from_lines(self, lines: List[str]) -> bool:
+    def from_lines(self, lines: list[str]) -> bool:
         '''
             Loads CFG configuration from lines.
 
             :param lines: CFG content as a list of strings.
-            :type lines: <List[str]>
+            :type lines: <list[str]>
             :return: True (success) | False (fail).
             :rtype: <bool>
-            :exceptions: None.
+            :exceptions: None..
         '''
-        self.__data.clear()
+        self._data.clear()
 
         for line in lines:
-            if not match(self.__REGEX_EXP, line):
+            if not match(self._REGEX_EXP, line):
                 if '=' in line:
-                    pairs: List[str] = line.split('=', 1)
-                    self.__data[pairs[0].strip()] = pairs[1].strip()
+                    pairs: list[str] = line.split('=', 1)
+                    self._data[pairs[0].strip()] = pairs[1].strip()
 
         return True
 
@@ -91,19 +90,19 @@ class CFGProcessor(ICFGProcessor):
 
             :return: CFG content as string.
             :rtype: <str>
-            :exceptions: None.
+            :exceptions: None..
         '''
-        return "".join([f"{k} = {v}\n" for k, v in self.__data.items()])
+        return "".join([f"{k} = {v}\n" for k, v in self._data.items()])
 
-    def to_dict(self) -> Dict[str, str]:
+    def to_dict(self) -> dict[str, str]:
         '''
             Converts CFG configuration to dictionary.
 
             :return: Dictionary with CFG information.
-            :rtype: <Dict[str, str]>
-            :exceptions: None.
+            :rtype: <dict[str, str]>
+            :exceptions: None..
         '''
-        return self.__data
+        return self._data
 
     def __str__(self) -> str:
         '''
@@ -111,6 +110,6 @@ class CFGProcessor(ICFGProcessor):
 
             :return: The CFGProcessor as string representation.
             :rtype: <str>
-            :exceptions: None.
+            :exceptions: None..
         '''
         return format_instance_to_string(self)

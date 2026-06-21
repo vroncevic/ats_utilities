@@ -21,12 +21,14 @@ Info
 '''
 
 import os
-from typing import Any, List, Tuple, Optional
+from typing import Any
 from fcntl import ioctl
 from termios import TIOCGWINSZ
 from struct import unpack, pack
 from ats_utilities.splasher.iterminal_properties import ITerminalProperties
 from ats_utilities.context_bundle import ContextBundle
+from ats_utilities.checker.ichecker import IChecker
+from ats_utilities.reporter.ireporter import IReporter
 from ats_utilities.factory_context_bundle import factory_context_bundle
 from ats_utilities.factory_class import format_instance_to_string
 from ats_utilities.checker.proxy_validator import validator
@@ -34,7 +36,7 @@ from ats_utilities.reporter.proxy_reporter import vreporter
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
+__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
 __version__: str = '3.3.8'
 __maintainer__: str = 'Vladimir Roncevic'
@@ -50,10 +52,10 @@ class TerminalProperties(ITerminalProperties):
         It defines:
 
             :attributes:
-                | __checker - Factoriezed parameters checker (default Checker).
-                | __reporter - Factoriezed reporter for messaging (default Reporter).
-                | __verbose - Factoriezed Enable/Disable verbose option (default False).
-                | __window_size - Terminal window size.
+                | _checker - Factoriezed parameters checker (default Checker).
+                | _reporter - Factoriezed reporter for messaging (default Reporter).
+                | _verbose - Factoriezed Enable/Disable verbose option (default False).
+                | _window_size - Terminal window size.
             :methods:
                 | __init__ - Initials TerminalProperties constructor.
                 | ioctl_get_window_size - Gets size for file descriptor.
@@ -62,53 +64,57 @@ class TerminalProperties(ITerminalProperties):
                 | __str__ - Returns the string representation of TerminalProperties.
     '''
 
-    def __init__(self, context_bundle: Optional[ContextBundle] = None) -> None:
+    _checker: IChecker
+    _reporter: IReporter
+    _verbose: bool
+
+    def __init__(self, context_bundle: ContextBundle | None = None) -> None:
         '''
             Initials TerminalProperties constructor.
 
-            :param context_bundle: Bundle with checker, reporter and verbose | None
-            :type context_bundle: <Optional[ContextBundle]>
-            :exceptions: None
+            :param context_bundle: Context bundle for terminal properties | None
+            :type context_bundle: <ContextBundle | None>
+            :exceptions: None.
         '''
         factory_context_bundle(self, context_bundle)
-        self.__window_size: Tuple[Any, ...]
+        self._window_size: tuple[Any, ...]
 
     @validator([('int:file_descriptor', None)])
     @vreporter('ioctl get window size {window_size}')
-    def ioctl_get_window_size(self, file_descriptor: int) -> Tuple[Any, ...]:
+    def ioctl_get_window_size(self, file_descriptor: int) -> tuple[Any, ...]:
         '''
             Gets size for file descriptor.
 
             :param file_descriptor: File descriptor.
             :type file_descriptor: <int>
             :return: Window size of terminal.
-            :rtype: <Tuple[Any, ...]>
-            :exceptions: ATSTypeError, ATSValueError, RuntimeError, AttributeError
+            :rtype: <tuple[Any, ...]>
+            :exceptions: ATSTypeError, ATSValueError, ATSRuntimeError, ATSAttributeError.
         '''
-        self.__window_size = unpack('HHHH', ioctl(file_descriptor, TIOCGWINSZ, pack('HHHH', 0, 0, 0, 0)))
+        self._window_size = unpack('HHHH', ioctl(file_descriptor, TIOCGWINSZ, pack('HHHH', 0, 0, 0, 0)))
 
-        return self.__window_size
+        return self._window_size
 
     @vreporter('ioctl for all descriptors {window_size}')
     def ioctl_for_all_descriptors(self) -> None:
         '''
             Sets size for all file descriptors.
 
-            :exceptions: RuntimeError, AttributeError
+            :exceptions: ATSRuntimeError, ATSAttributeError
         '''
-        std_in: Tuple[Any, ...] = self.ioctl_get_window_size(0)
-        std_out: Tuple[Any, ...] = self.ioctl_get_window_size(1)
-        std_err: Tuple[Any, ...] = self.ioctl_get_window_size(2)
-        self.__window_size = std_in or std_out or std_err
+        std_in: tuple[Any, ...] = self.ioctl_get_window_size(0)
+        std_out: tuple[Any, ...] = self.ioctl_get_window_size(1)
+        std_err: tuple[Any, ...] = self.ioctl_get_window_size(2)
+        self._window_size = std_in or std_out or std_err
 
     @vreporter('size {window_size}')
-    def size(self) -> Tuple[Any, ...]:
+    def size(self) -> tuple[Any, ...]:
         '''
             Gets terminal window size.
 
             :return: Terminal window size.
-            :rtype: <Tuple[Any, ...]>
-            :exceptions: RuntimeError, AttributeError
+            :rtype: <tuple[Any, ...]>
+            :exceptions: ATSRuntimeError, ATSAttributeError
         '''
         try:
             self.ioctl_for_all_descriptors()
@@ -117,14 +123,14 @@ class TerminalProperties(ITerminalProperties):
 
         try:
             file_descriptor: int = os.open(os.ctermid(), os.O_RDONLY)
-            self.__window_size = self.ioctl_get_window_size(file_descriptor)
+            self._window_size = self.ioctl_get_window_size(file_descriptor)
             os.close(file_descriptor)
         except OSError:
-            # Fall back to self.__window_size if set, otherwise default to (24, 80, 0, 0)
-            if not hasattr(self, '_TerminalProperties__window_size') or not self.__window_size:
-                self.__window_size = (24, 80, 0, 0)
+            # Fall back to self._window_size if set, otherwise default to (24, 80, 0, 0)
+            if not hasattr(self, '_TerminalProperties__window_size') or not self._window_size:
+                self._window_size = (24, 80, 0, 0)
 
-        return self.__window_size
+        return self._window_size
 
     def __str__(self) -> str:
         '''
@@ -132,6 +138,6 @@ class TerminalProperties(ITerminalProperties):
 
             :return: The TerminalProperties as string representation.
             :rtype: <str>
-            :exceptions: None
+            :exceptions: None.
         '''
         return format_instance_to_string(self)

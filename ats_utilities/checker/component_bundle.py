@@ -20,7 +20,6 @@ Info
     Encapsulates checker components to minimize constructor overhead.
 '''
 
-from typing import List, Optional
 from dataclasses import dataclass
 from ats_utilities.checker.itype_validator import ITypeValidator
 from ats_utilities.checker.iformat_validator import IFormatValidator
@@ -29,7 +28,7 @@ from ats_utilities.checker.icheck_reporter import ICheckReporter
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
+__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
 __version__: str = '3.3.8'
 __maintainer__: str = 'Vladimir Roncevic'
@@ -56,10 +55,10 @@ class CheckerComponentBundle:
                 | to_dict - Converts the bundle attributes to a dictionary.
     '''
 
-    format_validator: Optional[IFormatValidator] = None
-    type_validator: Optional[ITypeValidator] = None
-    context_provider: Optional[IContextProvider] = None
-    check_reporter: Optional[ICheckReporter] = None
+    format_validator: IFormatValidator | None = None
+    type_validator: ITypeValidator | None = None
+    context_provider: IContextProvider | None = None
+    check_reporter: ICheckReporter | None = None
 
     def validate(self) -> None:
         '''
@@ -79,7 +78,7 @@ class CheckerComponentBundle:
             :type other: <CheckerComponentBundle>
             :return: None.
             :rtype: <None>
-            :exceptions: None.
+            :exceptions: None..
         '''
         for field_name in self.__dataclass_fields__:
             other_value = getattr(other, field_name)
@@ -92,7 +91,7 @@ class CheckerComponentBundle:
 
             :return: Dictionary representation of the bundle attributes.
             :rtype: <dict>
-            :exceptions: None.
+            :exceptions: None..
         '''
         return {
             name: value

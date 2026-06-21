@@ -20,7 +20,7 @@ Info
     Concrete implementation of the ATS parameter(s) checker.
 '''
 
-from typing import ClassVar, List, Optional
+from typing import ClassVar
 from ats_utilities.factory_class import format_instance_to_string
 from ats_utilities.factory_component import make_component, validate_component
 from ats_utilities.checker.ichecker import IChecker, ErrorChecker, ValidationResult, ParametersSpecs
@@ -37,7 +37,7 @@ from ats_utilities.checker.checker_reporter_bundle import CheckerReporterBundle,
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
+__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
 __version__: str = '3.3.8'
 __maintainer__: str = 'Vladimir Roncevic'
@@ -55,10 +55,10 @@ class Checker(IChecker):
 
             :attributes:
                 | ERRORS - Marks error types for message reports.
-                | __format_validator - Validator for parameters format (default FormatValidator).
-                | __type_validator - Validator for parameters type (default TypeValidator).
-                | __context_provider - Provider for call context (default ContextProvider).
-                | __check_reporter - Formatter for message reports (default CheckReporter).
+                | _format_validator - Validator for parameters format (default FormatValidator).
+                | _type_validator - Validator for parameters type (default TypeValidator).
+                | _context_provider - Provider for call context (default ContextProvider).
+                | _check_reporter - Formatter for message reports (default CheckReporter).
             :methods:
                 | __init__ - Initializes Checker constructor.
                 | validates_parameters - Validates parameter(s) for method(s) or function(s).
@@ -67,43 +67,43 @@ class Checker(IChecker):
 
     ERRORS: ClassVar[type[ErrorChecker]] = ErrorChecker
 
-    def __init__(self, component_bundle: Optional[CheckerComponentBundle] = None) -> None:
+    def __init__(self, component_bundle: CheckerComponentBundle | None = None) -> None:
         '''
             Initializes Checker constructor.
 
             :param component_bundle: Bundle with components | None.
-            :type component_bundle: <Optional[CheckerComponentBundle]>
+            :type component_bundle: <CheckerComponentBundle | None>
             :exceptions: ATSTypeError.
         '''
         # No dependency injection then use default ones.
         components: CheckerComponentBundle = component_bundle or CheckerComponentBundle()
-        self.__format_validator: IFormatValidator = make_component(components.format_validator, FormatValidator, None)
-        validate_component(self.__format_validator, type(self.__format_validator), type(self.__format_validator).__name__)
-        self.__type_validator: ITypeValidator = make_component(components.type_validator, TypeValidator, None)
-        validate_component(self.__type_validator, type(self.__type_validator), type(self.__type_validator).__name__)
-        self.__context_provider: IContextProvider = make_component(components.context_provider, ContextProvider, None)
-        validate_component(self.__context_provider, type(self.__context_provider), type(self.__context_provider).__name__)
-        self.__check_reporter: ICheckReporter = make_component(components.check_reporter, CheckReporter, None)
-        validate_component(self.__check_reporter, type(self.__check_reporter), type(self.__check_reporter).__name__)
+        self._format_validator: IFormatValidator = make_component(components.format_validator, FormatValidator, None)
+        validate_component(self._format_validator, type(self._format_validator), type(self._format_validator).__name__)
+        self._type_validator: ITypeValidator = make_component(components.type_validator, TypeValidator, None)
+        validate_component(self._type_validator, type(self._type_validator), type(self._type_validator).__name__)
+        self._context_provider: IContextProvider = make_component(components.context_provider, ContextProvider, None)
+        validate_component(self._context_provider, type(self._context_provider), type(self._context_provider).__name__)
+        self._check_reporter: ICheckReporter = make_component(components.check_reporter, CheckReporter, None)
+        validate_component(self._check_reporter, type(self._check_reporter), type(self._check_reporter).__name__)
 
-    def validates_parameters(self, parameters: Optional[ParametersSpecs]) -> ValidationResult:
+    def validates_parameters(self, parameters: ParametersSpecs | None) -> ValidationResult:
         '''
             Validates parameters for method(s) or function(s).
 
             :param parameters: Specification for parameters | None.
-            :type parameters: <Optional[ParametersSpecs]>
+            :type parameters: <ParametersSpecs | None>
             :return: Tuple of error message report and error id.
             :rtype: <ValidationResult>
-            :exceptions: None.
+            :exceptions: None..
         '''
-        context: str = self.__context_provider.get_context()
-        params_meta: List[ParamMetadata] = []
-        err_indices: List[int] = []
+        context: str = self._context_provider.get_context()
+        params_meta: list[ParamMetadata] = []
+        err_indices: list[int] = []
         error_id: int = self.ERRORS.NO_ERROR
 
         if parameters is None:
             return (
-                self.__check_reporter.build_message_format(
+                self._check_reporter.build_message_format(
                     CheckerReporterBundle(context, [], [], True)
                 ),
                 self.ERRORS.FORMAT_ERROR
@@ -112,24 +112,24 @@ class Checker(IChecker):
         is_fmt_err: bool = False
         for index, (exp_type, inst) in enumerate(parameters):
 
-            if not self.__format_validator.is_valid(exp_type):
+            if not self._format_validator.is_valid(exp_type):
                 is_fmt_err = True
                 error_id = self.ERRORS.FORMAT_ERROR
                 break
 
-            ptype: Optional[str] = None
-            pname: Optional[str] = None
+            ptype: str | None = None
+            pname: str | None = None
 
-            ptype, pname = self.__format_validator.split(exp_type)
+            ptype, pname = self._format_validator.split(exp_type)
             params_meta.append((pname, ptype, inst))
 
-            if not self.__type_validator.is_match(inst, ptype):
+            if not self._type_validator.is_match(inst, ptype):
                 err_indices.append(index)
 
                 if error_id == self.ERRORS.NO_ERROR:
                     error_id = self.ERRORS.TYPE_ERROR
 
-        return self.__check_reporter.build_message_format(
+        return self._check_reporter.build_message_format(
             CheckerReporterBundle(
                 context=context,
                 parameters_meta=params_meta,
@@ -144,6 +144,6 @@ class Checker(IChecker):
 
             :return: The ATS checker as string representation.
             :rtype: <str>
-            :exceptions: None.
+            :exceptions: None..
         '''
         return format_instance_to_string(self)
