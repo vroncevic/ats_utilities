@@ -26,6 +26,12 @@ from typing import Any
 from unittest import TestCase, main, mock
 from ats_utilities.checker.engine import Checker
 from ats_utilities.checker.ichecker import ErrorChecker, IChecker, ParametersSpecs
+from ats_utilities.checker.proxy_validator import validator
+from ats_utilities.checker.type_validator import TypeValidator
+from ats_utilities.exceptions.ats_runtime_error import ATSRuntimeError
+from ats_utilities.exceptions.ats_attribute_error import ATSAttributeError
+from ats_utilities.exceptions.ats_type_error import ATSTypeError
+from ats_utilities.exceptions.ats_value_error import ATSValueError
 from ats_utilities.reporter.ireporter import IReporter
 from ats_utilities.reporter.engine import Reporter
 
@@ -299,6 +305,168 @@ class ATSCheckerUnitTestCase(TestCase):
         result = self.mock_checker.validates_parameters([('str:test', 'value')])
         self.assertEqual(result, ('', 0))
         self.mock_checker.validates_parameters.assert_called_once()
+
+
+class ProxyValidatorTestCase(TestCase):
+    '''
+        Defines class ProxyValidatorTestCase with attribute(s) and method(s).
+        Creates test cases for checking exceptions in proxy validator decorator.
+        Proxy validator unit tests.
+
+        It defines:
+
+            :attributes: None
+            :methods:
+                | test_validator_not_on_class_method - Test validator on regular function.
+                | test_validator_no_checker_on_instance - Test validator when class has no checker.
+                | test_validator_type_error - Test validator type error.
+                | test_validator_format_error_mocked - Test validator format error via mocking.
+    '''
+
+    def test_validator_not_on_class_method(self) -> None:
+        '''
+            Test validator on regular function.
+
+            :return: None.
+            :rtype: <None>
+            :exceptions: None.
+        '''
+        @validator([('str:arg', None)])
+        def dummy_func(arg: Any) -> None:
+            pass
+
+        with self.assertRaises(ATSRuntimeError):
+            dummy_func()
+
+    def test_validator_no_checker_on_instance(self) -> None:
+        '''
+            Test validator when class has no checker.
+
+            :return: None.
+            :rtype: <None>
+            :exceptions: None.
+        '''
+        class DummyClass:
+            @validator([('str:arg', None)])
+            def dummy_method(self, arg: Any) -> None:
+                pass
+
+        dummy = DummyClass()
+        with self.assertRaises(ATSAttributeError):
+            dummy.dummy_method("test")
+
+    def test_validator_type_error(self) -> None:
+        '''
+            Test validator type error.
+
+            :return: None.
+            :rtype: <None>
+            :exceptions: None.
+        '''
+        class TestClass:
+            def __init__(self) -> None:
+                self._checker = Checker()
+
+            @validator([('str:arg', None)])
+            def method(self, arg: Any) -> None:
+                pass
+
+        obj = TestClass()
+        # Value is int, should raise ATSTypeError
+        with self.assertRaises(ATSTypeError):
+            obj.method(123)
+
+    def test_validator_format_error_mocked(self) -> None:
+        '''
+            Test validator format error via mocking.
+
+            :return: None.
+            :rtype: <None>
+            :exceptions: None.
+        '''
+        class TestClass:
+            def __init__(self, mock_checker: Any) -> None:
+                self._checker = mock_checker
+
+            @validator([('str:arg', None)])
+            def method(self, arg: Any) -> None:
+                pass
+
+        mock_checker = mock.MagicMock()
+        mock_checker.validates_parameters.return_value = ('Format error', ErrorChecker.FORMAT_ERROR)
+        mock_checker.ERRORS = ErrorChecker
+
+        obj = TestClass(mock_checker)
+        with self.assertRaises(ATSValueError):
+            obj.method("test")
+
+
+class TypeValidatorTestCase(TestCase):
+    '''
+        Defines class TypeValidatorTestCase with attribute(s) and method(s).
+        Creates test cases for checking functionalities of TypeValidator.
+        TypeValidator unit tests.
+
+        It defines:
+
+            :attributes: None
+            :methods:
+                | test_is_subtype - Test checking subtypes.
+                | test_get_type_name - Test getting type names.
+                | test_str_representation - Test string representation.
+    '''
+
+    def test_is_subtype(self) -> None:
+        '''
+            Test checking subtypes.
+
+            :return: None.
+            :rtype: <None>
+            :exceptions: None.
+        '''
+        class A:
+            pass
+
+        class B(A):
+            pass
+
+        validator_inst = TypeValidator()
+        b = B()
+
+        self.assertTrue(validator_inst.is_subtype(b, 'B'))
+        self.assertTrue(validator_inst.is_subtype(b, 'A'))
+        self.assertTrue(validator_inst.is_subtype(b, 'object'))
+        self.assertFalse(validator_inst.is_subtype(b, 'str'))
+
+    def test_get_type_name(self) -> None:
+        '''
+            Test getting type names.
+
+            :return: None.
+            :rtype: <None>
+            :exceptions: None.
+        '''
+        validator_inst = TypeValidator()
+
+        self.assertEqual(validator_inst.get_type_name(123), 'int')
+        self.assertEqual(validator_inst.get_type_name("hello"), 'str')
+        self.assertEqual(validator_inst.get_type_name(None), 'NoneType')
+
+        class CustomClass:
+            pass
+
+        self.assertEqual(validator_inst.get_type_name(CustomClass()), 'CustomClass')
+
+    def test_str_representation(self) -> None:
+        '''
+            Test string representation.
+
+            :return: None.
+            :rtype: <None>
+            :exceptions: None.
+        '''
+        validator_inst = TypeValidator()
+        self.assertIsInstance(str(validator_inst), str)
 
 
 if __name__ == '__main__':

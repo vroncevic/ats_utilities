@@ -37,6 +37,7 @@ Used next development environment
 ![debian linux os](https://raw.githubusercontent.com/vroncevic/ats_utilities/dev/docs/debtux.png)
 
 [![ats_utilities_python3_build](https://github.com/vroncevic/ats_utilities/actions/workflows/ats_utilities_python3_build.yml/badge.svg)](https://github.com/vroncevic/ats_utilities/actions/workflows/ats_utilities_python3_build.yml)
+[![ats_utilities_interface_checker](https://github.com/vroncevic/ats_utilities/actions/workflows/ats_utilities_interface_checker.yml/badge.svg)](https://github.com/vroncevic/ats_utilities/actions/workflows/ats_utilities_interface_checker.yml) [![ats_utilities_isp_checker](https://github.com/vroncevic/ats_utilities/actions/workflows/ats_utilities_isp_checker.yml/badge.svg)](https://github.com/vroncevic/ats_utilities/actions/workflows/ats_utilities_isp_checker.yml) [![ats_utilities_ocp_checker](https://github.com/vroncevic/ats_utilities/actions/workflows/ats_utilities_ocp_checker.yml/badge.svg)](https://github.com/vroncevic/ats_utilities/actions/workflows/ats_utilities_ocp_checker.yml) [![ats_utilities_srp_checker](https://github.com/vroncevic/ats_utilities/actions/workflows/ats_utilities_srp_checker.yml/badge.svg)](https://github.com/vroncevic/ats_utilities/actions/workflows/ats_utilities_srp_checker.yml) [![ats_utilities_toc](https://github.com/vroncevic/ats_utilities/actions/workflows/ats_utilities_toc.yml/badge.svg)](https://github.com/vroncevic/ats_utilities/actions/workflows/ats_utilities_toc.yml)
 
 Currently there are four ways to install framework
 * Install process based on using pip mechanism
@@ -108,9 +109,10 @@ These modules requires other modules and libraries (Python 3.x)
 
 ### Framework structure
 
-**ats_utilities** is based on OOP.
+**ats_utilities** is based on OOP and following SOLID principles and it is organized in packages.
 
-Framework structure
+<details>
+<summary><b>Click to expand framework structure</b></summary>
 
 ```bash
     ats_utilities/
@@ -288,43 +290,48 @@ Framework structure
     17 directories, 154 files
 ```
 
+</details>
+
 ### Code coverage
+
+<details>
+<summary><b>Click to expand code coverage</b></summary>
 
 | Name | Stmts | Miss | Cover |
 |------|-------|------|-------|
 | `ats_utilities/__init__.py` | 8 | 0 | 100%|
 | `ats_utilities/base/__init__.py` | 8 | 0 | 100%|
-| `ats_utilities/base/component_bundle.py` | 34 | 7 | 79%|
+| `ats_utilities/base/component_bundle.py` | 34 | 0 | 100%|
 | `ats_utilities/base/engine.py` | 75 | 4 | 95%|
 | `ats_utilities/base/ibase.py` | 14 | 0 | 100%|
 | `ats_utilities/checker/__init__.py` | 8 | 0 | 100%|
-| `ats_utilities/checker/check_reporter.py` | 27 | 2 | 93%|
-| `ats_utilities/checker/checker_reporter_bundle.py` | 29 | 9 | 69%|
-| `ats_utilities/checker/component_bundle.py` | 27 | 5 | 81%|
-| `ats_utilities/checker/context_provider.py` | 25 | 3 | 88%|
-| `ats_utilities/checker/engine.py` | 58 | 1 | 98%|
-| `ats_utilities/checker/format_validator.py` | 20 | 1 | 95%|
+| `ats_utilities/checker/check_reporter.py` | 27 | 1 | 96%|
+| `ats_utilities/checker/checker_reporter_bundle.py` | 29 | 0 | 100%|
+| `ats_utilities/checker/component_bundle.py` | 27 | 0 | 100%|
+| `ats_utilities/checker/context_provider.py` | 25 | 2 | 92%|
+| `ats_utilities/checker/engine.py` | 58 | 0 | 100%|
+| `ats_utilities/checker/format_validator.py` | 20 | 0 | 100%|
 | `ats_utilities/checker/icheck_reporter.py` | 11 | 0 | 100%|
 | `ats_utilities/checker/ichecker.py` | 23 | 0 | 100%|
 | `ats_utilities/checker/icontext_provider.py` | 10 | 0 | 100%|
 | `ats_utilities/checker/iformat_validator.py` | 10 | 0 | 100%|
 | `ats_utilities/checker/itype_validator.py` | 11 | 0 | 100%|
-| `ats_utilities/checker/proxy_validator.py` | 60 | 4 | 93%|
-| `ats_utilities/checker/type_validator.py` | 20 | 3 | 85%|
+| `ats_utilities/checker/proxy_validator.py` | 60 | 0 | 100%|
+| `ats_utilities/checker/type_validator.py` | 20 | 0 | 100%|
 | `ats_utilities/config_io/__init__.py` | 8 | 0 | 100%|
 | `ats_utilities/config_io/cfg/__init__.py` | 8 | 0 | 100%|
 | `ats_utilities/config_io/cfg/cfg2object.py` | 52 | 1 | 98%|
 | `ats_utilities/config_io/cfg/cfg_loader.py` | 45 | 1 | 98%|
-| `ats_utilities/config_io/cfg/cfg_processor.py` | 29 | 2 | 93%|
-| `ats_utilities/config_io/cfg/cfg_storer.py` | 38 | 38 | 0%|
+| `ats_utilities/config_io/cfg/cfg_processor.py` | 29 | 0 | 100%|
+| `ats_utilities/config_io/cfg/cfg_storer.py` | 38 | 0 | 100%|
 | `ats_utilities/config_io/cfg/icfg_processor.py` | 10 | 0 | 100%|
-| `ats_utilities/config_io/cfg/object2cfg.py` | 54 | 1 | 98%|
+| `ats_utilities/config_io/cfg/object2cfg.py` | 54 | 0 | 100%|
 | `ats_utilities/config_io/conf_file.py` | 60 | 1 | 98%|
-| `ats_utilities/config_io/config_file_bundle.py` | 23 | 5 | 78%|
+| `ats_utilities/config_io/config_file_bundle.py` | 23 | 0 | 100%|
 | `ats_utilities/config_io/config_loader.py` | 52 | 1 | 98%|
-| `ats_utilities/config_io/config_loader_bundle.py` | 26 | 5 | 81%|
-| `ats_utilities/config_io/file_bundle.py` | 22 | 5 | 77%|
-| `ats_utilities/config_io/file_check.py` | 59 | 1 | 98%|
+| `ats_utilities/config_io/config_loader_bundle.py` | 26 | 0 | 100%|
+| `ats_utilities/config_io/file_bundle.py` | 22 | 0 | 100%|
+| `ats_utilities/config_io/file_check.py` | 59 | 0 | 100%|
 | `ats_utilities/config_io/iconf_file.py` | 13 | 0 | 100%|
 | `ats_utilities/config_io/iconfig_loader.py` | 22 | 0 | 100%|
 | `ats_utilities/config_io/ifile_check.py` | 12 | 0 | 100%|
@@ -333,42 +340,42 @@ Framework structure
 | `ats_utilities/config_io/ini/iini_processor.py` | 11 | 0 | 100%|
 | `ats_utilities/config_io/ini/ini2object.py` | 51 | 1 | 98%|
 | `ats_utilities/config_io/ini/ini_loader.py` | 45 | 1 | 98%|
-| `ats_utilities/config_io/ini/ini_processor.py` | 38 | 9 | 76%|
-| `ats_utilities/config_io/ini/ini_storer.py` | 44 | 44 | 0%|
-| `ats_utilities/config_io/ini/object2ini.py` | 53 | 1 | 98%|
+| `ats_utilities/config_io/ini/ini_processor.py` | 38 | 0 | 100%|
+| `ats_utilities/config_io/ini/ini_storer.py` | 44 | 0 | 100%|
+| `ats_utilities/config_io/ini/object2ini.py` | 53 | 0 | 100%|
 | `ats_utilities/config_io/iread.py` | 11 | 0 | 100%|
-| `ats_utilities/config_io/istorer.py` | 10 | 10 | 0%|
+| `ats_utilities/config_io/istorer.py` | 10 | 0 | 100%|
 | `ats_utilities/config_io/iwrite.py` | 11 | 0 | 100%|
 | `ats_utilities/config_io/json/__init__.py` | 8 | 0 | 100%|
 | `ats_utilities/config_io/json/ijson_processor.py` | 10 | 0 | 100%|
 | `ats_utilities/config_io/json/json2object.py` | 52 | 1 | 98%|
 | `ats_utilities/config_io/json/json_loader.py` | 45 | 1 | 98%|
-| `ats_utilities/config_io/json/json_processor.py` | 26 | 4 | 85%|
-| `ats_utilities/config_io/json/json_storer.py` | 43 | 43 | 0%|
-| `ats_utilities/config_io/json/object2json.py` | 53 | 1 | 98%|
+| `ats_utilities/config_io/json/json_processor.py` | 26 | 0 | 100%|
+| `ats_utilities/config_io/json/json_storer.py` | 43 | 2 | 95%|
+| `ats_utilities/config_io/json/object2json.py` | 53 | 0 | 100%|
 | `ats_utilities/config_io/xml/__init__.py` | 8 | 0 | 100%|
 | `ats_utilities/config_io/xml/ixml_processor.py` | 10 | 0 | 100%|
-| `ats_utilities/config_io/xml/object2xml.py` | 56 | 1 | 98%|
+| `ats_utilities/config_io/xml/object2xml.py` | 56 | 0 | 100%|
 | `ats_utilities/config_io/xml/xml2object.py` | 55 | 1 | 98%|
 | `ats_utilities/config_io/xml/xml_loader.py` | 45 | 1 | 98%|
-| `ats_utilities/config_io/xml/xml_processor.py` | 39 | 7 | 82%|
-| `ats_utilities/config_io/xml/xml_storer.py` | 51 | 51 | 0%|
+| `ats_utilities/config_io/xml/xml_processor.py` | 39 | 0 | 100%|
+| `ats_utilities/config_io/xml/xml_storer.py` | 51 | 2 | 96%|
 | `ats_utilities/config_io/yaml/__init__.py` | 8 | 0 | 100%|
 | `ats_utilities/config_io/yaml/iyaml_processor.py` | 10 | 0 | 100%|
-| `ats_utilities/config_io/yaml/object2yaml.py` | 53 | 1 | 98%|
+| `ats_utilities/config_io/yaml/object2yaml.py` | 53 | 0 | 100%|
 | `ats_utilities/config_io/yaml/yaml2object.py` | 53 | 1 | 98%|
 | `ats_utilities/config_io/yaml/yaml_loader.py` | 45 | 1 | 98%|
-| `ats_utilities/config_io/yaml/yaml_processor.py` | 27 | 4 | 85%|
-| `ats_utilities/config_io/yaml/yaml_storer.py` | 43 | 43 | 0%|
+| `ats_utilities/config_io/yaml/yaml_processor.py` | 27 | 0 | 100%|
+| `ats_utilities/config_io/yaml/yaml_storer.py` | 43 | 2 | 95%|
 | `ats_utilities/config_setup/__init__.py` | 8 | 0 | 100%|
-| `ats_utilities/config_setup/component_bundle.py` | 27 | 27 | 0%|
+| `ats_utilities/config_setup/component_bundle.py` | 27 | 0 | 100%|
 | `ats_utilities/config_setup/ipro_config.py` | 11 | 0 | 100%|
 | `ats_utilities/config_setup/ipro_name.py` | 10 | 0 | 100%|
 | `ats_utilities/config_setup/itemplate_dir.py` | 10 | 0 | 100%|
 | `ats_utilities/config_setup/pro_config.py` | 41 | 2 | 95%|
 | `ats_utilities/config_setup/pro_name.py` | 37 | 2 | 95%|
 | `ats_utilities/config_setup/template_dir.py` | 37 | 2 | 95%|
-| `ats_utilities/context_bundle.py` | 30 | 9 | 70%|
+| `ats_utilities/context_bundle.py` | 30 | 0 | 100%|
 | `ats_utilities/exceptions/__init__.py` | 8 | 0 | 100%|
 | `ats_utilities/exceptions/ats_attribute_error.py` | 9 | 0 | 100%|
 | `ats_utilities/exceptions/ats_bad_call_error.py` | 9 | 0 | 100%|
@@ -380,13 +387,13 @@ Framework structure
 | `ats_utilities/exceptions/ats_runtime_error.py` | 9 | 0 | 100%|
 | `ats_utilities/exceptions/ats_type_error.py` | 9 | 0 | 100%|
 | `ats_utilities/exceptions/ats_value_error.py` | 9 | 0 | 100%|
-| `ats_utilities/factory_class.py` | 65 | 30 | 54%|
+| `ats_utilities/factory_class.py` | 65 | 0 | 100%|
 | `ats_utilities/factory_component.py` | 13 | 1 | 92%|
 | `ats_utilities/factory_context_bundle.py` | 23 | 0 | 100%|
 | `ats_utilities/factory_utils.py` | 25 | 3 | 88%|
 | `ats_utilities/info/__init__.py` | 8 | 0 | 100%|
-| `ats_utilities/info/build_date.py` | 37 | 1 | 97%|
-| `ats_utilities/info/component_bundle.py` | 57 | 23 | 60%|
+| `ats_utilities/info/build_date.py` | 37 | 0 | 100%|
+| `ats_utilities/info/component_bundle.py` | 57 | 4 | 93%|
 | `ats_utilities/info/engine.py` | 96 | 2 | 98%|
 | `ats_utilities/info/ibuild_date.py` | 10 | 0 | 100%|
 | `ats_utilities/info/iinfo_ok.py` | 10 | 0 | 100%|
@@ -395,43 +402,43 @@ Framework structure
 | `ats_utilities/info/imanager.py` | 11 | 0 | 100%|
 | `ats_utilities/info/iname.py` | 10 | 0 | 100%|
 | `ats_utilities/info/info_keys.py` | 20 | 0 | 100%|
-| `ats_utilities/info/info_ok.py` | 34 | 1 | 97%|
+| `ats_utilities/info/info_ok.py` | 34 | 0 | 100%|
 | `ats_utilities/info/iorganization.py` | 10 | 0 | 100%|
 | `ats_utilities/info/irepository.py` | 10 | 0 | 100%|
 | `ats_utilities/info/iuse_github.py` | 10 | 0 | 100%|
 | `ats_utilities/info/iversion.py` | 10 | 0 | 100%|
-| `ats_utilities/info/licence.py` | 37 | 1 | 97%|
-| `ats_utilities/info/logo.py` | 37 | 2 | 95%|
-| `ats_utilities/info/name.py` | 37 | 1 | 97%|
-| `ats_utilities/info/organization.py` | 37 | 2 | 95%|
-| `ats_utilities/info/repository.py` | 37 | 2 | 95%|
-| `ats_utilities/info/use_github.py` | 37 | 2 | 95%|
-| `ats_utilities/info/version.py` | 37 | 1 | 97%|
+| `ats_utilities/info/licence.py` | 37 | 0 | 100%|
+| `ats_utilities/info/logo.py` | 37 | 0 | 100%|
+| `ats_utilities/info/name.py` | 37 | 0 | 100%|
+| `ats_utilities/info/organization.py` | 37 | 0 | 100%|
+| `ats_utilities/info/repository.py` | 37 | 0 | 100%|
+| `ats_utilities/info/use_github.py` | 37 | 0 | 100%|
+| `ats_utilities/info/version.py` | 37 | 0 | 100%|
 | `ats_utilities/logging/__init__.py` | 8 | 0 | 100%|
-| `ats_utilities/logging/component_bundle.py` | 25 | 5 | 80%|
+| `ats_utilities/logging/component_bundle.py` | 25 | 0 | 100%|
 | `ats_utilities/logging/engine.py` | 43 | 2 | 95%|
 | `ats_utilities/logging/ilogger.py` | 32 | 0 | 100%|
 | `ats_utilities/logging/ilogger_manager.py` | 11 | 0 | 100%|
 | `ats_utilities/logging/logger.py` | 65 | 5 | 92%|
-| `ats_utilities/logging/logger_bundle.py` | 23 | 5 | 78%|
+| `ats_utilities/logging/logger_bundle.py` | 23 | 0 | 100%|
 | `ats_utilities/option/__init__.py` | 8 | 0 | 100%|
 | `ats_utilities/option/arg_parser.py` | 32 | 3 | 91%|
-| `ats_utilities/option/component_bundle.py` | 31 | 11 | 65%|
+| `ats_utilities/option/component_bundle.py` | 31 | 0 | 100%|
 | `ats_utilities/option/engine.py` | 53 | 5 | 91%|
 | `ats_utilities/option/ioption_parser.py` | 13 | 0 | 100%|
 | `ats_utilities/option/iparser_strategy.py` | 13 | 0 | 100%|
 | `ats_utilities/option/option_namespace.py` | 14 | 0 | 100%|
 | `ats_utilities/option/parser_strategy.py` | 52 | 7 | 87%|
 | `ats_utilities/reporter/__init__.py` | 8 | 0 | 100%|
-| `ats_utilities/reporter/component_bundle.py` | 26 | 7 | 73%|
-| `ats_utilities/reporter/engine.py` | 46 | 1 | 98%|
+| `ats_utilities/reporter/component_bundle.py` | 26 | 0 | 100%|
+| `ats_utilities/reporter/engine.py` | 46 | 0 | 100%|
 | `ats_utilities/reporter/ireporter.py` | 11 | 0 | 100%|
 | `ats_utilities/reporter/proxy_reporter.py` | 55 | 7 | 87%|
 | `ats_utilities/reporter/theme/__init__.py` | 8 | 0 | 100%|
-| `ats_utilities/reporter/theme/engine.py` | 18 | 1 | 94%|
+| `ats_utilities/reporter/theme/engine.py` | 18 | 0 | 100%|
 | `ats_utilities/reporter/theme/iconsole_theme.py` | 10 | 0 | 100%|
 | `ats_utilities/splasher/__init__.py` | 8 | 0 | 100%|
-| `ats_utilities/splasher/component_bundle.py` | 34 | 7 | 79%|
+| `ats_utilities/splasher/component_bundle.py` | 34 | 0 | 100%|
 | `ats_utilities/splasher/engine.py` | 85 | 1 | 99%|
 | `ats_utilities/splasher/ext_infrastructure.py` | 54 | 2 | 96%|
 | `ats_utilities/splasher/github_infrastructure.py` | 61 | 2 | 97%|
@@ -441,11 +448,13 @@ Framework structure
 | `ats_utilities/splasher/isplasher.py` | 11 | 0 | 100%|
 | `ats_utilities/splasher/iterminal_properties.py` | 11 | 0 | 100%|
 | `ats_utilities/splasher/progress_bar.py` | 47 | 3 | 94%|
-| `ats_utilities/splasher/splash_center_bundle.py` | 36 | 9 | 75%|
+| `ats_utilities/splasher/splash_center_bundle.py` | 36 | 0 | 100%|
 | `ats_utilities/splasher/splash_keys.py` | 17 | 0 | 100%|
 | `ats_utilities/splasher/splash_property.py` | 43 | 2 | 95%|
 | `ats_utilities/splasher/terminal_properties.py` | 54 | 5 | 91%|
-| **Total** | 4188 | 531 | 87% |
+| **Total** | 4188 | 85 | 98% |
+
+</details>
 
 ### Docs
 

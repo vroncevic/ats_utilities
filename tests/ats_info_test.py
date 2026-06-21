@@ -24,6 +24,15 @@ Execute
 
 from unittest import TestCase, main
 from ats_utilities.info.engine import InfoManager
+from ats_utilities.info.build_date import BuildDate
+from ats_utilities.info.licence import Licence
+from ats_utilities.info.logo import Logo
+from ats_utilities.info.name import Name
+from ats_utilities.info.organization import Organization
+from ats_utilities.info.repository import Repository
+from ats_utilities.info.use_github import UseGitHub
+from ats_utilities.info.version import Version
+from ats_utilities.info.info_ok import InfoOk
 from ats_utilities.exceptions.ats_type_error import ATSTypeError
 
 __author__: str = 'Vladimir Roncevic'
@@ -169,6 +178,170 @@ class InfoManagerTestCase(TestCase):
             self.manager.use_github = 'true'  # type: ignore
         with self.assertRaises(ATSTypeError):
             self.manager.logo_path = 123  # type: ignore
+
+
+class InfoComponentsTestCase(TestCase):
+    '''
+        Defines class InfoComponentsTestCase with attribute(s) and method(s).
+        Creates test cases for checking functionalities of individual info components.
+        Info components unit tests.
+
+        It defines:
+
+            :attributes: None
+            :methods:
+                | test_build_date_component - Tests build date component.
+                | test_licence_component - Tests licence component.
+                | test_logo_component - Tests logo component.
+                | test_name_component - Tests name component.
+                | test_organization_component - Tests organization component.
+                | test_repository_component - Tests repository component.
+                | test_use_github_component - Tests use GitHub component.
+                | test_version_component - Tests version component.
+                | test_info_ok_component - Tests info ok component.
+    '''
+
+    def test_build_date_component(self) -> None:
+        '''
+            Tests build date component.
+
+            :return: None.
+            :rtype: <None>
+            :exceptions: None.
+        '''
+        component = BuildDate()
+        self.assertFalse(component.not_none())
+        self.assertIsNone(component.build_date)
+        component.build_date = 'Sun 25 Apr 2021 08:12:40 PM CEST'
+        self.assertTrue(component.not_none())
+        self.assertEqual(component.build_date, 'Sun 25 Apr 2021 08:12:40 PM CEST')
+        self.assertIsInstance(str(component), str)
+
+    def test_licence_component(self) -> None:
+        '''
+            Tests licence component.
+
+            :return: None.
+            :rtype: <None>
+            :exceptions: None.
+        '''
+        component = Licence()
+        self.assertFalse(component.not_none())
+        self.assertIsNone(component.licence)
+        component.licence = 'GPLv3'
+        self.assertTrue(component.not_none())
+        self.assertEqual(component.licence, 'GPLv3')
+        self.assertIsInstance(str(component), str)
+
+    def test_logo_component(self) -> None:
+        '''
+            Tests logo component.
+
+            :return: None.
+            :rtype: <None>
+            :exceptions: None.
+        '''
+        component = Logo()
+        self.assertFalse(component.not_none())
+        self.assertIsNone(component.logo_path)
+        component.logo_path = '/path/to/logo.png'
+        self.assertTrue(component.not_none())
+        self.assertEqual(component.logo_path, '/path/to/logo.png')
+        self.assertIsInstance(str(component), str)
+
+    def test_name_component(self) -> None:
+        '''
+            Tests name component.
+
+            :return: None.
+            :rtype: <None>
+            :exceptions: None.
+        '''
+        component = Name()
+        self.assertFalse(component.not_none())
+        self.assertIsNone(component.name)
+        component.name = 'Simple Tool'
+        self.assertTrue(component.not_none())
+        self.assertEqual(component.name, 'Simple Tool')
+        self.assertIsInstance(str(component), str)
+
+    def test_organization_component(self) -> None:
+        '''
+            Tests organization component.
+
+            :return: None.
+            :rtype: <None>
+            :exceptions: None.
+        '''
+        component = Organization()
+        self.assertFalse(component.not_none())
+        self.assertIsNone(component.organization)
+        component.organization = 'my-org'
+        self.assertTrue(component.not_none())
+        self.assertEqual(component.organization, 'my-org')
+        self.assertIsInstance(str(component), str)
+
+    def test_repository_component(self) -> None:
+        '''
+            Tests repository component.
+
+            :return: None.
+            :rtype: <None>
+            :exceptions: None.
+        '''
+        component = Repository()
+        self.assertFalse(component.not_none())
+        self.assertIsNone(component.repository)
+        component.repository = 'my-repo'
+        self.assertTrue(component.not_none())
+        self.assertEqual(component.repository, 'my-repo')
+        self.assertIsInstance(str(component), str)
+
+    def test_use_github_component(self) -> None:
+        '''
+            Tests use GitHub component.
+
+            :return: None.
+            :rtype: <None>
+            :exceptions: None.
+        '''
+        component = UseGitHub()
+        self.assertFalse(component.not_none())
+        self.assertIsNone(component.use_github)
+        component.use_github = True
+        self.assertTrue(component.not_none())
+        self.assertEqual(component.use_github, True)
+        self.assertIsInstance(str(component), str)
+
+    def test_version_component(self) -> None:
+        '''
+            Tests version component.
+
+            :return: None.
+            :rtype: <None>
+            :exceptions: None.
+        '''
+        component = Version()
+        self.assertFalse(component.not_none())
+        self.assertIsNone(component.version)
+        component.version = '1.0.0'
+        self.assertTrue(component.not_none())
+        self.assertEqual(component.version, '1.0.0')
+        self.assertIsInstance(str(component), str)
+
+    def test_info_ok_component(self) -> None:
+        '''
+            Tests info ok component.
+
+            :return: None.
+            :rtype: <None>
+            :exceptions: None.
+        '''
+        component = InfoOk()
+        self.assertFalse(component.info_ok)
+        component.info_ok = True
+        self.assertTrue(component.info_ok)
+        self.assertIsInstance(str(component), str)
 
 
 if __name__ == '__main__':
