@@ -103,7 +103,7 @@ class IOptionManager(ABC):
         raise NotImplementedError("Method parse_args() must be implemented.")
 
     @abstractmethod
-    def ok(self) -> bool:
+    def is_initialized(self) -> bool:
         '''
             Checks if option parser component is ok.
 

@@ -77,6 +77,7 @@ class ProNameTestCase(TestCase):
                 | test_set_pro_name_none - Sets None project name.
                 | test_set_pro_name - Sets simple project name.
                 | test_get_pro_name - Gets simple project name.
+                | test_str - Test string representation of ProName.
     '''
 
     def setUp(self) -> None:
@@ -118,6 +119,17 @@ class ProNameTestCase(TestCase):
         test_name: str | None = "app_example"
         self.ats_base_pro_name.pro_name = test_name
         self.assertIsNotNone(self.ats_base_pro_name.pro_name)
+
+    def test_str(self) -> None:
+        '''Test string representation of ProName.'''
+        self.assertIsInstance(str(self.ats_base_pro_name), str)
+
+    def test_not_none_method(self) -> None:
+        '''Test not_none method.'''
+        self.ats_base_pro_name.pro_name = None
+        self.assertFalse(self.ats_base_pro_name.not_none())
+        self.ats_base_pro_name.pro_name = 'app_example'
+        self.assertTrue(self.ats_base_pro_name.not_none())
 
 
 if __name__ == '__main__':

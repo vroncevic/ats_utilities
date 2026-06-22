@@ -46,6 +46,7 @@ class IReporter(ABC):
                 | success - Reports success message.
                 | verbose - Reports verbose message.
                 | warning - Reports warning message.
+                | is_initialized - Checks if the reporter component is initialized.
                 | __str__ - Returns the ATS reporter as string representation.
     '''
 
@@ -94,6 +95,17 @@ class IReporter(ABC):
             :exceptions: NotImplementedError.
         '''
         raise NotImplementedError("Method error() must be implemented.")
+
+    @abstractmethod
+    def is_initialized(self) -> bool:
+        '''
+            Returns whether the reporter component is initialized.
+
+            :return: True (success) | False (fail).
+            :rtype: <bool>
+            :exceptions: NotImplementedError.
+        '''
+        raise NotImplementedError("Method is_initialized() must be implemented.")
 
     @abstractmethod
     def __str__(self) -> str:

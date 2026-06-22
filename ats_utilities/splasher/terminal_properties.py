@@ -52,9 +52,9 @@ class TerminalProperties(ITerminalProperties):
         It defines:
 
             :attributes:
-                | _checker - Factoriezed parameters checker (default Checker).
-                | _reporter - Factoriezed reporter for messaging (default Reporter).
-                | _verbose - Factoriezed Enable/Disable verbose option (default False).
+                | _checker - Injected parameters checker (default Checker).
+                | _reporter - Injected reporter for messaging (default Reporter).
+                | _verbose - Injected Enable/Disable verbose option (default False).
                 | _window_size - Terminal window size.
             :methods:
                 | __init__ - Initials TerminalProperties constructor.
@@ -100,7 +100,7 @@ class TerminalProperties(ITerminalProperties):
         '''
             Sets size for all file descriptors.
 
-            :exceptions: ATSRuntimeError, ATSAttributeError
+            :exceptions: ATSRuntimeError, ATSAttributeError.
         '''
         std_in: tuple[Any, ...] = self.ioctl_get_window_size(0)
         std_out: tuple[Any, ...] = self.ioctl_get_window_size(1)
@@ -114,7 +114,7 @@ class TerminalProperties(ITerminalProperties):
 
             :return: Terminal window size.
             :rtype: <tuple[Any, ...]>
-            :exceptions: ATSRuntimeError, ATSAttributeError
+            :exceptions: ATSRuntimeError, ATSAttributeError.
         '''
         try:
             self.ioctl_for_all_descriptors()

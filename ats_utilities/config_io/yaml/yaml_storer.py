@@ -53,9 +53,9 @@ class YAMLStorer(IStorer):
         It defines:
 
             :attributes:
-                | _checker - Factoriezed parameters checker (default Checker).
-                | _reporter - Factoriezed reporter for messaging (default Reporter).
-                | _verbose - Factoriezed Enable/Disable verbose option (default False).
+                | _checker - Injected parameters checker (default Checker).
+                | _reporter - Injected reporter for messaging (default Reporter).
+                | _verbose - Injected Enable/Disable verbose option (default False).
                 | _processor - Processor for YAML content (default YAMLProcessor).
                 | _obj2yaml - Out API for information (default Object2Yaml).
             :methods:
@@ -91,11 +91,11 @@ class YAMLStorer(IStorer):
         config_file_bundle: ATSConfigFileBundle = config_bundle or ATSConfigFileBundle()
         factory_context_bundle(self, config_file_bundle.context)
         self._processor: IYAMLProcessor = make_component(yaml_processor, YAMLProcessor, None)
-        validate_component(self._processor, type(self._processor), type(self._processor).__name__)
+        validate_component(self._processor, YAMLProcessor)
         self._obj2yaml: IWrite = make_component(object2yaml, Object2Yaml, {
             'config_file': info_file, 'config_bundle': config_file_bundle
         })
-        validate_component(self._obj2yaml, type(self._obj2yaml), type(self._obj2yaml).__name__)
+        validate_component(self._obj2yaml, Object2Yaml)
 
     @validator([('dict:config', None)])
     def store_configuration(self, config: dict[str, str]) -> bool:

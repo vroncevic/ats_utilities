@@ -80,9 +80,15 @@
 <span class="kn">from</span> <span class="nn">ats_utilities.info.iinfo_ok</span> <span class="kn">import</span> <span class="n">IInfoOk</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.info.info_ok</span> <span class="kn">import</span> <span class="n">InfoOk</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.info.info_keys</span> <span class="kn">import</span> <span class="n">InfoKeys</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.factory_class</span> <span class="kn">import</span> <span class="n">format_instance_to_string</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.checker.ichecker</span> <span class="kn">import</span> <span class="n">IChecker</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.reporter.ireporter</span> <span class="kn">import</span> <span class="n">IReporter</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.factory_context_bundle</span> <span class="kn">import</span> <span class="n">factory_context_bundle</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.factory_class</span> <span class="kn">import</span> <span class="n">get_class_name</span><span class="p">,</span> <span class="n">format_instance_to_string</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.factory_component</span> <span class="kn">import</span> <span class="n">make_component</span><span class="p">,</span> <span class="n">validate_component</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.exceptions.ats_type_error</span> <span class="kn">import</span> <span class="n">ATSTypeError</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.exceptions.ats_value_error</span> <span class="kn">import</span> <span class="n">ATSValueError</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.exceptions.ats_runtime_error</span> <span class="kn">import</span> <span class="n">ATSRuntimeError</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.exceptions.ats_attribute_error</span> <span class="kn">import</span> <span class="n">ATSAttributeError</span>
 
 <span class="n">__author__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;Vladimir Roncevic&#39;</span>
 <span class="n">__copyright__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;(C) 2026, https://vroncevic.github.io/ats_utilities&#39;</span>
@@ -107,15 +113,22 @@
 <span class="sd">            :attributes:</span>
 <span class="sd">                | _ATTR_MAP - Map attributes to dynamic component properties.</span>
 <span class="sd">                | _components - The ATS info components (default InfoComponentBundle).</span>
+<span class="sd">                | _checker - Injected parameters checker (default Checker).</span>
+<span class="sd">                | _reporter - Injected reporter for messaging (default Reporter).</span>
+<span class="sd">                | _verbose - Injected Enable/Disable verbose option (default False).</span>
+<span class="sd">                | _is_initialized - Indicates if the info manager component is initialized (default False).</span>
 <span class="sd">            :methods:</span>
 <span class="sd">                | __init__ - Initializes InfoManager constructor.</span>
 <span class="sd">                | set_info - Sets the ATS information.</span>
-<span class="sd">                | ok - Checks is ATS information structure ok.</span>
-<span class="sd">                | __getattr__ - Gets attribute from instance components dynamically.</span>
-<span class="sd">                | __setattr__ - Sets attribute to instance components dynamically and refreshes status.</span>
+<span class="sd">                | get_info - Gets the ATS information.</span>
+<span class="sd">                | is_initialized - Checks if the info manager component is initialized.</span>
 <span class="sd">                | refresh_status - Refresh status for ATS information structure.</span>
-<span class="sd">                | __str__ - Returns the ATS info manager as string representation.</span>
+<span class="sd">                | __str__ - Returns the string representation of InfoManager.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
+
+    <span class="n">_checker</span><span class="p">:</span> <span class="n">IChecker</span>
+    <span class="n">_reporter</span><span class="p">:</span> <span class="n">IReporter</span>
+    <span class="n">_verbose</span><span class="p">:</span> <span class="nb">bool</span>
 
     <span class="n">_ATTR_MAP</span> <span class="o">=</span> <span class="p">{</span>
         <span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;name&#39;</span><span class="p">,</span>
@@ -135,35 +148,43 @@
 
 <span class="sd">            :param component_bundle: Bundle with components | None.</span>
 <span class="sd">            :type component_bundle: &lt;InfoComponentBundle | None&gt;</span>
-<span class="sd">            :exceptions: ATSTypeError.</span>
+<span class="sd">            :exceptions: None.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="c1"># No dependency injection then use default ones.</span>
         <span class="n">bundle</span><span class="p">:</span> <span class="n">InfoComponentBundle</span> <span class="o">=</span> <span class="n">component_bundle</span> <span class="ow">or</span> <span class="n">InfoComponentBundle</span><span class="p">()</span>
-        <span class="n">factory_args</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;context_bundle&#39;</span><span class="p">:</span> <span class="n">bundle</span><span class="o">.</span><span class="n">context_bundle</span><span class="p">}</span>
-        <span class="n">name</span><span class="p">:</span> <span class="n">IName</span> <span class="o">=</span> <span class="n">make_component</span><span class="p">(</span><span class="n">bundle</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">Name</span><span class="p">,</span> <span class="n">factory_args</span><span class="p">)</span>
-        <span class="n">validate_component</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="n">name</span><span class="p">),</span> <span class="nb">type</span><span class="p">(</span><span class="n">name</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)</span>
-        <span class="n">version</span><span class="p">:</span> <span class="n">IVersion</span> <span class="o">=</span> <span class="n">make_component</span><span class="p">(</span><span class="n">bundle</span><span class="o">.</span><span class="n">version</span><span class="p">,</span> <span class="n">Version</span><span class="p">,</span> <span class="n">factory_args</span><span class="p">)</span>
-        <span class="n">validate_component</span><span class="p">(</span><span class="n">version</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="n">version</span><span class="p">),</span> <span class="nb">type</span><span class="p">(</span><span class="n">version</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)</span>
-        <span class="n">licence</span><span class="p">:</span> <span class="n">ILicence</span> <span class="o">=</span> <span class="n">make_component</span><span class="p">(</span><span class="n">bundle</span><span class="o">.</span><span class="n">licence</span><span class="p">,</span> <span class="n">Licence</span><span class="p">,</span> <span class="n">factory_args</span><span class="p">)</span>
-        <span class="n">validate_component</span><span class="p">(</span><span class="n">licence</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="n">licence</span><span class="p">),</span> <span class="nb">type</span><span class="p">(</span><span class="n">licence</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)</span>
-        <span class="n">build_date</span><span class="p">:</span> <span class="n">IBuildDate</span> <span class="o">=</span> <span class="n">make_component</span><span class="p">(</span><span class="n">bundle</span><span class="o">.</span><span class="n">build_date</span><span class="p">,</span> <span class="n">BuildDate</span><span class="p">,</span> <span class="n">factory_args</span><span class="p">)</span>
-        <span class="n">validate_component</span><span class="p">(</span><span class="n">build_date</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="n">build_date</span><span class="p">),</span> <span class="nb">type</span><span class="p">(</span><span class="n">build_date</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)</span>
-        <span class="n">repository</span><span class="p">:</span> <span class="n">IRepository</span> <span class="o">=</span> <span class="n">make_component</span><span class="p">(</span><span class="n">bundle</span><span class="o">.</span><span class="n">repository</span><span class="p">,</span> <span class="n">Repository</span><span class="p">,</span> <span class="n">factory_args</span><span class="p">)</span>
-        <span class="n">validate_component</span><span class="p">(</span><span class="n">repository</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="n">repository</span><span class="p">),</span> <span class="nb">type</span><span class="p">(</span><span class="n">repository</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)</span>
-        <span class="n">organization</span><span class="p">:</span> <span class="n">IOrganization</span> <span class="o">=</span> <span class="n">make_component</span><span class="p">(</span><span class="n">bundle</span><span class="o">.</span><span class="n">organization</span><span class="p">,</span> <span class="n">Organization</span><span class="p">,</span> <span class="n">factory_args</span><span class="p">)</span>
-        <span class="n">validate_component</span><span class="p">(</span><span class="n">organization</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="n">organization</span><span class="p">),</span> <span class="nb">type</span><span class="p">(</span><span class="n">organization</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)</span>
-        <span class="n">use_github</span><span class="p">:</span> <span class="n">IUseGitHub</span> <span class="o">=</span> <span class="n">make_component</span><span class="p">(</span><span class="n">bundle</span><span class="o">.</span><span class="n">use_github</span><span class="p">,</span> <span class="n">UseGitHub</span><span class="p">,</span> <span class="n">factory_args</span><span class="p">)</span>
-        <span class="n">validate_component</span><span class="p">(</span><span class="n">use_github</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="n">use_github</span><span class="p">),</span> <span class="nb">type</span><span class="p">(</span><span class="n">use_github</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)</span>
-        <span class="n">logo_path</span><span class="p">:</span> <span class="n">ILogoPath</span> <span class="o">=</span> <span class="n">make_component</span><span class="p">(</span><span class="n">bundle</span><span class="o">.</span><span class="n">logo_path</span><span class="p">,</span> <span class="n">Logo</span><span class="p">,</span> <span class="n">factory_args</span><span class="p">)</span>
-        <span class="n">validate_component</span><span class="p">(</span><span class="n">logo_path</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="n">logo_path</span><span class="p">),</span> <span class="nb">type</span><span class="p">(</span><span class="n">logo_path</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)</span>
-        <span class="n">info_ok</span><span class="p">:</span> <span class="n">IInfoOk</span> <span class="o">=</span> <span class="n">make_component</span><span class="p">(</span><span class="n">bundle</span><span class="o">.</span><span class="n">info_ok</span><span class="p">,</span> <span class="n">InfoOk</span><span class="p">,</span> <span class="n">factory_args</span><span class="p">)</span>
-        <span class="n">validate_component</span><span class="p">(</span><span class="n">info_ok</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="n">info_ok</span><span class="p">),</span> <span class="nb">type</span><span class="p">(</span><span class="n">info_ok</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_components</span> <span class="o">=</span> <span class="n">InfoComponentBundle</span><span class="p">(</span>
-            <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span> <span class="n">version</span><span class="o">=</span><span class="n">version</span><span class="p">,</span> <span class="n">licence</span><span class="o">=</span><span class="n">licence</span><span class="p">,</span> <span class="n">build_date</span><span class="o">=</span><span class="n">build_date</span><span class="p">,</span>
-            <span class="n">repository</span><span class="o">=</span><span class="n">repository</span><span class="p">,</span> <span class="n">organization</span><span class="o">=</span><span class="n">organization</span><span class="p">,</span> <span class="n">use_github</span><span class="o">=</span><span class="n">use_github</span><span class="p">,</span>
-            <span class="n">logo_path</span><span class="o">=</span><span class="n">logo_path</span><span class="p">,</span> <span class="n">info_ok</span><span class="o">=</span><span class="n">info_ok</span>
-        <span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">refresh_status</span><span class="p">()</span>
+        <span class="n">factory_context_bundle</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bundle</span><span class="o">.</span><span class="n">context_bundle</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_is_initialized</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">factory_args</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;context_bundle&#39;</span><span class="p">:</span> <span class="n">bundle</span><span class="o">.</span><span class="n">context_bundle</span><span class="p">}</span>
+            <span class="n">name</span><span class="p">:</span> <span class="n">IName</span> <span class="o">=</span> <span class="n">make_component</span><span class="p">(</span><span class="n">bundle</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">Name</span><span class="p">,</span> <span class="n">factory_args</span><span class="p">)</span>
+            <span class="n">validate_component</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">Name</span><span class="p">)</span>
+            <span class="n">version</span><span class="p">:</span> <span class="n">IVersion</span> <span class="o">=</span> <span class="n">make_component</span><span class="p">(</span><span class="n">bundle</span><span class="o">.</span><span class="n">version</span><span class="p">,</span> <span class="n">Version</span><span class="p">,</span> <span class="n">factory_args</span><span class="p">)</span>
+            <span class="n">validate_component</span><span class="p">(</span><span class="n">version</span><span class="p">,</span> <span class="n">Version</span><span class="p">)</span>
+            <span class="n">licence</span><span class="p">:</span> <span class="n">ILicence</span> <span class="o">=</span> <span class="n">make_component</span><span class="p">(</span><span class="n">bundle</span><span class="o">.</span><span class="n">licence</span><span class="p">,</span> <span class="n">Licence</span><span class="p">,</span> <span class="n">factory_args</span><span class="p">)</span>
+            <span class="n">validate_component</span><span class="p">(</span><span class="n">licence</span><span class="p">,</span> <span class="n">Licence</span><span class="p">)</span>
+            <span class="n">build_date</span><span class="p">:</span> <span class="n">IBuildDate</span> <span class="o">=</span> <span class="n">make_component</span><span class="p">(</span><span class="n">bundle</span><span class="o">.</span><span class="n">build_date</span><span class="p">,</span> <span class="n">BuildDate</span><span class="p">,</span> <span class="n">factory_args</span><span class="p">)</span>
+            <span class="n">validate_component</span><span class="p">(</span><span class="n">build_date</span><span class="p">,</span> <span class="n">BuildDate</span><span class="p">)</span>
+            <span class="n">repository</span><span class="p">:</span> <span class="n">IRepository</span> <span class="o">=</span> <span class="n">make_component</span><span class="p">(</span><span class="n">bundle</span><span class="o">.</span><span class="n">repository</span><span class="p">,</span> <span class="n">Repository</span><span class="p">,</span> <span class="n">factory_args</span><span class="p">)</span>
+            <span class="n">validate_component</span><span class="p">(</span><span class="n">repository</span><span class="p">,</span> <span class="n">Repository</span><span class="p">)</span>
+            <span class="n">organization</span><span class="p">:</span> <span class="n">IOrganization</span> <span class="o">=</span> <span class="n">make_component</span><span class="p">(</span><span class="n">bundle</span><span class="o">.</span><span class="n">organization</span><span class="p">,</span> <span class="n">Organization</span><span class="p">,</span> <span class="n">factory_args</span><span class="p">)</span>
+            <span class="n">validate_component</span><span class="p">(</span><span class="n">organization</span><span class="p">,</span> <span class="n">Organization</span><span class="p">)</span>
+            <span class="n">use_github</span><span class="p">:</span> <span class="n">IUseGitHub</span> <span class="o">=</span> <span class="n">make_component</span><span class="p">(</span><span class="n">bundle</span><span class="o">.</span><span class="n">use_github</span><span class="p">,</span> <span class="n">UseGitHub</span><span class="p">,</span> <span class="n">factory_args</span><span class="p">)</span>
+            <span class="n">validate_component</span><span class="p">(</span><span class="n">use_github</span><span class="p">,</span> <span class="n">UseGitHub</span><span class="p">)</span>
+            <span class="n">logo_path</span><span class="p">:</span> <span class="n">ILogoPath</span> <span class="o">=</span> <span class="n">make_component</span><span class="p">(</span><span class="n">bundle</span><span class="o">.</span><span class="n">logo_path</span><span class="p">,</span> <span class="n">Logo</span><span class="p">,</span> <span class="n">factory_args</span><span class="p">)</span>
+            <span class="n">validate_component</span><span class="p">(</span><span class="n">logo_path</span><span class="p">,</span> <span class="n">Logo</span><span class="p">)</span>
+            <span class="n">info_ok</span><span class="p">:</span> <span class="n">IInfoOk</span> <span class="o">=</span> <span class="n">make_component</span><span class="p">(</span><span class="n">bundle</span><span class="o">.</span><span class="n">info_ok</span><span class="p">,</span> <span class="n">InfoOk</span><span class="p">,</span> <span class="n">factory_args</span><span class="p">)</span>
+            <span class="n">validate_component</span><span class="p">(</span><span class="n">info_ok</span><span class="p">,</span> <span class="n">InfoOk</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_components</span> <span class="o">=</span> <span class="n">InfoComponentBundle</span><span class="p">(</span>
+                <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span> <span class="n">version</span><span class="o">=</span><span class="n">version</span><span class="p">,</span> <span class="n">licence</span><span class="o">=</span><span class="n">licence</span><span class="p">,</span> <span class="n">build_date</span><span class="o">=</span><span class="n">build_date</span><span class="p">,</span>
+                <span class="n">repository</span><span class="o">=</span><span class="n">repository</span><span class="p">,</span> <span class="n">organization</span><span class="o">=</span><span class="n">organization</span><span class="p">,</span> <span class="n">use_github</span><span class="o">=</span><span class="n">use_github</span><span class="p">,</span>
+                <span class="n">logo_path</span><span class="o">=</span><span class="n">logo_path</span><span class="p">,</span> <span class="n">info_ok</span><span class="o">=</span><span class="n">info_ok</span>
+            <span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">refresh_status</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_is_initialized</span> <span class="o">=</span> <span class="kc">True</span>
+
+        <span class="k">except</span> <span class="p">(</span><span class="n">ATSTypeError</span><span class="p">,</span> <span class="n">ATSValueError</span><span class="p">,</span> <span class="n">ATSRuntimeError</span><span class="p">,</span> <span class="n">ATSAttributeError</span><span class="p">)</span> <span class="k">as</span> <span class="n">exc</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_reporter</span><span class="o">.</span><span class="n">error</span><span class="p">([</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">get_class_name</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="si">}</span><span class="s2"> - error during initialization: </span><span class="si">{</span><span class="n">exc</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">])</span>
 
 <div class="viewcode-block" id="InfoManager.set_info">
 <a class="viewcode-back" href="../../../ats_utilities.info.engine.html#ats_utilities.info.engine.InfoManager.set_info">[docs]</a>
@@ -250,18 +271,18 @@
 
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__setattr__</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
 
-<div class="viewcode-block" id="InfoManager.ok">
-<a class="viewcode-back" href="../../../ats_utilities.info.engine.html#ats_utilities.info.engine.InfoManager.ok">[docs]</a>
-    <span class="k">def</span> <span class="nf">ok</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<div class="viewcode-block" id="InfoManager.is_initialized">
+<a class="viewcode-back" href="../../../ats_utilities.info.engine.html#ats_utilities.info.engine.InfoManager.is_initialized">[docs]</a>
+    <span class="k">def</span> <span class="nf">is_initialized</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">            Checks is ATS information structure ok.</span>
+<span class="sd">            Checks if the info manager component is initialized.</span>
 
 <span class="sd">            :return: True (success) | False (fail).</span>
 <span class="sd">            :rtype: &lt;bool&gt;</span>
-<span class="sd">            :exceptions: None..</span>
+<span class="sd">            :exceptions: None.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="n">component</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_components</span><span class="p">,</span> <span class="s1">&#39;info_ok&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">component</span><span class="o">.</span><span class="n">info_ok</span> <span class="k">if</span> <span class="n">component</span> <span class="k">else</span> <span class="kc">False</span></div>
+        <span class="n">component</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_components</span><span class="p">,</span> <span class="s1">&#39;info_ok&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_is_initialized</span> <span class="k">else</span> <span class="kc">None</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_is_initialized</span> <span class="ow">and</span> <span class="p">(</span><span class="n">component</span><span class="o">.</span><span class="n">info_ok</span> <span class="k">if</span> <span class="n">component</span> <span class="k">else</span> <span class="kc">False</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="InfoManager.refresh_status">

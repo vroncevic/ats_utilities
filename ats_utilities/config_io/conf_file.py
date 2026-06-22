@@ -34,7 +34,7 @@ from ats_utilities.config_io.config_file_bundle import ATSConfigFileBundle
 from ats_utilities.exceptions.ats_value_error import ATSValueError
 from ats_utilities.factory_context_bundle import factory_context_bundle
 from ats_utilities.factory_component import make_component, validate_component
-from ats_utilities.factory_class import get_private_attr, format_instance_to_string
+from ats_utilities.factory_class import format_instance_to_string
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -55,9 +55,9 @@ class ConfFile(IConfFile):
         It defines:
 
             :attributes:
-                | _checker - Factoriezed parameters checker (default Checker).
-                | _reporter - Factoriezed reporter for messaging (default Reporter).
-                | _verbose - Factoriezed Enable/Disable verbose option (default False).
+                | _checker - Injected parameters checker (default Checker).
+                | _reporter - Injected reporter for messaging (default Reporter).
+                | _verbose - Injected Enable/Disable verbose option (default False).
                 | _file_path - Configuration file path (default None).
                 | _file_mode - Configuration file mode (default None).
                 | _file - File object (default None).
@@ -91,12 +91,10 @@ class ConfFile(IConfFile):
         config_bundle: ATSConfigFileBundle = config_file_bundle or ATSConfigFileBundle()
         factory_context_bundle(self, config_bundle.context)
         shared_bundle: ContextBundle = ContextBundle(
-            checker=get_private_attr(self, 'checker'),
-            reporter=get_private_attr(self, 'reporter'),
-            verbose=get_private_attr(self, 'verbose')
+            checker=self._checker, reporter=self._reporter, verbose=self._verbose
         )
         file_checker: IFileCheck = make_component(config_bundle.file_checker, FileCheck, {'config_bundle': shared_bundle})
-        validate_component(file_checker, type(file_checker), type(file_checker).__name__)
+        validate_component(file_checker, FileCheck)
 
         if not bool(bundle.file_path):
             raise ATSValueError('missing file path')

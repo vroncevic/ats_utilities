@@ -94,9 +94,9 @@
 <span class="sd">        It defines:</span>
 
 <span class="sd">            :attributes:</span>
-<span class="sd">                | _checker - Factoriezed parameters checker (default Checker).</span>
-<span class="sd">                | _reporter - Factoriezed reporter for messaging (default Reporter).</span>
-<span class="sd">                | _verbose - Factoriezed Enable/Disable verbose option (default False).</span>
+<span class="sd">                | _checker - Injected parameters checker (default Checker).</span>
+<span class="sd">                | _reporter - Injected reporter for messaging (default Reporter).</span>
+<span class="sd">                | _verbose - Injected Enable/Disable verbose option (default False).</span>
 <span class="sd">                | _shared_bundle - Bundle with checker, reporter and verbose (default ContextBundle).</span>
 <span class="sd">                | _parser - Options parser (default None).</span>
 <span class="sd">            :methods:</span>
@@ -146,7 +146,7 @@
             <span class="s1">&#39;epilog&#39;</span><span class="p">:</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">parameters</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">InfoKeys</span><span class="o">.</span><span class="n">ATS_NAME</span><span class="p">)</span><span class="si">}</span><span class="s1"> copyright (c) </span><span class="si">{</span><span class="n">parameters</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">InfoKeys</span><span class="o">.</span><span class="n">ATS_LICENCE</span><span class="p">)</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span>
             <span class="s1">&#39;description&#39;</span><span class="p">:</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">parameters</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">InfoKeys</span><span class="o">.</span><span class="n">ATS_NAME</span><span class="p">)</span><span class="si">}</span><span class="s1"> build date </span><span class="si">{</span><span class="n">parameters</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">InfoKeys</span><span class="o">.</span><span class="n">ATS_BUILD_DATE</span><span class="p">)</span><span class="si">}</span><span class="s1">&#39;</span>
         <span class="p">})</span>
-        <span class="n">validate_component</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_parser</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_parser</span><span class="p">),</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_parser</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)</span></div>
+        <span class="n">validate_component</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_parser</span><span class="p">,</span> <span class="n">ArgParser</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="ParserStrategy.add_argument">
@@ -202,9 +202,9 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">(</span><span class="n">arguments</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="ParserStrategy.ok">
-<a class="viewcode-back" href="../../../ats_utilities.option.parser_strategy.html#ats_utilities.option.parser_strategy.ParserStrategy.ok">[docs]</a>
-    <span class="k">def</span> <span class="nf">ok</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<div class="viewcode-block" id="ParserStrategy.is_initialized">
+<a class="viewcode-back" href="../../../ats_utilities.option.parser_strategy.html#ats_utilities.option.parser_strategy.ParserStrategy.is_initialized">[docs]</a>
+    <span class="k">def</span> <span class="nf">is_initialized</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Checks if parser strategy component is ok.</span>
 

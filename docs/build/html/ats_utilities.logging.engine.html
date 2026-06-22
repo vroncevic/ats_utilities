@@ -63,15 +63,15 @@ See the GNU General Public License for more details.
 You should have received a copy of the GNU General Public License along
 with this program. If not, see &lt;<a class="reference external" href="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</a>&gt;.</p>
 </dd>
-<dt>Info</dt><dd><p>Defines class ATSLoggerManager with attribute(s) and method(s).
+<dt>Info</dt><dd><p>Defines class LoggerManager with attribute(s) and method(s).
 Creates an API for the ATS logging mechanism.</p>
 </dd>
 </dl>
 <dl class="py class">
-<dt class="sig sig-object py" id="ats_utilities.logging.engine.ATSLoggerManager">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ats_utilities.logging.engine.</span></span><span class="sig-name descname"><span class="pre">ATSLoggerManager</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">component_bundle</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="ats_utilities.logging.component_bundle.html#ats_utilities.logging.component_bundle.LoggingComponentBundle" title="ats_utilities.logging.component_bundle.LoggingComponentBundle"><span class="pre">LoggingComponentBundle</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ats_utilities/logging/engine.html#ATSLoggerManager"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.logging.engine.ATSLoggerManager" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ats_utilities.logging.engine.LoggerManager">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ats_utilities.logging.engine.</span></span><span class="sig-name descname"><span class="pre">LoggerManager</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">component_bundle</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="ats_utilities.logging.component_bundle.html#ats_utilities.logging.component_bundle.LoggingComponentBundle" title="ats_utilities.logging.component_bundle.LoggingComponentBundle"><span class="pre">LoggingComponentBundle</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ats_utilities/logging/engine.html#LoggerManager"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.logging.engine.LoggerManager" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="ats_utilities.logging.ilogger_manager.html#ats_utilities.logging.ilogger_manager.ILoggerManager" title="ats_utilities.logging.ilogger_manager.ILoggerManager"><code class="xref py py-class docutils literal notranslate"><span class="pre">ILoggerManager</span></code></a></p>
-<p>Defines class ATSLoggerManager with attribute(s) and method(s).
+<p>Defines class LoggerManager with attribute(s) and method(s).
 Creates an API for the ATS logging mechanism.
 ATS logger mechanism.</p>
 <p>It defines:</p>
@@ -85,69 +85,71 @@ ATS logger mechanism.</p>
 <div class="line">ATS_INFO - Info log level.</div>
 <div class="line">ATS_WARNING - Warning log level.</div>
 <div class="line">_logger - Prepared logger instance or default logger.</div>
-<div class="line">_checker - Factoriezed parameters checker (default Checker).</div>
-<div class="line">_reporter - Factoriezed reporter for messaging (default Reporter).</div>
-<div class="line">_verbose - Factoriezed Enable/Disable verbose option (default False).</div>
+<div class="line">_checker - Injected parameters checker (default Checker).</div>
+<div class="line">_reporter - Injected reporter for messaging (default Reporter).</div>
+<div class="line">_verbose - Injected Enable/Disable verbose option (default False).</div>
+<div class="line">_is_initialized - Indicates if the logger manager component is initialized (default False).</div>
 </div>
 </dd>
 <dt class="field-even">methods<span class="colon">:</span></dt>
 <dd class="field-even"><div class="line-block">
-<div class="line">__init__ - Initials ATSLoggerManager constructor.</div>
+<div class="line">__init__ - Initials LoggerManager constructor.</div>
 <div class="line">get_logger - Gets logger instance.</div>
-<div class="line">ok - Checks if logger manager component is ok.</div>
 <div class="line">write_log - Writes message to log output.</div>
+<div class="line">is_initialized - Checks if the logger manager component is initialized.</div>
+<div class="line">__str__ - Returns the string representation of ATS logger.</div>
 </div>
 </dd>
 </dl>
 </div></blockquote>
 <dl class="py attribute">
-<dt class="sig sig-object py" id="ats_utilities.logging.engine.ATSLoggerManager.ATS_CRITICAL">
-<span class="sig-name descname"><span class="pre">ATS_CRITICAL</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">50</span></em><a class="headerlink" href="#ats_utilities.logging.engine.ATSLoggerManager.ATS_CRITICAL" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ats_utilities.logging.engine.LoggerManager.ATS_CRITICAL">
+<span class="sig-name descname"><span class="pre">ATS_CRITICAL</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">50</span></em><a class="headerlink" href="#ats_utilities.logging.engine.LoggerManager.ATS_CRITICAL" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="ats_utilities.logging.engine.ATSLoggerManager.ATS_DEBUG">
-<span class="sig-name descname"><span class="pre">ATS_DEBUG</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">10</span></em><a class="headerlink" href="#ats_utilities.logging.engine.ATSLoggerManager.ATS_DEBUG" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ats_utilities.logging.engine.LoggerManager.ATS_DEBUG">
+<span class="sig-name descname"><span class="pre">ATS_DEBUG</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">10</span></em><a class="headerlink" href="#ats_utilities.logging.engine.LoggerManager.ATS_DEBUG" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="ats_utilities.logging.engine.ATSLoggerManager.ATS_ERROR">
-<span class="sig-name descname"><span class="pre">ATS_ERROR</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">40</span></em><a class="headerlink" href="#ats_utilities.logging.engine.ATSLoggerManager.ATS_ERROR" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ats_utilities.logging.engine.LoggerManager.ATS_ERROR">
+<span class="sig-name descname"><span class="pre">ATS_ERROR</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">40</span></em><a class="headerlink" href="#ats_utilities.logging.engine.LoggerManager.ATS_ERROR" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="ats_utilities.logging.engine.ATSLoggerManager.ATS_INFO">
-<span class="sig-name descname"><span class="pre">ATS_INFO</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">20</span></em><a class="headerlink" href="#ats_utilities.logging.engine.ATSLoggerManager.ATS_INFO" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ats_utilities.logging.engine.LoggerManager.ATS_INFO">
+<span class="sig-name descname"><span class="pre">ATS_INFO</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">20</span></em><a class="headerlink" href="#ats_utilities.logging.engine.LoggerManager.ATS_INFO" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="ats_utilities.logging.engine.ATSLoggerManager.ATS_WARNING">
-<span class="sig-name descname"><span class="pre">ATS_WARNING</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">30</span></em><a class="headerlink" href="#ats_utilities.logging.engine.ATSLoggerManager.ATS_WARNING" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ats_utilities.logging.engine.LoggerManager.ATS_WARNING">
+<span class="sig-name descname"><span class="pre">ATS_WARNING</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">30</span></em><a class="headerlink" href="#ats_utilities.logging.engine.LoggerManager.ATS_WARNING" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="ats_utilities.logging.engine.ATSLoggerManager._abc_impl">
-<span class="sig-name descname"><span class="pre">_abc_impl</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;_abc._abc_data</span> <span class="pre">object&gt;</span></em><a class="headerlink" href="#ats_utilities.logging.engine.ATSLoggerManager._abc_impl" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ats_utilities.logging.engine.LoggerManager._abc_impl">
+<span class="sig-name descname"><span class="pre">_abc_impl</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;_abc._abc_data</span> <span class="pre">object&gt;</span></em><a class="headerlink" href="#ats_utilities.logging.engine.LoggerManager._abc_impl" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="ats_utilities.logging.engine.ATSLoggerManager._checker">
-<span class="sig-name descname"><span class="pre">_checker</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="ats_utilities.checker.ichecker.html#ats_utilities.checker.ichecker.IChecker" title="ats_utilities.checker.ichecker.IChecker"><span class="pre">IChecker</span></a></em><a class="headerlink" href="#ats_utilities.logging.engine.ATSLoggerManager._checker" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ats_utilities.logging.engine.LoggerManager._checker">
+<span class="sig-name descname"><span class="pre">_checker</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="ats_utilities.checker.ichecker.html#ats_utilities.checker.ichecker.IChecker" title="ats_utilities.checker.ichecker.IChecker"><span class="pre">IChecker</span></a></em><a class="headerlink" href="#ats_utilities.logging.engine.LoggerManager._checker" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="ats_utilities.logging.engine.ATSLoggerManager._reporter">
-<span class="sig-name descname"><span class="pre">_reporter</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="ats_utilities.reporter.ireporter.html#ats_utilities.reporter.ireporter.IReporter" title="ats_utilities.reporter.ireporter.IReporter"><span class="pre">IReporter</span></a></em><a class="headerlink" href="#ats_utilities.logging.engine.ATSLoggerManager._reporter" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ats_utilities.logging.engine.LoggerManager._reporter">
+<span class="sig-name descname"><span class="pre">_reporter</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="ats_utilities.reporter.ireporter.html#ats_utilities.reporter.ireporter.IReporter" title="ats_utilities.reporter.ireporter.IReporter"><span class="pre">IReporter</span></a></em><a class="headerlink" href="#ats_utilities.logging.engine.LoggerManager._reporter" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="ats_utilities.logging.engine.ATSLoggerManager._verbose">
-<span class="sig-name descname"><span class="pre">_verbose</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#ats_utilities.logging.engine.ATSLoggerManager._verbose" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ats_utilities.logging.engine.LoggerManager._verbose">
+<span class="sig-name descname"><span class="pre">_verbose</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#ats_utilities.logging.engine.LoggerManager._verbose" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="ats_utilities.logging.engine.ATSLoggerManager.get_logger">
-<span class="sig-name descname"><span class="pre">get_logger</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="ats_utilities.logging.ilogger.html#ats_utilities.logging.ilogger.ILogger" title="ats_utilities.logging.ilogger.ILogger"><span class="pre">ILogger</span></a></span></span><a class="reference internal" href="_modules/ats_utilities/logging/engine.html#ATSLoggerManager.get_logger"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.logging.engine.ATSLoggerManager.get_logger" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ats_utilities.logging.engine.LoggerManager.get_logger">
+<span class="sig-name descname"><span class="pre">get_logger</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="ats_utilities.logging.ilogger.html#ats_utilities.logging.ilogger.ILogger" title="ats_utilities.logging.ilogger.ILogger"><span class="pre">ILogger</span></a></span></span><a class="reference internal" href="_modules/ats_utilities/logging/engine.html#LoggerManager.get_logger"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.logging.engine.LoggerManager.get_logger" title="Link to this definition">¶</a></dt>
 <dd><p>Gets logger instance.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -163,25 +165,25 @@ ATS logger mechanism.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="ats_utilities.logging.engine.ATSLoggerManager.ok">
-<span class="sig-name descname"><span class="pre">ok</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="_modules/ats_utilities/logging/engine.html#ATSLoggerManager.ok"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.logging.engine.ATSLoggerManager.ok" title="Link to this definition">¶</a></dt>
-<dd><p>Checks if logger component is ok.</p>
+<dt class="sig sig-object py" id="ats_utilities.logging.engine.LoggerManager.is_initialized">
+<span class="sig-name descname"><span class="pre">is_initialized</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="_modules/ats_utilities/logging/engine.html#LoggerManager.is_initialized"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.logging.engine.LoggerManager.is_initialized" title="Link to this definition">¶</a></dt>
+<dd><p>Checks if the logger manager component is initialized.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>True (success) | False (fail)</p>
+<dd class="field-odd"><p>True (success) | False (fail).</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p>&lt;bool&gt;</p>
 </dd>
 <dt class="field-odd">Exceptions<span class="colon">:</span></dt>
-<dd class="field-odd"><p>None..</p>
+<dd class="field-odd"><p>None.</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="ats_utilities.logging.engine.ATSLoggerManager.write_log">
-<span class="sig-name descname"><span class="pre">write_log</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">message</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ctrl</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="_modules/ats_utilities/logging/engine.html#ATSLoggerManager.write_log"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.logging.engine.ATSLoggerManager.write_log" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ats_utilities.logging.engine.LoggerManager.write_log">
+<span class="sig-name descname"><span class="pre">write_log</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">message</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ctrl</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="_modules/ats_utilities/logging/engine.html#LoggerManager.write_log"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.logging.engine.LoggerManager.write_log" title="Link to this definition">¶</a></dt>
 <dd><p>Writes message to log output.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -217,19 +219,19 @@ ATS logger mechanism.</p>
     <h3><a href="index.html">Table of Contents</a></h3>
     <ul>
 <li><a class="reference internal" href="#">ats_utilities.logging.engine module</a><ul>
-<li><a class="reference internal" href="#ats_utilities.logging.engine.ATSLoggerManager"><code class="docutils literal notranslate"><span class="pre">ATSLoggerManager</span></code></a><ul>
-<li><a class="reference internal" href="#ats_utilities.logging.engine.ATSLoggerManager.ATS_CRITICAL"><code class="docutils literal notranslate"><span class="pre">ATSLoggerManager.ATS_CRITICAL</span></code></a></li>
-<li><a class="reference internal" href="#ats_utilities.logging.engine.ATSLoggerManager.ATS_DEBUG"><code class="docutils literal notranslate"><span class="pre">ATSLoggerManager.ATS_DEBUG</span></code></a></li>
-<li><a class="reference internal" href="#ats_utilities.logging.engine.ATSLoggerManager.ATS_ERROR"><code class="docutils literal notranslate"><span class="pre">ATSLoggerManager.ATS_ERROR</span></code></a></li>
-<li><a class="reference internal" href="#ats_utilities.logging.engine.ATSLoggerManager.ATS_INFO"><code class="docutils literal notranslate"><span class="pre">ATSLoggerManager.ATS_INFO</span></code></a></li>
-<li><a class="reference internal" href="#ats_utilities.logging.engine.ATSLoggerManager.ATS_WARNING"><code class="docutils literal notranslate"><span class="pre">ATSLoggerManager.ATS_WARNING</span></code></a></li>
-<li><a class="reference internal" href="#ats_utilities.logging.engine.ATSLoggerManager._abc_impl"><code class="docutils literal notranslate"><span class="pre">ATSLoggerManager._abc_impl</span></code></a></li>
-<li><a class="reference internal" href="#ats_utilities.logging.engine.ATSLoggerManager._checker"><code class="docutils literal notranslate"><span class="pre">ATSLoggerManager._checker</span></code></a></li>
-<li><a class="reference internal" href="#ats_utilities.logging.engine.ATSLoggerManager._reporter"><code class="docutils literal notranslate"><span class="pre">ATSLoggerManager._reporter</span></code></a></li>
-<li><a class="reference internal" href="#ats_utilities.logging.engine.ATSLoggerManager._verbose"><code class="docutils literal notranslate"><span class="pre">ATSLoggerManager._verbose</span></code></a></li>
-<li><a class="reference internal" href="#ats_utilities.logging.engine.ATSLoggerManager.get_logger"><code class="docutils literal notranslate"><span class="pre">ATSLoggerManager.get_logger()</span></code></a></li>
-<li><a class="reference internal" href="#ats_utilities.logging.engine.ATSLoggerManager.ok"><code class="docutils literal notranslate"><span class="pre">ATSLoggerManager.ok()</span></code></a></li>
-<li><a class="reference internal" href="#ats_utilities.logging.engine.ATSLoggerManager.write_log"><code class="docutils literal notranslate"><span class="pre">ATSLoggerManager.write_log()</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.logging.engine.LoggerManager"><code class="docutils literal notranslate"><span class="pre">LoggerManager</span></code></a><ul>
+<li><a class="reference internal" href="#ats_utilities.logging.engine.LoggerManager.ATS_CRITICAL"><code class="docutils literal notranslate"><span class="pre">LoggerManager.ATS_CRITICAL</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.logging.engine.LoggerManager.ATS_DEBUG"><code class="docutils literal notranslate"><span class="pre">LoggerManager.ATS_DEBUG</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.logging.engine.LoggerManager.ATS_ERROR"><code class="docutils literal notranslate"><span class="pre">LoggerManager.ATS_ERROR</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.logging.engine.LoggerManager.ATS_INFO"><code class="docutils literal notranslate"><span class="pre">LoggerManager.ATS_INFO</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.logging.engine.LoggerManager.ATS_WARNING"><code class="docutils literal notranslate"><span class="pre">LoggerManager.ATS_WARNING</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.logging.engine.LoggerManager._abc_impl"><code class="docutils literal notranslate"><span class="pre">LoggerManager._abc_impl</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.logging.engine.LoggerManager._checker"><code class="docutils literal notranslate"><span class="pre">LoggerManager._checker</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.logging.engine.LoggerManager._reporter"><code class="docutils literal notranslate"><span class="pre">LoggerManager._reporter</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.logging.engine.LoggerManager._verbose"><code class="docutils literal notranslate"><span class="pre">LoggerManager._verbose</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.logging.engine.LoggerManager.get_logger"><code class="docutils literal notranslate"><span class="pre">LoggerManager.get_logger()</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.logging.engine.LoggerManager.is_initialized"><code class="docutils literal notranslate"><span class="pre">LoggerManager.is_initialized()</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.logging.engine.LoggerManager.write_log"><code class="docutils literal notranslate"><span class="pre">LoggerManager.write_log()</span></code></a></li>
 </ul>
 </li>
 </ul>

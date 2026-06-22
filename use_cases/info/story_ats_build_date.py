@@ -30,7 +30,7 @@ __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
 
-ats_build_date = BuildDate(verbose=False)
+ats_build_date = BuildDate()
 ats_build_date.build_date = 'Sun Jun 14 03:06:12 PM CEST 2026'
 print(ats_build_date.build_date)
 print(ats_build_date)

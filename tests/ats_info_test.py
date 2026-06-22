@@ -22,7 +22,7 @@ Execute
     python3 -m unittest -v ats_info_test
 '''
 
-from unittest import TestCase, main
+from unittest import TestCase, main, mock
 from ats_utilities.info.engine import InfoManager
 from ats_utilities.info.build_date import BuildDate
 from ats_utilities.info.licence import Licence
@@ -61,6 +61,8 @@ class InfoManagerTestCase(TestCase):
                 | tearDown - Call after test case.
                 | test_create_with_wrong_argument - Test wrong argument type.
                 | test_create_with_wrong_arguments - Test wrong argument types.
+                | test_is_initialized - Test is info manager initialized.
+                | test_initialization_failure - Test info manager initialization failure.
                 | test_info_set_name_none - Test setting name to None.
                 | test_info_set_version_none - Test setting version to None.
                 | test_info_set_licence_none - Test setting licence to None.
@@ -72,6 +74,7 @@ class InfoManagerTestCase(TestCase):
                 | test_info_properties_not_none - Test properties are not None.
                 | test_info_optional_properties - Test setting/getting optional properties.
                 | test_info_optional_properties_wrong_types - Test wrong types for optional properties.
+                | test_str - Test string representation of InfoManager.
     '''
 
     def setUp(self) -> None:
@@ -103,6 +106,21 @@ class InfoManagerTestCase(TestCase):
             'ats_build_date': None
         })
         self.assertFalse(manager.info_ok)
+
+    def test_is_initialized(self) -> None:
+        '''Test is_initialized method.'''
+        self.assertTrue(self.manager.is_initialized())
+
+    @mock.patch('ats_utilities.info.engine.make_component')
+    def test_initialization_failure(self, mock_make_component) -> None:
+        '''Test info manager initialization failure.'''
+        mock_make_component.side_effect = ATSTypeError('Failed to initialize component')
+        invalid_manager = InfoManager()
+        self.assertFalse(invalid_manager.is_initialized())
+
+    def test_str(self) -> None:
+        '''Test string representation of InfoManager.'''
+        self.assertIsInstance(str(self.manager), str)
 
     def test_info_set_name_none(self) -> None:
         '''Test setting name to None.'''
@@ -178,6 +196,11 @@ class InfoManagerTestCase(TestCase):
             self.manager.use_github = 'true'  # type: ignore
         with self.assertRaises(ATSTypeError):
             self.manager.logo_path = 123  # type: ignore
+
+    def test_getattr_invalid_attribute(self) -> None:
+        '''Test getattr with an invalid attribute raises AttributeError.'''
+        with self.assertRaises(AttributeError):
+            _ = self.manager.non_existent_attribute
 
 
 class InfoComponentsTestCase(TestCase):

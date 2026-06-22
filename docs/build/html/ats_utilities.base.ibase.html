@@ -81,7 +81,7 @@ Interface for ATS base setup.</p>
 </dd>
 <dt class="field-even">methods<span class="colon">:</span></dt>
 <dd class="field-even"><div class="line-block">
-<div class="line">is_operational - Checks if ATS is operational.</div>
+<div class="line">is_initialized - Checks if the base component is initialized.</div>
 <div class="line">add_new_option - Adds a new option for the CL interface.</div>
 <div class="line">parse_args - Parses the CLI arguments.</div>
 <div class="line">process - Processes and runs tool operations.</div>
@@ -113,12 +113,12 @@ Interface for ATS base setup.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="ats_utilities.base.ibase.IBase.is_operational">
-<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">is_operational</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="_modules/ats_utilities/base/ibase.html#IBase.is_operational"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.base.ibase.IBase.is_operational" title="Link to this definition">¶</a></dt>
-<dd><p>Checks if ATS is operational.</p>
+<dt class="sig sig-object py" id="ats_utilities.base.ibase.IBase.is_initialized">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">is_initialized</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="_modules/ats_utilities/base/ibase.html#IBase.is_initialized"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.base.ibase.IBase.is_initialized" title="Link to this definition">¶</a></dt>
+<dd><p>Checks if the base component is initialized.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>True (operational) | False (not operational)</p>
+<dd class="field-odd"><p>True (success) | False (fail)</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p>&lt;bool&gt;</p>
@@ -187,7 +187,7 @@ Interface for ATS base setup.</p>
 <li><a class="reference internal" href="#ats_utilities.base.ibase.IBase"><code class="docutils literal notranslate"><span class="pre">IBase</span></code></a><ul>
 <li><a class="reference internal" href="#ats_utilities.base.ibase.IBase._abc_impl"><code class="docutils literal notranslate"><span class="pre">IBase._abc_impl</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.base.ibase.IBase.add_new_option"><code class="docutils literal notranslate"><span class="pre">IBase.add_new_option()</span></code></a></li>
-<li><a class="reference internal" href="#ats_utilities.base.ibase.IBase.is_operational"><code class="docutils literal notranslate"><span class="pre">IBase.is_operational()</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.base.ibase.IBase.is_initialized"><code class="docutils literal notranslate"><span class="pre">IBase.is_initialized()</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.base.ibase.IBase.parse_args"><code class="docutils literal notranslate"><span class="pre">IBase.parse_args()</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.base.ibase.IBase.process"><code class="docutils literal notranslate"><span class="pre">IBase.process()</span></code></a></li>
 </ul>

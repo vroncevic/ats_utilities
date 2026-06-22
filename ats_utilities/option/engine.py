@@ -30,10 +30,14 @@ from ats_utilities.option.iparser_strategy import IParserStrategy
 from ats_utilities.option.parser_strategy import ParserStrategy
 from ats_utilities.option.option_namespace import OptionNamespace
 from ats_utilities.option.option_namespace import OptArgs
+from ats_utilities.exceptions.ats_type_error import ATSTypeError
+from ats_utilities.exceptions.ats_value_error import ATSValueError
+from ats_utilities.exceptions.ats_runtime_error import ATSRuntimeError
+from ats_utilities.exceptions.ats_attribute_error import ATSAttributeError
 from ats_utilities.checker.proxy_validator import validator
 from ats_utilities.reporter.proxy_reporter import vreporter
 from ats_utilities.factory_context_bundle import factory_context_bundle
-from ats_utilities.factory_class import get_private_attr, format_instance_to_string
+from ats_utilities.factory_class import get_class_name, format_instance_to_string
 from ats_utilities.factory_component import make_component, validate_component
 
 __author__: str = 'Vladimir Roncevic'
@@ -54,9 +58,10 @@ class OptionManager(IOptionManager):
         It defines:
 
             :attributes:
-                | _checker - Factoriezed parameters checker (default Checker).
-                | _reporter - Factoriezed reporter for messaging (default Reporter).
-                | _verbose - Factoriezed Enable/Disable verbose option (default False).
+                | _checker - Injected parameters checker (default Checker).
+                | _reporter - Injected reporter for messaging (default Reporter).
+                | _verbose - Injected Enable/Disable verbose option (default False).
+                | _is_initialized - Indicates if the option manager component is initialized (default False).
                 | _strategy - Strategy for argument parsing (default ParserStrategy).
             :methods:
                 | __init__ - Initials OptionManager constructor.
@@ -64,6 +69,7 @@ class OptionManager(IOptionManager):
                 | add_version_operation - Adds version option to the ATS parser.
                 | parse_input_args - Processes arguments from the start.
                 | parse_args - Processes arguments from the start.
+                | is_initialized - Checks if the option manager component is initialized.
                 | __str__ - Returns the string representation of OptionManager.
     '''
 
@@ -77,23 +83,26 @@ class OptionManager(IOptionManager):
 
             :param component_bundle: Bundle with components for option manager | None.
             :type component_bundle: <OptionComponentBundle | None>
-            :exceptions: ATSTypeError
+            :exceptions: None.
         '''
         # No dependency injection then use default ones.
         bundle: OptionComponentBundle = component_bundle or OptionComponentBundle()
         factory_context_bundle(self, bundle.context_bundle)
         shared_bundle: ContextBundle = ContextBundle(
-            checker=get_private_attr(self, 'checker'),
-            reporter=get_private_attr(self, 'reporter'),
-            verbose=get_private_attr(self, 'verbose')
+            checker=self._checker, reporter=self._reporter, verbose=self._verbose
         )
-        self._strategy: IParserStrategy = make_component(
-            bundle.strategy, ParserStrategy, {'context_bundle': shared_bundle}
-        )
-        validate_component(
-            self._strategy, type(self._strategy), type(self._strategy).__name__
-        )
-        self._strategy.setup(bundle.parameters)
+        self._is_initialized: bool = False
+
+        try:
+            self._strategy: IParserStrategy = make_component(
+                bundle.strategy, ParserStrategy, {'context_bundle': shared_bundle}
+            )
+            validate_component(self._strategy, ParserStrategy) if not bundle.strategy else None
+            self._strategy.setup(bundle.parameters)
+            self._is_initialized = True
+
+        except (ATSTypeError, ATSValueError, ATSRuntimeError, ATSAttributeError) as exc:
+            self._reporter.error([f"{get_class_name(self)} - error during initialization: {exc}"])
 
     def add_operation(self, *args: str, **kwargs: Any) -> None:
         '''
@@ -129,7 +138,7 @@ class OptionManager(IOptionManager):
             :type arguments: <OptArgs>
             :return: Option namespace object.
             :rtype: <OptionNamespace>
-            :exceptions: ATSRuntimeError, ATSAttributeError
+            :exceptions: ATSRuntimeError, ATSAttributeError.
         '''
         args = self._strategy.parse(arguments, known_only=False)
         return args
@@ -143,20 +152,20 @@ class OptionManager(IOptionManager):
             :type arguments: <OptArgs>
             :return: Option namespace object.
             :rtype: <OptionNamespace>
-            :exceptions: ATSRuntimeError, ATSAttributeError
+            :exceptions: ATSRuntimeError, ATSAttributeError.
         '''
         args = self._strategy.parse(arguments, known_only=True)
         return args
 
-    def ok(self) -> bool:
+    def is_initialized(self) -> bool:
         '''
-            Checks if option parser component is ok.
+            Checks if option parser component is initialized.
 
-            :return: True (success) | False (fail)
+            :return: True (success) | False (fail).
             :rtype: <bool>
-            :exceptions: None..
+            :exceptions: None.
         '''
-        return self._strategy.ok()
+        return self._is_initialized and self._strategy.is_initialized()
 
     def __str__(self) -> str:
         '''

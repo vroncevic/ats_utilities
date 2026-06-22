@@ -27,8 +27,9 @@ from ats_utilities.checker.ichecker import IChecker
 from ats_utilities.checker.engine import Checker
 from ats_utilities.reporter.theme.iconsole_theme import IConsoleTheme
 from ats_utilities.reporter.theme.engine import ConsoleTheme
+from ats_utilities.exceptions.ats_type_error import ATSTypeError
 from ats_utilities.checker.proxy_validator import validator
-from ats_utilities.factory_class import format_instance_to_string
+from ats_utilities.factory_class import get_class_name, format_instance_to_string
 from ats_utilities.factory_component import make_component, validate_component
 
 __author__: str = 'Vladimir Roncevic'
@@ -51,6 +52,7 @@ class Reporter(IReporter):
             :attributes:
                 | _checker - Factorized parameters checker (default Checker).
                 | _theme - Factorized theme for styling messages (default ConsoleTheme).
+                | _is_initialized -  Indicates if the reporter component is initialized (default False).
             :methods:
                 | __init__ - Initializes Reporter constructor.
                 | _report - Utility method for reporting messages to console.
@@ -58,6 +60,7 @@ class Reporter(IReporter):
                 | success - Reports success message to console.
                 | verbose - Reports verbose message to console.
                 | warning - Reports warning message to console.
+                | is_initialized - Checks if reporter component is initialized.
                 | __str__ - Returns the string representation of Reporter.
     '''
 
@@ -74,10 +77,17 @@ class Reporter(IReporter):
         '''
         # No dependency injection then use default ones.
         bundle: ReporterComponentBundle = component_bundle or ReporterComponentBundle()
-        self._checker: IChecker = make_component(bundle.checker, Checker, None)
-        validate_component(self._checker, type(self._checker), type(self._checker).__name__)
-        self._theme: IConsoleTheme = make_component(bundle.theme, ConsoleTheme, None)
-        validate_component(self._theme, type(self._theme), type(self._theme).__name__)
+        self._is_initialized: bool = False
+
+        try:
+            self._checker: IChecker = make_component(bundle.checker, Checker, None)
+            validate_component(self._checker, Checker)
+            self._theme: IConsoleTheme = make_component(bundle.theme, ConsoleTheme, None)
+            validate_component(self._theme, ConsoleTheme)
+            self._is_initialized = True
+
+        except (ATSTypeError) as exc:
+            print(f"\x1b[31m{get_class_name(self)} - error during initialization: {exc}\x1b[0m")
 
     def _report(self, message: list[Any], color: str) -> None:
         '''
@@ -140,6 +150,16 @@ class Reporter(IReporter):
             :exceptions: None.
         '''
         self._report(message, self._theme.get_color('error'))
+
+    def is_initialized(self) -> bool:
+        '''
+            Checks if reporter component is initialized.
+
+            :return: True (success) | False (fail)
+            :rtype: <bool>
+            :exceptions: None.
+        '''
+        return self._is_initialized
 
     def __str__(self) -> str:
         '''

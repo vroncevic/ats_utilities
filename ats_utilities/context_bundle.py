@@ -48,7 +48,6 @@ class ContextBundle:
                 | checker - Checker for parameters (default None).
                 | reporter - Reporter for providing all types of messages (default None).
                 | verbose - Flag for enabling verbose output (default False).
-                | safe - Flag for enabling safe mode (default False).
             :methods:
                 | validate - Validates that essential components are set.
                 | merge - Merges non-None values from another bundle into this one.

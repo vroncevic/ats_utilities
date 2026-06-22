@@ -54,9 +54,9 @@ class YAMLLoader(ILoader):
         It defines:
 
             :attributes:
-                | _checker - Factoriezed parameters checker (default Checker).
-                | _reporter - Factoriezed reporter for messaging (default Reporter).
-                | _verbose - Factoriezed Enable/Disable verbose option (default False).
+                | _checker - Injected parameters checker (default Checker).
+                | _reporter - Injected reporter for messaging (default Reporter).
+                | _verbose - Injected Enable/Disable verbose option (default False).
                 | _configuration - YAML processor configuration (default None).
             :methods:
                 | __init__ - Initializes YAMLLoader constructor.
@@ -91,20 +91,18 @@ class YAMLLoader(ILoader):
         config_file_bundle: ATSConfigFileBundle = config_bundle or ATSConfigFileBundle()
         factory_context_bundle(self, config_file_bundle.context)
         context_bundle_shared: ContextBundle = ContextBundle(
-            checker=get_private_attr(self, 'checker'),
-            reporter=get_private_attr(self, 'reporter'),
-            verbose=get_private_attr(self, 'verbose')
+            checker=self._checker, reporter=self._reporter, verbose=self._verbose
         )
         file_checker: IFileCheck = make_component(
             config_file_bundle.file_checker, FileCheck, {'config_bundle': context_bundle_shared}
         )
-        validate_component(file_checker, type(file_checker), type(file_checker).__name__)
+        validate_component(file_checker, FileCheck)
         processor: IYAMLProcessor = make_component(yaml_processor, YAMLProcessor, None)
-        validate_component(processor, type(processor), type(processor).__name__)
+        validate_component(processor, YAMLProcessor)
         yaml2obj: IRead = make_component(yaml2object, Yaml2Object, {
             'config_file': info_file, 'config_bundle': config_file_bundle, 'yaml_processor': processor
         })
-        validate_component(yaml2obj, type(yaml2obj), type(yaml2obj).__name__)
+        validate_component(yaml2obj, Yaml2Object)
         self._configuration: IYAMLProcessor | None = None
 
         if bool(yaml2obj):

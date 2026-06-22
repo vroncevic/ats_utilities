@@ -94,9 +94,9 @@
 
 <span class="sd">            :attributes:</span>
 <span class="sd">                | _SECTION - Section name for ATS configuration.</span>
-<span class="sd">                | _checker - Factoriezed parameters checker (default Checker).</span>
-<span class="sd">                | _reporter - Factoriezed reporter for messaging (default Reporter).</span>
-<span class="sd">                | _verbose - Factoriezed Enable/Disable verbose option (default False).</span>
+<span class="sd">                | _checker - Injected parameters checker (default Checker).</span>
+<span class="sd">                | _reporter - Injected reporter for messaging (default Reporter).</span>
+<span class="sd">                | _verbose - Injected Enable/Disable verbose option (default False).</span>
 <span class="sd">                | _processor - Processor for INI content (default INIProcessor).</span>
 <span class="sd">                | _obj2ini - Out API for information (default Object2Ini).</span>
 <span class="sd">            :methods:</span>
@@ -134,11 +134,11 @@
         <span class="n">config_file_bundle</span><span class="p">:</span> <span class="n">ATSConfigFileBundle</span> <span class="o">=</span> <span class="n">config_bundle</span> <span class="ow">or</span> <span class="n">ATSConfigFileBundle</span><span class="p">()</span>
         <span class="n">factory_context_bundle</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config_file_bundle</span><span class="o">.</span><span class="n">context</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_processor</span><span class="p">:</span> <span class="n">IINIProcessor</span> <span class="o">=</span> <span class="n">make_component</span><span class="p">(</span><span class="n">ini_processor</span><span class="p">,</span> <span class="n">INIProcessor</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
-        <span class="n">validate_component</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_processor</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_processor</span><span class="p">),</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_processor</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)</span>
+        <span class="n">validate_component</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_processor</span><span class="p">,</span> <span class="n">INIProcessor</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_obj2ini</span><span class="p">:</span> <span class="n">IWrite</span> <span class="o">=</span> <span class="n">make_component</span><span class="p">(</span><span class="n">object2ini</span><span class="p">,</span> <span class="n">Object2Ini</span><span class="p">,</span> <span class="p">{</span>
             <span class="s1">&#39;config_file&#39;</span><span class="p">:</span> <span class="n">info_file</span><span class="p">,</span> <span class="s1">&#39;config_bundle&#39;</span><span class="p">:</span> <span class="n">config_file_bundle</span>
         <span class="p">})</span>
-        <span class="n">validate_component</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_obj2ini</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_obj2ini</span><span class="p">),</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_obj2ini</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)</span>
+        <span class="n">validate_component</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_obj2ini</span><span class="p">,</span> <span class="n">Object2Ini</span><span class="p">)</span>
 
 <div class="viewcode-block" id="INIStorer.store_configuration">
 <a class="viewcode-back" href="../../../../ats_utilities.config_io.ini.ini_storer.html#ats_utilities.config_io.ini.ini_storer.INIStorer.store_configuration">[docs]</a>

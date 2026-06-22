@@ -92,9 +92,9 @@
 <span class="sd">        It defines:</span>
 
 <span class="sd">            :attributes:</span>
-<span class="sd">                | _checker - Factoriezed parameters checker (default Checker).</span>
-<span class="sd">                | _reporter - Factoriezed reporter for messaging (default Reporter).</span>
-<span class="sd">                | _verbose - Factoriezed Enable/Disable verbose option (default False).</span>
+<span class="sd">                | _checker - Injected parameters checker (default Checker).</span>
+<span class="sd">                | _reporter - Injected reporter for messaging (default Reporter).</span>
+<span class="sd">                | _verbose - Injected Enable/Disable verbose option (default False).</span>
 <span class="sd">                | _window_size - Terminal window size.</span>
 <span class="sd">            :methods:</span>
 <span class="sd">                | __init__ - Initials TerminalProperties constructor.</span>
@@ -145,7 +145,7 @@
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Sets size for all file descriptors.</span>
 
-<span class="sd">            :exceptions: ATSRuntimeError, ATSAttributeError</span>
+<span class="sd">            :exceptions: ATSRuntimeError, ATSAttributeError.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="n">std_in</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ioctl_get_window_size</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
         <span class="n">std_out</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ioctl_get_window_size</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
@@ -162,7 +162,7 @@
 
 <span class="sd">            :return: Terminal window size.</span>
 <span class="sd">            :rtype: &lt;tuple[Any, ...]&gt;</span>
-<span class="sd">            :exceptions: ATSRuntimeError, ATSAttributeError</span>
+<span class="sd">            :exceptions: ATSRuntimeError, ATSAttributeError.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">ioctl_for_all_descriptors</span><span class="p">()</span>

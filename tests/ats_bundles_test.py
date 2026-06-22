@@ -62,12 +62,6 @@ from ats_utilities.splasher.isplash_property import ISplashProperty
 from ats_utilities.splasher.iterminal_properties import ITerminalProperties
 from ats_utilities.splasher.iext_infrastructure import IExtInfrastructure
 from ats_utilities.splasher.iprogress_bar import IProgressBar
-from ats_utilities.config_io.iread import IRead
-from ats_utilities.config_io.iconfig_loader import IConfigLoader, IConfigProcessor
-from ats_utilities.info.imanager import IInfoManager
-from ats_utilities.option.ioption_parser import IOptionManager
-from ats_utilities.logging.ilogger_manager import ILoggerManager
-from ats_utilities.splasher.isplasher import ISplasher
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -289,8 +283,14 @@ class ComponentBundlesTestCase(TestCase):
     def test_logging_component_bundle(self) -> None:
         '''Test LoggingComponentBundle methods.'''
         mock_logger = MagicMock(spec=ILogger)
+        mock_logger_bundle = LoggerBundle()
+        mock_context = ContextBundle()
         bundle1 = LoggingComponentBundle()
-        bundle2 = LoggingComponentBundle(logger=mock_logger)
+        bundle2 = LoggingComponentBundle(
+            logger=mock_logger,
+            logger_bundle=mock_logger_bundle,
+            context_bundle=mock_context
+        )
 
         bundle1.merge(bundle2)
         self.assertEqual(bundle1.logger, mock_logger)
@@ -298,6 +298,25 @@ class ComponentBundlesTestCase(TestCase):
         bundle1.validate()
         d = bundle1.to_dict()
         self.assertEqual(d['logger'], mock_logger)
+
+    def test_logging_component_bundle_validation_errors(self) -> None:
+        '''Test LoggingComponentBundle validation exceptions.'''
+        mock_logger = MagicMock(spec=ILogger)
+        mock_logger_bundle = LoggerBundle()
+        mock_context = ContextBundle()
+
+        fields = {
+            'logger': mock_logger,
+            'logger_bundle': mock_logger_bundle,
+            'context_bundle': mock_context
+        }
+
+        for field in fields:
+            kwargs = fields.copy()
+            kwargs[field] = None
+            bundle = LoggingComponentBundle(**kwargs)
+            with self.assertRaises(ATSValueError):
+                bundle.validate()
 
     def test_option_component_bundle(self) -> None:
         '''Test OptionComponentBundle methods.'''
@@ -407,6 +426,12 @@ class ComponentBundlesTestCase(TestCase):
         d = bundle.to_dict()
         self.assertEqual(d['name'], mock_name)
 
+        # Test merge
+        bundle1 = InfoComponentBundle()
+        bundle1.merge(bundle)
+        self.assertEqual(bundle1.name, mock_name)
+        self.assertEqual(bundle1.version, mock_version)
+
     def test_info_component_bundle_validation_errors(self) -> None:
         '''Test InfoComponentBundle validation exceptions.'''
         mock_name = MagicMock(spec=IName)
@@ -442,11 +467,13 @@ class ComponentBundlesTestCase(TestCase):
     def test_reporter_component_bundle(self) -> None:
         '''Test ReporterComponentBundle methods.'''
         mock_checker = MagicMock(spec=IChecker)
+        mock_theme = MagicMock(spec=IConsoleTheme)
         bundle1 = ReporterComponentBundle()
-        bundle2 = ReporterComponentBundle(checker=mock_checker)
+        bundle2 = ReporterComponentBundle(checker=mock_checker, theme=mock_theme)
 
         bundle1.merge(bundle2)
         self.assertEqual(bundle1.checker, mock_checker)
+        self.assertEqual(bundle1.theme, mock_theme)
 
         bundle1.validate()
         d = bundle1.to_dict()
@@ -454,14 +481,38 @@ class ComponentBundlesTestCase(TestCase):
 
     def test_reporter_component_bundle_validation_errors(self) -> None:
         '''Test ReporterComponentBundle validation exceptions.'''
-        bundle = ReporterComponentBundle(checker=None)
+        mock_checker = MagicMock(spec=IChecker)
+        mock_theme = MagicMock(spec=IConsoleTheme)
+
+        # Missing checker
+        bundle = ReporterComponentBundle(checker=None, theme=mock_theme)
+        with self.assertRaises(ATSValueError):
+            bundle.validate()
+
+        # Missing theme
+        bundle = ReporterComponentBundle(checker=mock_checker, theme=None)
         with self.assertRaises(ATSValueError):
             bundle.validate()
 
     def test_splash_component_bundle(self) -> None:
         '''Test SplashComponentBundle methods.'''
+        mock_splash_prop = MagicMock(spec=ISplashProperty)
+        mock_term_prop = MagicMock(spec=ITerminalProperties)
+        mock_github = MagicMock(spec=IExtInfrastructure)
+        mock_ext = MagicMock(spec=IExtInfrastructure)
+        mock_pb = MagicMock(spec=IProgressBar)
+        mock_context = ContextBundle()
+
         bundle1 = SplashComponentBundle()
-        bundle2 = SplashComponentBundle(prop={'a': 'b'})
+        bundle2 = SplashComponentBundle(
+            prop={'a': 'b'},
+            splash_property=mock_splash_prop,
+            terminal_property=mock_term_prop,
+            github=mock_github,
+            ext=mock_ext,
+            pb=mock_pb,
+            context_bundle=mock_context
+        )
 
         bundle1.merge(bundle2)
         self.assertEqual(bundle1.prop, {'a': 'b'})
@@ -472,9 +523,29 @@ class ComponentBundlesTestCase(TestCase):
 
     def test_splash_component_bundle_validation_errors(self) -> None:
         '''Test SplashComponentBundle validation exceptions.'''
-        bundle = SplashComponentBundle(prop=None)
-        with self.assertRaises(ValueError):
-            bundle.validate()
+        mock_splash_prop = MagicMock(spec=ISplashProperty)
+        mock_term_prop = MagicMock(spec=ITerminalProperties)
+        mock_github = MagicMock(spec=IExtInfrastructure)
+        mock_ext = MagicMock(spec=IExtInfrastructure)
+        mock_pb = MagicMock(spec=IProgressBar)
+        mock_context = ContextBundle()
+
+        fields = {
+            'prop': {'a': 'b'},
+            'splash_property': mock_splash_prop,
+            'terminal_property': mock_term_prop,
+            'github': mock_github,
+            'ext': mock_ext,
+            'pb': mock_pb,
+            'context_bundle': mock_context
+        }
+
+        for field in fields:
+            kwargs = fields.copy()
+            kwargs[field] = None
+            bundle = SplashComponentBundle(**kwargs)
+            with self.assertRaises(ValueError):
+                bundle.validate()
 
 
 if __name__ == '__main__':

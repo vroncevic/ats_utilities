@@ -17,13 +17,13 @@ Copyright
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
     Defines class ATSLoggingStreamTestCase with attribute(s) and method(s).
-    Creates test cases for checking functionalities of ATSLoggerManager.
+    Creates test cases for checking functionalities of LoggerManager.
 Execute
     python3 -m unittest -v ats_logging_stdout_test
 '''
 
 from unittest import TestCase, main
-from ats_utilities.logging.engine import ATSLoggerManager
+from ats_utilities.logging.engine import LoggerManager
 from ats_utilities.reporter.ireporter import IReporter
 from ats_utilities.reporter.engine import Reporter
 from ats_utilities.logging.component_bundle import LoggingComponentBundle
@@ -40,8 +40,8 @@ __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
 
 
-class ATSBaseLoggingStream(ATSLoggerManager):
-    '''Simple Class for checking ATSLoggerManager.'''
+class ATSBaseLoggingStream(LoggerManager):
+    '''Simple Class for checking LoggerManager.'''
 
     def __init__(self, reporter: IReporter = Reporter(), verbose: bool = False) -> None:
         '''Initial constructor.'''
@@ -74,8 +74,8 @@ class ATSBaseLoggingStream(ATSLoggerManager):
 class ATSLoggingStreamTestCase(TestCase):
     '''
         Defines class ATSLoggingStreamTestCase with attribute(s) and method(s).
-        Creates test cases for checking functionalities of ATSLoggerManager.
-        ATSLoggerManager unit tests.
+        Creates test cases for checking functionalities of LoggerManager.
+        LoggerManager unit tests.
 
         It defines:
 

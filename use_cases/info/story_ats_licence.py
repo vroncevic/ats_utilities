@@ -30,7 +30,7 @@ __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
 
-ats_licence = Licence(verbose=False)
+ats_licence = Licence()
 ats_licence.licence = 'gplv3'
 print(ats_licence.licence)
 print(ats_licence)

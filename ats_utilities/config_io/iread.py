@@ -42,7 +42,7 @@ class IRead(ABC):
 
             :attributes: None
             :methods:
-                | read_configuration - Read configuration from file (abstract).
+                | read_configuration - Read configuration from file.
                 | __str__ - Returns the IRead as string representation.
     '''
 

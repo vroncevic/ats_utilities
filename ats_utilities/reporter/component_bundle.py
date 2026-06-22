@@ -64,6 +64,9 @@ class ReporterComponentBundle:
         if self.checker is None:
             raise ATSValueError("Checker must be provided.")
 
+        if self.theme is None:
+            raise ATSValueError("Theme must be provided.")
+
     def merge(self, other: 'ReporterComponentBundle') -> None:
         '''
             Merges non-None values from another bundle into this one.

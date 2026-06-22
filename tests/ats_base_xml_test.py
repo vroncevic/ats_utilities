@@ -28,6 +28,8 @@ from os.path import dirname
 from ats_utilities.config_io.xml.xml_loader import XMLLoader
 from ats_utilities.config_io.iread import IRead
 from ats_utilities.config_io.xml.ixml_processor import IXMLProcessor
+from ats_utilities.config_io.xml.xml2object import Xml2Object
+from ats_utilities.config_io.xml.xml_processor import XMLProcessor
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -67,6 +69,7 @@ class XmlBaseTestCase(TestCase):
                 | test_not_none - Test is ATSBaseXml not None.
                 | test_load_configuration - Test loading configuration.
                 | test_none_config_path_returns_empty_dict - Test for None as file path.
+                | test_str - Test string representation of XMLLoader.
     '''
 
     def setUp(self) -> None:
@@ -92,6 +95,10 @@ class XmlBaseTestCase(TestCase):
         loader = XMLLoader(None)
         self.assertEqual(loader.load_configuration(), {})
 
+    def test_str(self) -> None:
+        '''Test string representation of XMLLoader.'''
+        self.assertIsInstance(str(self.ats_base_xml), str)
+
 
 class XmlBaseUnitTestCase(TestCase):
     '''
@@ -113,8 +120,8 @@ class XmlBaseUnitTestCase(TestCase):
     def setUp(self) -> None:
         '''Set up test environment.'''
         self.config_path = 'ats_cli_xml_api.xml'
-        self.mock_xml2obj = MagicMock(spec=IRead)
-        self.mock_processor = MagicMock(spec=IXMLProcessor)
+        self.mock_xml2obj = MagicMock(spec=Xml2Object)
+        self.mock_processor = MagicMock(spec=XMLProcessor)
 
         # Setup mock behavior
         self.mock_xml2obj.read_configuration.return_value = self.mock_processor
@@ -146,7 +153,7 @@ class XmlBaseUnitTestCase(TestCase):
     def test_load_configuration_empty(self) -> None:
         '''Test load configuration when empty.'''
         # Setup loader with no configuration loaded
-        mock_xml2obj_empty = MagicMock(spec=IRead)
+        mock_xml2obj_empty = MagicMock(spec=Xml2Object)
         mock_xml2obj_empty.read_configuration.return_value = None
         loader = XMLLoader(
             info_file=self.config_path,
@@ -157,3 +164,4 @@ class XmlBaseUnitTestCase(TestCase):
 
 if __name__ == '__main__':
     main()
+

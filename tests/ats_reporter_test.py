@@ -25,6 +25,11 @@ Execute
 from unittest import TestCase, main, mock
 from ats_utilities.reporter.ireporter import IReporter
 from ats_utilities.reporter.engine import Reporter
+from ats_utilities.exceptions.ats_type_error import ATSTypeError
+from ats_utilities.reporter.component_bundle import ReporterComponentBundle
+from ats_utilities.reporter.proxy_reporter import vreporter
+from ats_utilities.exceptions.ats_runtime_error import ATSRuntimeError
+from ats_utilities.exceptions.ats_attribute_error import ATSAttributeError
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -67,6 +72,7 @@ class ReporterTestCase(TestCase):
     def test_not_none(self) -> None:
         '''Test for create Reporter.'''
         self.assertIsNotNone(self.reporter)
+        self.assertTrue(self.reporter.is_initialized())
 
     @mock.patch('builtins.print')
     def test_success(self, mock_print: mock.MagicMock) -> None:
@@ -97,6 +103,74 @@ class ReporterTestCase(TestCase):
         '''Test info message when verbose is disabled.'''
         self.reporter.verbose(False, ['test info'])
         mock_print.assert_not_called()
+
+    @mock.patch('ats_utilities.reporter.engine.make_component')
+    def test_initialization_failure(self, mock_make_component) -> None:
+        '''Test initialization failure with wrong components.'''
+        mock_make_component.side_effect = ATSTypeError('Failed to initialize component')
+        bundle = ReporterComponentBundle()
+        r = Reporter(bundle)
+        self.assertFalse(r.is_initialized())
+
+    def test_vreporter_decorator_failures_and_features(self) -> None:
+        '''Test various paths and errors in vreporter decorator.'''
+        # 1. Non-class method call
+        @vreporter("test")
+        def dummy_func(*args, **kwargs):
+            return True
+        with self.assertRaises(ATSRuntimeError):
+            dummy_func()
+
+        # 2. Missing reporter
+        class DummyNoReporter:
+            @vreporter("test")
+            def some_method(self):
+                return True
+        
+        with self.assertRaises(ATSAttributeError):
+            DummyNoReporter().some_method()
+
+        # 3. Private mangled attribute, public attribute, and result formatting
+        mock_rep = mock.MagicMock()
+        class DummyWithReporter:
+            def __init__(self):
+                self._reporter = mock_rep
+                self._verbose = True
+                self.__mangled = "mangled_val"
+                self.public_val = "public_val"
+            
+            @vreporter("mangled is {mangled}")
+            def get_mangled(self):
+                return True
+
+            @vreporter("public is {public_val}")
+            def get_public(self):
+                return True
+
+            @vreporter("res is {get_res}")
+            def get_res(self):
+                return "res_val"
+
+            @vreporter("test {0}")
+            def trigger_index_err(self):
+                return True
+
+        d = DummyWithReporter()
+        
+        # Test private mangled
+        d.get_mangled()
+        mock_rep.verbose.assert_called_with(True, ["mangled is mangled_val"])
+
+        # Test public
+        d.get_public()
+        mock_rep.verbose.assert_called_with(True, ["public is public_val"])
+
+        # Test result placeholder
+        d.get_res()
+        mock_rep.verbose.assert_called_with(True, ["res is res_val"])
+
+        # Test format error fallback
+        d.trigger_index_err()
 
 
 class ReporterUnitTestCase(TestCase):

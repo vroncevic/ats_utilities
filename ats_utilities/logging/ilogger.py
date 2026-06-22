@@ -21,7 +21,7 @@ Info
 '''
 
 from abc import ABC, abstractmethod
-from typing import ClassVar, Protocol
+from typing import ClassVar
 from enum import Enum, EnumMeta
 
 __author__: str = 'Vladimir Roncevic'
@@ -50,22 +50,6 @@ class LogFormats(str, Enum):
     ATS_LOG_DATE_FORMAT = '%m/%d/%Y %I:%M:%S %p'
 
 
-class LoggerFormatsProtocol(Protocol):
-    '''
-        Defines protocol LoggerFormatsProtocol with attribute(s).
-        Protocol for log formats in the ATS logging mechanism.
-
-        It defines:
-
-            :attributes:
-                | ATS_LOG_MSG_FORMAT - Log message format (string).
-                | ATS_LOG_DATE_FORMAT - Log date format (string).
-            :methods: None
-    '''
-    ATS_LOG_MSG_FORMAT: ClassVar[str]
-    ATS_LOG_DATE_FORMAT: ClassVar[str]
-
-
 class LogLevels(int, Enum):
     '''
         Defines class LogLevels with attribute(s).
@@ -86,28 +70,6 @@ class LogLevels(int, Enum):
     ATS_LOG_WARNING = 30
     ATS_LOG_ERROR = 40
     ATS_LOG_CRITICAL = 50
-
-
-class LoggerLevelsProtocol(Protocol):
-    '''
-        Defines protocol LoggerLevelsProtocol with attribute(s).
-        Protocol for log levels in the ATS logging mechanism.
-
-        It defines:
-
-            :attributes:
-                | ATS_LOG_DEBUG - Debug log level.
-                | ATS_LOG_INFO - Info log level.
-                | ATS_LOG_WARNING - Warning log level.
-                | ATS_LOG_ERROR - Error log level.
-                | ATS_LOG_CRITICAL - Critical log level.
-            :methods: None
-    '''
-    ATS_LOG_DEBUG: ClassVar[int]
-    ATS_LOG_INFO: ClassVar[int]
-    ATS_LOG_WARNING: ClassVar[int]
-    ATS_LOG_ERROR: ClassVar[int]
-    ATS_LOG_CRITICAL: ClassVar[int]
 
 
 class ILogger(ABC):
@@ -145,7 +107,7 @@ class ILogger(ABC):
         raise NotImplementedError("Method write_log() must be implemented.")
 
     @abstractmethod
-    def ok(self) -> bool:
+    def is_initialized(self) -> bool:
         '''
             Checks if logger component is ok.
 

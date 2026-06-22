@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines class ATSLoggerManager with attribute(s) and method(s).
+    Defines class LoggerManager with attribute(s) and method(s).
     Creates an API for the ATS logging mechanism.
 '''
 
@@ -29,8 +29,12 @@ from ats_utilities.reporter.ireporter import IReporter
 from ats_utilities.logging.logger_bundle import LoggerBundle
 from ats_utilities.logging.logger import ATSLogger, ATSLogLevels
 from ats_utilities.factory_context_bundle import factory_context_bundle
-from ats_utilities.factory_class import get_private_attr, format_instance_to_string
+from ats_utilities.factory_class import get_class_name, format_instance_to_string
 from ats_utilities.factory_component import make_component, validate_component
+from ats_utilities.exceptions.ats_type_error import ATSTypeError
+from ats_utilities.exceptions.ats_value_error import ATSValueError
+from ats_utilities.exceptions.ats_runtime_error import ATSRuntimeError
+from ats_utilities.exceptions.ats_attribute_error import ATSAttributeError
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -42,9 +46,9 @@ __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
 
 
-class ATSLoggerManager(ILoggerManager):
+class LoggerManager(ILoggerManager):
     '''
-        Defines class ATSLoggerManager with attribute(s) and method(s).
+        Defines class LoggerManager with attribute(s) and method(s).
         Creates an API for the ATS logging mechanism.
         ATS logger mechanism.
 
@@ -57,14 +61,16 @@ class ATSLoggerManager(ILoggerManager):
                 | ATS_INFO - Info log level.
                 | ATS_WARNING - Warning log level.
                 | _logger - Prepared logger instance or default logger.
-                | _checker - Factoriezed parameters checker (default Checker).
-                | _reporter - Factoriezed reporter for messaging (default Reporter).
-                | _verbose - Factoriezed Enable/Disable verbose option (default False).
+                | _checker - Injected parameters checker (default Checker).
+                | _reporter - Injected reporter for messaging (default Reporter).
+                | _verbose - Injected Enable/Disable verbose option (default False).
+                | _is_initialized - Indicates if the logger manager component is initialized (default False).
             :methods:
-                | __init__ - Initials ATSLoggerManager constructor.
+                | __init__ - Initials LoggerManager constructor.
                 | get_logger - Gets logger instance.
-                | ok - Checks if logger manager component is ok.
                 | write_log - Writes message to log output.
+                | is_initialized - Checks if the logger manager component is initialized.
+                | __str__ - Returns the string representation of ATS logger.
     '''
 
     ATS_CRITICAL = ATSLogLevels.ATS_LOG_CRITICAL
@@ -79,25 +85,30 @@ class ATSLoggerManager(ILoggerManager):
 
     def __init__(self, component_bundle: LoggingComponentBundle | None = None) -> None:
         '''
-            Initializes ATSLoggerManager constructor.
+            Initializes LoggerManager constructor.
 
             :param component_bundle: Logging component bundle with parameters | None.
             :type component_bundle: <LoggingComponentBundle | None>
-            :exceptions: ATSTypeError
+            :exceptions: None.
         '''
         # No dependency injection then use default ones.
         bundle = component_bundle or LoggingComponentBundle()
         factory_context_bundle(self, bundle.context_bundle)
         shared_bundle: ContextBundle = ContextBundle(
-            checker=get_private_attr(self, 'checker'),
-            reporter=get_private_attr(self, 'reporter'),
-            verbose=get_private_attr(self, 'verbose')
+            checker=self._checker, reporter=self._reporter, verbose=self._verbose
         )
         log_bundle: LoggerBundle = bundle.logger_bundle or LoggerBundle()
-        self._logger: ILogger = make_component(
-            bundle.logger, ATSLogger, {'logger_bundle': log_bundle, 'context_bundle': shared_bundle}
-        )
-        validate_component(self._logger, type(self._logger), type(self._logger).__name__)
+        self._is_initialized: bool = False
+
+        try:
+            self._logger: ILogger = make_component(
+                bundle.logger, ATSLogger, {'logger_bundle': log_bundle, 'context_bundle': shared_bundle}
+            )
+            validate_component(self._logger, ATSLogger) if not bundle.logger else None
+            self._is_initialized = True
+
+        except (ATSTypeError, ATSValueError, ATSRuntimeError, ATSAttributeError) as exc:
+            self._reporter.error([f"{get_class_name(self)} - error during initialization: {exc}"])
 
     def get_logger(self) -> ILogger:
         '''
@@ -123,15 +134,15 @@ class ATSLoggerManager(ILoggerManager):
         '''
         return self._logger.write_log(message, int(ctrl))
 
-    def ok(self) -> bool:
+    def is_initialized(self) -> bool:
         '''
-            Checks if logger component is ok.
+            Checks if the logger manager component is initialized.
 
-            :return: True (success) | False (fail)
+            :return: True (success) | False (fail).
             :rtype: <bool>
-            :exceptions: None..
+            :exceptions: None.
         '''
-        return self._logger.ok()
+        return self._is_initialized and self._logger.is_initialized()
 
     def __str__(self) -> str:
         '''

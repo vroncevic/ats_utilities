@@ -87,25 +87,25 @@
 
 <span class="sd">            :attributes: None</span>
 <span class="sd">            :methods:</span>
-<span class="sd">                | is_operational - Checks if ATS is operational.</span>
+<span class="sd">                | is_initialized - Checks if the base component is initialized.</span>
 <span class="sd">                | add_new_option - Adds a new option for the CL interface.</span>
 <span class="sd">                | parse_args - Parses the CLI arguments.</span>
 <span class="sd">                | process - Processes and runs tool operations.</span>
 <span class="sd">                | __str__ - Returns the ATS base as string representation.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
 
-<div class="viewcode-block" id="IBase.is_operational">
-<a class="viewcode-back" href="../../../ats_utilities.base.ibase.html#ats_utilities.base.ibase.IBase.is_operational">[docs]</a>
+<div class="viewcode-block" id="IBase.is_initialized">
+<a class="viewcode-back" href="../../../ats_utilities.base.ibase.html#ats_utilities.base.ibase.IBase.is_initialized">[docs]</a>
     <span class="nd">@abstractmethod</span>
-    <span class="k">def</span> <span class="nf">is_operational</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">is_initialized</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">            Checks if ATS is operational.</span>
+<span class="sd">            Checks if the base component is initialized.</span>
 
-<span class="sd">            :return: True (operational) | False (not operational)</span>
+<span class="sd">            :return: True (success) | False (fail)</span>
 <span class="sd">            :rtype: &lt;bool&gt;</span>
 <span class="sd">            :exceptions: NotImplementedError.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s2">&quot;Method is_operational() must be implemented.&quot;</span><span class="p">)</span></div>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s2">&quot;Method is_initialized() must be implemented.&quot;</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="IBase.add_new_option">

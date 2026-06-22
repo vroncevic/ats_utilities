@@ -21,7 +21,7 @@ Info
 '''
 
 from abc import ABC, abstractmethod
-from typing import Any, ClassVar, TypeAlias, Protocol
+from typing import Any, ClassVar, TypeAlias
 from enum import Enum, EnumMeta
 
 __author__: str = 'Vladimir Roncevic'
@@ -58,24 +58,6 @@ class ErrorChecker(int, Enum):
     FORMAT_ERROR = 2
 
 
-class ErrorCheckerProtocol(Protocol):
-    '''
-        Defines class ErrorCheckerProtocol with attribute(s).
-        Protocol for error types for the Checker.
-
-        It defines:
-
-            :attributes:
-                | NO_ERROR - Marks no param error report (0).
-                | TYPE_ERROR - Marks type param error report (1).
-                | FORMAT_ERROR - Marks wrong format error report (2).
-            :methods: None
-    '''
-    NO_ERROR: ClassVar[int]
-    TYPE_ERROR: ClassVar[int]
-    FORMAT_ERROR: ClassVar[int]
-
-
 class IChecker(ABC):
     '''
         Defines abstract class IChecker with attribute(s) and method(s).
@@ -86,7 +68,8 @@ class IChecker(ABC):
             :attributes:
                 | ERRORS - Marks error types for message reports (0 | 1 | 2).
             :methods:
-                | validates_parameters - Validates parameters for method(s) or function(s) (abstract).
+                | validates_parameters - Validates parameters for method(s) or function(s).
+                | is_initialized - Checks if checker component is initialized.
                 | __str__ - Returns the checker as string representation.
     '''
 
@@ -104,6 +87,17 @@ class IChecker(ABC):
             :exceptions: NotImplementedError.
         '''
         raise NotImplementedError("Method validate_parameters() must be implemented.")
+
+    @abstractmethod
+    def is_initialized(self) -> bool:
+        '''
+            Checks if checker component is initialized.
+
+            :return: True (success) | False (fail)
+            :rtype: <bool>
+            :exceptions: NotImplementedError.
+        '''
+        raise NotImplementedError('Method is_initialized() must be implemented.')
 
     @abstractmethod
     def __str__(self) -> str:

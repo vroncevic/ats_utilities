@@ -53,6 +53,7 @@ class Cfg2ObjectTestCase(TestCase):
                 | test_not_none - Test is Cfg2Object not None.
                 | test_read_configuration - Test for read configuration.
                 | test_none_config_path - Test for None as file path.
+                | test_str - Test string representation of Cfg2Object.
     '''
 
     def setUp(self) -> None:
@@ -76,6 +77,10 @@ class Cfg2ObjectTestCase(TestCase):
         '''Test for None as file path'''
         cfg2obj = Cfg2Object(None)
         self.assertIsNone(cfg2obj.read_configuration())
+
+    def test_str(self) -> None:
+        '''Test string representation of Cfg2Object.'''
+        self.assertIsInstance(str(self.cfg2obj), str)
 
 
 if __name__ == '__main__':

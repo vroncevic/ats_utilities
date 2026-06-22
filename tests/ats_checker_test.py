@@ -34,6 +34,9 @@ from ats_utilities.exceptions.ats_type_error import ATSTypeError
 from ats_utilities.exceptions.ats_value_error import ATSValueError
 from ats_utilities.reporter.ireporter import IReporter
 from ats_utilities.reporter.engine import Reporter
+from ats_utilities.checker.check_reporter import CheckReporter
+from ats_utilities.checker.component_bundle import CheckerComponentBundle
+from ats_utilities.checker.context_provider import ContextProvider
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -97,6 +100,7 @@ class ATSCheckerTestCase(TestCase):
     def test_not_none(self) -> None:
         '''Test for checker not None.'''
         self.assertIsNotNone(self.ats_base_checker)
+        self.assertTrue(self.ats_base_checker.is_initialized())
 
     def test_tool_operational(self) -> None:
         '''Test is tool operational'''
@@ -283,6 +287,26 @@ class ATSCheckerTestCase(TestCase):
             ('unknown_type:var', 'value')
         ])
         self.assertEqual(self.error_id, ErrorChecker.TYPE_ERROR)
+
+    def test_check_reporter_missing_bundle(self) -> None:
+        '''Test CheckReporter build_message_format raises ATSValueError when report_bundle is None.'''
+        reporter = CheckReporter()
+        with self.assertRaises(ATSValueError):
+            reporter.build_message_format(None)
+
+    def test_context_provider(self) -> None:
+        '''Test ContextProvider caller index setting and bounds checks.'''
+        provider = ContextProvider()
+        provider.set_stack_index_caller(9999) # Out of bounds
+        ctx = provider.get_context()
+        self.assertIsNotNone(ctx)
+
+    @mock.patch('ats_utilities.checker.engine.make_component')
+    def test_checker_init_failure(self, mock_make) -> None:
+        '''Test Checker initialization failure when a component is invalid.'''
+        mock_make.side_effect = ATSTypeError("Mock type error")
+        c = Checker()
+        self.assertFalse(c.is_initialized())
 
 
 class ATSCheckerUnitTestCase(TestCase):

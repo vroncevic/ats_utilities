@@ -42,7 +42,7 @@ class IWrite(ABC):
 
             :attributes: None
             :methods:
-                | write_configuration - Write configuration to file (abstract).
+                | write_configuration - Write configuration to file.
                 | __str__ - Returns the IWrite as string representation.
     '''
 

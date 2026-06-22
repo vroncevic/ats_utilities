@@ -19,9 +19,8 @@ Info
     Use cases for ATS XmlBase.
 '''
 
-import xml.etree.ElementTree as ET
-from bs4 import BeautifulSoup
-from ats_utilities.config_io.xml.xmlbase import XmlBase
+#import xml.etree.ElementTree as ET
+#from bs4 import BeautifulSoup
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -31,9 +30,6 @@ __version__: str = '3.3.8'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
-
-info_file: str = "/data/dev/python/ats_utilities/github/ats_utilities/tests/config/ats_cli_xml_api.xml"
-framework_core = XmlBase(info_file, verbose=True)
 
 #
 # 3rd party [BeautifulSoup]
@@ -78,10 +74,9 @@ framework_core = XmlBase(info_file, verbose=True)
 #            'ats_licence': self.soup.find('ats_licence').get_text() if self.soup.find('ats_licence') else ""
 #        }
 #
-### Korisnik bira parser na nivou aplikacije:
-###odabrani_parser = ElementTreeAdapter()
-#info_file: str = "/data/dev/python/ats_utilities/github/ats_utilities/tests/config/ats_cli_xml_api.xml"
-#odabrani_parser = BeautifulSoupAdapter()
-#reader = Xml2Object(config_file=info_file, xml_processor=odabrani_parser)
+###parser = ElementTreeAdapter()
+#info_file: str = "../../../tests/config/ats_cli_xml_api.xml"
+#parser = BeautifulSoupAdapter()
+#reader = Xml2Object(config_file=info_file, xml_processor=parser)
 #writer = Object2Xml(config_file=info_file)
 #framework_core = XmlBase(info_file=info_file, xml2obj=reader, obj2xml=writer, verbose=True)

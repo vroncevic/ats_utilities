@@ -60,7 +60,6 @@
 
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span>
 <span class="kn">from</span> <span class="nn">time</span> <span class="kn">import</span> <span class="n">sleep</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.exceptions.ats_type_error</span> <span class="kn">import</span> <span class="n">ATSTypeError</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.splasher.isplasher</span> <span class="kn">import</span> <span class="n">ISplasher</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.splasher.component_bundle</span> <span class="kn">import</span> <span class="n">SplashComponentBundle</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.splasher.isplash_property</span> <span class="kn">import</span> <span class="n">ISplashProperty</span>
@@ -74,7 +73,14 @@
 <span class="kn">from</span> <span class="nn">ats_utilities.splasher.iprogress_bar</span> <span class="kn">import</span> <span class="n">IProgressBar</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.splasher.progress_bar</span> <span class="kn">import</span> <span class="n">ProgressBar</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.splasher.splash_keys</span> <span class="kn">import</span> <span class="n">SplashKeys</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.factory_class</span> <span class="kn">import</span> <span class="n">format_instance_to_string</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.checker.ichecker</span> <span class="kn">import</span> <span class="n">IChecker</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.reporter.ireporter</span> <span class="kn">import</span> <span class="n">IReporter</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.exceptions.ats_type_error</span> <span class="kn">import</span> <span class="n">ATSTypeError</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.exceptions.ats_value_error</span> <span class="kn">import</span> <span class="n">ATSValueError</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.exceptions.ats_runtime_error</span> <span class="kn">import</span> <span class="n">ATSRuntimeError</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.exceptions.ats_attribute_error</span> <span class="kn">import</span> <span class="n">ATSAttributeError</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.factory_context_bundle</span> <span class="kn">import</span> <span class="n">factory_context_bundle</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.factory_class</span> <span class="kn">import</span> <span class="n">get_class_name</span><span class="p">,</span> <span class="n">format_instance_to_string</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.factory_component</span> <span class="kn">import</span> <span class="n">make_component</span><span class="p">,</span> <span class="n">validate_component</span>
 
 <span class="n">__author__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;Vladimir Roncevic&#39;</span>
@@ -96,12 +102,21 @@
 
 <span class="sd">        It defines:</span>
 
-<span class="sd">            :attributes: None</span>
+<span class="sd">            :attributes:</span>
+<span class="sd">                | _checker - Injected parameters checker (default Checker).</span>
+<span class="sd">                | _reporter - Injected reporter for messaging (default Reporter).</span>
+<span class="sd">                | _verbose - Injected Enable/Disable verbose option (default False).</span>
+<span class="sd">                | _is_initialized - Indicates if the splasher component is initialized (default False).</span>
 <span class="sd">            :methods:</span>
 <span class="sd">                | __init__ - Initials Splasher constructor.</span>
 <span class="sd">                | center - Centers console line.</span>
+<span class="sd">                | is_initialized - Checks if splasher component is initialized.</span>
 <span class="sd">                | __str__ - Returns the string representation of Splasher.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
+
+    <span class="n">_checker</span><span class="p">:</span> <span class="n">IChecker</span>
+    <span class="n">_reporter</span><span class="p">:</span> <span class="n">IReporter</span>
+    <span class="n">_verbose</span><span class="p">:</span> <span class="nb">bool</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">component_bundle</span><span class="p">:</span> <span class="n">SplashComponentBundle</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
@@ -109,65 +124,74 @@
 
 <span class="sd">            :param component_bundle: Splash screen component bundle | None.</span>
 <span class="sd">            :type component_bundle: &lt;SplashComponentBundle | None&gt;</span>
-<span class="sd">            :exceptions: ATSTypeError</span>
+<span class="sd">            :exceptions: None.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="c1"># No dependency injection then use default ones.</span>
         <span class="n">bundle</span><span class="p">:</span> <span class="n">SplashComponentBundle</span> <span class="o">=</span> <span class="n">component_bundle</span> <span class="ow">or</span> <span class="n">SplashComponentBundle</span><span class="p">()</span>
+        <span class="n">factory_context_bundle</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bundle</span><span class="o">.</span><span class="n">context_bundle</span><span class="p">)</span>
         <span class="n">factory_args</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;context_bundle&#39;</span><span class="p">:</span> <span class="n">bundle</span><span class="o">.</span><span class="n">context_bundle</span><span class="p">}</span>
-        <span class="n">property_splash</span><span class="p">:</span> <span class="n">ISplashProperty</span> <span class="o">=</span> <span class="n">make_component</span><span class="p">(</span><span class="n">bundle</span><span class="o">.</span><span class="n">splash_property</span><span class="p">,</span> <span class="n">SplashProperty</span><span class="p">,</span> <span class="n">factory_args</span><span class="p">)</span>
-        <span class="n">validate_component</span><span class="p">(</span><span class="n">property_splash</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="n">property_splash</span><span class="p">),</span> <span class="nb">type</span><span class="p">(</span><span class="n">property_splash</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)</span>
-        <span class="n">property_splash</span><span class="o">.</span><span class="n">splash_property</span> <span class="o">=</span> <span class="n">bundle</span><span class="o">.</span><span class="n">prop</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_is_initialized</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
 
-        <span class="k">if</span> <span class="n">property_splash</span><span class="o">.</span><span class="n">validates</span><span class="p">():</span>
-            <span class="n">terminal_property</span><span class="p">:</span> <span class="n">ITerminalProperties</span> <span class="o">=</span> <span class="n">make_component</span><span class="p">(</span><span class="n">bundle</span><span class="o">.</span><span class="n">terminal_property</span><span class="p">,</span> <span class="n">TerminalProperties</span><span class="p">,</span> <span class="n">factory_args</span><span class="p">)</span>
-            <span class="n">validate_component</span><span class="p">(</span><span class="n">terminal_property</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="n">terminal_property</span><span class="p">),</span> <span class="nb">type</span><span class="p">(</span><span class="n">terminal_property</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)</span>
-            <span class="n">size</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span> <span class="o">=</span> <span class="n">terminal_property</span><span class="o">.</span><span class="n">size</span><span class="p">()</span>
-            <span class="n">splash_center_bundle</span><span class="p">:</span> <span class="n">SplashCenterBundle</span> <span class="o">=</span> <span class="n">SplashCenterBundle</span><span class="p">()</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">property_splash</span><span class="p">:</span> <span class="n">ISplashProperty</span> <span class="o">=</span> <span class="n">make_component</span><span class="p">(</span><span class="n">bundle</span><span class="o">.</span><span class="n">splash_property</span><span class="p">,</span> <span class="n">SplashProperty</span><span class="p">,</span> <span class="n">factory_args</span><span class="p">)</span>
+            <span class="n">validate_component</span><span class="p">(</span><span class="n">property_splash</span><span class="p">,</span> <span class="n">SplashProperty</span><span class="p">)</span>
+            <span class="n">property_splash</span><span class="o">.</span><span class="n">splash_property</span> <span class="o">=</span> <span class="n">bundle</span><span class="o">.</span><span class="n">prop</span>
 
-            <span class="k">if</span> <span class="nb">bool</span><span class="p">(</span><span class="n">bundle</span><span class="o">.</span><span class="n">prop</span><span class="p">[</span><span class="n">SplashKeys</span><span class="o">.</span><span class="n">ATS_USE_GITHUB_INFRASTRUCTURE</span><span class="p">]):</span>
-                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">property_splash</span><span class="o">.</span><span class="n">validates</span><span class="p">():</span>
+                <span class="n">terminal_property</span><span class="p">:</span> <span class="n">ITerminalProperties</span> <span class="o">=</span> <span class="n">make_component</span><span class="p">(</span><span class="n">bundle</span><span class="o">.</span><span class="n">terminal_property</span><span class="p">,</span> <span class="n">TerminalProperties</span><span class="p">,</span> <span class="n">factory_args</span><span class="p">)</span>
+                <span class="n">validate_component</span><span class="p">(</span><span class="n">terminal_property</span><span class="p">,</span> <span class="n">TerminalProperties</span><span class="p">)</span>
+                <span class="n">size</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span> <span class="o">=</span> <span class="n">terminal_property</span><span class="o">.</span><span class="n">size</span><span class="p">()</span>
+                <span class="n">splash_center_bundle</span><span class="p">:</span> <span class="n">SplashCenterBundle</span> <span class="o">=</span> <span class="n">SplashCenterBundle</span><span class="p">()</span>
 
-                <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">bundle</span><span class="o">.</span><span class="n">prop</span><span class="p">[</span><span class="n">SplashKeys</span><span class="o">.</span><span class="n">ATS_LOGO_PATH</span><span class="p">],</span> <span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">scr</span><span class="p">:</span>
-                    <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">scr</span><span class="p">:</span>
-                        <span class="n">processed_line</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">rstrip</span><span class="p">()</span>
+                <span class="k">if</span> <span class="nb">bool</span><span class="p">(</span><span class="n">bundle</span><span class="o">.</span><span class="n">prop</span><span class="p">[</span><span class="n">SplashKeys</span><span class="o">.</span><span class="n">ATS_USE_GITHUB_INFRASTRUCTURE</span><span class="p">]):</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
 
-                        <span class="k">if</span> <span class="nb">bool</span><span class="p">(</span><span class="n">processed_line</span><span class="p">):</span>
-                            <span class="n">splash_center_bundle</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">size</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
-                            <span class="n">splash_center_bundle</span><span class="o">.</span><span class="n">additional_shifter</span> <span class="o">=</span> <span class="mi">0</span>
-                            <span class="n">splash_center_bundle</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="n">processed_line</span>
-                            <span class="bp">self</span><span class="o">.</span><span class="n">center</span><span class="p">(</span><span class="n">splash_center_bundle</span><span class="p">)</span>
+                    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">bundle</span><span class="o">.</span><span class="n">prop</span><span class="p">[</span><span class="n">SplashKeys</span><span class="o">.</span><span class="n">ATS_LOGO_PATH</span><span class="p">],</span> <span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">scr</span><span class="p">:</span>
+                        <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">scr</span><span class="p">:</span>
+                            <span class="n">processed_line</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">rstrip</span><span class="p">()</span>
 
-                <span class="n">github</span><span class="p">:</span> <span class="n">IExtInfrastructure</span> <span class="o">=</span> <span class="n">make_component</span><span class="p">(</span><span class="n">bundle</span><span class="o">.</span><span class="n">github</span><span class="p">,</span> <span class="n">GitHubInfrastructure</span><span class="p">,</span> <span class="n">factory_args</span><span class="p">)</span>
-                <span class="n">validate_component</span><span class="p">(</span><span class="n">github</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="n">github</span><span class="p">),</span> <span class="nb">type</span><span class="p">(</span><span class="n">github</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)</span>
-                <span class="n">github</span><span class="o">.</span><span class="n">infrastructure_property</span> <span class="o">=</span> <span class="n">bundle</span><span class="o">.</span><span class="n">prop</span>
-                <span class="n">splash_center_bundle</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">size</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
-                <span class="n">splash_center_bundle</span><span class="o">.</span><span class="n">additional_shifter</span> <span class="o">=</span> <span class="mi">2</span>
-                <span class="n">splash_center_bundle</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="n">github</span><span class="o">.</span><span class="n">get_info_text</span><span class="p">()</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">center</span><span class="p">(</span><span class="n">splash_center_bundle</span><span class="p">)</span>
-                <span class="n">splash_center_bundle</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="n">github</span><span class="o">.</span><span class="n">get_issue_text</span><span class="p">()</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">center</span><span class="p">(</span><span class="n">splash_center_bundle</span><span class="p">)</span>
-                <span class="n">splash_center_bundle</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="n">github</span><span class="o">.</span><span class="n">get_author_text</span><span class="p">()</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">center</span><span class="p">(</span><span class="n">splash_center_bundle</span><span class="p">)</span>
-                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="n">ext</span><span class="p">:</span> <span class="n">IExtInfrastructure</span> <span class="o">=</span> <span class="n">make_component</span><span class="p">(</span><span class="n">bundle</span><span class="o">.</span><span class="n">ext</span><span class="p">,</span> <span class="n">ExtInfrastructure</span><span class="p">,</span> <span class="n">factory_args</span><span class="p">)</span>
-                <span class="n">validate_component</span><span class="p">(</span><span class="n">ext</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="n">ext</span><span class="p">),</span> <span class="nb">type</span><span class="p">(</span><span class="n">ext</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)</span>
-                <span class="n">ext</span><span class="o">.</span><span class="n">infrastructure_property</span> <span class="o">=</span> <span class="n">bundle</span><span class="o">.</span><span class="n">prop</span>
-                <span class="n">splash_center_bundle</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">size</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
-                <span class="n">splash_center_bundle</span><span class="o">.</span><span class="n">additional_shifter</span> <span class="o">=</span> <span class="mi">2</span>
-                <span class="n">splash_center_bundle</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="n">ext</span><span class="o">.</span><span class="n">get_info_text</span><span class="p">()</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">center</span><span class="p">(</span><span class="n">splash_center_bundle</span><span class="p">)</span>
-                <span class="n">splash_center_bundle</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="n">ext</span><span class="o">.</span><span class="n">get_issue_text</span><span class="p">()</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">center</span><span class="p">(</span><span class="n">splash_center_bundle</span><span class="p">)</span>
-                <span class="n">splash_center_bundle</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="n">ext</span><span class="o">.</span><span class="n">get_author_text</span><span class="p">()</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">center</span><span class="p">(</span><span class="n">splash_center_bundle</span><span class="p">)</span>
-                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
-            <span class="n">pb</span><span class="p">:</span> <span class="n">IProgressBar</span> <span class="o">=</span> <span class="n">bundle</span><span class="o">.</span><span class="n">pb</span> <span class="ow">or</span> <span class="n">ProgressBar</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">size</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">-</span> <span class="nb">int</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">size</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">/</span> <span class="mi">2</span><span class="p">))</span>
+                            <span class="k">if</span> <span class="nb">bool</span><span class="p">(</span><span class="n">processed_line</span><span class="p">):</span>
+                                <span class="n">splash_center_bundle</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">size</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+                                <span class="n">splash_center_bundle</span><span class="o">.</span><span class="n">additional_shifter</span> <span class="o">=</span> <span class="mi">0</span>
+                                <span class="n">splash_center_bundle</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="n">processed_line</span>
+                                <span class="bp">self</span><span class="o">.</span><span class="n">center</span><span class="p">(</span><span class="n">splash_center_bundle</span><span class="p">)</span>
 
-            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">size</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">-</span> <span class="nb">int</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">size</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)):</span>
-                <span class="n">pb</span><span class="o">.</span><span class="n">set_and_plot</span><span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">size</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
-                <span class="n">sleep</span><span class="p">(</span><span class="mf">0.01</span><span class="p">)</span>
-            <span class="k">del</span> <span class="n">pb</span>
+                    <span class="n">github</span><span class="p">:</span> <span class="n">IExtInfrastructure</span> <span class="o">=</span> <span class="n">make_component</span><span class="p">(</span><span class="n">bundle</span><span class="o">.</span><span class="n">github</span><span class="p">,</span> <span class="n">GitHubInfrastructure</span><span class="p">,</span> <span class="n">factory_args</span><span class="p">)</span>
+                    <span class="n">validate_component</span><span class="p">(</span><span class="n">github</span><span class="p">,</span> <span class="n">GitHubInfrastructure</span><span class="p">)</span>
+                    <span class="n">github</span><span class="o">.</span><span class="n">infrastructure_property</span> <span class="o">=</span> <span class="n">bundle</span><span class="o">.</span><span class="n">prop</span>
+                    <span class="n">splash_center_bundle</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">size</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+                    <span class="n">splash_center_bundle</span><span class="o">.</span><span class="n">additional_shifter</span> <span class="o">=</span> <span class="mi">2</span>
+                    <span class="n">splash_center_bundle</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="n">github</span><span class="o">.</span><span class="n">get_info_text</span><span class="p">()</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">center</span><span class="p">(</span><span class="n">splash_center_bundle</span><span class="p">)</span>
+                    <span class="n">splash_center_bundle</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="n">github</span><span class="o">.</span><span class="n">get_issue_text</span><span class="p">()</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">center</span><span class="p">(</span><span class="n">splash_center_bundle</span><span class="p">)</span>
+                    <span class="n">splash_center_bundle</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="n">github</span><span class="o">.</span><span class="n">get_author_text</span><span class="p">()</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">center</span><span class="p">(</span><span class="n">splash_center_bundle</span><span class="p">)</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">ext</span><span class="p">:</span> <span class="n">IExtInfrastructure</span> <span class="o">=</span> <span class="n">make_component</span><span class="p">(</span><span class="n">bundle</span><span class="o">.</span><span class="n">ext</span><span class="p">,</span> <span class="n">ExtInfrastructure</span><span class="p">,</span> <span class="n">factory_args</span><span class="p">)</span>
+                    <span class="n">validate_component</span><span class="p">(</span><span class="n">ext</span><span class="p">,</span> <span class="n">ExtInfrastructure</span><span class="p">)</span>
+                    <span class="n">ext</span><span class="o">.</span><span class="n">infrastructure_property</span> <span class="o">=</span> <span class="n">bundle</span><span class="o">.</span><span class="n">prop</span>
+                    <span class="n">splash_center_bundle</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">size</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+                    <span class="n">splash_center_bundle</span><span class="o">.</span><span class="n">additional_shifter</span> <span class="o">=</span> <span class="mi">2</span>
+                    <span class="n">splash_center_bundle</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="n">ext</span><span class="o">.</span><span class="n">get_info_text</span><span class="p">()</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">center</span><span class="p">(</span><span class="n">splash_center_bundle</span><span class="p">)</span>
+                    <span class="n">splash_center_bundle</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="n">ext</span><span class="o">.</span><span class="n">get_issue_text</span><span class="p">()</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">center</span><span class="p">(</span><span class="n">splash_center_bundle</span><span class="p">)</span>
+                    <span class="n">splash_center_bundle</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="n">ext</span><span class="o">.</span><span class="n">get_author_text</span><span class="p">()</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">center</span><span class="p">(</span><span class="n">splash_center_bundle</span><span class="p">)</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+                <span class="n">pb</span><span class="p">:</span> <span class="n">IProgressBar</span> <span class="o">=</span> <span class="n">bundle</span><span class="o">.</span><span class="n">pb</span> <span class="ow">or</span> <span class="n">ProgressBar</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">size</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">-</span> <span class="nb">int</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">size</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">/</span> <span class="mi">2</span><span class="p">))</span>
+
+                <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">size</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">-</span> <span class="nb">int</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">size</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)):</span>
+                    <span class="n">pb</span><span class="o">.</span><span class="n">set_and_plot</span><span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">size</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
+                    <span class="n">sleep</span><span class="p">(</span><span class="mf">0.01</span><span class="p">)</span>
+                <span class="k">del</span> <span class="n">pb</span>
+
+                <span class="bp">self</span><span class="o">.</span><span class="n">_is_initialized</span> <span class="o">=</span> <span class="kc">True</span>
+
+        <span class="k">except</span> <span class="p">(</span><span class="n">ATSTypeError</span><span class="p">,</span> <span class="n">ATSValueError</span><span class="p">,</span> <span class="n">ATSRuntimeError</span><span class="p">,</span> <span class="n">ATSAttributeError</span><span class="p">)</span> <span class="k">as</span> <span class="n">exc</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_reporter</span><span class="o">.</span><span class="n">error</span><span class="p">([</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">get_class_name</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="si">}</span><span class="s2"> - error during initialization: </span><span class="si">{</span><span class="n">exc</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">])</span>
 
 <div class="viewcode-block" id="Splasher.center">
 <a class="viewcode-back" href="../../../ats_utilities.splasher.engine.html#ats_utilities.splasher.engine.Splasher.center">[docs]</a>
@@ -184,6 +208,19 @@
         <span class="n">start_position</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="p">(</span><span class="n">bundle</span><span class="o">.</span><span class="n">columns</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span> <span class="o">-</span> <span class="mi">30</span>
         <span class="n">number_of_tabs</span> <span class="o">=</span> <span class="nb">int</span><span class="p">((</span><span class="n">start_position</span> <span class="o">/</span> <span class="mi">8</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span> <span class="o">+</span> <span class="n">bundle</span><span class="o">.</span><span class="n">additional_shifter</span><span class="p">)</span>
         <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{0}{1}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\011</span><span class="s1">&#39;</span> <span class="o">*</span> <span class="n">number_of_tabs</span><span class="p">,</span> <span class="n">bundle</span><span class="o">.</span><span class="n">text</span><span class="p">))</span></div>
+
+
+<div class="viewcode-block" id="Splasher.is_initialized">
+<a class="viewcode-back" href="../../../ats_utilities.splasher.engine.html#ats_utilities.splasher.engine.Splasher.is_initialized">[docs]</a>
+    <span class="k">def</span> <span class="nf">is_initialized</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">            Checks if splasher component is initialized.</span>
+
+<span class="sd">            :return: True (success) | False (fail).</span>
+<span class="sd">            :rtype: &lt;bool&gt;</span>
+<span class="sd">            :exceptions: None.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_is_initialized</span></div>
 
 
     <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>

@@ -74,10 +74,30 @@ Provides a simple factory mechanism for dependency injection.</p>
 Cleans private attributes and appends memory addresses in hex.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>instance</strong> (<em>&lt;Any&gt;</em>) – The class instance to format</p>
+<dd class="field-odd"><p><strong>instance</strong> (<em>&lt;Any&gt;</em>) – The class instance to format.</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>String representation of the instance</p>
+<dd class="field-even"><p>String representation of the instance.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>&lt;str&gt;</p>
+</dd>
+<dt class="field-even">Exceptions<span class="colon">:</span></dt>
+<dd class="field-even"><p>None.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ats_utilities.factory_class.get_class_name">
+<span class="sig-prename descclassname"><span class="pre">ats_utilities.factory_class.</span></span><span class="sig-name descname"><span class="pre">get_class_name</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instance</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="_modules/ats_utilities/factory_class.html#get_class_name"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.factory_class.get_class_name" title="Link to this definition">¶</a></dt>
+<dd><p>Returns the class name of an instance.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>instance</strong> (<em>&lt;Any&gt;</em>) – The class instance.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The class name in string format.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>&lt;str&gt;</p>
@@ -95,18 +115,18 @@ Cleans private attributes and appends memory addresses in hex.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>instance</strong> (<em>&lt;Any&gt;</em>) – The class instance (self) containing the attribute</p></li>
-<li><p><strong>attr_name</strong> (<em>&lt;str&gt;</em>) – The target private attribute name (e.g., ‘_checker’)</p></li>
+<li><p><strong>instance</strong> (<em>&lt;Any&gt;</em>) – The class instance (self) containing the attribute.</p></li>
+<li><p><strong>attr_name</strong> (<em>&lt;str&gt;</em>) – The target private attribute name (e.g., ‘_checker’).</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>The resolved attribute value</p>
+<dd class="field-even"><p>The resolved attribute value.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>&lt;Any&gt;</p>
 </dd>
 <dt class="field-even">Exceptions<span class="colon">:</span></dt>
-<dd class="field-even"><p>AttributeError</p>
+<dd class="field-even"><p>AttributeError.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -120,10 +140,10 @@ Dynamically handles multi-dependency relationship chains between sequence steps.
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>instance</strong> (<em>&lt;Any&gt;</em>) – The object instance (self) to inject attributes into</p></li>
+<li><p><strong>instance</strong> (<em>&lt;Any&gt;</em>) – The object instance (self) to inject attributes into.</p></li>
 <li><p><strong>dependencies</strong> (<em>&lt;tuple</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>, </em><em>Any</em><em>, </em><em>str</em><em> | </em><em>list</em><em>[</em><em>str</em><em>] </em><em>| </em><em>tuple</em><em>[</em><em>str</em><em>, </em><em>...</em><em>] </em><em>| </em><em>None</em><em>]</em><em>&gt;</em>) – Variadic sequence of tuples containing injection rules.
 Format: (‘attr_name’, value, fallback, ‘depends_on_attr’)
-The ‘depends_on_attr’ can be a string, list, or tuple</p></li>
+The ‘depends_on_attr’ can be a string, list, or tuple.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Exceptions<span class="colon">:</span></dt>
@@ -140,16 +160,16 @@ In case attribute value is not defined set default value to None.
 In case attribute value is not defined and not empty, raise ATSValueError exception.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>attr_names</strong> (<em>&lt;tuple</em><em>[</em><em>str</em><em>, </em><em>...</em><em>]</em><em>&gt;</em>) – Tuple of attribute names to check</p>
+<dd class="field-odd"><p><strong>attr_names</strong> (<em>&lt;tuple</em><em>[</em><em>str</em><em>, </em><em>...</em><em>]</em><em>&gt;</em>) – Tuple of attribute names to check.</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>Decorated function</p>
+<dd class="field-even"><p>Decorated function.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>&lt;Callable[…, Any]&gt;</p>
 </dd>
 <dt class="field-even">Exceptions<span class="colon">:</span></dt>
-<dd class="field-even"><p>ATSValueError</p>
+<dd class="field-even"><p>ATSValueError.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -168,6 +188,7 @@ In case attribute value is not defined and not empty, raise ATSValueError except
     <ul>
 <li><a class="reference internal" href="#">ats_utilities.factory_class module</a><ul>
 <li><a class="reference internal" href="#ats_utilities.factory_class.format_instance_to_string"><code class="docutils literal notranslate"><span class="pre">format_instance_to_string()</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.factory_class.get_class_name"><code class="docutils literal notranslate"><span class="pre">get_class_name()</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.factory_class.get_private_attr"><code class="docutils literal notranslate"><span class="pre">get_private_attr()</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.factory_class.inject"><code class="docutils literal notranslate"><span class="pre">inject()</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.factory_class.require_attributes"><code class="docutils literal notranslate"><span class="pre">require_attributes()</span></code></a></li>

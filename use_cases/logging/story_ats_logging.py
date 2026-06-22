@@ -20,8 +20,10 @@ Info
 '''
 
 from loguru import logger as loguru_native
-from ats_utilities.logging.ilogger import ILogger 
-from ats_utilities.logging.logger import ATSLogger, LogLevels
+from ats_utilities.logging.ilogger import ILogger, LogLevels
+from ats_utilities.logging.logger import ATSLogLevels
+from ats_utilities.logging.component_bundle import LoggingComponentBundle
+from ats_utilities.logging.engine import LoggerManager
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -36,12 +38,12 @@ __status__: str = 'Updated'
 # default logging [logging]
 # ==========================
 #
-logger_default: ATSLogger = ATSLogger()
-logger_default.write_log("debug test", LogLevels.ATS_LOG_DEBUG)
-logger_default.write_log("info test", LogLevels.ATS_LOG_INFO)
-logger_default.write_log("warning test", LogLevels.ATS_LOG_WARNING)
-logger_default.write_log("error test", LogLevels.ATS_LOG_ERROR)
-logger_default.write_log("critical test", LogLevels.ATS_LOG_CRITICAL)
+logger_default: LoggerManager = LoggerManager()
+logger_default.write_log("debug test", ATSLogLevels.ATS_LOG_DEBUG)
+logger_default.write_log("info test", ATSLogLevels.ATS_LOG_INFO)
+logger_default.write_log("warning test", ATSLogLevels.ATS_LOG_WARNING)
+logger_default.write_log("error test", ATSLogLevels.ATS_LOG_ERROR)
+logger_default.write_log("critical test", ATSLogLevels.ATS_LOG_CRITICAL)
 
 #
 # 3rd party [loguru]
@@ -71,8 +73,15 @@ class LoguruATSAdapter(ILogger):
             return True
         return False
 
+    def is_initialized(self) -> bool:
+        return True
+
+    def __str__(self) -> str:
+        return 'LoguruATSAdapter'
+
 custom_logger = LoguruATSAdapter()
-logger_custome: ATSLogger = ATSLogger(logger_instance=custom_logger)
+bundle: LoggingComponentBundle = LoggingComponentBundle(logger=custom_logger)
+logger_custome: LoggerManager = LoggerManager(component_bundle=bundle)
 logger_custome.write_log("debug test", LogLevels.ATS_LOG_DEBUG)
 logger_custome.write_log("info test", LogLevels.ATS_LOG_INFO)
 logger_custome.write_log("warning test", LogLevels.ATS_LOG_WARNING)

@@ -78,6 +78,7 @@ class ProConfigTestCase(TestCase):
                 | test_set_config_none - Sets None configuration.
                 | test_set_config - Sets simple configuration.
                 | test_get_config - Gets simple configuration.
+                | test_str - Test string representation of ProConfig.
     '''
 
     def setUp(self) -> None:
@@ -125,6 +126,17 @@ class ProConfigTestCase(TestCase):
         }
         self.ats_base_pro_config.config = test_config
         self.assertIsNotNone(self.ats_base_pro_config.config)
+
+    def test_str(self) -> None:
+        '''Test string representation of ProConfig.'''
+        self.assertIsInstance(str(self.ats_base_pro_config), str)
+
+    def test_not_none_method(self) -> None:
+        '''Test not_none method.'''
+        self.ats_base_pro_config.config = None
+        self.assertFalse(self.ats_base_pro_config.not_none())
+        self.ats_base_pro_config.config = {'some': 'config'}
+        self.assertTrue(self.ats_base_pro_config.not_none())
 
 
 if __name__ == '__main__':

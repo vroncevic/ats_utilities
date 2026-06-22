@@ -33,7 +33,7 @@ from ats_utilities.config_io.cfg.cfg_processor import CFGProcessor
 from ats_utilities.config_io.cfg.icfg_processor import ICFGProcessor
 from ats_utilities.factory_context_bundle import factory_context_bundle
 from ats_utilities.factory_component import make_component, validate_component
-from ats_utilities.factory_class import get_private_attr, format_instance_to_string
+from ats_utilities.factory_class import format_instance_to_string
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -54,9 +54,9 @@ class CFGLoader(ILoader):
         It defines:
 
             :attributes:
-                | _checker - Factoriezed parameters checker (default Checker).
-                | _reporter - Factoriezed reporter for messaging (default Reporter).
-                | _verbose - Factoriezed Enable/Disable verbose option (default False).
+                | _checker - Injected parameters checker (default Checker).
+                | _reporter - Injected reporter for messaging (default Reporter).
+                | _verbose - Injected Enable/Disable verbose option (default False).
                 | _configuration - CFG processor configuration (default None).
             :methods:
                 | __init__ - Initializes CFGLoader constructor.
@@ -91,20 +91,18 @@ class CFGLoader(ILoader):
         config_file_bundle: ATSConfigFileBundle = config_bundle or ATSConfigFileBundle()
         factory_context_bundle(self, config_file_bundle.context)
         context_bundle_shared: ContextBundle = ContextBundle(
-            checker=get_private_attr(self, 'checker'),
-            reporter=get_private_attr(self, 'reporter'),
-            verbose=get_private_attr(self, 'verbose')
+            checker=self._checker, reporter=self._reporter, verbose=self._verbose
         )
         file_checker: IFileCheck = make_component(
             config_file_bundle.file_checker, FileCheck, {'config_bundle': context_bundle_shared}
         )
-        validate_component(file_checker, type(file_checker), type(file_checker).__name__)
+        validate_component(file_checker, FileCheck)
         processor: ICFGProcessor = make_component(cfg_processor, CFGProcessor, None)
-        validate_component(processor, type(processor), type(processor).__name__)
+        validate_component(processor, CFGProcessor)
         cfg2obj: IRead = make_component(cfg2object, Cfg2Object, {
             'config_file': info_file, 'config_bundle': config_file_bundle, 'cfg_processor': processor
         })
-        validate_component(cfg2obj, type(cfg2obj), type(cfg2obj).__name__)
+        validate_component(cfg2obj, Cfg2Object)
         self._configuration: ICFGProcessor | None = None
 
         if bool(cfg2obj):

@@ -22,6 +22,8 @@ Info
 '''
 
 from typing import Any
+from collections.abc import Callable
+from functools import wraps
 from ats_utilities.exceptions.ats_value_error import ATSValueError
 
 __author__: str = 'Vladimir Roncevic'
@@ -39,11 +41,11 @@ def inject(instance: Any, *dependencies: tuple[str, Any, Any, str | list[str] | 
         Adheres to SOLID principles by avoiding hardcoded component names or classes.
         Dynamically handles multi-dependency relationship chains between sequence steps.
 
-        :param instance: The object instance (self) to inject attributes into
+        :param instance: The object instance (self) to inject attributes into.
         :type instance: <Any>
         :param dependencies: Variadic sequence of tuples containing injection rules.
                              Format: ('attr_name', value, fallback, 'depends_on_attr')
-                             The 'depends_on_attr' can be a string, list, or tuple
+                             The 'depends_on_attr' can be a string, list, or tuple.
         :type dependencies: <tuple[str, Any, Any, str | list[str] | tuple[str, ...] | None]>
         :exceptions: None.
     '''
@@ -88,20 +90,16 @@ def get_private_attr(instance: Any, attr_name: str) -> Any:
     '''
         Dynamically retrieves a private attribute from an instance.
 
-        :param instance: The class instance (self) containing the attribute
+        :param instance: The class instance (self) containing the attribute.
         :type instance: <Any>
-        :param attr_name: The target private attribute name (e.g., '_checker')
+        :param attr_name: The target private attribute name (e.g., '_checker').
         :type attr_name: <str>
-        :return: The resolved attribute value
+        :return: The resolved attribute value.
         :rtype: <Any>
-        :exceptions: AttributeError
+        :exceptions: AttributeError.
     '''
     clean_attr = attr_name.lstrip('_')
     return getattr(instance, f'_{clean_attr}')
-
-from collections.abc import Callable
-from functools import wraps
-from typing import Any
 
 def require_attributes(*attr_names: str) -> Callable[[Callable[..., Any]], Callable[..., Any]]:
     '''
@@ -109,11 +107,11 @@ def require_attributes(*attr_names: str) -> Callable[[Callable[..., Any]], Calla
         In case attribute value is not defined set default value to None.
         In case attribute value is not defined and not empty, raise ATSValueError exception.
 
-        :param attr_names: Tuple of attribute names to check
+        :param attr_names: Tuple of attribute names to check.
         :type attr_names: <tuple[str, ...]>
-        :return: Decorated function
+        :return: Decorated function.
         :rtype: <Callable[..., Any]>
-        :exceptions: ATSValueError
+        :exceptions: ATSValueError.
     '''
     def decorator(func: Callable[..., Any]) -> Callable[..., Any]:
         @wraps(func)
@@ -130,14 +128,26 @@ def require_attributes(*attr_names: str) -> Callable[[Callable[..., Any]], Calla
         return wrapper
     return decorator
 
+def get_class_name(instance: Any) -> str:
+    '''
+        Returns the class name of an instance.
+
+        :param instance: The class instance.
+        :type instance: <Any>
+        :return: The class name in string format.
+        :rtype: <str>
+        :exceptions: None.
+    '''
+    return instance.__class__.__name__
+
 def format_instance_to_string(instance: Any) -> str:
     '''
         Generates a standardized string representation for any class instance.
         Cleans private attributes and appends memory addresses in hex.
 
-        :param instance: The class instance to format
+        :param instance: The class instance to format.
         :type instance: <Any>
-        :return: String representation of the instance
+        :return: String representation of the instance.
         :rtype: <str>
         :exceptions: None.
     '''

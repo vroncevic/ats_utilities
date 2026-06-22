@@ -23,11 +23,12 @@ Execute
 '''
 
 from unittest.mock import MagicMock
-from unittest import TestCase, main
+from unittest import TestCase, main, mock
+from ats_utilities.exceptions.ats_type_error import ATSTypeError
 from os.path import dirname
 from ats_utilities.base.engine import Base
 from ats_utilities.base.component_bundle import BaseComponentBundle
-from ats_utilities.splasher.isplasher import ISplasher
+from ats_utilities.splasher.engine import Splasher
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -49,10 +50,10 @@ class ATSCliCfgAPI(Base):
         '''Initial constructor.'''
         current_dir: str = dirname(__file__)
         base_info: str = f'{current_dir}{self._CONFIG}'
-        mock_splasher = MagicMock(spec=ISplasher)
+        mock_splasher = MagicMock(spec=Splasher)
         bundle = BaseComponentBundle(info_file=base_info, splasher=mock_splasher)
         super().__init__(bundle)
-        if self.is_operational():
+        if self.is_initialized():
             self.add_new_option(
                 self._OPS[0], self._OPS[1], dest='test',
                 help='flag'
@@ -64,7 +65,7 @@ class ATSCliCfgAPI(Base):
 
     def process(self, verbose: bool = False) -> bool:
         '''Process and run operation.'''
-        return self.is_operational()
+        return self.is_initialized()
 
 
 class CLITestCase(TestCase):
@@ -81,10 +82,13 @@ class CLITestCase(TestCase):
                 | setUp - Call before test case.
                 | tearDown - Call after test case.
                 | test_not_none - Test is ATSCliCfgAPI not None.
+                | test_is_initialized - Test is ATSCliCfgAPI initialized.
+                | test_initialization_failure - Test base initialization failure.
                 | test_process - Test for process.
                 | test_add_new_option_called - Test is add new option called.
                 | test_parse_args_called - Test is parse args called.
                 | test_parse_wrong_args_called - Test parse without args.
+                | test_str - Test string representation of ATSCliCfgAPI.
     '''
 
     def setUp(self) -> None:
@@ -101,6 +105,17 @@ class CLITestCase(TestCase):
     def test_not_none(self) -> None:
         '''Test for create'''
         self.assertIsNotNone(self.ats_cli_api)
+
+    def test_is_initialized(self) -> None:
+        '''Test is_initialized method.'''
+        self.assertTrue(self.ats_cli_api.is_initialized())
+
+    @mock.patch('ats_utilities.base.engine.make_component')
+    def test_initialization_failure(self, mock_make_component) -> None:
+        '''Test base initialization failure.'''
+        mock_make_component.side_effect = ATSTypeError('Failed to initialize component')
+        invalid_base = ATSCliCfgAPI()
+        self.assertFalse(invalid_base.is_initialized())
 
     def test_process(self) -> None:
         '''Test for process.'''
@@ -121,6 +136,20 @@ class CLITestCase(TestCase):
         '''Test parse without args'''
         self.ats_cli_api.add_new_option('arg1', 'arg2', option='value')
         self.assertIsNotNone(self.ats_cli_api.parse_args(None))
+
+    def test_str(self) -> None:
+        '''Test string representation of ATSCliCfgAPI.'''
+        self.assertIsInstance(str(self.ats_cli_api), str)
+
+    def test_parse_args_real(self) -> None:
+        '''Test actual parse_args logic.'''
+        api = ATSCliCfgAPI()
+        # Test normal parsing:
+        parsed = api.parse_args(['-v'])
+        self.assertIsNotNone(parsed)
+        # Test with _options_parser is None:
+        api._options_parser = None
+        self.assertIsNone(api.parse_args(['-v']))
 
 
 if __name__ == '__main__':

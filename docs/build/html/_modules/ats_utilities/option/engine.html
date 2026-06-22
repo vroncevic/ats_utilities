@@ -68,10 +68,14 @@
 <span class="kn">from</span> <span class="nn">ats_utilities.option.parser_strategy</span> <span class="kn">import</span> <span class="n">ParserStrategy</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.option.option_namespace</span> <span class="kn">import</span> <span class="n">OptionNamespace</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.option.option_namespace</span> <span class="kn">import</span> <span class="n">OptArgs</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.exceptions.ats_type_error</span> <span class="kn">import</span> <span class="n">ATSTypeError</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.exceptions.ats_value_error</span> <span class="kn">import</span> <span class="n">ATSValueError</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.exceptions.ats_runtime_error</span> <span class="kn">import</span> <span class="n">ATSRuntimeError</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.exceptions.ats_attribute_error</span> <span class="kn">import</span> <span class="n">ATSAttributeError</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.checker.proxy_validator</span> <span class="kn">import</span> <span class="n">validator</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.reporter.proxy_reporter</span> <span class="kn">import</span> <span class="n">vreporter</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.factory_context_bundle</span> <span class="kn">import</span> <span class="n">factory_context_bundle</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.factory_class</span> <span class="kn">import</span> <span class="n">get_private_attr</span><span class="p">,</span> <span class="n">format_instance_to_string</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.factory_class</span> <span class="kn">import</span> <span class="n">get_class_name</span><span class="p">,</span> <span class="n">format_instance_to_string</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.factory_component</span> <span class="kn">import</span> <span class="n">make_component</span><span class="p">,</span> <span class="n">validate_component</span>
 
 <span class="n">__author__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;Vladimir Roncevic&#39;</span>
@@ -94,9 +98,10 @@
 <span class="sd">        It defines:</span>
 
 <span class="sd">            :attributes:</span>
-<span class="sd">                | _checker - Factoriezed parameters checker (default Checker).</span>
-<span class="sd">                | _reporter - Factoriezed reporter for messaging (default Reporter).</span>
-<span class="sd">                | _verbose - Factoriezed Enable/Disable verbose option (default False).</span>
+<span class="sd">                | _checker - Injected parameters checker (default Checker).</span>
+<span class="sd">                | _reporter - Injected reporter for messaging (default Reporter).</span>
+<span class="sd">                | _verbose - Injected Enable/Disable verbose option (default False).</span>
+<span class="sd">                | _is_initialized - Indicates if the option manager component is initialized (default False).</span>
 <span class="sd">                | _strategy - Strategy for argument parsing (default ParserStrategy).</span>
 <span class="sd">            :methods:</span>
 <span class="sd">                | __init__ - Initials OptionManager constructor.</span>
@@ -104,6 +109,7 @@
 <span class="sd">                | add_version_operation - Adds version option to the ATS parser.</span>
 <span class="sd">                | parse_input_args - Processes arguments from the start.</span>
 <span class="sd">                | parse_args - Processes arguments from the start.</span>
+<span class="sd">                | is_initialized - Checks if the option manager component is initialized.</span>
 <span class="sd">                | __str__ - Returns the string representation of OptionManager.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
 
@@ -117,23 +123,26 @@
 
 <span class="sd">            :param component_bundle: Bundle with components for option manager | None.</span>
 <span class="sd">            :type component_bundle: &lt;OptionComponentBundle | None&gt;</span>
-<span class="sd">            :exceptions: ATSTypeError</span>
+<span class="sd">            :exceptions: None.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="c1"># No dependency injection then use default ones.</span>
         <span class="n">bundle</span><span class="p">:</span> <span class="n">OptionComponentBundle</span> <span class="o">=</span> <span class="n">component_bundle</span> <span class="ow">or</span> <span class="n">OptionComponentBundle</span><span class="p">()</span>
         <span class="n">factory_context_bundle</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bundle</span><span class="o">.</span><span class="n">context_bundle</span><span class="p">)</span>
         <span class="n">shared_bundle</span><span class="p">:</span> <span class="n">ContextBundle</span> <span class="o">=</span> <span class="n">ContextBundle</span><span class="p">(</span>
-            <span class="n">checker</span><span class="o">=</span><span class="n">get_private_attr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;checker&#39;</span><span class="p">),</span>
-            <span class="n">reporter</span><span class="o">=</span><span class="n">get_private_attr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;reporter&#39;</span><span class="p">),</span>
-            <span class="n">verbose</span><span class="o">=</span><span class="n">get_private_attr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;verbose&#39;</span><span class="p">)</span>
+            <span class="n">checker</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_checker</span><span class="p">,</span> <span class="n">reporter</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_reporter</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_verbose</span>
         <span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_strategy</span><span class="p">:</span> <span class="n">IParserStrategy</span> <span class="o">=</span> <span class="n">make_component</span><span class="p">(</span>
-            <span class="n">bundle</span><span class="o">.</span><span class="n">strategy</span><span class="p">,</span> <span class="n">ParserStrategy</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;context_bundle&#39;</span><span class="p">:</span> <span class="n">shared_bundle</span><span class="p">}</span>
-        <span class="p">)</span>
-        <span class="n">validate_component</span><span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_strategy</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_strategy</span><span class="p">),</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_strategy</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span>
-        <span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_strategy</span><span class="o">.</span><span class="n">setup</span><span class="p">(</span><span class="n">bundle</span><span class="o">.</span><span class="n">parameters</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_is_initialized</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_strategy</span><span class="p">:</span> <span class="n">IParserStrategy</span> <span class="o">=</span> <span class="n">make_component</span><span class="p">(</span>
+                <span class="n">bundle</span><span class="o">.</span><span class="n">strategy</span><span class="p">,</span> <span class="n">ParserStrategy</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;context_bundle&#39;</span><span class="p">:</span> <span class="n">shared_bundle</span><span class="p">}</span>
+            <span class="p">)</span>
+            <span class="n">validate_component</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_strategy</span><span class="p">,</span> <span class="n">ParserStrategy</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_strategy</span><span class="o">.</span><span class="n">setup</span><span class="p">(</span><span class="n">bundle</span><span class="o">.</span><span class="n">parameters</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_is_initialized</span> <span class="o">=</span> <span class="kc">True</span>
+
+        <span class="k">except</span> <span class="p">(</span><span class="n">ATSTypeError</span><span class="p">,</span> <span class="n">ATSValueError</span><span class="p">,</span> <span class="n">ATSRuntimeError</span><span class="p">,</span> <span class="n">ATSAttributeError</span><span class="p">)</span> <span class="k">as</span> <span class="n">exc</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_reporter</span><span class="o">.</span><span class="n">error</span><span class="p">([</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">get_class_name</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="si">}</span><span class="s2"> - error during initialization: </span><span class="si">{</span><span class="n">exc</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">])</span>
 
 <div class="viewcode-block" id="OptionManager.add_operation">
 <a class="viewcode-back" href="../../../ats_utilities.option.engine.html#ats_utilities.option.engine.OptionManager.add_operation">[docs]</a>
@@ -177,7 +186,7 @@
 <span class="sd">            :type arguments: &lt;OptArgs&gt;</span>
 <span class="sd">            :return: Option namespace object.</span>
 <span class="sd">            :rtype: &lt;OptionNamespace&gt;</span>
-<span class="sd">            :exceptions: ATSRuntimeError, ATSAttributeError</span>
+<span class="sd">            :exceptions: ATSRuntimeError, ATSAttributeError.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="n">args</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_strategy</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">arguments</span><span class="p">,</span> <span class="n">known_only</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">args</span></div>
@@ -194,23 +203,23 @@
 <span class="sd">            :type arguments: &lt;OptArgs&gt;</span>
 <span class="sd">            :return: Option namespace object.</span>
 <span class="sd">            :rtype: &lt;OptionNamespace&gt;</span>
-<span class="sd">            :exceptions: ATSRuntimeError, ATSAttributeError</span>
+<span class="sd">            :exceptions: ATSRuntimeError, ATSAttributeError.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="n">args</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_strategy</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">arguments</span><span class="p">,</span> <span class="n">known_only</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">args</span></div>
 
 
-<div class="viewcode-block" id="OptionManager.ok">
-<a class="viewcode-back" href="../../../ats_utilities.option.engine.html#ats_utilities.option.engine.OptionManager.ok">[docs]</a>
-    <span class="k">def</span> <span class="nf">ok</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<div class="viewcode-block" id="OptionManager.is_initialized">
+<a class="viewcode-back" href="../../../ats_utilities.option.engine.html#ats_utilities.option.engine.OptionManager.is_initialized">[docs]</a>
+    <span class="k">def</span> <span class="nf">is_initialized</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">            Checks if option parser component is ok.</span>
+<span class="sd">            Checks if option parser component is initialized.</span>
 
-<span class="sd">            :return: True (success) | False (fail)</span>
+<span class="sd">            :return: True (success) | False (fail).</span>
 <span class="sd">            :rtype: &lt;bool&gt;</span>
-<span class="sd">            :exceptions: None..</span>
+<span class="sd">            :exceptions: None.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_strategy</span><span class="o">.</span><span class="n">ok</span><span class="p">()</span></div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_is_initialized</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_strategy</span><span class="o">.</span><span class="n">is_initialized</span><span class="p">()</span></div>
 
 
     <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>

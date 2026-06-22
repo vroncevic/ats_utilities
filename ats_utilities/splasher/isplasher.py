@@ -43,6 +43,7 @@ class ISplasher(ABC):
             :attributes: None
             :methods:
                 | center - Centers console line.
+                | is_initialized - Checks if splasher component is initialized.
                 | __str__ - Returns the splash screen component as string representation.
     '''
 
@@ -56,6 +57,17 @@ class ISplasher(ABC):
             :exceptions: NotImplementedError.
         '''
         raise NotImplementedError("Method center() must be implemented.")
+
+    @abstractmethod
+    def is_initialized(self) -> bool:
+        '''
+            Checks if splasher component is initialized.
+
+            :return: True (success) | False (fail)
+            :rtype: <bool>
+            :exceptions: NotImplementedError.
+        '''
+        raise NotImplementedError("Method ok() must be implemented.")
 
     @abstractmethod
     def __str__(self) -> str:

@@ -78,21 +78,21 @@ Creates an API for setup ATS (application, tool, script).</p>
 <div><dl class="field-list">
 <dt class="field-odd">attributes<span class="colon">:</span></dt>
 <dd class="field-odd"><div class="line-block">
-<div class="line">_checker - Factoriezed parameters checker (default Checker).</div>
-<div class="line">_reporter - Factoriezed reporter for messaging (default Reporter).</div>
-<div class="line">_verbose - Factoriezed Enable/Disable verbose option (default False).</div>
-<div class="line">_operational - Status for ATS (default False).</div>
+<div class="line">_checker - Injected parameters checker (default Checker).</div>
+<div class="line">_reporter - Injected reporter for messaging (default Reporter).</div>
+<div class="line">_verbose - Injected Enable/Disable verbose option (default False).</div>
 <div class="line">_config_loader - Manager for configuration loading.</div>
 <div class="line">_info_manager - Manager for info component.</div>
 <div class="line">_splasher - Manager for splash component.</div>
 <div class="line">_options_parser - Manager for options parser.</div>
 <div class="line">_logger_manager - Manager for logger component.</div>
+<div class="line">_is_initialized - Indicates if the base component is initialized (default False).</div>
 </div>
 </dd>
 <dt class="field-even">methods<span class="colon">:</span></dt>
 <dd class="field-even"><div class="line-block">
 <div class="line">__init__ - Initializes Base constructor.</div>
-<div class="line">is_operational - Checks is ATS operational.</div>
+<div class="line">is_initialized - Checks if the base component is initialized.</div>
 <div class="line">add_new_option - Adds a new option for the the CL interface.</div>
 <div class="line">parse_args - Parses the CLI arguments.</div>
 <div class="line">process - Processes and runs tool operations (Abstract).</div>
@@ -139,9 +139,9 @@ Creates an API for setup ATS (application, tool, script).</p>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="ats_utilities.base.engine.Base.is_operational">
-<span class="sig-name descname"><span class="pre">is_operational</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="_modules/ats_utilities/base/engine.html#Base.is_operational"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.base.engine.Base.is_operational" title="Link to this definition">¶</a></dt>
-<dd><p>Checks is ATS operational.</p>
+<dt class="sig sig-object py" id="ats_utilities.base.engine.Base.is_initialized">
+<span class="sig-name descname"><span class="pre">is_initialized</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="_modules/ats_utilities/base/engine.html#Base.is_initialized"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.base.engine.Base.is_initialized" title="Link to this definition">¶</a></dt>
+<dd><p>Checks if the base component is initialized.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>True (success) | False (fail).</p>
@@ -150,7 +150,7 @@ Creates an API for setup ATS (application, tool, script).</p>
 <dd class="field-even"><p>&lt;bool&gt;</p>
 </dd>
 <dt class="field-odd">Exceptions<span class="colon">:</span></dt>
-<dd class="field-odd"><p>None..</p>
+<dd class="field-odd"><p>None.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -216,7 +216,7 @@ Creates an API for setup ATS (application, tool, script).</p>
 <li><a class="reference internal" href="#ats_utilities.base.engine.Base._reporter"><code class="docutils literal notranslate"><span class="pre">Base._reporter</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.base.engine.Base._verbose"><code class="docutils literal notranslate"><span class="pre">Base._verbose</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.base.engine.Base.add_new_option"><code class="docutils literal notranslate"><span class="pre">Base.add_new_option()</span></code></a></li>
-<li><a class="reference internal" href="#ats_utilities.base.engine.Base.is_operational"><code class="docutils literal notranslate"><span class="pre">Base.is_operational()</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.base.engine.Base.is_initialized"><code class="docutils literal notranslate"><span class="pre">Base.is_initialized()</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.base.engine.Base.parse_args"><code class="docutils literal notranslate"><span class="pre">Base.parse_args()</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.base.engine.Base.process"><code class="docutils literal notranslate"><span class="pre">Base.process()</span></code></a></li>
 </ul>

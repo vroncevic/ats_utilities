@@ -77,12 +77,18 @@ Implements a splash screen with hyperlinks.</p>
 <blockquote>
 <div><dl class="field-list">
 <dt class="field-odd">attributes<span class="colon">:</span></dt>
-<dd class="field-odd"><p>None</p>
+<dd class="field-odd"><div class="line-block">
+<div class="line">_checker - Injected parameters checker (default Checker).</div>
+<div class="line">_reporter - Injected reporter for messaging (default Reporter).</div>
+<div class="line">_verbose - Injected Enable/Disable verbose option (default False).</div>
+<div class="line">_is_initialized - Indicates if the splasher component is initialized (default False).</div>
+</div>
 </dd>
 <dt class="field-even">methods<span class="colon">:</span></dt>
 <dd class="field-even"><div class="line-block">
 <div class="line">__init__ - Initials Splasher constructor.</div>
 <div class="line">center - Centers console line.</div>
+<div class="line">is_initialized - Checks if splasher component is initialized.</div>
 <div class="line">__str__ - Returns the string representation of Splasher.</div>
 </div>
 </dd>
@@ -91,6 +97,21 @@ Implements a splash screen with hyperlinks.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="ats_utilities.splasher.engine.Splasher._abc_impl">
 <span class="sig-name descname"><span class="pre">_abc_impl</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;_abc._abc_data</span> <span class="pre">object&gt;</span></em><a class="headerlink" href="#ats_utilities.splasher.engine.Splasher._abc_impl" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ats_utilities.splasher.engine.Splasher._checker">
+<span class="sig-name descname"><span class="pre">_checker</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="ats_utilities.checker.ichecker.html#ats_utilities.checker.ichecker.IChecker" title="ats_utilities.checker.ichecker.IChecker"><span class="pre">IChecker</span></a></em><a class="headerlink" href="#ats_utilities.splasher.engine.Splasher._checker" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ats_utilities.splasher.engine.Splasher._reporter">
+<span class="sig-name descname"><span class="pre">_reporter</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="ats_utilities.reporter.ireporter.html#ats_utilities.reporter.ireporter.IReporter" title="ats_utilities.reporter.ireporter.IReporter"><span class="pre">IReporter</span></a></em><a class="headerlink" href="#ats_utilities.splasher.engine.Splasher._reporter" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ats_utilities.splasher.engine.Splasher._verbose">
+<span class="sig-name descname"><span class="pre">_verbose</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#ats_utilities.splasher.engine.Splasher._verbose" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -103,6 +124,23 @@ Implements a splash screen with hyperlinks.</p>
 </dd>
 <dt class="field-even">Exceptions<span class="colon">:</span></dt>
 <dd class="field-even"><p>ATSTypeError, ATSValueError.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ats_utilities.splasher.engine.Splasher.is_initialized">
+<span class="sig-name descname"><span class="pre">is_initialized</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="_modules/ats_utilities/splasher/engine.html#Splasher.is_initialized"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.splasher.engine.Splasher.is_initialized" title="Link to this definition">¶</a></dt>
+<dd><p>Checks if splasher component is initialized.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>True (success) | False (fail).</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>&lt;bool&gt;</p>
+</dd>
+<dt class="field-odd">Exceptions<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -124,7 +162,11 @@ Implements a splash screen with hyperlinks.</p>
 <li><a class="reference internal" href="#">ats_utilities.splasher.engine module</a><ul>
 <li><a class="reference internal" href="#ats_utilities.splasher.engine.Splasher"><code class="docutils literal notranslate"><span class="pre">Splasher</span></code></a><ul>
 <li><a class="reference internal" href="#ats_utilities.splasher.engine.Splasher._abc_impl"><code class="docutils literal notranslate"><span class="pre">Splasher._abc_impl</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.splasher.engine.Splasher._checker"><code class="docutils literal notranslate"><span class="pre">Splasher._checker</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.splasher.engine.Splasher._reporter"><code class="docutils literal notranslate"><span class="pre">Splasher._reporter</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.splasher.engine.Splasher._verbose"><code class="docutils literal notranslate"><span class="pre">Splasher._verbose</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.splasher.engine.Splasher.center"><code class="docutils literal notranslate"><span class="pre">Splasher.center()</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.splasher.engine.Splasher.is_initialized"><code class="docutils literal notranslate"><span class="pre">Splasher.is_initialized()</span></code></a></li>
 </ul>
 </li>
 </ul>

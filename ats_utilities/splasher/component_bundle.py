@@ -72,10 +72,28 @@ class SplashComponentBundle:
         '''
             Validates that essential components are set.
 
-            :exceptions: ValueError
+            :exceptions: ValueError.
         '''
         if self.prop is None:
             raise ValueError("Properties dictionary 'prop' must be provided.")
+
+        if self.splash_property is None:
+            raise ValueError("Splash property 'splash_property' must be provided.")
+
+        if self.terminal_property is None:
+            raise ValueError("Terminal properties 'terminal_property' must be provided.")
+
+        if self.github is None:
+            raise ValueError("GitHub infrastructure 'github' must be provided.")
+
+        if self.ext is None:
+            raise ValueError("External infrastructure 'ext' must be provided.")
+
+        if self.pb is None:
+            raise ValueError("Progress bar 'pb' must be provided.")
+
+        if self.context_bundle is None:
+            raise ValueError("Context bundle 'context_bundle' must be provided.")
 
     def merge(self, other: 'SplashComponentBundle') -> None:
         '''

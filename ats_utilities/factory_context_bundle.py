@@ -44,7 +44,7 @@ def factory_context_bundle(instance: Any, context: ContextBundle | None = None):
 
         :param instance: The object instance (self) to inject attributes into.
         :type instance: <Any>
-        :param context: Context bundle of checker, reporter and verbose (default ContextBundle) | None
+        :param context: Context bundle of checker, reporter and verbose | None.
         :type context: <ContextBundle | None>
         :exceptions: None.
     '''

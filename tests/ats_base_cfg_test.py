@@ -28,6 +28,8 @@ from os.path import dirname
 from ats_utilities.config_io.cfg.cfg_loader import CFGLoader
 from ats_utilities.config_io.iread import IRead
 from ats_utilities.config_io.cfg.icfg_processor import ICFGProcessor
+from ats_utilities.config_io.cfg.cfg2object import Cfg2Object
+from ats_utilities.config_io.cfg.cfg_processor import CFGProcessor
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -67,6 +69,7 @@ class CfgBaseTestCase(TestCase):
                 | test_not_none - Test is ATSBaseCfg not None.
                 | test_load_configuration - Test loading configuration.
                 | test_none_config_path_returns_empty_dict - Test for None as file path.
+                | test_str - Test string representation of CFGLoader.
     '''
 
     def setUp(self) -> None:
@@ -92,6 +95,10 @@ class CfgBaseTestCase(TestCase):
         loader = CFGLoader(None)
         self.assertEqual(loader.load_configuration(), {})
 
+    def test_str(self) -> None:
+        '''Test string representation of CFGLoader.'''
+        self.assertIsInstance(str(self.ats_base_cfg), str)
+
 
 class CfgBaseUnitTestCase(TestCase):
     '''
@@ -113,8 +120,8 @@ class CfgBaseUnitTestCase(TestCase):
     def setUp(self) -> None:
         '''Set up test environment.'''
         self.config_path = 'ats_cli_cfg_api.cfg'
-        self.mock_cfg2obj = MagicMock(spec=IRead)
-        self.mock_processor = MagicMock(spec=ICFGProcessor)
+        self.mock_cfg2obj = MagicMock(spec=Cfg2Object)
+        self.mock_processor = MagicMock(spec=CFGProcessor)
 
         # Setup mock behavior
         self.mock_cfg2obj.read_configuration.return_value = self.mock_processor
@@ -146,13 +153,14 @@ class CfgBaseUnitTestCase(TestCase):
     def test_load_configuration_empty(self) -> None:
         '''Test load configuration when empty.'''
         # Setup loader with no configuration loaded
-        mock_cfg2obj_empty = MagicMock(spec=IRead)
+        mock_cfg2obj_empty = MagicMock(spec=Cfg2Object)
         mock_cfg2obj_empty.read_configuration.return_value = None
         loader = CFGLoader(
             info_file=self.config_path,
             cfg2object=mock_cfg2obj_empty
         )
         self.assertEqual(loader.load_configuration(), {})
+
 
 
 if __name__ == '__main__':

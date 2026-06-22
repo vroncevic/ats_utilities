@@ -52,9 +52,9 @@ class ProConfig(IProConfig):
                 | TEMPLATES - Templates key used for processing template files.
                 | MODULES - Modules key used for processing template files.
                 | FORMAT - Format for template file extension.
-                | _checker - Factoriezed parameters checker (default Checker).
-                | _reporter - Factoriezed reporter for messaging (default Reporter).
-                | _verbose - Factoriezed Enable/Disable verbose option (default False).
+                | _checker - Injected parameters checker (default Checker).
+                | _reporter - Injected reporter for messaging (default Reporter).
+                | _verbose - Injected Enable/Disable verbose option (default False).
                 | _config - Tool configuration in dictionary format (default None).
             :methods:
                 | __init__ - Initializes ProConfig constructor.

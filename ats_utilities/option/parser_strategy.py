@@ -54,9 +54,9 @@ class ParserStrategy(IParserStrategy):
         It defines:
 
             :attributes:
-                | _checker - Factoriezed parameters checker (default Checker).
-                | _reporter - Factoriezed reporter for messaging (default Reporter).
-                | _verbose - Factoriezed Enable/Disable verbose option (default False).
+                | _checker - Injected parameters checker (default Checker).
+                | _reporter - Injected reporter for messaging (default Reporter).
+                | _verbose - Injected Enable/Disable verbose option (default False).
                 | _shared_bundle - Bundle with checker, reporter and verbose (default ContextBundle).
                 | _parser - Options parser (default None).
             :methods:
@@ -104,7 +104,7 @@ class ParserStrategy(IParserStrategy):
             'epilog': f'{parameters.get(InfoKeys.ATS_NAME)} copyright (c) {parameters.get(InfoKeys.ATS_LICENCE)}',
             'description': f'{parameters.get(InfoKeys.ATS_NAME)} build date {parameters.get(InfoKeys.ATS_BUILD_DATE)}'
         })
-        validate_component(self._parser, type(self._parser), type(self._parser).__name__)
+        validate_component(self._parser, ArgParser)
 
     def add_argument(self, *args: str, **kwargs: Any) -> None:
         '''
@@ -150,7 +150,7 @@ class ParserStrategy(IParserStrategy):
             return known_args[0]
         return self._parser.parse_args(arguments)
 
-    def ok(self) -> bool:
+    def is_initialized(self) -> bool:
         '''
             Checks if parser strategy component is ok.
 
