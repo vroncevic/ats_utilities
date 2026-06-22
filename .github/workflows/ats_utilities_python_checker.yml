@@ -4,13 +4,11 @@ on:
     branches: [ master ]
     paths:
       - 'ats_utilities/**'
-      - 'tests/**'
       - 'setup.py'
   pull_request:
     branches: [ master ]
     paths:
       - 'ats_utilities/**'
-      - 'tests/**'
       - 'setup.py'
 jobs:
   build:
