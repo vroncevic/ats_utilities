@@ -22,6 +22,7 @@ Info
 
 from abc import ABC, abstractmethod
 from typing import Any
+from ats_utilities.option.ioption_command import IOptionCommand
 from ats_utilities.option.option_namespace import OptionNamespace
 from ats_utilities.option.option_namespace import OptArgs
 
@@ -49,6 +50,8 @@ class IParserStrategy(ABC):
                 | add_argument - Adds an operational argument/flag to the parser.
                 | add_version - Adds a version display option to the parser.
                 | parse - Parses the input arguments and returns an OptionNamespace.
+                | register_commands - Registers a list of commands with the parser.
+                | parse_command - Parses the input arguments and returns an OptionNamespace.
                 | ok - Checks if parser strategy component is ok.
                 | __str__ - Returns the ATS parser strategy as string representation.
     '''
@@ -102,6 +105,31 @@ class IParserStrategy(ABC):
             :exceptions: NotImplementedError.
         '''
         raise NotImplementedError("Method parse() must be implemented.")
+
+    @abstractmethod
+    def register_commands(self, commands: list[IOptionCommand]) -> None:
+        '''
+            Register a list of commands with the parser.
+
+            :param commands: List of commands to register.
+            :type commands: <list[IOptionCommand]>
+            :exceptions: NotImplementedError.
+        '''
+        raise NotImplementedError("Method register_commands() must be implemented.")
+
+    @abstractmethod
+    def parse_command(self, arguments: OptArgs = None) -> tuple[str, dict]:
+        '''
+            Parses CLI arguments for subcommands and returns command name and parameters.
+
+            :param arguments: Sequence of arguments | None.
+            :type arguments: <OptArgs>
+            :return: Tuple containing command name and parsed parameters.
+            :rtype: <tuple[str, dict]>
+            :exceptions: NotImplementedError.
+        '''
+        raise NotImplementedError("Method parse_command() must be implemented.")
+
 
     @abstractmethod
     def is_initialized(self) -> bool:

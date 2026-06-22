@@ -35,6 +35,8 @@ from ats_utilities.reporter.ireporter import IReporter
 from ats_utilities.reporter.engine import Reporter
 from ats_utilities.option.component_bundle import OptionComponentBundle
 from ats_utilities.context_bundle import ContextBundle
+from ats_utilities.option.command_option import CommandOption
+from ats_utilities.option.ioption_command import IOptionCommand
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -81,6 +83,73 @@ class ATSBaseOptionParser(OptionManager):
             :rtype: <bool>
         '''
         return True
+
+
+class DummyOptionCommand(IOptionCommand):
+    '''
+        Dummy option command implementation for test verification.
+
+        It defines:
+
+            :attributes: None
+            :methods:
+                | name - Returns the name of the command.
+                | help_text - Returns the help text of the command.
+                | options - Returns the list of options for the command.
+                | __str__ - Returns the string representation of option command.
+    '''
+
+    @property
+    def name(self) -> str:
+        '''
+            Returns the name of the command.
+
+            :return: Name of the command.
+            :rtype: <str>
+        '''
+        return 'dummy'
+
+    @property
+    def help_text(self) -> str:
+        '''
+            Returns the help text of the command.
+
+            :return: Help text of the command.
+            :rtype: <str>
+        '''
+        return 'dummy help text'
+
+    @property
+    def options(self) -> list[CommandOption]:
+        '''
+            Returns the list of options for the command.
+
+            :return: List of options for the command.
+            :rtype: <list[CommandOption]>
+        '''
+        return [
+            CommandOption(
+                name='--param',
+                help_text='param help',
+                default='default_val',
+                required=False,
+                choices=['default_val', 'other_val']
+            ),
+            CommandOption(
+                name='--req-param',
+                help_text='required param help',
+                required=True
+            )
+        ]
+
+    def __str__(self) -> str:
+        '''
+            Returns the string representation of option command.
+
+            :return: String representation of option command.
+            :rtype: <str>
+        '''
+        return 'DummyOptionCommand'
 
 
 class OptionParserTestCase(TestCase):
@@ -165,6 +234,55 @@ class OptionParserTestCase(TestCase):
         strategy = ParserStrategy()
         with self.assertRaises(RuntimeError):
             strategy.parse(['-t'])
+
+    def test_command_option_creation(self) -> None:
+        '''Test CommandOption creation and attributes.'''
+        opt = CommandOption(
+            name='--test-opt',
+            help_text='test help',
+            default='def',
+            required=True,
+            choices=['def', 'other']
+        )
+        self.assertEqual(opt.name, '--test-opt')
+        self.assertEqual(opt.help_text, 'test help')
+        self.assertEqual(opt.default, 'def')
+        self.assertTrue(opt.required)
+        self.assertEqual(opt.choices, ['def', 'other'])
+
+    def test_parser_strategy_uninitialized_methods(self) -> None:
+        '''Test ParserStrategy methods before setup is called.'''
+        strategy = ParserStrategy()
+        cmd = DummyOptionCommand()
+        with self.assertRaises(RuntimeError):
+            strategy.register_commands([cmd])
+        with self.assertRaises(RuntimeError):
+            strategy.parse_command(['dummy'])
+
+    def test_register_commands_and_parse_command(self) -> None:
+        '''Test register_commands and parse_command with actual commands.'''
+        cmd = DummyOptionCommand()
+        self.option_parser.register_commands([cmd])
+
+        # Test command string representation
+        self.assertEqual(str(cmd), 'DummyOptionCommand')
+
+        # Test parsing command with custom arguments
+        command_name, params = self.option_parser.parse_command(['dummy', '--req-param', 'test_value'])
+        self.assertEqual(command_name, 'dummy')
+        self.assertEqual(params.get('req_param'), 'test_value')
+        self.assertEqual(params.get('param'), 'default_val')
+
+    def test_parse_command_fallback_to_sys_argv(self) -> None:
+        '''Test parse_command fallback to sys.argv when arguments are None.'''
+        cmd = DummyOptionCommand()
+        self.option_parser.register_commands([cmd])
+
+        # Mock sys.argv to simulate running command with CLI arguments
+        with mock.patch('sys.argv', ['dummy_prog', 'dummy', '--req-param', 'cli_val']):
+            command_name, params = self.option_parser.parse_command(None)
+            self.assertEqual(command_name, 'dummy')
+            self.assertEqual(params.get('req_param'), 'cli_val')
 
 
 class OptionParserUnitTestCase(TestCase):

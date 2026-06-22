@@ -58,6 +58,7 @@
 <span class="sd">    Creates an interfaces for ATS option parsing.</span>
 <span class="sd">&#39;&#39;&#39;</span>
 
+<span class="kn">import</span> <span class="nn">sys</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span>
 <span class="kn">from</span> <span class="nn">argparse</span> <span class="kn">import</span> <span class="n">ArgumentParser</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.option.iparser_strategy</span> <span class="kn">import</span> <span class="n">IParserStrategy</span>
@@ -68,7 +69,9 @@
 <span class="kn">from</span> <span class="nn">ats_utilities.option.option_namespace</span> <span class="kn">import</span> <span class="n">OptionNamespace</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.option.option_namespace</span> <span class="kn">import</span> <span class="n">OptArgs</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.option.option_namespace</span> <span class="kn">import</span> <span class="n">KnownArgs</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.option.ioption_command</span> <span class="kn">import</span> <span class="n">IOptionCommand</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.info.info_keys</span> <span class="kn">import</span> <span class="n">InfoKeys</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.exceptions.ats_runtime_error</span> <span class="kn">import</span> <span class="n">ATSRuntimeError</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.checker.proxy_validator</span> <span class="kn">import</span> <span class="n">validator</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.factory_context_bundle</span> <span class="kn">import</span> <span class="n">factory_context_bundle</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.factory_component</span> <span class="kn">import</span> <span class="n">make_component</span><span class="p">,</span> <span class="n">validate_component</span>
@@ -105,6 +108,8 @@
 <span class="sd">                | add_argument - Adds an operational argument/flag to the parser.</span>
 <span class="sd">                | add_version - Adds a version display option to the parser.</span>
 <span class="sd">                | parse - Parses the input arguments and returns an OptionNamespace.</span>
+<span class="sd">                | register_commands - Registers a list of commands with the parser.</span>
+<span class="sd">                | parse_command - Parses the input arguments and returns an OptionNamespace.</span>
 <span class="sd">                | ok - Checks if parser strategy component is ok.</span>
 <span class="sd">                | __str__ - Returns the string representation of ParserStrategy.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
@@ -191,15 +196,74 @@
 <span class="sd">            :type known_only: &lt;bool&gt;</span>
 <span class="sd">            :return: Option namespace object.</span>
 <span class="sd">            :rtype: &lt;OptionNamespace&gt;</span>
-<span class="sd">            :exceptions: RuntimeError</span>
+<span class="sd">            :exceptions: ATSRuntimeError.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parser</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s1">&#39;Parser strategy is not initialized.&#39;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="n">ATSRuntimeError</span><span class="p">(</span><span class="s1">&#39;Parser strategy is not initialized.&#39;</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="n">known_only</span><span class="p">:</span>
             <span class="n">known_args</span><span class="p">:</span> <span class="n">KnownArgs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parser</span><span class="o">.</span><span class="n">parse_known_args</span><span class="p">(</span><span class="n">arguments</span><span class="p">)</span>
             <span class="k">return</span> <span class="n">known_args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">(</span><span class="n">arguments</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="ParserStrategy.register_commands">
+<a class="viewcode-back" href="../../../ats_utilities.option.parser_strategy.html#ats_utilities.option.parser_strategy.ParserStrategy.register_commands">[docs]</a>
+    <span class="k">def</span> <span class="nf">register_commands</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">commands</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">IOptionCommand</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">            Registers the list of commands with the parser.</span>
+
+<span class="sd">            :param commands: List of commands to register.</span>
+<span class="sd">            :type commands: &lt;list[IOptionCommand]&gt;</span>
+<span class="sd">            :exceptions: ATSRuntimeError.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parser</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">ATSRuntimeError</span><span class="p">(</span><span class="s1">&#39;Parser strategy is not initialized.&#39;</span><span class="p">)</span>
+
+        <span class="c1"># Initialization of subparsers on main parser</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;_subparsers&#39;</span><span class="p">)</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">_subparsers</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_subparsers</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parser</span><span class="o">.</span><span class="n">add_subparsers</span><span class="p">(</span>
+                <span class="n">dest</span><span class="o">=</span><span class="s2">&quot;command&quot;</span><span class="p">,</span> <span class="n">required</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Available commands&quot;</span>
+            <span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">cmd</span> <span class="ow">in</span> <span class="n">commands</span><span class="p">:</span>
+            <span class="n">cmd_parser</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_subparsers</span><span class="o">.</span><span class="n">add_parser</span><span class="p">(</span><span class="n">cmd</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="n">cmd</span><span class="o">.</span><span class="n">help_text</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">opt</span> <span class="ow">in</span> <span class="n">cmd</span><span class="o">.</span><span class="n">options</span><span class="p">:</span>
+                <span class="n">kwargs</span> <span class="o">=</span> <span class="p">{}</span>
+                <span class="k">if</span> <span class="n">opt</span><span class="o">.</span><span class="n">default</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;default&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">opt</span><span class="o">.</span><span class="n">default</span>
+                <span class="k">if</span> <span class="n">opt</span><span class="o">.</span><span class="n">required</span><span class="p">:</span>
+                    <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;required&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">opt</span><span class="o">.</span><span class="n">required</span>
+                <span class="k">if</span> <span class="n">opt</span><span class="o">.</span><span class="n">choices</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;choices&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">opt</span><span class="o">.</span><span class="n">choices</span>
+                <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;help&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">opt</span><span class="o">.</span><span class="n">help_text</span>
+                <span class="n">cmd_parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="n">opt</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="ParserStrategy.parse_command">
+<a class="viewcode-back" href="../../../ats_utilities.option.parser_strategy.html#ats_utilities.option.parser_strategy.ParserStrategy.parse_command">[docs]</a>
+    <span class="k">def</span> <span class="nf">parse_command</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">arguments</span><span class="p">:</span> <span class="n">OptArgs</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">dict</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">            Parses the input arguments and returns an OptionNamespace.</span>
+
+<span class="sd">            :param arguments: Sequence of arguments | None.</span>
+<span class="sd">            :type arguments: &lt;OptArgs&gt;</span>
+<span class="sd">            :return: Option namespace object.</span>
+<span class="sd">            :rtype: &lt;OptionNamespace&gt;</span>
+<span class="sd">            :exceptions: ATSRuntimeError.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parser</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">ATSRuntimeError</span><span class="p">(</span><span class="s1">&#39;Parser strategy is not initialized.&#39;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">arguments</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">arguments</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
+
+        <span class="n">option_namespace</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">(</span><span class="n">arguments</span><span class="p">)</span>
+        <span class="n">params</span> <span class="o">=</span> <span class="nb">vars</span><span class="p">(</span><span class="n">option_namespace</span><span class="p">)</span>
+        <span class="n">command_name</span> <span class="o">=</span> <span class="n">params</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;command&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">command_name</span><span class="p">,</span> <span class="n">params</span></div>
 
 
 <div class="viewcode-block" id="ParserStrategy.is_initialized">

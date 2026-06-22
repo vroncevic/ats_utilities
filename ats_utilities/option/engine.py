@@ -30,6 +30,7 @@ from ats_utilities.option.iparser_strategy import IParserStrategy
 from ats_utilities.option.parser_strategy import ParserStrategy
 from ats_utilities.option.option_namespace import OptionNamespace
 from ats_utilities.option.option_namespace import OptArgs
+from ats_utilities.option.ioption_command import IOptionCommand
 from ats_utilities.exceptions.ats_type_error import ATSTypeError
 from ats_utilities.exceptions.ats_value_error import ATSValueError
 from ats_utilities.exceptions.ats_runtime_error import ATSRuntimeError
@@ -69,6 +70,8 @@ class OptionManager(IOptionManager):
                 | add_version_operation - Adds version option to the ATS parser.
                 | parse_input_args - Processes arguments from the start.
                 | parse_args - Processes arguments from the start.
+                | parse_command - Parses arguments as a command.
+                | register_commands - Registers a list of commands with the parser.
                 | is_initialized - Checks if the option manager component is initialized.
                 | __str__ - Returns the string representation of OptionManager.
     '''
@@ -156,6 +159,28 @@ class OptionManager(IOptionManager):
         '''
         args = self._strategy.parse(arguments, known_only=True)
         return args
+
+    def register_commands(self, commands: list[IOptionCommand]) -> None:
+        '''
+            Registers a list of commands with the parser.
+
+            :param commands: List of commands to register.
+            :type commands: <list[IOptionCommand]>
+            :exceptions: None.
+        '''
+        self._strategy.register_commands(commands)
+
+    def parse_command(self, arguments: OptArgs = None) -> tuple[str, dict]:
+        '''
+            Parses arguments as a command.
+
+            :param arguments: Sequence of arguments | None.
+            :type arguments: <OptArgs>
+            :return: Tuple of (command name, command arguments).
+            :rtype: <tuple[str, dict]>
+            :exceptions: None.
+        '''
+        return self._strategy.parse_command(arguments)
 
     def is_initialized(self) -> bool:
         '''

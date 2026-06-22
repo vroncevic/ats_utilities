@@ -423,12 +423,14 @@ These modules requires other modules and libraries (Python 3.x)
 | `ats_utilities/logging/logger_bundle.py` | 23 | 0 | 100%|
 | `ats_utilities/option/__init__.py` | 8 | 0 | 100%|
 | `ats_utilities/option/arg_parser.py` | 32 | 0 | 100%|
+| `ats_utilities/option/command_option.py` | 16 | 0 | 100%|
 | `ats_utilities/option/component_bundle.py` | 31 | 0 | 100%|
-| `ats_utilities/option/engine.py` | 62 | 0 | 100%|
-| `ats_utilities/option/ioption_parser.py` | 13 | 0 | 100%|
-| `ats_utilities/option/iparser_strategy.py` | 13 | 0 | 100%|
+| `ats_utilities/option/engine.py` | 67 | 0 | 100%|
+| `ats_utilities/option/ioption_command.py` | 11 | 0 | 100%|
+| `ats_utilities/option/ioption_parser.py` | 14 | 0 | 100%|
+| `ats_utilities/option/iparser_strategy.py` | 14 | 0 | 100%|
 | `ats_utilities/option/option_namespace.py` | 14 | 0 | 100%|
-| `ats_utilities/option/parser_strategy.py` | 52 | 0 | 100%|
+| `ats_utilities/option/parser_strategy.py` | 81 | 0 | 100%|
 | `ats_utilities/reporter/__init__.py` | 8 | 0 | 100%|
 | `ats_utilities/reporter/component_bundle.py` | 28 | 0 | 100%|
 | `ats_utilities/reporter/engine.py` | 54 | 0 | 100%|
@@ -452,7 +454,7 @@ These modules requires other modules and libraries (Python 3.x)
 | `ats_utilities/splasher/splash_keys.py` | 17 | 0 | 100%|
 | `ats_utilities/splasher/splash_property.py` | 43 | 0 | 100%|
 | `ats_utilities/splasher/terminal_properties.py` | 54 | 0 | 100%|
-| **Total** | 4280 | 0 | 100% |
+| **Total** | 4343 | 0 | 100% |
 
 </details>
 
