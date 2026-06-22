@@ -22,6 +22,7 @@ Info
 
 from abc import ABC, abstractmethod
 from typing import Any
+from ats_utilities.option.ioption_command import IOptionCommand
 from ats_utilities.option.option_namespace import OptionNamespace
 from ats_utilities.option.option_namespace import OptArgs
 
@@ -48,7 +49,9 @@ class IOptionManager(ABC):
                 | add_version_operation - Adds version option to the ATS parser.
                 | parse_input_args - Processes arguments from the start.
                 | parse_args - Processes arguments from the start.
-                | ok - Checks if option parser component is ok.
+                | register_commands - Registers a list of commands with the parser.
+                | parse_command - Parses the input arguments and returns an OptionNamespace.
+                | is_initialized - Checks if option parser component is initialized.
                 | __str__ - Returns the ATS option parser as string representation.
     '''
 
@@ -103,11 +106,36 @@ class IOptionManager(ABC):
         raise NotImplementedError("Method parse_args() must be implemented.")
 
     @abstractmethod
+    def register_commands(self, commands: list[IOptionCommand]) -> None:
+        '''
+            Register a list of commands with the parser.
+
+            :param commands: List of commands to register.
+            :type commands: <list[IOptionCommand]>
+            :exceptions: NotImplementedError.
+        '''
+        raise NotImplementedError("Method register_commands() must be implemented.")
+
+    @abstractmethod
+    def parse_command(self, arguments: OptArgs = None) -> tuple[str, dict]:
+        '''
+            Parses CLI arguments for subcommands and returns command name and parameters.
+
+            :param arguments: Sequence of arguments | None.
+            :type arguments: <OptArgs>
+            :return: Tuple containing command name and parsed parameters.
+            :rtype: <tuple[str, dict]>
+            :exceptions: NotImplementedError.
+        '''
+        raise NotImplementedError("Method parse_command() must be implemented.")
+
+
+    @abstractmethod
     def is_initialized(self) -> bool:
         '''
-            Checks if option parser component is ok.
+            Checks if option parser component is initialized.
 
-            :return: True (success) | False (fail)
+            :return: True (success) | False (fail).
             :rtype: <bool>
             :exceptions: NotImplementedError.
         '''

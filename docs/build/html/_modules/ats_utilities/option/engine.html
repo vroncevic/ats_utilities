@@ -68,6 +68,7 @@
 <span class="kn">from</span> <span class="nn">ats_utilities.option.parser_strategy</span> <span class="kn">import</span> <span class="n">ParserStrategy</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.option.option_namespace</span> <span class="kn">import</span> <span class="n">OptionNamespace</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.option.option_namespace</span> <span class="kn">import</span> <span class="n">OptArgs</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.option.ioption_command</span> <span class="kn">import</span> <span class="n">IOptionCommand</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.exceptions.ats_type_error</span> <span class="kn">import</span> <span class="n">ATSTypeError</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.exceptions.ats_value_error</span> <span class="kn">import</span> <span class="n">ATSValueError</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.exceptions.ats_runtime_error</span> <span class="kn">import</span> <span class="n">ATSRuntimeError</span>
@@ -109,6 +110,8 @@
 <span class="sd">                | add_version_operation - Adds version option to the ATS parser.</span>
 <span class="sd">                | parse_input_args - Processes arguments from the start.</span>
 <span class="sd">                | parse_args - Processes arguments from the start.</span>
+<span class="sd">                | parse_command - Parses arguments as a command.</span>
+<span class="sd">                | register_commands - Registers a list of commands with the parser.</span>
 <span class="sd">                | is_initialized - Checks if the option manager component is initialized.</span>
 <span class="sd">                | __str__ - Returns the string representation of OptionManager.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
@@ -137,7 +140,7 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">_strategy</span><span class="p">:</span> <span class="n">IParserStrategy</span> <span class="o">=</span> <span class="n">make_component</span><span class="p">(</span>
                 <span class="n">bundle</span><span class="o">.</span><span class="n">strategy</span><span class="p">,</span> <span class="n">ParserStrategy</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;context_bundle&#39;</span><span class="p">:</span> <span class="n">shared_bundle</span><span class="p">}</span>
             <span class="p">)</span>
-            <span class="n">validate_component</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_strategy</span><span class="p">,</span> <span class="n">ParserStrategy</span><span class="p">)</span>
+            <span class="n">validate_component</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_strategy</span><span class="p">,</span> <span class="n">ParserStrategy</span><span class="p">)</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">bundle</span><span class="o">.</span><span class="n">strategy</span> <span class="k">else</span> <span class="kc">None</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_strategy</span><span class="o">.</span><span class="n">setup</span><span class="p">(</span><span class="n">bundle</span><span class="o">.</span><span class="n">parameters</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_is_initialized</span> <span class="o">=</span> <span class="kc">True</span>
 
@@ -207,6 +210,34 @@
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="n">args</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_strategy</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">arguments</span><span class="p">,</span> <span class="n">known_only</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">args</span></div>
+
+
+<div class="viewcode-block" id="OptionManager.register_commands">
+<a class="viewcode-back" href="../../../ats_utilities.option.engine.html#ats_utilities.option.engine.OptionManager.register_commands">[docs]</a>
+    <span class="k">def</span> <span class="nf">register_commands</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">commands</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">IOptionCommand</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">            Registers a list of commands with the parser.</span>
+
+<span class="sd">            :param commands: List of commands to register.</span>
+<span class="sd">            :type commands: &lt;list[IOptionCommand]&gt;</span>
+<span class="sd">            :exceptions: None.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_strategy</span><span class="o">.</span><span class="n">register_commands</span><span class="p">(</span><span class="n">commands</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="OptionManager.parse_command">
+<a class="viewcode-back" href="../../../ats_utilities.option.engine.html#ats_utilities.option.engine.OptionManager.parse_command">[docs]</a>
+    <span class="k">def</span> <span class="nf">parse_command</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">arguments</span><span class="p">:</span> <span class="n">OptArgs</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">dict</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">            Parses arguments as a command.</span>
+
+<span class="sd">            :param arguments: Sequence of arguments | None.</span>
+<span class="sd">            :type arguments: &lt;OptArgs&gt;</span>
+<span class="sd">            :return: Tuple of (command name, command arguments).</span>
+<span class="sd">            :rtype: &lt;tuple[str, dict]&gt;</span>
+<span class="sd">            :exceptions: None.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_strategy</span><span class="o">.</span><span class="n">parse_command</span><span class="p">(</span><span class="n">arguments</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="OptionManager.is_initialized">

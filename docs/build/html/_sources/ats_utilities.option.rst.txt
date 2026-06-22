@@ -8,8 +8,10 @@ Submodules
    :maxdepth: 4
 
    ats_utilities.option.arg_parser
+   ats_utilities.option.command_option
    ats_utilities.option.component_bundle
    ats_utilities.option.engine
+   ats_utilities.option.ioption_command
    ats_utilities.option.ioption_parser
    ats_utilities.option.iparser_strategy
    ats_utilities.option.option_namespace

@@ -65,7 +65,7 @@
             <a id="nextFileLink" class="nav" href="z_9589714854e5fb49_ilogger_py.html">&#xbb; next</a>
             &nbsp; &nbsp; &nbsp;
             <a class="nav" href="https://coverage.readthedocs.io/en/7.6.10">coverage.py v7.6.10</a>,
-            created at 2026-06-22 17:42 +0200
+            created at 2026-06-22 21:38 +0200
         </p>
         <aside class="hidden">
             <button type="button" class="button_next_chunk" data-shortcut="j"></button>
@@ -186,7 +186,7 @@
     <p class="run"><span class="n"><a id="t104" href="#t104">104</a></span><span class="t">            <span class="nam">self</span><span class="op">.</span><span class="nam">_logger</span><span class="op">:</span> <span class="nam">ILogger</span> <span class="op">=</span> <span class="nam">make_component</span><span class="op">(</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t105" href="#t105">105</a></span><span class="t">                <span class="nam">bundle</span><span class="op">.</span><span class="nam">logger</span><span class="op">,</span> <span class="nam">ATSLogger</span><span class="op">,</span> <span class="op">{</span><span class="str">'logger_bundle'</span><span class="op">:</span> <span class="nam">log_bundle</span><span class="op">,</span> <span class="str">'context_bundle'</span><span class="op">:</span> <span class="nam">shared_bundle</span><span class="op">}</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t106" href="#t106">106</a></span><span class="t">            <span class="op">)</span>&nbsp;</span><span class="r"></span></p>
-    <p class="run"><span class="n"><a id="t107" href="#t107">107</a></span><span class="t">            <span class="nam">validate_component</span><span class="op">(</span><span class="nam">self</span><span class="op">.</span><span class="nam">_logger</span><span class="op">,</span> <span class="nam">ATSLogger</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
+    <p class="run"><span class="n"><a id="t107" href="#t107">107</a></span><span class="t">            <span class="nam">validate_component</span><span class="op">(</span><span class="nam">self</span><span class="op">.</span><span class="nam">_logger</span><span class="op">,</span> <span class="nam">ATSLogger</span><span class="op">)</span> <span class="key">if</span> <span class="key">not</span> <span class="nam">bundle</span><span class="op">.</span><span class="nam">logger</span> <span class="key">else</span> <span class="key">None</span>&nbsp;</span><span class="r"></span></p>
     <p class="run"><span class="n"><a id="t108" href="#t108">108</a></span><span class="t">            <span class="nam">self</span><span class="op">.</span><span class="nam">_is_initialized</span> <span class="op">=</span> <span class="key">True</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t109" href="#t109">109</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
     <p class="run"><span class="n"><a id="t110" href="#t110">110</a></span><span class="t">        <span class="key">except</span> <span class="op">(</span><span class="nam">ATSTypeError</span><span class="op">,</span> <span class="nam">ATSValueError</span><span class="op">,</span> <span class="nam">ATSRuntimeError</span><span class="op">,</span> <span class="nam">ATSAttributeError</span><span class="op">)</span> <span class="key">as</span> <span class="nam">exc</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
@@ -244,7 +244,7 @@
             <a class="nav" href="z_9589714854e5fb49_ilogger_py.html">&#xbb; next</a>
             &nbsp; &nbsp; &nbsp;
             <a class="nav" href="https://coverage.readthedocs.io/en/7.6.10">coverage.py v7.6.10</a>,
-            created at 2026-06-22 17:42 +0200
+            created at 2026-06-22 21:38 +0200
         </p>
     </div>
 </footer>
