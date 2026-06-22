@@ -42,36 +42,23 @@ VERBOSE: bool = False
 # default [without DI]
 # ====================
 #
-ats_info: dict[Any, Any] = {
-    'ats_name': 'mytool1',
-    'ats_version': '1.0.0',
-    'ats_licence': 'gplv3',
-    'ats_build_date': 'Sun Jun 14 03:06:10 PM CEST 2026'
-}
-ats_info_manager_without_di = InfoManager(info=ats_info, verbose=VERBOSE)
+ats_info_manager_without_di = InfoManager()
 print(ats_info_manager_without_di)
 
 #
 # default [with DI and with case overwrite info (should get warning message)]
 # ============================================================================
 #
-ats_name = Name(verbose=VERBOSE)
+ats_name = Name()
 ats_name.name = 'mytool2'
-ats_version = Version(verbose=VERBOSE)
+ats_version = Version()
 ats_version.version = '1.0.1'
-ats_licence = Licence(verbose=VERBOSE)
+ats_licence = Licence()
 ats_licence.licence = 'gplv3'
-ats_build_date = BuildDate(verbose=VERBOSE)
+ats_build_date = BuildDate()
 ats_build_date.build_date = 'Sun Jun 14 03:06:11 PM CEST 2026'
-ats_info_ok = InfoOk(verbose=VERBOSE)
+ats_info_ok = InfoOk()
 ats_info_ok.info_ok = True
-
-ats_info_overwrite: dict[Any, Any] = {
-    'ats_name': 'mytool3',
-    'ats_version': '1.0.2',
-    'ats_licence': 'gplv3',
-    'ats_build_date': 'Sun Jun 14 03:06:12 PM CEST 2026'
-}
 
 bundle: InfoComponentBundle = InfoComponentBundle(
     name=ats_name,
@@ -82,7 +69,7 @@ bundle: InfoComponentBundle = InfoComponentBundle(
 )
 
 ats_info_manager_with_di_and_case_overwrite = InfoManager(
-    info=ats_info_overwrite, bundle=bundle, verbose=VERBOSE
+    component_bundle=bundle, 
 )
 print(ats_info_manager_with_di_and_case_overwrite)
 
@@ -90,15 +77,15 @@ print(ats_info_manager_with_di_and_case_overwrite)
 # default [with DI and without case overwrite info (without warning message)]
 # ============================================================================
 #
-ats_name = Name(verbose=VERBOSE)
+ats_name = Name()
 ats_name.name = 'mytool4'
-ats_version = Version(verbose=VERBOSE)
+ats_version = Version()
 ats_version.version = '1.0.3'
-ats_licence = Licence(verbose=VERBOSE)
+ats_licence = Licence()
 ats_licence.licence = 'gplv3'
-ats_build_date = BuildDate(verbose=VERBOSE)
+ats_build_date = BuildDate()
 ats_build_date.build_date = 'Sun Jun 14 03:06:13 PM CEST 2026'
-ats_info_ok = InfoOk(verbose=VERBOSE)
+ats_info_ok = InfoOk()
 ats_info_ok.info_ok = True
 
 bundle: InfoComponentBundle = InfoComponentBundle(
@@ -110,6 +97,6 @@ bundle: InfoComponentBundle = InfoComponentBundle(
 )
 
 ats_info_manager_with_di_and_without_case_overwrite = InfoManager(
-    bundle=bundle, verbose=VERBOSE
+    component_bundle=bundle, 
 )
 print(ats_info_manager_with_di_and_without_case_overwrite)

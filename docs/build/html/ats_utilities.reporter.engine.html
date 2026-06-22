@@ -80,6 +80,7 @@ Implements an API for reporting messages to the console.</p>
 <dd class="field-odd"><div class="line-block">
 <div class="line">_checker - Factorized parameters checker (default Checker).</div>
 <div class="line">_theme - Factorized theme for styling messages (default ConsoleTheme).</div>
+<div class="line">_is_initialized -  Indicates if the reporter component is initialized (default False).</div>
 </div>
 </dd>
 <dt class="field-even">methods<span class="colon">:</span></dt>
@@ -90,6 +91,7 @@ Implements an API for reporting messages to the console.</p>
 <div class="line">success - Reports success message to console.</div>
 <div class="line">verbose - Reports verbose message to console.</div>
 <div class="line">warning - Reports warning message to console.</div>
+<div class="line">is_initialized - Checks if reporter component is initialized.</div>
 <div class="line">__str__ - Returns the string representation of Reporter.</div>
 </div>
 </dd>
@@ -137,6 +139,23 @@ Implements an API for reporting messages to the console.</p>
 </dd>
 <dt class="field-even">Exceptions<span class="colon">:</span></dt>
 <dd class="field-even"><p>None.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ats_utilities.reporter.engine.Reporter.is_initialized">
+<span class="sig-name descname"><span class="pre">is_initialized</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="_modules/ats_utilities/reporter/engine.html#Reporter.is_initialized"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.reporter.engine.Reporter.is_initialized" title="Link to this definition">¶</a></dt>
+<dd><p>Checks if reporter component is initialized.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>True (success) | False (fail)</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>&lt;bool&gt;</p>
+</dd>
+<dt class="field-odd">Exceptions<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -207,6 +226,7 @@ Implements an API for reporting messages to the console.</p>
 <li><a class="reference internal" href="#ats_utilities.reporter.engine.Reporter._report"><code class="docutils literal notranslate"><span class="pre">Reporter._report()</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.reporter.engine.Reporter._theme"><code class="docutils literal notranslate"><span class="pre">Reporter._theme</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.reporter.engine.Reporter.error"><code class="docutils literal notranslate"><span class="pre">Reporter.error()</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.reporter.engine.Reporter.is_initialized"><code class="docutils literal notranslate"><span class="pre">Reporter.is_initialized()</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.reporter.engine.Reporter.success"><code class="docutils literal notranslate"><span class="pre">Reporter.success()</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.reporter.engine.Reporter.verbose"><code class="docutils literal notranslate"><span class="pre">Reporter.verbose()</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.reporter.engine.Reporter.warning"><code class="docutils literal notranslate"><span class="pre">Reporter.warning()</span></code></a></li>

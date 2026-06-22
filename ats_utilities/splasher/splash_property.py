@@ -51,9 +51,9 @@ class SplashProperty(ISplashProperty):
 
             :attributes:
                 | _required_keys - Required splash screen keys (default frozenset).
-                | _checker - Factoriezed parameters checker (default Checker).
-                | _reporter - Factoriezed reporter for messaging (default Reporter).
-                | _verbose - Factoriezed Enable/Disable verbose option (default False).
+                | _checker - Injected parameters checker (default Checker).
+                | _reporter - Injected reporter for messaging (default Reporter).
+                | _verbose - Injected Enable/Disable verbose option (default False).
                 | _splash_property - Splash screen property in dict format (default None).
             :methods:
                 | __init__ - Initials SplashProperty constructor.
@@ -78,7 +78,7 @@ class SplashProperty(ISplashProperty):
         '''
             Initials SplashProperty constructor.
 
-            :param context_bundle: Context bundle for splash screen property | None
+            :param context_bundle: Context bundle for splash screen property | None.
             :type context_bundle: <ContextBundle | None>
             :exceptions: None.
         '''

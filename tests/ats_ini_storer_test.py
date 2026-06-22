@@ -27,6 +27,8 @@ from unittest.mock import MagicMock
 from ats_utilities.config_io.ini.ini_storer import INIStorer
 from ats_utilities.config_io.iwrite import IWrite
 from ats_utilities.config_io.ini.iini_processor import IINIProcessor
+from ats_utilities.config_io.ini.object2ini import Object2Ini
+from ats_utilities.config_io.ini.ini_processor import INIProcessor
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -61,8 +63,8 @@ class INIStorerTestCase(TestCase):
 
     def test_store_configuration_success(self) -> None:
         '''Test storing configuration successfully.'''
-        mock_obj2ini = MagicMock(spec=IWrite)
-        mock_processor = MagicMock(spec=IINIProcessor)
+        mock_obj2ini = MagicMock(spec=Object2Ini)
+        mock_processor = MagicMock(spec=INIProcessor)
         
         mock_processor.from_stream.return_value = True
         mock_obj2ini.write_configuration.return_value = True
@@ -81,8 +83,8 @@ class INIStorerTestCase(TestCase):
 
     def test_store_configuration_from_stream_fail(self) -> None:
         '''Test storing configuration when from_stream fails.'''
-        mock_obj2ini = MagicMock(spec=IWrite)
-        mock_processor = MagicMock(spec=IINIProcessor)
+        mock_obj2ini = MagicMock(spec=Object2Ini)
+        mock_processor = MagicMock(spec=INIProcessor)
         
         mock_processor.from_stream.return_value = False
         
@@ -106,3 +108,4 @@ class INIStorerTestCase(TestCase):
 
 if __name__ == '__main__':
     main()
+

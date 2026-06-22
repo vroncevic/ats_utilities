@@ -47,9 +47,9 @@ class InfoOk(IInfoOk):
         It defines:
 
             :attributes:
-                | _checker - Factoriezed parameters checker (default Checker).
-                | _reporter - Factoriezed reporter for messaging (default Reporter).
-                | _verbose - Factoriezed Enable/Disable verbose option (default False).
+                | _checker - Injected parameters checker (default Checker).
+                | _reporter - Injected reporter for messaging (default Reporter).
+                | _verbose - Injected Enable/Disable verbose option (default False).
                 | _info_ok - The ATS information status (default False).
             :methods:
                 | __init__ - Initializes InfoOk constructor.

@@ -59,7 +59,7 @@
 <span class="sd">&#39;&#39;&#39;</span>
 
 <span class="kn">from</span> <span class="nn">collections.abc</span> <span class="kn">import</span> <span class="n">Callable</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">ClassVar</span><span class="p">,</span> <span class="n">Protocol</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">ClassVar</span>
 <span class="kn">from</span> <span class="nn">enum</span> <span class="kn">import</span> <span class="n">Enum</span>
 <span class="kn">from</span> <span class="nn">logging</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">getLogger</span><span class="p">,</span> <span class="n">basicConfig</span><span class="p">,</span> <span class="n">Logger</span><span class="p">,</span> <span class="n">DEBUG</span><span class="p">,</span> <span class="n">WARNING</span><span class="p">,</span> <span class="n">CRITICAL</span><span class="p">,</span> <span class="n">ERROR</span><span class="p">,</span> <span class="n">INFO</span>
@@ -71,7 +71,7 @@
 <span class="kn">from</span> <span class="nn">ats_utilities.reporter.ireporter</span> <span class="kn">import</span> <span class="n">IReporter</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.checker.proxy_validator</span> <span class="kn">import</span> <span class="n">validator</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.factory_context_bundle</span> <span class="kn">import</span> <span class="n">factory_context_bundle</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.factory_class</span> <span class="kn">import</span> <span class="n">get_private_attr</span><span class="p">,</span> <span class="n">format_instance_to_string</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.factory_class</span> <span class="kn">import</span> <span class="n">format_instance_to_string</span>
 
 <span class="n">__author__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;Vladimir Roncevic&#39;</span>
 <span class="n">__copyright__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;(C) 2026, https://vroncevic.github.io/ats_utilities&#39;</span>
@@ -107,31 +107,6 @@
 
 
 
-<div class="viewcode-block" id="LoggerLevelsProtocol">
-<a class="viewcode-back" href="../../../ats_utilities.logging.logger.html#ats_utilities.logging.logger.LoggerLevelsProtocol">[docs]</a>
-<span class="k">class</span> <span class="nc">LoggerLevelsProtocol</span><span class="p">(</span><span class="n">Protocol</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">        Defines class LoggerLevelsProtocol with attribute(s).</span>
-<span class="sd">        Protocol for log levels in the ATS logging mechanism.</span>
-
-<span class="sd">        It defines:</span>
-
-<span class="sd">            :attributes:</span>
-<span class="sd">                | ATS_LOG_DEBUG - Debug log level.</span>
-<span class="sd">                | ATS_LOG_INFO - Info log level.</span>
-<span class="sd">                | ATS_LOG_WARNING - Warning log level.</span>
-<span class="sd">                | ATS_LOG_ERROR - Error log level.</span>
-<span class="sd">                | ATS_LOG_CRITICAL - Critical log level.</span>
-<span class="sd">            :methods: None</span>
-<span class="sd">    &#39;&#39;&#39;</span>
-    <span class="n">ATS_LOG_DEBUG</span><span class="p">:</span> <span class="n">ClassVar</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span>
-    <span class="n">ATS_LOG_INFO</span><span class="p">:</span> <span class="n">ClassVar</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span>
-    <span class="n">ATS_LOG_WARNING</span><span class="p">:</span> <span class="n">ClassVar</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span>
-    <span class="n">ATS_LOG_ERROR</span><span class="p">:</span> <span class="n">ClassVar</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span>
-    <span class="n">ATS_LOG_CRITICAL</span><span class="p">:</span> <span class="n">ClassVar</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span></div>
-
-
-
 <div class="viewcode-block" id="ATSLogger">
 <a class="viewcode-back" href="../../../ats_utilities.logging.logger.html#ats_utilities.logging.logger.ATSLogger">[docs]</a>
 <span class="k">class</span> <span class="nc">ATSLogger</span><span class="p">(</span><span class="n">ILogger</span><span class="p">):</span>
@@ -151,11 +126,10 @@
 <span class="sd">                | _logger_name - ATS name.</span>
 <span class="sd">                | _log_stdout - Logging to stdout (default).</span>
 <span class="sd">                | _log_file - Logging to file.</span>
-<span class="sd">                | _checker - Factoriezed parameters checker (default Checker).</span>
-<span class="sd">                | _reporter - Factoriezed reporter for messaging (default Reporter).</span>
-<span class="sd">                | _verbose - Factoriezed Enable/Disable verbose option (default False).</span>
+<span class="sd">                | _checker - Injected parameters checker (default Checker).</span>
+<span class="sd">                | _reporter - Injected reporter for messaging (default Reporter).</span>
+<span class="sd">                | _verbose - Injected Enable/Disable verbose option (default False).</span>
 <span class="sd">                | _logger - Python Logger instance.</span>
-<span class="sd">                | </span>
 <span class="sd">            :methods:</span>
 <span class="sd">                | __init__ - Initials ATSLogger constructor.</span>
 <span class="sd">                | write_log - Writes message to log.</span>
@@ -192,7 +166,7 @@
             <span class="n">log_config</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
                 <span class="s1">&#39;format&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">LOG_FORMATS</span><span class="o">.</span><span class="n">ATS_LOG_MSG_FORMAT</span><span class="p">,</span>
                 <span class="s1">&#39;datefmt&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">LOG_FORMATS</span><span class="o">.</span><span class="n">ATS_LOG_DATE_FORMAT</span><span class="p">,</span>
-                <span class="s1">&#39;level&#39;</span><span class="p">:</span> <span class="n">DEBUG</span>
+                <span class="s1">&#39;level&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">LOG_LEVELS</span><span class="o">.</span><span class="n">ATS_LOG_DEBUG</span>
             <span class="p">}</span>
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_log_stdout</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_log_file</span><span class="p">:</span>
                 <span class="c1"># Force logging to file in case file name is provided</span>
@@ -235,9 +209,9 @@
         <span class="k">return</span> <span class="kc">False</span></div>
 
 
-<div class="viewcode-block" id="ATSLogger.ok">
-<a class="viewcode-back" href="../../../ats_utilities.logging.logger.html#ats_utilities.logging.logger.ATSLogger.ok">[docs]</a>
-    <span class="k">def</span> <span class="nf">ok</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<div class="viewcode-block" id="ATSLogger.is_initialized">
+<a class="viewcode-back" href="../../../ats_utilities.logging.logger.html#ats_utilities.logging.logger.ATSLogger.is_initialized">[docs]</a>
+    <span class="k">def</span> <span class="nf">is_initialized</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Checks if logger component is ok.</span>
 

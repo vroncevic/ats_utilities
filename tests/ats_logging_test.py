@@ -17,14 +17,14 @@ Copyright
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
     Defines class ATSLoggingTestCase with attribute(s) and method(s).
-    Creates test cases for checking functionalities of ATSLoggerManager.
+    Creates test cases for checking functionalities of LoggerManager.
 Execute
     python3 -m unittest -v ats_logging_test
 '''
 
 from unittest import TestCase, main, mock
 from os.path import dirname
-from ats_utilities.logging.engine import ATSLoggerManager
+from ats_utilities.logging.engine import LoggerManager
 from ats_utilities.logging.logger import ATSLogger
 from ats_utilities.reporter.ireporter import IReporter
 from ats_utilities.reporter.engine import Reporter
@@ -43,8 +43,8 @@ __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
 
 
-class ATSBaseLoggingFile(ATSLoggerManager):
-    '''Simple Class for checking ATSLoggerManager.'''
+class ATSBaseLoggingFile(LoggerManager):
+    '''Simple Class for checking LoggerManager.'''
 
     def __init__(self, log_file: str, reporter: IReporter = Reporter(), verbose: bool = False) -> None:
         '''Initial constructor.'''
@@ -76,8 +76,8 @@ class ATSBaseLoggingFile(ATSLoggerManager):
 class ATSLoggingTestCase(TestCase):
     '''
         Defines class ATSLoggingTestCase with attribute(s) and method(s).
-        Creates test cases for checking functionalities of ATSLoggerManager.
-        ATSLoggerManager unit tests.
+        Creates test cases for checking functionalities of LoggerManager.
+        LoggerManager unit tests.
 
         It defines:
 
@@ -125,11 +125,11 @@ class ATSLoggingTestCase(TestCase):
     def test_initialization_failure(self, mock_make_component) -> None:
         '''Test logger manager initialization failure'''
         mock_make_component.side_effect = ATSTypeError('Failed to initialize component')
-        invalid_manager = ATSLoggerManager()
+        invalid_manager = LoggerManager()
         self.assertFalse(invalid_manager.is_initialized())
 
     def test_str(self) -> None:
-        '''Test string representation of ATSLoggerManager and ATSLogger.'''
+        '''Test string representation of LoggerManager and ATSLogger.'''
         self.assertIsInstance(str(self.ats_base_logging), str)
         logger = ATSLogger()
         self.assertIsInstance(str(logger), str)

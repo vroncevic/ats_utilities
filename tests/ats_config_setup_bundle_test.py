@@ -26,9 +26,13 @@ from unittest import TestCase, main
 from unittest.mock import MagicMock
 from ats_utilities.config_setup.component_bundle import ConfigSetupComponentBundle
 from ats_utilities.config_setup.ipro_config import IProConfig
+from ats_utilities.config_setup.pro_config import ProConfig
 from ats_utilities.config_setup.ipro_name import IProName
+from ats_utilities.config_setup.pro_name import ProName
 from ats_utilities.config_setup.itemplate_dir import ITemplateDir
+from ats_utilities.config_setup.template_dir import TemplateDir
 from ats_utilities.context_bundle import ContextBundle
+from ats_utilities.exceptions.ats_value_error import ATSValueError
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -66,12 +70,57 @@ class ConfigSetupComponentBundleTestCase(TestCase):
 
     def test_validate(self) -> None:
         '''Test validate method.'''
-        bundle = ConfigSetupComponentBundle()
+        context_bundle: ContextBundle = ContextBundle()
+        bundle = ConfigSetupComponentBundle(
+            pro_config=ProConfig(context_bundle),
+            pro_name=ProName(context_bundle),
+            template_dir=TemplateDir(context_bundle),
+            context_bundle=context_bundle
+        )
         # Should not raise any exception as it is currently pass
         try:
             bundle.validate()
         except Exception as e:
             self.fail(f"validate() raised {type(e).__name__} unexpectedly!")
+
+    def test_validate_with_missing_pro_config(self) -> None:
+        context_bundle: ContextBundle = ContextBundle()
+        bundle = ConfigSetupComponentBundle(
+            pro_name=ProName(context_bundle),
+            template_dir=TemplateDir(context_bundle),
+            context_bundle=context_bundle
+        )
+        with self.assertRaisesRegex(ATSValueError, r'Project configuration must be provided\.'):
+            bundle.validate()
+
+    def test_validate_with_missing_pro_name(self) -> None:
+        context_bundle: ContextBundle = ContextBundle()
+        bundle = ConfigSetupComponentBundle(
+            pro_config=ProConfig(context_bundle),
+            template_dir=TemplateDir(context_bundle),
+            context_bundle=context_bundle
+        )
+        with self.assertRaisesRegex(ATSValueError, r'Project name must be provided\.'):
+            bundle.validate()
+
+    def test_validate_with_missing_template_dir(self) -> None:
+        context_bundle: ContextBundle = ContextBundle()
+        bundle = ConfigSetupComponentBundle(
+            pro_config=ProConfig(context_bundle),
+            pro_name=ProName(context_bundle)
+        )
+        with self.assertRaisesRegex(ATSValueError, r'Template directory must be provided\.'):
+            bundle.validate()
+
+    def test_validate_with_missing_context_bundle(self) -> None:
+        context_bundle: ContextBundle = ContextBundle()
+        bundle = ConfigSetupComponentBundle(
+            pro_config=ProConfig(context_bundle),
+            pro_name=ProName(context_bundle),
+            template_dir=TemplateDir(context_bundle)
+        )
+        with self.assertRaisesRegex(ATSValueError, r'Context bundle must be provided\.'):
+            bundle.validate()
 
     def test_merge(self) -> None:
         '''Test merge method.'''

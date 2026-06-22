@@ -20,10 +20,7 @@ Info
     Concrete implementation of the ATS parameter(s) checker.
 '''
 
-from ats_utilities.exceptions.ats_type_error import ATSTypeError
 from typing import ClassVar
-from ats_utilities.factory_class import get_class_name, format_instance_to_string
-from ats_utilities.factory_component import make_component, validate_component
 from ats_utilities.checker.ichecker import IChecker, ErrorChecker, ValidationResult, ParametersSpecs
 from ats_utilities.checker.itype_validator import ITypeValidator
 from ats_utilities.checker.type_validator import TypeValidator
@@ -35,6 +32,9 @@ from ats_utilities.checker.icheck_reporter import ICheckReporter
 from ats_utilities.checker.check_reporter import CheckReporter
 from ats_utilities.checker.component_bundle import CheckerComponentBundle
 from ats_utilities.checker.checker_reporter_bundle import CheckerReporterBundle, ParamMetadata
+from ats_utilities.exceptions.ats_type_error import ATSTypeError
+from ats_utilities.factory_class import get_class_name, format_instance_to_string
+from ats_utilities.factory_component import make_component, validate_component
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -84,13 +84,13 @@ class Checker(IChecker):
 
         try:
             self._format_validator: IFormatValidator = make_component(components.format_validator, FormatValidator, None)
-            validate_component(self._format_validator, type(self._format_validator), type(self._format_validator).__name__)
+            validate_component(self._format_validator, FormatValidator)
             self._type_validator: ITypeValidator = make_component(components.type_validator, TypeValidator, None)
-            validate_component(self._type_validator, type(self._type_validator), type(self._type_validator).__name__)
+            validate_component(self._type_validator, TypeValidator)
             self._context_provider: IContextProvider = make_component(components.context_provider, ContextProvider, None)
-            validate_component(self._context_provider, type(self._context_provider), type(self._context_provider).__name__)
+            validate_component(self._context_provider, ContextProvider)
             self._check_reporter: ICheckReporter = make_component(components.check_reporter, CheckReporter, None)
-            validate_component(self._check_reporter, type(self._check_reporter), type(self._check_reporter).__name__)
+            validate_component(self._check_reporter, CheckReporter)
             self._is_initialized = True
 
         except ATSTypeError as exc:

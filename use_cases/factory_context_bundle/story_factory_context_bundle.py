@@ -79,9 +79,9 @@ class MyClass(IMyClass):
         It defines:
 
             :attributes:
-                | _checker - Factoriezed parameters checker (default Checker).
-                | _reporter - Factoriezed reporter for messaging (default Reporter).
-                | _verbose - Factoriezed Enable/Disable verbose option (default False).
+                | _checker - Injected parameters checker (default Checker).
+                | _reporter - Injected reporter for messaging (default Reporter).
+                | _verbose - Injected Enable/Disable verbose option (default False).
                 | my - Test attribute (default None).
             :methods:
                 | __init__ - Initials MyClass constructor.
@@ -107,7 +107,7 @@ class MyClass(IMyClass):
 
             :return: True (success) | False (fail)
             :rtype: <bool>
-            :exceptions: ATSRuntimeError, ATSAttributeError
+            :exceptions: None.
         '''
         return self.my is not None
 

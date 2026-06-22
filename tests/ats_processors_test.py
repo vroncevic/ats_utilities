@@ -24,11 +24,13 @@ Execute
 
 import io
 from unittest import TestCase, main
+from unittest.mock import patch
 from ats_utilities.config_io.json.json_processor import JSONProcessor
 from ats_utilities.config_io.yaml.yaml_processor import YAMLProcessor
 from ats_utilities.config_io.xml.xml_processor import XMLProcessor
 from ats_utilities.config_io.cfg.cfg_processor import CFGProcessor
 from ats_utilities.config_io.ini.ini_processor import INIProcessor
+from ats_utilities.exceptions.ats_error import ATSError
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -106,8 +108,6 @@ class ATSProcessorsTestCase(TestCase):
         self.assertIsInstance(str(processor), str)
 
         # Decode invalid triggering ATSError via mock
-        from unittest.mock import patch
-        from ats_utilities.exceptions.ats_error import ATSError
         with patch('yaml.safe_load', side_effect=ATSError("Mock error")):
             self.assertFalse(processor.decode("invalid_yaml"))
 

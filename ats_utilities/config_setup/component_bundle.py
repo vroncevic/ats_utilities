@@ -25,6 +25,7 @@ from ats_utilities.config_setup.ipro_config import IProConfig
 from ats_utilities.config_setup.ipro_name import IProName
 from ats_utilities.config_setup.itemplate_dir import ITemplateDir
 from ats_utilities.context_bundle import ContextBundle
+from ats_utilities.exceptions.ats_value_error import ATSValueError
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -68,7 +69,17 @@ class ConfigSetupComponentBundle:
             :rtype: <None>
             :exceptions: ValueError
         '''
-        pass
+        if self.pro_config is None:
+            raise ATSValueError('Project configuration must be provided.')
+
+        if self.pro_name is None:
+            raise ATSValueError('Project name must be provided.')
+
+        if self.template_dir is None:
+            raise ATSValueError('Template directory must be provided.')
+
+        if self.context_bundle is None:
+            raise ATSValueError('Context bundle must be provided.')
 
     def merge(self, other: 'ConfigSetupComponentBundle') -> None:
         '''

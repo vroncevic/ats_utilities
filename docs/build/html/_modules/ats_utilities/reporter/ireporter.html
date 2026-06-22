@@ -86,6 +86,7 @@
 <span class="sd">                | success - Reports success message.</span>
 <span class="sd">                | verbose - Reports verbose message.</span>
 <span class="sd">                | warning - Reports warning message.</span>
+<span class="sd">                | is_initialized - Checks if the reporter component is initialized.</span>
 <span class="sd">                | __str__ - Returns the ATS reporter as string representation.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
 
@@ -145,6 +146,20 @@
 <span class="sd">            :exceptions: NotImplementedError.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s2">&quot;Method error() must be implemented.&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="IReporter.is_initialized">
+<a class="viewcode-back" href="../../../ats_utilities.reporter.ireporter.html#ats_utilities.reporter.ireporter.IReporter.is_initialized">[docs]</a>
+    <span class="nd">@abstractmethod</span>
+    <span class="k">def</span> <span class="nf">is_initialized</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">            Returns whether the reporter component is initialized.</span>
+
+<span class="sd">            :return: True (success) | False (fail).</span>
+<span class="sd">            :rtype: &lt;bool&gt;</span>
+<span class="sd">            :exceptions: NotImplementedError.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s2">&quot;Method is_initialized() must be implemented.&quot;</span><span class="p">)</span></div>
 
 
     <span class="nd">@abstractmethod</span>

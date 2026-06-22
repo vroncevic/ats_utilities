@@ -54,7 +54,7 @@
 <span class="sd">    You should have received a copy of the GNU General Public License along</span>
 <span class="sd">    with this program. If not, see &lt;http://www.gnu.org/licenses/&gt;.</span>
 <span class="sd">Info</span>
-<span class="sd">    Defines class ATSLoggerManager with attribute(s) and method(s).</span>
+<span class="sd">    Defines class LoggerManager with attribute(s) and method(s).</span>
 <span class="sd">    Creates an API for the ATS logging mechanism.</span>
 <span class="sd">&#39;&#39;&#39;</span>
 
@@ -67,8 +67,12 @@
 <span class="kn">from</span> <span class="nn">ats_utilities.logging.logger_bundle</span> <span class="kn">import</span> <span class="n">LoggerBundle</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.logging.logger</span> <span class="kn">import</span> <span class="n">ATSLogger</span><span class="p">,</span> <span class="n">ATSLogLevels</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.factory_context_bundle</span> <span class="kn">import</span> <span class="n">factory_context_bundle</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.factory_class</span> <span class="kn">import</span> <span class="n">get_private_attr</span><span class="p">,</span> <span class="n">format_instance_to_string</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.factory_class</span> <span class="kn">import</span> <span class="n">get_class_name</span><span class="p">,</span> <span class="n">format_instance_to_string</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.factory_component</span> <span class="kn">import</span> <span class="n">make_component</span><span class="p">,</span> <span class="n">validate_component</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.exceptions.ats_type_error</span> <span class="kn">import</span> <span class="n">ATSTypeError</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.exceptions.ats_value_error</span> <span class="kn">import</span> <span class="n">ATSValueError</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.exceptions.ats_runtime_error</span> <span class="kn">import</span> <span class="n">ATSRuntimeError</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.exceptions.ats_attribute_error</span> <span class="kn">import</span> <span class="n">ATSAttributeError</span>
 
 <span class="n">__author__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;Vladimir Roncevic&#39;</span>
 <span class="n">__copyright__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;(C) 2026, https://vroncevic.github.io/ats_utilities&#39;</span>
@@ -80,11 +84,11 @@
 <span class="n">__status__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;Updated&#39;</span>
 
 
-<div class="viewcode-block" id="ATSLoggerManager">
-<a class="viewcode-back" href="../../../ats_utilities.logging.engine.html#ats_utilities.logging.engine.ATSLoggerManager">[docs]</a>
-<span class="k">class</span> <span class="nc">ATSLoggerManager</span><span class="p">(</span><span class="n">ILoggerManager</span><span class="p">):</span>
+<div class="viewcode-block" id="LoggerManager">
+<a class="viewcode-back" href="../../../ats_utilities.logging.engine.html#ats_utilities.logging.engine.LoggerManager">[docs]</a>
+<span class="k">class</span> <span class="nc">LoggerManager</span><span class="p">(</span><span class="n">ILoggerManager</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">        Defines class ATSLoggerManager with attribute(s) and method(s).</span>
+<span class="sd">        Defines class LoggerManager with attribute(s) and method(s).</span>
 <span class="sd">        Creates an API for the ATS logging mechanism.</span>
 <span class="sd">        ATS logger mechanism.</span>
 
@@ -97,14 +101,16 @@
 <span class="sd">                | ATS_INFO - Info log level.</span>
 <span class="sd">                | ATS_WARNING - Warning log level.</span>
 <span class="sd">                | _logger - Prepared logger instance or default logger.</span>
-<span class="sd">                | _checker - Factoriezed parameters checker (default Checker).</span>
-<span class="sd">                | _reporter - Factoriezed reporter for messaging (default Reporter).</span>
-<span class="sd">                | _verbose - Factoriezed Enable/Disable verbose option (default False).</span>
+<span class="sd">                | _checker - Injected parameters checker (default Checker).</span>
+<span class="sd">                | _reporter - Injected reporter for messaging (default Reporter).</span>
+<span class="sd">                | _verbose - Injected Enable/Disable verbose option (default False).</span>
+<span class="sd">                | _is_initialized - Indicates if the logger manager component is initialized (default False).</span>
 <span class="sd">            :methods:</span>
-<span class="sd">                | __init__ - Initials ATSLoggerManager constructor.</span>
+<span class="sd">                | __init__ - Initials LoggerManager constructor.</span>
 <span class="sd">                | get_logger - Gets logger instance.</span>
-<span class="sd">                | ok - Checks if logger manager component is ok.</span>
 <span class="sd">                | write_log - Writes message to log output.</span>
+<span class="sd">                | is_initialized - Checks if the logger manager component is initialized.</span>
+<span class="sd">                | __str__ - Returns the string representation of ATS logger.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
 
     <span class="n">ATS_CRITICAL</span> <span class="o">=</span> <span class="n">ATSLogLevels</span><span class="o">.</span><span class="n">ATS_LOG_CRITICAL</span>
@@ -119,28 +125,33 @@
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">component_bundle</span><span class="p">:</span> <span class="n">LoggingComponentBundle</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">            Initializes ATSLoggerManager constructor.</span>
+<span class="sd">            Initializes LoggerManager constructor.</span>
 
 <span class="sd">            :param component_bundle: Logging component bundle with parameters | None.</span>
 <span class="sd">            :type component_bundle: &lt;LoggingComponentBundle | None&gt;</span>
-<span class="sd">            :exceptions: ATSTypeError</span>
+<span class="sd">            :exceptions: None.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="c1"># No dependency injection then use default ones.</span>
         <span class="n">bundle</span> <span class="o">=</span> <span class="n">component_bundle</span> <span class="ow">or</span> <span class="n">LoggingComponentBundle</span><span class="p">()</span>
         <span class="n">factory_context_bundle</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bundle</span><span class="o">.</span><span class="n">context_bundle</span><span class="p">)</span>
         <span class="n">shared_bundle</span><span class="p">:</span> <span class="n">ContextBundle</span> <span class="o">=</span> <span class="n">ContextBundle</span><span class="p">(</span>
-            <span class="n">checker</span><span class="o">=</span><span class="n">get_private_attr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;checker&#39;</span><span class="p">),</span>
-            <span class="n">reporter</span><span class="o">=</span><span class="n">get_private_attr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;reporter&#39;</span><span class="p">),</span>
-            <span class="n">verbose</span><span class="o">=</span><span class="n">get_private_attr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;verbose&#39;</span><span class="p">)</span>
+            <span class="n">checker</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_checker</span><span class="p">,</span> <span class="n">reporter</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_reporter</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_verbose</span>
         <span class="p">)</span>
         <span class="n">log_bundle</span><span class="p">:</span> <span class="n">LoggerBundle</span> <span class="o">=</span> <span class="n">bundle</span><span class="o">.</span><span class="n">logger_bundle</span> <span class="ow">or</span> <span class="n">LoggerBundle</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="p">:</span> <span class="n">ILogger</span> <span class="o">=</span> <span class="n">make_component</span><span class="p">(</span>
-            <span class="n">bundle</span><span class="o">.</span><span class="n">logger</span><span class="p">,</span> <span class="n">ATSLogger</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;logger_bundle&#39;</span><span class="p">:</span> <span class="n">log_bundle</span><span class="p">,</span> <span class="s1">&#39;context_bundle&#39;</span><span class="p">:</span> <span class="n">shared_bundle</span><span class="p">}</span>
-        <span class="p">)</span>
-        <span class="n">validate_component</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="p">),</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_is_initialized</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
 
-<div class="viewcode-block" id="ATSLoggerManager.get_logger">
-<a class="viewcode-back" href="../../../ats_utilities.logging.engine.html#ats_utilities.logging.engine.ATSLoggerManager.get_logger">[docs]</a>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="p">:</span> <span class="n">ILogger</span> <span class="o">=</span> <span class="n">make_component</span><span class="p">(</span>
+                <span class="n">bundle</span><span class="o">.</span><span class="n">logger</span><span class="p">,</span> <span class="n">ATSLogger</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;logger_bundle&#39;</span><span class="p">:</span> <span class="n">log_bundle</span><span class="p">,</span> <span class="s1">&#39;context_bundle&#39;</span><span class="p">:</span> <span class="n">shared_bundle</span><span class="p">}</span>
+            <span class="p">)</span>
+            <span class="n">validate_component</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="p">,</span> <span class="n">ATSLogger</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_is_initialized</span> <span class="o">=</span> <span class="kc">True</span>
+
+        <span class="k">except</span> <span class="p">(</span><span class="n">ATSTypeError</span><span class="p">,</span> <span class="n">ATSValueError</span><span class="p">,</span> <span class="n">ATSRuntimeError</span><span class="p">,</span> <span class="n">ATSAttributeError</span><span class="p">)</span> <span class="k">as</span> <span class="n">exc</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_reporter</span><span class="o">.</span><span class="n">error</span><span class="p">([</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">get_class_name</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="si">}</span><span class="s2"> - error during initialization: </span><span class="si">{</span><span class="n">exc</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">])</span>
+
+<div class="viewcode-block" id="LoggerManager.get_logger">
+<a class="viewcode-back" href="../../../ats_utilities.logging.engine.html#ats_utilities.logging.engine.LoggerManager.get_logger">[docs]</a>
     <span class="k">def</span> <span class="nf">get_logger</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ILogger</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Gets logger instance.</span>
@@ -152,8 +163,8 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span></div>
 
 
-<div class="viewcode-block" id="ATSLoggerManager.write_log">
-<a class="viewcode-back" href="../../../ats_utilities.logging.engine.html#ats_utilities.logging.engine.ATSLoggerManager.write_log">[docs]</a>
+<div class="viewcode-block" id="LoggerManager.write_log">
+<a class="viewcode-back" href="../../../ats_utilities.logging.engine.html#ats_utilities.logging.engine.LoggerManager.write_log">[docs]</a>
     <span class="k">def</span> <span class="nf">write_log</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="p">,</span> <span class="n">ctrl</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Writes message to log output.</span>
@@ -169,17 +180,17 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">write_log</span><span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">ctrl</span><span class="p">))</span></div>
 
 
-<div class="viewcode-block" id="ATSLoggerManager.ok">
-<a class="viewcode-back" href="../../../ats_utilities.logging.engine.html#ats_utilities.logging.engine.ATSLoggerManager.ok">[docs]</a>
-    <span class="k">def</span> <span class="nf">ok</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<div class="viewcode-block" id="LoggerManager.is_initialized">
+<a class="viewcode-back" href="../../../ats_utilities.logging.engine.html#ats_utilities.logging.engine.LoggerManager.is_initialized">[docs]</a>
+    <span class="k">def</span> <span class="nf">is_initialized</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">            Checks if logger component is ok.</span>
+<span class="sd">            Checks if the logger manager component is initialized.</span>
 
-<span class="sd">            :return: True (success) | False (fail)</span>
+<span class="sd">            :return: True (success) | False (fail).</span>
 <span class="sd">            :rtype: &lt;bool&gt;</span>
-<span class="sd">            :exceptions: None..</span>
+<span class="sd">            :exceptions: None.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">ok</span><span class="p">()</span></div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_is_initialized</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">is_initialized</span><span class="p">()</span></div>
 
 
     <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>

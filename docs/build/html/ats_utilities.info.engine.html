@@ -81,17 +81,20 @@ The ATS information container.</p>
 <dd class="field-odd"><div class="line-block">
 <div class="line">_ATTR_MAP - Map attributes to dynamic component properties.</div>
 <div class="line">_components - The ATS info components (default InfoComponentBundle).</div>
+<div class="line">_checker - Injected parameters checker (default Checker).</div>
+<div class="line">_reporter - Injected reporter for messaging (default Reporter).</div>
+<div class="line">_verbose - Injected Enable/Disable verbose option (default False).</div>
+<div class="line">_is_initialized - Indicates if the info manager component is initialized (default False).</div>
 </div>
 </dd>
 <dt class="field-even">methods<span class="colon">:</span></dt>
 <dd class="field-even"><div class="line-block">
 <div class="line">__init__ - Initializes InfoManager constructor.</div>
 <div class="line">set_info - Sets the ATS information.</div>
-<div class="line">ok - Checks is ATS information structure ok.</div>
-<div class="line">__getattr__ - Gets attribute from instance components dynamically.</div>
-<div class="line">__setattr__ - Sets attribute to instance components dynamically and refreshes status.</div>
+<div class="line">get_info - Gets the ATS information.</div>
+<div class="line">is_initialized - Checks if the info manager component is initialized.</div>
 <div class="line">refresh_status - Refresh status for ATS information structure.</div>
-<div class="line">__str__ - Returns the ATS info manager as string representation.</div>
+<div class="line">__str__ - Returns the string representation of InfoManager.</div>
 </div>
 </dd>
 </dl>
@@ -104,6 +107,21 @@ The ATS information container.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="ats_utilities.info.engine.InfoManager._abc_impl">
 <span class="sig-name descname"><span class="pre">_abc_impl</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;_abc._abc_data</span> <span class="pre">object&gt;</span></em><a class="headerlink" href="#ats_utilities.info.engine.InfoManager._abc_impl" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ats_utilities.info.engine.InfoManager._checker">
+<span class="sig-name descname"><span class="pre">_checker</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="ats_utilities.checker.ichecker.html#ats_utilities.checker.ichecker.IChecker" title="ats_utilities.checker.ichecker.IChecker"><span class="pre">IChecker</span></a></em><a class="headerlink" href="#ats_utilities.info.engine.InfoManager._checker" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ats_utilities.info.engine.InfoManager._reporter">
+<span class="sig-name descname"><span class="pre">_reporter</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="ats_utilities.reporter.ireporter.html#ats_utilities.reporter.ireporter.IReporter" title="ats_utilities.reporter.ireporter.IReporter"><span class="pre">IReporter</span></a></em><a class="headerlink" href="#ats_utilities.info.engine.InfoManager._reporter" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ats_utilities.info.engine.InfoManager._verbose">
+<span class="sig-name descname"><span class="pre">_verbose</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#ats_utilities.info.engine.InfoManager._verbose" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -124,9 +142,9 @@ The ATS information container.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="ats_utilities.info.engine.InfoManager.ok">
-<span class="sig-name descname"><span class="pre">ok</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="_modules/ats_utilities/info/engine.html#InfoManager.ok"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.info.engine.InfoManager.ok" title="Link to this definition">¶</a></dt>
-<dd><p>Checks is ATS information structure ok.</p>
+<dt class="sig sig-object py" id="ats_utilities.info.engine.InfoManager.is_initialized">
+<span class="sig-name descname"><span class="pre">is_initialized</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="_modules/ats_utilities/info/engine.html#InfoManager.is_initialized"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.info.engine.InfoManager.is_initialized" title="Link to this definition">¶</a></dt>
+<dd><p>Checks if the info manager component is initialized.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>True (success) | False (fail).</p>
@@ -135,7 +153,7 @@ The ATS information container.</p>
 <dd class="field-even"><p>&lt;bool&gt;</p>
 </dd>
 <dt class="field-odd">Exceptions<span class="colon">:</span></dt>
-<dd class="field-odd"><p>None..</p>
+<dd class="field-odd"><p>None.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -183,8 +201,11 @@ The ATS information container.</p>
 <li><a class="reference internal" href="#ats_utilities.info.engine.InfoManager"><code class="docutils literal notranslate"><span class="pre">InfoManager</span></code></a><ul>
 <li><a class="reference internal" href="#ats_utilities.info.engine.InfoManager._ATTR_MAP"><code class="docutils literal notranslate"><span class="pre">InfoManager._ATTR_MAP</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.info.engine.InfoManager._abc_impl"><code class="docutils literal notranslate"><span class="pre">InfoManager._abc_impl</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.info.engine.InfoManager._checker"><code class="docutils literal notranslate"><span class="pre">InfoManager._checker</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.info.engine.InfoManager._reporter"><code class="docutils literal notranslate"><span class="pre">InfoManager._reporter</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.info.engine.InfoManager._verbose"><code class="docutils literal notranslate"><span class="pre">InfoManager._verbose</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.info.engine.InfoManager.get_info"><code class="docutils literal notranslate"><span class="pre">InfoManager.get_info()</span></code></a></li>
-<li><a class="reference internal" href="#ats_utilities.info.engine.InfoManager.ok"><code class="docutils literal notranslate"><span class="pre">InfoManager.ok()</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.info.engine.InfoManager.is_initialized"><code class="docutils literal notranslate"><span class="pre">InfoManager.is_initialized()</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.info.engine.InfoManager.refresh_status"><code class="docutils literal notranslate"><span class="pre">InfoManager.refresh_status()</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.info.engine.InfoManager.set_info"><code class="docutils literal notranslate"><span class="pre">InfoManager.set_info()</span></code></a></li>
 </ul>

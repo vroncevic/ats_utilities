@@ -54,9 +54,9 @@ class JSONLoader(ILoader):
         It defines:
 
             :attributes:
-                | _checker - Factoriezed parameters checker (default Checker).
-                | _reporter - Factoriezed reporter for messaging (default Reporter).
-                | _verbose - Factoriezed Enable/Disable verbose option (default False).
+                | _checker - Injected parameters checker (default Checker).
+                | _reporter - Injected reporter for messaging (default Reporter).
+                | _verbose - Injected Enable/Disable verbose option (default False).
                 | _configuration - JSON processor configuration (default None).
             :methods:
                 | __init__ - Initializes JSONLoader constructor.
@@ -91,20 +91,18 @@ class JSONLoader(ILoader):
         config_file_bundle: ATSConfigFileBundle = config_bundle or ATSConfigFileBundle()
         factory_context_bundle(self, config_file_bundle.context)
         context_bundle_shared: ContextBundle = ContextBundle(
-            checker=get_private_attr(self, 'checker'),
-            reporter=get_private_attr(self, 'reporter'),
-            verbose=get_private_attr(self, 'verbose')
+            checker=self._checker, reporter=self._reporter, verbose=self._verbose
         )
         file_checker: IFileCheck = make_component(
             config_file_bundle.file_checker, FileCheck, {'config_bundle': context_bundle_shared}
         )
-        validate_component(file_checker, type(file_checker), type(file_checker).__name__)
+        validate_component(file_checker, FileCheck)
         processor: IJSONProcessor = make_component(json_processor, JSONProcessor, None)
-        validate_component(processor, type(processor), type(processor).__name__)
+        validate_component(processor, JSONProcessor)
         json2obj: IRead = make_component(json2object, Json2Object, {
             'config_file': info_file, 'config_bundle': config_file_bundle, 'json_processor': processor
         })
-        validate_component(json2obj, type(json2obj), type(json2obj).__name__)
+        validate_component(json2obj, Json2Object)
         self._configuration: IJSONProcessor | None = None
 
         if bool(json2obj):

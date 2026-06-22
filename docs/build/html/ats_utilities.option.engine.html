@@ -78,9 +78,10 @@ Creates an option parser based on the argparse argument processor.</p>
 <div><dl class="field-list">
 <dt class="field-odd">attributes<span class="colon">:</span></dt>
 <dd class="field-odd"><div class="line-block">
-<div class="line">_checker - Factoriezed parameters checker (default Checker).</div>
-<div class="line">_reporter - Factoriezed reporter for messaging (default Reporter).</div>
-<div class="line">_verbose - Factoriezed Enable/Disable verbose option (default False).</div>
+<div class="line">_checker - Injected parameters checker (default Checker).</div>
+<div class="line">_reporter - Injected reporter for messaging (default Reporter).</div>
+<div class="line">_verbose - Injected Enable/Disable verbose option (default False).</div>
+<div class="line">_is_initialized - Indicates if the option manager component is initialized (default False).</div>
 <div class="line">_strategy - Strategy for argument parsing (default ParserStrategy).</div>
 </div>
 </dd>
@@ -91,6 +92,7 @@ Creates an option parser based on the argparse argument processor.</p>
 <div class="line">add_version_operation - Adds version option to the ATS parser.</div>
 <div class="line">parse_input_args - Processes arguments from the start.</div>
 <div class="line">parse_args - Processes arguments from the start.</div>
+<div class="line">is_initialized - Checks if the option manager component is initialized.</div>
 <div class="line">__str__ - Returns the string representation of OptionManager.</div>
 </div>
 </dd>
@@ -148,18 +150,18 @@ Creates an option parser based on the argparse argument processor.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="ats_utilities.option.engine.OptionManager.ok">
-<span class="sig-name descname"><span class="pre">ok</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="_modules/ats_utilities/option/engine.html#OptionManager.ok"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.option.engine.OptionManager.ok" title="Link to this definition">¶</a></dt>
-<dd><p>Checks if option parser component is ok.</p>
+<dt class="sig sig-object py" id="ats_utilities.option.engine.OptionManager.is_initialized">
+<span class="sig-name descname"><span class="pre">is_initialized</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="_modules/ats_utilities/option/engine.html#OptionManager.is_initialized"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.option.engine.OptionManager.is_initialized" title="Link to this definition">¶</a></dt>
+<dd><p>Checks if option parser component is initialized.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>True (success) | False (fail)</p>
+<dd class="field-odd"><p>True (success) | False (fail).</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p>&lt;bool&gt;</p>
 </dd>
 <dt class="field-odd">Exceptions<span class="colon">:</span></dt>
-<dd class="field-odd"><p>None..</p>
+<dd class="field-odd"><p>None.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -179,7 +181,7 @@ Creates an option parser based on the argparse argument processor.</p>
 <dd class="field-odd"><p>&lt;OptionNamespace&gt;</p>
 </dd>
 <dt class="field-even">Exceptions<span class="colon">:</span></dt>
-<dd class="field-even"><p>ATSRuntimeError, ATSAttributeError</p>
+<dd class="field-even"><p>ATSRuntimeError, ATSAttributeError.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -199,7 +201,7 @@ Creates an option parser based on the argparse argument processor.</p>
 <dd class="field-odd"><p>&lt;OptionNamespace&gt;</p>
 </dd>
 <dt class="field-even">Exceptions<span class="colon">:</span></dt>
-<dd class="field-even"><p>ATSRuntimeError, ATSAttributeError</p>
+<dd class="field-even"><p>ATSRuntimeError, ATSAttributeError.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -226,7 +228,7 @@ Creates an option parser based on the argparse argument processor.</p>
 <li><a class="reference internal" href="#ats_utilities.option.engine.OptionManager._verbose"><code class="docutils literal notranslate"><span class="pre">OptionManager._verbose</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.option.engine.OptionManager.add_operation"><code class="docutils literal notranslate"><span class="pre">OptionManager.add_operation()</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.option.engine.OptionManager.add_version_operation"><code class="docutils literal notranslate"><span class="pre">OptionManager.add_version_operation()</span></code></a></li>
-<li><a class="reference internal" href="#ats_utilities.option.engine.OptionManager.ok"><code class="docutils literal notranslate"><span class="pre">OptionManager.ok()</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.option.engine.OptionManager.is_initialized"><code class="docutils literal notranslate"><span class="pre">OptionManager.is_initialized()</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.option.engine.OptionManager.parse_args"><code class="docutils literal notranslate"><span class="pre">OptionManager.parse_args()</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.option.engine.OptionManager.parse_input_args"><code class="docutils literal notranslate"><span class="pre">OptionManager.parse_input_args()</span></code></a></li>
 </ul>

@@ -105,6 +105,13 @@ class ATSSplashPropTestCase(TestCase):
                 'ats_logo_path': 'app logo'
             }
 
+    def test_get_splash_property(self) -> None:
+        '''Test getter for splash_property.'''
+        splash = SplashProperty()
+        self.assertIsNone(splash.splash_property)
+        splash.splash_property = self.splash_data
+        self.assertEqual(splash.splash_property, self.splash_data)
+
     def test_str(self) -> None:
         '''Test string representation of SplashProperty.'''
         splash = SplashProperty()

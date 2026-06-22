@@ -26,6 +26,7 @@ from unittest import TestCase, main, mock
 from os.path import dirname
 from ats_utilities.config_io.xml.xml2object import Xml2Object
 from ats_utilities.config_io.xml.ixml_processor import IXMLProcessor
+from ats_utilities.config_io.xml.xml_processor import XMLProcessor
 from ats_utilities.exceptions.ats_type_error import ATSTypeError
 
 __author__: str = 'Vladimir Roncevic'
@@ -59,7 +60,7 @@ class Xml2ObjectTestCase(TestCase):
 
     def setUp(self) -> None:
         '''Call before test case.'''
-        self.xml_processor = mock.MagicMock(spec=IXMLProcessor)
+        self.xml_processor = mock.MagicMock(spec=XMLProcessor)
         self.xml2obj: Xml2Object = Xml2Object(
             f'{dirname(__file__)}/config/ats_cli_xml_api.xml', xml_processor=self.xml_processor
         )
@@ -87,5 +88,6 @@ class Xml2ObjectTestCase(TestCase):
 
 if __name__ == '__main__':
     main()
+
 
 

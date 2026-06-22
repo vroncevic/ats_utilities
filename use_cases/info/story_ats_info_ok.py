@@ -30,7 +30,7 @@ __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
 
-ats_info_ok = InfoOk(verbose=False)
+ats_info_ok = InfoOk()
 ats_info_ok.info_ok = True
 print(ats_info_ok.info_ok)
 print(ats_info_ok)

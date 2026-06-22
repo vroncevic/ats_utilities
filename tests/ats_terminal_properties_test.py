@@ -104,6 +104,16 @@ class ATSTerminalPropTestCase(TestCase):
         size = terminal.size()
         self.assertIsNotNone(size)
 
+    @mock.patch('ats_utilities.splasher.terminal_properties.os.open')
+    @mock.patch('ats_utilities.splasher.terminal_properties.TerminalProperties.ioctl_for_all_descriptors')
+    def test_size_fallback(self, mock_ioctl_all, mock_open) -> None:
+        '''Test size() fallback to (24, 80, 0, 0) when all ioctls and open fail.'''
+        mock_ioctl_all.side_effect = OSError("Mock error")
+        mock_open.side_effect = OSError("Mock error")
+        terminal = TerminalProperties()
+        size = terminal.size()
+        self.assertEqual(size, (24, 80, 0, 0))
+
 
 if __name__ == '__main__':
     main()

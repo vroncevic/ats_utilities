@@ -21,7 +21,7 @@ Info
 '''
 
 from abc import ABC, abstractmethod
-from typing import Any, ClassVar, TypeAlias, Protocol
+from typing import Any, ClassVar, TypeAlias
 from enum import Enum, EnumMeta
 
 __author__: str = 'Vladimir Roncevic'
@@ -56,24 +56,6 @@ class ErrorChecker(int, Enum):
     NO_ERROR = 0
     TYPE_ERROR = 1
     FORMAT_ERROR = 2
-
-
-class ErrorCheckerProtocol(Protocol):
-    '''
-        Defines class ErrorCheckerProtocol with attribute(s).
-        Protocol for error types for the Checker.
-
-        It defines:
-
-            :attributes:
-                | NO_ERROR - Marks no param error report (0).
-                | TYPE_ERROR - Marks type param error report (1).
-                | FORMAT_ERROR - Marks wrong format error report (2).
-            :methods: None
-    '''
-    NO_ERROR: ClassVar[int]
-    TYPE_ERROR: ClassVar[int]
-    FORMAT_ERROR: ClassVar[int]
 
 
 class IChecker(ABC):

@@ -31,6 +31,7 @@ from ats_utilities.info.iuse_github import IUseGitHub
 from ats_utilities.info.ilogo_path import ILogoPath
 from ats_utilities.info.iinfo_ok import IInfoOk
 from ats_utilities.context_bundle import ContextBundle
+from ats_utilities.exceptions.ats_value_error import ATSValueError
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -82,28 +83,26 @@ class InfoComponentBundle:
         '''
             Validates that essential components are set.
 
-            :return: None.
-            :rtype: <None>
-            :exceptions: ValueError
+            :exceptions: ATSValueError.
         '''
         if self.name is None:
-            raise ValueError("Name must be provided.")
+            raise ATSValueError("Name must be provided.")
         if self.version is None:
-            raise ValueError("Version must be provided.")
+            raise ATSValueError("Version must be provided.")
         if self.licence is None:
-            raise ValueError("Licence must be provided.")
+            raise ATSValueError("Licence must be provided.")
         if self.build_date is None:
-            raise ValueError("Build date must be provided.")
+            raise ATSValueError("Build date must be provided.")
         if self.repository is None:
-            raise ValueError("Repository must be provided.")
+            raise ATSValueError("Repository must be provided.")
         if self.organization is None:
-            raise ValueError("Organization must be provided.")
+            raise ATSValueError("Organization must be provided.")
         if self.use_github is None:
-            raise ValueError("Use GitHub must be provided.")
+            raise ATSValueError("Use GitHub must be provided.")
         if self.logo_path is None:
-            raise ValueError("Logo path must be provided.")
+            raise ATSValueError("Logo path must be provided.")
         if self.info_ok is None:
-            raise ValueError("Info ok must be provided.")
+            raise ATSValueError("Info ok must be provided.")
 
     def merge(self, other: 'InfoComponentBundle') -> None:
         '''

@@ -26,6 +26,10 @@ from unittest import TestCase, main, mock
 from ats_utilities.reporter.ireporter import IReporter
 from ats_utilities.reporter.engine import Reporter
 from ats_utilities.exceptions.ats_type_error import ATSTypeError
+from ats_utilities.reporter.component_bundle import ReporterComponentBundle
+from ats_utilities.reporter.proxy_reporter import vreporter
+from ats_utilities.exceptions.ats_runtime_error import ATSRuntimeError
+from ats_utilities.exceptions.ats_attribute_error import ATSAttributeError
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -104,17 +108,12 @@ class ReporterTestCase(TestCase):
     def test_initialization_failure(self, mock_make_component) -> None:
         '''Test initialization failure with wrong components.'''
         mock_make_component.side_effect = ATSTypeError('Failed to initialize component')
-        from ats_utilities.reporter.component_bundle import ReporterComponentBundle
         bundle = ReporterComponentBundle()
         r = Reporter(bundle)
         self.assertFalse(r.is_initialized())
 
     def test_vreporter_decorator_failures_and_features(self) -> None:
         '''Test various paths and errors in vreporter decorator.'''
-        from ats_utilities.reporter.proxy_reporter import vreporter
-        from ats_utilities.exceptions.ats_runtime_error import ATSRuntimeError
-        from ats_utilities.exceptions.ats_attribute_error import ATSAttributeError
-
         # 1. Non-class method call
         @vreporter("test")
         def dummy_func(*args, **kwargs):

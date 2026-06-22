@@ -21,7 +21,7 @@ Info
 '''
 
 from collections.abc import Callable
-from typing import Any, ClassVar, Protocol
+from typing import Any, ClassVar
 from enum import Enum
 from logging import (
     getLogger, basicConfig, Logger, DEBUG, WARNING, CRITICAL, ERROR, INFO
@@ -33,7 +33,7 @@ from ats_utilities.checker.ichecker import IChecker
 from ats_utilities.reporter.ireporter import IReporter
 from ats_utilities.checker.proxy_validator import validator
 from ats_utilities.factory_context_bundle import factory_context_bundle
-from ats_utilities.factory_class import get_private_attr, format_instance_to_string
+from ats_utilities.factory_class import format_instance_to_string
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -66,28 +66,6 @@ class ATSLogLevels(int, Enum):
     ATS_LOG_CRITICAL = CRITICAL
 
 
-class LoggerLevelsProtocol(Protocol):
-    '''
-        Defines class LoggerLevelsProtocol with attribute(s).
-        Protocol for log levels in the ATS logging mechanism.
-
-        It defines:
-
-            :attributes:
-                | ATS_LOG_DEBUG - Debug log level.
-                | ATS_LOG_INFO - Info log level.
-                | ATS_LOG_WARNING - Warning log level.
-                | ATS_LOG_ERROR - Error log level.
-                | ATS_LOG_CRITICAL - Critical log level.
-            :methods: None
-    '''
-    ATS_LOG_DEBUG: ClassVar[int]
-    ATS_LOG_INFO: ClassVar[int]
-    ATS_LOG_WARNING: ClassVar[int]
-    ATS_LOG_ERROR: ClassVar[int]
-    ATS_LOG_CRITICAL: ClassVar[int]
-
-
 class ATSLogger(ILogger):
     '''
         Defines class ATSLogger with attribute(s) and method(s).
@@ -105,9 +83,9 @@ class ATSLogger(ILogger):
                 | _logger_name - ATS name.
                 | _log_stdout - Logging to stdout (default).
                 | _log_file - Logging to file.
-                | _checker - Factoriezed parameters checker (default Checker).
-                | _reporter - Factoriezed reporter for messaging (default Reporter).
-                | _verbose - Factoriezed Enable/Disable verbose option (default False).
+                | _checker - Injected parameters checker (default Checker).
+                | _reporter - Injected reporter for messaging (default Reporter).
+                | _verbose - Injected Enable/Disable verbose option (default False).
                 | _logger - Python Logger instance.
             :methods:
                 | __init__ - Initials ATSLogger constructor.
@@ -145,7 +123,7 @@ class ATSLogger(ILogger):
             log_config: dict[str, Any] = {
                 'format': self.LOG_FORMATS.ATS_LOG_MSG_FORMAT,
                 'datefmt': self.LOG_FORMATS.ATS_LOG_DATE_FORMAT,
-                'level': DEBUG
+                'level': self.LOG_LEVELS.ATS_LOG_DEBUG
             }
             if self._log_stdout and self._log_file:
                 # Force logging to file in case file name is provided

@@ -30,7 +30,7 @@ __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
 
-ats_name = Name(verbose=False)
+ats_name = Name()
 ats_name.name = 'mytool'
 print(ats_name.name)
 print(ats_name)

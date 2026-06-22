@@ -27,6 +27,8 @@ from unittest.mock import MagicMock
 from ats_utilities.config_io.json.json_storer import JSONStorer
 from ats_utilities.config_io.iwrite import IWrite
 from ats_utilities.config_io.json.ijson_processor import IJSONProcessor
+from ats_utilities.config_io.json.object2json import Object2Json
+from ats_utilities.config_io.json.json_processor import JSONProcessor
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -61,8 +63,8 @@ class JSONStorerTestCase(TestCase):
 
     def test_store_configuration_success(self) -> None:
         '''Test storing configuration successfully.'''
-        mock_obj2json = MagicMock(spec=IWrite)
-        mock_processor = MagicMock(spec=IJSONProcessor)
+        mock_obj2json = MagicMock(spec=Object2Json)
+        mock_processor = MagicMock(spec=JSONProcessor)
         
         mock_processor.decode.return_value = True
         mock_obj2json.write_configuration.return_value = True
@@ -81,8 +83,8 @@ class JSONStorerTestCase(TestCase):
 
     def test_store_configuration_decode_fail(self) -> None:
         '''Test storing configuration when decode fails.'''
-        mock_obj2json = MagicMock(spec=IWrite)
-        mock_processor = MagicMock(spec=IJSONProcessor)
+        mock_obj2json = MagicMock(spec=Object2Json)
+        mock_processor = MagicMock(spec=JSONProcessor)
         
         mock_processor.decode.return_value = False
         
@@ -105,8 +107,8 @@ class JSONStorerTestCase(TestCase):
 
     def test_store_configuration_serialize_fail(self) -> None:
         '''Test storing configuration when JSON serialization fails.'''
-        mock_obj2json = MagicMock(spec=IWrite)
-        mock_processor = MagicMock(spec=IJSONProcessor)
+        mock_obj2json = MagicMock(spec=Object2Json)
+        mock_processor = MagicMock(spec=JSONProcessor)
         storer = JSONStorer(
             info_file='dummy.json',
             object2json=mock_obj2json,
@@ -119,3 +121,4 @@ class JSONStorerTestCase(TestCase):
 
 if __name__ == '__main__':
     main()
+

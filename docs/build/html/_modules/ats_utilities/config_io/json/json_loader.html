@@ -94,9 +94,9 @@
 <span class="sd">        It defines:</span>
 
 <span class="sd">            :attributes:</span>
-<span class="sd">                | _checker - Factoriezed parameters checker (default Checker).</span>
-<span class="sd">                | _reporter - Factoriezed reporter for messaging (default Reporter).</span>
-<span class="sd">                | _verbose - Factoriezed Enable/Disable verbose option (default False).</span>
+<span class="sd">                | _checker - Injected parameters checker (default Checker).</span>
+<span class="sd">                | _reporter - Injected reporter for messaging (default Reporter).</span>
+<span class="sd">                | _verbose - Injected Enable/Disable verbose option (default False).</span>
 <span class="sd">                | _configuration - JSON processor configuration (default None).</span>
 <span class="sd">            :methods:</span>
 <span class="sd">                | __init__ - Initializes JSONLoader constructor.</span>
@@ -131,20 +131,18 @@
         <span class="n">config_file_bundle</span><span class="p">:</span> <span class="n">ATSConfigFileBundle</span> <span class="o">=</span> <span class="n">config_bundle</span> <span class="ow">or</span> <span class="n">ATSConfigFileBundle</span><span class="p">()</span>
         <span class="n">factory_context_bundle</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config_file_bundle</span><span class="o">.</span><span class="n">context</span><span class="p">)</span>
         <span class="n">context_bundle_shared</span><span class="p">:</span> <span class="n">ContextBundle</span> <span class="o">=</span> <span class="n">ContextBundle</span><span class="p">(</span>
-            <span class="n">checker</span><span class="o">=</span><span class="n">get_private_attr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;checker&#39;</span><span class="p">),</span>
-            <span class="n">reporter</span><span class="o">=</span><span class="n">get_private_attr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;reporter&#39;</span><span class="p">),</span>
-            <span class="n">verbose</span><span class="o">=</span><span class="n">get_private_attr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;verbose&#39;</span><span class="p">)</span>
+            <span class="n">checker</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_checker</span><span class="p">,</span> <span class="n">reporter</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_reporter</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_verbose</span>
         <span class="p">)</span>
         <span class="n">file_checker</span><span class="p">:</span> <span class="n">IFileCheck</span> <span class="o">=</span> <span class="n">make_component</span><span class="p">(</span>
             <span class="n">config_file_bundle</span><span class="o">.</span><span class="n">file_checker</span><span class="p">,</span> <span class="n">FileCheck</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;config_bundle&#39;</span><span class="p">:</span> <span class="n">context_bundle_shared</span><span class="p">}</span>
         <span class="p">)</span>
-        <span class="n">validate_component</span><span class="p">(</span><span class="n">file_checker</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="n">file_checker</span><span class="p">),</span> <span class="nb">type</span><span class="p">(</span><span class="n">file_checker</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)</span>
+        <span class="n">validate_component</span><span class="p">(</span><span class="n">file_checker</span><span class="p">,</span> <span class="n">FileCheck</span><span class="p">)</span>
         <span class="n">processor</span><span class="p">:</span> <span class="n">IJSONProcessor</span> <span class="o">=</span> <span class="n">make_component</span><span class="p">(</span><span class="n">json_processor</span><span class="p">,</span> <span class="n">JSONProcessor</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
-        <span class="n">validate_component</span><span class="p">(</span><span class="n">processor</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="n">processor</span><span class="p">),</span> <span class="nb">type</span><span class="p">(</span><span class="n">processor</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)</span>
+        <span class="n">validate_component</span><span class="p">(</span><span class="n">processor</span><span class="p">,</span> <span class="n">JSONProcessor</span><span class="p">)</span>
         <span class="n">json2obj</span><span class="p">:</span> <span class="n">IRead</span> <span class="o">=</span> <span class="n">make_component</span><span class="p">(</span><span class="n">json2object</span><span class="p">,</span> <span class="n">Json2Object</span><span class="p">,</span> <span class="p">{</span>
             <span class="s1">&#39;config_file&#39;</span><span class="p">:</span> <span class="n">info_file</span><span class="p">,</span> <span class="s1">&#39;config_bundle&#39;</span><span class="p">:</span> <span class="n">config_file_bundle</span><span class="p">,</span> <span class="s1">&#39;json_processor&#39;</span><span class="p">:</span> <span class="n">processor</span>
         <span class="p">})</span>
-        <span class="n">validate_component</span><span class="p">(</span><span class="n">json2obj</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="n">json2obj</span><span class="p">),</span> <span class="nb">type</span><span class="p">(</span><span class="n">json2obj</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)</span>
+        <span class="n">validate_component</span><span class="p">(</span><span class="n">json2obj</span><span class="p">,</span> <span class="n">Json2Object</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_configuration</span><span class="p">:</span> <span class="n">IJSONProcessor</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
 
         <span class="k">if</span> <span class="nb">bool</span><span class="p">(</span><span class="n">json2obj</span><span class="p">):</span>

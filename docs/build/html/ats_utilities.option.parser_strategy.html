@@ -78,9 +78,9 @@ Default built-in strategy using Python’s standard argparse module.</p>
 <div><dl class="field-list">
 <dt class="field-odd">attributes<span class="colon">:</span></dt>
 <dd class="field-odd"><div class="line-block">
-<div class="line">_checker - Factoriezed parameters checker (default Checker).</div>
-<div class="line">_reporter - Factoriezed reporter for messaging (default Reporter).</div>
-<div class="line">_verbose - Factoriezed Enable/Disable verbose option (default False).</div>
+<div class="line">_checker - Injected parameters checker (default Checker).</div>
+<div class="line">_reporter - Injected reporter for messaging (default Reporter).</div>
+<div class="line">_verbose - Injected Enable/Disable verbose option (default False).</div>
 <div class="line">_shared_bundle - Bundle with checker, reporter and verbose (default ContextBundle).</div>
 <div class="line">_parser - Options parser (default None).</div>
 </div>
@@ -150,8 +150,8 @@ Default built-in strategy using Python’s standard argparse module.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="ats_utilities.option.parser_strategy.ParserStrategy.ok">
-<span class="sig-name descname"><span class="pre">ok</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="_modules/ats_utilities/option/parser_strategy.html#ParserStrategy.ok"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.option.parser_strategy.ParserStrategy.ok" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ats_utilities.option.parser_strategy.ParserStrategy.is_initialized">
+<span class="sig-name descname"><span class="pre">is_initialized</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="_modules/ats_utilities/option/parser_strategy.html#ParserStrategy.is_initialized"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.option.parser_strategy.ParserStrategy.is_initialized" title="Link to this definition">¶</a></dt>
 <dd><p>Checks if parser strategy component is ok.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -225,7 +225,7 @@ Default built-in strategy using Python’s standard argparse module.</p>
 <li><a class="reference internal" href="#ats_utilities.option.parser_strategy.ParserStrategy._verbose"><code class="docutils literal notranslate"><span class="pre">ParserStrategy._verbose</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.option.parser_strategy.ParserStrategy.add_argument"><code class="docutils literal notranslate"><span class="pre">ParserStrategy.add_argument()</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.option.parser_strategy.ParserStrategy.add_version"><code class="docutils literal notranslate"><span class="pre">ParserStrategy.add_version()</span></code></a></li>
-<li><a class="reference internal" href="#ats_utilities.option.parser_strategy.ParserStrategy.ok"><code class="docutils literal notranslate"><span class="pre">ParserStrategy.ok()</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.option.parser_strategy.ParserStrategy.is_initialized"><code class="docutils literal notranslate"><span class="pre">ParserStrategy.is_initialized()</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.option.parser_strategy.ParserStrategy.parse"><code class="docutils literal notranslate"><span class="pre">ParserStrategy.parse()</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.option.parser_strategy.ParserStrategy.setup"><code class="docutils literal notranslate"><span class="pre">ParserStrategy.setup()</span></code></a></li>
 </ul>

@@ -37,13 +37,13 @@ def make_component(passed_obj: Any, default_class: Any, factory_args: dict[str, 
     '''
         Creates a component instance or returns an existing one.
 
-        :param passed_obj: An existing component instance or None
+        :param passed_obj: An existing component instance or None.
         :type passed_obj: <Any>
-        :param default_class: The class to instantiate if passed_obj is None
+        :param default_class: The class to instantiate if passed_obj is None.
         :type default_class: <Any>
-        :param factory_args: Arguments to pass to the default_class constructor | None
+        :param factory_args: Arguments to pass to the default_class constructor | None.
         :type factory_args: <dict[str, Any] | None>
-        :return: An instance of the component
+        :return: An instance of the component.
         :rtype: <Any>
         :exceptions: None.
     '''
@@ -56,18 +56,15 @@ def make_component(passed_obj: Any, default_class: Any, factory_args: dict[str, 
     # No dependency injection then use default ones.
     return default_class(**factory_args)
 
-def validate_component(instance: Any, expected_class: type[Any], component_name: str) -> None:
+def validate_component(instance: Any, expected_class: type[Any]) -> None:
     '''
         Validates if a component instance is of the expected class type.
-        Raises an ATSTypeError if the validation fails.
 
-        :param instance: The resolved component instance to check
+        :param instance: The resolved component instance to check.
         :type instance: <Any>
-        :param expected_class: The expected concrete class type
+        :param expected_class: The expected concrete class type.
         :type expected_class: <type[Any]>
-        :param component_name: Name of the component for the error message
-        :type component_name: <str>
         :exceptions: ATSTypeError
     '''
     if not isinstance(instance, expected_class):
-        raise ATSTypeError(f"Failed to initialize default {component_name} component.")
+        raise ATSTypeError(f"Instance [{type(instance).__name__}] is not of expected type {expected_class.__name__}.")

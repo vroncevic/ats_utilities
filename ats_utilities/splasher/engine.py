@@ -63,9 +63,9 @@ class Splasher(ISplasher):
         It defines:
 
             :attributes:
-                | _checker - Factoriezed parameters checker (default Checker).
-                | _reporter - Factoriezed reporter for messaging (default Reporter).
-                | _verbose - Factoriezed Enable/Disable verbose option (default False).
+                | _checker - Injected parameters checker (default Checker).
+                | _reporter - Injected reporter for messaging (default Reporter).
+                | _verbose - Injected Enable/Disable verbose option (default False).
                 | _is_initialized - Indicates if the splasher component is initialized (default False).
             :methods:
                 | __init__ - Initials Splasher constructor.
@@ -94,13 +94,12 @@ class Splasher(ISplasher):
 
         try:
             property_splash: ISplashProperty = make_component(bundle.splash_property, SplashProperty, factory_args)
-            validate_component(property_splash, type(property_splash), type(property_splash).__name__)
+            validate_component(property_splash, SplashProperty)
             property_splash.splash_property = bundle.prop
-            validate_component(property_splash.splash_property, type(property_splash.splash_property), type(property_splash.splash_property).__name__)
 
             if property_splash.validates():
                 terminal_property: ITerminalProperties = make_component(bundle.terminal_property, TerminalProperties, factory_args)
-                validate_component(terminal_property, type(terminal_property), type(terminal_property).__name__)
+                validate_component(terminal_property, TerminalProperties)
                 size: tuple[Any, ...] = terminal_property.size()
                 splash_center_bundle: SplashCenterBundle = SplashCenterBundle()
 
@@ -118,7 +117,7 @@ class Splasher(ISplasher):
                                 self.center(splash_center_bundle)
 
                     github: IExtInfrastructure = make_component(bundle.github, GitHubInfrastructure, factory_args)
-                    validate_component(github, type(github), type(github).__name__)
+                    validate_component(github, GitHubInfrastructure)
                     github.infrastructure_property = bundle.prop
                     splash_center_bundle.columns = int(size[1])
                     splash_center_bundle.additional_shifter = 2
@@ -131,7 +130,7 @@ class Splasher(ISplasher):
                     print("\n")
                 else:
                     ext: IExtInfrastructure = make_component(bundle.ext, ExtInfrastructure, factory_args)
-                    validate_component(ext, type(ext), type(ext).__name__)
+                    validate_component(ext, ExtInfrastructure)
                     ext.infrastructure_property = bundle.prop
                     splash_center_bundle.columns = int(size[1])
                     splash_center_bundle.additional_shifter = 2
@@ -172,7 +171,7 @@ class Splasher(ISplasher):
         '''
             Checks if splasher component is initialized.
 
-            :return: True (success) | False (fail)
+            :return: True (success) | False (fail).
             :rtype: <bool>
             :exceptions: None.
         '''

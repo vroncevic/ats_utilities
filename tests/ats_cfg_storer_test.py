@@ -27,6 +27,8 @@ from unittest.mock import MagicMock
 from ats_utilities.config_io.cfg.cfg_storer import CFGStorer
 from ats_utilities.config_io.iwrite import IWrite
 from ats_utilities.config_io.cfg.icfg_processor import ICFGProcessor
+from ats_utilities.config_io.cfg.object2cfg import Object2Cfg
+from ats_utilities.config_io.cfg.cfg_processor import CFGProcessor
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -60,8 +62,8 @@ class CFGStorerTestCase(TestCase):
 
     def test_store_configuration_success(self) -> None:
         '''Test storing configuration successfully.'''
-        mock_obj2cfg = MagicMock(spec=IWrite)
-        mock_processor = MagicMock(spec=ICFGProcessor)
+        mock_obj2cfg = MagicMock(spec=Object2Cfg)
+        mock_processor = MagicMock(spec=CFGProcessor)
         
         mock_obj2cfg.write_configuration.return_value = True
         
@@ -85,3 +87,4 @@ class CFGStorerTestCase(TestCase):
 
 if __name__ == '__main__':
     main()
+

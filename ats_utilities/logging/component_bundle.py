@@ -24,6 +24,7 @@ from dataclasses import dataclass
 from ats_utilities.logging.ilogger import ILogger
 from ats_utilities.logging.logger_bundle import LoggerBundle
 from ats_utilities.context_bundle import ContextBundle
+from ats_utilities.exceptions.ats_value_error import ATSValueError
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -61,9 +62,16 @@ class LoggingComponentBundle:
         '''
             Validates that essential components are set.
 
-            :exceptions: ValueError
+            :exceptions: ATSValueError.
         '''
-        pass
+        if self.logger is None:
+            raise ATSValueError('Logger must be provided.')
+
+        if self.logger_bundle is None:
+            raise ATSValueError('Logger bundle must be provided.')
+
+        if self.context_bundle is None:
+            raise ATSValueError('Context bundle must be provided.')
 
     def merge(self, other: 'LoggingComponentBundle') -> None:
         '''

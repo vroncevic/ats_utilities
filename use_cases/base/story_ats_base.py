@@ -50,7 +50,7 @@ tool: MyTool = MyTool()
 result: bool = False
 print(f'Result: {result}')
 
-if tool.is_operational():
+if tool.is_initialized():
     result = tool.process(True)
 
 print(f'Result: {result}')

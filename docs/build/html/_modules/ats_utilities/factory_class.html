@@ -60,6 +60,8 @@
 <span class="sd">&#39;&#39;&#39;</span>
 
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span>
+<span class="kn">from</span> <span class="nn">collections.abc</span> <span class="kn">import</span> <span class="n">Callable</span>
+<span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">wraps</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.exceptions.ats_value_error</span> <span class="kn">import</span> <span class="n">ATSValueError</span>
 
 <span class="n">__author__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;Vladimir Roncevic&#39;</span>
@@ -79,11 +81,11 @@
 <span class="sd">        Adheres to SOLID principles by avoiding hardcoded component names or classes.</span>
 <span class="sd">        Dynamically handles multi-dependency relationship chains between sequence steps.</span>
 
-<span class="sd">        :param instance: The object instance (self) to inject attributes into</span>
+<span class="sd">        :param instance: The object instance (self) to inject attributes into.</span>
 <span class="sd">        :type instance: &lt;Any&gt;</span>
 <span class="sd">        :param dependencies: Variadic sequence of tuples containing injection rules.</span>
 <span class="sd">                             Format: (&#39;attr_name&#39;, value, fallback, &#39;depends_on_attr&#39;)</span>
-<span class="sd">                             The &#39;depends_on_attr&#39; can be a string, list, or tuple</span>
+<span class="sd">                             The &#39;depends_on_attr&#39; can be a string, list, or tuple.</span>
 <span class="sd">        :type dependencies: &lt;tuple[str, Any, Any, str | list[str] | tuple[str, ...] | None]&gt;</span>
 <span class="sd">        :exceptions: None.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
@@ -131,21 +133,17 @@
 <span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Dynamically retrieves a private attribute from an instance.</span>
 
-<span class="sd">        :param instance: The class instance (self) containing the attribute</span>
+<span class="sd">        :param instance: The class instance (self) containing the attribute.</span>
 <span class="sd">        :type instance: &lt;Any&gt;</span>
-<span class="sd">        :param attr_name: The target private attribute name (e.g., &#39;_checker&#39;)</span>
+<span class="sd">        :param attr_name: The target private attribute name (e.g., &#39;_checker&#39;).</span>
 <span class="sd">        :type attr_name: &lt;str&gt;</span>
-<span class="sd">        :return: The resolved attribute value</span>
+<span class="sd">        :return: The resolved attribute value.</span>
 <span class="sd">        :rtype: &lt;Any&gt;</span>
-<span class="sd">        :exceptions: AttributeError</span>
+<span class="sd">        :exceptions: AttributeError.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
     <span class="n">clean_attr</span> <span class="o">=</span> <span class="n">attr_name</span><span class="o">.</span><span class="n">lstrip</span><span class="p">(</span><span class="s1">&#39;_&#39;</span><span class="p">)</span>
     <span class="k">return</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">instance</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;_</span><span class="si">{</span><span class="n">clean_attr</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span></div>
 
-
-<span class="kn">from</span> <span class="nn">collections.abc</span> <span class="kn">import</span> <span class="n">Callable</span>
-<span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">wraps</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span>
 
 <div class="viewcode-block" id="require_attributes">
 <a class="viewcode-back" href="../../ats_utilities.factory_class.html#ats_utilities.factory_class.require_attributes">[docs]</a>
@@ -155,11 +153,11 @@
 <span class="sd">        In case attribute value is not defined set default value to None.</span>
 <span class="sd">        In case attribute value is not defined and not empty, raise ATSValueError exception.</span>
 
-<span class="sd">        :param attr_names: Tuple of attribute names to check</span>
+<span class="sd">        :param attr_names: Tuple of attribute names to check.</span>
 <span class="sd">        :type attr_names: &lt;tuple[str, ...]&gt;</span>
-<span class="sd">        :return: Decorated function</span>
+<span class="sd">        :return: Decorated function.</span>
 <span class="sd">        :rtype: &lt;Callable[..., Any]&gt;</span>
-<span class="sd">        :exceptions: ATSValueError</span>
+<span class="sd">        :exceptions: ATSValueError.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
     <span class="k">def</span> <span class="nf">decorator</span><span class="p">(</span><span class="n">func</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Callable</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
         <span class="nd">@wraps</span><span class="p">(</span><span class="n">func</span><span class="p">)</span>
@@ -177,6 +175,21 @@
     <span class="k">return</span> <span class="n">decorator</span></div>
 
 
+<div class="viewcode-block" id="get_class_name">
+<a class="viewcode-back" href="../../ats_utilities.factory_class.html#ats_utilities.factory_class.get_class_name">[docs]</a>
+<span class="k">def</span> <span class="nf">get_class_name</span><span class="p">(</span><span class="n">instance</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Returns the class name of an instance.</span>
+
+<span class="sd">        :param instance: The class instance.</span>
+<span class="sd">        :type instance: &lt;Any&gt;</span>
+<span class="sd">        :return: The class name in string format.</span>
+<span class="sd">        :rtype: &lt;str&gt;</span>
+<span class="sd">        :exceptions: None.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="k">return</span> <span class="n">instance</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span></div>
+
+
 <div class="viewcode-block" id="format_instance_to_string">
 <a class="viewcode-back" href="../../ats_utilities.factory_class.html#ats_utilities.factory_class.format_instance_to_string">[docs]</a>
 <span class="k">def</span> <span class="nf">format_instance_to_string</span><span class="p">(</span><span class="n">instance</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
@@ -184,9 +197,9 @@
 <span class="sd">        Generates a standardized string representation for any class instance.</span>
 <span class="sd">        Cleans private attributes and appends memory addresses in hex.</span>
 
-<span class="sd">        :param instance: The class instance to format</span>
+<span class="sd">        :param instance: The class instance to format.</span>
 <span class="sd">        :type instance: &lt;Any&gt;</span>
-<span class="sd">        :return: String representation of the instance</span>
+<span class="sd">        :return: String representation of the instance.</span>
 <span class="sd">        :rtype: &lt;str&gt;</span>
 <span class="sd">        :exceptions: None.</span>
 <span class="sd">    &#39;&#39;&#39;</span>

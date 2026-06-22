@@ -58,9 +58,9 @@ class OptionManager(IOptionManager):
         It defines:
 
             :attributes:
-                | _checker - Factoriezed parameters checker (default Checker).
-                | _reporter - Factoriezed reporter for messaging (default Reporter).
-                | _verbose - Factoriezed Enable/Disable verbose option (default False).
+                | _checker - Injected parameters checker (default Checker).
+                | _reporter - Injected reporter for messaging (default Reporter).
+                | _verbose - Injected Enable/Disable verbose option (default False).
                 | _is_initialized - Indicates if the option manager component is initialized (default False).
                 | _strategy - Strategy for argument parsing (default ParserStrategy).
             :methods:
@@ -97,9 +97,7 @@ class OptionManager(IOptionManager):
             self._strategy: IParserStrategy = make_component(
                 bundle.strategy, ParserStrategy, {'context_bundle': shared_bundle}
             )
-            validate_component(
-                self._strategy, type(self._strategy), type(self._strategy).__name__
-            )
+            validate_component(self._strategy, ParserStrategy) if not bundle.strategy else None
             self._strategy.setup(bundle.parameters)
             self._is_initialized = True
 
@@ -140,7 +138,7 @@ class OptionManager(IOptionManager):
             :type arguments: <OptArgs>
             :return: Option namespace object.
             :rtype: <OptionNamespace>
-            :exceptions: ATSRuntimeError, ATSAttributeError
+            :exceptions: ATSRuntimeError, ATSAttributeError.
         '''
         args = self._strategy.parse(arguments, known_only=False)
         return args
@@ -154,7 +152,7 @@ class OptionManager(IOptionManager):
             :type arguments: <OptArgs>
             :return: Option namespace object.
             :rtype: <OptionNamespace>
-            :exceptions: ATSRuntimeError, ATSAttributeError
+            :exceptions: ATSRuntimeError, ATSAttributeError.
         '''
         args = self._strategy.parse(arguments, known_only=True)
         return args

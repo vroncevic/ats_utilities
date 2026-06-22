@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines class ATSLoggerManager with attribute(s) and method(s).
+    Defines class LoggerManager with attribute(s) and method(s).
     Creates an API for the ATS logging mechanism.
 '''
 
@@ -46,9 +46,9 @@ __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
 
 
-class ATSLoggerManager(ILoggerManager):
+class LoggerManager(ILoggerManager):
     '''
-        Defines class ATSLoggerManager with attribute(s) and method(s).
+        Defines class LoggerManager with attribute(s) and method(s).
         Creates an API for the ATS logging mechanism.
         ATS logger mechanism.
 
@@ -61,12 +61,12 @@ class ATSLoggerManager(ILoggerManager):
                 | ATS_INFO - Info log level.
                 | ATS_WARNING - Warning log level.
                 | _logger - Prepared logger instance or default logger.
-                | _checker - Factoriezed parameters checker (default Checker).
-                | _reporter - Factoriezed reporter for messaging (default Reporter).
-                | _verbose - Factoriezed Enable/Disable verbose option (default False).
+                | _checker - Injected parameters checker (default Checker).
+                | _reporter - Injected reporter for messaging (default Reporter).
+                | _verbose - Injected Enable/Disable verbose option (default False).
                 | _is_initialized - Indicates if the logger manager component is initialized (default False).
             :methods:
-                | __init__ - Initials ATSLoggerManager constructor.
+                | __init__ - Initials LoggerManager constructor.
                 | get_logger - Gets logger instance.
                 | write_log - Writes message to log output.
                 | is_initialized - Checks if the logger manager component is initialized.
@@ -85,7 +85,7 @@ class ATSLoggerManager(ILoggerManager):
 
     def __init__(self, component_bundle: LoggingComponentBundle | None = None) -> None:
         '''
-            Initializes ATSLoggerManager constructor.
+            Initializes LoggerManager constructor.
 
             :param component_bundle: Logging component bundle with parameters | None.
             :type component_bundle: <LoggingComponentBundle | None>
@@ -104,9 +104,7 @@ class ATSLoggerManager(ILoggerManager):
             self._logger: ILogger = make_component(
                 bundle.logger, ATSLogger, {'logger_bundle': log_bundle, 'context_bundle': shared_bundle}
             )
-            validate_component(
-                self._logger, type(self._logger), type(self._logger).__name__
-            )
+            validate_component(self._logger, ATSLogger) if not bundle.logger else None
             self._is_initialized = True
 
         except (ATSTypeError, ATSValueError, ATSRuntimeError, ATSAttributeError) as exc:

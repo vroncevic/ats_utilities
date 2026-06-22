@@ -29,15 +29,26 @@ from ats_utilities.config_io.iconfig_loader import IConfigLoader
 from ats_utilities.config_io.iread import IRead
 from ats_utilities.config_io.iwrite import IWrite
 from ats_utilities.config_io.ifile_check import IFileCheck
+from ats_utilities.config_io.file_check import FileCheck
 from ats_utilities.checker.ichecker import IChecker
 from ats_utilities.reporter.ireporter import IReporter
 from ats_utilities.option.engine import OptionManager
 from ats_utilities.option.iparser_strategy import IParserStrategy
 from ats_utilities.config_io.cfg.cfg_loader import CFGLoader
+from ats_utilities.config_io.cfg.cfg2object import Cfg2Object
+from ats_utilities.config_io.cfg.cfg_processor import CFGProcessor
 from ats_utilities.config_io.ini.ini_loader import INILoader
+from ats_utilities.config_io.ini.ini2object import Ini2Object
+from ats_utilities.config_io.ini.ini_processor import INIProcessor
 from ats_utilities.config_io.json.json_loader import JSONLoader
+from ats_utilities.config_io.json.json2object import Json2Object
+from ats_utilities.config_io.json.json_processor import JSONProcessor
 from ats_utilities.config_io.xml.xml_loader import XMLLoader
+from ats_utilities.config_io.xml.xml2object import Xml2Object
+from ats_utilities.config_io.xml.xml_processor import XMLProcessor
 from ats_utilities.config_io.yaml.yaml_loader import YAMLLoader
+from ats_utilities.config_io.yaml.yaml2object import Yaml2Object
+from ats_utilities.config_io.yaml.yaml_processor import YAMLProcessor
 from ats_utilities.config_io.config_loader_bundle import ATSConfigLoaderBundle
 from ats_utilities.config_io.config_file_bundle import ATSConfigFileBundle
 from ats_utilities.context_bundle import ContextBundle
@@ -113,7 +124,7 @@ class ConfigManagerUnitTestCase(TestCase):
         self.mock_parser = mock.MagicMock(spec=OptionManager)
         self.mock_checker = mock.MagicMock(spec=IChecker)
         self.mock_reporter = mock.MagicMock(spec=IReporter)
-        self.mock_file_checker = mock.MagicMock(spec=IFileCheck)
+        self.mock_file_checker = mock.MagicMock(spec=FileCheck)
         self.mock_strategy = mock.MagicMock(spec=IParserStrategy)
 
         # Configure mock_checker to always return a successful validation
@@ -143,11 +154,21 @@ class ConfigManagerUnitTestCase(TestCase):
         current_dir: str = dirname(__file__)
         base_info: str = f'{current_dir}{config_file}'
 
+        mock_read = mock.MagicMock(spec=Cfg2Object)
+        mock_processor = mock.MagicMock(spec=CFGProcessor)
+        mock_processor.to_dict.return_value = {
+            'ats_name': 'Test Tool',
+            'ats_version': '1.0.0',
+            'ats_licence': 'MIT',
+            'ats_build_date': '2023-01-01'
+        }
+        mock_read.read_configuration.return_value = mock_processor
+
         bundle = ATSConfigLoaderBundle(
             info_file=base_info,
-            config2object=self.mock_read,
+            config2object=mock_read,
             config_bundle=self.config_file_bundle,
-            processor=self.mock_processor
+            processor=mock_processor
         )
         manager = ConfigLoader(bundle)
         config = manager.setup_config_loader()
@@ -159,11 +180,21 @@ class ConfigManagerUnitTestCase(TestCase):
         current_dir: str = dirname(__file__)
         base_info: str = f'{current_dir}{config_file}'
 
+        mock_read = mock.MagicMock(spec=Ini2Object)
+        mock_processor = mock.MagicMock(spec=INIProcessor)
+        mock_processor.to_dict.return_value = {
+            'ats_name': 'Test Tool',
+            'ats_version': '1.0.0',
+            'ats_licence': 'MIT',
+            'ats_build_date': '2023-01-01'
+        }
+        mock_read.read_configuration.return_value = mock_processor
+
         bundle = ATSConfigLoaderBundle(
             info_file=base_info,
-            config2object=self.mock_read,
+            config2object=mock_read,
             config_bundle=self.config_file_bundle,
-            processor=self.mock_processor
+            processor=mock_processor
         )
         manager = ConfigLoader(bundle)
         config = manager.setup_config_loader()
@@ -175,11 +206,21 @@ class ConfigManagerUnitTestCase(TestCase):
         current_dir: str = dirname(__file__)
         base_info: str = f'{current_dir}{config_file}'
 
+        mock_read = mock.MagicMock(spec=Json2Object)
+        mock_processor = mock.MagicMock(spec=JSONProcessor)
+        mock_processor.to_dict.return_value = {
+            'ats_name': 'Test Tool',
+            'ats_version': '1.0.0',
+            'ats_licence': 'MIT',
+            'ats_build_date': '2023-01-01'
+        }
+        mock_read.read_configuration.return_value = mock_processor
+
         bundle = ATSConfigLoaderBundle(
             info_file=base_info,
-            config2object=self.mock_read,
+            config2object=mock_read,
             config_bundle=self.config_file_bundle,
-            processor=self.mock_processor
+            processor=mock_processor
         )
         manager = ConfigLoader(bundle)
         config = manager.setup_config_loader()
@@ -191,11 +232,21 @@ class ConfigManagerUnitTestCase(TestCase):
         current_dir: str = dirname(__file__)
         base_info: str = f'{current_dir}{config_file}'
 
+        mock_read = mock.MagicMock(spec=Xml2Object)
+        mock_processor = mock.MagicMock(spec=XMLProcessor)
+        mock_processor.to_dict.return_value = {
+            'ats_name': 'Test Tool',
+            'ats_version': '1.0.0',
+            'ats_licence': 'MIT',
+            'ats_build_date': '2023-01-01'
+        }
+        mock_read.read_configuration.return_value = mock_processor
+
         bundle = ATSConfigLoaderBundle(
             info_file=base_info,
-            config2object=self.mock_read,
+            config2object=mock_read,
             config_bundle=self.config_file_bundle,
-            processor=self.mock_processor
+            processor=mock_processor
         )
         manager = ConfigLoader(bundle)
         config = manager.setup_config_loader()
@@ -207,11 +258,21 @@ class ConfigManagerUnitTestCase(TestCase):
         current_dir: str = dirname(__file__)
         base_info: str = f'{current_dir}{config_file}'
 
+        mock_read = mock.MagicMock(spec=Yaml2Object)
+        mock_processor = mock.MagicMock(spec=YAMLProcessor)
+        mock_processor.to_dict.return_value = {
+            'ats_name': 'Test Tool',
+            'ats_version': '1.0.0',
+            'ats_licence': 'MIT',
+            'ats_build_date': '2023-01-01'
+        }
+        mock_read.read_configuration.return_value = mock_processor
+
         bundle = ATSConfigLoaderBundle(
             info_file=base_info,
-            config2object=self.mock_read,
+            config2object=mock_read,
             config_bundle=self.config_file_bundle,
-            processor=self.mock_processor
+            processor=mock_processor
         )
         manager = ConfigLoader(bundle)
         config = manager.setup_config_loader()

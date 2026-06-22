@@ -54,9 +54,9 @@ class INIStorer(IStorer):
 
             :attributes:
                 | _SECTION - Section name for ATS configuration.
-                | _checker - Factoriezed parameters checker (default Checker).
-                | _reporter - Factoriezed reporter for messaging (default Reporter).
-                | _verbose - Factoriezed Enable/Disable verbose option (default False).
+                | _checker - Injected parameters checker (default Checker).
+                | _reporter - Injected reporter for messaging (default Reporter).
+                | _verbose - Injected Enable/Disable verbose option (default False).
                 | _processor - Processor for INI content (default INIProcessor).
                 | _obj2ini - Out API for information (default Object2Ini).
             :methods:
@@ -94,11 +94,11 @@ class INIStorer(IStorer):
         config_file_bundle: ATSConfigFileBundle = config_bundle or ATSConfigFileBundle()
         factory_context_bundle(self, config_file_bundle.context)
         self._processor: IINIProcessor = make_component(ini_processor, INIProcessor, None)
-        validate_component(self._processor, type(self._processor), type(self._processor).__name__)
+        validate_component(self._processor, INIProcessor)
         self._obj2ini: IWrite = make_component(object2ini, Object2Ini, {
             'config_file': info_file, 'config_bundle': config_file_bundle
         })
-        validate_component(self._obj2ini, type(self._obj2ini), type(self._obj2ini).__name__)
+        validate_component(self._obj2ini, Object2Ini)
 
     @validator([('dict:config', None)])
     def store_configuration(self, config: dict[str, str]) -> bool:

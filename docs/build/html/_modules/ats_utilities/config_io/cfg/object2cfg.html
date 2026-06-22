@@ -72,7 +72,7 @@
 <span class="kn">from</span> <span class="nn">ats_utilities.checker.proxy_validator</span> <span class="kn">import</span> <span class="n">validator</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.factory_context_bundle</span> <span class="kn">import</span> <span class="n">factory_context_bundle</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.factory_component</span> <span class="kn">import</span> <span class="n">make_component</span><span class="p">,</span> <span class="n">validate_component</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.factory_class</span> <span class="kn">import</span> <span class="n">get_private_attr</span><span class="p">,</span> <span class="n">format_instance_to_string</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.factory_class</span> <span class="kn">import</span> <span class="n">format_instance_to_string</span>
 
 <span class="n">__author__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;Vladimir Roncevic&#39;</span>
 <span class="n">__copyright__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;(C) 2026, https://vroncevic.github.io/ats_utilities&#39;</span>
@@ -98,9 +98,9 @@
 <span class="sd">                | _EXT - File extension of the configuration file.</span>
 <span class="sd">                | _MODE - File open mode.</span>
 <span class="sd">                | _config_file_bundle - Configuration file bundle parameters (default None).</span>
-<span class="sd">                | _checker - Factoriezed parameters checker (default Checker).</span>
-<span class="sd">                | _reporter - Factoriezed reporter for messaging (default Reporter).</span>
-<span class="sd">                | _verbose - Factoriezed Enable/Disable verbose option (default False).</span>
+<span class="sd">                | _checker - Injected parameters checker (default Checker).</span>
+<span class="sd">                | _reporter - Injected reporter for messaging (default Reporter).</span>
+<span class="sd">                | _verbose - Injected Enable/Disable verbose option (default False).</span>
 <span class="sd">                | _file_checker - FileCheck for checking file (default FileCheck).</span>
 <span class="sd">                | _file_path - Configuration file path (default None).</span>
 <span class="sd">                | _file_bundle_shared - File bundle parameters (default None).</span>
@@ -134,14 +134,12 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_config_file_bundle</span><span class="p">:</span> <span class="n">ATSConfigFileBundle</span> <span class="o">=</span> <span class="n">config_bundle</span> <span class="ow">or</span> <span class="n">ATSConfigFileBundle</span><span class="p">()</span>
         <span class="n">factory_context_bundle</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_config_file_bundle</span><span class="o">.</span><span class="n">context</span><span class="p">)</span>
         <span class="n">context_bundle_shared</span><span class="p">:</span> <span class="n">ContextBundle</span> <span class="o">=</span> <span class="n">ContextBundle</span><span class="p">(</span>
-            <span class="n">checker</span><span class="o">=</span><span class="n">get_private_attr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;checker&#39;</span><span class="p">),</span>
-            <span class="n">reporter</span><span class="o">=</span><span class="n">get_private_attr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;reporter&#39;</span><span class="p">),</span>
-            <span class="n">verbose</span><span class="o">=</span><span class="n">get_private_attr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;verbose&#39;</span><span class="p">)</span>
+            <span class="n">checker</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_checker</span><span class="p">,</span> <span class="n">reporter</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_reporter</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_verbose</span>
         <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_file_checker</span><span class="p">:</span> <span class="n">IFileCheck</span> <span class="o">=</span> <span class="n">make_component</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_config_file_bundle</span><span class="o">.</span><span class="n">file_checker</span><span class="p">,</span> <span class="n">FileCheck</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;config_bundle&#39;</span><span class="p">:</span> <span class="n">context_bundle_shared</span><span class="p">}</span>
         <span class="p">)</span>
-        <span class="n">validate_component</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_file_checker</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_file_checker</span><span class="p">),</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_file_checker</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)</span>
+        <span class="n">validate_component</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_file_checker</span><span class="p">,</span> <span class="n">FileCheck</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_file_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">config_file</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_file_bundle_shared</span><span class="p">:</span> <span class="n">ATSFileBundle</span> <span class="o">=</span> <span class="n">ATSFileBundle</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_file_bundle_shared</span><span class="o">.</span><span class="n">file_path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_file_path</span>

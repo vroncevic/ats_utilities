@@ -27,6 +27,8 @@ from unittest.mock import MagicMock
 from ats_utilities.config_io.xml.xml_storer import XMLStorer
 from ats_utilities.config_io.iwrite import IWrite
 from ats_utilities.config_io.xml.ixml_processor import IXMLProcessor
+from ats_utilities.config_io.xml.object2xml import Object2Xml
+from ats_utilities.config_io.xml.xml_processor import XMLProcessor
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -61,8 +63,8 @@ class XMLStorerTestCase(TestCase):
 
     def test_store_configuration_success(self) -> None:
         '''Test storing configuration successfully.'''
-        mock_obj2xml = MagicMock(spec=IWrite)
-        mock_processor = MagicMock(spec=IXMLProcessor)
+        mock_obj2xml = MagicMock(spec=Object2Xml)
+        mock_processor = MagicMock(spec=XMLProcessor)
         
         mock_processor.from_string.return_value = True
         mock_obj2xml.write_configuration.return_value = True
@@ -81,8 +83,8 @@ class XMLStorerTestCase(TestCase):
 
     def test_store_configuration_from_string_fail(self) -> None:
         '''Test storing configuration when from_string fails.'''
-        mock_obj2xml = MagicMock(spec=IWrite)
-        mock_processor = MagicMock(spec=IXMLProcessor)
+        mock_obj2xml = MagicMock(spec=Object2Xml)
+        mock_processor = MagicMock(spec=XMLProcessor)
         
         mock_processor.from_string.return_value = False
         
@@ -105,8 +107,8 @@ class XMLStorerTestCase(TestCase):
 
     def test_store_configuration_serialize_fail(self) -> None:
         '''Test storing configuration when XML serialization fails.'''
-        mock_obj2xml = MagicMock(spec=IWrite)
-        mock_processor = MagicMock(spec=IXMLProcessor)
+        mock_obj2xml = MagicMock(spec=Object2Xml)
+        mock_processor = MagicMock(spec=XMLProcessor)
         storer = XMLStorer(
             info_file='dummy.xml',
             object2xml=mock_obj2xml,
@@ -119,3 +121,4 @@ class XMLStorerTestCase(TestCase):
 
 if __name__ == '__main__':
     main()
+

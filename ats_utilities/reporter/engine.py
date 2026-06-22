@@ -81,9 +81,9 @@ class Reporter(IReporter):
 
         try:
             self._checker: IChecker = make_component(bundle.checker, Checker, None)
-            validate_component(self._checker, type(self._checker), type(self._checker).__name__)
+            validate_component(self._checker, Checker)
             self._theme: IConsoleTheme = make_component(bundle.theme, ConsoleTheme, None)
-            validate_component(self._theme, type(self._theme), type(self._theme).__name__)
+            validate_component(self._theme, ConsoleTheme)
             self._is_initialized = True
 
         except (ATSTypeError) as exc:

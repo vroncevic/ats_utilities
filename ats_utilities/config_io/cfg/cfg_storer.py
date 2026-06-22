@@ -52,9 +52,9 @@ class CFGStorer(IStorer):
         It defines:
 
             :attributes:
-                | _checker - Factoriezed parameters checker (default Checker).
-                | _reporter - Factoriezed reporter for messaging (default Reporter).
-                | _verbose - Factoriezed Enable/Disable verbose option (default False).
+                | _checker - Injected parameters checker (default Checker).
+                | _reporter - Injected reporter for messaging (default Reporter).
+                | _verbose - Injected Enable/Disable verbose option (default False).
                 | _processor - Processor for CFG content (default CFGProcessor).
                 | _obj2cfg - Out API for information (default Object2Cfg).
             :methods:
@@ -90,11 +90,11 @@ class CFGStorer(IStorer):
         config_file_bundle: ATSConfigFileBundle = config_bundle or ATSConfigFileBundle()
         factory_context_bundle(self, config_file_bundle.context)
         self._processor: ICFGProcessor = make_component(cfg_processor, CFGProcessor, None)
-        validate_component(self._processor, type(self._processor), type(self._processor).__name__)
+        validate_component(self._processor, CFGProcessor)
         self._obj2cfg: IWrite = make_component(object2cfg, Object2Cfg, {
             'config_file': info_file, 'config_bundle': config_file_bundle
         })
-        validate_component(self._obj2cfg, type(self._obj2cfg), type(self._obj2cfg).__name__)
+        validate_component(self._obj2cfg, Object2Cfg)
 
     @validator([('dict:config', None)])
     def store_configuration(self, config: dict[str, str]) -> bool:

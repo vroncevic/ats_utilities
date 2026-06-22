@@ -28,6 +28,8 @@ from os.path import dirname
 from ats_utilities.config_io.ini.ini_loader import INILoader
 from ats_utilities.config_io.iread import IRead
 from ats_utilities.config_io.ini.iini_processor import IINIProcessor
+from ats_utilities.config_io.ini.ini2object import Ini2Object
+from ats_utilities.config_io.ini.ini_processor import INIProcessor
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -118,8 +120,8 @@ class IniBaseUnitTestCase(TestCase):
     def setUp(self) -> None:
         '''Set up test environment.'''
         self.config_path = 'ats_cli_ini_api.ini'
-        self.mock_ini2obj = MagicMock(spec=IRead)
-        self.mock_processor = MagicMock(spec=IINIProcessor)
+        self.mock_ini2obj = MagicMock(spec=Ini2Object)
+        self.mock_processor = MagicMock(spec=INIProcessor)
 
         # Setup mock behavior
         self.mock_ini2obj.read_configuration.return_value = self.mock_processor
@@ -151,7 +153,7 @@ class IniBaseUnitTestCase(TestCase):
     def test_load_configuration_empty(self) -> None:
         '''Test load configuration when empty.'''
         # Setup loader with no configuration loaded
-        mock_ini2obj_empty = MagicMock(spec=IRead)
+        mock_ini2obj_empty = MagicMock(spec=Ini2Object)
         mock_ini2obj_empty.read_configuration.return_value = None
         loader = INILoader(
             info_file=self.config_path,
@@ -162,3 +164,4 @@ class IniBaseUnitTestCase(TestCase):
 
 if __name__ == '__main__':
     main()
+

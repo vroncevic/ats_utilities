@@ -27,6 +27,7 @@ from ats_utilities.factory_class import format_instance_to_string
 from ats_utilities.option.engine import OptionManager
 from ats_utilities.option.option_namespace import OptionNamespace, OptArgs
 from ats_utilities.option.iparser_strategy import IParserStrategy
+from ats_utilities.option.component_bundle import OptionComponentBundle
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -46,15 +47,16 @@ class MyAppFireStrategy(IParserStrategy):
         It defines:
 
             :attributes:
-                | _target - 
-                |
+                | _target - target object for option parsing.
+                | _parameters - dict of parameters for the parser.
             :methods:
-                | __init__ - 
-                | setup - 
-                | add_argument - 
-                | add_version - 
-                | parse - 
-                | __str__ - 
+                | __init__ - initialize the instance.
+                | setup - setup the parser.
+                | add_argument - add argument to the parser.
+                | add_version - add version to the parser.
+                | parse - parse the arguments.
+                | is_initialized - check if the parser is initialized.
+                | __str__ - return string representation of the parser.
     '''
     def __init__(self):
         self._target = types.SimpleNamespace()
@@ -92,6 +94,9 @@ class MyAppFireStrategy(IParserStrategy):
         res.__dict__.update({k: v for k, v in self._target.__dict__.items() if not callable(v)})
         return res
 
+    def is_initialized(self) -> bool:
+        return True
+
     def __str__(self) -> str:
         return format_instance_to_string(self)
 
@@ -101,7 +106,10 @@ opt_parser = {
     'name': 'mytool'
 }
 OPS: list[str] = ['-n', '--name', '-v', '--verbose']
-parser2 = OptionManager(parameters=opt_parser, strategy=fire_strategy)
+bundle: OptionComponentBundle = OptionComponentBundle(
+    parameters=opt_parser, strategy=fire_strategy
+)
+parser2 = OptionManager(component_bundle=bundle)
 parser2.add_version_operation('1.2.5')
 parser2.add_operation(OPS[0], OPS[1], dest='name', help='generate project (provide name)')
 parser2.add_operation('--db-name', default='test_db')

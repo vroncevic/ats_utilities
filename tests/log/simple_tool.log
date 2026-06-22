@@ -38,3 +38,8 @@
 06/22/2026 07:42:09 AM - ERROR - simple error
 06/22/2026 07:42:09 AM - INFO - simple info
 06/22/2026 07:42:09 AM - WARNING - simple warning
+06/22/2026 03:42:38 PM - CRITICAL - simple critical
+06/22/2026 03:42:38 PM - DEBUG - simple debug
+06/22/2026 03:42:38 PM - ERROR - simple error
+06/22/2026 03:42:38 PM - INFO - simple info
+06/22/2026 03:42:38 PM - WARNING - simple warning

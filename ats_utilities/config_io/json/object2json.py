@@ -58,9 +58,9 @@ class Object2Json(IWrite):
                 | _EXT - File extension of the configuration file.
                 | _MODE - File open mode.
                 | _config_file_bundle - Configuration file bundle parameters (default None).
-                | _checker - Factoriezed parameters checker (default Checker).
-                | _reporter - Factoriezed reporter for messaging (default Reporter).
-                | _verbose - Factoriezed Enable/Disable verbose option (default False).
+                | _checker - Injected parameters checker (default Checker).
+                | _reporter - Injected reporter for messaging (default Reporter).
+                | _verbose - Injected Enable/Disable verbose option (default False).
                 | _file_checker - FileCheck for checking file (default FileCheck).
                 | _file_path - Configuration file path (default None).
                 | _file_bundle_shared - File bundle parameters (default None).
@@ -94,14 +94,12 @@ class Object2Json(IWrite):
         self._config_file_bundle: ATSConfigFileBundle = config_bundle or ATSConfigFileBundle()
         factory_context_bundle(self, self._config_file_bundle.context)
         context_bundle_shared: ContextBundle = ContextBundle(
-            checker=get_private_attr(self, 'checker'),
-            reporter=get_private_attr(self, 'reporter'),
-            verbose=get_private_attr(self, 'verbose')
+            checker=self._checker, reporter=self._reporter, verbose=self._verbose
         )
         self._file_checker: IFileCheck = make_component(
             self._config_file_bundle.file_checker, FileCheck, {'config_bundle': context_bundle_shared}
         )
-        validate_component(self._file_checker, type(self._file_checker), type(self._file_checker).__name__)
+        validate_component(self._file_checker, FileCheck)
         self._file_path: str = str(config_file)
         self._file_bundle_shared: ATSFileBundle = ATSFileBundle()
         self._file_bundle_shared.file_path = self._file_path

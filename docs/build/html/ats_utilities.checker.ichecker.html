@@ -159,54 +159,6 @@ last_values: the list of values assigned</p>
 </dd></dl>
 
 <dl class="py class">
-<dt class="sig sig-object py" id="ats_utilities.checker.ichecker.ErrorCheckerProtocol">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ats_utilities.checker.ichecker.</span></span><span class="sig-name descname"><span class="pre">ErrorCheckerProtocol</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ats_utilities/checker/ichecker.html#ErrorCheckerProtocol"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.checker.ichecker.ErrorCheckerProtocol" title="Link to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Protocol</span></code></p>
-<p>Defines class ErrorCheckerProtocol with attribute(s).
-Protocol for error types for the Checker.</p>
-<p>It defines:</p>
-<blockquote>
-<div><dl class="field-list">
-<dt class="field-odd">attributes<span class="colon">:</span></dt>
-<dd class="field-odd"><div class="line-block">
-<div class="line">NO_ERROR - Marks no param error report (0).</div>
-<div class="line">TYPE_ERROR - Marks type param error report (1).</div>
-<div class="line">FORMAT_ERROR - Marks wrong format error report (2).</div>
-</div>
-</dd>
-<dt class="field-even">methods<span class="colon">:</span></dt>
-<dd class="field-even"><p>None</p>
-</dd>
-</dl>
-</div></blockquote>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="ats_utilities.checker.ichecker.ErrorCheckerProtocol.FORMAT_ERROR">
-<span class="sig-name descname"><span class="pre">FORMAT_ERROR</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#ats_utilities.checker.ichecker.ErrorCheckerProtocol.FORMAT_ERROR" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="ats_utilities.checker.ichecker.ErrorCheckerProtocol.NO_ERROR">
-<span class="sig-name descname"><span class="pre">NO_ERROR</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#ats_utilities.checker.ichecker.ErrorCheckerProtocol.NO_ERROR" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="ats_utilities.checker.ichecker.ErrorCheckerProtocol.TYPE_ERROR">
-<span class="sig-name descname"><span class="pre">TYPE_ERROR</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#ats_utilities.checker.ichecker.ErrorCheckerProtocol.TYPE_ERROR" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="ats_utilities.checker.ichecker.ErrorCheckerProtocol._abc_impl">
-<span class="sig-name descname"><span class="pre">_abc_impl</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;_abc._abc_data</span> <span class="pre">object&gt;</span></em><a class="headerlink" href="#ats_utilities.checker.ichecker.ErrorCheckerProtocol._abc_impl" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="ats_utilities.checker.ichecker.ErrorCheckerProtocol._is_protocol">
-<span class="sig-name descname"><span class="pre">_is_protocol</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">True</span></em><a class="headerlink" href="#ats_utilities.checker.ichecker.ErrorCheckerProtocol._is_protocol" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="py class">
 <dt class="sig sig-object py" id="ats_utilities.checker.ichecker.IChecker">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ats_utilities.checker.ichecker.</span></span><span class="sig-name descname"><span class="pre">IChecker</span></span><a class="reference internal" href="_modules/ats_utilities/checker/ichecker.html#IChecker"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.checker.ichecker.IChecker" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">ABC</span></code></p>
@@ -222,7 +174,8 @@ Creates an interface for Checker and other checker implementations.</p>
 </dd>
 <dt class="field-even">methods<span class="colon">:</span></dt>
 <dd class="field-even"><div class="line-block">
-<div class="line">validates_parameters - Validates parameters for method(s) or function(s) (abstract).</div>
+<div class="line">validates_parameters - Validates parameters for method(s) or function(s).</div>
+<div class="line">is_initialized - Checks if checker component is initialized.</div>
 <div class="line">__str__ - Returns the checker as string representation.</div>
 </div>
 </dd>
@@ -238,6 +191,23 @@ Creates an interface for Checker and other checker implementations.</p>
 <dt class="sig sig-object py" id="ats_utilities.checker.ichecker.IChecker._abc_impl">
 <span class="sig-name descname"><span class="pre">_abc_impl</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;_abc._abc_data</span> <span class="pre">object&gt;</span></em><a class="headerlink" href="#ats_utilities.checker.ichecker.IChecker._abc_impl" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ats_utilities.checker.ichecker.IChecker.is_initialized">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">is_initialized</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="_modules/ats_utilities/checker/ichecker.html#IChecker.is_initialized"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.checker.ichecker.IChecker.is_initialized" title="Link to this definition">¶</a></dt>
+<dd><p>Checks if checker component is initialized.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>True (success) | False (fail)</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>&lt;bool&gt;</p>
+</dd>
+<dt class="field-odd">Exceptions<span class="colon">:</span></dt>
+<dd class="field-odd"><p>NotImplementedError.</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="ats_utilities.checker.ichecker.IChecker.validates_parameters">
@@ -289,17 +259,10 @@ Creates an interface for Checker and other checker implementations.</p>
 <li><a class="reference internal" href="#ats_utilities.checker.ichecker.ErrorChecker._value_repr_"><code class="docutils literal notranslate"><span class="pre">ErrorChecker._value_repr_()</span></code></a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#ats_utilities.checker.ichecker.ErrorCheckerProtocol"><code class="docutils literal notranslate"><span class="pre">ErrorCheckerProtocol</span></code></a><ul>
-<li><a class="reference internal" href="#ats_utilities.checker.ichecker.ErrorCheckerProtocol.FORMAT_ERROR"><code class="docutils literal notranslate"><span class="pre">ErrorCheckerProtocol.FORMAT_ERROR</span></code></a></li>
-<li><a class="reference internal" href="#ats_utilities.checker.ichecker.ErrorCheckerProtocol.NO_ERROR"><code class="docutils literal notranslate"><span class="pre">ErrorCheckerProtocol.NO_ERROR</span></code></a></li>
-<li><a class="reference internal" href="#ats_utilities.checker.ichecker.ErrorCheckerProtocol.TYPE_ERROR"><code class="docutils literal notranslate"><span class="pre">ErrorCheckerProtocol.TYPE_ERROR</span></code></a></li>
-<li><a class="reference internal" href="#ats_utilities.checker.ichecker.ErrorCheckerProtocol._abc_impl"><code class="docutils literal notranslate"><span class="pre">ErrorCheckerProtocol._abc_impl</span></code></a></li>
-<li><a class="reference internal" href="#ats_utilities.checker.ichecker.ErrorCheckerProtocol._is_protocol"><code class="docutils literal notranslate"><span class="pre">ErrorCheckerProtocol._is_protocol</span></code></a></li>
-</ul>
-</li>
 <li><a class="reference internal" href="#ats_utilities.checker.ichecker.IChecker"><code class="docutils literal notranslate"><span class="pre">IChecker</span></code></a><ul>
 <li><a class="reference internal" href="#ats_utilities.checker.ichecker.IChecker.ERRORS"><code class="docutils literal notranslate"><span class="pre">IChecker.ERRORS</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.checker.ichecker.IChecker._abc_impl"><code class="docutils literal notranslate"><span class="pre">IChecker._abc_impl</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.checker.ichecker.IChecker.is_initialized"><code class="docutils literal notranslate"><span class="pre">IChecker.is_initialized()</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.checker.ichecker.IChecker.validates_parameters"><code class="docutils literal notranslate"><span class="pre">IChecker.validates_parameters()</span></code></a></li>
 </ul>
 </li>

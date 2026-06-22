@@ -65,8 +65,9 @@
 <span class="kn">from</span> <span class="nn">ats_utilities.checker.engine</span> <span class="kn">import</span> <span class="n">Checker</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.reporter.theme.iconsole_theme</span> <span class="kn">import</span> <span class="n">IConsoleTheme</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.reporter.theme.engine</span> <span class="kn">import</span> <span class="n">ConsoleTheme</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.exceptions.ats_type_error</span> <span class="kn">import</span> <span class="n">ATSTypeError</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.checker.proxy_validator</span> <span class="kn">import</span> <span class="n">validator</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.factory_class</span> <span class="kn">import</span> <span class="n">format_instance_to_string</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.factory_class</span> <span class="kn">import</span> <span class="n">get_class_name</span><span class="p">,</span> <span class="n">format_instance_to_string</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.factory_component</span> <span class="kn">import</span> <span class="n">make_component</span><span class="p">,</span> <span class="n">validate_component</span>
 
 <span class="n">__author__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;Vladimir Roncevic&#39;</span>
@@ -91,6 +92,7 @@
 <span class="sd">            :attributes:</span>
 <span class="sd">                | _checker - Factorized parameters checker (default Checker).</span>
 <span class="sd">                | _theme - Factorized theme for styling messages (default ConsoleTheme).</span>
+<span class="sd">                | _is_initialized -  Indicates if the reporter component is initialized (default False).</span>
 <span class="sd">            :methods:</span>
 <span class="sd">                | __init__ - Initializes Reporter constructor.</span>
 <span class="sd">                | _report - Utility method for reporting messages to console.</span>
@@ -98,6 +100,7 @@
 <span class="sd">                | success - Reports success message to console.</span>
 <span class="sd">                | verbose - Reports verbose message to console.</span>
 <span class="sd">                | warning - Reports warning message to console.</span>
+<span class="sd">                | is_initialized - Checks if reporter component is initialized.</span>
 <span class="sd">                | __str__ - Returns the string representation of Reporter.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
 
@@ -114,10 +117,17 @@
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="c1"># No dependency injection then use default ones.</span>
         <span class="n">bundle</span><span class="p">:</span> <span class="n">ReporterComponentBundle</span> <span class="o">=</span> <span class="n">component_bundle</span> <span class="ow">or</span> <span class="n">ReporterComponentBundle</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_checker</span><span class="p">:</span> <span class="n">IChecker</span> <span class="o">=</span> <span class="n">make_component</span><span class="p">(</span><span class="n">bundle</span><span class="o">.</span><span class="n">checker</span><span class="p">,</span> <span class="n">Checker</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
-        <span class="n">validate_component</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_checker</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_checker</span><span class="p">),</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_checker</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_theme</span><span class="p">:</span> <span class="n">IConsoleTheme</span> <span class="o">=</span> <span class="n">make_component</span><span class="p">(</span><span class="n">bundle</span><span class="o">.</span><span class="n">theme</span><span class="p">,</span> <span class="n">ConsoleTheme</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
-        <span class="n">validate_component</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_theme</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_theme</span><span class="p">),</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_theme</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_is_initialized</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_checker</span><span class="p">:</span> <span class="n">IChecker</span> <span class="o">=</span> <span class="n">make_component</span><span class="p">(</span><span class="n">bundle</span><span class="o">.</span><span class="n">checker</span><span class="p">,</span> <span class="n">Checker</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+            <span class="n">validate_component</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_checker</span><span class="p">,</span> <span class="n">Checker</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_theme</span><span class="p">:</span> <span class="n">IConsoleTheme</span> <span class="o">=</span> <span class="n">make_component</span><span class="p">(</span><span class="n">bundle</span><span class="o">.</span><span class="n">theme</span><span class="p">,</span> <span class="n">ConsoleTheme</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+            <span class="n">validate_component</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_theme</span><span class="p">,</span> <span class="n">ConsoleTheme</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_is_initialized</span> <span class="o">=</span> <span class="kc">True</span>
+
+        <span class="k">except</span> <span class="p">(</span><span class="n">ATSTypeError</span><span class="p">)</span> <span class="k">as</span> <span class="n">exc</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\x1b</span><span class="s2">[31m</span><span class="si">{</span><span class="n">get_class_name</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="si">}</span><span class="s2"> - error during initialization: </span><span class="si">{</span><span class="n">exc</span><span class="si">}</span><span class="se">\x1b</span><span class="s2">[0m&quot;</span><span class="p">)</span>
 
 <div class="viewcode-block" id="Reporter._report">
 <a class="viewcode-back" href="../../../ats_utilities.reporter.engine.html#ats_utilities.reporter.engine.Reporter._report">[docs]</a>
@@ -194,6 +204,19 @@
 <span class="sd">            :exceptions: None.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_report</span><span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_theme</span><span class="o">.</span><span class="n">get_color</span><span class="p">(</span><span class="s1">&#39;error&#39;</span><span class="p">))</span></div>
+
+
+<div class="viewcode-block" id="Reporter.is_initialized">
+<a class="viewcode-back" href="../../../ats_utilities.reporter.engine.html#ats_utilities.reporter.engine.Reporter.is_initialized">[docs]</a>
+    <span class="k">def</span> <span class="nf">is_initialized</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">            Checks if reporter component is initialized.</span>
+
+<span class="sd">            :return: True (success) | False (fail)</span>
+<span class="sd">            :rtype: &lt;bool&gt;</span>
+<span class="sd">            :exceptions: None.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_is_initialized</span></div>
 
 
     <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>

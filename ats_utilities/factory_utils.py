@@ -59,6 +59,7 @@ def has_required_keys(source: dict[Any, Any] | None, keys: frozenset[str]) -> bo
         :type keys: <frozenset[str]>
         :return: True (passed), False (failed).
         :rtype: <bool>
+        :exceptions: None.
     '''
     return keys.issubset(source or {})
 
@@ -79,5 +80,6 @@ def require_keys(source: dict[Any, Any] | None, keys: frozenset[str]) -> None:
         raise ATSTypeError(f"Expected frozenset for 'keys', got {type(keys).__name__}")
 
     missing_keys: frozenset[str] = keys.difference(source or {})
+
     if missing_keys:
         raise ATSValueError(f'Missing required keys {missing_keys}')

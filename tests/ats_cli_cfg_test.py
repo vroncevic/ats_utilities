@@ -28,7 +28,7 @@ from ats_utilities.exceptions.ats_type_error import ATSTypeError
 from os.path import dirname
 from ats_utilities.base.engine import Base
 from ats_utilities.base.component_bundle import BaseComponentBundle
-from ats_utilities.splasher.isplasher import ISplasher
+from ats_utilities.splasher.engine import Splasher
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -50,10 +50,10 @@ class ATSCliCfgAPI(Base):
         '''Initial constructor.'''
         current_dir: str = dirname(__file__)
         base_info: str = f'{current_dir}{self._CONFIG}'
-        mock_splasher = MagicMock(spec=ISplasher)
+        mock_splasher = MagicMock(spec=Splasher)
         bundle = BaseComponentBundle(info_file=base_info, splasher=mock_splasher)
         super().__init__(bundle)
-        if self.is_operational():
+        if self.is_initialized():
             self.add_new_option(
                 self._OPS[0], self._OPS[1], dest='test',
                 help='flag'
@@ -65,7 +65,7 @@ class ATSCliCfgAPI(Base):
 
     def process(self, verbose: bool = False) -> bool:
         '''Process and run operation.'''
-        return self.is_operational()
+        return self.is_initialized()
 
 
 class CLITestCase(TestCase):

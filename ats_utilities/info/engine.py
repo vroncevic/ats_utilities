@@ -73,9 +73,9 @@ class InfoManager(IInfoManager):
             :attributes:
                 | _ATTR_MAP - Map attributes to dynamic component properties.
                 | _components - The ATS info components (default InfoComponentBundle).
-                | _checker - Factoriezed parameters checker (default Checker).
-                | _reporter - Factoriezed reporter for messaging (default Reporter).
-                | _verbose - Factoriezed Enable/Disable verbose option (default False).
+                | _checker - Injected parameters checker (default Checker).
+                | _reporter - Injected reporter for messaging (default Reporter).
+                | _verbose - Injected Enable/Disable verbose option (default False).
                 | _is_initialized - Indicates if the info manager component is initialized (default False).
             :methods:
                 | __init__ - Initializes InfoManager constructor.
@@ -118,23 +118,23 @@ class InfoManager(IInfoManager):
         try:
             factory_args = {'context_bundle': bundle.context_bundle}
             name: IName = make_component(bundle.name, Name, factory_args)
-            validate_component(name, type(name), type(name).__name__)
+            validate_component(name, Name)
             version: IVersion = make_component(bundle.version, Version, factory_args)
-            validate_component(version, type(version), type(version).__name__)
+            validate_component(version, Version)
             licence: ILicence = make_component(bundle.licence, Licence, factory_args)
-            validate_component(licence, type(licence), type(licence).__name__)
+            validate_component(licence, Licence)
             build_date: IBuildDate = make_component(bundle.build_date, BuildDate, factory_args)
-            validate_component(build_date, type(build_date), type(build_date).__name__)
+            validate_component(build_date, BuildDate)
             repository: IRepository = make_component(bundle.repository, Repository, factory_args)
-            validate_component(repository, type(repository), type(repository).__name__)
+            validate_component(repository, Repository)
             organization: IOrganization = make_component(bundle.organization, Organization, factory_args)
-            validate_component(organization, type(organization), type(organization).__name__)
+            validate_component(organization, Organization)
             use_github: IUseGitHub = make_component(bundle.use_github, UseGitHub, factory_args)
-            validate_component(use_github, type(use_github), type(use_github).__name__)
+            validate_component(use_github, UseGitHub)
             logo_path: ILogoPath = make_component(bundle.logo_path, Logo, factory_args)
-            validate_component(logo_path, type(logo_path), type(logo_path).__name__)
+            validate_component(logo_path, Logo)
             info_ok: IInfoOk = make_component(bundle.info_ok, InfoOk, factory_args)
-            validate_component(info_ok, type(info_ok), type(info_ok).__name__)
+            validate_component(info_ok, InfoOk)
             self._components = InfoComponentBundle(
                 name=name, version=version, licence=licence, build_date=build_date,
                 repository=repository, organization=organization, use_github=use_github,

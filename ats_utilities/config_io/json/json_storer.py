@@ -53,9 +53,9 @@ class JSONStorer(IStorer):
         It defines:
 
             :attributes:
-                | _checker - Factoriezed parameters checker (default Checker).
-                | _reporter - Factoriezed reporter for messaging (default Reporter).
-                | _verbose - Factoriezed Enable/Disable verbose option (default False).
+                | _checker - Injected parameters checker (default Checker).
+                | _reporter - Injected reporter for messaging (default Reporter).
+                | _verbose - Injected Enable/Disable verbose option (default False).
                 | _processor - Processor for JSON content (default JSONProcessor).
                 | _obj2json - Out API for information (default Object2Json).
             :methods:
@@ -91,11 +91,11 @@ class JSONStorer(IStorer):
         config_file_bundle: ATSConfigFileBundle = config_bundle or ATSConfigFileBundle()
         factory_context_bundle(self, config_file_bundle.context)
         self._processor: IJSONProcessor = make_component(json_processor, JSONProcessor, None)
-        validate_component(self._processor, type(self._processor), type(self._processor).__name__)
+        validate_component(self._processor, JSONProcessor)
         self._obj2json: IWrite = make_component(object2json, Object2Json, {
             'config_file': info_file, 'config_bundle': config_file_bundle
         })
-        validate_component(self._obj2json, type(self._obj2json), type(self._obj2json).__name__)
+        validate_component(self._obj2json, Object2Json)
 
     @validator([('dict:config', None)])
     def store_configuration(self, config: dict[str, str]) -> bool:

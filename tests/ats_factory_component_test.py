@@ -23,6 +23,7 @@ Execute
 '''
 
 from unittest import TestCase, main
+from unittest.mock import MagicMock
 from ats_utilities.factory_component import make_component, validate_component
 from ats_utilities.exceptions.ats_type_error import ATSTypeError
 
@@ -72,6 +73,7 @@ class ATSFactoryComponentTestCase(TestCase):
                 | test_make_component_args - Test make_component instantiating default class with args.
                 | test_validate_component_success - Test validate_component with valid type.
                 | test_validate_component_failure - Test validate_component with invalid type.
+                | test_validate_component_mock_success - Test validate_component with mock object.
     '''
 
     def test_make_component_existing(self) -> None:
@@ -120,7 +122,18 @@ class ATSFactoryComponentTestCase(TestCase):
             :exceptions: None.
         '''
         instance = DummyComponent()
-        validate_component(instance, DummyComponent, 'Dummy')
+        validate_component(instance, DummyComponent)
+
+    def test_validate_component_mock_success(self) -> None:
+        '''
+            Test validate_component with mock object.
+
+            :return: None.
+            :rtype: <None>
+            :exceptions: None.
+        '''
+        instance = MagicMock(spec=DummyComponent)
+        validate_component(instance, DummyComponent)
 
     def test_validate_component_failure(self) -> None:
         '''
@@ -132,8 +145,9 @@ class ATSFactoryComponentTestCase(TestCase):
         '''
         instance = "not a dummy component"
         with self.assertRaises(ATSTypeError):
-            validate_component(instance, DummyComponent, 'Dummy')
+            validate_component(instance, DummyComponent)
 
 
 if __name__ == '__main__':
     main()
+

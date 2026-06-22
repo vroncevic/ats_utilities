@@ -65,7 +65,7 @@
             <a id="nextFileLink" class="nav" href="z_0c19c86447d96dd9_config_file_bundle_py.html">&#xbb; next</a>
             &nbsp; &nbsp; &nbsp;
             <a class="nav" href="https://coverage.readthedocs.io/en/7.6.10">coverage.py v7.6.10</a>,
-            created at 2026-06-22 10:04 +0200
+            created at 2026-06-22 17:42 +0200
         </p>
         <aside class="hidden">
             <button type="button" class="button_next_chunk" data-shortcut="j"></button>
@@ -116,7 +116,7 @@
     <p class="run"><span class="n"><a id="t34" href="#t34">34</a></span><span class="t"><span class="key">from</span> <span class="nam">ats_utilities</span><span class="op">.</span><span class="nam">exceptions</span><span class="op">.</span><span class="nam">ats_value_error</span> <span class="key">import</span> <span class="nam">ATSValueError</span>&nbsp;</span><span class="r"></span></p>
     <p class="run"><span class="n"><a id="t35" href="#t35">35</a></span><span class="t"><span class="key">from</span> <span class="nam">ats_utilities</span><span class="op">.</span><span class="nam">factory_context_bundle</span> <span class="key">import</span> <span class="nam">factory_context_bundle</span>&nbsp;</span><span class="r"></span></p>
     <p class="run"><span class="n"><a id="t36" href="#t36">36</a></span><span class="t"><span class="key">from</span> <span class="nam">ats_utilities</span><span class="op">.</span><span class="nam">factory_component</span> <span class="key">import</span> <span class="nam">make_component</span><span class="op">,</span> <span class="nam">validate_component</span>&nbsp;</span><span class="r"></span></p>
-    <p class="run"><span class="n"><a id="t37" href="#t37">37</a></span><span class="t"><span class="key">from</span> <span class="nam">ats_utilities</span><span class="op">.</span><span class="nam">factory_class</span> <span class="key">import</span> <span class="nam">get_private_attr</span><span class="op">,</span> <span class="nam">format_instance_to_string</span>&nbsp;</span><span class="r"></span></p>
+    <p class="run"><span class="n"><a id="t37" href="#t37">37</a></span><span class="t"><span class="key">from</span> <span class="nam">ats_utilities</span><span class="op">.</span><span class="nam">factory_class</span> <span class="key">import</span> <span class="nam">format_instance_to_string</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t38" href="#t38">38</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
     <p class="run"><span class="n"><a id="t39" href="#t39">39</a></span><span class="t"><span class="nam">__author__</span><span class="op">:</span> <span class="nam">str</span> <span class="op">=</span> <span class="str">'Vladimir Roncevic'</span>&nbsp;</span><span class="r"></span></p>
     <p class="run"><span class="n"><a id="t40" href="#t40">40</a></span><span class="t"><span class="nam">__copyright__</span><span class="op">:</span> <span class="nam">str</span> <span class="op">=</span> <span class="str">'(C) 2026, https://vroncevic.github.io/ats_utilities'</span>&nbsp;</span><span class="r"></span></p>
@@ -137,9 +137,9 @@
     <p class="pln"><span class="n"><a id="t55" href="#t55">55</a></span><span class="t"><span class="str">        It defines:</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t56" href="#t56">56</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t57" href="#t57">57</a></span><span class="t"><span class="str">            :attributes:</span>&nbsp;</span><span class="r"></span></p>
-    <p class="pln"><span class="n"><a id="t58" href="#t58">58</a></span><span class="t"><span class="str">                | _checker - Factoriezed parameters checker (default Checker).</span>&nbsp;</span><span class="r"></span></p>
-    <p class="pln"><span class="n"><a id="t59" href="#t59">59</a></span><span class="t"><span class="str">                | _reporter - Factoriezed reporter for messaging (default Reporter).</span>&nbsp;</span><span class="r"></span></p>
-    <p class="pln"><span class="n"><a id="t60" href="#t60">60</a></span><span class="t"><span class="str">                | _verbose - Factoriezed Enable/Disable verbose option (default False).</span>&nbsp;</span><span class="r"></span></p>
+    <p class="pln"><span class="n"><a id="t58" href="#t58">58</a></span><span class="t"><span class="str">                | _checker - Injected parameters checker (default Checker).</span>&nbsp;</span><span class="r"></span></p>
+    <p class="pln"><span class="n"><a id="t59" href="#t59">59</a></span><span class="t"><span class="str">                | _reporter - Injected reporter for messaging (default Reporter).</span>&nbsp;</span><span class="r"></span></p>
+    <p class="pln"><span class="n"><a id="t60" href="#t60">60</a></span><span class="t"><span class="str">                | _verbose - Injected Enable/Disable verbose option (default False).</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t61" href="#t61">61</a></span><span class="t"><span class="str">                | _file_path - Configuration file path (default None).</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t62" href="#t62">62</a></span><span class="t"><span class="str">                | _file_mode - Configuration file mode (default None).</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t63" href="#t63">63</a></span><span class="t"><span class="str">                | _file - File object (default None).</span>&nbsp;</span><span class="r"></span></p>
@@ -176,7 +176,7 @@
     <p class="pln"><span class="n"><a id="t94" href="#t94">94</a></span><span class="t">            <span class="nam">checker</span><span class="op">=</span><span class="nam">self</span><span class="op">.</span><span class="nam">_checker</span><span class="op">,</span> <span class="nam">reporter</span><span class="op">=</span><span class="nam">self</span><span class="op">.</span><span class="nam">_reporter</span><span class="op">,</span> <span class="nam">verbose</span><span class="op">=</span><span class="nam">self</span><span class="op">.</span><span class="nam">_verbose</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t95" href="#t95">95</a></span><span class="t">        <span class="op">)</span>&nbsp;</span><span class="r"></span></p>
     <p class="run"><span class="n"><a id="t96" href="#t96">96</a></span><span class="t">        <span class="nam">file_checker</span><span class="op">:</span> <span class="nam">IFileCheck</span> <span class="op">=</span> <span class="nam">make_component</span><span class="op">(</span><span class="nam">config_bundle</span><span class="op">.</span><span class="nam">file_checker</span><span class="op">,</span> <span class="nam">FileCheck</span><span class="op">,</span> <span class="op">{</span><span class="str">'config_bundle'</span><span class="op">:</span> <span class="nam">shared_bundle</span><span class="op">}</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
-    <p class="run"><span class="n"><a id="t97" href="#t97">97</a></span><span class="t">        <span class="nam">validate_component</span><span class="op">(</span><span class="nam">file_checker</span><span class="op">,</span> <span class="nam">type</span><span class="op">(</span><span class="nam">file_checker</span><span class="op">)</span><span class="op">,</span> <span class="nam">type</span><span class="op">(</span><span class="nam">file_checker</span><span class="op">)</span><span class="op">.</span><span class="nam">__name__</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
+    <p class="run"><span class="n"><a id="t97" href="#t97">97</a></span><span class="t">        <span class="nam">validate_component</span><span class="op">(</span><span class="nam">file_checker</span><span class="op">,</span> <span class="nam">FileCheck</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t98" href="#t98">98</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
     <p class="run"><span class="n"><a id="t99" href="#t99">99</a></span><span class="t">        <span class="key">if</span> <span class="key">not</span> <span class="nam">bool</span><span class="op">(</span><span class="nam">bundle</span><span class="op">.</span><span class="nam">file_path</span><span class="op">)</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
     <p class="run"><span class="n"><a id="t100" href="#t100">100</a></span><span class="t">            <span class="key">raise</span> <span class="nam">ATSValueError</span><span class="op">(</span><span class="str">'missing file path'</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
@@ -247,7 +247,7 @@
             <a class="nav" href="z_0c19c86447d96dd9_config_file_bundle_py.html">&#xbb; next</a>
             &nbsp; &nbsp; &nbsp;
             <a class="nav" href="https://coverage.readthedocs.io/en/7.6.10">coverage.py v7.6.10</a>,
-            created at 2026-06-22 10:04 +0200
+            created at 2026-06-22 17:42 +0200
         </p>
     </div>
 </footer>

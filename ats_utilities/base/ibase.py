@@ -47,24 +47,12 @@ class IBase(ABC):
 
             :attributes: None
             :methods:
-                | is_operational - Checks if ATS is operational.
                 | is_initialized - Checks if the base component is initialized.
                 | add_new_option - Adds a new option for the CL interface.
                 | parse_args - Parses the CLI arguments.
                 | process - Processes and runs tool operations.
                 | __str__ - Returns the ATS base as string representation.
     '''
-
-    @abstractmethod
-    def is_operational(self) -> bool:
-        '''
-            Checks if ATS is operational.
-
-            :return: True (operational) | False (not operational)
-            :rtype: <bool>
-            :exceptions: NotImplementedError.
-        '''
-        raise NotImplementedError("Method is_operational() must be implemented.")
 
     @abstractmethod
     def is_initialized(self) -> bool:

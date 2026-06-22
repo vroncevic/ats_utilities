@@ -29,6 +29,8 @@ from os.path import dirname
 from ats_utilities.config_io.yaml.yaml_loader import YAMLLoader
 from ats_utilities.config_io.iread import IRead
 from ats_utilities.config_io.yaml.iyaml_processor import IYAMLProcessor
+from ats_utilities.config_io.yaml.yaml2object import Yaml2Object
+from ats_utilities.config_io.yaml.yaml_processor import YAMLProcessor
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -119,8 +121,8 @@ class YamlBaseUnitTestCase(TestCase):
     def setUp(self) -> None:
         '''Set up test environment.'''
         self.config_path = 'ats_cli_yaml_api.yaml'
-        self.mock_yaml2obj = MagicMock(spec=IRead)
-        self.mock_processor = MagicMock(spec=IYAMLProcessor)
+        self.mock_yaml2obj = MagicMock(spec=Yaml2Object)
+        self.mock_processor = MagicMock(spec=YAMLProcessor)
 
         # Setup mock behavior
         self.mock_yaml2obj.read_configuration.return_value = self.mock_processor
@@ -152,7 +154,7 @@ class YamlBaseUnitTestCase(TestCase):
     def test_load_configuration_empty(self) -> None:
         '''Test load configuration when empty.'''
         # Setup loader with no configuration loaded
-        mock_yaml2obj_empty = MagicMock(spec=IRead)
+        mock_yaml2obj_empty = MagicMock(spec=Yaml2Object)
         mock_yaml2obj_empty.read_configuration.return_value = None
         loader = YAMLLoader(
             info_file=self.config_path,
@@ -161,6 +163,6 @@ class YamlBaseUnitTestCase(TestCase):
         self.assertEqual(loader.load_configuration(), {})
 
 
-
 if __name__ == '__main__':
     main()
+

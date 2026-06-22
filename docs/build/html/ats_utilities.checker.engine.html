@@ -80,6 +80,7 @@ Mechanism for application, tool, or script parameters checker.</p>
 <dt class="field-odd">attributes<span class="colon">:</span></dt>
 <dd class="field-odd"><div class="line-block">
 <div class="line">ERRORS - Marks error types for message reports.</div>
+<div class="line">_is_initialized - Indicates if the checker component is initialized (default False).</div>
 <div class="line">_format_validator - Validator for parameters format (default FormatValidator).</div>
 <div class="line">_type_validator - Validator for parameters type (default TypeValidator).</div>
 <div class="line">_context_provider - Provider for call context (default ContextProvider).</div>
@@ -90,6 +91,7 @@ Mechanism for application, tool, or script parameters checker.</p>
 <dd class="field-even"><div class="line-block">
 <div class="line">__init__ - Initializes Checker constructor.</div>
 <div class="line">validates_parameters - Validates parameter(s) for method(s) or function(s).</div>
+<div class="line">is_initialized - Checks if checker component is initialized.</div>
 <div class="line">__str__ - Returns the ATS checker as string representation.</div>
 </div>
 </dd>
@@ -107,6 +109,23 @@ Mechanism for application, tool, or script parameters checker.</p>
 <dd></dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="ats_utilities.checker.engine.Checker.is_initialized">
+<span class="sig-name descname"><span class="pre">is_initialized</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="_modules/ats_utilities/checker/engine.html#Checker.is_initialized"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.checker.engine.Checker.is_initialized" title="Link to this definition">¶</a></dt>
+<dd><p>Checks if checker component is initialized.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>True (success) | False (fail)</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>&lt;bool&gt;</p>
+</dd>
+<dt class="field-odd">Exceptions<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="ats_utilities.checker.engine.Checker.validates_parameters">
 <span class="sig-name descname"><span class="pre">validates_parameters</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parameters</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/ats_utilities/checker/engine.html#Checker.validates_parameters"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.checker.engine.Checker.validates_parameters" title="Link to this definition">¶</a></dt>
 <dd><p>Validates parameters for method(s) or function(s).</p>
@@ -121,7 +140,7 @@ Mechanism for application, tool, or script parameters checker.</p>
 <dd class="field-odd"><p>&lt;ValidationResult&gt;</p>
 </dd>
 <dt class="field-even">Exceptions<span class="colon">:</span></dt>
-<dd class="field-even"><p>None..</p>
+<dd class="field-even"><p>None.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -144,6 +163,7 @@ Mechanism for application, tool, or script parameters checker.</p>
 <li><a class="reference internal" href="#ats_utilities.checker.engine.Checker"><code class="docutils literal notranslate"><span class="pre">Checker</span></code></a><ul>
 <li><a class="reference internal" href="#ats_utilities.checker.engine.Checker.ERRORS"><code class="docutils literal notranslate"><span class="pre">Checker.ERRORS</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.checker.engine.Checker._abc_impl"><code class="docutils literal notranslate"><span class="pre">Checker._abc_impl</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.checker.engine.Checker.is_initialized"><code class="docutils literal notranslate"><span class="pre">Checker.is_initialized()</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.checker.engine.Checker.validates_parameters"><code class="docutils literal notranslate"><span class="pre">Checker.validates_parameters()</span></code></a></li>
 </ul>
 </li>
