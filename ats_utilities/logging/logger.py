@@ -109,7 +109,6 @@ class ATSLogger(ILogger):
                 | _reporter - Factoriezed reporter for messaging (default Reporter).
                 | _verbose - Factoriezed Enable/Disable verbose option (default False).
                 | _logger - Python Logger instance.
-                | 
             :methods:
                 | __init__ - Initials ATSLogger constructor.
                 | write_log - Writes message to log.
@@ -186,7 +185,7 @@ class ATSLogger(ILogger):
         self._reporter.error([f'not supported log level [{str(ctrl)}]'])
         return False
 
-    def ok(self) -> bool:
+    def is_initialized(self) -> bool:
         '''
             Checks if logger component is ok.
 

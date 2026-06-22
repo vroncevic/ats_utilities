@@ -58,6 +58,7 @@ class ConfigFileTestCase(TestCase):
                 | test_empty_path_file - Test for missing file path.
                 | test_empty_type_file - Test for missing file format.
                 | test_empty_mode_file - Test for missing file mode.
+                | test_str - Test string representation of ConfFile.
     '''
 
     def setUp(self) -> None:
@@ -72,6 +73,12 @@ class ConfigFileTestCase(TestCase):
         bundle = ATSFileBundle(file_path=self.file_path, file_mode='r', file_format='Makefile')
         with ConfFile(bundle) as cfg:
             self.assertIsNotNone(cfg)
+
+    def test_str(self) -> None:
+        '''Test string representation of ConfFile.'''
+        bundle = ATSFileBundle(file_path=self.file_path, file_mode='r', file_format='Makefile')
+        cfg = ConfFile(bundle)
+        self.assertIsInstance(str(cfg), str)
 
     def test_none_file(self) -> None:
         '''Test for None file'''

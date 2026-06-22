@@ -103,6 +103,19 @@ class XMLStorerTestCase(TestCase):
         storer = XMLStorer(info_file='dummy.xml')
         self.assertIsInstance(str(storer), str)
 
+    def test_store_configuration_serialize_fail(self) -> None:
+        '''Test storing configuration when XML serialization fails.'''
+        mock_obj2xml = MagicMock(spec=IWrite)
+        mock_processor = MagicMock(spec=IXMLProcessor)
+        storer = XMLStorer(
+            info_file='dummy.xml',
+            object2xml=mock_obj2xml,
+            xml_processor=mock_processor
+        )
+        config = {123: 'value'}
+        result = storer.store_configuration(config)
+        self.assertFalse(result)
+
 
 if __name__ == '__main__':
     main()

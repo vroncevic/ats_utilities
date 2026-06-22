@@ -54,6 +54,7 @@ class ATSSplashPropTestCase(TestCase):
                 | test_crete_with_none_property - Create with None property.
                 | test_property - Test property.
                 | test_wrong_property - Test wrong property.
+                | test_str - Test string representation.
     '''
 
     def setUp(self) -> None:
@@ -103,6 +104,12 @@ class ATSSplashPropTestCase(TestCase):
                 'ats_name': 'appexample',
                 'ats_logo_path': 'app logo'
             }
+
+    def test_str(self) -> None:
+        '''Test string representation of SplashProperty.'''
+        splash = SplashProperty()
+        splash.splash_property = self.splash_data
+        self.assertIsInstance(str(splash), str)
 
 
 if __name__ == '__main__':

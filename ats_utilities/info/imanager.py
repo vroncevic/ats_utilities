@@ -72,7 +72,7 @@ class IInfoManager(ABC):
         raise NotImplemented("Method get_info() must be implemented.")
 
     @abstractmethod
-    def ok(self) -> bool:
+    def is_initialized(self) -> bool:
         '''
             Checks if ATS information structure is ok.
 

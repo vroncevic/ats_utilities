@@ -42,9 +42,15 @@ from ats_utilities.info.logo import Logo
 from ats_utilities.info.iinfo_ok import IInfoOk
 from ats_utilities.info.info_ok import InfoOk
 from ats_utilities.info.info_keys import InfoKeys
-from ats_utilities.factory_class import format_instance_to_string
+from ats_utilities.checker.ichecker import IChecker
+from ats_utilities.reporter.ireporter import IReporter
+from ats_utilities.factory_context_bundle import factory_context_bundle
+from ats_utilities.factory_class import get_class_name, format_instance_to_string
 from ats_utilities.factory_component import make_component, validate_component
 from ats_utilities.exceptions.ats_type_error import ATSTypeError
+from ats_utilities.exceptions.ats_value_error import ATSValueError
+from ats_utilities.exceptions.ats_runtime_error import ATSRuntimeError
+from ats_utilities.exceptions.ats_attribute_error import ATSAttributeError
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -67,15 +73,22 @@ class InfoManager(IInfoManager):
             :attributes:
                 | _ATTR_MAP - Map attributes to dynamic component properties.
                 | _components - The ATS info components (default InfoComponentBundle).
+                | _checker - Factoriezed parameters checker (default Checker).
+                | _reporter - Factoriezed reporter for messaging (default Reporter).
+                | _verbose - Factoriezed Enable/Disable verbose option (default False).
+                | _is_initialized - Indicates if the info manager component is initialized (default False).
             :methods:
                 | __init__ - Initializes InfoManager constructor.
                 | set_info - Sets the ATS information.
-                | ok - Checks is ATS information structure ok.
-                | __getattr__ - Gets attribute from instance components dynamically.
-                | __setattr__ - Sets attribute to instance components dynamically and refreshes status.
+                | get_info - Gets the ATS information.
+                | is_initialized - Checks if the info manager component is initialized.
                 | refresh_status - Refresh status for ATS information structure.
-                | __str__ - Returns the ATS info manager as string representation.
+                | __str__ - Returns the string representation of InfoManager.
     '''
+
+    _checker: IChecker
+    _reporter: IReporter
+    _verbose: bool
 
     _ATTR_MAP = {
         'name': 'name',
@@ -95,35 +108,43 @@ class InfoManager(IInfoManager):
 
             :param component_bundle: Bundle with components | None.
             :type component_bundle: <InfoComponentBundle | None>
-            :exceptions: ATSTypeError.
+            :exceptions: None.
         '''
         # No dependency injection then use default ones.
         bundle: InfoComponentBundle = component_bundle or InfoComponentBundle()
-        factory_args = {'context_bundle': bundle.context_bundle}
-        name: IName = make_component(bundle.name, Name, factory_args)
-        validate_component(name, type(name), type(name).__name__)
-        version: IVersion = make_component(bundle.version, Version, factory_args)
-        validate_component(version, type(version), type(version).__name__)
-        licence: ILicence = make_component(bundle.licence, Licence, factory_args)
-        validate_component(licence, type(licence), type(licence).__name__)
-        build_date: IBuildDate = make_component(bundle.build_date, BuildDate, factory_args)
-        validate_component(build_date, type(build_date), type(build_date).__name__)
-        repository: IRepository = make_component(bundle.repository, Repository, factory_args)
-        validate_component(repository, type(repository), type(repository).__name__)
-        organization: IOrganization = make_component(bundle.organization, Organization, factory_args)
-        validate_component(organization, type(organization), type(organization).__name__)
-        use_github: IUseGitHub = make_component(bundle.use_github, UseGitHub, factory_args)
-        validate_component(use_github, type(use_github), type(use_github).__name__)
-        logo_path: ILogoPath = make_component(bundle.logo_path, Logo, factory_args)
-        validate_component(logo_path, type(logo_path), type(logo_path).__name__)
-        info_ok: IInfoOk = make_component(bundle.info_ok, InfoOk, factory_args)
-        validate_component(info_ok, type(info_ok), type(info_ok).__name__)
-        self._components = InfoComponentBundle(
-            name=name, version=version, licence=licence, build_date=build_date,
-            repository=repository, organization=organization, use_github=use_github,
-            logo_path=logo_path, info_ok=info_ok
-        )
-        self.refresh_status()
+        factory_context_bundle(self, bundle.context_bundle)
+        self._is_initialized: bool = False
+
+        try:
+            factory_args = {'context_bundle': bundle.context_bundle}
+            name: IName = make_component(bundle.name, Name, factory_args)
+            validate_component(name, type(name), type(name).__name__)
+            version: IVersion = make_component(bundle.version, Version, factory_args)
+            validate_component(version, type(version), type(version).__name__)
+            licence: ILicence = make_component(bundle.licence, Licence, factory_args)
+            validate_component(licence, type(licence), type(licence).__name__)
+            build_date: IBuildDate = make_component(bundle.build_date, BuildDate, factory_args)
+            validate_component(build_date, type(build_date), type(build_date).__name__)
+            repository: IRepository = make_component(bundle.repository, Repository, factory_args)
+            validate_component(repository, type(repository), type(repository).__name__)
+            organization: IOrganization = make_component(bundle.organization, Organization, factory_args)
+            validate_component(organization, type(organization), type(organization).__name__)
+            use_github: IUseGitHub = make_component(bundle.use_github, UseGitHub, factory_args)
+            validate_component(use_github, type(use_github), type(use_github).__name__)
+            logo_path: ILogoPath = make_component(bundle.logo_path, Logo, factory_args)
+            validate_component(logo_path, type(logo_path), type(logo_path).__name__)
+            info_ok: IInfoOk = make_component(bundle.info_ok, InfoOk, factory_args)
+            validate_component(info_ok, type(info_ok), type(info_ok).__name__)
+            self._components = InfoComponentBundle(
+                name=name, version=version, licence=licence, build_date=build_date,
+                repository=repository, organization=organization, use_github=use_github,
+                logo_path=logo_path, info_ok=info_ok
+            )
+            self.refresh_status()
+            self._is_initialized = True
+
+        except (ATSTypeError, ATSValueError, ATSRuntimeError, ATSAttributeError) as exc:
+            self._reporter.error([f"{get_class_name(self)} - error during initialization: {exc}"])
 
     def set_info(self, info: dict[str, Any]) -> None:
         '''
@@ -204,16 +225,16 @@ class InfoManager(IInfoManager):
 
         super().__setattr__(name, value)
 
-    def ok(self) -> bool:
+    def is_initialized(self) -> bool:
         '''
-            Checks is ATS information structure ok.
+            Checks if the info manager component is initialized.
 
             :return: True (success) | False (fail).
             :rtype: <bool>
-            :exceptions: None..
+            :exceptions: None.
         '''
-        component = getattr(self._components, 'info_ok', None)
-        return component.info_ok if component else False
+        component = getattr(self._components, 'info_ok', None) if self._is_initialized else None
+        return self._is_initialized and (component.info_ok if component else False)
 
     def refresh_status(self) -> None:
         '''

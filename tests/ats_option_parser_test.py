@@ -28,6 +28,7 @@ from ats_utilities.option.engine import OptionManager
 from ats_utilities.option.ioption_parser import IOptionManager
 from ats_utilities.option.iparser_strategy import IParserStrategy
 from ats_utilities.option.parser_strategy import ParserStrategy
+from ats_utilities.option.arg_parser import ArgParser
 from ats_utilities.checker.ichecker import IChecker
 from ats_utilities.checker.engine import Checker
 from ats_utilities.reporter.ireporter import IReporter
@@ -97,6 +98,7 @@ class OptionParserTestCase(TestCase):
                 | test_not_none - Test is OptionManager not None.
                 | test_add_operation - Test adding operation.
                 | test_add_version_operation - Test adding version operation.
+                | test_str - Test string representation.
     '''
 
     def setUp(self) -> None:
@@ -125,6 +127,44 @@ class OptionParserTestCase(TestCase):
         '''Test adding version operation to parser.'''
         # Ne bi trebalo da baci izuzetak
         self.option_parser.add_version_operation('1.0.0')
+
+    def test_str(self) -> None:
+        '''Test string representation of option parser classes.'''
+        self.assertIsInstance(str(self.option_parser), str)
+        strategy = ParserStrategy()
+        self.assertIsInstance(str(strategy), str)
+        arg_parser = ArgParser(self.ats_info)
+        self.assertIsInstance(str(arg_parser), str)
+
+    def test_arg_parser_error(self) -> None:
+        '''Test ArgParser error method.'''
+        arg_parser = ArgParser(self.ats_info)
+        with self.assertRaises(SystemExit) as cm:
+            arg_parser.error('Test error message')
+        self.assertEqual(cm.exception.code, 2)
+
+    def test_parse_arguments(self) -> None:
+        '''Test actual parse_args and parse_input_args in OptionManager.'''
+        self.option_parser.add_operation('-t', '--test', help='test operation')
+        res1 = self.option_parser.parse_args(['-t', 'value'])
+        self.assertIsNotNone(res1)
+        res2 = self.option_parser.parse_input_args(['-t', 'value'])
+        self.assertIsNotNone(res2)
+
+    def test_initialization_failure(self) -> None:
+        '''Test OptionManager initialization failure when parameters are invalid.'''
+        invalid_bundle = OptionComponentBundle(
+            parameters=123,  # type: ignore
+            strategy=ParserStrategy()
+        )
+        manager = OptionManager(invalid_bundle)
+        self.assertFalse(manager.is_initialized())
+
+    def test_parser_strategy_uninitialized_parse(self) -> None:
+        '''Test ParserStrategy parse before it is initialized.'''
+        strategy = ParserStrategy()
+        with self.assertRaises(RuntimeError):
+            strategy.parse(['-t'])
 
 
 class OptionParserUnitTestCase(TestCase):

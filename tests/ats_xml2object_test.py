@@ -54,6 +54,7 @@ class Xml2ObjectTestCase(TestCase):
                 | test_not_none - Test is Xml2Object not None.
                 | test_read_configuration - Test for read configuration.
                 | test_none_config_path - Test for None as file path.
+                | test_str - Test string representation of Xml2Object.
     '''
 
     def setUp(self) -> None:
@@ -78,6 +79,10 @@ class Xml2ObjectTestCase(TestCase):
         '''Test for None as file path'''
         xml2obj = Xml2Object(None, xml_processor=self.xml_processor)
         self.assertIsNone(xml2obj.read_configuration())
+
+    def test_str(self) -> None:
+        '''Test string representation of Xml2Object.'''
+        self.assertIsInstance(str(self.xml2obj), str)
 
 
 if __name__ == '__main__':

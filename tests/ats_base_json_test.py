@@ -67,6 +67,7 @@ class JsonBaseTestCase(TestCase):
                 | test_not_none - Test is ATSBaseJson not None.
                 | test_load_configuration - Test loading configuration.
                 | test_none_config_path_returns_empty_dict - Test for None as file path.
+                | test_str - Test string representation of JSONLoader.
     '''
 
     def setUp(self) -> None:
@@ -91,6 +92,10 @@ class JsonBaseTestCase(TestCase):
         '''Test for None as file path.'''
         loader = JSONLoader(None)
         self.assertEqual(loader.load_configuration(), {})
+
+    def test_str(self) -> None:
+        '''Test string representation of JSONLoader.'''
+        self.assertIsInstance(str(self.ats_base_json), str)
 
 
 class JsonBaseUnitTestCase(TestCase):

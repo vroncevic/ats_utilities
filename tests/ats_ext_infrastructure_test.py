@@ -54,6 +54,7 @@ class ATSExtTestCase(TestCase):
                 | test_get_info - Test get info.
                 | test_get_issue - Test get issue info.
                 | test_get_author - Test get author info.
+                | test_str - Test string representation.
     '''
 
     def setUp(self) -> None:
@@ -72,6 +73,7 @@ class ATSExtTestCase(TestCase):
         infra = ExtInfrastructure()
         infra.infrastructure_property = self.splash_property
         self.assertIsNotNone(infra)
+        self.assertEqual(infra.infrastructure_property, self.splash_property)
 
     def test_none_property(self) -> None:
         '''Test None splash property'''
@@ -96,6 +98,12 @@ class ATSExtTestCase(TestCase):
         info = ExtInfrastructure()
         info.infrastructure_property = self.splash_property
         self.assertIsNotNone(info.get_author_text())
+
+    def test_str(self) -> None:
+        '''Test string representation of ExtInfrastructure.'''
+        info = ExtInfrastructure()
+        info.infrastructure_property = self.splash_property
+        self.assertIsInstance(str(info), str)
 
 
 if __name__ == '__main__':

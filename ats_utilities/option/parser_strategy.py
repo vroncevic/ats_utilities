@@ -150,7 +150,7 @@ class ParserStrategy(IParserStrategy):
             return known_args[0]
         return self._parser.parse_args(arguments)
 
-    def ok(self) -> bool:
+    def is_initialized(self) -> bool:
         '''
             Checks if parser strategy component is ok.
 

@@ -53,6 +53,7 @@ class Ini2ObjectTestCase(TestCase):
                 | test_not_none - Test is Ini2Object not None.
                 | test_read_configuration - Test for read configuration.
                 | test_none_config_path - Test for None as file path.
+                | test_str - Test string representation of Ini2Object.
     '''
 
     def setUp(self) -> None:
@@ -76,6 +77,10 @@ class Ini2ObjectTestCase(TestCase):
         '''Test for None as file path'''
         ini2obj = Ini2Object(None)
         self.assertIsNone(ini2obj.read_configuration())
+
+    def test_str(self) -> None:
+        '''Test string representation of Ini2Object.'''
+        self.assertIsInstance(str(self.ini2obj), str)
 
 
 if __name__ == '__main__':

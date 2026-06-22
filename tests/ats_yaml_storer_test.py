@@ -22,7 +22,7 @@ Execute
     python3 -m unittest -v ats_yaml_storer_test
 '''
 
-from unittest import TestCase, main
+from unittest import TestCase, main, mock
 from unittest.mock import MagicMock
 from ats_utilities.config_io.yaml.yaml_storer import YAMLStorer
 from ats_utilities.config_io.iwrite import IWrite
@@ -102,6 +102,21 @@ class YAMLStorerTestCase(TestCase):
         '''Test string representation of YAMLStorer.'''
         storer = YAMLStorer(info_file='dummy.yaml')
         self.assertIsInstance(str(storer), str)
+
+    @mock.patch('ats_utilities.config_io.yaml.yaml_storer.dump')
+    def test_store_configuration_serialize_fail(self, mock_dump) -> None:
+        '''Test storing configuration when YAML serialization fails.'''
+        mock_dump.side_effect = TypeError('Cannot dump to YAML')
+        mock_obj2yaml = MagicMock(spec=IWrite)
+        mock_processor = MagicMock(spec=IYAMLProcessor)
+        storer = YAMLStorer(
+            info_file='dummy.yaml',
+            object2yaml=mock_obj2yaml,
+            yaml_processor=mock_processor
+        )
+        config = {'key': 'value'}
+        result = storer.store_configuration(config)
+        self.assertFalse(result)
 
 
 if __name__ == '__main__':

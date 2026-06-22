@@ -103,6 +103,19 @@ class JSONStorerTestCase(TestCase):
         storer = JSONStorer(info_file='dummy.json')
         self.assertIsInstance(str(storer), str)
 
+    def test_store_configuration_serialize_fail(self) -> None:
+        '''Test storing configuration when JSON serialization fails.'''
+        mock_obj2json = MagicMock(spec=IWrite)
+        mock_processor = MagicMock(spec=IJSONProcessor)
+        storer = JSONStorer(
+            info_file='dummy.json',
+            object2json=mock_obj2json,
+            json_processor=mock_processor
+        )
+        config = {'key': {1, 2, 3}}
+        result = storer.store_configuration(config)
+        self.assertFalse(result)
+
 
 if __name__ == '__main__':
     main()

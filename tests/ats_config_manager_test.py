@@ -63,6 +63,7 @@ class ConfigManagerTestCase(TestCase):
             :methods:
                 | setUp - Call before test case.
                 | test_not_none - Test is ConfigLoader not None.
+                | test_str - Test string representation of ConfigLoader.
     '''
 
     def setUp(self) -> None:
@@ -74,6 +75,12 @@ class ConfigManagerTestCase(TestCase):
         manager = ConfigLoader(bundle)
         self.assertIsNotNone(manager)
         self.assertTrue(isinstance(manager, IConfigLoader))  # type: ignore
+
+    def test_str(self) -> None:
+        '''Test string representation of ConfigLoader.'''
+        bundle = ATSConfigLoaderBundle()
+        manager = ConfigLoader(bundle)
+        self.assertIsInstance(str(manager), str)
 
 
 class ConfigManagerUnitTestCase(TestCase):

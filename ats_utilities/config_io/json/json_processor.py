@@ -88,7 +88,7 @@ class JSONProcessor(IJSONProcessor):
 
     def to_dict(self) -> dict[str, str]:
         '''
-            Converts data as a flat dictionary (abstract).
+            Converts data as a flat dictionary.
 
             :return: Dictionary with JSON configuration.
             :rtype: <dict[str, str]>

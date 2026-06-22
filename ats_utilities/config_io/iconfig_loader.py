@@ -56,7 +56,7 @@ class IConfigLoader(ABC):
 
             :attributes: None
             :methods:
-                | setup_config_loader - Loads the appropriate configuration base based on file type (abstract).
+                | setup_config_loader - Loads the appropriate configuration base based on file type.
                 | __str__ - Returns the IConfigLoader as string representation.
     '''
 

@@ -407,6 +407,12 @@ class ComponentBundlesTestCase(TestCase):
         d = bundle.to_dict()
         self.assertEqual(d['name'], mock_name)
 
+        # Test merge
+        bundle1 = InfoComponentBundle()
+        bundle1.merge(bundle)
+        self.assertEqual(bundle1.name, mock_name)
+        self.assertEqual(bundle1.version, mock_version)
+
     def test_info_component_bundle_validation_errors(self) -> None:
         '''Test InfoComponentBundle validation exceptions.'''
         mock_name = MagicMock(spec=IName)

@@ -22,6 +22,8 @@ Info
 '''
 
 from typing import Any
+from collections.abc import Callable
+from functools import wraps
 from ats_utilities.exceptions.ats_value_error import ATSValueError
 
 __author__: str = 'Vladimir Roncevic'
@@ -99,10 +101,6 @@ def get_private_attr(instance: Any, attr_name: str) -> Any:
     clean_attr = attr_name.lstrip('_')
     return getattr(instance, f'_{clean_attr}')
 
-from collections.abc import Callable
-from functools import wraps
-from typing import Any
-
 def require_attributes(*attr_names: str) -> Callable[[Callable[..., Any]], Callable[..., Any]]:
     '''
         Checks if instance attribute is defined and has value or not.
@@ -129,6 +127,18 @@ def require_attributes(*attr_names: str) -> Callable[[Callable[..., Any]], Calla
             return func(self, *args, **kwargs)
         return wrapper
     return decorator
+
+def get_class_name(instance: Any) -> str:
+    '''
+        Returns the class name of an instance.
+
+        :param instance: The class instance.
+        :type instance: <Any>
+        :return: The class name in string format.
+        :rtype: <str>
+        :exceptions: None.
+    '''
+    return instance.__class__.__name__
 
 def format_instance_to_string(instance: Any) -> str:
     '''

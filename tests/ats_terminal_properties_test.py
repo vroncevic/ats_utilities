@@ -22,7 +22,7 @@ Execute
     python3 -m unittest -v ats_terminal_properties_test
 '''
 
-from unittest import TestCase, main
+from unittest import TestCase, main, mock
 from ats_utilities.splasher.terminal_properties import TerminalProperties
 from ats_utilities.exceptions.ats_type_error import ATSTypeError
 
@@ -51,6 +51,8 @@ class ATSTerminalPropTestCase(TestCase):
                 | tearDown - Call after test case.
                 | test_create - Test for create.
                 | test_size - Test for size.
+                | test_wrong_descriptor - Test wrong descriptor.
+                | test_str - Test string representation.
     '''
 
     def setUp(self) -> None:
@@ -72,6 +74,35 @@ class ATSTerminalPropTestCase(TestCase):
         '''Test getting size'''
         with self.assertRaises(ATSTypeError):
             self.terminal.ioctl_get_window_size(None)  # type: ignore
+
+    def test_str(self) -> None:
+        '''Test string representation of TerminalProperties.'''
+        self.assertIsInstance(str(self.terminal), str)
+
+    @mock.patch('ats_utilities.splasher.terminal_properties.os.open')
+    @mock.patch('ats_utilities.splasher.terminal_properties.os.close')
+    @mock.patch('ats_utilities.splasher.terminal_properties.TerminalProperties.ioctl_get_window_size')
+    @mock.patch('ats_utilities.splasher.terminal_properties.TerminalProperties.ioctl_for_all_descriptors')
+    def test_size_with_controlling_terminal(self, mock_ioctl_all, mock_get_size, mock_close, mock_open) -> None:
+        '''Test size() when ctermid open succeeds.'''
+        mock_open.return_value = 999
+        mock_get_size.return_value = (30, 100, 0, 0)
+        
+        terminal = TerminalProperties()
+        size = terminal.size()
+        
+        self.assertEqual(size, (30, 100, 0, 0))
+        mock_open.assert_called_once()
+        mock_get_size.assert_called_once_with(999)
+        mock_close.assert_called_once_with(999)
+
+    @mock.patch('ats_utilities.splasher.terminal_properties.TerminalProperties.ioctl_for_all_descriptors')
+    def test_size_ioctl_all_oserror(self, mock_ioctl_all) -> None:
+        '''Test size() when ioctl_for_all_descriptors raises OSError.'''
+        mock_ioctl_all.side_effect = OSError("No descriptors")
+        terminal = TerminalProperties()
+        size = terminal.size()
+        self.assertIsNotNone(size)
 
 
 if __name__ == '__main__':

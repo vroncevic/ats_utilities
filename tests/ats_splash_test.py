@@ -25,6 +25,7 @@ Execute
 from os.path import dirname
 from unittest import TestCase, main, mock
 from ats_utilities.splasher.engine import Splasher
+from ats_utilities.splasher.progress_bar import ProgressBar
 from ats_utilities.splasher.component_bundle import SplashComponentBundle
 from ats_utilities.splasher.splash_center_bundle import SplashCenterBundle
 from ats_utilities.splasher.splash_keys import SplashKeys
@@ -59,6 +60,7 @@ class ATSSplashTestCase(TestCase):
                 | test_create_with_ext - Test for create with external.
                 | test_wrong_parameter_center - Test for wrong center param.
                 | test_empty_parameter_center - Test for empty center param.
+                | test_str - Test string representation.
     '''
 
     def setUp(self) -> None:
@@ -69,8 +71,8 @@ class ATSSplashTestCase(TestCase):
 
     def test_splash_with_none_property(self) -> None:
         '''Test splash with None'''
-        with self.assertRaises(ATSTypeError):
-            Splasher(None)  # type: ignore
+        splash: Splasher = Splasher(None)  # type: ignore
+        self.assertFalse(splash.is_initialized())
 
     @mock.patch('sys.stdout')
     @mock.patch('builtins.print')
@@ -141,6 +143,37 @@ class ATSSplashTestCase(TestCase):
         splash: Splasher = Splasher(bundle)
         with self.assertRaises(ATSValueError):
             splash.center(SplashCenterBundle(columns=120, additional_shifter=20, text=''))
+
+    @mock.patch('sys.stdout')
+    @mock.patch('builtins.print')
+    @mock.patch('ats_utilities.splasher.engine.sleep')
+    def test_str(self, mock_sleep, mock_print, mock_stdout) -> None:
+        '''Test string representation of Splasher and ProgressBar.'''
+        bundle = SplashComponentBundle(
+            prop={
+                SplashKeys.ATS_ORGANIZATION: 'App Example',
+                SplashKeys.ATS_REPOSITORY: 'app_example',
+                SplashKeys.ATS_NAME: 'appexample',
+                SplashKeys.ATS_LOGO_PATH: f'{dirname(__file__)}/config/app.logo',
+                SplashKeys.ATS_USE_GITHUB_INFRASTRUCTURE: False
+            }
+        )
+        splash: Splasher = Splasher(bundle)
+        self.assertIsInstance(str(splash), str)
+        pb = ProgressBar(50)
+        self.assertIsInstance(str(pb), str)
+
+    def test_progress_bar_bounds(self) -> None:
+        '''Test progress bar set_level under start and over end.'''
+        pb = ProgressBar(end=90, start=10)
+        
+        # Test setting level below start
+        pb.set_level(5)
+        self.assertEqual(pb._level, 10)
+        
+        # Test setting level above end
+        pb.set_level(100)
+        self.assertEqual(pb._level, 90)
 
 
 if __name__ == '__main__':

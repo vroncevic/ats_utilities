@@ -77,6 +77,7 @@ class TemplateDirTestCase(TestCase):
                 | test_set_dir_none - Sets None template dir.
                 | test_set_dir - Sets simple template dir.
                 | test_get_dir - Gets simple template dir.
+                | test_str - Test string representation of TemplateDir.
     '''
 
     def setUp(self) -> None:
@@ -118,6 +119,17 @@ class TemplateDirTestCase(TestCase):
         test_dir: str | None = "/opt"
         self.ats_base_template_dir.template_dir = test_dir
         self.assertIsNotNone(self.ats_base_template_dir.template_dir)
+
+    def test_str(self) -> None:
+        '''Test string representation of TemplateDir.'''
+        self.assertIsInstance(str(self.ats_base_template_dir), str)
+
+    def test_not_none_method(self) -> None:
+        '''Test not_none method.'''
+        self.ats_base_template_dir.template_dir = None
+        self.assertFalse(self.ats_base_template_dir.not_none())
+        self.ats_base_template_dir.template_dir = '/opt'
+        self.assertTrue(self.ats_base_template_dir.not_none())
 
 
 if __name__ == '__main__':

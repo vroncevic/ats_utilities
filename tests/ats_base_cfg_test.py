@@ -67,6 +67,7 @@ class CfgBaseTestCase(TestCase):
                 | test_not_none - Test is ATSBaseCfg not None.
                 | test_load_configuration - Test loading configuration.
                 | test_none_config_path_returns_empty_dict - Test for None as file path.
+                | test_str - Test string representation of CFGLoader.
     '''
 
     def setUp(self) -> None:
@@ -91,6 +92,10 @@ class CfgBaseTestCase(TestCase):
         '''Test for None as file path.'''
         loader = CFGLoader(None)
         self.assertEqual(loader.load_configuration(), {})
+
+    def test_str(self) -> None:
+        '''Test string representation of CFGLoader.'''
+        self.assertIsInstance(str(self.ats_base_cfg), str)
 
 
 class CfgBaseUnitTestCase(TestCase):

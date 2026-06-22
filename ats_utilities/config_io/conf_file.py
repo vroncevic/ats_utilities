@@ -91,9 +91,7 @@ class ConfFile(IConfFile):
         config_bundle: ATSConfigFileBundle = config_file_bundle or ATSConfigFileBundle()
         factory_context_bundle(self, config_bundle.context)
         shared_bundle: ContextBundle = ContextBundle(
-            checker=get_private_attr(self, 'checker'),
-            reporter=get_private_attr(self, 'reporter'),
-            verbose=get_private_attr(self, 'verbose')
+            checker=self._checker, reporter=self._reporter, verbose=self._verbose
         )
         file_checker: IFileCheck = make_component(config_bundle.file_checker, FileCheck, {'config_bundle': shared_bundle})
         validate_component(file_checker, type(file_checker), type(file_checker).__name__)

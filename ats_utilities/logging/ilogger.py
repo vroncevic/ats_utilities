@@ -145,7 +145,7 @@ class ILogger(ABC):
         raise NotImplementedError("Method write_log() must be implemented.")
 
     @abstractmethod
-    def ok(self) -> bool:
+    def is_initialized(self) -> bool:
         '''
             Checks if logger component is ok.
 
