@@ -228,8 +228,6 @@ class InfoComponentsTestCase(TestCase):
         '''
             Tests build date component.
 
-            :return: None.
-            :rtype: <None>
             :exceptions: None.
         '''
         component = BuildDate()
@@ -244,8 +242,6 @@ class InfoComponentsTestCase(TestCase):
         '''
             Tests licence component.
 
-            :return: None.
-            :rtype: <None>
             :exceptions: None.
         '''
         component = Licence()
@@ -260,8 +256,6 @@ class InfoComponentsTestCase(TestCase):
         '''
             Tests logo component.
 
-            :return: None.
-            :rtype: <None>
             :exceptions: None.
         '''
         component = Logo()
@@ -276,8 +270,6 @@ class InfoComponentsTestCase(TestCase):
         '''
             Tests name component.
 
-            :return: None.
-            :rtype: <None>
             :exceptions: None.
         '''
         component = Name()
@@ -292,8 +284,6 @@ class InfoComponentsTestCase(TestCase):
         '''
             Tests organization component.
 
-            :return: None.
-            :rtype: <None>
             :exceptions: None.
         '''
         component = Organization()
@@ -308,8 +298,6 @@ class InfoComponentsTestCase(TestCase):
         '''
             Tests repository component.
 
-            :return: None.
-            :rtype: <None>
             :exceptions: None.
         '''
         component = Repository()
@@ -324,8 +312,6 @@ class InfoComponentsTestCase(TestCase):
         '''
             Tests use GitHub component.
 
-            :return: None.
-            :rtype: <None>
             :exceptions: None.
         '''
         component = UseGitHub()
@@ -340,8 +326,6 @@ class InfoComponentsTestCase(TestCase):
         '''
             Tests version component.
 
-            :return: None.
-            :rtype: <None>
             :exceptions: None.
         '''
         component = Version()
@@ -356,8 +340,6 @@ class InfoComponentsTestCase(TestCase):
         '''
             Tests info ok component.
 
-            :return: None.
-            :rtype: <None>
             :exceptions: None.
         '''
         component = InfoOk()

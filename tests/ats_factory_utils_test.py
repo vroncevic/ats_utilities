@@ -23,7 +23,7 @@ Execute
 '''
 
 from unittest import TestCase, main
-from ats_utilities.factory_utils import cherry_pick_dict, has_required_keys, require_keys
+from ats_utilities.factory_utils import cherry_pick_dict, has_required_keys, require_keys, check_file_exists
 from ats_utilities.exceptions.ats_type_error import ATSTypeError
 from ats_utilities.exceptions.ats_value_error import ATSValueError
 
@@ -56,14 +56,15 @@ class ATSFactoryUtilsTestCase(TestCase):
                 | test_require_keys_missing_keys - Test require_keys raising ATSValueError.
                 | test_require_keys_invalid_source - Test require_keys raising ATSTypeError for source.
                 | test_require_keys_invalid_keys - Test require_keys raising ATSTypeError for keys.
+                | test_check_file_exists_success - Test check_file_exists with existing file.
+                | test_check_file_exists_failure - Test check_file_exists with non-existing file.
+                | test_check_file_exists_invalid_type - Test check_file_exists with invalid type parameter.
     '''
 
     def test_cherry_pick_dict_success(self) -> None:
         '''
             Test cherry_pick_dict with valid inputs.
 
-            :return: None.
-            :rtype: <None>
             :exceptions: None.
         '''
         source = {'a': 1, 'b': 2, 'c': 3}
@@ -75,8 +76,6 @@ class ATSFactoryUtilsTestCase(TestCase):
         '''
             Test cherry_pick_dict with empty/None source.
 
-            :return: None.
-            :rtype: <None>
             :exceptions: None.
         '''
         keys = frozenset(['a'])
@@ -87,8 +86,6 @@ class ATSFactoryUtilsTestCase(TestCase):
         '''
             Test cherry_pick_dict with empty/None keys.
 
-            :return: None.
-            :rtype: <None>
             :exceptions: None.
         '''
         source = {'a': 1}
@@ -98,8 +95,6 @@ class ATSFactoryUtilsTestCase(TestCase):
         '''
             Test has_required_keys returning True.
 
-            :return: None.
-            :rtype: <None>
             :exceptions: None.
         '''
         source = {'a': 1, 'b': 2}
@@ -110,8 +105,6 @@ class ATSFactoryUtilsTestCase(TestCase):
         '''
             Test has_required_keys returning False.
 
-            :return: None.
-            :rtype: <None>
             :exceptions: None.
         '''
         source = {'a': 1, 'b': 2}
@@ -122,8 +115,6 @@ class ATSFactoryUtilsTestCase(TestCase):
         '''
             Test require_keys validation success.
 
-            :return: None.
-            :rtype: <None>
             :exceptions: None.
         '''
         source = {'a': 1, 'b': 2}
@@ -134,8 +125,6 @@ class ATSFactoryUtilsTestCase(TestCase):
         '''
             Test require_keys raising ATSValueError.
 
-            :return: None.
-            :rtype: <None>
             :exceptions: None.
         '''
         source = {'a': 1}
@@ -147,8 +136,6 @@ class ATSFactoryUtilsTestCase(TestCase):
         '''
             Test require_keys raising ATSTypeError for source.
 
-            :return: None.
-            :rtype: <None>
             :exceptions: None.
         '''
         keys = frozenset(['a'])
@@ -159,13 +146,37 @@ class ATSFactoryUtilsTestCase(TestCase):
         '''
             Test require_keys raising ATSTypeError for keys.
 
-            :return: None.
-            :rtype: <None>
             :exceptions: None.
         '''
         source = {'a': 1}
         with self.assertRaises(ATSTypeError):
             require_keys(source, ['a'])  # type: ignore
+
+    def test_check_file_exists_success(self) -> None:
+        '''
+            Test check_file_exists with existing file.
+
+            :exceptions: None.
+        '''
+        check_file_exists(__file__)
+
+    def test_check_file_exists_failure(self) -> None:
+        '''
+            Test check_file_exists with non-existing file.
+
+            :exceptions: None.
+        '''
+        with self.assertRaises(ATSValueError):
+            check_file_exists("non_existing_file_path_12345.txt")
+
+    def test_check_file_exists_invalid_type(self) -> None:
+        '''
+            Test check_file_exists with invalid type parameter.
+
+            :exceptions: None.
+        '''
+        with self.assertRaises(ATSTypeError):
+            check_file_exists(123)  # type: ignore
 
 
 if __name__ == '__main__':

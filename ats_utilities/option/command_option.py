@@ -20,6 +20,8 @@ Info
 '''
 
 from typing import Any
+from dataclasses import dataclass
+from ats_utilities.exceptions.ats_value_error import ATSValueError
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -31,6 +33,7 @@ __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
 
 
+@dataclass
 class CommandOption:
     '''
         Defines class CommandOption with attribute(s) and method(s).
@@ -43,34 +46,62 @@ class CommandOption:
                 | default - Default value (default None).
                 | required - Is this option required (default False).
                 | choices - List of possible choices (default None).
-            :methods: None
+            :methods:
+                | validate - Validates that essential components are set.
+                | merge - Merges non-None values from another CommandOption into this one.
+                | to_dict - Converts the CommandOption attributes to a dictionary.
     '''
 
-    def __init__(
-        self,
-        name: str,
-        help_text: str,
-        default: Any = None,
-        required: bool = False,
-        choices: list[Any] | None = None
-    ) -> None:
-        '''
-            Initializes CommandOption constructor.
+    name: str
+    help_text: str
+    default: Any = None
+    required: bool = False
+    choices: list[Any] | None = None
 
-            :param name: Name of the option.
-            :type name: <str>
-            :param help_text: Help description.
-            :type help_text: <str>
-            :param default: Default value.
-            :type default: <Any>
-            :param required: Is this option required.
-            :type required: <bool>
-            :param choices: List of possible choices.
-            :type choices: <list[Any] | None>
+    def validate(self) -> None:
+        '''
+            Validates that essential components are set.
+
+            :exceptions: ATSValueError
+        '''
+        if self.name is None:
+            raise ATSValueError("Name is required.")
+
+        if self.help_text is None:
+            raise ATSValueError("Help text is required.")
+
+        if self.default is None:
+            raise ATSValueError("Default is required.")
+
+        if self.required is None:
+            raise ATSValueError("Required is required.")
+
+        if self.choices is None:
+            raise ATSValueError("Choices is required.")
+
+    def merge(self, other: 'CommandOption') -> None:
+        '''
+            Merges non-None values from another CommandOption into this one.
+
+            :param other: Another CommandOption to merge into this one.
+            :type other: <CommandOption>
             :exceptions: None.
         '''
-        self.name: str = name
-        self.help_text: str = help_text
-        self.default: Any = default
-        self.required: bool = required
-        self.choices: list[Any] | None = choices
+        for field_name in self.__dataclass_fields__:
+            other_value = getattr(other, field_name)
+            if other_value is not None:
+                setattr(self, field_name, other_value)
+
+    def to_dict(self) -> dict:
+        '''
+            Converts the CommandOption attributes to a dictionary.
+
+            :return: Dictionary representation of the CommandOption attributes.
+            :rtype: <dict>
+            :exceptions: None.
+        '''
+        return {
+            name: value
+            for name, value in self.__dict__.items()
+            if not name.startswith('_')
+        }

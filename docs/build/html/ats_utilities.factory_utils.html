@@ -62,6 +62,20 @@ with this program. If not, see &lt;<a class="reference external" href="http://ww
 </dd>
 </dl>
 <dl class="py function">
+<dt class="sig sig-object py" id="ats_utilities.factory_utils.check_file_exists">
+<span class="sig-prename descclassname"><span class="pre">ats_utilities.factory_utils.</span></span><span class="sig-name descname"><span class="pre">check_file_exists</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/ats_utilities/factory_utils.html#check_file_exists"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.factory_utils.check_file_exists" title="Link to this definition">¶</a></dt>
+<dd><p>Checks if a file exists.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>file_path</strong> (<em>&lt;str&gt;</em>) – Path to the file.</p>
+</dd>
+<dt class="field-even">Exceptions<span class="colon">:</span></dt>
+<dd class="field-even"><p>ATSTypeError, ATSValueError.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
 <dt class="sig sig-object py" id="ats_utilities.factory_utils.cherry_pick_dict">
 <span class="sig-prename descclassname"><span class="pre">ats_utilities.factory_utils.</span></span><span class="sig-name descname"><span class="pre">cherry_pick_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">source</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keys</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">frozenset</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/ats_utilities/factory_utils.html#cherry_pick_dict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.factory_utils.cherry_pick_dict" title="Link to this definition">¶</a></dt>
 <dd><p>Cherry picks keys from a source dictionary.</p>
@@ -137,6 +151,7 @@ with this program. If not, see &lt;<a class="reference external" href="http://ww
     <h3><a href="index.html">Table of Contents</a></h3>
     <ul>
 <li><a class="reference internal" href="#">ats_utilities.factory_utils module</a><ul>
+<li><a class="reference internal" href="#ats_utilities.factory_utils.check_file_exists"><code class="docutils literal notranslate"><span class="pre">check_file_exists()</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.factory_utils.cherry_pick_dict"><code class="docutils literal notranslate"><span class="pre">cherry_pick_dict()</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.factory_utils.has_required_keys"><code class="docutils literal notranslate"><span class="pre">has_required_keys()</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.factory_utils.require_keys"><code class="docutils literal notranslate"><span class="pre">require_keys()</span></code></a></li>

@@ -58,6 +58,8 @@
 <span class="sd">&#39;&#39;&#39;</span>
 
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span>
+<span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.exceptions.ats_value_error</span> <span class="kn">import</span> <span class="n">ATSValueError</span>
 
 <span class="n">__author__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;Vladimir Roncevic&#39;</span>
 <span class="n">__copyright__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;(C) 2026, https://vroncevic.github.io/ats_utilities&#39;</span>
@@ -71,6 +73,7 @@
 
 <div class="viewcode-block" id="CommandOption">
 <a class="viewcode-back" href="../../../ats_utilities.option.command_option.html#ats_utilities.option.command_option.CommandOption">[docs]</a>
+<span class="nd">@dataclass</span>
 <span class="k">class</span> <span class="nc">CommandOption</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Defines class CommandOption with attribute(s) and method(s).</span>
@@ -83,37 +86,74 @@
 <span class="sd">                | default - Default value (default None).</span>
 <span class="sd">                | required - Is this option required (default False).</span>
 <span class="sd">                | choices - List of possible choices (default None).</span>
-<span class="sd">            :methods: None</span>
+<span class="sd">            :methods:</span>
+<span class="sd">                | validate - Validates that essential components are set.</span>
+<span class="sd">                | merge - Merges non-None values from another CommandOption into this one.</span>
+<span class="sd">                | to_dict - Converts the CommandOption attributes to a dictionary.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span>
-        <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
-        <span class="n">help_text</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
-        <span class="n">default</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-        <span class="n">required</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
-        <span class="n">choices</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">Any</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">            Initializes CommandOption constructor.</span>
+    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">help_text</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">default</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">required</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="n">choices</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">Any</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
 
-<span class="sd">            :param name: Name of the option.</span>
-<span class="sd">            :type name: &lt;str&gt;</span>
-<span class="sd">            :param help_text: Help description.</span>
-<span class="sd">            :type help_text: &lt;str&gt;</span>
-<span class="sd">            :param default: Default value.</span>
-<span class="sd">            :type default: &lt;Any&gt;</span>
-<span class="sd">            :param required: Is this option required.</span>
-<span class="sd">            :type required: &lt;bool&gt;</span>
-<span class="sd">            :param choices: List of possible choices.</span>
-<span class="sd">            :type choices: &lt;list[Any] | None&gt;</span>
+<div class="viewcode-block" id="CommandOption.validate">
+<a class="viewcode-back" href="../../../ats_utilities.option.command_option.html#ats_utilities.option.command_option.CommandOption.validate">[docs]</a>
+    <span class="k">def</span> <span class="nf">validate</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">            Validates that essential components are set.</span>
+
+<span class="sd">            :exceptions: ATSValueError</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">ATSValueError</span><span class="p">(</span><span class="s2">&quot;Name is required.&quot;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">help_text</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">ATSValueError</span><span class="p">(</span><span class="s2">&quot;Help text is required.&quot;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">default</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">ATSValueError</span><span class="p">(</span><span class="s2">&quot;Default is required.&quot;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">required</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">ATSValueError</span><span class="p">(</span><span class="s2">&quot;Required is required.&quot;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">choices</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">ATSValueError</span><span class="p">(</span><span class="s2">&quot;Choices is required.&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="CommandOption.merge">
+<a class="viewcode-back" href="../../../ats_utilities.option.command_option.html#ats_utilities.option.command_option.CommandOption.merge">[docs]</a>
+    <span class="k">def</span> <span class="nf">merge</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="s1">&#39;CommandOption&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">            Merges non-None values from another CommandOption into this one.</span>
+
+<span class="sd">            :param other: Another CommandOption to merge into this one.</span>
+<span class="sd">            :type other: &lt;CommandOption&gt;</span>
 <span class="sd">            :exceptions: None.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">name</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">help_text</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">help_text</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">default</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="n">default</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">required</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="n">required</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">choices</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">Any</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">choices</span></div>
+        <span class="k">for</span> <span class="n">field_name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">__dataclass_fields__</span><span class="p">:</span>
+            <span class="n">other_value</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">field_name</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">other_value</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">field_name</span><span class="p">,</span> <span class="n">other_value</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="CommandOption.to_dict">
+<a class="viewcode-back" href="../../../ats_utilities.option.command_option.html#ats_utilities.option.command_option.CommandOption.to_dict">[docs]</a>
+    <span class="k">def</span> <span class="nf">to_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">            Converts the CommandOption attributes to a dictionary.</span>
+
+<span class="sd">            :return: Dictionary representation of the CommandOption attributes.</span>
+<span class="sd">            :rtype: &lt;dict&gt;</span>
+<span class="sd">            :exceptions: None.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="n">name</span><span class="p">:</span> <span class="n">value</span>
+            <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">name</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;_&#39;</span><span class="p">)</span>
+        <span class="p">}</span></div>
+</div>
 
 </pre></div>
 

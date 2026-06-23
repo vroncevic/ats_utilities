@@ -116,7 +116,7 @@ class Object2Ini(IWrite):
             :type config: <IINIProcessor | None>
             :return: True (success) | False (fail).
             :rtype: <bool>
-            :exceptions: ATSTypeError, ATSValueError, ATSRuntimeError, ATSAttributeError..
+            :exceptions: ATSTypeError, ATSValueError, ATSRuntimeError, ATSAttributeError.
         '''
         status: bool = False
 

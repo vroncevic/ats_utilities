@@ -44,6 +44,7 @@ from ats_utilities.exceptions.ats_attribute_error import ATSAttributeError
 from ats_utilities.factory_context_bundle import factory_context_bundle
 from ats_utilities.factory_class import get_class_name, format_instance_to_string
 from ats_utilities.factory_component import make_component, validate_component
+from ats_utilities.factory_utils import check_file_exists
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -104,6 +105,7 @@ class Splasher(ISplasher):
                 splash_center_bundle: SplashCenterBundle = SplashCenterBundle()
 
                 if bool(bundle.prop[SplashKeys.ATS_USE_GITHUB_INFRASTRUCTURE]):
+                    check_file_exists(bundle.prop[SplashKeys.ATS_LOGO_PATH])
                     print("\n")
 
                     with open(bundle.prop[SplashKeys.ATS_LOGO_PATH], 'r', encoding='utf-8') as scr:
@@ -151,7 +153,7 @@ class Splasher(ISplasher):
                 self._is_initialized = True
 
         except (ATSTypeError, ATSValueError, ATSRuntimeError, ATSAttributeError) as exc:
-            self._reporter.error([f"{get_class_name(self)} - error during initialization: {exc}"])
+            self._reporter.error([f'{get_class_name(self)} {exc}'])
 
     def center(self, splash_center_bundle: SplashCenterBundle | None = None) -> None:
         '''

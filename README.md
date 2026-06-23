@@ -390,7 +390,7 @@ These modules requires other modules and libraries (Python 3.x)
 | `ats_utilities/factory_class.py` | 66 | 0 | 100%|
 | `ats_utilities/factory_component.py` | 13 | 0 | 100%|
 | `ats_utilities/factory_context_bundle.py` | 23 | 0 | 100%|
-| `ats_utilities/factory_utils.py` | 25 | 0 | 100%|
+| `ats_utilities/factory_utils.py` | 31 | 0 | 100%|
 | `ats_utilities/info/__init__.py` | 8 | 0 | 100%|
 | `ats_utilities/info/build_date.py` | 37 | 0 | 100%|
 | `ats_utilities/info/component_bundle.py` | 58 | 0 | 100%|
@@ -416,32 +416,32 @@ These modules requires other modules and libraries (Python 3.x)
 | `ats_utilities/info/version.py` | 37 | 0 | 100%|
 | `ats_utilities/logging/__init__.py` | 8 | 0 | 100%|
 | `ats_utilities/logging/component_bundle.py` | 32 | 0 | 100%|
-| `ats_utilities/logging/engine.py` | 52 | 0 | 100%|
+| `ats_utilities/logging/engine.py` | 54 | 0 | 100%|
 | `ats_utilities/logging/ilogger.py` | 23 | 0 | 100%|
 | `ats_utilities/logging/ilogger_manager.py` | 11 | 0 | 100%|
 | `ats_utilities/logging/logger.py` | 59 | 0 | 100%|
 | `ats_utilities/logging/logger_bundle.py` | 23 | 0 | 100%|
 | `ats_utilities/option/__init__.py` | 8 | 0 | 100%|
 | `ats_utilities/option/arg_parser.py` | 32 | 0 | 100%|
-| `ats_utilities/option/command_option.py` | 16 | 0 | 100%|
+| `ats_utilities/option/command_option.py` | 36 | 0 | 100%|
 | `ats_utilities/option/component_bundle.py` | 31 | 0 | 100%|
 | `ats_utilities/option/engine.py` | 67 | 0 | 100%|
 | `ats_utilities/option/ioption_command.py` | 11 | 0 | 100%|
 | `ats_utilities/option/ioption_parser.py` | 14 | 0 | 100%|
 | `ats_utilities/option/iparser_strategy.py` | 14 | 0 | 100%|
 | `ats_utilities/option/option_namespace.py` | 14 | 0 | 100%|
-| `ats_utilities/option/parser_strategy.py` | 81 | 0 | 100%|
+| `ats_utilities/option/parser_strategy.py` | 77 | 0 | 100%|
 | `ats_utilities/reporter/__init__.py` | 8 | 0 | 100%|
 | `ats_utilities/reporter/component_bundle.py` | 28 | 0 | 100%|
 | `ats_utilities/reporter/engine.py` | 54 | 0 | 100%|
 | `ats_utilities/reporter/ireporter.py` | 11 | 0 | 100%|
 | `ats_utilities/reporter/proxy_reporter.py` | 55 | 0 | 100%|
 | `ats_utilities/reporter/theme/__init__.py` | 8 | 0 | 100%|
-| `ats_utilities/reporter/theme/engine.py` | 18 | 0 | 100%|
+| `ats_utilities/reporter/theme/engine.py` | 19 | 0 | 100%|
 | `ats_utilities/reporter/theme/iconsole_theme.py` | 10 | 0 | 100%|
 | `ats_utilities/splasher/__init__.py` | 8 | 0 | 100%|
 | `ats_utilities/splasher/component_bundle.py` | 46 | 0 | 100%|
-| `ats_utilities/splasher/engine.py` | 102 | 0 | 100%|
+| `ats_utilities/splasher/engine.py` | 104 | 0 | 100%|
 | `ats_utilities/splasher/ext_infrastructure.py` | 54 | 0 | 100%|
 | `ats_utilities/splasher/github_infrastructure.py` | 61 | 0 | 100%|
 | `ats_utilities/splasher/iext_infrastructure.py` | 11 | 0 | 100%|
@@ -454,7 +454,7 @@ These modules requires other modules and libraries (Python 3.x)
 | `ats_utilities/splasher/splash_keys.py` | 17 | 0 | 100%|
 | `ats_utilities/splasher/splash_property.py` | 43 | 0 | 100%|
 | `ats_utilities/splasher/terminal_properties.py` | 54 | 0 | 100%|
-| **Total** | 4343 | 0 | 100% |
+| **Total** | 4370 | 0 | 100% |
 
 </details>
 

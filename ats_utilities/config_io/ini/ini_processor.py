@@ -68,8 +68,6 @@ class INIProcessor(IINIProcessor):
         '''
             Initializes INIProcessor constructor.
 
-            :return: None.
-            :rtype: <None>
             :exceptions: None..
         '''
         self._config = ConfigParser()

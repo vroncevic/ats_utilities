@@ -82,6 +82,7 @@
 <span class="kn">from</span> <span class="nn">ats_utilities.factory_context_bundle</span> <span class="kn">import</span> <span class="n">factory_context_bundle</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.factory_class</span> <span class="kn">import</span> <span class="n">get_class_name</span><span class="p">,</span> <span class="n">format_instance_to_string</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.factory_component</span> <span class="kn">import</span> <span class="n">make_component</span><span class="p">,</span> <span class="n">validate_component</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.factory_utils</span> <span class="kn">import</span> <span class="n">check_file_exists</span>
 
 <span class="n">__author__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;Vladimir Roncevic&#39;</span>
 <span class="n">__copyright__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;(C) 2026, https://vroncevic.github.io/ats_utilities&#39;</span>
@@ -144,6 +145,7 @@
                 <span class="n">splash_center_bundle</span><span class="p">:</span> <span class="n">SplashCenterBundle</span> <span class="o">=</span> <span class="n">SplashCenterBundle</span><span class="p">()</span>
 
                 <span class="k">if</span> <span class="nb">bool</span><span class="p">(</span><span class="n">bundle</span><span class="o">.</span><span class="n">prop</span><span class="p">[</span><span class="n">SplashKeys</span><span class="o">.</span><span class="n">ATS_USE_GITHUB_INFRASTRUCTURE</span><span class="p">]):</span>
+                    <span class="n">check_file_exists</span><span class="p">(</span><span class="n">bundle</span><span class="o">.</span><span class="n">prop</span><span class="p">[</span><span class="n">SplashKeys</span><span class="o">.</span><span class="n">ATS_LOGO_PATH</span><span class="p">])</span>
                     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
 
                     <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">bundle</span><span class="o">.</span><span class="n">prop</span><span class="p">[</span><span class="n">SplashKeys</span><span class="o">.</span><span class="n">ATS_LOGO_PATH</span><span class="p">],</span> <span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">scr</span><span class="p">:</span>
@@ -191,7 +193,7 @@
                 <span class="bp">self</span><span class="o">.</span><span class="n">_is_initialized</span> <span class="o">=</span> <span class="kc">True</span>
 
         <span class="k">except</span> <span class="p">(</span><span class="n">ATSTypeError</span><span class="p">,</span> <span class="n">ATSValueError</span><span class="p">,</span> <span class="n">ATSRuntimeError</span><span class="p">,</span> <span class="n">ATSAttributeError</span><span class="p">)</span> <span class="k">as</span> <span class="n">exc</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_reporter</span><span class="o">.</span><span class="n">error</span><span class="p">([</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">get_class_name</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="si">}</span><span class="s2"> - error during initialization: </span><span class="si">{</span><span class="n">exc</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">])</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_reporter</span><span class="o">.</span><span class="n">error</span><span class="p">([</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">get_class_name</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="si">}</span><span class="s1"> </span><span class="si">{</span><span class="n">exc</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">])</span>
 
 <div class="viewcode-block" id="Splasher.center">
 <a class="viewcode-back" href="../../../ats_utilities.splasher.engine.html#ats_utilities.splasher.engine.Splasher.center">[docs]</a>

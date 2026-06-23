@@ -26,8 +26,6 @@ from unittest import TestCase, main
 from unittest.mock import MagicMock
 from os.path import dirname
 from ats_utilities.config_io.cfg.cfg_loader import CFGLoader
-from ats_utilities.config_io.iread import IRead
-from ats_utilities.config_io.cfg.icfg_processor import ICFGProcessor
 from ats_utilities.config_io.cfg.cfg2object import Cfg2Object
 from ats_utilities.config_io.cfg.cfg_processor import CFGProcessor
 

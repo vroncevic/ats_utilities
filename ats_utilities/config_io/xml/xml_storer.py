@@ -110,7 +110,7 @@ class XMLStorer(IStorer):
             :type config: <dict[str, str]>
             :return: True (success) | False (fail).
             :rtype: <bool>
-            :exceptions: ATSTypeError, ATSValueError, ATSRuntimeError, ATSAttributeError..
+            :exceptions: ATSTypeError, ATSValueError, ATSRuntimeError, ATSAttributeError.
         '''
         try:
             root = Element('configuration')

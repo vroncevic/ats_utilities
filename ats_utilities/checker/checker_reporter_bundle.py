@@ -64,8 +64,6 @@ class CheckerReporterBundle:
         '''
             Validates that essential components are set.
 
-            :return: None.
-            :rtype: <None>
             :exceptions: ValueError
         '''
         if self.context is None:
@@ -79,8 +77,6 @@ class CheckerReporterBundle:
 
             :param other: Another bundle to merge into this one.
             :type other: <CheckerReporterBundle>
-            :return: None.
-            :rtype: <None>
             :exceptions: None..
         '''
         for field_name in self.__dataclass_fields__:

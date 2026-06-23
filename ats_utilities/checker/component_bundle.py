@@ -64,8 +64,6 @@ class CheckerComponentBundle:
         '''
             Validates that essential components are set.
 
-            :return: None.
-            :rtype: <None>
             :exceptions: ValueError
         '''
         pass
@@ -76,8 +74,6 @@ class CheckerComponentBundle:
 
             :param other: Another bundle to merge into this one.
             :type other: <CheckerComponentBundle>
-            :return: None.
-            :rtype: <None>
             :exceptions: None..
         '''
         for field_name in self.__dataclass_fields__:

@@ -54,8 +54,6 @@ class JSONProcessor(IJSONProcessor):
         '''
             Initializes JSONProcessor constructor.
 
-            :return: None.
-            :rtype: <None>
             :exceptions: None..
         '''
         self._data: dict[str, str] = {}

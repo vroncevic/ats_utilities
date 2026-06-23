@@ -20,6 +20,7 @@ Info
 '''
 
 from typing import Any
+from os.path import exists
 from ats_utilities.exceptions.ats_type_error import ATSTypeError
 from ats_utilities.exceptions.ats_value_error import ATSValueError
 
@@ -83,3 +84,17 @@ def require_keys(source: dict[Any, Any] | None, keys: frozenset[str]) -> None:
 
     if missing_keys:
         raise ATSValueError(f'Missing required keys {missing_keys}')
+
+def check_file_exists(file_path: str) -> None:
+    '''
+        Checks if a file exists.
+
+        :param file_path: Path to the file.
+        :type file_path: <str>
+        :exceptions: ATSTypeError, ATSValueError.
+    '''
+    if not isinstance(file_path, str):
+        raise ATSTypeError(f"expected str for 'file_path', got {type(file_path).__name__}")
+
+    if not exists(file_path):
+        raise ATSValueError(f"file at the provided path does not exist: {file_path}")

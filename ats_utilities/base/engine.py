@@ -155,12 +155,12 @@ class Base(IBase):
             )
             validate_component(self._logger_manager, LoggerManager)
 
-            self._is_initialized = all(
-                component.is_initialized() for component in [self._info_manager, self._options_parser, self._logger_manager]
-            )
+            self._is_initialized = all(component.is_initialized() for component in [
+                self._info_manager, self._splasher, self._options_parser, self._logger_manager
+            ])
 
         except (ATSTypeError, ATSValueError, ATSRuntimeError, ATSAttributeError) as exc:
-            self._reporter.error([f"{get_class_name(self)} - error during initialization: {exc}"])
+            self._reporter.error([f'{get_class_name(self)} {exc}'])
 
     def is_initialized(self) -> bool:
         '''

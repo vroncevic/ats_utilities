@@ -26,8 +26,6 @@ from unittest import TestCase, main
 from unittest.mock import MagicMock
 from os.path import dirname
 from ats_utilities.config_io.xml.xml_loader import XMLLoader
-from ats_utilities.config_io.iread import IRead
-from ats_utilities.config_io.xml.ixml_processor import IXMLProcessor
 from ats_utilities.config_io.xml.xml2object import Xml2Object
 from ats_utilities.config_io.xml.xml_processor import XMLProcessor
 

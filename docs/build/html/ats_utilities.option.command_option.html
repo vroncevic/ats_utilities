@@ -84,10 +84,81 @@ with this program. If not, see &lt;<a class="reference external" href="http://ww
 </div>
 </dd>
 <dt class="field-even">methods<span class="colon">:</span></dt>
-<dd class="field-even"><p>None</p>
+<dd class="field-even"><div class="line-block">
+<div class="line">validate - Validates that essential components are set.</div>
+<div class="line">merge - Merges non-None values from another CommandOption into this one.</div>
+<div class="line">to_dict - Converts the CommandOption attributes to a dictionary.</div>
+</div>
 </dd>
 </dl>
 </div></blockquote>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ats_utilities.option.command_option.CommandOption.choices">
+<span class="sig-name descname"><span class="pre">choices</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#ats_utilities.option.command_option.CommandOption.choices" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ats_utilities.option.command_option.CommandOption.default">
+<span class="sig-name descname"><span class="pre">default</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Any</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#ats_utilities.option.command_option.CommandOption.default" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ats_utilities.option.command_option.CommandOption.help_text">
+<span class="sig-name descname"><span class="pre">help_text</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#ats_utilities.option.command_option.CommandOption.help_text" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ats_utilities.option.command_option.CommandOption.merge">
+<span class="sig-name descname"><span class="pre">merge</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#ats_utilities.option.command_option.CommandOption" title="ats_utilities.option.command_option.CommandOption"><span class="pre">CommandOption</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/ats_utilities/option/command_option.html#CommandOption.merge"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.option.command_option.CommandOption.merge" title="Link to this definition">¶</a></dt>
+<dd><p>Merges non-None values from another CommandOption into this one.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>other</strong> (<em>&lt;CommandOption&gt;</em>) – Another CommandOption to merge into this one.</p>
+</dd>
+<dt class="field-even">Exceptions<span class="colon">:</span></dt>
+<dd class="field-even"><p>None.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ats_utilities.option.command_option.CommandOption.name">
+<span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#ats_utilities.option.command_option.CommandOption.name" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ats_utilities.option.command_option.CommandOption.required">
+<span class="sig-name descname"><span class="pre">required</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></em><a class="headerlink" href="#ats_utilities.option.command_option.CommandOption.required" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ats_utilities.option.command_option.CommandOption.to_dict">
+<span class="sig-name descname"><span class="pre">to_dict</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="reference internal" href="_modules/ats_utilities/option/command_option.html#CommandOption.to_dict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.option.command_option.CommandOption.to_dict" title="Link to this definition">¶</a></dt>
+<dd><p>Converts the CommandOption attributes to a dictionary.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Dictionary representation of the CommandOption attributes.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>&lt;dict&gt;</p>
+</dd>
+<dt class="field-odd">Exceptions<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ats_utilities.option.command_option.CommandOption.validate">
+<span class="sig-name descname"><span class="pre">validate</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/ats_utilities/option/command_option.html#CommandOption.validate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.option.command_option.CommandOption.validate" title="Link to this definition">¶</a></dt>
+<dd><p>Validates that essential components are set.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Exceptions<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ATSValueError</p>
+</dd>
+</dl>
+</dd></dl>
+
 </dd></dl>
 
 </section>
@@ -103,7 +174,17 @@ with this program. If not, see &lt;<a class="reference external" href="http://ww
     <h3><a href="index.html">Table of Contents</a></h3>
     <ul>
 <li><a class="reference internal" href="#">ats_utilities.option.command_option module</a><ul>
-<li><a class="reference internal" href="#ats_utilities.option.command_option.CommandOption"><code class="docutils literal notranslate"><span class="pre">CommandOption</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.option.command_option.CommandOption"><code class="docutils literal notranslate"><span class="pre">CommandOption</span></code></a><ul>
+<li><a class="reference internal" href="#ats_utilities.option.command_option.CommandOption.choices"><code class="docutils literal notranslate"><span class="pre">CommandOption.choices</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.option.command_option.CommandOption.default"><code class="docutils literal notranslate"><span class="pre">CommandOption.default</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.option.command_option.CommandOption.help_text"><code class="docutils literal notranslate"><span class="pre">CommandOption.help_text</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.option.command_option.CommandOption.merge"><code class="docutils literal notranslate"><span class="pre">CommandOption.merge()</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.option.command_option.CommandOption.name"><code class="docutils literal notranslate"><span class="pre">CommandOption.name</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.option.command_option.CommandOption.required"><code class="docutils literal notranslate"><span class="pre">CommandOption.required</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.option.command_option.CommandOption.to_dict"><code class="docutils literal notranslate"><span class="pre">CommandOption.to_dict()</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.option.command_option.CommandOption.validate"><code class="docutils literal notranslate"><span class="pre">CommandOption.validate()</span></code></a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>

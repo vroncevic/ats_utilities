@@ -98,4 +98,3 @@ class OptionComponentBundle:
             for name, value in self.__dict__.items()
             if not name.startswith('_')
         }
-

@@ -20,7 +20,7 @@ Info
     Implements a console theme for console styling.
 '''
 
-from ats_utilities.factory_class import format_instance_to_string
+from ats_utilities.factory_class import require_attributes, format_instance_to_string
 from ats_utilities.reporter.theme.iconsole_theme import IConsoleTheme
 
 __author__: str = 'Vladimir Roncevic'
@@ -67,6 +67,7 @@ class ConsoleTheme(IConsoleTheme):
         # No dependency injection then use default ones.
         self._palette: dict[str, str] = palette or self._default_palete_colors
 
+    @require_attributes('_palette')
     def get_color(self, color_type: str) -> str:
         '''
             Returns color code from palette.
@@ -75,7 +76,7 @@ class ConsoleTheme(IConsoleTheme):
             :type color_type: <str>
             :return: Color code in string format.
             :rtype: <str>
-            :exceptions: None.
+            :exceptions: ATSValueError.
         '''
         return self._palette.get(color_type, '')
 
