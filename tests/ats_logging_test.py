@@ -32,6 +32,7 @@ from ats_utilities.logging.component_bundle import LoggingComponentBundle
 from ats_utilities.logging.logger_bundle import LoggerBundle
 from ats_utilities.context_bundle import ContextBundle
 from ats_utilities.exceptions.ats_type_error import ATSTypeError
+from ats_utilities.exceptions.ats_value_error import ATSValueError
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -126,7 +127,8 @@ class ATSLoggingTestCase(TestCase):
         '''Test logger manager initialization failure'''
         mock_make_component.side_effect = ATSTypeError('Failed to initialize component')
         invalid_manager = LoggerManager()
-        self.assertFalse(invalid_manager.is_initialized())
+        with self.assertRaises(ATSValueError):
+            invalid_manager.is_initialized()
 
     def test_str(self) -> None:
         '''Test string representation of LoggerManager and ATSLogger.'''

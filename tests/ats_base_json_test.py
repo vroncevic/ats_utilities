@@ -26,8 +26,6 @@ from unittest import TestCase, main
 from unittest.mock import MagicMock
 from os.path import dirname
 from ats_utilities.config_io.json.json_loader import JSONLoader
-from ats_utilities.config_io.iread import IRead
-from ats_utilities.config_io.json.ijson_processor import IJSONProcessor
 from ats_utilities.config_io.json.json2object import Json2Object
 from ats_utilities.config_io.json.json_processor import JSONProcessor
 

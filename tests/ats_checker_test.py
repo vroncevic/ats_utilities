@@ -351,8 +351,6 @@ class ProxyValidatorTestCase(TestCase):
         '''
             Test validator on regular function.
 
-            :return: None.
-            :rtype: <None>
             :exceptions: None.
         '''
         @validator([('str:arg', None)])
@@ -366,8 +364,6 @@ class ProxyValidatorTestCase(TestCase):
         '''
             Test validator when class has no checker.
 
-            :return: None.
-            :rtype: <None>
             :exceptions: None.
         '''
         class DummyClass:
@@ -383,8 +379,6 @@ class ProxyValidatorTestCase(TestCase):
         '''
             Test validator type error.
 
-            :return: None.
-            :rtype: <None>
             :exceptions: None.
         '''
         class TestClass:
@@ -404,8 +398,6 @@ class ProxyValidatorTestCase(TestCase):
         '''
             Test validator format error via mocking.
 
-            :return: None.
-            :rtype: <None>
             :exceptions: None.
         '''
         class TestClass:
@@ -444,8 +436,6 @@ class TypeValidatorTestCase(TestCase):
         '''
             Test checking subtypes.
 
-            :return: None.
-            :rtype: <None>
             :exceptions: None.
         '''
         class A:
@@ -466,8 +456,6 @@ class TypeValidatorTestCase(TestCase):
         '''
             Test getting type names.
 
-            :return: None.
-            :rtype: <None>
             :exceptions: None.
         '''
         validator_inst = TypeValidator()
@@ -485,8 +473,6 @@ class TypeValidatorTestCase(TestCase):
         '''
             Test string representation.
 
-            :return: None.
-            :rtype: <None>
             :exceptions: None.
         '''
         validator_inst = TypeValidator()

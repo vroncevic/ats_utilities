@@ -72,8 +72,6 @@ class BaseComponentBundle:
         '''
             Validates that essential components are set.
 
-            :return: None.
-            :rtype: <None>
             :exceptions: ValueError
         '''
         if self.info_file is None:
@@ -85,8 +83,6 @@ class BaseComponentBundle:
 
             :param other: Another bundle to merge into this one.
             :type other: <BaseComponentBundle>
-            :return: None.
-            :rtype: <None>
             :exceptions: None..
         '''
         for field_name in self.__dataclass_fields__:

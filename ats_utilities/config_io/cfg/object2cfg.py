@@ -116,7 +116,7 @@ class Object2Cfg(IWrite):
             :type config: <ICFGProcessor | None>
             :return: True (success) | False (fail).
             :rtype: <bool>
-            :exceptions: ATSTypeError, ATSValueError, ATSRuntimeError, ATSAttributeError..
+            :exceptions: ATSTypeError, ATSValueError, ATSRuntimeError, ATSAttributeError.
         '''
         status: bool = False
 

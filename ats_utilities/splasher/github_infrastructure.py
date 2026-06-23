@@ -101,7 +101,7 @@ class GitHubInfrastructure(IExtInfrastructure):
 
             :param infrastructure_property_setup: Project infrastructure property in dict format | None.
             :type infrastructure_property_setup: <dict[Any, Any] | None>
-            :exceptions: ATSTypeError, ATSValueError, ATSRuntimeError, ATSAttributeError..
+            :exceptions: ATSTypeError, ATSValueError, ATSRuntimeError, ATSAttributeError.
         '''
         require_keys(infrastructure_property_setup, self._required_keys)
         self._infrastructure_property = cherry_pick_dict(infrastructure_property_setup, self._required_keys)

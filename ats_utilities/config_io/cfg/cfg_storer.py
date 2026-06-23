@@ -105,10 +105,11 @@ class CFGStorer(IStorer):
             :type config: <dict[str, str]>
             :return: True (success) | False (fail).
             :rtype: <bool>
-            :exceptions: ATSTypeError, ATSValueError, ATSRuntimeError, ATSAttributeError..
+            :exceptions: ATSTypeError, ATSValueError, ATSRuntimeError, ATSAttributeError.
         '''
         lines: list[str] = [f"{k} = {v}\n" for k, v in config.items()]
         self._processor.from_lines(lines)
+
         return self._obj2cfg.write_configuration(self._processor)
 
     def __str__(self) -> str:

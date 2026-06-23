@@ -147,10 +147,11 @@
 <span class="sd">            :type config: &lt;dict[str, str]&gt;</span>
 <span class="sd">            :return: True (success) | False (fail).</span>
 <span class="sd">            :rtype: &lt;bool&gt;</span>
-<span class="sd">            :exceptions: ATSTypeError, ATSValueError, ATSRuntimeError, ATSAttributeError..</span>
+<span class="sd">            :exceptions: ATSTypeError, ATSValueError, ATSRuntimeError, ATSAttributeError.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="n">lines</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s2"> = </span><span class="si">{</span><span class="n">v</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">config</span><span class="o">.</span><span class="n">items</span><span class="p">()]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_processor</span><span class="o">.</span><span class="n">from_lines</span><span class="p">(</span><span class="n">lines</span><span class="p">)</span>
+
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_obj2cfg</span><span class="o">.</span><span class="n">write_configuration</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_processor</span><span class="p">)</span></div>
 
 

@@ -80,8 +80,6 @@ class ATSFactoryComponentTestCase(TestCase):
         '''
             Test make_component with existing instance.
 
-            :return: None.
-            :rtype: <None>
             :exceptions: None.
         '''
         existing = DummyComponent('existing')
@@ -93,8 +91,6 @@ class ATSFactoryComponentTestCase(TestCase):
         '''
             Test make_component instantiating default class.
 
-            :return: None.
-            :rtype: <None>
             :exceptions: None.
         '''
         res = make_component(None, DummyComponent)
@@ -105,8 +101,6 @@ class ATSFactoryComponentTestCase(TestCase):
         '''
             Test make_component instantiating default class with args.
 
-            :return: None.
-            :rtype: <None>
             :exceptions: None.
         '''
         res = make_component(None, DummyComponent, {'val': 'custom'})
@@ -117,8 +111,6 @@ class ATSFactoryComponentTestCase(TestCase):
         '''
             Test validate_component with valid type.
 
-            :return: None.
-            :rtype: <None>
             :exceptions: None.
         '''
         instance = DummyComponent()
@@ -128,8 +120,6 @@ class ATSFactoryComponentTestCase(TestCase):
         '''
             Test validate_component with mock object.
 
-            :return: None.
-            :rtype: <None>
             :exceptions: None.
         '''
         instance = MagicMock(spec=DummyComponent)
@@ -139,8 +129,6 @@ class ATSFactoryComponentTestCase(TestCase):
         '''
             Test validate_component with invalid type.
 
-            :return: None.
-            :rtype: <None>
             :exceptions: None.
         '''
         instance = "not a dummy component"

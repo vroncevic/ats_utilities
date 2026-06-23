@@ -62,7 +62,7 @@ def validator[F: Callable[..., Any]](specs: list[tuple[str, Any]]) -> Callable[[
         :type specs: <list[tuple[str, Any]]>
         :return: Wrapped function.
         :rtype: <Callable[[F], F]>
-        :exceptions: ATSTypeError, ATSValueError, ATSRuntimeError, ATSAttributeError..
+        :exceptions: ATSTypeError, ATSValueError, ATSRuntimeError, ATSAttributeError.
     '''
     def decorator(func: F) -> F:
         @wraps(func)

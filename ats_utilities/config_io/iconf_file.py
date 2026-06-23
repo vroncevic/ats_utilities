@@ -71,8 +71,6 @@ class IConfFile(ABC):
             :type args: <tuple[Any, ...]>
             :param kwargs: Dictionary of mapped arguments.
             :type kwargs: <dict[Any, Any]>
-            :return: None.
-            :rtype: <None>
             :exceptions: NotImplementedError..
         '''
         raise NotImplementedError("Method __exit__() must be implemented.")

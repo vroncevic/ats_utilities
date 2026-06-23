@@ -37,6 +37,7 @@ from ats_utilities.option.component_bundle import OptionComponentBundle
 from ats_utilities.context_bundle import ContextBundle
 from ats_utilities.option.command_option import CommandOption
 from ats_utilities.option.ioption_command import IOptionCommand
+from ats_utilities.exceptions.ats_value_error import ATSValueError
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -232,7 +233,7 @@ class OptionParserTestCase(TestCase):
     def test_parser_strategy_uninitialized_parse(self) -> None:
         '''Test ParserStrategy parse before it is initialized.'''
         strategy = ParserStrategy()
-        with self.assertRaises(RuntimeError):
+        with self.assertRaises(ATSValueError):
             strategy.parse(['-t'])
 
     def test_command_option_creation(self) -> None:
@@ -254,9 +255,9 @@ class OptionParserTestCase(TestCase):
         '''Test ParserStrategy methods before setup is called.'''
         strategy = ParserStrategy()
         cmd = DummyOptionCommand()
-        with self.assertRaises(RuntimeError):
+        with self.assertRaises(ATSValueError):
             strategy.register_commands([cmd])
-        with self.assertRaises(RuntimeError):
+        with self.assertRaises(ATSValueError):
             strategy.parse_command(['dummy'])
 
     def test_register_commands_and_parse_command(self) -> None:
@@ -284,6 +285,72 @@ class OptionParserTestCase(TestCase):
             self.assertEqual(command_name, 'dummy')
             self.assertEqual(params.get('req_param'), 'cli_val')
 
+    def test_command_option_with_name_as_none(self) -> None:
+        cmd: CommandOption = CommandOption(None, 'help_text')
+        with self.assertRaises(ATSValueError):
+            cmd.validate()
+
+    def test_command_option_with_help_text_as_none(self) -> None:
+        cmd: CommandOption = CommandOption('name', None)
+        with self.assertRaises(ATSValueError):
+            cmd.validate()
+
+    def test_command_option_with_default_as_none(self) -> None:
+        cmd: CommandOption = CommandOption('name', 'help_text', None)
+        with self.assertRaises(ATSValueError):
+            cmd.validate()
+
+    def test_command_option_with_required_as_none(self) -> None:
+        cmd: CommandOption = CommandOption('name', 'help_text', 33, None)
+        with self.assertRaises(ATSValueError):
+            cmd.validate()
+
+    def test_command_option_with_choices_as_none(self) -> None:
+        cmd: CommandOption = CommandOption('name', 'help_text', 33, True, None)
+        with self.assertRaises(ATSValueError):
+            cmd.validate()
+
+    def test_command_option_with_all_parameters(self) -> None:
+        cmd: CommandOption = CommandOption('name', 'help_text', default='default_value', required=True, choices=['choice1', 'choice2'])
+        cmd.validate()
+        self.assertEqual(cmd.name, 'name')
+        self.assertEqual(cmd.help_text, 'help_text')
+        self.assertEqual(cmd.default, 'default_value')
+        self.assertTrue(cmd.required)
+        self.assertEqual(cmd.choices, ['choice1', 'choice2'])
+
+    def test_command_option_with_all_parameters_to_dict(self) -> None:
+        cmd: CommandOption = CommandOption('name', 'help_text', default='default_value', required=True, choices=['choice1', 'choice2'])
+        my_command = cmd.to_dict()
+        self.assertEqual(cmd.name, my_command.get('name'))
+        self.assertEqual(cmd.help_text, my_command.get('help_text'))
+        self.assertEqual(cmd.default, my_command.get('default'))
+        self.assertTrue(cmd.required, my_command.get('required'))
+        self.assertEqual(cmd.choices, my_command.get('choices'))
+
+    def test_command_option_merge(self) -> None:
+        '''Test ATSConfigLoaderBundle methods.'''
+        option1 = CommandOption('name1', 'help_text1', default='default_value1', required=True, choices=['choice1', 'choice2'])
+        option2 = CommandOption('name2', 'help_text2', default='default_value2', required=True, choices=['choice1', 'choice2'])
+
+        option1.merge(option2)
+        self.assertEqual(option1.name, 'name2')
+        self.assertEqual(option1.help_text, 'help_text2')
+        self.assertEqual(option1.default, 'default_value2')
+        self.assertTrue(option1.required)
+        self.assertEqual(option1.choices, ['choice1', 'choice2'])
+
+    def test_command_option_merge_validation(self) -> None:
+        '''Test CommandOption merge validation exceptions.'''
+        option1 = CommandOption('name1', 'help_text1', default='default_value1', required=True, choices=['choice1', 'choice2'])
+        option2 = CommandOption(None, 'help_text2', default='default_value2', required=True, choices=['choice1', 'choice2'])
+
+        option1.merge(option2)
+        self.assertEqual(option1.name, 'name1')
+        self.assertEqual(option1.help_text, 'help_text2')
+        self.assertEqual(option1.default, 'default_value2')
+        self.assertTrue(option1.required)
+        self.assertEqual(option1.choices, ['choice1', 'choice2'])
 
 class OptionParserUnitTestCase(TestCase):
     '''

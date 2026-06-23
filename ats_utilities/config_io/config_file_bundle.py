@@ -58,8 +58,6 @@ class ATSConfigFileBundle:
         '''
             Validates that essential components are set.
 
-            :return: None.
-            :rtype: <None>
             :exceptions: None..
         '''
         pass
@@ -70,8 +68,6 @@ class ATSConfigFileBundle:
 
             :param other: Another bundle to merge into this one.
             :type other: <ATSConfigFileBundle>
-            :return: None.
-            :rtype: <None>
             :exceptions: None..
         '''
         for field_name in self.__dataclass_fields__:

@@ -26,8 +26,6 @@ from unittest import TestCase, main
 from unittest.mock import MagicMock
 from os.path import dirname
 from ats_utilities.config_io.ini.ini_loader import INILoader
-from ats_utilities.config_io.iread import IRead
-from ats_utilities.config_io.ini.iini_processor import IINIProcessor
 from ats_utilities.config_io.ini.ini2object import Ini2Object
 from ats_utilities.config_io.ini.ini_processor import INIProcessor
 

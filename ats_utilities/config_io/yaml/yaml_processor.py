@@ -55,8 +55,6 @@ class YAMLProcessor(IYAMLProcessor):
         '''
             Initializes YAMLProcessor constructor.
 
-            :return: None.
-            :rtype: <None>
             :exceptions: None..
         '''
         self._data: dict[str, str] = {}

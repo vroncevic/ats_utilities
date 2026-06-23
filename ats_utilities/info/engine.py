@@ -144,7 +144,7 @@ class InfoManager(IInfoManager):
             self._is_initialized = True
 
         except (ATSTypeError, ATSValueError, ATSRuntimeError, ATSAttributeError) as exc:
-            self._reporter.error([f"{get_class_name(self)} - error during initialization: {exc}"])
+            self._reporter.error([f'{get_class_name(self)} {exc}'])
 
     def set_info(self, info: dict[str, Any]) -> None:
         '''
@@ -210,8 +210,6 @@ class InfoManager(IInfoManager):
             :type name: <str>
             :param value: Value to assign to the component attribute.
             :type value: <str | bool | None>
-            :return: None.
-            :rtype: <None>
             :exceptions: None..
         '''
         if '_components' in self.__dict__ and name in self._ATTR_MAP:

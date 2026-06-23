@@ -105,7 +105,7 @@ class OptionManager(IOptionManager):
             self._is_initialized = True
 
         except (ATSTypeError, ATSValueError, ATSRuntimeError, ATSAttributeError) as exc:
-            self._reporter.error([f"{get_class_name(self)} - error during initialization: {exc}"])
+            self._reporter.error([f'{get_class_name(self)} {exc}'])
 
     def add_operation(self, *args: str, **kwargs: Any) -> None:
         '''

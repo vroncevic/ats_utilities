@@ -141,7 +141,7 @@
 
 <span class="sd">            :param infrastructure_property_setup: Project infrastructure property in dict format | None.</span>
 <span class="sd">            :type infrastructure_property_setup: &lt;dict[Any, Any] | None&gt;</span>
-<span class="sd">            :exceptions: ATSTypeError, ATSValueError, ATSRuntimeError, ATSAttributeError..</span>
+<span class="sd">            :exceptions: ATSTypeError, ATSValueError, ATSRuntimeError, ATSAttributeError.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="n">require_keys</span><span class="p">(</span><span class="n">infrastructure_property_setup</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_required_keys</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_infrastructure_property</span> <span class="o">=</span> <span class="n">cherry_pick_dict</span><span class="p">(</span><span class="n">infrastructure_property_setup</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_required_keys</span><span class="p">)</span>

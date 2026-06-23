@@ -22,7 +22,6 @@ Info
 
 import sys
 from typing import Any
-from argparse import ArgumentParser
 from ats_utilities.option.iparser_strategy import IParserStrategy
 from ats_utilities.context_bundle import ContextBundle
 from ats_utilities.checker.ichecker import IChecker
@@ -33,11 +32,10 @@ from ats_utilities.option.option_namespace import OptArgs
 from ats_utilities.option.option_namespace import KnownArgs
 from ats_utilities.option.ioption_command import IOptionCommand
 from ats_utilities.info.info_keys import InfoKeys
-from ats_utilities.exceptions.ats_runtime_error import ATSRuntimeError
 from ats_utilities.checker.proxy_validator import validator
 from ats_utilities.factory_context_bundle import factory_context_bundle
 from ats_utilities.factory_component import make_component, validate_component
-from ats_utilities.factory_class import get_private_attr, format_instance_to_string
+from ats_utilities.factory_class import require_attributes, format_instance_to_string
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -70,13 +68,15 @@ class ParserStrategy(IParserStrategy):
                 | parse - Parses the input arguments and returns an OptionNamespace.
                 | register_commands - Registers a list of commands with the parser.
                 | parse_command - Parses the input arguments and returns an OptionNamespace.
-                | ok - Checks if parser strategy component is ok.
+                | is_initialized - Checks if the parser strategy is initialized.
                 | __str__ - Returns the string representation of ParserStrategy.
     '''
 
     _checker: IChecker
     _reporter: IReporter
     _verbose: bool
+
+    _parser: ArgParser
 
     def __init__(self, context_bundle: ContextBundle | None = None) -> None:
         '''
@@ -88,11 +88,9 @@ class ParserStrategy(IParserStrategy):
         '''
         factory_context_bundle(self, context_bundle)
         self._shared_bundle: ContextBundle = ContextBundle(
-            checker=get_private_attr(self, 'checker'),
-            reporter=get_private_attr(self, 'reporter'),
-            verbose=get_private_attr(self, 'verbose')
+            checker=self._checker, reporter=self._reporter, verbose=self._verbose
         )
-        self._parser: ArgumentParser | None = None
+        self._parser: ArgParser | None = None
 
     @validator([('dict:parameters', None)])
     def setup(self, parameters: dict[str, str]) -> None:
@@ -111,6 +109,7 @@ class ParserStrategy(IParserStrategy):
         })
         validate_component(self._parser, ArgParser)
 
+    @require_attributes('_parser')
     def add_argument(self, *args: str, **kwargs: Any) -> None:
         '''
             Adds an operational argument/flag to the parser.
@@ -119,22 +118,22 @@ class ParserStrategy(IParserStrategy):
             :type args: <str>
             :param kwargs: Arguments in shape of dictionary.
             :type kwargs: <Any>
-            :exceptions: None.
+            :exceptions: ATSValueError.
         '''
-        if self._parser:
-            self._parser.add_argument(*args, **kwargs)
+        self._parser.add_argument(*args, **kwargs)
 
+    @require_attributes('_parser')
     def add_version(self, version: str | None) -> None:
         '''
             Adds a version display option to the parser.
 
             :param version: The ATS version | None.
             :type version: <str | None>
-            :exceptions: None.
+            :exceptions: ATSValueError.
         '''
-        if self._parser and version:
-            self._parser.add_argument('--version', action='version', version=version)
+        self._parser.add_argument('--version', action='version', version=version)
 
+    @require_attributes('_parser')
     def parse(self, arguments: OptArgs, known_only: bool = False) -> OptionNamespace:
         '''
             Parses the input arguments and returns an OptionNamespace.
@@ -145,28 +144,23 @@ class ParserStrategy(IParserStrategy):
             :type known_only: <bool>
             :return: Option namespace object.
             :rtype: <OptionNamespace>
-            :exceptions: ATSRuntimeError.
+            :exceptions: ATSValueError.
         '''
-        if not self._parser:
-            raise ATSRuntimeError('Parser strategy is not initialized.')
-
         if known_only:
             known_args: KnownArgs = self._parser.parse_known_args(arguments)
             return known_args[0]
 
         return self._parser.parse_args(arguments)
 
+    @require_attributes('_parser')
     def register_commands(self, commands: list[IOptionCommand]) -> None:
         '''
             Registers the list of commands with the parser.
 
             :param commands: List of commands to register.
             :type commands: <list[IOptionCommand]>
-            :exceptions: ATSRuntimeError.
+            :exceptions: ATSValueError.
         '''
-        if not self._parser:
-            raise ATSRuntimeError('Parser strategy is not initialized.')
-
         # Initialization of subparsers on main parser
         if not hasattr(self, '_subparsers') or self._subparsers is None:
             self._subparsers = self._parser.add_subparsers(
@@ -175,17 +169,23 @@ class ParserStrategy(IParserStrategy):
 
         for cmd in commands:
             cmd_parser = self._subparsers.add_parser(cmd.name, help=cmd.help_text)
+
             for opt in cmd.options:
                 kwargs = {}
+
                 if opt.default is not None:
                     kwargs["default"] = opt.default
+
                 if opt.required:
                     kwargs["required"] = opt.required
+
                 if opt.choices is not None:
                     kwargs["choices"] = opt.choices
+
                 kwargs["help"] = opt.help_text
                 cmd_parser.add_argument(opt.name, **kwargs)
 
+    @require_attributes('_parser')
     def parse_command(self, arguments: OptArgs = None) -> tuple[str, dict]:
         '''
             Parses the input arguments and returns an OptionNamespace.
@@ -194,11 +194,8 @@ class ParserStrategy(IParserStrategy):
             :type arguments: <OptArgs>
             :return: Option namespace object.
             :rtype: <OptionNamespace>
-            :exceptions: ATSRuntimeError.
+            :exceptions: ATSValueError.
         '''
-        if not self._parser:
-            raise ATSRuntimeError('Parser strategy is not initialized.')
-
         if arguments is None:
             arguments = sys.argv[1:]
 
@@ -214,7 +211,7 @@ class ParserStrategy(IParserStrategy):
 
             :return: True (success) | False (fail)
             :rtype: <bool>
-            :exceptions: None..
+            :exceptions: None.
         '''
         return True if self._parser is not None else False
 

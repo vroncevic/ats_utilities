@@ -75,8 +75,6 @@ class ATSFactoryClassTestCase(TestCase):
         '''
             Test injecting non-None passed value.
 
-            :return: None.
-            :rtype: <None>
             :exceptions: None.
         '''
         class Target:
@@ -90,8 +88,6 @@ class ATSFactoryClassTestCase(TestCase):
         '''
             Test injecting fallback type with no dependencies.
 
-            :return: None.
-            :rtype: <None>
             :exceptions: None.
         '''
         class Target:
@@ -107,8 +103,6 @@ class ATSFactoryClassTestCase(TestCase):
         '''
             Test injecting fallback type with single dependency.
 
-            :return: None.
-            :rtype: <None>
             :exceptions: None.
         '''
         class Target:
@@ -125,8 +119,6 @@ class ATSFactoryClassTestCase(TestCase):
         '''
             Test injecting fallback type with multiple dependencies.
 
-            :return: None.
-            :rtype: <None>
             :exceptions: None.
         '''
         class Target:
@@ -144,8 +136,6 @@ class ATSFactoryClassTestCase(TestCase):
         '''
             Test injecting fallback raw value.
 
-            :return: None.
-            :rtype: <None>
             :exceptions: None.
         '''
         class Target:
@@ -159,8 +149,6 @@ class ATSFactoryClassTestCase(TestCase):
         '''
             Test retrieving private attributes.
 
-            :return: None.
-            :rtype: <None>
             :exceptions: None.
         '''
         class Target:
@@ -175,8 +163,6 @@ class ATSFactoryClassTestCase(TestCase):
         '''
             Test decorator validation success.
 
-            :return: None.
-            :rtype: <None>
             :exceptions: None.
         '''
         class Target:
@@ -195,8 +181,6 @@ class ATSFactoryClassTestCase(TestCase):
         '''
             Test decorator validation failure.
 
-            :return: None.
-            :rtype: <None>
             :exceptions: None.
         '''
         class Target:
@@ -229,8 +213,6 @@ class ATSFactoryClassTestCase(TestCase):
         '''
             Test string representation utility.
 
-            :return: None.
-            :rtype: <None>
             :exceptions: None.
         '''
         class SimpleTarget:

@@ -91,7 +91,6 @@ class ArgParser(ArgumentParser):
 
             :param message: Error message to report.
             :type message: <str>
-            :return: None.
             :rtype: <NoReturn>
             :exceptions: None.
         '''

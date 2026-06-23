@@ -28,7 +28,7 @@ from ats_utilities.checker.proxy_validator import validator
 from ats_utilities.reporter.ireporter import IReporter
 from ats_utilities.reporter.proxy_reporter import vreporter
 from ats_utilities.factory_context_bundle import factory_context_bundle
-from ats_utilities.factory_class import get_private_attr, format_instance_to_string
+from ats_utilities.factory_class import format_instance_to_string
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -89,7 +89,7 @@ class FileCheck(IFileCheck):
 
             :param file_path: File path in string format | None.
             :type file_path: <str | None>
-            :exceptions: ATSTypeError, ATSValueError, ATSRuntimeError, ATSAttributeError..
+            :exceptions: ATSTypeError, ATSValueError, ATSRuntimeError, ATSAttributeError.
         '''
         self._file_path_ok = isfile(file_path) if file_path is not None else False
 
@@ -105,7 +105,7 @@ class FileCheck(IFileCheck):
 
             :param file_mode: File mode in string format ('r', 'w', 'a', 'b', 'x', 't', '+').
             :type file_mode: <str | None>
-            :exceptions: ATSTypeError, ATSValueError, ATSRuntimeError, ATSAttributeError..
+            :exceptions: ATSTypeError, ATSValueError, ATSRuntimeError, ATSAttributeError.
         '''
         self._file_mode_ok = bool(file_mode) and all(
             char in self.MODES for char in file_mode  # type: ignore
@@ -124,7 +124,7 @@ class FileCheck(IFileCheck):
             :type file_path: <str | None>
             :param file_format: File format (file extension) | None.
             :type file_format: <str | None>
-            :exceptions: ATSTypeError, ATSValueError, ATSRuntimeError, ATSAttributeError..
+            :exceptions: ATSTypeError, ATSValueError, ATSRuntimeError, ATSAttributeError.
         '''
         extension: str | None = None
         fmt_str, path_str = str(file_format), str(file_path)

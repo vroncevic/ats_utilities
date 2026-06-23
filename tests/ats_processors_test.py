@@ -63,8 +63,6 @@ class ATSProcessorsTestCase(TestCase):
         '''
             Tests JSONProcessor functionality.
 
-            :return: None.
-            :rtype: <None>
             :exceptions: None.
         '''
         processor = JSONProcessor()
@@ -89,8 +87,6 @@ class ATSProcessorsTestCase(TestCase):
         '''
             Tests YAMLProcessor functionality.
 
-            :return: None.
-            :rtype: <None>
             :exceptions: None.
         '''
         processor = YAMLProcessor()
@@ -115,8 +111,6 @@ class ATSProcessorsTestCase(TestCase):
         '''
             Tests XMLProcessor functionality.
 
-            :return: None.
-            :rtype: <None>
             :exceptions: None.
         '''
         processor = XMLProcessor()
@@ -154,8 +148,6 @@ class ATSProcessorsTestCase(TestCase):
         '''
             Tests CFGProcessor functionality.
 
-            :return: None.
-            :rtype: <None>
             :exceptions: None.
         '''
         processor = CFGProcessor()
@@ -184,8 +176,6 @@ class ATSProcessorsTestCase(TestCase):
         '''
             Tests INIProcessor functionality.
 
-            :return: None.
-            :rtype: <None>
             :exceptions: None.
         '''
         processor = INIProcessor()

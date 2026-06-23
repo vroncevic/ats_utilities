@@ -34,7 +34,7 @@ from ats_utilities.config_io.cfg.cfg_processor import CFGProcessor
 from ats_utilities.reporter.proxy_reporter import vreporter
 from ats_utilities.factory_context_bundle import factory_context_bundle
 from ats_utilities.factory_component import make_component, validate_component
-from ats_utilities.factory_class import get_private_attr, format_instance_to_string
+from ats_utilities.factory_class import format_instance_to_string
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'

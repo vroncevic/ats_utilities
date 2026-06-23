@@ -110,8 +110,6 @@ class InfoComponentBundle:
 
             :param other: Another bundle to merge into this one.
             :type other: <InfoComponentBundle>
-            :return: None.
-            :rtype: <None>
             :exceptions: None.
         '''
         for field_name in self.__dataclass_fields__:

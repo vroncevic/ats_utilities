@@ -29,7 +29,9 @@ from ats_utilities.reporter.ireporter import IReporter
 from ats_utilities.logging.logger_bundle import LoggerBundle
 from ats_utilities.logging.logger import ATSLogger, ATSLogLevels
 from ats_utilities.factory_context_bundle import factory_context_bundle
-from ats_utilities.factory_class import get_class_name, format_instance_to_string
+from ats_utilities.factory_class import (
+    get_class_name, format_instance_to_string, require_attributes
+)
 from ats_utilities.factory_component import make_component, validate_component
 from ats_utilities.exceptions.ats_type_error import ATSTypeError
 from ats_utilities.exceptions.ats_value_error import ATSValueError
@@ -108,7 +110,7 @@ class LoggerManager(ILoggerManager):
             self._is_initialized = True
 
         except (ATSTypeError, ATSValueError, ATSRuntimeError, ATSAttributeError) as exc:
-            self._reporter.error([f"{get_class_name(self)} - error during initialization: {exc}"])
+            self._reporter.error([f'{get_class_name(self)} {exc}'])
 
     def get_logger(self) -> ILogger:
         '''
@@ -120,6 +122,7 @@ class LoggerManager(ILoggerManager):
         '''
         return self._logger
 
+    @require_attributes('_logger')
     def write_log(self, message: str | None, ctrl: int) -> bool:
         '''
             Writes message to log output.
@@ -130,17 +133,18 @@ class LoggerManager(ILoggerManager):
             :type ctrl: <int>
             :return: True (success) | False (fail).
             :rtype: <bool>
-            :exceptions: None..
+            :exceptions: ATSValueError.
         '''
         return self._logger.write_log(message, int(ctrl))
 
+    @require_attributes('_logger')
     def is_initialized(self) -> bool:
         '''
             Checks if the logger manager component is initialized.
 
             :return: True (success) | False (fail).
             :rtype: <bool>
-            :exceptions: None.
+            :exceptions: ATSValueError.
         '''
         return self._is_initialized and self._logger.is_initialized()
 

@@ -73,7 +73,7 @@ class Reporter(IReporter):
 
             :param component_bundle: Reporter component bundle | None.
             :type component_bundle: <ReporterComponentBundle | None>
-            :exceptions: ATSTypeError
+            :exceptions: ATSTypeError.
         '''
         # No dependency injection then use default ones.
         bundle: ReporterComponentBundle = component_bundle or ReporterComponentBundle()
@@ -87,7 +87,7 @@ class Reporter(IReporter):
             self._is_initialized = True
 
         except (ATSTypeError) as exc:
-            print(f"\x1b[31m{get_class_name(self)} - error during initialization: {exc}\x1b[0m")
+            print(f"\x1b[31m{get_class_name(self)} {exc}\x1b[0m")
 
     def _report(self, message: list[Any], color: str) -> None:
         '''

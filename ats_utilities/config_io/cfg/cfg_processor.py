@@ -58,8 +58,6 @@ class CFGProcessor(ICFGProcessor):
         '''
             Initializes CFGProcessor constructor.
 
-            :return: None.
-            :rtype: <None>
             :exceptions: None..
         '''
         self._data: dict[str, str] = {}

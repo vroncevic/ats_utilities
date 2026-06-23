@@ -140,8 +140,6 @@ class ConfFile(IConfFile):
             :type args: <tuple[Any, ...]>
             :param kwargs: Dictionary of mapped arguments.
             :type kwargs: <dict[Any, Any]>
-            :return: None.
-            :rtype: <None>
             :exceptions: ATSRuntimeError, ATSAttributeError.
         '''
         if self._file and not self._file.closed:

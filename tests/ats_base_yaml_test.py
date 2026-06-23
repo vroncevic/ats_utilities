@@ -27,8 +27,6 @@ from unittest import TestCase, main
 from unittest.mock import MagicMock
 from os.path import dirname
 from ats_utilities.config_io.yaml.yaml_loader import YAMLLoader
-from ats_utilities.config_io.iread import IRead
-from ats_utilities.config_io.yaml.iyaml_processor import IYAMLProcessor
 from ats_utilities.config_io.yaml.yaml2object import Yaml2Object
 from ats_utilities.config_io.yaml.yaml_processor import YAMLProcessor
 

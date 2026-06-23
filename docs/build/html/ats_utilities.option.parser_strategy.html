@@ -94,7 +94,7 @@ Default built-in strategy using Python’s standard argparse module.</p>
 <div class="line">parse - Parses the input arguments and returns an OptionNamespace.</div>
 <div class="line">register_commands - Registers a list of commands with the parser.</div>
 <div class="line">parse_command - Parses the input arguments and returns an OptionNamespace.</div>
-<div class="line">ok - Checks if parser strategy component is ok.</div>
+<div class="line">is_initialized - Checks if the parser strategy is initialized.</div>
 <div class="line">__str__ - Returns the string representation of ParserStrategy.</div>
 </div>
 </dd>
@@ -108,6 +108,11 @@ Default built-in strategy using Python’s standard argparse module.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="ats_utilities.option.parser_strategy.ParserStrategy._checker">
 <span class="sig-name descname"><span class="pre">_checker</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="ats_utilities.checker.ichecker.html#ats_utilities.checker.ichecker.IChecker" title="ats_utilities.checker.ichecker.IChecker"><span class="pre">IChecker</span></a></em><a class="headerlink" href="#ats_utilities.option.parser_strategy.ParserStrategy._checker" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ats_utilities.option.parser_strategy.ParserStrategy._parser">
+<span class="sig-name descname"><span class="pre">_parser</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="ats_utilities.option.arg_parser.html#ats_utilities.option.arg_parser.ArgParser" title="ats_utilities.option.arg_parser.ArgParser"><span class="pre">ArgParser</span></a></em><a class="headerlink" href="#ats_utilities.option.parser_strategy.ParserStrategy._parser" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
@@ -132,7 +137,7 @@ Default built-in strategy using Python’s standard argparse module.</p>
 </ul>
 </dd>
 <dt class="field-even">Exceptions<span class="colon">:</span></dt>
-<dd class="field-even"><p>None.</p>
+<dd class="field-even"><p>ATSValueError.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -146,7 +151,7 @@ Default built-in strategy using Python’s standard argparse module.</p>
 <dd class="field-odd"><p><strong>version</strong> (<em>&lt;str</em><em> | </em><em>None&gt;</em>) – The ATS version | None.</p>
 </dd>
 <dt class="field-even">Exceptions<span class="colon">:</span></dt>
-<dd class="field-even"><p>None.</p>
+<dd class="field-even"><p>ATSValueError.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -163,7 +168,7 @@ Default built-in strategy using Python’s standard argparse module.</p>
 <dd class="field-even"><p>&lt;bool&gt;</p>
 </dd>
 <dt class="field-odd">Exceptions<span class="colon">:</span></dt>
-<dd class="field-odd"><p>None..</p>
+<dd class="field-odd"><p>None.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -186,7 +191,7 @@ Default built-in strategy using Python’s standard argparse module.</p>
 <dd class="field-odd"><p>&lt;OptionNamespace&gt;</p>
 </dd>
 <dt class="field-even">Exceptions<span class="colon">:</span></dt>
-<dd class="field-even"><p>ATSRuntimeError.</p>
+<dd class="field-even"><p>ATSValueError.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -206,7 +211,7 @@ Default built-in strategy using Python’s standard argparse module.</p>
 <dd class="field-odd"><p>&lt;OptionNamespace&gt;</p>
 </dd>
 <dt class="field-even">Exceptions<span class="colon">:</span></dt>
-<dd class="field-even"><p>ATSRuntimeError.</p>
+<dd class="field-even"><p>ATSValueError.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -220,7 +225,7 @@ Default built-in strategy using Python’s standard argparse module.</p>
 <dd class="field-odd"><p><strong>commands</strong> (<em>&lt;list</em><em>[</em><a class="reference internal" href="ats_utilities.option.ioption_command.html#ats_utilities.option.ioption_command.IOptionCommand" title="ats_utilities.option.ioption_command.IOptionCommand"><em>IOptionCommand</em></a><em>]</em><em>&gt;</em>) – List of commands to register.</p>
 </dd>
 <dt class="field-even">Exceptions<span class="colon">:</span></dt>
-<dd class="field-even"><p>ATSRuntimeError.</p>
+<dd class="field-even"><p>ATSValueError.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -257,6 +262,7 @@ Default built-in strategy using Python’s standard argparse module.</p>
 <li><a class="reference internal" href="#ats_utilities.option.parser_strategy.ParserStrategy"><code class="docutils literal notranslate"><span class="pre">ParserStrategy</span></code></a><ul>
 <li><a class="reference internal" href="#ats_utilities.option.parser_strategy.ParserStrategy._abc_impl"><code class="docutils literal notranslate"><span class="pre">ParserStrategy._abc_impl</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.option.parser_strategy.ParserStrategy._checker"><code class="docutils literal notranslate"><span class="pre">ParserStrategy._checker</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.option.parser_strategy.ParserStrategy._parser"><code class="docutils literal notranslate"><span class="pre">ParserStrategy._parser</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.option.parser_strategy.ParserStrategy._reporter"><code class="docutils literal notranslate"><span class="pre">ParserStrategy._reporter</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.option.parser_strategy.ParserStrategy._verbose"><code class="docutils literal notranslate"><span class="pre">ParserStrategy._verbose</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.option.parser_strategy.ParserStrategy.add_argument"><code class="docutils literal notranslate"><span class="pre">ParserStrategy.add_argument()</span></code></a></li>

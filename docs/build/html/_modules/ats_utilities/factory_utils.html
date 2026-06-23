@@ -58,6 +58,7 @@
 <span class="sd">&#39;&#39;&#39;</span>
 
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span>
+<span class="kn">from</span> <span class="nn">os.path</span> <span class="kn">import</span> <span class="n">exists</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.exceptions.ats_type_error</span> <span class="kn">import</span> <span class="n">ATSTypeError</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.exceptions.ats_value_error</span> <span class="kn">import</span> <span class="n">ATSValueError</span>
 
@@ -129,6 +130,23 @@
 
     <span class="k">if</span> <span class="n">missing_keys</span><span class="p">:</span>
         <span class="k">raise</span> <span class="n">ATSValueError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Missing required keys </span><span class="si">{</span><span class="n">missing_keys</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="check_file_exists">
+<a class="viewcode-back" href="../../ats_utilities.factory_utils.html#ats_utilities.factory_utils.check_file_exists">[docs]</a>
+<span class="k">def</span> <span class="nf">check_file_exists</span><span class="p">(</span><span class="n">file_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Checks if a file exists.</span>
+
+<span class="sd">        :param file_path: Path to the file.</span>
+<span class="sd">        :type file_path: &lt;str&gt;</span>
+<span class="sd">        :exceptions: ATSTypeError, ATSValueError.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="n">ATSTypeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;expected str for &#39;file_path&#39;, got </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">file_path</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">exists</span><span class="p">(</span><span class="n">file_path</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="n">ATSValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;file at the provided path does not exist: </span><span class="si">{</span><span class="n">file_path</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
 
 </pre></div>
 

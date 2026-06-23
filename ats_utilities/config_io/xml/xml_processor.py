@@ -65,8 +65,6 @@ class XMLProcessor(IXMLProcessor):
         '''
             Initializes XMLProcessor constructor.
 
-            :return: None.
-            :rtype: <None>
             :exceptions: None..
         '''
         self._root = None
