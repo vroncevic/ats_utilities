@@ -27,7 +27,7 @@ __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.3.8'
+__version__: str = '3.4.0'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
@@ -37,14 +37,14 @@ long_description: str | None = None
 with open(join(THIS_DIR, 'README.md'), encoding='utf-8') as readme:
     long_description = readme.read()
 PROGRAMMING_LANG: str = 'Programming Language :: Python ::'
-VERSIONS: list[str] = ['3.10', '3.11', '3.12']
+VERSIONS: list[str] = ['3.12', '3.13', '3.14']
 SUPPORTED_PY_VERSIONS: list[str] = [
     f'{PROGRAMMING_LANG} {VERSION}' for VERSION in VERSIONS
 ]
 PYP_CLASSIFIERS: list[str] = SUPPORTED_PY_VERSIONS
 setup(
     name='ats_utilities',
-    version='3.3.8',
+    version='3.4.0',
     description='Python App/Tool/Script Utilities',
     author='Vladimir Roncevic',
     author_email='elektron.ronca@gmail.com',
