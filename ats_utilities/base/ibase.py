@@ -22,20 +22,20 @@ Info
 
 from abc import ABC, abstractmethod
 from collections.abc import Sequence
-from typing import Any, TypeAlias
+from typing import Any
 from ats_utilities.option.option_namespace import OptionNamespace
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.3.8'
+__version__: str = '3.4.0'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
 
 # Optional string sequence type
-ArgSeq: TypeAlias = Sequence[str] | None
+type ArgSeq = Sequence[str] | None
 
 
 class IBase(ABC):
@@ -61,9 +61,9 @@ class IBase(ABC):
 
             :return: True (success) | False (fail)
             :rtype: <bool>
-            :exceptions: NotImplementedError.
+            :exceptions: None.
         '''
-        raise NotImplementedError("Method is_initialized() must be implemented.")
+        pass
 
     @abstractmethod
     def add_new_option(self, *args: str, **kwargs: Any) -> None:
@@ -74,9 +74,9 @@ class IBase(ABC):
             :type args: <str>
             :param kwargs: Arguments in Any form
             :type kwargs: <Any>
-            :exceptions: NotImplementedError.
+            :exceptions: None.
         '''
-        raise NotImplementedError("Method add_new_option() must be implemented.")
+        pass
 
     @abstractmethod
     def parse_args(self, argv: ArgSeq) -> OptionNamespace | None:
@@ -87,9 +87,9 @@ class IBase(ABC):
             :type argv: <ArgSeq>
             :return: Options and arguments | None
             :rtype: <OptionNamespace | None>
-            :exceptions: NotImplementedError.
+            :exceptions: None.
         '''
-        raise NotImplementedError("Method parse_args() must be implemented.")
+        pass
 
     @abstractmethod
     def process(self, verbose: bool = False) -> bool:
@@ -100,9 +100,9 @@ class IBase(ABC):
             :type verbose: <bool>
             :return: True (success) | False (fail)
             :rtype: <bool>
-            :exceptions: NotImplementedError.
+            :exceptions: None.
         '''
-        raise NotImplementedError("Method process() must be implemented.")
+        pass
 
     @abstractmethod
     def __str__(self) -> str:
@@ -111,6 +111,6 @@ class IBase(ABC):
 
             :return: The ATS base as string representation.
             :rtype: <str>
-            :exceptions: NotImplementedError.
+            :exceptions: None.
         '''
-        raise NotImplementedError("Method __str__() must be implemented.")
+        pass

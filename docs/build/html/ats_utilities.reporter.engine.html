@@ -133,12 +133,17 @@ Implements an API for reporting messages to the console.</p>
 <dt class="sig sig-object py" id="ats_utilities.reporter.engine.Reporter.error">
 <span class="sig-name descname"><span class="pre">error</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">message</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/ats_utilities/reporter/engine.html#Reporter.error"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.reporter.engine.Reporter.error" title="Link to this definition">¶</a></dt>
 <dd><p>Reports error message to console.</p>
-<dl class="field-list simple">
+<dl class="field-list">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>message</strong> (<em>&lt;list</em><em>[</em><em>Any</em><em>]</em><em>&gt;</em>) – List with message components.</p>
 </dd>
 <dt class="field-even">Exceptions<span class="colon">:</span></dt>
-<dd class="field-even"><p>None.</p>
+<dd class="field-even"><div class="line-block">
+<div class="line">ATSTypeError: Parameter type validation failed.</div>
+<div class="line">ATSValueError: Parameter format validation failed.</div>
+<div class="line">ATSRuntimeError: Decorator used on a non-class method.</div>
+<div class="line">ATSAttributeError: Class does not provide a ‘_checker’ object.</div>
+</div>
 </dd>
 </dl>
 </dd></dl>
@@ -164,12 +169,17 @@ Implements an API for reporting messages to the console.</p>
 <dt class="sig sig-object py" id="ats_utilities.reporter.engine.Reporter.success">
 <span class="sig-name descname"><span class="pre">success</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">message</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/ats_utilities/reporter/engine.html#Reporter.success"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.reporter.engine.Reporter.success" title="Link to this definition">¶</a></dt>
 <dd><p>Reports success message to console.</p>
-<dl class="field-list simple">
+<dl class="field-list">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>message</strong> (<em>&lt;list</em><em>[</em><em>Any</em><em>]</em><em>&gt;</em>) – List with message components.</p>
 </dd>
 <dt class="field-even">Exceptions<span class="colon">:</span></dt>
-<dd class="field-even"><p>None.</p>
+<dd class="field-even"><div class="line-block">
+<div class="line">ATSTypeError: Parameter type validation failed.</div>
+<div class="line">ATSValueError: Parameter format validation failed.</div>
+<div class="line">ATSRuntimeError: Decorator used on a non-class method.</div>
+<div class="line">ATSAttributeError: Class does not provide a ‘_checker’ object.</div>
+</div>
 </dd>
 </dl>
 </dd></dl>
@@ -178,7 +188,7 @@ Implements an API for reporting messages to the console.</p>
 <dt class="sig sig-object py" id="ats_utilities.reporter.engine.Reporter.verbose">
 <span class="sig-name descname"><span class="pre">verbose</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">is_verbose</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">message</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/ats_utilities/reporter/engine.html#Reporter.verbose"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.reporter.engine.Reporter.verbose" title="Link to this definition">¶</a></dt>
 <dd><p>Reports verbose message to console.</p>
-<dl class="field-list simple">
+<dl class="field-list">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>is_verbose</strong> (<em>&lt;bool&gt;</em>) – Enable/Disable verbose option.</p></li>
@@ -186,7 +196,12 @@ Implements an API for reporting messages to the console.</p>
 </ul>
 </dd>
 <dt class="field-even">Exceptions<span class="colon">:</span></dt>
-<dd class="field-even"><p>None.</p>
+<dd class="field-even"><div class="line-block">
+<div class="line">ATSTypeError: Parameter type validation failed.</div>
+<div class="line">ATSValueError: Parameter format validation failed.</div>
+<div class="line">ATSRuntimeError: Decorator used on a non-class method.</div>
+<div class="line">ATSAttributeError: Class does not provide a ‘_checker’ object.</div>
+</div>
 </dd>
 </dl>
 </dd></dl>
@@ -195,12 +210,17 @@ Implements an API for reporting messages to the console.</p>
 <dt class="sig sig-object py" id="ats_utilities.reporter.engine.Reporter.warning">
 <span class="sig-name descname"><span class="pre">warning</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">message</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/ats_utilities/reporter/engine.html#Reporter.warning"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.reporter.engine.Reporter.warning" title="Link to this definition">¶</a></dt>
 <dd><p>Reports warning message to console.</p>
-<dl class="field-list simple">
+<dl class="field-list">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>message</strong> (<em>&lt;list</em><em>[</em><em>Any</em><em>]</em><em>&gt;</em>) – List with message components.</p>
 </dd>
 <dt class="field-even">Exceptions<span class="colon">:</span></dt>
-<dd class="field-even"><p>None.</p>
+<dd class="field-even"><div class="line-block">
+<div class="line">ATSTypeError: Parameter type validation failed.</div>
+<div class="line">ATSValueError: Parameter format validation failed.</div>
+<div class="line">ATSRuntimeError: Decorator used on a non-class method.</div>
+<div class="line">ATSAttributeError: Class does not provide a ‘_checker’ object.</div>
+</div>
 </dd>
 </dl>
 </dd></dl>

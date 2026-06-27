@@ -20,6 +20,7 @@ Info
     Implements a console theme for console styling.
 '''
 
+from typing import override
 from ats_utilities.factory_class import require_attributes, format_instance_to_string
 from ats_utilities.reporter.theme.iconsole_theme import IConsoleTheme
 
@@ -27,7 +28,7 @@ __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.3.8'
+__version__: str = '3.4.0'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
@@ -68,6 +69,7 @@ class ConsoleTheme(IConsoleTheme):
         self._palette: dict[str, str] = palette or self._default_palete_colors
 
     @require_attributes('_palette')
+    @override
     def get_color(self, color_type: str) -> str:
         '''
             Returns color code from palette.
@@ -80,6 +82,7 @@ class ConsoleTheme(IConsoleTheme):
         '''
         return self._palette.get(color_type, '')
 
+    @override
     def __str__(self) -> str:
         '''
             Returns the string representation of ConsoleTheme.

@@ -27,7 +27,7 @@ __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.3.8'
+__version__: str = '3.4.0'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
@@ -55,9 +55,9 @@ class ILoggerManager(ABC):
 
             :return: Logger instance
             :rtype: <ILogger>
-            :exceptions: NotImplementedError.
+            :exceptions: None.
         '''
-        raise NotImplementedError("Method get_logger() must be implemented.")
+        pass
 
     @abstractmethod
     def write_log(self, message: str | None, ctrl: int) -> bool:
@@ -70,9 +70,9 @@ class ILoggerManager(ABC):
             :type ctrl: <int>
             :return: True (success) | False (fail)
             :rtype: <bool>
-            :exceptions: NotImplementedError.
+            :exceptions: None.
         '''
-        raise NotImplementedError("Method write_log() must be implemented.")
+        pass
 
     @abstractmethod
     def is_initialized(self) -> bool:
@@ -81,9 +81,9 @@ class ILoggerManager(ABC):
 
             :return: True (success) | False (fail)
             :rtype: <bool>
-            :exceptions: NotImplementedError.
+            :exceptions: None.
         '''
-        raise NotImplementedError("Method ok() must be implemented.")
+        pass
 
     @abstractmethod
     def __str__(self) -> str:
@@ -92,6 +92,6 @@ class ILoggerManager(ABC):
 
             :return: The ATS logger manager as string representation.
             :rtype: <str>
-            :exceptions: NotImplementedError.
+            :exceptions: None.
         '''
-        raise NotImplementedError("Method __str__() must be implemented.")
+        pass

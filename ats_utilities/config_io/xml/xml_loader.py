@@ -20,6 +20,7 @@ Info
     Loads the ATS configuration for the ATS.
 '''
 
+from typing import override
 from ats_utilities.config_io.iread import IRead
 from ats_utilities.context_bundle import ContextBundle
 from ats_utilities.checker.ichecker import IChecker
@@ -33,13 +34,13 @@ from ats_utilities.config_io.xml.xml_processor import XMLProcessor
 from ats_utilities.config_io.xml.ixml_processor import IXMLProcessor
 from ats_utilities.factory_context_bundle import factory_context_bundle
 from ats_utilities.factory_component import make_component, validate_component
-from ats_utilities.factory_class import get_private_attr, format_instance_to_string
+from ats_utilities.factory_class import format_instance_to_string
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.3.8'
+__version__: str = '3.4.0'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
@@ -86,7 +87,8 @@ class XMLLoader(ILoader):
             :type config_bundle: <ATSConfigFileBundle | None>
             :param xml_processor: Processor for XML content | None.
             :type xml_processor: <IXMLProcessor | None>
-            :exceptions: ATSTypeError.
+            :exceptions:
+                | ATSTypeError: Invalid type in constructor arguments.
         '''
         config_file_bundle: ATSConfigFileBundle = config_bundle or ATSConfigFileBundle()
         factory_context_bundle(self, config_file_bundle.context)
@@ -108,25 +110,27 @@ class XMLLoader(ILoader):
         if bool(xml2obj):
             self._configuration = xml2obj.read_configuration()
 
+    @override
     def load_configuration(self) -> dict[str, str]:
         '''
             Loads the ATS configuration in dictionary format.
 
             :return: Dictionary with XML information.
             :rtype: <dict[str, str]>
-            :exceptions: None..
+            :exceptions: None.
         '''
         if not self._configuration:
             return {}
 
         return self._configuration.to_dict()
 
+    @override
     def __str__(self) -> str:
         '''
             Returns the XMLLoader as string representation.
 
             :return: The XMLLoader as string representation.
             :rtype: <str>
-            :exceptions: None..
+            :exceptions: None.
         '''
         return format_instance_to_string(self)

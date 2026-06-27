@@ -121,14 +121,14 @@ with this program. If not, see &lt;<a class="reference external" href="http://ww
 
 <dl class="py method">
 <dt class="sig sig-object py" id="ats_utilities.splasher.splash_center_bundle.SplashCenterBundle.to_dict">
-<span class="sig-name descname"><span class="pre">to_dict</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="reference internal" href="_modules/ats_utilities/splasher/splash_center_bundle.html#SplashCenterBundle.to_dict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.splasher.splash_center_bundle.SplashCenterBundle.to_dict" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">to_dict</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/ats_utilities/splasher/splash_center_bundle.html#SplashCenterBundle.to_dict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.splasher.splash_center_bundle.SplashCenterBundle.to_dict" title="Link to this definition">¶</a></dt>
 <dd><p>Converts the bundle attributes to a dictionary.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Dictionary representation of the bundle attributes.</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>&lt;dict&gt;</p>
+<dd class="field-even"><p>&lt;dict[str, Any]&gt;</p>
 </dd>
 <dt class="field-odd">Exceptions<span class="colon">:</span></dt>
 <dd class="field-odd"><p>None.</p>
@@ -140,9 +140,16 @@ with this program. If not, see &lt;<a class="reference external" href="http://ww
 <dt class="sig sig-object py" id="ats_utilities.splasher.splash_center_bundle.SplashCenterBundle.validate">
 <span class="sig-name descname"><span class="pre">validate</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/ats_utilities/splasher/splash_center_bundle.html#SplashCenterBundle.validate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.splasher.splash_center_bundle.SplashCenterBundle.validate" title="Link to this definition">¶</a></dt>
 <dd><p>Validates that essential components are set.</p>
-<dl class="field-list simple">
+<dl class="field-list">
 <dt class="field-odd">Exceptions<span class="colon">:</span></dt>
-<dd class="field-odd"><p>ATSTypeError, ATSValueError.</p>
+<dd class="field-odd"><div class="line-block">
+<div class="line">ATSTypeError - Columns count ‘columns’ is not an integer.</div>
+<div class="line">ATSValueError - Columns count ‘columns’ is less than 0.</div>
+<div class="line">ATSTypeError - Additional shifter ‘additional_shifter’ is not an integer.</div>
+<div class="line">ATSValueError - Additional shifter ‘additional_shifter’ is less than 0.</div>
+<div class="line">ATSTypeError - Text ‘text’ is not a string or None.</div>
+<div class="line">ATSValueError - Text ‘text’ is empty.</div>
+</div>
 </dd>
 </dl>
 </dd></dl>

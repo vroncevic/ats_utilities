@@ -42,7 +42,7 @@ __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.3.8'
+__version__: str = '3.4.0'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
@@ -105,6 +105,19 @@ class ATSCheckerTestCase(TestCase):
     def test_tool_operational(self) -> None:
         '''Test is tool operational'''
         self.assertTrue(self.ats_base_checker.is_tool_ok())
+
+    @mock.patch('ats_utilities.checker.engine.make_component')
+    def test_checker_initialization_failures(self, mock_make_component) -> None:
+        '''Test Checker initialization with errors.'''
+        # Test ATSTypeError
+        mock_make_component.side_effect = ATSTypeError('Failed type')
+        invalid_checker = Checker()
+        self.assertFalse(invalid_checker.is_initialized())
+
+        # Test unexpected Exception
+        mock_make_component.side_effect = Exception('Unexpected')
+        invalid_checker = Checker()
+        self.assertFalse(invalid_checker.is_initialized())
 
     def test_check_params_none_input(self) -> None:
         '''Test handling of None input for parameters.'''

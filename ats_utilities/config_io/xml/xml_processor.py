@@ -20,6 +20,7 @@ Info
     Default implementation for processing XML content.
 '''
 
+from typing import override
 import xml.etree.ElementTree as ET
 from ats_utilities.config_io.xml.ixml_processor import IXMLProcessor
 from ats_utilities.factory_class import format_instance_to_string
@@ -28,7 +29,7 @@ __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.3.8'
+__version__: str = '3.4.0'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
@@ -65,10 +66,11 @@ class XMLProcessor(IXMLProcessor):
         '''
             Initializes XMLProcessor constructor.
 
-            :exceptions: None..
+            :exceptions: None.
         '''
         self._root = None
 
+    @override
     def from_string(self, xml_content: str) -> bool:
         '''
             Loads XML content from string.
@@ -77,32 +79,34 @@ class XMLProcessor(IXMLProcessor):
             :type xml_content: <str>
             :return: True (success) | False (fail).
             :rtype: <bool>
-            :exceptions: None..
+            :exceptions: None.
         '''
         self._root = ET.fromstring(xml_content)
 
         return True
 
+    @override
     def to_string(self) -> str:
         '''
             Converts XML content to string.
 
             :return: XML content as string.
             :rtype: <str>
-            :exceptions: None..
+            :exceptions: None.
         '''
         if self._root is not None:
             return ET.tostring(self._root, encoding='utf-8').decode('utf-8')
 
         return ""
 
+    @override
     def to_dict(self) -> dict[str, str]:
         '''
             Gets ATS information from XML.
 
             :return: Dictionary with ATS information.
             :rtype: <dict[str, str]>
-            :exceptions: None..
+            :exceptions: None.
         '''
         if self._root is None:
             return {}
@@ -124,7 +128,7 @@ class XMLProcessor(IXMLProcessor):
             :type tag: <str>
             :return: Tag value or empty string.
             :rtype: <str>
-            :exceptions: None..
+            :exceptions: None.
         '''
         if self._root is None:
             return ""
@@ -136,12 +140,13 @@ class XMLProcessor(IXMLProcessor):
 
         return node.text if node.text is not None else ""
 
+    @override
     def __str__(self) -> str:
         '''
             Returns the XMLProcessor as string representation.
 
             :return: The XMLProcessor as string representation.
             :rtype: <str>
-            :exceptions: None..
+            :exceptions: None.
         '''
         return format_instance_to_string(self)

@@ -20,7 +20,7 @@ Info
     Creates an API for the configuration context manager.
 '''
 
-from typing import Any
+from typing import Any, override
 from ats_utilities.config_io.iconf_file import IConfFile
 from ats_utilities.context_bundle import ContextBundle
 from ats_utilities.checker.ichecker import IChecker
@@ -40,7 +40,7 @@ __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.3.8'
+__version__: str = '3.4.0'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
@@ -85,7 +85,10 @@ class ConfFile(IConfFile):
             :type file_bundle: <ATSFileBundle | None>
             :param config_file_bundle: File configuration bundle parameters | None.
             :type config_file_bundle: <ATSConfigFileBundle | None>
-            :exceptions: ATSValueError.
+            :exceptions:
+                | ATSValueError: Missing file path.
+                | ATSValueError: Missing file mode.
+                | ATSValueError: Missing file format.
         '''
         bundle: ATSFileBundle = file_bundle or ATSFileBundle()
         config_bundle: ATSConfigFileBundle = config_file_bundle or ATSConfigFileBundle()
@@ -118,13 +121,17 @@ class ConfFile(IConfFile):
             self._file_mode = bundle.file_mode
 
     @vreporter('open file {file_path} with mode {file_mode}')
+    @override
     def __enter__(self) -> File | None:
         '''
             Opens configuration file in mode.
 
             :return: File IO object | None.
             :rtype: <File>
-            :exceptions: ATSRuntimeError, ATSAttributeError.
+            :exceptions:
+                | ATSRuntimeError: Decorator cannot be used on a standalone function.
+                | ATSAttributeError: Class is required to provide a '_reporter' object to
+                |                    use the @verboser decorator.
         '''
         if self._file_path and self._file_mode:
             self._file = open(self._file_path, self._file_mode, encoding='utf-8')
@@ -132,6 +139,7 @@ class ConfFile(IConfFile):
         return self._file
 
     @vreporter('close file {file_path}')
+    @override
     def __exit__(self, *args: tuple[Any, ...], **kwargs: dict[Any, Any]) -> None:
         '''
             Closes configuration file.
@@ -140,17 +148,21 @@ class ConfFile(IConfFile):
             :type args: <tuple[Any, ...]>
             :param kwargs: Dictionary of mapped arguments.
             :type kwargs: <dict[Any, Any]>
-            :exceptions: ATSRuntimeError, ATSAttributeError.
+            :exceptions:
+                | ATSRuntimeError: Decorator cannot be used on a standalone function.
+                | ATSAttributeError: Class is required to provide a '_reporter' object to
+                |                    use the @verboser decorator.
         '''
         if self._file and not self._file.closed:
             self._file.close()
 
+    @override
     def __str__(self) -> str:
         '''
             Returns the ConfFile as string representation.
 
             :return: The ConfFile as string representation.
             :rtype: <str>
-            :exceptions: None..
+            :exceptions: None.
         '''
         return format_instance_to_string(self)

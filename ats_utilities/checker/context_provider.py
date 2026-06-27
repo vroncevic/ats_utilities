@@ -21,6 +21,7 @@ Info
 '''
 
 from inspect import stack
+from typing import override
 from ats_utilities.factory_class import format_instance_to_string
 from ats_utilities.checker.icontext_provider import IContextProvider
 
@@ -28,7 +29,7 @@ __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.3.8'
+__version__: str = '3.4.0'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
@@ -57,20 +58,22 @@ class ContextProvider(IContextProvider):
 
             :param stack_index_caller: Index in the call stack to identify the caller (default 2).
             :type stack_index_caller: <int>
-            :exceptions: None..
+            :exceptions: None.
         '''
         self._stack_index_caller: int = stack_index_caller
 
+    @override
     def set_stack_index_caller(self, stack_index_caller: int) -> None:
         '''
             Sets the index in the call stack to identify the caller.
 
             :param stack_index_caller: Index in the call stack to identify the caller.
             :type stack_index_caller: <int>
-            :exceptions: None..
+            :exceptions: None.
         '''
         self._stack_index_caller = stack_index_caller
 
+    @override
     def get_context(self) -> str:
         '''
             Returns a string representing the calling context.
@@ -79,7 +82,7 @@ class ContextProvider(IContextProvider):
 
             :return: Context information in string format.
             :rtype: <str>
-            :exceptions: None..
+            :exceptions: None.
         '''
         current_stack = stack()
         target_index = self._stack_index_caller
@@ -88,12 +91,13 @@ class ContextProvider(IContextProvider):
         caller = current_stack[target_index]
         return f'\nmod: {caller.filename}\n  def: {caller.function}()'
 
+    @override
     def __str__(self) -> str:
         '''
             Returns the ATS context provider as string representation.
 
             :return: The ATS context provider as string representation.
             :rtype: <str>
-            :exceptions: None..
+            :exceptions: None.
         '''
         return format_instance_to_string(self)

@@ -20,7 +20,7 @@ Info
     Creates an API for handling parameter description format validation.
 '''
 
-from typing import Final
+from typing import Final, override
 from ats_utilities.factory_class import format_instance_to_string
 from ats_utilities.checker.iformat_validator import IFormatValidator
 
@@ -28,7 +28,7 @@ __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.3.8'
+__version__: str = '3.4.0'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
@@ -52,6 +52,7 @@ class FormatValidator(IFormatValidator):
 
     EXPECTED_FORMAT_PARTS: Final[int] = 2
 
+    @override
     def is_valid(self, exp_type: str) -> bool:
         '''
             Checks if the string follows the expected format.
@@ -61,10 +62,11 @@ class FormatValidator(IFormatValidator):
             :type exp_type: <str>
             :return: True (success), False (fail).
             :rtype: <bool>
-            :exceptions: None..
+            :exceptions: None.
         '''
         return len(exp_type.split(sep=':')) == self.EXPECTED_FORMAT_PARTS
 
+    @override
     def split(self, exp_type: str) -> tuple[str, str]:
         '''
             Splits the format string into type and name parts.
@@ -73,17 +75,18 @@ class FormatValidator(IFormatValidator):
             :type exp_type: <str>
             :return: A tuple containing the split components.
             :rtype: <tuple[str, str]>
-            :exceptions: None..
+            :exceptions: None.
         '''
         parts = exp_type.split(sep=':')
         return parts[0], parts[1]
 
+    @override
     def __str__(self) -> str:
         '''
             Returns the ATS format validator as string representation.
 
             :return: The ATS format validator as string representation.
             :rtype: <str>
-            :exceptions: None..
+            :exceptions: None.
         '''
         return format_instance_to_string(self)

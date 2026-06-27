@@ -36,7 +36,7 @@ __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.3.8'
+__version__: str = '3.4.0'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
@@ -72,6 +72,22 @@ class ATSSplashTestCase(TestCase):
     def test_splash_with_none_property(self) -> None:
         '''Test splash with None'''
         splash: Splasher = Splasher(None)  # type: ignore
+        self.assertFalse(splash.is_initialized())
+
+    @mock.patch('ats_utilities.splasher.engine.make_component')
+    def test_splasher_initialization_failures(self, mock_make_component) -> None:
+        '''Test Splasher initialization with errors.'''
+        mock_make_component.side_effect = Exception('Unexpected')
+        bundle = SplashComponentBundle(
+            prop={
+                SplashKeys.ATS_ORGANIZATION: 'App Example',
+                SplashKeys.ATS_REPOSITORY: 'app_example',
+                SplashKeys.ATS_NAME: 'appexample',
+                SplashKeys.ATS_LOGO_PATH: f'{dirname(__file__)}/config/app.logo',
+                SplashKeys.ATS_USE_GITHUB_INFRASTRUCTURE: True
+            }
+        )
+        splash: Splasher = Splasher(bundle)
         self.assertFalse(splash.is_initialized())
 
     @mock.patch('sys.stdout')

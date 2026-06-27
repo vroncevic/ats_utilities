@@ -27,7 +27,7 @@ __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.3.8'
+__version__: str = '3.4.0'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
@@ -57,18 +57,18 @@ class ITerminalProperties(ABC):
             :type file_descriptor: <int>
             :return: Window size of terminal.
             :rtype: <tuple[Any, ...]>
-            :exceptions: NotImplementedError.
+            :exceptions: None.
         '''
-        raise NotImplementedError("Method ioctl_get_window_size() must be implemented.")
+        pass
 
     @abstractmethod
     def ioctl_for_all_descriptors(self) -> None:
         '''
             Sets size for all file descriptors.
 
-            :exceptions: NotImplementedError.
+            :exceptions: None.
         '''
-        raise NotImplementedError("Method ioctl_for_all_descriptors() must be implemented.")
+        pass
 
     @abstractmethod
     def size(self) -> tuple[Any, ...]:
@@ -77,9 +77,9 @@ class ITerminalProperties(ABC):
 
             :return: Terminal window size.
             :rtype: <tuple[Any, ...]>
-            :exceptions: NotImplementedError.
+            :exceptions: None.
         '''
-        raise NotImplementedError("Method size() must be implemented.")
+        pass
 
     @abstractmethod
     def __str__(self) -> str:
@@ -88,6 +88,6 @@ class ITerminalProperties(ABC):
 
             :return: The terminal properties as string representation.
             :rtype: <str>
-            :exceptions: NotImplementedError.
+            :exceptions: None.
         '''
-        raise NotImplementedError("Method __str__() must be implemented.")
+        pass

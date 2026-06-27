@@ -20,7 +20,7 @@ Info
     Creates an API for the ATS information in one container object.
 '''
 
-from typing import Any
+from typing import Any, override
 from ats_utilities.info.imanager import IInfoManager
 from ats_utilities.info.component_bundle import InfoComponentBundle
 from ats_utilities.info.iname import IName
@@ -44,19 +44,19 @@ from ats_utilities.info.info_ok import InfoOk
 from ats_utilities.info.info_keys import InfoKeys
 from ats_utilities.checker.ichecker import IChecker
 from ats_utilities.reporter.ireporter import IReporter
-from ats_utilities.factory_context_bundle import factory_context_bundle
-from ats_utilities.factory_class import get_class_name, format_instance_to_string
-from ats_utilities.factory_component import make_component, validate_component
 from ats_utilities.exceptions.ats_type_error import ATSTypeError
 from ats_utilities.exceptions.ats_value_error import ATSValueError
 from ats_utilities.exceptions.ats_runtime_error import ATSRuntimeError
 from ats_utilities.exceptions.ats_attribute_error import ATSAttributeError
+from ats_utilities.factory_context_bundle import factory_context_bundle
+from ats_utilities.factory_class import get_class_name, format_instance_to_string
+from ats_utilities.factory_component import make_component, validate_component
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.3.8'
+__version__: str = '3.4.0'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
@@ -145,7 +145,10 @@ class InfoManager(IInfoManager):
 
         except (ATSTypeError, ATSValueError, ATSRuntimeError, ATSAttributeError) as exc:
             self._reporter.error([f'{get_class_name(self)} {exc}'])
+        except Exception as exc:
+            self._reporter.error([f'{get_class_name(self)} unexpected exception: {exc}'])
 
+    @override
     def set_info(self, info: dict[str, Any]) -> None:
         '''
             Sets the ATS information.
@@ -166,13 +169,14 @@ class InfoManager(IInfoManager):
         self.use_github = use_github
         self.logo_path = info.get(InfoKeys.ATS_LOGO_PATH)
 
+    @override
     def get_info(self) -> dict[str, Any]:
         '''
             Gets the ATS information.
 
             :return: Dictionary with ATS information.
             :rtype: <dict[str, Any]>
-            :exceptions: None..
+            :exceptions: None.
         '''
         return {
             InfoKeys.ATS_NAME: self.name,
@@ -210,7 +214,7 @@ class InfoManager(IInfoManager):
             :type name: <str>
             :param value: Value to assign to the component attribute.
             :type value: <str | bool | None>
-            :exceptions: None..
+            :exceptions: None.
         '''
         if '_components' in self.__dict__ and name in self._ATTR_MAP:
             component = getattr(self._components, name, None)
@@ -223,6 +227,7 @@ class InfoManager(IInfoManager):
 
         super().__setattr__(name, value)
 
+    @override
     def is_initialized(self) -> bool:
         '''
             Checks if the info manager component is initialized.
@@ -234,11 +239,12 @@ class InfoManager(IInfoManager):
         component = getattr(self._components, 'info_ok', None) if self._is_initialized else None
         return self._is_initialized and (component.info_ok if component else False)
 
+    @override
     def refresh_status(self) -> None:
         '''
             Refresh status for ATS information structure.
 
-            :exceptions: None..
+            :exceptions: None.
         '''
         info_ok = getattr(self._components, 'info_ok', False)
         attrs = ['name', 'version', 'licence', 'build_date']
@@ -246,13 +252,14 @@ class InfoManager(IInfoManager):
         status = all(c and c.not_none() for c in components)
         setattr(info_ok, 'info_ok', status)
 
+    @override
     def __str__(self) -> str:
         '''
             Returns the ATS info manager as string representation.
 
             :return: The ATS info manager as string representation.
             :rtype: <str>
-            :exceptions: None..
+            :exceptions: None.
         '''
         return format_instance_to_string(self)
 

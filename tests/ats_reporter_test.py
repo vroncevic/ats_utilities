@@ -35,7 +35,7 @@ __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.3.8'
+__version__: str = '3.4.0'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
@@ -108,6 +108,14 @@ class ReporterTestCase(TestCase):
     def test_initialization_failure(self, mock_make_component) -> None:
         '''Test initialization failure with wrong components.'''
         mock_make_component.side_effect = ATSTypeError('Failed to initialize component')
+        bundle = ReporterComponentBundle()
+        r = Reporter(bundle)
+        self.assertFalse(r.is_initialized())
+
+    @mock.patch('ats_utilities.reporter.engine.make_component')
+    def test_initialization_unexpected_exception(self, mock_make_component) -> None:
+        '''Test initialization unexpected exception.'''
+        mock_make_component.side_effect = Exception('Unexpected')
         bundle = ReporterComponentBundle()
         r = Reporter(bundle)
         self.assertFalse(r.is_initialized())

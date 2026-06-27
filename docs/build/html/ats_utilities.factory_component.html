@@ -95,7 +95,7 @@ Provides a simple factory mechanism for dependency injection.</p>
 <dt class="sig sig-object py" id="ats_utilities.factory_component.validate_component">
 <span class="sig-prename descclassname"><span class="pre">ats_utilities.factory_component.</span></span><span class="sig-name descname"><span class="pre">validate_component</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instance</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">expected_class</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">type</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/ats_utilities/factory_component.html#validate_component"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.factory_component.validate_component" title="Link to this definition">¶</a></dt>
 <dd><p>Validates if a component instance is of the expected class type.</p>
-<dl class="field-list simple">
+<dl class="field-list">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>instance</strong> (<em>&lt;Any&gt;</em>) – The resolved component instance to check.</p></li>
@@ -103,7 +103,9 @@ Provides a simple factory mechanism for dependency injection.</p>
 </ul>
 </dd>
 <dt class="field-even">Exceptions<span class="colon">:</span></dt>
-<dd class="field-even"><p>ATSTypeError</p>
+<dd class="field-even"><div class="line-block">
+<div class="line">ATSTypeError - instance is not of expected class type.</div>
+</div>
 </dd>
 </dl>
 </dd></dl>

@@ -20,7 +20,7 @@ Info
     Implements a splash screen with hyperlinks.
 '''
 
-from typing import Any
+from typing import Any, override
 from time import sleep
 from ats_utilities.splasher.isplasher import ISplasher
 from ats_utilities.splasher.component_bundle import SplashComponentBundle
@@ -44,13 +44,13 @@ from ats_utilities.exceptions.ats_attribute_error import ATSAttributeError
 from ats_utilities.factory_context_bundle import factory_context_bundle
 from ats_utilities.factory_class import get_class_name, format_instance_to_string
 from ats_utilities.factory_component import make_component, validate_component
-from ats_utilities.factory_utils import check_file_exists
+from ats_utilities.factory_file_utils import check_file_exists
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.3.8'
+__version__: str = '3.4.0'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
@@ -154,14 +154,23 @@ class Splasher(ISplasher):
 
         except (ATSTypeError, ATSValueError, ATSRuntimeError, ATSAttributeError) as exc:
             self._reporter.error([f'{get_class_name(self)} {exc}'])
+        except Exception as exc:
+            self._reporter.error([f'{get_class_name(self)} unexpected exception: {exc}'])
 
+    @override
     def center(self, splash_center_bundle: SplashCenterBundle | None = None) -> None:
         '''
             Centers console line.
 
             :param splash_center_bundle: Splash center bundle for centering console output | None.
             :type splash_center_bundle: <SplashCenterBundle | None>
-            :exceptions: ATSTypeError, ATSValueError.
+            :exceptions:
+                | ATSTypeError - columns count 'columns' is not an integer.
+                | ATSValueError - columns count 'columns' is less than 0.
+                | ATSTypeError - additional shifter 'additional_shifter' is not an integer.
+                | ATSValueError - additional shifter 'additional_shifter' is less than 0.
+                | ATSTypeError - text 'text' is not a string or None.
+                | ATSValueError - text 'text' is empty.
         '''
         bundle: SplashCenterBundle = splash_center_bundle or SplashCenterBundle()
         bundle.validate()
@@ -169,6 +178,7 @@ class Splasher(ISplasher):
         number_of_tabs = int((start_position / 8) - 1 + bundle.additional_shifter)
         print('{0}{1}'.format('\011' * number_of_tabs, bundle.text))
 
+    @override
     def is_initialized(self) -> bool:
         '''
             Checks if splasher component is initialized.
@@ -179,6 +189,7 @@ class Splasher(ISplasher):
         '''
         return self._is_initialized
 
+    @override
     def __str__(self) -> str:
         '''
             Returns the string representation of Splasher.

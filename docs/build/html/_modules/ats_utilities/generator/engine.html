@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../../../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ats_utilities.generator.engine &#8212; ats_utilities https://github.com/vroncevic/ats_utilities/releases documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/classic.css?v=514cf933" />
+    
+    <script src="../../../_static/documentation_options.js?v=893dd00a"></script>
+    <script src="../../../_static/doctools.js?v=888ff710"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">ats_utilities https://github.com/vroncevic/ats_utilities/releases documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../index.html" accesskey="U">Module code</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">ats_utilities.generator.engine</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for ats_utilities.generator.engine</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: UTF-8 -*-</span>
+
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">Module</span>
+<span class="sd">    engine.py</span>
+<span class="sd">Copyright</span>
+<span class="sd">    Copyright (C) 2017 - 2026 Vladimir Roncevic &lt;elektron.ronca@gmail.com&gt;</span>
+<span class="sd">    ats_utilities is free software: you can redistribute it and/or modify it</span>
+<span class="sd">    under the terms of the GNU General Public License as published by the</span>
+<span class="sd">    Free Software Foundation, either version 3 of the License, or</span>
+<span class="sd">    (at your option) any later version.</span>
+<span class="sd">    ats_utilities is distributed in the hope that it will be useful, but</span>
+<span class="sd">    WITHOUT ANY WARRANTY; without even the implied warranty of</span>
+<span class="sd">    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.</span>
+<span class="sd">    See the GNU General Public License for more details.</span>
+<span class="sd">    You should have received a copy of the GNU General Public License along</span>
+<span class="sd">    with this program. If not, see &lt;http://www.gnu.org/licenses/&gt;.</span>
+<span class="sd">Info</span>
+<span class="sd">    Defines class Generator with attribute(s) and method(s).</span>
+<span class="sd">    Template-based file generation from .tgz archives.</span>
+<span class="sd">&#39;&#39;&#39;</span>
+
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">override</span>
+<span class="kn">from</span> <span class="nn">os.path</span> <span class="kn">import</span> <span class="n">exists</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.generator.igenerator</span> <span class="kn">import</span> <span class="n">IGenerator</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.generator.component_bundle</span> <span class="kn">import</span> <span class="n">GeneratorComponentBundle</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.generator.generator_bundle</span> <span class="kn">import</span> <span class="n">GeneratorBundle</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.generator.ischeme_loader</span> <span class="kn">import</span> <span class="n">ISchemeLoader</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.generator.scheme_loader</span> <span class="kn">import</span> <span class="n">SchemeLoader</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.generator.itar_processor</span> <span class="kn">import</span> <span class="n">ITarProcessor</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.generator.tar_processor</span> <span class="kn">import</span> <span class="n">TarProcessor</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.generator.tar_process_bundle</span> <span class="kn">import</span> <span class="n">TarProcessBundle</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.checker.ichecker</span> <span class="kn">import</span> <span class="n">IChecker</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.reporter.ireporter</span> <span class="kn">import</span> <span class="n">IReporter</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.exceptions.ats_type_error</span> <span class="kn">import</span> <span class="n">ATSTypeError</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.exceptions.ats_value_error</span> <span class="kn">import</span> <span class="n">ATSValueError</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.exceptions.ats_generator_error</span> <span class="kn">import</span> <span class="n">ATSGeneratorError</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.factory_context_bundle</span> <span class="kn">import</span> <span class="n">factory_context_bundle</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.factory_component</span> <span class="kn">import</span> <span class="n">make_component</span><span class="p">,</span> <span class="n">validate_component</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.factory_class</span> <span class="kn">import</span> <span class="n">get_class_name</span><span class="p">,</span> <span class="n">format_instance_to_string</span>
+
+<span class="n">__author__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;Vladimir Roncevic&#39;</span>
+<span class="n">__copyright__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;(C) 2026, https://vroncevic.github.io/ats_utilities&#39;</span>
+<span class="n">__credits__</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Vladimir Roncevic&#39;</span><span class="p">,</span> <span class="s1">&#39;Python Software Foundation&#39;</span><span class="p">]</span>
+<span class="n">__license__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE&#39;</span>
+<span class="n">__version__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;3.4.0&#39;</span>
+<span class="n">__maintainer__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;Vladimir Roncevic&#39;</span>
+<span class="n">__email__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;elektron.ronca@gmail.com&#39;</span>
+<span class="n">__status__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;Updated&#39;</span>
+
+
+<div class="viewcode-block" id="Generator">
+<a class="viewcode-back" href="../../../ats_utilities.generator.engine.html#ats_utilities.generator.engine.Generator">[docs]</a>
+<span class="k">class</span> <span class="nc">Generator</span><span class="p">(</span><span class="n">IGenerator</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Defines class Generator with attribute(s) and method(s).</span>
+<span class="sd">        Template-based file generation from .tgz archives.</span>
+
+<span class="sd">        It defines:</span>
+
+<span class="sd">            :attributes:</span>
+<span class="sd">                | _checker - Injected parameters checker (default Checker).</span>
+<span class="sd">                | _reporter - Injected reporter for messaging (default Reporter).</span>
+<span class="sd">                | _verbose - Injected Enable/Disable verbose option (default False).</span>
+<span class="sd">                | _scheme_loader - Loader/resolver for scheme configuration.</span>
+<span class="sd">                | _tar_processor - Processor for archive extraction and template rendering.</span>
+<span class="sd">            :methods:</span>
+<span class="sd">                | __init__ - Initializes Generator constructor.</span>
+<span class="sd">                | generate - Generates project modules/files from a .tgz archive.</span>
+<span class="sd">                | is_initialized - Checks if the generator component is initialized.</span>
+<span class="sd">                | __str__ - Returns the string representation of Generator.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+
+    <span class="n">_checker</span><span class="p">:</span> <span class="n">IChecker</span>
+    <span class="n">_reporter</span><span class="p">:</span> <span class="n">IReporter</span>
+    <span class="n">_verbose</span><span class="p">:</span> <span class="nb">bool</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">component_bundle</span><span class="p">:</span> <span class="n">GeneratorComponentBundle</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">            Initializes Generator constructor.</span>
+
+<span class="sd">            :param component_bundle: Generator component bundle for generator | None.</span>
+<span class="sd">            :type component_bundle: &lt;GeneratorComponentBundle | None&gt;</span>
+<span class="sd">            :exceptions: ATSTypeError.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="c1"># No dependency injection then use default ones.</span>
+        <span class="n">bundle</span> <span class="o">=</span> <span class="n">component_bundle</span> <span class="ow">or</span> <span class="n">GeneratorComponentBundle</span><span class="p">()</span>
+        <span class="n">factory_context_bundle</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bundle</span><span class="o">.</span><span class="n">context_bundle</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_is_initialized</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_scheme_loader</span><span class="p">:</span> <span class="n">ISchemeLoader</span> <span class="o">=</span> <span class="n">make_component</span><span class="p">(</span>
+                <span class="n">bundle</span><span class="o">.</span><span class="n">scheme_loader</span><span class="p">,</span> <span class="n">SchemeLoader</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;context_bundle&#39;</span><span class="p">:</span> <span class="n">bundle</span><span class="o">.</span><span class="n">context_bundle</span><span class="p">}</span>
+            <span class="p">)</span>
+            <span class="n">validate_component</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_scheme_loader</span><span class="p">,</span> <span class="n">SchemeLoader</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_tar_processor</span><span class="p">:</span> <span class="n">ITarProcessor</span> <span class="o">=</span> <span class="n">make_component</span><span class="p">(</span>
+                <span class="n">bundle</span><span class="o">.</span><span class="n">tar_processor</span><span class="p">,</span> <span class="n">TarProcessor</span><span class="p">,</span> <span class="p">{</span>
+                    <span class="s1">&#39;context_bundle&#39;</span><span class="p">:</span> <span class="n">bundle</span><span class="o">.</span><span class="n">context_bundle</span><span class="p">,</span>
+                    <span class="s1">&#39;template_processor&#39;</span><span class="p">:</span> <span class="n">bundle</span><span class="o">.</span><span class="n">template_processor</span>
+                <span class="p">}</span>
+            <span class="p">)</span>
+            <span class="n">validate_component</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_tar_processor</span><span class="p">,</span> <span class="n">TarProcessor</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_is_initialized</span> <span class="o">=</span> <span class="kc">True</span>
+
+        <span class="k">except</span> <span class="p">(</span><span class="n">ATSTypeError</span><span class="p">,</span> <span class="n">ATSValueError</span><span class="p">)</span> <span class="k">as</span> <span class="n">exc</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_reporter</span><span class="o">.</span><span class="n">error</span><span class="p">([</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">get_class_name</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="si">}</span><span class="s1"> </span><span class="si">{</span><span class="n">exc</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">])</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">exc</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_reporter</span><span class="o">.</span><span class="n">error</span><span class="p">([</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">get_class_name</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="si">}</span><span class="s1"> unexpected exception: </span><span class="si">{</span><span class="n">exc</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">])</span>
+
+<div class="viewcode-block" id="Generator.prepare_template_values">
+<a class="viewcode-back" href="../../../ats_utilities.generator.engine.html#ats_utilities.generator.engine.Generator.prepare_template_values">[docs]</a>
+    <span class="nd">@override</span>
+    <span class="k">def</span> <span class="nf">prepare_template_values</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">template_values</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">            Validates and computes name case variations from template values.</span>
+
+<span class="sd">            :param template_values: Input replacement values.</span>
+<span class="sd">            :type template_values: &lt;dict[str, str]&gt;</span>
+<span class="sd">            :return: The updated template values dictionary.</span>
+<span class="sd">            :rtype: &lt;dict[str, str]&gt;</span>
+<span class="sd">            :exceptions:</span>
+<span class="sd">                | ATSValueError - If project_name is missing or empty.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="n">project_name</span> <span class="o">=</span> <span class="n">template_values</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;project_name&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">project_name</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">ATSValueError</span><span class="p">(</span><span class="s2">&quot;template_values must contain a non-empty &#39;project_name&#39;&quot;</span><span class="p">)</span>
+
+        <span class="n">vals</span> <span class="o">=</span> <span class="n">template_values</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="k">if</span> <span class="s1">&#39;project_name_dashed&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">vals</span><span class="p">:</span>
+            <span class="n">vals</span><span class="p">[</span><span class="s1">&#39;project_name_dashed&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">project_name</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;_&#39;</span><span class="p">,</span> <span class="s1">&#39;-&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="s1">&#39;project_name_camel&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">vals</span><span class="p">:</span>
+            <span class="n">vals</span><span class="p">[</span><span class="s1">&#39;project_name_camel&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+                <span class="n">word</span><span class="o">.</span><span class="n">capitalize</span><span class="p">()</span> <span class="k">for</span> <span class="n">word</span> <span class="ow">in</span> <span class="n">project_name</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="s1">&#39;_&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;_&#39;</span><span class="p">)</span>
+            <span class="p">)</span>
+        <span class="k">if</span> <span class="s1">&#39;project_name_upper&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">vals</span><span class="p">:</span>
+            <span class="n">vals</span><span class="p">[</span><span class="s1">&#39;project_name_upper&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">project_name</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="s1">&#39;_&#39;</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">vals</span></div>
+
+
+<div class="viewcode-block" id="Generator.generate">
+<a class="viewcode-back" href="../../../ats_utilities.generator.engine.html#ats_utilities.generator.engine.Generator.generate">[docs]</a>
+    <span class="nd">@override</span>
+    <span class="k">def</span> <span class="nf">generate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">generator_bundle</span><span class="p">:</span> <span class="n">GeneratorBundle</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">            Generates project modules/files from a .tgz archive.</span>
+
+<span class="sd">            :param generator_bundle: Generator bundle containing template generation parameters.</span>
+<span class="sd">            :type generator_bundle: &lt;GeneratorBundle&gt;</span>
+<span class="sd">            :return: True if generation was successful, False otherwise.</span>
+<span class="sd">            :rtype: &lt;bool&gt;</span>
+<span class="sd">            :exceptions:</span>
+<span class="sd">                | ATSTypeError - If parameters are of invalid type.</span>
+<span class="sd">                | ATSValueError - If parameter constraints are violated.</span>
+<span class="sd">                | ATSGeneratorError - If archive parsing or template rendering fails.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="n">generator_bundle</span><span class="o">.</span><span class="n">validate</span><span class="p">()</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">exists</span><span class="p">(</span><span class="n">generator_bundle</span><span class="o">.</span><span class="n">archive_path</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="n">ATSValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Archive file does not exist: &#39;</span><span class="si">{</span><span class="n">generator_bundle</span><span class="o">.</span><span class="n">archive_path</span><span class="si">}</span><span class="s2">&#39;&quot;</span><span class="p">)</span>
+
+        <span class="n">resolved_scheme</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_scheme_loader</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">generator_bundle</span><span class="o">.</span><span class="n">scheme</span><span class="p">)</span>
+        <span class="n">project_scheme</span> <span class="o">=</span> <span class="n">resolved_scheme</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">generator_bundle</span><span class="o">.</span><span class="n">template_key</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">project_scheme</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">ATSValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;template_key &#39;</span><span class="si">{</span><span class="n">generator_bundle</span><span class="o">.</span><span class="n">template_key</span><span class="si">}</span><span class="s2">&#39; not found in scheme configuration&quot;</span><span class="p">)</span>
+
+        <span class="n">source_dir</span> <span class="o">=</span> <span class="n">project_scheme</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;source_dir&#39;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">source_dir</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">ATSValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;source_dir not specified for template_key &#39;</span><span class="si">{</span><span class="n">generator_bundle</span><span class="o">.</span><span class="n">template_key</span><span class="si">}</span><span class="s2">&#39;&quot;</span><span class="p">)</span>
+
+        <span class="n">path_replacements</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">project_scheme</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;path_replacements&#39;</span><span class="p">,</span> <span class="p">{})</span>
+        <span class="n">exclude_patterns</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">project_scheme</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;exclude&#39;</span><span class="p">,</span> <span class="p">[])</span>
+        <span class="n">vals</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">prepare_template_values</span><span class="p">(</span><span class="n">generator_bundle</span><span class="o">.</span><span class="n">template_values</span><span class="p">)</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_tar_processor</span><span class="o">.</span><span class="n">process</span><span class="p">(</span>
+                <span class="n">TarProcessBundle</span><span class="p">(</span>
+                    <span class="n">archive_path</span><span class="o">=</span><span class="n">generator_bundle</span><span class="o">.</span><span class="n">archive_path</span><span class="p">,</span>
+                    <span class="n">target_dir</span><span class="o">=</span><span class="n">generator_bundle</span><span class="o">.</span><span class="n">target_dir</span><span class="p">,</span>
+                    <span class="n">source_dir</span><span class="o">=</span><span class="n">source_dir</span><span class="p">,</span>
+                    <span class="n">path_replacements</span><span class="o">=</span><span class="n">path_replacements</span><span class="p">,</span>
+                    <span class="n">exclude_patterns</span><span class="o">=</span><span class="n">exclude_patterns</span><span class="p">,</span>
+                    <span class="n">vals</span><span class="o">=</span><span class="n">vals</span>
+                <span class="p">)</span>
+            <span class="p">)</span>
+            <span class="k">return</span> <span class="kc">True</span>
+
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">exc</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">ATSGeneratorError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;generation failed </span><span class="si">{</span><span class="n">exc</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Generator.is_initialized">
+<a class="viewcode-back" href="../../../ats_utilities.generator.engine.html#ats_utilities.generator.engine.Generator.is_initialized">[docs]</a>
+    <span class="nd">@override</span>
+    <span class="k">def</span> <span class="nf">is_initialized</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">            Checks if generator component is initialized.</span>
+
+<span class="sd">            :return: True (success) | False (fail).</span>
+<span class="sd">            :rtype: &lt;bool&gt;</span>
+<span class="sd">            :exceptions: None.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="nb">all</span><span class="p">([</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_is_initialized</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_scheme_loader</span><span class="o">.</span><span class="n">is_initialized</span><span class="p">(),</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_tar_processor</span><span class="o">.</span><span class="n">is_initialized</span><span class="p">()</span>
+        <span class="p">])</span></div>
+
+
+    <span class="nd">@override</span>
+    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">            Returns the string representation of Generator.</span>
+
+<span class="sd">            :return: The Generator as string representation.</span>
+<span class="sd">            :rtype: &lt;str&gt;</span>
+<span class="sd">            :exceptions: None.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="n">format_instance_to_string</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div>
+
+
+</pre></div>
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">ats_utilities https://github.com/vroncevic/ats_utilities/releases documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../index.html" >Module code</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">ats_utilities.generator.engine</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+    &#169; Copyright 2026, https://vroncevic.github.io/ats_utilities.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.2.6.
+    </div>
+  </body>
+</html>

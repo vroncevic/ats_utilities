@@ -56,7 +56,7 @@ def run_coverage(pro_name: str) -> str:
     checker: Checker = Checker()
     error_msg: str | None = None
     error_id: int | None = None
-    error_msg, error_id = checker.validate_parameters([('str:pro_name', pro_name)])
+    error_msg, error_id = checker.validates_parameters([('str:pro_name', pro_name)])
     if error_id == ErrorChecker.TYPE_ERROR:
         raise ATSTypeError(error_msg)
     if not exists(f'../{pro_name}'):

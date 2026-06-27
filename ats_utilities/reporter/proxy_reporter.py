@@ -32,7 +32,7 @@ __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.3.8'
+__version__: str = '3.4.0'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
@@ -48,7 +48,10 @@ def vreporter[F: Callable[..., Any]](templates: str | list[str]) -> Callable[[F]
         :type templates: <str | list[str]>
         :return: Wrapped function.
         :rtype: <Callable[[F], F]>
-        :exceptions: ATSRuntimeError, ATSAttributeError.
+        :exceptions:
+            | ATSRuntimeError: Decorator cannot be used on a standalone function.
+            | ATSAttributeError: Class is required to provide a '_reporter' object to
+            |                    use the @verboser decorator.
     '''
     message_templates: list[str] = [templates] if isinstance(templates, str) else templates
 

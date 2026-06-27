@@ -20,7 +20,7 @@ Info
     Default implementation of IConfigLoader that encapsulates factory logic.
 '''
 
-from typing import cast
+from typing import cast, override
 from os.path import basename
 from ats_utilities.config_io.iconfig_loader import IConfigLoader
 from ats_utilities.config_io.iconfig_loader import IConfigProcessor, Config
@@ -43,7 +43,7 @@ __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.3.8'
+__version__: str = '3.4.0'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
@@ -71,20 +71,21 @@ class ConfigLoader(IConfigLoader):
 
             :param config_loader_bundle: Configuration file for loading process | None.
             :type config_loader_bundle: <ATSConfigLoaderBundle | None>
-            :exceptions: None..
+            :exceptions: None.
         '''
         self._info_file: str | None = config_loader_bundle.info_file
         self._config2object: IRead | None = config_loader_bundle.config2object
         self._config_bundle: ATSConfigFileBundle | None = config_loader_bundle.config_bundle
         self._processor: IConfigProcessor | None = config_loader_bundle.processor
 
+    @override
     def setup_config_loader(self) -> Config:
         '''
             Setup config loader based on configuration file type.
 
             :return: Configuration loader object.
             :rtype: <Config>
-            :exceptions: None..
+            :exceptions: None.
         '''
         if not self._info_file:
             return None
@@ -106,12 +107,13 @@ class ConfigLoader(IConfigLoader):
             case _:
                 return None
 
+    @override
     def __str__(self) -> str:
         '''
             Returns the ConfigLoader as string representation.
 
             :return: The ConfigLoader as string representation.
             :rtype: <str>
-            :exceptions: NotImplementedError..
+            :exceptions: None.
         '''
         return format_instance_to_string(self)

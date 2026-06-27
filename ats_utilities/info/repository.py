@@ -20,6 +20,7 @@ Info
     Creates an API for the ATS repository in one property object.
 '''
 
+from typing import override
 from ats_utilities.info.irepository import IRepository
 from ats_utilities.context_bundle import ContextBundle
 from ats_utilities.checker.ichecker import IChecker
@@ -33,7 +34,7 @@ __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.3.8'
+__version__: str = '3.4.0'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
@@ -68,26 +69,31 @@ class Repository(IRepository):
 
             :param context_bundle: Context bundle for repository | None.
             :type context_bundle: <ContextBundle | None>
-            :exceptions: None..
+            :exceptions: None.
         '''
         factory_context_bundle(self, context_bundle)
         self._repository: str | None = None
 
     @property
     @vreporter('get repository {repository}')
+    @override
     def repository(self) -> str | None:
         '''
             Property method for getting ATS repository.
 
             :return: The ATS repository in string format | None.
             :rtype: <str | None>
-            :exceptions: ATSRuntimeError, ATSAttributeError.
+            :exceptions:
+                | ATSRuntimeError: Decorator cannot be used on a standalone function.
+                | ATSAttributeError: Class is required to provide a '_reporter' object to
+                |                    use the @verboser decorator.
         '''
         return self._repository
 
     @repository.setter
     @validator([('str | None:repository', None)])
     @vreporter('set repository {repository}')
+    @override
     def repository(self, repository: str | None) -> None:
         '''
             Property method for setting ATS repository.
@@ -95,28 +101,38 @@ class Repository(IRepository):
             :param repository: The ATS repository in string format | None.
             :type repository: <str | None>
             :exceptions:
-                | ATSTypeError, ATSValueError, RuntimeError, AttributeError.
-                | RuntimeError, AttributeError.
+                | ATSRuntimeError: Decorator cannot be used on a standalone function.
+                | ATSAttributeError: Class is required to provide a '_reporter' object to
+                |                    use the @verboser decorator.
+                | ATSTypeError: Parameter type validation failed.
+                | ATSValueError: Parameter format validation failed.
+                | ATSRuntimeError: Decorator used on a non-class method.
+                | ATSAttributeError: Class does not provide a '_checker' object.
         '''
         self._repository = repository
 
     @vreporter('check repository {repository}')
+    @override
     def not_none(self) -> bool:
         '''
             Checks is ATS repository not None.
 
             :return: True (success) | False (fail).
             :rtype: <bool>
-            :exceptions: ATSRuntimeError, ATSAttributeError.
+            :exceptions:
+                | ATSRuntimeError: Decorator cannot be used on a standalone function.
+                | ATSAttributeError: Class is required to provide a '_reporter' object to
+                |                    use the @verboser decorator.
         '''
         return self._repository is not None
 
+    @override
     def __str__(self) -> str:
         '''
             Returns the ATS repository as string representation.
 
             :return: The ATS repository as string representation.
             :rtype: <str>
-            :exceptions: None..
+            :exceptions: None.
         '''
         return format_instance_to_string(self)

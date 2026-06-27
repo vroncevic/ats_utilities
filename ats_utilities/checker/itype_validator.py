@@ -27,7 +27,7 @@ __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.3.8'
+__version__: str = '3.4.0'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
@@ -59,9 +59,9 @@ class ITypeValidator(ABC):
             :type expected_type_name: <str>
             :return: True if the types match, False otherwise
             :rtype: <bool>
-            :exceptions: NotImplementedError.
+            :exceptions: None.
         '''
-        raise NotImplementedError("Method is_match() must be implemented.")
+        pass
 
     @abstractmethod
     def is_subtype(self, inst: Any, expected_type_name: str) -> bool:
@@ -74,9 +74,9 @@ class ITypeValidator(ABC):
             :type expected_type_name: <str>
             :return: True (is), False (not)
             :rtype: <bool>
-            :exceptions: NotImplementedError.
+            :exceptions: None.
         '''
-        raise NotImplementedError("Method is_subtype() must be implemented.")
+        pass
 
     @abstractmethod
     def get_type_name(self, inst: Any) -> str:
@@ -87,9 +87,9 @@ class ITypeValidator(ABC):
             :type inst: <Any>
             :return: String name of the type
             :rtype: <str>
-            :exceptions: NotImplementedError.
+            :exceptions: None.
         '''
-        raise NotImplementedError("Method get_type_name() must be implemented.")
+        pass
 
     @abstractmethod
     def __str__(self) -> str:
@@ -98,6 +98,6 @@ class ITypeValidator(ABC):
 
             :return: The validator as string representation.
             :rtype: <str>
-            :exceptions: NotImplementedError.
+            :exceptions: None.
         '''
-        raise NotImplementedError("Method __str__() must be implemented.")
+        pass

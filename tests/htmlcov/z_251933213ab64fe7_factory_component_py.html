@@ -65,7 +65,7 @@
             <a id="nextFileLink" class="nav" href="z_251933213ab64fe7_factory_context_bundle_py.html">&#xbb; next</a>
             &nbsp; &nbsp; &nbsp;
             <a class="nav" href="https://coverage.readthedocs.io/en/7.6.10">coverage.py v7.6.10</a>,
-            created at 2026-06-23 19:55 +0200
+            created at 2026-06-27 19:51 +0200
         </p>
         <aside class="hidden">
             <button type="button" class="button_next_chunk" data-shortcut="j"></button>
@@ -110,7 +110,7 @@
     <p class="run"><span class="n"><a id="t28" href="#t28">28</a></span><span class="t"><span class="nam">__copyright__</span><span class="op">:</span> <span class="nam">str</span> <span class="op">=</span> <span class="str">'(C) 2026, https://vroncevic.github.io/ats_utilities'</span>&nbsp;</span><span class="r"></span></p>
     <p class="run"><span class="n"><a id="t29" href="#t29">29</a></span><span class="t"><span class="nam">__credits__</span><span class="op">:</span> <span class="nam">list</span><span class="op">[</span><span class="nam">str</span><span class="op">]</span> <span class="op">=</span> <span class="op">[</span><span class="str">'Vladimir Roncevic'</span><span class="op">,</span> <span class="str">'Python Software Foundation'</span><span class="op">]</span>&nbsp;</span><span class="r"></span></p>
     <p class="run"><span class="n"><a id="t30" href="#t30">30</a></span><span class="t"><span class="nam">__license__</span><span class="op">:</span> <span class="nam">str</span> <span class="op">=</span> <span class="str">'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'</span>&nbsp;</span><span class="r"></span></p>
-    <p class="run"><span class="n"><a id="t31" href="#t31">31</a></span><span class="t"><span class="nam">__version__</span><span class="op">:</span> <span class="nam">str</span> <span class="op">=</span> <span class="str">'3.3.8'</span>&nbsp;</span><span class="r"></span></p>
+    <p class="run"><span class="n"><a id="t31" href="#t31">31</a></span><span class="t"><span class="nam">__version__</span><span class="op">:</span> <span class="nam">str</span> <span class="op">=</span> <span class="str">'3.4.0'</span>&nbsp;</span><span class="r"></span></p>
     <p class="run"><span class="n"><a id="t32" href="#t32">32</a></span><span class="t"><span class="nam">__maintainer__</span><span class="op">:</span> <span class="nam">str</span> <span class="op">=</span> <span class="str">'Vladimir Roncevic'</span>&nbsp;</span><span class="r"></span></p>
     <p class="run"><span class="n"><a id="t33" href="#t33">33</a></span><span class="t"><span class="nam">__email__</span><span class="op">:</span> <span class="nam">str</span> <span class="op">=</span> <span class="str">'elektron.ronca@gmail.com'</span>&nbsp;</span><span class="r"></span></p>
     <p class="run"><span class="n"><a id="t34" href="#t34">34</a></span><span class="t"><span class="nam">__status__</span><span class="op">:</span> <span class="nam">str</span> <span class="op">=</span> <span class="str">'Updated'</span>&nbsp;</span><span class="r"></span></p>
@@ -146,10 +146,11 @@
     <p class="pln"><span class="n"><a id="t64" href="#t64">64</a></span><span class="t"><span class="str">        :type instance: &lt;Any></span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t65" href="#t65">65</a></span><span class="t"><span class="str">        :param expected_class: The expected concrete class type.</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t66" href="#t66">66</a></span><span class="t"><span class="str">        :type expected_class: &lt;type[Any]></span>&nbsp;</span><span class="r"></span></p>
-    <p class="pln"><span class="n"><a id="t67" href="#t67">67</a></span><span class="t"><span class="str">        :exceptions: ATSTypeError</span>&nbsp;</span><span class="r"></span></p>
-    <p class="pln"><span class="n"><a id="t68" href="#t68">68</a></span><span class="t"><span class="str">    '''</span>&nbsp;</span><span class="r"></span></p>
-    <p class="run"><span class="n"><a id="t69" href="#t69">69</a></span><span class="t">    <span class="key">if</span> <span class="key">not</span> <span class="nam">isinstance</span><span class="op">(</span><span class="nam">instance</span><span class="op">,</span> <span class="nam">expected_class</span><span class="op">)</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
-    <p class="run"><span class="n"><a id="t70" href="#t70">70</a></span><span class="t">        <span class="key">raise</span> <span class="nam">ATSTypeError</span><span class="op">(</span><span class="fst">f"</span><span class="fst">Instance [</span><span class="op">{</span><span class="nam">type</span><span class="op">(</span><span class="nam">instance</span><span class="op">)</span><span class="op">.</span><span class="nam">__name__</span><span class="op">}</span><span class="fst">] is not of expected type </span><span class="op">{</span><span class="nam">expected_class</span><span class="op">.</span><span class="nam">__name__</span><span class="op">}</span><span class="fst">.</span><span class="fst">"</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
+    <p class="pln"><span class="n"><a id="t67" href="#t67">67</a></span><span class="t"><span class="str">        :exceptions:</span>&nbsp;</span><span class="r"></span></p>
+    <p class="pln"><span class="n"><a id="t68" href="#t68">68</a></span><span class="t"><span class="str">            | ATSTypeError - instance is not of expected class type.</span>&nbsp;</span><span class="r"></span></p>
+    <p class="pln"><span class="n"><a id="t69" href="#t69">69</a></span><span class="t"><span class="str">    '''</span>&nbsp;</span><span class="r"></span></p>
+    <p class="run"><span class="n"><a id="t70" href="#t70">70</a></span><span class="t">    <span class="key">if</span> <span class="key">not</span> <span class="nam">isinstance</span><span class="op">(</span><span class="nam">instance</span><span class="op">,</span> <span class="nam">expected_class</span><span class="op">)</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
+    <p class="run"><span class="n"><a id="t71" href="#t71">71</a></span><span class="t">        <span class="key">raise</span> <span class="nam">ATSTypeError</span><span class="op">(</span><span class="fst">f"</span><span class="fst">instance [</span><span class="op">{</span><span class="nam">type</span><span class="op">(</span><span class="nam">instance</span><span class="op">)</span><span class="op">.</span><span class="nam">__name__</span><span class="op">}</span><span class="fst">] is not of expected type </span><span class="op">{</span><span class="nam">expected_class</span><span class="op">.</span><span class="nam">__name__</span><span class="op">}</span><span class="fst">.</span><span class="fst">"</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
 </main>
 <footer>
     <div class="content">
@@ -159,7 +160,7 @@
             <a class="nav" href="z_251933213ab64fe7_factory_context_bundle_py.html">&#xbb; next</a>
             &nbsp; &nbsp; &nbsp;
             <a class="nav" href="https://coverage.readthedocs.io/en/7.6.10">coverage.py v7.6.10</a>,
-            created at 2026-06-23 19:55 +0200
+            created at 2026-06-27 19:51 +0200
         </p>
     </div>
 </footer>

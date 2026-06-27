@@ -1,0 +1,9 @@
+{
+  "mini_service": {
+    "source_dir": "mini_service_templates/service_base",
+    "path_replacements": {
+      "service_base": "project_name"
+    },
+    "exclude": []
+  }
+}

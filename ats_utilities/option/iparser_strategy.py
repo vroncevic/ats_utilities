@@ -30,7 +30,7 @@ __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.3.8'
+__version__: str = '3.4.0'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
@@ -63,9 +63,9 @@ class IParserStrategy(ABC):
 
             :param parameters: Parameters for logger in dict format.
             :type parameters: <dict[str, str]>
-            :exceptions: NotImplementedError.
+            :exceptions: None.
         '''
-        raise NotImplementedError("Method setup() must be implemented.")
+        pass
 
     @abstractmethod
     def add_argument(self, *args: str, **kwargs: Any) -> None:
@@ -76,9 +76,9 @@ class IParserStrategy(ABC):
             :type args: <str>
             :param kwargs: Arguments in Any form
             :type kwargs: <Any>
-            :exceptions: NotImplementedError.
+            :exceptions: None.
         '''
-        raise NotImplementedError("Method add_argument() must be implemented.")
+        pass
 
     @abstractmethod
     def add_version(self, version: str | None) -> None:
@@ -87,9 +87,9 @@ class IParserStrategy(ABC):
 
             :param version: The ATS version in string format | None.
             :type version: <str | None>
-            :exceptions: NotImplementedError.
+            :exceptions: None.
         '''
-        raise NotImplementedError("Method add_version() must be implemented.")
+        pass
 
     @abstractmethod
     def parse(self, arguments: OptArgs, known_only: bool = False) -> OptionNamespace:
@@ -102,9 +102,9 @@ class IParserStrategy(ABC):
             :type known_only: <bool>
             :return: Option namespace object.
             :rtype: <OptionNamespace>
-            :exceptions: NotImplementedError.
+            :exceptions: None.
         '''
-        raise NotImplementedError("Method parse() must be implemented.")
+        pass
 
     @abstractmethod
     def register_commands(self, commands: list[IOptionCommand]) -> None:
@@ -113,9 +113,9 @@ class IParserStrategy(ABC):
 
             :param commands: List of commands to register.
             :type commands: <list[IOptionCommand]>
-            :exceptions: NotImplementedError.
+            :exceptions: None.
         '''
-        raise NotImplementedError("Method register_commands() must be implemented.")
+        pass
 
     @abstractmethod
     def parse_command(self, arguments: OptArgs = None) -> tuple[str, dict]:
@@ -126,9 +126,9 @@ class IParserStrategy(ABC):
             :type arguments: <OptArgs>
             :return: Tuple containing command name and parsed parameters.
             :rtype: <tuple[str, dict]>
-            :exceptions: NotImplementedError.
+            :exceptions: None.
         '''
-        raise NotImplementedError("Method parse_command() must be implemented.")
+        pass
 
 
     @abstractmethod
@@ -138,9 +138,9 @@ class IParserStrategy(ABC):
 
             :return: True (success) | False (fail).
             :rtype: <bool>
-            :exceptions: NotImplementedError.
+            :exceptions: None.
         '''
-        raise NotImplementedError("Method ok() must be implemented.")
+        pass
 
     @abstractmethod
     def __str__(self) -> str:
@@ -149,6 +149,6 @@ class IParserStrategy(ABC):
 
             :return: The ATS parser strategy as string representation.
             :rtype: <str>
-            :exceptions: NotImplementedError.
+            :exceptions: None.
         '''
-        raise NotImplementedError("Method __str__() must be implemented.")
+        pass

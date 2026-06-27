@@ -20,6 +20,7 @@ Info
     Creates an API for the ATS logging mechanism.
 '''
 
+from typing import override
 from ats_utilities.logging.ilogger import ILogger
 from ats_utilities.logging.ilogger_manager import ILoggerManager
 from ats_utilities.logging.component_bundle import LoggingComponentBundle
@@ -42,7 +43,7 @@ __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.3.8'
+__version__: str = '3.4.0'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
@@ -111,7 +112,10 @@ class LoggerManager(ILoggerManager):
 
         except (ATSTypeError, ATSValueError, ATSRuntimeError, ATSAttributeError) as exc:
             self._reporter.error([f'{get_class_name(self)} {exc}'])
+        except Exception as exc:
+            self._reporter.error([f'{get_class_name(self)} unexpected exception: {exc}'])
 
+    @override
     def get_logger(self) -> ILogger:
         '''
             Gets logger instance.
@@ -123,6 +127,7 @@ class LoggerManager(ILoggerManager):
         return self._logger
 
     @require_attributes('_logger')
+    @override
     def write_log(self, message: str | None, ctrl: int) -> bool:
         '''
             Writes message to log output.
@@ -133,21 +138,25 @@ class LoggerManager(ILoggerManager):
             :type ctrl: <int>
             :return: True (success) | False (fail).
             :rtype: <bool>
-            :exceptions: ATSValueError.
+            :exceptions:
+                | ATSValueError: Missing or empty attribute: '_logger'.
         '''
         return self._logger.write_log(message, int(ctrl))
 
     @require_attributes('_logger')
+    @override
     def is_initialized(self) -> bool:
         '''
             Checks if the logger manager component is initialized.
 
             :return: True (success) | False (fail).
             :rtype: <bool>
-            :exceptions: ATSValueError.
+            :exceptions:
+                | ATSValueError: Missing or empty attribute: '_logger'.
         '''
         return self._is_initialized and self._logger.is_initialized()
 
+    @override
     def __str__(self) -> str:
         '''
             Returns the string representation of ATS logger.

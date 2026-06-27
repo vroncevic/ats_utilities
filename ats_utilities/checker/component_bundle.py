@@ -20,6 +20,7 @@ Info
     Encapsulates checker components to minimize constructor overhead.
 '''
 
+from typing import Any
 from dataclasses import dataclass
 from ats_utilities.checker.itype_validator import ITypeValidator
 from ats_utilities.checker.iformat_validator import IFormatValidator
@@ -30,7 +31,7 @@ __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.3.8'
+__version__: str = '3.4.0'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
@@ -64,9 +65,23 @@ class CheckerComponentBundle:
         '''
             Validates that essential components are set.
 
-            :exceptions: ValueError
+            :exceptions:
+                | ValueError - Context provider must be provided.
+                | ValueError - Check reporter must be provided.
+                | ValueError - Format validator must be provided.
+                | ValueError - Type validator must be provided.
         '''
-        pass
+        if self.context_provider is None:
+            raise ValueError("context provider must be provided.")
+
+        if self.check_reporter is None:
+            raise ValueError("check reporter must be provided.")
+
+        if self.format_validator is None:
+            raise ValueError("format validator must be provided.")
+
+        if self.type_validator is None:
+            raise ValueError("type validator must be provided.")
 
     def merge(self, other: 'CheckerComponentBundle') -> None:
         '''
@@ -74,20 +89,21 @@ class CheckerComponentBundle:
 
             :param other: Another bundle to merge into this one.
             :type other: <CheckerComponentBundle>
-            :exceptions: None..
+            :exceptions: None.
         '''
         for field_name in self.__dataclass_fields__:
             other_value = getattr(other, field_name)
+
             if other_value is not None:
                 setattr(self, field_name, other_value)
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> dict[str, Any]:
         '''
             Converts the bundle attributes to a dictionary.
 
             :return: Dictionary representation of the bundle attributes.
-            :rtype: <dict>
-            :exceptions: None..
+            :rtype: <dict[str, Any]>
+            :exceptions: None.
         '''
         return {
             name: value

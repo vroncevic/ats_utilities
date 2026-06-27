@@ -26,7 +26,7 @@ __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.3.8'
+__version__: str = '3.4.0'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
@@ -53,9 +53,9 @@ class IContextProvider(ABC):
 
             :param stack_index_caller: Index in the call stack to identify the caller.
             :type stack_index_caller: <int>
-            :exceptions: NotImplementedError.
+            :exceptions: None.
         '''
-        raise NotImplementedError("Method set_stack_index_caller() must be implemented.")
+        pass
 
     @abstractmethod
     def get_context(self) -> str:
@@ -64,9 +64,9 @@ class IContextProvider(ABC):
 
             :return: Context information string
             :rtype: <str>
-            :exceptions: NotImplementedError.
+            :exceptions: None.
         '''
-        raise NotImplementedError("Method get_context() must be implemented.")
+        pass
 
     @abstractmethod
     def __str__(self) -> str:
@@ -75,7 +75,7 @@ class IContextProvider(ABC):
 
             :return: The context provider as string representation.
             :rtype: <str>
-            :exceptions: NotImplementedError.
+            :exceptions: None.
         '''
-        raise NotImplementedError("Method __str__() must be implemented.")
+        pass
 

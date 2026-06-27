@@ -21,12 +21,13 @@ Info
 '''
 
 from dataclasses import dataclass
+from typing import Any
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.3.8'
+__version__: str = '3.4.0'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
@@ -60,9 +61,23 @@ class LoggerBundle:
         '''
             Validates that essential components are set.
 
-            :exceptions: None.
+            :exceptions:
+                | ValueError - Logger name must be provided.
+                | ValueError - Configure logging must be provided.
+                | ValueError - Log to standard output must be provided.
+                | ValueError - Log file must be provided.
         '''
-        pass
+        if not self.name or not isinstance(self.name, str):
+            raise ValueError('logger name must be provided.')
+
+        if not isinstance(self.configure_logging, bool):
+            raise ValueError('configure_logging must be a boolean.')
+
+        if not isinstance(self.log_stdout, bool):
+            raise ValueError('log_stdout must be a boolean.')
+
+        if not self.log_file or not isinstance(self.log_file, str):
+            raise ValueError('log_file must be a string.')
 
     def merge(self, other: 'LoggerBundle') -> None:
         '''
@@ -74,15 +89,16 @@ class LoggerBundle:
         '''
         for field_name in self.__dataclass_fields__:
             other_value = getattr(other, field_name)
+
             if other_value is not None:
                 setattr(self, field_name, other_value)
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> dict[str, Any]:
         '''
             Converts the bundle attributes to a dictionary.
 
             :return: Dictionary representation of the bundle attributes.
-            :rtype: <dict>
+            :rtype: <dict[str, Any]>
             :exceptions: None.
         '''
         return {

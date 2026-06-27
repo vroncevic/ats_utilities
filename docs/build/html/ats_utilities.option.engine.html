@@ -124,7 +124,7 @@ Creates an option parser based on the argparse argument processor.</p>
 <dt class="sig sig-object py" id="ats_utilities.option.engine.OptionManager.add_operation">
 <span class="sig-name descname"><span class="pre">add_operation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/ats_utilities/option/engine.html#OptionManager.add_operation"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.option.engine.OptionManager.add_operation" title="Link to this definition">¶</a></dt>
 <dd><p>Adds an option to the ATS parser.</p>
-<dl class="field-list simple">
+<dl class="field-list">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>args</strong> (<em>&lt;str&gt;</em>) – List of flags for the ATS.</p></li>
@@ -132,7 +132,9 @@ Creates an option parser based on the argparse argument processor.</p>
 </ul>
 </dd>
 <dt class="field-even">Exceptions<span class="colon">:</span></dt>
-<dd class="field-even"><p>None.</p>
+<dd class="field-even"><div class="line-block">
+<div class="line">ATSAttributeError: ‘_strategy’ attribute is required.</div>
+</div>
 </dd>
 </dl>
 </dd></dl>
@@ -141,12 +143,22 @@ Creates an option parser based on the argparse argument processor.</p>
 <dt class="sig sig-object py" id="ats_utilities.option.engine.OptionManager.add_version_operation">
 <span class="sig-name descname"><span class="pre">add_version_operation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">version</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/ats_utilities/option/engine.html#OptionManager.add_version_operation"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.option.engine.OptionManager.add_version_operation" title="Link to this definition">¶</a></dt>
 <dd><p>Adds version option to the ATS parser.</p>
-<dl class="field-list simple">
+<dl class="field-list">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>version</strong> (<em>&lt;str</em><em> | </em><em>None&gt;</em>) – The ATS version in string format | None.</p>
 </dd>
 <dt class="field-even">Exceptions<span class="colon">:</span></dt>
-<dd class="field-even"><p>ATSTypeError, ATSValueError, ATSRuntimeError, ATSAttributeError.</p>
+<dd class="field-even"><div class="line-block">
+<div class="line">ATSRuntimeError: Decorator cannot be used on a standalone function.</div>
+<div class="line">ATSAttributeError: Class is required to provide a ‘_reporter’ object to</div>
+<div class="line-block">
+<div class="line">use the &#64;verboser decorator.</div>
+</div>
+<div class="line">ATSTypeError: Parameter type validation failed.</div>
+<div class="line">ATSValueError: Parameter format validation failed.</div>
+<div class="line">ATSRuntimeError: Decorator used on a non-class method.</div>
+<div class="line">ATSAttributeError: Class does not provide a ‘_checker’ object.</div>
+</div>
 </dd>
 </dl>
 </dd></dl>
@@ -155,7 +167,7 @@ Creates an option parser based on the argparse argument processor.</p>
 <dt class="sig sig-object py" id="ats_utilities.option.engine.OptionManager.is_initialized">
 <span class="sig-name descname"><span class="pre">is_initialized</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="_modules/ats_utilities/option/engine.html#OptionManager.is_initialized"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.option.engine.OptionManager.is_initialized" title="Link to this definition">¶</a></dt>
 <dd><p>Checks if option parser component is initialized.</p>
-<dl class="field-list simple">
+<dl class="field-list">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>True (success) | False (fail).</p>
 </dd>
@@ -163,16 +175,18 @@ Creates an option parser based on the argparse argument processor.</p>
 <dd class="field-even"><p>&lt;bool&gt;</p>
 </dd>
 <dt class="field-odd">Exceptions<span class="colon">:</span></dt>
-<dd class="field-odd"><p>None.</p>
+<dd class="field-odd"><div class="line-block">
+<div class="line">ATSAttributeError: ‘_strategy’ attribute is required.</div>
+</div>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="ats_utilities.option.engine.OptionManager.parse_args">
-<span class="sig-name descname"><span class="pre">parse_args</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arguments</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="ats_utilities.option.option_namespace.html#ats_utilities.option.option_namespace.OptionNamespace" title="ats_utilities.option.option_namespace.OptionNamespace"><span class="pre">OptionNamespace</span></a></span></span><a class="reference internal" href="_modules/ats_utilities/option/engine.html#OptionManager.parse_args"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.option.engine.OptionManager.parse_args" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">parse_args</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arguments</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">OptArgs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="ats_utilities.option.option_namespace.html#ats_utilities.option.option_namespace.OptionNamespace" title="ats_utilities.option.option_namespace.OptionNamespace"><span class="pre">OptionNamespace</span></a></span></span><a class="reference internal" href="_modules/ats_utilities/option/engine.html#OptionManager.parse_args"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.option.engine.OptionManager.parse_args" title="Link to this definition">¶</a></dt>
 <dd><p>Processes arguments from the start.</p>
-<dl class="field-list simple">
+<dl class="field-list">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>arguments</strong> (<em>&lt;OptArgs&gt;</em>) – Sequence of arguments | None.</p>
 </dd>
@@ -183,16 +197,23 @@ Creates an option parser based on the argparse argument processor.</p>
 <dd class="field-odd"><p>&lt;OptionNamespace&gt;</p>
 </dd>
 <dt class="field-even">Exceptions<span class="colon">:</span></dt>
-<dd class="field-even"><p>ATSRuntimeError, ATSAttributeError.</p>
+<dd class="field-even"><div class="line-block">
+<div class="line">ATSRuntimeError: Decorator cannot be used on a standalone function.</div>
+<div class="line">ATSAttributeError: Class is required to provide a ‘_reporter’ object to</div>
+<div class="line-block">
+<div class="line">use the &#64;verboser decorator.</div>
+</div>
+<div class="line">ATSAttributeError: ‘_strategy’ attribute is required.</div>
+</div>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="ats_utilities.option.engine.OptionManager.parse_command">
-<span class="sig-name descname"><span class="pre">parse_command</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arguments</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">dict</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/ats_utilities/option/engine.html#OptionManager.parse_command"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.option.engine.OptionManager.parse_command" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">parse_command</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arguments</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">OptArgs</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">dict</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/ats_utilities/option/engine.html#OptionManager.parse_command"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.option.engine.OptionManager.parse_command" title="Link to this definition">¶</a></dt>
 <dd><p>Parses arguments as a command.</p>
-<dl class="field-list simple">
+<dl class="field-list">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>arguments</strong> (<em>&lt;OptArgs&gt;</em>) – Sequence of arguments | None.</p>
 </dd>
@@ -203,16 +224,18 @@ Creates an option parser based on the argparse argument processor.</p>
 <dd class="field-odd"><p>&lt;tuple[str, dict]&gt;</p>
 </dd>
 <dt class="field-even">Exceptions<span class="colon">:</span></dt>
-<dd class="field-even"><p>None.</p>
+<dd class="field-even"><div class="line-block">
+<div class="line">ATSAttributeError: ‘_strategy’ attribute is required.</div>
+</div>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="ats_utilities.option.engine.OptionManager.parse_input_args">
-<span class="sig-name descname"><span class="pre">parse_input_args</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arguments</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="ats_utilities.option.option_namespace.html#ats_utilities.option.option_namespace.OptionNamespace" title="ats_utilities.option.option_namespace.OptionNamespace"><span class="pre">OptionNamespace</span></a></span></span><a class="reference internal" href="_modules/ats_utilities/option/engine.html#OptionManager.parse_input_args"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.option.engine.OptionManager.parse_input_args" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">parse_input_args</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arguments</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">OptArgs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="ats_utilities.option.option_namespace.html#ats_utilities.option.option_namespace.OptionNamespace" title="ats_utilities.option.option_namespace.OptionNamespace"><span class="pre">OptionNamespace</span></a></span></span><a class="reference internal" href="_modules/ats_utilities/option/engine.html#OptionManager.parse_input_args"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.option.engine.OptionManager.parse_input_args" title="Link to this definition">¶</a></dt>
 <dd><p>Processes arguments from the start.</p>
-<dl class="field-list simple">
+<dl class="field-list">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>arguments</strong> (<em>&lt;OptArgs&gt;</em>) – Sequence of arguments | None.</p>
 </dd>
@@ -223,7 +246,14 @@ Creates an option parser based on the argparse argument processor.</p>
 <dd class="field-odd"><p>&lt;OptionNamespace&gt;</p>
 </dd>
 <dt class="field-even">Exceptions<span class="colon">:</span></dt>
-<dd class="field-even"><p>ATSRuntimeError, ATSAttributeError.</p>
+<dd class="field-even"><div class="line-block">
+<div class="line">ATSRuntimeError: Decorator cannot be used on a standalone function.</div>
+<div class="line">ATSAttributeError: Class is required to provide a ‘_reporter’ object to</div>
+<div class="line-block">
+<div class="line">use the &#64;verboser decorator.</div>
+</div>
+<div class="line">ATSAttributeError: ‘_strategy’ attribute is required.</div>
+</div>
 </dd>
 </dl>
 </dd></dl>
@@ -232,12 +262,14 @@ Creates an option parser based on the argparse argument processor.</p>
 <dt class="sig sig-object py" id="ats_utilities.option.engine.OptionManager.register_commands">
 <span class="sig-name descname"><span class="pre">register_commands</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">commands</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="ats_utilities.option.ioption_command.html#ats_utilities.option.ioption_command.IOptionCommand" title="ats_utilities.option.ioption_command.IOptionCommand"><span class="pre">IOptionCommand</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/ats_utilities/option/engine.html#OptionManager.register_commands"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.option.engine.OptionManager.register_commands" title="Link to this definition">¶</a></dt>
 <dd><p>Registers a list of commands with the parser.</p>
-<dl class="field-list simple">
+<dl class="field-list">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>commands</strong> (<em>&lt;list</em><em>[</em><a class="reference internal" href="ats_utilities.option.ioption_command.html#ats_utilities.option.ioption_command.IOptionCommand" title="ats_utilities.option.ioption_command.IOptionCommand"><em>IOptionCommand</em></a><em>]</em><em>&gt;</em>) – List of commands to register.</p>
 </dd>
 <dt class="field-even">Exceptions<span class="colon">:</span></dt>
-<dd class="field-even"><p>None.</p>
+<dd class="field-even"><div class="line-block">
+<div class="line">ATSAttributeError: ‘_strategy’ attribute is required.</div>
+</div>
 </dd>
 </dl>
 </dd></dl>

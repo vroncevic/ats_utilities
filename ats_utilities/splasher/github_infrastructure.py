@@ -20,7 +20,7 @@ Info
     Creates an API for processing hyperlinks for splash screen.
 '''
 
-from typing import Any
+from typing import Any, override
 from ats_utilities.splasher.iext_infrastructure import IExtInfrastructure
 from ats_utilities.splasher.splash_keys import SplashKeys
 from ats_utilities.context_bundle import ContextBundle
@@ -30,13 +30,13 @@ from ats_utilities.factory_context_bundle import factory_context_bundle
 from ats_utilities.factory_class import require_attributes, format_instance_to_string
 from ats_utilities.checker.proxy_validator import validator
 from ats_utilities.reporter.proxy_reporter import vreporter
-from ats_utilities.factory_utils import require_keys, cherry_pick_dict
+from ats_utilities.factory_dict_utils import require_keys, cherry_pick_dict
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.3.8'
+__version__: str = '3.4.0'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
@@ -75,46 +75,65 @@ class GitHubInfrastructure(IExtInfrastructure):
 
             :param context_bundle: Context bundle for GitHub infrastructure | None.
             :type context_bundle: <ContextBundle | None>
-            :exceptions: None..
+            :exceptions: None.
         '''
         factory_context_bundle(self, context_bundle)
         self._infrastructure_property: dict[Any, Any] | None = None
 
     @property
     @vreporter('get infrastructure property {infrastructure_property}')
+    @override
     def infrastructure_property(self) -> dict[Any, Any] | None:
         '''
             Property method for getting infrastructure property.
 
             :return: Formatted infrastructure property in dict format | None.
             :rtype: <dict[Any, Any] | None>
-            :exceptions: ATSRuntimeError, ATSAttributeError.
+            :exceptions:
+                | ATSRuntimeError: Decorator cannot be used on a standalone function.
+                | ATSAttributeError: Class is required to provide a '_reporter' object to
+                |                    use the @verboser decorator.
         '''
         return self._infrastructure_property
 
     @infrastructure_property.setter
     @validator([('dict:infrastructure_property_setup', None)])
     @vreporter('set infrastructure property {infrastructure_property}')
+    @override
     def infrastructure_property(self, infrastructure_property_setup: dict[Any, Any] | None) -> None:
         '''
             Property method for setting project infrastructure property.
 
             :param infrastructure_property_setup: Project infrastructure property in dict format | None.
             :type infrastructure_property_setup: <dict[Any, Any] | None>
-            :exceptions: ATSTypeError, ATSValueError, ATSRuntimeError, ATSAttributeError.
+            :exceptions:
+                | ATSTypeError: infrastructure property setup is not a dict | None.
+                | ATSValueError: infrastructure property setup is missing required keys.
+                | ATSRuntimeError: Decorator cannot be used on a standalone function.
+                | ATSAttributeError: Class is required to provide a '_reporter' object to
+                |                    use the @verboser decorator.
+                | ATSTypeError: Parameter type validation failed.
+                | ATSValueError: Parameter format validation failed.
+                | ATSRuntimeError: Decorator used on a non-class method.
+                | ATSAttributeError: Class does not provide a '_checker' object.
         '''
         require_keys(infrastructure_property_setup, self._required_keys)
         self._infrastructure_property = cherry_pick_dict(infrastructure_property_setup, self._required_keys)
 
     @vreporter('get info text {infrastructure_property}')
     @require_attributes('_infrastructure_property')
+    @override
     def get_info_text(self) -> str:
         '''
             Pre-processes info text for splash.
 
             :return: Hyperlink with info text.
             :rtype: <str>
-            :exceptions: ATSValueError, ATSRuntimeError, ATSAttributeError.
+            :exceptions:
+                | ATSValueError: Missing or empty attribute: '_infrastructure_property'.
+                | ATSRuntimeError: Decorator cannot be used on a standalone function.
+                | ATSAttributeError: Class is required to provide a '_reporter' object to
+                |                    use the @verboser decorator.
         '''
         org: str = self._infrastructure_property.get(SplashKeys.ATS_ORGANIZATION)
         repo: str = self._infrastructure_property.get(SplashKeys.ATS_REPOSITORY)
@@ -125,13 +144,18 @@ class GitHubInfrastructure(IExtInfrastructure):
 
     @vreporter('get info text {infrastructure_property}')
     @require_attributes('_infrastructure_property')
+    @override
     def get_issue_text(self) -> str:
         '''
             Pre-processes issue text for splash.
 
             :return: Hyperlink with issue info.
             :rtype: <str>
-            :exceptions: ATSValueError, ATSRuntimeError, ATSAttributeError.
+            :exceptions:
+                | ATSValueError: Missing or empty attribute: '_infrastructure_property'.
+                | ATSRuntimeError: Decorator cannot be used on a standalone function.
+                | ATSAttributeError: Class is required to provide a '_reporter' object to
+                |                    use the @verboser decorator.
         '''
         org: str = self._infrastructure_property.get(SplashKeys.ATS_ORGANIZATION)
         repo: str = self._infrastructure_property.get(SplashKeys.ATS_REPOSITORY)
@@ -141,13 +165,18 @@ class GitHubInfrastructure(IExtInfrastructure):
 
     @vreporter('get info text {infrastructure_property}')
     @require_attributes('_infrastructure_property')
+    @override
     def get_author_text(self) -> str:
         '''
             Pre-processes author text for splash.
 
             :return: Hyperlink with author info.
             :rtype: <str>
-            :exceptions: ATSValueError, ATSRuntimeError, ATSAttributeError.
+            :exceptions:
+                | ATSValueError: Missing or empty attribute: '_infrastructure_property'.
+                | ATSRuntimeError: Decorator cannot be used on a standalone function.
+                | ATSAttributeError: Class is required to provide a '_reporter' object to
+                |                    use the @verboser decorator.
         '''
         org: str = self._infrastructure_property.get(SplashKeys.ATS_ORGANIZATION)
         org_short: str = f"{org}.github.io"
@@ -155,6 +184,7 @@ class GitHubInfrastructure(IExtInfrastructure):
 
         return f'\x1b]8;;{org_long}\a{org_short}\x1b]8;;\a'
 
+    @override
     def __str__(self) -> str:
         '''
             Returns the string representation of GitHubInfrastructure.

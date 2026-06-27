@@ -20,6 +20,7 @@ Info
     Defines project name container.
 '''
 
+from typing import override
 from ats_utilities.config_setup.ipro_name import IProName
 from ats_utilities.context_bundle import ContextBundle
 from ats_utilities.checker.ichecker import IChecker
@@ -33,7 +34,7 @@ __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.3.8'
+__version__: str = '3.4.0'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
@@ -69,26 +70,31 @@ class ProName(IProName):
 
             :param context_bundle: Contex bundle for project name | None.
             :type context_bundle: <ContextBundle | None>
-            :exceptions: None..
+            :exceptions: None.
         '''
         factory_context_bundle(self, context_bundle)
         self._pro_name: str | None = None
 
     @property
     @vreporter('get pro name {pro_name}')
+    @override
     def pro_name(self) -> str | None:
         '''
             Property method for getting project name in string format.
 
             :return: Formatted project name in string format | None.
             :rtype: <str | None>
-            :exceptions: ATSRuntimeError, ATSAttributeError.
+            :exceptions:
+                | ATSRuntimeError: Decorator cannot be used on a standalone function.
+                | ATSAttributeError: Class is required to provide a '_reporter' object to
+                |                    use the @verboser decorator.
         '''
         return self._pro_name
 
     @pro_name.setter
     @validator([('str | None:name', None)])
     @vreporter('get pro name {pro_name}')
+    @override
     def pro_name(self, name: str | None) -> None:
         '''
             Property method for setting project name.
@@ -96,28 +102,38 @@ class ProName(IProName):
             :param name: Project name in string format | None.
             :type name: <str | None>
             :exceptions:
-                | ATSTypeError, ATSValueError, RuntimeError, AttributeError.
-                | RuntimeError, AttributeError.
+                | ATSRuntimeError: Decorator cannot be used on a standalone function.
+                | ATSAttributeError: Class is required to provide a '_reporter' object to
+                |                    use the @verboser decorator.
+                | ATSTypeError: Parameter type validation failed.
+                | ATSValueError: Parameter format validation failed.
+                | ATSRuntimeError: Decorator used on a non-class method.
+                | ATSAttributeError: Class does not provide a '_checker' object.
         '''
         self._pro_name = name
 
     @vreporter('check pro name {pro_name}')
+    @override
     def not_none(self) -> bool:
         '''
             Checks project name is not None.
 
             :return: True (success) | False (fail).
             :rtype: <bool>
-            :exceptions: ATSRuntimeError, ATSAttributeError.
+            :exceptions:
+                | ATSRuntimeError: Decorator cannot be used on a standalone function.
+                | ATSAttributeError: Class is required to provide a '_reporter' object to
+                |                    use the @verboser decorator.
         '''
         return self._pro_name is not None
 
+    @override
     def __str__(self) -> str:
         '''
             Returns the ATS project name as string representation.
 
             :return: The ATS project name as string representation.
             :rtype: <str>
-            :exceptions: None..
+            :exceptions: None.
         '''
         return format_instance_to_string(self)

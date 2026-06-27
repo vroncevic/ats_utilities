@@ -32,7 +32,7 @@ __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.3.8'
+__version__: str = '3.4.0'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
@@ -50,14 +50,14 @@ def factory_context_bundle(instance: Any, context: ContextBundle | None = None):
     '''
     # No dependency injection then use default ones.
     if not bool(context):
-        context = ContextBundle()
+        context: ContextBundle = ContextBundle()
 
     if context.checker is None:
-        context.checker = Checker()
+        context.checker: Checker = Checker()
 
     if context.reporter is None:
-        reporter_bundle = ReporterComponentBundle(checker=context.checker)
-        context.reporter = Reporter(component_bundle=reporter_bundle)
+        reporter_bundle: ReporterComponentBundle = ReporterComponentBundle(checker=context.checker)
+        context.reporter: Reporter = Reporter(component_bundle=reporter_bundle)
 
     inject(
         instance,

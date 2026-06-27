@@ -20,7 +20,7 @@ Info
     Implements an API for reporting messages to the console.
 '''
 
-from typing import Any
+from typing import Any, override
 from ats_utilities.reporter.ireporter import IReporter
 from ats_utilities.reporter.component_bundle import ReporterComponentBundle
 from ats_utilities.checker.ichecker import IChecker
@@ -36,7 +36,7 @@ __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.3.8'
+__version__: str = '3.4.0'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
@@ -73,7 +73,7 @@ class Reporter(IReporter):
 
             :param component_bundle: Reporter component bundle | None.
             :type component_bundle: <ReporterComponentBundle | None>
-            :exceptions: ATSTypeError.
+            :exceptions: None.
         '''
         # No dependency injection then use default ones.
         bundle: ReporterComponentBundle = component_bundle or ReporterComponentBundle()
@@ -88,6 +88,8 @@ class Reporter(IReporter):
 
         except (ATSTypeError) as exc:
             print(f"\x1b[31m{get_class_name(self)} {exc}\x1b[0m")
+        except Exception as exc:
+            print(f"\x1b[31m{get_class_name(self)} unexpected exception: {exc}\x1b[0m")
 
     def _report(self, message: list[Any], color: str) -> None:
         '''
@@ -105,6 +107,7 @@ class Reporter(IReporter):
             print(f"{color}{message_out}{self._theme.get_color('reset')}")
 
     @validator([('bool:is_verbose', None), ('list:message', None)])
+    @override
     def verbose(self, is_verbose: bool, message: list[Any]) -> None:
         '''
             Reports verbose message to console.
@@ -113,44 +116,64 @@ class Reporter(IReporter):
             :type is_verbose: <bool>
             :param message: List with message components.
             :type message: <list[Any]>
-            :exceptions: None.
+            :exceptions:
+                | ATSTypeError: Parameter type validation failed.
+                | ATSValueError: Parameter format validation failed.
+                | ATSRuntimeError: Decorator used on a non-class method.
+                | ATSAttributeError: Class does not provide a '_checker' object.
         '''
         if is_verbose:
             self._report(message, self._theme.get_color('verbose'))
 
     @validator([('list:message', None)])
+    @override
     def success(self, message: list[Any]) -> None:
         '''
             Reports success message to console.
 
             :param message: List with message components.
             :type message: <list[Any]>
-            :exceptions: None.
+            :exceptions:
+                | ATSTypeError: Parameter type validation failed.
+                | ATSValueError: Parameter format validation failed.
+                | ATSRuntimeError: Decorator used on a non-class method.
+                | ATSAttributeError: Class does not provide a '_checker' object.
         '''
         self._report(message, self._theme.get_color('success'))
 
     @validator([('list:message', None)])
+    @override
     def warning(self, message: list[Any]) -> None:
         '''
             Reports warning message to console.
 
             :param message: List with message components.
             :type message: <list[Any]>
-            :exceptions: None.
+            :exceptions:
+                | ATSTypeError: Parameter type validation failed.
+                | ATSValueError: Parameter format validation failed.
+                | ATSRuntimeError: Decorator used on a non-class method.
+                | ATSAttributeError: Class does not provide a '_checker' object.
         '''
         self._report(message, self._theme.get_color('warning'))
 
     @validator([('list:message', None)])
+    @override
     def error(self, message: list[Any]) -> None:
         '''
             Reports error message to console.
 
             :param message: List with message components.
             :type message: <list[Any]>
-            :exceptions: None.
+            :exceptions:
+                | ATSTypeError: Parameter type validation failed.
+                | ATSValueError: Parameter format validation failed.
+                | ATSRuntimeError: Decorator used on a non-class method.
+                | ATSAttributeError: Class does not provide a '_checker' object.
         '''
         self._report(message, self._theme.get_color('error'))
 
+    @override
     def is_initialized(self) -> bool:
         '''
             Checks if reporter component is initialized.
@@ -161,6 +184,7 @@ class Reporter(IReporter):
         '''
         return self._is_initialized
 
+    @override
     def __str__(self) -> str:
         '''
             Returns the string representation of Reporter.

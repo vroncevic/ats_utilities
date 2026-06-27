@@ -21,7 +21,7 @@ Info
 '''
 
 import sys
-from typing import Any, NoReturn
+from typing import Any, NoReturn, override
 from argparse import ArgumentParser
 from ats_utilities.context_bundle import ContextBundle
 from ats_utilities.checker.ichecker import IChecker
@@ -35,7 +35,7 @@ __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.3.8'
+__version__: str = '3.4.0'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
@@ -85,6 +85,7 @@ class ArgParser(ArgumentParser):
 
     @validator([('str:message', None)])
     @vreporter('argument error: {message}')
+    @override
     def error(self, message: str) -> NoReturn:
         '''
             Overrides default error handling to use IReporter.
@@ -92,11 +93,19 @@ class ArgParser(ArgumentParser):
             :param message: Error message to report.
             :type message: <str>
             :rtype: <NoReturn>
-            :exceptions: None.
+            :exceptions:
+                | ATSRuntimeError: Decorator cannot be used on a standalone function.
+                | ATSAttributeError: Class is required to provide a '_reporter' object to
+                |                    use the @verboser decorator.
+                | ATSTypeError: Parameter type validation failed.
+                | ATSValueError: Parameter format validation failed.
+                | ATSRuntimeError: Decorator used on a non-class method.
+                | ATSAttributeError: Class does not provide a '_checker' object.
         '''
         self._reporter.error([f'argument error: {message}'])
         sys.exit(2)
 
+    @override
     def __str__(self) -> str:
         '''
             Returns the string representation of ArgParser.

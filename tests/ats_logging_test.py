@@ -38,7 +38,7 @@ __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.3.8'
+__version__: str = '3.4.0'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
@@ -129,6 +129,15 @@ class ATSLoggingTestCase(TestCase):
         invalid_manager = LoggerManager()
         with self.assertRaises(ATSValueError):
             invalid_manager.is_initialized()
+
+    @mock.patch('ats_utilities.logging.engine.make_component')
+    def test_initialization_unexpected_exception(self, mock_make_component) -> None:
+        '''Test logger manager initialization unexpected exception'''
+        mock_make_component.side_effect = Exception('Unexpected')
+        invalid_manager = LoggerManager()
+        with self.assertRaises(ATSValueError):
+            invalid_manager.is_initialized()
+        self.assertFalse(invalid_manager._is_initialized)
 
     def test_str(self) -> None:
         '''Test string representation of LoggerManager and ATSLogger.'''

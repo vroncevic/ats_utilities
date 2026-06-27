@@ -20,6 +20,7 @@ Info
     Creates an API for reading configuration from a CFG file.
 '''
 
+from typing import override
 from ats_utilities.config_io.iread import IRead
 from ats_utilities.context_bundle import ContextBundle
 from ats_utilities.checker.ichecker import IChecker
@@ -40,7 +41,7 @@ __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.3.8'
+__version__: str = '3.4.0'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
@@ -93,7 +94,8 @@ class Cfg2Object(IRead):
             :type config_bundle: <ATSConfigFileBundle | None>
             :param cfg_processor: Processor for CFG content | None.
             :type cfg_processor: <ICFGProcessor | None>
-            :exceptions: ATSTypeError.
+            :exceptions:
+                | ATSTypeError: Invalid type in constructor arguments.
         '''
         self._config_file_bundle: ATSConfigFileBundle = config_bundle or ATSConfigFileBundle()
         factory_context_bundle(self, self._config_file_bundle.context)
@@ -113,13 +115,17 @@ class Cfg2Object(IRead):
         self._file_bundle_shared.file_format = self._EXT
 
     @vreporter('read configuration from file {file_path}')
+    @override
     def read_configuration(self) -> ICFGProcessor | None:
         '''
             Reads a configuration from a CFG file.
 
             :return: Configuration object | None.
             :rtype: <ICFGProcessor | None>
-            :exceptions: ATSRuntimeError, ATSAttributeError.
+            :exceptions:
+                | ATSRuntimeError: Decorator cannot be used on a standalone function.
+                | ATSAttributeError: Class is required to provide a '_reporter' object to
+                |                    use the @verboser decorator.
         '''
         with ConfFile(self._file_bundle_shared, self._config_file_bundle) as cfg:
             if bool(cfg):
@@ -129,12 +135,13 @@ class Cfg2Object(IRead):
 
         return None
 
+    @override
     def __str__(self) -> str:
         '''
             Returns the Cfg2Object as string representation.
 
             :return: The Cfg2Object as string representation.
             :rtype: <str>
-            :exceptions: None..
+            :exceptions: None.
         '''
         return format_instance_to_string(self)

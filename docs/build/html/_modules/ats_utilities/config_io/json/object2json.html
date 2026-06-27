@@ -58,6 +58,7 @@
 <span class="sd">    Creates an API for writing a configuration to a JSON file.</span>
 <span class="sd">&#39;&#39;&#39;</span>
 
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">override</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.config_io.iwrite</span> <span class="kn">import</span> <span class="n">IWrite</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.context_bundle</span> <span class="kn">import</span> <span class="n">ContextBundle</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.checker.ichecker</span> <span class="kn">import</span> <span class="n">IChecker</span>
@@ -72,13 +73,13 @@
 <span class="kn">from</span> <span class="nn">ats_utilities.checker.proxy_validator</span> <span class="kn">import</span> <span class="n">validator</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.factory_context_bundle</span> <span class="kn">import</span> <span class="n">factory_context_bundle</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.factory_component</span> <span class="kn">import</span> <span class="n">make_component</span><span class="p">,</span> <span class="n">validate_component</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.factory_class</span> <span class="kn">import</span> <span class="n">get_private_attr</span><span class="p">,</span> <span class="n">format_instance_to_string</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.factory_class</span> <span class="kn">import</span> <span class="n">format_instance_to_string</span>
 
 <span class="n">__author__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;Vladimir Roncevic&#39;</span>
 <span class="n">__copyright__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;(C) 2026, https://vroncevic.github.io/ats_utilities&#39;</span>
 <span class="n">__credits__</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Vladimir Roncevic&#39;</span><span class="p">,</span> <span class="s1">&#39;Python Software Foundation&#39;</span><span class="p">]</span>
 <span class="n">__license__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE&#39;</span>
-<span class="n">__version__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;3.3.8&#39;</span>
+<span class="n">__version__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;3.4.0&#39;</span>
 <span class="n">__maintainer__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;Vladimir Roncevic&#39;</span>
 <span class="n">__email__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;elektron.ronca@gmail.com&#39;</span>
 <span class="n">__status__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;Updated&#39;</span>
@@ -129,7 +130,8 @@
 <span class="sd">            :type config_file: &lt;str | None&gt;</span>
 <span class="sd">            :param config_bundle: Configuration file bundle parameters | None.</span>
 <span class="sd">            :type config_bundle: &lt;ATSConfigFileBundle | None&gt;</span>
-<span class="sd">            :exceptions: ATSTypeError.</span>
+<span class="sd">            :exceptions:</span>
+<span class="sd">                | ATSTypeError: Invalid type in constructor arguments.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_config_file_bundle</span><span class="p">:</span> <span class="n">ATSConfigFileBundle</span> <span class="o">=</span> <span class="n">config_bundle</span> <span class="ow">or</span> <span class="n">ATSConfigFileBundle</span><span class="p">()</span>
         <span class="n">factory_context_bundle</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_config_file_bundle</span><span class="o">.</span><span class="n">context</span><span class="p">)</span>
@@ -150,6 +152,7 @@
 <a class="viewcode-back" href="../../../../ats_utilities.config_io.json.object2json.html#ats_utilities.config_io.json.object2json.Object2Json.write_configuration">[docs]</a>
     <span class="nd">@validator</span><span class="p">([(</span><span class="s1">&#39;IJSONProcessor | None:config&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)])</span>
     <span class="nd">@vreporter</span><span class="p">(</span><span class="s1">&#39;write configuration to file </span><span class="si">{file_path}</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="nd">@override</span>
     <span class="k">def</span> <span class="nf">write_configuration</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="n">IJSONProcessor</span> <span class="o">|</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Writes configuration to a JSON file.</span>
@@ -158,7 +161,14 @@
 <span class="sd">            :type config: &lt;IJSONProcessor | None&gt;</span>
 <span class="sd">            :return: True (success) | False (fail).</span>
 <span class="sd">            :rtype: &lt;bool&gt;</span>
-<span class="sd">            :exceptions: ATSTypeError, ATSValueError, ATSRuntimeError, ATSAttributeError.</span>
+<span class="sd">            :exceptions:</span>
+<span class="sd">                | ATSRuntimeError: Decorator cannot be used on a standalone function.</span>
+<span class="sd">                | ATSAttributeError: Class is required to provide a &#39;_reporter&#39; object to</span>
+<span class="sd">                |                    use the @verboser decorator.</span>
+<span class="sd">                | ATSTypeError: Parameter type validation failed.</span>
+<span class="sd">                | ATSValueError: Parameter format validation failed.</span>
+<span class="sd">                | ATSRuntimeError: Decorator used on a non-class method.</span>
+<span class="sd">                | ATSAttributeError: Class does not provide a &#39;_checker&#39; object.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="n">status</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
 
@@ -173,13 +183,14 @@
         <span class="k">return</span> <span class="n">status</span></div>
 
 
+    <span class="nd">@override</span>
     <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Returns the Object2Json as string representation.</span>
 
 <span class="sd">            :return: The Object2Json as string representation.</span>
 <span class="sd">            :rtype: &lt;str&gt;</span>
-<span class="sd">            :exceptions: None..</span>
+<span class="sd">            :exceptions: None.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="k">return</span> <span class="n">format_instance_to_string</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div>
 

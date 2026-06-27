@@ -25,6 +25,7 @@ Execute
 from unittest.mock import MagicMock
 from unittest import TestCase, main, mock
 from ats_utilities.exceptions.ats_type_error import ATSTypeError
+from ats_utilities.exceptions.ats_value_error import ATSValueError
 from os.path import dirname
 from ats_utilities.base.engine import Base
 from ats_utilities.base.component_bundle import BaseComponentBundle
@@ -34,7 +35,7 @@ __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.3.8'
+__version__: str = '3.4.0'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
@@ -51,7 +52,7 @@ class ATSCliCfgAPI(Base):
         current_dir: str = dirname(__file__)
         base_info: str = f'{current_dir}{self._CONFIG}'
         mock_splasher = MagicMock(spec=Splasher)
-        bundle = BaseComponentBundle(info_file=base_info, splasher=mock_splasher)
+        bundle = BaseComponentBundle(info_file=base_info, splasher=mock_splasher, use_generator=True)
         super().__init__(bundle)
         if self.is_initialized():
             self.add_new_option(
@@ -116,6 +117,17 @@ class CLITestCase(TestCase):
         mock_make_component.side_effect = ATSTypeError('Failed to initialize component')
         invalid_base = ATSCliCfgAPI()
         self.assertFalse(invalid_base.is_initialized())
+        # Force options parser to be not None for the decorator but make is_initialized return False:
+        invalid_base._is_initialized = False
+        invalid_base._options_parser = MagicMock()
+        self.assertIsNone(invalid_base.parse_args(['-v']))
+
+    @mock.patch('ats_utilities.base.engine.make_component')
+    def test_initialization_unexpected_exception(self, mock_make_component) -> None:
+        '''Test base initialization unexpected exception.'''
+        mock_make_component.side_effect = Exception('Unexpected error')
+        invalid_base = ATSCliCfgAPI()
+        self.assertFalse(invalid_base.is_initialized())
 
     def test_process(self) -> None:
         '''Test for process.'''
@@ -149,7 +161,8 @@ class CLITestCase(TestCase):
         self.assertIsNotNone(parsed)
         # Test with _options_parser is None:
         api._options_parser = None
-        self.assertIsNone(api.parse_args(['-v']))
+        with self.assertRaises(ATSValueError):
+            api.parse_args(['-v'])
 
 
 if __name__ == '__main__':

@@ -4,7 +4,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>ats_utilities.factory_utils &#8212; ats_utilities https://github.com/vroncevic/ats_utilities/releases documentation</title>
+    <title>ats_utilities.factory_dict_utils &#8212; ats_utilities https://github.com/vroncevic/ats_utilities/releases documentation</title>
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
     <link rel="stylesheet" type="text/css" href="../../_static/classic.css?v=514cf933" />
     
@@ -26,7 +26,7 @@
              >modules</a> |</li>
         <li class="nav-item nav-item-0"><a href="../../index.html">ats_utilities https://github.com/vroncevic/ats_utilities/releases documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">Module code</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href="">ats_utilities.factory_utils</a></li> 
+        <li class="nav-item nav-item-this"><a href="">ats_utilities.factory_dict_utils</a></li> 
       </ul>
     </div>  
 
@@ -35,12 +35,12 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <h1>Source code for ats_utilities.factory_utils</h1><div class="highlight"><pre>
+  <h1>Source code for ats_utilities.factory_dict_utils</h1><div class="highlight"><pre>
 <span></span><span class="c1"># -*- coding: utf-8 -*-</span>
 
 <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">Module</span>
-<span class="sd">    factory_utils.py</span>
+<span class="sd">    factory_dict_utils.py</span>
 <span class="sd">Copyright</span>
 <span class="sd">    Copyright (C) 2017 - 2026 Vladimir Roncevic &lt;elektron.ronca@gmail.com&gt;</span>
 <span class="sd">    ats_utilities is free software: you can redistribute it and/or modify it</span>
@@ -54,11 +54,10 @@
 <span class="sd">    You should have received a copy of the GNU General Public License along</span>
 <span class="sd">    with this program. If not, see &lt;http://www.gnu.org/licenses/&gt;.</span>
 <span class="sd">Info</span>
-<span class="sd">    Defines factory utils functions.</span>
+<span class="sd">    Defines factory dict utility functions.</span>
 <span class="sd">&#39;&#39;&#39;</span>
 
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span>
-<span class="kn">from</span> <span class="nn">os.path</span> <span class="kn">import</span> <span class="n">exists</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.exceptions.ats_type_error</span> <span class="kn">import</span> <span class="n">ATSTypeError</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.exceptions.ats_value_error</span> <span class="kn">import</span> <span class="n">ATSValueError</span>
 
@@ -66,13 +65,14 @@
 <span class="n">__copyright__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;(C) 2026, https://vroncevic.github.io/ats_utilities&#39;</span>
 <span class="n">__credits__</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Vladimir Roncevic&#39;</span><span class="p">,</span> <span class="s1">&#39;Python Software Foundation&#39;</span><span class="p">]</span>
 <span class="n">__license__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE&#39;</span>
-<span class="n">__version__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;3.3.8&#39;</span>
+<span class="n">__version__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;3.4.0&#39;</span>
 <span class="n">__maintainer__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;Vladimir Roncevic&#39;</span>
 <span class="n">__email__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;elektron.ronca@gmail.com&#39;</span>
 <span class="n">__status__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;Updated&#39;</span>
 
+
 <div class="viewcode-block" id="cherry_pick_dict">
-<a class="viewcode-back" href="../../ats_utilities.factory_utils.html#ats_utilities.factory_utils.cherry_pick_dict">[docs]</a>
+<a class="viewcode-back" href="../../ats_utilities.factory_dict_utils.html#ats_utilities.factory_dict_utils.cherry_pick_dict">[docs]</a>
 <span class="k">def</span> <span class="nf">cherry_pick_dict</span><span class="p">(</span><span class="n">source</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span><span class="p">,</span> <span class="n">keys</span><span class="p">:</span> <span class="nb">frozenset</span><span class="p">[</span><span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
 <span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Cherry picks keys from a source dictionary.</span>
@@ -91,12 +91,13 @@
     <span class="k">return</span> <span class="p">{</span><span class="n">key</span><span class="p">:</span> <span class="n">source</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">keys</span> <span class="k">if</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">source</span><span class="p">}</span></div>
 
 
+
 <div class="viewcode-block" id="has_required_keys">
-<a class="viewcode-back" href="../../ats_utilities.factory_utils.html#ats_utilities.factory_utils.has_required_keys">[docs]</a>
+<a class="viewcode-back" href="../../ats_utilities.factory_dict_utils.html#ats_utilities.factory_dict_utils.has_required_keys">[docs]</a>
 <span class="k">def</span> <span class="nf">has_required_keys</span><span class="p">(</span><span class="n">source</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span><span class="p">,</span> <span class="n">keys</span><span class="p">:</span> <span class="nb">frozenset</span><span class="p">[</span><span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Checks if all required keys are present in the source dictionary.</span>
-<span class="sd">        </span>
+
 <span class="sd">        :param source: Source dictionary to check | None.</span>
 <span class="sd">        :type source: &lt;dict[Any, Any] | None&gt;</span>
 <span class="sd">        :param keys: Set of mandatory keys.</span>
@@ -108,45 +109,32 @@
     <span class="k">return</span> <span class="n">keys</span><span class="o">.</span><span class="n">issubset</span><span class="p">(</span><span class="n">source</span> <span class="ow">or</span> <span class="p">{})</span></div>
 
 
+
 <div class="viewcode-block" id="require_keys">
-<a class="viewcode-back" href="../../ats_utilities.factory_utils.html#ats_utilities.factory_utils.require_keys">[docs]</a>
+<a class="viewcode-back" href="../../ats_utilities.factory_dict_utils.html#ats_utilities.factory_dict_utils.require_keys">[docs]</a>
 <span class="k">def</span> <span class="nf">require_keys</span><span class="p">(</span><span class="n">source</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span><span class="p">,</span> <span class="n">keys</span><span class="p">:</span> <span class="nb">frozenset</span><span class="p">[</span><span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Requires all keys to be present in the source dictionary.</span>
-<span class="sd">        </span>
+
 <span class="sd">        :param source: Source dictionary to check | None.</span>
 <span class="sd">        :type source: &lt;dict[Any, Any] | None&gt;</span>
 <span class="sd">        :param keys: Set of mandatory keys.</span>
 <span class="sd">        :type keys: &lt;frozenset[str]&gt;</span>
-<span class="sd">        :exceptions: ATSTypeError, ATSValueError</span>
+<span class="sd">        :exceptions:</span>
+<span class="sd">            | ATSTypeError: Expected dict or None for &#39;source&#39;, got &lt;type&gt;.</span>
+<span class="sd">            | ATSTypeError: Expected frozenset for &#39;keys&#39;, got &lt;type&gt;.</span>
+<span class="sd">            | ATSValueError: Missing required keys.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
     <span class="k">if</span> <span class="n">source</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
-        <span class="k">raise</span> <span class="n">ATSTypeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Expected dict or None for &#39;source&#39;, got </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">source</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-        
+        <span class="k">raise</span> <span class="n">ATSTypeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;expected dict or None for &#39;source&#39;, got </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">source</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
     <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">keys</span><span class="p">,</span> <span class="nb">frozenset</span><span class="p">):</span>
-        <span class="k">raise</span> <span class="n">ATSTypeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Expected frozenset for &#39;keys&#39;, got </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">keys</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="n">ATSTypeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;expected frozenset for &#39;keys&#39;, got </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">keys</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
     <span class="n">missing_keys</span><span class="p">:</span> <span class="nb">frozenset</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">keys</span><span class="o">.</span><span class="n">difference</span><span class="p">(</span><span class="n">source</span> <span class="ow">or</span> <span class="p">{})</span>
 
     <span class="k">if</span> <span class="n">missing_keys</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="n">ATSValueError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Missing required keys </span><span class="si">{</span><span class="n">missing_keys</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span></div>
-
-
-<div class="viewcode-block" id="check_file_exists">
-<a class="viewcode-back" href="../../ats_utilities.factory_utils.html#ats_utilities.factory_utils.check_file_exists">[docs]</a>
-<span class="k">def</span> <span class="nf">check_file_exists</span><span class="p">(</span><span class="n">file_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">        Checks if a file exists.</span>
-
-<span class="sd">        :param file_path: Path to the file.</span>
-<span class="sd">        :type file_path: &lt;str&gt;</span>
-<span class="sd">        :exceptions: ATSTypeError, ATSValueError.</span>
-<span class="sd">    &#39;&#39;&#39;</span>
-    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
-        <span class="k">raise</span> <span class="n">ATSTypeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;expected str for &#39;file_path&#39;, got </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">file_path</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-
-    <span class="k">if</span> <span class="ow">not</span> <span class="n">exists</span><span class="p">(</span><span class="n">file_path</span><span class="p">):</span>
-        <span class="k">raise</span> <span class="n">ATSValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;file at the provided path does not exist: </span><span class="si">{</span><span class="n">file_path</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
+        <span class="k">raise</span> <span class="n">ATSValueError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;missing required keys </span><span class="si">{</span><span class="n">missing_keys</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span></div>
 
 </pre></div>
 
@@ -181,7 +169,7 @@
              >modules</a> |</li>
         <li class="nav-item nav-item-0"><a href="../../index.html">ats_utilities https://github.com/vroncevic/ats_utilities/releases documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../index.html" >Module code</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href="">ats_utilities.factory_utils</a></li> 
+        <li class="nav-item nav-item-this"><a href="">ats_utilities.factory_dict_utils</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">

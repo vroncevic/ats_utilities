@@ -21,6 +21,7 @@ Info
 '''
 
 from yaml import dump, YAMLError
+from typing import override
 from ats_utilities.config_io.iwrite import IWrite
 from ats_utilities.config_io.istorer import IStorer
 from ats_utilities.checker.ichecker import IChecker
@@ -38,7 +39,7 @@ __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.3.8'
+__version__: str = '3.4.0'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
@@ -86,7 +87,8 @@ class YAMLStorer(IStorer):
             :type config_bundle: <ATSConfigFileBundle | None>
             :param yaml_processor: Processor for YAML content | None.
             :type yaml_processor: <IYAMLProcessor | None>
-            :exceptions: ATSTypeError.
+            :exceptions:
+                | ATSTypeError: Invalid type in constructor arguments.
         '''
         config_file_bundle: ATSConfigFileBundle = config_bundle or ATSConfigFileBundle()
         factory_context_bundle(self, config_file_bundle.context)
@@ -98,6 +100,7 @@ class YAMLStorer(IStorer):
         validate_component(self._obj2yaml, Object2Yaml)
 
     @validator([('dict:config', None)])
+    @override
     def store_configuration(self, config: dict[str, str]) -> bool:
         '''
             Stores the ATS configuration from dictionary format.
@@ -106,7 +109,11 @@ class YAMLStorer(IStorer):
             :type config: <dict[str, str]>
             :return: True (success) | False (fail).
             :rtype: <bool>
-            :exceptions: ATSTypeError, ATSValueError, ATSRuntimeError, ATSAttributeError.
+            :exceptions:
+                | ATSTypeError: Parameter type validation failed.
+                | ATSValueError: Parameter format validation failed.
+                | ATSRuntimeError: Decorator used on a non-class method.
+                | ATSAttributeError: Class does not provide a '_checker' object.
         '''
         try:
             yaml_content = dump(config, default_flow_style=False)
@@ -118,12 +125,13 @@ class YAMLStorer(IStorer):
         except (TypeError, ValueError, YAMLError):
             return False
 
+    @override
     def __str__(self) -> str:
         '''
             Returns the YAMLStorer as string representation.
 
             :return: The YAMLStorer as string representation.
             :rtype: <str>
-            :exceptions: None..
+            :exceptions: None.
         '''
         return format_instance_to_string(self)

@@ -112,7 +112,7 @@ Cleans private attributes and appends memory addresses in hex.</p>
 <dt class="sig sig-object py" id="ats_utilities.factory_class.get_private_attr">
 <span class="sig-prename descclassname"><span class="pre">ats_utilities.factory_class.</span></span><span class="sig-name descname"><span class="pre">get_private_attr</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instance</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">attr_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Any</span></span></span><a class="reference internal" href="_modules/ats_utilities/factory_class.html#get_private_attr"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.factory_class.get_private_attr" title="Link to this definition">¶</a></dt>
 <dd><p>Dynamically retrieves a private attribute from an instance.</p>
-<dl class="field-list simple">
+<dl class="field-list">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>instance</strong> (<em>&lt;Any&gt;</em>) – The class instance (self) containing the attribute.</p></li>
@@ -126,7 +126,9 @@ Cleans private attributes and appends memory addresses in hex.</p>
 <dd class="field-odd"><p>&lt;Any&gt;</p>
 </dd>
 <dt class="field-even">Exceptions<span class="colon">:</span></dt>
-<dd class="field-even"><p>AttributeError.</p>
+<dd class="field-even"><div class="line-block">
+<div class="line">AttributeError: Attribute must start with ‘_’ prefix.</div>
+</div>
 </dd>
 </dl>
 </dd></dl>
@@ -158,7 +160,7 @@ The ‘depends_on_attr’ can be a string, list, or tuple.</p></li>
 <dd><p>Checks if instance attribute is defined and has value or not.
 In case attribute value is not defined set default value to None.
 In case attribute value is not defined and not empty, raise ATSValueError exception.</p>
-<dl class="field-list simple">
+<dl class="field-list">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>attr_names</strong> (<em>&lt;tuple</em><em>[</em><em>str</em><em>, </em><em>...</em><em>]</em><em>&gt;</em>) – Tuple of attribute names to check.</p>
 </dd>
@@ -169,7 +171,9 @@ In case attribute value is not defined and not empty, raise ATSValueError except
 <dd class="field-odd"><p>&lt;Callable[…, Any]&gt;</p>
 </dd>
 <dt class="field-even">Exceptions<span class="colon">:</span></dt>
-<dd class="field-even"><p>ATSValueError.</p>
+<dd class="field-even"><div class="line-block">
+<div class="line">ATSValueError: Missing or empty attribute: ‘{attr}’.</div>
+</div>
 </dd>
 </dl>
 </dd></dl>

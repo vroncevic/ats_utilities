@@ -58,7 +58,7 @@
 <span class="sd">    Creates an API for processing hyperlinks for splash screen.</span>
 <span class="sd">&#39;&#39;&#39;</span>
 
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">override</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.splasher.iext_infrastructure</span> <span class="kn">import</span> <span class="n">IExtInfrastructure</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.splasher.splash_keys</span> <span class="kn">import</span> <span class="n">SplashKeys</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.context_bundle</span> <span class="kn">import</span> <span class="n">ContextBundle</span>
@@ -68,13 +68,13 @@
 <span class="kn">from</span> <span class="nn">ats_utilities.factory_class</span> <span class="kn">import</span> <span class="n">require_attributes</span><span class="p">,</span> <span class="n">format_instance_to_string</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.checker.proxy_validator</span> <span class="kn">import</span> <span class="n">validator</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.reporter.proxy_reporter</span> <span class="kn">import</span> <span class="n">vreporter</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.factory_utils</span> <span class="kn">import</span> <span class="n">require_keys</span><span class="p">,</span> <span class="n">cherry_pick_dict</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.factory_dict_utils</span> <span class="kn">import</span> <span class="n">require_keys</span><span class="p">,</span> <span class="n">cherry_pick_dict</span>
 
 <span class="n">__author__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;Vladimir Roncevic&#39;</span>
 <span class="n">__copyright__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;(C) 2026, https://vroncevic.github.io/ats_utilities&#39;</span>
 <span class="n">__credits__</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Vladimir Roncevic&#39;</span><span class="p">,</span> <span class="s1">&#39;Python Software Foundation&#39;</span><span class="p">]</span>
 <span class="n">__license__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE&#39;</span>
-<span class="n">__version__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;3.3.8&#39;</span>
+<span class="n">__version__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;3.4.0&#39;</span>
 <span class="n">__maintainer__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;Vladimir Roncevic&#39;</span>
 <span class="n">__email__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;elektron.ronca@gmail.com&#39;</span>
 <span class="n">__status__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;Updated&#39;</span>
@@ -125,26 +125,40 @@
 
     <span class="nd">@property</span>
     <span class="nd">@vreporter</span><span class="p">(</span><span class="s1">&#39;get infrastructure property </span><span class="si">{infrastructure_property}</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="nd">@override</span>
     <span class="k">def</span> <span class="nf">infrastructure_property</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Property method for getting infrastructure property.</span>
 
 <span class="sd">            :return: Formatted infrastructure property in dict format | None.</span>
 <span class="sd">            :rtype: &lt;dict[Any, Any] | None&gt;</span>
-<span class="sd">            :exceptions: ATSRuntimeError, ATSAttributeError</span>
+<span class="sd">            :exceptions:</span>
+<span class="sd">                | ATSRuntimeError: Decorator cannot be used on a standalone function.</span>
+<span class="sd">                | ATSAttributeError: Class is required to provide a &#39;_reporter&#39; object to</span>
+<span class="sd">                |                    use the @verboser decorator.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_infrastructure_property</span>
 
     <span class="nd">@infrastructure_property</span><span class="o">.</span><span class="n">setter</span>
     <span class="nd">@validator</span><span class="p">([(</span><span class="s1">&#39;dict:infrastructure_property_setup&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)])</span>
     <span class="nd">@vreporter</span><span class="p">(</span><span class="s1">&#39;set infrastructure property </span><span class="si">{infrastructure_property}</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="nd">@override</span>
     <span class="k">def</span> <span class="nf">infrastructure_property</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">infrastructure_property_setup</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Property method for setting project infrastructure property.</span>
 
 <span class="sd">            :param infrastructure_property_setup: Project infrastructure property in dict format | None.</span>
 <span class="sd">            :type infrastructure_property_setup: &lt;dict[Any, Any] | None&gt;</span>
-<span class="sd">            :exceptions: ATSTypeError, ATSValueError, ATSRuntimeError, ATSAttributeError.</span>
+<span class="sd">            :exceptions:</span>
+<span class="sd">                | ATSTypeError: infrastructure property setup is not a dict | None.</span>
+<span class="sd">                | ATSValueError: infrastructure property setup is missing required keys.</span>
+<span class="sd">                | ATSRuntimeError: Decorator cannot be used on a standalone function.</span>
+<span class="sd">                | ATSAttributeError: Class is required to provide a &#39;_reporter&#39; object to</span>
+<span class="sd">                |                    use the @verboser decorator.</span>
+<span class="sd">                | ATSTypeError: Parameter type validation failed.</span>
+<span class="sd">                | ATSValueError: Parameter format validation failed.</span>
+<span class="sd">                | ATSRuntimeError: Decorator used on a non-class method.</span>
+<span class="sd">                | ATSAttributeError: Class does not provide a &#39;_checker&#39; object.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="n">require_keys</span><span class="p">(</span><span class="n">infrastructure_property_setup</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_required_keys</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_infrastructure_property</span> <span class="o">=</span> <span class="n">cherry_pick_dict</span><span class="p">(</span><span class="n">infrastructure_property_setup</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_required_keys</span><span class="p">)</span>
@@ -153,13 +167,18 @@
 <a class="viewcode-back" href="../../../ats_utilities.splasher.ext_infrastructure.html#ats_utilities.splasher.ext_infrastructure.ExtInfrastructure.get_info_text">[docs]</a>
     <span class="nd">@vreporter</span><span class="p">(</span><span class="s1">&#39;get info text </span><span class="si">{infrastructure_property}</span><span class="s1">&#39;</span><span class="p">)</span>
     <span class="nd">@require_attributes</span><span class="p">(</span><span class="s1">&#39;_infrastructure_property&#39;</span><span class="p">)</span>
+    <span class="nd">@override</span>
     <span class="k">def</span> <span class="nf">get_info_text</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Pre-processes info text for splash.</span>
 
 <span class="sd">            :return: Hyperlink with info text.</span>
 <span class="sd">            :rtype: &lt;str&gt;</span>
-<span class="sd">            :exceptions: ATSValueError, ATSRuntimeError, ATSAttributeError.</span>
+<span class="sd">            :exceptions:</span>
+<span class="sd">                | ATSValueError: Missing or empty attribute: &#39;_infrastructure_property&#39;.</span>
+<span class="sd">                | ATSRuntimeError: Decorator cannot be used on a standalone function.</span>
+<span class="sd">                | ATSAttributeError: Class is required to provide a &#39;_reporter&#39; object to</span>
+<span class="sd">                |                    use the @verboser decorator.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_infrastructure_property</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">SplashKeys</span><span class="o">.</span><span class="n">ATS_NAME</span><span class="p">)</span>
 
@@ -170,13 +189,18 @@
 <a class="viewcode-back" href="../../../ats_utilities.splasher.ext_infrastructure.html#ats_utilities.splasher.ext_infrastructure.ExtInfrastructure.get_issue_text">[docs]</a>
     <span class="nd">@vreporter</span><span class="p">(</span><span class="s1">&#39;get issue text </span><span class="si">{infrastructure_property}</span><span class="s1">&#39;</span><span class="p">)</span>
     <span class="nd">@require_attributes</span><span class="p">(</span><span class="s1">&#39;_infrastructure_property&#39;</span><span class="p">)</span>
+    <span class="nd">@override</span>
     <span class="k">def</span> <span class="nf">get_issue_text</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Pre-processes issue text for splash.</span>
 
 <span class="sd">            :return: Hyperlink with issue info.</span>
 <span class="sd">            :rtype: &lt;str&gt;</span>
-<span class="sd">            :exceptions: ATSValueError, ATSRuntimeError, ATSAttributeError.</span>
+<span class="sd">            :exceptions:</span>
+<span class="sd">                | ATSValueError: Missing or empty attribute: &#39;_infrastructure_property&#39;.</span>
+<span class="sd">                | ATSRuntimeError: Decorator cannot be used on a standalone function.</span>
+<span class="sd">                | ATSAttributeError: Class is required to provide a &#39;_reporter&#39; object to</span>
+<span class="sd">                |                    use the @verboser decorator.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="n">repo</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_infrastructure_property</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">SplashKeys</span><span class="o">.</span><span class="n">ATS_REPOSITORY</span><span class="p">)</span>
 
@@ -187,19 +211,25 @@
 <a class="viewcode-back" href="../../../ats_utilities.splasher.ext_infrastructure.html#ats_utilities.splasher.ext_infrastructure.ExtInfrastructure.get_author_text">[docs]</a>
     <span class="nd">@vreporter</span><span class="p">(</span><span class="s1">&#39;get author text </span><span class="si">{infrastructure_property}</span><span class="s1">&#39;</span><span class="p">)</span>
     <span class="nd">@require_attributes</span><span class="p">(</span><span class="s1">&#39;_infrastructure_property&#39;</span><span class="p">)</span>
+    <span class="nd">@override</span>
     <span class="k">def</span> <span class="nf">get_author_text</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Pre-processes author text for splash.</span>
 
 <span class="sd">            :return: Hyperlink with author info.</span>
 <span class="sd">            :rtype: &lt;str&gt;</span>
-<span class="sd">            :exceptions: ATSValueError, ATSRuntimeError, ATSAttributeError.</span>
+<span class="sd">            :exceptions:</span>
+<span class="sd">                | ATSValueError: Missing or empty attribute: &#39;_infrastructure_property&#39;.</span>
+<span class="sd">                | ATSRuntimeError: Decorator cannot be used on a standalone function.</span>
+<span class="sd">                | ATSAttributeError: Class is required to provide a &#39;_reporter&#39; object to</span>
+<span class="sd">                |                    use the @verboser decorator.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="n">org</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_infrastructure_property</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">SplashKeys</span><span class="o">.</span><span class="n">ATS_ORGANIZATION</span><span class="p">)</span>
 
         <span class="k">return</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="se">\x1b</span><span class="s1">]8;;</span><span class="si">{</span><span class="n">org</span><span class="si">}</span><span class="se">\a</span><span class="si">{</span><span class="n">org</span><span class="si">}</span><span class="se">\x1b</span><span class="s1">]8;;</span><span class="se">\a</span><span class="s1">&#39;</span></div>
 
 
+    <span class="nd">@override</span>
     <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Returns the string representation of ExtInfrastructure.</span>

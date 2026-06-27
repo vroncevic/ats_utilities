@@ -118,12 +118,19 @@ Implements a splash screen with hyperlinks.</p>
 <dt class="sig sig-object py" id="ats_utilities.splasher.engine.Splasher.center">
 <span class="sig-name descname"><span class="pre">center</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">splash_center_bundle</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="ats_utilities.splasher.splash_center_bundle.html#ats_utilities.splasher.splash_center_bundle.SplashCenterBundle" title="ats_utilities.splasher.splash_center_bundle.SplashCenterBundle"><span class="pre">SplashCenterBundle</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/ats_utilities/splasher/engine.html#Splasher.center"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.splasher.engine.Splasher.center" title="Link to this definition">¶</a></dt>
 <dd><p>Centers console line.</p>
-<dl class="field-list simple">
+<dl class="field-list">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>splash_center_bundle</strong> (<em>&lt;SplashCenterBundle</em><em> | </em><em>None&gt;</em>) – Splash center bundle for centering console output | None.</p>
 </dd>
 <dt class="field-even">Exceptions<span class="colon">:</span></dt>
-<dd class="field-even"><p>ATSTypeError, ATSValueError.</p>
+<dd class="field-even"><div class="line-block">
+<div class="line">ATSTypeError - columns count ‘columns’ is not an integer.</div>
+<div class="line">ATSValueError - columns count ‘columns’ is less than 0.</div>
+<div class="line">ATSTypeError - additional shifter ‘additional_shifter’ is not an integer.</div>
+<div class="line">ATSValueError - additional shifter ‘additional_shifter’ is less than 0.</div>
+<div class="line">ATSTypeError - text ‘text’ is not a string or None.</div>
+<div class="line">ATSValueError - text ‘text’ is empty.</div>
+</div>
 </dd>
 </dl>
 </dd></dl>

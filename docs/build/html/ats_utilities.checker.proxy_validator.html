@@ -82,7 +82,7 @@ Utility for parameter validation borrowing Checker from class instances.</p>
 <dd class="field-odd"><p>&lt;tuple[str, str]&gt;</p>
 </dd>
 <dt class="field-even">Exceptions<span class="colon">:</span></dt>
-<dd class="field-even"><p>None..</p>
+<dd class="field-even"><p>None.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -93,7 +93,7 @@ Utility for parameter validation borrowing Checker from class instances.</p>
 <dd><p>Decorator supporting class methods (instance methods, classmethods).
 Borrows the checker object dynamically from the class instance 
 to validate method parameters.</p>
-<dl class="field-list simple">
+<dl class="field-list">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>specs</strong> (<em>&lt;list</em><em>[</em><em>tuple</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>]</em><em>]</em><em>&gt;</em>) – Specification for parameters.</p>
 </dd>
@@ -104,7 +104,12 @@ to validate method parameters.</p>
 <dd class="field-odd"><p>&lt;Callable[[F], F]&gt;</p>
 </dd>
 <dt class="field-even">Exceptions<span class="colon">:</span></dt>
-<dd class="field-even"><p>ATSTypeError, ATSValueError, ATSRuntimeError, ATSAttributeError.</p>
+<dd class="field-even"><div class="line-block">
+<div class="line">ATSTypeError: Parameter type validation failed.</div>
+<div class="line">ATSValueError: Parameter format validation failed.</div>
+<div class="line">ATSRuntimeError: Decorator used on a non-class method.</div>
+<div class="line">ATSAttributeError: Class does not provide a ‘_checker’ object.</div>
+</div>
 </dd>
 </dl>
 </dd></dl>

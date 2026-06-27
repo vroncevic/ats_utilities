@@ -59,7 +59,7 @@
 <span class="sd">&#39;&#39;&#39;</span>
 
 <span class="kn">from</span> <span class="nn">collections.abc</span> <span class="kn">import</span> <span class="n">Callable</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">ClassVar</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">ClassVar</span><span class="p">,</span> <span class="n">override</span>
 <span class="kn">from</span> <span class="nn">enum</span> <span class="kn">import</span> <span class="n">Enum</span>
 <span class="kn">from</span> <span class="nn">logging</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">getLogger</span><span class="p">,</span> <span class="n">basicConfig</span><span class="p">,</span> <span class="n">Logger</span><span class="p">,</span> <span class="n">DEBUG</span><span class="p">,</span> <span class="n">WARNING</span><span class="p">,</span> <span class="n">CRITICAL</span><span class="p">,</span> <span class="n">ERROR</span><span class="p">,</span> <span class="n">INFO</span>
@@ -71,13 +71,13 @@
 <span class="kn">from</span> <span class="nn">ats_utilities.reporter.ireporter</span> <span class="kn">import</span> <span class="n">IReporter</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.checker.proxy_validator</span> <span class="kn">import</span> <span class="n">validator</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.factory_context_bundle</span> <span class="kn">import</span> <span class="n">factory_context_bundle</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.factory_class</span> <span class="kn">import</span> <span class="n">format_instance_to_string</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.factory_class</span> <span class="kn">import</span> <span class="n">require_attributes</span><span class="p">,</span> <span class="n">format_instance_to_string</span>
 
 <span class="n">__author__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;Vladimir Roncevic&#39;</span>
 <span class="n">__copyright__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;(C) 2026, https://vroncevic.github.io/ats_utilities&#39;</span>
 <span class="n">__credits__</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Vladimir Roncevic&#39;</span><span class="p">,</span> <span class="s1">&#39;Python Software Foundation&#39;</span><span class="p">]</span>
 <span class="n">__license__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE&#39;</span>
-<span class="n">__version__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;3.3.8&#39;</span>
+<span class="n">__version__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;3.4.0&#39;</span>
 <span class="n">__maintainer__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;Vladimir Roncevic&#39;</span>
 <span class="n">__email__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;elektron.ronca@gmail.com&#39;</span>
 <span class="n">__status__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;Updated&#39;</span>
@@ -97,8 +97,7 @@
 <span class="sd">                | ATS_LOG_WARNING - Warning log level from logging module.</span>
 <span class="sd">                | ATS_LOG_ERROR - Error log level from logging module.</span>
 <span class="sd">                | ATS_LOG_CRITICAL - Critical log level from logging module.</span>
-<span class="sd">            :methods: None</span>
-<span class="sd">    &#39;&#39;&#39;</span>
+<span class="sd">            :methods: None.    &#39;&#39;&#39;</span>
     <span class="n">ATS_LOG_DEBUG</span> <span class="o">=</span> <span class="n">DEBUG</span>
     <span class="n">ATS_LOG_INFO</span> <span class="o">=</span> <span class="n">INFO</span>
     <span class="n">ATS_LOG_WARNING</span> <span class="o">=</span> <span class="n">WARNING</span>
@@ -187,6 +186,7 @@
 <div class="viewcode-block" id="ATSLogger.write_log">
 <a class="viewcode-back" href="../../../ats_utilities.logging.logger.html#ats_utilities.logging.logger.ATSLogger.write_log">[docs]</a>
     <span class="nd">@validator</span><span class="p">([(</span><span class="s1">&#39;str | None:message&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;int:ctrl&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)])</span>
+    <span class="nd">@override</span>
     <span class="k">def</span> <span class="nf">write_log</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="p">,</span> <span class="n">ctrl</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Writes message to log.</span>
@@ -197,7 +197,11 @@
 <span class="sd">            :type ctrl: &lt;int&gt;</span>
 <span class="sd">            :return: True (success) | False (fail).</span>
 <span class="sd">            :rtype: &lt;bool&gt;</span>
-<span class="sd">            :exceptions: ATSTypeError by validates_parameters</span>
+<span class="sd">            :exceptions:</span>
+<span class="sd">                | ATSTypeError: Parameter type validation failed.</span>
+<span class="sd">                | ATSValueError: Parameter format validation failed.</span>
+<span class="sd">                | ATSRuntimeError: Decorator used on a non-class method.</span>
+<span class="sd">                | ATSAttributeError: Class does not provide a &#39;_checker&#39; object.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="n">log_call</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_log_methods</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">ctrl</span><span class="p">)</span>
 
@@ -211,18 +215,22 @@
 
 <div class="viewcode-block" id="ATSLogger.is_initialized">
 <a class="viewcode-back" href="../../../ats_utilities.logging.logger.html#ats_utilities.logging.logger.ATSLogger.is_initialized">[docs]</a>
+    <span class="nd">@require_attributes</span><span class="p">(</span><span class="s1">&#39;_logger&#39;</span><span class="p">)</span>
+    <span class="nd">@override</span>
     <span class="k">def</span> <span class="nf">is_initialized</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Checks if logger component is ok.</span>
 
 <span class="sd">            :return: True (success) | False (fail)</span>
 <span class="sd">            :rtype: &lt;bool&gt;</span>
-<span class="sd">            :exceptions: None..</span>
+<span class="sd">            :exceptions:</span>
+<span class="sd">                | ATSAttributeError: &#39;_logger&#39; attribute is required.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">isEnabledFor</span><span class="p">(</span><span class="n">INFO</span><span class="p">)</span></div>
 
 
 
+    <span class="nd">@override</span>
     <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Returns the string representation of ATS logger.</span>
