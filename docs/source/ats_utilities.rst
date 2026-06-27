@@ -12,6 +12,7 @@ Subpackages
    ats_utilities.config_io
    ats_utilities.config_setup
    ats_utilities.exceptions
+   ats_utilities.generator
    ats_utilities.info
    ats_utilities.logging
    ats_utilities.option
@@ -28,7 +29,8 @@ Submodules
    ats_utilities.factory_class
    ats_utilities.factory_component
    ats_utilities.factory_context_bundle
-   ats_utilities.factory_utils
+   ats_utilities.factory_dict_utils
+   ats_utilities.factory_file_utils
 
 Module contents
 ---------------

@@ -59,7 +59,7 @@
 <span class="sd">&#39;&#39;&#39;</span>
 
 <span class="kn">import</span> <span class="nn">os</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">override</span>
 <span class="kn">from</span> <span class="nn">fcntl</span> <span class="kn">import</span> <span class="n">ioctl</span>
 <span class="kn">from</span> <span class="nn">termios</span> <span class="kn">import</span> <span class="n">TIOCGWINSZ</span>
 <span class="kn">from</span> <span class="nn">struct</span> <span class="kn">import</span> <span class="n">unpack</span><span class="p">,</span> <span class="n">pack</span>
@@ -123,6 +123,7 @@
 <a class="viewcode-back" href="../../../ats_utilities.splasher.terminal_properties.html#ats_utilities.splasher.terminal_properties.TerminalProperties.ioctl_get_window_size">[docs]</a>
     <span class="nd">@validator</span><span class="p">([(</span><span class="s1">&#39;int:file_descriptor&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)])</span>
     <span class="nd">@vreporter</span><span class="p">(</span><span class="s1">&#39;ioctl get window size </span><span class="si">{window_size}</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="nd">@override</span>
     <span class="k">def</span> <span class="nf">ioctl_get_window_size</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file_descriptor</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="o">...</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Gets size for file descriptor.</span>
@@ -131,7 +132,14 @@
 <span class="sd">            :type file_descriptor: &lt;int&gt;</span>
 <span class="sd">            :return: Window size of terminal.</span>
 <span class="sd">            :rtype: &lt;tuple[Any, ...]&gt;</span>
-<span class="sd">            :exceptions: ATSTypeError, ATSValueError, ATSRuntimeError, ATSAttributeError.</span>
+<span class="sd">            :exceptions:</span>
+<span class="sd">                | ATSRuntimeError: Decorator cannot be used on a standalone function.</span>
+<span class="sd">                | ATSAttributeError: Class is required to provide a &#39;_reporter&#39; object to</span>
+<span class="sd">                |                    use the @verboser decorator.</span>
+<span class="sd">                | ATSTypeError: Parameter type validation failed.</span>
+<span class="sd">                | ATSValueError: Parameter format validation failed.</span>
+<span class="sd">                | ATSRuntimeError: Decorator used on a non-class method.</span>
+<span class="sd">                | ATSAttributeError: Class does not provide a &#39;_checker&#39; object.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_window_size</span> <span class="o">=</span> <span class="n">unpack</span><span class="p">(</span><span class="s1">&#39;HHHH&#39;</span><span class="p">,</span> <span class="n">ioctl</span><span class="p">(</span><span class="n">file_descriptor</span><span class="p">,</span> <span class="n">TIOCGWINSZ</span><span class="p">,</span> <span class="n">pack</span><span class="p">(</span><span class="s1">&#39;HHHH&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)))</span>
 
@@ -141,11 +149,15 @@
 <div class="viewcode-block" id="TerminalProperties.ioctl_for_all_descriptors">
 <a class="viewcode-back" href="../../../ats_utilities.splasher.terminal_properties.html#ats_utilities.splasher.terminal_properties.TerminalProperties.ioctl_for_all_descriptors">[docs]</a>
     <span class="nd">@vreporter</span><span class="p">(</span><span class="s1">&#39;ioctl for all descriptors </span><span class="si">{window_size}</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="nd">@override</span>
     <span class="k">def</span> <span class="nf">ioctl_for_all_descriptors</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Sets size for all file descriptors.</span>
 
-<span class="sd">            :exceptions: ATSRuntimeError, ATSAttributeError.</span>
+<span class="sd">            :exceptions:</span>
+<span class="sd">                | ATSRuntimeError: Decorator cannot be used on a standalone function.</span>
+<span class="sd">                | ATSAttributeError: Class is required to provide a &#39;_reporter&#39; object to</span>
+<span class="sd">                |                    use the @verboser decorator.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="n">std_in</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ioctl_get_window_size</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
         <span class="n">std_out</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ioctl_get_window_size</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
@@ -156,13 +168,17 @@
 <div class="viewcode-block" id="TerminalProperties.size">
 <a class="viewcode-back" href="../../../ats_utilities.splasher.terminal_properties.html#ats_utilities.splasher.terminal_properties.TerminalProperties.size">[docs]</a>
     <span class="nd">@vreporter</span><span class="p">(</span><span class="s1">&#39;size </span><span class="si">{window_size}</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="nd">@override</span>
     <span class="k">def</span> <span class="nf">size</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="o">...</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Gets terminal window size.</span>
 
 <span class="sd">            :return: Terminal window size.</span>
 <span class="sd">            :rtype: &lt;tuple[Any, ...]&gt;</span>
-<span class="sd">            :exceptions: ATSRuntimeError, ATSAttributeError.</span>
+<span class="sd">            :exceptions:</span>
+<span class="sd">                | ATSRuntimeError: Decorator cannot be used on a standalone function.</span>
+<span class="sd">                | ATSAttributeError: Class is required to provide a &#39;_reporter&#39; object to</span>
+<span class="sd">                |                    use the @verboser decorator.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">ioctl_for_all_descriptors</span><span class="p">()</span>
@@ -174,13 +190,13 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">_window_size</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ioctl_get_window_size</span><span class="p">(</span><span class="n">file_descriptor</span><span class="p">)</span>
             <span class="n">os</span><span class="o">.</span><span class="n">close</span><span class="p">(</span><span class="n">file_descriptor</span><span class="p">)</span>
         <span class="k">except</span> <span class="ne">OSError</span><span class="p">:</span>
-            <span class="c1"># Fall back to self._window_size if set, otherwise default to (24, 80, 0, 0)</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;_TerminalProperties__window_size&#39;</span><span class="p">)</span> <span class="ow">or</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_window_size</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_window_size</span> <span class="o">=</span> <span class="p">(</span><span class="mi">24</span><span class="p">,</span> <span class="mi">80</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_window_size</span></div>
 
 
+    <span class="nd">@override</span>
     <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Returns the string representation of TerminalProperties.</span>

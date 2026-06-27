@@ -86,7 +86,7 @@ It defines:</p>
 </div>
 </dd>
 <dt class="field-even">methods<span class="colon">:</span></dt>
-<dd class="field-even"><p>None</p>
+<dd class="field-even"><p>None.</p>
 </dd>
 </dl>
 </div></blockquote>
@@ -241,7 +241,7 @@ Default logger mechanism.</p>
 <dt class="sig sig-object py" id="ats_utilities.logging.logger.ATSLogger.is_initialized">
 <span class="sig-name descname"><span class="pre">is_initialized</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="_modules/ats_utilities/logging/logger.html#ATSLogger.is_initialized"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.logging.logger.ATSLogger.is_initialized" title="Link to this definition">¶</a></dt>
 <dd><p>Checks if logger component is ok.</p>
-<dl class="field-list simple">
+<dl class="field-list">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>True (success) | False (fail)</p>
 </dd>
@@ -249,7 +249,9 @@ Default logger mechanism.</p>
 <dd class="field-even"><p>&lt;bool&gt;</p>
 </dd>
 <dt class="field-odd">Exceptions<span class="colon">:</span></dt>
-<dd class="field-odd"><p>None..</p>
+<dd class="field-odd"><div class="line-block">
+<div class="line">ATSAttributeError: ‘_logger’ attribute is required.</div>
+</div>
 </dd>
 </dl>
 </dd></dl>
@@ -258,7 +260,7 @@ Default logger mechanism.</p>
 <dt class="sig sig-object py" id="ats_utilities.logging.logger.ATSLogger.write_log">
 <span class="sig-name descname"><span class="pre">write_log</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">message</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ctrl</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="_modules/ats_utilities/logging/logger.html#ATSLogger.write_log"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.logging.logger.ATSLogger.write_log" title="Link to this definition">¶</a></dt>
 <dd><p>Writes message to log.</p>
-<dl class="field-list simple">
+<dl class="field-list">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>message</strong> (<em>&lt;str</em><em> | </em><em>None&gt;</em>) – Log message in string format for log | None.</p></li>
@@ -272,7 +274,12 @@ Default logger mechanism.</p>
 <dd class="field-odd"><p>&lt;bool&gt;</p>
 </dd>
 <dt class="field-even">Exceptions<span class="colon">:</span></dt>
-<dd class="field-even"><p>ATSTypeError by validates_parameters</p>
+<dd class="field-even"><div class="line-block">
+<div class="line">ATSTypeError: Parameter type validation failed.</div>
+<div class="line">ATSValueError: Parameter format validation failed.</div>
+<div class="line">ATSRuntimeError: Decorator used on a non-class method.</div>
+<div class="line">ATSAttributeError: Class does not provide a ‘_checker’ object.</div>
+</div>
 </dd>
 </dl>
 </dd></dl>

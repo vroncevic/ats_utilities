@@ -20,6 +20,7 @@ Info
     Provides a default implementation for processing YAML content.
 '''
 
+from typing import override
 import yaml
 from ats_utilities.config_io.yaml.iyaml_processor import IYAMLProcessor
 from ats_utilities.exceptions.ats_error import ATSError
@@ -55,10 +56,11 @@ class YAMLProcessor(IYAMLProcessor):
         '''
             Initializes YAMLProcessor constructor.
 
-            :exceptions: None..
+            :exceptions: None.
         '''
         self._data: dict[str, str] = {}
 
+    @override
     def decode(self, yaml_string: str) -> bool:
         '''
             Converts raw YAML text to an internal object/structure.
@@ -67,7 +69,7 @@ class YAMLProcessor(IYAMLProcessor):
             :type yaml_string: <str>
             :return: True (success) | False (fail).
             :rtype: <bool>
-            :exceptions: None..
+            :exceptions: None.
         '''
         try:
             self._data = yaml.safe_load(yaml_string)
@@ -75,32 +77,35 @@ class YAMLProcessor(IYAMLProcessor):
         except ATSError:
             return False
 
+    @override
     def encode(self) -> str:
         '''
             Converts an internal object/structure back to a YAML string.
 
             :return: YAML content as string.
             :rtype: <str>
-            :exceptions: None..
+            :exceptions: None.
         '''
         return yaml.safe_dump(self._data, default_flow_style=False)
 
+    @override
     def to_dict(self) -> dict[str, str]:
         '''
             Returns configuration as a flat dictionary.
 
             :return: Dictionary with YAML information.
             :rtype: <dict[str, str]>
-            :exceptions: None..
+            :exceptions: None.
         '''
         return self._data
 
+    @override
     def __str__(self) -> str:
         '''
             Returns the YAMLProcessor as string representation.
 
             :return: The YAMLProcessor as string representation.
             :rtype: <str>
-            :exceptions: None..
+            :exceptions: None.
         '''
         return format_instance_to_string(self)

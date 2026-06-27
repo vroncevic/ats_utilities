@@ -20,6 +20,7 @@ Info
     Encapsulates reporter components to minimize constructor overhead.
 '''
 
+from typing import Any
 from dataclasses import dataclass
 from ats_utilities.checker.ichecker import IChecker
 from ats_utilities.reporter.theme.iconsole_theme import IConsoleTheme
@@ -59,13 +60,15 @@ class ReporterComponentBundle:
         '''
             Validates that essential components are set.
 
-            :exceptions: ATSValueError.
+            :exceptions:
+                | ATSValueError - Checker must be provided.
+                | ATSValueError - Theme must be provided.
         '''
         if self.checker is None:
-            raise ATSValueError("Checker must be provided.")
+            raise ATSValueError("checker must be provided.")
 
         if self.theme is None:
-            raise ATSValueError("Theme must be provided.")
+            raise ATSValueError("theme must be provided.")
 
     def merge(self, other: 'ReporterComponentBundle') -> None:
         '''
@@ -77,15 +80,16 @@ class ReporterComponentBundle:
         '''
         for field_name in self.__dataclass_fields__:
             other_value = getattr(other, field_name)
+
             if other_value is not None:
                 setattr(self, field_name, other_value)
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> dict[str, Any]:
         '''
             Converts the bundle attributes to a dictionary.
 
             :return: Dictionary representation of the bundle attributes.
-            :rtype: <dict>
+            :rtype: <dict[str, Any]>
             :exceptions: None.
         '''
         return {

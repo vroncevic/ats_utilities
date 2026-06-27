@@ -65,19 +65,23 @@ class ConfigSetupComponentBundle:
         '''
             Validates that essential components are set.
 
-            :exceptions: ValueError
+            :exceptions:
+                | ATSValueError - Project configuration must be provided.
+                | ATSValueError - Project name must be provided.
+                | ATSValueError - Template directory must be provided.
+                | ATSValueError - Context bundle must be provided.
         '''
         if self.pro_config is None:
-            raise ATSValueError('Project configuration must be provided.')
+            raise ATSValueError('project configuration must be provided.')
 
         if self.pro_name is None:
-            raise ATSValueError('Project name must be provided.')
+            raise ATSValueError('project name must be provided.')
 
         if self.template_dir is None:
-            raise ATSValueError('Template directory must be provided.')
+            raise ATSValueError('template directory must be provided.')
 
         if self.context_bundle is None:
-            raise ATSValueError('Context bundle must be provided.')
+            raise ATSValueError('context bundle must be provided.')
 
     def merge(self, other: 'ConfigSetupComponentBundle') -> None:
         '''
@@ -85,10 +89,11 @@ class ConfigSetupComponentBundle:
 
             :param other: Another bundle to merge into this one.
             :type other: <ConfigSetupComponentBundle>
-            :exceptions: None..
+            :exceptions: None.
         '''
         for field_name in self.__dataclass_fields__:
             other_value = getattr(other, field_name)
+
             if other_value is not None:
                 setattr(self, field_name, other_value)
 
@@ -98,7 +103,7 @@ class ConfigSetupComponentBundle:
 
             :return: Dictionary representation of the bundle attributes.
             :rtype: <dict>
-            :exceptions: None..
+            :exceptions: None.
         '''
         return {
             name: value

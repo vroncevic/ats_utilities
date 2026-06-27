@@ -21,6 +21,7 @@ Info
 '''
 
 import sys
+from typing import override
 from ats_utilities.factory_class import format_instance_to_string
 from ats_utilities.splasher.iprogress_bar import IProgressBar
 
@@ -83,6 +84,7 @@ class ProgressBar(IProgressBar):
         self._ratio: float = 0.0
         self._level_chars: int = 0
 
+    @override
     def set_level(self, level: int) -> None:
         '''
             Sets level for progress bar.
@@ -102,6 +104,7 @@ class ProgressBar(IProgressBar):
         )
         self._level_chars = int(self._ratio * self._bar_length)
 
+    @override
     def plot_progress(self, columns: int) -> None:
         '''
             Plots progress bar.
@@ -124,6 +127,7 @@ class ProgressBar(IProgressBar):
         sys.stdout.flush()
         self._plotted = True
 
+    @override
     def set_and_plot(self, level: int, columns: int) -> None:
         '''
             Sets and plots progress bar.
@@ -147,6 +151,7 @@ class ProgressBar(IProgressBar):
         '''
         sys.stdout.write("\n")
 
+    @override
     def __str__(self) -> str:
         '''
             Returns the string representation of ProgressBar.

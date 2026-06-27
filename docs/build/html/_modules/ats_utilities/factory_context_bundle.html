@@ -90,14 +90,14 @@
 <span class="sd">    &#39;&#39;&#39;</span>
     <span class="c1"># No dependency injection then use default ones.</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="nb">bool</span><span class="p">(</span><span class="n">context</span><span class="p">):</span>
-        <span class="n">context</span> <span class="o">=</span> <span class="n">ContextBundle</span><span class="p">()</span>
+        <span class="n">context</span><span class="p">:</span> <span class="n">ContextBundle</span> <span class="o">=</span> <span class="n">ContextBundle</span><span class="p">()</span>
 
     <span class="k">if</span> <span class="n">context</span><span class="o">.</span><span class="n">checker</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">context</span><span class="o">.</span><span class="n">checker</span> <span class="o">=</span> <span class="n">Checker</span><span class="p">()</span>
+        <span class="n">context</span><span class="o">.</span><span class="n">checker</span><span class="p">:</span> <span class="n">Checker</span> <span class="o">=</span> <span class="n">Checker</span><span class="p">()</span>
 
     <span class="k">if</span> <span class="n">context</span><span class="o">.</span><span class="n">reporter</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">reporter_bundle</span> <span class="o">=</span> <span class="n">ReporterComponentBundle</span><span class="p">(</span><span class="n">checker</span><span class="o">=</span><span class="n">context</span><span class="o">.</span><span class="n">checker</span><span class="p">)</span>
-        <span class="n">context</span><span class="o">.</span><span class="n">reporter</span> <span class="o">=</span> <span class="n">Reporter</span><span class="p">(</span><span class="n">component_bundle</span><span class="o">=</span><span class="n">reporter_bundle</span><span class="p">)</span>
+        <span class="n">reporter_bundle</span><span class="p">:</span> <span class="n">ReporterComponentBundle</span> <span class="o">=</span> <span class="n">ReporterComponentBundle</span><span class="p">(</span><span class="n">checker</span><span class="o">=</span><span class="n">context</span><span class="o">.</span><span class="n">checker</span><span class="p">)</span>
+        <span class="n">context</span><span class="o">.</span><span class="n">reporter</span><span class="p">:</span> <span class="n">Reporter</span> <span class="o">=</span> <span class="n">Reporter</span><span class="p">(</span><span class="n">component_bundle</span><span class="o">=</span><span class="n">reporter_bundle</span><span class="p">)</span>
 
     <span class="n">inject</span><span class="p">(</span>
         <span class="n">instance</span><span class="p">,</span>

@@ -20,6 +20,7 @@ Info
     Creates an API for writing a configuration to a JSON file.
 '''
 
+from typing import override
 from ats_utilities.config_io.iwrite import IWrite
 from ats_utilities.context_bundle import ContextBundle
 from ats_utilities.checker.ichecker import IChecker
@@ -34,7 +35,7 @@ from ats_utilities.reporter.proxy_reporter import vreporter
 from ats_utilities.checker.proxy_validator import validator
 from ats_utilities.factory_context_bundle import factory_context_bundle
 from ats_utilities.factory_component import make_component, validate_component
-from ats_utilities.factory_class import get_private_attr, format_instance_to_string
+from ats_utilities.factory_class import format_instance_to_string
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -89,7 +90,8 @@ class Object2Json(IWrite):
             :type config_file: <str | None>
             :param config_bundle: Configuration file bundle parameters | None.
             :type config_bundle: <ATSConfigFileBundle | None>
-            :exceptions: ATSTypeError.
+            :exceptions:
+                | ATSTypeError: Invalid type in constructor arguments.
         '''
         self._config_file_bundle: ATSConfigFileBundle = config_bundle or ATSConfigFileBundle()
         factory_context_bundle(self, self._config_file_bundle.context)
@@ -108,6 +110,7 @@ class Object2Json(IWrite):
 
     @validator([('IJSONProcessor | None:config', None)])
     @vreporter('write configuration to file {file_path}')
+    @override
     def write_configuration(self, config: IJSONProcessor | None) -> bool:
         '''
             Writes configuration to a JSON file.
@@ -116,7 +119,14 @@ class Object2Json(IWrite):
             :type config: <IJSONProcessor | None>
             :return: True (success) | False (fail).
             :rtype: <bool>
-            :exceptions: ATSTypeError, ATSValueError, ATSRuntimeError, ATSAttributeError.
+            :exceptions:
+                | ATSRuntimeError: Decorator cannot be used on a standalone function.
+                | ATSAttributeError: Class is required to provide a '_reporter' object to
+                |                    use the @verboser decorator.
+                | ATSTypeError: Parameter type validation failed.
+                | ATSValueError: Parameter format validation failed.
+                | ATSRuntimeError: Decorator used on a non-class method.
+                | ATSAttributeError: Class does not provide a '_checker' object.
         '''
         status: bool = False
 
@@ -130,12 +140,13 @@ class Object2Json(IWrite):
 
         return status
 
+    @override
     def __str__(self) -> str:
         '''
             Returns the Object2Json as string representation.
 
             :return: The Object2Json as string representation.
             :rtype: <str>
-            :exceptions: None..
+            :exceptions: None.
         '''
         return format_instance_to_string(self)

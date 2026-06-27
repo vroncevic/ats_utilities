@@ -58,6 +58,7 @@
 <span class="sd">    Creates an API for the ATS logging mechanism.</span>
 <span class="sd">&#39;&#39;&#39;</span>
 
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">override</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.logging.ilogger</span> <span class="kn">import</span> <span class="n">ILogger</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.logging.ilogger_manager</span> <span class="kn">import</span> <span class="n">ILoggerManager</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.logging.component_bundle</span> <span class="kn">import</span> <span class="n">LoggingComponentBundle</span>
@@ -151,9 +152,12 @@
 
         <span class="k">except</span> <span class="p">(</span><span class="n">ATSTypeError</span><span class="p">,</span> <span class="n">ATSValueError</span><span class="p">,</span> <span class="n">ATSRuntimeError</span><span class="p">,</span> <span class="n">ATSAttributeError</span><span class="p">)</span> <span class="k">as</span> <span class="n">exc</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_reporter</span><span class="o">.</span><span class="n">error</span><span class="p">([</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">get_class_name</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="si">}</span><span class="s1"> </span><span class="si">{</span><span class="n">exc</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">])</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">exc</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_reporter</span><span class="o">.</span><span class="n">error</span><span class="p">([</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">get_class_name</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="si">}</span><span class="s1"> unexpected exception: </span><span class="si">{</span><span class="n">exc</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">])</span>
 
 <div class="viewcode-block" id="LoggerManager.get_logger">
 <a class="viewcode-back" href="../../../ats_utilities.logging.engine.html#ats_utilities.logging.engine.LoggerManager.get_logger">[docs]</a>
+    <span class="nd">@override</span>
     <span class="k">def</span> <span class="nf">get_logger</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ILogger</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Gets logger instance.</span>
@@ -168,6 +172,7 @@
 <div class="viewcode-block" id="LoggerManager.write_log">
 <a class="viewcode-back" href="../../../ats_utilities.logging.engine.html#ats_utilities.logging.engine.LoggerManager.write_log">[docs]</a>
     <span class="nd">@require_attributes</span><span class="p">(</span><span class="s1">&#39;_logger&#39;</span><span class="p">)</span>
+    <span class="nd">@override</span>
     <span class="k">def</span> <span class="nf">write_log</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="p">,</span> <span class="n">ctrl</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Writes message to log output.</span>
@@ -178,7 +183,8 @@
 <span class="sd">            :type ctrl: &lt;int&gt;</span>
 <span class="sd">            :return: True (success) | False (fail).</span>
 <span class="sd">            :rtype: &lt;bool&gt;</span>
-<span class="sd">            :exceptions: ATSValueError.</span>
+<span class="sd">            :exceptions:</span>
+<span class="sd">                | ATSValueError: Missing or empty attribute: &#39;_logger&#39;.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">write_log</span><span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">ctrl</span><span class="p">))</span></div>
 
@@ -186,17 +192,20 @@
 <div class="viewcode-block" id="LoggerManager.is_initialized">
 <a class="viewcode-back" href="../../../ats_utilities.logging.engine.html#ats_utilities.logging.engine.LoggerManager.is_initialized">[docs]</a>
     <span class="nd">@require_attributes</span><span class="p">(</span><span class="s1">&#39;_logger&#39;</span><span class="p">)</span>
+    <span class="nd">@override</span>
     <span class="k">def</span> <span class="nf">is_initialized</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Checks if the logger manager component is initialized.</span>
 
 <span class="sd">            :return: True (success) | False (fail).</span>
 <span class="sd">            :rtype: &lt;bool&gt;</span>
-<span class="sd">            :exceptions: ATSValueError.</span>
+<span class="sd">            :exceptions:</span>
+<span class="sd">                | ATSValueError: Missing or empty attribute: &#39;_logger&#39;.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_is_initialized</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">is_initialized</span><span class="p">()</span></div>
 
 
+    <span class="nd">@override</span>
     <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Returns the string representation of ATS logger.</span>

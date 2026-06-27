@@ -62,12 +62,15 @@ class ContextBundle:
         '''
             Validates that essential components are set.
 
-            :exceptions: ATSValueError - Raised if the checker or reporter is not set.
+            :exceptions:
+                | ATSValueError: Checker must be provided.
+                | ATSValueError: Reporter must be provided.
         '''
         if self.checker is None:
-            raise ATSValueError('Required attribute checker is not set.')
+            raise ATSValueError('checker must be provided.')
+
         if self.reporter is None:
-            raise ATSValueError('Required attribute reporter is not set.')
+            raise ATSValueError('reporter must be provided.')
 
     def merge(self, other: 'ContextBundle') -> None:
         '''
@@ -78,7 +81,8 @@ class ContextBundle:
             :exceptions: None.
         '''
         for field_name in self.__dataclass_fields__:
-            other_value = getattr(other, field_name)
+            other_value: Any = getattr(other, field_name)
+
             if other_value is not None:
                 setattr(self, field_name, other_value)
 

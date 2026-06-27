@@ -59,7 +59,8 @@
 <span class="sd">&#39;&#39;&#39;</span>
 
 <span class="kn">from</span> <span class="nn">abc</span> <span class="kn">import</span> <span class="n">abstractmethod</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span>
+<span class="kn">from</span> <span class="nn">os.path</span> <span class="kn">import</span> <span class="n">dirname</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">override</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.base.ibase</span> <span class="kn">import</span> <span class="n">IBase</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.base.ibase</span> <span class="kn">import</span> <span class="n">ArgSeq</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.context_bundle</span> <span class="kn">import</span> <span class="n">ContextBundle</span>
@@ -83,8 +84,13 @@
 <span class="kn">from</span> <span class="nn">ats_utilities.option.ioption_parser</span> <span class="kn">import</span> <span class="n">IOptionManager</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.option.engine</span> <span class="kn">import</span> <span class="n">OptionManager</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.option.option_namespace</span> <span class="kn">import</span> <span class="n">OptionNamespace</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.generator.component_bundle</span> <span class="kn">import</span> <span class="n">GeneratorComponentBundle</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.generator.engine</span> <span class="kn">import</span> <span class="n">Generator</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.generator.igenerator</span> <span class="kn">import</span> <span class="n">IGenerator</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.factory_context_bundle</span> <span class="kn">import</span> <span class="n">factory_context_bundle</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.factory_class</span> <span class="kn">import</span> <span class="n">get_class_name</span><span class="p">,</span> <span class="n">format_instance_to_string</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.factory_class</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">require_attributes</span><span class="p">,</span> <span class="n">get_class_name</span><span class="p">,</span> <span class="n">format_instance_to_string</span>
+<span class="p">)</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.factory_component</span> <span class="kn">import</span> <span class="n">make_component</span><span class="p">,</span> <span class="n">validate_component</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.exceptions.ats_type_error</span> <span class="kn">import</span> <span class="n">ATSTypeError</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.exceptions.ats_value_error</span> <span class="kn">import</span> <span class="n">ATSValueError</span>
@@ -114,11 +120,12 @@
 <span class="sd">                | _checker - Injected parameters checker (default Checker).</span>
 <span class="sd">                | _reporter - Injected reporter for messaging (default Reporter).</span>
 <span class="sd">                | _verbose - Injected Enable/Disable verbose option (default False).</span>
-<span class="sd">                | _config_loader - Manager for configuration loading.</span>
-<span class="sd">                | _info_manager - Manager for info component.</span>
-<span class="sd">                | _splasher - Manager for splash component.</span>
-<span class="sd">                | _options_parser - Manager for options parser.</span>
-<span class="sd">                | _logger_manager - Manager for logger component.</span>
+<span class="sd">                | _config_loader - Manager for configuration loading (default ConfigLoader).</span>
+<span class="sd">                | _info_manager - Manager for info component (default InfoManager).</span>
+<span class="sd">                | _splasher - Manager for splash component (default Splasher).</span>
+<span class="sd">                | _options_parser - Manager for options parser (default OptionManager).</span>
+<span class="sd">                | _logger_manager - Manager for logger component (default LoggerManager).</span>
+<span class="sd">                | _generator - Generator manager (default Generator).</span>
 <span class="sd">                | _is_initialized - Indicates if the base component is initialized (default False).</span>
 <span class="sd">            :methods:</span>
 <span class="sd">                | __init__ - Initializes Base constructor.</span>
@@ -147,13 +154,7 @@
         <span class="n">shared_context</span><span class="p">:</span> <span class="n">ContextBundle</span> <span class="o">=</span> <span class="n">ContextBundle</span><span class="p">(</span>
             <span class="n">checker</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_checker</span><span class="p">,</span> <span class="n">reporter</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_reporter</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_verbose</span>
         <span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_operational</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_is_initialized</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_config_loader</span><span class="p">:</span> <span class="n">IConfigLoader</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_info_manager</span><span class="p">:</span> <span class="n">IInfoManager</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_splasher</span><span class="p">:</span> <span class="n">ISplasher</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_options_parser</span><span class="p">:</span> <span class="n">IOptionManager</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_logger_manager</span><span class="p">:</span> <span class="n">ILoggerManager</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
 
         <span class="k">try</span><span class="p">:</span>
             <span class="n">shared_config_file_bundle</span><span class="p">:</span> <span class="n">ATSConfigFileBundle</span> <span class="o">=</span> <span class="n">ATSConfigFileBundle</span><span class="p">(</span><span class="n">context</span><span class="o">=</span><span class="n">shared_context</span><span class="p">)</span>
@@ -171,6 +172,10 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">_info_manager</span><span class="p">:</span> <span class="n">IInfoManager</span> <span class="o">=</span> <span class="n">make_component</span><span class="p">(</span><span class="n">bundle</span><span class="o">.</span><span class="n">info_manager</span><span class="p">,</span> <span class="n">InfoManager</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;component_bundle&#39;</span><span class="p">:</span> <span class="n">info_component_bundle</span><span class="p">})</span>
             <span class="n">validate_component</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_info_manager</span><span class="p">,</span> <span class="n">InfoManager</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_info_manager</span><span class="o">.</span><span class="n">set_info</span><span class="p">(</span><span class="n">loader</span><span class="o">.</span><span class="n">load_configuration</span><span class="p">())</span>
+
+            <span class="c1"># Ensure that logo path is absolute</span>
+            <span class="n">logo_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_info_manager</span><span class="o">.</span><span class="n">logo_path</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_info_manager</span><span class="o">.</span><span class="n">logo_path</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">dirname</span><span class="p">(</span><span class="n">bundle</span><span class="o">.</span><span class="n">info_file</span><span class="p">)</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">logo_path</span><span class="si">}</span><span class="s2">&quot;</span>
 
             <span class="n">splash_component_bundle</span><span class="p">:</span> <span class="n">SplashComponentBundle</span> <span class="o">=</span> <span class="n">SplashComponentBundle</span><span class="p">(</span>
                 <span class="n">prop</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_info_manager</span><span class="o">.</span><span class="n">get_info</span><span class="p">(),</span> <span class="n">context_bundle</span><span class="o">=</span><span class="n">shared_context</span>
@@ -195,15 +200,25 @@
             <span class="p">)</span>
             <span class="n">validate_component</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_logger_manager</span><span class="p">,</span> <span class="n">LoggerManager</span><span class="p">)</span>
 
-            <span class="bp">self</span><span class="o">.</span><span class="n">_is_initialized</span> <span class="o">=</span> <span class="nb">all</span><span class="p">(</span><span class="n">component</span><span class="o">.</span><span class="n">is_initialized</span><span class="p">()</span> <span class="k">for</span> <span class="n">component</span> <span class="ow">in</span> <span class="p">[</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_info_manager</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_splasher</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_options_parser</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_logger_manager</span>
-            <span class="p">])</span>
+            <span class="n">components</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_info_manager</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_splasher</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_options_parser</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_logger_manager</span><span class="p">]</span>
+
+            <span class="k">if</span> <span class="n">bundle</span><span class="o">.</span><span class="n">use_generator</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_generator</span><span class="p">:</span> <span class="n">IGenerator</span> <span class="o">=</span> <span class="n">make_component</span><span class="p">(</span>
+                    <span class="n">bundle</span><span class="o">.</span><span class="n">generator</span><span class="p">,</span> <span class="n">Generator</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;component_bundle&#39;</span><span class="p">:</span> <span class="n">GeneratorComponentBundle</span><span class="p">(</span><span class="n">context_bundle</span><span class="o">=</span><span class="n">shared_context</span><span class="p">)}</span>
+                <span class="p">)</span>
+                <span class="n">validate_component</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_generator</span><span class="p">,</span> <span class="n">Generator</span><span class="p">)</span>
+                <span class="n">components</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_generator</span><span class="p">)</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">_is_initialized</span> <span class="o">=</span> <span class="nb">all</span><span class="p">(</span><span class="n">component</span><span class="o">.</span><span class="n">is_initialized</span><span class="p">()</span> <span class="k">for</span> <span class="n">component</span> <span class="ow">in</span> <span class="n">components</span><span class="p">)</span>
 
         <span class="k">except</span> <span class="p">(</span><span class="n">ATSTypeError</span><span class="p">,</span> <span class="n">ATSValueError</span><span class="p">,</span> <span class="n">ATSRuntimeError</span><span class="p">,</span> <span class="n">ATSAttributeError</span><span class="p">)</span> <span class="k">as</span> <span class="n">exc</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_reporter</span><span class="o">.</span><span class="n">error</span><span class="p">([</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">get_class_name</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="si">}</span><span class="s1"> </span><span class="si">{</span><span class="n">exc</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">])</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">exc</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_reporter</span><span class="o">.</span><span class="n">error</span><span class="p">([</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">get_class_name</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="si">}</span><span class="s1"> unexpected exception: </span><span class="si">{</span><span class="n">exc</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">])</span>
 
 <div class="viewcode-block" id="Base.is_initialized">
 <a class="viewcode-back" href="../../../ats_utilities.base.engine.html#ats_utilities.base.engine.Base.is_initialized">[docs]</a>
+    <span class="nd">@override</span>
     <span class="k">def</span> <span class="nf">is_initialized</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Checks if the base component is initialized.</span>
@@ -212,18 +227,13 @@
 <span class="sd">            :rtype: &lt;bool&gt;</span>
 <span class="sd">            :exceptions: None.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="k">return</span> <span class="nb">all</span><span class="p">([</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_is_initialized</span><span class="p">,</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_config_loader</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">,</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_info_manager</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">,</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_splasher</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">,</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_options_parser</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">,</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_logger_manager</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
-        <span class="p">])</span></div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_is_initialized</span></div>
 
 
 <div class="viewcode-block" id="Base.add_new_option">
 <a class="viewcode-back" href="../../../ats_utilities.base.engine.html#ats_utilities.base.engine.Base.add_new_option">[docs]</a>
+    <span class="nd">@require_attributes</span><span class="p">(</span><span class="s1">&#39;_options_parser&#39;</span><span class="p">)</span>
+    <span class="nd">@override</span>
     <span class="k">def</span> <span class="nf">add_new_option</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Adds a new option for the CL interface.</span>
@@ -232,7 +242,8 @@
 <span class="sd">            :type args: &lt;str&gt;</span>
 <span class="sd">            :param kwargs: arguments in Any form.</span>
 <span class="sd">            :type kwargs: &lt;Any&gt;</span>
-<span class="sd">            :exceptions: None..</span>
+<span class="sd">            :exceptions:</span>
+<span class="sd">                | ATSAttributeError: &#39;_options_parser&#39; attribute is required.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_initialized</span><span class="p">():</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_options_parser</span><span class="o">.</span><span class="n">add_operation</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
@@ -240,6 +251,8 @@
 
 <div class="viewcode-block" id="Base.parse_args">
 <a class="viewcode-back" href="../../../ats_utilities.base.engine.html#ats_utilities.base.engine.Base.parse_args">[docs]</a>
+    <span class="nd">@require_attributes</span><span class="p">(</span><span class="s1">&#39;_options_parser&#39;</span><span class="p">)</span>
+    <span class="nd">@override</span>
     <span class="k">def</span> <span class="nf">parse_args</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">argv</span><span class="p">:</span> <span class="n">ArgSeq</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">OptionNamespace</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Parses the CLI arguments.</span>
@@ -248,7 +261,8 @@
 <span class="sd">            :type argv: &lt;ArgSeq&gt;</span>
 <span class="sd">            :return: Options and arguments.</span>
 <span class="sd">            :rtype: &lt;OptionNamespace | None&gt;</span>
-<span class="sd">            :exceptions: ATSTypeError.</span>
+<span class="sd">            :exceptions:</span>
+<span class="sd">                | ATSAttributeError: &#39;_options_parser&#39; attribute is required.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_initialized</span><span class="p">():</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_options_parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">(</span><span class="n">argv</span><span class="p">)</span>
@@ -259,6 +273,7 @@
 <div class="viewcode-block" id="Base.process">
 <a class="viewcode-back" href="../../../ats_utilities.base.engine.html#ats_utilities.base.engine.Base.process">[docs]</a>
     <span class="nd">@abstractmethod</span>
+    <span class="nd">@override</span>
     <span class="k">def</span> <span class="nf">process</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">verbose</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Processes and runs tool operations (Abstract).</span>
@@ -267,21 +282,21 @@
 <span class="sd">            :type verbose: &lt;bool&gt;</span>
 <span class="sd">            :return: True (success) | False (fail).</span>
 <span class="sd">            :rtype: &lt;bool&gt;</span>
-<span class="sd">            :exceptions: TypeError.</span>
+<span class="sd">            :exceptions: None.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s2">&quot;Method process() must be implemented.&quot;</span><span class="p">)</span></div>
+        <span class="k">pass</span></div>
 
 
+    <span class="nd">@override</span>
     <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Returns the ATS base as string representation.</span>
 
 <span class="sd">            :return: The ATS base as string representation.</span>
 <span class="sd">            :rtype: &lt;str&gt;</span>
-<span class="sd">            :exceptions: None..</span>
+<span class="sd">            :exceptions: None.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="k">return</span> <span class="n">format_instance_to_string</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div>
-
 
 </pre></div>
 

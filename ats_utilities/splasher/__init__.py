@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines ats_utilities.splasher package.
+    Initialize ats_utilities.splasher.
 '''
 
 __author__: str = 'Vladimir Roncevic'

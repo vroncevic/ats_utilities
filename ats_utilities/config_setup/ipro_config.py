@@ -55,9 +55,9 @@ class IProConfig(ABC):
 
             :return: Formatted project configuration in dict format | None
             :rtype: <dict[Any, Any] | None>
-            :exceptions: NotImplementedError.
+            :exceptions: None.
         '''
-        raise NotImplementedError("Method config() must be implemented.")
+        pass
 
     @config.setter
     @abstractmethod
@@ -67,9 +67,9 @@ class IProConfig(ABC):
 
             :param pro_config: Project configuration in dict format | None
             :type pro_config: <dict[Any, Any] | None>
-            :exceptions: NotImplementedError.
+            :exceptions: None.
         '''
-        raise NotImplementedError("Method config() must be implemented.")
+        pass
 
     @abstractmethod
     def not_none(self) -> bool:
@@ -78,9 +78,9 @@ class IProConfig(ABC):
 
             :return: True (success) | False (fail)
             :rtype: <bool>
-            :exceptions: NotImplementedError.
+            :exceptions: None.
         '''
-        raise NotImplementedError("Method not_none() must be implemented.")
+        pass
 
     @abstractmethod
     def __str__(self) -> str:
@@ -89,6 +89,6 @@ class IProConfig(ABC):
 
             :return: The ATS project configuration as string representation.
             :rtype: <str>
-            :exceptions: NotImplementedError.
+            :exceptions: None.
         '''
-        raise NotImplementedError("Method __str__() must be implemented.")
+        pass

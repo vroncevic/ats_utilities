@@ -58,7 +58,7 @@ class IOptionCommand(ABC):
             :rtype: <str>
             :exceptions: None.
         '''
-        raise NotImplementedError("Method name() must be implemented.")
+        pass
 
     @property
     @abstractmethod
@@ -68,9 +68,9 @@ class IOptionCommand(ABC):
 
             :return: Help text of the command.
             :rtype: <str>
-            :exceptions: NotImplementedError.
+            :exceptions: None.
         '''
-        raise NotImplementedError("Method help_text() must be implemented.")
+        pass
 
     @property
     @abstractmethod
@@ -80,9 +80,9 @@ class IOptionCommand(ABC):
 
             :return: List of options for the command.
             :rtype: <list[CommandOption]>
-            :exceptions: NotImplementedError.
+            :exceptions: None.
         '''
-        raise NotImplementedError("Method options() must be implemented.")
+        pass
 
     @abstractmethod
     def __str__(self) -> str:
@@ -91,6 +91,6 @@ class IOptionCommand(ABC):
 
             :return: String representation of option command.
             :rtype: <str>
-            :exceptions: NotImplementedError.
+            :exceptions: None.
         '''
-        raise NotImplementedError("Method __str__() must be implemented.")
+        pass

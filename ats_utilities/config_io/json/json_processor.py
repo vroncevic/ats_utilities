@@ -21,6 +21,7 @@ Info
 '''
 
 from json import loads, dumps, JSONDecodeError
+from typing import override
 from ats_utilities.config_io.json.ijson_processor import IJSONProcessor
 from ats_utilities.factory_class import format_instance_to_string
 
@@ -54,10 +55,11 @@ class JSONProcessor(IJSONProcessor):
         '''
             Initializes JSONProcessor constructor.
 
-            :exceptions: None..
+            :exceptions: None.
         '''
         self._data: dict[str, str] = {}
 
+    @override
     def decode(self, json_string: str) -> bool:
         '''
             Converts raw JSON text to an internal object/structure.
@@ -66,7 +68,7 @@ class JSONProcessor(IJSONProcessor):
             :type json_string: <str>
             :return: True (success) | False (fail).
             :rtype: <bool>
-            :exceptions: None..
+            :exceptions: None.
         '''
         try:
             self._data = loads(json_string)
@@ -74,32 +76,35 @@ class JSONProcessor(IJSONProcessor):
         except JSONDecodeError:
             return False
 
+    @override
     def encode(self) -> str:
         '''
             Converts an internal object/structure back to a JSON string.
 
             :return: JSON content in string format.
             :rtype: <str>
-            :exceptions: None..
+            :exceptions: None.
         '''
         return dumps(self._data, indent=4)
 
+    @override
     def to_dict(self) -> dict[str, str]:
         '''
             Converts data as a flat dictionary.
 
             :return: Dictionary with JSON configuration.
             :rtype: <dict[str, str]>
-            :exceptions: None..
+            :exceptions: None.
         '''
         return self._data
 
+    @override
     def __str__(self) -> str:
         '''
             Returns the JSONProcessor as string representation.
 
             :return: The JSONProcessor as string representation.
             :rtype: <str>
-            :exceptions: None..
+            :exceptions: None.
         '''
         return format_instance_to_string(self)

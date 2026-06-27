@@ -58,6 +58,7 @@
 <span class="sd">    Stores the ATS configuration for the ATS.</span>
 <span class="sd">&#39;&#39;&#39;</span>
 
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">override</span>
 <span class="kn">from</span> <span class="nn">io</span> <span class="kn">import</span> <span class="n">StringIO</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.config_io.iwrite</span> <span class="kn">import</span> <span class="n">IWrite</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.config_io.istorer</span> <span class="kn">import</span> <span class="n">IStorer</span>
@@ -129,7 +130,8 @@
 <span class="sd">            :type config_bundle: &lt;ATSConfigFileBundle | None&gt;</span>
 <span class="sd">            :param ini_processor: Processor for INI content | None.</span>
 <span class="sd">            :type ini_processor: &lt;IINIProcessor | None&gt;</span>
-<span class="sd">            :exceptions: ATSTypeError.</span>
+<span class="sd">            :exceptions:</span>
+<span class="sd">                | ATSTypeError: Invalid type in constructor arguments.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="n">config_file_bundle</span><span class="p">:</span> <span class="n">ATSConfigFileBundle</span> <span class="o">=</span> <span class="n">config_bundle</span> <span class="ow">or</span> <span class="n">ATSConfigFileBundle</span><span class="p">()</span>
         <span class="n">factory_context_bundle</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config_file_bundle</span><span class="o">.</span><span class="n">context</span><span class="p">)</span>
@@ -143,6 +145,7 @@
 <div class="viewcode-block" id="INIStorer.store_configuration">
 <a class="viewcode-back" href="../../../../ats_utilities.config_io.ini.ini_storer.html#ats_utilities.config_io.ini.ini_storer.INIStorer.store_configuration">[docs]</a>
     <span class="nd">@validator</span><span class="p">([(</span><span class="s1">&#39;dict:config&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)])</span>
+    <span class="nd">@override</span>
     <span class="k">def</span> <span class="nf">store_configuration</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Stores the ATS configuration from dictionary format.</span>
@@ -151,7 +154,11 @@
 <span class="sd">            :type config: &lt;dict[str, str]&gt;</span>
 <span class="sd">            :return: True (success) | False (fail).</span>
 <span class="sd">            :rtype: &lt;bool&gt;</span>
-<span class="sd">            :exceptions: ATSTypeError, ATSValueError, ATSRuntimeError, ATSAttributeError.</span>
+<span class="sd">            :exceptions:</span>
+<span class="sd">                | ATSTypeError: Parameter type validation failed.</span>
+<span class="sd">                | ATSValueError: Parameter format validation failed.</span>
+<span class="sd">                | ATSRuntimeError: Decorator used on a non-class method.</span>
+<span class="sd">                | ATSAttributeError: Class does not provide a &#39;_checker&#39; object.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="n">ini_content</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_SECTION</span><span class="si">}</span><span class="se">\n</span><span class="s1">&#39;</span>
 
@@ -166,13 +173,14 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_obj2ini</span><span class="o">.</span><span class="n">write_configuration</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_processor</span><span class="p">)</span></div>
 
 
+    <span class="nd">@override</span>
     <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Returns the INIStorer as string representation.</span>
 
 <span class="sd">            :return: The INIStorer as string representation.</span>
 <span class="sd">            :rtype: &lt;str&gt;</span>
-<span class="sd">            :exceptions: None..</span>
+<span class="sd">            :exceptions: None.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="k">return</span> <span class="n">format_instance_to_string</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div>
 

@@ -92,15 +92,15 @@
 <div class="viewcode-block" id="IInfoManager.set_info">
 <a class="viewcode-back" href="../../../ats_utilities.info.imanager.html#ats_utilities.info.imanager.IInfoManager.set_info">[docs]</a>
     <span class="nd">@abstractmethod</span>
-    <span class="k">def</span> <span class="nf">set_info</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">info</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">set_info</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">info</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Sets the ATS information.</span>
 
 <span class="sd">            :param info: Dictionary with ATS information</span>
-<span class="sd">            :type info: &lt;dict[str, str]&gt;</span>
-<span class="sd">            :exceptions: NotImplementedError.</span>
+<span class="sd">            :type info: &lt;dict[str, Any]&gt;</span>
+<span class="sd">            :exceptions: None.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s2">&quot;Method set_info() must be implemented.&quot;</span><span class="p">)</span></div>
+        <span class="k">pass</span></div>
 
 
 <div class="viewcode-block" id="IInfoManager.get_info">
@@ -112,9 +112,9 @@
 
 <span class="sd">            :return: Dictionary with ATS information.</span>
 <span class="sd">            :rtype: &lt;dict[str, Any]&gt;</span>
-<span class="sd">            :exceptions: NotImplementedError.</span>
+<span class="sd">            :exceptions: None.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="k">raise</span> <span class="bp">NotImplemented</span><span class="p">(</span><span class="s2">&quot;Method get_info() must be implemented.&quot;</span><span class="p">)</span></div>
+        <span class="k">pass</span></div>
 
 
 <div class="viewcode-block" id="IInfoManager.is_initialized">
@@ -126,9 +126,9 @@
 
 <span class="sd">            :return: True (success) | False (fail)</span>
 <span class="sd">            :rtype: &lt;bool&gt;</span>
-<span class="sd">            :exceptions: NotImplementedError.</span>
+<span class="sd">            :exceptions: None.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s2">&quot;Method ok() must be implemented.&quot;</span><span class="p">)</span></div>
+        <span class="k">pass</span></div>
 
 
 <div class="viewcode-block" id="IInfoManager.refresh_status">
@@ -138,9 +138,9 @@
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Refreshes status for ATS information structure.</span>
 
-<span class="sd">            :exceptions: NotImplementedError.</span>
+<span class="sd">            :exceptions: None.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s2">&quot;Method refresh_status() must be implemented.&quot;</span><span class="p">)</span></div>
+        <span class="k">pass</span></div>
 
 
     <span class="nd">@abstractmethod</span>
@@ -150,9 +150,9 @@
 
 <span class="sd">            :return: The ATS info manager as string representation.</span>
 <span class="sd">            :rtype: &lt;str&gt;</span>
-<span class="sd">            :exceptions: NotImplementedError.</span>
+<span class="sd">            :exceptions: None.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s2">&quot;Method __str__() must be implemented.&quot;</span><span class="p">)</span></div>
+        <span class="k">pass</span></div>
 
 </pre></div>
 

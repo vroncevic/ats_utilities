@@ -20,7 +20,7 @@ Info
     Concrete implementation of the ATS parameter(s) checker.
 '''
 
-from typing import ClassVar
+from typing import ClassVar, override
 from ats_utilities.checker.ichecker import IChecker, ErrorChecker, ValidationResult, ParametersSpecs
 from ats_utilities.checker.itype_validator import ITypeValidator
 from ats_utilities.checker.type_validator import TypeValidator
@@ -94,8 +94,11 @@ class Checker(IChecker):
             self._is_initialized = True
 
         except ATSTypeError as exc:
-            print(f"\x1b[31m{get_class_name(self)} - error during initialization: {exc}\x1b[0m")
+            print(f"\x1b[31m{get_class_name(self)} {exc}\x1b[0m")
+        except Exception as exc:
+            print(f"\x1b[31m{get_class_name(self)} unexpected exception: {exc}\x1b[0m")
 
+    @override
     def validates_parameters(self, parameters: ParametersSpecs | None) -> ValidationResult:
         '''
             Validates parameters for method(s) or function(s).
@@ -148,6 +151,7 @@ class Checker(IChecker):
             )
         ), error_id
 
+    @override
     def is_initialized(self) -> bool:
         '''
             Checks if checker component is initialized.
@@ -158,12 +162,13 @@ class Checker(IChecker):
         '''
         return self._is_initialized
 
+    @override
     def __str__(self) -> str:
         '''
             Returns the ATS checker as string representation.
 
             :return: The ATS checker as string representation.
             :rtype: <str>
-            :exceptions: None..
+            :exceptions: None.
         '''
         return format_instance_to_string(self)

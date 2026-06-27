@@ -20,6 +20,7 @@ Info
     Creates an API for checking parameters for methods and functions.
 '''
 
+from typing import override
 from ats_utilities.factory_class import format_instance_to_string
 from ats_utilities.checker.icheck_reporter import ICheckReporter
 from ats_utilities.checker.checker_reporter_bundle import CheckerReporterBundle
@@ -49,6 +50,7 @@ class CheckReporter(ICheckReporter):
                 | __str__ - Returns the ATS check reporter as string representation.
     '''
 
+    @override
     def build_message_format(self, report_bundle: CheckerReporterBundle | None = None) -> str:
         '''
             Builds the final message report for checker.
@@ -57,10 +59,11 @@ class CheckReporter(ICheckReporter):
             :type report_bundle: <CheckerReporterBundle | None>
             :return: Formatted message report.
             :rtype: <str>
-            :exceptions: ATSValueError.
+            :exceptions:
+                | ATSValueError: Missing parameters for build_message_format().
         '''
         if not report_bundle:
-            raise ATSValueError('Missing parameters for build_message_format()')
+            raise ATSValueError('missing parameters for build_message_format()')
 
         message = getattr(report_bundle, 'context')
         err_set = set(getattr(report_bundle, 'err_indices'))
@@ -76,12 +79,13 @@ class CheckReporter(ICheckReporter):
 
         return message
 
+    @override
     def __str__(self) -> str:
         '''
             Returns the ATS check reporter as string representation.
 
             :return: The ATS check reporter as string representation.
             :rtype: <str>
-            :exceptions: None..
+            :exceptions: None.
         '''
         return format_instance_to_string(self)

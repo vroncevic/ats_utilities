@@ -20,7 +20,7 @@ Info
     Creates an API for handling type validation parameters for method(s) and function(s).
 '''
 
-from typing import Any
+from typing import Any, override
 from ats_utilities.factory_class import format_instance_to_string
 from ats_utilities.checker.itype_validator import ITypeValidator
 
@@ -50,6 +50,7 @@ class TypeValidator(ITypeValidator):
                 | __str__ - Returns the ATS type validator as string representation.
     '''
 
+    @override
     def is_match(self, inst: Any, expected_type_name: str) -> bool:
         '''
             Compares instance type with expected type name.
@@ -61,10 +62,11 @@ class TypeValidator(ITypeValidator):
             :type expected_type_name: <str>
             :return: True (success), False (fail).
             :rtype: <bool>
-            :exceptions: None..
+            :exceptions: None.
         '''
         return type(inst).__name__ == expected_type_name
 
+    @override
     def is_subtype(self, inst: Any, expected_type_name: str) -> bool:
         '''
             Checks if instance is a subtype of expected type name.
@@ -76,10 +78,11 @@ class TypeValidator(ITypeValidator):
             :type expected_type_name: <str>
             :return: True (is), False (not).
             :rtype: <bool>
-            :exceptions: None..
+            :exceptions: None.
         '''
         return any(cls.__name__ == expected_type_name for cls in type(inst).mro())
 
+    @override
     def get_type_name(self, inst: Any) -> str:
         '''
             Returns the string representation of an instance type.
@@ -88,16 +91,17 @@ class TypeValidator(ITypeValidator):
             :type inst: <Any>
             :return: String name of the type.
             :rtype: <str>
-            :exceptions: None..
+            :exceptions: None.
         '''
         return type(inst).__name__
 
+    @override
     def __str__(self) -> str:
         '''
             Returns the ATS type validator as string representation.
 
             :return: The ATS type validator as string representation.
             :rtype: <str>
-            :exceptions: None..
+            :exceptions: None.
         '''
         return format_instance_to_string(self)

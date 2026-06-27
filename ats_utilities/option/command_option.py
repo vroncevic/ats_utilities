@@ -62,22 +62,27 @@ class CommandOption:
         '''
             Validates that essential components are set.
 
-            :exceptions: ATSValueError
+            :exceptions:
+                | ATSValueError - Name must be provided.
+                | ATSValueError - Help text must be provided.
+                | ATSValueError - Default must be provided.
+                | ATSValueError - Required must be provided.
+                | ATSValueError - Choices must be provided.
         '''
         if self.name is None:
-            raise ATSValueError("Name is required.")
+            raise ATSValueError("name must be provided.")
 
         if self.help_text is None:
-            raise ATSValueError("Help text is required.")
+            raise ATSValueError("help text is required.")
 
         if self.default is None:
-            raise ATSValueError("Default is required.")
+            raise ATSValueError("default is required.")
 
         if self.required is None:
-            raise ATSValueError("Required is required.")
+            raise ATSValueError("required is required.")
 
         if self.choices is None:
-            raise ATSValueError("Choices is required.")
+            raise ATSValueError("choices is required.")
 
     def merge(self, other: 'CommandOption') -> None:
         '''
@@ -89,15 +94,16 @@ class CommandOption:
         '''
         for field_name in self.__dataclass_fields__:
             other_value = getattr(other, field_name)
+
             if other_value is not None:
                 setattr(self, field_name, other_value)
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> dict[str, Any]:
         '''
             Converts the CommandOption attributes to a dictionary.
 
             :return: Dictionary representation of the CommandOption attributes.
-            :rtype: <dict>
+            :rtype: <dict[str, Any]>
             :exceptions: None.
         '''
         return {

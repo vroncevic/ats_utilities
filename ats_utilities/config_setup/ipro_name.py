@@ -54,9 +54,9 @@ class IProName(ABC):
 
             :return: Formatted project name in string format | None
             :rtype: <str | None>
-            :exceptions: NotImplementedError.
+            :exceptions: None.
         '''
-        raise NotImplementedError("Method pro_name() must be implemented.")
+        pass
 
     @pro_name.setter
     @abstractmethod
@@ -66,9 +66,9 @@ class IProName(ABC):
 
             :param name: Project name in string format | None
             :type name: <str>
-            :exceptions: NotImplementedError.
+            :exceptions: None.
         '''
-        raise NotImplementedError("Method pro_name() must be implemented.")
+        pass
 
     @abstractmethod
     def not_none(self) -> bool:
@@ -77,9 +77,9 @@ class IProName(ABC):
 
             :return: True (success) | False (fail)
             :rtype: <bool>
-            :exceptions: NotImplementedError.
+            :exceptions: None.
         '''
-        raise NotImplementedError("Method not_none() must be implemented.")
+        pass
 
     @abstractmethod
     def __str__(self) -> str:
@@ -88,6 +88,6 @@ class IProName(ABC):
 
             :return: The ATS project name as string representation.
             :rtype: <str>
-            :exceptions: NotImplementedError.
+            :exceptions: None.
         '''
-        raise NotImplementedError("Method __str__() must be implemented.")
+        pass

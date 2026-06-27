@@ -19,6 +19,7 @@ Info
     Defines splash screen bundle for centering console output.
 '''
 
+from typing import Any
 from dataclasses import dataclass
 from ats_utilities.exceptions.ats_type_error import ATSTypeError
 from ats_utilities.exceptions.ats_value_error import ATSValueError
@@ -58,25 +59,31 @@ class SplashCenterBundle:
         '''
             Validates that essential components are set.
 
-            :exceptions: ATSTypeError, ATSValueError.
+            :exceptions:
+                | ATSTypeError - Columns count 'columns' is not an integer.
+                | ATSValueError - Columns count 'columns' is less than 0.
+                | ATSTypeError - Additional shifter 'additional_shifter' is not an integer.
+                | ATSValueError - Additional shifter 'additional_shifter' is less than 0.
+                | ATSTypeError - Text 'text' is not a string or None.
+                | ATSValueError - Text 'text' is empty.
         '''
         if not isinstance(self.columns, int):
-            raise ATSTypeError("Columns count 'columns' must be an integer.")
+            raise ATSTypeError("columns count 'columns' must be an integer.")
 
         if self.columns < 0:
-            raise ATSValueError("Columns count 'columns' must be greater than 0.")
+            raise ATSValueError("columns count 'columns' must be greater than 0.")
 
         if not isinstance(self.additional_shifter, int):
-            raise ATSTypeError("Additional shifter 'additional_shifter' must be an integer.")
+            raise ATSTypeError("additional shifter 'additional_shifter' must be an integer.")
 
         if self.additional_shifter < 0:
-            raise ATSValueError("Additional shifter 'additional_shifter' must be greater than or equal to 0.")
+            raise ATSValueError("additional shifter 'additional_shifter' must be greater than or equal to 0.")
 
         if not isinstance(self.text, str) and self.text is not None:
-            raise ATSTypeError("Text 'text' must be a string or None.")
+            raise ATSTypeError("text 'text' must be a string or None.")
 
         if isinstance(self.text, str) and not self.text.strip():
-            raise ATSValueError("Text 'text' cannot be empty.")
+            raise ATSValueError("text 'text' cannot be empty.")
 
     def merge(self, other: 'SplashCenterBundle') -> None:
         '''
@@ -88,15 +95,16 @@ class SplashCenterBundle:
         '''
         for field_name in self.__dataclass_fields__:
             other_value = getattr(other, field_name)
+
             if other_value is not None:
                 setattr(self, field_name, other_value)
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> dict[str, Any]:
         '''
             Converts the bundle attributes to a dictionary.
 
             :return: Dictionary representation of the bundle attributes.
-            :rtype: <dict>
+            :rtype: <dict[str, Any]>
             :exceptions: None.
         '''
         return {

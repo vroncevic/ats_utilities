@@ -134,7 +134,7 @@ Conversion of Python object to INI content.</p>
 <dt class="sig sig-object py" id="ats_utilities.config_io.ini.object2ini.Object2Ini.write_configuration">
 <span class="sig-name descname"><span class="pre">write_configuration</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="ats_utilities.config_io.ini.iini_processor.html#ats_utilities.config_io.ini.iini_processor.IINIProcessor" title="ats_utilities.config_io.ini.iini_processor.IINIProcessor"><span class="pre">IINIProcessor</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="_modules/ats_utilities/config_io/ini/object2ini.html#Object2Ini.write_configuration"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.config_io.ini.object2ini.Object2Ini.write_configuration" title="Link to this definition">¶</a></dt>
 <dd><p>Writes configuration to an INI file.</p>
-<dl class="field-list simple">
+<dl class="field-list">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>config</strong> (<em>&lt;IINIProcessor</em><em> | </em><em>None&gt;</em>) – Configuration object | None.</p>
 </dd>
@@ -145,7 +145,17 @@ Conversion of Python object to INI content.</p>
 <dd class="field-odd"><p>&lt;bool&gt;</p>
 </dd>
 <dt class="field-even">Exceptions<span class="colon">:</span></dt>
-<dd class="field-even"><p>ATSTypeError, ATSValueError, ATSRuntimeError, ATSAttributeError.</p>
+<dd class="field-even"><div class="line-block">
+<div class="line">ATSRuntimeError: Decorator cannot be used on a standalone function.</div>
+<div class="line">ATSAttributeError: Class is required to provide a ‘_reporter’ object to</div>
+<div class="line-block">
+<div class="line">use the &#64;verboser decorator.</div>
+</div>
+<div class="line">ATSTypeError: Parameter type validation failed.</div>
+<div class="line">ATSValueError: Parameter format validation failed.</div>
+<div class="line">ATSRuntimeError: Decorator used on a non-class method.</div>
+<div class="line">ATSAttributeError: Class does not provide a ‘_checker’ object.</div>
+</div>
 </dd>
 </dl>
 </dd></dl>

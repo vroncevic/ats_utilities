@@ -53,9 +53,9 @@ class IContextProvider(ABC):
 
             :param stack_index_caller: Index in the call stack to identify the caller.
             :type stack_index_caller: <int>
-            :exceptions: NotImplementedError.
+            :exceptions: None.
         '''
-        raise NotImplementedError("Method set_stack_index_caller() must be implemented.")
+        pass
 
     @abstractmethod
     def get_context(self) -> str:
@@ -64,9 +64,9 @@ class IContextProvider(ABC):
 
             :return: Context information string
             :rtype: <str>
-            :exceptions: NotImplementedError.
+            :exceptions: None.
         '''
-        raise NotImplementedError("Method get_context() must be implemented.")
+        pass
 
     @abstractmethod
     def __str__(self) -> str:
@@ -75,7 +75,7 @@ class IContextProvider(ABC):
 
             :return: The context provider as string representation.
             :rtype: <str>
-            :exceptions: NotImplementedError.
+            :exceptions: None.
         '''
-        raise NotImplementedError("Method __str__() must be implemented.")
+        pass
 

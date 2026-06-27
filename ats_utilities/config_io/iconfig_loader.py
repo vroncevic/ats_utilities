@@ -67,9 +67,9 @@ class IConfigLoader(ABC):
 
             :return: Configuration loader object.
             :rtype: <Config>
-            :exceptions: NotImplementedError..
+            :exceptions: None.
         '''
-        raise NotImplementedError("Method setup_config_loader() must be implemented.")
+        pass
 
     @abstractmethod
     def __str__(self) -> str:
@@ -78,6 +78,6 @@ class IConfigLoader(ABC):
 
             :return: The IConfigLoader as string representation.
             :rtype: <str>
-            :exceptions: NotImplementedError..
+            :exceptions: None.
         '''
-        raise NotImplementedError("Method __str__() must be implemented.")
+        pass

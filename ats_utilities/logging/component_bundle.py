@@ -20,6 +20,7 @@ Info
     Encapsulates logging components to minimize constructor overhead.
 '''
 
+from typing import Any
 from dataclasses import dataclass
 from ats_utilities.logging.ilogger import ILogger
 from ats_utilities.logging.logger_bundle import LoggerBundle
@@ -62,16 +63,19 @@ class LoggingComponentBundle:
         '''
             Validates that essential components are set.
 
-            :exceptions: ATSValueError.
+            :exceptions:
+                | ATSValueError - Logger must be provided.
+                | ATSValueError - Logger bundle must be provided.
+                | ATSValueError - Context bundle must be provided.
         '''
         if self.logger is None:
-            raise ATSValueError('Logger must be provided.')
+            raise ATSValueError('logger must be provided.')
 
         if self.logger_bundle is None:
-            raise ATSValueError('Logger bundle must be provided.')
+            raise ATSValueError('logger bundle must be provided.')
 
         if self.context_bundle is None:
-            raise ATSValueError('Context bundle must be provided.')
+            raise ATSValueError('context bundle must be provided.')
 
     def merge(self, other: 'LoggingComponentBundle') -> None:
         '''
@@ -83,10 +87,11 @@ class LoggingComponentBundle:
         '''
         for field_name in self.__dataclass_fields__:
             other_value = getattr(other, field_name)
+
             if other_value is not None:
                 setattr(self, field_name, other_value)
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> dict[str, Any]:
         '''
             Converts the bundle attributes to a dictionary.
 

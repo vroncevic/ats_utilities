@@ -81,11 +81,12 @@ Creates an API for setup ATS (application, tool, script).</p>
 <div class="line">_checker - Injected parameters checker (default Checker).</div>
 <div class="line">_reporter - Injected reporter for messaging (default Reporter).</div>
 <div class="line">_verbose - Injected Enable/Disable verbose option (default False).</div>
-<div class="line">_config_loader - Manager for configuration loading.</div>
-<div class="line">_info_manager - Manager for info component.</div>
-<div class="line">_splasher - Manager for splash component.</div>
-<div class="line">_options_parser - Manager for options parser.</div>
-<div class="line">_logger_manager - Manager for logger component.</div>
+<div class="line">_config_loader - Manager for configuration loading (default ConfigLoader).</div>
+<div class="line">_info_manager - Manager for info component (default InfoManager).</div>
+<div class="line">_splasher - Manager for splash component (default Splasher).</div>
+<div class="line">_options_parser - Manager for options parser (default OptionManager).</div>
+<div class="line">_logger_manager - Manager for logger component (default LoggerManager).</div>
+<div class="line">_generator - Generator manager (default Generator).</div>
 <div class="line">_is_initialized - Indicates if the base component is initialized (default False).</div>
 </div>
 </dd>
@@ -125,7 +126,7 @@ Creates an API for setup ATS (application, tool, script).</p>
 <dt class="sig sig-object py" id="ats_utilities.base.engine.Base.add_new_option">
 <span class="sig-name descname"><span class="pre">add_new_option</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/ats_utilities/base/engine.html#Base.add_new_option"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.base.engine.Base.add_new_option" title="Link to this definition">¶</a></dt>
 <dd><p>Adds a new option for the CL interface.</p>
-<dl class="field-list simple">
+<dl class="field-list">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>args</strong> (<em>&lt;str&gt;</em>) – Arguments in string form.</p></li>
@@ -133,7 +134,9 @@ Creates an API for setup ATS (application, tool, script).</p>
 </ul>
 </dd>
 <dt class="field-even">Exceptions<span class="colon">:</span></dt>
-<dd class="field-even"><p>None..</p>
+<dd class="field-even"><div class="line-block">
+<div class="line">ATSAttributeError: ‘_options_parser’ attribute is required.</div>
+</div>
 </dd>
 </dl>
 </dd></dl>
@@ -157,9 +160,9 @@ Creates an API for setup ATS (application, tool, script).</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="ats_utilities.base.engine.Base.parse_args">
-<span class="sig-name descname"><span class="pre">parse_args</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">argv</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="ats_utilities.option.option_namespace.html#ats_utilities.option.option_namespace.OptionNamespace" title="ats_utilities.option.option_namespace.OptionNamespace"><span class="pre">OptionNamespace</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></span><a class="reference internal" href="_modules/ats_utilities/base/engine.html#Base.parse_args"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.base.engine.Base.parse_args" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">parse_args</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">argv</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ArgSeq</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="ats_utilities.option.option_namespace.html#ats_utilities.option.option_namespace.OptionNamespace" title="ats_utilities.option.option_namespace.OptionNamespace"><span class="pre">OptionNamespace</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></span><a class="reference internal" href="_modules/ats_utilities/base/engine.html#Base.parse_args"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.base.engine.Base.parse_args" title="Link to this definition">¶</a></dt>
 <dd><p>Parses the CLI arguments.</p>
-<dl class="field-list simple">
+<dl class="field-list">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>argv</strong> (<em>&lt;ArgSeq&gt;</em>) – Sequence of arguments | None.</p>
 </dd>
@@ -170,7 +173,9 @@ Creates an API for setup ATS (application, tool, script).</p>
 <dd class="field-odd"><p>&lt;OptionNamespace | None&gt;</p>
 </dd>
 <dt class="field-even">Exceptions<span class="colon">:</span></dt>
-<dd class="field-even"><p>ATSTypeError.</p>
+<dd class="field-even"><div class="line-block">
+<div class="line">ATSAttributeError: ‘_options_parser’ attribute is required.</div>
+</div>
 </dd>
 </dl>
 </dd></dl>
@@ -190,7 +195,7 @@ Creates an API for setup ATS (application, tool, script).</p>
 <dd class="field-odd"><p>&lt;bool&gt;</p>
 </dd>
 <dt class="field-even">Exceptions<span class="colon">:</span></dt>
-<dd class="field-even"><p>TypeError.</p>
+<dd class="field-even"><p>None.</p>
 </dd>
 </dl>
 </dd></dl>

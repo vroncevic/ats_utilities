@@ -44,8 +44,7 @@ class LogFormats(str, Enum):
             :attributes:
                 | ATS_LOG_MSG_FORMAT - Log message format.
                 | ATS_LOG_DATE_FORMAT - Log date format.
-            :methods: None
-    '''
+            :methods: None.    '''
     ATS_LOG_MSG_FORMAT = '%(asctime)s - %(levelname)s - %(message)s'
     ATS_LOG_DATE_FORMAT = '%m/%d/%Y %I:%M:%S %p'
 
@@ -63,8 +62,7 @@ class LogLevels(int, Enum):
                 | ATS_LOG_WARNING - Warning log level.
                 | ATS_LOG_ERROR - Error log level.
                 | ATS_LOG_CRITICAL - Critical log level.
-            :methods: None
-    '''
+            :methods: None.    '''
     ATS_LOG_DEBUG = 10
     ATS_LOG_INFO = 20
     ATS_LOG_WARNING = 30
@@ -102,9 +100,9 @@ class ILogger(ABC):
             :type ctrl: <int>
             :return: True (success) | False (fail)
             :rtype: <bool>
-            :exceptions: NotImplementedError.
+            :exceptions: None.
         '''
-        raise NotImplementedError("Method write_log() must be implemented.")
+        pass
 
     @abstractmethod
     def is_initialized(self) -> bool:
@@ -113,9 +111,9 @@ class ILogger(ABC):
 
             :return: True (success) | False (fail)
             :rtype: <bool>
-            :exceptions: NotImplementedError.
+            :exceptions: None.
         '''
-        raise NotImplementedError("Method ok() must be implemented.")
+        pass
 
     @abstractmethod
     def __str__(self) -> str:
@@ -124,6 +122,6 @@ class ILogger(ABC):
 
             :return: The ATS logger as string representation.
             :rtype: <str>
-            :exceptions: NotImplementedError.
+            :exceptions: None.
         '''
-        raise NotImplementedError("Method __str__() must be implemented.")
+        pass

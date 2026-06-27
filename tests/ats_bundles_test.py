@@ -38,6 +38,10 @@ from ats_utilities.info.component_bundle import InfoComponentBundle
 from ats_utilities.reporter.component_bundle import ReporterComponentBundle
 from ats_utilities.splasher.component_bundle import SplashComponentBundle
 from ats_utilities.splasher.splash_center_bundle import SplashCenterBundle
+from ats_utilities.generator.component_bundle import GeneratorComponentBundle
+from ats_utilities.generator.generator_bundle import GeneratorBundle
+from ats_utilities.generator.tar_process_bundle import TarProcessBundle
+from ats_utilities.generator.tar_process_member_bundle import TarProcessMemberBundle
 from ats_utilities.exceptions.ats_value_error import ATSValueError
 from ats_utilities.exceptions.ats_type_error import ATSTypeError
 from ats_utilities.checker.ichecker import IChecker
@@ -143,8 +147,33 @@ class BundlesTestCase(TestCase):
         self.assertEqual(bundle1.log_file, 'test.log')
 
         bundle1.validate()
+        bundle1._dummy = 42
         d = bundle1.to_dict()
         self.assertEqual(d['name'], 'test_logger')
+        self.assertNotIn('_dummy', d)
+
+    def test_logger_bundle_validation_errors(self) -> None:
+        '''Test LoggerBundle validation exceptions.'''
+        fields = {
+            'name': 'test_logger',
+            'configure_logging': True,
+            'log_stdout': True,
+            'log_file': 'test.log'
+        }
+        for field in fields:
+            kwargs = fields.copy()
+            kwargs[field] = None
+            bundle = LoggerBundle(**kwargs)
+            with self.assertRaises(ValueError):
+                bundle.validate()
+
+        bundle = LoggerBundle(name='test_logger', configure_logging='not_bool', log_file='test.log')
+        with self.assertRaises(ValueError):
+            bundle.validate()
+
+        bundle = LoggerBundle(name='test_logger', log_stdout='not_bool', log_file='test.log')
+        with self.assertRaises(ValueError):
+            bundle.validate()
 
     def test_ats_file_bundle(self) -> None:
         '''Test ATSFileBundle methods.'''
@@ -157,33 +186,96 @@ class BundlesTestCase(TestCase):
         self.assertEqual(bundle1.file_format, 'txt')
 
         bundle1.validate()
+        bundle1._dummy = 42
         d = bundle1.to_dict()
         self.assertEqual(d['file_path'], 'a.txt')
+        self.assertNotIn('_dummy', d)
+
+    def test_ats_file_bundle_validation_errors(self) -> None:
+        '''Test ATSFileBundle validation exceptions.'''
+        fields = {
+            'file_path': 'a.txt',
+            'file_mode': 'w',
+            'file_format': 'txt'
+        }
+        for field in fields:
+            kwargs = fields.copy()
+            kwargs[field] = None
+            bundle = ATSFileBundle(**kwargs)
+            with self.assertRaises(ATSValueError):
+                bundle.validate()
 
     def test_ats_config_file_bundle(self) -> None:
         '''Test ATSConfigFileBundle methods.'''
         mock_context = ContextBundle()
+        mock_file_checker = MagicMock()
         bundle1 = ATSConfigFileBundle()
-        bundle2 = ATSConfigFileBundle(context=mock_context)
+        bundle2 = ATSConfigFileBundle(context=mock_context, file_checker=mock_file_checker)
 
         bundle1.merge(bundle2)
         self.assertEqual(bundle1.context, mock_context)
+        self.assertEqual(bundle1.file_checker, mock_file_checker)
 
         bundle1.validate()
+        bundle1._dummy = 42
         d = bundle1.to_dict()
         self.assertEqual(d['context'], mock_context)
+        self.assertNotIn('_dummy', d)
+
+    def test_ats_config_file_bundle_validation_errors(self) -> None:
+        '''Test ATSConfigFileBundle validation exceptions.'''
+        mock_context = ContextBundle()
+        mock_file_checker = MagicMock()
+        fields = {
+            'context': mock_context,
+            'file_checker': mock_file_checker
+        }
+        for field in fields:
+            kwargs = fields.copy()
+            kwargs[field] = None
+            bundle = ATSConfigFileBundle(**kwargs)
+            with self.assertRaises(ATSValueError):
+                bundle.validate()
 
     def test_ats_config_loader_bundle(self) -> None:
         '''Test ATSConfigLoaderBundle methods.'''
+        mock_config2object = MagicMock()
+        mock_config_bundle = MagicMock()
+        mock_processor = MagicMock()
         bundle1 = ATSConfigLoaderBundle()
-        bundle2 = ATSConfigLoaderBundle(info_file='config.json')
+        bundle2 = ATSConfigLoaderBundle(
+            info_file='config.json',
+            config2object=mock_config2object,
+            config_bundle=mock_config_bundle,
+            processor=mock_processor
+        )
 
         bundle1.merge(bundle2)
         self.assertEqual(bundle1.info_file, 'config.json')
 
         bundle1.validate()
+        bundle1._dummy = 42
         d = bundle1.to_dict()
         self.assertEqual(d['info_file'], 'config.json')
+        self.assertNotIn('_dummy', d)
+
+    def test_ats_config_loader_bundle_validation_errors(self) -> None:
+        '''Test ATSConfigLoaderBundle validation exceptions.'''
+        mock_config2object = MagicMock()
+        mock_config_bundle = MagicMock()
+        mock_processor = MagicMock()
+        fields = {
+            'info_file': 'config.json',
+            'config2object': mock_config2object,
+            'config_bundle': mock_config_bundle,
+            'processor': mock_processor
+        }
+        for field in fields:
+            kwargs = fields.copy()
+            kwargs[field] = None
+            bundle = ATSConfigLoaderBundle(**kwargs)
+            with self.assertRaises(ATSValueError):
+                bundle.validate()
 
     def test_checker_reporter_bundle(self) -> None:
         '''Test CheckerReporterBundle methods.'''
@@ -395,8 +487,31 @@ class ComponentBundlesTestCase(TestCase):
         self.assertEqual(bundle1.check_reporter, mock_check_reporter)
 
         bundle1.validate()
+        bundle1._dummy = 42
         d = bundle1.to_dict()
         self.assertEqual(d['format_validator'], mock_format_validator)
+        self.assertNotIn('_dummy', d)
+
+    def test_checker_component_bundle_validation_errors(self) -> None:
+        '''Test CheckerComponentBundle validation exceptions.'''
+        mock_format_validator = MagicMock(spec=IFormatValidator)
+        mock_type_validator = MagicMock(spec=ITypeValidator)
+        mock_context_provider = MagicMock(spec=IContextProvider)
+        mock_check_reporter = MagicMock(spec=ICheckReporter)
+
+        fields = {
+            'format_validator': mock_format_validator,
+            'type_validator': mock_type_validator,
+            'context_provider': mock_context_provider,
+            'check_reporter': mock_check_reporter
+        }
+
+        for field in fields:
+            kwargs = fields.copy()
+            kwargs[field] = None
+            bundle = CheckerComponentBundle(**kwargs)
+            with self.assertRaises(ValueError):
+                bundle.validate()
 
     def test_info_component_bundle(self) -> None:
         '''Test InfoComponentBundle methods.'''
@@ -545,6 +660,205 @@ class ComponentBundlesTestCase(TestCase):
             kwargs[field] = None
             bundle = SplashComponentBundle(**kwargs)
             with self.assertRaises(ValueError):
+                bundle.validate()
+
+    def test_generator_component_bundle(self) -> None:
+        '''Test GeneratorComponentBundle methods.'''
+        mock_scheme_loader = MagicMock()
+        mock_tar_processor = MagicMock()
+        mock_template_processor = MagicMock()
+        mock_context_bundle = MagicMock()
+
+        bundle1 = GeneratorComponentBundle()
+        bundle2 = GeneratorComponentBundle(
+            scheme_loader=mock_scheme_loader,
+            tar_processor=mock_tar_processor,
+            template_processor=mock_template_processor,
+            context_bundle=mock_context_bundle
+        )
+
+        bundle1.merge(bundle2)
+        self.assertEqual(bundle1.scheme_loader, mock_scheme_loader)
+        self.assertEqual(bundle1.tar_processor, mock_tar_processor)
+        self.assertEqual(bundle1.template_processor, mock_template_processor)
+        self.assertEqual(bundle1.context_bundle, mock_context_bundle)
+
+        bundle1.validate()
+        bundle1._dummy = 42
+        d = bundle1.to_dict()
+        self.assertEqual(d['scheme_loader'], mock_scheme_loader)
+        self.assertNotIn('_dummy', d)
+
+    def test_generator_component_bundle_validation_errors(self) -> None:
+        '''Test GeneratorComponentBundle validation exceptions.'''
+        mock_scheme_loader = MagicMock()
+        mock_tar_processor = MagicMock()
+        mock_template_processor = MagicMock()
+        mock_context_bundle = MagicMock()
+
+        fields = {
+            'scheme_loader': mock_scheme_loader,
+            'tar_processor': mock_tar_processor,
+            'template_processor': mock_template_processor,
+            'context_bundle': mock_context_bundle
+        }
+
+        for field in fields:
+            kwargs = fields.copy()
+            kwargs[field] = None
+            bundle = GeneratorComponentBundle(**kwargs)
+            with self.assertRaises(ATSValueError):
+                bundle.validate()
+
+    def test_generator_bundle_methods(self) -> None:
+        '''Test GeneratorBundle methods.'''
+        bundle1 = GeneratorBundle(
+            archive_path='a.tgz',
+            target_dir='tmp',
+            template_key='key',
+            scheme={},
+            template_values={}
+        )
+        bundle2 = GeneratorBundle(
+            archive_path='b.tgz',
+            target_dir='out',
+            template_key='key2',
+            scheme={'a': 'b'},
+            template_values={'x': 'y'}
+        )
+
+        bundle1.merge(bundle2)
+        self.assertEqual(bundle1.archive_path, 'b.tgz')
+        self.assertEqual(bundle1.target_dir, 'out')
+
+        bundle1.validate()
+        bundle1._dummy = 42
+        d = bundle1.to_dict()
+        self.assertEqual(d['archive_path'], 'b.tgz')
+        self.assertNotIn('_dummy', d)
+
+    def test_generator_bundle_validation_errors(self) -> None:
+        '''Test GeneratorBundle validation exceptions.'''
+        # Missing values (None)
+        fields = {
+            'archive_path': 'a.tgz',
+            'target_dir': 'tmp',
+            'template_key': 'key',
+            'scheme': {},
+            'template_values': {}
+        }
+        for field in fields:
+            kwargs = fields.copy()
+            kwargs[field] = None
+            bundle = GeneratorBundle(**kwargs)
+            with self.assertRaises(ATSValueError):
+                bundle.validate()
+
+        # Type errors
+        type_checks = {
+            'archive_path': 123,
+            'target_dir': 123,
+            'template_key': 123,
+            'scheme': 123,
+            'template_values': 123
+        }
+        for field, invalid_val in type_checks.items():
+            kwargs = fields.copy()
+            kwargs[field] = invalid_val
+            bundle = GeneratorBundle(**kwargs)
+            with self.assertRaises(ATSTypeError):
+                bundle.validate()
+
+    def test_tar_process_bundle(self) -> None:
+        '''Test TarProcessBundle methods.'''
+        bundle1 = TarProcessBundle(
+            archive_path='a.tgz',
+            target_dir='tmp',
+            source_dir='src',
+            path_replacements={},
+            exclude_patterns=[],
+            vals={}
+        )
+        bundle2 = TarProcessBundle(
+            archive_path='b.tgz',
+            target_dir='out',
+            source_dir='src2',
+            path_replacements={'x': 'y'},
+            exclude_patterns=['*.py'],
+            vals={'k': 'v'}
+        )
+
+        bundle1.merge(bundle2)
+        self.assertEqual(bundle1.archive_path, 'b.tgz')
+
+        bundle1.validate()
+        bundle1._dummy = 42
+        d = bundle1.to_dict()
+        self.assertEqual(d['archive_path'], 'b.tgz')
+        self.assertNotIn('_dummy', d)
+
+    def test_tar_process_bundle_validation_errors(self) -> None:
+        '''Test TarProcessBundle validation exceptions.'''
+        fields = {
+            'archive_path': 'a.tgz',
+            'target_dir': 'tmp',
+            'source_dir': 'src',
+            'path_replacements': {},
+            'exclude_patterns': [],
+            'vals': {}
+        }
+        for field in fields:
+            kwargs = fields.copy()
+            kwargs[field] = None
+            bundle = TarProcessBundle(**kwargs)
+            with self.assertRaises(ATSValueError):
+                bundle.validate()
+
+    def test_tar_process_member_bundle(self) -> None:
+        '''Test TarProcessMemberBundle methods.'''
+        mock_tar = MagicMock()
+        mock_member = MagicMock()
+        bundle1 = TarProcessMemberBundle(
+            tar=mock_tar,
+            member=mock_member,
+            dest_full_path='dest',
+            vals={}
+        )
+        mock_tar2 = MagicMock()
+        mock_member2 = MagicMock()
+        bundle2 = TarProcessMemberBundle(
+            tar=mock_tar2,
+            member=mock_member2,
+            dest_full_path='dest2',
+            vals={'x': 'y'}
+        )
+
+        bundle1.merge(bundle2)
+        self.assertEqual(bundle1.tar, mock_tar2)
+        self.assertEqual(bundle1.member, mock_member2)
+        self.assertEqual(bundle1.dest_full_path, 'dest2')
+
+        bundle1.validate()
+        bundle1._dummy = 42
+        d = bundle1.to_dict()
+        self.assertEqual(d['dest_full_path'], 'dest2')
+        self.assertNotIn('_dummy', d)
+
+    def test_tar_process_member_bundle_validation_errors(self) -> None:
+        '''Test TarProcessMemberBundle validation exceptions.'''
+        mock_tar = MagicMock()
+        mock_member = MagicMock()
+        fields = {
+            'tar': mock_tar,
+            'member': mock_member,
+            'dest_full_path': 'dest',
+            'vals': {}
+        }
+        for field in fields:
+            kwargs = fields.copy()
+            kwargs[field] = None
+            bundle = TarProcessMemberBundle(**kwargs)
+            with self.assertRaises(ATSValueError):
                 bundle.validate()
 
 

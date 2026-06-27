@@ -20,6 +20,7 @@ Info
     Creates an API for the ATS use GitHub infrastructure in one property object.
 '''
 
+from typing import override
 from ats_utilities.info.iuse_github import IUseGitHub
 from ats_utilities.context_bundle import ContextBundle
 from ats_utilities.checker.ichecker import IChecker
@@ -68,55 +69,70 @@ class UseGitHub(IUseGitHub):
 
             :param context_bundle: Context bundle for use_github | None.
             :type context_bundle: <ContextBundle | None>
-            :exceptions: None..
+            :exceptions: None.
         '''
         factory_context_bundle(self, context_bundle)
         self._use_github: bool | None = None
 
     @property
     @vreporter('get use_github {use_github}')
+    @override
     def use_github(self) -> bool | None:
         '''
             Property method for getting ATS use GitHub infrastructure status.
 
             :return: The ATS use GitHub infrastructure status | None.
             :rtype: <bool | None>
-            :exceptions: ATSRuntimeError, ATSAttributeError.
+            :exceptions:
+                | ATSRuntimeError: Decorator cannot be used on a standalone function.
+                | ATSAttributeError: Class is required to provide a '_reporter' object to
+                |                    use the @verboser decorator.
         '''
         return self._use_github
 
     @use_github.setter
     @validator([('bool | None:use_github', None)])
     @vreporter('set use_github {use_github}')
+    @override
     def use_github(self, use_github: bool | None) -> None:
          '''
              Property method for setting ATS use GitHub infrastructure status.
 
              :param use_github: The ATS use GitHub infrastructure status | None.
              :type use_github: <bool | None>
-             :exceptions:
-                 | ATSTypeError, ATSValueError, RuntimeError, AttributeError.
-                 | RuntimeError, AttributeError.
+            :exceptions:
+                | ATSRuntimeError: Decorator cannot be used on a standalone function.
+                | ATSAttributeError: Class is required to provide a '_reporter' object to
+                |                    use the @verboser decorator.
+                | ATSTypeError: Parameter type validation failed.
+                | ATSValueError: Parameter format validation failed.
+                | ATSRuntimeError: Decorator used on a non-class method.
+                | ATSAttributeError: Class does not provide a '_checker' object.
          '''
          self._use_github = use_github
 
     @vreporter('check use_github {use_github}')
+    @override
     def not_none(self) -> bool:
         '''
             Checks is ATS use GitHub infrastructure not None.
 
             :return: True (success) | False (fail).
             :rtype: <bool>
-            :exceptions: ATSRuntimeError, ATSAttributeError.
+            :exceptions:
+                | ATSRuntimeError: Decorator cannot be used on a standalone function.
+                | ATSAttributeError: Class is required to provide a '_reporter' object to
+                |                    use the @verboser decorator.
         '''
         return self._use_github is not None
 
+    @override
     def __str__(self) -> str:
         '''
             Returns the ATS use GitHub infrastructure as string representation.
 
             :return: The ATS use GitHub infrastructure as string representation.
             :rtype: <str>
-            :exceptions: None..
+            :exceptions: None.
         '''
         return format_instance_to_string(self)

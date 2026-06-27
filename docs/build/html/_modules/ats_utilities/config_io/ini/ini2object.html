@@ -58,6 +58,7 @@
 <span class="sd">    Creates an API for reading configuration from an INI file.</span>
 <span class="sd">&#39;&#39;&#39;</span>
 
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">override</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.config_io.iread</span> <span class="kn">import</span> <span class="n">IRead</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.context_bundle</span> <span class="kn">import</span> <span class="n">ContextBundle</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.checker.ichecker</span> <span class="kn">import</span> <span class="n">IChecker</span>
@@ -72,7 +73,7 @@
 <span class="kn">from</span> <span class="nn">ats_utilities.reporter.proxy_reporter</span> <span class="kn">import</span> <span class="n">vreporter</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.factory_context_bundle</span> <span class="kn">import</span> <span class="n">factory_context_bundle</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.factory_component</span> <span class="kn">import</span> <span class="n">make_component</span><span class="p">,</span> <span class="n">validate_component</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.factory_class</span> <span class="kn">import</span> <span class="n">get_private_attr</span><span class="p">,</span> <span class="n">format_instance_to_string</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.factory_class</span> <span class="kn">import</span> <span class="n">format_instance_to_string</span>
 
 <span class="n">__author__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;Vladimir Roncevic&#39;</span>
 <span class="n">__copyright__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;(C) 2026, https://vroncevic.github.io/ats_utilities&#39;</span>
@@ -133,7 +134,8 @@
 <span class="sd">            :type config_bundle: &lt;ATSConfigFileBundle | None&gt;</span>
 <span class="sd">            :param ini_processor: Processor for INI content | None.</span>
 <span class="sd">            :type ini_processor: &lt;IINIProcessor | None&gt;</span>
-<span class="sd">            :exceptions: ATSTypeError.</span>
+<span class="sd">            :exceptions:</span>
+<span class="sd">                | ATSTypeError: Invalid type in constructor arguments.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_config_file_bundle</span><span class="p">:</span> <span class="n">ATSConfigFileBundle</span> <span class="o">=</span> <span class="n">config_bundle</span> <span class="ow">or</span> <span class="n">ATSConfigFileBundle</span><span class="p">()</span>
         <span class="n">factory_context_bundle</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_config_file_bundle</span><span class="o">.</span><span class="n">context</span><span class="p">)</span>
@@ -155,13 +157,17 @@
 <div class="viewcode-block" id="Ini2Object.read_configuration">
 <a class="viewcode-back" href="../../../../ats_utilities.config_io.ini.ini2object.html#ats_utilities.config_io.ini.ini2object.Ini2Object.read_configuration">[docs]</a>
     <span class="nd">@vreporter</span><span class="p">(</span><span class="s1">&#39;read configuration from file </span><span class="si">{file_path}</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="nd">@override</span>
     <span class="k">def</span> <span class="nf">read_configuration</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">IINIProcessor</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Reads a configuration from an INI file.</span>
 
 <span class="sd">            :return: Configuration object | None.</span>
 <span class="sd">            :rtype: &lt;IINIProcessor | None&gt;</span>
-<span class="sd">            :exceptions: None..</span>
+<span class="sd">            :exceptions:</span>
+<span class="sd">                | ATSRuntimeError: Decorator cannot be used on a standalone function.</span>
+<span class="sd">                | ATSAttributeError: Class is required to provide a &#39;_reporter&#39; object to</span>
+<span class="sd">                |                    use the @verboser decorator.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="k">with</span> <span class="n">ConfFile</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_file_bundle_shared</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_config_file_bundle</span><span class="p">)</span> <span class="k">as</span> <span class="n">ini</span><span class="p">:</span>
             <span class="k">if</span> <span class="nb">bool</span><span class="p">(</span><span class="n">ini</span><span class="p">):</span>
@@ -171,13 +177,14 @@
         <span class="k">return</span> <span class="kc">None</span></div>
 
 
+    <span class="nd">@override</span>
     <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Returns the Ini2Object as string representation.</span>
 
 <span class="sd">            :return: The Ini2Object as string representation.</span>
 <span class="sd">            :rtype: &lt;str&gt;</span>
-<span class="sd">            :exceptions: None..</span>
+<span class="sd">            :exceptions: None.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="k">return</span> <span class="n">format_instance_to_string</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div>
 

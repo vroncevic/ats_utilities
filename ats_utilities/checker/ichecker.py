@@ -21,7 +21,7 @@ Info
 '''
 
 from abc import ABC, abstractmethod
-from typing import Any, ClassVar, TypeAlias
+from typing import Any, ClassVar
 from enum import Enum, EnumMeta
 
 __author__: str = 'Vladimir Roncevic'
@@ -34,10 +34,10 @@ __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
 
 # Validation resut type: (error message report, error id)
-ValidationResult: TypeAlias = tuple[str, int]
+type ValidationResult = tuple[str, int]
 
 # Specification for parameters: [(param name, param value), ...]
-ParametersSpecs: TypeAlias = list[tuple[str, Any]]
+type ParametersSpecs = list[tuple[str, Any]]
 
 
 class ErrorChecker(int, Enum):
@@ -51,8 +51,7 @@ class ErrorChecker(int, Enum):
                 | NO_ERROR - Marks no param error report (0).
                 | TYPE_ERROR - Marks type param error report (1).
                 | FORMAT_ERROR - Marks wrong format error report (2).
-            :methods: None
-    '''
+            :methods: None.    '''
     NO_ERROR = 0
     TYPE_ERROR = 1
     FORMAT_ERROR = 2
@@ -84,9 +83,9 @@ class IChecker(ABC):
             :type parameters: <ParametersSpecs | None>
             :return: Tuple of error message report and error id
             :rtype: <ValidationResult>
-            :exceptions: NotImplementedError.
+            :exceptions: None.
         '''
-        raise NotImplementedError("Method validate_parameters() must be implemented.")
+        pass
 
     @abstractmethod
     def is_initialized(self) -> bool:
@@ -95,7 +94,7 @@ class IChecker(ABC):
 
             :return: True (success) | False (fail)
             :rtype: <bool>
-            :exceptions: NotImplementedError.
+            :exceptions: None.
         '''
         raise NotImplementedError('Method is_initialized() must be implemented.')
 
@@ -106,6 +105,6 @@ class IChecker(ABC):
 
             :return: The checker as string representation.
             :rtype: <str>
-            :exceptions: NotImplementedError.
+            :exceptions: None.
         '''
-        raise NotImplementedError("Method __str__() must be implemented.")
+        pass

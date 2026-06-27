@@ -57,9 +57,9 @@ class IExtInfrastructure(ABC):
 
             :return: Formatted infrastructure property in dict format | None.
             :rtype: <dict[Any, Any] | None>
-            :exceptions: NotImplementedError.
+            :exceptions: None.
         '''
-        raise NotImplementedError("Method infrastructure_property() must be implemented.")
+        pass
 
     @infrastructure_property.setter
     @abstractmethod
@@ -69,9 +69,9 @@ class IExtInfrastructure(ABC):
 
             :param infrastructure_property_setup: Project infrastructure property in dict format | None.
             :type infrastructure_property_setup: <dict[Any, Any] | None>
-            :exceptions: NotImplementedError.
+            :exceptions: None.
         '''
-        raise NotImplementedError("Method infrastructure_property() must be implemented.")
+        pass
 
     @abstractmethod
     def get_info_text(self) -> str:
@@ -80,9 +80,9 @@ class IExtInfrastructure(ABC):
 
             :return: Hyperlink with info text.
             :rtype: <str>
-            :exceptions: NotImplementedError.
+            :exceptions: None.
         '''
-        raise NotImplementedError("Method get_info_text() must be implemented.")
+        pass
 
     @abstractmethod
     def get_issue_text(self) -> str:
@@ -91,9 +91,9 @@ class IExtInfrastructure(ABC):
 
             :return: Hyperlink with issue info.
             :rtype: <str>
-            :exceptions: NotImplementedError.
+            :exceptions: None.
         '''
-        raise NotImplementedError("Method get_issue_text() must be implemented.")
+        pass
 
     @abstractmethod
     def get_author_text(self) -> str:
@@ -102,9 +102,9 @@ class IExtInfrastructure(ABC):
 
             :return: Hyperlink with author info.
             :rtype: <str>
-            :exceptions: NotImplementedError.
+            :exceptions: None.
         '''
-        raise NotImplementedError("Method get_author_text() must be implemented.")
+        pass
 
     @abstractmethod
     def __str__(self) -> str:
@@ -113,6 +113,6 @@ class IExtInfrastructure(ABC):
 
             :return: The external infrastructure as string representation.
             :rtype: <str>
-            :exceptions: NotImplementedError.
+            :exceptions: None.
         '''
-        raise NotImplementedError("Method __str__() must be implemented.")
+        pass

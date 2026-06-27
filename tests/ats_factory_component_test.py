@@ -44,8 +44,7 @@ class DummyComponent:
         It defines:
 
             :attributes: None
-            :methods: None
-    '''
+            :methods: None.    '''
 
     def __init__(self, val: str = 'default') -> None:
         '''

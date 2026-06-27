@@ -59,6 +59,7 @@
 <span class="sd">&#39;&#39;&#39;</span>
 
 <span class="kn">from</span> <span class="nn">inspect</span> <span class="kn">import</span> <span class="n">stack</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">override</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.factory_class</span> <span class="kn">import</span> <span class="n">format_instance_to_string</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.checker.icontext_provider</span> <span class="kn">import</span> <span class="n">IContextProvider</span>
 
@@ -97,25 +98,27 @@
 
 <span class="sd">            :param stack_index_caller: Index in the call stack to identify the caller (default 2).</span>
 <span class="sd">            :type stack_index_caller: &lt;int&gt;</span>
-<span class="sd">            :exceptions: None..</span>
+<span class="sd">            :exceptions: None.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_stack_index_caller</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">stack_index_caller</span>
 
 <div class="viewcode-block" id="ContextProvider.set_stack_index_caller">
 <a class="viewcode-back" href="../../../ats_utilities.checker.context_provider.html#ats_utilities.checker.context_provider.ContextProvider.set_stack_index_caller">[docs]</a>
+    <span class="nd">@override</span>
     <span class="k">def</span> <span class="nf">set_stack_index_caller</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">stack_index_caller</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Sets the index in the call stack to identify the caller.</span>
 
 <span class="sd">            :param stack_index_caller: Index in the call stack to identify the caller.</span>
 <span class="sd">            :type stack_index_caller: &lt;int&gt;</span>
-<span class="sd">            :exceptions: None..</span>
+<span class="sd">            :exceptions: None.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_stack_index_caller</span> <span class="o">=</span> <span class="n">stack_index_caller</span></div>
 
 
 <div class="viewcode-block" id="ContextProvider.get_context">
 <a class="viewcode-back" href="../../../ats_utilities.checker.context_provider.html#ats_utilities.checker.context_provider.ContextProvider.get_context">[docs]</a>
+    <span class="nd">@override</span>
     <span class="k">def</span> <span class="nf">get_context</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Returns a string representing the calling context.</span>
@@ -124,7 +127,7 @@
 
 <span class="sd">            :return: Context information in string format.</span>
 <span class="sd">            :rtype: &lt;str&gt;</span>
-<span class="sd">            :exceptions: None..</span>
+<span class="sd">            :exceptions: None.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="n">current_stack</span> <span class="o">=</span> <span class="n">stack</span><span class="p">()</span>
         <span class="n">target_index</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stack_index_caller</span>
@@ -134,13 +137,14 @@
         <span class="k">return</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">mod: </span><span class="si">{</span><span class="n">caller</span><span class="o">.</span><span class="n">filename</span><span class="si">}</span><span class="se">\n</span><span class="s1">  def: </span><span class="si">{</span><span class="n">caller</span><span class="o">.</span><span class="n">function</span><span class="si">}</span><span class="s1">()&#39;</span></div>
 
 
+    <span class="nd">@override</span>
     <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Returns the ATS context provider as string representation.</span>
 
 <span class="sd">            :return: The ATS context provider as string representation.</span>
 <span class="sd">            :rtype: &lt;str&gt;</span>
-<span class="sd">            :exceptions: None..</span>
+<span class="sd">            :exceptions: None.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="k">return</span> <span class="n">format_instance_to_string</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div>
 

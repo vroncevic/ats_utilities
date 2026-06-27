@@ -20,6 +20,7 @@ Info
     Encapsulates info components to minimize constructor overhead.
 '''
 
+from typing import Any
 from dataclasses import dataclass
 from ats_utilities.info.iname import IName
 from ats_utilities.info.iversion import IVersion
@@ -83,26 +84,35 @@ class InfoComponentBundle:
         '''
             Validates that essential components are set.
 
-            :exceptions: ATSValueError.
+            :exceptions:
+                | ATSValueError - Name must be provided.
+                | ATSValueError - Version must be provided.
+                | ATSValueError - Licence must be provided.
+                | ATSValueError - Build date must be provided.
+                | ATSValueError - Repository must be provided.
+                | ATSValueError - Organization must be provided.
+                | ATSValueError - Use GitHub must be provided.
+                | ATSValueError - Logo path must be provided.
+                | ATSValueError - Info ok must be provided.
         '''
         if self.name is None:
-            raise ATSValueError("Name must be provided.")
+            raise ATSValueError("name must be provided.")
         if self.version is None:
-            raise ATSValueError("Version must be provided.")
+            raise ATSValueError("version must be provided.")
         if self.licence is None:
-            raise ATSValueError("Licence must be provided.")
+            raise ATSValueError("licence must be provided.")
         if self.build_date is None:
-            raise ATSValueError("Build date must be provided.")
+            raise ATSValueError("build date must be provided.")
         if self.repository is None:
-            raise ATSValueError("Repository must be provided.")
+            raise ATSValueError("repository must be provided.")
         if self.organization is None:
-            raise ATSValueError("Organization must be provided.")
+            raise ATSValueError("organization must be provided.")
         if self.use_github is None:
-            raise ATSValueError("Use GitHub must be provided.")
+            raise ATSValueError("use github must be provided.")
         if self.logo_path is None:
-            raise ATSValueError("Logo path must be provided.")
+            raise ATSValueError("logo path must be provided.")
         if self.info_ok is None:
-            raise ATSValueError("Info ok must be provided.")
+            raise ATSValueError("info ok must be provided.")
 
     def merge(self, other: 'InfoComponentBundle') -> None:
         '''
@@ -114,15 +124,16 @@ class InfoComponentBundle:
         '''
         for field_name in self.__dataclass_fields__:
             other_value = getattr(other, field_name)
+
             if other_value is not None:
                 setattr(self, field_name, other_value)
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> dict[str, Any]:
         '''
             Converts the bundle attributes to a dictionary.
 
             :return: Dictionary representation of the bundle attributes.
-            :rtype: <dict>
+            :rtype: <dict[str, Any]>
             :exceptions: None.
         '''
         return {

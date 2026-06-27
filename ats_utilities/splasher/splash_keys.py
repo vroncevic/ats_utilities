@@ -45,8 +45,7 @@ class SplashKeys:
                 | ATS_ORGANIZATION - Organization URL for the application.
                 | ATS_LOGO_PATH - Path to the logo image.
                 | ATS_USE_GITHUB_INFRASTRUCTURE - Use GitHub infrastructure (True/False).
-            :methods: None
-    '''
+            :methods: None.    '''
 
     ATS_NAME: ClassVar[str] = 'ats_name'
     ATS_REPOSITORY: ClassVar[str] = 'ats_repository'

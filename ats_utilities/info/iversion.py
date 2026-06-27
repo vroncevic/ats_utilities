@@ -54,9 +54,9 @@ class IVersion(ABC):
 
             :return: The ATS version in string format | None
             :rtype: <str | None>
-            :exceptions: NotImplementedError.
+            :exceptions: None.
         '''
-        raise NotImplementedError("Method version() must be implemented.")
+        pass
 
     @version.setter
     @abstractmethod
@@ -66,9 +66,9 @@ class IVersion(ABC):
 
             :param version: The ATS version in string format | None
             :type version: <str | None>
-            :exceptions: NotImplementedError.
+            :exceptions: None.
         '''
-        raise NotImplementedError("Method version() must be implemented.")
+        pass
 
     @abstractmethod
     def not_none(self) -> bool:
@@ -77,9 +77,9 @@ class IVersion(ABC):
 
             :return: True (success) | False (fail).
             :rtype: <bool>
-            :exceptions: NotImplementedError.
+            :exceptions: None.
         '''
-        raise NotImplementedError("Method not_none() must be implemented.")
+        pass
 
     @abstractmethod
     def __str__(self) -> str:
@@ -88,6 +88,6 @@ class IVersion(ABC):
 
             :return: The ATS version as string representation.
             :rtype: <str>
-            :exceptions: NotImplementedError.
+            :exceptions: None.
         '''
-        raise NotImplementedError("Method __str__() must be implemented.")
+        pass

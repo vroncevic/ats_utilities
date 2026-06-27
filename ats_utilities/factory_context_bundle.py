@@ -50,14 +50,14 @@ def factory_context_bundle(instance: Any, context: ContextBundle | None = None):
     '''
     # No dependency injection then use default ones.
     if not bool(context):
-        context = ContextBundle()
+        context: ContextBundle = ContextBundle()
 
     if context.checker is None:
-        context.checker = Checker()
+        context.checker: Checker = Checker()
 
     if context.reporter is None:
-        reporter_bundle = ReporterComponentBundle(checker=context.checker)
-        context.reporter = Reporter(component_bundle=reporter_bundle)
+        reporter_bundle: ReporterComponentBundle = ReporterComponentBundle(checker=context.checker)
+        context.reporter: Reporter = Reporter(component_bundle=reporter_bundle)
 
     inject(
         instance,

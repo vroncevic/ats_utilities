@@ -54,9 +54,9 @@ class IProgressBar(ABC):
 
             :param level: Level of progress.
             :type level: <int>
-            :exceptions: NotImplementedError.
+            :exceptions: None.
         '''
-        raise NotImplementedError("Method set_level() must be implemented.")
+        pass
 
     @abstractmethod
     def plot_progress(self, columns: int) -> None:
@@ -65,9 +65,9 @@ class IProgressBar(ABC):
 
             :param columns: Columns for open console session.
             :type columns: <int>
-            :exceptions: NotImplementedError.
+            :exceptions: None.
         '''
-        raise NotImplementedError("Method plot_progress() must be implemented.")
+        pass
 
     @abstractmethod
     def set_and_plot(self, level: int, columns: int) -> None:
@@ -78,9 +78,9 @@ class IProgressBar(ABC):
             :type level: <int>
             :param columns: Columns for open console session.
             :type columns: <int>
-            :exceptions: NotImplementedError.
+            :exceptions: None.
         '''
-        raise NotImplementedError("Method set_and_plot() must be implemented.")
+        pass
 
     @abstractmethod
     def __str__(self) -> str:
@@ -89,6 +89,6 @@ class IProgressBar(ABC):
 
             :return: The progress bar as string representation.
             :rtype: <str>
-            :exceptions: NotImplementedError.
+            :exceptions: None.
         '''
-        raise NotImplementedError("Method __str__() must be implemented.")
+        pass

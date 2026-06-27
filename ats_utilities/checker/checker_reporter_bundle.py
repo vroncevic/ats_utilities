@@ -20,7 +20,7 @@ Info
     Encapsulates checker reporter parameters to minimize constructor overhead.
 '''
 
-from typing import Any, TypeAlias
+from typing import Any
 from dataclasses import dataclass
 
 __author__: str = 'Vladimir Roncevic'
@@ -33,7 +33,7 @@ __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
 
 # Type alias for parameter metadata: (parameter name, expected type, actual value)
-ParamMetadata: TypeAlias = tuple[str, str, Any]
+type ParamMetadata = tuple[str, str, Any]
 
 
 @dataclass
@@ -64,12 +64,15 @@ class CheckerReporterBundle:
         '''
             Validates that essential components are set.
 
-            :exceptions: ValueError
+            :exceptions:
+                | ValueError - Context must be provided.
+                | ValueError - Parameters metadata must be provided.
         '''
         if self.context is None:
             raise ValueError("Context must be provided.")
+
         if self.parameters_meta is None:
-            raise ValueError("Parameters metadata 'parameters_meta' must be provided.")
+            raise ValueError("Parameters metadata must be provided.")
 
     def merge(self, other: 'CheckerReporterBundle') -> None:
         '''
@@ -77,20 +80,20 @@ class CheckerReporterBundle:
 
             :param other: Another bundle to merge into this one.
             :type other: <CheckerReporterBundle>
-            :exceptions: None..
+            :exceptions: None.
         '''
         for field_name in self.__dataclass_fields__:
             other_value = getattr(other, field_name)
             if other_value is not None:
                 setattr(self, field_name, other_value)
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> dict[str, Any]:
         '''
             Converts the bundle attributes to a dictionary.
 
             :return: Dictionary representation of the bundle attributes.
-            :rtype: <dict>
-            :exceptions: None..
+            :rtype: <dict[str, Any]>
+            :exceptions: None.
         '''
         return {
             name: value

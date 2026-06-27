@@ -54,9 +54,9 @@ class IOrganization(ABC):
 
             :return: The ATS organization in string format | None.
             :rtype: <str | None>
-            :exceptions: NotImplementedError..
+            :exceptions: None.
         '''
-        raise NotImplementedError("Method organization() must be implemented.")
+        pass
 
     @organization.setter
     @abstractmethod
@@ -66,9 +66,9 @@ class IOrganization(ABC):
 
             :param organization: The ATS organization in string format | None.
             :type organization: <str | None>
-            :exceptions: NotImplementedError..
+            :exceptions: None.
         '''
-        raise NotImplementedError("Method organization() must be implemented.")
+        pass
 
     @abstractmethod
     def not_none(self) -> bool:
@@ -77,9 +77,9 @@ class IOrganization(ABC):
 
             :return: True (success) | False (fail).
             :rtype: <bool>
-            :exceptions: NotImplementedError..
+            :exceptions: None.
         '''
-        raise NotImplementedError("Method not_none() must be implemented.")
+        pass
 
     @abstractmethod
     def __str__(self) -> str:
@@ -88,6 +88,6 @@ class IOrganization(ABC):
 
             :return: The ATS organization as string representation.
             :rtype: <str>
-            :exceptions: NotImplementedError..
+            :exceptions: None.
         '''
-        raise NotImplementedError("Method __str__() must be implemented.")
+        pass

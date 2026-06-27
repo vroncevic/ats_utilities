@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines ats_utilities.logging package.
+    Defines ats_utilities.logging.
 '''
 
 __author__: str = 'Vladimir Roncevic'

@@ -47,9 +47,10 @@ def proxy_validator_split(exp_type: str) -> tuple[str, str]:
         :type exp_type: <str>
         :return: A tuple containing the split components.
         :rtype: <tuple[str, str]>
-        :exceptions: None..
+        :exceptions: None.
     '''
     parts = exp_type.split(sep=':')
+
     return parts[0], parts[1]
 
 def validator[F: Callable[..., Any]](specs: list[tuple[str, Any]]) -> Callable[[F], F]:
@@ -62,7 +63,11 @@ def validator[F: Callable[..., Any]](specs: list[tuple[str, Any]]) -> Callable[[
         :type specs: <list[tuple[str, Any]]>
         :return: Wrapped function.
         :rtype: <Callable[[F], F]>
-        :exceptions: ATSTypeError, ATSValueError, ATSRuntimeError, ATSAttributeError.
+        :exceptions:
+            | ATSTypeError: Parameter type validation failed.
+            | ATSValueError: Parameter format validation failed.
+            | ATSRuntimeError: Decorator used on a non-class method.
+            | ATSAttributeError: Class does not provide a '_checker' object.
     '''
     def decorator(func: F) -> F:
         @wraps(func)

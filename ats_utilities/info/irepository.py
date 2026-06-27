@@ -54,9 +54,9 @@ class IRepository(ABC):
 
             :return: The ATS repository in string format | None.
             :rtype: <str | None>
-            :exceptions: NotImplementedError..
+            :exceptions: None.
         '''
-        raise NotImplementedError("Method repository() must be implemented.")
+        pass
 
     @repository.setter
     @abstractmethod
@@ -66,9 +66,9 @@ class IRepository(ABC):
 
             :param repository: The ATS repository in string format | None.
             :type repository: <str | None>
-            :exceptions: NotImplementedError..
+            :exceptions: None.
         '''
-        raise NotImplementedError("Method repository() must be implemented.")
+        pass
 
     @abstractmethod
     def not_none(self) -> bool:
@@ -77,9 +77,9 @@ class IRepository(ABC):
 
             :return: True (success) | False (fail).
             :rtype: <bool>
-            :exceptions: NotImplementedError..
+            :exceptions: None.
         '''
-        raise NotImplementedError("Method not_none() must be implemented.")
+        pass
 
     @abstractmethod
     def __str__(self) -> str:
@@ -88,6 +88,6 @@ class IRepository(ABC):
 
             :return: The ATS repository as string representation.
             :rtype: <str>
-            :exceptions: NotImplementedError..
+            :exceptions: None.
         '''
-        raise NotImplementedError("Method __str__() must be implemented.")
+        pass

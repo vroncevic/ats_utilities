@@ -20,6 +20,7 @@ Info
     Creates an API for the ATS info status in one property object.
 '''
 
+from typing import override
 from ats_utilities.info.iinfo_ok import IInfoOk
 from ats_utilities.context_bundle import ContextBundle
 from ats_utilities.checker.ichecker import IChecker
@@ -67,26 +68,31 @@ class InfoOk(IInfoOk):
 
             :param context_bundle: Context bundle for info ok status | None.
             :type context_bundle: <ContextBundle | None>
-            :exceptions: None..
+            :exceptions: None.
         '''
         factory_context_bundle(self, context_bundle)
         self._info_ok: bool = False
 
     @property
     @vreporter('get info_ok {info_ok}')
+    @override
     def info_ok(self) -> bool:
         '''
             Property method for getting ATS information status.
 
             :return: The ATS information status in bool format.
             :rtype: <bool>
-            :exceptions: ATSRuntimeError, ATSAttributeError.
+            :exceptions:
+                | ATSRuntimeError: Decorator cannot be used on a standalone function.
+                | ATSAttributeError: Class is required to provide a '_reporter' object to
+                |                    use the @verboser decorator.
         '''
         return self._info_ok
 
     @info_ok.setter
     @validator([('bool:info_ok', None)])
     @vreporter('set info_ok {info_ok}')
+    @override
     def info_ok(self, info_ok: bool) -> None:
         '''
             Property method for setting ATS information status.
@@ -94,17 +100,23 @@ class InfoOk(IInfoOk):
             :param info_ok: The ATS information status in bool format.
             :type info_ok: <bool>
             :exceptions:
-                | ATSTypeError, ATSValueError, RuntimeError, AttributeError.
-                | RuntimeError, AttributeError.
+                | ATSRuntimeError: Decorator cannot be used on a standalone function.
+                | ATSAttributeError: Class is required to provide a '_reporter' object to
+                |                    use the @verboser decorator.
+                | ATSTypeError: Parameter type validation failed.
+                | ATSValueError: Parameter format validation failed.
+                | ATSRuntimeError: Decorator used on a non-class method.
+                | ATSAttributeError: Class does not provide a '_checker' object.
         '''
         self._info_ok = info_ok
 
+    @override
     def __str__(self) -> str:
         '''
             Returns the ATS info status as string representation.
 
             :return: The ATS info status as string representation.
             :rtype: <str>
-            :exceptions: None..
+            :exceptions: None.
         '''
         return format_instance_to_string(self)

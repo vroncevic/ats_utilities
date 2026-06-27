@@ -54,9 +54,9 @@ class IJSONProcessor(ABC):
             :type json_string: <str>
             :return: True (success) | False (fail)
             :rtype: <bool>
-            :exceptions: NotImplementedError.
+            :exceptions: None.
         '''
-        raise NotImplementedError("Method decode() must be implemented.")
+        pass
 
     @abstractmethod
     def encode(self) -> str:
@@ -65,9 +65,9 @@ class IJSONProcessor(ABC):
 
             :return: JSON content in string format
             :rtype: <str>
-            :exceptions: NotImplementedError.
+            :exceptions: None.
         '''
-        raise NotImplementedError("Method encode() must be implemented.")
+        pass
 
     @abstractmethod
     def to_dict(self) -> dict[str, str]:
@@ -76,9 +76,9 @@ class IJSONProcessor(ABC):
 
             :return: Dictionary with JSON configuration
             :rtype: <dict[str, str]>
-            :exceptions: NotImplementedError.
+            :exceptions: None.
         '''
-        raise NotImplementedError("Method to_dict() must be implemented.")
+        pass
 
     @abstractmethod
     def __str__(self) -> str:
@@ -87,6 +87,6 @@ class IJSONProcessor(ABC):
 
             :return: The JSON processor as string representation.
             :rtype: <str>
-            :exceptions: NotImplementedError.
+            :exceptions: None.
         '''
-        raise NotImplementedError("Method __str__() must be implemented.")
+        pass

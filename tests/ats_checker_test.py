@@ -106,6 +106,19 @@ class ATSCheckerTestCase(TestCase):
         '''Test is tool operational'''
         self.assertTrue(self.ats_base_checker.is_tool_ok())
 
+    @mock.patch('ats_utilities.checker.engine.make_component')
+    def test_checker_initialization_failures(self, mock_make_component) -> None:
+        '''Test Checker initialization with errors.'''
+        # Test ATSTypeError
+        mock_make_component.side_effect = ATSTypeError('Failed type')
+        invalid_checker = Checker()
+        self.assertFalse(invalid_checker.is_initialized())
+
+        # Test unexpected Exception
+        mock_make_component.side_effect = Exception('Unexpected')
+        invalid_checker = Checker()
+        self.assertFalse(invalid_checker.is_initialized())
+
     def test_check_params_none_input(self) -> None:
         '''Test handling of None input for parameters.'''
         self.error_msg, self.error_id = self.ats_base_checker.validates_parameters(None)

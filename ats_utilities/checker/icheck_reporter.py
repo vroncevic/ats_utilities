@@ -54,9 +54,9 @@ class ICheckReporter(ABC):
             :type report_bundle: <CheckerReporterBundle | None>
             :return: Formatted message report
             :rtype: <str>
-            :exceptions: NotImplementedError.
+            :exceptions: None.
         '''
-        raise NotImplementedError("Method build_message_format() must be implemented.")
+        pass
 
     @abstractmethod
     def __str__(self) -> str:
@@ -65,6 +65,6 @@ class ICheckReporter(ABC):
 
             :return: The reporter as string representation.
             :rtype: <str>
-            :exceptions: NotImplementedError.
+            :exceptions: None.
         '''
-        raise NotImplementedError("Method __str__() must be implemented.")
+        pass

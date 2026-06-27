@@ -64,9 +64,9 @@ class IOptionManager(ABC):
             :type args: <str>
             :param kwargs: Arguments in Any form
             :type kwargs: <Any>
-            :exceptions: NotImplementedError.
+            :exceptions: None.
         '''
-        raise NotImplementedError("Method add_operation() must be implemented.")
+        pass
 
     @abstractmethod
     def add_version_operation(self, version: str | None) -> None:
@@ -75,9 +75,9 @@ class IOptionManager(ABC):
 
             :param version: The ATS version in string format | None
             :type version: <str | None>
-            :exceptions: NotImplementedError.
+            :exceptions: None.
         '''
-        raise NotImplementedError("Method add_version_operation() must be implemented.")
+        pass
 
     @abstractmethod
     def parse_input_args(self, arguments: OptArgs) -> OptionNamespace:
@@ -88,9 +88,9 @@ class IOptionManager(ABC):
             :type arguments: <OptArgs>
             :return: Option namespace object
             :rtype: <OptionNamespace>
-            :exceptions: NotImplementedError.
+            :exceptions: None.
         '''
-        raise NotImplementedError("Method parse_input_args() must be implemented.")
+        pass
 
     @abstractmethod
     def parse_args(self, arguments: OptArgs) -> OptionNamespace:
@@ -101,9 +101,9 @@ class IOptionManager(ABC):
             :type arguments: <OptArgs>
             :return: Option namespace object
             :rtype: <OptionNamespace>
-            :exceptions: NotImplementedError.
+            :exceptions: None.
         '''
-        raise NotImplementedError("Method parse_args() must be implemented.")
+        pass
 
     @abstractmethod
     def register_commands(self, commands: list[IOptionCommand]) -> None:
@@ -112,9 +112,9 @@ class IOptionManager(ABC):
 
             :param commands: List of commands to register.
             :type commands: <list[IOptionCommand]>
-            :exceptions: NotImplementedError.
+            :exceptions: None.
         '''
-        raise NotImplementedError("Method register_commands() must be implemented.")
+        pass
 
     @abstractmethod
     def parse_command(self, arguments: OptArgs = None) -> tuple[str, dict]:
@@ -125,9 +125,9 @@ class IOptionManager(ABC):
             :type arguments: <OptArgs>
             :return: Tuple containing command name and parsed parameters.
             :rtype: <tuple[str, dict]>
-            :exceptions: NotImplementedError.
+            :exceptions: None.
         '''
-        raise NotImplementedError("Method parse_command() must be implemented.")
+        pass
 
 
     @abstractmethod
@@ -137,9 +137,9 @@ class IOptionManager(ABC):
 
             :return: True (success) | False (fail).
             :rtype: <bool>
-            :exceptions: NotImplementedError.
+            :exceptions: None.
         '''
-        raise NotImplementedError("Method ok() must be implemented.")
+        pass
 
     @abstractmethod
     def __str__(self) -> str:
@@ -148,6 +148,6 @@ class IOptionManager(ABC):
 
             :return: The ATS option parser as string representation.
             :rtype: <str>
-            :exceptions: NotImplementedError.
+            :exceptions: None.
         '''
-        raise NotImplementedError("Method __str__() must be implemented.")
+        pass

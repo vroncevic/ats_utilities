@@ -20,7 +20,7 @@ Info
     Defines project configuration container.
 '''
 
-from typing import Any
+from typing import Any, override
 from ats_utilities.config_setup.ipro_config import IProConfig
 from ats_utilities.context_bundle import ContextBundle
 from ats_utilities.checker.ichecker import IChecker
@@ -77,26 +77,31 @@ class ProConfig(IProConfig):
 
             :param context_bundle: Context bundle for project configuration | None.
             :type context_bundle: <ContextBundle | None>
-            :exceptions: None..
+            :exceptions: None.
         '''
         factory_context_bundle(self, context_bundle)
         self._config: dict[Any, Any] | None = None
 
     @property
     @vreporter('get config {config}')
+    @override
     def config(self) -> dict[Any, Any] | None:
         '''
             Property method for getting project configuration.
 
             :return: Formatted project configuration in dict format | None.
             :rtype: <dict[Any, Any] | None>
-            :exceptions: ATSRuntimeError, ATSAttributeError.
+            :exceptions:
+                | ATSRuntimeError: Decorator cannot be used on a standalone function.
+                | ATSAttributeError: Class is required to provide a '_reporter' object to
+                |                    use the @verboser decorator.
         '''
         return self._config
 
     @config.setter
     @validator([('dict | None:pro_config', None)])
     @vreporter('get config {config}')
+    @override
     def config(self, pro_config: dict[Any, Any] | None) -> None:
         '''
             Property method for setting project configuration.
@@ -104,28 +109,38 @@ class ProConfig(IProConfig):
             :param pro_config: Project configuration in dict format | None.
             :type pro_config: <dict[Any, Any] | None>
             :exceptions:
-                | ATSTypeError, ATSValueError, RuntimeError, AttributeError.
-                | RuntimeError, AttributeError.
+                | ATSRuntimeError: Decorator cannot be used on a standalone function.
+                | ATSAttributeError: Class is required to provide a '_reporter' object to
+                |                    use the @verboser decorator.
+                | ATSTypeError: Parameter type validation failed.
+                | ATSValueError: Parameter format validation failed.
+                | ATSRuntimeError: Decorator used on a non-class method.
+                | ATSAttributeError: Class does not provide a '_checker' object.
         '''
         self._config = pro_config
 
     @vreporter('check config {config}')
+    @override
     def not_none(self) -> bool:
         '''
             Checks project configuration is not None.
 
             :return: True (success) | False (fail).
             :rtype: <bool>
-            :exceptions: ATSRuntimeError, ATSAttributeError.
+            :exceptions:
+                | ATSRuntimeError: Decorator cannot be used on a standalone function.
+                | ATSAttributeError: Class is required to provide a '_reporter' object to
+                |                    use the @verboser decorator.
         '''
         return self._config is not None
 
+    @override
     def __str__(self) -> str:
         '''
             Returns the ATS project configuration as string representation.
 
             :return: The ATS project configuration as string representation.
             :rtype: <str>
-            :exceptions: None..
+            :exceptions: None.
         '''
         return format_instance_to_string(self)

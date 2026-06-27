@@ -230,6 +230,15 @@ class OptionParserTestCase(TestCase):
         manager = OptionManager(invalid_bundle)
         self.assertFalse(manager.is_initialized())
 
+    @mock.patch('ats_utilities.option.engine.make_component')
+    def test_initialization_unexpected_exception(self, mock_make_component) -> None:
+        '''Test OptionManager initialization unexpected exception.'''
+        mock_make_component.side_effect = Exception('Unexpected')
+        manager = OptionManager()
+        with self.assertRaises(ATSValueError):
+            manager.is_initialized()
+        self.assertFalse(manager._is_initialized)
+
     def test_parser_strategy_uninitialized_parse(self) -> None:
         '''Test ParserStrategy parse before it is initialized.'''
         strategy = ParserStrategy()

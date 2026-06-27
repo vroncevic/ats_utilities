@@ -21,6 +21,8 @@ Info
 '''
 
 from dataclasses import dataclass
+from typing import Any
+from ats_utilities.exceptions.ats_value_error import ATSValueError
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -59,9 +61,19 @@ class ATSFileBundle:
         '''
             Validates that essential components are set.
 
-            :exceptions: None..
+            :exceptions:
+                | ATSValueError: File path must be provided.
+                | ATSValueError: File mode must be provided.
+                | ATSValueError: File format must be provided.
         '''
-        pass
+        if not self.file_path:
+            raise ATSValueError('file path must be provided.')
+
+        if not self.file_mode:
+            raise ATSValueError('file mode must be provided.')
+
+        if not self.file_format:
+            raise ATSValueError('file format must be provided.')
 
     def merge(self, other: 'ATSFileBundle') -> None:
         '''
@@ -69,20 +81,21 @@ class ATSFileBundle:
 
             :param other: Another bundle to merge into this one.
             :type other: <ATSFileBundle>
-            :exceptions: None..
+            :exceptions: None.
         '''
         for field_name in self.__dataclass_fields__:
             other_value = getattr(other, field_name)
+
             if other_value is not None:
                 setattr(self, field_name, other_value)
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> dict[str, Any]:
         '''
             Converts the bundle attributes to a dictionary.
 
             :return: Dictionary representation of the bundle attributes.
-            :rtype: <dict>
-            :exceptions: None..
+            :rtype: <dict[str, Any]>
+            :exceptions: None.
         '''
         return {
             name: value

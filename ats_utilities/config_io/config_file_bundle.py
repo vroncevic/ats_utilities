@@ -21,6 +21,8 @@ Info
 '''
 
 from dataclasses import dataclass
+from typing import Any
+from ats_utilities.exceptions.ats_value_error import ATSValueError
 from ats_utilities.context_bundle import ContextBundle
 from ats_utilities.config_io.ifile_check import IFileCheck
 
@@ -58,9 +60,15 @@ class ATSConfigFileBundle:
         '''
             Validates that essential components are set.
 
-            :exceptions: None..
+            :exceptions:
+                | ATSValueError: Context bundle must be provided.
+                | ATSValueError: File check implementation must be provided.
         '''
-        pass
+        if self.context is None:
+            raise ATSValueError("context bundle must be provided.")
+
+        if self.file_checker is None:
+            raise ATSValueError("file checker implementation must be provided.")
 
     def merge(self, other: 'ATSConfigFileBundle') -> None:
         '''
@@ -68,20 +76,21 @@ class ATSConfigFileBundle:
 
             :param other: Another bundle to merge into this one.
             :type other: <ATSConfigFileBundle>
-            :exceptions: None..
+            :exceptions: None.
         '''
         for field_name in self.__dataclass_fields__:
             other_value = getattr(other, field_name)
+
             if other_value is not None:
                 setattr(self, field_name, other_value)
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> dict[str, Any]:
         '''
             Converts the bundle attributes to a dictionary.
 
             :return: Dictionary representation of the bundle attributes.
-            :rtype: <dict>
-            :exceptions: None..
+            :rtype: <dict[str, Any]>
+            :exceptions: None.
         '''
         return {
             name: value

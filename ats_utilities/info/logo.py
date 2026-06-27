@@ -20,6 +20,7 @@ Info
     Creates an API for the ATS logo path in one property object.
 '''
 
+from typing import override
 from ats_utilities.info.ilogo_path import ILogoPath
 from ats_utilities.context_bundle import ContextBundle
 from ats_utilities.checker.ichecker import IChecker
@@ -68,26 +69,31 @@ class Logo(ILogoPath):
 
             :param context_bundle: Context bundle for logo_path | None.
             :type context_bundle: <ContextBundle | None>
-            :exceptions: None..
+            :exceptions: None.
         '''
         factory_context_bundle(self, context_bundle)
         self._logo_path: str | None = None
 
     @property
     @vreporter('get logo_path {logo_path}')
+    @override
     def logo_path(self) -> str | None:
         '''
             Property method for getting ATS logo path.
 
             :return: The ATS logo path in string format | None.
             :rtype: <str | None>
-            :exceptions: ATSRuntimeError, ATSAttributeError.
+            :exceptions:
+                | ATSRuntimeError: Decorator cannot be used on a standalone function.
+                | ATSAttributeError: Class is required to provide a '_reporter' object to
+                |                    use the @verboser decorator.
         '''
         return self._logo_path
 
     @logo_path.setter
     @validator([('str | None:logo_path', None)])
     @vreporter('set logo_path {logo_path}')
+    @override
     def logo_path(self, logo_path: str | None) -> None:
         '''
             Property method for setting ATS logo path.
@@ -95,28 +101,38 @@ class Logo(ILogoPath):
             :param logo_path: The ATS logo path in string format | None.
             :type logo_path: <str | None>
             :exceptions:
-                | ATSTypeError, ATSValueError, RuntimeError, AttributeError.
-                | RuntimeError, AttributeError.
+                | ATSRuntimeError: Decorator cannot be used on a standalone function.
+                | ATSAttributeError: Class is required to provide a '_reporter' object to
+                |                    use the @verboser decorator.
+                | ATSTypeError: Parameter type validation failed.
+                | ATSValueError: Parameter format validation failed.
+                | ATSRuntimeError: Decorator used on a non-class method.
+                | ATSAttributeError: Class does not provide a '_checker' object.
         '''
         self._logo_path = logo_path
 
     @vreporter('check logo_path {logo_path}')
+    @override
     def not_none(self) -> bool:
         '''
             Checks is ATS logo path not None.
 
             :return: True (success) | False (fail).
             :rtype: <bool>
-            :exceptions: ATSRuntimeError, ATSAttributeError.
+            :exceptions:
+                | ATSRuntimeError: Decorator cannot be used on a standalone function.
+                | ATSAttributeError: Class is required to provide a '_reporter' object to
+                |                    use the @verboser decorator.
         '''
         return self._logo_path is not None
 
+    @override
     def __str__(self) -> str:
         '''
             Returns the ATS logo path as string representation.
 
             :return: The ATS logo path as string representation.
             :rtype: <str>
-            :exceptions: None..
+            :exceptions: None.
         '''
         return format_instance_to_string(self)

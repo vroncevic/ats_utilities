@@ -61,6 +61,7 @@ other information that should be provided before the modules are installed.</p>
 <li class="toctree-l4"><a class="reference internal" href="ats_utilities.config_io.html">ats_utilities.config_io package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ats_utilities.config_setup.html">ats_utilities.config_setup package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ats_utilities.exceptions.html">ats_utilities.exceptions package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ats_utilities.generator.html">ats_utilities.generator package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ats_utilities.info.html">ats_utilities.info package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ats_utilities.logging.html">ats_utilities.logging package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ats_utilities.option.html">ats_utilities.option package</a></li>
@@ -73,7 +74,8 @@ other information that should be provided before the modules are installed.</p>
 <li class="toctree-l4"><a class="reference internal" href="ats_utilities.factory_class.html">ats_utilities.factory_class module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ats_utilities.factory_component.html">ats_utilities.factory_component module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ats_utilities.factory_context_bundle.html">ats_utilities.factory_context_bundle module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="ats_utilities.factory_utils.html">ats_utilities.factory_utils module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ats_utilities.factory_dict_utils.html">ats_utilities.factory_dict_utils module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ats_utilities.factory_file_utils.html">ats_utilities.factory_file_utils module</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="ats_utilities.html#module-ats_utilities">Module contents</a></li>
@@ -227,6 +229,7 @@ pip3<span class="w"> </span>install<span class="w"> </span>ats_utilities
 <span class="w">    </span>│<span class="w">   </span>├──<span class="w"> </span>ats_bad_call_error.py
 <span class="w">    </span>│<span class="w">   </span>├──<span class="w"> </span>ats_error.py
 <span class="w">    </span>│<span class="w">   </span>├──<span class="w"> </span>ats_file_error.py
+<span class="w">    </span>│<span class="w">   </span>├──<span class="w"> </span>ats_generator_error.py
 <span class="w">    </span>│<span class="w">   </span>├──<span class="w"> </span>ats_key_error.py
 <span class="w">    </span>│<span class="w">   </span>├──<span class="w"> </span>ats_lookup_error.py
 <span class="w">    </span>│<span class="w">   </span>├──<span class="w"> </span>ats_parameter_error.py
@@ -237,7 +240,22 @@ pip3<span class="w"> </span>install<span class="w"> </span>ats_utilities
 <span class="w">    </span>├──<span class="w"> </span>factory_class.py
 <span class="w">    </span>├──<span class="w"> </span>factory_component.py
 <span class="w">    </span>├──<span class="w"> </span>factory_context_bundle.py
-<span class="w">    </span>├──<span class="w"> </span>factory_utils.py
+<span class="w">    </span>├──<span class="w"> </span>factory_dict_utils.py
+<span class="w">    </span>├──<span class="w"> </span>factory_file_utils.py
+<span class="w">    </span>├──<span class="w"> </span>generator/
+<span class="w">    </span>│<span class="w">   </span>├──<span class="w"> </span>component_bundle.py
+<span class="w">    </span>│<span class="w">   </span>├──<span class="w"> </span>engine.py
+<span class="w">    </span>│<span class="w">   </span>├──<span class="w"> </span>generator_bundle.py
+<span class="w">    </span>│<span class="w">   </span>├──<span class="w"> </span>igenerator.py
+<span class="w">    </span>│<span class="w">   </span>├──<span class="w"> </span>__init__.py
+<span class="w">    </span>│<span class="w">   </span>├──<span class="w"> </span>ischeme_loader.py
+<span class="w">    </span>│<span class="w">   </span>├──<span class="w"> </span>itar_processor.py
+<span class="w">    </span>│<span class="w">   </span>├──<span class="w"> </span>itemplate_processor.py
+<span class="w">    </span>│<span class="w">   </span>├──<span class="w"> </span>scheme_loader.py
+<span class="w">    </span>│<span class="w">   </span>├──<span class="w"> </span>tar_process_bundle.py
+<span class="w">    </span>│<span class="w">   </span>├──<span class="w"> </span>tar_process_member_bundle.py
+<span class="w">    </span>│<span class="w">   </span>├──<span class="w"> </span>tar_processor.py
+<span class="w">    </span>│<span class="w">   </span>└──<span class="w"> </span>template_processor.py
 <span class="w">    </span>├──<span class="w"> </span>info/
 <span class="w">    </span>│<span class="w">   </span>├──<span class="w"> </span>build_date.py
 <span class="w">    </span>│<span class="w">   </span>├──<span class="w"> </span>component_bundle.py
@@ -273,9 +291,11 @@ pip3<span class="w"> </span>install<span class="w"> </span>ats_utilities
 <span class="w">    </span>│<span class="w">   </span>└──<span class="w"> </span>logger.py
 <span class="w">    </span>├──<span class="w"> </span>option/
 <span class="w">    </span>│<span class="w">   </span>├──<span class="w"> </span>arg_parser.py
+<span class="w">    </span>│<span class="w">   </span>├──<span class="w"> </span>command_option.py
 <span class="w">    </span>│<span class="w">   </span>├──<span class="w"> </span>component_bundle.py
 <span class="w">    </span>│<span class="w">   </span>├──<span class="w"> </span>engine.py
 <span class="w">    </span>│<span class="w">   </span>├──<span class="w"> </span>__init__.py
+<span class="w">    </span>│<span class="w">   </span>├──<span class="w"> </span>ioption_command.py
 <span class="w">    </span>│<span class="w">   </span>├──<span class="w"> </span>ioption_parser.py
 <span class="w">    </span>│<span class="w">   </span>├──<span class="w"> </span>iparser_strategy.py
 <span class="w">    </span>│<span class="w">   </span>├──<span class="w"> </span>option_namespace.py
@@ -308,7 +328,7 @@ pip3<span class="w"> </span>install<span class="w"> </span>ats_utilities
 <span class="w">        </span>├──<span class="w"> </span>splash_property.py
 <span class="w">        </span>└──<span class="w"> </span>terminal_properties.py
 
-<span class="m">17</span><span class="w"> </span>directories,<span class="w"> </span><span class="m">154</span><span class="w"> </span>files
+<span class="m">18</span><span class="w"> </span>directories,<span class="w"> </span><span class="m">171</span><span class="w"> </span>files
 </pre></div>
 </div>
 </section>

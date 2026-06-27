@@ -20,6 +20,7 @@ Info
     Loads the ATS configuration for the ATS.
 '''
 
+from typing import override
 from ats_utilities.config_io.iread import IRead
 from ats_utilities.context_bundle import ContextBundle
 from ats_utilities.checker.ichecker import IChecker
@@ -86,7 +87,8 @@ class CFGLoader(ILoader):
             :type config_bundle: <ATSConfigFileBundle | None>
             :param cfg_processor: Processor for CFG content | None.
             :type cfg_processor: <ICFGProcessor | None>
-            :exceptions: ATSTypeError.
+            :exceptions:
+                | ATSTypeError: Invalid type in constructor arguments.
         '''
         config_file_bundle: ATSConfigFileBundle = config_bundle or ATSConfigFileBundle()
         factory_context_bundle(self, config_file_bundle.context)
@@ -108,25 +110,27 @@ class CFGLoader(ILoader):
         if bool(cfg2obj):
             self._configuration = cfg2obj.read_configuration()
 
+    @override
     def load_configuration(self) -> dict[str, str]:
         '''
             Loads the ATS configuration in dictionary format.
 
             :return: Dictionary with CFG information.
             :rtype: <dict[str, str]>
-            :exceptions: None..
+            :exceptions: None.
         '''
         if not self._configuration:
             return {}
 
         return self._configuration.to_dict()
 
+    @override
     def __str__(self) -> str:
         '''
             Returns the CFGLoader as string representation.
 
             :return: The CFGLoader as string representation.
             :rtype: <str>
-            :exceptions: None..
+            :exceptions: None.
         '''
         return format_instance_to_string(self)

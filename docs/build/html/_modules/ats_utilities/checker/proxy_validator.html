@@ -87,9 +87,10 @@
 <span class="sd">        :type exp_type: &lt;str&gt;</span>
 <span class="sd">        :return: A tuple containing the split components.</span>
 <span class="sd">        :rtype: &lt;tuple[str, str]&gt;</span>
-<span class="sd">        :exceptions: None..</span>
+<span class="sd">        :exceptions: None.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
     <span class="n">parts</span> <span class="o">=</span> <span class="n">exp_type</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">sep</span><span class="o">=</span><span class="s1">&#39;:&#39;</span><span class="p">)</span>
+
     <span class="k">return</span> <span class="n">parts</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">parts</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span></div>
 
 
@@ -105,7 +106,11 @@
 <span class="sd">        :type specs: &lt;list[tuple[str, Any]]&gt;</span>
 <span class="sd">        :return: Wrapped function.</span>
 <span class="sd">        :rtype: &lt;Callable[[F], F]&gt;</span>
-<span class="sd">        :exceptions: ATSTypeError, ATSValueError, ATSRuntimeError, ATSAttributeError.</span>
+<span class="sd">        :exceptions:</span>
+<span class="sd">            | ATSTypeError: Parameter type validation failed.</span>
+<span class="sd">            | ATSValueError: Parameter format validation failed.</span>
+<span class="sd">            | ATSRuntimeError: Decorator used on a non-class method.</span>
+<span class="sd">            | ATSAttributeError: Class does not provide a &#39;_checker&#39; object.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
     <span class="k">def</span> <span class="nf">decorator</span><span class="p">(</span><span class="n">func</span><span class="p">:</span> <span class="n">F</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">F</span><span class="p">:</span>
         <span class="nd">@wraps</span><span class="p">(</span><span class="n">func</span><span class="p">)</span>

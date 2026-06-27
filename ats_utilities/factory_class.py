@@ -49,7 +49,7 @@ def inject(instance: Any, *dependencies: tuple[str, Any, Any, str | list[str] | 
         :type dependencies: <tuple[str, Any, Any, str | list[str] | tuple[str, ...] | None]>
         :exceptions: None.
     '''
-    prefix = '_'
+    prefix: str = '_'
 
     for tuple_data in dependencies:
         attr_name: str = tuple_data[0]
@@ -57,23 +57,24 @@ def inject(instance: Any, *dependencies: tuple[str, Any, Any, str | list[str] | 
         fallback: Any = tuple_data[2]
         depends_on: str | list[str] | tuple[str, ...] | None = tuple_data[3] if len(tuple_data) > 3 else None
 
-        full_attr_name = f'{prefix}{attr_name}'
+        full_attr_name: str = f'{prefix}{attr_name}'
 
         if passed_val is not None:
-            resolved_val = passed_val
+            resolved_val: Any = passed_val
         else:
             if isinstance(fallback, type):
                 if depends_on:
 
                     if isinstance(depends_on, str):
-                        dep_list = [depends_on]
+                        dep_list: list[str] = [depends_on]
                     else:
                         dep_list = list(depends_on)
 
-                    factory_kwargs = {}
+                    factory_kwargs: dict[str, Any] = {}
+
                     for dep in dep_list:
-                        target_dep_name = f'{prefix}{dep}'
-                        dependency_obj = instance.__dict__.get(target_dep_name)
+                        target_dep_name: str = f'{prefix}{dep}'
+                        dependency_obj: Any = instance.__dict__.get(target_dep_name)
 
                         if dependency_obj is not None:
                             factory_kwargs[dep] = dependency_obj
@@ -96,9 +97,11 @@ def get_private_attr(instance: Any, attr_name: str) -> Any:
         :type attr_name: <str>
         :return: The resolved attribute value.
         :rtype: <Any>
-        :exceptions: AttributeError.
+        :exceptions:
+            | AttributeError: Attribute must start with '_' prefix.
     '''
     clean_attr = attr_name.lstrip('_')
+
     return getattr(instance, f'_{clean_attr}')
 
 def require_attributes(*attr_names: str) -> Callable[[Callable[..., Any]], Callable[..., Any]]:
@@ -111,18 +114,17 @@ def require_attributes(*attr_names: str) -> Callable[[Callable[..., Any]], Calla
         :type attr_names: <tuple[str, ...]>
         :return: Decorated function.
         :rtype: <Callable[..., Any]>
-        :exceptions: ATSValueError.
+        :exceptions:
+            | ATSValueError: Missing or empty attribute: '{attr}'.
     '''
     def decorator(func: Callable[..., Any]) -> Callable[..., Any]:
         @wraps(func)
         def wrapper(self: Any, *args: Any, **kwargs: Any) -> Any:
             for attr in attr_names:
+                value: Any = getattr(self, attr, None)
 
-                # In case attribute value is not defined set default value to None
-                value = getattr(self, attr, None)
-                
                 if not value:
-                    raise ATSValueError(f"Missing or empty attribute: '{attr}'")
+                    raise ATSValueError(f"missing or empty attribute: '{attr}'")
 
             return func(self, *args, **kwargs)
         return wrapper
@@ -151,14 +153,15 @@ def format_instance_to_string(instance: Any) -> str:
         :rtype: <str>
         :exceptions: None.
     '''
-    class_name = instance.__class__.__name__
+    class_name: str = instance.__class__.__name__
 
     formatted_lines: list[str] = []
     for k, v in instance.__dict__.items():
-        clean_key = k[1:] if k.startswith('_') and not k.startswith('__') else k
-        val_str = str(v).replace('\n', '\n    ')
+        clean_key: str = k[1:] if k.startswith('_') and not k.startswith('__') else k
+        val_str: str = str(v).replace('\n', '\n    ')
 
         v_id_hex = f'0x{id(v):x}'
+
         if f'at {v_id_hex}' not in val_str:
             if isinstance(v, (str, int, float, bool)):
                 val_str = f"'{val_str}' at {v_id_hex}" if isinstance(v, str) else f"{val_str} at {v_id_hex}"

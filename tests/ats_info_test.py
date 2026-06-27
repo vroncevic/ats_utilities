@@ -118,6 +118,13 @@ class InfoManagerTestCase(TestCase):
         invalid_manager = InfoManager()
         self.assertFalse(invalid_manager.is_initialized())
 
+    @mock.patch('ats_utilities.info.engine.make_component')
+    def test_initialization_unexpected_exception(self, mock_make_component) -> None:
+        '''Test info manager initialization unexpected exception.'''
+        mock_make_component.side_effect = Exception('Unexpected')
+        invalid_manager = InfoManager()
+        self.assertFalse(invalid_manager.is_initialized())
+
     def test_str(self) -> None:
         '''Test string representation of InfoManager.'''
         self.assertIsInstance(str(self.manager), str)

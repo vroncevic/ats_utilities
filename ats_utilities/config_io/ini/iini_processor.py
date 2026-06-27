@@ -56,9 +56,9 @@ class IINIProcessor(ABC):
             :type stream: <Any>
             :return: True (success) | False (fail)
             :rtype: <bool>
-            :exceptions: NotImplementedError.
+            :exceptions: None.
         '''
-        raise NotImplementedError("Method from_stream() must be implemented.")
+        pass
 
     @abstractmethod
     def to_stream(self, stream: Any) -> bool:
@@ -69,9 +69,9 @@ class IINIProcessor(ABC):
             :type stream: <Any>
             :return: True (success) | False (fail)
             :rtype: <bool>
-            :exceptions: NotImplementedError.
+            :exceptions: None.
         '''
-        raise NotImplementedError("Method to_stream() must be implemented.")
+        pass
 
     @abstractmethod
     def to_dict(self) -> dict[str, str]:
@@ -80,9 +80,9 @@ class IINIProcessor(ABC):
 
             :return: Dictionary with ATS information
             :rtype: <dict[str, str]>
-            :exceptions: NotImplementedError.
+            :exceptions: None.
         '''
-        raise NotImplementedError("Method to_dict() must be implemented.")
+        pass
 
     @abstractmethod
     def __str__(self) -> str:
@@ -91,6 +91,6 @@ class IINIProcessor(ABC):
 
             :return: The INI processor as string representation.
             :rtype: <str>
-            :exceptions: NotImplementedError.
+            :exceptions: None.
         '''
-        raise NotImplementedError("Method __str__() must be implemented.")
+        pass

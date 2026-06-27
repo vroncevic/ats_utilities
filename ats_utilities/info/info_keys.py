@@ -50,8 +50,7 @@ class InfoKeys:
                 | ATS_ORGANIZATION - The key for ATS organization.
                 | ATS_USE_GITHUB_INFRASTRUCTURE - The key for ATS use github infrastructure.
                 | ATS_LOGO_PATH - The key for ATS logo path.
-            :methods: None
-    '''
+            :methods: None.    '''
 
     ATS_NAME: ClassVar[str] = 'ats_name'
     ATS_VERSION: ClassVar[str] = 'ats_version'

@@ -59,9 +59,9 @@ class IReporter(ABC):
             :type is_verbose: <bool>
             :param message: List with message.
             :type message: <list[Any]>
-            :exceptions: NotImplementedError.
+            :exceptions: None.
         '''
-        raise NotImplementedError("Method verbose() must be implemented.")
+        pass
 
     @abstractmethod
     def success(self, message: list[Any]) -> None:
@@ -70,9 +70,9 @@ class IReporter(ABC):
 
             :param message: List with message.
             :type message: <list[Any]>
-            :exceptions: NotImplementedError.
+            :exceptions: None.
         '''
-        raise NotImplementedError("Method success() must be implemented.")
+        pass
 
     @abstractmethod
     def warning(self, message: list[Any]) -> None:
@@ -81,9 +81,9 @@ class IReporter(ABC):
 
             :param message: List with message.
             :type message: <list[Any]>
-            :exceptions: NotImplementedError.
+            :exceptions: None.
         '''
-        raise NotImplementedError("Method warning() must be implemented.")
+        pass
 
     @abstractmethod
     def error(self, message: list[Any]) -> None:
@@ -92,9 +92,9 @@ class IReporter(ABC):
 
             :param message: List with message.
             :type message: <list[Any]>
-            :exceptions: NotImplementedError.
+            :exceptions: None.
         '''
-        raise NotImplementedError("Method error() must be implemented.")
+        pass
 
     @abstractmethod
     def is_initialized(self) -> bool:
@@ -103,9 +103,9 @@ class IReporter(ABC):
 
             :return: True (success) | False (fail).
             :rtype: <bool>
-            :exceptions: NotImplementedError.
+            :exceptions: None.
         '''
-        raise NotImplementedError("Method is_initialized() must be implemented.")
+        pass
 
     @abstractmethod
     def __str__(self) -> str:
@@ -114,6 +114,6 @@ class IReporter(ABC):
 
             :return: The ATS reporter as string representation.
             :rtype: <str>
-            :exceptions: NotImplementedError.
+            :exceptions: None.
         '''
-        raise NotImplementedError("Method __str__() must be implemented.")
+        pass

@@ -22,6 +22,7 @@ Info
 
 from xml.etree.ElementTree import Element, SubElement, tostring, ParseError
 from xml.dom.minidom import parseString
+from typing import override
 from ats_utilities.config_io.iwrite import IWrite
 from ats_utilities.config_io.istorer import IStorer
 from ats_utilities.checker.ichecker import IChecker
@@ -90,7 +91,8 @@ class XMLStorer(IStorer):
             :type config_bundle: <ATSConfigFileBundle | None>
             :param xml_processor: Processor for XML content | None.
             :type xml_processor: <IXMLProcessor | None>
-            :exceptions: ATSTypeError.
+            :exceptions:
+                | ATSTypeError: Invalid type in constructor arguments.
         '''
         config_file_bundle: ATSConfigFileBundle = config_bundle or ATSConfigFileBundle()
         factory_context_bundle(self, config_file_bundle.context)
@@ -102,6 +104,7 @@ class XMLStorer(IStorer):
         validate_component(self._obj2xml, Object2Xml)
 
     @validator([('dict:config', None)])
+    @override
     def store_configuration(self, config: dict[str, str]) -> bool:
         '''
             Stores the ATS configuration from dictionary format.
@@ -110,7 +113,11 @@ class XMLStorer(IStorer):
             :type config: <dict[str, str]>
             :return: True (success) | False (fail).
             :rtype: <bool>
-            :exceptions: ATSTypeError, ATSValueError, ATSRuntimeError, ATSAttributeError.
+            :exceptions:
+                | ATSTypeError: Parameter type validation failed.
+                | ATSValueError: Parameter format validation failed.
+                | ATSRuntimeError: Decorator used on a non-class method.
+                | ATSAttributeError: Class does not provide a '_checker' object.
         '''
         try:
             root = Element('configuration')
@@ -131,12 +138,13 @@ class XMLStorer(IStorer):
 
         return self._obj2xml.write_configuration(self._processor)
 
+    @override
     def __str__(self) -> str:
         '''
             Returns the XMLStorer as string representation.
 
             :return: The XMLStorer as string representation.
             :rtype: <str>
-            :exceptions: None..
+            :exceptions: None.
         '''
         return format_instance_to_string(self)

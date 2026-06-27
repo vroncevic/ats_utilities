@@ -54,9 +54,9 @@ class IBuildDate(ABC):
 
             :return: The ATS build date in string format | None
             :rtype: <str | None>
-            :exceptions: NotImplementedError.
+            :exceptions: None.
         '''
-        raise NotImplementedError("Method build_date() must be implemented.")
+        pass
 
     @build_date.setter
     @abstractmethod
@@ -66,9 +66,9 @@ class IBuildDate(ABC):
 
             :param build_date: The ATS build date in string format | None
             :type build_date: <str | None>
-            :exceptions: NotImplementedError.
+            :exceptions: None.
         '''
-        raise NotImplementedError("Method build_date() must be implemented.")
+        pass
 
     @abstractmethod
     def not_none(self) -> bool:
@@ -77,9 +77,9 @@ class IBuildDate(ABC):
 
             :return: True (success) | False (fail).
             :rtype: <bool>
-            :exceptions: NotImplementedError.
+            :exceptions: None.
         '''
-        raise NotImplementedError("Method not_none() must be implemented.")
+        pass
 
     @abstractmethod
     def __str__(self) -> str:
@@ -88,6 +88,6 @@ class IBuildDate(ABC):
 
             :return: The ATS build date as string representation.
             :rtype: <str>
-            :exceptions: NotImplementedError.
+            :exceptions: None.
         '''
-        raise NotImplementedError("Method __str__() must be implemented.")
+        pass

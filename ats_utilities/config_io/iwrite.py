@@ -55,9 +55,9 @@ class IWrite(ABC):
             :type config: <Any>
             :return: True (success) | False (fail).
             :rtype: <bool>
-            :exceptions: NotImplementedError..
+            :exceptions: None.
         '''
-        raise NotImplementedError("Method write_configuration() must be implemented.")
+        pass
 
     @abstractmethod
     def __str__(self) -> str:
@@ -66,6 +66,6 @@ class IWrite(ABC):
 
             :return: The IWrite as string representation.
             :rtype: <str>
-            :exceptions: NotImplementedError..
+            :exceptions: None.
         '''
-        raise NotImplementedError("Method __str__() must be implemented.")
+        pass

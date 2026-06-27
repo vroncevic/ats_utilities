@@ -21,6 +21,7 @@ Info
 '''
 
 from os.path import splitext, isfile
+from typing import override
 from ats_utilities.config_io.ifile_check import IFileCheck
 from ats_utilities.context_bundle import ContextBundle
 from ats_utilities.checker.ichecker import IChecker
@@ -74,7 +75,7 @@ class FileCheck(IFileCheck):
 
             :param config_bundle: Bundle with checker, reporter and verbose | None.
             :type config_bundle: <ContextBundle | None>
-            :exceptions: None..
+            :exceptions: None.
         '''
         factory_context_bundle(self, config_bundle)
         self._file_path_ok: bool = False
@@ -83,13 +84,21 @@ class FileCheck(IFileCheck):
 
     @validator([('str | None:file_path', None)])
     @vreporter('check file path {file_path_ok}')
+    @override
     def check_path(self, file_path: str | None) -> None:
         '''
             Checks file path in string format.
 
             :param file_path: File path in string format | None.
             :type file_path: <str | None>
-            :exceptions: ATSTypeError, ATSValueError, ATSRuntimeError, ATSAttributeError.
+            :exceptions:
+                | ATSRuntimeError: Decorator cannot be used on a standalone function.
+                | ATSAttributeError: Class is required to provide a '_reporter' object to
+                |                    use the @verboser decorator.
+                | ATSTypeError: Parameter type validation failed.
+                | ATSValueError: Parameter format validation failed.
+                | ATSRuntimeError: Decorator used on a non-class method.
+                | ATSAttributeError: Class does not provide a '_checker' object.
         '''
         self._file_path_ok = isfile(file_path) if file_path is not None else False
 
@@ -99,13 +108,21 @@ class FileCheck(IFileCheck):
 
     @validator([('str | None:file_mode', None)])
     @vreporter('check file mode {file_mode_ok}')
+    @override
     def check_mode(self, file_mode: str | None) -> None:
         '''
             Checks operation mode for file.
 
             :param file_mode: File mode in string format ('r', 'w', 'a', 'b', 'x', 't', '+').
             :type file_mode: <str | None>
-            :exceptions: ATSTypeError, ATSValueError, ATSRuntimeError, ATSAttributeError.
+            :exceptions:
+                | ATSRuntimeError: Decorator cannot be used on a standalone function.
+                | ATSAttributeError: Class is required to provide a '_reporter' object to
+                |                    use the @verboser decorator.
+                | ATSTypeError: Parameter type validation failed.
+                | ATSValueError: Parameter format validation failed.
+                | ATSRuntimeError: Decorator used on a non-class method.
+                | ATSAttributeError: Class does not provide a '_checker' object.
         '''
         self._file_mode_ok = bool(file_mode) and all(
             char in self.MODES for char in file_mode  # type: ignore
@@ -116,6 +133,7 @@ class FileCheck(IFileCheck):
 
     @validator([('str | None:file_path', None), ('str | None:file_format', None)])
     @vreporter('check file format {file_format_ok}')
+    @override
     def check_format(self, file_path: str | None, file_format: str | None) -> None:
         '''
             Checks file format by extension.
@@ -124,7 +142,14 @@ class FileCheck(IFileCheck):
             :type file_path: <str | None>
             :param file_format: File format (file extension) | None.
             :type file_format: <str | None>
-            :exceptions: ATSTypeError, ATSValueError, ATSRuntimeError, ATSAttributeError.
+            :exceptions:
+                | ATSRuntimeError: Decorator cannot be used on a standalone function.
+                | ATSAttributeError: Class is required to provide a '_reporter' object to
+                |                    use the @verboser decorator.
+                | ATSTypeError: Parameter type validation failed.
+                | ATSValueError: Parameter format validation failed.
+                | ATSRuntimeError: Decorator used on a non-class method.
+                | ATSAttributeError: Class does not provide a '_checker' object.
         '''
         extension: str | None = None
         fmt_str, path_str = str(file_format), str(file_path)
@@ -146,23 +171,28 @@ class FileCheck(IFileCheck):
             self._file_format_ok = True
 
     @vreporter('check is file ok path: {file_path_ok}, mode: {file_mode_ok}, format: {file_format_ok}')
+    @override
     def is_file_ok(self) -> bool:
         '''
             Returns status for file.
 
             :return: True (success) | False (fail).
             :rtype: <bool>
-            :exceptions: ATSRuntimeError, ATSAttributeError.
+            :exceptions:
+                | ATSRuntimeError: Decorator cannot be used on a standalone function.
+                | ATSAttributeError: Class is required to provide a '_reporter' object to
+                |                    use the @verboser decorator.
         '''
         return all([self._file_path_ok, self._file_mode_ok, self._file_format_ok])
 
 
+    @override
     def __str__(self) -> str:
         '''
             Returns the FileCheck as string representation.
 
             :return: The FileCheck as string representation.
             :rtype: <str>
-            :exceptions: None..
+            :exceptions: None.
         '''
         return format_instance_to_string(self)

@@ -20,6 +20,7 @@ Info
     Stores the ATS configuration for the ATS.
 '''
 
+from typing import override
 from ats_utilities.config_io.iwrite import IWrite
 from ats_utilities.config_io.istorer import IStorer
 from ats_utilities.config_io.config_file_bundle import ATSConfigFileBundle
@@ -85,7 +86,8 @@ class CFGStorer(IStorer):
             :type config_bundle: <ATSConfigFileBundle | None>
             :param cfg_processor: Processor for CFG content | None.
             :type cfg_processor: <ICFGProcessor | None>
-            :exceptions: ATSTypeError.
+            :exceptions:
+                | ATSTypeError: Invalid type in constructor arguments.
         '''
         config_file_bundle: ATSConfigFileBundle = config_bundle or ATSConfigFileBundle()
         factory_context_bundle(self, config_file_bundle.context)
@@ -97,6 +99,7 @@ class CFGStorer(IStorer):
         validate_component(self._obj2cfg, Object2Cfg)
 
     @validator([('dict:config', None)])
+    @override
     def store_configuration(self, config: dict[str, str]) -> bool:
         '''
             Stores the ATS configuration from dictionary format.
@@ -105,19 +108,24 @@ class CFGStorer(IStorer):
             :type config: <dict[str, str]>
             :return: True (success) | False (fail).
             :rtype: <bool>
-            :exceptions: ATSTypeError, ATSValueError, ATSRuntimeError, ATSAttributeError.
+            :exceptions:
+                | ATSTypeError: Parameter type validation failed.
+                | ATSValueError: Parameter format validation failed.
+                | ATSRuntimeError: Decorator used on a non-class method.
+                | ATSAttributeError: Class does not provide a '_checker' object.
         '''
         lines: list[str] = [f"{k} = {v}\n" for k, v in config.items()]
         self._processor.from_lines(lines)
 
         return self._obj2cfg.write_configuration(self._processor)
 
+    @override
     def __str__(self) -> str:
         '''
             Returns the CFGStorer as string representation.
 
             :return: The CFGStorer as string representation.
             :rtype: <str>
-            :exceptions: None..
+            :exceptions: None.
         '''
         return format_instance_to_string(self)

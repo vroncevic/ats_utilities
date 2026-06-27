@@ -52,9 +52,9 @@ class ILoader(ABC):
 
             :return: Dictionary with configuration information.
             :rtype: <dict[str, str]>
-            :exceptions: NotImplementedError..
+            :exceptions: None.
         '''
-        raise NotImplementedError("Method load_configuration() must be implemented.")
+        pass
 
     @abstractmethod
     def __str__(self) -> str:
@@ -63,6 +63,6 @@ class ILoader(ABC):
 
             :return: The loader component as string representation.
             :rtype: <str>
-            :exceptions: NotImplementedError..
+            :exceptions: None.
         '''
-        raise NotImplementedError("Method __str__() must be implemented.")
+        pass

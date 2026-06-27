@@ -54,9 +54,9 @@ class ILicence(ABC):
 
             :return: The ATS licence in string format | None
             :rtype: <str | None>
-            :exceptions: NotImplementedError.
+            :exceptions: None.
         '''
-        raise NotImplementedError("Method licence() must be implemented.")
+        pass
 
     @licence.setter
     @abstractmethod
@@ -66,9 +66,9 @@ class ILicence(ABC):
 
             :param licence: The ATS licence in string format | None
             :type licence: <str | None>
-            :exceptions: NotImplementedError.
+            :exceptions: None.
         '''
-        raise NotImplementedError("Method licence() must be implemented.")
+        pass
 
     @abstractmethod
     def not_none(self) -> bool:
@@ -77,9 +77,9 @@ class ILicence(ABC):
 
             :return: True (success) | False (fail).
             :rtype: <bool>
-            :exceptions: NotImplementedError.
+            :exceptions: None.
         '''
-        raise NotImplementedError("Method not_none() must be implemented.")
+        pass
 
     @abstractmethod
     def __str__(self) -> str:
@@ -88,6 +88,6 @@ class ILicence(ABC):
 
             :return: The ATS licence as string representation.
             :rtype: <str>
-            :exceptions: NotImplementedError.
+            :exceptions: None.
         '''
-        raise NotImplementedError("Method __str__() must be implemented.")
+        pass

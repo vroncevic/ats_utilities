@@ -130,6 +130,15 @@ class ATSLoggingTestCase(TestCase):
         with self.assertRaises(ATSValueError):
             invalid_manager.is_initialized()
 
+    @mock.patch('ats_utilities.logging.engine.make_component')
+    def test_initialization_unexpected_exception(self, mock_make_component) -> None:
+        '''Test logger manager initialization unexpected exception'''
+        mock_make_component.side_effect = Exception('Unexpected')
+        invalid_manager = LoggerManager()
+        with self.assertRaises(ATSValueError):
+            invalid_manager.is_initialized()
+        self.assertFalse(invalid_manager._is_initialized)
+
     def test_str(self) -> None:
         '''Test string representation of LoggerManager and ATSLogger.'''
         self.assertIsInstance(str(self.ats_base_logging), str)

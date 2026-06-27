@@ -53,9 +53,9 @@ class IInfoOk(ABC):
 
             :return: The ATS information status in bool format
             :rtype: <bool>
-            :exceptions: NotImplementedError.
+            :exceptions: None.
         '''
-        raise NotImplementedError("Method info_ok() must be implemented.")
+        pass
 
     @info_ok.setter
     @abstractmethod
@@ -65,9 +65,9 @@ class IInfoOk(ABC):
 
             :param info_ok: The ATS information status in bool format
             :type info_ok: <bool>
-            :exceptions: NotImplementedError.
+            :exceptions: None.
         '''
-        raise NotImplementedError("Method info_ok() must be implemented.")
+        pass
 
     @abstractmethod
     def __str__(self) -> str:
@@ -76,6 +76,6 @@ class IInfoOk(ABC):
 
             :return: The ATS info status as string representation.
             :rtype: <str>
-            :exceptions: NotImplementedError.
+            :exceptions: None.
         '''
-        raise NotImplementedError("Method __str__() must be implemented.")
+        pass

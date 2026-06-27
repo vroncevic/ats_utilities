@@ -20,6 +20,7 @@ Info
     Creates an API for the ATS name in one property object.
 '''
 
+from typing import override
 from ats_utilities.info.iname import IName
 from ats_utilities.context_bundle import ContextBundle
 from ats_utilities.checker.ichecker import IChecker
@@ -68,26 +69,31 @@ class Name(IName):
 
             :param context_bundle: Context bundle for name | None.
             :type context_bundle: <ContextBundle | None>
-            :exceptions: None..
+            :exceptions: None.
         '''
         factory_context_bundle(self, context_bundle)
         self._name: str | None = None
 
     @property
     @vreporter('get name {name}')
+    @override
     def name(self) -> str | None:
         '''
             Property method for getting ATS name.
 
             :return: The ATS name in string format | None.
             :rtype: <str | None>
-            :exceptions: ATSRuntimeError, ATSAttributeError.
+            :exceptions:
+                | ATSRuntimeError: Decorator cannot be used on a standalone function.
+                | ATSAttributeError: Class is required to provide a '_reporter' object to
+                |                    use the @verboser decorator.
         '''
         return self._name
 
     @name.setter
     @validator([('str | None:name', None)])
     @vreporter('set name {name}')
+    @override
     def name(self, name: str | None) -> None:
         '''
             Property method for setting ATS name.
@@ -95,28 +101,38 @@ class Name(IName):
             :param name: The ATS name in string format | None.
             :type name: <str | None>
             :exceptions:
-                | ATSTypeError, ATSValueError, RuntimeError, AttributeError.
-                | RuntimeError, AttributeError.
+                | ATSRuntimeError: Decorator cannot be used on a standalone function.
+                | ATSAttributeError: Class is required to provide a '_reporter' object to
+                |                    use the @verboser decorator.
+                | ATSTypeError: Parameter type validation failed.
+                | ATSValueError: Parameter format validation failed.
+                | ATSRuntimeError: Decorator used on a non-class method.
+                | ATSAttributeError: Class does not provide a '_checker' object.
         '''
         self._name = name
 
     @vreporter('check name {name}')
+    @override
     def not_none(self) -> bool:
         '''
             Checks is ATS name not None.
 
             :return: True (success) | False (fail).
             :rtype: <bool>
-            :exceptions: ATSRuntimeError, ATSAttributeError.
+            :exceptions:
+                | ATSRuntimeError: Decorator cannot be used on a standalone function.
+                | ATSAttributeError: Class is required to provide a '_reporter' object to
+                |                    use the @verboser decorator.
         '''
         return self._name is not None
 
+    @override
     def __str__(self) -> str:
         '''
             Returns the ATS name as string representation.
 
             :return: The ATS name as string representation.
             :rtype: <str>
-            :exceptions: None..
+            :exceptions: None.
         '''
         return format_instance_to_string(self)

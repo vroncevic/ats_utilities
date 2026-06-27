@@ -54,9 +54,9 @@ class IStorer(ABC):
             :type config: <dict[str, str]>
             :return: True (success) | False (fail).
             :rtype: <bool>
-            :exceptions: NotImplementedError..
+            :exceptions: None.
         '''
-        raise NotImplementedError("Method store_configuration() must be implemented.")
+        pass
 
     @abstractmethod
     def __str__(self) -> str:
@@ -65,6 +65,6 @@ class IStorer(ABC):
 
             :return: The storer component as string representation.
             :rtype: <str>
-            :exceptions: NotImplementedError..
+            :exceptions: None.
         '''
-        raise NotImplementedError("Method __str__() must be implemented.")
+        pass

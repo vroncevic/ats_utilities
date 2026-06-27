@@ -147,14 +147,14 @@ Encapsulates splash screen components to minimize constructor overhead.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="ats_utilities.splasher.component_bundle.SplashComponentBundle.to_dict">
-<span class="sig-name descname"><span class="pre">to_dict</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="reference internal" href="_modules/ats_utilities/splasher/component_bundle.html#SplashComponentBundle.to_dict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.splasher.component_bundle.SplashComponentBundle.to_dict" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">to_dict</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/ats_utilities/splasher/component_bundle.html#SplashComponentBundle.to_dict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.splasher.component_bundle.SplashComponentBundle.to_dict" title="Link to this definition">¶</a></dt>
 <dd><p>Converts the bundle attributes to a dictionary.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Dictionary representation of the bundle attributes.</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>&lt;dict&gt;</p>
+<dd class="field-even"><p>&lt;dict[str, Any]&gt;</p>
 </dd>
 <dt class="field-odd">Exceptions<span class="colon">:</span></dt>
 <dd class="field-odd"><p>None.</p>
@@ -166,9 +166,17 @@ Encapsulates splash screen components to minimize constructor overhead.</p>
 <dt class="sig sig-object py" id="ats_utilities.splasher.component_bundle.SplashComponentBundle.validate">
 <span class="sig-name descname"><span class="pre">validate</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/ats_utilities/splasher/component_bundle.html#SplashComponentBundle.validate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.splasher.component_bundle.SplashComponentBundle.validate" title="Link to this definition">¶</a></dt>
 <dd><p>Validates that essential components are set.</p>
-<dl class="field-list simple">
+<dl class="field-list">
 <dt class="field-odd">Exceptions<span class="colon">:</span></dt>
-<dd class="field-odd"><p>ValueError.</p>
+<dd class="field-odd"><div class="line-block">
+<div class="line">ValueError: Properties dictionary ‘prop’ must be provided.</div>
+<div class="line">ValueError: Splash property ‘splash_property’ must be provided.</div>
+<div class="line">ValueError: Terminal properties ‘terminal_property’ must be provided.</div>
+<div class="line">ValueError: GitHub infrastructure ‘github’ must be provided.</div>
+<div class="line">ValueError: External infrastructure ‘ext’ must be provided.</div>
+<div class="line">ValueError: Progress bar ‘pb’ must be provided.</div>
+<div class="line">ValueError: Context bundle ‘context_bundle’ must be provided.</div>
+</div>
 </dd>
 </dl>
 </dd></dl>

@@ -48,7 +48,10 @@ def vreporter[F: Callable[..., Any]](templates: str | list[str]) -> Callable[[F]
         :type templates: <str | list[str]>
         :return: Wrapped function.
         :rtype: <Callable[[F], F]>
-        :exceptions: ATSRuntimeError, ATSAttributeError.
+        :exceptions:
+            | ATSRuntimeError: Decorator cannot be used on a standalone function.
+            | ATSAttributeError: Class is required to provide a '_reporter' object to
+            |                    use the @verboser decorator.
     '''
     message_templates: list[str] = [templates] if isinstance(templates, str) else templates
 

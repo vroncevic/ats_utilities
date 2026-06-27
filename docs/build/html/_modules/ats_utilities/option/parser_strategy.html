@@ -59,7 +59,7 @@
 <span class="sd">&#39;&#39;&#39;</span>
 
 <span class="kn">import</span> <span class="nn">sys</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">override</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.option.iparser_strategy</span> <span class="kn">import</span> <span class="n">IParserStrategy</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.context_bundle</span> <span class="kn">import</span> <span class="n">ContextBundle</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.checker.ichecker</span> <span class="kn">import</span> <span class="n">IChecker</span>
@@ -135,13 +135,18 @@
 <div class="viewcode-block" id="ParserStrategy.setup">
 <a class="viewcode-back" href="../../../ats_utilities.option.parser_strategy.html#ats_utilities.option.parser_strategy.ParserStrategy.setup">[docs]</a>
     <span class="nd">@validator</span><span class="p">([(</span><span class="s1">&#39;dict:parameters&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)])</span>
+    <span class="nd">@override</span>
     <span class="k">def</span> <span class="nf">setup</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parameters</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Initializes the underlying parser with metadata parameters.</span>
 
 <span class="sd">            :param parameters: Parameters for logger.</span>
 <span class="sd">            :type parameters: &lt;dict[str, str]&gt;</span>
-<span class="sd">            :exceptions: ATSTypeError, ATSValueError, ATSRuntimeError, ATSAttributeError.</span>
+<span class="sd">            :exceptions:</span>
+<span class="sd">                | ATSTypeError: Parameter type validation failed.</span>
+<span class="sd">                | ATSValueError: Parameter format validation failed.</span>
+<span class="sd">                | ATSRuntimeError: Decorator used on a non-class method.</span>
+<span class="sd">                | ATSAttributeError: Class does not provide a &#39;_checker&#39; object.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_parser</span> <span class="o">=</span> <span class="n">make_component</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="n">ArgParser</span><span class="p">,</span> <span class="p">{</span>
             <span class="s1">&#39;context_bundle&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_shared_bundle</span><span class="p">,</span>
@@ -155,6 +160,7 @@
 <div class="viewcode-block" id="ParserStrategy.add_argument">
 <a class="viewcode-back" href="../../../ats_utilities.option.parser_strategy.html#ats_utilities.option.parser_strategy.ParserStrategy.add_argument">[docs]</a>
     <span class="nd">@require_attributes</span><span class="p">(</span><span class="s1">&#39;_parser&#39;</span><span class="p">)</span>
+    <span class="nd">@override</span>
     <span class="k">def</span> <span class="nf">add_argument</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Adds an operational argument/flag to the parser.</span>
@@ -163,7 +169,8 @@
 <span class="sd">            :type args: &lt;str&gt;</span>
 <span class="sd">            :param kwargs: Arguments in shape of dictionary.</span>
 <span class="sd">            :type kwargs: &lt;Any&gt;</span>
-<span class="sd">            :exceptions: ATSValueError.</span>
+<span class="sd">            :exceptions:</span>
+<span class="sd">                | ATSValueError: Missing or empty attribute: &#39;_parser&#39;.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
 
@@ -171,13 +178,15 @@
 <div class="viewcode-block" id="ParserStrategy.add_version">
 <a class="viewcode-back" href="../../../ats_utilities.option.parser_strategy.html#ats_utilities.option.parser_strategy.ParserStrategy.add_version">[docs]</a>
     <span class="nd">@require_attributes</span><span class="p">(</span><span class="s1">&#39;_parser&#39;</span><span class="p">)</span>
+    <span class="nd">@override</span>
     <span class="k">def</span> <span class="nf">add_version</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">version</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Adds a version display option to the parser.</span>
 
 <span class="sd">            :param version: The ATS version | None.</span>
 <span class="sd">            :type version: &lt;str | None&gt;</span>
-<span class="sd">            :exceptions: ATSValueError.</span>
+<span class="sd">            :exceptions:</span>
+<span class="sd">                | ATSValueError: Missing or empty attribute: &#39;_parser&#39;.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;--version&#39;</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s1">&#39;version&#39;</span><span class="p">,</span> <span class="n">version</span><span class="o">=</span><span class="n">version</span><span class="p">)</span></div>
 
@@ -185,6 +194,7 @@
 <div class="viewcode-block" id="ParserStrategy.parse">
 <a class="viewcode-back" href="../../../ats_utilities.option.parser_strategy.html#ats_utilities.option.parser_strategy.ParserStrategy.parse">[docs]</a>
     <span class="nd">@require_attributes</span><span class="p">(</span><span class="s1">&#39;_parser&#39;</span><span class="p">)</span>
+    <span class="nd">@override</span>
     <span class="k">def</span> <span class="nf">parse</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">arguments</span><span class="p">:</span> <span class="n">OptArgs</span><span class="p">,</span> <span class="n">known_only</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">OptionNamespace</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Parses the input arguments and returns an OptionNamespace.</span>
@@ -195,7 +205,8 @@
 <span class="sd">            :type known_only: &lt;bool&gt;</span>
 <span class="sd">            :return: Option namespace object.</span>
 <span class="sd">            :rtype: &lt;OptionNamespace&gt;</span>
-<span class="sd">            :exceptions: ATSValueError.</span>
+<span class="sd">            :exceptions:</span>
+<span class="sd">                | ATSValueError: Missing or empty attribute: &#39;_parser&#39;.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="k">if</span> <span class="n">known_only</span><span class="p">:</span>
             <span class="n">known_args</span><span class="p">:</span> <span class="n">KnownArgs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parser</span><span class="o">.</span><span class="n">parse_known_args</span><span class="p">(</span><span class="n">arguments</span><span class="p">)</span>
@@ -207,13 +218,15 @@
 <div class="viewcode-block" id="ParserStrategy.register_commands">
 <a class="viewcode-back" href="../../../ats_utilities.option.parser_strategy.html#ats_utilities.option.parser_strategy.ParserStrategy.register_commands">[docs]</a>
     <span class="nd">@require_attributes</span><span class="p">(</span><span class="s1">&#39;_parser&#39;</span><span class="p">)</span>
+    <span class="nd">@override</span>
     <span class="k">def</span> <span class="nf">register_commands</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">commands</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">IOptionCommand</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Registers the list of commands with the parser.</span>
 
 <span class="sd">            :param commands: List of commands to register.</span>
 <span class="sd">            :type commands: &lt;list[IOptionCommand]&gt;</span>
-<span class="sd">            :exceptions: ATSValueError.</span>
+<span class="sd">            :exceptions:</span>
+<span class="sd">                | ATSValueError: Missing or empty attribute: &#39;_parser&#39;.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="c1"># Initialization of subparsers on main parser</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;_subparsers&#39;</span><span class="p">)</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">_subparsers</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
@@ -243,6 +256,7 @@
 <div class="viewcode-block" id="ParserStrategy.parse_command">
 <a class="viewcode-back" href="../../../ats_utilities.option.parser_strategy.html#ats_utilities.option.parser_strategy.ParserStrategy.parse_command">[docs]</a>
     <span class="nd">@require_attributes</span><span class="p">(</span><span class="s1">&#39;_parser&#39;</span><span class="p">)</span>
+    <span class="nd">@override</span>
     <span class="k">def</span> <span class="nf">parse_command</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">arguments</span><span class="p">:</span> <span class="n">OptArgs</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">dict</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Parses the input arguments and returns an OptionNamespace.</span>
@@ -251,7 +265,8 @@
 <span class="sd">            :type arguments: &lt;OptArgs&gt;</span>
 <span class="sd">            :return: Option namespace object.</span>
 <span class="sd">            :rtype: &lt;OptionNamespace&gt;</span>
-<span class="sd">            :exceptions: ATSValueError.</span>
+<span class="sd">            :exceptions:</span>
+<span class="sd">                | ATSValueError: Missing or empty attribute: &#39;_parser&#39;.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="k">if</span> <span class="n">arguments</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">arguments</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
@@ -265,6 +280,7 @@
 
 <div class="viewcode-block" id="ParserStrategy.is_initialized">
 <a class="viewcode-back" href="../../../ats_utilities.option.parser_strategy.html#ats_utilities.option.parser_strategy.ParserStrategy.is_initialized">[docs]</a>
+    <span class="nd">@override</span>
     <span class="k">def</span> <span class="nf">is_initialized</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Checks if parser strategy component is ok.</span>
@@ -276,6 +292,7 @@
         <span class="k">return</span> <span class="kc">True</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parser</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="kc">False</span></div>
 
 
+    <span class="nd">@override</span>
     <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Returns the string representation of ParserStrategy.</span>

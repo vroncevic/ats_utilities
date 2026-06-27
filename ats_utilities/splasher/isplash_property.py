@@ -55,9 +55,9 @@ class ISplashProperty(ABC):
 
             :return: Formatted splash screen property in dict format | None.
             :rtype: <dict[Any, Any] | None>
-            :exceptions: NotImplementedError.
+            :exceptions: None.
         '''
-        raise NotImplementedError("Method splash_property() must be implemented.")
+        pass
 
     @splash_property.setter
     @abstractmethod
@@ -67,9 +67,9 @@ class ISplashProperty(ABC):
 
             :param splash_property_setup: Project splash screen property in dict format | None.
             :type splash_property_setup: <dict[Any, Any] | None>
-            :exceptions: NotImplementedError.
+            :exceptions: None.
         '''
-        raise NotImplementedError("Method splash_property() must be implemented.")
+        pass
 
     @abstractmethod
     def validates(self) -> bool:
@@ -78,9 +78,9 @@ class ISplashProperty(ABC):
 
             :return: True (success) else False (fail).
             :rtype: <bool>
-            :exceptions: NotImplementedError.
+            :exceptions: None.
         '''
-        raise NotImplementedError("Method validates() must be implemented.")
+        pass
 
     @abstractmethod
     def __str__(self) -> str:
@@ -89,6 +89,6 @@ class ISplashProperty(ABC):
 
             :return: The splash screen property as string representation.
             :rtype: <str>
-            :exceptions: NotImplementedError.
+            :exceptions: None.
         '''
-        raise NotImplementedError("Method __str__() must be implemented.")
+        pass

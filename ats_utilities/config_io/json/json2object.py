@@ -20,6 +20,7 @@ Info
     Creates an API for reading a configuration from a JSON file.
 '''
 
+from typing import override
 from ats_utilities.config_io.iread import IRead
 from ats_utilities.context_bundle import ContextBundle
 from ats_utilities.checker.ichecker import IChecker
@@ -34,7 +35,7 @@ from ats_utilities.config_io.json.json_processor import JSONProcessor
 from ats_utilities.reporter.proxy_reporter import vreporter
 from ats_utilities.factory_context_bundle import factory_context_bundle
 from ats_utilities.factory_component import make_component, validate_component
-from ats_utilities.factory_class import get_private_attr, format_instance_to_string
+from ats_utilities.factory_class import format_instance_to_string
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -93,7 +94,8 @@ class Json2Object(IRead):
             :type config_bundle: <ATSConfigFileBundle | None>
             :param json_processor: Processor for JSON content | None.
             :type json_processor: <IJSONProcessor | None>
-            :exceptions: ATSTypeError.
+            :exceptions:
+                | ATSTypeError: Invalid type in constructor arguments.
         '''
         self._config_file_bundle: ATSConfigFileBundle = config_bundle or ATSConfigFileBundle()
         factory_context_bundle(self, self._config_file_bundle.context)
@@ -113,13 +115,17 @@ class Json2Object(IRead):
         self._file_bundle_shared.file_format = self._EXT
 
     @vreporter('read configuration from file {file_path}')
+    @override
     def read_configuration(self) -> IJSONProcessor | None:
         '''
             Reads a configuration from a JSON file.
 
             :return: Configuration object.
             :rtype: <IJSONProcessor | None>
-            :exceptions: None..
+            :exceptions:
+                | ATSRuntimeError: Decorator cannot be used on a standalone function.
+                | ATSAttributeError: Class is required to provide a '_reporter' object to
+                |                    use the @verboser decorator.
         '''
         with ConfFile(self._file_bundle_shared, self._config_file_bundle) as json:
             if bool(json):
@@ -129,12 +135,13 @@ class Json2Object(IRead):
 
         return None
 
+    @override
     def __str__(self) -> str:
         '''
             Returns the Json2Object as string representation.
 
             :return: The Json2Object as string representation.
             :rtype: <str>
-            :exceptions: None..
+            :exceptions: None.
         '''
         return format_instance_to_string(self)

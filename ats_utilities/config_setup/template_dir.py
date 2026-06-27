@@ -20,6 +20,7 @@ Info
     Defines project template directory container.
 '''
 
+from typing import override
 from ats_utilities.config_setup.itemplate_dir import ITemplateDir
 from ats_utilities.context_bundle import ContextBundle
 from ats_utilities.checker.ichecker import IChecker
@@ -69,26 +70,31 @@ class TemplateDir(ITemplateDir):
 
             :param context_bundle: Context bundle for template dir | None.
             :type context_bundle: <ContextBundle | None>
-            :exceptions: None..
+            :exceptions: None.
         '''
         factory_context_bundle(self, context_bundle)
         self._template_dir: str | None = None
 
     @property
     @vreporter('get template dir {template_dir}')
+    @override
     def template_dir(self) -> str | None:
         '''
             Property method for getting template dir.
 
             :return: Formatted template dir in string format | None.
             :rtype: <str | None>
-            :exceptions: ATSRuntimeError, ATSAttributeError.
+            :exceptions:
+                | ATSRuntimeError: Decorator cannot be used on a standalone function.
+                | ATSAttributeError: Class is required to provide a '_reporter' object to
+                |                    use the @verboser decorator.
         '''
         return self._template_dir
 
     @template_dir.setter
     @validator([('str | None:dir_path', None)])
     @vreporter('get template dir {template_dir}')
+    @override
     def template_dir(self, dir_path: str | None) -> None:
         '''
             Property method for setting project template dir.
@@ -96,28 +102,38 @@ class TemplateDir(ITemplateDir):
             :param dir_path: Project template dir path in string format | None.
             :type dir_path: <str | None>
             :exceptions:
-                | ATSTypeError, ATSValueError, RuntimeError, AttributeError.
-                | RuntimeError, AttributeError.
+                | ATSRuntimeError: Decorator cannot be used on a standalone function.
+                | ATSAttributeError: Class is required to provide a '_reporter' object to
+                |                    use the @verboser decorator.
+                | ATSTypeError: Parameter type validation failed.
+                | ATSValueError: Parameter format validation failed.
+                | ATSRuntimeError: Decorator used on a non-class method.
+                | ATSAttributeError: Class does not provide a '_checker' object.
         '''
         self._template_dir = dir_path
 
     @vreporter('check template dir {template_dir}')
+    @override
     def not_none(self) -> bool:
         '''
             Checks project template dir is not None.
 
             :return: True (success) | False (fail).
             :rtype: <bool>
-            :exceptions: ATSRuntimeError, ATSAttributeError.
+            :exceptions:
+                | ATSRuntimeError: Decorator cannot be used on a standalone function.
+                | ATSAttributeError: Class is required to provide a '_reporter' object to
+                |                    use the @verboser decorator.
         '''
         return self._template_dir is not None
 
+    @override
     def __str__(self) -> str:
         '''
             Returns the ATS project template directory as string representation.
 
             :return: The ATS project template directory as string representation.
             :rtype: <str>
-            :exceptions: None..
+            :exceptions: None.
         '''
         return format_instance_to_string(self)

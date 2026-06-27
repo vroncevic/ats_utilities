@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Initialization for ats_utilities.base package.
+    Initialization for ats_utilities.base.
 '''
 
 __author__: str = 'Vladimir Roncevic'

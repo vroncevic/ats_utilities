@@ -21,7 +21,9 @@ Info
 '''
 
 from dataclasses import dataclass
+from typing import Any
 from ats_utilities.config_io.iread import IRead
+from ats_utilities.exceptions.ats_value_error import ATSValueError
 from ats_utilities.config_io.config_file_bundle import ATSConfigFileBundle
 from ats_utilities.config_io.iconfig_loader import IConfigProcessor
 
@@ -64,9 +66,23 @@ class ATSConfigLoaderBundle:
         '''
             Validates that essential components are set.
 
-            :exceptions: None..
+            :exceptions:
+                | ATSValueError: Info file must be provided.
+                | ATSValueError: Config2object must be provided.
+                | ATSValueError: Configuration bundle must be provided.
+                | ATSValueError: Configuration processor must be provided.
         '''
-        pass
+        if self.info_file is None:
+            raise ATSValueError("info file must be provided.")
+
+        if self.config2object is None:
+            raise ATSValueError("config2object must be provided.")
+
+        if self.config_bundle is None:
+            raise ATSValueError("configuration bundle must be provided.")
+
+        if self.processor is None:
+            raise ATSValueError("configuration processor must be provided.")
 
     def merge(self, other: 'ATSConfigLoaderBundle') -> None:
         '''
@@ -74,20 +90,21 @@ class ATSConfigLoaderBundle:
 
             :param other: Another bundle to merge into this one.
             :type other: <ATSConfigLoaderBundle>
-            :exceptions: None..
+            :exceptions: None.
         '''
         for field_name in self.__dataclass_fields__:
             other_value = getattr(other, field_name)
+
             if other_value is not None:
                 setattr(self, field_name, other_value)
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> dict[str, Any]:
         '''
             Converts the bundle attributes to a dictionary.
 
             :return: Dictionary representation of the bundle attributes.
-            :rtype: <dict>
-            :exceptions: None..
+            :rtype: <dict[str, Any]>
+            :exceptions: None.
         '''
         return {
             name: value

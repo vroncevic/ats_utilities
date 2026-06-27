@@ -74,6 +74,22 @@ class ATSSplashTestCase(TestCase):
         splash: Splasher = Splasher(None)  # type: ignore
         self.assertFalse(splash.is_initialized())
 
+    @mock.patch('ats_utilities.splasher.engine.make_component')
+    def test_splasher_initialization_failures(self, mock_make_component) -> None:
+        '''Test Splasher initialization with errors.'''
+        mock_make_component.side_effect = Exception('Unexpected')
+        bundle = SplashComponentBundle(
+            prop={
+                SplashKeys.ATS_ORGANIZATION: 'App Example',
+                SplashKeys.ATS_REPOSITORY: 'app_example',
+                SplashKeys.ATS_NAME: 'appexample',
+                SplashKeys.ATS_LOGO_PATH: f'{dirname(__file__)}/config/app.logo',
+                SplashKeys.ATS_USE_GITHUB_INFRASTRUCTURE: True
+            }
+        )
+        splash: Splasher = Splasher(bundle)
+        self.assertFalse(splash.is_initialized())
+
     @mock.patch('sys.stdout')
     @mock.patch('builtins.print')
     @mock.patch('ats_utilities.splasher.engine.sleep')

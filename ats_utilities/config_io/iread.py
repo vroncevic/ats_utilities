@@ -53,9 +53,9 @@ class IRead(ABC):
 
             :return: Configuration object.
             :rtype: <Any>
-            :exceptions: NotImplementedError..
+            :exceptions: None.
         '''
-        raise NotImplementedError("Method read_configuration() must be implemented.")
+        pass
 
     @abstractmethod
     def __str__(self) -> str:
@@ -64,6 +64,6 @@ class IRead(ABC):
 
             :return: The IRead as string representation.
             :rtype: <str>
-            :exceptions: NotImplementedError..
+            :exceptions: None.
         '''
-        raise NotImplementedError("Method __str__() must be implemented.")
+        pass

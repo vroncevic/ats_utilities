@@ -22,7 +22,7 @@ Info
 
 from abc import ABC, abstractmethod
 from io import TextIOBase
-from typing import Any, TypeAlias
+from typing import Any
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -34,7 +34,7 @@ __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
 
 # Optional bytes, str IO type
-File: TypeAlias = TextIOBase | None
+type File = TextIOBase | None
 
 
 class IConfFile(ABC):
@@ -58,9 +58,9 @@ class IConfFile(ABC):
 
             :return: File IO object | None.
             :rtype: <File>
-            :exceptions: NotImplementedError..
+            :exceptions: None.
         '''
-        raise NotImplementedError("Method __enter__() must be implemented.")
+        pass
 
     @abstractmethod
     def __exit__(self, *args: tuple[Any, ...], **kwargs: dict[Any, Any]) -> None:
@@ -71,9 +71,9 @@ class IConfFile(ABC):
             :type args: <tuple[Any, ...]>
             :param kwargs: Dictionary of mapped arguments.
             :type kwargs: <dict[Any, Any]>
-            :exceptions: NotImplementedError..
+            :exceptions: None.
         '''
-        raise NotImplementedError("Method __exit__() must be implemented.")
+        pass
 
     @abstractmethod
     def __str__(self) -> str:
@@ -82,6 +82,6 @@ class IConfFile(ABC):
 
             :return: The IConfFile as string representation.
             :rtype: <str>
-            :exceptions: NotImplementedError..
+            :exceptions: None.
         '''
-        raise NotImplementedError("Method __str__() must be implemented.")
+        pass

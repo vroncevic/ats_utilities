@@ -20,6 +20,7 @@ Info
     Encapsulates option components to minimize constructor overhead.
 '''
 
+from typing import Any
 from dataclasses import dataclass
 from ats_utilities.context_bundle import ContextBundle
 from ats_utilities.option.iparser_strategy import IParserStrategy
@@ -61,16 +62,19 @@ class OptionComponentBundle:
         '''
             Validates that essential components are set.
 
-            :exceptions: ATSValueError
+            :exceptions:
+                | ATSValueError - Parameters must be provided.
+                | ATSValueError - Strategy must be provided.
+                | ATSValueError - Context bundle must be provided.
         '''
         if self.parameters is None:
-            raise ATSValueError("Parameters is required.")
+            raise ATSValueError("parameters is required.")
 
         if self.strategy is None:
-            raise ATSValueError("Strategy is required.")
+            raise ATSValueError("strategy is required.")
 
         if self.context_bundle is None:
-            raise ATSValueError("Context bundle is required.")
+            raise ATSValueError("context bundle is required.")
 
     def merge(self, other: 'OptionComponentBundle') -> None:
         '''
@@ -82,15 +86,16 @@ class OptionComponentBundle:
         '''
         for field_name in self.__dataclass_fields__:
             other_value = getattr(other, field_name)
+
             if other_value is not None:
                 setattr(self, field_name, other_value)
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> dict[str, Any]:
         '''
             Converts the bundle attributes to a dictionary.
 
             :return: Dictionary representation of the bundle attributes.
-            :rtype: <dict>
+            :rtype: <dict[str, Any]>
             :exceptions: None.
         '''
         return {

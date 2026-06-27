@@ -84,8 +84,7 @@
 <span class="sd">            :attributes:</span>
 <span class="sd">                | ATS_LOG_MSG_FORMAT - Log message format.</span>
 <span class="sd">                | ATS_LOG_DATE_FORMAT - Log date format.</span>
-<span class="sd">            :methods: None</span>
-<span class="sd">    &#39;&#39;&#39;</span>
+<span class="sd">            :methods: None.    &#39;&#39;&#39;</span>
     <span class="n">ATS_LOG_MSG_FORMAT</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">%(asctime)s</span><span class="s1"> - </span><span class="si">%(levelname)s</span><span class="s1"> - </span><span class="si">%(message)s</span><span class="s1">&#39;</span>
     <span class="n">ATS_LOG_DATE_FORMAT</span> <span class="o">=</span> <span class="s1">&#39;%m/</span><span class="si">%d</span><span class="s1">/%Y %I:%M:%S %p&#39;</span></div>
 
@@ -106,8 +105,7 @@
 <span class="sd">                | ATS_LOG_WARNING - Warning log level.</span>
 <span class="sd">                | ATS_LOG_ERROR - Error log level.</span>
 <span class="sd">                | ATS_LOG_CRITICAL - Critical log level.</span>
-<span class="sd">            :methods: None</span>
-<span class="sd">    &#39;&#39;&#39;</span>
+<span class="sd">            :methods: None.    &#39;&#39;&#39;</span>
     <span class="n">ATS_LOG_DEBUG</span> <span class="o">=</span> <span class="mi">10</span>
     <span class="n">ATS_LOG_INFO</span> <span class="o">=</span> <span class="mi">20</span>
     <span class="n">ATS_LOG_WARNING</span> <span class="o">=</span> <span class="mi">30</span>
@@ -150,9 +148,9 @@
 <span class="sd">            :type ctrl: &lt;int&gt;</span>
 <span class="sd">            :return: True (success) | False (fail)</span>
 <span class="sd">            :rtype: &lt;bool&gt;</span>
-<span class="sd">            :exceptions: NotImplementedError.</span>
+<span class="sd">            :exceptions: None.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s2">&quot;Method write_log() must be implemented.&quot;</span><span class="p">)</span></div>
+        <span class="k">pass</span></div>
 
 
 <div class="viewcode-block" id="ILogger.is_initialized">
@@ -164,9 +162,9 @@
 
 <span class="sd">            :return: True (success) | False (fail)</span>
 <span class="sd">            :rtype: &lt;bool&gt;</span>
-<span class="sd">            :exceptions: NotImplementedError.</span>
+<span class="sd">            :exceptions: None.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s2">&quot;Method ok() must be implemented.&quot;</span><span class="p">)</span></div>
+        <span class="k">pass</span></div>
 
 
     <span class="nd">@abstractmethod</span>
@@ -176,9 +174,9 @@
 
 <span class="sd">            :return: The ATS logger as string representation.</span>
 <span class="sd">            :rtype: &lt;str&gt;</span>
-<span class="sd">            :exceptions: NotImplementedError.</span>
+<span class="sd">            :exceptions: None.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s2">&quot;Method __str__() must be implemented.&quot;</span><span class="p">)</span></div>
+        <span class="k">pass</span></div>
 
 </pre></div>
 

@@ -64,7 +64,8 @@ def validate_component(instance: Any, expected_class: type[Any]) -> None:
         :type instance: <Any>
         :param expected_class: The expected concrete class type.
         :type expected_class: <type[Any]>
-        :exceptions: ATSTypeError
+        :exceptions:
+            | ATSTypeError - instance is not of expected class type.
     '''
     if not isinstance(instance, expected_class):
-        raise ATSTypeError(f"Instance [{type(instance).__name__}] is not of expected type {expected_class.__name__}.")
+        raise ATSTypeError(f"instance [{type(instance).__name__}] is not of expected type {expected_class.__name__}.")

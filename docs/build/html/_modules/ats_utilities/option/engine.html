@@ -58,7 +58,7 @@
 <span class="sd">    Creates an option parser based on the argparse argument processor.</span>
 <span class="sd">&#39;&#39;&#39;</span>
 
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">override</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.option.ioption_parser</span> <span class="kn">import</span> <span class="n">IOptionManager</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.option.component_bundle</span> <span class="kn">import</span> <span class="n">OptionComponentBundle</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.context_bundle</span> <span class="kn">import</span> <span class="n">ContextBundle</span>
@@ -76,7 +76,7 @@
 <span class="kn">from</span> <span class="nn">ats_utilities.checker.proxy_validator</span> <span class="kn">import</span> <span class="n">validator</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.reporter.proxy_reporter</span> <span class="kn">import</span> <span class="n">vreporter</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.factory_context_bundle</span> <span class="kn">import</span> <span class="n">factory_context_bundle</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.factory_class</span> <span class="kn">import</span> <span class="n">get_class_name</span><span class="p">,</span> <span class="n">format_instance_to_string</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.factory_class</span> <span class="kn">import</span> <span class="n">require_attributes</span><span class="p">,</span> <span class="n">get_class_name</span><span class="p">,</span> <span class="n">format_instance_to_string</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.factory_component</span> <span class="kn">import</span> <span class="n">make_component</span><span class="p">,</span> <span class="n">validate_component</span>
 
 <span class="n">__author__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;Vladimir Roncevic&#39;</span>
@@ -146,9 +146,13 @@
 
         <span class="k">except</span> <span class="p">(</span><span class="n">ATSTypeError</span><span class="p">,</span> <span class="n">ATSValueError</span><span class="p">,</span> <span class="n">ATSRuntimeError</span><span class="p">,</span> <span class="n">ATSAttributeError</span><span class="p">)</span> <span class="k">as</span> <span class="n">exc</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_reporter</span><span class="o">.</span><span class="n">error</span><span class="p">([</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">get_class_name</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="si">}</span><span class="s1"> </span><span class="si">{</span><span class="n">exc</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">])</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">exc</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_reporter</span><span class="o">.</span><span class="n">error</span><span class="p">([</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">get_class_name</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="si">}</span><span class="s1"> unexpected exception: </span><span class="si">{</span><span class="n">exc</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">])</span>
 
 <div class="viewcode-block" id="OptionManager.add_operation">
 <a class="viewcode-back" href="../../../ats_utilities.option.engine.html#ats_utilities.option.engine.OptionManager.add_operation">[docs]</a>
+    <span class="nd">@require_attributes</span><span class="p">(</span><span class="s1">&#39;_strategy&#39;</span><span class="p">)</span>
+    <span class="nd">@override</span>
     <span class="k">def</span> <span class="nf">add_operation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Adds an option to the ATS parser.</span>
@@ -157,7 +161,8 @@
 <span class="sd">            :type args: &lt;str&gt;</span>
 <span class="sd">            :param kwargs: Arguments in shape of dictionary.</span>
 <span class="sd">            :type kwargs: &lt;Any&gt;</span>
-<span class="sd">            :exceptions: None.</span>
+<span class="sd">            :exceptions:</span>
+<span class="sd">                | ATSAttributeError: &#39;_strategy&#39; attribute is required.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_strategy</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
 
@@ -166,13 +171,21 @@
 <a class="viewcode-back" href="../../../ats_utilities.option.engine.html#ats_utilities.option.engine.OptionManager.add_version_operation">[docs]</a>
     <span class="nd">@validator</span><span class="p">([(</span><span class="s1">&#39;str | None:version&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)])</span>
     <span class="nd">@vreporter</span><span class="p">(</span><span class="s1">&#39;add version </span><span class="si">{version}</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="nd">@override</span>
     <span class="k">def</span> <span class="nf">add_version_operation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">version</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Adds version option to the ATS parser.</span>
 
 <span class="sd">            :param version: The ATS version in string format | None.</span>
 <span class="sd">            :type version: &lt;str | None&gt;</span>
-<span class="sd">            :exceptions: ATSTypeError, ATSValueError, ATSRuntimeError, ATSAttributeError.</span>
+<span class="sd">            :exceptions:</span>
+<span class="sd">                | ATSRuntimeError: Decorator cannot be used on a standalone function.</span>
+<span class="sd">                | ATSAttributeError: Class is required to provide a &#39;_reporter&#39; object to</span>
+<span class="sd">                |                    use the @verboser decorator.</span>
+<span class="sd">                | ATSTypeError: Parameter type validation failed.</span>
+<span class="sd">                | ATSValueError: Parameter format validation failed.</span>
+<span class="sd">                | ATSRuntimeError: Decorator used on a non-class method.</span>
+<span class="sd">                | ATSAttributeError: Class does not provide a &#39;_checker&#39; object.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="k">if</span> <span class="n">version</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_strategy</span><span class="o">.</span><span class="n">add_version</span><span class="p">(</span><span class="n">version</span><span class="p">)</span></div>
@@ -180,7 +193,9 @@
 
 <div class="viewcode-block" id="OptionManager.parse_input_args">
 <a class="viewcode-back" href="../../../ats_utilities.option.engine.html#ats_utilities.option.engine.OptionManager.parse_input_args">[docs]</a>
+    <span class="nd">@require_attributes</span><span class="p">(</span><span class="s1">&#39;_strategy&#39;</span><span class="p">)</span>
     <span class="nd">@vreporter</span><span class="p">(</span><span class="s1">&#39;parse inout args arguments </span><span class="si">{arguments}</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="nd">@override</span>
     <span class="k">def</span> <span class="nf">parse_input_args</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">arguments</span><span class="p">:</span> <span class="n">OptArgs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">OptionNamespace</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Processes arguments from the start.</span>
@@ -189,7 +204,11 @@
 <span class="sd">            :type arguments: &lt;OptArgs&gt;</span>
 <span class="sd">            :return: Option namespace object.</span>
 <span class="sd">            :rtype: &lt;OptionNamespace&gt;</span>
-<span class="sd">            :exceptions: ATSRuntimeError, ATSAttributeError.</span>
+<span class="sd">            :exceptions:</span>
+<span class="sd">                | ATSRuntimeError: Decorator cannot be used on a standalone function.</span>
+<span class="sd">                | ATSAttributeError: Class is required to provide a &#39;_reporter&#39; object to</span>
+<span class="sd">                |                    use the @verboser decorator.</span>
+<span class="sd">                | ATSAttributeError: &#39;_strategy&#39; attribute is required.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="n">args</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_strategy</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">arguments</span><span class="p">,</span> <span class="n">known_only</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">args</span></div>
@@ -197,7 +216,9 @@
 
 <div class="viewcode-block" id="OptionManager.parse_args">
 <a class="viewcode-back" href="../../../ats_utilities.option.engine.html#ats_utilities.option.engine.OptionManager.parse_args">[docs]</a>
+    <span class="nd">@require_attributes</span><span class="p">(</span><span class="s1">&#39;_strategy&#39;</span><span class="p">)</span>
     <span class="nd">@vreporter</span><span class="p">(</span><span class="s1">&#39;parse args arguments </span><span class="si">{arguments}</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="nd">@override</span>
     <span class="k">def</span> <span class="nf">parse_args</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">arguments</span><span class="p">:</span> <span class="n">OptArgs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">OptionNamespace</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Processes arguments from the start.</span>
@@ -206,7 +227,11 @@
 <span class="sd">            :type arguments: &lt;OptArgs&gt;</span>
 <span class="sd">            :return: Option namespace object.</span>
 <span class="sd">            :rtype: &lt;OptionNamespace&gt;</span>
-<span class="sd">            :exceptions: ATSRuntimeError, ATSAttributeError.</span>
+<span class="sd">            :exceptions:</span>
+<span class="sd">                | ATSRuntimeError: Decorator cannot be used on a standalone function.</span>
+<span class="sd">                | ATSAttributeError: Class is required to provide a &#39;_reporter&#39; object to</span>
+<span class="sd">                |                    use the @verboser decorator.</span>
+<span class="sd">                | ATSAttributeError: &#39;_strategy&#39; attribute is required.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="n">args</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_strategy</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">arguments</span><span class="p">,</span> <span class="n">known_only</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">args</span></div>
@@ -214,19 +239,24 @@
 
 <div class="viewcode-block" id="OptionManager.register_commands">
 <a class="viewcode-back" href="../../../ats_utilities.option.engine.html#ats_utilities.option.engine.OptionManager.register_commands">[docs]</a>
+    <span class="nd">@require_attributes</span><span class="p">(</span><span class="s1">&#39;_strategy&#39;</span><span class="p">)</span>
+    <span class="nd">@override</span>
     <span class="k">def</span> <span class="nf">register_commands</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">commands</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">IOptionCommand</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Registers a list of commands with the parser.</span>
 
 <span class="sd">            :param commands: List of commands to register.</span>
 <span class="sd">            :type commands: &lt;list[IOptionCommand]&gt;</span>
-<span class="sd">            :exceptions: None.</span>
+<span class="sd">            :exceptions:</span>
+<span class="sd">                | ATSAttributeError: &#39;_strategy&#39; attribute is required.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_strategy</span><span class="o">.</span><span class="n">register_commands</span><span class="p">(</span><span class="n">commands</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="OptionManager.parse_command">
 <a class="viewcode-back" href="../../../ats_utilities.option.engine.html#ats_utilities.option.engine.OptionManager.parse_command">[docs]</a>
+    <span class="nd">@require_attributes</span><span class="p">(</span><span class="s1">&#39;_strategy&#39;</span><span class="p">)</span>
+    <span class="nd">@override</span>
     <span class="k">def</span> <span class="nf">parse_command</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">arguments</span><span class="p">:</span> <span class="n">OptArgs</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">dict</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Parses arguments as a command.</span>
@@ -235,24 +265,29 @@
 <span class="sd">            :type arguments: &lt;OptArgs&gt;</span>
 <span class="sd">            :return: Tuple of (command name, command arguments).</span>
 <span class="sd">            :rtype: &lt;tuple[str, dict]&gt;</span>
-<span class="sd">            :exceptions: None.</span>
+<span class="sd">            :exceptions:</span>
+<span class="sd">                | ATSAttributeError: &#39;_strategy&#39; attribute is required.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_strategy</span><span class="o">.</span><span class="n">parse_command</span><span class="p">(</span><span class="n">arguments</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="OptionManager.is_initialized">
 <a class="viewcode-back" href="../../../ats_utilities.option.engine.html#ats_utilities.option.engine.OptionManager.is_initialized">[docs]</a>
+    <span class="nd">@require_attributes</span><span class="p">(</span><span class="s1">&#39;_strategy&#39;</span><span class="p">)</span>
+    <span class="nd">@override</span>
     <span class="k">def</span> <span class="nf">is_initialized</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Checks if option parser component is initialized.</span>
 
 <span class="sd">            :return: True (success) | False (fail).</span>
 <span class="sd">            :rtype: &lt;bool&gt;</span>
-<span class="sd">            :exceptions: None.</span>
+<span class="sd">            :exceptions:</span>
+<span class="sd">                | ATSAttributeError: &#39;_strategy&#39; attribute is required.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_is_initialized</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_strategy</span><span class="o">.</span><span class="n">is_initialized</span><span class="p">()</span></div>
 
 
+    <span class="nd">@override</span>
     <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Returns the string representation of OptionManager.</span>

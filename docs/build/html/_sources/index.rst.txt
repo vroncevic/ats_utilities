@@ -202,6 +202,7 @@ Framework structure
         │   ├── ats_bad_call_error.py
         │   ├── ats_error.py
         │   ├── ats_file_error.py
+        │   ├── ats_generator_error.py
         │   ├── ats_key_error.py
         │   ├── ats_lookup_error.py
         │   ├── ats_parameter_error.py
@@ -212,7 +213,22 @@ Framework structure
         ├── factory_class.py
         ├── factory_component.py
         ├── factory_context_bundle.py
-        ├── factory_utils.py
+        ├── factory_dict_utils.py
+        ├── factory_file_utils.py
+        ├── generator/
+        │   ├── component_bundle.py
+        │   ├── engine.py
+        │   ├── generator_bundle.py
+        │   ├── igenerator.py
+        │   ├── __init__.py
+        │   ├── ischeme_loader.py
+        │   ├── itar_processor.py
+        │   ├── itemplate_processor.py
+        │   ├── scheme_loader.py
+        │   ├── tar_process_bundle.py
+        │   ├── tar_process_member_bundle.py
+        │   ├── tar_processor.py
+        │   └── template_processor.py
         ├── info/
         │   ├── build_date.py
         │   ├── component_bundle.py
@@ -248,9 +264,11 @@ Framework structure
         │   └── logger.py
         ├── option/
         │   ├── arg_parser.py
+        │   ├── command_option.py
         │   ├── component_bundle.py
         │   ├── engine.py
         │   ├── __init__.py
+        │   ├── ioption_command.py
         │   ├── ioption_parser.py
         │   ├── iparser_strategy.py
         │   ├── option_namespace.py
@@ -283,7 +301,7 @@ Framework structure
             ├── splash_property.py
             └── terminal_properties.py
 
-    17 directories, 154 files
+    18 directories, 171 files
 
 Copyright and licence
 ----------------------

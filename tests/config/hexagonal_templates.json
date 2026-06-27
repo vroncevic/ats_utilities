@@ -1,0 +1,86 @@
+{
+    "gen_standalone": {
+        "source_dir": "gen_standalone_templates",
+        "path_replacements": {
+            "task_cli": "project_name"
+        },
+        "exclude": [
+            "**/.coverage",
+            "**/htmlcov/**",
+            "**/__pycache__/**",
+            "**/.pytest_cache/**",
+            "**/.vscode/**",
+            "**/generated/**"
+        ]
+    },
+    "gen_with_ats_utilities": {
+        "source_dir": "gen_with_ats_utilities_templates",
+        "path_replacements": {
+            "task_cli": "project_name"
+        },
+        "exclude": [
+            "**/.coverage",
+            "**/htmlcov/**",
+            "**/__pycache__/**",
+            "**/.pytest_cache/**",
+            "**/.vscode/**",
+            "**/generated/**"
+        ]
+    },
+    "tool_standalone": {
+        "source_dir": "tool_standalone_templates",
+        "path_replacements": {
+            "task_cli": "project_name"
+        },
+        "exclude": [
+            "**/.coverage",
+            "**/htmlcov/**",
+            "**/__pycache__/**",
+            "**/.pytest_cache/**",
+            "**/.vscode/**",
+            "**/generated/**"
+        ]
+    },
+    "tool_standalone_with_gen_config": {
+        "source_dir": "tool_standalone_with_gen_config_templates",
+        "path_replacements": {
+            "task_cli": "project_name"
+        },
+        "exclude": [
+            "**/.coverage",
+            "**/htmlcov/**",
+            "**/__pycache__/**",
+            "**/.pytest_cache/**",
+            "**/.vscode/**",
+            "**/generated/**"
+        ]
+    },
+    "tool_with_ats_utilities": {
+        "source_dir": "tool_with_ats_utilities_templates",
+        "path_replacements": {
+            "task_cli": "project_name"
+        },
+        "exclude": [
+            "**/.coverage",
+            "**/htmlcov/**",
+            "**/__pycache__/**",
+            "**/.pytest_cache/**",
+            "**/.vscode/**",
+            "**/generated/**"
+        ]
+    },
+    "tool_with_gen_config_and_ats_utilities": {
+        "source_dir": "tool_with_gen_config_and_ats_utilities_templates",
+        "path_replacements": {
+            "task_cli": "project_name"
+        },
+        "exclude": [
+            "**/.coverage",
+            "**/htmlcov/**",
+            "**/__pycache__/**",
+            "**/.pytest_cache/**",
+            "**/.vscode/**",
+            "**/generated/**"
+        ]
+    }
+}

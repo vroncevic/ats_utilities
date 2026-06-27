@@ -54,9 +54,9 @@ class IUseGitHub(ABC):
 
             :return: The ATS use GitHub infrastructure status | None.
             :rtype: <bool | None>
-            :exceptions: NotImplementedError..
+            :exceptions: None.
         '''
-        raise NotImplementedError("Method use_github() must be implemented.")
+        pass
 
     @use_github.setter
     @abstractmethod
@@ -66,9 +66,9 @@ class IUseGitHub(ABC):
 
             :param use_github: The ATS use GitHub infrastructure status | None.
             :type use_github: <bool | None>
-            :exceptions: NotImplementedError..
+            :exceptions: None.
         '''
-        raise NotImplementedError("Method use_github() must be implemented.")
+        pass
 
     @abstractmethod
     def not_none(self) -> bool:
@@ -77,9 +77,9 @@ class IUseGitHub(ABC):
 
             :return: True (success) | False (fail).
             :rtype: <bool>
-            :exceptions: NotImplementedError..
+            :exceptions: None.
         '''
-        raise NotImplementedError("Method not_none() must be implemented.")
+        pass
 
     @abstractmethod
     def __str__(self) -> str:
@@ -88,6 +88,6 @@ class IUseGitHub(ABC):
 
             :return: The ATS use GitHub infrastructure as string representation.
             :rtype: <str>
-            :exceptions: NotImplementedError..
+            :exceptions: None.
         '''
-        raise NotImplementedError("Method __str__() must be implemented.")
+        pass

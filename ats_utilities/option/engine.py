@@ -20,7 +20,7 @@ Info
     Creates an option parser based on the argparse argument processor.
 '''
 
-from typing import Any
+from typing import Any, override
 from ats_utilities.option.ioption_parser import IOptionManager
 from ats_utilities.option.component_bundle import OptionComponentBundle
 from ats_utilities.context_bundle import ContextBundle
@@ -38,7 +38,7 @@ from ats_utilities.exceptions.ats_attribute_error import ATSAttributeError
 from ats_utilities.checker.proxy_validator import validator
 from ats_utilities.reporter.proxy_reporter import vreporter
 from ats_utilities.factory_context_bundle import factory_context_bundle
-from ats_utilities.factory_class import get_class_name, format_instance_to_string
+from ats_utilities.factory_class import require_attributes, get_class_name, format_instance_to_string
 from ats_utilities.factory_component import make_component, validate_component
 
 __author__: str = 'Vladimir Roncevic'
@@ -106,7 +106,11 @@ class OptionManager(IOptionManager):
 
         except (ATSTypeError, ATSValueError, ATSRuntimeError, ATSAttributeError) as exc:
             self._reporter.error([f'{get_class_name(self)} {exc}'])
+        except Exception as exc:
+            self._reporter.error([f'{get_class_name(self)} unexpected exception: {exc}'])
 
+    @require_attributes('_strategy')
+    @override
     def add_operation(self, *args: str, **kwargs: Any) -> None:
         '''
             Adds an option to the ATS parser.
@@ -115,24 +119,35 @@ class OptionManager(IOptionManager):
             :type args: <str>
             :param kwargs: Arguments in shape of dictionary.
             :type kwargs: <Any>
-            :exceptions: None.
+            :exceptions:
+                | ATSAttributeError: '_strategy' attribute is required.
         '''
         self._strategy.add_argument(*args, **kwargs)
 
     @validator([('str | None:version', None)])
     @vreporter('add version {version}')
+    @override
     def add_version_operation(self, version: str | None) -> None:
         '''
             Adds version option to the ATS parser.
 
             :param version: The ATS version in string format | None.
             :type version: <str | None>
-            :exceptions: ATSTypeError, ATSValueError, ATSRuntimeError, ATSAttributeError.
+            :exceptions:
+                | ATSRuntimeError: Decorator cannot be used on a standalone function.
+                | ATSAttributeError: Class is required to provide a '_reporter' object to
+                |                    use the @verboser decorator.
+                | ATSTypeError: Parameter type validation failed.
+                | ATSValueError: Parameter format validation failed.
+                | ATSRuntimeError: Decorator used on a non-class method.
+                | ATSAttributeError: Class does not provide a '_checker' object.
         '''
         if version:
             self._strategy.add_version(version)
 
+    @require_attributes('_strategy')
     @vreporter('parse inout args arguments {arguments}')
+    @override
     def parse_input_args(self, arguments: OptArgs) -> OptionNamespace:
         '''
             Processes arguments from the start.
@@ -141,12 +156,18 @@ class OptionManager(IOptionManager):
             :type arguments: <OptArgs>
             :return: Option namespace object.
             :rtype: <OptionNamespace>
-            :exceptions: ATSRuntimeError, ATSAttributeError.
+            :exceptions:
+                | ATSRuntimeError: Decorator cannot be used on a standalone function.
+                | ATSAttributeError: Class is required to provide a '_reporter' object to
+                |                    use the @verboser decorator.
+                | ATSAttributeError: '_strategy' attribute is required.
         '''
         args = self._strategy.parse(arguments, known_only=False)
         return args
 
+    @require_attributes('_strategy')
     @vreporter('parse args arguments {arguments}')
+    @override
     def parse_args(self, arguments: OptArgs) -> OptionNamespace:
         '''
             Processes arguments from the start.
@@ -155,21 +176,30 @@ class OptionManager(IOptionManager):
             :type arguments: <OptArgs>
             :return: Option namespace object.
             :rtype: <OptionNamespace>
-            :exceptions: ATSRuntimeError, ATSAttributeError.
+            :exceptions:
+                | ATSRuntimeError: Decorator cannot be used on a standalone function.
+                | ATSAttributeError: Class is required to provide a '_reporter' object to
+                |                    use the @verboser decorator.
+                | ATSAttributeError: '_strategy' attribute is required.
         '''
         args = self._strategy.parse(arguments, known_only=True)
         return args
 
+    @require_attributes('_strategy')
+    @override
     def register_commands(self, commands: list[IOptionCommand]) -> None:
         '''
             Registers a list of commands with the parser.
 
             :param commands: List of commands to register.
             :type commands: <list[IOptionCommand]>
-            :exceptions: None.
+            :exceptions:
+                | ATSAttributeError: '_strategy' attribute is required.
         '''
         self._strategy.register_commands(commands)
 
+    @require_attributes('_strategy')
+    @override
     def parse_command(self, arguments: OptArgs = None) -> tuple[str, dict]:
         '''
             Parses arguments as a command.
@@ -178,20 +208,25 @@ class OptionManager(IOptionManager):
             :type arguments: <OptArgs>
             :return: Tuple of (command name, command arguments).
             :rtype: <tuple[str, dict]>
-            :exceptions: None.
+            :exceptions:
+                | ATSAttributeError: '_strategy' attribute is required.
         '''
         return self._strategy.parse_command(arguments)
 
+    @require_attributes('_strategy')
+    @override
     def is_initialized(self) -> bool:
         '''
             Checks if option parser component is initialized.
 
             :return: True (success) | False (fail).
             :rtype: <bool>
-            :exceptions: None.
+            :exceptions:
+                | ATSAttributeError: '_strategy' attribute is required.
         '''
         return self._is_initialized and self._strategy.is_initialized()
 
+    @override
     def __str__(self) -> str:
         '''
             Returns the string representation of OptionManager.

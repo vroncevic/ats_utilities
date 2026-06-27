@@ -72,28 +72,35 @@ class SplashComponentBundle:
         '''
             Validates that essential components are set.
 
-            :exceptions: ValueError.
+            :exceptions:
+                | ValueError: Properties dictionary 'prop' must be provided.
+                | ValueError: Splash property 'splash_property' must be provided.
+                | ValueError: Terminal properties 'terminal_property' must be provided.
+                | ValueError: GitHub infrastructure 'github' must be provided.
+                | ValueError: External infrastructure 'ext' must be provided.
+                | ValueError: Progress bar 'pb' must be provided.
+                | ValueError: Context bundle 'context_bundle' must be provided.
         '''
         if self.prop is None:
-            raise ValueError("Properties dictionary 'prop' must be provided.")
+            raise ValueError("properties dictionary 'prop' must be provided.")
 
         if self.splash_property is None:
-            raise ValueError("Splash property 'splash_property' must be provided.")
+            raise ValueError("splash property 'splash_property' must be provided.")
 
         if self.terminal_property is None:
-            raise ValueError("Terminal properties 'terminal_property' must be provided.")
+            raise ValueError("terminal properties 'terminal_property' must be provided.")
 
         if self.github is None:
-            raise ValueError("GitHub infrastructure 'github' must be provided.")
+            raise ValueError("gitHub infrastructure 'github' must be provided.")
 
         if self.ext is None:
-            raise ValueError("External infrastructure 'ext' must be provided.")
+            raise ValueError("external infrastructure 'ext' must be provided.")
 
         if self.pb is None:
-            raise ValueError("Progress bar 'pb' must be provided.")
+            raise ValueError("progress bar 'pb' must be provided.")
 
         if self.context_bundle is None:
-            raise ValueError("Context bundle 'context_bundle' must be provided.")
+            raise ValueError("context bundle 'context_bundle' must be provided.")
 
     def merge(self, other: 'SplashComponentBundle') -> None:
         '''
@@ -105,15 +112,16 @@ class SplashComponentBundle:
         '''
         for field_name in self.__dataclass_fields__:
             other_value = getattr(other, field_name)
+
             if other_value is not None:
                 setattr(self, field_name, other_value)
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> dict[str, Any]:
         '''
             Converts the bundle attributes to a dictionary.
 
             :return: Dictionary representation of the bundle attributes.
-            :rtype: <dict>
+            :rtype: <dict[str, Any]>
             :exceptions: None.
         '''
         return {

@@ -54,9 +54,9 @@ class ILogoPath(ABC):
 
             :return: The ATS logo path in string format | None.
             :rtype: <str | None>
-            :exceptions: NotImplementedError..
+            :exceptions: None.
         '''
-        raise NotImplementedError("Method logo_path() must be implemented.")
+        pass
 
     @logo_path.setter
     @abstractmethod
@@ -66,9 +66,9 @@ class ILogoPath(ABC):
 
             :param logo_path: The ATS logo path in string format | None.
             :type logo_path: <str | None>
-            :exceptions: NotImplementedError..
+            :exceptions: None.
         '''
-        raise NotImplementedError("Method logo_path() must be implemented.")
+        pass
 
     @abstractmethod
     def not_none(self) -> bool:
@@ -77,9 +77,9 @@ class ILogoPath(ABC):
 
             :return: True (success) | False (fail).
             :rtype: <bool>
-            :exceptions: NotImplementedError..
+            :exceptions: None.
         '''
-        raise NotImplementedError("Method not_none() must be implemented.")
+        pass
 
     @abstractmethod
     def __str__(self) -> str:
@@ -88,6 +88,6 @@ class ILogoPath(ABC):
 
             :return: The ATS logo path as string representation.
             :rtype: <str>
-            :exceptions: NotImplementedError..
+            :exceptions: None.
         '''
-        raise NotImplementedError("Method __str__() must be implemented.")
+        pass

@@ -21,7 +21,8 @@ Info
 '''
 
 from abc import abstractmethod
-from typing import Any
+from os.path import dirname
+from typing import Any, override
 from ats_utilities.base.ibase import IBase
 from ats_utilities.base.ibase import ArgSeq
 from ats_utilities.context_bundle import ContextBundle
@@ -45,8 +46,13 @@ from ats_utilities.splasher.component_bundle import SplashComponentBundle
 from ats_utilities.option.ioption_parser import IOptionManager
 from ats_utilities.option.engine import OptionManager
 from ats_utilities.option.option_namespace import OptionNamespace
+from ats_utilities.generator.component_bundle import GeneratorComponentBundle
+from ats_utilities.generator.engine import Generator
+from ats_utilities.generator.igenerator import IGenerator
 from ats_utilities.factory_context_bundle import factory_context_bundle
-from ats_utilities.factory_class import get_class_name, format_instance_to_string
+from ats_utilities.factory_class import (
+    require_attributes, get_class_name, format_instance_to_string
+)
 from ats_utilities.factory_component import make_component, validate_component
 from ats_utilities.exceptions.ats_type_error import ATSTypeError
 from ats_utilities.exceptions.ats_value_error import ATSValueError
@@ -74,11 +80,12 @@ class Base(IBase):
                 | _checker - Injected parameters checker (default Checker).
                 | _reporter - Injected reporter for messaging (default Reporter).
                 | _verbose - Injected Enable/Disable verbose option (default False).
-                | _config_loader - Manager for configuration loading.
-                | _info_manager - Manager for info component.
-                | _splasher - Manager for splash component.
-                | _options_parser - Manager for options parser.
-                | _logger_manager - Manager for logger component.
+                | _config_loader - Manager for configuration loading (default ConfigLoader).
+                | _info_manager - Manager for info component (default InfoManager).
+                | _splasher - Manager for splash component (default Splasher).
+                | _options_parser - Manager for options parser (default OptionManager).
+                | _logger_manager - Manager for logger component (default LoggerManager).
+                | _generator - Generator manager (default Generator).
                 | _is_initialized - Indicates if the base component is initialized (default False).
             :methods:
                 | __init__ - Initializes Base constructor.
@@ -107,13 +114,7 @@ class Base(IBase):
         shared_context: ContextBundle = ContextBundle(
             checker=self._checker, reporter=self._reporter, verbose=self._verbose
         )
-        self._operational: bool = False
         self._is_initialized: bool = False
-        self._config_loader: IConfigLoader | None = None
-        self._info_manager: IInfoManager | None = None
-        self._splasher: ISplasher | None = None
-        self._options_parser: IOptionManager | None = None
-        self._logger_manager: ILoggerManager | None = None
 
         try:
             shared_config_file_bundle: ATSConfigFileBundle = ATSConfigFileBundle(context=shared_context)
@@ -131,6 +132,10 @@ class Base(IBase):
             self._info_manager: IInfoManager = make_component(bundle.info_manager, InfoManager, {'component_bundle': info_component_bundle})
             validate_component(self._info_manager, InfoManager)
             self._info_manager.set_info(loader.load_configuration())
+
+            # Ensure that logo path is absolute
+            logo_path: str | None = self._info_manager.logo_path
+            self._info_manager.logo_path = f"{dirname(bundle.info_file)}/{logo_path}"
 
             splash_component_bundle: SplashComponentBundle = SplashComponentBundle(
                 prop=self._info_manager.get_info(), context_bundle=shared_context
@@ -155,13 +160,23 @@ class Base(IBase):
             )
             validate_component(self._logger_manager, LoggerManager)
 
-            self._is_initialized = all(component.is_initialized() for component in [
-                self._info_manager, self._splasher, self._options_parser, self._logger_manager
-            ])
+            components: list[Any] = [self._info_manager, self._splasher, self._options_parser, self._logger_manager]
+
+            if bundle.use_generator:
+                self._generator: IGenerator = make_component(
+                    bundle.generator, Generator, {'component_bundle': GeneratorComponentBundle(context_bundle=shared_context)}
+                )
+                validate_component(self._generator, Generator)
+                components.append(self._generator)
+
+            self._is_initialized = all(component.is_initialized() for component in components)
 
         except (ATSTypeError, ATSValueError, ATSRuntimeError, ATSAttributeError) as exc:
             self._reporter.error([f'{get_class_name(self)} {exc}'])
+        except Exception as exc:
+            self._reporter.error([f'{get_class_name(self)} unexpected exception: {exc}'])
 
+    @override
     def is_initialized(self) -> bool:
         '''
             Checks if the base component is initialized.
@@ -170,15 +185,10 @@ class Base(IBase):
             :rtype: <bool>
             :exceptions: None.
         '''
-        return all([
-            self._is_initialized,
-            self._config_loader is not None,
-            self._info_manager is not None,
-            self._splasher is not None,
-            self._options_parser is not None,
-            self._logger_manager is not None
-        ])
+        return self._is_initialized
 
+    @require_attributes('_options_parser')
+    @override
     def add_new_option(self, *args: str, **kwargs: Any) -> None:
         '''
             Adds a new option for the CL interface.
@@ -187,11 +197,14 @@ class Base(IBase):
             :type args: <str>
             :param kwargs: arguments in Any form.
             :type kwargs: <Any>
-            :exceptions: None..
+            :exceptions:
+                | ATSAttributeError: '_options_parser' attribute is required.
         '''
         if self.is_initialized():
             self._options_parser.add_operation(*args, **kwargs)
 
+    @require_attributes('_options_parser')
+    @override
     def parse_args(self, argv: ArgSeq) -> OptionNamespace | None:
         '''
             Parses the CLI arguments.
@@ -200,7 +213,8 @@ class Base(IBase):
             :type argv: <ArgSeq>
             :return: Options and arguments.
             :rtype: <OptionNamespace | None>
-            :exceptions: ATSTypeError.
+            :exceptions:
+                | ATSAttributeError: '_options_parser' attribute is required.
         '''
         if self.is_initialized():
             return self._options_parser.parse_args(argv)
@@ -208,6 +222,7 @@ class Base(IBase):
         return None
 
     @abstractmethod
+    @override
     def process(self, verbose: bool = False) -> bool:
         '''
             Processes and runs tool operations (Abstract).
@@ -216,17 +231,17 @@ class Base(IBase):
             :type verbose: <bool>
             :return: True (success) | False (fail).
             :rtype: <bool>
-            :exceptions: TypeError.
+            :exceptions: None.
         '''
-        raise NotImplementedError("Method process() must be implemented.")
+        pass
 
+    @override
     def __str__(self) -> str:
         '''
             Returns the ATS base as string representation.
 
             :return: The ATS base as string representation.
             :rtype: <str>
-            :exceptions: None..
+            :exceptions: None.
         '''
         return format_instance_to_string(self)
-

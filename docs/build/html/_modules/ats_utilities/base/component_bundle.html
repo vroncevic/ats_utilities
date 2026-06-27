@@ -58,6 +58,7 @@
 <span class="sd">    Encapsulates base components to minimize constructor overhead.</span>
 <span class="sd">&#39;&#39;&#39;</span>
 
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span>
 <span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.context_bundle</span> <span class="kn">import</span> <span class="n">ContextBundle</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.config_io.iconfig_loader</span> <span class="kn">import</span> <span class="n">IConfigLoader</span>
@@ -65,6 +66,7 @@
 <span class="kn">from</span> <span class="nn">ats_utilities.option.ioption_parser</span> <span class="kn">import</span> <span class="n">IOptionManager</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.logging.ilogger_manager</span> <span class="kn">import</span> <span class="n">ILoggerManager</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.splasher.isplasher</span> <span class="kn">import</span> <span class="n">ISplasher</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.generator.igenerator</span> <span class="kn">import</span> <span class="n">IGenerator</span>
 
 <span class="n">__author__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;Vladimir Roncevic&#39;</span>
 <span class="n">__copyright__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;(C) 2026, https://vroncevic.github.io/ats_utilities&#39;</span>
@@ -87,12 +89,14 @@
 <span class="sd">        It defines:</span>
 
 <span class="sd">            :attributes:</span>
-<span class="sd">                | info_file - Information file path (default None).</span>
-<span class="sd">                | config_loader - Configuration manager (default None).</span>
+<span class="sd">                | info_file - Information file (default None).</span>
+<span class="sd">                | config_loader - Configuration loader (default None).</span>
 <span class="sd">                | info_manager - Information manager (default None).</span>
-<span class="sd">                | options_parser - Options manager (default None).</span>
+<span class="sd">                | options_parser - Options parser (default None).</span>
 <span class="sd">                | logger_manager - Logger manager (default None).</span>
 <span class="sd">                | splasher - Splasher (default None).</span>
+<span class="sd">                | generator - Generator (default None).</span>
+<span class="sd">                | use_generator - Enable/Disable generator usage (default False).</span>
 <span class="sd">                | context_bundle - Context bundle for dependency injection (default None).</span>
 <span class="sd">            :methods:</span>
 <span class="sd">                | validate - Validates that essential components are set.</span>
@@ -106,6 +110,8 @@
     <span class="n">options_parser</span><span class="p">:</span> <span class="n">IOptionManager</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">logger_manager</span><span class="p">:</span> <span class="n">ILoggerManager</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">splasher</span><span class="p">:</span> <span class="n">ISplasher</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">generator</span><span class="p">:</span> <span class="n">IGenerator</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">use_generator</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
     <span class="n">context_bundle</span><span class="p">:</span> <span class="n">ContextBundle</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
 
 <div class="viewcode-block" id="BaseComponentBundle.validate">
@@ -114,10 +120,11 @@
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Validates that essential components are set.</span>
 
-<span class="sd">            :exceptions: ValueError</span>
+<span class="sd">            :exceptions:</span>
+<span class="sd">                | ValueError - Information file must be provided.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">info_file</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Information file path &#39;info_file&#39; must be provided.&quot;</span><span class="p">)</span></div>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;information file must be provided.&quot;</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="BaseComponentBundle.merge">
@@ -128,23 +135,24 @@
 
 <span class="sd">            :param other: Another bundle to merge into this one.</span>
 <span class="sd">            :type other: &lt;BaseComponentBundle&gt;</span>
-<span class="sd">            :exceptions: None..</span>
+<span class="sd">            :exceptions: None.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="k">for</span> <span class="n">field_name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">__dataclass_fields__</span><span class="p">:</span>
             <span class="n">other_value</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">field_name</span><span class="p">)</span>
+
             <span class="k">if</span> <span class="n">other_value</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
                 <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">field_name</span><span class="p">,</span> <span class="n">other_value</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="BaseComponentBundle.to_dict">
 <a class="viewcode-back" href="../../../ats_utilities.base.component_bundle.html#ats_utilities.base.component_bundle.BaseComponentBundle.to_dict">[docs]</a>
-    <span class="k">def</span> <span class="nf">to_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">to_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Converts the bundle attributes to a dictionary.</span>
 
 <span class="sd">            :return: Dictionary representation of the bundle attributes.</span>
-<span class="sd">            :rtype: &lt;dict&gt;</span>
-<span class="sd">            :exceptions: None..</span>
+<span class="sd">            :rtype: &lt;dict[str, Any]&gt;</span>
+<span class="sd">            :exceptions: None.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="k">return</span> <span class="p">{</span>
             <span class="n">name</span><span class="p">:</span> <span class="n">value</span>

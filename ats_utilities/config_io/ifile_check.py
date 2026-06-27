@@ -60,9 +60,9 @@ class IFileCheck(ABC):
 
             :param file_path: File path in string format | None.
             :type file_path: <str | None>
-            :exceptions: NotImplementedError..
+            :exceptions: None.
         '''
-        raise NotImplementedError("Method check_path() must be implemented.")
+        pass
 
     @abstractmethod
     def check_mode(self, file_mode: str | None) -> None:
@@ -71,9 +71,9 @@ class IFileCheck(ABC):
 
             :param file_mode: File mode in string format | None.
             :type file_mode: <str | None>
-            :exceptions: NotImplementedError..
+            :exceptions: None.
         '''
-        raise NotImplementedError("Method check_mode() must be implemented.")
+        pass
 
     @abstractmethod
     def check_format(self, file_path: str | None, file_format: str | None) -> None:
@@ -84,9 +84,9 @@ class IFileCheck(ABC):
             :type file_path: <str | None>
             :param file_format: File format in string format (extension) | None.
             :type file_format: <str | None>
-            :exceptions: NotImplementedError..
+            :exceptions: None.
         '''
-        raise NotImplementedError("Method check_format() must be implemented.")
+        pass
 
     @abstractmethod
     def is_file_ok(self) -> bool:
@@ -95,9 +95,9 @@ class IFileCheck(ABC):
 
             :return: True (success) | False (fail).
             :rtype: <bool>
-            :exceptions: NotImplementedError..
+            :exceptions: None.
         '''
-        raise NotImplementedError("Method is_file_ok() must be implemented.")
+        pass
 
     @abstractmethod
     def __str__(self) -> str:
@@ -106,6 +106,6 @@ class IFileCheck(ABC):
 
             :return: The IFileCheck as string representation.
             :rtype: <str>
-            :exceptions: NotImplementedError..
+            :exceptions: None.
         '''
-        raise NotImplementedError("Method __str__() must be implemented.")
+        pass

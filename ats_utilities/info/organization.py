@@ -20,6 +20,7 @@ Info
     Creates an API for the ATS organization in one property object.
 '''
 
+from typing import override
 from ats_utilities.info.iorganization import IOrganization
 from ats_utilities.context_bundle import ContextBundle
 from ats_utilities.checker.ichecker import IChecker
@@ -68,26 +69,31 @@ class Organization(IOrganization):
 
             :param context_bundle: Context bundle for organization | None.
             :type context_bundle: <ContextBundle | None>
-            :exceptions: None..
+            :exceptions: None.
         '''
         factory_context_bundle(self, context_bundle)
         self._organization: str | None = None
 
     @property
     @vreporter('get organization {organization}')
+    @override
     def organization(self) -> str | None:
         '''
             Property method for getting ATS organization.
 
             :return: The ATS organization in string format | None.
             :rtype: <str | None>
-            :exceptions: ATSRuntimeError, ATSAttributeError.
+            :exceptions:
+                | ATSRuntimeError: Decorator cannot be used on a standalone function.
+                | ATSAttributeError: Class is required to provide a '_reporter' object to
+                |                    use the @verboser decorator.
         '''
         return self._organization
 
     @organization.setter
     @validator([('str | None:organization', None)])
     @vreporter('set organization {organization}')
+    @override
     def organization(self, organization: str | None) -> None:
         '''
             Property method for setting ATS organization.
@@ -95,28 +101,38 @@ class Organization(IOrganization):
             :param organization: The ATS organization in string format | None.
             :type organization: <str | None>
             :exceptions:
-                | ATSTypeError, ATSValueError, RuntimeError, AttributeError.
-                | RuntimeError, AttributeError.
+                | ATSRuntimeError: Decorator cannot be used on a standalone function.
+                | ATSAttributeError: Class is required to provide a '_reporter' object to
+                |                    use the @verboser decorator.
+                | ATSTypeError: Parameter type validation failed.
+                | ATSValueError: Parameter format validation failed.
+                | ATSRuntimeError: Decorator used on a non-class method.
+                | ATSAttributeError: Class does not provide a '_checker' object.
         '''
         self._organization = organization
 
     @vreporter('check organization {organization}')
+    @override
     def not_none(self) -> bool:
         '''
             Checks is ATS organization not None.
 
             :return: True (success) | False (fail).
             :rtype: <bool>
-            :exceptions: ATSRuntimeError, ATSAttributeError.
+            :exceptions:
+                | ATSRuntimeError: Decorator cannot be used on a standalone function.
+                | ATSAttributeError: Class is required to provide a '_reporter' object to
+                |                    use the @verboser decorator.
         '''
         return self._organization is not None
 
+    @override
     def __str__(self) -> str:
         '''
             Returns the ATS organization as string representation.
 
             :return: The ATS organization as string representation.
             :rtype: <str>
-            :exceptions: None..
+            :exceptions: None.
         '''
         return format_instance_to_string(self)

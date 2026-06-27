@@ -54,9 +54,9 @@ class ISplasher(ABC):
 
             :param splash_center_bundle: Splash center bundle for centering console output | None.
             :type splash_center_bundle: <SplashCenterBundle | None>
-            :exceptions: NotImplementedError.
+            :exceptions: None.
         '''
-        raise NotImplementedError("Method center() must be implemented.")
+        pass
 
     @abstractmethod
     def is_initialized(self) -> bool:
@@ -65,9 +65,9 @@ class ISplasher(ABC):
 
             :return: True (success) | False (fail)
             :rtype: <bool>
-            :exceptions: NotImplementedError.
+            :exceptions: None.
         '''
-        raise NotImplementedError("Method ok() must be implemented.")
+        pass
 
     @abstractmethod
     def __str__(self) -> str:
@@ -76,6 +76,6 @@ class ISplasher(ABC):
 
             :return: The splash screen component as string representation.
             :rtype: <str>
-            :exceptions: NotImplementedError.
+            :exceptions: None.
         '''
-        raise NotImplementedError("Method __str__() must be implemented.")
+        pass

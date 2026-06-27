@@ -21,7 +21,7 @@ Info
 '''
 
 from collections.abc import Callable
-from typing import Any, ClassVar
+from typing import Any, ClassVar, override
 from enum import Enum
 from logging import (
     getLogger, basicConfig, Logger, DEBUG, WARNING, CRITICAL, ERROR, INFO
@@ -33,7 +33,7 @@ from ats_utilities.checker.ichecker import IChecker
 from ats_utilities.reporter.ireporter import IReporter
 from ats_utilities.checker.proxy_validator import validator
 from ats_utilities.factory_context_bundle import factory_context_bundle
-from ats_utilities.factory_class import format_instance_to_string
+from ats_utilities.factory_class import require_attributes, format_instance_to_string
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -57,8 +57,7 @@ class ATSLogLevels(int, Enum):
                 | ATS_LOG_WARNING - Warning log level from logging module.
                 | ATS_LOG_ERROR - Error log level from logging module.
                 | ATS_LOG_CRITICAL - Critical log level from logging module.
-            :methods: None
-    '''
+            :methods: None.    '''
     ATS_LOG_DEBUG = DEBUG
     ATS_LOG_INFO = INFO
     ATS_LOG_WARNING = WARNING
@@ -142,6 +141,7 @@ class ATSLogger(ILogger):
         }
 
     @validator([('str | None:message', None), ('int:ctrl', None)])
+    @override
     def write_log(self, message: str | None, ctrl: int) -> bool:
         '''
             Writes message to log.
@@ -152,7 +152,11 @@ class ATSLogger(ILogger):
             :type ctrl: <int>
             :return: True (success) | False (fail).
             :rtype: <bool>
-            :exceptions: ATSTypeError by validates_parameters
+            :exceptions:
+                | ATSTypeError: Parameter type validation failed.
+                | ATSValueError: Parameter format validation failed.
+                | ATSRuntimeError: Decorator used on a non-class method.
+                | ATSAttributeError: Class does not provide a '_checker' object.
         '''
         log_call = self._log_methods.get(ctrl)
 
@@ -163,17 +167,21 @@ class ATSLogger(ILogger):
         self._reporter.error([f'not supported log level [{str(ctrl)}]'])
         return False
 
+    @require_attributes('_logger')
+    @override
     def is_initialized(self) -> bool:
         '''
             Checks if logger component is ok.
 
             :return: True (success) | False (fail)
             :rtype: <bool>
-            :exceptions: None..
+            :exceptions:
+                | ATSAttributeError: '_logger' attribute is required.
         '''
         return self._logger.isEnabledFor(INFO)
 
 
+    @override
     def __str__(self) -> str:
         '''
             Returns the string representation of ATS logger.

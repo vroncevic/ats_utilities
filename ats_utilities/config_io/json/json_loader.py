@@ -20,6 +20,7 @@ Info
     Loads the ATS configuration for the ATS.
 '''
 
+from typing import override
 from ats_utilities.config_io.iread import IRead
 from ats_utilities.context_bundle import ContextBundle
 from ats_utilities.checker.ichecker import IChecker
@@ -33,7 +34,7 @@ from ats_utilities.config_io.json.json_processor import JSONProcessor
 from ats_utilities.config_io.json.ijson_processor import IJSONProcessor
 from ats_utilities.factory_context_bundle import factory_context_bundle
 from ats_utilities.factory_component import make_component, validate_component
-from ats_utilities.factory_class import get_private_attr, format_instance_to_string
+from ats_utilities.factory_class import format_instance_to_string
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -86,7 +87,8 @@ class JSONLoader(ILoader):
             :type config_bundle: <ATSConfigFileBundle | None>
             :param json_processor: Processor for JSON content | None.
             :type json_processor: <IJSONProcessor | None>
-            :exceptions: ATSTypeError.
+            :exceptions:
+                | ATSTypeError: Invalid type in constructor arguments.
         '''
         config_file_bundle: ATSConfigFileBundle = config_bundle or ATSConfigFileBundle()
         factory_context_bundle(self, config_file_bundle.context)
@@ -108,25 +110,27 @@ class JSONLoader(ILoader):
         if bool(json2obj):
             self._configuration = json2obj.read_configuration()
 
+    @override
     def load_configuration(self) -> dict[str, str]:
         '''
             Loads the ATS configuration in dictionary format.
 
             :return: Dictionary with JSON information.
             :rtype: <dict[str, str]>
-            :exceptions: None..
+            :exceptions: None.
         '''
         if not self._configuration:
             return {}
 
         return self._configuration.to_dict()
 
+    @override
     def __str__(self) -> str:
         '''
             Returns the JSONLoader as string representation.
 
             :return: The JSONLoader as string representation.
             :rtype: <str>
-            :exceptions: None..
+            :exceptions: None.
         '''
         return format_instance_to_string(self)

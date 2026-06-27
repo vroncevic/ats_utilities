@@ -21,7 +21,7 @@ Info
 '''
 
 import os
-from typing import Any
+from typing import Any, override
 from fcntl import ioctl
 from termios import TIOCGWINSZ
 from struct import unpack, pack
@@ -81,6 +81,7 @@ class TerminalProperties(ITerminalProperties):
 
     @validator([('int:file_descriptor', None)])
     @vreporter('ioctl get window size {window_size}')
+    @override
     def ioctl_get_window_size(self, file_descriptor: int) -> tuple[Any, ...]:
         '''
             Gets size for file descriptor.
@@ -89,18 +90,29 @@ class TerminalProperties(ITerminalProperties):
             :type file_descriptor: <int>
             :return: Window size of terminal.
             :rtype: <tuple[Any, ...]>
-            :exceptions: ATSTypeError, ATSValueError, ATSRuntimeError, ATSAttributeError.
+            :exceptions:
+                | ATSRuntimeError: Decorator cannot be used on a standalone function.
+                | ATSAttributeError: Class is required to provide a '_reporter' object to
+                |                    use the @verboser decorator.
+                | ATSTypeError: Parameter type validation failed.
+                | ATSValueError: Parameter format validation failed.
+                | ATSRuntimeError: Decorator used on a non-class method.
+                | ATSAttributeError: Class does not provide a '_checker' object.
         '''
         self._window_size = unpack('HHHH', ioctl(file_descriptor, TIOCGWINSZ, pack('HHHH', 0, 0, 0, 0)))
 
         return self._window_size
 
     @vreporter('ioctl for all descriptors {window_size}')
+    @override
     def ioctl_for_all_descriptors(self) -> None:
         '''
             Sets size for all file descriptors.
 
-            :exceptions: ATSRuntimeError, ATSAttributeError.
+            :exceptions:
+                | ATSRuntimeError: Decorator cannot be used on a standalone function.
+                | ATSAttributeError: Class is required to provide a '_reporter' object to
+                |                    use the @verboser decorator.
         '''
         std_in: tuple[Any, ...] = self.ioctl_get_window_size(0)
         std_out: tuple[Any, ...] = self.ioctl_get_window_size(1)
@@ -108,13 +120,17 @@ class TerminalProperties(ITerminalProperties):
         self._window_size = std_in or std_out or std_err
 
     @vreporter('size {window_size}')
+    @override
     def size(self) -> tuple[Any, ...]:
         '''
             Gets terminal window size.
 
             :return: Terminal window size.
             :rtype: <tuple[Any, ...]>
-            :exceptions: ATSRuntimeError, ATSAttributeError.
+            :exceptions:
+                | ATSRuntimeError: Decorator cannot be used on a standalone function.
+                | ATSAttributeError: Class is required to provide a '_reporter' object to
+                |                    use the @verboser decorator.
         '''
         try:
             self.ioctl_for_all_descriptors()
@@ -126,12 +142,12 @@ class TerminalProperties(ITerminalProperties):
             self._window_size = self.ioctl_get_window_size(file_descriptor)
             os.close(file_descriptor)
         except OSError:
-            # Fall back to self._window_size if set, otherwise default to (24, 80, 0, 0)
             if not hasattr(self, '_TerminalProperties__window_size') or not self._window_size:
                 self._window_size = (24, 80, 0, 0)
 
         return self._window_size
 
+    @override
     def __str__(self) -> str:
         '''
             Returns the string representation of TerminalProperties.

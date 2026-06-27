@@ -55,9 +55,9 @@ class IFormatValidator(ABC):
             :type exp_type: <str>
             :return: True (success), False (fail)
             :rtype: <bool>
-            :exceptions: NotImplementedError.
+            :exceptions: None.
         '''
-        raise NotImplementedError("Method is_valid() must be implemented.")
+        pass
 
     @abstractmethod
     def split(self, exp_type: str) -> tuple[str, str]:
@@ -68,9 +68,9 @@ class IFormatValidator(ABC):
             :type exp_type: <str>
             :return: A tuple containing the split components
             :rtype: <tuple[str, str]>
-            :exceptions: NotImplementedError.
+            :exceptions: None.
         '''
-        raise NotImplementedError("Method split() must be implemented.")
+        pass
 
     @abstractmethod
     def __str__(self) -> str:
@@ -79,6 +79,6 @@ class IFormatValidator(ABC):
 
             :return: The validator as string representation.
             :rtype: <str>
-            :exceptions: NotImplementedError.
+            :exceptions: None.
         '''
-        raise NotImplementedError("Method __str__() must be implemented.")
+        pass

@@ -21,7 +21,7 @@ Info
 '''
 
 import sys
-from typing import Any
+from typing import Any, override
 from ats_utilities.option.iparser_strategy import IParserStrategy
 from ats_utilities.context_bundle import ContextBundle
 from ats_utilities.checker.ichecker import IChecker
@@ -93,13 +93,18 @@ class ParserStrategy(IParserStrategy):
         self._parser: ArgParser | None = None
 
     @validator([('dict:parameters', None)])
+    @override
     def setup(self, parameters: dict[str, str]) -> None:
         '''
             Initializes the underlying parser with metadata parameters.
 
             :param parameters: Parameters for logger.
             :type parameters: <dict[str, str]>
-            :exceptions: ATSTypeError, ATSValueError, ATSRuntimeError, ATSAttributeError.
+            :exceptions:
+                | ATSTypeError: Parameter type validation failed.
+                | ATSValueError: Parameter format validation failed.
+                | ATSRuntimeError: Decorator used on a non-class method.
+                | ATSAttributeError: Class does not provide a '_checker' object.
         '''
         self._parser = make_component(None, ArgParser, {
             'context_bundle': self._shared_bundle,
@@ -110,6 +115,7 @@ class ParserStrategy(IParserStrategy):
         validate_component(self._parser, ArgParser)
 
     @require_attributes('_parser')
+    @override
     def add_argument(self, *args: str, **kwargs: Any) -> None:
         '''
             Adds an operational argument/flag to the parser.
@@ -118,22 +124,26 @@ class ParserStrategy(IParserStrategy):
             :type args: <str>
             :param kwargs: Arguments in shape of dictionary.
             :type kwargs: <Any>
-            :exceptions: ATSValueError.
+            :exceptions:
+                | ATSValueError: Missing or empty attribute: '_parser'.
         '''
         self._parser.add_argument(*args, **kwargs)
 
     @require_attributes('_parser')
+    @override
     def add_version(self, version: str | None) -> None:
         '''
             Adds a version display option to the parser.
 
             :param version: The ATS version | None.
             :type version: <str | None>
-            :exceptions: ATSValueError.
+            :exceptions:
+                | ATSValueError: Missing or empty attribute: '_parser'.
         '''
         self._parser.add_argument('--version', action='version', version=version)
 
     @require_attributes('_parser')
+    @override
     def parse(self, arguments: OptArgs, known_only: bool = False) -> OptionNamespace:
         '''
             Parses the input arguments and returns an OptionNamespace.
@@ -144,7 +154,8 @@ class ParserStrategy(IParserStrategy):
             :type known_only: <bool>
             :return: Option namespace object.
             :rtype: <OptionNamespace>
-            :exceptions: ATSValueError.
+            :exceptions:
+                | ATSValueError: Missing or empty attribute: '_parser'.
         '''
         if known_only:
             known_args: KnownArgs = self._parser.parse_known_args(arguments)
@@ -153,13 +164,15 @@ class ParserStrategy(IParserStrategy):
         return self._parser.parse_args(arguments)
 
     @require_attributes('_parser')
+    @override
     def register_commands(self, commands: list[IOptionCommand]) -> None:
         '''
             Registers the list of commands with the parser.
 
             :param commands: List of commands to register.
             :type commands: <list[IOptionCommand]>
-            :exceptions: ATSValueError.
+            :exceptions:
+                | ATSValueError: Missing or empty attribute: '_parser'.
         '''
         # Initialization of subparsers on main parser
         if not hasattr(self, '_subparsers') or self._subparsers is None:
@@ -186,6 +199,7 @@ class ParserStrategy(IParserStrategy):
                 cmd_parser.add_argument(opt.name, **kwargs)
 
     @require_attributes('_parser')
+    @override
     def parse_command(self, arguments: OptArgs = None) -> tuple[str, dict]:
         '''
             Parses the input arguments and returns an OptionNamespace.
@@ -194,7 +208,8 @@ class ParserStrategy(IParserStrategy):
             :type arguments: <OptArgs>
             :return: Option namespace object.
             :rtype: <OptionNamespace>
-            :exceptions: ATSValueError.
+            :exceptions:
+                | ATSValueError: Missing or empty attribute: '_parser'.
         '''
         if arguments is None:
             arguments = sys.argv[1:]
@@ -205,6 +220,7 @@ class ParserStrategy(IParserStrategy):
 
         return command_name, params
 
+    @override
     def is_initialized(self) -> bool:
         '''
             Checks if parser strategy component is ok.
@@ -215,6 +231,7 @@ class ParserStrategy(IParserStrategy):
         '''
         return True if self._parser is not None else False
 
+    @override
     def __str__(self) -> str:
         '''
             Returns the string representation of ParserStrategy.
