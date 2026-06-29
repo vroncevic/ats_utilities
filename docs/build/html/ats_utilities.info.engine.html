@@ -84,17 +84,19 @@ The ATS information container.</p>
 <div class="line">_checker - Injected parameters checker (default Checker).</div>
 <div class="line">_reporter - Injected reporter for messaging (default Reporter).</div>
 <div class="line">_verbose - Injected Enable/Disable verbose option (default False).</div>
+<div class="line">_shared_context - Context bundle with shared context.</div>
 <div class="line">_is_initialized - Indicates if the info manager component is initialized (default False).</div>
 </div>
 </dd>
 <dt class="field-even">methods<span class="colon">:</span></dt>
 <dd class="field-even"><div class="line-block">
 <div class="line">__init__ - Initializes InfoManager constructor.</div>
+<div class="line">get_shared_context - Returns the shared context.</div>
 <div class="line">set_info - Sets the ATS information.</div>
 <div class="line">get_info - Gets the ATS information.</div>
 <div class="line">is_initialized - Checks if the info manager component is initialized.</div>
 <div class="line">refresh_status - Refresh status for ATS information structure.</div>
-<div class="line">__str__ - Returns the string representation of InfoManager.</div>
+<div class="line">__str__ - Returns the InfoManager as string representation.</div>
 </div>
 </dd>
 </dl>
@@ -134,6 +136,23 @@ The ATS information container.</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p>&lt;dict[str, Any]&gt;</p>
+</dd>
+<dt class="field-odd">Exceptions<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ats_utilities.info.engine.InfoManager.get_shared_context">
+<span class="sig-name descname"><span class="pre">get_shared_context</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="ats_utilities.context_bundle.html#ats_utilities.context_bundle.ContextBundle" title="ats_utilities.context_bundle.ContextBundle"><span class="pre">ContextBundle</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></span><a class="reference internal" href="_modules/ats_utilities/info/engine.html#InfoManager.get_shared_context"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.info.engine.InfoManager.get_shared_context" title="Link to this definition">¶</a></dt>
+<dd><p>Returns the shared context.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Shared context | None.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>&lt;ContextBundle | None&gt;</p>
 </dd>
 <dt class="field-odd">Exceptions<span class="colon">:</span></dt>
 <dd class="field-odd"><p>None.</p>
@@ -205,6 +224,7 @@ The ATS information container.</p>
 <li><a class="reference internal" href="#ats_utilities.info.engine.InfoManager._reporter"><code class="docutils literal notranslate"><span class="pre">InfoManager._reporter</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.info.engine.InfoManager._verbose"><code class="docutils literal notranslate"><span class="pre">InfoManager._verbose</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.info.engine.InfoManager.get_info"><code class="docutils literal notranslate"><span class="pre">InfoManager.get_info()</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.info.engine.InfoManager.get_shared_context"><code class="docutils literal notranslate"><span class="pre">InfoManager.get_shared_context()</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.info.engine.InfoManager.is_initialized"><code class="docutils literal notranslate"><span class="pre">InfoManager.is_initialized()</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.info.engine.InfoManager.refresh_status"><code class="docutils literal notranslate"><span class="pre">InfoManager.refresh_status()</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.info.engine.InfoManager.set_info"><code class="docutils literal notranslate"><span class="pre">InfoManager.set_info()</span></code></a></li>

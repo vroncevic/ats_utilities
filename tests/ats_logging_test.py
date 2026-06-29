@@ -38,7 +38,7 @@ __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.4.0'
+__version__: str = '3.4.1'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
@@ -213,6 +213,21 @@ class ATSLoggingTestCase(TestCase):
         '''Test write_log with unsupported level.'''
         logger = ATSLogger()
         self.assertFalse(logger.write_log('unsupported log', 999))
+
+    def test_get_shared_context(self) -> None:
+        '''Test get_shared_context returns ContextBundle.'''
+        context = self.ats_base_logging.get_shared_context()
+        self.assertIsInstance(context, ContextBundle)
+
+    def test_init_with_custom_logger(self) -> None:
+        '''Test logger manager initialization with custom logger.'''
+        custom_logger = ATSLogger()
+        component_bundle = LoggingComponentBundle(
+            logger=custom_logger
+        )
+        manager = LoggerManager(component_bundle)
+        self.assertTrue(manager.is_initialized())
+
 
 
 if __name__ == '__main__':

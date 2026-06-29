@@ -60,12 +60,13 @@
 
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span>
 <span class="kn">from</span> <span class="nn">abc</span> <span class="kn">import</span> <span class="n">ABC</span><span class="p">,</span> <span class="n">abstractmethod</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.context_bundle</span> <span class="kn">import</span> <span class="n">ContextBundle</span>
 
 <span class="n">__author__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;Vladimir Roncevic&#39;</span>
 <span class="n">__copyright__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;(C) 2026, https://vroncevic.github.io/ats_utilities&#39;</span>
 <span class="n">__credits__</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Vladimir Roncevic&#39;</span><span class="p">,</span> <span class="s1">&#39;Python Software Foundation&#39;</span><span class="p">]</span>
 <span class="n">__license__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE&#39;</span>
-<span class="n">__version__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;3.4.0&#39;</span>
+<span class="n">__version__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;3.4.1&#39;</span>
 <span class="n">__maintainer__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;Vladimir Roncevic&#39;</span>
 <span class="n">__email__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;elektron.ronca@gmail.com&#39;</span>
 <span class="n">__status__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;Updated&#39;</span>
@@ -80,14 +81,29 @@
 
 <span class="sd">        It defines:</span>
 
-<span class="sd">            :attributes: None</span>
+<span class="sd">            :attributes: None.</span>
 <span class="sd">            :methods:</span>
+<span class="sd">                | get_shared_context - Returns the shared context.</span>
 <span class="sd">                | set_info - Sets the ATS information.</span>
 <span class="sd">                | get_info - Gets the ATS information.</span>
 <span class="sd">                | info_ok - Checks if ATS information structure is ok.</span>
 <span class="sd">                | refresh_status - Refreshes status for ATS information structure.</span>
 <span class="sd">                | __str__ - Returns the ATS info manager as string representation.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
+
+<div class="viewcode-block" id="IInfoManager.get_shared_context">
+<a class="viewcode-back" href="../../../ats_utilities.info.imanager.html#ats_utilities.info.imanager.IInfoManager.get_shared_context">[docs]</a>
+    <span class="nd">@abstractmethod</span>
+    <span class="k">def</span> <span class="nf">get_shared_context</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ContextBundle</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">            Returns the shared context.</span>
+
+<span class="sd">            :return: Shared context | None.</span>
+<span class="sd">            :rtype: &lt;ContextBundle | None&gt;</span>
+<span class="sd">            :exceptions: None.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">pass</span></div>
+
 
 <div class="viewcode-block" id="IInfoManager.set_info">
 <a class="viewcode-back" href="../../../ats_utilities.info.imanager.html#ats_utilities.info.imanager.IInfoManager.set_info">[docs]</a>

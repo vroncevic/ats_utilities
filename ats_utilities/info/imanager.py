@@ -22,12 +22,13 @@ Info
 
 from typing import Any
 from abc import ABC, abstractmethod
+from ats_utilities.context_bundle import ContextBundle
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.4.0'
+__version__: str = '3.4.1'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
@@ -40,14 +41,26 @@ class IInfoManager(ABC):
 
         It defines:
 
-            :attributes: None
+            :attributes: None.
             :methods:
+                | get_shared_context - Returns the shared context.
                 | set_info - Sets the ATS information.
                 | get_info - Gets the ATS information.
                 | info_ok - Checks if ATS information structure is ok.
                 | refresh_status - Refreshes status for ATS information structure.
                 | __str__ - Returns the ATS info manager as string representation.
     '''
+
+    @abstractmethod
+    def get_shared_context(self) -> ContextBundle | None:
+        '''
+            Returns the shared context.
+
+            :return: Shared context | None.
+            :rtype: <ContextBundle | None>
+            :exceptions: None.
+        '''
+        pass
 
     @abstractmethod
     def set_info(self, info: dict[str, Any]) -> None:

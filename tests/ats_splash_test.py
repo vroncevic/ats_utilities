@@ -36,7 +36,7 @@ __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.4.0'
+__version__: str = '3.4.1'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
@@ -190,6 +190,23 @@ class ATSSplashTestCase(TestCase):
         # Test setting level above end
         pb.set_level(100)
         self.assertEqual(pb._level, 90)
+
+    def test_get_shared_context(self) -> None:
+        '''Test get_shared_context returns ContextBundle.'''
+        from ats_utilities.context_bundle import ContextBundle
+        bundle = SplashComponentBundle(
+            prop={
+                SplashKeys.ATS_ORGANIZATION: 'App Example',
+                SplashKeys.ATS_REPOSITORY: 'app_example',
+                SplashKeys.ATS_NAME: 'appexample',
+                SplashKeys.ATS_LOGO_PATH: f'{dirname(__file__)}/config/app.logo',
+                SplashKeys.ATS_USE_GITHUB_INFRASTRUCTURE: True
+            }
+        )
+        splash: Splasher = Splasher(bundle)
+        context = splash.get_shared_context()
+        self.assertIsInstance(context, ContextBundle)
+
 
 
 if __name__ == '__main__':

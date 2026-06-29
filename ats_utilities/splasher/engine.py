@@ -23,6 +23,7 @@ Info
 from typing import Any, override
 from time import sleep
 from ats_utilities.splasher.isplasher import ISplasher
+from ats_utilities.context_bundle import ContextBundle
 from ats_utilities.splasher.component_bundle import SplashComponentBundle
 from ats_utilities.splasher.isplash_property import ISplashProperty
 from ats_utilities.splasher.splash_property import SplashProperty
@@ -50,7 +51,7 @@ __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.4.0'
+__version__: str = '3.4.1'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
@@ -67,9 +68,11 @@ class Splasher(ISplasher):
                 | _checker - Injected parameters checker (default Checker).
                 | _reporter - Injected reporter for messaging (default Reporter).
                 | _verbose - Injected Enable/Disable verbose option (default False).
+                | _shared_context - Context bundle with shared context.
                 | _is_initialized - Indicates if the splasher component is initialized (default False).
             :methods:
                 | __init__ - Initials Splasher constructor.
+                | get_shared_context - Returns the shared context.
                 | center - Centers console line.
                 | is_initialized - Checks if splasher component is initialized.
                 | __str__ - Returns the string representation of Splasher.
@@ -90,7 +93,10 @@ class Splasher(ISplasher):
         # No dependency injection then use default ones.
         bundle: SplashComponentBundle = component_bundle or SplashComponentBundle()
         factory_context_bundle(self, bundle.context_bundle)
-        factory_args: dict[str, Any] = {'context_bundle': bundle.context_bundle}
+        self._shared_context: ContextBundle = ContextBundle(
+            checker=self._checker, reporter=self._reporter, verbose=self._verbose
+        )
+        factory_args: dict[str, Any] = {'context_bundle': self._shared_context}
         self._is_initialized: bool = False
 
         try:
@@ -156,6 +162,17 @@ class Splasher(ISplasher):
             self._reporter.error([f'{get_class_name(self)} {exc}'])
         except Exception as exc:
             self._reporter.error([f'{get_class_name(self)} unexpected exception: {exc}'])
+
+    @override
+    def get_shared_context(self) -> ContextBundle | None:
+        '''
+            Returns the shared context.
+
+            :return: Shared context | None.
+            :rtype: <ContextBundle | None>
+            :exceptions: None.
+        '''
+        return self._shared_context
 
     @override
     def center(self, splash_center_bundle: SplashCenterBundle | None = None) -> None:

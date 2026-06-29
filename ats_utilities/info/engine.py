@@ -22,6 +22,7 @@ Info
 
 from typing import Any, override
 from ats_utilities.info.imanager import IInfoManager
+from ats_utilities.context_bundle import ContextBundle
 from ats_utilities.info.component_bundle import InfoComponentBundle
 from ats_utilities.info.iname import IName
 from ats_utilities.info.name import Name
@@ -56,7 +57,7 @@ __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.4.0'
+__version__: str = '3.4.1'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
@@ -76,14 +77,16 @@ class InfoManager(IInfoManager):
                 | _checker - Injected parameters checker (default Checker).
                 | _reporter - Injected reporter for messaging (default Reporter).
                 | _verbose - Injected Enable/Disable verbose option (default False).
+                | _shared_context - Context bundle with shared context.
                 | _is_initialized - Indicates if the info manager component is initialized (default False).
             :methods:
                 | __init__ - Initializes InfoManager constructor.
+                | get_shared_context - Returns the shared context.
                 | set_info - Sets the ATS information.
                 | get_info - Gets the ATS information.
                 | is_initialized - Checks if the info manager component is initialized.
                 | refresh_status - Refresh status for ATS information structure.
-                | __str__ - Returns the string representation of InfoManager.
+                | __str__ - Returns the InfoManager as string representation.
     '''
 
     _checker: IChecker
@@ -113,10 +116,13 @@ class InfoManager(IInfoManager):
         # No dependency injection then use default ones.
         bundle: InfoComponentBundle = component_bundle or InfoComponentBundle()
         factory_context_bundle(self, bundle.context_bundle)
+        self._shared_context: ContextBundle = ContextBundle(
+            checker=self._checker, reporter=self._reporter, verbose=self._verbose
+        )
         self._is_initialized: bool = False
 
         try:
-            factory_args = {'context_bundle': bundle.context_bundle}
+            factory_args = {'context_bundle': self._shared_context}
             name: IName = make_component(bundle.name, Name, factory_args)
             validate_component(name, Name)
             version: IVersion = make_component(bundle.version, Version, factory_args)
@@ -147,6 +153,17 @@ class InfoManager(IInfoManager):
             self._reporter.error([f'{get_class_name(self)} {exc}'])
         except Exception as exc:
             self._reporter.error([f'{get_class_name(self)} unexpected exception: {exc}'])
+
+    @override
+    def get_shared_context(self) -> ContextBundle | None:
+        '''
+            Returns the shared context.
+
+            :return: Shared context | None.
+            :rtype: <ContextBundle | None>
+            :exceptions: None.
+        '''
+        return self._shared_context
 
     @override
     def set_info(self, info: dict[str, Any]) -> None:
@@ -255,12 +272,10 @@ class InfoManager(IInfoManager):
     @override
     def __str__(self) -> str:
         '''
-            Returns the ATS info manager as string representation.
+            Returns the InfoManager as string representation.
 
-            :return: The ATS info manager as string representation.
+            :return: The InfoManager as string representation.
             :rtype: <str>
             :exceptions: None.
         '''
         return format_instance_to_string(self)
-
-
