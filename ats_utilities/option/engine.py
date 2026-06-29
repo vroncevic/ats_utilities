@@ -45,7 +45,7 @@ __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.4.0'
+__version__: str = '3.4.1'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
@@ -62,10 +62,12 @@ class OptionManager(IOptionManager):
                 | _checker - Injected parameters checker (default Checker).
                 | _reporter - Injected reporter for messaging (default Reporter).
                 | _verbose - Injected Enable/Disable verbose option (default False).
+                | _shared_context - Context bundle with shared context.
                 | _is_initialized - Indicates if the option manager component is initialized (default False).
                 | _strategy - Strategy for argument parsing (default ParserStrategy).
             :methods:
                 | __init__ - Initials OptionManager constructor.
+                | get_shared_context - Returns the shared context.
                 | add_operation - Adds an option to the ATS parser.
                 | add_version_operation - Adds version option to the ATS parser.
                 | parse_input_args - Processes arguments from the start.
@@ -91,14 +93,14 @@ class OptionManager(IOptionManager):
         # No dependency injection then use default ones.
         bundle: OptionComponentBundle = component_bundle or OptionComponentBundle()
         factory_context_bundle(self, bundle.context_bundle)
-        shared_bundle: ContextBundle = ContextBundle(
+        self._shared_context: ContextBundle = ContextBundle(
             checker=self._checker, reporter=self._reporter, verbose=self._verbose
         )
         self._is_initialized: bool = False
 
         try:
             self._strategy: IParserStrategy = make_component(
-                bundle.strategy, ParserStrategy, {'context_bundle': shared_bundle}
+                bundle.strategy, ParserStrategy, {'context_bundle': self._shared_context}
             )
             validate_component(self._strategy, ParserStrategy) if not bundle.strategy else None
             self._strategy.setup(bundle.parameters)
@@ -108,6 +110,17 @@ class OptionManager(IOptionManager):
             self._reporter.error([f'{get_class_name(self)} {exc}'])
         except Exception as exc:
             self._reporter.error([f'{get_class_name(self)} unexpected exception: {exc}'])
+
+    @override
+    def get_shared_context(self) -> ContextBundle | None:
+        '''
+            Returns the shared context.
+
+            :return: Shared context | None
+            :rtype: <ContextBundle | None>
+            :exceptions: None.
+        '''
+        return self._shared_context
 
     @require_attributes('_strategy')
     @override

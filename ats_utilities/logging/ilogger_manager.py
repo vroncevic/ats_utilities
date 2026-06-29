@@ -22,12 +22,13 @@ Info
 
 from abc import ABC, abstractmethod
 from ats_utilities.logging.ilogger import ILogger
+from ats_utilities.context_bundle import ContextBundle
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.4.0'
+__version__: str = '3.4.1'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
@@ -42,11 +43,23 @@ class ILoggerManager(ABC):
 
             :attributes: None
             :methods:
+                | get_shared_context - Returns the shared context.
                 | get_logger - Gets logger instance.
                 | write_log - Writes message to log output.
                 | ok - Checks if logger manager component is ok.
                 | __str__ - Returns the ATS logger manager as string representation.
     '''
+
+    @abstractmethod
+    def get_shared_context(self) -> ContextBundle | None:
+        '''
+            Returns the shared context.
+
+            :return: Shared context | None
+            :rtype: <ContextBundle | None>
+            :exceptions: None.
+        '''
+        pass
 
     @abstractmethod
     def get_logger(self) -> ILogger:

@@ -88,12 +88,14 @@ ATS logger mechanism.</p>
 <div class="line">_checker - Injected parameters checker (default Checker).</div>
 <div class="line">_reporter - Injected reporter for messaging (default Reporter).</div>
 <div class="line">_verbose - Injected Enable/Disable verbose option (default False).</div>
+<div class="line">_shared_context - Context bundle with shared context.</div>
 <div class="line">_is_initialized - Indicates if the logger manager component is initialized (default False).</div>
 </div>
 </dd>
 <dt class="field-even">methods<span class="colon">:</span></dt>
 <dd class="field-even"><div class="line-block">
 <div class="line">__init__ - Initials LoggerManager constructor.</div>
+<div class="line">get_shared_context - Returns the shared context.</div>
 <div class="line">get_logger - Gets logger instance.</div>
 <div class="line">write_log - Writes message to log output.</div>
 <div class="line">is_initialized - Checks if the logger manager component is initialized.</div>
@@ -157,6 +159,23 @@ ATS logger mechanism.</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p>&lt;ILogger&gt;</p>
+</dd>
+<dt class="field-odd">Exceptions<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ats_utilities.logging.engine.LoggerManager.get_shared_context">
+<span class="sig-name descname"><span class="pre">get_shared_context</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="ats_utilities.context_bundle.html#ats_utilities.context_bundle.ContextBundle" title="ats_utilities.context_bundle.ContextBundle"><span class="pre">ContextBundle</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></span><a class="reference internal" href="_modules/ats_utilities/logging/engine.html#LoggerManager.get_shared_context"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.logging.engine.LoggerManager.get_shared_context" title="Link to this definition">¶</a></dt>
+<dd><p>Returns the shared context.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Shared context | None</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>&lt;ContextBundle | None&gt;</p>
 </dd>
 <dt class="field-odd">Exceptions<span class="colon">:</span></dt>
 <dd class="field-odd"><p>None.</p>
@@ -234,6 +253,7 @@ ATS logger mechanism.</p>
 <li><a class="reference internal" href="#ats_utilities.logging.engine.LoggerManager._reporter"><code class="docutils literal notranslate"><span class="pre">LoggerManager._reporter</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.logging.engine.LoggerManager._verbose"><code class="docutils literal notranslate"><span class="pre">LoggerManager._verbose</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.logging.engine.LoggerManager.get_logger"><code class="docutils literal notranslate"><span class="pre">LoggerManager.get_logger()</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.logging.engine.LoggerManager.get_shared_context"><code class="docutils literal notranslate"><span class="pre">LoggerManager.get_shared_context()</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.logging.engine.LoggerManager.is_initialized"><code class="docutils literal notranslate"><span class="pre">LoggerManager.is_initialized()</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.logging.engine.LoggerManager.write_log"><code class="docutils literal notranslate"><span class="pre">LoggerManager.write_log()</span></code></a></li>
 </ul>

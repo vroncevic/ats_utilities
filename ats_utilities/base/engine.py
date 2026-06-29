@@ -63,7 +63,7 @@ __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.4.0'
+__version__: str = '3.4.1'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
@@ -80,6 +80,7 @@ class Base(IBase):
                 | _checker - Injected parameters checker (default Checker).
                 | _reporter - Injected reporter for messaging (default Reporter).
                 | _verbose - Injected Enable/Disable verbose option (default False).
+                | _shared_context - Shared context for components.
                 | _config_loader - Manager for configuration loading (default ConfigLoader).
                 | _info_manager - Manager for info component (default InfoManager).
                 | _splasher - Manager for splash component (default Splasher).
@@ -89,6 +90,7 @@ class Base(IBase):
                 | _is_initialized - Indicates if the base component is initialized (default False).
             :methods:
                 | __init__ - Initializes Base constructor.
+                | get_shared_context - Returns the shared context.
                 | is_initialized - Checks if the base component is initialized.
                 | add_new_option - Adds a new option for the the CL interface.
                 | parse_args - Parses the CLI arguments.
@@ -111,17 +113,17 @@ class Base(IBase):
         # No dependency injection then use default ones.
         bundle: BaseComponentBundle = component_bundle or BaseComponentBundle()
         factory_context_bundle(self, bundle.context_bundle)
-        shared_context: ContextBundle = ContextBundle(
+        self._shared_context: ContextBundle = ContextBundle(
             checker=self._checker, reporter=self._reporter, verbose=self._verbose
         )
         self._is_initialized: bool = False
 
         try:
-            shared_config_file_bundle: ATSConfigFileBundle = ATSConfigFileBundle(context=shared_context)
+            shared_config_file_bundle: ATSConfigFileBundle = ATSConfigFileBundle(context=self._shared_context)
             share_config_loader_bundle: ATSConfigLoaderBundle = ATSConfigLoaderBundle(
                 info_file=bundle.info_file, config_bundle=shared_config_file_bundle
             )
-            info_component_bundle: InfoComponentBundle = InfoComponentBundle(context_bundle=shared_context)
+            info_component_bundle: InfoComponentBundle = InfoComponentBundle(context_bundle=self._shared_context)
 
             self._config_loader: IConfigLoader = make_component(
                 bundle.config_loader, ConfigLoader, {'config_loader_bundle': share_config_loader_bundle}
@@ -138,14 +140,14 @@ class Base(IBase):
             self._info_manager.logo_path = f"{dirname(bundle.info_file)}/{logo_path}"
 
             splash_component_bundle: SplashComponentBundle = SplashComponentBundle(
-                prop=self._info_manager.get_info(), context_bundle=shared_context
+                prop=self._info_manager.get_info(), context_bundle=self._shared_context
             )
 
             self._splasher: ISplasher = make_component(bundle.splasher, Splasher, {'component_bundle': splash_component_bundle})
             validate_component(self._splasher, Splasher)
 
             option_component_bundle: OptionComponentBundle = OptionComponentBundle(
-                parameters=self._info_manager.get_info(), context_bundle=shared_context
+                parameters=self._info_manager.get_info(), context_bundle=self._shared_context
             )
 
             self._options_parser: IOptionManager = make_component(
@@ -153,7 +155,7 @@ class Base(IBase):
             )
             validate_component(self._options_parser, OptionManager)
 
-            logging_component_bundle: LoggingComponentBundle = LoggingComponentBundle(context_bundle=shared_context)
+            logging_component_bundle: LoggingComponentBundle = LoggingComponentBundle(context_bundle=self._shared_context)
 
             self._logger_manager: ILoggerManager = make_component(
                 bundle.logger_manager, LoggerManager, {'component_bundle': logging_component_bundle}
@@ -164,7 +166,7 @@ class Base(IBase):
 
             if bundle.use_generator:
                 self._generator: IGenerator = make_component(
-                    bundle.generator, Generator, {'component_bundle': GeneratorComponentBundle(context_bundle=shared_context)}
+                    bundle.generator, Generator, {'component_bundle': GeneratorComponentBundle(context_bundle=self._shared_context)}
                 )
                 validate_component(self._generator, Generator)
                 components.append(self._generator)
@@ -175,6 +177,17 @@ class Base(IBase):
             self._reporter.error([f'{get_class_name(self)} {exc}'])
         except Exception as exc:
             self._reporter.error([f'{get_class_name(self)} unexpected exception: {exc}'])
+
+    @override
+    def get_shared_context(self) -> ContextBundle | None:
+        '''
+            Returns the shared context.
+
+            :return: Shared context | None
+            :rtype: <ContextBundle | None>
+            :exceptions: None.
+        '''
+        return self._shared_context
 
     @override
     def is_initialized(self) -> bool:

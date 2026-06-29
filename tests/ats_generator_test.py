@@ -39,7 +39,7 @@ __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.4.0'
+__version__: str = '3.4.1'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
@@ -68,8 +68,8 @@ class GeneratorTestCase(TestCase):
 
     def setUp(self) -> None:
         '''Call before test case.'''
-        self.archive_path = 'config/hexagonal_templates.tgz'
-        self.scheme_path = 'config/hexagonal_templates.json'
+        self.archive_path = os.path.join(os.path.dirname(__file__), 'config', 'hexagonal_templates.tgz')
+        self.scheme_path = os.path.join(os.path.dirname(__file__), 'config', 'hexagonal_templates.json')
         self.generator = Generator()
 
     def tearDown(self) -> None:
@@ -335,6 +335,13 @@ class GeneratorTestCase(TestCase):
             self.assertTrue(result)
             self.assertFalse(os.path.exists(os.path.join(tmp_dir, 'run.sh')))
             self.assertTrue(os.path.exists(os.path.join(tmp_dir, 'main.py')))
+
+    def test_get_shared_context(self) -> None:
+        '''Test get_shared_context returns ContextBundle.'''
+        from ats_utilities.context_bundle import ContextBundle
+        context = self.generator.get_shared_context()
+        self.assertIsInstance(context, ContextBundle)
+
 
 
 if __name__ == '__main__':

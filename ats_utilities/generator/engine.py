@@ -23,6 +23,7 @@ Info
 from typing import override
 from os.path import exists
 from ats_utilities.generator.igenerator import IGenerator
+from ats_utilities.context_bundle import ContextBundle
 from ats_utilities.generator.component_bundle import GeneratorComponentBundle
 from ats_utilities.generator.generator_bundle import GeneratorBundle
 from ats_utilities.generator.ischeme_loader import ISchemeLoader
@@ -43,7 +44,7 @@ __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.4.0'
+__version__: str = '3.4.1'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
@@ -60,10 +61,12 @@ class Generator(IGenerator):
                 | _checker - Injected parameters checker (default Checker).
                 | _reporter - Injected reporter for messaging (default Reporter).
                 | _verbose - Injected Enable/Disable verbose option (default False).
+                | _shared_context - Bundle of shared context.
                 | _scheme_loader - Loader/resolver for scheme configuration.
                 | _tar_processor - Processor for archive extraction and template rendering.
             :methods:
                 | __init__ - Initializes Generator constructor.
+                | get_shared_context - Returns the shared context.
                 | generate - Generates project modules/files from a .tgz archive.
                 | is_initialized - Checks if the generator component is initialized.
                 | __str__ - Returns the string representation of Generator.
@@ -84,16 +87,19 @@ class Generator(IGenerator):
         # No dependency injection then use default ones.
         bundle = component_bundle or GeneratorComponentBundle()
         factory_context_bundle(self, bundle.context_bundle)
+        self._shared_context: ContextBundle = ContextBundle(
+            checker=self._checker, reporter=self._reporter, verbose=self._verbose
+        )
         self._is_initialized: bool = False
 
         try:
             self._scheme_loader: ISchemeLoader = make_component(
-                bundle.scheme_loader, SchemeLoader, {'context_bundle': bundle.context_bundle}
+                bundle.scheme_loader, SchemeLoader, {'context_bundle': self._shared_context}
             )
             validate_component(self._scheme_loader, SchemeLoader)
             self._tar_processor: ITarProcessor = make_component(
                 bundle.tar_processor, TarProcessor, {
-                    'context_bundle': bundle.context_bundle,
+                    'context_bundle': self._shared_context,
                     'template_processor': bundle.template_processor
                 }
             )
@@ -104,6 +110,17 @@ class Generator(IGenerator):
             self._reporter.error([f'{get_class_name(self)} {exc}'])
         except Exception as exc:
             self._reporter.error([f'{get_class_name(self)} unexpected exception: {exc}'])
+
+    @override
+    def get_shared_context(self) -> ContextBundle | None:
+        '''
+            Returns the shared context.
+
+            :return: Shared context | None
+            :rtype: <ContextBundle | None>
+            :exceptions: None.
+        '''
+        return self._shared_context
 
     @override
     def prepare_template_values(self, template_values: dict[str, str]) -> dict[str, str]:

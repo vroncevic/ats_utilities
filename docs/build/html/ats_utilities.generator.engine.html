@@ -81,6 +81,7 @@ Template-based file generation from .tgz archives.</p>
 <div class="line">_checker - Injected parameters checker (default Checker).</div>
 <div class="line">_reporter - Injected reporter for messaging (default Reporter).</div>
 <div class="line">_verbose - Injected Enable/Disable verbose option (default False).</div>
+<div class="line">_shared_context - Bundle of shared context.</div>
 <div class="line">_scheme_loader - Loader/resolver for scheme configuration.</div>
 <div class="line">_tar_processor - Processor for archive extraction and template rendering.</div>
 </div>
@@ -88,6 +89,7 @@ Template-based file generation from .tgz archives.</p>
 <dt class="field-even">methods<span class="colon">:</span></dt>
 <dd class="field-even"><div class="line-block">
 <div class="line">__init__ - Initializes Generator constructor.</div>
+<div class="line">get_shared_context - Returns the shared context.</div>
 <div class="line">generate - Generates project modules/files from a .tgz archive.</div>
 <div class="line">is_initialized - Checks if the generator component is initialized.</div>
 <div class="line">__str__ - Returns the string representation of Generator.</div>
@@ -135,6 +137,23 @@ Template-based file generation from .tgz archives.</p>
 <div class="line">ATSValueError - If parameter constraints are violated.</div>
 <div class="line">ATSGeneratorError - If archive parsing or template rendering fails.</div>
 </div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ats_utilities.generator.engine.Generator.get_shared_context">
+<span class="sig-name descname"><span class="pre">get_shared_context</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="ats_utilities.context_bundle.html#ats_utilities.context_bundle.ContextBundle" title="ats_utilities.context_bundle.ContextBundle"><span class="pre">ContextBundle</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></span><a class="reference internal" href="_modules/ats_utilities/generator/engine.html#Generator.get_shared_context"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.generator.engine.Generator.get_shared_context" title="Link to this definition">¶</a></dt>
+<dd><p>Returns the shared context.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Shared context | None</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>&lt;ContextBundle | None&gt;</p>
+</dd>
+<dt class="field-odd">Exceptions<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -199,6 +218,7 @@ Template-based file generation from .tgz archives.</p>
 <li><a class="reference internal" href="#ats_utilities.generator.engine.Generator._reporter"><code class="docutils literal notranslate"><span class="pre">Generator._reporter</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.generator.engine.Generator._verbose"><code class="docutils literal notranslate"><span class="pre">Generator._verbose</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.generator.engine.Generator.generate"><code class="docutils literal notranslate"><span class="pre">Generator.generate()</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.generator.engine.Generator.get_shared_context"><code class="docutils literal notranslate"><span class="pre">Generator.get_shared_context()</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.generator.engine.Generator.is_initialized"><code class="docutils literal notranslate"><span class="pre">Generator.is_initialized()</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.generator.engine.Generator.prepare_template_values"><code class="docutils literal notranslate"><span class="pre">Generator.prepare_template_values()</span></code></a></li>
 </ul>

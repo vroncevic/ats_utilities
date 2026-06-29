@@ -81,6 +81,7 @@ Creates an API for setup ATS (application, tool, script).</p>
 <div class="line">_checker - Injected parameters checker (default Checker).</div>
 <div class="line">_reporter - Injected reporter for messaging (default Reporter).</div>
 <div class="line">_verbose - Injected Enable/Disable verbose option (default False).</div>
+<div class="line">_shared_context - Shared context for components.</div>
 <div class="line">_config_loader - Manager for configuration loading (default ConfigLoader).</div>
 <div class="line">_info_manager - Manager for info component (default InfoManager).</div>
 <div class="line">_splasher - Manager for splash component (default Splasher).</div>
@@ -93,6 +94,7 @@ Creates an API for setup ATS (application, tool, script).</p>
 <dt class="field-even">methods<span class="colon">:</span></dt>
 <dd class="field-even"><div class="line-block">
 <div class="line">__init__ - Initializes Base constructor.</div>
+<div class="line">get_shared_context - Returns the shared context.</div>
 <div class="line">is_initialized - Checks if the base component is initialized.</div>
 <div class="line">add_new_option - Adds a new option for the the CL interface.</div>
 <div class="line">parse_args - Parses the CLI arguments.</div>
@@ -137,6 +139,23 @@ Creates an API for setup ATS (application, tool, script).</p>
 <dd class="field-even"><div class="line-block">
 <div class="line">ATSAttributeError: ‘_options_parser’ attribute is required.</div>
 </div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ats_utilities.base.engine.Base.get_shared_context">
+<span class="sig-name descname"><span class="pre">get_shared_context</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="ats_utilities.context_bundle.html#ats_utilities.context_bundle.ContextBundle" title="ats_utilities.context_bundle.ContextBundle"><span class="pre">ContextBundle</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></span><a class="reference internal" href="_modules/ats_utilities/base/engine.html#Base.get_shared_context"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.base.engine.Base.get_shared_context" title="Link to this definition">¶</a></dt>
+<dd><p>Returns the shared context.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Shared context | None</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>&lt;ContextBundle | None&gt;</p>
+</dd>
+<dt class="field-odd">Exceptions<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -221,6 +240,7 @@ Creates an API for setup ATS (application, tool, script).</p>
 <li><a class="reference internal" href="#ats_utilities.base.engine.Base._reporter"><code class="docutils literal notranslate"><span class="pre">Base._reporter</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.base.engine.Base._verbose"><code class="docutils literal notranslate"><span class="pre">Base._verbose</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.base.engine.Base.add_new_option"><code class="docutils literal notranslate"><span class="pre">Base.add_new_option()</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.base.engine.Base.get_shared_context"><code class="docutils literal notranslate"><span class="pre">Base.get_shared_context()</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.base.engine.Base.is_initialized"><code class="docutils literal notranslate"><span class="pre">Base.is_initialized()</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.base.engine.Base.parse_args"><code class="docutils literal notranslate"><span class="pre">Base.parse_args()</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.base.engine.Base.process"><code class="docutils literal notranslate"><span class="pre">Base.process()</span></code></a></li>

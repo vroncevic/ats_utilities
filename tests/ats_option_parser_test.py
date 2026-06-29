@@ -43,7 +43,7 @@ __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.4.0'
+__version__: str = '3.4.1'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
@@ -360,6 +360,12 @@ class OptionParserTestCase(TestCase):
         self.assertEqual(option1.default, 'default_value2')
         self.assertTrue(option1.required)
         self.assertEqual(option1.choices, ['choice1', 'choice2'])
+
+    def test_get_shared_context(self) -> None:
+        '''Test get_shared_context returns ContextBundle.'''
+        from ats_utilities.context_bundle import ContextBundle
+        context = self.option_parser.get_shared_context()
+        self.assertIsInstance(context, ContextBundle)
 
 class OptionParserUnitTestCase(TestCase):
     '''

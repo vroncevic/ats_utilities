@@ -25,12 +25,13 @@ from typing import Any
 from ats_utilities.option.ioption_command import IOptionCommand
 from ats_utilities.option.option_namespace import OptionNamespace
 from ats_utilities.option.option_namespace import OptArgs
+from ats_utilities.context_bundle import ContextBundle
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.4.0'
+__version__: str = '3.4.1'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
@@ -45,6 +46,7 @@ class IOptionManager(ABC):
 
             :attributes: None
             :methods:
+                | get_shared_context - Returns the shared context.
                 | add_operation - Adds an option to the ATS parser.
                 | add_version_operation - Adds version option to the ATS parser.
                 | parse_input_args - Processes arguments from the start.
@@ -54,6 +56,17 @@ class IOptionManager(ABC):
                 | is_initialized - Checks if option parser component is initialized.
                 | __str__ - Returns the ATS option parser as string representation.
     '''
+
+    @abstractmethod
+    def get_shared_context(self) -> ContextBundle | None:
+        '''
+            Returns the shared context.
+
+            :return: Shared context | None
+            :rtype: <ContextBundle | None>
+            :exceptions: None.
+        '''
+        pass
 
     @abstractmethod
     def add_operation(self, *args: str, **kwargs: Any) -> None:

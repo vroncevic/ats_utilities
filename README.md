@@ -320,8 +320,8 @@ These modules requires other modules and libraries (Python 3.x)
 | `ats_utilities/__init__.py` | 8 | 0 | 100%|
 | `ats_utilities/base/__init__.py` | 8 | 0 | 100%|
 | `ats_utilities/base/component_bundle.py` | 38 | 0 | 100%|
-| `ats_utilities/base/engine.py` | 101 | 0 | 100%|
-| `ats_utilities/base/ibase.py` | 14 | 0 | 100%|
+| `ats_utilities/base/engine.py` | 104 | 0 | 100%|
+| `ats_utilities/base/ibase.py` | 15 | 0 | 100%|
 | `ats_utilities/checker/__init__.py` | 8 | 0 | 100%|
 | `ats_utilities/checker/check_reporter.py` | 30 | 0 | 100%|
 | `ats_utilities/checker/checker_reporter_bundle.py` | 29 | 0 | 100%|
@@ -413,7 +413,7 @@ These modules requires other modules and libraries (Python 3.x)
 | `ats_utilities/factory_file_utils.py` | 90 | 0 | 100%|
 | `ats_utilities/generator/__init__.py` | 8 | 0 | 100%|
 | `ats_utilities/generator/component_bundle.py` | 37 | 0 | 100%|
-| `ats_utilities/generator/engine.py` | 83 | 0 | 100%|
+| `ats_utilities/generator/engine.py` | 88 | 0 | 100%|
 | `ats_utilities/generator/generator_bundle.py` | 47 | 0 | 100%|
 | `ats_utilities/generator/igenerator.py` | 12 | 0 | 100%|
 | `ats_utilities/generator/ischeme_loader.py` | 11 | 0 | 100%|
@@ -427,12 +427,12 @@ These modules requires other modules and libraries (Python 3.x)
 | `ats_utilities/info/__init__.py` | 8 | 0 | 100%|
 | `ats_utilities/info/build_date.py` | 42 | 0 | 100%|
 | `ats_utilities/info/component_bundle.py` | 59 | 0 | 100%|
-| `ats_utilities/info/engine.py` | 118 | 0 | 100%|
+| `ats_utilities/info/engine.py` | 123 | 0 | 100%|
 | `ats_utilities/info/ibuild_date.py` | 10 | 0 | 100%|
 | `ats_utilities/info/iinfo_ok.py` | 10 | 0 | 100%|
 | `ats_utilities/info/ilicence.py` | 10 | 0 | 100%|
 | `ats_utilities/info/ilogo_path.py` | 10 | 0 | 100%|
-| `ats_utilities/info/imanager.py` | 11 | 0 | 100%|
+| `ats_utilities/info/imanager.py` | 12 | 0 | 100%|
 | `ats_utilities/info/iname.py` | 10 | 0 | 100%|
 | `ats_utilities/info/info_keys.py` | 20 | 0 | 100%|
 | `ats_utilities/info/info_ok.py` | 38 | 0 | 100%|
@@ -449,18 +449,18 @@ These modules requires other modules and libraries (Python 3.x)
 | `ats_utilities/info/version.py` | 42 | 0 | 100%|
 | `ats_utilities/logging/__init__.py` | 8 | 0 | 100%|
 | `ats_utilities/logging/component_bundle.py` | 33 | 0 | 100%|
-| `ats_utilities/logging/engine.py` | 61 | 0 | 100%|
+| `ats_utilities/logging/engine.py` | 64 | 0 | 100%|
 | `ats_utilities/logging/ilogger.py` | 23 | 0 | 100%|
-| `ats_utilities/logging/ilogger_manager.py` | 11 | 0 | 100%|
+| `ats_utilities/logging/ilogger_manager.py` | 12 | 0 | 100%|
 | `ats_utilities/logging/logger.py` | 63 | 0 | 100%|
 | `ats_utilities/logging/logger_bundle.py` | 32 | 0 | 100%|
 | `ats_utilities/option/__init__.py` | 8 | 0 | 100%|
 | `ats_utilities/option/arg_parser.py` | 34 | 0 | 100%|
 | `ats_utilities/option/command_option.py` | 36 | 0 | 100%|
 | `ats_utilities/option/component_bundle.py` | 32 | 0 | 100%|
-| `ats_utilities/option/engine.py` | 83 | 0 | 100%|
+| `ats_utilities/option/engine.py` | 86 | 0 | 100%|
 | `ats_utilities/option/ioption_command.py` | 11 | 0 | 100%|
-| `ats_utilities/option/ioption_parser.py` | 14 | 0 | 100%|
+| `ats_utilities/option/ioption_parser.py` | 15 | 0 | 100%|
 | `ats_utilities/option/iparser_strategy.py` | 14 | 0 | 100%|
 | `ats_utilities/option/option_namespace.py` | 14 | 0 | 100%|
 | `ats_utilities/option/parser_strategy.py` | 85 | 0 | 100%|
@@ -474,20 +474,20 @@ These modules requires other modules and libraries (Python 3.x)
 | `ats_utilities/reporter/theme/iconsole_theme.py` | 10 | 0 | 100%|
 | `ats_utilities/splasher/__init__.py` | 8 | 0 | 100%|
 | `ats_utilities/splasher/component_bundle.py` | 46 | 0 | 100%|
-| `ats_utilities/splasher/engine.py` | 109 | 0 | 100%|
+| `ats_utilities/splasher/engine.py` | 114 | 0 | 100%|
 | `ats_utilities/splasher/ext_infrastructure.py` | 60 | 0 | 100%|
 | `ats_utilities/splasher/github_infrastructure.py` | 67 | 0 | 100%|
 | `ats_utilities/splasher/iext_infrastructure.py` | 11 | 0 | 100%|
 | `ats_utilities/splasher/iprogress_bar.py` | 10 | 0 | 100%|
 | `ats_utilities/splasher/isplash_property.py` | 11 | 0 | 100%|
-| `ats_utilities/splasher/isplasher.py` | 11 | 0 | 100%|
+| `ats_utilities/splasher/isplasher.py` | 12 | 0 | 100%|
 | `ats_utilities/splasher/iterminal_properties.py` | 11 | 0 | 100%|
 | `ats_utilities/splasher/progress_bar.py` | 52 | 0 | 100%|
 | `ats_utilities/splasher/splash_center_bundle.py` | 37 | 0 | 100%|
 | `ats_utilities/splasher/splash_keys.py` | 17 | 0 | 100%|
 | `ats_utilities/splasher/splash_property.py` | 47 | 0 | 100%|
 | `ats_utilities/splasher/terminal_properties.py` | 58 | 0 | 100%|
-| **Total** | 5232 | 0 | 100% |
+| **Total** | 5261 | 0 | 100% |
 
 </details>
 

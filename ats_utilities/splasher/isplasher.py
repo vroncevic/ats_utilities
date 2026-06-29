@@ -21,13 +21,14 @@ Info
 '''
 
 from abc import ABC, abstractmethod
+from ats_utilities.context_bundle import ContextBundle
 from ats_utilities.splasher.splash_center_bundle import SplashCenterBundle
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.4.0'
+__version__: str = '3.4.1'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
@@ -42,10 +43,22 @@ class ISplasher(ABC):
 
             :attributes: None
             :methods:
+                | get_shared_context - Returns the shared context.
                 | center - Centers console line.
                 | is_initialized - Checks if splasher component is initialized.
                 | __str__ - Returns the splash screen component as string representation.
     '''
+
+    @abstractmethod
+    def get_shared_context(self) -> ContextBundle | None:
+        '''
+            Returns the shared context.
+
+            :return: Shared context | None.
+            :rtype: <ContextBundle | None>
+            :exceptions: None.
+        '''
+        pass
 
     @abstractmethod
     def center(self, splash_center_bundle: SplashCenterBundle | None = None) -> None:
