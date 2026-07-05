@@ -20,21 +20,24 @@ Info
     Creates an API for the ATS organization in one property object.
 '''
 
+from __future__ import annotations
+
 from typing import override
+
 from ats_utilities.info.iorganization import IOrganization
 from ats_utilities.context_bundle import ContextBundle
 from ats_utilities.checker.ichecker import IChecker
 from ats_utilities.reporter.ireporter import IReporter
 from ats_utilities.factory_context_bundle import factory_context_bundle
-from ats_utilities.factory_class import format_instance_to_string
-from ats_utilities.checker.proxy_validator import validator
-from ats_utilities.reporter.proxy_reporter import vreporter
+from ats_utilities.factory_class import to_str
+from ats_utilities.checker.proxy_validator import vcheck
+from ats_utilities.reporter.proxy_reporter import vreport
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.4.1'
+__version__: str = '3.4.2'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
@@ -62,6 +65,7 @@ class Organization(IOrganization):
     _checker: IChecker
     _reporter: IReporter
     _verbose: bool
+    _organization: str | None
 
     def __init__(self, context_bundle: ContextBundle | None = None) -> None:
         '''
@@ -72,38 +76,38 @@ class Organization(IOrganization):
             :exceptions: None.
         '''
         factory_context_bundle(self, context_bundle)
-        self._organization: str | None = None
+        self._organization = None
 
     @property
-    @vreporter('get organization {organization}')
+    @vreport('get organization {organization}')
     @override
-    def organization(self) -> str | None:
+    def organization(self) -> str:
         '''
             Property method for getting ATS organization.
 
-            :return: The ATS organization in string format | None.
-            :rtype: <str | None>
+            :return: The ATS organization in string format.
+            :rtype: <str>
             :exceptions:
                 | ATSRuntimeError: Decorator cannot be used on a standalone function.
                 | ATSAttributeError: Class is required to provide a '_reporter' object to
-                |                    use the @verboser decorator.
+                |                    use the @vreport decorator.
         '''
         return self._organization
 
     @organization.setter
-    @validator([('str | None:organization', None)])
-    @vreporter('set organization {organization}')
+    @vcheck([('str:organization', None)])
+    @vreport('set organization {organization}')
     @override
-    def organization(self, organization: str | None) -> None:
+    def organization(self, organization: str) -> None:
         '''
             Property method for setting ATS organization.
 
-            :param organization: The ATS organization in string format | None.
-            :type organization: <str | None>
+            :param organization: The ATS organization in string format.
+            :type organization: <str>
             :exceptions:
                 | ATSRuntimeError: Decorator cannot be used on a standalone function.
                 | ATSAttributeError: Class is required to provide a '_reporter' object to
-                |                    use the @verboser decorator.
+                |                    use the @vreport decorator.
                 | ATSTypeError: Parameter type validation failed.
                 | ATSValueError: Parameter format validation failed.
                 | ATSRuntimeError: Decorator used on a non-class method.
@@ -111,7 +115,7 @@ class Organization(IOrganization):
         '''
         self._organization = organization
 
-    @vreporter('check organization {organization}')
+    @vreport('check organization {organization}')
     @override
     def not_none(self) -> bool:
         '''
@@ -122,7 +126,7 @@ class Organization(IOrganization):
             :exceptions:
                 | ATSRuntimeError: Decorator cannot be used on a standalone function.
                 | ATSAttributeError: Class is required to provide a '_reporter' object to
-                |                    use the @verboser decorator.
+                |                    use the @vreport decorator.
         '''
         return self._organization is not None
 
@@ -135,4 +139,4 @@ class Organization(IOrganization):
             :rtype: <str>
             :exceptions: None.
         '''
-        return format_instance_to_string(self)
+        return to_str(self)

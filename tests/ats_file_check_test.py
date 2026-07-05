@@ -32,7 +32,7 @@ __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.4.1'
+__version__: str = '3.4.2'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
@@ -88,19 +88,19 @@ class FileCheckTestCase(TestCase):
 
     def test_none_config_path(self) -> None:
         '''Test for None as file path'''
-        self.file_check.check_path(None)
-        self.assertFalse(self.file_check.is_file_ok())
+        with self.assertRaises(ATSTypeError):
+            self.file_check.check_path(None)
 
     def test_none_config_format(self) -> None:
         '''Test for None as file format'''
         file_path: str = f'{dirname(__file__)}/config/ats_cli_json_api.json'
-        self.file_check.check_format(file_path, None)
-        self.assertFalse(self.file_check.is_file_ok())
+        with self.assertRaises(ATSTypeError):
+            self.file_check.check_format(file_path, None)
 
     def test_none_config_mode(self) -> None:
         '''Test for None as file mode'''
-        self.file_check.check_mode(None)
-        self.assertFalse(self.file_check.is_file_ok())
+        with self.assertRaises(ATSTypeError):
+            self.file_check.check_mode(None)
 
 
     def test_non_file_config_path(self) -> None:

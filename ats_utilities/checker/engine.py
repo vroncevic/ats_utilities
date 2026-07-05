@@ -20,27 +20,25 @@ Info
     Concrete implementation of the ATS parameter(s) checker.
 '''
 
+from __future__ import annotations
+
 from typing import ClassVar, override
+
 from ats_utilities.checker.ichecker import IChecker, ErrorChecker, ValidationResult, ParametersSpecs
 from ats_utilities.checker.itype_validator import ITypeValidator
-from ats_utilities.checker.type_validator import TypeValidator
 from ats_utilities.checker.iformat_validator import IFormatValidator
-from ats_utilities.checker.format_validator import FormatValidator
 from ats_utilities.checker.icontext_provider import IContextProvider
-from ats_utilities.checker.context_provider import ContextProvider
 from ats_utilities.checker.icheck_reporter import ICheckReporter
-from ats_utilities.checker.check_reporter import CheckReporter
 from ats_utilities.checker.component_bundle import CheckerComponentBundle
 from ats_utilities.checker.checker_reporter_bundle import CheckerReporterBundle, ParamMetadata
 from ats_utilities.exceptions.ats_type_error import ATSTypeError
-from ats_utilities.factory_class import get_class_name, format_instance_to_string
-from ats_utilities.factory_component import make_component, validate_component
+from ats_utilities.factory_class import cls_name, to_str
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.4.1'
+__version__: str = '3.4.2'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
@@ -69,6 +67,11 @@ class Checker(IChecker):
     '''
 
     ERRORS: ClassVar[type[ErrorChecker]] = ErrorChecker
+    _is_initialized: bool
+    _format_validator: IFormatValidator
+    _type_validator: ITypeValidator
+    _context_provider: IContextProvider
+    _check_reporter: ICheckReporter
 
     def __init__(self, component_bundle: CheckerComponentBundle | None = None) -> None:
         '''
@@ -78,25 +81,24 @@ class Checker(IChecker):
             :type component_bundle: <CheckerComponentBundle | None>
             :exceptions: None.
         '''
-        # No dependency injection then use default ones.
-        components: CheckerComponentBundle = component_bundle or CheckerComponentBundle()
-        self._is_initialized: bool = False
+        self._is_initialized = False
 
         try:
-            self._format_validator: IFormatValidator = make_component(components.format_validator, FormatValidator, None)
-            validate_component(self._format_validator, FormatValidator)
-            self._type_validator: ITypeValidator = make_component(components.type_validator, TypeValidator, None)
-            validate_component(self._type_validator, TypeValidator)
-            self._context_provider: IContextProvider = make_component(components.context_provider, ContextProvider, None)
-            validate_component(self._context_provider, ContextProvider)
-            self._check_reporter: ICheckReporter = make_component(components.check_reporter, CheckReporter, None)
-            validate_component(self._check_reporter, CheckReporter)
+            # No dependency injection then use default ones.
+            components: CheckerComponentBundle = component_bundle or CheckerComponentBundle()
+            self._format_validator = components.format_validator
+            self._type_validator = components.type_validator
+            self._context_provider = components.context_provider
+            self._check_reporter = components.check_reporter
+
+            # All components initialized successfully.
             self._is_initialized = True
 
         except ATSTypeError as exc:
-            print(f"\x1b[31m{get_class_name(self)} {exc}\x1b[0m")
+            print(f"\x1b[31m{cls_name(self)} {exc}\x1b[0m")
+
         except Exception as exc:
-            print(f"\x1b[31m{get_class_name(self)} unexpected exception: {exc}\x1b[0m")
+            print(f"\x1b[31m{cls_name(self)} unexpected exception: {exc}\x1b[0m")
 
     @override
     def validates_parameters(self, parameters: ParametersSpecs | None) -> ValidationResult:
@@ -117,7 +119,12 @@ class Checker(IChecker):
         if parameters is None:
             return (
                 self._check_reporter.build_message_format(
-                    CheckerReporterBundle(context, [], [], True)
+                    CheckerReporterBundle(
+                        context=context,
+                        parameters_meta=(),
+                        err_indices=(),
+                        is_fmt_err=True
+                    )
                 ),
                 self.ERRORS.FORMAT_ERROR
             )
@@ -171,4 +178,4 @@ class Checker(IChecker):
             :rtype: <str>
             :exceptions: None.
         '''
-        return format_instance_to_string(self)
+        return to_str(self)

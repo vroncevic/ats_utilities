@@ -26,7 +26,7 @@ from typing import Any
 from unittest import TestCase, main, mock
 from ats_utilities.checker.engine import Checker
 from ats_utilities.checker.ichecker import ErrorChecker, IChecker, ParametersSpecs
-from ats_utilities.checker.proxy_validator import validator
+from ats_utilities.checker.proxy_validator import vcheck
 from ats_utilities.checker.type_validator import TypeValidator
 from ats_utilities.exceptions.ats_runtime_error import ATSRuntimeError
 from ats_utilities.exceptions.ats_attribute_error import ATSAttributeError
@@ -42,7 +42,7 @@ __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.4.1'
+__version__: str = '3.4.2'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
@@ -106,16 +106,16 @@ class ATSCheckerTestCase(TestCase):
         '''Test is tool operational'''
         self.assertTrue(self.ats_base_checker.is_tool_ok())
 
-    @mock.patch('ats_utilities.checker.engine.make_component')
-    def test_checker_initialization_failures(self, mock_make_component) -> None:
+    @mock.patch('ats_utilities.checker.component_bundle.validate_component')
+    def test_checker_initialization_failures(self, mock_validate_component) -> None:
         '''Test Checker initialization with errors.'''
         # Test ATSTypeError
-        mock_make_component.side_effect = ATSTypeError('Failed type')
+        mock_validate_component.side_effect = ATSTypeError('Failed type')
         invalid_checker = Checker()
         self.assertFalse(invalid_checker.is_initialized())
 
         # Test unexpected Exception
-        mock_make_component.side_effect = Exception('Unexpected')
+        mock_validate_component.side_effect = Exception('Unexpected')
         invalid_checker = Checker()
         self.assertFalse(invalid_checker.is_initialized())
 
@@ -314,10 +314,10 @@ class ATSCheckerTestCase(TestCase):
         ctx = provider.get_context()
         self.assertIsNotNone(ctx)
 
-    @mock.patch('ats_utilities.checker.engine.make_component')
-    def test_checker_init_failure(self, mock_make) -> None:
+    @mock.patch('ats_utilities.checker.component_bundle.validate_component')
+    def test_checker_init_failure(self, mock_validate) -> None:
         '''Test Checker initialization failure when a component is invalid.'''
-        mock_make.side_effect = ATSTypeError("Mock type error")
+        mock_validate.side_effect = ATSTypeError("Mock type error")
         c = Checker()
         self.assertFalse(c.is_initialized())
 
@@ -347,26 +347,25 @@ class ATSCheckerUnitTestCase(TestCase):
 class ProxyValidatorTestCase(TestCase):
     '''
         Defines class ProxyValidatorTestCase with attribute(s) and method(s).
-        Creates test cases for checking exceptions in proxy validator decorator.
-        Proxy validator unit tests.
+        Creates test cases for checking exceptions in proxy vcheck decorator.
+        Proxy vcheck unit tests.
 
         It defines:
 
-            :attributes: None
             :methods:
-                | test_validator_not_on_class_method - Test validator on regular function.
-                | test_validator_no_checker_on_instance - Test validator when class has no checker.
-                | test_validator_type_error - Test validator type error.
-                | test_validator_format_error_mocked - Test validator format error via mocking.
+                | test_validator_not_on_class_method - Test vcheck on regular function.
+                | test_validator_no_checker_on_instance - Test vcheck when class has no checker.
+                | test_validator_type_error - Test vcheck type error.
+                | test_validator_format_error_mocked - Test vcheck format error via mocking.
     '''
 
     def test_validator_not_on_class_method(self) -> None:
         '''
-            Test validator on regular function.
+            Test vcheck on regular function.
 
             :exceptions: None.
         '''
-        @validator([('str:arg', None)])
+        @vcheck([('str:arg', None)])
         def dummy_func(arg: Any) -> None:
             pass
 
@@ -375,12 +374,12 @@ class ProxyValidatorTestCase(TestCase):
 
     def test_validator_no_checker_on_instance(self) -> None:
         '''
-            Test validator when class has no checker.
+            Test vcheck when class has no checker.
 
             :exceptions: None.
         '''
         class DummyClass:
-            @validator([('str:arg', None)])
+            @vcheck([('str:arg', None)])
             def dummy_method(self, arg: Any) -> None:
                 pass
 
@@ -390,7 +389,7 @@ class ProxyValidatorTestCase(TestCase):
 
     def test_validator_type_error(self) -> None:
         '''
-            Test validator type error.
+            Test vcheck type error.
 
             :exceptions: None.
         '''
@@ -398,7 +397,7 @@ class ProxyValidatorTestCase(TestCase):
             def __init__(self) -> None:
                 self._checker = Checker()
 
-            @validator([('str:arg', None)])
+            @vcheck([('str:arg', None)])
             def method(self, arg: Any) -> None:
                 pass
 
@@ -409,7 +408,7 @@ class ProxyValidatorTestCase(TestCase):
 
     def test_validator_format_error_mocked(self) -> None:
         '''
-            Test validator format error via mocking.
+            Test vcheck format error via mocking.
 
             :exceptions: None.
         '''
@@ -417,7 +416,7 @@ class ProxyValidatorTestCase(TestCase):
             def __init__(self, mock_checker: Any) -> None:
                 self._checker = mock_checker
 
-            @validator([('str:arg', None)])
+            @vcheck([('str:arg', None)])
             def method(self, arg: Any) -> None:
                 pass
 
@@ -438,7 +437,6 @@ class TypeValidatorTestCase(TestCase):
 
         It defines:
 
-            :attributes: None
             :methods:
                 | test_is_subtype - Test checking subtypes.
                 | test_get_type_name - Test getting type names.

@@ -21,16 +21,19 @@ Info
     Default implementation for processing INI content.
 '''
 
-from typing import Any
+from __future__ import annotations
+
+from typing import Any, override
 from configparser import ConfigParser, Error as ConfigParserError
+
 from ats_utilities.config_io.ini.iini_processor import IINIProcessor
-from ats_utilities.factory_class import format_instance_to_string
+from ats_utilities.factory_class import to_str
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.4.1'
+__version__: str = '3.4.2'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
@@ -72,6 +75,7 @@ class INIProcessor(IINIProcessor):
         '''
         self._config = ConfigParser()
 
+    @override
     def from_stream(self, stream: Any) -> bool:
         '''
             Loads INI configuration from a stream.
@@ -88,6 +92,7 @@ class INIProcessor(IINIProcessor):
         except (OSError, ConfigParserError):
             return False
 
+    @override
     def to_stream(self, stream: Any) -> bool:
         '''
             Converts INI configuration to a stream.
@@ -104,6 +109,7 @@ class INIProcessor(IINIProcessor):
         except (OSError, ConfigParserError):
             return False
 
+    @override
     def to_dict(self) -> dict[str, str]:
         '''
             Converts INI configuration to dictionary.
@@ -121,6 +127,7 @@ class INIProcessor(IINIProcessor):
             self._LICENCE: str(self._config.get(self._SECTION, self._LICENCE, fallback=''))
         }
 
+    @override
     def __str__(self) -> str:
         '''
             Returns the INIProcessor as string representation.
@@ -129,4 +136,4 @@ class INIProcessor(IINIProcessor):
             :rtype: <str>
             :exceptions: None.
         '''
-        return format_instance_to_string(self)
+        return to_str(self)

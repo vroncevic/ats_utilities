@@ -20,27 +20,32 @@ Info
     Creates an API for the configuration context manager.
 '''
 
+from __future__ import annotations
+
+from collections.abc import Mapping
 from typing import Any, override
+
 from ats_utilities.config_io.iconf_file import IConfFile
 from ats_utilities.context_bundle import ContextBundle
 from ats_utilities.checker.ichecker import IChecker
 from ats_utilities.reporter.ireporter import IReporter
-from ats_utilities.reporter.proxy_reporter import vreporter
+from ats_utilities.reporter.proxy_reporter import vreport
 from ats_utilities.config_io.ifile_check import IFileCheck
 from ats_utilities.config_io.file_check import FileCheck
 from ats_utilities.config_io.iconf_file import File
-from ats_utilities.config_io.file_bundle import ATSFileBundle
-from ats_utilities.config_io.config_file_bundle import ATSConfigFileBundle
-from ats_utilities.exceptions.ats_value_error import ATSValueError
+from ats_utilities.config_io.file_bundle import FileBundle
+from ats_utilities.config_io.config_file_bundle import ConfigFileBundle
 from ats_utilities.factory_context_bundle import factory_context_bundle
 from ats_utilities.factory_component import make_component, validate_component
-from ats_utilities.factory_class import format_instance_to_string
+from ats_utilities.factory_class import to_str
+from ats_utilities.factory_value import require_not_none, require_not_empty
+from ats_utilities.factory_type import check_type
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.4.1'
+__version__: str = '3.4.2'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
@@ -61,7 +66,6 @@ class ConfFile(IConfFile):
                 | _file_path - Configuration file path (default None).
                 | _file_mode - Configuration file mode (default None).
                 | _file - File object (default None).
-                | _verbose - Enable/Disable verbose option (default False).
             :methods:
                 | __init__ - Initializes ConfFile constructor.
                 | __enter__ - Opens configuration file in mode.
@@ -72,26 +76,34 @@ class ConfFile(IConfFile):
     _checker: IChecker
     _reporter: IReporter
     _verbose: bool
+    _file: File | None
+    _file_path: str | None
+    _file_mode: str | None
 
     def __init__(
         self,
-        file_bundle: ATSFileBundle | None = None,
-        config_file_bundle: ATSConfigFileBundle | None = None
+        file_bundle: FileBundle | None = None,
+        config_file_bundle: ConfigFileBundle | None = None
     ) -> None:
         '''
             Initializes ConfFile constructor.
 
             :param file_bundle: File bundle parameters | None.
-            :type file_bundle: <ATSFileBundle | None>
+            :type file_bundle: <FileBundle | None>
             :param config_file_bundle: File configuration bundle parameters | None.
-            :type config_file_bundle: <ATSConfigFileBundle | None>
+            :type config_file_bundle: <ConfigFileBundle | None>
             :exceptions:
+                | ATSTypeError: File bundle must be a FileBundle instance or None.
+                | ATSTypeError: Config file bundle must be a ConfigFileBundle instance or None.
                 | ATSValueError: Missing file path.
                 | ATSValueError: Missing file mode.
                 | ATSValueError: Missing file format.
+                | ATSTypeError: File path must be a string.
+                | ATSTypeError: File mode must be a string.
+                | ATSTypeError: File format must be a string.
         '''
-        bundle: ATSFileBundle = file_bundle or ATSFileBundle()
-        config_bundle: ATSConfigFileBundle = config_file_bundle or ATSConfigFileBundle()
+        bundle: FileBundle = file_bundle or FileBundle()
+        config_bundle: ConfigFileBundle = config_file_bundle or ConfigFileBundle()
         factory_context_bundle(self, config_bundle.context)
         shared_bundle: ContextBundle = ContextBundle(
             checker=self._checker, reporter=self._reporter, verbose=self._verbose
@@ -99,18 +111,16 @@ class ConfFile(IConfFile):
         file_checker: IFileCheck = make_component(config_bundle.file_checker, FileCheck, {'config_bundle': shared_bundle})
         validate_component(file_checker, FileCheck)
 
-        if not bool(bundle.file_path):
-            raise ATSValueError('missing file path')
+        require_not_empty(bundle.file_path, 'missing file path')
+        require_not_empty(bundle.file_mode, 'missing file mode')
+        require_not_empty(bundle.file_format, 'missing file format')
+        check_type(bundle.file_path, str, 'file_path must be a string')
+        check_type(bundle.file_mode, str, 'file_mode must be a string')
+        check_type(bundle.file_format, str, 'file_format must be a string')
 
-        if not bool(bundle.file_mode):
-            raise ATSValueError('missing file mode')
-
-        if not bool(bundle.file_format):
-            raise ATSValueError('missing file format')
-
-        self._file: File | None = None
-        self._file_path: str | None = None
-        self._file_mode: str | None = None
+        self._file = None
+        self._file_path = None
+        self._file_mode = None
 
         file_checker.check_path(bundle.file_path)
         file_checker.check_mode(bundle.file_mode)
@@ -120,7 +130,7 @@ class ConfFile(IConfFile):
             self._file_path = bundle.file_path
             self._file_mode = bundle.file_mode
 
-    @vreporter('open file {file_path} with mode {file_mode}')
+    @vreport('open file {file_path} with mode {file_mode}')
     @override
     def __enter__(self) -> File | None:
         '''
@@ -131,27 +141,27 @@ class ConfFile(IConfFile):
             :exceptions:
                 | ATSRuntimeError: Decorator cannot be used on a standalone function.
                 | ATSAttributeError: Class is required to provide a '_reporter' object to
-                |                    use the @verboser decorator.
+                |                    use the @vreport decorator.
         '''
         if self._file_path and self._file_mode:
             self._file = open(self._file_path, self._file_mode, encoding='utf-8')
 
         return self._file
 
-    @vreporter('close file {file_path}')
+    @vreport('close file {file_path}')
     @override
-    def __exit__(self, *args: tuple[Any, ...], **kwargs: dict[Any, Any]) -> None:
+    def __exit__(self, *args: tuple[Any, ...], **kwargs: Mapping[Any, Any]) -> None:
         '''
             Closes configuration file.
 
             :param args: List of arguments.
             :type args: <tuple[Any, ...]>
             :param kwargs: Dictionary of mapped arguments.
-            :type kwargs: <dict[Any, Any]>
+            :type kwargs: <Mapping[Any, Any]>
             :exceptions:
                 | ATSRuntimeError: Decorator cannot be used on a standalone function.
                 | ATSAttributeError: Class is required to provide a '_reporter' object to
-                |                    use the @verboser decorator.
+                |                    use the @vreport decorator.
         '''
         if self._file and not self._file.closed:
             self._file.close()
@@ -165,4 +175,4 @@ class ConfFile(IConfFile):
             :rtype: <str>
             :exceptions: None.
         '''
-        return format_instance_to_string(self)
+        return to_str(self)

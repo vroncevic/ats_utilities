@@ -20,15 +20,19 @@ Info
     Creates an API for handling type validation parameters for method(s) and function(s).
 '''
 
+from __future__ import annotations
+
 from typing import Any, override
-from ats_utilities.factory_class import format_instance_to_string
+from collections.abc import Mapping, Sequence, Iterable
+
+from ats_utilities.factory_class import to_str
 from ats_utilities.checker.itype_validator import ITypeValidator
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.4.1'
+__version__: str = '3.4.2'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
@@ -42,13 +46,20 @@ class TypeValidator(ITypeValidator):
 
         It defines:
 
-            :attributes: None
+            :attributes:
+                | _ABSTRACT_TYPES - Mapping of abstract type names to their implementations.
             :methods:
                 | is_match - Compares instance type with expected type name.
                 | is_subtype - Checks if instance is a subtype of expected type name.
                 | get_type_name - Returns the string representation of an instance type.
-                | __str__ - Returns the ATS type validator as string representation.
+                | __str__ - Returns the ATS type vcheck as string representation.
     '''
+
+    _ABSTRACT_TYPES: dict[str, type] = {
+        'Mapping': Mapping,
+        'Sequence': Sequence,
+        'Iterable': Iterable,
+    }
 
     @override
     def is_match(self, inst: Any, expected_type_name: str) -> bool:
@@ -64,7 +75,12 @@ class TypeValidator(ITypeValidator):
             :rtype: <bool>
             :exceptions: None.
         '''
-        return type(inst).__name__ == expected_type_name
+        base_type_name = expected_type_name.split('[')[0]
+
+        if base_type_name in self._ABSTRACT_TYPES:
+            return isinstance(inst, self._ABSTRACT_TYPES[base_type_name])
+
+        return type(inst).__name__ == base_type_name
 
     @override
     def is_subtype(self, inst: Any, expected_type_name: str) -> bool:
@@ -80,7 +96,12 @@ class TypeValidator(ITypeValidator):
             :rtype: <bool>
             :exceptions: None.
         '''
-        return any(cls.__name__ == expected_type_name for cls in type(inst).mro())
+        base_type_name = expected_type_name.split('[')[0]
+
+        if base_type_name in self._ABSTRACT_TYPES:
+            return isinstance(inst, self._ABSTRACT_TYPES[base_type_name])
+
+        return any(cls.__name__ == base_type_name for cls in type(inst).mro())
 
     @override
     def get_type_name(self, inst: Any) -> str:
@@ -98,10 +119,10 @@ class TypeValidator(ITypeValidator):
     @override
     def __str__(self) -> str:
         '''
-            Returns the ATS type validator as string representation.
+            Returns the ATS type vcheck as string representation.
 
-            :return: The ATS type validator as string representation.
+            :return: The ATS type vcheck as string representation.
             :rtype: <str>
             :exceptions: None.
         '''
-        return format_instance_to_string(self)
+        return to_str(self)

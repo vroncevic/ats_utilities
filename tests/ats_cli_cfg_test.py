@@ -35,7 +35,7 @@ __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.4.1'
+__version__: str = '3.4.2'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
@@ -111,7 +111,7 @@ class CLITestCase(TestCase):
         '''Test is_initialized method.'''
         self.assertTrue(self.ats_cli_api.is_initialized())
 
-    @mock.patch('ats_utilities.base.engine.make_component')
+    @mock.patch('ats_utilities.base.component_bundle.make_component')
     def test_initialization_failure(self, mock_make_component) -> None:
         '''Test base initialization failure.'''
         mock_make_component.side_effect = ATSTypeError('Failed to initialize component')
@@ -122,7 +122,7 @@ class CLITestCase(TestCase):
         invalid_base._options_parser = MagicMock()
         self.assertIsNone(invalid_base.parse_args(['-v']))
 
-    @mock.patch('ats_utilities.base.engine.make_component')
+    @mock.patch('ats_utilities.base.component_bundle.make_component')
     def test_initialization_unexpected_exception(self, mock_make_component) -> None:
         '''Test base initialization unexpected exception.'''
         mock_make_component.side_effect = Exception('Unexpected error')

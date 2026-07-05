@@ -49,15 +49,15 @@ from ats_utilities.config_io.xml.xml_processor import XMLProcessor
 from ats_utilities.config_io.yaml.yaml_loader import YAMLLoader
 from ats_utilities.config_io.yaml.yaml2object import Yaml2Object
 from ats_utilities.config_io.yaml.yaml_processor import YAMLProcessor
-from ats_utilities.config_io.config_loader_bundle import ATSConfigLoaderBundle
-from ats_utilities.config_io.config_file_bundle import ATSConfigFileBundle
+from ats_utilities.config_io.config_loader_bundle import ConfigLoaderBundle
+from ats_utilities.config_io.config_file_bundle import ConfigFileBundle
 from ats_utilities.context_bundle import ContextBundle
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.4.1'
+__version__: str = '3.4.2'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
@@ -82,14 +82,14 @@ class ConfigManagerTestCase(TestCase):
 
     def test_not_none(self) -> None:
         '''Test for create ConfigLoader'''
-        bundle = ATSConfigLoaderBundle()
+        bundle = ConfigLoaderBundle()
         manager = ConfigLoader(bundle)
         self.assertIsNotNone(manager)
         self.assertTrue(isinstance(manager, IConfigLoader))  # type: ignore
 
     def test_str(self) -> None:
         '''Test string representation of ConfigLoader.'''
-        bundle = ATSConfigLoaderBundle()
+        bundle = ConfigLoaderBundle()
         manager = ConfigLoader(bundle)
         self.assertIsInstance(str(manager), str)
 
@@ -140,7 +140,7 @@ class ConfigManagerUnitTestCase(TestCase):
         }
         self.mock_read.read_configuration.return_value = self.mock_processor
 
-        self.config_file_bundle = ATSConfigFileBundle(
+        self.config_file_bundle = ConfigFileBundle(
             file_checker=self.mock_file_checker,
             context=ContextBundle(
                 checker=self.mock_checker,
@@ -164,7 +164,7 @@ class ConfigManagerUnitTestCase(TestCase):
         }
         mock_read.read_configuration.return_value = mock_processor
 
-        bundle = ATSConfigLoaderBundle(
+        bundle = ConfigLoaderBundle(
             info_file=base_info,
             config2object=mock_read,
             config_bundle=self.config_file_bundle,
@@ -190,7 +190,7 @@ class ConfigManagerUnitTestCase(TestCase):
         }
         mock_read.read_configuration.return_value = mock_processor
 
-        bundle = ATSConfigLoaderBundle(
+        bundle = ConfigLoaderBundle(
             info_file=base_info,
             config2object=mock_read,
             config_bundle=self.config_file_bundle,
@@ -216,7 +216,7 @@ class ConfigManagerUnitTestCase(TestCase):
         }
         mock_read.read_configuration.return_value = mock_processor
 
-        bundle = ATSConfigLoaderBundle(
+        bundle = ConfigLoaderBundle(
             info_file=base_info,
             config2object=mock_read,
             config_bundle=self.config_file_bundle,
@@ -242,7 +242,7 @@ class ConfigManagerUnitTestCase(TestCase):
         }
         mock_read.read_configuration.return_value = mock_processor
 
-        bundle = ATSConfigLoaderBundle(
+        bundle = ConfigLoaderBundle(
             info_file=base_info,
             config2object=mock_read,
             config_bundle=self.config_file_bundle,
@@ -268,7 +268,7 @@ class ConfigManagerUnitTestCase(TestCase):
         }
         mock_read.read_configuration.return_value = mock_processor
 
-        bundle = ATSConfigLoaderBundle(
+        bundle = ConfigLoaderBundle(
             info_file=base_info,
             config2object=mock_read,
             config_bundle=self.config_file_bundle,
@@ -280,7 +280,7 @@ class ConfigManagerUnitTestCase(TestCase):
 
     def test_setup_config_loader_none(self) -> None:
         '''Test loading with None.'''
-        bundle = ATSConfigLoaderBundle(
+        bundle = ConfigLoaderBundle(
             info_file=None,
             config2object=self.mock_read,
             config_bundle=self.config_file_bundle
@@ -291,7 +291,7 @@ class ConfigManagerUnitTestCase(TestCase):
 
     def test_setup_config_loader_unsupported(self) -> None:
         '''Test loading unsupported format.'''
-        bundle = ATSConfigLoaderBundle(
+        bundle = ConfigLoaderBundle(
             info_file='test.txt',
             config2object=self.mock_read,
             config_bundle=self.config_file_bundle

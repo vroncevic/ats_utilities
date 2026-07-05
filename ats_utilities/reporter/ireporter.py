@@ -20,6 +20,9 @@ Info
     Creates an interface for reporting message.
 '''
 
+from __future__ import annotations
+
+from collections.abc import Sequence
 from abc import ABC, abstractmethod
 from typing import Any
 
@@ -27,7 +30,7 @@ __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.4.1'
+__version__: str = '3.4.2'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
@@ -40,58 +43,57 @@ class IReporter(ABC):
 
         It defines:
 
-            :attributes: None
             :methods:
-                | error - Reports error message.
-                | success - Reports success message.
                 | verbose - Reports verbose message.
+                | success - Reports success message.
                 | warning - Reports warning message.
+                | error - Reports error message.
                 | is_initialized - Checks if the reporter component is initialized.
                 | __str__ - Returns the ATS reporter as string representation.
     '''
 
     @abstractmethod
-    def verbose(self, is_verbose: bool, message: list[Any]) -> None:
+    def verbose(self, is_verbose: bool, message: Sequence[Any]) -> None:
         '''
             Reports verbose message.
 
             :param is_verbose: Enable/Disable verbose option.
             :type is_verbose: <bool>
-            :param message: List with message.
-            :type message: <list[Any]>
+            :param message: Sequence with message.
+            :type message: <Sequence[Any]>
             :exceptions: None.
         '''
         pass
 
     @abstractmethod
-    def success(self, message: list[Any]) -> None:
+    def success(self, message: Sequence[Any]) -> None:
         '''
             Reports success message.
 
-            :param message: List with message.
-            :type message: <list[Any]>
+            :param message: Sequence with message.
+            :type message: <Sequence[Any]>
             :exceptions: None.
         '''
         pass
 
     @abstractmethod
-    def warning(self, message: list[Any]) -> None:
+    def warning(self, message: Sequence[Any]) -> None:
         '''
             Reports warning message.
 
-            :param message: List with message.
-            :type message: <list[Any]>
+            :param message: Sequence with message.
+            :type message: <Sequence[Any]>
             :exceptions: None.
         '''
         pass
 
     @abstractmethod
-    def error(self, message: list[Any]) -> None:
+    def error(self, message: Sequence[Any]) -> None:
         '''
             Reports error message.
 
-            :param message: List with message.
-            :type message: <list[Any]>
+            :param message: Sequence with message.
+            :type message: <Sequence[Any]>
             :exceptions: None.
         '''
         pass

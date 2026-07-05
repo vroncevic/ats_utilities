@@ -20,25 +20,29 @@ Info
     Resolves generation scheme from dict or file path using config_io.
 '''
 
-import os
+from __future__ import annotations
+
+from os.path import exists
 from typing import Any, override
+from collections.abc import Mapping
+
 from ats_utilities.generator.ischeme_loader import ISchemeLoader
 from ats_utilities.context_bundle import ContextBundle
 from ats_utilities.checker.ichecker import IChecker
 from ats_utilities.reporter.ireporter import IReporter
-from ats_utilities.config_io.config_loader_bundle import ATSConfigLoaderBundle
+from ats_utilities.config_io.config_loader_bundle import ConfigLoaderBundle
 from ats_utilities.config_io.config_loader import ConfigLoader
-from ats_utilities.exceptions.ats_type_error import ATSTypeError
-from ats_utilities.exceptions.ats_value_error import ATSValueError
 from ats_utilities.exceptions.ats_generator_error import ATSGeneratorError
 from ats_utilities.factory_context_bundle import factory_context_bundle
-from ats_utilities.factory_class import format_instance_to_string
+from ats_utilities.factory_class import to_str
+from ats_utilities.factory_type import check_type
+from ats_utilities.factory_value import require_not_satisfied
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.4.1'
+__version__: str = '3.4.2'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
@@ -55,9 +59,10 @@ class SchemeLoader(ISchemeLoader):
                 | _checker - Injected parameters checker (default Checker).
                 | _reporter - Injected reporter for messaging (default Reporter).
                 | _verbose - Injected Enable/Disable verbose option (default False).
+                | _initialized - Flag indicating if the loader is initialized.
             :methods:
                 | __init__ - Initializes SchemeLoader constructor.
-                | load - Loads and resolves the scheme from dict or path.
+                | load - Loads and resolves the scheme from file path.
                 | is_initialized - Checks if the loader is initialized.
                 | __str__ - Returns the loader as string representation.
     '''
@@ -65,6 +70,7 @@ class SchemeLoader(ISchemeLoader):
     _checker: IChecker
     _reporter: IReporter
     _verbose: bool
+    _initialized: bool
 
     def __init__(self, context_bundle: ContextBundle | None = None) -> None:
         '''
@@ -75,46 +81,41 @@ class SchemeLoader(ISchemeLoader):
             :exceptions: None.
         '''
         factory_context_bundle(self, context_bundle)
-        self._initialized: bool = True
+        self._initialized = True
 
     @override
-    def load(self, scheme: dict[str, Any] | str) -> dict[str, Any]:
+    def load(self, scheme: str | Mapping[str, Any]) -> dict[str, Any]:
         '''
             Loads and resolves the scheme.
 
-            :param scheme: Generation scheme mapping or file path.
-            :type scheme: <dict[str, Any] | str>
+            :param scheme: Generation scheme file path or preloaded scheme.
+            :type scheme: <str | Mapping[str, Any]>
             :return: The resolved scheme dictionary.
             :rtype: <dict[str, Any]>
             :exceptions:
-                | ATSTypeError - Scheme is not a dict or a string.
-                | ATSValueError - Scheme file path does not exist.
-                | ATSGeneratorError - Loading scheme file fails.
+                | ATSTypeError: Scheme is not a string or mapping.
+                | ATSValueError: Scheme file path does not exist.
+                | ATSValueError: Unsupported scheme file format.
+                | ATSValueError: Failed to setup config loader.
+                | ATSGeneratorError: Loading scheme file fails.
         '''
-        if not isinstance(scheme, (dict, str)):
-            raise ATSTypeError("scheme must be of type dict or str")
+        check_type(scheme, (str, Mapping), 'scheme must be of type str or Mapping')
 
         if isinstance(scheme, str):
-            if not os.path.exists(scheme):
-                raise ATSValueError(f"scheme file does not exist: '{scheme}'")
-
-            if not scheme.endswith('.json'):
-                raise ATSValueError(f"unsupported scheme file format for: '{scheme}'. Only .json is supported.")
+            require_not_satisfied(not exists(scheme), f"scheme file at the provided path does not exist: '{scheme}'")
+            require_not_satisfied(not scheme.endswith('.json'), f"unsupported scheme file format for: '{scheme}'. Only .json is supported.")
 
             try:
-                loader_bundle: ATSConfigLoaderBundle = ATSConfigLoaderBundle(info_file=scheme)
-                config_loader: ConfigLoader = ConfigLoader(loader_bundle)
+                config_loader: ConfigLoader = ConfigLoader(ConfigLoaderBundle(info_file=scheme))
                 loader = config_loader.setup_config_loader()
-
-                if loader is None:
-                    raise ATSGeneratorError(f"failed to setup config loader for: '{scheme}'")
+                require_not_satisfied(loader is None, f"failed to setup config loader for: '{scheme}'")
 
                 return loader.load_configuration()
 
             except Exception as exc:
-                raise ATSGeneratorError(f"failed to load scheme file '{scheme}': {exc}")
+                require_not_satisfied(True, f"failed to load scheme file '{scheme}': {exc}", ATSGeneratorError)
 
-        return scheme
+        return dict(scheme)
 
     @override
     def is_initialized(self) -> bool:
@@ -136,4 +137,4 @@ class SchemeLoader(ISchemeLoader):
             :rtype: <str>
             :exceptions: None.
         '''
-        return format_instance_to_string(self)
+        return to_str(self)

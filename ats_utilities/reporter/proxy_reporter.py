@@ -16,15 +16,19 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines vreporter decorator for automatic console logging via templates.
+    Defines vreport decorator for automatic console logging via templates.
     Utility for proxy reporting that borrows IReporter from class instances
     and supports multiple message templates and variables.
 '''
+
+from __future__ import annotations
 
 from collections.abc import Callable
 from re import findall
 from functools import wraps
 from typing import Any, cast
+
+from ats_utilities.factory_context_error import raise_context_error
 from ats_utilities.exceptions.ats_attribute_error import ATSAttributeError
 from ats_utilities.exceptions.ats_runtime_error import ATSRuntimeError
 
@@ -32,12 +36,12 @@ __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.4.1'
+__version__: str = '3.4.2'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
 
-def vreporter[F: Callable[..., Any]](templates: str | list[str]) -> Callable[[F], F]:
+def vreport[F: Callable[..., Any]](templates: str | list[str]) -> Callable[[F], F]:
     '''
         Decorator supporting class methods and property operations.
         Borrows the reporter object and verbose flag dynamically from the 
@@ -51,7 +55,7 @@ def vreporter[F: Callable[..., Any]](templates: str | list[str]) -> Callable[[F]
         :exceptions:
             | ATSRuntimeError: Decorator cannot be used on a standalone function.
             | ATSAttributeError: Class is required to provide a '_reporter' object to
-            |                    use the @verboser decorator.
+            |                    use the @vreport decorator.
     '''
     message_templates: list[str] = [templates] if isinstance(templates, str) else templates
 
@@ -60,29 +64,36 @@ def vreporter[F: Callable[..., Any]](templates: str | list[str]) -> Callable[[F]
         def wrapper(*args: Any, **kwargs: Any) -> Any:
             self_instance = args[0] if args else None
 
-            if not self_instance:
-                raise ATSRuntimeError(
-                    f"Decorator @verboser on '{func.__name__}' "
-                    f"can only be used on class methods."
-                )
+            if self_instance is None:
+                raise_context_error(
+                    fallback_prefix='vreport::decorator',
+                    fallback_msg=f'Decorator @vreport on {func.__name__} can only be used on class methods.',
+                    exc_message_path=None,
+                    exception_class=ATSRuntimeError,
+                depth=3
+            )
 
             class_name = self_instance.__class__.__name__
 
-            # BORROWING: Extracting reporter and verbose flag from the instance
+            # BORROWING: Extracting reporter from the instance
             reporter = getattr(
                 self_instance, '_reporter',
                 getattr(self_instance, f'_{class_name}_reporter', None)
             )
 
+            # BORROWING: Extracting verbose flag from the instance
             is_verbose = getattr(
                 self_instance, '_verbose',
                 getattr(self_instance, f'_{class_name}_verbose', False)
             )
 
             if reporter is None:
-                raise ATSAttributeError(
-                    f"Class '{class_name}' is required to provide "
-                    f"a '_reporter' object to use the @verboser decorator."
+                raise_context_error(
+                    fallback_prefix='vreport::decorator',
+                    fallback_msg=f"Class '{class_name}' is required to provide a '_reporter' object to use the @vreport decorator.",
+                    exc_message_path=None,
+                    exception_class=ATSAttributeError,
+                    depth=3
                 )
 
             # Executing the original method first to get updated state (critical for setters)
@@ -120,6 +131,7 @@ def vreporter[F: Callable[..., Any]](templates: str | list[str]) -> Callable[[F]
                 try:
                     formatted_msg = template.format(**format_context)  # type: ignore
                     final_messages.append(formatted_msg)
+
                 except (KeyError, IndexError, ValueError, TypeError):
                     final_messages.append(template)
 

@@ -20,8 +20,12 @@ Info
     Creates an interface for ATS option parsing.
 '''
 
+from __future__ import annotations
+
 from abc import ABC, abstractmethod
+from collections.abc import Sequence, Mapping
 from typing import Any
+
 from ats_utilities.option.ioption_command import IOptionCommand
 from ats_utilities.option.option_namespace import OptionNamespace
 from ats_utilities.option.option_namespace import OptArgs
@@ -30,7 +34,7 @@ __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.4.1'
+__version__: str = '3.4.2'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
@@ -44,25 +48,24 @@ class IParserStrategy(ABC):
 
         It defines:
 
-            :attributes: None
             :methods:
                 | setup - Initializes the underlying parser with metadata parameters.
                 | add_argument - Adds an operational argument/flag to the parser.
                 | add_version - Adds a version display option to the parser.
                 | parse - Parses the input arguments and returns an OptionNamespace.
-                | register_commands - Registers a list of commands with the parser.
+                | register_commands - Registers a sequence of commands with the parser.
                 | parse_command - Parses the input arguments and returns an OptionNamespace.
                 | ok - Checks if parser strategy component is ok.
                 | __str__ - Returns the ATS parser strategy as string representation.
     '''
 
     @abstractmethod
-    def setup(self, parameters: dict[str, str]) -> None:
+    def setup(self, parameters: Mapping[str, str]) -> None:
         '''
             Initializes the underlying parser with metadata parameters.
 
-            :param parameters: Parameters for logger in dict format.
-            :type parameters: <dict[str, str]>
+            :param parameters: Metadata parameters in mapping format (read only data).
+            :type parameters: <Mapping[str, str]>
             :exceptions: None.
         '''
         pass
@@ -107,12 +110,12 @@ class IParserStrategy(ABC):
         pass
 
     @abstractmethod
-    def register_commands(self, commands: list[IOptionCommand]) -> None:
+    def register_commands(self, commands: Sequence[IOptionCommand]) -> None:
         '''
-            Register a list of commands with the parser.
+            Register a sequence of commands with the parser.
 
-            :param commands: List of commands to register.
-            :type commands: <list[IOptionCommand]>
+            :param commands: Sequence of commands to register.
+            :type commands: <Sequence[IOptionCommand]>
             :exceptions: None.
         '''
         pass

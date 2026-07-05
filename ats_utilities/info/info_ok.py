@@ -20,21 +20,24 @@ Info
     Creates an API for the ATS info status in one property object.
 '''
 
+from __future__ import annotations
+
 from typing import override
+
 from ats_utilities.info.iinfo_ok import IInfoOk
 from ats_utilities.context_bundle import ContextBundle
 from ats_utilities.checker.ichecker import IChecker
 from ats_utilities.reporter.ireporter import IReporter
 from ats_utilities.factory_context_bundle import factory_context_bundle
-from ats_utilities.factory_class import format_instance_to_string
-from ats_utilities.checker.proxy_validator import validator
-from ats_utilities.reporter.proxy_reporter import vreporter
+from ats_utilities.factory_class import to_str
+from ats_utilities.checker.proxy_validator import vcheck
+from ats_utilities.reporter.proxy_reporter import vreport
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.4.1'
+__version__: str = '3.4.2'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
@@ -55,12 +58,14 @@ class InfoOk(IInfoOk):
             :methods:
                 | __init__ - Initializes InfoOk constructor.
                 | info_ok - Property methods for set/get information status.
+                | not_none - Checks if ATS info status is not None.
                 | __str__ - Returns the ATS info status as string representation.
     '''
 
     _checker: IChecker
     _reporter: IReporter
     _verbose: bool
+    _info_ok: bool
 
     def __init__(self, context_bundle: ContextBundle | None = None) -> None:
         '''
@@ -71,10 +76,10 @@ class InfoOk(IInfoOk):
             :exceptions: None.
         '''
         factory_context_bundle(self, context_bundle)
-        self._info_ok: bool = False
+        self._info_ok = False
 
     @property
-    @vreporter('get info_ok {info_ok}')
+    @vreport('get info_ok {info_ok}')
     @override
     def info_ok(self) -> bool:
         '''
@@ -85,13 +90,13 @@ class InfoOk(IInfoOk):
             :exceptions:
                 | ATSRuntimeError: Decorator cannot be used on a standalone function.
                 | ATSAttributeError: Class is required to provide a '_reporter' object to
-                |                    use the @verboser decorator.
+                |                    use the @vreport decorator.
         '''
         return self._info_ok
 
     @info_ok.setter
-    @validator([('bool:info_ok', None)])
-    @vreporter('set info_ok {info_ok}')
+    @vcheck([('bool:info_ok', None)])
+    @vreport('set info_ok {info_ok}')
     @override
     def info_ok(self, info_ok: bool) -> None:
         '''
@@ -102,13 +107,28 @@ class InfoOk(IInfoOk):
             :exceptions:
                 | ATSRuntimeError: Decorator cannot be used on a standalone function.
                 | ATSAttributeError: Class is required to provide a '_reporter' object to
-                |                    use the @verboser decorator.
+                |                    use the @vreport decorator.
                 | ATSTypeError: Parameter type validation failed.
                 | ATSValueError: Parameter format validation failed.
                 | ATSRuntimeError: Decorator used on a non-class method.
                 | ATSAttributeError: Class does not provide a '_checker' object.
         '''
         self._info_ok = info_ok
+
+    @vreport('check info_ok {info_ok}')
+    @override
+    def not_none(self) -> bool:
+        '''
+            Checks if ATS info status is not None.
+
+            :return: True (success) | False (fail).
+            :rtype: <bool>
+            :exceptions:
+                | ATSRuntimeError: Decorator cannot be used on a standalone function.
+                | ATSAttributeError: Class is required to provide a '_reporter' object to
+                |                    use the @vreport decorator.
+        '''
+        return self._info_ok
 
     @override
     def __str__(self) -> str:
@@ -119,4 +139,4 @@ class InfoOk(IInfoOk):
             :rtype: <str>
             :exceptions: None.
         '''
-        return format_instance_to_string(self)
+        return to_str(self)

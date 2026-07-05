@@ -20,23 +20,28 @@ Info
     Creates an API for processing hyperlinks for splash screen.
 '''
 
+from __future__ import annotations
+
+from collections.abc import Mapping
 from typing import Any, override
+
 from ats_utilities.splasher.iext_infrastructure import IExtInfrastructure
 from ats_utilities.splasher.splash_keys import SplashKeys
 from ats_utilities.context_bundle import ContextBundle
 from ats_utilities.checker.ichecker import IChecker
 from ats_utilities.reporter.ireporter import IReporter
 from ats_utilities.factory_context_bundle import factory_context_bundle
-from ats_utilities.factory_class import require_attributes, format_instance_to_string
-from ats_utilities.checker.proxy_validator import validator
-from ats_utilities.reporter.proxy_reporter import vreporter
+from ats_utilities.factory_class import has_attrs, to_str
+from ats_utilities.checker.proxy_validator import vcheck
+from ats_utilities.reporter.proxy_reporter import vreport
 from ats_utilities.factory_dict_utils import require_keys, cherry_pick_dict
+from ats_utilities.factory_value import require_not_empty
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.4.1'
+__version__: str = '3.4.2'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
@@ -67,10 +72,10 @@ class ExtInfrastructure(IExtInfrastructure):
     _required_keys: frozenset[str] = frozenset([
         SplashKeys.ATS_NAME, SplashKeys.ATS_ORGANIZATION, SplashKeys.ATS_REPOSITORY
     ])
-
     _checker: IChecker
     _reporter: IReporter
     _verbose: bool
+    _infrastructure_property: Mapping[str, Any] | None
 
     def __init__(self, context_bundle: ContextBundle | None = None) -> None:
         '''
@@ -81,50 +86,52 @@ class ExtInfrastructure(IExtInfrastructure):
             :exceptions: None.
         '''
         factory_context_bundle(self, context_bundle)
-        self._infrastructure_property: dict[Any, Any] | None = None
+        self._infrastructure_property = None
 
     @property
-    @vreporter('get infrastructure property {infrastructure_property}')
+    @vreport('get infrastructure property {infrastructure_property}')
     @override
-    def infrastructure_property(self) -> dict[Any, Any] | None:
+    def infrastructure_property(self) -> Mapping[str, Any]:
         '''
             Property method for getting infrastructure property.
+            Infrastructure property comes from info configuration file as read only data.
 
-            :return: Formatted infrastructure property in dict format | None.
-            :rtype: <dict[Any, Any] | None>
+            :return: Formatted infrastructure property in Mapping format (read only data).
+            :rtype: <Mapping[str, Any]>
             :exceptions:
                 | ATSRuntimeError: Decorator cannot be used on a standalone function.
                 | ATSAttributeError: Class is required to provide a '_reporter' object to
-                |                    use the @verboser decorator.
+                |                    use the @vreport decorator.
         '''
-        return self._infrastructure_property
+        return self._infrastructure_property or {}
 
     @infrastructure_property.setter
-    @validator([('dict:infrastructure_property_setup', None)])
-    @vreporter('set infrastructure property {infrastructure_property}')
+    @vcheck([('Mapping:setup', None)])
+    @vreport('set infrastructure property {infrastructure_property}')
     @override
-    def infrastructure_property(self, infrastructure_property_setup: dict[Any, Any] | None) -> None:
+    def infrastructure_property(self, setup: Mapping[str, Any]) -> None:
         '''
             Property method for setting project infrastructure property.
+            Infrastructure property comes from info configuration file as read only data.
 
-            :param infrastructure_property_setup: Project infrastructure property in dict format | None.
-            :type infrastructure_property_setup: <dict[Any, Any] | None>
+            :param setup: Project infrastructure property in Mapping format (read only data).
+            :type setup: <Mapping[str, Any]>
             :exceptions:
-                | ATSTypeError: infrastructure property setup is not a dict | None.
+                | ATSTypeError: infrastructure property setup is not a Mapping.
                 | ATSValueError: infrastructure property setup is missing required keys.
                 | ATSRuntimeError: Decorator cannot be used on a standalone function.
                 | ATSAttributeError: Class is required to provide a '_reporter' object to
-                |                    use the @verboser decorator.
+                |                    use the @vreport decorator.
                 | ATSTypeError: Parameter type validation failed.
                 | ATSValueError: Parameter format validation failed.
                 | ATSRuntimeError: Decorator used on a non-class method.
                 | ATSAttributeError: Class does not provide a '_checker' object.
         '''
-        require_keys(infrastructure_property_setup, self._required_keys)
-        self._infrastructure_property = cherry_pick_dict(infrastructure_property_setup, self._required_keys)
+        require_keys(setup, self._required_keys)
+        self._infrastructure_property = cherry_pick_dict(setup, self._required_keys)
 
-    @vreporter('get info text {infrastructure_property}')
-    @require_attributes('_infrastructure_property')
+    @vreport('get info text {infrastructure_property}')
+    @has_attrs('_infrastructure_property')
     @override
     def get_info_text(self) -> str:
         '''
@@ -134,16 +141,18 @@ class ExtInfrastructure(IExtInfrastructure):
             :rtype: <str>
             :exceptions:
                 | ATSValueError: Missing or empty attribute: '_infrastructure_property'.
+                | ATSValueError: Target property name value is missing or empty.
                 | ATSRuntimeError: Decorator cannot be used on a standalone function.
                 | ATSAttributeError: Class is required to provide a '_reporter' object to
-                |                    use the @verboser decorator.
+                |                    use the @vreport decorator.
         '''
         name: str = self._infrastructure_property.get(SplashKeys.ATS_NAME)
+        require_not_empty(name, "missing name")
 
         return f'\x1b]8;;{name}\a{name}\x1b]8;;\a'
 
-    @vreporter('get issue text {infrastructure_property}')
-    @require_attributes('_infrastructure_property')
+    @vreport('get issue text {infrastructure_property}')
+    @has_attrs('_infrastructure_property')
     @override
     def get_issue_text(self) -> str:
         '''
@@ -153,16 +162,18 @@ class ExtInfrastructure(IExtInfrastructure):
             :rtype: <str>
             :exceptions:
                 | ATSValueError: Missing or empty attribute: '_infrastructure_property'.
+                | ATSValueError: Target property name value is missing or empty.
                 | ATSRuntimeError: Decorator cannot be used on a standalone function.
                 | ATSAttributeError: Class is required to provide a '_reporter' object to
-                |                    use the @verboser decorator.
+                |                    use the @vreport decorator.
         '''
         repo: str = self._infrastructure_property.get(SplashKeys.ATS_REPOSITORY)
+        require_not_empty(repo, "missing repository")
 
         return f'\x1b]8;;{repo}\a{repo}\x1b]8;;\a'
 
-    @vreporter('get author text {infrastructure_property}')
-    @require_attributes('_infrastructure_property')
+    @vreport('get author text {infrastructure_property}')
+    @has_attrs('_infrastructure_property')
     @override
     def get_author_text(self) -> str:
         '''
@@ -172,11 +183,13 @@ class ExtInfrastructure(IExtInfrastructure):
             :rtype: <str>
             :exceptions:
                 | ATSValueError: Missing or empty attribute: '_infrastructure_property'.
+                | ATSValueError: Target property name value is missing or empty.
                 | ATSRuntimeError: Decorator cannot be used on a standalone function.
                 | ATSAttributeError: Class is required to provide a '_reporter' object to
-                |                    use the @verboser decorator.
+                |                    use the @vreport decorator.
         '''
         org: str = self._infrastructure_property.get(SplashKeys.ATS_ORGANIZATION)
+        require_not_empty(org, "missing organization")
 
         return f'\x1b]8;;{org}\a{org}\x1b]8;;\a'
 
@@ -189,4 +202,4 @@ class ExtInfrastructure(IExtInfrastructure):
             :rtype: <str>
             :exceptions: None.
         '''
-        return format_instance_to_string(self)
+        return to_str(self)

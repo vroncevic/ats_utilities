@@ -20,14 +20,17 @@ Info
     Interface for processing hyperlinks for splash screen.
 '''
 
+from __future__ import annotations
+
 from abc import ABC, abstractmethod
+from collections.abc import Mapping
 from typing import Any
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.4.1'
+__version__: str = '3.4.2'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
@@ -40,7 +43,6 @@ class IExtInfrastructure(ABC):
 
         It defines:
 
-            :attributes: None.
             :methods:
                 | infrastructure_property - Property methods for set/get operations.
                 | get_info_text - Pre-processes info text for splash screen.
@@ -51,24 +53,26 @@ class IExtInfrastructure(ABC):
 
     @property
     @abstractmethod
-    def infrastructure_property(self) -> dict[Any, Any] | None:
+    def infrastructure_property(self) -> Mapping[str, Any]:
         '''
             Property method for getting infrastructure property.
+            Infrastructure property comes from info configuration file as read only data.
 
-            :return: Formatted infrastructure property in dict format | None.
-            :rtype: <dict[Any, Any] | None>
+            :return: Formatted infrastructure property in Mapping format (read only data).
+            :rtype: <Mapping[str, Any]>
             :exceptions: None.
         '''
         pass
 
     @infrastructure_property.setter
     @abstractmethod
-    def infrastructure_property(self, infrastructure_property_setup: dict[Any, Any] | None) -> None:
+    def infrastructure_property(self, setup: Mapping[str, Any]) -> None:
         '''
             Property method for setting project infrastructure property.
+            Infrastructure property comes from info configuration file as read only data.
 
-            :param infrastructure_property_setup: Project infrastructure property in dict format | None.
-            :type infrastructure_property_setup: <dict[Any, Any] | None>
+            :param setup: Project infrastructure property in Mapping format (read only data).
+            :type setup: <Mapping[str, Any]>
             :exceptions: None.
         '''
         pass

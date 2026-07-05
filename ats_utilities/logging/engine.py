@@ -20,20 +20,21 @@ Info
     Creates an API for the ATS logging mechanism.
 '''
 
+from __future__ import annotations
+
 from typing import override
+
 from ats_utilities.logging.ilogger import ILogger
 from ats_utilities.logging.ilogger_manager import ILoggerManager
 from ats_utilities.logging.component_bundle import LoggingComponentBundle
 from ats_utilities.context_bundle import ContextBundle
 from ats_utilities.checker.ichecker import IChecker
 from ats_utilities.reporter.ireporter import IReporter
-from ats_utilities.logging.logger_bundle import LoggerBundle
-from ats_utilities.logging.logger import ATSLogger, ATSLogLevels
+from ats_utilities.logging.logger import ATSLogLevels
 from ats_utilities.factory_context_bundle import factory_context_bundle
 from ats_utilities.factory_class import (
-    get_class_name, format_instance_to_string, require_attributes
+    cls_name, to_str, has_attrs
 )
-from ats_utilities.factory_component import make_component, validate_component
 from ats_utilities.exceptions.ats_type_error import ATSTypeError
 from ats_utilities.exceptions.ats_value_error import ATSValueError
 from ats_utilities.exceptions.ats_runtime_error import ATSRuntimeError
@@ -43,7 +44,7 @@ __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.4.1'
+__version__: str = '3.4.2'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
@@ -96,34 +97,28 @@ class LoggerManager(ILoggerManager):
             :type component_bundle: <LoggingComponentBundle | None>
             :exceptions: None.
         '''
-        # No dependency injection then use default ones.
-        bundle = component_bundle or LoggingComponentBundle()
-        factory_context_bundle(self, bundle.context_bundle)
-        self._shared_context: ContextBundle = ContextBundle(
-            checker=self._checker, reporter=self._reporter, verbose=self._verbose
-        )
-        log_bundle: LoggerBundle = bundle.logger_bundle or LoggerBundle()
         self._is_initialized: bool = False
 
         try:
-            self._logger: ILogger = make_component(
-                bundle.logger, ATSLogger, {'logger_bundle': log_bundle, 'context_bundle': self._shared_context}
-            )
-            validate_component(self._logger, ATSLogger) if not bundle.logger else None
+            bundle = component_bundle or LoggingComponentBundle()
+            factory_context_bundle(self, bundle.context_bundle)
+            self._shared_context: ContextBundle = bundle.context_bundle
+            self._logger: ILogger = bundle.logger
+
             self._is_initialized = True
 
         except (ATSTypeError, ATSValueError, ATSRuntimeError, ATSAttributeError) as exc:
-            self._reporter.error([f'{get_class_name(self)} {exc}'])
+            print(f"\x1b[31m{cls_name(self)} {exc}\x1b[0m")
         except Exception as exc:
-            self._reporter.error([f'{get_class_name(self)} unexpected exception: {exc}'])
+            print(f"\x1b[31m{cls_name(self)} unexpected exception: {exc}\x1b[0m")
 
     @override
-    def get_shared_context(self) -> ContextBundle | None:
+    def get_shared_context(self) -> ContextBundle:
         '''
             Returns the shared context.
 
-            :return: Shared context | None
-            :rtype: <ContextBundle | None>
+            :return: Shared context.
+            :rtype: <ContextBundle>
             :exceptions: None.
         '''
         return self._shared_context
@@ -139,7 +134,7 @@ class LoggerManager(ILoggerManager):
         '''
         return self._logger
 
-    @require_attributes('_logger')
+    @has_attrs('_logger')
     @override
     def write_log(self, message: str | None, ctrl: int) -> bool:
         '''
@@ -156,7 +151,7 @@ class LoggerManager(ILoggerManager):
         '''
         return self._logger.write_log(message, int(ctrl))
 
-    @require_attributes('_logger')
+    @has_attrs('_logger')
     @override
     def is_initialized(self) -> bool:
         '''
@@ -178,4 +173,4 @@ class LoggerManager(ILoggerManager):
             :rtype: <str>
             :exceptions: None.
         '''
-        return format_instance_to_string(self)
+        return to_str(self)

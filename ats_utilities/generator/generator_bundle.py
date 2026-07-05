@@ -20,22 +20,26 @@ Info
     Encapsulates template generation parameters for simplifcation.
 '''
 
+from __future__ import annotations
+
+from collections.abc import Mapping
+from dataclasses import dataclass, asdict
 from typing import Any
-from dataclasses import dataclass
-from ats_utilities.exceptions.ats_value_error import ATSValueError
-from ats_utilities.exceptions.ats_type_error import ATSTypeError
+
+from ats_utilities.factory_value import require_not_none
+from ats_utilities.factory_type import check_type
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.4.1'
+__version__: str = '3.4.2'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
 
 
-@dataclass
+@dataclass(slots=True, kw_only=True)
 class GeneratorBundle:
     '''
         Defines class GeneratorBundle with method(s).
@@ -47,81 +51,78 @@ class GeneratorBundle:
                 | archive_path - Path to the .tgz archive.
                 | target_dir - Directory where the project will be generated.
                 | template_key - Key for the template configuration.
-                | scheme - Scheme configuration.
+                | scheme - Scheme configuration file path.
                 | template_values - Template values for name case variations.
             :methods:
-                | validate - Validates that essential components are set.
-                | merge - Merges non-None values from another bundle into this one.
-                | to_dict - Converts the bundle attributes to a dictionary.
+                | validate - Validates that GeneratorBundle is valid (can be called after merge).
+                | merge - Merges non-None values from another GeneratorBundle instance into this one.
+                | to_dict - Converts the GeneratorBundle instance to a dictionary.
     '''
 
     archive_path: str
     target_dir: str
     template_key: str
-    scheme: dict[str, Any] | str
-    template_values: dict[str, str]
+    scheme: str | Mapping[str, Any]
+    template_values: Mapping[str, str]
 
     def validate(self) -> None:
         '''
-            Validates that essential components are set.
+            Validates that GeneratorBundle is valid (can be called after merge).
+            Performs validation of archive_path, target_dir, template_key, scheme and template_values attributes.
+            Archive path must be non-None and a string.
+            Target dir must be non-None and a string.
+            Template key must be non-None and a string.
+            Scheme must be non-None and a string or a mapping.
+            Template values must be non-None and a mapping.
 
             :exceptions:
-                | ATSValueError: Archive_path must be set.
-                | ATSValueError: Target_dir must be set.
-                | ATSValueError: Template_key must be set.
-                | ATSValueError: Scheme must be set.
-                | ATSValueError: Template_values must be set.
-                | ATSTypeError: Types of fields must be correct.
+                | ATSValueError: Archive path must be provided.
+                | ATSTypeError: Archive path must be a string.
+                | ATSValueError: Target dir must be provided.
+                | ATSTypeError: Target dir must be a string.
+                | ATSValueError: Template key must be provided.
+                | ATSTypeError: Template key must be a string.
+                | ATSValueError: Scheme must be provided.
+                | ATSTypeError: Scheme must be a string or a mapping.
+                | ATSValueError: Template values must be provided.
+                | ATSTypeError: Template values must be a mapping.
         '''
-        if self.archive_path is None:
-            raise ATSValueError("archive_path must be set.")
-        if not isinstance(self.archive_path, str):
-            raise ATSTypeError("archive_path must be a string.")
+        require_not_none(self.archive_path, 'archive_path must be provided')
+        check_type(self.archive_path, str, 'archive_path must be a string')
+        require_not_none(self.target_dir, 'target_dir must be provided')
+        check_type(self.target_dir, str, 'target_dir must be a string')
+        require_not_none(self.template_key, 'template_key must be provided')
+        check_type(self.template_key, str, 'template_key must be a string')
+        require_not_none(self.scheme, 'scheme must be provided')
+        check_type(self.scheme, (str, Mapping), 'scheme must be a string or a mapping')
+        require_not_none(self.template_values, 'template_values must be provided')
+        check_type(self.template_values, Mapping, 'template_values must be a mapping')
 
-        if self.target_dir is None:
-            raise ATSValueError("target_dir must be set.")
-        if not isinstance(self.target_dir, str):
-            raise ATSTypeError("target_dir must be a string.")
-
-        if self.template_key is None:
-            raise ATSValueError("template_key must be set.")
-        if not isinstance(self.template_key, str):
-            raise ATSTypeError("template_key must be a string.")
-
-        if self.scheme is None:
-            raise ATSValueError("scheme must be set.")
-        if not isinstance(self.scheme, (str, dict)):
-            raise ATSTypeError("scheme must be a string or a dictionary.")
-
-        if self.template_values is None:
-            raise ATSValueError("template_values must be set.")
-        if not isinstance(self.template_values, dict):
-            raise ATSTypeError("template_values must be a dictionary.") 
-
-    def merge(self, other: 'GeneratorBundle') -> None:
+    def merge(self, other: GeneratorBundle) -> None:
         '''
-            Merges non-None values from another bundle into this one.
+            Merges non-None values from another GeneratorBundle instance into this one.
 
-            :param other: Another bundle to merge into this one.
+            :param other: Another GeneratorBundle instance to merge into this one.
             :type other: <GeneratorBundle>
-            :exceptions: None.
+            :exceptions:
+                | ATSTypeError: Other must be a GeneratorBundle.
         '''
+        check_type(other, GeneratorBundle, 'other must be a GeneratorBundle')
+
         for field_name in self.__dataclass_fields__:
             other_value: Any = getattr(other, field_name)
 
             if other_value is not None:
                 setattr(self, field_name, other_value)
 
+        self.validate()
+
     def to_dict(self) -> dict[str, Any]:
         '''
-            Converts the bundle attributes to a dictionary.
+            Converts the GeneratorBundle instance to a dictionary.
 
-            :return: Dictionary representation of the bundle attributes.
+            :return: Dictionary representation of the GeneratorBundle instance.
             :rtype: <dict[str, Any]>
             :exceptions: None.
         '''
-        return {
-            name: value
-            for name, value in self.__dict__.items()
-            if not name.startswith('_')
-        }
+        return asdict(self)

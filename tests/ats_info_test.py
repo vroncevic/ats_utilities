@@ -23,6 +23,8 @@ Execute
 '''
 
 from unittest import TestCase, main, mock
+from typing import Any
+
 from ats_utilities.info.engine import InfoManager
 from ats_utilities.info.build_date import BuildDate
 from ats_utilities.info.licence import Licence
@@ -34,12 +36,13 @@ from ats_utilities.info.use_github import UseGitHub
 from ats_utilities.info.version import Version
 from ats_utilities.info.info_ok import InfoOk
 from ats_utilities.exceptions.ats_type_error import ATSTypeError
+from ats_utilities.exceptions.ats_value_error import ATSValueError
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.4.1'
+__version__: str = '3.4.2'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
@@ -79,11 +82,15 @@ class InfoManagerTestCase(TestCase):
 
     def setUp(self) -> None:
         '''Call before test case.'''
-        self.base_info: dict[str, str] = {
+        self.base_info: dict[str, Any] = {
             'ats_name': 'Simple Tool',
             'ats_version': '1.0.0',
             'ats_licence': 'GPLv3',
-            'ats_build_date': 'Sun 25 Apr 2021 08:12:40 PM CEST'
+            'ats_build_date': 'Sun 25 Apr 2021 08:12:40 PM CEST',
+            'ats_repository': 'my-repo',
+            'ats_organization': 'my-org',
+            'ats_use_github_infrastructure': 'False',
+            'ats_logo_path': '/path/to/logo.png'
         }
         self.manager = InfoManager()
         self.manager.set_info(self.base_info)
@@ -93,35 +100,35 @@ class InfoManagerTestCase(TestCase):
 
     def test_create_with_wrong_argument(self) -> None:
         '''Test wrong argument type.'''
-        with self.assertRaises(AttributeError):
-            InfoManager("wrong")  # type: ignore
+        invalid_manager = InfoManager("wrong")  # type: ignore
+        self.assertFalse(invalid_manager.is_initialized())
 
     def test_create_with_wrong_arguments(self) -> None:
         '''Test wrong argument types.'''
         manager = InfoManager()
-        manager.set_info({
-            'ats_name': None,
-            'ats_version': None,
-            'ats_licence': None,
-            'ats_build_date': None
-        })
-        self.assertFalse(manager.info_ok)
+        with self.assertRaises(ATSValueError):
+            manager.set_info({
+                'ats_name': None,
+                'ats_version': None,
+                'ats_licence': None,
+                'ats_build_date': None
+            })
 
     def test_is_initialized(self) -> None:
         '''Test is_initialized method.'''
         self.assertTrue(self.manager.is_initialized())
 
-    @mock.patch('ats_utilities.info.engine.make_component')
-    def test_initialization_failure(self, mock_make_component) -> None:
+    @mock.patch('ats_utilities.info.component_bundle.validate_component')
+    def test_initialization_failure(self, mock_validate_component) -> None:
         '''Test info manager initialization failure.'''
-        mock_make_component.side_effect = ATSTypeError('Failed to initialize component')
+        mock_validate_component.side_effect = ATSTypeError('Failed to initialize component')
         invalid_manager = InfoManager()
         self.assertFalse(invalid_manager.is_initialized())
 
-    @mock.patch('ats_utilities.info.engine.make_component')
-    def test_initialization_unexpected_exception(self, mock_make_component) -> None:
+    @mock.patch('ats_utilities.info.component_bundle.validate_component')
+    def test_initialization_unexpected_exception(self, mock_validate_component) -> None:
         '''Test info manager initialization unexpected exception.'''
-        mock_make_component.side_effect = Exception('Unexpected')
+        mock_validate_component.side_effect = Exception('Unexpected')
         invalid_manager = InfoManager()
         self.assertFalse(invalid_manager.is_initialized())
 
@@ -131,27 +138,23 @@ class InfoManagerTestCase(TestCase):
 
     def test_info_set_name_none(self) -> None:
         '''Test setting name to None.'''
-        self.manager.name = None
-        self.assertIsNone(self.manager.name)
-        self.assertFalse(self.manager.info_ok)
+        with self.assertRaises(ATSTypeError):
+            self.manager.name = None
 
     def test_info_set_version_none(self) -> None:
         '''Test setting version to None.'''
-        self.manager.version = None
-        self.assertIsNone(self.manager.version)
-        self.assertFalse(self.manager.info_ok)
+        with self.assertRaises(ATSTypeError):
+            self.manager.version = None
 
     def test_info_set_licence_none(self) -> None:
         '''Test setting licence to None.'''
-        self.manager.licence = None
-        self.assertIsNone(self.manager.licence)
-        self.assertFalse(self.manager.info_ok)
+        with self.assertRaises(ATSTypeError):
+            self.manager.licence = None
 
     def test_info_set_build_date_none(self) -> None:
         '''Test setting build date to None.'''
-        self.manager.build_date = None
-        self.assertIsNone(self.manager.build_date)
-        self.assertFalse(self.manager.info_ok)
+        with self.assertRaises(ATSTypeError):
+            self.manager.build_date = None
 
     def test_info_set_name_wrong_type(self) -> None:
         '''Test wrong type for name.'''
@@ -225,7 +228,6 @@ class InfoComponentsTestCase(TestCase):
 
         It defines:
 
-            :attributes: None
             :methods:
                 | test_build_date_component - Tests build date component.
                 | test_licence_component - Tests licence component.

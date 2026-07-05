@@ -20,13 +20,16 @@ Info
     Interface for storing the ATS configuration.
 '''
 
+from __future__ import annotations
+
 from abc import ABC, abstractmethod
+from collections.abc import Mapping
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.4.1'
+__version__: str = '3.4.2'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
@@ -39,19 +42,18 @@ class IStorer(ABC):
 
         It defines:
 
-            :attributes: None
             :methods:
                 | store_configuration - Stores the ATS configuration from dictionary.
                 | __str__ - Returns the storer component as string representation.
     '''
 
     @abstractmethod
-    def store_configuration(self, config: dict[str, str]) -> bool:
+    def store_configuration(self, config: Mapping[str, str]) -> bool:
         '''
-            Stores the ATS configuration from dictionary format.
+            Stores the ATS configuration from mapping format.
 
-            :param config: Dictionary with configuration information.
-            :type config: <dict[str, str]>
+            :param config: Mapping with configuration information (read only data).
+            :type config: <Mapping[str, str]>
             :return: True (success) | False (fail).
             :rtype: <bool>
             :exceptions: None.

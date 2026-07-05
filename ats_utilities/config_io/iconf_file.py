@@ -20,7 +20,10 @@ Info
     Creates an interface for configuration file context manager.
 '''
 
+from __future__ import annotations
+
 from abc import ABC, abstractmethod
+from collections.abc import Mapping
 from io import TextIOBase
 from typing import Any
 
@@ -28,7 +31,7 @@ __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.4.1'
+__version__: str = '3.4.2'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
@@ -44,7 +47,6 @@ class IConfFile(ABC):
 
         It defines:
 
-            :attributes: None
             :methods:
                 | __enter__ - Opens configuration context manager.
                 | __exit__ - Closes configuration context manager.
@@ -63,14 +65,14 @@ class IConfFile(ABC):
         pass
 
     @abstractmethod
-    def __exit__(self, *args: tuple[Any, ...], **kwargs: dict[Any, Any]) -> None:
+    def __exit__(self, *args: tuple[Any, ...], **kwargs: Mapping[Any, Any]) -> None:
         '''
             Closes configuration context manager.
 
             :param args: List of arguments.
-            :type args: <tuple[Any, ...]>
+            :type args: <tuple[Any, ...]>  
             :param kwargs: Dictionary of mapped arguments.
-            :type kwargs: <dict[Any, Any]>
+            :type kwargs: <Mapping[Any, Any]>
             :exceptions: None.
         '''
         pass

@@ -20,17 +20,20 @@ Info
     Creates an API for checking parameters for methods and functions.
 '''
 
+from __future__ import annotations
+
 from typing import override
-from ats_utilities.factory_class import format_instance_to_string
+
+from ats_utilities.factory_class import to_str
 from ats_utilities.checker.icheck_reporter import ICheckReporter
 from ats_utilities.checker.checker_reporter_bundle import CheckerReporterBundle
-from ats_utilities.exceptions.ats_value_error import ATSValueError
+from ats_utilities.factory_value import require_not_none
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.4.1'
+__version__: str = '3.4.2'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
@@ -44,7 +47,6 @@ class CheckReporter(ICheckReporter):
 
         It defines:
 
-            :attributes: None
             :methods:
                 | build_message_format - Builds the final message report.
                 | __str__ - Returns the ATS check reporter as string representation.
@@ -60,21 +62,20 @@ class CheckReporter(ICheckReporter):
             :return: Formatted message report.
             :rtype: <str>
             :exceptions:
-                | ATSValueError: Missing parameters for build_message_format().
+                | ATSValueError: Report bundle must be provided.
         '''
-        if not report_bundle:
-            raise ATSValueError('missing parameters for build_message_format()')
+        require_not_none(report_bundle, 'report bundle must be provided')
 
-        message = getattr(report_bundle, 'context')
-        err_set = set(getattr(report_bundle, 'err_indices'))
+        message = report_bundle.context
+        err_set = set(report_bundle.err_indices)
 
-        for i, (pname, ptype, inst) in enumerate(getattr(report_bundle, 'parameters_meta')):
+        for i, (pname, ptype, inst) in enumerate(report_bundle.parameters_meta):
             message += f'\n    expected {pname} <{ptype}> object at {hex(id(inst))}'
 
             if i in err_set:
                 message += ' wrong type'
 
-        if getattr(report_bundle, 'is_fmt_err'):
+        if report_bundle.is_fmt_err:
             message += ' format wrong during checking parameters_meta'
 
         return message
@@ -88,4 +89,4 @@ class CheckReporter(ICheckReporter):
             :rtype: <str>
             :exceptions: None.
         '''
-        return format_instance_to_string(self)
+        return to_str(self)

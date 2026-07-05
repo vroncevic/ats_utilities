@@ -20,14 +20,17 @@ Info
     Interface for the project configuration mechanism.
 '''
 
+from __future__ import annotations
+
 from abc import ABC, abstractmethod
+from collections.abc import Mapping
 from typing import Any
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.4.1'
+__version__: str = '3.4.2'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
@@ -40,7 +43,6 @@ class IProConfig(ABC):
 
         It defines:
 
-            :attributes: None
             :methods:
                 | config - Property methods for set/get operations.
                 | not_none - Checks if project configuration is not None.
@@ -49,24 +51,24 @@ class IProConfig(ABC):
 
     @property
     @abstractmethod
-    def config(self) -> dict[Any, Any] | None:
+    def config(self) -> Mapping[str, Any] | None:
         '''
             Property method for getting project configuration.
 
-            :return: Formatted project configuration in dict format | None
-            :rtype: <dict[Any, Any] | None>
+            :return: Formatted project configuration in Mapping format | None
+            :rtype: <Mapping[str, Any] | None>
             :exceptions: None.
         '''
         pass
 
     @config.setter
     @abstractmethod
-    def config(self, pro_config: dict[Any, Any] | None) -> None:
+    def config(self, pro_config: Mapping[str, Any] | None) -> None:
         '''
             Property method for setting project configuration.
 
-            :param pro_config: Project configuration in dict format | None
-            :type pro_config: <dict[Any, Any] | None>
+            :param pro_config: Project configuration in Mapping format | None
+            :type pro_config: <Mapping[str, Any] | None>
             :exceptions: None.
         '''
         pass

@@ -20,26 +20,30 @@ Info
     Encapsulates file check configuration to minimize constructor overhead.
 '''
 
-from dataclasses import dataclass
+from __future__ import annotations
+
+from dataclasses import dataclass, asdict
 from typing import Any
-from ats_utilities.exceptions.ats_value_error import ATSValueError
+
 from ats_utilities.context_bundle import ContextBundle
 from ats_utilities.config_io.ifile_check import IFileCheck
+from ats_utilities.factory_value import require_not_none
+from ats_utilities.factory_type import check_type
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.4.1'
+__version__: str = '3.4.2'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
 
 
-@dataclass
-class ATSConfigFileBundle:
+@dataclass(slots=True, kw_only=True)
+class ConfigFileBundle:
     '''
-        Defines class ATSConfigFileBundle with attribute(s) and method(s).
+        Defines class ConfigFileBundle with attribute(s) and method(s).
         Encapsulates file check configuration to minimize constructor overhead.
 
         It defines:
@@ -49,8 +53,8 @@ class ATSConfigFileBundle:
                 | file_checker - Parameters checker implementation (default None).
             :methods:
                 | validate - Validates that essential components are set.
-                | merge - Merges non-None values from another bundle into this one.
-                | to_dict - Converts the bundle attributes to a dictionary.
+                | merge - Merges non-None values from ConfigFileBundle instance into this one.
+                | to_dict - Converts the ConfigFileBundle instance to a dictionary.
     '''
 
     context: ContextBundle | None = None
@@ -58,43 +62,47 @@ class ATSConfigFileBundle:
 
     def validate(self) -> None:
         '''
-            Validates that essential components are set.
+            Validates that ConfigFileBundle is valid (can be called after merge).
+            Performs validation of context and file_checker attributes.
+            Context must be non-None and an instance of ContextBundle.
+            File_checker must be non-None and an instance of IFileCheck interface.
 
             :exceptions:
                 | ATSValueError: Context bundle must be provided.
                 | ATSValueError: File check implementation must be provided.
+                | ATSTypeError: Context bundle must be an instance of ContextBundle.
+                | ATSTypeError: File check implementation must be an instance of IFileCheck interface.
         '''
-        if self.context is None:
-            raise ATSValueError("context bundle must be provided.")
+        require_not_none(self.context, 'context bundle must be provided')
+        require_not_none(self.file_checker, 'file checker implementation must be provided')
+        check_type(self.context, ContextBundle, 'context bundle must be an instance of ContextBundle')
+        check_type(self.file_checker, IFileCheck, 'file checker implementation must be an instance of IFileCheck interface')
 
-        if self.file_checker is None:
-            raise ATSValueError("file checker implementation must be provided.")
-
-    def merge(self, other: 'ATSConfigFileBundle') -> None:
+    def merge(self, other: ConfigFileBundle) -> None:
         '''
-            Merges non-None values from another bundle into this one.
+            Merges non-None values from ConfigFileBundle instance into this one.
 
-            :param other: Another bundle to merge into this one.
-            :type other: <ATSConfigFileBundle>
-            :exceptions: None.
+            :param other: Another ConfigFileBundle instance to merge into this one.
+            :type other: <ConfigFileBundle>
+            :exceptions:
+                | ATSTypeError: Other must be a ConfigFileBundle instance.
         '''
+        check_type(other, ConfigFileBundle, 'other must be a ConfigFileBundle instance')
+
         for field_name in self.__dataclass_fields__:
-            other_value = getattr(other, field_name)
+            other_value: Any = getattr(other, field_name)
 
             if other_value is not None:
                 setattr(self, field_name, other_value)
 
+        self.validate()
+
     def to_dict(self) -> dict[str, Any]:
         '''
-            Converts the bundle attributes to a dictionary.
+            Converts the ConfigFileBundle instance to a dictionary.
 
-            :return: Dictionary representation of the bundle attributes.
+            :return: Dictionary representation of the ConfigFileBundle instance.
             :rtype: <dict[str, Any]>
             :exceptions: None.
         '''
-        return {
-            name: value
-            for name, value in self.__dict__.items()
-            if not name.startswith('_')
-        }
-
+        return asdict(self)

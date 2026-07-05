@@ -39,7 +39,7 @@ __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.4.1'
+__version__: str = '3.4.2'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
@@ -212,7 +212,7 @@ class GeneratorTestCase(TestCase):
         self.assertEqual(res['project_name_camel'], 'CustomCamel')
         self.assertEqual(res['project_name_upper'], 'CUSTOM_UPPER')
 
-    @mock.patch('ats_utilities.generator.engine.make_component')
+    @mock.patch('ats_utilities.generator.component_bundle.make_component')
     def test_generator_initialization_failures(self, mock_make_component) -> None:
         '''Test Generator initialization with errors.'''
         # Test ATSTypeError

@@ -23,7 +23,7 @@ import sys
 import types
 from typing import Any
 from fire import Fire  # type: ignore
-from ats_utilities.factory_class import format_instance_to_string
+from ats_utilities.factory_class import to_str
 from ats_utilities.option.engine import OptionManager
 from ats_utilities.option.option_namespace import OptionNamespace, OptArgs
 from ats_utilities.option.iparser_strategy import IParserStrategy
@@ -33,7 +33,7 @@ __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.4.1'
+__version__: str = '3.4.2'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
@@ -98,7 +98,7 @@ class MyAppFireStrategy(IParserStrategy):
         return True
 
     def __str__(self) -> str:
-        return format_instance_to_string(self)
+        return to_str(self)
 
 
 fire_strategy = MyAppFireStrategy()

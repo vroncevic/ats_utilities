@@ -20,29 +20,34 @@ Info
     Encapsulates core configuration and processor utilities to minimize constructor overhead.
 '''
 
-from dataclasses import dataclass
+from __future__ import annotations
+
+from dataclasses import dataclass, asdict
 from typing import Any
+
 from ats_utilities.config_io.iread import IRead
 from ats_utilities.exceptions.ats_value_error import ATSValueError
-from ats_utilities.config_io.config_file_bundle import ATSConfigFileBundle
+from ats_utilities.config_io.config_file_bundle import ConfigFileBundle
 from ats_utilities.config_io.iconfig_loader import IConfigProcessor
+from ats_utilities.factory_value import require_not_none
+from ats_utilities.factory_type import check_type
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.4.1'
+__version__: str = '3.4.2'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
 
 
-@dataclass
-class ATSConfigLoaderBundle:
+@dataclass(slots=True, kw_only=True)
+class ConfigLoaderBundle:
     '''
-        Defines class ATSConfigLoaderBundle with attribute(s) and method(s).
+        Defines class ConfigLoaderBundle with attribute(s) and method(s).
         Encapsulates the core system tracking, verification, and configuration components.
-        Acts as a Parameter Object to clean up highly repetitive logger and validator arguments.
+        Acts as a Parameter Object to clean up highly repetitive logger and vcheck arguments.
 
         It defines:
 
@@ -52,63 +57,69 @@ class ATSConfigLoaderBundle:
                 | config_bundle - ATS configuration file bundle (default None).
                 | processor - Configuration processor implementation (default None).
             :methods:
-                | validate - Validates that essential components are set.
-                | merge - Merges non-None values from another bundle into this one.
-                | to_dict - Converts the bundle attributes to a dictionary.
+                | validate - Validates that ConfigLoaderBundle is valid (can be called after merge).
+                | merge - Merges non-None values from ConfigLoaderBundle instance into this one.
+                | to_dict - Converts the ConfigLoaderBundle instance to a dictionary.
     '''
 
     info_file: str | None = None
     config2object: IRead | None = None
-    config_bundle: ATSConfigFileBundle | None = None
+    config_bundle: ConfigFileBundle | None = None
     processor: IConfigProcessor | None = None
 
     def validate(self) -> None:
         '''
-            Validates that essential components are set.
+            Validates that ConfigLoaderBundle is valid (can be called after merge).
+            Performs validation of info_file, config2object, config_bundle and processor attributes.
+            Info file must be non-None and an instance of str.
+            Config2object must be non-None and an instance of IRead interface.
+            Config_bundle must be non-None and an instance of ConfigFileBundle interface.
+            Processor must be non-None and an instance of IConfigProcessor interface.
 
             :exceptions:
                 | ATSValueError: Info file must be provided.
                 | ATSValueError: Config2object must be provided.
                 | ATSValueError: Configuration bundle must be provided.
                 | ATSValueError: Configuration processor must be provided.
+                | ATSTypeError: Info file must be a string.
+                | ATSTypeError: Config2object must be an instance of IRead interface.
+                | ATSTypeError: Config_bundle must be an instance of ConfigFileBundle interface.
+                | ATSTypeError: Processor must be an instance of IConfigProcessor interface.
         '''
-        if self.info_file is None:
-            raise ATSValueError("info file must be provided.")
+        require_not_none(self.info_file, 'info file must be provided')
+        check_type(self.info_file, str, 'info file must be a string')
+        require_not_none(self.config2object, 'config2object must be provided')
+        check_type(self.config2object, IRead, 'config2object must be an instance of IRead interface')
+        require_not_none(self.config_bundle, 'configuration bundle must be provided')
+        check_type(self.config_bundle, ConfigFileBundle, 'configuration bundle must be an instance of ConfigFileBundle interface')
+        require_not_none(self.processor, 'configuration processor must be provided')
+        check_type(self.processor, IConfigProcessor, 'configuration processor must be an instance of IConfigProcessor interface')
 
-        if self.config2object is None:
-            raise ATSValueError("config2object must be provided.")
-
-        if self.config_bundle is None:
-            raise ATSValueError("configuration bundle must be provided.")
-
-        if self.processor is None:
-            raise ATSValueError("configuration processor must be provided.")
-
-    def merge(self, other: 'ATSConfigLoaderBundle') -> None:
+    def merge(self, other: ConfigLoaderBundle) -> None:
         '''
             Merges non-None values from another bundle into this one.
 
             :param other: Another bundle to merge into this one.
-            :type other: <ATSConfigLoaderBundle>
-            :exceptions: None.
+            :type other: <ConfigLoaderBundle>
+            :exceptions:
+                | ATSTypeError: Other must be an ConfigLoaderBundle instance.
         '''
+        check_type(other, ConfigLoaderBundle, 'other must be an ConfigLoaderBundle instance')
+
         for field_name in self.__dataclass_fields__:
-            other_value = getattr(other, field_name)
+            other_value: Any = getattr(other, field_name)
 
             if other_value is not None:
                 setattr(self, field_name, other_value)
 
+        self.validate()
+
     def to_dict(self) -> dict[str, Any]:
         '''
-            Converts the bundle attributes to a dictionary.
+            Converts the ConfigLoaderBundle instance to a dictionary.
 
-            :return: Dictionary representation of the bundle attributes.
+            :return: Dictionary representation of the ConfigLoaderBundle instance.
             :rtype: <dict[str, Any]>
             :exceptions: None.
         '''
-        return {
-            name: value
-            for name, value in self.__dict__.items()
-            if not name.startswith('_')
-        }
-
+        return asdict(self)

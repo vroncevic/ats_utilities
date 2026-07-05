@@ -20,13 +20,15 @@ Info
     Interface for the ATS info status mechanism.
 '''
 
+from __future__ import annotations
+
 from abc import ABC, abstractmethod
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.4.1'
+__version__: str = '3.4.2'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
@@ -39,9 +41,9 @@ class IInfoOk(ABC):
 
         It defines:
 
-            :attributes: None
             :methods:
                 | info_ok - Property methods for set/get operations.
+                | not_none - Checks if ATS info status is not None.
                 | __str__ - Returns the ATS info status as string representation.
     '''
 
@@ -65,6 +67,17 @@ class IInfoOk(ABC):
 
             :param info_ok: The ATS information status in bool format
             :type info_ok: <bool>
+            :exceptions: None.
+        '''
+        pass
+
+    @abstractmethod
+    def not_none(self) -> bool:
+        '''
+            Checks if ATS info status is not None.
+
+            :return: True (success) | False (fail).
+            :rtype: <bool>
             :exceptions: None.
         '''
         pass

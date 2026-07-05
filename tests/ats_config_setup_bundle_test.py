@@ -38,7 +38,7 @@ __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.4.1'
+__version__: str = '3.4.2'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
@@ -52,7 +52,6 @@ class ConfigSetupComponentBundleTestCase(TestCase):
 
         It defines:
 
-            :attributes: None
             :methods:
                 | test_init - Test is ConfigSetupComponentBundle initialized correctly.
                 | test_validate - Test validate method.
@@ -90,7 +89,7 @@ class ConfigSetupComponentBundleTestCase(TestCase):
             template_dir=TemplateDir(context_bundle),
             context_bundle=context_bundle
         )
-        with self.assertRaisesRegex(ATSValueError, r'project configuration must be provided\.'):
+        with self.assertRaisesRegex(ATSValueError, r'project configuration must be provided'):
             bundle.validate()
 
     def test_validate_with_missing_pro_name(self) -> None:
@@ -100,7 +99,7 @@ class ConfigSetupComponentBundleTestCase(TestCase):
             template_dir=TemplateDir(context_bundle),
             context_bundle=context_bundle
         )
-        with self.assertRaisesRegex(ATSValueError, r'project name must be provided\.'):
+        with self.assertRaisesRegex(ATSValueError, r'project name must be provided'):
             bundle.validate()
 
     def test_validate_with_missing_template_dir(self) -> None:
@@ -109,7 +108,7 @@ class ConfigSetupComponentBundleTestCase(TestCase):
             pro_config=ProConfig(context_bundle),
             pro_name=ProName(context_bundle)
         )
-        with self.assertRaisesRegex(ATSValueError, r'template directory must be provided\.'):
+        with self.assertRaisesRegex(ATSValueError, r'template directory must be provided'):
             bundle.validate()
 
     def test_validate_with_missing_context_bundle(self) -> None:
@@ -119,7 +118,7 @@ class ConfigSetupComponentBundleTestCase(TestCase):
             pro_name=ProName(context_bundle),
             template_dir=TemplateDir(context_bundle)
         )
-        with self.assertRaisesRegex(ATSValueError, r'context bundle must be provided\.'):
+        with self.assertRaisesRegex(ATSValueError, r'context bundle must be provided'):
             bundle.validate()
 
     def test_merge(self) -> None:

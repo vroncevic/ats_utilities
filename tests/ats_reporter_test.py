@@ -26,16 +26,18 @@ from unittest import TestCase, main, mock
 from ats_utilities.reporter.ireporter import IReporter
 from ats_utilities.reporter.engine import Reporter
 from ats_utilities.exceptions.ats_type_error import ATSTypeError
+from ats_utilities.exceptions.ats_value_error import ATSValueError
 from ats_utilities.reporter.component_bundle import ReporterComponentBundle
-from ats_utilities.reporter.proxy_reporter import vreporter
+from ats_utilities.reporter.proxy_reporter import vreport
 from ats_utilities.exceptions.ats_runtime_error import ATSRuntimeError
 from ats_utilities.exceptions.ats_attribute_error import ATSAttributeError
+from ats_utilities.reporter.theme.engine import ConsoleTheme
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.4.1'
+__version__: str = '3.4.2'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
@@ -104,26 +106,24 @@ class ReporterTestCase(TestCase):
         self.reporter.verbose(False, ['test info'])
         mock_print.assert_not_called()
 
-    @mock.patch('ats_utilities.reporter.engine.make_component')
+    @mock.patch('ats_utilities.reporter.component_bundle.make_component')
     def test_initialization_failure(self, mock_make_component) -> None:
         '''Test initialization failure with wrong components.'''
         mock_make_component.side_effect = ATSTypeError('Failed to initialize component')
-        bundle = ReporterComponentBundle()
-        r = Reporter(bundle)
+        r = Reporter()
         self.assertFalse(r.is_initialized())
 
-    @mock.patch('ats_utilities.reporter.engine.make_component')
+    @mock.patch('ats_utilities.reporter.component_bundle.make_component')
     def test_initialization_unexpected_exception(self, mock_make_component) -> None:
         '''Test initialization unexpected exception.'''
         mock_make_component.side_effect = Exception('Unexpected')
-        bundle = ReporterComponentBundle()
-        r = Reporter(bundle)
+        r = Reporter()
         self.assertFalse(r.is_initialized())
 
-    def test_vreporter_decorator_failures_and_features(self) -> None:
-        '''Test various paths and errors in vreporter decorator.'''
+    def test_vreport_decorator_failures_and_features(self) -> None:
+        '''Test various paths and errors in vreport decorator.'''
         # 1. Non-class method call
-        @vreporter("test")
+        @vreport("test")
         def dummy_func(*args, **kwargs):
             return True
         with self.assertRaises(ATSRuntimeError):
@@ -131,7 +131,7 @@ class ReporterTestCase(TestCase):
 
         # 2. Missing reporter
         class DummyNoReporter:
-            @vreporter("test")
+            @vreport("test")
             def some_method(self):
                 return True
         
@@ -147,19 +147,19 @@ class ReporterTestCase(TestCase):
                 self.__mangled = "mangled_val"
                 self.public_val = "public_val"
             
-            @vreporter("mangled is {mangled}")
+            @vreport("mangled is {mangled}")
             def get_mangled(self):
                 return True
 
-            @vreporter("public is {public_val}")
+            @vreport("public is {public_val}")
             def get_public(self):
                 return True
 
-            @vreporter("res is {get_res}")
+            @vreport("res is {get_res}")
             def get_res(self):
                 return "res_val"
 
-            @vreporter("test {0}")
+            @vreport("test {0}")
             def trigger_index_err(self):
                 return True
 
@@ -225,6 +225,43 @@ class ReporterUnitTestCase(TestCase):
         messages = ['mock warning']
         self.mock_reporter.warning(messages)
         self.mock_reporter.warning.assert_called_once_with(messages)
+
+
+class ConsoleThemeTestCase(TestCase):
+    '''
+        Defines class ConsoleThemeTestCase with attribute(s) and method(s).
+        Creates test cases for checking functionalities of ConsoleTheme.
+    '''
+
+    def test_console_theme_init(self) -> None:
+        '''Test console theme initialization and validation.'''
+        theme = ConsoleTheme()
+        self.assertEqual(theme.get_color('verbose'), '\x1b[34m')
+
+        custom_palette = {'verbose': '\x1b[35m', 'reset': '\x1b[0m'}
+        theme_custom = ConsoleTheme(custom_palette)
+        self.assertEqual(theme_custom.get_color('verbose'), '\x1b[35m')
+
+        with self.assertRaises(ATSTypeError):
+            ConsoleTheme("invalid_palette")
+
+    def test_console_theme_get_color_failures(self) -> None:
+        '''Test console theme get_color failures.'''
+        theme = ConsoleTheme()
+
+        with self.assertRaises(ATSValueError):
+            theme.get_color(None)
+
+        with self.assertRaises(ATSTypeError):
+            theme.get_color(123)
+
+        with self.assertRaises(ATSValueError):
+            theme.get_color('non_existent')
+
+    def test_console_theme_string_representation(self) -> None:
+        '''Test console theme string representation.'''
+        theme = ConsoleTheme()
+        self.assertIn('ConsoleTheme', str(theme))
 
 
 if __name__ == '__main__':

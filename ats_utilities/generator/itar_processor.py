@@ -20,7 +20,10 @@ Info
     Interface for tar archive extraction and template rendering.
 '''
 
+from __future__ import annotations
+
 from abc import ABC, abstractmethod
+
 from ats_utilities.generator.tar_process_bundle import TarProcessBundle
 from ats_utilities.generator.tar_process_member_bundle import TarProcessMemberBundle
 
@@ -28,7 +31,7 @@ __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.4.1'
+__version__: str = '3.4.2'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
@@ -41,7 +44,6 @@ class ITarProcessor(ABC):
 
         It defines:
 
-            :attributes: None.
             :methods:
                 | process_tar_member - Processes a single tar archive member.
                 | process - Processes the tar archive members.

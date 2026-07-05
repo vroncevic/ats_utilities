@@ -20,24 +20,28 @@ Info
     Encapsulates file configuration and processor utilities to minimize constructor overhead.
 '''
 
-from dataclasses import dataclass
+from __future__ import annotations
+
+from dataclasses import dataclass, asdict
 from typing import Any
-from ats_utilities.exceptions.ats_value_error import ATSValueError
+
+from ats_utilities.factory_value import require_not_none, require_not_empty
+from ats_utilities.factory_type import check_type
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.4.1'
+__version__: str = '3.4.2'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
 
 
-@dataclass
-class ATSFileBundle:
+@dataclass(slots=True, kw_only=True)
+class FileBundle:
     '''
-        Defines class ATSFileBundle with attribute(s) and method(s).
+        Defines class FileBundle with attribute(s) and method(s).
         Encapsulates file configuration and processor utilities to minimize constructor overhead.
         Acts as a Parameter Object to clean up highly repetitive constructor arguments.
 
@@ -48,7 +52,7 @@ class ATSFileBundle:
                 | file_mode - File mode (default None).
                 | file_format - File format (default None).
             :methods:
-                | validate - Validates that essential components are set.
+                | validate - Validates that the FileBundle is valid (can be called after merge).
                 | merge - Merges non-None values from another bundle into this one.
                 | to_dict - Converts the bundle attributes to a dictionary.
     '''
@@ -59,47 +63,49 @@ class ATSFileBundle:
 
     def validate(self) -> None:
         '''
-            Validates that essential components are set.
+            Validates that FileBundle is valid (can be called after merge).
+            Performs validation of file path, file mode and file format attributes.
+            File path must be non-None and a string.
+            File mode must be non-None and a string.
+            File format must be non-None and a string.
 
             :exceptions:
                 | ATSValueError: File path must be provided.
                 | ATSValueError: File mode must be provided.
                 | ATSValueError: File format must be provided.
+                | ATSTypeError: File path must be a string.
+                | ATSTypeError: File mode must be a string.
+                | ATSTypeError: File format must be a string.
         '''
-        if not self.file_path:
-            raise ATSValueError('file path must be provided.')
+        require_not_empty(self.file_path, 'file path must be provided')
+        require_not_empty(self.file_mode, 'file mode must be provided')
+        require_not_empty(self.file_format, 'file format must be provided')
+        check_type(self.file_path, str, 'file path must be a string')
+        check_type(self.file_mode, str, 'file mode must be a string')
+        check_type(self.file_format, str, 'file format must be a string')
 
-        if not self.file_mode:
-            raise ATSValueError('file mode must be provided.')
-
-        if not self.file_format:
-            raise ATSValueError('file format must be provided.')
-
-    def merge(self, other: 'ATSFileBundle') -> None:
+    def merge(self, other: FileBundle) -> None:
         '''
-            Merges non-None values from another bundle into this one.
+            Merges non-None values from another FileBundle instance into this one.
 
-            :param other: Another bundle to merge into this one.
-            :type other: <ATSFileBundle>
+            :param other: Another FileBundle instance to merge into this one.
+            :type other: <FileBundle>
             :exceptions: None.
         '''
         for field_name in self.__dataclass_fields__:
-            other_value = getattr(other, field_name)
+            other_value: Any = getattr(other, field_name)
 
             if other_value is not None:
                 setattr(self, field_name, other_value)
 
+        self.validate()
+
     def to_dict(self) -> dict[str, Any]:
         '''
-            Converts the bundle attributes to a dictionary.
+            Converts the FileBundle instance to a dictionary.
 
-            :return: Dictionary representation of the bundle attributes.
+            :return: Dictionary representation of the FileBundle instance.
             :rtype: <dict[str, Any]>
             :exceptions: None.
         '''
-        return {
-            name: value
-            for name, value in self.__dict__.items()
-            if not name.startswith('_')
-        }
-
+        return asdict(self)

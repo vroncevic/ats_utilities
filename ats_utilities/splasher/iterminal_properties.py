@@ -20,6 +20,8 @@ Info
     Interface for getting terminal properties.
 '''
 
+from __future__ import annotations
+
 from abc import ABC, abstractmethod
 from typing import Any
 
@@ -27,7 +29,7 @@ __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.4.1'
+__version__: str = '3.4.2'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
@@ -40,7 +42,6 @@ class ITerminalProperties(ABC):
 
         It defines:
 
-            :attributes: None
             :methods:
                 | ioctl_get_window_size - Gets size for file descriptor.
                 | ioctl_for_all_descriptors - Sets size for all file descriptors.

@@ -20,28 +20,14 @@ Info
     Creates an API for the ATS information in one container object.
 '''
 
+from __future__ import annotations
+
+from collections.abc import Mapping
 from typing import Any, override
+
 from ats_utilities.info.imanager import IInfoManager
 from ats_utilities.context_bundle import ContextBundle
 from ats_utilities.info.component_bundle import InfoComponentBundle
-from ats_utilities.info.iname import IName
-from ats_utilities.info.name import Name
-from ats_utilities.info.iversion import IVersion
-from ats_utilities.info.version import Version
-from ats_utilities.info.ilicence import ILicence
-from ats_utilities.info.licence import Licence
-from ats_utilities.info.ibuild_date import IBuildDate
-from ats_utilities.info.build_date import BuildDate
-from ats_utilities.info.irepository import IRepository
-from ats_utilities.info.repository import Repository
-from ats_utilities.info.iorganization import IOrganization
-from ats_utilities.info.organization import Organization
-from ats_utilities.info.iuse_github import IUseGitHub
-from ats_utilities.info.use_github import UseGitHub
-from ats_utilities.info.ilogo_path import ILogoPath
-from ats_utilities.info.logo import Logo
-from ats_utilities.info.iinfo_ok import IInfoOk
-from ats_utilities.info.info_ok import InfoOk
 from ats_utilities.info.info_keys import InfoKeys
 from ats_utilities.checker.ichecker import IChecker
 from ats_utilities.reporter.ireporter import IReporter
@@ -50,14 +36,14 @@ from ats_utilities.exceptions.ats_value_error import ATSValueError
 from ats_utilities.exceptions.ats_runtime_error import ATSRuntimeError
 from ats_utilities.exceptions.ats_attribute_error import ATSAttributeError
 from ats_utilities.factory_context_bundle import factory_context_bundle
-from ats_utilities.factory_class import get_class_name, format_instance_to_string
-from ats_utilities.factory_component import make_component, validate_component
+from ats_utilities.factory_class import cls_name, to_str
+from ats_utilities.factory_value import require_not_satisfied, require_not_none
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.4.1'
+__version__: str = '3.4.2'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
@@ -72,7 +58,6 @@ class InfoManager(IInfoManager):
         It defines:
 
             :attributes:
-                | _ATTR_MAP - Map attributes to dynamic component properties.
                 | _components - The ATS info components (default InfoComponentBundle).
                 | _checker - Injected parameters checker (default Checker).
                 | _reporter - Injected reporter for messaging (default Reporter).
@@ -92,18 +77,9 @@ class InfoManager(IInfoManager):
     _checker: IChecker
     _reporter: IReporter
     _verbose: bool
-
-    _ATTR_MAP = {
-        'name': 'name',
-        'version': 'version',
-        'licence': 'licence',
-        'build_date': 'build_date',
-        'repository': 'repository',
-        'organization': 'organization',
-        'use_github': 'use_github',
-        'logo_path': 'logo_path',
-        'info_ok': 'info_ok'
-    }
+    _is_initialized: bool
+    _components: InfoComponentBundle
+    _shared_context: ContextBundle
 
     def __init__(self, component_bundle: InfoComponentBundle | None = None) -> None:
         '''
@@ -113,98 +89,69 @@ class InfoManager(IInfoManager):
             :type component_bundle: <InfoComponentBundle | None>
             :exceptions: None.
         '''
-        # No dependency injection then use default ones.
-        bundle: InfoComponentBundle = component_bundle or InfoComponentBundle()
-        factory_context_bundle(self, bundle.context_bundle)
-        self._shared_context: ContextBundle = ContextBundle(
-            checker=self._checker, reporter=self._reporter, verbose=self._verbose
-        )
-        self._is_initialized: bool = False
+        self._is_initialized = False
 
         try:
-            factory_args = {'context_bundle': self._shared_context}
-            name: IName = make_component(bundle.name, Name, factory_args)
-            validate_component(name, Name)
-            version: IVersion = make_component(bundle.version, Version, factory_args)
-            validate_component(version, Version)
-            licence: ILicence = make_component(bundle.licence, Licence, factory_args)
-            validate_component(licence, Licence)
-            build_date: IBuildDate = make_component(bundle.build_date, BuildDate, factory_args)
-            validate_component(build_date, BuildDate)
-            repository: IRepository = make_component(bundle.repository, Repository, factory_args)
-            validate_component(repository, Repository)
-            organization: IOrganization = make_component(bundle.organization, Organization, factory_args)
-            validate_component(organization, Organization)
-            use_github: IUseGitHub = make_component(bundle.use_github, UseGitHub, factory_args)
-            validate_component(use_github, UseGitHub)
-            logo_path: ILogoPath = make_component(bundle.logo_path, Logo, factory_args)
-            validate_component(logo_path, Logo)
-            info_ok: IInfoOk = make_component(bundle.info_ok, InfoOk, factory_args)
-            validate_component(info_ok, InfoOk)
-            self._components = InfoComponentBundle(
-                name=name, version=version, licence=licence, build_date=build_date,
-                repository=repository, organization=organization, use_github=use_github,
-                logo_path=logo_path, info_ok=info_ok
-            )
+            # No dependency injection then use default ones.
+            self._components = component_bundle or InfoComponentBundle()
+            factory_context_bundle(self, self._components.context_bundle)
+            self._shared_context = self._components.context_bundle
             self.refresh_status()
+
+            # All components initialized successfully.
             self._is_initialized = True
 
         except (ATSTypeError, ATSValueError, ATSRuntimeError, ATSAttributeError) as exc:
-            self._reporter.error([f'{get_class_name(self)} {exc}'])
+            print(f"\x1b[31m{cls_name(self)} {exc}\x1b[0m")
+
         except Exception as exc:
-            self._reporter.error([f'{get_class_name(self)} unexpected exception: {exc}'])
+            print(f"\x1b[31m{cls_name(self)} unexpected exception: {exc}\x1b[0m")
 
     @override
-    def get_shared_context(self) -> ContextBundle | None:
+    def get_shared_context(self) -> ContextBundle:
         '''
             Returns the shared context.
 
-            :return: Shared context | None.
-            :rtype: <ContextBundle | None>
+            :return: Shared context.
+            :rtype: <ContextBundle>
             :exceptions: None.
         '''
         return self._shared_context
 
     @override
-    def set_info(self, info: dict[str, Any]) -> None:
+    def set_info(self, info: Mapping[str, Any]) -> None:
         '''
-            Sets the ATS information.
+            Sets the ATS information (read only data).
 
-            :param info: Dictionary with ATS information.
-            :type info: <dict[str, Any]>
-            :exceptions: ATSTypeError.
-        '''
-        self.name = info.get(InfoKeys.ATS_NAME)
-        self.version = info.get(InfoKeys.ATS_VERSION)
-        self.build_date = info.get(InfoKeys.ATS_BUILD_DATE)
-        self.licence = info.get(InfoKeys.ATS_LICENCE)
-        self.repository = info.get(InfoKeys.ATS_REPOSITORY)
-        self.organization = info.get(InfoKeys.ATS_ORGANIZATION)
-        use_github = info.get(InfoKeys.ATS_USE_GITHUB_INFRASTRUCTURE)
-        if isinstance(use_github, str):
-            use_github = True if use_github == 'True' else False
-        self.use_github = use_github
-        self.logo_path = info.get(InfoKeys.ATS_LOGO_PATH)
-
-    @override
-    def get_info(self) -> dict[str, Any]:
-        '''
-            Gets the ATS information.
-
-            :return: Dictionary with ATS information.
-            :rtype: <dict[str, Any]>
+            :param info: Mapping with ATS information.
+            :type info: <Mapping[str, Any]>
             :exceptions: None.
         '''
-        return {
-            InfoKeys.ATS_NAME: self.name,
-            InfoKeys.ATS_VERSION: self.version,
-            InfoKeys.ATS_BUILD_DATE: self.build_date,
-            InfoKeys.ATS_LICENCE: self.licence,
-            InfoKeys.ATS_REPOSITORY: self.repository,
-            InfoKeys.ATS_ORGANIZATION: self.organization,
-            InfoKeys.ATS_USE_GITHUB_INFRASTRUCTURE: self.use_github,
-            InfoKeys.ATS_LOGO_PATH: self.logo_path
-        }
+        for key in InfoKeys.get_keys():
+            if key not in info:
+                require_not_none(None, f"info::set_info - missing key: {key}")
+
+            require_not_none(info.get(key), f"info::set_info - null value for key: {key}")
+
+        for key, attr in InfoKeys.get_key_to_attr().items():
+            val = info.get(key)
+
+            if key == InfoKeys.ATS_USE_GITHUB_INFRASTRUCTURE:
+                if isinstance(val, str):
+                    val = True if val == 'True' else False
+
+            setattr(self, attr, val)
+
+    @override
+    def get_info(self) -> Mapping[str, Any]:
+        '''
+            Gets the ATS information (read only data).
+
+            :return: Mapping with ATS information.
+            :rtype: <Mapping[str, Any]>
+            :exceptions: None.
+        '''
+        return {key: getattr(self, attr) for key, attr in InfoKeys.get_key_to_attr().items()}
 
     def __getattr__(self, name: str) -> str | bool | None:
         '''
@@ -214,14 +161,19 @@ class InfoManager(IInfoManager):
             :type name: <str>
             :return: The value of the component attribute if found, otherwise None.
             :rtype: <str | bool | None>
-            :exceptions: AttributeError if attribute is not in map.
+            :exceptions:
+                | ATSAttributeError: Name of the attribute is not a managed attribute.
         '''
-        if name in self._ATTR_MAP:
+        if name in InfoKeys.get_key_to_attr().values() or name == 'info_ok':
             component = getattr(self._components, name, None)
 
-            return getattr(component, self._ATTR_MAP[name], None) if component else None
+            return getattr(component, name, None) if component else None
 
-        raise AttributeError(f"'{type(self).__name__}' object has no attribute '{name}'")
+        require_not_satisfied(
+            True,
+            f"'{type(self).__name__}' object has no attribute '{name}'",
+            ATSAttributeError
+        )
 
     def __setattr__(self, name: str, value: str | bool | None) -> None:
         '''
@@ -233,11 +185,11 @@ class InfoManager(IInfoManager):
             :type value: <str | bool | None>
             :exceptions: None.
         '''
-        if '_components' in self.__dict__ and name in self._ATTR_MAP:
+        if '_components' in self.__dict__ and (name in InfoKeys.get_key_to_attr().values() or name == 'info_ok'):
             component = getattr(self._components, name, None)
 
             if component:
-                setattr(component, self._ATTR_MAP[name], value)
+                setattr(component, name, value)
                 self.refresh_status()
 
                 return
@@ -254,6 +206,7 @@ class InfoManager(IInfoManager):
             :exceptions: None.
         '''
         component = getattr(self._components, 'info_ok', None) if self._is_initialized else None
+
         return self._is_initialized and (component.info_ok if component else False)
 
     @override
@@ -264,10 +217,10 @@ class InfoManager(IInfoManager):
             :exceptions: None.
         '''
         info_ok = getattr(self._components, 'info_ok', False)
-        attrs = ['name', 'version', 'licence', 'build_date']
-        components = [getattr(self._components, attr, None) for attr in attrs]
-        status = all(c and c.not_none() for c in components)
-        setattr(info_ok, 'info_ok', status)
+        info_ok.info_ok = all(
+            getattr(self._components, attr, None).not_none()
+            for attr in InfoKeys.get_key_to_attr().values()
+        )
 
     @override
     def __str__(self) -> str:
@@ -278,4 +231,4 @@ class InfoManager(IInfoManager):
             :rtype: <str>
             :exceptions: None.
         '''
-        return format_instance_to_string(self)
+        return to_str(self)

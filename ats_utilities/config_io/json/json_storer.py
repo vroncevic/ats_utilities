@@ -20,26 +20,29 @@ Info
     Stores the ATS configuration for the ATS.
 '''
 
+from __future__ import annotations
+
 from json import dumps
 from typing import override
+
 from ats_utilities.config_io.iwrite import IWrite
 from ats_utilities.config_io.istorer import IStorer
 from ats_utilities.checker.ichecker import IChecker
 from ats_utilities.reporter.ireporter import IReporter
-from ats_utilities.config_io.config_file_bundle import ATSConfigFileBundle
+from ats_utilities.config_io.config_file_bundle import ConfigFileBundle
 from ats_utilities.config_io.json.object2json import Object2Json
 from ats_utilities.config_io.json.json_processor import JSONProcessor
 from ats_utilities.config_io.json.ijson_processor import IJSONProcessor
-from ats_utilities.checker.proxy_validator import validator
+from ats_utilities.checker.proxy_validator import vcheck
 from ats_utilities.factory_context_bundle import factory_context_bundle
 from ats_utilities.factory_component import make_component, validate_component
-from ats_utilities.factory_class import format_instance_to_string
+from ats_utilities.factory_class import to_str
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.4.1'
+__version__: str = '3.4.2'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
@@ -73,7 +76,7 @@ class JSONStorer(IStorer):
         self,
         info_file: str | None = None,
         object2json: IWrite | None = None,
-        config_bundle: ATSConfigFileBundle | None = None,
+        config_bundle: ConfigFileBundle | None = None,
         json_processor: IJSONProcessor | None = None
     ) -> None:
         '''
@@ -84,13 +87,13 @@ class JSONStorer(IStorer):
             :param object2json: An API for information | None.
             :type object2json: <IWrite | None>
             :param config_bundle: Configuration bundle | None.
-            :type config_bundle: <ATSConfigFileBundle | None>
+            :type config_bundle: <ConfigFileBundle | None>
             :param json_processor: Processor for JSON content | None.
             :type json_processor: <IJSONProcessor | None>
             :exceptions:
                 | ATSTypeError: Invalid type in constructor arguments.
         '''
-        config_file_bundle: ATSConfigFileBundle = config_bundle or ATSConfigFileBundle()
+        config_file_bundle: ConfigFileBundle = config_bundle or ConfigFileBundle()
         factory_context_bundle(self, config_file_bundle.context)
         self._processor: IJSONProcessor = make_component(json_processor, JSONProcessor, None)
         validate_component(self._processor, JSONProcessor)
@@ -99,7 +102,7 @@ class JSONStorer(IStorer):
         })
         validate_component(self._obj2json, Object2Json)
 
-    @validator([('dict:config', None)])
+    @vcheck([('dict:config', None)])
     @override
     def store_configuration(self, config: dict[str, str]) -> bool:
         '''
@@ -134,4 +137,4 @@ class JSONStorer(IStorer):
             :rtype: <str>
             :exceptions: None.
         '''
-        return format_instance_to_string(self)
+        return to_str(self)

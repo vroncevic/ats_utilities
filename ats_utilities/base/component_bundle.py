@@ -20,27 +20,51 @@ Info
     Encapsulates base components to minimize constructor overhead.
 '''
 
+from __future__ import annotations
+
+from dataclasses import asdict, dataclass
+from os.path import dirname, exists
 from typing import Any
-from dataclasses import dataclass
+
+from ats_utilities.config_io.config_file_bundle import ConfigFileBundle
+from ats_utilities.config_io.config_loader import ConfigLoader
+from ats_utilities.config_io.config_loader_bundle import ConfigLoaderBundle
+from ats_utilities.config_io.iconfig_loader import Config, IConfigLoader
 from ats_utilities.context_bundle import ContextBundle
-from ats_utilities.config_io.iconfig_loader import IConfigLoader
-from ats_utilities.info.imanager import IInfoManager
-from ats_utilities.option.ioption_parser import IOptionManager
-from ats_utilities.logging.ilogger_manager import ILoggerManager
-from ats_utilities.splasher.isplasher import ISplasher
+from ats_utilities.factory_component import make_component, validate_component
+from ats_utilities.generator.component_bundle import GeneratorComponentBundle
+from ats_utilities.generator.engine import Generator
 from ats_utilities.generator.igenerator import IGenerator
+from ats_utilities.info.component_bundle import InfoComponentBundle
+from ats_utilities.info.engine import InfoManager
+from ats_utilities.info.imanager import IInfoManager
+from ats_utilities.logging.component_bundle import LoggingComponentBundle
+from ats_utilities.logging.engine import LoggerManager
+from ats_utilities.logging.ilogger_manager import ILoggerManager
+from ats_utilities.option.component_bundle import OptionComponentBundle
+from ats_utilities.option.engine import OptionManager
+from ats_utilities.option.ioption_manager import IOptionManager
+from ats_utilities.splasher.component_bundle import SplashComponentBundle
+from ats_utilities.splasher.engine import Splasher
+from ats_utilities.splasher.isplasher import ISplasher
+from ats_utilities.exceptions.ats_attribute_error import ATSAttributeError
+from ats_utilities.exceptions.ats_runtime_error import ATSRuntimeError
+from ats_utilities.exceptions.ats_type_error import ATSTypeError
+from ats_utilities.exceptions.ats_value_error import ATSValueError
+from ats_utilities.factory_type import check_type
+from ats_utilities.factory_value import require_not_none
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.4.1'
+__version__: str = '3.4.2'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
 
 
-@dataclass
+@dataclass(slots=True, kw_only=True)
 class BaseComponentBundle:
     '''
         Defines component bundle dataclass for dependency grouping and management.
@@ -60,8 +84,8 @@ class BaseComponentBundle:
                 | context_bundle - Context bundle for dependency injection (default None).
             :methods:
                 | validate - Validates that essential components are set.
-                | merge - Merges non-None values from another bundle into this one.
-                | to_dict - Converts the bundle attributes to a dictionary.
+                | merge - Merges non-None values from another BaseComponentBundle instance into this one.
+                | to_dict - Converts the BaseComponentBundle instance to a dictionary.
     '''
 
     info_file: str | None = None
@@ -74,40 +98,175 @@ class BaseComponentBundle:
     use_generator: bool = False
     context_bundle: ContextBundle | None = None
 
-    def validate(self) -> None:
+    def __post_init__(self) -> None:
         '''
-            Validates that essential components are set.
+            Post-initialization hook for automatic component creation.
+        '''
+        if self.context_bundle is None:
+            self.context_bundle = ContextBundle()
+
+        if self.info_file is not None and exists(self.info_file):
+            try:
+                self._build_components()
+
+            except (ATSTypeError, ATSValueError, ATSRuntimeError, ATSAttributeError) as exc:
+                print(f"\x1b[31mBase {exc}\x1b[0m")
+
+            except Exception as exc:
+                print(f"\x1b[31mBase unexpected exception: {exc}\x1b[0m")
+
+    def _build_components(self) -> None:
+        '''
+            Helper method to build all sub-components.
+        '''
+        self.config_loader = make_component(
+            self.config_loader, ConfigLoader,
+            {
+                'config_loader_bundle': ConfigLoaderBundle(
+                    info_file=self.info_file,
+                    config_bundle=ConfigFileBundle(context=self.context_bundle)
+                )
+            }
+        )
+        validate_component(self.config_loader, IConfigLoader)
+        loader: Config = self.config_loader.setup_config_loader()
+
+        self.info_manager = make_component(
+            self.info_manager, InfoManager,
+            {'component_bundle': InfoComponentBundle(context_bundle=self.context_bundle)}
+        )
+        validate_component(self.info_manager, IInfoManager)
+        self.info_manager.set_info(loader.load_configuration())
+
+        logo_path = self.info_manager.logo_path
+        self.info_manager.logo_path = f"{dirname(self.info_file)}/{logo_path}"
+
+        self.splasher = make_component(
+            self.splasher, Splasher,
+            {
+                'component_bundle': SplashComponentBundle(
+                    prop=self.info_manager.get_info(), context_bundle=self.context_bundle
+                )
+            }
+        )
+        validate_component(self.splasher, ISplasher)
+
+        self.options_parser = make_component(
+            self.options_parser, OptionManager,
+            {
+                'component_bundle': OptionComponentBundle(
+                    parameters=self.info_manager.get_info(),
+                    context_bundle=self.context_bundle
+                )
+            }
+        )
+        validate_component(self.options_parser, IOptionManager)
+
+        self.logger_manager = make_component(
+            self.logger_manager, LoggerManager,
+            {'component_bundle': LoggingComponentBundle(context_bundle=self.context_bundle)}
+        )
+        validate_component(self.logger_manager, ILoggerManager)
+
+        if self.use_generator:
+            self.generator = make_component(
+                self.generator, Generator,
+                {'component_bundle': GeneratorComponentBundle(context_bundle=self.context_bundle)}
+            )
+            validate_component(self.generator, IGenerator)
+
+    def validate(self, merge_op: bool = False) -> None:
+        '''
+            Validates that BaseComponentBundle is valid (can be called after merge).
+            Performs validation of:
+              - info_file,
+              - config_loader,
+              - info_manager,
+              - options_parser,
+              - logger_manager,
+              - splasher,
+              - generator
+            Info_file must be non-None and str.
+            Config_loader must be non-None and IConfigLoader interface.
+            Info_manager must be non-None and IInfoManager interface.
+            Options_parser must be non-None and IOptionManager interface.
+            Logger_manager must be non-None and ILoggerManager interface.
+            Splasher must be non-None and ISplasher interface.
+            Generator must be non-None and IGenerator interface.
+
+            :param merge_op: Whether the validation is performed after a merge operation.
+              If True, then all attributes are validated.
+              If False, then only info_file is validated.
+            :type merge_op: <bool>
 
             :exceptions:
-                | ValueError - Information file must be provided.
+                | ATSValueError: Information file must be provided.
+                | ATSTypeError: Information file must be str.
+                | ATSValueError: Config_loader must be provided.
+                | ATSValueError: Info_manager must be provided.
+                | ATSValueError: Options_parser must be provided.
+                | ATSValueError: Logger_manager must be provided.
+                | ATSValueError: Splasher must be provided.
+                | ATSValueError: Generator must be provided.
+                | ATSTypeError: Config_loader must be IConfigLoader interface.
+                | ATSTypeError: Info_manager must be IInfoManager interface.
+                | ATSTypeError: Options_parser must be IOptionManager interface.
+                | ATSTypeError: Logger_manager must be ILoggerManager interface.
+                | ATSTypeError: Splasher must be ISplasher interface.
+                | ATSTypeError: Generator must be IGenerator interface.
         '''
-        if self.info_file is None:
-            raise ValueError("information file must be provided.")
+        require_not_none(self.info_file, 'information file must be provided')
+        check_type(self.info_file, str, 'information file must be str')
 
-    def merge(self, other: 'BaseComponentBundle') -> None:
+        if merge_op:
+            require_not_none(self.config_loader, 'config_loader must be provided')
+            require_not_none(self.info_manager, 'info_manager must be provided')
+            require_not_none(self.options_parser, 'options_parser must be provided')
+            require_not_none(self.logger_manager, 'logger_manager must be provided')
+            require_not_none(self.splasher, 'splasher must be provided')
+            require_not_none(self.generator, 'generator must be provided')
+            check_type(self.config_loader, IConfigLoader, 'config_loader must be IConfigLoader interface')
+            check_type(self.info_manager, IInfoManager, 'info_manager must be IInfoManager interface')
+            check_type(self.options_parser, IOptionManager, 'options_parser must be IOptionManager interface')
+            check_type(self.logger_manager, ILoggerManager, 'logger_manager must be ILoggerManager interface')
+            check_type(self.splasher, ISplasher, 'splasher must be ISplasher interface')
+            check_type(self.generator, IGenerator, 'generator must be IGenerator interface')
+
+    def merge(self, other: BaseComponentBundle) -> None:
         '''
-            Merges non-None values from another bundle into this one.
+            Merges non-None values from another BaseComponentBundle instance into this one.
 
-            :param other: Another bundle to merge into this one.
+            :param other: Another BaseComponentBundle instance to merge into this one.
             :type other: <BaseComponentBundle>
-            :exceptions: None.
+            :exceptions:
+                | ATSTypeError: Other must be BaseComponentBundle instance.
         '''
+        check_type(other, BaseComponentBundle, 'other must be BaseComponentBundle instance')
+
         for field_name in self.__dataclass_fields__:
-            other_value = getattr(other, field_name)
+            other_value: Any = getattr(other, field_name)
 
             if other_value is not None:
                 setattr(self, field_name, other_value)
 
+        self.validate(merge_op=True)
+
+        if self.info_file is not None and exists(self.info_file):
+            try:
+                self._build_components()
+
+            except (ATSTypeError, ATSValueError, ATSRuntimeError, ATSAttributeError) as exc:
+                print(f"\x1b[31mBase {exc}\x1b[0m")
+
+            except Exception as exc:
+                print(f"\x1b[31mBase unexpected exception: {exc}\x1b[0m")
+
     def to_dict(self) -> dict[str, Any]:
         '''
-            Converts the bundle attributes to a dictionary.
+            Converts the BaseComponentBundle instance to a dictionary.
 
-            :return: Dictionary representation of the bundle attributes.
+            :return: Dictionary representation of the BaseComponentBundle instance.
             :rtype: <dict[str, Any]>
             :exceptions: None.
         '''
-        return {
-            name: value
-            for name, value in self.__dict__.items()
-            if not name.startswith('_')
-        }
+        return asdict(self)

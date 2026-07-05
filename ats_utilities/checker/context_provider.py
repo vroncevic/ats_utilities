@@ -20,16 +20,19 @@ Info
     Creates an API for retrieving execution context.
 '''
 
+from __future__ import annotations
+
 from inspect import stack
 from typing import override
-from ats_utilities.factory_class import format_instance_to_string
+
+from ats_utilities.factory_class import to_str
 from ats_utilities.checker.icontext_provider import IContextProvider
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.4.1'
+__version__: str = '3.4.2'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
@@ -86,10 +89,20 @@ class ContextProvider(IContextProvider):
         '''
         current_stack = stack()
         target_index = self._stack_index_caller
+
         if target_index >= len(current_stack):
             target_index = len(current_stack) - 1
+
         caller = current_stack[target_index]
-        return f'\nmod: {caller.filename}\n  def: {caller.function}()'
+        func_name = caller.function
+
+        if func_name == 'wrapper' and 'func' in caller.frame.f_locals:
+            func_obj = caller.frame.f_locals['func']
+
+            if hasattr(func_obj, '__name__'):
+                func_name = func_obj.__name__
+
+        return f'\nmod: {caller.filename}\n  def: {func_name}()'
 
     @override
     def __str__(self) -> str:
@@ -100,4 +113,4 @@ class ContextProvider(IContextProvider):
             :rtype: <str>
             :exceptions: None.
         '''
-        return format_instance_to_string(self)
+        return to_str(self)

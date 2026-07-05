@@ -31,7 +31,7 @@ __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.4.1'
+__version__: str = '3.4.2'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
@@ -43,7 +43,6 @@ class DummyComponent:
 
         It defines:
 
-            :attributes: None
             :methods: None.    '''
 
     def __init__(self, val: str = 'default') -> None:
@@ -65,7 +64,6 @@ class ATSFactoryComponentTestCase(TestCase):
 
         It defines:
 
-            :attributes: None
             :methods:
                 | test_make_component_existing - Test make_component with existing instance.
                 | test_make_component_new - Test make_component instantiating default class.

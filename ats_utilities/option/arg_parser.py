@@ -20,22 +20,25 @@ Info
     Custom ArgumentParser to route errors to IReporter.
 '''
 
+from __future__ import annotations
+
 import sys
 from typing import Any, NoReturn, override
 from argparse import ArgumentParser
+
 from ats_utilities.context_bundle import ContextBundle
 from ats_utilities.checker.ichecker import IChecker
 from ats_utilities.reporter.ireporter import IReporter
 from ats_utilities.factory_context_bundle import factory_context_bundle
-from ats_utilities.factory_class import format_instance_to_string
-from ats_utilities.checker.proxy_validator import validator
-from ats_utilities.reporter.proxy_reporter import vreporter
+from ats_utilities.factory_class import to_str
+from ats_utilities.checker.proxy_validator import vcheck
+from ats_utilities.reporter.proxy_reporter import vreport
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.4.1'
+__version__: str = '3.4.2'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
@@ -83,8 +86,8 @@ class ArgParser(ArgumentParser):
         super().__init__(*args, **kwargs)
         factory_context_bundle(self, context_bundle)
 
-    @validator([('str:message', None)])
-    @vreporter('argument error: {message}')
+    @vcheck([('str:message', None)])
+    @vreport('argument error: {message}')
     @override
     def error(self, message: str) -> NoReturn:
         '''
@@ -96,7 +99,7 @@ class ArgParser(ArgumentParser):
             :exceptions:
                 | ATSRuntimeError: Decorator cannot be used on a standalone function.
                 | ATSAttributeError: Class is required to provide a '_reporter' object to
-                |                    use the @verboser decorator.
+                |                    use the @vreport decorator.
                 | ATSTypeError: Parameter type validation failed.
                 | ATSValueError: Parameter format validation failed.
                 | ATSRuntimeError: Decorator used on a non-class method.
@@ -114,4 +117,4 @@ class ArgParser(ArgumentParser):
             :rtype: <str>
             :exceptions: None.
         '''
-        return format_instance_to_string(self)
+        return to_str(self)

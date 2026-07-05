@@ -20,14 +20,20 @@ Info
     Encapsulates checker reporter parameters to minimize constructor overhead.
 '''
 
+from __future__ import annotations
+
+from collections.abc import Sequence
+from dataclasses import dataclass, asdict
 from typing import Any
-from dataclasses import dataclass
+
+from ats_utilities.factory_value import require_not_none
+from ats_utilities.factory_type import check_type
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.4.1'
+__version__: str = '3.4.2'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
@@ -36,7 +42,7 @@ __status__: str = 'Updated'
 type ParamMetadata = tuple[str, str, Any]
 
 
-@dataclass
+@dataclass(slots=True, kw_only=True)
 class CheckerReporterBundle:
     '''
         Defines component bundle dataclass for dependency group simplification.
@@ -46,58 +52,81 @@ class CheckerReporterBundle:
 
             :attributes:
                 | context - Message context (default None).
-                | parameters_meta - parameter name and parameter type (default None).
-                | err_indices - Error set (default None).
-                | is_fmt_err - Check for format error type (default False).
+                | parameters_meta - Sequence of parameter name and parameter type tuples (default None).
+                | err_indices - Sequence of error indices (default None).
+                | is_fmt_err - Flag indicating if format error type has been found (default False).
             :methods:
-                | validate - Validates that essential components are set.
-                | merge - Merges non-None values from another bundle into this one.
-                | to_dict - Converts the bundle attributes to a dictionary.
+                | __post_init__ - Post-initialization hook to set up default values if not provided.
+                | validate - Validates that CheckerReporterBundle is valid (can be called after merge).
+                | merge - Merges non-None values from another CheckerReporterBundle instance into this one.
+                | to_dict - Converts the CheckerReporterBundle instance to a dictionary.
     '''
 
     context: str | None = None
-    parameters_meta: list[ParamMetadata] | None = None
-    err_indices: list[int] | None = None
+    parameters_meta: Sequence[ParamMetadata] | None = None
+    err_indices: Sequence[int] | None = None
     is_fmt_err: bool = False
+
+    def __post_init__(self) -> None:
+        '''
+            Post-initialization hook to set up default values.
+        '''
+        if self.parameters_meta is None:
+            self.parameters_meta = ()
+
+        if self.err_indices is None:
+            self.err_indices = ()
 
     def validate(self) -> None:
         '''
-            Validates that essential components are set.
+            Validates that CheckerReporterBundle is valid (can be called after merge).
+            Performs validation of all bundle attributes.
+            All attributes must be non-None and instances of their respective interfaces.
 
             :exceptions:
-                | ValueError - Context must be provided.
-                | ValueError - Parameters metadata must be provided.
+                | ATSValueError: Context must be provided.
+                | ATSValueError: Parameters metadata must be provided.
+                | ATSValueError: Error indices must be provided.
+                | ATSValueError: Is format error must be provided.
+                | ATSTypeError: Context must be a string.
+                | ATSTypeError: Parameters metadata must be a sequence of ParamMetadata.
+                | ATSTypeError: Error indices must be a sequence of integers.
+                | ATSTypeError: Is format error must be a boolean.
         '''
-        if self.context is None:
-            raise ValueError("Context must be provided.")
+        require_not_none(self.context, 'context must be provided')
+        require_not_none(self.parameters_meta, 'parameters_meta must be provided')
+        require_not_none(self.err_indices, 'err_indices must be provided')
+        require_not_none(self.is_fmt_err, 'is_fmt_err must be provided')
+        check_type(self.context, str, 'context must be a string')
+        check_type(self.parameters_meta, Sequence[ParamMetadata], 'parameters_meta must be a sequence of ParamMetadata')
+        check_type(self.err_indices, Sequence[int], 'err_indices must be a sequence of integers')
+        check_type(self.is_fmt_err, bool, 'is_fmt_err must be a boolean')
 
-        if self.parameters_meta is None:
-            raise ValueError("Parameters metadata must be provided.")
-
-    def merge(self, other: 'CheckerReporterBundle') -> None:
+    def merge(self, other: CheckerReporterBundle) -> None:
         '''
-            Merges non-None values from another bundle into this one.
+            Merges non-None values from another CheckerReporterBundle into this one.
 
-            :param other: Another bundle to merge into this one.
+            :param other: Another CheckerReporterBundle to merge into this one.
             :type other: <CheckerReporterBundle>
-            :exceptions: None.
+            :exceptions:
+                | ATSTypeError: Other must be a CheckerReporterBundle instance.
         '''
+        check_type(other, CheckerReporterBundle, 'other must be a CheckerReporterBundle instance')
+
         for field_name in self.__dataclass_fields__:
-            other_value = getattr(other, field_name)
+            other_value: Any = getattr(other, field_name)
+
             if other_value is not None:
                 setattr(self, field_name, other_value)
 
+        self.validate()
+
     def to_dict(self) -> dict[str, Any]:
         '''
-            Converts the bundle attributes to a dictionary.
+            Converts the CheckerReporterBundle instance to a dictionary.
 
-            :return: Dictionary representation of the bundle attributes.
+            :return: Dictionary representation of the CheckerReporterBundle instance.
             :rtype: <dict[str, Any]>
             :exceptions: None.
         '''
-        return {
-            name: value
-            for name, value in self.__dict__.items()
-            if not name.startswith('_')
-        }
-
+        return asdict(self)

@@ -20,21 +20,24 @@ Info
     Creates an API for the ATS logo path in one property object.
 '''
 
+from __future__ import annotations
+
 from typing import override
+
 from ats_utilities.info.ilogo_path import ILogoPath
 from ats_utilities.context_bundle import ContextBundle
 from ats_utilities.checker.ichecker import IChecker
 from ats_utilities.reporter.ireporter import IReporter
 from ats_utilities.factory_context_bundle import factory_context_bundle
-from ats_utilities.factory_class import format_instance_to_string
-from ats_utilities.checker.proxy_validator import validator
-from ats_utilities.reporter.proxy_reporter import vreporter
+from ats_utilities.factory_class import to_str
+from ats_utilities.checker.proxy_validator import vcheck
+from ats_utilities.reporter.proxy_reporter import vreport
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.4.1'
+__version__: str = '3.4.2'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
@@ -62,6 +65,7 @@ class Logo(ILogoPath):
     _checker: IChecker
     _reporter: IReporter
     _verbose: bool
+    _logo_path: str | None
 
     def __init__(self, context_bundle: ContextBundle | None = None) -> None:
         '''
@@ -72,38 +76,38 @@ class Logo(ILogoPath):
             :exceptions: None.
         '''
         factory_context_bundle(self, context_bundle)
-        self._logo_path: str | None = None
+        self._logo_path = None
 
     @property
-    @vreporter('get logo_path {logo_path}')
+    @vreport('get logo_path {logo_path}')
     @override
-    def logo_path(self) -> str | None:
+    def logo_path(self) -> str:
         '''
             Property method for getting ATS logo path.
 
-            :return: The ATS logo path in string format | None.
-            :rtype: <str | None>
+            :return: The ATS logo path in string format.
+            :rtype: <str>
             :exceptions:
                 | ATSRuntimeError: Decorator cannot be used on a standalone function.
                 | ATSAttributeError: Class is required to provide a '_reporter' object to
-                |                    use the @verboser decorator.
+                |                    use the @vreport decorator.
         '''
         return self._logo_path
 
     @logo_path.setter
-    @validator([('str | None:logo_path', None)])
-    @vreporter('set logo_path {logo_path}')
+    @vcheck([('str:logo_path', None)])
+    @vreport('set logo_path {logo_path}')
     @override
-    def logo_path(self, logo_path: str | None) -> None:
+    def logo_path(self, logo_path: str) -> None:
         '''
             Property method for setting ATS logo path.
 
-            :param logo_path: The ATS logo path in string format | None.
-            :type logo_path: <str | None>
+            :param logo_path: The ATS logo path in string format.
+            :type logo_path: <str>
             :exceptions:
                 | ATSRuntimeError: Decorator cannot be used on a standalone function.
                 | ATSAttributeError: Class is required to provide a '_reporter' object to
-                |                    use the @verboser decorator.
+                |                    use the @vreport decorator.
                 | ATSTypeError: Parameter type validation failed.
                 | ATSValueError: Parameter format validation failed.
                 | ATSRuntimeError: Decorator used on a non-class method.
@@ -111,7 +115,7 @@ class Logo(ILogoPath):
         '''
         self._logo_path = logo_path
 
-    @vreporter('check logo_path {logo_path}')
+    @vreport('check logo_path {logo_path}')
     @override
     def not_none(self) -> bool:
         '''
@@ -122,7 +126,7 @@ class Logo(ILogoPath):
             :exceptions:
                 | ATSRuntimeError: Decorator cannot be used on a standalone function.
                 | ATSAttributeError: Class is required to provide a '_reporter' object to
-                |                    use the @verboser decorator.
+                |                    use the @vreport decorator.
         '''
         return self._logo_path is not None
 
@@ -135,4 +139,4 @@ class Logo(ILogoPath):
             :rtype: <str>
             :exceptions: None.
         '''
-        return format_instance_to_string(self)
+        return to_str(self)

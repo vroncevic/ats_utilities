@@ -20,22 +20,27 @@ Info
     Encapsulates core runtime components for simplifcation.
 '''
 
-from typing import Any
-from dataclasses import dataclass
+from __future__ import annotations
+
+from collections.abc import Mapping
+from dataclasses import dataclass, asdict
 from tarfile import TarFile, TarInfo
-from ats_utilities.exceptions.ats_value_error import ATSValueError
+from typing import Any
+
+from ats_utilities.factory_value import require_not_none
+from ats_utilities.factory_type import check_type
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.4.1'
+__version__: str = '3.4.2'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
 
 
-@dataclass
+@dataclass(slots=True, kw_only=True)
 class TarProcessMemberBundle:
     '''
         Defines class TarProcessMemberBundle with method(s).
@@ -49,64 +54,69 @@ class TarProcessMemberBundle:
                 | dest_full_path - Absolute destination file path.
                 | vals - Computed template values for substitution.
             :methods:
-                | validate - Validates that essential components are set.
-                | merge - Merges non-None values from another bundle into this one.
-                | to_dict - Converts the bundle attributes to a dictionary.
+                | validate - Validates that TarProcessMemberBundle is valid (can be called after merge).
+                | merge - Merges non-None values from another TarProcessMemberBundle into this one.
+                | to_dict - Converts the TarProcessMemberBundle instance to a dictionary.
     '''
 
     tar: TarFile
     member: TarInfo
     dest_full_path: str
-    vals: dict[str, str]
+    vals: Mapping[str, str]
 
     def validate(self) -> None:
         '''
-            Validates that essential components are set.
+            Validates that TarProcessMemberBundle is valid (can be called after merge).
+            Performs validation of tar, member, dest_full_path and vals attributes.
+            Tar must be non-None and a TarFile instance.
+            Member must be non-None and a TarInfo instance.
+            Dest full path must be non-None and a string.
+            Vals must be non-None and a mapping.
 
             :exceptions:
-                | ATSValueError: Archive path must be provided.
-                | ATSValueError: Target directory must be provided.
-                | ATSValueError: Source directory must be provided.
-                | ATSValueError: Path replacements must be provided.
-                | ATSValueError: Exclude patterns must be provided.
-                | ATSValueError: Values must be provided.
+                | ATSValueError: tar must be provided.
+                | ATSValueError: member must be provided.
+                | ATSValueError: dest_full_path must be provided.
+                | ATSValueError: vals must be provided.
+                | ATSTypeError: tar must be a TarFile instance.
+                | ATSTypeError: member must be a TarInfo instance.
+                | ATSTypeError: dest_full_path must be a string.
+                | ATSTypeError: vals must be a mapping.
         '''
-        if self.tar is None:
-            raise ATSValueError('tar must be provided.')
+        require_not_none(self.tar, 'tar must be provided.')
+        require_not_none(self.member, 'member must be provided.')
+        require_not_none(self.dest_full_path, 'dest_full_path must be provided.')
+        require_not_none(self.vals, 'vals must be provided.')
+        check_type(self.tar, TarFile, 'tar must be a TarFile instance.')
+        check_type(self.member, TarInfo, 'member must be a TarInfo instance.')
+        check_type(self.dest_full_path, str, 'dest_full_path must be a string.')
+        check_type(self.vals, Mapping, 'vals must be a mapping.')
 
-        if self.member is None:
-            raise ATSValueError('member must be provided.')
-
-        if self.dest_full_path is None:
-            raise ATSValueError('dest_full_path must be provided.')
-
-        if self.vals is None:
-            raise ATSValueError('vals must be provided.')
-
-    def merge(self, other: 'TarProcessMemberBundle') -> None:
+    def merge(self, other: TarProcessMemberBundle) -> None:
         '''
-            Merges non-None values from another bundle into this one.
+            Merges non-None values from another TarProcessMemberBundle into this one.
 
-            :param other: Another bundle to merge into this one.
+            :param other: Another TarProcessMemberBundle to merge into this one.
             :type other: <TarProcessMemberBundle>
-            :exceptions: None.
+            :exceptions:
+                | ATSTypeError: Other must be a TarProcessMemberBundle.
         '''
+        check_type(other, TarProcessMemberBundle, 'other must be a TarProcessMemberBundle.')
+
         for field_name in self.__dataclass_fields__:
             other_value: Any = getattr(other, field_name)
 
             if other_value is not None:
                 setattr(self, field_name, other_value)
 
+        self.validate()
+
     def to_dict(self) -> dict[str, Any]:
         '''
-            Converts the bundle attributes to a dictionary.
+            Converts the TarProcessMemberBundle instance to a dictionary.
 
-            :return: Dictionary representation of the bundle attributes.
+            :return: Dictionary representation of the TarProcessMemberBundle instance.
             :rtype: <dict[str, Any]>
             :exceptions: None.
         '''
-        return {
-            name: value
-            for name, value in self.__dict__.items()
-            if not name.startswith('_')
-        }
+        return asdict(self)

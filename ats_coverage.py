@@ -57,10 +57,13 @@ def run_coverage(pro_name: str) -> str:
     error_msg: str | None = None
     error_id: int | None = None
     error_msg, error_id = checker.validates_parameters([('str:pro_name', pro_name)])
+
     if error_id == ErrorChecker.TYPE_ERROR:
         raise ATSTypeError(error_msg)
+
     if not exists(f'../{pro_name}'):
         raise ATSFileError(f'missing ../{pro_name}')
+
     cov = Coverage(source=[f'../{pro_name}'])
     cov.start()
     tests: TestSuite = TestLoader().discover('.', pattern='*_test.py')
@@ -72,6 +75,7 @@ def run_coverage(pro_name: str) -> str:
     cov.json_report(outfile=report_file_name)
     reporter: Reporter = Reporter()
     reporter.success([f'\nats_coverage: generated coverage {report_file_name}'])
+
     return report_file_name
 
 
@@ -89,13 +93,18 @@ def load_report(report_file_path: str) -> dict[str, Any]:
     error_msg, error_id = checker.validates_parameters([(
         'str:report_file_path', report_file_path
     )])
+
     if error_id == ErrorChecker.TYPE_ERROR:
         raise ATSTypeError(error_msg)
+
     if not exists(report_file_path):
         raise ATSFileError(f'{report_file_path} does not exist.')
+
     data: dict[str, Any] = {}
+
     with open(report_file_path, 'r', encoding='utf-8') as loaded_file:
         data = load(loaded_file)
+
     return data
 
 
@@ -113,14 +122,19 @@ def find_root_package(module_path: str) -> Path | None:
     error_msg, error_id = checker.validates_parameters([(
         'str:module_path', module_path
     )])
+
     if error_id == ErrorChecker.TYPE_ERROR:
         raise ATSTypeError(error_msg)
+
     root: Path | None = None
     path: Path = Path(module_path).resolve()
+
     while path.parent != path:
         if (path / '__init__.py').exists():
             root = path
+
         path = path.parent
+
     return root
 
 
@@ -136,18 +150,23 @@ def update_readme(coverage: dict[str, Any]) -> None:
     error_msg: str | None = None
     error_id: int | None = None
     error_msg, error_id = checker.validates_parameters([('dict:coverage', coverage)])
+
     if error_id == ErrorChecker.TYPE_ERROR:
         raise ATSTypeError(error_msg)
+
     readme_path: str = 'README.md'
     lines: list[str] = []
+
     with open(readme_path, 'r', encoding='utf-8') as current_file:
         lines = current_file.readlines()
+
     new_lines: list[str] = []
     inside_coverage: bool = False
     inside_table: bool = False
     stmts: str = 'num_statements'
     miss: str = 'missing_lines'
     cover: str = 'percent_covered_display'
+
     for line in lines:
         if '### Code coverage' in line:
             inside_coverage = True
@@ -168,16 +187,20 @@ def update_readme(coverage: dict[str, Any]) -> None:
                 new_lines.append('| Name | Stmts | Miss | Cover |\n')
                 new_lines.append('|------|-------|------|-------|\n')
                 file_names: list[str] = coverage['files']
+
                 for name in file_names:
                     root_package: Path | None = find_root_package(name)
                     module: str = ''
+
                     if root_package:
                         abs_name = str(Path(name).resolve())
                         abs_root = str(root_package.resolve())
+
                         if abs_name.startswith(abs_root):
                             result: str = abs_name[len(abs_root):]
                             result = result.lstrip('/')
                             module = f'{basename(abs_root)}/{result}'
+
                     file_summary: dict[str, Any] = coverage['files'][name]
                     statements: str = file_summary['summary'][stmts]
                     missing: str = file_summary['summary'][miss]
@@ -185,6 +208,7 @@ def update_readme(coverage: dict[str, Any]) -> None:
                     new_lines.append(
                         f'| `{module}` | {statements} | {missing} | {covered}%|\n'
                     )
+
                 total: str = '| **Total** |'
                 total_statements: str = coverage['totals'][stmts]
                 total_missing: str = coverage['totals'][miss]
@@ -206,6 +230,7 @@ def update_readme(coverage: dict[str, Any]) -> None:
 
         if not inside_table:
             new_lines.append(line)
+
     with open(readme_path, 'w', encoding='utf-8') as update_file:
         update_file.writelines(new_lines)
 
@@ -222,12 +247,13 @@ def _build_tree(dir_path: Path, prefix: str = "") -> tuple[list[str], int, int]:
         :exceptions: None.
     '''
     entries = []
+
     for entry in dir_path.iterdir():
         if entry.name == '__pycache__' or entry.name.startswith('.'):
             continue
+
         entries.append(entry)
 
-    # Sort entries by name, ignoring leading underscores
     entries.sort(key=lambda x: x.name.lstrip('_').lower())
 
     lines = []
@@ -264,6 +290,7 @@ def generate_tree_lines(pro_name: str) -> tuple[list[str], int, int]:
         :exceptions: ATSFileError
     '''
     pro_path = Path(pro_name)
+
     if not pro_path.exists():
         raise ATSFileError(f'missing {pro_name} folder')
 
@@ -271,7 +298,6 @@ def generate_tree_lines(pro_name: str) -> tuple[list[str], int, int]:
     sub_lines, num_dirs, num_files = _build_tree(pro_path, prefix="         ")
     lines.extend(sub_lines)
 
-    # Root itself is a directory
     return lines, num_dirs + 1, num_files
 
 
@@ -287,16 +313,19 @@ def update_structure(pro_name: str) -> None:
     error_msg: str | None = None
     error_id: int | None = None
     error_msg, error_id = checker.validates_parameters([('str:pro_name', pro_name)])
+
     if error_id == ErrorChecker.TYPE_ERROR:
         raise ATSTypeError(error_msg)
 
     readme_path: str = 'README.md'
+
     if not exists(readme_path):
         raise ATSFileError(f'{readme_path} does not exist.')
 
     tree_lines, num_dirs, num_files = generate_tree_lines(pro_name)
 
     lines: list[str] = []
+
     with open(readme_path, 'r', encoding='utf-8') as current_file:
         lines = current_file.readlines()
 
@@ -343,14 +372,17 @@ def update_structure(pro_name: str) -> None:
 
 
 if __name__ == "__main__":
-    cli: OptionManager = OptionManager(OptionComponentBundle(parameters={
-        'description': 'ats_coverage 2025',
-        'version': '1.0.0',
-        'licence': 'GPLv3'
-    }))
+    cli: OptionManager = OptionManager(
+        OptionComponentBundle(
+            parameters={
+                'description': 'ats_coverage 2025',
+                'version': '1.0.0',
+                'licence': 'GPLv3'
+            }
+        )
+    )
     cli.add_operation(
-        '-n', '--name', dest='name',
-        help='generate coverage report for project (provide name)'
+        '-n', '--name', dest='name', help='generate coverage report for project (provide name)'
     )
     args: OptionNamespace = cli.parse_args(sys.argv)
     main_reporter: Reporter = Reporter()
@@ -363,6 +395,7 @@ if __name__ == "__main__":
         report_data: dict[str, Any] = load_report(pro_report_file)
         update_readme(report_data)
         update_structure(getattr(args, "name"))
+
     except (ATSTypeError, ATSFileError) as e:
         main_reporter.error([f'ats_coverage: {e}'])
         sys.exit(128)

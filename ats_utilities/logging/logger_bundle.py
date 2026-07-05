@@ -20,20 +20,25 @@ Info
     Encapsulates core utilities to minimize constructor overhead.
 '''
 
-from dataclasses import dataclass
+from __future__ import annotations
+
+from dataclasses import dataclass, asdict
 from typing import Any
+
+from ats_utilities.factory_value import require_not_none
+from ats_utilities.factory_type import check_type
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.4.1'
+__version__: str = '3.4.2'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
 
 
-@dataclass
+@dataclass(slots=True, kw_only=True)
 class LoggerBundle:
     '''
         Encapsulates the core system tracking, verification, and infrastructure components.
@@ -47,9 +52,9 @@ class LoggerBundle:
                 | log_stdout - Flag for enabling logging to standard output (default True).
                 | log_file - Logger file path in string format (default None). 
             :methods:
-                | validate - Validates that essential components are set.
-                | merge - Merges non-None values from another bundle into this one.
-                | to_dict - Converts the bundle attributes to a dictionary.
+                | validate - Validates that LoggerBundle is valid (can be called after merge).
+                | merge - Merges non-None values from another LoggerBundle into this one.
+                | to_dict - Converts the LoggerBundle instance to a dictionary.
     '''
 
     name: str | None = None
@@ -59,51 +64,57 @@ class LoggerBundle:
 
     def validate(self) -> None:
         '''
-            Validates that essential components are set.
+            Validates that LoggerBundle is valid (can be called after merge).
+            Performs validation of name, configure_logging, log_stdout and log_file attributes.
+            Name must be non-None.
+            Configure logging must be non-None.
+            Log to standard output must be non-None.
+            Log file must be non-None.
 
             :exceptions:
-                | ValueError - Logger name must be provided.
-                | ValueError - Configure logging must be provided.
-                | ValueError - Log to standard output must be provided.
-                | ValueError - Log file must be provided.
+                | ATSValueError: Logger name must be provided.
+                | ATSValueError: Configure logging must be provided.
+                | ATSValueError: Log to standard output must be provided.
+                | ATSValueError: Log file must be provided.
+                | ATSTypeError: Configure logging must be a boolean.
+                | ATSTypeError: Log to standard output must be a boolean.
+                | ATSTypeError: Log file must be a string.
+                | ATSTypeError: Name must be a string.
         '''
-        if not self.name or not isinstance(self.name, str):
-            raise ValueError('logger name must be provided.')
+        require_not_none(self.name, "name must be provided")
+        require_not_none(self.configure_logging, "configure_logging must be provided")
+        require_not_none(self.log_stdout, "log_stdout must be provided")
+        require_not_none(self.log_file, "log_file must be provided")
+        check_type(self.configure_logging, bool, "configure_logging must be a boolean")
+        check_type(self.log_stdout, bool, "log_stdout must be a boolean")
+        check_type(self.log_file, str, "log_file must be a string")
+        check_type(self.name, str, "name must be a string")
 
-        if not isinstance(self.configure_logging, bool):
-            raise ValueError('configure_logging must be a boolean.')
-
-        if not isinstance(self.log_stdout, bool):
-            raise ValueError('log_stdout must be a boolean.')
-
-        if not self.log_file or not isinstance(self.log_file, str):
-            raise ValueError('log_file must be a string.')
-
-    def merge(self, other: 'LoggerBundle') -> None:
+    def merge(self, other: LoggerBundle) -> None:
         '''
-            Merges non-None values from another bundle into this one.
+            Merges non-None values from another LoggerBundle into this one.
 
-            :param other: Another bundle to merge into this one.
+            :param other: Another LoggerBundle to merge into this one.
             :type other: <LoggerBundle>
-            :exceptions: None.
+            :exceptions:
+                | ATSTypeError: Other must be a LoggerBundle instance.
         '''
+        check_type(other, LoggerBundle, "other must be a LoggerBundle instance")
+
         for field_name in self.__dataclass_fields__:
-            other_value = getattr(other, field_name)
+            other_value: Any = getattr(other, field_name)
 
             if other_value is not None:
                 setattr(self, field_name, other_value)
 
+        self.validate()
+
     def to_dict(self) -> dict[str, Any]:
         '''
-            Converts the bundle attributes to a dictionary.
+            Converts the LoggerBundle instance to a dictionary.
 
-            :return: Dictionary representation of the bundle attributes.
+            :return: Dictionary representation of the LoggerBundle instance.
             :rtype: <dict[str, Any]>
             :exceptions: None.
         '''
-        return {
-            name: value
-            for name, value in self.__dict__.items()
-            if not name.startswith('_')
-        }
-
+        return asdict(self)

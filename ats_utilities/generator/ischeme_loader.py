@@ -20,14 +20,18 @@ Info
     Interface for loading/resolving generation scheme.
 '''
 
+from __future__ import annotations
+
 from abc import ABC, abstractmethod
 from typing import Any
+
+from collections.abc import Mapping
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.4.1'
+__version__: str = '3.4.2'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
@@ -40,7 +44,6 @@ class ISchemeLoader(ABC):
 
         It defines:
 
-            :attributes: None.
             :methods:
                 | load - Loads and resolves the scheme from dict or path.
                 | is_initialized - Checks if the loader is initialized.
@@ -48,12 +51,12 @@ class ISchemeLoader(ABC):
     '''
 
     @abstractmethod
-    def load(self, scheme: dict[str, Any] | str) -> dict[str, Any]:
+    def load(self, scheme: str | Mapping[str, Any]) -> dict[str, Any]:
         '''
             Loads and resolves the scheme.
 
-            :param scheme: Generation scheme mapping or file path.
-            :type scheme: <dict[str, Any] | str>
+            :param scheme: Generation scheme file path or preloaded scheme.
+            :type scheme: <str | Mapping[str, Any]>
             :return: The resolved scheme dictionary.
             :rtype: <dict[str, Any]>
             :exceptions: None.

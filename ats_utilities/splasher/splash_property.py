@@ -20,23 +20,27 @@ Info
     Creates an API for checking splash screen property.
 '''
 
+from __future__ import annotations
+
 from typing import Any, override
+from collections.abc import Mapping
+
 from ats_utilities.splasher.isplash_property import ISplashProperty
 from ats_utilities.splasher.splash_keys import SplashKeys
 from ats_utilities.context_bundle import ContextBundle
 from ats_utilities.checker.ichecker import IChecker
 from ats_utilities.reporter.ireporter import IReporter
 from ats_utilities.factory_context_bundle import factory_context_bundle
-from ats_utilities.factory_class import require_attributes, format_instance_to_string
-from ats_utilities.checker.proxy_validator import validator
-from ats_utilities.reporter.proxy_reporter import vreporter
-from ats_utilities.factory_dict_utils import require_keys, cherry_pick_dict, has_required_keys
+from ats_utilities.factory_class import has_attrs, to_str
+from ats_utilities.checker.proxy_validator import vcheck
+from ats_utilities.reporter.proxy_reporter import vreport
+from ats_utilities.factory_dict_utils import require_keys, has_required_keys
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.4.1'
+__version__: str = '3.4.2'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
@@ -50,29 +54,21 @@ class SplashProperty(ISplashProperty):
         It defines:
 
             :attributes:
-                | _required_keys - Required splash screen keys (default frozenset).
                 | _checker - Injected parameters checker (default Checker).
                 | _reporter - Injected reporter for messaging (default Reporter).
                 | _verbose - Injected Enable/Disable verbose option (default False).
-                | _splash_property - Splash screen property in dict format (default None).
+                | _splash_keys - Splash keys object (default None).
             :methods:
                 | __init__ - Initials SplashProperty constructor.
-                | splash_property - Property method for get/set splash property.  
-                | validates - Validates splash screen property.
+                | splash_keys - Property method for get/set splash keys.  
+                | validates - Validates splash keys.
                 | __str__ - Returns the string representation of SplashProperty.
     '''
-
-    _required_keys: frozenset[str] = frozenset([
-        SplashKeys.ATS_ORGANIZATION,
-        SplashKeys.ATS_REPOSITORY,
-        SplashKeys.ATS_NAME,
-        SplashKeys.ATS_LOGO_PATH,
-        SplashKeys.ATS_USE_GITHUB_INFRASTRUCTURE
-    ])
 
     _checker: IChecker
     _reporter: IReporter
     _verbose: bool
+    _splash_keys: SplashKeys | None
 
     def __init__(self, context_bundle: ContextBundle | None = None) -> None:
         '''
@@ -83,50 +79,56 @@ class SplashProperty(ISplashProperty):
             :exceptions: None.
         '''
         factory_context_bundle(self, context_bundle)
-        self._splash_property: dict[Any, Any] | None = None
+        self._splash_keys = None
 
     @property
-    @vreporter('get splash property {splash_property}')
+    @vreport('get splash property {splash_keys}')
     @override
-    def splash_property(self) -> dict[Any, Any] | None:
+    def splash_keys(self) -> Mapping[str, Any]:
         '''
             Property method for getting splash screen property.
+            Splash screen property comes from info configuration file as read only data.
 
-            :return: Formatted splash screen property in dict format | None.
-            :rtype: <dict[Any, Any] | None>
+            :return: Formatted splash screen property in Mapping format (read only data).
+            :rtype: <Mapping[str, Any]>
             :exceptions:
                 | ATSRuntimeError: Decorator cannot be used on a standalone function.
                 | ATSAttributeError: Class is required to provide a '_reporter' object to
-                |                    use the @verboser decorator.
+                |                    use the @vreport decorator.
         '''
-        return self._splash_property
+        return self._splash_keys.to_dict() if self._splash_keys is not None else {}
 
-    @splash_property.setter
-    @validator([('dict:splash_property_setup', None)])
-    @vreporter('set splash property {splash_property}')
+    @splash_keys.setter
+    @vcheck([('Mapping:setup', None)])
+    @vreport('set splash property {splash_keys}')
     @override
-    def splash_property(self, splash_property_setup: dict[Any, Any] | None) -> None:
+    def splash_keys(self, setup: Mapping[str, Any]) -> None:
         '''
             Property method for setting project splash screen property.
+            Splash screen property comes from info configuration file as read only data.
 
-            :param splash_property_setup: Project splash property in dict format | None.
-            :type splash_property_setup: <dict[Any, Any] | None>
+            :param setup: Project splash property in Mapping format (read only data).
+            :type setup: <Mapping[str, Any]>
             :exceptions:
-                | ATSTypeError: splash property setup is not a dict | None.
+                | ATSTypeError: splash property setup is not a Mapping.
                 | ATSValueError: splash property setup is missing required keys.
                 | ATSRuntimeError: Decorator cannot be used on a standalone function.
                 | ATSAttributeError: Class is required to provide a '_reporter' object to
-                |                    use the @verboser decorator.
+                |                    use the @vreport decorator.
                 | ATSTypeError: Parameter type validation failed.
                 | ATSValueError: Parameter format validation failed.
                 | ATSRuntimeError: Decorator used on a non-class method.
                 | ATSAttributeError: Class does not provide a '_checker' object.
         '''
-        require_keys(splash_property_setup, self._required_keys)
-        self._splash_property = cherry_pick_dict(splash_property_setup, self._required_keys)
+        is_enabled = bool(setup.get('enabled', True))
 
-    @vreporter('validation or splash property {splash_property}')
-    @require_attributes('_splash_property')
+        if is_enabled:
+            require_keys(setup, frozenset(SplashKeys.get_all_keys()))
+
+        self._splash_keys = SplashKeys.from_dict(setup)
+
+    @vreport('validation or splash property {splash_keys}')
+    @has_attrs('_splash_keys')
     @override
     def validates(self) -> bool:
         '''
@@ -135,12 +137,15 @@ class SplashProperty(ISplashProperty):
             :return: True (success) else False (fail).
             :rtype: <bool>
             :exceptions:
-                | ATSValueError: Missing or empty attribute: '_splash_property'.
+                | ATSValueError: Missing or empty attribute: '_splash_keys'.
                 | ATSRuntimeError: Decorator cannot be used on a standalone function.
                 | ATSAttributeError: Class is required to provide a '_reporter' object to
-                |                    use the @verboser decorator.
+                |                    use the @vreport decorator.
         '''
-        return has_required_keys(self._splash_property, self._required_keys)
+        if not self._splash_keys.enabled:
+            return True
+
+        return has_required_keys(self.splash_keys, frozenset(SplashKeys.get_all_keys()))
 
     @override
     def __str__(self) -> str:
@@ -151,4 +156,4 @@ class SplashProperty(ISplashProperty):
             :rtype: <str>
             :exceptions: None.
         '''
-        return format_instance_to_string(self)
+        return to_str(self)

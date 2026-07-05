@@ -20,13 +20,16 @@ Info
     Interface for loading the ATS configuration.
 '''
 
+from __future__ import annotations
+
 from abc import ABC, abstractmethod
+from collections.abc import Mapping
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.4.1'
+__version__: str = '3.4.2'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
@@ -39,19 +42,18 @@ class ILoader(ABC):
 
         It defines:
 
-            :attributes: None
             :methods:
-                | load_configuration - Loads the ATS configuration in dictionary format.
+                | load_configuration - Loads the ATS configuration in mapping format.
                 | __str__ - Returns the loader component as string representation.
     '''
 
     @abstractmethod
-    def load_configuration(self) -> dict[str, str]:
+    def load_configuration(self) -> Mapping[str, str]:
         '''
-            Loads the ATS configuration in dictionary format.
+            Loads the ATS configuration in mapping format.
 
-            :return: Dictionary with configuration information.
-            :rtype: <dict[str, str]>
+            :return: Mapping with configuration information (read only data).
+            :rtype: <Mapping[str, str]>
             :exceptions: None.
         '''
         pass

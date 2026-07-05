@@ -32,7 +32,7 @@ __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.4.1'
+__version__: str = '3.4.2'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
@@ -104,9 +104,8 @@ class ProNameTestCase(TestCase):
     def test_set_pro_name_none(self) -> None:
         '''Sets None name'''
         none_name: str | None = None
-        self.ats_base_pro_name.pro_name = none_name
-        self.assertIsNone(self.ats_base_pro_name.pro_name)
-        self.assertFalse(self.ats_base_pro_name.is_tool_ok())
+        with self.assertRaises(ATSTypeError):
+            self.ats_base_pro_name.pro_name = none_name
 
     def test_set_pro_name(self) -> None:
         '''Sets simple project name'''
@@ -126,7 +125,6 @@ class ProNameTestCase(TestCase):
 
     def test_not_none_method(self) -> None:
         '''Test not_none method.'''
-        self.ats_base_pro_name.pro_name = None
         self.assertFalse(self.ats_base_pro_name.not_none())
         self.ats_base_pro_name.pro_name = 'app_example'
         self.assertTrue(self.ats_base_pro_name.not_none())

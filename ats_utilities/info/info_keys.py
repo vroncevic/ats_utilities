@@ -20,20 +20,23 @@ Info
     Defines constants for ATS information keys.
 '''
 
+from __future__ import annotations
+
 from dataclasses import dataclass
 from typing import ClassVar
+from types import MappingProxyType
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.4.1'
+__version__: str = '3.4.2'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
 
 
-@dataclass(frozen=True)
+@dataclass(frozen=True, slots=True, kw_only=True)
 class InfoKeys:
     '''
         Defines class InfoKeys with attribute(s).
@@ -50,7 +53,7 @@ class InfoKeys:
                 | ATS_ORGANIZATION - The key for ATS organization.
                 | ATS_USE_GITHUB_INFRASTRUCTURE - The key for ATS use github infrastructure.
                 | ATS_LOGO_PATH - The key for ATS logo path.
-            :methods: None.    '''
+    '''
 
     ATS_NAME: ClassVar[str] = 'ats_name'
     ATS_VERSION: ClassVar[str] = 'ats_version'
@@ -60,3 +63,43 @@ class InfoKeys:
     ATS_ORGANIZATION: ClassVar[str] = 'ats_organization'
     ATS_USE_GITHUB_INFRASTRUCTURE: ClassVar[str] = 'ats_use_github_infrastructure'
     ATS_LOGO_PATH: ClassVar[str] = 'ats_logo_path'
+
+    @classmethod
+    def get_keys(cls) -> tuple[str, ...]:
+        '''
+            Returns a tuple of all ATS information keys.
+
+            :return: Tuple of all keys.
+            :rtype: <tuple[str, ...]>
+            :exceptions: None.
+        '''
+        return (
+            cls.ATS_NAME,
+            cls.ATS_VERSION,
+            cls.ATS_BUILD_DATE,
+            cls.ATS_LICENCE,
+            cls.ATS_REPOSITORY,
+            cls.ATS_ORGANIZATION,
+            cls.ATS_USE_GITHUB_INFRASTRUCTURE,
+            cls.ATS_LOGO_PATH
+        )
+
+    @classmethod
+    def get_key_to_attr(cls) -> MappingProxyType[str, str]:
+        '''
+            Returns a mapping of ATS information keys to attributes.
+
+            :return: Key to attribute mapping.
+            :rtype: <MappingProxyType[str, str]>
+            :exceptions: None.
+        '''
+        return MappingProxyType({
+            cls.ATS_NAME: 'name',
+            cls.ATS_VERSION: 'version',
+            cls.ATS_BUILD_DATE: 'build_date',
+            cls.ATS_LICENCE: 'licence',
+            cls.ATS_REPOSITORY: 'repository',
+            cls.ATS_ORGANIZATION: 'organization',
+            cls.ATS_USE_GITHUB_INFRASTRUCTURE: 'use_github',
+            cls.ATS_LOGO_PATH: 'logo_path'
+        })

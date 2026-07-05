@@ -16,25 +16,29 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines validator decorator for checking method parameters.
+    Defines vcheck decorator for checking method parameters.
     Utility for parameter validation borrowing Checker from class instances.
 '''
+
+from __future__ import annotations
 
 from collections.abc import Callable
 import inspect
 from functools import wraps
 from typing import Any, cast
+
 from ats_utilities.checker.ichecker import ParametersSpecs
 from ats_utilities.exceptions.ats_type_error import ATSTypeError
 from ats_utilities.exceptions.ats_value_error import ATSValueError
 from ats_utilities.exceptions.ats_attribute_error import ATSAttributeError
 from ats_utilities.exceptions.ats_runtime_error import ATSRuntimeError
+from ats_utilities.factory_context_error import raise_context_error
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.4.1'
+__version__: str = '3.4.2'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
@@ -53,7 +57,7 @@ def proxy_validator_split(exp_type: str) -> tuple[str, str]:
 
     return parts[0], parts[1]
 
-def validator[F: Callable[..., Any]](specs: list[tuple[str, Any]]) -> Callable[[F], F]:
+def vcheck[F: Callable[..., Any]](specs: list[tuple[str, Any]]) -> Callable[[F], F]:
     '''
         Decorator supporting class methods (instance methods, classmethods).
         Borrows the checker object dynamically from the class instance 
@@ -75,10 +79,13 @@ def validator[F: Callable[..., Any]](specs: list[tuple[str, Any]]) -> Callable[[
             # Capturing the class instance (self is always the first argument in args)
             self_instance = args[0] if args else None
 
-            if not self_instance:
-                raise ATSRuntimeError(
-                    f"Decorator @validator on '{func.__name__}' "
-                    f"can only be used on class methods."
+            if self_instance is None:
+                raise_context_error(
+                    fallback_prefix='vcheck::decorator',
+                    fallback_msg=f'Decorator @vcheck on {func.__name__} can only be used on class methods.',
+                    exc_message_path=None,
+                    exception_class=ATSRuntimeError,
+                    depth=3
                 )
 
             # BORROWING: Extracting the checker object that the class is responsible for.
@@ -89,9 +96,12 @@ def validator[F: Callable[..., Any]](specs: list[tuple[str, Any]]) -> Callable[[
             )
 
             if checker is None:
-                raise ATSAttributeError(
-                    f"Class '{self_instance.__class__.__name__}' is required to provide "
-                    f"a '_checker' object to use the @validator decorator."
+                raise_context_error(
+                    fallback_prefix='vcheck::decorator',
+                    fallback_msg=f"Class '{self_instance.__class__.__name__}' is required to provide a '_checker' object to use the @vcheck decorator.",
+                    exc_message_path=None,
+                    exception_class=ATSAttributeError,
+                    depth=3
                 )
 
             # Safely bind the passed args and kwargs to the function's signature
@@ -140,9 +150,22 @@ def validator[F: Callable[..., Any]](specs: list[tuple[str, Any]]) -> Callable[[
 
                 if error_id != checker.ERRORS.NO_ERROR:
                     if error_id == checker.ERRORS.TYPE_ERROR:
-                        raise ATSTypeError(report_message)
-                    elif error_id == checker.ERRORS.FORMAT_ERROR:
-                        raise ATSValueError(report_message)
+                        raise_context_error(
+                            fallback_prefix='vcheck::decorator',
+                            fallback_msg=f'Type error: {report_message}',
+                            exc_message_path=None,
+                            exception_class=ATSTypeError,
+                            depth=3
+                        )
+                    
+                    if error_id == checker.ERRORS.FORMAT_ERROR:
+                        raise_context_error(
+                            fallback_prefix='vcheck::decorator',
+                            fallback_msg=f'Format error: {report_message}',
+                            exc_message_path=None,
+                            exception_class=ATSValueError,
+                            depth=3
+                        )
 
             return func(*args, **kwargs)
         return cast(F, wrapper)

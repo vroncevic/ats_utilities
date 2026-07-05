@@ -36,7 +36,7 @@ __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.4.1'
+__version__: str = '3.4.2'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
@@ -74,19 +74,23 @@ class ATSSplashTestCase(TestCase):
         splash: Splasher = Splasher(None)  # type: ignore
         self.assertFalse(splash.is_initialized())
 
-    @mock.patch('ats_utilities.splasher.engine.make_component')
+    @mock.patch('ats_utilities.splasher.component_bundle.make_component')
     def test_splasher_initialization_failures(self, mock_make_component) -> None:
         '''Test Splasher initialization with errors.'''
         mock_make_component.side_effect = Exception('Unexpected')
-        bundle = SplashComponentBundle(
-            prop={
-                SplashKeys.ATS_ORGANIZATION: 'App Example',
-                SplashKeys.ATS_REPOSITORY: 'app_example',
-                SplashKeys.ATS_NAME: 'appexample',
-                SplashKeys.ATS_LOGO_PATH: f'{dirname(__file__)}/config/app.logo',
-                SplashKeys.ATS_USE_GITHUB_INFRASTRUCTURE: True
-            }
-        )
+        try:
+            bundle: SplashComponentBundle | None = SplashComponentBundle(
+                prop={
+                    SplashKeys.ATS_ORGANIZATION: 'App Example',
+                    SplashKeys.ATS_REPOSITORY: 'app_example',
+                    SplashKeys.ATS_NAME: 'appexample',
+                    SplashKeys.ATS_LOGO_PATH: f'{dirname(__file__)}/config/app.logo',
+                    SplashKeys.ATS_USE_GITHUB_INFRASTRUCTURE: True
+                }
+            )
+        except Exception:
+            bundle = None
+
         splash: Splasher = Splasher(bundle)
         self.assertFalse(splash.is_initialized())
 
@@ -206,7 +210,15 @@ class ATSSplashTestCase(TestCase):
         splash: Splasher = Splasher(bundle)
         context = splash.get_shared_context()
         self.assertIsInstance(context, ContextBundle)
-
+    def test_splash_disabled(self) -> None:
+        '''Test that splasher initializes but does nothing when disabled'''
+        bundle = SplashComponentBundle(
+            prop={
+                'enabled': False
+            }
+        )
+        splash: Splasher = Splasher(bundle)
+        self.assertTrue(splash.is_initialized())
 
 
 if __name__ == '__main__':

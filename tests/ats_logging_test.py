@@ -38,7 +38,7 @@ __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.4.1'
+__version__: str = '3.4.2'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
@@ -122,7 +122,7 @@ class ATSLoggingTestCase(TestCase):
         '''Test is_initialized method'''
         self.assertTrue(self.ats_base_logging.is_initialized())
 
-    @mock.patch('ats_utilities.logging.engine.make_component')
+    @mock.patch('ats_utilities.logging.component_bundle.make_component')
     def test_initialization_failure(self, mock_make_component) -> None:
         '''Test logger manager initialization failure'''
         mock_make_component.side_effect = ATSTypeError('Failed to initialize component')
@@ -130,7 +130,7 @@ class ATSLoggingTestCase(TestCase):
         with self.assertRaises(ATSValueError):
             invalid_manager.is_initialized()
 
-    @mock.patch('ats_utilities.logging.engine.make_component')
+    @mock.patch('ats_utilities.logging.component_bundle.make_component')
     def test_initialization_unexpected_exception(self, mock_make_component) -> None:
         '''Test logger manager initialization unexpected exception'''
         mock_make_component.side_effect = Exception('Unexpected')

@@ -20,16 +20,19 @@ Info
     Implements a progressbar as part of splash screen.
 '''
 
+from __future__ import annotations
+
 import sys
 from typing import override
-from ats_utilities.factory_class import format_instance_to_string
+
+from ats_utilities.factory_class import to_str
 from ats_utilities.splasher.iprogress_bar import IProgressBar
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.4.1'
+__version__: str = '3.4.2'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
@@ -160,4 +163,4 @@ class ProgressBar(IProgressBar):
             :rtype: <str>
             :exceptions: None.
         '''
-        return format_instance_to_string(self)
+        return to_str(self)

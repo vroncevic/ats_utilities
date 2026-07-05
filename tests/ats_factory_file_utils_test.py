@@ -35,7 +35,7 @@ __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.4.1'
+__version__: str = '3.4.2'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
@@ -164,7 +164,7 @@ class ATSFactoryFileUtilsTestCase(TestCase):
         # Test replacement_val is None (line 232)
         path_replacements_none = {'task_cli': 'missing_var'}
         self.assertEqual(
-            apply_path_replacements('task_cli/main.py', path_replacements_none, {}),
+            apply_path_replacements('task_cli/main.py', path_replacements_none, {'other_var': 'value'}),
             'task_cli/main.py'
         )
 

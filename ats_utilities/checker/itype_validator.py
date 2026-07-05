@@ -20,6 +20,8 @@ Info
     Creates an interface for validating parameters for method(s) and function(s).
 '''
 
+from __future__ import annotations
+
 from abc import ABC, abstractmethod
 from typing import Any
 
@@ -27,7 +29,7 @@ __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.4.1'
+__version__: str = '3.4.2'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
@@ -40,12 +42,11 @@ class ITypeValidator(ABC):
 
         It defines:
 
-            :attributes: None
             :methods:
                 | is_match - Compares instance type with expected type name.
                 | is_subtype - Checks if instance is a subtype of expected type name.
                 | get_type_name - Returns the string representation of an instance type.
-                | __str__ - Returns the validator as string representation.
+                | __str__ - Returns the vcheck as string representation.
     '''
 
     @abstractmethod
@@ -94,9 +95,9 @@ class ITypeValidator(ABC):
     @abstractmethod
     def __str__(self) -> str:
         '''
-            Returns the validator as string representation.
+            Returns the vcheck as string representation.
 
-            :return: The validator as string representation.
+            :return: The vcheck as string representation.
             :rtype: <str>
             :exceptions: None.
         '''

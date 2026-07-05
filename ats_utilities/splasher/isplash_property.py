@@ -20,14 +20,17 @@ Info
     Interface for checking splash screen property.
 '''
 
+from __future__ import annotations
+
 from abc import ABC, abstractmethod
 from typing import Any
+from collections.abc import Mapping
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.4.1'
+__version__: str = '3.4.2'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
@@ -40,33 +43,34 @@ class ISplashProperty(ABC):
 
         It defines:
 
-            :attributes: None
             :methods:
-                | splash_property - Property methods for set/get operations.
-                | validates - Validates splash screen property.
-                | __str__ - Returns the splash screen property as string representation.
+                | splash_keys - Property methods for set/get splash keys.
+                | validates - Validates splash keys.
+                | __str__ - Returns the splash keys as string representation.
     '''
 
     @property
     @abstractmethod
-    def splash_property(self) -> dict[Any, Any] | None:
+    def splash_keys(self) -> Mapping[str, Any]:
         '''
-            Property method for getting splash screen property.
+            Property method for getting splash keys.
+            Splash screen property comes from info configuration file as read only data.
 
-            :return: Formatted splash screen property in dict format | None.
-            :rtype: <dict[Any, Any] | None>
+            :return: Formatted splash screen property in Mapping format (read only data).
+            :rtype: <Mapping[str, Any]>
             :exceptions: None.
         '''
         pass
 
-    @splash_property.setter
+    @splash_keys.setter
     @abstractmethod
-    def splash_property(self, splash_property_setup: dict[Any, Any] | None) -> None:
+    def splash_keys(self, setup: Mapping[str, Any]) -> None:
         '''
-            Property method for setting project splash screen property.
+            Property method for setting project splash keys.
+            Splash screen property comes from info configuration file as read only data.
 
-            :param splash_property_setup: Project splash screen property in dict format | None.
-            :type splash_property_setup: <dict[Any, Any] | None>
+            :param setup: Project splash keys in Mapping format (read only data).
+            :type setup: <Mapping[str, Any]>
             :exceptions: None.
         '''
         pass
@@ -74,7 +78,7 @@ class ISplashProperty(ABC):
     @abstractmethod
     def validates(self) -> bool:
         '''
-            Validates splash screen property.
+            Validates splash keys.
 
             :return: True (success) else False (fail).
             :rtype: <bool>
@@ -85,9 +89,9 @@ class ISplashProperty(ABC):
     @abstractmethod
     def __str__(self) -> str:
         '''
-            Returns the splash screen property as string representation.
+            Returns the splash keys as string representation.
 
-            :return: The splash screen property as string representation.
+            :return: The splash keys as string representation.
             :rtype: <str>
             :exceptions: None.
         '''

@@ -20,15 +20,19 @@ Info
     Interface for the ATS info manager mechanism.
 '''
 
-from typing import Any
+from __future__ import annotations
+
 from abc import ABC, abstractmethod
+from collections.abc import Mapping
+from typing import Any
+
 from ats_utilities.context_bundle import ContextBundle
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.4.1'
+__version__: str = '3.4.2'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
@@ -41,7 +45,6 @@ class IInfoManager(ABC):
 
         It defines:
 
-            :attributes: None.
             :methods:
                 | get_shared_context - Returns the shared context.
                 | set_info - Sets the ATS information.
@@ -52,34 +55,34 @@ class IInfoManager(ABC):
     '''
 
     @abstractmethod
-    def get_shared_context(self) -> ContextBundle | None:
+    def get_shared_context(self) -> ContextBundle:
         '''
             Returns the shared context.
 
-            :return: Shared context | None.
-            :rtype: <ContextBundle | None>
+            :return: Shared context.
+            :rtype: <ContextBundle>
             :exceptions: None.
         '''
         pass
 
     @abstractmethod
-    def set_info(self, info: dict[str, Any]) -> None:
+    def set_info(self, info: Mapping[str, Any]) -> None:
         '''
             Sets the ATS information.
 
-            :param info: Dictionary with ATS information
-            :type info: <dict[str, Any]>
+            :param info: Mapping with ATS information
+            :type info: <Mapping[str, Any]>
             :exceptions: None.
         '''
         pass
 
     @abstractmethod
-    def get_info(self) -> dict[str, Any]:
+    def get_info(self) -> Mapping[str, Any]:
         '''
             Gets the ATS information.
-
-            :return: Dictionary with ATS information.
-            :rtype: <dict[str, Any]>
+ 
+            :return: Mapping with ATS information.
+            :rtype: <Mapping[str, Any]>
             :exceptions: None.
         '''
         pass

@@ -19,6 +19,9 @@ Info
     Defines abstract class IINIProcessor with method(s).
     Creates an interface for processing INI content.
 '''
+
+from __future__ import annotations
+
 from abc import ABC, abstractmethod
 from typing import Any
 
@@ -26,7 +29,7 @@ __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.4.1'
+__version__: str = '3.4.2'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
@@ -39,7 +42,6 @@ class IINIProcessor(ABC):
 
         It defines:
 
-            :attributes: None
             :methods:
                 | from_stream - Loads INI configuration from a stream.
                 | to_stream - Converts INI configuration to a stream.

@@ -20,9 +20,12 @@ Info
     Interface for ATS base setup.
 '''
 
+from __future__ import annotations
+
 from abc import ABC, abstractmethod
 from collections.abc import Sequence
 from typing import Any
+
 from ats_utilities.context_bundle import ContextBundle
 from ats_utilities.option.option_namespace import OptionNamespace
 
@@ -30,7 +33,7 @@ __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.4.1'
+__version__: str = '3.4.2'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
@@ -46,7 +49,6 @@ class IBase(ABC):
 
         It defines:
 
-            :attributes: None
             :methods:
                 | get_shared_context - Returns the shared context.
                 | is_initialized - Checks if the base component is initialized.
@@ -57,12 +59,12 @@ class IBase(ABC):
     '''
 
     @abstractmethod
-    def get_shared_context(self) -> ContextBundle | None:
+    def get_shared_context(self) -> ContextBundle:
         '''
             Returns the shared context.
 
-            :return: Shared context | None
-            :rtype: <ContextBundle | None>
+            :return: Shared context.
+            :rtype: <ContextBundle>
             :exceptions: None.
         '''
         pass

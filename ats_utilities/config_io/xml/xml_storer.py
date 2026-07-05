@@ -20,27 +20,30 @@ Info
     Stores the ATS configuration for the ATS.
 '''
 
+from __future__ import annotations
+
 from xml.etree.ElementTree import Element, SubElement, tostring, ParseError
 from xml.dom.minidom import parseString
 from typing import override
+
 from ats_utilities.config_io.iwrite import IWrite
 from ats_utilities.config_io.istorer import IStorer
 from ats_utilities.checker.ichecker import IChecker
 from ats_utilities.reporter.ireporter import IReporter
-from ats_utilities.config_io.config_file_bundle import ATSConfigFileBundle
+from ats_utilities.config_io.config_file_bundle import ConfigFileBundle
 from ats_utilities.config_io.xml.object2xml import Object2Xml
 from ats_utilities.config_io.xml.xml_processor import XMLProcessor
 from ats_utilities.config_io.xml.ixml_processor import IXMLProcessor
-from ats_utilities.checker.proxy_validator import validator
+from ats_utilities.checker.proxy_validator import vcheck
 from ats_utilities.factory_context_bundle import factory_context_bundle
 from ats_utilities.factory_component import make_component, validate_component
-from ats_utilities.factory_class import format_instance_to_string
+from ats_utilities.factory_class import to_str
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.4.1'
+__version__: str = '3.4.2'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
@@ -77,7 +80,7 @@ class XMLStorer(IStorer):
         self,
         info_file: str | None = None,
         object2xml: IWrite | None = None,
-        config_bundle: ATSConfigFileBundle | None = None,
+        config_bundle: ConfigFileBundle | None = None,
         xml_processor: IXMLProcessor | None = None
     ) -> None:
         '''
@@ -88,13 +91,13 @@ class XMLStorer(IStorer):
             :param object2xml: An API for information | None.
             :type object2xml: <IWrite | None>
             :param config_bundle: Configuration bundle | None.
-            :type config_bundle: <ATSConfigFileBundle | None>
+            :type config_bundle: <ConfigFileBundle | None>
             :param xml_processor: Processor for XML content | None.
             :type xml_processor: <IXMLProcessor | None>
             :exceptions:
                 | ATSTypeError: Invalid type in constructor arguments.
         '''
-        config_file_bundle: ATSConfigFileBundle = config_bundle or ATSConfigFileBundle()
+        config_file_bundle: ConfigFileBundle = config_bundle or ConfigFileBundle()
         factory_context_bundle(self, config_file_bundle.context)
         self._processor: IXMLProcessor = make_component(xml_processor, XMLProcessor, None)
         validate_component(self._processor, XMLProcessor)
@@ -103,7 +106,7 @@ class XMLStorer(IStorer):
         })
         validate_component(self._obj2xml, Object2Xml)
 
-    @validator([('dict:config', None)])
+    @vcheck([('dict:config', None)])
     @override
     def store_configuration(self, config: dict[str, str]) -> bool:
         '''
@@ -147,4 +150,4 @@ class XMLStorer(IStorer):
             :rtype: <str>
             :exceptions: None.
         '''
-        return format_instance_to_string(self)
+        return to_str(self)

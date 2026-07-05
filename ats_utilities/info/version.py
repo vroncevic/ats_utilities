@@ -20,21 +20,24 @@ Info
     Creates an API for the ATS version in one property object.
 '''
 
+from __future__ import annotations
+
 from typing import override
+
 from ats_utilities.info.iversion import IVersion
 from ats_utilities.context_bundle import ContextBundle
 from ats_utilities.checker.ichecker import IChecker
 from ats_utilities.reporter.ireporter import IReporter
 from ats_utilities.factory_context_bundle import factory_context_bundle
-from ats_utilities.factory_class import format_instance_to_string
-from ats_utilities.checker.proxy_validator import validator
-from ats_utilities.reporter.proxy_reporter import vreporter
+from ats_utilities.factory_class import to_str
+from ats_utilities.checker.proxy_validator import vcheck
+from ats_utilities.reporter.proxy_reporter import vreport
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.4.1'
+__version__: str = '3.4.2'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
@@ -62,6 +65,7 @@ class Version(IVersion):
     _checker: IChecker
     _reporter: IReporter
     _verbose: bool
+    _version: str | None
 
     def __init__(self, context_bundle: ContextBundle | None = None) -> None:
         '''
@@ -72,38 +76,38 @@ class Version(IVersion):
             :exceptions: None.
         '''
         factory_context_bundle(self, context_bundle)
-        self._version: str | None = None
+        self._version = None
 
     @property
-    @vreporter('get version {version}')
+    @vreport('get version {version}')
     @override
-    def version(self) -> str | None:
+    def version(self) -> str:
         '''
             Property method for getting ATS version.
 
-            :return: The ATS version in string format | None.
-            :rtype: <str | None>
+            :return: The ATS version in string format.
+            :rtype: <str>
             :exceptions:
                 | ATSRuntimeError: Decorator cannot be used on a standalone function.
                 | ATSAttributeError: Class is required to provide a '_reporter' object to
-                |                    use the @verboser decorator.
+                |                    use the @vreport decorator.
         '''
         return self._version
 
     @version.setter
-    @validator([('str | None:version', None)])
-    @vreporter('set version {version}')
+    @vcheck([('str:version', None)])
+    @vreport('set version {version}')
     @override
-    def version(self, version: str | None) -> None:
+    def version(self, version: str) -> None:
         '''
             Property method for setting ATS version.
 
-            :param version: The ATS version in string format | None.
-            :type version: <str | None>
+            :param version: The ATS version in string format.
+            :type version: <str>
             :exceptions:
                 | ATSRuntimeError: Decorator cannot be used on a standalone function.
                 | ATSAttributeError: Class is required to provide a '_reporter' object to
-                |                    use the @verboser decorator.
+                |                    use the @vreport decorator.
                 | ATSTypeError: Parameter type validation failed.
                 | ATSValueError: Parameter format validation failed.
                 | ATSRuntimeError: Decorator used on a non-class method.
@@ -111,7 +115,7 @@ class Version(IVersion):
         '''
         self._version = version
 
-    @vreporter('check version {version}')
+    @vreport('check version {version}')
     @override
     def not_none(self) -> bool:
         '''
@@ -122,7 +126,7 @@ class Version(IVersion):
             :exceptions:
                 | ATSRuntimeError: Decorator cannot be used on a standalone function.
                 | ATSAttributeError: Class is required to provide a '_reporter' object to
-                |                    use the @verboser decorator.
+                |                    use the @vreport decorator.
         '''
         return self._version is not None
 
@@ -135,4 +139,4 @@ class Version(IVersion):
             :rtype: <str>
             :exceptions: None.
         '''
-        return format_instance_to_string(self)
+        return to_str(self)

@@ -20,7 +20,10 @@ Info
     Creates an API for writing a configuration to a JSON file.
 '''
 
+from __future__ import annotations
+
 from typing import override
+
 from ats_utilities.config_io.iwrite import IWrite
 from ats_utilities.context_bundle import ContextBundle
 from ats_utilities.checker.ichecker import IChecker
@@ -28,20 +31,20 @@ from ats_utilities.reporter.ireporter import IReporter
 from ats_utilities.config_io.conf_file import ConfFile
 from ats_utilities.config_io.ifile_check import IFileCheck
 from ats_utilities.config_io.file_check import FileCheck
-from ats_utilities.config_io.file_bundle import ATSFileBundle
-from ats_utilities.config_io.config_file_bundle import ATSConfigFileBundle
+from ats_utilities.config_io.file_bundle import FileBundle
+from ats_utilities.config_io.config_file_bundle import ConfigFileBundle
 from ats_utilities.config_io.json.ijson_processor import IJSONProcessor
-from ats_utilities.reporter.proxy_reporter import vreporter
-from ats_utilities.checker.proxy_validator import validator
+from ats_utilities.reporter.proxy_reporter import vreport
+from ats_utilities.checker.proxy_validator import vcheck
 from ats_utilities.factory_context_bundle import factory_context_bundle
 from ats_utilities.factory_component import make_component, validate_component
-from ats_utilities.factory_class import format_instance_to_string
+from ats_utilities.factory_class import to_str
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.4.1'
+__version__: str = '3.4.2'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
@@ -81,7 +84,7 @@ class Object2Json(IWrite):
     def __init__(
         self,
         config_file: str | None,
-        config_bundle: ATSConfigFileBundle | None = None
+        config_bundle: ConfigFileBundle | None = None
     ) -> None:
         '''
             Initializes Object2Json constructor.
@@ -89,11 +92,11 @@ class Object2Json(IWrite):
             :param config_file: Configuration file path in string format | None.
             :type config_file: <str | None>
             :param config_bundle: Configuration file bundle parameters | None.
-            :type config_bundle: <ATSConfigFileBundle | None>
+            :type config_bundle: <ConfigFileBundle | None>
             :exceptions:
                 | ATSTypeError: Invalid type in constructor arguments.
         '''
-        self._config_file_bundle: ATSConfigFileBundle = config_bundle or ATSConfigFileBundle()
+        self._config_file_bundle: ConfigFileBundle = config_bundle or ConfigFileBundle()
         factory_context_bundle(self, self._config_file_bundle.context)
         context_bundle_shared: ContextBundle = ContextBundle(
             checker=self._checker, reporter=self._reporter, verbose=self._verbose
@@ -103,13 +106,13 @@ class Object2Json(IWrite):
         )
         validate_component(self._file_checker, FileCheck)
         self._file_path: str = str(config_file)
-        self._file_bundle_shared: ATSFileBundle = ATSFileBundle()
+        self._file_bundle_shared: FileBundle = FileBundle()
         self._file_bundle_shared.file_path = self._file_path
         self._file_bundle_shared.file_mode = self._MODE
         self._file_bundle_shared.file_format = self._EXT
 
-    @validator([('IJSONProcessor | None:config', None)])
-    @vreporter('write configuration to file {file_path}')
+    @vcheck([('IJSONProcessor | None:config', None)])
+    @vreport('write configuration to file {file_path}')
     @override
     def write_configuration(self, config: IJSONProcessor | None) -> bool:
         '''
@@ -122,7 +125,7 @@ class Object2Json(IWrite):
             :exceptions:
                 | ATSRuntimeError: Decorator cannot be used on a standalone function.
                 | ATSAttributeError: Class is required to provide a '_reporter' object to
-                |                    use the @verboser decorator.
+                |                    use the @vreport decorator.
                 | ATSTypeError: Parameter type validation failed.
                 | ATSValueError: Parameter format validation failed.
                 | ATSRuntimeError: Decorator used on a non-class method.
@@ -149,4 +152,4 @@ class Object2Json(IWrite):
             :rtype: <str>
             :exceptions: None.
         '''
-        return format_instance_to_string(self)
+        return to_str(self)

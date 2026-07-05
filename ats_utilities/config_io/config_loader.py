@@ -20,12 +20,15 @@ Info
     Default implementation of IConfigLoader that encapsulates factory logic.
 '''
 
+from __future__ import annotations
+
 from typing import cast, override
 from os.path import basename
+
 from ats_utilities.config_io.iconfig_loader import IConfigLoader
 from ats_utilities.config_io.iconfig_loader import IConfigProcessor, Config
-from ats_utilities.config_io.config_file_bundle import ATSConfigFileBundle
-from ats_utilities.config_io.config_loader_bundle import ATSConfigLoaderBundle
+from ats_utilities.config_io.config_file_bundle import ConfigFileBundle
+from ats_utilities.config_io.config_loader_bundle import ConfigLoaderBundle
 from ats_utilities.config_io.iread import IRead
 from ats_utilities.config_io.cfg.icfg_processor import ICFGProcessor
 from ats_utilities.config_io.cfg.cfg_loader import CFGLoader
@@ -37,13 +40,13 @@ from ats_utilities.config_io.xml.ixml_processor import IXMLProcessor
 from ats_utilities.config_io.xml.xml_loader import XMLLoader
 from ats_utilities.config_io.yaml.iyaml_processor import IYAMLProcessor
 from ats_utilities.config_io.yaml.yaml_loader import YAMLLoader
-from ats_utilities.factory_class import format_instance_to_string
+from ats_utilities.factory_class import to_str
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.4.1'
+__version__: str = '3.4.2'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
@@ -65,17 +68,17 @@ class ConfigLoader(IConfigLoader):
                 | __str__ - Returns the ConfigLoader as string representation.
     '''
 
-    def __init__(self, config_loader_bundle: ATSConfigLoaderBundle | None = None) -> None:
+    def __init__(self, config_loader_bundle: ConfigLoaderBundle | None = None) -> None:
         '''
             Initializes ConfigLoader constructor.
 
             :param config_loader_bundle: Configuration file for loading process | None.
-            :type config_loader_bundle: <ATSConfigLoaderBundle | None>
+            :type config_loader_bundle: <ConfigLoaderBundle | None>
             :exceptions: None.
         '''
         self._info_file: str | None = config_loader_bundle.info_file
         self._config2object: IRead | None = config_loader_bundle.config2object
-        self._config_bundle: ATSConfigFileBundle | None = config_loader_bundle.config_bundle
+        self._config_bundle: ConfigFileBundle | None = config_loader_bundle.config_bundle
         self._processor: IConfigProcessor | None = config_loader_bundle.processor
 
     @override
@@ -116,4 +119,4 @@ class ConfigLoader(IConfigLoader):
             :rtype: <str>
             :exceptions: None.
         '''
-        return format_instance_to_string(self)
+        return to_str(self)

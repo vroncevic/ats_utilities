@@ -1,0 +1,66 @@
+# -*- coding: UTF-8 -*-
+
+'''
+Module
+    factory_type.py
+Copyright
+    Copyright (C) 2017 - 2026 Vladimir Roncevic <elektron.ronca@gmail.com>
+    ats_utilities is free software: you can redistribute it and/or modify it
+    under the terms of the GNU General Public License as published by the
+    Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+    ats_utilities is distributed in the hope that it will be useful, but
+    WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+    See the GNU General Public License for more details.
+    You should have received a copy of the GNU General Public License along
+    with this program. If not, see <http://www.gnu.org/licenses/>.
+Info
+    Defines factory type utility functions.
+'''
+
+from __future__ import annotations
+
+from typing import Any
+
+from ats_utilities.factory_context_error import raise_context_error
+from ats_utilities.exceptions.ats_type_error import ATSTypeError
+
+__author__: str = 'Vladimir Roncevic'
+__copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
+__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
+__license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__: str = '3.4.2'
+__maintainer__: str = 'Vladimir Roncevic'
+__email__: str = 'elektron.ronca@gmail.com'
+__status__: str = 'Updated'
+
+
+def check_type(
+    instance: object,
+    class_or_tuple: type[Any] | tuple[type[Any], ...],
+    exc_message_path: str | None = None,
+    exception_class: type[Exception] = ATSTypeError
+) -> None:
+    '''
+        Checks if an instance is of a specified type.
+
+        :param instance: Instance to check.
+        :type instance: <any>
+        :param class_or_tuple: Type or tuple of types to check against.
+        :type class_or_tuple: <type | tuple[type, ...]>
+        :param exc_message_path: Path and details to include in the exception message.
+        :type exc_message_path: <str | None>
+        :param exception_class: The exception class to raise if instance is not of the specified type.
+        :type exception_class: <type[Exception]> (default ATSTypeError)
+        :exceptions:
+            | Dynamically raises the provided exception_class (e.g., ATSTypeError).
+    '''
+    if not isinstance(instance, class_or_tuple):
+        raise_context_error(
+            fallback_prefix="factory_type::check_type",
+            fallback_msg=f"expected {class_or_tuple} for instance, got {type(instance).__name__}",
+            exc_message_path=exc_message_path,
+            exception_class=exception_class,
+            depth=3
+        )

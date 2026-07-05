@@ -20,23 +20,24 @@ Info
     Implements an API for reporting messages to the console.
 '''
 
+from __future__ import annotations
+
+from collections.abc import Sequence
 from typing import Any, override
+
 from ats_utilities.reporter.ireporter import IReporter
 from ats_utilities.reporter.component_bundle import ReporterComponentBundle
 from ats_utilities.checker.ichecker import IChecker
-from ats_utilities.checker.engine import Checker
 from ats_utilities.reporter.theme.iconsole_theme import IConsoleTheme
-from ats_utilities.reporter.theme.engine import ConsoleTheme
 from ats_utilities.exceptions.ats_type_error import ATSTypeError
-from ats_utilities.checker.proxy_validator import validator
-from ats_utilities.factory_class import get_class_name, format_instance_to_string
-from ats_utilities.factory_component import make_component, validate_component
+from ats_utilities.checker.proxy_validator import vcheck
+from ats_utilities.factory_class import cls_name, to_str
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.4.1'
+__version__: str = '3.4.2'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
@@ -54,68 +55,70 @@ class Reporter(IReporter):
                 | _theme - Factorized theme for styling messages (default ConsoleTheme).
                 | _is_initialized -  Indicates if the reporter component is initialized (default False).
             :methods:
-                | __init__ - Initializes Reporter constructor.
+                | __init__ - Initializes Reporter.
                 | _report - Utility method for reporting messages to console.
-                | error - Reports error message to console.
-                | success - Reports success message to console.
                 | verbose - Reports verbose message to console.
+                | success - Reports success message to console.
                 | warning - Reports warning message to console.
+                | error - Reports error message to console.
                 | is_initialized - Checks if reporter component is initialized.
                 | __str__ - Returns the string representation of Reporter.
     '''
 
     _checker: IChecker
     _theme: IConsoleTheme
+    _is_initialized: bool
 
     def __init__(self, component_bundle: ReporterComponentBundle | None = None) -> None:
         '''
-            Initializes Reporter constructor.
+            Initializes Reporter.
 
             :param component_bundle: Reporter component bundle | None.
             :type component_bundle: <ReporterComponentBundle | None>
             :exceptions: None.
         '''
-        # No dependency injection then use default ones.
-        bundle: ReporterComponentBundle = component_bundle or ReporterComponentBundle()
-        self._is_initialized: bool = False
+        self._is_initialized = False
 
         try:
-            self._checker: IChecker = make_component(bundle.checker, Checker, None)
-            validate_component(self._checker, Checker)
-            self._theme: IConsoleTheme = make_component(bundle.theme, ConsoleTheme, None)
-            validate_component(self._theme, ConsoleTheme)
+            # No dependency injection then use default ones.
+            bundle: ReporterComponentBundle = component_bundle or ReporterComponentBundle()
+            self._checker = bundle.checker
+            self._theme = bundle.theme
+
+            # All components initialized successfully.
             self._is_initialized = True
 
-        except (ATSTypeError) as exc:
-            print(f"\x1b[31m{get_class_name(self)} {exc}\x1b[0m")
-        except Exception as exc:
-            print(f"\x1b[31m{get_class_name(self)} unexpected exception: {exc}\x1b[0m")
+        except ATSTypeError as exc:
+            print(f"\x1b[31m{cls_name(self)} {exc}\x1b[0m")
 
-    def _report(self, message: list[Any], color: str) -> None:
+        except Exception as exc:
+            print(f"\x1b[31m{cls_name(self)} unexpected exception: {exc}\x1b[0m")
+
+    def _report(self, message: Sequence[Any], color: str) -> None:
         '''
             Utility method for reporting message to console.
 
-            :param message: List with message components.
-            :type message: <list[Any]>
+            :param message: Sequence with message components.
+            :type message: <Sequence[Any]>
             :param color: Theme color for the message.
             :type color: <str>
-            :exceptions: ATSTypeError
+            :exceptions: None.
         '''
         message_out: str = ' '.join([str(item) for item in message])
 
         if message_out:
             print(f"{color}{message_out}{self._theme.get_color('reset')}")
 
-    @validator([('bool:is_verbose', None), ('list:message', None)])
+    @vcheck([('bool:is_verbose', None), ('Sequence:message', None)])
     @override
-    def verbose(self, is_verbose: bool, message: list[Any]) -> None:
+    def verbose(self, is_verbose: bool, message: Sequence[Any]) -> None:
         '''
             Reports verbose message to console.
 
             :param is_verbose: Enable/Disable verbose option.
             :type is_verbose: <bool>
-            :param message: List with message components.
-            :type message: <list[Any]>
+            :param message: Sequence with message components.
+            :type message: <Sequence[Any]>
             :exceptions:
                 | ATSTypeError: Parameter type validation failed.
                 | ATSValueError: Parameter format validation failed.
@@ -125,14 +128,14 @@ class Reporter(IReporter):
         if is_verbose:
             self._report(message, self._theme.get_color('verbose'))
 
-    @validator([('list:message', None)])
+    @vcheck([('Sequence:message', None)])
     @override
-    def success(self, message: list[Any]) -> None:
+    def success(self, message: Sequence[Any]) -> None:
         '''
             Reports success message to console.
 
-            :param message: List with message components.
-            :type message: <list[Any]>
+            :param message: Sequence with message components.
+            :type message: <Sequence[Any]>
             :exceptions:
                 | ATSTypeError: Parameter type validation failed.
                 | ATSValueError: Parameter format validation failed.
@@ -141,14 +144,14 @@ class Reporter(IReporter):
         '''
         self._report(message, self._theme.get_color('success'))
 
-    @validator([('list:message', None)])
+    @vcheck([('Sequence:message', None)])
     @override
-    def warning(self, message: list[Any]) -> None:
+    def warning(self, message: Sequence[Any]) -> None:
         '''
             Reports warning message to console.
 
-            :param message: List with message components.
-            :type message: <list[Any]>
+            :param message: Sequence with message components.
+            :type message: <Sequence[Any]>
             :exceptions:
                 | ATSTypeError: Parameter type validation failed.
                 | ATSValueError: Parameter format validation failed.
@@ -157,14 +160,14 @@ class Reporter(IReporter):
         '''
         self._report(message, self._theme.get_color('warning'))
 
-    @validator([('list:message', None)])
+    @vcheck([('Sequence:message', None)])
     @override
-    def error(self, message: list[Any]) -> None:
+    def error(self, message: Sequence[Any]) -> None:
         '''
             Reports error message to console.
 
-            :param message: List with message components.
-            :type message: <list[Any]>
+            :param message: Sequence with message components.
+            :type message: <Sequence[Any]>
             :exceptions:
                 | ATSTypeError: Parameter type validation failed.
                 | ATSValueError: Parameter format validation failed.
@@ -193,4 +196,4 @@ class Reporter(IReporter):
             :rtype: <str>
             :exceptions: None.
         '''
-        return format_instance_to_string(self)
+        return to_str(self)

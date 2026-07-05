@@ -20,26 +20,29 @@ Info
     Creates an API for the ATS logging mechanism.
 '''
 
+from __future__ import annotations
+
 from collections.abc import Callable
 from typing import Any, ClassVar, override
 from enum import Enum
 from logging import (
     getLogger, basicConfig, Logger, DEBUG, WARNING, CRITICAL, ERROR, INFO
 )
+
 from ats_utilities.logging.ilogger import ILogger, LogFormats
 from ats_utilities.context_bundle import ContextBundle
 from ats_utilities.logging.logger_bundle import LoggerBundle
 from ats_utilities.checker.ichecker import IChecker
 from ats_utilities.reporter.ireporter import IReporter
-from ats_utilities.checker.proxy_validator import validator
+from ats_utilities.checker.proxy_validator import vcheck
 from ats_utilities.factory_context_bundle import factory_context_bundle
-from ats_utilities.factory_class import require_attributes, format_instance_to_string
+from ats_utilities.factory_class import has_attrs, to_str
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.4.1'
+__version__: str = '3.4.2'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
@@ -140,7 +143,7 @@ class ATSLogger(ILogger):
             self.LOG_LEVELS.ATS_LOG_CRITICAL: self._logger.critical,
         }
 
-    @validator([('str | None:message', None), ('int:ctrl', None)])
+    @vcheck([('str | None:message', None), ('int:ctrl', None)])
     @override
     def write_log(self, message: str | None, ctrl: int) -> bool:
         '''
@@ -167,7 +170,7 @@ class ATSLogger(ILogger):
         self._reporter.error([f'not supported log level [{str(ctrl)}]'])
         return False
 
-    @require_attributes('_logger')
+    @has_attrs('_logger')
     @override
     def is_initialized(self) -> bool:
         '''
@@ -176,7 +179,7 @@ class ATSLogger(ILogger):
             :return: True (success) | False (fail)
             :rtype: <bool>
             :exceptions:
-                | ATSAttributeError: '_logger' attribute is required.
+                | ATSValueError: Missing or empty attribute: '_logger'.
         '''
         return self._logger.isEnabledFor(INFO)
 
@@ -190,4 +193,4 @@ class ATSLogger(ILogger):
             :rtype: <str>
             :exceptions: None.
         '''
-        return format_instance_to_string(self)
+        return to_str(self)

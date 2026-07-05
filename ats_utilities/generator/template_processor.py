@@ -20,20 +20,24 @@ Info
     Handles string rendering and template substitutions.
 '''
 
-import string
+from __future__ import annotations
+
+from collections.abc import Mapping
+from string import Template
 from typing import override
+
 from ats_utilities.generator.itemplate_processor import ITemplateProcessor
 from ats_utilities.context_bundle import ContextBundle
 from ats_utilities.checker.ichecker import IChecker
 from ats_utilities.reporter.ireporter import IReporter
 from ats_utilities.factory_context_bundle import factory_context_bundle
-from ats_utilities.factory_class import format_instance_to_string
+from ats_utilities.factory_class import to_str
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.4.1'
+__version__: str = '3.4.2'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
@@ -61,6 +65,7 @@ class TemplateProcessor(ITemplateProcessor):
     _checker: IChecker
     _reporter: IReporter
     _verbose: bool
+    _initialized: bool
 
     def __init__(self, context_bundle: ContextBundle | None = None) -> None:
         '''
@@ -71,24 +76,25 @@ class TemplateProcessor(ITemplateProcessor):
             :exceptions: None.
         '''
         factory_context_bundle(self, context_bundle)
-        self._initialized: bool = True
+        self._initialized = True
 
     @override
-    def render(self, raw_content: bytes, vals: dict[str, str]) -> str | bytes:
+    def render(self, raw_content: bytes, vals: Mapping[str, str]) -> str | bytes:
         '''
             Decodes and renders template placeholders.
 
             :param raw_content: The raw byte content of the file.
             :type raw_content: <bytes>
             :param vals: String replacement values.
-            :type vals: <dict[str, str]>
-            :return: Rendered text content string, or raw bytes if binary format.
+            :type vals: <Mapping[str, str]>
+            :return: Rendered text content, or raw bytes if binary format.
             :rtype: <str | bytes>
             :exceptions: None.
         '''
         try:
             content: str = raw_content.decode('utf-8')
-            template: string.Template = string.Template(content)
+            template: Template = Template(content)
+
             return template.safe_substitute(vals)
 
         except UnicodeDecodeError:
@@ -114,4 +120,4 @@ class TemplateProcessor(ITemplateProcessor):
             :rtype: <str>
             :exceptions: None.
         '''
-        return format_instance_to_string(self)
+        return to_str(self)

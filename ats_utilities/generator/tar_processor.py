@@ -20,10 +20,13 @@ Info
     Handles tar archive extraction and template rendering.
 '''
 
+from __future__ import annotations
+
 from os import makedirs
 from os.path import dirname, join
 from tarfile import open
 from typing import override
+
 from ats_utilities.generator.itar_processor import ITarProcessor
 from ats_utilities.generator.tar_process_bundle import TarProcessBundle
 from ats_utilities.generator.tar_process_member_bundle import TarProcessMemberBundle
@@ -34,17 +37,18 @@ from ats_utilities.checker.ichecker import IChecker
 from ats_utilities.reporter.ireporter import IReporter
 from ats_utilities.factory_context_bundle import factory_context_bundle
 from ats_utilities.factory_component import make_component, validate_component
-from ats_utilities.factory_class import format_instance_to_string
+from ats_utilities.factory_class import to_str
 from ats_utilities.factory_file_utils import (
     normalize_path, resolve_relative_path, is_excluded_path, apply_path_replacements, write_content
 )
 from ats_utilities.exceptions.ats_generator_error import ATSGeneratorError
+from ats_utilities.factory_value import require_not_satisfied
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.4.1'
+__version__: str = '3.4.2'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
@@ -73,6 +77,7 @@ class TarProcessor(ITarProcessor):
     _checker: IChecker
     _reporter: IReporter
     _verbose: bool
+    _template_processor: ITemplateProcessor
 
     def __init__(
         self,
@@ -90,10 +95,10 @@ class TarProcessor(ITarProcessor):
                 | ATSTypeError: Template processor component is not of expected type.
         '''
         factory_context_bundle(self, context_bundle)
-        self._template_processor: ITemplateProcessor = make_component(
+        self._template_processor = make_component(
             template_processor, TemplateProcessor, {'context_bundle': context_bundle}
         )
-        validate_component(self._template_processor, TemplateProcessor)
+        validate_component(self._template_processor, ITemplateProcessor)
 
     @override
     def process_tar_member(self, tar_process_member_bundle: TarProcessMemberBundle) -> None:
@@ -124,7 +129,7 @@ class TarProcessor(ITarProcessor):
             :param tar_process_bundle: Parameters defining what to do with the tar archive.
             :type tar_process_bundle: <TarProcessBundle>
             :exceptions:
-                | ATSGeneratorError - If archive processing or rendering fails.
+                | ATSGeneratorError: Archive processing or rendering failed.
         '''
         try:
             makedirs(tar_process_bundle.target_dir, exist_ok=True)
@@ -150,7 +155,7 @@ class TarProcessor(ITarProcessor):
                     )
 
         except Exception as exc:
-            raise ATSGeneratorError(f"TarProcessor execution failed: {exc}")
+            require_not_satisfied(True, f"TarProcessor execution failed: {exc}", ATSGeneratorError)
 
     @override
     def is_initialized(self) -> bool:
@@ -172,4 +177,4 @@ class TarProcessor(ITarProcessor):
             :rtype: <str>
             :exceptions: None.
         '''
-        return format_instance_to_string(self)
+        return to_str(self)

@@ -20,14 +20,18 @@ Info
     Creates an interface for ATS command with options.
 '''
 
+from __future__ import annotations
+
 from abc import ABC, abstractmethod
+from collections.abc import Sequence
+
 from ats_utilities.option.command_option import CommandOption
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.4.1'
+__version__: str = '3.4.2'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
@@ -40,11 +44,10 @@ class IOptionCommand(ABC):
 
         It defines:
 
-            :attributes: None
             :methods:
                 | name - Returns the name of the command.
                 | help_text - Returns the help text of the command.
-                | options - Returns the list of options for the command.
+                | options - Returns the sequence of options for the command.
                 | __str__ - Returns the string representation of IOptionCommand.
     '''
 
@@ -74,12 +77,12 @@ class IOptionCommand(ABC):
 
     @property
     @abstractmethod
-    def options(self) -> list[CommandOption]:
+    def options(self) -> Sequence[CommandOption]:
         '''
-            Returns the list of options for the command.
+            Returns the sequence of options for the command.
 
-            :return: List of options for the command.
-            :rtype: <list[CommandOption]>
+            :return: Sequence of options for the command.
+            :rtype: <Sequence[CommandOption]>
             :exceptions: None.
         '''
         pass

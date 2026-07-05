@@ -21,16 +21,20 @@ Info
     Provides a simple factory mechanism for dependency injection.
 '''
 
+from __future__ import annotations
+
 from typing import Any
 from collections.abc import Callable
 from functools import wraps
+
 from ats_utilities.exceptions.ats_value_error import ATSValueError
+from ats_utilities.factory_context_error import raise_context_error
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.4.1'
+__version__: str = '3.4.2'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
@@ -87,7 +91,7 @@ def inject(instance: Any, *dependencies: tuple[str, Any, Any, str | list[str] | 
 
         setattr(instance, full_attr_name, resolved_val)
 
-def get_private_attr(instance: Any, attr_name: str) -> Any:
+def get_pvt(instance: Any, attr_name: str) -> Any:
     '''
         Dynamically retrieves a private attribute from an instance.
 
@@ -100,11 +104,11 @@ def get_private_attr(instance: Any, attr_name: str) -> Any:
         :exceptions:
             | AttributeError: Attribute must start with '_' prefix.
     '''
-    clean_attr = attr_name.lstrip('_')
+    name = attr_name if attr_name.startswith('_') else f'_{attr_name}'
 
-    return getattr(instance, f'_{clean_attr}')
+    return getattr(instance, name)
 
-def require_attributes(*attr_names: str) -> Callable[[Callable[..., Any]], Callable[..., Any]]:
+def has_attrs(*attr_names: str) -> Callable[[Callable[..., Any]], Callable[..., Any]]:
     '''
         Checks if instance attribute is defined and has value or not.
         In case attribute value is not defined set default value to None.
@@ -120,17 +124,26 @@ def require_attributes(*attr_names: str) -> Callable[[Callable[..., Any]], Calla
     def decorator(func: Callable[..., Any]) -> Callable[..., Any]:
         @wraps(func)
         def wrapper(self: Any, *args: Any, **kwargs: Any) -> Any:
+            class_name: str = self.__class__.__name__.lower()
+            method_name: str = func.__name__
+            context: str = f'{class_name}::{method_name}'
+
             for attr in attr_names:
                 value: Any = getattr(self, attr, None)
 
-                if not value:
-                    raise ATSValueError(f"missing or empty attribute: '{attr}'")
+                if not bool(value) and value != 0 and value != False:
+                    raise_context_error(
+                        fallback_prefix=context,
+                        fallback_msg=f'missing or empty attribute {attr}',
+                        exc_message_path=None,
+                        exception_class=ATSValueError
+                    )
 
             return func(self, *args, **kwargs)
         return wrapper
     return decorator
 
-def get_class_name(instance: Any) -> str:
+def cls_name(instance: Any) -> str:
     '''
         Returns the class name of an instance.
 
@@ -142,7 +155,7 @@ def get_class_name(instance: Any) -> str:
     '''
     return instance.__class__.__name__
 
-def format_instance_to_string(instance: Any) -> str:
+def to_str(instance: Any) -> str:
     '''
         Generates a standardized string representation for any class instance.
         Cleans private attributes and appends memory addresses in hex.

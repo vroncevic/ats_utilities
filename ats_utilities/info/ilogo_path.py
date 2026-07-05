@@ -20,13 +20,15 @@ Info
     Interface for the ATS logo path mechanism.
 '''
 
+from __future__ import annotations
+
 from abc import ABC, abstractmethod
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.4.1'
+__version__: str = '3.4.2'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
@@ -39,7 +41,6 @@ class ILogoPath(ABC):
 
         It defines:
 
-            :attributes: None
             :methods:
                 | logo_path - Property methods for set/get operations.
                 | not_none - Checks if ATS logo path is not None.

@@ -31,7 +31,7 @@ __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.4.1'
+__version__: str = '3.4.2'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
@@ -73,19 +73,19 @@ class ATSSplashPropTestCase(TestCase):
     def test_create(self) -> None:
         '''Test for create'''
         splash = SplashProperty()
-        splash.splash_property = self.splash_data
+        splash.splash_keys = self.splash_data
         self.assertIsNotNone(splash)
 
     def test_crete_with_none_property(self) -> None:
         '''Test create with None property'''
         splash = SplashProperty()
         with self.assertRaises(ATSTypeError):
-            splash.splash_property = None  # type: ignore
+            splash.splash_keys = None  # type: ignore
 
     def test_property(self) -> None:
         '''Test property'''
         splash = SplashProperty()
-        splash.splash_property = {
+        splash.splash_keys = {
             'ats_organization': 'App Example',
             'ats_repository': 'app_example',
             'ats_name': 'appexample',
@@ -98,7 +98,7 @@ class ATSSplashPropTestCase(TestCase):
         '''Test wrong property'''
         splash = SplashProperty()
         with self.assertRaises(ATSValueError):
-            splash.splash_property = {
+            splash.splash_keys = {
                 'ats_organization': 'App Example',
                 'ats_repository': 'app_example',
                 'ats_name': 'appexample',
@@ -108,17 +108,16 @@ class ATSSplashPropTestCase(TestCase):
     def test_get_splash_property(self) -> None:
         '''Test getter for splash_property.'''
         splash = SplashProperty()
-        self.assertIsNone(splash.splash_property)
-        splash.splash_property = self.splash_data
-        self.assertEqual(splash.splash_property, self.splash_data)
+        self.assertEqual(splash.splash_keys, {})
+        splash.splash_keys = self.splash_data
+        self.assertEqual(splash.splash_keys, self.splash_data)
 
     def test_str(self) -> None:
         '''Test string representation of SplashProperty.'''
         splash = SplashProperty()
-        splash.splash_property = self.splash_data
+        splash.splash_keys = self.splash_data
         self.assertIsInstance(str(splash), str)
 
 
 if __name__ == '__main__':
     main()
-

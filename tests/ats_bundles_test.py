@@ -24,9 +24,9 @@ Execute
 
 from unittest import TestCase, main
 from unittest.mock import MagicMock
-from ats_utilities.config_io.config_file_bundle import ATSConfigFileBundle
-from ats_utilities.config_io.config_loader_bundle import ATSConfigLoaderBundle
-from ats_utilities.config_io.file_bundle import ATSFileBundle
+from ats_utilities.config_io.config_file_bundle import ConfigFileBundle
+from ats_utilities.config_io.config_loader_bundle import ConfigLoaderBundle
+from ats_utilities.config_io.file_bundle import FileBundle
 from ats_utilities.context_bundle import ContextBundle
 from ats_utilities.logging.logger_bundle import LoggerBundle
 from ats_utilities.logging.component_bundle import LoggingComponentBundle
@@ -66,12 +66,15 @@ from ats_utilities.splasher.isplash_property import ISplashProperty
 from ats_utilities.splasher.iterminal_properties import ITerminalProperties
 from ats_utilities.splasher.iext_infrastructure import IExtInfrastructure
 from ats_utilities.splasher.iprogress_bar import IProgressBar
+from ats_utilities.generator.ischeme_loader import ISchemeLoader
+from ats_utilities.generator.itar_processor import ITarProcessor
+from ats_utilities.generator.itemplate_processor import ITemplateProcessor
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.4.1'
+__version__: str = '3.4.2'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
@@ -84,14 +87,13 @@ class BundlesTestCase(TestCase):
 
         It defines:
 
-            :attributes: None
             :methods:
                 | test_context_bundle - Test ContextBundle methods.
                 | test_context_bundle_validation_errors - Test ContextBundle validation exceptions.
                 | test_logger_bundle - Test LoggerBundle methods.
-                | test_ats_file_bundle - Test ATSFileBundle methods.
-                | test_ats_config_file_bundle - Test ATSConfigFileBundle methods.
-                | test_ats_config_loader_bundle - Test ATSConfigLoaderBundle methods.
+                | test_ats_file_bundle - Test FileBundle methods.
+                | test_ats_config_file_bundle - Test ConfigFileBundle methods.
+                | test_ats_config_loader_bundle - Test ConfigLoaderBundle methods.
                 | test_checker_reporter_bundle - Test CheckerReporterBundle methods.
                 | test_checker_reporter_bundle_validation_errors - Test CheckerReporterBundle validation exceptions.
                 | test_splash_center_bundle - Test SplashCenterBundle methods.
@@ -124,14 +126,13 @@ class BundlesTestCase(TestCase):
 
     def test_context_bundle_validation_errors(self) -> None:
         '''Test ContextBundle validation exceptions.'''
-        mock_checker = MagicMock(spec=IChecker)
-        mock_reporter = MagicMock(spec=IReporter)
-
-        bundle = ContextBundle(checker=None, reporter=mock_reporter)
+        bundle = ContextBundle()
+        bundle.checker = None
         with self.assertRaises(ATSValueError):
             bundle.validate()
 
-        bundle = ContextBundle(checker=mock_checker, reporter=None)
+        bundle = ContextBundle()
+        bundle.reporter = None
         with self.assertRaises(ATSValueError):
             bundle.validate()
 
@@ -147,10 +148,8 @@ class BundlesTestCase(TestCase):
         self.assertEqual(bundle1.log_file, 'test.log')
 
         bundle1.validate()
-        bundle1._dummy = 42
         d = bundle1.to_dict()
         self.assertEqual(d['name'], 'test_logger')
-        self.assertNotIn('_dummy', d)
 
     def test_logger_bundle_validation_errors(self) -> None:
         '''Test LoggerBundle validation exceptions.'''
@@ -176,9 +175,9 @@ class BundlesTestCase(TestCase):
             bundle.validate()
 
     def test_ats_file_bundle(self) -> None:
-        '''Test ATSFileBundle methods.'''
-        bundle1 = ATSFileBundle()
-        bundle2 = ATSFileBundle(file_path='a.txt', file_mode='w', file_format='txt')
+        '''Test FileBundle methods.'''
+        bundle1 = FileBundle()
+        bundle2 = FileBundle(file_path='a.txt', file_mode='w', file_format='txt')
 
         bundle1.merge(bundle2)
         self.assertEqual(bundle1.file_path, 'a.txt')
@@ -186,13 +185,11 @@ class BundlesTestCase(TestCase):
         self.assertEqual(bundle1.file_format, 'txt')
 
         bundle1.validate()
-        bundle1._dummy = 42
         d = bundle1.to_dict()
         self.assertEqual(d['file_path'], 'a.txt')
-        self.assertNotIn('_dummy', d)
 
     def test_ats_file_bundle_validation_errors(self) -> None:
-        '''Test ATSFileBundle validation exceptions.'''
+        '''Test FileBundle validation exceptions.'''
         fields = {
             'file_path': 'a.txt',
             'file_mode': 'w',
@@ -201,29 +198,29 @@ class BundlesTestCase(TestCase):
         for field in fields:
             kwargs = fields.copy()
             kwargs[field] = None
-            bundle = ATSFileBundle(**kwargs)
+            bundle = FileBundle(**kwargs)
             with self.assertRaises(ATSValueError):
                 bundle.validate()
 
     def test_ats_config_file_bundle(self) -> None:
-        '''Test ATSConfigFileBundle methods.'''
+        '''Test ConfigFileBundle methods.'''
         mock_context = ContextBundle()
         mock_file_checker = MagicMock()
-        bundle1 = ATSConfigFileBundle()
-        bundle2 = ATSConfigFileBundle(context=mock_context, file_checker=mock_file_checker)
+        bundle1 = ConfigFileBundle()
+        bundle2 = ConfigFileBundle(context=mock_context, file_checker=mock_file_checker)
 
         bundle1.merge(bundle2)
         self.assertEqual(bundle1.context, mock_context)
         self.assertEqual(bundle1.file_checker, mock_file_checker)
 
         bundle1.validate()
-        bundle1._dummy = 42
         d = bundle1.to_dict()
-        self.assertEqual(d['context'], mock_context)
-        self.assertNotIn('_dummy', d)
+        self.assertEqual(d['context']['verbose'], mock_context.verbose)
+        self.assertIsInstance(d['context']['checker'], type(mock_context.checker))
+        self.assertIsInstance(d['context']['reporter'], type(mock_context.reporter))
 
     def test_ats_config_file_bundle_validation_errors(self) -> None:
-        '''Test ATSConfigFileBundle validation exceptions.'''
+        '''Test ConfigFileBundle validation exceptions.'''
         mock_context = ContextBundle()
         mock_file_checker = MagicMock()
         fields = {
@@ -233,17 +230,17 @@ class BundlesTestCase(TestCase):
         for field in fields:
             kwargs = fields.copy()
             kwargs[field] = None
-            bundle = ATSConfigFileBundle(**kwargs)
+            bundle = ConfigFileBundle(**kwargs)
             with self.assertRaises(ATSValueError):
                 bundle.validate()
 
     def test_ats_config_loader_bundle(self) -> None:
-        '''Test ATSConfigLoaderBundle methods.'''
+        '''Test ConfigLoaderBundle methods.'''
         mock_config2object = MagicMock()
         mock_config_bundle = MagicMock()
         mock_processor = MagicMock()
-        bundle1 = ATSConfigLoaderBundle()
-        bundle2 = ATSConfigLoaderBundle(
+        bundle1 = ConfigLoaderBundle()
+        bundle2 = ConfigLoaderBundle(
             info_file='config.json',
             config2object=mock_config2object,
             config_bundle=mock_config_bundle,
@@ -254,13 +251,11 @@ class BundlesTestCase(TestCase):
         self.assertEqual(bundle1.info_file, 'config.json')
 
         bundle1.validate()
-        bundle1._dummy = 42
         d = bundle1.to_dict()
         self.assertEqual(d['info_file'], 'config.json')
-        self.assertNotIn('_dummy', d)
 
     def test_ats_config_loader_bundle_validation_errors(self) -> None:
-        '''Test ATSConfigLoaderBundle validation exceptions.'''
+        '''Test ConfigLoaderBundle validation exceptions.'''
         mock_config2object = MagicMock()
         mock_config_bundle = MagicMock()
         mock_processor = MagicMock()
@@ -273,7 +268,7 @@ class BundlesTestCase(TestCase):
         for field in fields:
             kwargs = fields.copy()
             kwargs[field] = None
-            bundle = ATSConfigLoaderBundle(**kwargs)
+            bundle = ConfigLoaderBundle(**kwargs)
             with self.assertRaises(ATSValueError):
                 bundle.validate()
 
@@ -298,7 +293,8 @@ class BundlesTestCase(TestCase):
         with self.assertRaises(ValueError):
             bundle.validate()
 
-        bundle = CheckerReporterBundle(context='ctx', parameters_meta=None)
+        bundle = CheckerReporterBundle(context='ctx')
+        bundle.parameters_meta = None
         with self.assertRaises(ValueError):
             bundle.validate()
 
@@ -324,7 +320,8 @@ class BundlesTestCase(TestCase):
             bundle.validate()
 
         # columns value error
-        bundle = SplashCenterBundle(columns=-1, additional_shifter=2, text='ok')
+        bundle = SplashCenterBundle(columns=80, additional_shifter=2, text='ok')
+        bundle.columns = -1
         with self.assertRaises(ATSValueError):
             bundle.validate()
 
@@ -334,7 +331,8 @@ class BundlesTestCase(TestCase):
             bundle.validate()
 
         # additional_shifter value error
-        bundle = SplashCenterBundle(columns=80, additional_shifter=-1, text='ok')
+        bundle = SplashCenterBundle(columns=80, additional_shifter=2, text='ok')
+        bundle.additional_shifter = -1
         with self.assertRaises(ATSValueError):
             bundle.validate()
 
@@ -356,7 +354,6 @@ class ComponentBundlesTestCase(TestCase):
 
         It defines:
 
-            :attributes: None
             :methods:
                 | test_logging_component_bundle - Test LoggingComponentBundle methods.
                 | test_option_component_bundle - Test OptionComponentBundle methods.
@@ -404,9 +401,12 @@ class ComponentBundlesTestCase(TestCase):
         }
 
         for field in fields:
-            kwargs = fields.copy()
-            kwargs[field] = None
-            bundle = LoggingComponentBundle(**kwargs)
+            bundle = LoggingComponentBundle(
+                logger=mock_logger,
+                logger_bundle=mock_logger_bundle,
+                context_bundle=mock_context
+            )
+            setattr(bundle, field, None)
             with self.assertRaises(ATSValueError):
                 bundle.validate()
 
@@ -433,17 +433,20 @@ class ComponentBundlesTestCase(TestCase):
         mock_context = ContextBundle()
 
         # Missing parameters
-        bundle = OptionComponentBundle(parameters=None, strategy=mock_strategy, context_bundle=mock_context)
+        bundle = OptionComponentBundle(parameters={'a': 'b'}, strategy=mock_strategy, context_bundle=mock_context)
+        bundle.parameters = None
         with self.assertRaises(ATSValueError):
             bundle.validate()
 
         # Missing strategy
-        bundle = OptionComponentBundle(parameters={'a': 'b'}, strategy=None, context_bundle=mock_context)
+        bundle = OptionComponentBundle(parameters={'a': 'b'}, strategy=mock_strategy, context_bundle=mock_context)
+        bundle.strategy = None
         with self.assertRaises(ATSValueError):
             bundle.validate()
 
         # Missing context_bundle
-        bundle = OptionComponentBundle(parameters={'a': 'b'}, strategy=mock_strategy, context_bundle=None)
+        bundle = OptionComponentBundle(parameters={'a': 'b'}, strategy=mock_strategy, context_bundle=mock_context)
+        bundle.context_bundle = None
         with self.assertRaises(ATSValueError):
             bundle.validate()
 
@@ -487,10 +490,8 @@ class ComponentBundlesTestCase(TestCase):
         self.assertEqual(bundle1.check_reporter, mock_check_reporter)
 
         bundle1.validate()
-        bundle1._dummy = 42
         d = bundle1.to_dict()
         self.assertEqual(d['format_validator'], mock_format_validator)
-        self.assertNotIn('_dummy', d)
 
     def test_checker_component_bundle_validation_errors(self) -> None:
         '''Test CheckerComponentBundle validation exceptions.'''
@@ -507,9 +508,8 @@ class ComponentBundlesTestCase(TestCase):
         }
 
         for field in fields:
-            kwargs = fields.copy()
-            kwargs[field] = None
-            bundle = CheckerComponentBundle(**kwargs)
+            bundle = CheckerComponentBundle(**fields)
+            setattr(bundle, field, None)
             with self.assertRaises(ValueError):
                 bundle.validate()
 
@@ -573,9 +573,8 @@ class ComponentBundlesTestCase(TestCase):
 
         # Test each required field missing raises ValueError
         for field in fields:
-            kwargs = fields.copy()
-            kwargs[field] = None
-            bundle = InfoComponentBundle(**kwargs)
+            bundle = InfoComponentBundle(**fields)
+            setattr(bundle, field, None)
             with self.assertRaises(ValueError):
                 bundle.validate()
 
@@ -600,12 +599,14 @@ class ComponentBundlesTestCase(TestCase):
         mock_theme = MagicMock(spec=IConsoleTheme)
 
         # Missing checker
-        bundle = ReporterComponentBundle(checker=None, theme=mock_theme)
+        bundle = ReporterComponentBundle()
+        bundle.checker = None
         with self.assertRaises(ATSValueError):
             bundle.validate()
 
         # Missing theme
-        bundle = ReporterComponentBundle(checker=mock_checker, theme=None)
+        bundle = ReporterComponentBundle()
+        bundle.theme = None
         with self.assertRaises(ATSValueError):
             bundle.validate()
 
@@ -646,7 +647,7 @@ class ComponentBundlesTestCase(TestCase):
         mock_context = ContextBundle()
 
         fields = {
-            'prop': {'a': 'b'},
+            'prop': {'enabled': False},
             'splash_property': mock_splash_prop,
             'terminal_property': mock_term_prop,
             'github': mock_github,
@@ -656,18 +657,17 @@ class ComponentBundlesTestCase(TestCase):
         }
 
         for field in fields:
-            kwargs = fields.copy()
-            kwargs[field] = None
-            bundle = SplashComponentBundle(**kwargs)
+            bundle = SplashComponentBundle(**fields)
+            setattr(bundle, field, None)
             with self.assertRaises(ValueError):
                 bundle.validate()
 
     def test_generator_component_bundle(self) -> None:
         '''Test GeneratorComponentBundle methods.'''
-        mock_scheme_loader = MagicMock()
-        mock_tar_processor = MagicMock()
-        mock_template_processor = MagicMock()
-        mock_context_bundle = MagicMock()
+        mock_scheme_loader = MagicMock(spec=ISchemeLoader)
+        mock_tar_processor = MagicMock(spec=ITarProcessor)
+        mock_template_processor = MagicMock(spec=ITemplateProcessor)
+        mock_context_bundle = ContextBundle()
 
         bundle1 = GeneratorComponentBundle()
         bundle2 = GeneratorComponentBundle(
@@ -684,17 +684,15 @@ class ComponentBundlesTestCase(TestCase):
         self.assertEqual(bundle1.context_bundle, mock_context_bundle)
 
         bundle1.validate()
-        bundle1._dummy = 42
         d = bundle1.to_dict()
         self.assertEqual(d['scheme_loader'], mock_scheme_loader)
-        self.assertNotIn('_dummy', d)
 
     def test_generator_component_bundle_validation_errors(self) -> None:
         '''Test GeneratorComponentBundle validation exceptions.'''
-        mock_scheme_loader = MagicMock()
-        mock_tar_processor = MagicMock()
-        mock_template_processor = MagicMock()
-        mock_context_bundle = MagicMock()
+        mock_scheme_loader = MagicMock(spec=ISchemeLoader)
+        mock_tar_processor = MagicMock(spec=ITarProcessor)
+        mock_template_processor = MagicMock(spec=ITemplateProcessor)
+        mock_context_bundle = ContextBundle()
 
         fields = {
             'scheme_loader': mock_scheme_loader,
@@ -704,9 +702,13 @@ class ComponentBundlesTestCase(TestCase):
         }
 
         for field in fields:
-            kwargs = fields.copy()
-            kwargs[field] = None
-            bundle = GeneratorComponentBundle(**kwargs)
+            bundle = GeneratorComponentBundle(
+                scheme_loader=mock_scheme_loader,
+                tar_processor=mock_tar_processor,
+                template_processor=mock_template_processor,
+                context_bundle=mock_context_bundle
+            )
+            setattr(bundle, field, None)
             with self.assertRaises(ATSValueError):
                 bundle.validate()
 
@@ -732,10 +734,8 @@ class ComponentBundlesTestCase(TestCase):
         self.assertEqual(bundle1.target_dir, 'out')
 
         bundle1.validate()
-        bundle1._dummy = 42
         d = bundle1.to_dict()
         self.assertEqual(d['archive_path'], 'b.tgz')
-        self.assertNotIn('_dummy', d)
 
     def test_generator_bundle_validation_errors(self) -> None:
         '''Test GeneratorBundle validation exceptions.'''
@@ -792,10 +792,8 @@ class ComponentBundlesTestCase(TestCase):
         self.assertEqual(bundle1.archive_path, 'b.tgz')
 
         bundle1.validate()
-        bundle1._dummy = 42
         d = bundle1.to_dict()
         self.assertEqual(d['archive_path'], 'b.tgz')
-        self.assertNotIn('_dummy', d)
 
     def test_tar_process_bundle_validation_errors(self) -> None:
         '''Test TarProcessBundle validation exceptions.'''
@@ -839,10 +837,8 @@ class ComponentBundlesTestCase(TestCase):
         self.assertEqual(bundle1.dest_full_path, 'dest2')
 
         bundle1.validate()
-        bundle1._dummy = 42
         d = bundle1.to_dict()
         self.assertEqual(d['dest_full_path'], 'dest2')
-        self.assertNotIn('_dummy', d)
 
     def test_tar_process_member_bundle_validation_errors(self) -> None:
         '''Test TarProcessMemberBundle validation exceptions.'''

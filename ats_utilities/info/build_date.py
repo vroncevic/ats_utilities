@@ -20,21 +20,24 @@ Info
     Creates an API for the ATS build date in one property object.
 '''
 
+from __future__ import annotations
+
 from typing import override
+
 from ats_utilities.info.ibuild_date import IBuildDate
 from ats_utilities.context_bundle import ContextBundle
 from ats_utilities.checker.ichecker import IChecker
 from ats_utilities.reporter.ireporter import IReporter
 from ats_utilities.factory_context_bundle import factory_context_bundle
-from ats_utilities.factory_class import format_instance_to_string
-from ats_utilities.checker.proxy_validator import validator
-from ats_utilities.reporter.proxy_reporter import vreporter
+from ats_utilities.factory_class import to_str
+from ats_utilities.checker.proxy_validator import vcheck
+from ats_utilities.reporter.proxy_reporter import vreport
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.4.1'
+__version__: str = '3.4.2'
 __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
@@ -62,6 +65,7 @@ class BuildDate(IBuildDate):
     _checker: IChecker
     _reporter: IReporter
     _verbose: bool
+    _build_date: str | None
 
     def __init__(self, context_bundle: ContextBundle | None = None) -> None:
         '''
@@ -72,38 +76,38 @@ class BuildDate(IBuildDate):
             :exceptions: None.
         '''
         factory_context_bundle(self, context_bundle)
-        self._build_date: str | None = None
+        self._build_date = None
 
     @property
-    @vreporter('get build_date {build_date}')
+    @vreport('get build_date {build_date}')
     @override
-    def build_date(self) -> str | None:
+    def build_date(self) -> str:
         '''
             Property method for getting ATS build date.
 
-            :return: The ATS build date in string format | None.
-            :rtype: <str | None>
+            :return: The ATS build date in string format.
+            :rtype: <str>
             :exceptions:
                 | ATSRuntimeError: Decorator cannot be used on a standalone function.
                 | ATSAttributeError: Class is required to provide a '_reporter' object to
-                |                    use the @verboser decorator.
+                |                    use the @vreport decorator.
         '''
         return self._build_date
 
     @build_date.setter
-    @validator([('str | None:build_date', None)])
-    @vreporter('set build_date {build_date}')
+    @vcheck([('str:build_date', None)])
+    @vreport('set build_date {build_date}')
     @override
-    def build_date(self, build_date: str | None) -> None:
+    def build_date(self, build_date: str) -> None:
         '''
             Property method for setting ATS build date.
 
-            :param build_date: The ATS build date in string format | None.
-            :type build_date: <str | None>
+            :param build_date: The ATS build date in string format.
+            :type build_date: <str>
             :exceptions:
                 | ATSRuntimeError: Decorator cannot be used on a standalone function.
                 | ATSAttributeError: Class is required to provide a '_reporter' object to
-                |                    use the @verboser decorator.
+                |                    use the @vreport decorator.
                 | ATSTypeError: Parameter type validation failed.
                 | ATSValueError: Parameter format validation failed.
                 | ATSRuntimeError: Decorator used on a non-class method.
@@ -111,7 +115,7 @@ class BuildDate(IBuildDate):
         '''
         self._build_date = build_date
 
-    @vreporter('check build_date {build_date}')
+    @vreport('check build_date {build_date}')
     @override
     def not_none(self) -> bool:
         '''
@@ -122,7 +126,7 @@ class BuildDate(IBuildDate):
             :exceptions:
                 | ATSRuntimeError: Decorator cannot be used on a standalone function.
                 | ATSAttributeError: Class is required to provide a '_reporter' object to
-                |                    use the @verboser decorator.
+                |                    use the @vreport decorator.
         '''
         return self._build_date is not None
 
@@ -135,4 +139,4 @@ class BuildDate(IBuildDate):
             :rtype: <str>
             :exceptions: None.
         '''
-        return format_instance_to_string(self)
+        return to_str(self)
