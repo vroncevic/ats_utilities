@@ -27,10 +27,10 @@ import tempfile
 from unittest import TestCase, main, mock
 from ats_utilities.generator.engine import Generator
 from ats_utilities.generator.generator_bundle import GeneratorBundle
-from ats_utilities.generator.scheme_loader import SchemeLoader
-from ats_utilities.generator.template_processor import TemplateProcessor
-from ats_utilities.generator.tar_processor import TarProcessor
-from ats_utilities.generator.tar_process_bundle import TarProcessBundle
+from ats_utilities.generator.scheme.scheme_loader import SchemeLoader
+from ats_utilities.generator.template.template_processor import TemplateProcessor
+from ats_utilities.generator.tar.tar_processor import TarProcessor
+from ats_utilities.generator.tar.tar_process_bundle import TarProcessBundle
 from ats_utilities.exceptions.ats_type_error import ATSTypeError
 from ats_utilities.exceptions.ats_value_error import ATSValueError
 from ats_utilities.exceptions.ats_generator_error import ATSGeneratorError
@@ -244,13 +244,13 @@ class GeneratorTestCase(TestCase):
 
         # Failed setup config loader (returns None)
         with tempfile.NamedTemporaryFile(suffix='.json') as tmp:
-            with mock.patch('ats_utilities.generator.scheme_loader.ConfigLoader.setup_config_loader', return_value=None):
+            with mock.patch('ats_utilities.generator.scheme.scheme_loader.ConfigLoader.setup_config_loader', return_value=None):
                 with self.assertRaises(ATSGeneratorError):
                     loader.load(tmp.name)
 
         # Failed setup config loader (raises Exception)
         with tempfile.NamedTemporaryFile(suffix='.json') as tmp:
-            with mock.patch('ats_utilities.generator.scheme_loader.ConfigLoader.setup_config_loader', side_effect=Exception('Load failed')):
+            with mock.patch('ats_utilities.generator.scheme.scheme_loader.ConfigLoader.setup_config_loader', side_effect=Exception('Load failed')):
                 with self.assertRaises(ATSGeneratorError):
                     loader.load(tmp.name)
 

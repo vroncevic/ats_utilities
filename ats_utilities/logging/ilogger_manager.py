@@ -24,7 +24,7 @@ from __future__ import annotations
 
 from abc import ABC, abstractmethod
 
-from ats_utilities.logging.ilogger import ILogger
+from ats_utilities.logging.logger.ilogger import ILogger
 from ats_utilities.context_bundle import ContextBundle
 
 __author__: str = 'Vladimir Roncevic'
@@ -75,15 +75,15 @@ class ILoggerManager(ABC):
         pass
 
     @abstractmethod
-    def write_log(self, message: str | None, ctrl: int) -> bool:
+    def write_log(self, message: str, ctrl: int) -> bool:
         '''
             Writes message to log output.
 
-            :param message: Log message in string format for log output | None
-            :type message: <str | None>
-            :param ctrl: Control flag (debug, warning, critical, errors, info)
+            :param message: Log message in string format for log output.
+            :type message: <str>
+            :param ctrl: Control flag (debug, warning, critical, errors, info).
             :type ctrl: <int>
-            :return: True (success) | False (fail)
+            :return: True (success) | False (fail).
             :rtype: <bool>
             :exceptions: None.
         '''

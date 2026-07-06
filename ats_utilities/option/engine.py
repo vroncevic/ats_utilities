@@ -22,6 +22,7 @@ Info
 
 from __future__ import annotations
 
+from collections.abc import Sequence, Mapping
 from typing import Any, override
 
 from ats_utilities.checker.ichecker import IChecker
@@ -34,9 +35,9 @@ from ats_utilities.exceptions.ats_value_error import ATSValueError
 from ats_utilities.factory_class import to_str, cls_name, has_attrs
 from ats_utilities.factory_context_bundle import factory_context_bundle
 from ats_utilities.option.component_bundle import OptionComponentBundle
-from ats_utilities.option.ioption_command import IOptionCommand
+from ats_utilities.option.command.ioption_command import IOptionCommand
 from ats_utilities.option.ioption_manager import IOptionManager
-from ats_utilities.option.iparser_strategy import IParserStrategy
+from ats_utilities.option.strategy.iparser_strategy import IParserStrategy
 from ats_utilities.option.option_namespace import OptArgs, OptionNamespace
 from ats_utilities.reporter.ireporter import IReporter
 from ats_utilities.reporter.proxy_reporter import vreport
@@ -200,12 +201,12 @@ class OptionManager(IOptionManager):
 
     @has_attrs('_strategy')
     @override
-    def register_commands(self, commands: list[IOptionCommand]) -> None:
+    def register_commands(self, commands: Sequence[IOptionCommand]) -> None:
         '''
-            Registers a list of commands with the parser.
+            Registers a sequence of commands with the parser.
 
-            :param commands: List of commands to register.
-            :type commands: <list[IOptionCommand]>
+            :param commands: Sequence of commands to register (read only data).
+            :type commands: <Sequence[IOptionCommand]>
             :exceptions:
                 | ATSValueError: Missing or empty attribute: '_strategy'.
         '''
@@ -213,14 +214,14 @@ class OptionManager(IOptionManager):
 
     @has_attrs('_strategy')
     @override
-    def parse_command(self, arguments: OptArgs = None) -> tuple[str, dict]:
+    def parse_command(self, arguments: OptArgs = None) -> tuple[str, Mapping[str, Any]]:
         '''
             Parses arguments as a command.
 
             :param arguments: Sequence of arguments | None.
             :type arguments: <OptArgs>
-            :return: Tuple of (command name, command arguments).
-            :rtype: <tuple[str, dict]>
+            :return: Tuple of (command name, command arguments) (read only data).
+            :rtype: <tuple[str, Mapping[str, Any]]>
             :exceptions:
                 | ATSValueError: Missing or empty attribute: '_strategy'.
         '''

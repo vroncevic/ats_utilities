@@ -27,9 +27,9 @@ from typing import Any
 
 from ats_utilities.context_bundle import ContextBundle
 from ats_utilities.factory_component import make_component, validate_component
-from ats_utilities.logging.ilogger import ILogger
-from ats_utilities.logging.logger import ATSLogger
-from ats_utilities.logging.logger_bundle import LoggerBundle
+from ats_utilities.logging.logger.ilogger import ILogger
+from ats_utilities.logging.logger.logger import StandardLogger
+from ats_utilities.logging.logger.logger_bundle import LoggerBundle
 from ats_utilities.factory_value import require_not_none
 from ats_utilities.factory_type import check_type
 
@@ -79,7 +79,11 @@ class LoggingComponentBundle:
             self.logger_bundle = LoggerBundle()
 
         self.logger = make_component(
-            self.logger, ATSLogger, {'logger_bundle': self.logger_bundle, 'context_bundle': self.context_bundle}
+            self.logger, StandardLogger,
+            {
+                'logger_bundle': self.logger_bundle,
+                'context_bundle': self.context_bundle
+            }
         )
         validate_component(self.logger, ILogger)
 

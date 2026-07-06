@@ -23,7 +23,8 @@ from __future__ import annotations
 
 from collections.abc import Mapping
 from dataclasses import dataclass
-from typing import Any, ClassVar
+from typing import Any, ClassVar, Self
+from types import MappingProxyType
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -57,7 +58,7 @@ class SplashKeys:
             :methods:
                 | __init__ - Initials SplashKeys constructor.
                 | from_dict - Factory method to safely parse a dictionary into a SplashKeys instance.
-                | get_all_keys - Returns a list of all defined ClassVar keys for the splash screen.
+                | get_all_keys - Returns a tuple of all defined ClassVar keys for the splash screen.
                 | to_dict - Converts the SplashKeys instance to a dictionary.
     '''
 
@@ -74,6 +75,31 @@ class SplashKeys:
     use_github_infrastructure: bool | None = None
     enabled: bool = True
 
+    _key_to_attr: ClassVar[MappingProxyType[str, str] | None] = None
+
+    @classmethod
+    def get_key_to_attr(cls) -> MappingProxyType[str, str]:
+        '''
+            Returns a read-only mapping of constant keys to instance attributes.
+
+            :return: Read-only mapping of constant keys to instance attributes.
+            :rtype: <MappingProxyType[str, str]>
+            :exceptions: None.
+        '''
+        if cls._key_to_attr is None:
+            mapping: dict[str, str] = {}
+
+            attr: str
+            for attr in dir(cls):
+                if attr.startswith('ATS_'):
+                    key: str = getattr(cls, attr)
+                    attr_name: str = key.replace('ats_', '', 1)
+                    mapping[key] = attr_name
+
+            cls._key_to_attr = MappingProxyType(mapping)
+
+        return cls._key_to_attr
+
     def __post_init__(self) -> None:
         '''
             Post initials SplashKeys constructor.
@@ -82,50 +108,42 @@ class SplashKeys:
             :exceptions: None.
         '''
         if not self.enabled:
-            object.__setattr__(self, 'name', None)
-            object.__setattr__(self, 'repository', None)
-            object.__setattr__(self, 'organization', None)
-            object.__setattr__(self, 'logo_path', None)
-            object.__setattr__(self, 'use_github_infrastructure', None)
+            attr_name: str
+
+            for attr_name in self.get_key_to_attr().values():
+                object.__setattr__(self, attr_name, None)
 
     @classmethod
-    def from_dict(cls, config: Mapping[str, Any]) -> SplashKeys:
+    def from_dict(cls, config: Mapping[str, Any]) -> Self:
         '''
             Factory method to safely parse a dictionary into a SplashKeys instance.
 
             :param config: Configuration mapping.
             :type config: <Mapping[str, Any]>
             :return: Fully initialized SplashKeys instance.
-            :rtype: <SplashKeys>
+            :rtype: <Self>
             :exceptions: None.
         '''
         is_enabled: bool = bool(config.get('enabled', True))
+        kwargs: dict[str, Any] = {'enabled': is_enabled}
+        key: str
+        attr_name: str
 
-        return cls(
-            name=config.get(cls.ATS_NAME, None) if is_enabled else None,
-            repository=config.get(cls.ATS_REPOSITORY, None) if is_enabled else None,
-            organization=config.get(cls.ATS_ORGANIZATION, None) if is_enabled else None,
-            logo_path=config.get(cls.ATS_LOGO_PATH, None) if is_enabled else None,
-            use_github_infrastructure=config.get(cls.ATS_USE_GITHUB_INFRASTRUCTURE, None) if is_enabled else None,
-            enabled=is_enabled
-        )
+        for key, attr_name in cls.get_key_to_attr().items():
+            kwargs[attr_name] = config.get(key, None) if is_enabled else None
+
+        return cls(**kwargs)
 
     @classmethod
-    def get_all_keys(cls) -> list[str]:
+    def get_all_keys(cls) -> tuple[str, ...]:
         '''
-            Returns a list of all defined ClassVar keys for the splash screen.
+            Returns an immutable tuple of all defined ClassVar keys for the splash screen.
 
-            :return: List of all defined ClassVar keys for the splash screen.
-            :rtype: <list[str]>
+            :return: Immutable tuple of all defined ClassVar keys for the splash screen.
+            :rtype: <tuple[str, ...]>
             :exceptions: None.
         '''
-        return [
-            cls.ATS_NAME,
-            cls.ATS_REPOSITORY,
-            cls.ATS_ORGANIZATION,
-            cls.ATS_LOGO_PATH,
-            cls.ATS_USE_GITHUB_INFRASTRUCTURE
-        ]
+        return tuple(cls.get_key_to_attr().keys())
 
     def to_dict(self) -> dict[str, Any]:
         '''
@@ -137,10 +155,12 @@ class SplashKeys:
         '''
         if not self.enabled:
             return {'enabled': False}
-        return {
-            self.ATS_NAME: self.name,
-            self.ATS_REPOSITORY: self.repository,
-            self.ATS_ORGANIZATION: self.organization,
-            self.ATS_LOGO_PATH: self.logo_path,
-            self.ATS_USE_GITHUB_INFRASTRUCTURE: self.use_github_infrastructure
-        }
+
+        d: dict[str, Any] = {}
+        key: str
+        attr_name: str
+
+        for key, attr_name in self.get_key_to_attr().items():
+            d[key] = getattr(self, attr_name)
+
+        return d

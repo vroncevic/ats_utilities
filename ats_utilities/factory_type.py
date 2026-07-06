@@ -21,7 +21,8 @@ Info
 
 from __future__ import annotations
 
-from typing import Any
+from typing import Any, get_origin, Union
+from types import UnionType
 
 from ats_utilities.factory_context_error import raise_context_error
 from ats_utilities.exceptions.ats_type_error import ATSTypeError
@@ -35,6 +36,31 @@ __maintainer__: str = 'Vladimir Roncevic'
 __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
 
+
+def _resolve_type(t: Any) -> Any:
+    '''
+        Resolves nested Union types.
+        Handles cases like Union[int, float] by flattening them 
+        into a tuple of concrete types (int, float).
+
+        :param t: Type to resolve.
+        :type t: <Any>
+        :return: Resolved type.
+        :rtype: <Any>
+        :exceptions: None.
+    '''
+    origin = get_origin(t)
+    if origin in (Union, UnionType):
+        args = getattr(t, '__args__', ())
+        resolved_args = []
+        for arg in args:
+            res = _resolve_type(arg)
+            if isinstance(res, tuple):
+                resolved_args.extend(res)
+            else:
+                resolved_args.append(res)
+        return tuple(resolved_args)
+    return origin or t
 
 def check_type(
     instance: object,
@@ -56,7 +82,19 @@ def check_type(
         :exceptions:
             | Dynamically raises the provided exception_class (e.g., ATSTypeError).
     '''
-    if not isinstance(instance, class_or_tuple):
+    if isinstance(class_or_tuple, tuple):
+        check_types = []
+        for t in class_or_tuple:
+            res = _resolve_type(t)
+            if isinstance(res, tuple):
+                check_types.extend(res)
+            else:
+                check_types.append(res)
+        check_types = tuple(check_types)
+    else:
+        check_types = _resolve_type(class_or_tuple)
+
+    if not isinstance(instance, check_types):
         raise_context_error(
             fallback_prefix="factory_type::check_type",
             fallback_msg=f"expected {class_or_tuple} for instance, got {type(instance).__name__}",

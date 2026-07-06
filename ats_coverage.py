@@ -301,18 +301,22 @@ def generate_tree_lines(pro_name: str) -> tuple[list[str], int, int]:
     return lines, num_dirs + 1, num_files
 
 
-def update_structure(pro_name: str) -> None:
+def update_structure(pro_name: str, section: str) -> None:
     '''
         Updates README.md file with package directory structure.
 
         :param pro_name: Project name
         :type pro_name: <str>
+        :param section: Section name
+        :type section: <str>
         :exceptions: ATSTypeError | ATSFileError
     '''
     checker: Checker = Checker()
     error_msg: str | None = None
     error_id: int | None = None
-    error_msg, error_id = checker.validates_parameters([('str:pro_name', pro_name)])
+    error_msg, error_id = checker.validates_parameters([
+        ('str:pro_name', pro_name), ('str:section', section)
+    ])
 
     if error_id == ErrorChecker.TYPE_ERROR:
         raise ATSTypeError(error_msg)
@@ -332,9 +336,10 @@ def update_structure(pro_name: str) -> None:
     new_lines: list[str] = []
     inside_tool_structure: bool = False
     replace_mode: bool = False
+    heading: str = f'### {section}'
 
     for line in lines:
-        if '### Tool structure' in line:
+        if heading in line:
             inside_tool_structure = True
             new_lines.append(line)
             continue
@@ -384,6 +389,9 @@ if __name__ == "__main__":
     cli.add_operation(
         '-n', '--name', dest='name', help='generate coverage report for project (provide name)'
     )
+    cli.add_operation(
+        '-s', '--section', dest='section', default='Framework structure', help='section name in README.md'
+    )
     args: OptionNamespace = cli.parse_args(sys.argv)
     main_reporter: Reporter = Reporter()
 
@@ -394,7 +402,7 @@ if __name__ == "__main__":
         pro_report_file: str = f'{getattr(args, "name")}.json'
         report_data: dict[str, Any] = load_report(pro_report_file)
         update_readme(report_data)
-        update_structure(getattr(args, "name"))
+        update_structure(getattr(args, "name"), getattr(args, "section", "Framework structure"))
 
     except (ATSTypeError, ATSFileError) as e:
         main_reporter.error([f'ats_coverage: {e}'])

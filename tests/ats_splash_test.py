@@ -25,7 +25,7 @@ Execute
 from os.path import dirname
 from unittest import TestCase, main, mock
 from ats_utilities.splasher.engine import Splasher
-from ats_utilities.splasher.progress_bar import ProgressBar
+from ats_utilities.splasher.progressbar.progress_bar import ProgressBar
 from ats_utilities.splasher.component_bundle import SplashComponentBundle
 from ats_utilities.splasher.splash_center_bundle import SplashCenterBundle
 from ats_utilities.splasher.splash_keys import SplashKeys

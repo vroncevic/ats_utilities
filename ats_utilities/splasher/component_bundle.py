@@ -26,16 +26,16 @@ from typing import Any
 from collections.abc import Mapping
 from dataclasses import dataclass, asdict
 
-from ats_utilities.splasher.isplash_property import ISplashProperty
-from ats_utilities.splasher.splash_property import SplashProperty
+from ats_utilities.splasher.property.isplash_property import ISplashProperty
+from ats_utilities.splasher.property.splash_property import SplashProperty
 from ats_utilities.splasher.splash_keys import SplashKeys
-from ats_utilities.splasher.iterminal_properties import ITerminalProperties
-from ats_utilities.splasher.terminal_properties import TerminalProperties
-from ats_utilities.splasher.iext_infrastructure import IExtInfrastructure
-from ats_utilities.splasher.ext_infrastructure import ExtInfrastructure
-from ats_utilities.splasher.github_infrastructure import GitHubInfrastructure
-from ats_utilities.splasher.iprogress_bar import IProgressBar
-from ats_utilities.splasher.progress_bar import ProgressBar
+from ats_utilities.splasher.terminal.iterminal_properties import ITerminalProperties
+from ats_utilities.splasher.terminal.terminal_properties import TerminalProperties
+from ats_utilities.splasher.external.iext_infrastructure import IExtInfrastructure
+from ats_utilities.splasher.external.ext_infrastructure import ExtInfrastructure
+from ats_utilities.splasher.external.github_infrastructure import GitHubInfrastructure
+from ats_utilities.splasher.progressbar.iprogress_bar import IProgressBar
+from ats_utilities.splasher.progressbar.progress_bar import ProgressBar
 from ats_utilities.context_bundle import ContextBundle
 from ats_utilities.factory_component import make_component, validate_component
 from ats_utilities.factory_type import check_type

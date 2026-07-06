@@ -25,14 +25,14 @@ from __future__ import annotations
 from typing import Any
 from dataclasses import dataclass, asdict
 
-from ats_utilities.checker.itype_validator import ITypeValidator
-from ats_utilities.checker.type_validator import TypeValidator
-from ats_utilities.checker.iformat_validator import IFormatValidator
-from ats_utilities.checker.format_validator import FormatValidator
-from ats_utilities.checker.icontext_provider import IContextProvider
-from ats_utilities.checker.context_provider import ContextProvider
-from ats_utilities.checker.icheck_reporter import ICheckReporter
-from ats_utilities.checker.check_reporter import CheckReporter
+from ats_utilities.checker.type.itype_validator import ITypeValidator
+from ats_utilities.checker.type.type_validator import TypeValidator
+from ats_utilities.checker.format.iformat_validator import IFormatValidator
+from ats_utilities.checker.format.format_validator import FormatValidator
+from ats_utilities.checker.context.icontext_provider import IContextProvider
+from ats_utilities.checker.context.context_provider import ContextProvider
+from ats_utilities.checker.reporter.icheck_reporter import ICheckReporter
+from ats_utilities.checker.reporter.check_reporter import CheckReporter
 from ats_utilities.factory_component import validate_component
 from ats_utilities.factory_type import check_type
 from ats_utilities.factory_value import require_not_none

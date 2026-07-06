@@ -23,10 +23,10 @@ Info
 from __future__ import annotations
 
 from abc import ABC, abstractmethod
-from collections.abc import Sequence
+from collections.abc import Sequence, Mapping
 from typing import Any
 
-from ats_utilities.option.ioption_command import IOptionCommand
+from ats_utilities.option.command.ioption_command import IOptionCommand
 from ats_utilities.option.option_namespace import OptionNamespace
 from ats_utilities.option.option_namespace import OptArgs
 from ats_utilities.context_bundle import ContextBundle
@@ -133,14 +133,14 @@ class IOptionManager(ABC):
         pass
 
     @abstractmethod
-    def parse_command(self, arguments: OptArgs = None) -> tuple[str, dict[str, Any]]:
+    def parse_command(self, arguments: OptArgs = None) -> tuple[str, Mapping[str, Any]]:
         '''
             Parses CLI arguments for subcommands and returns command name and parameters.
 
             :param arguments: Sequence of arguments | None.
             :type arguments: <OptArgs>
-            :return: Tuple containing command name and parsed parameters.
-            :rtype: <tuple[str, dict[str, Any]]>
+            :return: Tuple containing command name and parsed parameters (read only data).
+            :rtype: <tuple[str, Mapping[str, Any]]>
             :exceptions: None.
         '''
         pass

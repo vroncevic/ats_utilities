@@ -33,7 +33,7 @@ from ats_utilities.config_io.file_check import FileCheck
 from ats_utilities.checker.ichecker import IChecker
 from ats_utilities.reporter.ireporter import IReporter
 from ats_utilities.option.engine import OptionManager
-from ats_utilities.option.iparser_strategy import IParserStrategy
+from ats_utilities.option.strategy.iparser_strategy import IParserStrategy
 from ats_utilities.config_io.cfg.cfg_loader import CFGLoader
 from ats_utilities.config_io.cfg.cfg2object import Cfg2Object
 from ats_utilities.config_io.cfg.cfg_processor import CFGProcessor

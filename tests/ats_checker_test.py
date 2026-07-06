@@ -27,16 +27,16 @@ from unittest import TestCase, main, mock
 from ats_utilities.checker.engine import Checker
 from ats_utilities.checker.ichecker import ErrorChecker, IChecker, ParametersSpecs
 from ats_utilities.checker.proxy_validator import vcheck
-from ats_utilities.checker.type_validator import TypeValidator
+from ats_utilities.checker.type.type_validator import TypeValidator
 from ats_utilities.exceptions.ats_runtime_error import ATSRuntimeError
 from ats_utilities.exceptions.ats_attribute_error import ATSAttributeError
 from ats_utilities.exceptions.ats_type_error import ATSTypeError
 from ats_utilities.exceptions.ats_value_error import ATSValueError
 from ats_utilities.reporter.ireporter import IReporter
 from ats_utilities.reporter.engine import Reporter
-from ats_utilities.checker.check_reporter import CheckReporter
+from ats_utilities.checker.reporter.check_reporter import CheckReporter
 from ats_utilities.checker.component_bundle import CheckerComponentBundle
-from ats_utilities.checker.context_provider import ContextProvider
+from ats_utilities.checker.context.context_provider import ContextProvider
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'

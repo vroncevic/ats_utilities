@@ -26,15 +26,15 @@ from unittest import TestCase, main, mock
 from typing import Any
 
 from ats_utilities.info.engine import InfoManager
-from ats_utilities.info.build_date import BuildDate
-from ats_utilities.info.licence import Licence
-from ats_utilities.info.logo import Logo
-from ats_utilities.info.name import Name
-from ats_utilities.info.organization import Organization
-from ats_utilities.info.repository import Repository
-from ats_utilities.info.use_github import UseGitHub
-from ats_utilities.info.version import Version
-from ats_utilities.info.info_ok import InfoOk
+from ats_utilities.info.build_date.build_date import BuildDate
+from ats_utilities.info.licence.licence import Licence
+from ats_utilities.info.logo.logo import Logo
+from ats_utilities.info.name.name import Name
+from ats_utilities.info.organization.organization import Organization
+from ats_utilities.info.repository.repository import Repository
+from ats_utilities.info.use_github.use_github import UseGitHub
+from ats_utilities.info.version.version import Version
+from ats_utilities.info.info_ok.info_ok import InfoOk
 from ats_utilities.exceptions.ats_type_error import ATSTypeError
 from ats_utilities.exceptions.ats_value_error import ATSValueError
 

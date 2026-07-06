@@ -37,9 +37,9 @@ from ats_utilities.factory_context_bundle import factory_context_bundle
 from ats_utilities.generator.component_bundle import GeneratorComponentBundle
 from ats_utilities.generator.generator_bundle import GeneratorBundle
 from ats_utilities.generator.igenerator import IGenerator
-from ats_utilities.generator.ischeme_loader import ISchemeLoader
-from ats_utilities.generator.itar_processor import ITarProcessor
-from ats_utilities.generator.tar_process_bundle import TarProcessBundle
+from ats_utilities.generator.scheme.ischeme_loader import ISchemeLoader
+from ats_utilities.generator.tar.itar_processor import ITarProcessor
+from ats_utilities.generator.tar.tar_process_bundle import TarProcessBundle
 from ats_utilities.factory_value import require_not_satisfied, require_not_empty
 
 __author__: str = 'Vladimir Roncevic'

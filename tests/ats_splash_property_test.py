@@ -23,7 +23,7 @@ Execute
 '''
 
 from unittest import TestCase, main
-from ats_utilities.splasher.splash_property import SplashProperty
+from ats_utilities.splasher.property.splash_property import SplashProperty
 from ats_utilities.exceptions.ats_type_error import ATSTypeError
 from ats_utilities.exceptions.ats_value_error import ATSValueError
 

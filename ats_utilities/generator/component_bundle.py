@@ -27,12 +27,12 @@ from typing import Any
 
 from ats_utilities.context_bundle import ContextBundle
 from ats_utilities.factory_component import make_component, validate_component
-from ats_utilities.generator.ischeme_loader import ISchemeLoader
-from ats_utilities.generator.itar_processor import ITarProcessor
-from ats_utilities.generator.itemplate_processor import ITemplateProcessor
-from ats_utilities.generator.scheme_loader import SchemeLoader
-from ats_utilities.generator.tar_processor import TarProcessor
-from ats_utilities.generator.template_processor import TemplateProcessor
+from ats_utilities.generator.scheme.ischeme_loader import ISchemeLoader
+from ats_utilities.generator.tar.itar_processor import ITarProcessor
+from ats_utilities.generator.template.itemplate_processor import ITemplateProcessor
+from ats_utilities.generator.scheme.scheme_loader import SchemeLoader
+from ats_utilities.generator.tar.tar_processor import TarProcessor
+from ats_utilities.generator.template.template_processor import TemplateProcessor
 from ats_utilities.factory_value import require_not_none
 from ats_utilities.factory_type import check_type
 

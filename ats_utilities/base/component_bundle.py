@@ -224,13 +224,15 @@ class BaseComponentBundle:
             require_not_none(self.options_parser, 'options_parser must be provided')
             require_not_none(self.logger_manager, 'logger_manager must be provided')
             require_not_none(self.splasher, 'splasher must be provided')
-            require_not_none(self.generator, 'generator must be provided')
             check_type(self.config_loader, IConfigLoader, 'config_loader must be IConfigLoader interface')
             check_type(self.info_manager, IInfoManager, 'info_manager must be IInfoManager interface')
             check_type(self.options_parser, IOptionManager, 'options_parser must be IOptionManager interface')
             check_type(self.logger_manager, ILoggerManager, 'logger_manager must be ILoggerManager interface')
             check_type(self.splasher, ISplasher, 'splasher must be ISplasher interface')
-            check_type(self.generator, IGenerator, 'generator must be IGenerator interface')
+
+            if self.use_generator:
+                require_not_none(self.generator, 'generator must be provided')
+                check_type(self.generator, IGenerator, 'generator must be IGenerator interface')
 
     def merge(self, other: BaseComponentBundle) -> None:
         '''
@@ -249,8 +251,6 @@ class BaseComponentBundle:
             if other_value is not None:
                 setattr(self, field_name, other_value)
 
-        self.validate(merge_op=True)
-
         if self.info_file is not None and exists(self.info_file):
             try:
                 self._build_components()
@@ -260,6 +260,8 @@ class BaseComponentBundle:
 
             except Exception as exc:
                 print(f"\x1b[31mBase unexpected exception: {exc}\x1b[0m")
+
+        self.validate(merge_op=True)
 
     def to_dict(self) -> dict[str, Any]:
         '''

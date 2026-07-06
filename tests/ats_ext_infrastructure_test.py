@@ -23,7 +23,7 @@ Execute
 '''
 
 from unittest import TestCase, main
-from ats_utilities.splasher.ext_infrastructure import ExtInfrastructure
+from ats_utilities.splasher.external.ext_infrastructure import ExtInfrastructure
 from ats_utilities.exceptions.ats_type_error import ATSTypeError
 
 __author__: str = 'Vladimir Roncevic'

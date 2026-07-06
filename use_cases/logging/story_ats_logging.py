@@ -20,8 +20,7 @@ Info
 '''
 
 from loguru import logger as loguru_native
-from ats_utilities.logging.ilogger import ILogger, LogLevels
-from ats_utilities.logging.logger import ATSLogLevels
+from ats_utilities.logging.logger.ilogger import ILogger, LogLevels
 from ats_utilities.logging.component_bundle import LoggingComponentBundle
 from ats_utilities.logging.engine import LoggerManager
 
@@ -39,11 +38,11 @@ __status__: str = 'Updated'
 # ==========================
 #
 logger_default: LoggerManager = LoggerManager()
-logger_default.write_log("debug test", ATSLogLevels.ATS_LOG_DEBUG)
-logger_default.write_log("info test", ATSLogLevels.ATS_LOG_INFO)
-logger_default.write_log("warning test", ATSLogLevels.ATS_LOG_WARNING)
-logger_default.write_log("error test", ATSLogLevels.ATS_LOG_ERROR)
-logger_default.write_log("critical test", ATSLogLevels.ATS_LOG_CRITICAL)
+logger_default.write_log("debug test", LogLevels.DEBUG)
+logger_default.write_log("info test", LogLevels.INFO)
+logger_default.write_log("warning test", LogLevels.WARNING)
+logger_default.write_log("error test", LogLevels.ERROR)
+logger_default.write_log("critical test", LogLevels.CRITICAL)
 
 #
 # 3rd party [loguru]
@@ -57,16 +56,15 @@ class LoguruATSAdapter(ILogger):
     '''
     def __init__(self, verbose: bool = False):
         self.verbose = verbose
-        # Loguru je već konfigurisan na nivou korisničke aplikacije
         self._map = {
-            LogLevels.ATS_LOG_DEBUG: loguru_native.debug,
-            LogLevels.ATS_LOG_INFO: loguru_native.info,
-            LogLevels.ATS_LOG_WARNING: loguru_native.warning,
-            LogLevels.ATS_LOG_ERROR: loguru_native.error,
-            LogLevels.ATS_LOG_CRITICAL: loguru_native.critical,
+            LogLevels.DEBUG: loguru_native.debug,
+            LogLevels.INFO: loguru_native.info,
+            LogLevels.WARNING: loguru_native.warning,
+            LogLevels.ERROR: loguru_native.error,
+            LogLevels.CRITICAL: loguru_native.critical,
         }
 
-    def write_log(self, message: str | None, ctrl: int, verbose: bool = False) -> bool:
+    def write_log(self, message: str, ctrl: int) -> bool:
         log_func = self._map.get(ctrl)
         if log_func and message:
             log_func(message)
@@ -82,8 +80,8 @@ class LoguruATSAdapter(ILogger):
 custom_logger = LoguruATSAdapter()
 bundle: LoggingComponentBundle = LoggingComponentBundle(logger=custom_logger)
 logger_custome: LoggerManager = LoggerManager(component_bundle=bundle)
-logger_custome.write_log("debug test", LogLevels.ATS_LOG_DEBUG)
-logger_custome.write_log("info test", LogLevels.ATS_LOG_INFO)
-logger_custome.write_log("warning test", LogLevels.ATS_LOG_WARNING)
-logger_custome.write_log("error test", LogLevels.ATS_LOG_ERROR)
-logger_custome.write_log("critical test", LogLevels.ATS_LOG_CRITICAL)
+logger_custome.write_log("debug test", LogLevels.DEBUG)
+logger_custome.write_log("info test", LogLevels.INFO)
+logger_custome.write_log("warning test", LogLevels.WARNING)
+logger_custome.write_log("error test", LogLevels.ERROR)
+logger_custome.write_log("critical test", LogLevels.CRITICAL)

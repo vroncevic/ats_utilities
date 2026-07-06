@@ -27,7 +27,7 @@ from ats_utilities.logging.engine import LoggerManager
 from ats_utilities.reporter.ireporter import IReporter
 from ats_utilities.reporter.engine import Reporter
 from ats_utilities.logging.component_bundle import LoggingComponentBundle
-from ats_utilities.logging.logger_bundle import LoggerBundle
+from ats_utilities.logging.logger.logger_bundle import LoggerBundle
 from ats_utilities.context_bundle import ContextBundle
 
 __author__: str = 'Vladimir Roncevic'
@@ -112,7 +112,7 @@ class ATSLoggingStreamTestCase(TestCase):
         '''Test ATS debug log.'''
         self.assertTrue(
             self.ats_base_logging.write_log(
-                'simple debug', self.ats_base_logging.ATS_DEBUG
+                'simple debug', self.ats_base_logging.DEBUG
             )
         )
 
@@ -120,7 +120,7 @@ class ATSLoggingStreamTestCase(TestCase):
         '''Test ATS warning log.'''
         self.assertTrue(
             self.ats_base_logging.write_log(
-                'simple warning', self.ats_base_logging.ATS_WARNING
+                'simple warning', self.ats_base_logging.WARNING
             )
         )
 
@@ -128,7 +128,7 @@ class ATSLoggingStreamTestCase(TestCase):
         '''Test ATS critical log.'''
         self.assertTrue(
             self.ats_base_logging.write_log(
-                'simple critical', self.ats_base_logging.ATS_CRITICAL
+                'simple critical', self.ats_base_logging.CRITICAL
             )
         )
 
@@ -136,7 +136,7 @@ class ATSLoggingStreamTestCase(TestCase):
         '''Test ATS error log.'''
         self.assertTrue(
             self.ats_base_logging.write_log(
-                'simple error', self.ats_base_logging.ATS_ERROR
+                'simple error', self.ats_base_logging.ERROR
             )
         )
 
@@ -144,7 +144,7 @@ class ATSLoggingStreamTestCase(TestCase):
         '''Test ATS info log.'''
         self.assertTrue(
             self.ats_base_logging.write_log(
-                'simple info', self.ats_base_logging.ATS_INFO
+                'simple info', self.ats_base_logging.INFO
             )
         )
 

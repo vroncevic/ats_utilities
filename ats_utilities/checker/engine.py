@@ -25,12 +25,12 @@ from __future__ import annotations
 from typing import ClassVar, override
 
 from ats_utilities.checker.ichecker import IChecker, ErrorChecker, ValidationResult, ParametersSpecs
-from ats_utilities.checker.itype_validator import ITypeValidator
-from ats_utilities.checker.iformat_validator import IFormatValidator
-from ats_utilities.checker.icontext_provider import IContextProvider
-from ats_utilities.checker.icheck_reporter import ICheckReporter
+from ats_utilities.checker.type.itype_validator import ITypeValidator
+from ats_utilities.checker.format.iformat_validator import IFormatValidator
+from ats_utilities.checker.context.icontext_provider import IContextProvider
+from ats_utilities.checker.reporter.icheck_reporter import ICheckReporter
 from ats_utilities.checker.component_bundle import CheckerComponentBundle
-from ats_utilities.checker.checker_reporter_bundle import CheckerReporterBundle, ParamMetadata
+from ats_utilities.checker.reporter.checker_reporter_bundle import CheckerReporterBundle, ParamMetadata
 from ats_utilities.exceptions.ats_type_error import ATSTypeError
 from ats_utilities.factory_class import cls_name, to_str
 

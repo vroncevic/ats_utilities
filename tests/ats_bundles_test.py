@@ -24,51 +24,61 @@ Execute
 
 from unittest import TestCase, main
 from unittest.mock import MagicMock
+from tarfile import TarFile, TarInfo
+from ats_utilities.config_io.iread import IRead
+from ats_utilities.config_io.json.ijson_processor import IJSONProcessor
+from ats_utilities.config_io.ifile_check import IFileCheck
+from ats_utilities.config_io.iconfig_loader import IConfigLoader, IConfigProcessor
+from ats_utilities.info.imanager import IInfoManager
+from ats_utilities.option.ioption_manager import IOptionManager
+from ats_utilities.logging.ilogger_manager import ILoggerManager
+from ats_utilities.splasher.isplasher import ISplasher
+from ats_utilities.generator.igenerator import IGenerator
 from ats_utilities.config_io.config_file_bundle import ConfigFileBundle
 from ats_utilities.config_io.config_loader_bundle import ConfigLoaderBundle
 from ats_utilities.config_io.file_bundle import FileBundle
 from ats_utilities.context_bundle import ContextBundle
-from ats_utilities.logging.logger_bundle import LoggerBundle
+from ats_utilities.logging.logger.logger_bundle import LoggerBundle
 from ats_utilities.logging.component_bundle import LoggingComponentBundle
 from ats_utilities.option.component_bundle import OptionComponentBundle
 from ats_utilities.base.component_bundle import BaseComponentBundle
 from ats_utilities.checker.component_bundle import CheckerComponentBundle
-from ats_utilities.checker.checker_reporter_bundle import CheckerReporterBundle
+from ats_utilities.checker.reporter.checker_reporter_bundle import CheckerReporterBundle
 from ats_utilities.info.component_bundle import InfoComponentBundle
 from ats_utilities.reporter.component_bundle import ReporterComponentBundle
 from ats_utilities.splasher.component_bundle import SplashComponentBundle
 from ats_utilities.splasher.splash_center_bundle import SplashCenterBundle
 from ats_utilities.generator.component_bundle import GeneratorComponentBundle
 from ats_utilities.generator.generator_bundle import GeneratorBundle
-from ats_utilities.generator.tar_process_bundle import TarProcessBundle
-from ats_utilities.generator.tar_process_member_bundle import TarProcessMemberBundle
+from ats_utilities.generator.tar.tar_process_bundle import TarProcessBundle
+from ats_utilities.generator.tar.tar_process_member_bundle import TarProcessMemberBundle
 from ats_utilities.exceptions.ats_value_error import ATSValueError
 from ats_utilities.exceptions.ats_type_error import ATSTypeError
 from ats_utilities.checker.ichecker import IChecker
 from ats_utilities.reporter.ireporter import IReporter
-from ats_utilities.option.iparser_strategy import IParserStrategy
-from ats_utilities.logging.ilogger import ILogger
-from ats_utilities.checker.itype_validator import ITypeValidator
-from ats_utilities.checker.iformat_validator import IFormatValidator
-from ats_utilities.checker.icontext_provider import IContextProvider
-from ats_utilities.checker.icheck_reporter import ICheckReporter
-from ats_utilities.info.iname import IName
-from ats_utilities.info.iversion import IVersion
-from ats_utilities.info.ilicence import ILicence
-from ats_utilities.info.ibuild_date import IBuildDate
-from ats_utilities.info.irepository import IRepository
-from ats_utilities.info.iorganization import IOrganization
-from ats_utilities.info.iuse_github import IUseGitHub
-from ats_utilities.info.ilogo_path import ILogoPath
-from ats_utilities.info.iinfo_ok import IInfoOk
+from ats_utilities.option.strategy.iparser_strategy import IParserStrategy
+from ats_utilities.logging.logger.ilogger import ILogger
+from ats_utilities.checker.type.itype_validator import ITypeValidator
+from ats_utilities.checker.format.iformat_validator import IFormatValidator
+from ats_utilities.checker.context.icontext_provider import IContextProvider
+from ats_utilities.checker.reporter.icheck_reporter import ICheckReporter
+from ats_utilities.info.name.iname import IName
+from ats_utilities.info.version.iversion import IVersion
+from ats_utilities.info.licence.ilicence import ILicence
+from ats_utilities.info.build_date.ibuild_date import IBuildDate
+from ats_utilities.info.repository.irepository import IRepository
+from ats_utilities.info.organization.iorganization import IOrganization
+from ats_utilities.info.use_github.iuse_github import IUseGitHub
+from ats_utilities.info.logo.ilogo_path import ILogoPath
+from ats_utilities.info.info_ok.iinfo_ok import IInfoOk
 from ats_utilities.reporter.theme.iconsole_theme import IConsoleTheme
-from ats_utilities.splasher.isplash_property import ISplashProperty
-from ats_utilities.splasher.iterminal_properties import ITerminalProperties
-from ats_utilities.splasher.iext_infrastructure import IExtInfrastructure
-from ats_utilities.splasher.iprogress_bar import IProgressBar
-from ats_utilities.generator.ischeme_loader import ISchemeLoader
-from ats_utilities.generator.itar_processor import ITarProcessor
-from ats_utilities.generator.itemplate_processor import ITemplateProcessor
+from ats_utilities.splasher.property.isplash_property import ISplashProperty
+from ats_utilities.splasher.terminal.iterminal_properties import ITerminalProperties
+from ats_utilities.splasher.external.iext_infrastructure import IExtInfrastructure
+from ats_utilities.splasher.progressbar.iprogress_bar import IProgressBar
+from ats_utilities.generator.scheme.ischeme_loader import ISchemeLoader
+from ats_utilities.generator.tar.itar_processor import ITarProcessor
+from ats_utilities.generator.template.itemplate_processor import ITemplateProcessor
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -167,11 +177,11 @@ class BundlesTestCase(TestCase):
                 bundle.validate()
 
         bundle = LoggerBundle(name='test_logger', configure_logging='not_bool', log_file='test.log')
-        with self.assertRaises(ValueError):
+        with self.assertRaises(ATSTypeError):
             bundle.validate()
 
         bundle = LoggerBundle(name='test_logger', log_stdout='not_bool', log_file='test.log')
-        with self.assertRaises(ValueError):
+        with self.assertRaises(ATSTypeError):
             bundle.validate()
 
     def test_ats_file_bundle(self) -> None:
@@ -205,7 +215,8 @@ class BundlesTestCase(TestCase):
     def test_ats_config_file_bundle(self) -> None:
         '''Test ConfigFileBundle methods.'''
         mock_context = ContextBundle()
-        mock_file_checker = MagicMock()
+        mock_file_checker = MagicMock(spec=IFileCheck)
+        mock_file_checker.__class__ = IFileCheck
         bundle1 = ConfigFileBundle()
         bundle2 = ConfigFileBundle(context=mock_context, file_checker=mock_file_checker)
 
@@ -222,7 +233,8 @@ class BundlesTestCase(TestCase):
     def test_ats_config_file_bundle_validation_errors(self) -> None:
         '''Test ConfigFileBundle validation exceptions.'''
         mock_context = ContextBundle()
-        mock_file_checker = MagicMock()
+        mock_file_checker = MagicMock(spec=IFileCheck)
+        mock_file_checker.__class__ = IFileCheck
         fields = {
             'context': mock_context,
             'file_checker': mock_file_checker
@@ -236,9 +248,12 @@ class BundlesTestCase(TestCase):
 
     def test_ats_config_loader_bundle(self) -> None:
         '''Test ConfigLoaderBundle methods.'''
-        mock_config2object = MagicMock()
-        mock_config_bundle = MagicMock()
-        mock_processor = MagicMock()
+        mock_config2object = MagicMock(spec=IRead)
+        mock_config2object.__class__ = IRead
+        mock_config_bundle = MagicMock(spec=ConfigFileBundle)
+        mock_config_bundle.__class__ = ConfigFileBundle
+        mock_processor = MagicMock(spec=IJSONProcessor)
+        mock_processor.__class__ = IJSONProcessor
         bundle1 = ConfigLoaderBundle()
         bundle2 = ConfigLoaderBundle(
             info_file='config.json',
@@ -256,9 +271,12 @@ class BundlesTestCase(TestCase):
 
     def test_ats_config_loader_bundle_validation_errors(self) -> None:
         '''Test ConfigLoaderBundle validation exceptions.'''
-        mock_config2object = MagicMock()
-        mock_config_bundle = MagicMock()
-        mock_processor = MagicMock()
+        mock_config2object = MagicMock(spec=IRead)
+        mock_config2object.__class__ = IRead
+        mock_config_bundle = MagicMock(spec=ConfigFileBundle)
+        mock_config_bundle.__class__ = ConfigFileBundle
+        mock_processor = MagicMock(spec=IJSONProcessor)
+        mock_processor.__class__ = IJSONProcessor
         fields = {
             'info_file': 'config.json',
             'config2object': mock_config2object,
@@ -315,9 +333,8 @@ class BundlesTestCase(TestCase):
     def test_splash_center_bundle_validation_errors(self) -> None:
         '''Test SplashCenterBundle validation exceptions.'''
         # columns type error
-        bundle = SplashCenterBundle(columns='not_int', additional_shifter=2, text='ok')
         with self.assertRaises(ATSTypeError):
-            bundle.validate()
+            SplashCenterBundle(columns='not_int', additional_shifter=2, text='ok')
 
         # columns value error
         bundle = SplashCenterBundle(columns=80, additional_shifter=2, text='ok')
@@ -326,9 +343,8 @@ class BundlesTestCase(TestCase):
             bundle.validate()
 
         # additional_shifter type error
-        bundle = SplashCenterBundle(columns=80, additional_shifter='not_int', text='ok')
         with self.assertRaises(ATSTypeError):
-            bundle.validate()
+            SplashCenterBundle(columns=80, additional_shifter='not_int', text='ok')
 
         # additional_shifter value error
         bundle = SplashCenterBundle(columns=80, additional_shifter=2, text='ok')
@@ -453,7 +469,25 @@ class ComponentBundlesTestCase(TestCase):
     def test_base_component_bundle(self) -> None:
         '''Test BaseComponentBundle methods.'''
         bundle1 = BaseComponentBundle()
-        bundle2 = BaseComponentBundle(info_file='config_file')
+        mock_config_loader = MagicMock(spec=IConfigLoader)
+        mock_config_loader.__class__ = IConfigLoader
+        mock_info_manager = MagicMock(spec=IInfoManager)
+        mock_info_manager.__class__ = IInfoManager
+        mock_options_parser = MagicMock(spec=IOptionManager)
+        mock_options_parser.__class__ = IOptionManager
+        mock_logger_manager = MagicMock(spec=ILoggerManager)
+        mock_logger_manager.__class__ = ILoggerManager
+        mock_splasher = MagicMock(spec=ISplasher)
+        mock_splasher.__class__ = ISplasher
+
+        bundle2 = BaseComponentBundle(
+            info_file='config_file',
+            config_loader=mock_config_loader,
+            info_manager=mock_info_manager,
+            options_parser=mock_options_parser,
+            logger_manager=mock_logger_manager,
+            splasher=mock_splasher
+        )
 
         bundle1.merge(bundle2)
         self.assertEqual(bundle1.info_file, 'config_file')
@@ -814,16 +848,20 @@ class ComponentBundlesTestCase(TestCase):
 
     def test_tar_process_member_bundle(self) -> None:
         '''Test TarProcessMemberBundle methods.'''
-        mock_tar = MagicMock()
-        mock_member = MagicMock()
+        mock_tar = MagicMock(spec=TarFile)
+        mock_tar.__class__ = TarFile
+        mock_member = MagicMock(spec=TarInfo)
+        mock_member.__class__ = TarInfo
         bundle1 = TarProcessMemberBundle(
             tar=mock_tar,
             member=mock_member,
             dest_full_path='dest',
             vals={}
         )
-        mock_tar2 = MagicMock()
-        mock_member2 = MagicMock()
+        mock_tar2 = MagicMock(spec=TarFile)
+        mock_tar2.__class__ = TarFile
+        mock_member2 = MagicMock(spec=TarInfo)
+        mock_member2.__class__ = TarInfo
         bundle2 = TarProcessMemberBundle(
             tar=mock_tar2,
             member=mock_member2,
@@ -842,8 +880,10 @@ class ComponentBundlesTestCase(TestCase):
 
     def test_tar_process_member_bundle_validation_errors(self) -> None:
         '''Test TarProcessMemberBundle validation exceptions.'''
-        mock_tar = MagicMock()
-        mock_member = MagicMock()
+        mock_tar = MagicMock(spec=TarFile)
+        mock_tar.__class__ = TarFile
+        mock_member = MagicMock(spec=TarInfo)
+        mock_member.__class__ = TarInfo
         fields = {
             'tar': mock_tar,
             'member': mock_member,

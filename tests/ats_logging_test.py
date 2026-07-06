@@ -25,14 +25,15 @@ Execute
 from unittest import TestCase, main, mock
 from os.path import dirname
 from ats_utilities.logging.engine import LoggerManager
-from ats_utilities.logging.logger import ATSLogger
+from ats_utilities.logging.logger.logger import StandardLogger
 from ats_utilities.reporter.ireporter import IReporter
 from ats_utilities.reporter.engine import Reporter
 from ats_utilities.logging.component_bundle import LoggingComponentBundle
-from ats_utilities.logging.logger_bundle import LoggerBundle
+from ats_utilities.logging.logger.logger_bundle import LoggerBundle
 from ats_utilities.context_bundle import ContextBundle
 from ats_utilities.exceptions.ats_type_error import ATSTypeError
 from ats_utilities.exceptions.ats_value_error import ATSValueError
+from ats_utilities.exceptions.ats_attribute_error import ATSAttributeError
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -140,16 +141,16 @@ class ATSLoggingTestCase(TestCase):
         self.assertFalse(invalid_manager._is_initialized)
 
     def test_str(self) -> None:
-        '''Test string representation of LoggerManager and ATSLogger.'''
+        '''Test string representation of LoggerManager and StandardLogger.'''
         self.assertIsInstance(str(self.ats_base_logging), str)
-        logger = ATSLogger()
+        logger = StandardLogger()
         self.assertIsInstance(str(logger), str)
 
     def test_debug(self) -> None:
         '''Test ATS debug log.'''
         self.assertTrue(
             self.ats_base_logging.write_log(
-                'simple debug', self.ats_base_logging.ATS_DEBUG
+                'simple debug', self.ats_base_logging.DEBUG
             )
         )
 
@@ -157,7 +158,7 @@ class ATSLoggingTestCase(TestCase):
         '''Test ATS warning log.'''
         self.assertTrue(
             self.ats_base_logging.write_log(
-                'simple warning', self.ats_base_logging.ATS_WARNING
+                'simple warning', self.ats_base_logging.WARNING
             )
         )
 
@@ -165,7 +166,7 @@ class ATSLoggingTestCase(TestCase):
         '''Test ATS critical log.'''
         self.assertTrue(
             self.ats_base_logging.write_log(
-                'simple critical', self.ats_base_logging.ATS_CRITICAL
+                'simple critical', self.ats_base_logging.CRITICAL
             )
         )
 
@@ -173,7 +174,7 @@ class ATSLoggingTestCase(TestCase):
         '''Test ATS error log.'''
         self.assertTrue(
             self.ats_base_logging.write_log(
-                'simple error', self.ats_base_logging.ATS_ERROR
+                'simple error', self.ats_base_logging.ERROR
             )
         )
 
@@ -181,7 +182,7 @@ class ATSLoggingTestCase(TestCase):
         '''Test ATS info log.'''
         self.assertTrue(
             self.ats_base_logging.write_log(
-                'simple info', self.ats_base_logging.ATS_INFO
+                'simple info', self.ats_base_logging.INFO
             )
         )
 
@@ -190,8 +191,8 @@ class ATSLoggingTestCase(TestCase):
         logger = self.ats_base_logging.get_logger()
         self.assertIsNotNone(logger)
 
-    @mock.patch('ats_utilities.logging.logger.getLogger')
-    @mock.patch('ats_utilities.logging.logger.basicConfig')
+    @mock.patch('ats_utilities.logging.logger.logger.getLogger')
+    @mock.patch('ats_utilities.logging.logger.logger.basicConfig')
     def test_logger_configure_stdout_and_file(self, mock_basicConfig, mock_getLogger) -> None:
         '''Test logger configure when both stdout and file log are enabled.'''
         mock_logger = mock.MagicMock()
@@ -204,14 +205,14 @@ class ATSLoggingTestCase(TestCase):
             log_file='test_log.log',
             configure_logging=True
         )
-        logger = ATSLogger(bundle)
+        logger = StandardLogger(bundle)
         mock_basicConfig.assert_called_once()
         kwargs = mock_basicConfig.call_args[1]
         self.assertEqual(kwargs['filename'], 'test_log.log')
 
     def test_write_log_invalid_level(self) -> None:
         '''Test write_log with unsupported level.'''
-        logger = ATSLogger()
+        logger = StandardLogger()
         self.assertFalse(logger.write_log('unsupported log', 999))
 
     def test_get_shared_context(self) -> None:
@@ -221,13 +222,18 @@ class ATSLoggingTestCase(TestCase):
 
     def test_init_with_custom_logger(self) -> None:
         '''Test logger manager initialization with custom logger.'''
-        custom_logger = ATSLogger()
+        custom_logger = StandardLogger()
         component_bundle = LoggingComponentBundle(
             logger=custom_logger
         )
         manager = LoggerManager(component_bundle)
         self.assertTrue(manager.is_initialized())
 
+    def test_log_levels_readonly(self) -> None:
+        '''Test log level attributes are read-only after initialization.'''
+        for level_attr in ('DEBUG', 'INFO', 'WARNING', 'ERROR', 'CRITICAL'):
+            with self.assertRaises(ATSAttributeError):
+                setattr(self.ats_base_logging, level_attr, 999)
 
 
 if __name__ == '__main__':

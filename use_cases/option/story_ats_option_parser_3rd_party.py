@@ -21,12 +21,17 @@ Info
 
 import sys
 import types
+from collections.abc import Sequence, Mapping
 from typing import Any
+
+
 from fire import Fire  # type: ignore
+
+from ats_utilities.option.command.ioption_command import IOptionCommand
 from ats_utilities.factory_class import to_str
 from ats_utilities.option.engine import OptionManager
 from ats_utilities.option.option_namespace import OptionNamespace, OptArgs
-from ats_utilities.option.iparser_strategy import IParserStrategy
+from ats_utilities.option.strategy.iparser_strategy import IParserStrategy
 from ats_utilities.option.component_bundle import OptionComponentBundle
 
 __author__: str = 'Vladimir Roncevic'
@@ -93,6 +98,12 @@ class MyAppFireStrategy(IParserStrategy):
         res = types.SimpleNamespace()
         res.__dict__.update({k: v for k, v in self._target.__dict__.items() if not callable(v)})
         return res
+
+    def register_commands(self, commands: Sequence[IOptionCommand]) -> None:
+        pass
+
+    def parse_command(self, arguments: OptArgs = None) -> tuple[str, Mapping[str, Any]]:
+        pass
 
     def is_initialized(self) -> bool:
         return True

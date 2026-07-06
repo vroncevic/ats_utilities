@@ -27,8 +27,8 @@ from dataclasses import dataclass, asdict
 from typing import Any
 
 from ats_utilities.context_bundle import ContextBundle
-from ats_utilities.option.iparser_strategy import IParserStrategy
-from ats_utilities.option.parser_strategy import ParserStrategy
+from ats_utilities.option.strategy.iparser_strategy import IParserStrategy
+from ats_utilities.option.strategy.parser_strategy import ParserStrategy
 from ats_utilities.factory_component import make_component, validate_component
 from ats_utilities.factory_value import require_not_none
 from ats_utilities.factory_type import check_type

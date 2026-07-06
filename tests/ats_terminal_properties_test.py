@@ -23,7 +23,7 @@ Execute
 '''
 
 from unittest import TestCase, main, mock
-from ats_utilities.splasher.terminal_properties import TerminalProperties
+from ats_utilities.splasher.terminal.terminal_properties import TerminalProperties
 from ats_utilities.exceptions.ats_type_error import ATSTypeError
 
 __author__: str = 'Vladimir Roncevic'
@@ -79,10 +79,10 @@ class ATSTerminalPropTestCase(TestCase):
         '''Test string representation of TerminalProperties.'''
         self.assertIsInstance(str(self.terminal), str)
 
-    @mock.patch('ats_utilities.splasher.terminal_properties.os.open')
-    @mock.patch('ats_utilities.splasher.terminal_properties.os.close')
-    @mock.patch('ats_utilities.splasher.terminal_properties.TerminalProperties.ioctl_get_window_size')
-    @mock.patch('ats_utilities.splasher.terminal_properties.TerminalProperties.ioctl_for_all_descriptors')
+    @mock.patch('ats_utilities.splasher.terminal.terminal_properties.os.open')
+    @mock.patch('ats_utilities.splasher.terminal.terminal_properties.os.close')
+    @mock.patch('ats_utilities.splasher.terminal.terminal_properties.TerminalProperties.ioctl_get_window_size')
+    @mock.patch('ats_utilities.splasher.terminal.terminal_properties.TerminalProperties.ioctl_for_all_descriptors')
     def test_size_with_controlling_terminal(self, mock_ioctl_all, mock_get_size, mock_close, mock_open) -> None:
         '''Test size() when ctermid open succeeds.'''
         mock_open.return_value = 999
@@ -95,17 +95,17 @@ class ATSTerminalPropTestCase(TestCase):
         mock_open.assert_called_once()
         mock_get_size.assert_called_once_with(999)
         mock_close.assert_called_once_with(999)
-
-    @mock.patch('ats_utilities.splasher.terminal_properties.TerminalProperties.ioctl_for_all_descriptors')
+ 
+    @mock.patch('ats_utilities.splasher.terminal.terminal_properties.TerminalProperties.ioctl_for_all_descriptors')
     def test_size_ioctl_all_oserror(self, mock_ioctl_all) -> None:
         '''Test size() when ioctl_for_all_descriptors raises OSError.'''
         mock_ioctl_all.side_effect = OSError("No descriptors")
         terminal = TerminalProperties()
         size = terminal.size()
         self.assertIsNotNone(size)
-
-    @mock.patch('ats_utilities.splasher.terminal_properties.os.open')
-    @mock.patch('ats_utilities.splasher.terminal_properties.TerminalProperties.ioctl_for_all_descriptors')
+ 
+    @mock.patch('ats_utilities.splasher.terminal.terminal_properties.os.open')
+    @mock.patch('ats_utilities.splasher.terminal.terminal_properties.TerminalProperties.ioctl_for_all_descriptors')
     def test_size_fallback(self, mock_ioctl_all, mock_open) -> None:
         '''Test size() fallback to (24, 80, 0, 0) when all ioctls and open fail.'''
         mock_ioctl_all.side_effect = OSError("Mock error")

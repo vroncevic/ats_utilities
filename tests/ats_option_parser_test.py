@@ -26,17 +26,17 @@ from typing import Any
 from unittest import TestCase, main, mock
 from ats_utilities.option.engine import OptionManager
 from ats_utilities.option.ioption_manager import IOptionManager
-from ats_utilities.option.iparser_strategy import IParserStrategy
-from ats_utilities.option.parser_strategy import ParserStrategy
-from ats_utilities.option.arg_parser import ArgParser
+from ats_utilities.option.strategy.iparser_strategy import IParserStrategy
+from ats_utilities.option.strategy.parser_strategy import ParserStrategy
+from ats_utilities.option.parser.engine import ArgParser
 from ats_utilities.checker.ichecker import IChecker
 from ats_utilities.checker.engine import Checker
 from ats_utilities.reporter.ireporter import IReporter
 from ats_utilities.reporter.engine import Reporter
 from ats_utilities.option.component_bundle import OptionComponentBundle
 from ats_utilities.context_bundle import ContextBundle
-from ats_utilities.option.command_option import CommandOption
-from ats_utilities.option.ioption_command import IOptionCommand
+from ats_utilities.option.command.command_option import CommandOption
+from ats_utilities.option.command.ioption_command import IOptionCommand
 from ats_utilities.exceptions.ats_value_error import ATSValueError
 
 __author__: str = 'Vladimir Roncevic'
@@ -257,7 +257,7 @@ class OptionParserTestCase(TestCase):
         self.assertEqual(opt.help_text, 'test help')
         self.assertEqual(opt.default, 'def')
         self.assertTrue(opt.required)
-        self.assertEqual(opt.choices, ['def', 'other'])
+        self.assertEqual(opt.choices, ('def', 'other'))
 
     def test_parser_strategy_uninitialized_methods(self) -> None:
         '''Test ParserStrategy methods before setup is called.'''
@@ -326,7 +326,7 @@ class OptionParserTestCase(TestCase):
         self.assertEqual(cmd.action, 'store')
         self.assertEqual(cmd.default, 'default_value')
         self.assertTrue(cmd.required)
-        self.assertEqual(cmd.choices, ['choice1', 'choice2'])
+        self.assertEqual(cmd.choices, ('choice1', 'choice2'))
         self.assertEqual(cmd.nargs, 1)
 
     def test_command_option_with_all_parameters_to_dict(self) -> None:
@@ -351,7 +351,7 @@ class OptionParserTestCase(TestCase):
         self.assertEqual(option1.action, 'store2')
         self.assertEqual(option1.default, 'default_value2')
         self.assertTrue(option1.required)
-        self.assertEqual(option1.choices, ['choice1', 'choice2'])
+        self.assertEqual(option1.choices, ('choice1', 'choice2'))
         self.assertEqual(option1.nargs, 2)
 
     def test_command_option_merge_validation(self) -> None:
@@ -365,7 +365,7 @@ class OptionParserTestCase(TestCase):
         self.assertEqual(option1.action, 'store2')
         self.assertEqual(option1.default, 'default_value2')
         self.assertTrue(option1.required)
-        self.assertEqual(option1.choices, ['choice1', 'choice2'])
+        self.assertEqual(option1.choices, ('choice1', 'choice2'))
         self.assertEqual(option1.nargs, 2)
 
     def test_get_shared_context(self) -> None:
