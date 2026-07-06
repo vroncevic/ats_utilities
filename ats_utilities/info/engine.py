@@ -31,10 +31,7 @@ from ats_utilities.info.component_bundle import InfoComponentBundle
 from ats_utilities.info.info_keys import InfoKeys
 from ats_utilities.checker.ichecker import IChecker
 from ats_utilities.reporter.ireporter import IReporter
-from ats_utilities.exceptions.ats_type_error import ATSTypeError
-from ats_utilities.exceptions.ats_value_error import ATSValueError
-from ats_utilities.exceptions.ats_runtime_error import ATSRuntimeError
-from ats_utilities.exceptions.ats_attribute_error import ATSAttributeError
+from ats_utilities.exceptions import ATSAttributeError, ATSRuntimeError, ATSTypeError, ATSValueError
 from ats_utilities.factory_context_bundle import factory_context_bundle
 from ats_utilities.factory_class import cls_name, to_str
 from ats_utilities.factory_value import require_not_satisfied, require_not_none

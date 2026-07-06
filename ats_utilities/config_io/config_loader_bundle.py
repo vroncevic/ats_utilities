@@ -26,7 +26,7 @@ from dataclasses import dataclass, asdict
 from typing import Any
 
 from ats_utilities.config_io.iread import IRead
-from ats_utilities.exceptions.ats_value_error import ATSValueError
+from ats_utilities.exceptions import ATSValueError
 from ats_utilities.config_io.config_file_bundle import ConfigFileBundle
 from ats_utilities.config_io.iconfig_loader import IConfigProcessor
 from ats_utilities.factory_value import require_not_none

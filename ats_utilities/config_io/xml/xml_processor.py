@@ -64,6 +64,7 @@ class XMLProcessor(IXMLProcessor):
     _VERSION: str = 'ats_version'
     _BUILD_DATE: str = 'ats_build_date'
     _LICENCE: str = 'ats_licence'
+    _root: ET.Element | None
 
     def __init__(self) -> None:
         '''

@@ -76,10 +76,13 @@ class Object2Ini(IWrite):
 
     _EXT: str = 'ini'
     _MODE: str = 'w'
-
     _checker: IChecker
     _reporter: IReporter
     _verbose: bool
+    _config_file_bundle: ConfigFileBundle
+    _file_checker: IFileCheck
+    _file_path: str
+    _file_bundle_shared: FileBundle
 
     def __init__(
         self,
@@ -96,17 +99,15 @@ class Object2Ini(IWrite):
             :exceptions:
                 | ATSTypeError: Invalid type in constructor arguments.
         '''
-        self._config_file_bundle: ConfigFileBundle = config_bundle or ConfigFileBundle()
+        self._config_file_bundle = config_bundle or ConfigFileBundle()
         factory_context_bundle(self, self._config_file_bundle.context)
-        context_bundle_shared: ContextBundle = ContextBundle(
-            checker=self._checker, reporter=self._reporter, verbose=self._verbose
+        self._file_checker = make_component(
+            self._config_file_bundle.file_checker, FileCheck,
+            {'config_bundle': ContextBundle(checker=self._checker, reporter=self._reporter, verbose=self._verbose)}
         )
-        self._file_checker: IFileCheck = make_component(
-            self._config_file_bundle.file_checker, FileCheck, {'config_bundle': context_bundle_shared}
-        )
-        validate_component(self._file_checker, FileCheck)
-        self._file_path: str = str(config_file)
-        self._file_bundle_shared: FileBundle = FileBundle()
+        validate_component(self._file_checker, IFileCheck, 'file_checker must be an IFileCheck instance')
+        self._file_path = str(config_file)
+        self._file_bundle_shared = FileBundle()
         self._file_bundle_shared.file_path = self._file_path
         self._file_bundle_shared.file_mode = self._MODE
         self._file_bundle_shared.file_format = self._EXT

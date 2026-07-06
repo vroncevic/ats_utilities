@@ -28,10 +28,7 @@ from functools import wraps
 from typing import Any, cast
 
 from ats_utilities.checker.ichecker import ParametersSpecs
-from ats_utilities.exceptions.ats_type_error import ATSTypeError
-from ats_utilities.exceptions.ats_value_error import ATSValueError
-from ats_utilities.exceptions.ats_attribute_error import ATSAttributeError
-from ats_utilities.exceptions.ats_runtime_error import ATSRuntimeError
+from ats_utilities.exceptions import ATSAttributeError, ATSRuntimeError, ATSTypeError, ATSValueError
 from ats_utilities.factory_context_error import raise_context_error
 
 __author__: str = 'Vladimir Roncevic'

@@ -41,7 +41,7 @@ from ats_utilities.factory_class import to_str
 from ats_utilities.factory_file_utils import (
     normalize_path, resolve_relative_path, is_excluded_path, apply_path_replacements, write_content
 )
-from ats_utilities.exceptions.ats_generator_error import ATSGeneratorError
+from ats_utilities.exceptions import ATSGeneratorError
 from ats_utilities.factory_value import require_not_satisfied
 
 __author__: str = 'Vladimir Roncevic'
@@ -98,7 +98,7 @@ class TarProcessor(ITarProcessor):
         self._template_processor = make_component(
             template_processor, TemplateProcessor, {'context_bundle': context_bundle}
         )
-        validate_component(self._template_processor, ITemplateProcessor)
+        validate_component(self._template_processor, ITemplateProcessor, 'template_processor must be an ITemplateProcessor instance')
 
     @override
     def process_tar_member(self, tar_process_member_bundle: TarProcessMemberBundle) -> None:

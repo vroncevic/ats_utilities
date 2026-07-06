@@ -80,6 +80,7 @@ class ParserStrategy(IParserStrategy):
     _reporter: IReporter
     _verbose: bool
     _parser: ArgParser | None
+    _subparsers: Any
 
     def __init__(self, context_bundle: ContextBundle | None = None) -> None:
         '''
@@ -112,7 +113,7 @@ class ParserStrategy(IParserStrategy):
             'epilog': f'{parameters.get(InfoKeys.ATS_NAME)} copyright (c) {parameters.get(InfoKeys.ATS_LICENCE)}',
             'description': f'{parameters.get(InfoKeys.ATS_NAME)} build date {parameters.get(InfoKeys.ATS_BUILD_DATE)}'
         })
-        validate_component(self._parser, ArgParser)
+        validate_component(self._parser, ArgParser, 'parser must be an ArgParser instance')
 
     @has_attrs('_parser')
     @override

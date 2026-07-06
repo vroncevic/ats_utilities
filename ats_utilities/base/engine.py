@@ -30,10 +30,7 @@ from ats_utilities.base.ibase import ArgSeq, IBase
 from ats_utilities.checker.ichecker import IChecker
 from ats_utilities.config_io.iconfig_loader import IConfigLoader
 from ats_utilities.context_bundle import ContextBundle
-from ats_utilities.exceptions.ats_attribute_error import ATSAttributeError
-from ats_utilities.exceptions.ats_runtime_error import ATSRuntimeError
-from ats_utilities.exceptions.ats_type_error import ATSTypeError
-from ats_utilities.exceptions.ats_value_error import ATSValueError
+from ats_utilities.exceptions import ATSAttributeError, ATSRuntimeError, ATSTypeError, ATSValueError
 from ats_utilities.factory_class import to_str, cls_name, has_attrs
 from ats_utilities.factory_context_bundle import factory_context_bundle
 from ats_utilities.generator.igenerator import IGenerator
@@ -121,6 +118,7 @@ class Base(IBase):
                 self._generator = bundle.generator
                 components.append(self._generator)
 
+            # All components initialized successfully.
             self._is_initialized = all(
                 component is not None and component.is_initialized() for component in components
             )

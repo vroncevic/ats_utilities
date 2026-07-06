@@ -22,6 +22,8 @@ Info
 
 from __future__ import annotations
 
+from ats_utilities.exceptions.ats_error import ATSError
+
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
@@ -32,7 +34,7 @@ __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
 
 
-class ATSParameterError(Exception):
+class ATSParameterError(ATSError):
     '''
         Defines class ATSParameterError with attribute(s) and method(s).
         Creates an exception mechanism (raise error for not expected format).

@@ -78,7 +78,7 @@ class OptionComponentBundle:
         self.strategy = make_component(
             self.strategy, ParserStrategy, {'context_bundle': self.context_bundle}
         )
-        validate_component(self.strategy, IParserStrategy)
+        validate_component(self.strategy, IParserStrategy, 'strategy must be an IParserStrategy instance')
 
     def validate(self) -> None:
         '''

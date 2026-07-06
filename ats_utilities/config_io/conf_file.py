@@ -109,7 +109,7 @@ class ConfFile(IConfFile):
             checker=self._checker, reporter=self._reporter, verbose=self._verbose
         )
         file_checker: IFileCheck = make_component(config_bundle.file_checker, FileCheck, {'config_bundle': shared_bundle})
-        validate_component(file_checker, FileCheck)
+        validate_component(file_checker, IFileCheck, 'file_checker must be an IFileCheck instance')
 
         require_not_empty(bundle.file_path, 'missing file path')
         require_not_empty(bundle.file_mode, 'missing file mode')

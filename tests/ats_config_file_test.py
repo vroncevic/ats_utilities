@@ -26,8 +26,7 @@ from unittest import TestCase, main
 from os.path import dirname
 from ats_utilities.config_io.conf_file import ConfFile
 from ats_utilities.config_io.file_bundle import FileBundle
-from ats_utilities.exceptions.ats_type_error import ATSTypeError
-from ats_utilities.exceptions.ats_value_error import ATSValueError
+from ats_utilities.exceptions import ATSTypeError, ATSValueError
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'

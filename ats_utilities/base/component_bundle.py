@@ -47,10 +47,7 @@ from ats_utilities.option.ioption_manager import IOptionManager
 from ats_utilities.splasher.component_bundle import SplashComponentBundle
 from ats_utilities.splasher.engine import Splasher
 from ats_utilities.splasher.isplasher import ISplasher
-from ats_utilities.exceptions.ats_attribute_error import ATSAttributeError
-from ats_utilities.exceptions.ats_runtime_error import ATSRuntimeError
-from ats_utilities.exceptions.ats_type_error import ATSTypeError
-from ats_utilities.exceptions.ats_value_error import ATSValueError
+from ats_utilities.exceptions import ATSAttributeError, ATSRuntimeError, ATSTypeError, ATSValueError
 from ats_utilities.factory_type import check_type
 from ats_utilities.factory_value import require_not_none
 
@@ -128,14 +125,14 @@ class BaseComponentBundle:
                 )
             }
         )
-        validate_component(self.config_loader, IConfigLoader)
+        validate_component(self.config_loader, IConfigLoader, 'config_loader must be an IConfigLoader instance')
         loader: Config = self.config_loader.setup_config_loader()
 
         self.info_manager = make_component(
             self.info_manager, InfoManager,
             {'component_bundle': InfoComponentBundle(context_bundle=self.context_bundle)}
         )
-        validate_component(self.info_manager, IInfoManager)
+        validate_component(self.info_manager, IInfoManager, 'info_manager must be an IInfoManager instance')
         self.info_manager.set_info(loader.load_configuration())
 
         logo_path = self.info_manager.logo_path
@@ -149,7 +146,7 @@ class BaseComponentBundle:
                 )
             }
         )
-        validate_component(self.splasher, ISplasher)
+        validate_component(self.splasher, ISplasher, 'splasher must be an ISplasher instance')
 
         self.options_parser = make_component(
             self.options_parser, OptionManager,
@@ -160,20 +157,20 @@ class BaseComponentBundle:
                 )
             }
         )
-        validate_component(self.options_parser, IOptionManager)
+        validate_component(self.options_parser, IOptionManager, 'options_parser must be an IOptionManager instance')
 
         self.logger_manager = make_component(
             self.logger_manager, LoggerManager,
             {'component_bundle': LoggingComponentBundle(context_bundle=self.context_bundle)}
         )
-        validate_component(self.logger_manager, ILoggerManager)
+        validate_component(self.logger_manager, ILoggerManager, 'logger_manager must be an ILoggerManager instance')
 
         if self.use_generator:
             self.generator = make_component(
                 self.generator, Generator,
                 {'component_bundle': GeneratorComponentBundle(context_bundle=self.context_bundle)}
             )
-            validate_component(self.generator, IGenerator)
+            validate_component(self.generator, IGenerator, 'generator must be an IGenerator instance')
 
     def validate(self, merge_op: bool = False) -> None:
         '''

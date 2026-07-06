@@ -68,6 +68,11 @@ class ConfigLoader(IConfigLoader):
                 | __str__ - Returns the ConfigLoader as string representation.
     '''
 
+    _info_file: str | None
+    _config2object: IRead | None
+    _config_bundle: ConfigFileBundle | None
+    _processor: IConfigProcessor | None
+
     def __init__(self, config_loader_bundle: ConfigLoaderBundle | None = None) -> None:
         '''
             Initializes ConfigLoader constructor.
@@ -76,10 +81,10 @@ class ConfigLoader(IConfigLoader):
             :type config_loader_bundle: <ConfigLoaderBundle | None>
             :exceptions: None.
         '''
-        self._info_file: str | None = config_loader_bundle.info_file
-        self._config2object: IRead | None = config_loader_bundle.config2object
-        self._config_bundle: ConfigFileBundle | None = config_loader_bundle.config_bundle
-        self._processor: IConfigProcessor | None = config_loader_bundle.processor
+        self._info_file = config_loader_bundle.info_file
+        self._config2object = config_loader_bundle.config2object
+        self._config_bundle = config_loader_bundle.config_bundle
+        self._processor = config_loader_bundle.processor
 
     @override
     def setup_config_loader(self) -> Config:

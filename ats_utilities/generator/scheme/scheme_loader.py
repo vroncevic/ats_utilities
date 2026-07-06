@@ -32,7 +32,7 @@ from ats_utilities.checker.ichecker import IChecker
 from ats_utilities.reporter.ireporter import IReporter
 from ats_utilities.config_io.config_loader_bundle import ConfigLoaderBundle
 from ats_utilities.config_io.config_loader import ConfigLoader
-from ats_utilities.exceptions.ats_generator_error import ATSGeneratorError
+from ats_utilities.exceptions import ATSGeneratorError
 from ats_utilities.factory_context_bundle import factory_context_bundle
 from ats_utilities.factory_class import to_str
 from ats_utilities.factory_type import check_type

@@ -81,12 +81,12 @@ class GeneratorComponentBundle:
         self.template_processor = make_component(
             self.template_processor, TemplateProcessor, {'context_bundle': self.context_bundle}
         )
-        validate_component(self.template_processor, ITemplateProcessor)
+        validate_component(self.template_processor, ITemplateProcessor, 'template_processor must be an ITemplateProcessor instance')
 
         self.scheme_loader = make_component(
             self.scheme_loader, SchemeLoader, {'context_bundle': self.context_bundle}
         )
-        validate_component(self.scheme_loader, ISchemeLoader)
+        validate_component(self.scheme_loader, ISchemeLoader, 'scheme_loader must be an ISchemeLoader instance')
 
         self.tar_processor = make_component(
             self.tar_processor, TarProcessor, {
@@ -94,7 +94,7 @@ class GeneratorComponentBundle:
                 'template_processor': self.template_processor
             }
         )
-        validate_component(self.tar_processor, ITarProcessor)
+        validate_component(self.tar_processor, ITarProcessor, 'tar_processor must be an ITarProcessor instance')
 
 
     def validate(self) -> None:

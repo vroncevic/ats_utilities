@@ -25,12 +25,9 @@ Execute
 from unittest import TestCase, main, mock
 from ats_utilities.reporter.ireporter import IReporter
 from ats_utilities.reporter.engine import Reporter
-from ats_utilities.exceptions.ats_type_error import ATSTypeError
-from ats_utilities.exceptions.ats_value_error import ATSValueError
+from ats_utilities.exceptions import ATSAttributeError, ATSRuntimeError, ATSTypeError, ATSValueError
 from ats_utilities.reporter.component_bundle import ReporterComponentBundle
 from ats_utilities.reporter.proxy_reporter import vreport
-from ats_utilities.exceptions.ats_runtime_error import ATSRuntimeError
-from ats_utilities.exceptions.ats_attribute_error import ATSAttributeError
 from ats_utilities.reporter.theme.engine import ConsoleTheme
 
 __author__: str = 'Vladimir Roncevic'

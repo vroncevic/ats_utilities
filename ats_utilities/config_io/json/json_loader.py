@@ -71,6 +71,7 @@ class JSONLoader(ILoader):
     _checker: IChecker
     _reporter: IReporter
     _verbose: bool
+    _configuration: IJSONProcessor | None
 
     def __init__(
         self,
@@ -95,20 +96,18 @@ class JSONLoader(ILoader):
         '''
         config_file_bundle: ConfigFileBundle = config_bundle or ConfigFileBundle()
         factory_context_bundle(self, config_file_bundle.context)
-        context_bundle_shared: ContextBundle = ContextBundle(
-            checker=self._checker, reporter=self._reporter, verbose=self._verbose
-        )
         file_checker: IFileCheck = make_component(
-            config_file_bundle.file_checker, FileCheck, {'config_bundle': context_bundle_shared}
+            config_file_bundle.file_checker, FileCheck,
+            {'config_bundle': ContextBundle(checker=self._checker, reporter=self._reporter, verbose=self._verbose)}
         )
-        validate_component(file_checker, FileCheck)
+        validate_component(file_checker, IFileCheck, 'file_checker must be an IFileCheck instance')
         processor: IJSONProcessor = make_component(json_processor, JSONProcessor, None)
-        validate_component(processor, JSONProcessor)
+        validate_component(processor, IJSONProcessor, 'processor must be an IJSONProcessor instance')
         json2obj: IRead = make_component(json2object, Json2Object, {
             'config_file': info_file, 'config_bundle': config_file_bundle, 'json_processor': processor
         })
-        validate_component(json2obj, Json2Object)
-        self._configuration: IJSONProcessor | None = None
+        validate_component(json2obj, IRead, 'json2obj must be an IRead instance')
+        self._configuration = None
 
         if bool(json2obj):
             self._configuration = json2obj.read_configuration()

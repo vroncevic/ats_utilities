@@ -37,7 +37,7 @@ from ats_utilities.option.component_bundle import OptionComponentBundle
 from ats_utilities.context_bundle import ContextBundle
 from ats_utilities.option.command.command_option import CommandOption
 from ats_utilities.option.command.ioption_command import IOptionCommand
-from ats_utilities.exceptions.ats_value_error import ATSValueError
+from ats_utilities.exceptions import ATSValueError
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -150,6 +150,36 @@ class DummyOptionCommand(IOptionCommand):
             :rtype: <str>
         '''
         return 'DummyOptionCommand'
+
+
+class DummyActionNargsCommand(IOptionCommand):
+    @property
+    def name(self) -> str:
+        return 'custom'
+
+    @property
+    def help_text(self) -> str:
+        return 'custom help text'
+
+    @property
+    def options(self) -> list[CommandOption]:
+        return [
+            CommandOption(
+                name='--flag',
+                help_text='flag help',
+                action='store_true',
+                required=False
+            ),
+            CommandOption(
+                name='--items',
+                help_text='items list help',
+                nargs='*',
+                required=False
+            )
+        ]
+
+    def __str__(self) -> str:
+        return 'DummyActionNargsCommand'
 
 
 class OptionParserTestCase(TestCase):
@@ -292,6 +322,20 @@ class OptionParserTestCase(TestCase):
             command_name, params = self.option_parser.parse_command(None)
             self.assertEqual(command_name, 'dummy')
             self.assertEqual(params.get('req_param'), 'cli_val')
+
+    def test_parser_strategy_more_coverage(self) -> None:
+        '''Test strategy where subparsers is already initialized, options have action/nargs.'''
+        cmd = DummyActionNargsCommand()
+        # Register first time (initializes _subparsers)
+        self.option_parser.register_commands([cmd])
+        # Register second time (re-uses existing _subparsers, covering 178->183 branch)
+        self.option_parser.register_commands([cmd])
+
+        # Test options with action and nargs (covers lines 190 and 196)
+        command_name, params = self.option_parser.parse_command(['custom', '--flag', '--items', 'a', 'b'])
+        self.assertEqual(command_name, 'custom')
+        self.assertTrue(params.get('flag'))
+        self.assertEqual(params.get('items'), ['a', 'b'])
 
     def test_command_option_with_name_as_none(self) -> None:
         cmd: CommandOption = CommandOption(None, 'help_text')

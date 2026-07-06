@@ -57,6 +57,7 @@ class CFGProcessor(ICFGProcessor):
     '''
 
     _REGEX_EXP: str = r'^\s*$'
+    _data: dict[str, str]
 
     def __init__(self) -> None:
         '''

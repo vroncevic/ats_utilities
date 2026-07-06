@@ -85,19 +85,19 @@ class CheckerComponentBundle:
         '''
         if self.format_validator is None:
             self.format_validator = FormatValidator()
-            validate_component(self.format_validator, IFormatValidator)
+            validate_component(self.format_validator, IFormatValidator, 'format_validator must be an IFormatValidator instance')
 
         if self.type_validator is None:
             self.type_validator = TypeValidator()
-            validate_component(self.type_validator, ITypeValidator)
+            validate_component(self.type_validator, ITypeValidator, 'type_validator must be an ITypeValidator instance')
 
         if self.context_provider is None:
             self.context_provider = ContextProvider()
-            validate_component(self.context_provider, IContextProvider)
+            validate_component(self.context_provider, IContextProvider, 'context_provider must be an IContextProvider instance')
 
         if self.check_reporter is None:
             self.check_reporter = CheckReporter()
-            validate_component(self.check_reporter, ICheckReporter)
+            validate_component(self.check_reporter, ICheckReporter, 'check_reporter must be an ICheckReporter instance')
 
     def validate(self) -> None:
         '''

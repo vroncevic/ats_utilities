@@ -54,6 +54,8 @@ class JSONProcessor(IJSONProcessor):
                 | __str__ - Returns the JSONProcessor as string representation.
     '''
 
+    _data: dict[str, str]
+
     def __init__(self) -> None:
         '''
             Initializes JSONProcessor constructor.
@@ -76,6 +78,7 @@ class JSONProcessor(IJSONProcessor):
         try:
             self._data = loads(json_string)
             return True
+
         except JSONDecodeError:
             return False
 

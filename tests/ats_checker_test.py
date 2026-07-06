@@ -28,10 +28,7 @@ from ats_utilities.checker.engine import Checker
 from ats_utilities.checker.ichecker import ErrorChecker, IChecker, ParametersSpecs
 from ats_utilities.checker.proxy_validator import vcheck
 from ats_utilities.checker.type.type_validator import TypeValidator
-from ats_utilities.exceptions.ats_runtime_error import ATSRuntimeError
-from ats_utilities.exceptions.ats_attribute_error import ATSAttributeError
-from ats_utilities.exceptions.ats_type_error import ATSTypeError
-from ats_utilities.exceptions.ats_value_error import ATSValueError
+from ats_utilities.exceptions import ATSAttributeError, ATSRuntimeError, ATSTypeError, ATSValueError
 from ats_utilities.reporter.ireporter import IReporter
 from ats_utilities.reporter.engine import Reporter
 from ats_utilities.checker.reporter.check_reporter import CheckReporter
@@ -462,6 +459,9 @@ class TypeValidatorTestCase(TestCase):
         self.assertTrue(validator_inst.is_subtype(b, 'A'))
         self.assertTrue(validator_inst.is_subtype(b, 'object'))
         self.assertFalse(validator_inst.is_subtype(b, 'str'))
+        self.assertTrue(validator_inst.is_subtype([], 'Sequence'))
+        self.assertTrue(validator_inst.is_subtype({}, 'Mapping'))
+        self.assertFalse(validator_inst.is_subtype(123, 'Iterable'))
 
     def test_get_type_name(self) -> None:
         '''

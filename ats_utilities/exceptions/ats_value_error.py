@@ -22,6 +22,8 @@ Info
 
 from __future__ import annotations
 
+from ats_utilities.exceptions.ats_error import ATSError
+
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
@@ -32,7 +34,7 @@ __email__: str = 'elektron.ronca@gmail.com'
 __status__: str = 'Updated'
 
 
-class ATSValueError(ValueError):
+class ATSValueError(ATSError, ValueError):
     '''
         Defines class ATSValueError with attribute(s) and method(s).
         Creates an exception for the check value mechanism.

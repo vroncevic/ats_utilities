@@ -71,6 +71,8 @@ class YAMLStorer(IStorer):
     _checker: IChecker
     _reporter: IReporter
     _verbose: bool
+    _processor: IYAMLProcessor
+    _obj2yaml: IWrite
 
     def __init__(
         self,
@@ -95,12 +97,12 @@ class YAMLStorer(IStorer):
         '''
         config_file_bundle: ConfigFileBundle = config_bundle or ConfigFileBundle()
         factory_context_bundle(self, config_file_bundle.context)
-        self._processor: IYAMLProcessor = make_component(yaml_processor, YAMLProcessor, None)
-        validate_component(self._processor, YAMLProcessor)
-        self._obj2yaml: IWrite = make_component(object2yaml, Object2Yaml, {
+        self._processor = make_component(yaml_processor, YAMLProcessor, None)
+        validate_component(self._processor, IYAMLProcessor, 'processor must be an IYAMLProcessor instance')
+        self._obj2yaml = make_component(object2yaml, Object2Yaml, {
             'config_file': info_file, 'config_bundle': config_file_bundle
         })
-        validate_component(self._obj2yaml, Object2Yaml)
+        validate_component(self._obj2yaml, IWrite, 'obj2yaml must be an IWrite instance')
 
     @vcheck([('dict:config', None)])
     @override

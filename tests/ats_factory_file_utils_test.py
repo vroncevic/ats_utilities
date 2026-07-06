@@ -28,8 +28,7 @@ from ats_utilities.factory_file_utils import (
     check_file_exists, normalize_path, resolve_relative_path, is_excluded_path,
     format_casing_by_match, write_content, apply_path_replacements
 )
-from ats_utilities.exceptions.ats_type_error import ATSTypeError
-from ats_utilities.exceptions.ats_value_error import ATSValueError
+from ats_utilities.exceptions import ATSTypeError, ATSValueError
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -182,6 +181,47 @@ class ATSFactoryFileUtilsTestCase(TestCase):
             apply_path_replacements('path', 123, vals)  # type: ignore
         with self.assertRaises(ATSTypeError):
             apply_path_replacements('path', path_replacements, 123)  # type: ignore
+
+    def test_factory_file_utils_unhappy_paths(self) -> None:
+        '''Test unhappy path checks in factory_file_utils raising ATSValueError.'''
+        with self.assertRaises(ATSValueError):
+            check_file_exists("")
+
+        with self.assertRaises(ATSValueError):
+            normalize_path("")
+
+        with self.assertRaises(ATSValueError):
+            resolve_relative_path("", "foo")
+        with self.assertRaises(ATSValueError):
+            resolve_relative_path("foo", "")
+
+        with self.assertRaises(ATSValueError):
+            is_excluded_path("", ["pattern"])
+        with self.assertRaises(ATSValueError):
+            is_excluded_path("foo", [])
+
+        with self.assertRaises(ATSValueError):
+            format_casing_by_match("", "d", "u", "c", "da")
+        with self.assertRaises(ATSValueError):
+            format_casing_by_match("foo", "", "u", "c", "da")
+        with self.assertRaises(ATSValueError):
+            format_casing_by_match("foo", "d", "", "c", "da")
+        with self.assertRaises(ATSValueError):
+            format_casing_by_match("foo", "d", "u", "", "da")
+        with self.assertRaises(ATSValueError):
+            format_casing_by_match("foo", "d", "u", "c", "")
+
+        with self.assertRaises(ATSValueError):
+            write_content("", "content")
+        with self.assertRaises(ATSValueError):
+            write_content("path", "")
+
+        with self.assertRaises(ATSValueError):
+            apply_path_replacements("", {"a": "b"}, {"b": "c"})
+        with self.assertRaises(ATSValueError):
+            apply_path_replacements("path", {}, {"b": "c"})
+        with self.assertRaises(ATSValueError):
+            apply_path_replacements("path", {"a": "b"}, {})
 
 
 if __name__ == '__main__':

@@ -27,7 +27,7 @@ from unittest import TestCase, main
 from ats_utilities.config_setup.pro_config import ProConfig
 from ats_utilities.reporter.ireporter import IReporter
 from ats_utilities.reporter.engine import Reporter
-from ats_utilities.exceptions.ats_type_error import ATSTypeError
+from ats_utilities.exceptions import ATSTypeError
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'

@@ -23,10 +23,11 @@ from __future__ import annotations
 
 from collections.abc import Sequence, Mapping
 from fnmatch import fnmatch
-from os.path import exists, normpath
+from os.path import normpath
+from pathlib import Path, PurePosixPath
 from re import compile, escape, Match, IGNORECASE
 
-from ats_utilities.exceptions.ats_value_error import ATSValueError
+from ats_utilities.exceptions import ATSValueError
 from ats_utilities.factory_context_error import raise_context_error
 from ats_utilities.factory_type import check_type
 
@@ -68,7 +69,7 @@ def check_file_exists(
             depth=3
         )
 
-    if not exists(file_path):
+    if not Path(file_path).exists():
         raise_context_error(
             fallback_prefix="factory_file_utils::check_file_exists",
             fallback_msg=f"file at the provided path does not exist: {file_path}",
@@ -108,10 +109,7 @@ def normalize_path(
             depth=3
         )
 
-    clean_file_path = normpath(file_path).replace('\\', '/')
-
-    if clean_file_path.startswith('./'):
-        clean_file_path = clean_file_path[2:]
+    clean_file_path = PurePosixPath(normpath(file_path.replace('\\', '/'))).as_posix()
 
     if clean_file_path.startswith('/'):
         clean_file_path = clean_file_path[1:]

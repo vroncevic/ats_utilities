@@ -31,9 +31,7 @@ from ats_utilities.generator.scheme.scheme_loader import SchemeLoader
 from ats_utilities.generator.template.template_processor import TemplateProcessor
 from ats_utilities.generator.tar.tar_processor import TarProcessor
 from ats_utilities.generator.tar.tar_process_bundle import TarProcessBundle
-from ats_utilities.exceptions.ats_type_error import ATSTypeError
-from ats_utilities.exceptions.ats_value_error import ATSValueError
-from ats_utilities.exceptions.ats_generator_error import ATSGeneratorError
+from ats_utilities.exceptions import ATSGeneratorError, ATSTypeError, ATSValueError
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'

@@ -25,7 +25,7 @@ from typing import Any, get_origin, Union
 from types import UnionType
 
 from ats_utilities.factory_context_error import raise_context_error
-from ats_utilities.exceptions.ats_type_error import ATSTypeError
+from ats_utilities.exceptions import ATSTypeError
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -50,16 +50,21 @@ def _resolve_type(t: Any) -> Any:
         :exceptions: None.
     '''
     origin = get_origin(t)
+
     if origin in (Union, UnionType):
         args = getattr(t, '__args__', ())
         resolved_args = []
+
         for arg in args:
             res = _resolve_type(arg)
+
             if isinstance(res, tuple):
                 resolved_args.extend(res)
             else:
                 resolved_args.append(res)
+
         return tuple(resolved_args)
+
     return origin or t
 
 def check_type(
@@ -84,13 +89,17 @@ def check_type(
     '''
     if isinstance(class_or_tuple, tuple):
         check_types = []
+
         for t in class_or_tuple:
             res = _resolve_type(t)
+
             if isinstance(res, tuple):
                 check_types.extend(res)
             else:
                 check_types.append(res)
+
         check_types = tuple(check_types)
+
     else:
         check_types = _resolve_type(class_or_tuple)
 

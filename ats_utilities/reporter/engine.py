@@ -29,7 +29,7 @@ from ats_utilities.reporter.ireporter import IReporter
 from ats_utilities.reporter.component_bundle import ReporterComponentBundle
 from ats_utilities.checker.ichecker import IChecker
 from ats_utilities.reporter.theme.iconsole_theme import IConsoleTheme
-from ats_utilities.exceptions.ats_type_error import ATSTypeError
+from ats_utilities.exceptions import ATSAttributeError, ATSRuntimeError, ATSTypeError, ATSValueError
 from ats_utilities.checker.proxy_validator import vcheck
 from ats_utilities.factory_class import cls_name, to_str
 
@@ -88,7 +88,7 @@ class Reporter(IReporter):
             # All components initialized successfully.
             self._is_initialized = True
 
-        except ATSTypeError as exc:
+        except (ATSTypeError, ATSValueError, ATSRuntimeError, ATSAttributeError) as exc:
             print(f"\x1b[31m{cls_name(self)} {exc}\x1b[0m")
 
         except Exception as exc:

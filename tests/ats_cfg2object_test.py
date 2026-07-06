@@ -25,7 +25,7 @@ Execute
 from unittest import TestCase, main
 from os.path import dirname
 from ats_utilities.config_io.cfg.cfg2object import Cfg2Object
-from ats_utilities.exceptions.ats_type_error import ATSTypeError
+from ats_utilities.exceptions import ATSTypeError
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'

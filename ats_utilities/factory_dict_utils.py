@@ -24,7 +24,7 @@ from __future__ import annotations
 from typing import Any
 from collections.abc import Mapping
 
-from ats_utilities.exceptions.ats_value_error import ATSValueError
+from ats_utilities.exceptions import ATSValueError
 from ats_utilities.factory_context_error import raise_context_error
 from ats_utilities.factory_type import check_type
 

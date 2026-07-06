@@ -70,6 +70,8 @@ class CFGStorer(IStorer):
     _checker: IChecker
     _reporter: IReporter
     _verbose: bool
+    _processor: ICFGProcessor
+    _obj2cfg: IWrite
 
     def __init__(
         self,
@@ -94,12 +96,12 @@ class CFGStorer(IStorer):
         '''
         config_file_bundle: ConfigFileBundle = config_bundle or ConfigFileBundle()
         factory_context_bundle(self, config_file_bundle.context)
-        self._processor: ICFGProcessor = make_component(cfg_processor, CFGProcessor, None)
-        validate_component(self._processor, CFGProcessor)
-        self._obj2cfg: IWrite = make_component(object2cfg, Object2Cfg, {
+        self._processor = make_component(cfg_processor, CFGProcessor, None)
+        validate_component(self._processor, ICFGProcessor, 'processor must be an ICFGProcessor instance')
+        self._obj2cfg = make_component(object2cfg, Object2Cfg, {
             'config_file': info_file, 'config_bundle': config_file_bundle
         })
-        validate_component(self._obj2cfg, Object2Cfg)
+        validate_component(self._obj2cfg, IWrite, 'obj2cfg must be an IWrite instance')
 
     @vcheck([('dict:config', None)])
     @override

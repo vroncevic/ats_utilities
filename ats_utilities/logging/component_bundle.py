@@ -85,7 +85,7 @@ class LoggingComponentBundle:
                 'context_bundle': self.context_bundle
             }
         )
-        validate_component(self.logger, ILogger)
+        validate_component(self.logger, ILogger, 'logger must be an ILogger instance')
 
     def validate(self) -> None:
         '''

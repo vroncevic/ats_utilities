@@ -29,9 +29,7 @@ from typing import override
 from ats_utilities.checker.ichecker import IChecker
 from ats_utilities.reporter.ireporter import IReporter
 from ats_utilities.context_bundle import ContextBundle
-from ats_utilities.exceptions.ats_generator_error import ATSGeneratorError
-from ats_utilities.exceptions.ats_type_error import ATSTypeError
-from ats_utilities.exceptions.ats_value_error import ATSValueError
+from ats_utilities.exceptions import ATSAttributeError, ATSGeneratorError, ATSRuntimeError, ATSTypeError, ATSValueError
 from ats_utilities.factory_class import to_str, cls_name
 from ats_utilities.factory_context_bundle import factory_context_bundle
 from ats_utilities.generator.component_bundle import GeneratorComponentBundle
@@ -103,8 +101,9 @@ class Generator(IGenerator):
             # All components initialized successfully.
             self._is_initialized = True
 
-        except (ATSTypeError, ATSValueError) as exc:
+        except (ATSTypeError, ATSValueError, ATSRuntimeError, ATSAttributeError) as exc:
             print(f"\x1b[31m{cls_name(self)} {exc}\x1b[0m")
+
         except Exception as exc:
             print(f"\x1b[31m{cls_name(self)} unexpected exception: {exc}\x1b[0m")
 

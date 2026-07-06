@@ -24,8 +24,7 @@ Execute
 
 from unittest.mock import MagicMock
 from unittest import TestCase, main, mock
-from ats_utilities.exceptions.ats_type_error import ATSTypeError
-from ats_utilities.exceptions.ats_value_error import ATSValueError
+from ats_utilities.exceptions import ATSTypeError, ATSValueError
 from os.path import dirname
 from ats_utilities.base.engine import Base
 from ats_utilities.base.component_bundle import BaseComponentBundle
@@ -128,6 +127,39 @@ class CLITestCase(TestCase):
         mock_make_component.side_effect = Exception('Unexpected error')
         invalid_base = ATSCliCfgAPI()
         self.assertFalse(invalid_base.is_initialized())
+
+    @mock.patch('ats_utilities.base.engine.factory_context_bundle')
+    def test_base_initialization_failure_direct(self, mock_factory_context_bundle) -> None:
+        '''Test ATSTypeError block inside Base.__init__.'''
+        mock_factory_context_bundle.side_effect = ATSTypeError('test type error')
+        invalid_base = ATSCliCfgAPI()
+        self.assertFalse(invalid_base.is_initialized())
+
+    @mock.patch('ats_utilities.base.engine.factory_context_bundle')
+    def test_base_initialization_unexpected_exception_direct(self, mock_factory_context_bundle) -> None:
+        '''Test generic Exception block inside Base.__init__.'''
+        mock_factory_context_bundle.side_effect = Exception('unexpected')
+        invalid_base = ATSCliCfgAPI()
+        self.assertFalse(invalid_base.is_initialized())
+
+    def test_base_generator_disabled(self) -> None:
+        '''Test Base.__init__ when generator is disabled.'''
+        current_dir = dirname(__file__)
+        base_info = f'{current_dir}/config/correct/ats_cli_cfg_api.cfg'
+        mock_splasher = MagicMock(spec=Splasher)
+        bundle = BaseComponentBundle(info_file=base_info, splasher=mock_splasher, use_generator=False)
+        base = Base(bundle)
+        self.assertTrue(base.is_initialized())
+        self.assertFalse(hasattr(base, '_generator'))
+
+    def test_add_new_option_when_not_initialized(self) -> None:
+        '''Test that add_new_option does nothing when not initialized.'''
+        # We need a base that is not initialized
+        with mock.patch('ats_utilities.base.engine.factory_context_bundle', side_effect=ATSTypeError('fail')):
+            invalid_base = ATSCliCfgAPI()
+        invalid_base._options_parser = MagicMock()
+        invalid_base.add_new_option('-t', '--test')
+        invalid_base._options_parser.add_operation.assert_not_called()
 
     def test_process(self) -> None:
         '''Test for process.'''

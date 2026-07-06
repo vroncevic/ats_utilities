@@ -27,7 +27,7 @@ from typing import Any
 from collections.abc import Callable
 from functools import wraps
 
-from ats_utilities.exceptions.ats_value_error import ATSValueError
+from ats_utilities.exceptions import ATSValueError
 from ats_utilities.factory_context_error import raise_context_error
 
 __author__: str = 'Vladimir Roncevic'

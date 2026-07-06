@@ -23,14 +23,7 @@ Execute
 '''
 
 from unittest import TestCase, main
-from ats_utilities.exceptions.ats_type_error import ATSTypeError
-from ats_utilities.exceptions.ats_attribute_error import ATSAttributeError
-from ats_utilities.exceptions.ats_bad_call_error import ATSBadCallError
-from ats_utilities.exceptions.ats_file_error import ATSFileError
-from ats_utilities.exceptions.ats_key_error import ATSKeyError
-from ats_utilities.exceptions.ats_lookup_error import ATSLookupError
-from ats_utilities.exceptions.ats_parameter_error import ATSParameterError
-from ats_utilities.exceptions.ats_value_error import ATSValueError
+from ats_utilities.exceptions import ATSAttributeError, ATSBadCallError, ATSFileError, ATSKeyError, ATSLookupError, ATSParameterError, ATSTypeError, ATSValueError
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'

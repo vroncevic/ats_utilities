@@ -29,8 +29,7 @@ from ats_utilities.splasher.progressbar.progress_bar import ProgressBar
 from ats_utilities.splasher.component_bundle import SplashComponentBundle
 from ats_utilities.splasher.splash_center_bundle import SplashCenterBundle
 from ats_utilities.splasher.splash_keys import SplashKeys
-from ats_utilities.exceptions.ats_type_error import ATSTypeError
-from ats_utilities.exceptions.ats_value_error import ATSValueError
+from ats_utilities.exceptions import ATSTypeError, ATSValueError
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -92,6 +91,22 @@ class ATSSplashTestCase(TestCase):
             bundle = None
 
         splash: Splasher = Splasher(bundle)
+        self.assertFalse(splash.is_initialized())
+
+    @mock.patch('sys.stdout')
+    @mock.patch('builtins.print')
+    def test_splasher_initialization_ats_error(self, mock_print, mock_stdout) -> None:
+        '''Test Splasher initialization ATS error (non-existent logo).'''
+        bundle = SplashComponentBundle(
+            prop={
+                SplashKeys.ATS_ORGANIZATION: 'App Example',
+                SplashKeys.ATS_REPOSITORY: 'app_example',
+                SplashKeys.ATS_NAME: 'appexample',
+                SplashKeys.ATS_LOGO_PATH: '/non_existent_logo_12345.logo',
+                SplashKeys.ATS_USE_GITHUB_INFRASTRUCTURE: True
+            }
+        )
+        splash = Splasher(bundle)
         self.assertFalse(splash.is_initialized())
 
     @mock.patch('sys.stdout')

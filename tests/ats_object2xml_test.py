@@ -26,7 +26,7 @@ from unittest import TestCase, main, mock
 from os.path import dirname
 from ats_utilities.config_io.xml.object2xml import Object2Xml
 from ats_utilities.config_io.xml.ixml_processor import IXMLProcessor as BaseIXMLProcessor
-from ats_utilities.exceptions.ats_type_error import ATSTypeError
+from ats_utilities.exceptions import ATSTypeError
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'

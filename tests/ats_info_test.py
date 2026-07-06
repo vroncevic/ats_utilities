@@ -35,8 +35,7 @@ from ats_utilities.info.repository.repository import Repository
 from ats_utilities.info.use_github.use_github import UseGitHub
 from ats_utilities.info.version.version import Version
 from ats_utilities.info.info_ok.info_ok import InfoOk
-from ats_utilities.exceptions.ats_type_error import ATSTypeError
-from ats_utilities.exceptions.ats_value_error import ATSValueError
+from ats_utilities.exceptions import ATSTypeError, ATSValueError
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -218,6 +217,24 @@ class InfoManagerTestCase(TestCase):
         context = self.manager.get_shared_context()
         self.assertIsInstance(context, ContextBundle)
 
+    def test_info_set_valid_values(self) -> None:
+        '''Test setting valid values on InfoManager.'''
+        self.manager.name = "New name"
+        self.assertEqual(self.manager.name, "New name")
+        self.manager.version = "2.0.0"
+        self.assertEqual(self.manager.version, "2.0.0")
+
+    def test_info_missing_keys_failure(self) -> None:
+        '''Test InfoManager.set_info raises ATSValueError when key is missing.'''
+        with self.assertRaises(ATSValueError):
+            self.manager.set_info({'ats_name': 'Simple Tool'})
+
+    def test_info_use_github_infrastructure_bool(self) -> None:
+        '''Test InfoManager.set_info when ats_use_github_infrastructure is already a boolean.'''
+        info = dict(self.base_info)
+        info['ats_use_github_infrastructure'] = True
+        self.manager.set_info(info)
+        self.assertTrue(self.manager.use_github_infrastructure)
 
 
 class InfoComponentsTestCase(TestCase):
@@ -360,8 +377,10 @@ class InfoComponentsTestCase(TestCase):
         '''
         component = InfoOk()
         self.assertFalse(component.info_ok)
+        self.assertFalse(component.not_none())
         component.info_ok = True
         self.assertTrue(component.info_ok)
+        self.assertTrue(component.not_none())
         self.assertIsInstance(str(component), str)
 
 

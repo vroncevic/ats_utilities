@@ -25,7 +25,7 @@ from __future__ import annotations
 from dataclasses import dataclass, asdict
 from typing import Any
 
-from ats_utilities.factory_value import require_not_none, require_not_empty
+from ats_utilities.factory_value import require_not_empty
 from ats_utilities.factory_type import check_type
 
 __author__: str = 'Vladimir Roncevic'
@@ -90,8 +90,11 @@ class FileBundle:
 
             :param other: Another FileBundle instance to merge into this one.
             :type other: <FileBundle>
-            :exceptions: None.
+            :exceptions:
+                | ATSTypeError: Other must be a FileBundle instance.
         '''
+        check_type(other, FileBundle, 'other must be a FileBundle instance')
+
         for field_name in self.__dataclass_fields__:
             other_value: Any = getattr(other, field_name)
 

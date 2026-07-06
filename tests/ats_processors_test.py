@@ -30,7 +30,7 @@ from ats_utilities.config_io.yaml.yaml_processor import YAMLProcessor
 from ats_utilities.config_io.xml.xml_processor import XMLProcessor
 from ats_utilities.config_io.cfg.cfg_processor import CFGProcessor
 from ats_utilities.config_io.ini.ini_processor import INIProcessor
-from ats_utilities.exceptions.ats_error import ATSError
+from ats_utilities.exceptions import ATSError
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'

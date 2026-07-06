@@ -66,6 +66,7 @@ class INIProcessor(IINIProcessor):
     _VERSION: str = 'ats_version'
     _BUILD_DATE: str = 'ats_build_date'
     _LICENCE: str = 'ats_licence'
+    _config: ConfigParser
 
     def __init__(self) -> None:
         '''
@@ -89,6 +90,7 @@ class INIProcessor(IINIProcessor):
         try:
             self._config.read_file(stream)
             return True
+
         except (OSError, ConfigParserError):
             return False
 

@@ -71,6 +71,7 @@ class INILoader(ILoader):
     _checker: IChecker
     _reporter: IReporter
     _verbose: bool
+    _configuration: IINIProcessor | None
 
     def __init__(
         self,
@@ -95,20 +96,18 @@ class INILoader(ILoader):
         '''
         config_file_bundle: ConfigFileBundle = config_bundle or ConfigFileBundle()
         factory_context_bundle(self, config_file_bundle.context)
-        context_bundle_shared: ContextBundle = ContextBundle(
-            checker=self._checker, reporter=self._reporter, verbose=self._verbose
-        )
         file_checker: IFileCheck = make_component(
-            config_file_bundle.file_checker, FileCheck, {'config_bundle': context_bundle_shared}
+            config_file_bundle.file_checker, FileCheck,
+            {'config_bundle': ContextBundle(checker=self._checker, reporter=self._reporter, verbose=self._verbose)}
         )
-        validate_component(file_checker, FileCheck)
+        validate_component(file_checker, IFileCheck, 'file_checker must be an IFileCheck instance')
         processor: IINIProcessor = make_component(ini_processor, INIProcessor, None)
-        validate_component(processor, INIProcessor)
+        validate_component(processor, IINIProcessor, 'processor must be an IINIProcessor instance')
         ini2obj: IRead = make_component(ini2object, Ini2Object, {
             'config_file': info_file, 'config_bundle': config_file_bundle, 'ini_processor': processor
         })
-        validate_component(ini2obj, Ini2Object)
-        self._configuration: IINIProcessor | None = None
+        validate_component(ini2obj, IRead, 'ini2obj must be an IRead instance')
+        self._configuration = None
 
         if bool(ini2obj):
             self._configuration = ini2obj.read_configuration()

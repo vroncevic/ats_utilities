@@ -26,7 +26,7 @@ from __future__ import annotations
 from collections.abc import Mapping
 from typing import Any
 
-from ats_utilities.exceptions.ats_type_error import ATSTypeError
+from ats_utilities.exceptions import ATSTypeError
 from ats_utilities.factory_context_error import raise_context_error
 
 __author__: str = 'Vladimir Roncevic'

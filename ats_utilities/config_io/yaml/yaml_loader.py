@@ -71,6 +71,7 @@ class YAMLLoader(ILoader):
     _checker: IChecker
     _reporter: IReporter
     _verbose: bool
+    _configuration: IYAMLProcessor | None
 
     def __init__(
         self,
@@ -95,20 +96,18 @@ class YAMLLoader(ILoader):
         '''
         config_file_bundle: ConfigFileBundle = config_bundle or ConfigFileBundle()
         factory_context_bundle(self, config_file_bundle.context)
-        context_bundle_shared: ContextBundle = ContextBundle(
-            checker=self._checker, reporter=self._reporter, verbose=self._verbose
-        )
         file_checker: IFileCheck = make_component(
-            config_file_bundle.file_checker, FileCheck, {'config_bundle': context_bundle_shared}
+            config_file_bundle.file_checker, FileCheck,
+            {'config_bundle': ContextBundle(checker=self._checker, reporter=self._reporter, verbose=self._verbose)}
         )
-        validate_component(file_checker, FileCheck)
+        validate_component(file_checker, IFileCheck, 'file_checker must be an IFileCheck instance')
         processor: IYAMLProcessor = make_component(yaml_processor, YAMLProcessor, None)
-        validate_component(processor, YAMLProcessor)
+        validate_component(processor, IYAMLProcessor, 'processor must be an IYAMLProcessor instance')
         yaml2obj: IRead = make_component(yaml2object, Yaml2Object, {
             'config_file': info_file, 'config_bundle': config_file_bundle, 'yaml_processor': processor
         })
-        validate_component(yaml2obj, Yaml2Object)
-        self._configuration: IYAMLProcessor | None = None
+        validate_component(yaml2obj, IRead, 'yaml2obj must be an IRead instance')
+        self._configuration = None
 
         if bool(yaml2obj):
             self._configuration = yaml2obj.read_configuration()

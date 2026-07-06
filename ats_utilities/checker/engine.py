@@ -31,7 +31,7 @@ from ats_utilities.checker.context.icontext_provider import IContextProvider
 from ats_utilities.checker.reporter.icheck_reporter import ICheckReporter
 from ats_utilities.checker.component_bundle import CheckerComponentBundle
 from ats_utilities.checker.reporter.checker_reporter_bundle import CheckerReporterBundle, ParamMetadata
-from ats_utilities.exceptions.ats_type_error import ATSTypeError
+from ats_utilities.exceptions import ATSAttributeError, ATSRuntimeError, ATSTypeError, ATSValueError
 from ats_utilities.factory_class import cls_name, to_str
 
 __author__: str = 'Vladimir Roncevic'
@@ -94,7 +94,7 @@ class Checker(IChecker):
             # All components initialized successfully.
             self._is_initialized = True
 
-        except ATSTypeError as exc:
+        except (ATSTypeError, ATSValueError, ATSRuntimeError, ATSAttributeError) as exc:
             print(f"\x1b[31m{cls_name(self)} {exc}\x1b[0m")
 
         except Exception as exc:

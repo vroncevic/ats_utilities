@@ -71,6 +71,7 @@ class CFGLoader(ILoader):
     _checker: IChecker
     _reporter: IReporter
     _verbose: bool
+    _configuration: ICFGProcessor | None
 
     def __init__(
         self,
@@ -95,20 +96,18 @@ class CFGLoader(ILoader):
         '''
         config_file_bundle: ConfigFileBundle = config_bundle or ConfigFileBundle()
         factory_context_bundle(self, config_file_bundle.context)
-        context_bundle_shared: ContextBundle = ContextBundle(
-            checker=self._checker, reporter=self._reporter, verbose=self._verbose
-        )
         file_checker: IFileCheck = make_component(
-            config_file_bundle.file_checker, FileCheck, {'config_bundle': context_bundle_shared}
+            config_file_bundle.file_checker, FileCheck,
+            {'config_bundle': ContextBundle(checker=self._checker, reporter=self._reporter, verbose=self._verbose)}
         )
-        validate_component(file_checker, FileCheck)
+        validate_component(file_checker, IFileCheck, 'file_checker must be an IFileCheck instance')
         processor: ICFGProcessor = make_component(cfg_processor, CFGProcessor, None)
-        validate_component(processor, CFGProcessor)
+        validate_component(processor, ICFGProcessor, 'processor must be an ICFGProcessor instance')
         cfg2obj: IRead = make_component(cfg2object, Cfg2Object, {
             'config_file': info_file, 'config_bundle': config_file_bundle, 'cfg_processor': processor
         })
-        validate_component(cfg2obj, Cfg2Object)
-        self._configuration: ICFGProcessor | None = None
+        validate_component(cfg2obj, IRead, 'cfg2obj must be an IRead instance')
+        self._configuration = None
 
         if bool(cfg2obj):
             self._configuration = cfg2obj.read_configuration()

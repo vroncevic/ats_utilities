@@ -71,10 +71,11 @@ class XMLStorer(IStorer):
     '''
 
     _SECTION: str = '[ats_info]'
-
     _checker: IChecker
     _reporter: IReporter
     _verbose: bool
+    _processor: IXMLProcessor
+    _obj2xml: IWrite
 
     def __init__(
         self,
@@ -99,12 +100,12 @@ class XMLStorer(IStorer):
         '''
         config_file_bundle: ConfigFileBundle = config_bundle or ConfigFileBundle()
         factory_context_bundle(self, config_file_bundle.context)
-        self._processor: IXMLProcessor = make_component(xml_processor, XMLProcessor, None)
-        validate_component(self._processor, XMLProcessor)
-        self._obj2xml: IWrite = make_component(object2xml, Object2Xml, {
+        self._processor = make_component(xml_processor, XMLProcessor, None)
+        validate_component(self._processor, IXMLProcessor, 'processor must be an IXMLProcessor instance')
+        self._obj2xml = make_component(object2xml, Object2Xml, {
             'config_file': info_file, 'config_bundle': config_file_bundle
         })
-        validate_component(self._obj2xml, Object2Xml)
+        validate_component(self._obj2xml, IWrite, 'obj2xml must be an IWrite instance')
 
     @vcheck([('dict:config', None)])
     @override

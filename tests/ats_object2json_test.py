@@ -27,7 +27,7 @@ from os.path import dirname
 from ats_utilities.config_io.json.json2object import Json2Object
 from ats_utilities.config_io.json.object2json import Object2Json
 from ats_utilities.config_io.json.ijson_processor import IJSONProcessor as BaseIJSONProcessor
-from ats_utilities.exceptions.ats_type_error import ATSTypeError
+from ats_utilities.exceptions import ATSTypeError
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'

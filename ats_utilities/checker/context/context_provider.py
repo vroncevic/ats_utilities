@@ -55,6 +55,8 @@ class ContextProvider(IContextProvider):
                 | __str__ - Returns the ATS context provider as string representation.
     '''
 
+    _stack_index_caller: int
+
     def __init__(self, stack_index_caller: int = 2) -> None:
         '''
             Initializes ContextProvider constructor.
@@ -63,7 +65,7 @@ class ContextProvider(IContextProvider):
             :type stack_index_caller: <int>
             :exceptions: None.
         '''
-        self._stack_index_caller: int = stack_index_caller
+        self._stack_index_caller = stack_index_caller
 
     @override
     def set_stack_index_caller(self, stack_index_caller: int) -> None:

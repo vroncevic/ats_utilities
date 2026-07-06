@@ -104,22 +104,22 @@ class SplashComponentBundle:
         factory_args: dict[str, Any] = {'context_bundle': self.context_bundle}
 
         self.splash_property = make_component(self.splash_property, SplashProperty, factory_args)
-        validate_component(self.splash_property, ISplashProperty)
+        validate_component(self.splash_property, ISplashProperty, 'splash_property must be an ISplashProperty instance')
 
         if self.prop is not None:
             self.splash_property.splash_keys = self.prop
             self.property_validated = self.splash_property.validates()
 
         self.terminal_property = make_component(self.terminal_property, TerminalProperties, factory_args)
-        validate_component(self.terminal_property, ITerminalProperties)
+        validate_component(self.terminal_property, ITerminalProperties, 'terminal_property must be an ITerminalProperties instance')
 
         size: tuple[Any, ...] = self.terminal_property.size()
 
         self.github = make_component(self.github, GitHubInfrastructure, factory_args)
-        validate_component(self.github, IExtInfrastructure)
+        validate_component(self.github, IExtInfrastructure, 'github must be an IExtInfrastructure instance')
 
         self.ext = make_component(self.ext, ExtInfrastructure, factory_args)
-        validate_component(self.ext, IExtInfrastructure)
+        validate_component(self.ext, IExtInfrastructure, 'ext must be an IExtInfrastructure instance')
 
         if self.property_validated and self.prop is not None:
             is_enabled = bool(self.prop.get('enabled', True))
@@ -133,7 +133,7 @@ class SplashComponentBundle:
                     self.ext.infrastructure_property = self.prop
 
         self.pb = make_component(self.pb, ProgressBar, {'end': int(size[1]) - int(int(size[1]) / 2)})
-        validate_component(self.pb, IProgressBar)
+        validate_component(self.pb, IProgressBar, 'pb must be an IProgressBar instance')
 
     def validate(self) -> None:
         '''

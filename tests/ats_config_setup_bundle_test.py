@@ -32,7 +32,7 @@ from ats_utilities.config_setup.pro_name import ProName
 from ats_utilities.config_setup.itemplate_dir import ITemplateDir
 from ats_utilities.config_setup.template_dir import TemplateDir
 from ats_utilities.context_bundle import ContextBundle
-from ats_utilities.exceptions.ats_value_error import ATSValueError
+from ats_utilities.exceptions import ATSValueError
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'

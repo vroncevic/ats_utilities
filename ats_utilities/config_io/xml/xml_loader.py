@@ -71,6 +71,7 @@ class XMLLoader(ILoader):
     _checker: IChecker
     _reporter: IReporter
     _verbose: bool
+    _configuration: IXMLProcessor | None
 
     def __init__(
         self,
@@ -95,20 +96,18 @@ class XMLLoader(ILoader):
         '''
         config_file_bundle: ConfigFileBundle = config_bundle or ConfigFileBundle()
         factory_context_bundle(self, config_file_bundle.context)
-        context_bundle_shared: ContextBundle = ContextBundle(
-            checker=self._checker, reporter=self._reporter, verbose=self._verbose
-        )
         file_checker: IFileCheck = make_component(
-            config_file_bundle.file_checker, FileCheck, {'config_bundle': context_bundle_shared}
+            config_file_bundle.file_checker, FileCheck,
+            {'config_bundle': ContextBundle(checker=self._checker, reporter=self._reporter, verbose=self._verbose)}
         )
-        validate_component(file_checker, FileCheck)
+        validate_component(file_checker, IFileCheck, 'file_checker must be an IFileCheck instance')
         processor: IXMLProcessor = make_component(xml_processor, XMLProcessor, None)
-        validate_component(processor, XMLProcessor)
+        validate_component(processor, IXMLProcessor, 'processor must be an IXMLProcessor instance')
         xml2obj: IRead = make_component(xml2object, Xml2Object, {
             'config_file': info_file, 'config_bundle': config_file_bundle, 'xml_processor': processor
         })
-        validate_component(xml2obj, Xml2Object)
-        self._configuration: IXMLProcessor | None = None
+        validate_component(xml2obj, IRead, 'xml2obj must be an IRead instance')
+        self._configuration = None
 
         if bool(xml2obj):
             self._configuration = xml2obj.read_configuration()

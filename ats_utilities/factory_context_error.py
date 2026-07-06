@@ -21,7 +21,7 @@ Info
 
 from __future__ import annotations
 
-from ats_utilities.exceptions.ats_value_error import ATSValueError
+from ats_utilities.exceptions import ATSValueError
 from ats_utilities.factory_inspector import get_caller_context
 
 __author__: str = 'Vladimir Roncevic'

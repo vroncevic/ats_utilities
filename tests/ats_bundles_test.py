@@ -23,7 +23,7 @@ Execute
 '''
 
 from unittest import TestCase, main
-from unittest.mock import MagicMock
+from unittest.mock import MagicMock, patch
 from tarfile import TarFile, TarInfo
 from ats_utilities.config_io.iread import IRead
 from ats_utilities.config_io.json.ijson_processor import IJSONProcessor
@@ -52,8 +52,7 @@ from ats_utilities.generator.component_bundle import GeneratorComponentBundle
 from ats_utilities.generator.generator_bundle import GeneratorBundle
 from ats_utilities.generator.tar.tar_process_bundle import TarProcessBundle
 from ats_utilities.generator.tar.tar_process_member_bundle import TarProcessMemberBundle
-from ats_utilities.exceptions.ats_value_error import ATSValueError
-from ats_utilities.exceptions.ats_type_error import ATSTypeError
+from ats_utilities.exceptions import ATSTypeError, ATSValueError
 from ats_utilities.checker.ichecker import IChecker
 from ats_utilities.reporter.ireporter import IReporter
 from ats_utilities.option.strategy.iparser_strategy import IParserStrategy
@@ -326,12 +325,28 @@ class BundlesTestCase(TestCase):
         self.assertEqual(bundle1.additional_shifter, 2)
         self.assertEqual(bundle1.text, 'Welcome')
 
+        # Test merge when other fields are None (covers 123->120 branch)
+        bundle3 = SplashCenterBundle()
+        bundle3.columns = None
+        bundle3.additional_shifter = None
+        bundle3.text = None
+        bundle2.merge(bundle3)
+        self.assertEqual(bundle2.columns, 80) # should remain unchanged
+
         bundle1.validate()
         d = bundle1.to_dict()
         self.assertEqual(d['text'], 'Welcome')
 
     def test_splash_center_bundle_validation_errors(self) -> None:
         '''Test SplashCenterBundle validation exceptions.'''
+        # columns negative value in post init gets set to 0
+        b_neg_cols = SplashCenterBundle(columns=-1)
+        self.assertEqual(b_neg_cols.columns, 0)
+
+        # additional_shifter negative value in post init gets set to 0
+        b_neg_shift = SplashCenterBundle(additional_shifter=-1)
+        self.assertEqual(b_neg_shift.additional_shifter, 0)
+
         # columns type error
         with self.assertRaises(ATSTypeError):
             SplashCenterBundle(columns='not_int', additional_shifter=2, text='ok')
@@ -501,6 +516,59 @@ class ComponentBundlesTestCase(TestCase):
         bundle = BaseComponentBundle(info_file=None)
         with self.assertRaises(ValueError):
             bundle.validate()
+
+    @patch('ats_utilities.base.component_bundle.exists', return_value=True)
+    def test_base_component_bundle_generator(self, mock_exists) -> None:
+        '''Test BaseComponentBundle with generator enabled.'''
+        mock_config_loader = MagicMock(spec=IConfigLoader)
+        mock_config_loader.__class__ = IConfigLoader
+        mock_info_manager = MagicMock(spec=IInfoManager)
+        mock_info_manager.__class__ = IInfoManager
+        mock_options_parser = MagicMock(spec=IOptionManager)
+        mock_options_parser.__class__ = IOptionManager
+        mock_logger_manager = MagicMock(spec=ILoggerManager)
+        mock_logger_manager.__class__ = ILoggerManager
+        mock_splasher = MagicMock(spec=ISplasher)
+        mock_splasher.__class__ = ISplasher
+        mock_generator = MagicMock(spec=IGenerator)
+        mock_generator.__class__ = IGenerator
+
+        bundle = BaseComponentBundle(
+            info_file='config_file',
+            config_loader=mock_config_loader,
+            info_manager=mock_info_manager,
+            options_parser=mock_options_parser,
+            logger_manager=mock_logger_manager,
+            splasher=mock_splasher,
+            generator=mock_generator,
+            use_generator=True
+        )
+        bundle.validate()
+        self.assertTrue(bundle.use_generator)
+
+        # Merge with other bundle using generator
+        other = BaseComponentBundle(use_generator=True, generator=mock_generator)
+        bundle.merge(other)
+        self.assertTrue(bundle.use_generator)
+
+    @patch('ats_utilities.base.component_bundle.exists', return_value=True)
+    def test_base_component_bundle_build_exceptions(self, mock_exists) -> None:
+        '''Test build exceptions in BaseComponentBundle.'''
+        # Force ATSTypeError in _build_components by providing wrong type
+        bundle = BaseComponentBundle(info_file='config_file', config_loader="not_a_loader")
+        # Post init should print error but not raise
+        self.assertEqual(bundle.config_loader, "not_a_loader")
+
+        # Test merge build exception handling
+        other = BaseComponentBundle(info_file='config_file', config_loader="not_a_loader")
+        with self.assertRaises(ATSValueError):
+            bundle.merge(other)
+
+        # Force generic Exception
+        with patch('ats_utilities.base.component_bundle.make_component', side_effect=RuntimeError("unexpected")):
+            bundle2 = BaseComponentBundle(info_file='config_file')
+            with self.assertRaises(ATSValueError):
+                bundle2.merge(bundle)
 
     def test_checker_component_bundle(self) -> None:
         '''Test CheckerComponentBundle methods.'''

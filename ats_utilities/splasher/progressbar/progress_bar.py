@@ -67,6 +67,13 @@ class ProgressBar(IProgressBar):
     DEFAULT_BAR_LENGTH: int = 60
     DEFAULT_CHAR_ON: str = '█'
     DEFAULT_CHAR_OFF: str = ' '
+    _end: int
+    _start: int
+    _bar_length: int
+    _plotted: bool
+    _level: int
+    _ratio: float
+    _level_chars: int
 
     def __init__(self, end: int, start: int = 0) -> None:
         '''
@@ -78,14 +85,14 @@ class ProgressBar(IProgressBar):
             :type start: <int>
             :exceptions: None.
         '''
-        self._end: int = end
-        self._start: int = start
-        self._bar_length: int = self.DEFAULT_BAR_LENGTH
+        self._end = end
+        self._start = start
+        self._bar_length = self.DEFAULT_BAR_LENGTH
         self.set_level(self._start)
-        self._plotted: bool = False
-        self._level: int = 0
-        self._ratio: float = 0.0
-        self._level_chars: int = 0
+        self._plotted = False
+        self._level = 0
+        self._ratio = 0.0
+        self._level_chars = 0
 
     @override
     def set_level(self, level: int) -> None:

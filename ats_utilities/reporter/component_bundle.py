@@ -76,9 +76,9 @@ class ReporterComponentBundle:
                 | ATSTypeError: Component type validation failed (checker | theme).
         '''
         self.checker: IChecker = make_component(self.checker, Checker, None)
-        validate_component(self.checker, IChecker)
+        validate_component(self.checker, IChecker, 'checker must be an IChecker instance')
         self.theme: IConsoleTheme = make_component(self.theme, ConsoleTheme, None)
-        validate_component(self.theme, IConsoleTheme)
+        validate_component(self.theme, IConsoleTheme, 'theme must be an IConsoleTheme instance')
 
     def validate(self) -> None:
         '''

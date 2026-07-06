@@ -114,39 +114,39 @@ class InfoComponentBundle:
 
         if self.name is None:
             self.name = Name(self.context_bundle)
-            validate_component(self.name, IName)
+            validate_component(self.name, IName, 'name must be an IName instance')
 
         if self.version is None:
             self.version = Version(self.context_bundle)
-            validate_component(self.version, IVersion)
+            validate_component(self.version, IVersion, 'version must be an IVersion instance')
 
         if self.licence is None:
             self.licence = Licence(self.context_bundle)
-            validate_component(self.licence, ILicence)
+            validate_component(self.licence, ILicence, 'licence must be an ILicence instance')
 
         if self.build_date is None:
             self.build_date = BuildDate(self.context_bundle)
-            validate_component(self.build_date, IBuildDate)
+            validate_component(self.build_date, IBuildDate, 'build_date must be an IBuildDate instance')
 
         if self.repository is None:
             self.repository = Repository(self.context_bundle)
-            validate_component(self.repository, IRepository)
+            validate_component(self.repository, IRepository, 'repository must be an IRepository instance')
 
         if self.organization is None:
             self.organization = Organization(self.context_bundle)
-            validate_component(self.organization, IOrganization)
+            validate_component(self.organization, IOrganization, 'organization must be an IOrganization instance')
 
         if self.use_github is None:
             self.use_github = UseGitHub(self.context_bundle)
-            validate_component(self.use_github, IUseGitHub)
+            validate_component(self.use_github, IUseGitHub, 'use_github must be an IUseGitHub instance')
 
         if self.logo_path is None:
             self.logo_path = Logo(self.context_bundle)
-            validate_component(self.logo_path, ILogoPath)
+            validate_component(self.logo_path, ILogoPath, 'logo_path must be an ILogoPath instance')
 
         if self.info_ok is None:
             self.info_ok = InfoOk(self.context_bundle)
-            validate_component(self.info_ok, IInfoOk)
+            validate_component(self.info_ok, IInfoOk, 'info_ok must be an IInfoOk instance')
 
     def validate(self) -> None:
         '''

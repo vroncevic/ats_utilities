@@ -26,7 +26,7 @@ from typing import override
 import yaml
 
 from ats_utilities.config_io.yaml.iyaml_processor import IYAMLProcessor
-from ats_utilities.exceptions.ats_error import ATSError
+from ats_utilities.exceptions import ATSError
 from ats_utilities.factory_class import to_str
 
 __author__: str = 'Vladimir Roncevic'
@@ -55,6 +55,8 @@ class YAMLProcessor(IYAMLProcessor):
                 | __str__ - Returns the YAMLProcessor as string representation.
     '''
 
+    _data: dict[str, str]
+
     def __init__(self) -> None:
         '''
             Initializes YAMLProcessor constructor.
@@ -77,6 +79,7 @@ class YAMLProcessor(IYAMLProcessor):
         try:
             self._data = yaml.safe_load(yaml_string)
             return True
+
         except ATSError:
             return False
 

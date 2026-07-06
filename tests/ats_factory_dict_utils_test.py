@@ -24,8 +24,7 @@ Execute
 
 from unittest import TestCase, main
 from ats_utilities.factory_dict_utils import cherry_pick_dict, has_required_keys, require_keys
-from ats_utilities.exceptions.ats_type_error import ATSTypeError
-from ats_utilities.exceptions.ats_value_error import ATSValueError
+from ats_utilities.exceptions import ATSTypeError, ATSValueError
 
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
