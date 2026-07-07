@@ -27,14 +27,14 @@ from types import UnionType
 from ats_utilities.factory_context_error import raise_context_error
 from ats_utilities.exceptions import ATSTypeError
 
-__author__: str = 'Vladimir Roncevic'
-__copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
-__license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.4.2'
-__maintainer__: str = 'Vladimir Roncevic'
-__email__: str = 'elektron.ronca@gmail.com'
-__status__: str = 'Updated'
+__author__ = r'Vladimir Roncevic'
+__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
+__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = r'3.4.2'
+__maintainer__ = r'Vladimir Roncevic'
+__email__ = r'elektron.ronca@gmail.com'
+__status__ = r'Updated'
 
 
 def _resolve_type(t: Any) -> Any:
@@ -52,7 +52,7 @@ def _resolve_type(t: Any) -> Any:
     origin = get_origin(t)
 
     if origin in (Union, UnionType):
-        args = getattr(t, '__args__', ())
+        args = getattr(t, r'__args__', ())
         resolved_args = []
 
         for arg in args:
@@ -66,6 +66,7 @@ def _resolve_type(t: Any) -> Any:
         return tuple(resolved_args)
 
     return origin or t
+
 
 def check_type(
     instance: object,
@@ -105,7 +106,7 @@ def check_type(
 
     if not isinstance(instance, check_types):
         raise_context_error(
-            fallback_prefix="factory_type::check_type",
+            fallback_prefix=r'factory_type::check_type(..)',
             fallback_msg=f"expected {class_or_tuple} for instance, got {type(instance).__name__}",
             exc_message_path=exc_message_path,
             exception_class=exception_class,

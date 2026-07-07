@@ -35,14 +35,14 @@ from ats_utilities.option.option_namespace import OptionNamespace
 from ats_utilities.exceptions.ats_type_error import ATSTypeError
 from ats_utilities.exceptions.ats_file_error import ATSFileError
 
-__author__: str = 'Vladimir Roncevic'
-__copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_coverage'
-__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
-__license__: str = 'https://github.com/vroncevic/ats_coverage/blob/dev/LICENSE'
-__version__: str = '1.0.0'
-__maintainer__: str = 'Vladimir Roncevic'
-__email__: str = 'elektron.ronca@gmail.com'
-__status__: str = 'Updated'
+__author__ = r'Vladimir Roncevic'
+__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_coverage'
+__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
+__license__ = r'https://github.com/vroncevic/ats_coverage/blob/dev/LICENSE'
+__version__ = r'1.0.0'
+__maintainer__ = r'Vladimir Roncevic'
+__email__ = r'elektron.ronca@gmail.com'
+__status__ = r'Updated'
 
 
 def run_coverage(pro_name: str) -> str:
@@ -233,6 +233,7 @@ def update_readme(coverage: dict[str, Any]) -> None:
 
     with open(readme_path, 'w', encoding='utf-8') as update_file:
         update_file.writelines(new_lines)
+
 
 def _build_tree(dir_path: Path, prefix: str = "") -> tuple[list[str], int, int]:
     '''

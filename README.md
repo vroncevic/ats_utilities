@@ -531,14 +531,14 @@ These modules requires other modules and libraries (Python 3.x)
 | `ats_utilities/option/command/command_option.py` | 48 | 0 | 100%|
 | `ats_utilities/option/command/ioption_command.py` | 13 | 0 | 100%|
 | `ats_utilities/option/component_bundle.py` | 44 | 0 | 98%|
-| `ats_utilities/option/engine.py` | 84 | 0 | 99%|
+| `ats_utilities/option/engine.py` | 84 | 2 | 97%|
 | `ats_utilities/option/ioption_manager.py` | 17 | 0 | 100%|
 | `ats_utilities/option/option_namespace.py` | 15 | 0 | 100%|
 | `ats_utilities/option/parser/__init__.py` | 9 | 0 | 100%|
 | `ats_utilities/option/parser/engine.py` | 35 | 0 | 100%|
 | `ats_utilities/option/strategy/__init__.py` | 9 | 0 | 100%|
 | `ats_utilities/option/strategy/iparser_strategy.py` | 16 | 0 | 100%|
-| `ats_utilities/option/strategy/parser_strategy.py` | 92 | 0 | 100%|
+| `ats_utilities/option/strategy/parser_strategy.py` | 92 | 24 | 62%|
 | `ats_utilities/reporter/__init__.py` | 9 | 0 | 100%|
 | `ats_utilities/reporter/component_bundle.py` | 41 | 0 | 98%|
 | `ats_utilities/reporter/engine.py` | 60 | 0 | 98%|
@@ -566,7 +566,7 @@ These modules requires other modules and libraries (Python 3.x)
 | `ats_utilities/splasher/terminal/__init__.py` | 9 | 0 | 100%|
 | `ats_utilities/splasher/terminal/iterminal_properties.py` | 12 | 0 | 100%|
 | `ats_utilities/splasher/terminal/terminal_properties.py` | 60 | 0 | 100%|
-| **Total** | 6175 | 0 | 99% |
+| **Total** | 6175 | 26 | 99% |
 
 </details>
 

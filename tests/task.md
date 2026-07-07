@@ -1,0 +1,26 @@
+# Restructure tests/ by Modules - Progress Track
+
+- [x] Stage 1: Core Utility Tests
+    - [x] Split `ContextBundle` tests from `ats_bundles_test.py` into `tests/ats_context_bundle_test.py`
+    - [x] Run test suite to verify correctness
+- [x] Stage 2: Exceptions, Config Setup, Option Tests
+    - [x] Create subdirectories (`exceptions/`, `config_setup/`, `option/`) with `__init__.py`
+    - [x] Move exceptions test file
+    - [x] Move config_setup test files
+    - [x] Move/Split option test files
+    - [x] Run test suite to verify correctness
+- [/] Stage 3: Info, Logging, Reporter Tests
+    - [x] Create subdirectories (`info/`, `logging/`, `reporter/`) with `__init__.py`
+    - [ ] Move/Split logging test files
+    - [ ] Move/Split reporter test files
+    - [ ] Move/Split info test files
+    - [ ] Run test suite to verify correctness
+- [/] Stage 4: Splasher, Generator Tests
+    - [x] Create subdirectories (`splasher/`, `generator/`) with `__init__.py`
+    - [ ] Move/Split splasher test files
+    - [ ] Move/Split generator test files
+    - [ ] Run test suite to verify correctness
+- [/] Stage 5: Config IO Loader, Storer, Processors Tests
+    - [x] Create subdirectories (`config_io/`) with `__init__.py`
+    - [ ] Move/Split config_io test files
+    - [ ] Run test suite to verify correctness

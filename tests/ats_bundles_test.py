@@ -79,14 +79,14 @@ from ats_utilities.generator.scheme.ischeme_loader import ISchemeLoader
 from ats_utilities.generator.tar.itar_processor import ITarProcessor
 from ats_utilities.generator.template.itemplate_processor import ITemplateProcessor
 
-__author__: str = 'Vladimir Roncevic'
-__copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
-__license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.4.2'
-__maintainer__: str = 'Vladimir Roncevic'
-__email__: str = 'elektron.ronca@gmail.com'
-__status__: str = 'Updated'
+__author__ = r'Vladimir Roncevic'
+__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
+__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = r'3.4.2'
+__maintainer__ = r'Vladimir Roncevic'
+__email__ = r'elektron.ronca@gmail.com'
+__status__ = r'Updated'
 
 
 class BundlesTestCase(TestCase):
@@ -97,8 +97,6 @@ class BundlesTestCase(TestCase):
         It defines:
 
             :methods:
-                | test_context_bundle - Test ContextBundle methods.
-                | test_context_bundle_validation_errors - Test ContextBundle validation exceptions.
                 | test_logger_bundle - Test LoggerBundle methods.
                 | test_ats_file_bundle - Test FileBundle methods.
                 | test_ats_config_file_bundle - Test ConfigFileBundle methods.
@@ -108,42 +106,6 @@ class BundlesTestCase(TestCase):
                 | test_splash_center_bundle - Test SplashCenterBundle methods.
                 | test_splash_center_bundle_validation_errors - Test SplashCenterBundle validation exceptions.
     '''
-
-    def test_context_bundle(self) -> None:
-        '''Test ContextBundle methods.'''
-        mock_checker = MagicMock(spec=IChecker)
-        mock_reporter = MagicMock(spec=IReporter)
-
-        bundle1 = ContextBundle()
-        bundle2 = ContextBundle(checker=mock_checker, reporter=mock_reporter, verbose=True)
-
-        # test merge
-        bundle1.merge(bundle2)
-        self.assertEqual(bundle1.checker, mock_checker)
-        self.assertEqual(bundle1.reporter, mock_reporter)
-        self.assertTrue(bundle1.verbose)
-
-        # test validate
-        bundle1.validate()
-
-        # test to_dict
-        d = bundle1.to_dict()
-        self.assertIsInstance(d, dict)
-        self.assertEqual(d['checker'], mock_checker)
-        self.assertEqual(d['reporter'], mock_reporter)
-        self.assertTrue(d['verbose'])
-
-    def test_context_bundle_validation_errors(self) -> None:
-        '''Test ContextBundle validation exceptions.'''
-        bundle = ContextBundle()
-        bundle.checker = None
-        with self.assertRaises(ATSValueError):
-            bundle.validate()
-
-        bundle = ContextBundle()
-        bundle.reporter = None
-        with self.assertRaises(ATSValueError):
-            bundle.validate()
 
     def test_logger_bundle(self) -> None:
         '''Test LoggerBundle methods.'''
@@ -387,8 +349,6 @@ class ComponentBundlesTestCase(TestCase):
 
             :methods:
                 | test_logging_component_bundle - Test LoggingComponentBundle methods.
-                | test_option_component_bundle - Test OptionComponentBundle methods.
-                | test_option_component_bundle_validation_errors - Test OptionComponentBundle validation exceptions.
                 | test_base_component_bundle - Test BaseComponentBundle methods.
                 | test_base_component_bundle_validation_errors - Test BaseComponentBundle validation exceptions.
                 | test_checker_component_bundle - Test CheckerComponentBundle methods.
@@ -440,46 +400,6 @@ class ComponentBundlesTestCase(TestCase):
             setattr(bundle, field, None)
             with self.assertRaises(ATSValueError):
                 bundle.validate()
-
-    def test_option_component_bundle(self) -> None:
-        '''Test OptionComponentBundle methods.'''
-        mock_strategy = MagicMock(spec=IParserStrategy)
-        mock_context = ContextBundle()
-
-        bundle1 = OptionComponentBundle()
-        bundle2 = OptionComponentBundle(parameters={'a': 'b'}, strategy=mock_strategy, context_bundle=mock_context)
-
-        bundle1.merge(bundle2)
-        self.assertEqual(bundle1.parameters, {'a': 'b'})
-        self.assertEqual(bundle1.strategy, mock_strategy)
-        self.assertEqual(bundle1.context_bundle, mock_context)
-
-        bundle1.validate()
-        d = bundle1.to_dict()
-        self.assertEqual(d['parameters'], {'a': 'b'})
-
-    def test_option_component_bundle_validation_errors(self) -> None:
-        '''Test OptionComponentBundle validation exceptions.'''
-        mock_strategy = MagicMock(spec=IParserStrategy)
-        mock_context = ContextBundle()
-
-        # Missing parameters
-        bundle = OptionComponentBundle(parameters={'a': 'b'}, strategy=mock_strategy, context_bundle=mock_context)
-        bundle.parameters = None
-        with self.assertRaises(ATSValueError):
-            bundle.validate()
-
-        # Missing strategy
-        bundle = OptionComponentBundle(parameters={'a': 'b'}, strategy=mock_strategy, context_bundle=mock_context)
-        bundle.strategy = None
-        with self.assertRaises(ATSValueError):
-            bundle.validate()
-
-        # Missing context_bundle
-        bundle = OptionComponentBundle(parameters={'a': 'b'}, strategy=mock_strategy, context_bundle=mock_context)
-        bundle.context_bundle = None
-        with self.assertRaises(ATSValueError):
-            bundle.validate()
 
     def test_base_component_bundle(self) -> None:
         '''Test BaseComponentBundle methods.'''

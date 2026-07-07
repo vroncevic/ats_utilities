@@ -30,14 +30,14 @@ from ats_utilities.base.engine import Base
 from ats_utilities.base.component_bundle import BaseComponentBundle
 from ats_utilities.splasher.engine import Splasher
 
-__author__: str = 'Vladimir Roncevic'
-__copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
-__license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.4.2'
-__maintainer__: str = 'Vladimir Roncevic'
-__email__: str = 'elektron.ronca@gmail.com'
-__status__: str = 'Updated'
+__author__ = r'Vladimir Roncevic'
+__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
+__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = r'3.4.2'
+__maintainer__ = r'Vladimir Roncevic'
+__email__ = r'elektron.ronca@gmail.com'
+__status__ = r'Updated'
 
 
 class ATSCliCfgAPI(Base):
@@ -148,7 +148,10 @@ class CLITestCase(TestCase):
         base_info = f'{current_dir}/config/correct/ats_cli_cfg_api.cfg'
         mock_splasher = MagicMock(spec=Splasher)
         bundle = BaseComponentBundle(info_file=base_info, splasher=mock_splasher, use_generator=False)
-        base = Base(bundle)
+        class DummyBase(Base):
+            def process(self, verbose: bool = False) -> bool:
+                return True
+        base = DummyBase(bundle)
         self.assertTrue(base.is_initialized())
         self.assertFalse(hasattr(base, '_generator'))
 

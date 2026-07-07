@@ -31,14 +31,14 @@ from ats_utilities.exceptions import ATSValueError
 from ats_utilities.factory_context_error import raise_context_error
 from ats_utilities.factory_type import check_type
 
-__author__: str = 'Vladimir Roncevic'
-__copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
-__license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.4.2'
-__maintainer__: str = 'Vladimir Roncevic'
-__email__: str = 'elektron.ronca@gmail.com'
-__status__: str = 'Updated'
+__author__ = r'Vladimir Roncevic'
+__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
+__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = r'3.4.2'
+__maintainer__ = r'Vladimir Roncevic'
+__email__ = r'elektron.ronca@gmail.com'
+__status__ = r'Updated'
 
 
 def check_file_exists(
@@ -77,6 +77,7 @@ def check_file_exists(
             exception_class=exception_class,
             depth=3
         )
+
 
 def normalize_path(
     file_path: str,
@@ -212,6 +213,7 @@ def is_excluded_path(
             return True
 
     return False
+
 
 def format_casing_by_match(
     clean_str: str,

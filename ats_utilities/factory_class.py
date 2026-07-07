@@ -30,14 +30,15 @@ from functools import wraps
 from ats_utilities.exceptions import ATSValueError
 from ats_utilities.factory_context_error import raise_context_error
 
-__author__: str = 'Vladimir Roncevic'
-__copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
-__license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.4.2'
-__maintainer__: str = 'Vladimir Roncevic'
-__email__: str = 'elektron.ronca@gmail.com'
-__status__: str = 'Updated'
+__author__ = r'Vladimir Roncevic'
+__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
+__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = r'3.4.2'
+__maintainer__ = r'Vladimir Roncevic'
+__email__ = r'elektron.ronca@gmail.com'
+__status__ = r'Updated'
+
 
 def inject(instance: Any, *dependencies: tuple[str, Any, Any, str | list[str] | tuple[str, ...] | None]) -> None:
     '''
@@ -91,6 +92,7 @@ def inject(instance: Any, *dependencies: tuple[str, Any, Any, str | list[str] | 
 
         setattr(instance, full_attr_name, resolved_val)
 
+
 def get_pvt(instance: Any, attr_name: str) -> Any:
     '''
         Dynamically retrieves a private attribute from an instance.
@@ -107,6 +109,7 @@ def get_pvt(instance: Any, attr_name: str) -> Any:
     name = attr_name if attr_name.startswith('_') else f'_{attr_name}'
 
     return getattr(instance, name)
+
 
 def has_attrs(*attr_names: str) -> Callable[[Callable[..., Any]], Callable[..., Any]]:
     '''
@@ -143,6 +146,7 @@ def has_attrs(*attr_names: str) -> Callable[[Callable[..., Any]], Callable[..., 
         return wrapper
     return decorator
 
+
 def cls_name(instance: Any) -> str:
     '''
         Returns the class name of an instance.
@@ -154,6 +158,7 @@ def cls_name(instance: Any) -> str:
         :exceptions: None.
     '''
     return instance.__class__.__name__
+
 
 def to_str(instance: Any) -> str:
     '''
