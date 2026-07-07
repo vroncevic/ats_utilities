@@ -2,7 +2,7 @@
 
 '''
 Module
-    logo.py
+    engine.py
 Copyright
     Copyright (C) 2017 - 2026 Vladimir Roncevic <elektron.ronca@gmail.com>
     ats_utilities is free software: you can redistribute it and/or modify it
@@ -16,15 +16,15 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines class Logo with attribute(s) and method(s).
-    Creates an API for the ATS logo path in one property object.
+    Defines class Licence with attribute(s) and method(s).
+    Creates an API for the licence in one property object.
 '''
 
 from __future__ import annotations
 
 from typing import override
 
-from ats_utilities.info.logo.ilogo_path import ILogoPath
+from ats_utilities.info.licence.ilicence import ILicence
 from ats_utilities.context_bundle import ContextBundle
 from ats_utilities.checker.ichecker import IChecker
 from ats_utilities.reporter.ireporter import IReporter
@@ -43,10 +43,11 @@ __email__ = r'elektron.ronca@gmail.com'
 __status__ = r'Updated'
 
 
-class Logo(ILogoPath):
+class Licence(ILicence):
     '''
-        Defines class Logo with attribute(s) and method(s).
-        Creates an API for the ATS logo path in one property object.
+        Defines class Licence with attribute(s) and method(s).
+        Creates an API for the licence in one property object.
+        Note: Info licence is only prepared when it is set by user (not None).
 
         It defines:
 
@@ -54,56 +55,58 @@ class Logo(ILogoPath):
                 | _checker - Injected parameters checker (default Checker).
                 | _reporter - Injected reporter for messaging (default Reporter).
                 | _verbose - Injected Enable/Disable verbose option (default False).
-                | _logo_path - The ATS logo path (default None).
+                | _licence - The licence for App/Tool/Script (default None).
             :methods:
-                | __init__ - Initializes Logo constructor.
-                | logo_path - Property methods for set/get logo_path.
-                | not_none - Checks is ATS logo path not None.
-                | __str__ - Returns the ATS logo path as string representation.
+                | __init__ - Initializes Licence constructor.
+                | licence - Property methods for set/get operations.
+                | not_none - Checks is licence is not None.
+                | __str__ - Returns the Licence as string representation.
     '''
 
     _checker: IChecker
     _reporter: IReporter
     _verbose: bool
-    _logo_path: str | None
+    _licence: str | None
 
     def __init__(self, context_bundle: ContextBundle | None = None) -> None:
         '''
-            Initializes Logo constructor.
+            Initializes Licence constructor.
 
-            :param context_bundle: Context bundle for logo_path | None.
+            :param context_bundle: Context bundle for licence | None.
             :type context_bundle: <ContextBundle | None>
             :exceptions: None.
         '''
         factory_context_bundle(self, context_bundle)
-        self._logo_path = None
+        self._licence = None
 
     @property
-    @vreport('get logo_path {logo_path}')
+    @vreport('getting licence {licence}')
     @override
-    def logo_path(self) -> str:
+    def licence(self) -> str:
         '''
-            Property method for getting ATS logo path.
+            Property method for getting licence.
+            Note: Info licence is only prepared when it is set by user (not None).
 
-            :return: The ATS logo path in string format.
+            :return: The licence in string format.
             :rtype: <str>
             :exceptions:
                 | ATSRuntimeError: Decorator cannot be used on a standalone function.
                 | ATSAttributeError: Class is required to provide a '_reporter' object to
                 |                    use the @vreport decorator.
         '''
-        return self._logo_path
+        return self._licence
 
-    @logo_path.setter
-    @vcheck([('str:logo_path', None)])
-    @vreport('set logo_path {logo_path}')
+    @licence.setter
+    @vcheck([('str:licence', None)])
+    @vreport('setting licence {licence}')
     @override
-    def logo_path(self, logo_path: str) -> None:
+    def licence(self, licence: str) -> None:
         '''
-            Property method for setting ATS logo path.
+            Property method for setting licence.
+            Note: Info licence is only prepared when it is set by user (not None).
 
-            :param logo_path: The ATS logo path in string format.
-            :type logo_path: <str>
+            :param licence: The licence in string format.
+            :type licence: <str>
             :exceptions:
                 | ATSRuntimeError: Decorator cannot be used on a standalone function.
                 | ATSAttributeError: Class is required to provide a '_reporter' object to
@@ -113,29 +116,30 @@ class Logo(ILogoPath):
                 | ATSRuntimeError: Decorator used on a non-class method.
                 | ATSAttributeError: Class does not provide a '_checker' object.
         '''
-        self._logo_path = logo_path
+        self._licence = licence
 
-    @vreport('check logo_path {logo_path}')
+    @vreport('checking licence {licence}')
     @override
     def not_none(self) -> bool:
         '''
-            Checks is ATS logo path not None.
+            Checks is licence not None.
+            Note: Info licence is only prepared when it is set by user (not None).
 
-            :return: True (success) | False (fail).
+            :return: True (not None) | False (None).
             :rtype: <bool>
             :exceptions:
                 | ATSRuntimeError: Decorator cannot be used on a standalone function.
                 | ATSAttributeError: Class is required to provide a '_reporter' object to
                 |                    use the @vreport decorator.
         '''
-        return self._logo_path is not None
+        return self._licence is not None
 
     @override
     def __str__(self) -> str:
         '''
-            Returns the ATS logo path as string representation.
+            Returns the Licence as string representation.
 
-            :return: The ATS logo path as string representation.
+            :return: The Licence as string representation.
             :rtype: <str>
             :exceptions: None.
         '''

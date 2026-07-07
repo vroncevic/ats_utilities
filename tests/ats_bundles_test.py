@@ -68,7 +68,7 @@ from ats_utilities.info.build_date.ibuild_date import IBuildDate
 from ats_utilities.info.repository.irepository import IRepository
 from ats_utilities.info.organization.iorganization import IOrganization
 from ats_utilities.info.use_github.iuse_github import IUseGitHub
-from ats_utilities.info.logo.ilogo_path import ILogoPath
+from ats_utilities.info.logo.ilogo_path import ILogo
 from ats_utilities.info.info_ok.iinfo_ok import IInfoOk
 from ats_utilities.reporter.theme.iconsole_theme import IConsoleTheme
 from ats_utilities.splasher.property.isplash_property import ISplashProperty
@@ -544,7 +544,7 @@ class ComponentBundlesTestCase(TestCase):
         mock_repository = MagicMock(spec=IRepository)
         mock_organization = MagicMock(spec=IOrganization)
         mock_use_github = MagicMock(spec=IUseGitHub)
-        mock_logo_path = MagicMock(spec=ILogoPath)
+        mock_logo_path = MagicMock(spec=ILogo)
         mock_info_ok = MagicMock(spec=IInfoOk)
 
         bundle = InfoComponentBundle(
@@ -578,7 +578,7 @@ class ComponentBundlesTestCase(TestCase):
         mock_repository = MagicMock(spec=IRepository)
         mock_organization = MagicMock(spec=IOrganization)
         mock_use_github = MagicMock(spec=IUseGitHub)
-        mock_logo_path = MagicMock(spec=ILogoPath)
+        mock_logo_path = MagicMock(spec=ILogo)
         mock_info_ok = MagicMock(spec=IInfoOk)
 
         fields = {

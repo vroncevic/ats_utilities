@@ -2,7 +2,7 @@
 
 '''
 Module
-    licence.py
+    engine.py
 Copyright
     Copyright (C) 2017 - 2026 Vladimir Roncevic <elektron.ronca@gmail.com>
     ats_utilities is free software: you can redistribute it and/or modify it
@@ -16,15 +16,15 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines class Licence with attribute(s) and method(s).
-    Creates an API for the ATS licence in one property object.
+    Defines class Name with attribute(s) and method(s).
+    Creates an API for the name in one property object.
 '''
 
 from __future__ import annotations
 
 from typing import override
 
-from ats_utilities.info.licence.ilicence import ILicence
+from ats_utilities.info.name.iname import IName
 from ats_utilities.context_bundle import ContextBundle
 from ats_utilities.checker.ichecker import IChecker
 from ats_utilities.reporter.ireporter import IReporter
@@ -43,10 +43,11 @@ __email__ = r'elektron.ronca@gmail.com'
 __status__ = r'Updated'
 
 
-class Licence(ILicence):
+class Name(IName):
     '''
-        Defines class Licence with attribute(s) and method(s).
-        Creates an API for the ATS licence in one property object.
+        Defines class Name with attribute(s) and method(s).
+        Creates an API for the name in one property object.
+        Note: Name is only prepared when it is set by user (not None).
 
         It defines:
 
@@ -54,56 +55,58 @@ class Licence(ILicence):
                 | _checker - Injected parameters checker (default Checker).
                 | _reporter - Injected reporter for messaging (default Reporter).
                 | _verbose - Injected Enable/Disable verbose option (default False).
-                | _licence - The ATS licence (default None).
+                | _name - The name for App/Tool/Script (default None).
             :methods:
-                | __init__ - Initializes Licence constructor.
-                | licence - Property methods for set/get operations.
-                | not_none - Checks is ATS licence is not None.
-                | __str__ - Returns the ATS licence as string representation.
+                | __init__ - Initializes Name constructor.
+                | name - Property methods for set/get name.
+                | not_none - Checks is name not None.
+                | __str__ - Returns the Name as string representation.
     '''
 
     _checker: IChecker
     _reporter: IReporter
     _verbose: bool
-    _licence: str | None
+    _name: str | None
 
     def __init__(self, context_bundle: ContextBundle | None = None) -> None:
         '''
-            Initializes Licence constructor.
+            Initializes Name constructor.
 
-            :param context_bundle: Context bundle for licence | None.
+            :param context_bundle: Context bundle for name | None.
             :type context_bundle: <ContextBundle | None>
             :exceptions: None.
         '''
         factory_context_bundle(self, context_bundle)
-        self._licence = None
+        self._name = None
 
     @property
-    @vreport('get licence {licence}')
+    @vreport('getting name {name}')
     @override
-    def licence(self) -> str:
+    def name(self) -> str | None:
         '''
-            Property method for getting ATS licence.
+            Property method for getting name.
+            Note: Name is only prepared when it is set by user (not None).
 
-            :return: The ATS licence in string format.
-            :rtype: <str>
+            :return: The name in string format | None.
+            :rtype: <str | None>
             :exceptions:
                 | ATSRuntimeError: Decorator cannot be used on a standalone function.
                 | ATSAttributeError: Class is required to provide a '_reporter' object to
                 |                    use the @vreport decorator.
         '''
-        return self._licence
+        return self._name
 
-    @licence.setter
-    @vcheck([('str:licence', None)])
-    @vreport('set licence {licence}')
+    @name.setter
+    @vcheck([('str:name', None)])
+    @vreport('setting name {name}')
     @override
-    def licence(self, licence: str) -> None:
+    def name(self, name: str) -> None:
         '''
-            Property method for setting ATS licence.
+            Property method for setting name.
+            Note: Name is only prepared when it is set by user (not None).
 
-            :param licence: The ATS licence in string format.
-            :type licence: <str>
+            :param name: The name in string format.
+            :type name: <str>
             :exceptions:
                 | ATSRuntimeError: Decorator cannot be used on a standalone function.
                 | ATSAttributeError: Class is required to provide a '_reporter' object to
@@ -113,13 +116,14 @@ class Licence(ILicence):
                 | ATSRuntimeError: Decorator used on a non-class method.
                 | ATSAttributeError: Class does not provide a '_checker' object.
         '''
-        self._licence = licence
+        self._name = name
 
-    @vreport('check licence {licence}')
+    @vreport('checking name {name}')
     @override
     def not_none(self) -> bool:
         '''
-            Checks is ATS licence not None.
+            Checks is name not None.
+            Note: Name is only prepared when it is set by user (not None).
 
             :return: True (success) | False (fail).
             :rtype: <bool>
@@ -128,14 +132,14 @@ class Licence(ILicence):
                 | ATSAttributeError: Class is required to provide a '_reporter' object to
                 |                    use the @vreport decorator.
         '''
-        return self._licence is not None
+        return self._name is not None
 
     @override
     def __str__(self) -> str:
         '''
-            Returns the ATS licence as string representation.
+            Returns the Name as string representation.
 
-            :return: The ATS licence as string representation.
+            :return: The Name as string representation.
             :rtype: <str>
             :exceptions: None.
         '''

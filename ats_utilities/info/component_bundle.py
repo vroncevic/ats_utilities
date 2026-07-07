@@ -26,23 +26,23 @@ from typing import Any
 from dataclasses import dataclass, asdict
 
 from ats_utilities.info.name.iname import IName
-from ats_utilities.info.name.name import Name
+from ats_utilities.info.name.engine import Name
 from ats_utilities.info.version.iversion import IVersion
 from ats_utilities.info.version.version import Version
 from ats_utilities.info.licence.ilicence import ILicence
-from ats_utilities.info.licence.licence import Licence
+from ats_utilities.info.licence.engine import Licence
 from ats_utilities.info.build_date.ibuild_date import IBuildDate
-from ats_utilities.info.build_date.build_date import BuildDate
+from ats_utilities.info.build_date.engine import BuildDate
 from ats_utilities.info.repository.irepository import IRepository
 from ats_utilities.info.repository.repository import Repository
 from ats_utilities.info.organization.iorganization import IOrganization
 from ats_utilities.info.organization.organization import Organization
 from ats_utilities.info.use_github.iuse_github import IUseGitHub
 from ats_utilities.info.use_github.use_github import UseGitHub
-from ats_utilities.info.logo.ilogo_path import ILogoPath
-from ats_utilities.info.logo.logo import Logo
+from ats_utilities.info.logo.ilogo import ILogo
+from ats_utilities.info.logo.engine import Logo
 from ats_utilities.info.info_ok.iinfo_ok import IInfoOk
-from ats_utilities.info.info_ok.info_ok import InfoOk
+from ats_utilities.info.info_ok.engine import InfoOk
 from ats_utilities.context_bundle import ContextBundle
 from ats_utilities.factory_component import validate_component
 from ats_utilities.factory_value import require_not_empty
@@ -74,7 +74,7 @@ class InfoComponentBundle:
                 | repository - The ATS repository (default None).
                 | organization - The ATS organization (default None).
                 | use_github - The ATS use GitHub infrastructure status (default None).
-                | logo_path - The ATS logo path (default None).
+                | logo - The ATS logo path (default None).
                 | info_ok - The ATS information status (default None).
                 | context_bundle - The context bundle (default None).
             :methods:
@@ -90,7 +90,7 @@ class InfoComponentBundle:
     repository: IRepository | None = None
     organization: IOrganization | None = None
     use_github: IUseGitHub | None = None
-    logo_path: ILogoPath | None = None
+    logo: ILogo | None = None
     info_ok: IInfoOk | None = None
     context_bundle: ContextBundle | None = None
 
@@ -106,7 +106,7 @@ class InfoComponentBundle:
                 | ATSAttributeError - Repository must be an IRepository implementation.
                 | ATSAttributeError - Organization must be an IOrganization implementation.
                 | ATSAttributeError - Use GitHub must be an IUseGitHub implementation.
-                | ATSAttributeError - Logo path must be an ILogoPath implementation.
+                | ATSAttributeError - Logo path must be an ILogo implementation.
                 | ATSAttributeError - Info ok must be an IInfoOk implementation.
         '''
         if self.context_bundle is None:
@@ -140,9 +140,9 @@ class InfoComponentBundle:
             self.use_github = UseGitHub(self.context_bundle)
             validate_component(self.use_github, IUseGitHub, 'use_github must be an IUseGitHub instance')
 
-        if self.logo_path is None:
-            self.logo_path = Logo(self.context_bundle)
-            validate_component(self.logo_path, ILogoPath, 'logo_path must be an ILogoPath instance')
+        if self.logo is None:
+            self.logo = Logo(self.context_bundle)
+            validate_component(self.logo, ILogo, 'logo must be an ILogo instance')
 
         if self.info_ok is None:
             self.info_ok = InfoOk(self.context_bundle)
@@ -152,7 +152,7 @@ class InfoComponentBundle:
         '''
             Validates that ComponentBundle is valid (can be called after merge).
             Performs validation of name, version, licence, build_date, repository,
-            organization, use_github, logo_path and info_ok attributes.
+            organization, use_github, logo and info_ok attributes.
             Name must be non-None and an instance of IName interface.
             Version must be non-None and an instance of IVersion interface.
             Licence must be non-None and an instance of ILicence interface.
@@ -160,7 +160,7 @@ class InfoComponentBundle:
             Repository must be non-None and an instance of IRepository interface.
             Organization must be non-None and an instance of IOrganization interface.
             Use GitHub must be non-None and an instance of IUseGitHub interface.
-            Logo path must be non-None and an instance of ILogoPath interface.
+            Logo path must be non-None and an instance of ILogo interface.
             Info ok must be non-None and an instance of IInfoOk interface.
 
             :exceptions:
@@ -180,7 +180,7 @@ class InfoComponentBundle:
                 | ATSTypeError: Repository must be an instance of IRepository interface.
                 | ATSTypeError: Organization must be an instance of IOrganization interface.
                 | ATSTypeError: Use GitHub must be an instance of IUseGitHub interface.
-                | ATSTypeError: Logo path must be an instance of ILogoPath interface.
+                | ATSTypeError: Logo path must be an instance of ILogo interface.
                 | ATSTypeError: Info ok must be an instance of IInfoOk interface.
         '''
         require_not_empty(self.name, "name must be provided")
@@ -190,7 +190,7 @@ class InfoComponentBundle:
         require_not_empty(self.repository, "repository must be provided")
         require_not_empty(self.organization, "organization must be provided")
         require_not_empty(self.use_github, "use github must be provided")
-        require_not_empty(self.logo_path, "logo path must be provided")
+        require_not_empty(self.logo, "logo path must be provided")
         require_not_empty(self.info_ok, "info ok must be provided")
         check_type(self.name, IName, "name must be an instance of IName interface")
         check_type(self.version, IVersion, "version must be an instance of IVersion interface")
@@ -199,7 +199,7 @@ class InfoComponentBundle:
         check_type(self.repository, IRepository, "repository must be an instance of IRepository interface")
         check_type(self.organization, IOrganization, "organization must be an instance of IOrganization interface")
         check_type(self.use_github, IUseGitHub, "use github must be an instance of IUseGitHub interface")
-        check_type(self.logo_path, ILogoPath, "logo path must be an instance of ILogoPath interface")
+        check_type(self.logo, ILogo, "logo path must be an instance of ILogo interface")
         check_type(self.info_ok, IInfoOk, "info ok must be an instance of IInfoOk interface")
 
     def merge(self, other: InfoComponentBundle) -> None:

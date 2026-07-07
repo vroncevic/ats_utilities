@@ -101,5 +101,5 @@ class InfoKeys:
             cls.ATS_REPOSITORY: 'repository',
             cls.ATS_ORGANIZATION: 'organization',
             cls.ATS_USE_GITHUB_INFRASTRUCTURE: 'use_github',
-            cls.ATS_LOGO_PATH: 'logo_path'
+            cls.ATS_LOGO_PATH: 'logo'
         })

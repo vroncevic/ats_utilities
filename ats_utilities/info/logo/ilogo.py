@@ -2,7 +2,7 @@
 
 '''
 Module
-    ilogo_path.py
+    ilogo.py
 Copyright
     Copyright (C) 2017 - 2026 Vladimir Roncevic <elektron.ronca@gmail.com>
     ats_utilities is free software: you can redistribute it and/or modify it
@@ -16,8 +16,8 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines abstract class ILogoPath with method(s).
-    Interface for the ATS logo path mechanism.
+    Defines abstract class ILogo with method(s).
+    Interface for the logo path mechanism.
 '''
 
 from __future__ import annotations
@@ -34,39 +34,42 @@ __email__ = r'elektron.ronca@gmail.com'
 __status__ = r'Updated'
 
 
-class ILogoPath(ABC):
+class ILogo(ABC):
     '''
-        Defines abstract class ILogoPath with method(s).
-        Interface for the ATS logo path mechanism.
+        Defines abstract class ILogo with method(s).
+        Interface for the logo path mechanism.
+        Note: Logo path is only prepared when it is set by user (not None).
 
         It defines:
 
             :methods:
-                | logo_path - Property methods for set/get operations.
-                | not_none - Checks if ATS logo path is not None.
-                | __str__ - Returns the ATS logo path as string representation.
+                | logo - Property methods for set/get operations.
+                | not_none - Checks if logo path is not None.
+                | __str__ - Returns the logo as string representation.
     '''
 
     @property
     @abstractmethod
-    def logo_path(self) -> str | None:
+    def logo(self) -> str | None:
         '''
-            Property method for getting ATS logo path.
+            Property method for getting logo path.
+            Note: Logo path is only prepared when it is set by user (not None).
 
-            :return: The ATS logo path in string format | None.
+            :return: The logo path in string format | None.
             :rtype: <str | None>
             :exceptions: None.
         '''
         pass
 
-    @logo_path.setter
+    @logo.setter
     @abstractmethod
-    def logo_path(self, logo_path: str | None) -> None:
+    def logo(self, logo: str) -> None:
         '''
-            Property method for setting ATS logo path.
+            Property method for setting logo path.
+            Note: Logo path is only prepared when it is set by user (not None).
 
-            :param logo_path: The ATS logo path in string format | None.
-            :type logo_path: <str | None>
+            :param logo: The logo path in string format.
+            :type logo: <str>
             :exceptions: None.
         '''
         pass
@@ -74,9 +77,10 @@ class ILogoPath(ABC):
     @abstractmethod
     def not_none(self) -> bool:
         '''
-            Checks if ATS logo path is not None.
+            Checks if logo path is not None.
+            Note: Logo path is only prepared when it is set by user (not None).
 
-            :return: True (success) | False (fail).
+            :return: True (Not None) | False (None).
             :rtype: <bool>
             :exceptions: None.
         '''
@@ -85,9 +89,9 @@ class ILogoPath(ABC):
     @abstractmethod
     def __str__(self) -> str:
         '''
-            Returns the ATS logo path as string representation.
+            Returns the Logo as string representation.
 
-            :return: The ATS logo path as string representation.
+            :return: The Logo as string representation.
             :rtype: <str>
             :exceptions: None.
         '''

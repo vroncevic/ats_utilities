@@ -17,7 +17,7 @@ Copyright
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
     Defines abstract class IInfoOk with method(s).
-    Interface for the ATS info status mechanism.
+    Interface for the info status mechanism.
 '''
 
 from __future__ import annotations
@@ -37,23 +37,25 @@ __status__ = r'Updated'
 class IInfoOk(ABC):
     '''
         Defines abstract class IInfoOk with method(s).
-        Interface for the ATS info status mechanism.
+        Interface for the info status mechanism.
+        Note: Info status is only prepared when it is set by user (not None).
 
         It defines:
 
             :methods:
                 | info_ok - Property methods for set/get operations.
-                | not_none - Checks if ATS info status is not None.
-                | __str__ - Returns the ATS info status as string representation.
+                | not_none - Checks if info status is not None.
+                | __str__ - Returns the info status as string representation.
     '''
 
     @property
     @abstractmethod
     def info_ok(self) -> bool:
         '''
-            Property method for getting ATS information status.
+            Property method for getting information status.
+            Note: Info status is only prepared when it is set by user (not None).
 
-            :return: The ATS information status in bool format
+            :return: The information status in bool format
             :rtype: <bool>
             :exceptions: None.
         '''
@@ -63,9 +65,10 @@ class IInfoOk(ABC):
     @abstractmethod
     def info_ok(self, info_ok: bool) -> None:
         '''
-            Property method for setting ATS information status.
+            Property method for setting information status.
+            Note: Info status is only prepared when it is set by user (not None).
 
-            :param info_ok: The ATS information status in bool format
+            :param info_ok: The information status in bool format
             :type info_ok: <bool>
             :exceptions: None.
         '''
@@ -74,9 +77,10 @@ class IInfoOk(ABC):
     @abstractmethod
     def not_none(self) -> bool:
         '''
-            Checks if ATS info status is not None.
+            Checks if info status is not None.
+            Note: Info status is only prepared when it is set by user (not None).
 
-            :return: True (success) | False (fail).
+            :return: True (not None) | False (None).
             :rtype: <bool>
             :exceptions: None.
         '''
@@ -85,9 +89,9 @@ class IInfoOk(ABC):
     @abstractmethod
     def __str__(self) -> str:
         '''
-            Returns the ATS info status as string representation.
+            Returns the info status as string representation.
 
-            :return: The ATS info status as string representation.
+            :return: The info status as string representation.
             :rtype: <str>
             :exceptions: None.
         '''

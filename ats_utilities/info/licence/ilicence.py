@@ -17,7 +17,7 @@ Copyright
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
     Defines abstract class ILicence with method(s).
-    Interface for the ATS licence mechanism.
+    Interface for the licence mechanism.
 '''
 
 from __future__ import annotations
@@ -37,23 +37,25 @@ __status__ = r'Updated'
 class ILicence(ABC):
     '''
         Defines abstract class ILicence with method(s).
-        Interface for the ATS licence mechanism.
+        Interface for the licence mechanism.
+        Note: Info licence is only prepared when it is set by user (not None).
 
         It defines:
 
             :methods:
                 | licence - Property methods for set/get operations.
-                | not_none - Checks if ATS licence is not None.
-                | __str__ - Returns the ATS licence as string representation.
+                | not_none - Checks if licence is not None.
+                | __str__ - Returns the licence as string representation.
     '''
 
     @property
     @abstractmethod
     def licence(self) -> str | None:
         '''
-            Property method for getting ATS licence.
+            Property method for getting licence.
+            Note: Info licence is only prepared when it is set by user (not None).
 
-            :return: The ATS licence in string format | None
+            :return: The licence in string format | None.
             :rtype: <str | None>
             :exceptions: None.
         '''
@@ -61,12 +63,13 @@ class ILicence(ABC):
 
     @licence.setter
     @abstractmethod
-    def licence(self, licence: str | None) -> None:
+    def licence(self, licence: str) -> None:
         '''
-            Property method for setting ATS licence.
+            Property method for setting licence.
+            Note: Info licence is only prepared when it is set by user (not None).
 
-            :param licence: The ATS licence in string format | None
-            :type licence: <str | None>
+            :param licence: The licence in string format.
+            :type licence: <str>
             :exceptions: None.
         '''
         pass
@@ -74,9 +77,10 @@ class ILicence(ABC):
     @abstractmethod
     def not_none(self) -> bool:
         '''
-            Checks if ATS licence is not None.
+            Checks if licence is not None.
+            Note: Info licence is only prepared when it is set by user (not None).
 
-            :return: True (success) | False (fail).
+            :return: True (not None) | False (None).
             :rtype: <bool>
             :exceptions: None.
         '''
@@ -85,9 +89,9 @@ class ILicence(ABC):
     @abstractmethod
     def __str__(self) -> str:
         '''
-            Returns the ATS licence as string representation.
+            Returns the licence as string representation.
 
-            :return: The ATS licence as string representation.
+            :return: The licence as string representation.
             :rtype: <str>
             :exceptions: None.
         '''

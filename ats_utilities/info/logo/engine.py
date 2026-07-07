@@ -2,7 +2,7 @@
 
 '''
 Module
-    build_date.py
+    engine.py
 Copyright
     Copyright (C) 2017 - 2026 Vladimir Roncevic <elektron.ronca@gmail.com>
     ats_utilities is free software: you can redistribute it and/or modify it
@@ -16,15 +16,15 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines class BuildDate with attribute(s) and method(s).
-    Creates an API for the ATS build date in one property object.
+    Defines class Logo with attribute(s) and method(s).
+    Creates an API for the logo path in one property object.
 '''
 
 from __future__ import annotations
 
 from typing import override
 
-from ats_utilities.info.build_date.ibuild_date import IBuildDate
+from ats_utilities.info.logo.ilogo import ILogo
 from ats_utilities.context_bundle import ContextBundle
 from ats_utilities.checker.ichecker import IChecker
 from ats_utilities.reporter.ireporter import IReporter
@@ -43,10 +43,11 @@ __email__ = r'elektron.ronca@gmail.com'
 __status__ = r'Updated'
 
 
-class BuildDate(IBuildDate):
+class Logo(ILogo):
     '''
-        Defines class BuildDate with attribute(s) and method(s).
-        Creates an API for the ATS build date in one property object.
+        Defines class Logo with attribute(s) and method(s).
+        Creates an API for the logo path in one property object.
+        Note: Logo path is only prepared when it is set by user (not None).
 
         It defines:
 
@@ -54,56 +55,58 @@ class BuildDate(IBuildDate):
                 | _checker - Injected parameters checker (default Checker).
                 | _reporter - Injected reporter for messaging (default Reporter).
                 | _verbose - Injected Enable/Disable verbose option (default False).
-                | _build_date - The ATS build date (default None).
+                | _logo - The logo path for App/Tool/Script (default None).
             :methods:
-                | __init__ - Initializes BuildDate constructor.
-                | build_date - Property methods for set/get build date.
-                | not_none - Checks is ATS build date not None.
-                | __str__ - Returns the ATS build date as string representation.
+                | __init__ - Initializes Logo constructor.
+                | logo - Property methods for set/get logo.
+                | not_none - Checks is logo path not None.
+                | __str__ - Returns the Logo as string representation.
     '''
 
     _checker: IChecker
     _reporter: IReporter
     _verbose: bool
-    _build_date: str | None
+    _logo: str | None
 
     def __init__(self, context_bundle: ContextBundle | None = None) -> None:
         '''
-            Initializes BuildDate constructor.
+            Initializes Logo constructor.
 
-            :param context_bundle: Context bundle for build date | None.
+            :param context_bundle: Context bundle for logo | None.
             :type context_bundle: <ContextBundle | None>
             :exceptions: None.
         '''
         factory_context_bundle(self, context_bundle)
-        self._build_date = None
+        self._logo = None
 
     @property
-    @vreport('get build_date {build_date}')
+    @vreport('getting logo {logo}')
     @override
-    def build_date(self) -> str:
+    def logo(self) -> str | None:
         '''
-            Property method for getting ATS build date.
+            Property method for getting logo path.
+            Note: Logo path is only prepared when it is set by user (not None).
 
-            :return: The ATS build date in string format.
-            :rtype: <str>
+            :return: The logo path in string format | None.
+            :rtype: <str | None>
             :exceptions:
                 | ATSRuntimeError: Decorator cannot be used on a standalone function.
                 | ATSAttributeError: Class is required to provide a '_reporter' object to
                 |                    use the @vreport decorator.
         '''
-        return self._build_date
+        return self._logo
 
-    @build_date.setter
-    @vcheck([('str:build_date', None)])
-    @vreport('set build_date {build_date}')
+    @logo.setter
+    @vcheck([('str:logo', None)])
+    @vreport('setting logo {logo}')
     @override
-    def build_date(self, build_date: str) -> None:
+    def logo(self, logo: str) -> None:
         '''
-            Property method for setting ATS build date.
+            Property method for setting logo path.
+            Note: Logo path is only prepared when it is set by user (not None).
 
-            :param build_date: The ATS build date in string format.
-            :type build_date: <str>
+            :param logo: The logo path in string format.
+            :type logo: <str>
             :exceptions:
                 | ATSRuntimeError: Decorator cannot be used on a standalone function.
                 | ATSAttributeError: Class is required to provide a '_reporter' object to
@@ -113,13 +116,14 @@ class BuildDate(IBuildDate):
                 | ATSRuntimeError: Decorator used on a non-class method.
                 | ATSAttributeError: Class does not provide a '_checker' object.
         '''
-        self._build_date = build_date
+        self._logo = logo
 
-    @vreport('check build_date {build_date}')
+    @vreport('checking logo {logo}')
     @override
     def not_none(self) -> bool:
         '''
-            Checks is ATS build date not None.
+            Checks is logo path not None.
+            Note: Logo path is only prepared when it is set by user (not None).
 
             :return: True (success) | False (fail).
             :rtype: <bool>
@@ -128,14 +132,14 @@ class BuildDate(IBuildDate):
                 | ATSAttributeError: Class is required to provide a '_reporter' object to
                 |                    use the @vreport decorator.
         '''
-        return self._build_date is not None
+        return self._logo is not None
 
     @override
     def __str__(self) -> str:
         '''
-            Returns the ATS build date as string representation.
+            Returns the Logo as string representation.
 
-            :return: The ATS build date as string representation.
+            :return: The Logo as string representation.
             :rtype: <str>
             :exceptions: None.
         '''

@@ -17,7 +17,7 @@ Copyright
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
     Defines abstract class IName with method(s).
-    Interface for the ATS name mechanism.
+    Interface for the name mechanism.
 '''
 
 from __future__ import annotations
@@ -37,23 +37,25 @@ __status__ = r'Updated'
 class IName(ABC):
     '''
         Defines abstract class IName with method(s).
-        Interface for the ATS name mechanism.
+        Interface for the name mechanism.
+        Note: Name is only prepared when it is set by user (not None).
 
         It defines:
 
             :methods:
                 | name - Property methods for set/get operations.
-                | not_none - Checks if ATS name is not None.
-                | __str__ - Returns the ATS name as string representation.
+                | not_none - Checks if name is not None.
+                | __str__ - Returns the name as string representation.
     '''
 
     @property
     @abstractmethod
     def name(self) -> str | None:
         '''
-            Property method for getting ATS name.
+            Property method for getting name.
+            Note: Name is only prepared when it is set by user (not None).
 
-            :return: The ATS name in string format | None
+            :return: The name in string format | None
             :rtype: <str | None>
             :exceptions: None.
         '''
@@ -63,9 +65,10 @@ class IName(ABC):
     @abstractmethod
     def name(self, name: str | None) -> None:
         '''
-            Property method for setting ATS name.
+            Property method for setting name.
+            Note: Name is only prepared when it is set by user (not None).
 
-            :param name: The ATS name in string format | None
+            :param name: The name in string format | None
             :type name: <str | None>
             :exceptions: None.
         '''
@@ -74,9 +77,10 @@ class IName(ABC):
     @abstractmethod
     def not_none(self) -> bool:
         '''
-            Checks if ATS name is not None.
+            Checks if name is not None.
+            Note: Name is only prepared when it is set by user (not None).
 
-            :return: True (success) | False (fail).
+            :return: True (not None) | False (None).
             :rtype: <bool>
             :exceptions: None.
         '''
@@ -85,9 +89,9 @@ class IName(ABC):
     @abstractmethod
     def __str__(self) -> str:
         '''
-            Returns the ATS name as string representation.
+            Returns the name as string representation.
 
-            :return: The ATS name as string representation.
+            :return: The name as string representation.
             :rtype: <str>
             :exceptions: None.
         '''

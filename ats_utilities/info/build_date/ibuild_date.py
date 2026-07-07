@@ -17,7 +17,7 @@ Copyright
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
     Defines abstract class IBuildDate with method(s).
-    Interface for the ATS build date mechanism.
+    Interface for the build date mechanism.
 '''
 
 from __future__ import annotations
@@ -37,23 +37,25 @@ __status__ = r'Updated'
 class IBuildDate(ABC):
     '''
         Defines abstract class IBuildDate with method(s).
-        Interface for the ATS build date mechanism.
+        Interface for the build date mechanism.
+        Note: Build date is only prepared when it is set by user (not None).
 
         It defines:
 
             :methods:
                 | build_date - Property methods for set/get operations.
-                | not_none - Checks if ATS build date is not None.
-                | __str__ - Returns the ATS build date as string representation.
+                | not_none - Checks if build date is not None.
+                | __str__ - Returns the build date as string representation.
     '''
 
     @property
     @abstractmethod
     def build_date(self) -> str | None:
         '''
-            Property method for getting ATS build date.
+            Property method for getting build date.
+            Note: Build date is only prepared when it is set by user (not None).
 
-            :return: The ATS build date in string format | None
+            :return: The build date in string format | None.
             :rtype: <str | None>
             :exceptions: None.
         '''
@@ -61,12 +63,13 @@ class IBuildDate(ABC):
 
     @build_date.setter
     @abstractmethod
-    def build_date(self, build_date: str | None) -> None:
+    def build_date(self, build_date: str) -> None:
         '''
-            Property method for setting ATS build date.
+            Property method for setting build date.
+            Note: Build date is only prepared when it is set by user (not None).
 
-            :param build_date: The ATS build date in string format | None
-            :type build_date: <str | None>
+            :param build_date: The build date in string format.
+            :type build_date: <str>
             :exceptions: None.
         '''
         pass
@@ -74,9 +77,10 @@ class IBuildDate(ABC):
     @abstractmethod
     def not_none(self) -> bool:
         '''
-            Checks if ATS build date is not None.
+            Checks if build date is not None.
+            Note: Build date is only prepared when it is set by user (not None).
 
-            :return: True (success) | False (fail).
+            :return: True (not None) | False (None).
             :rtype: <bool>
             :exceptions: None.
         '''
@@ -85,9 +89,9 @@ class IBuildDate(ABC):
     @abstractmethod
     def __str__(self) -> str:
         '''
-            Returns the ATS build date as string representation.
+            Returns the build date as string representation.
 
-            :return: The ATS build date as string representation.
+            :return: The build date as string representation.
             :rtype: <str>
             :exceptions: None.
         '''
