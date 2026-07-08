@@ -75,8 +75,8 @@ class Yaml2Object(IRead):
                 | __str__ - Returns the Yaml2Object as string representation.
     '''
 
-    _EXT: str = 'yaml'
-    _MODE: str = 'r'
+    _EXT: str = r'yaml'
+    _MODE: str = r'r'
     _checker: IChecker
     _reporter: IReporter
     _verbose: bool
@@ -110,9 +110,9 @@ class Yaml2Object(IRead):
             self._config_file_bundle.file_checker, FileCheck,
             {'config_bundle': ContextBundle(checker=self._checker, reporter=self._reporter, verbose=self._verbose)}
         )
-        validate_component(self._file_checker, IFileCheck, 'file_checker must be an IFileCheck instance')
+        validate_component(self._file_checker, IFileCheck, r'file_checker must be an IFileCheck instance')
         self._yaml_processor = make_component(yaml_processor, YAMLProcessor, None)
-        validate_component(self._yaml_processor, IYAMLProcessor, 'yaml_processor must be an IYAMLProcessor instance')
+        validate_component(self._yaml_processor, IYAMLProcessor, r'yaml_processor must be an IYAMLProcessor instance')
         self._file_path = str(config_file)
         self._file_bundle_shared = FileBundle()
         self._file_bundle_shared.file_path = self._file_path

@@ -37,22 +37,22 @@ __email__ = r'elektron.ronca@gmail.com'
 __status__ = r'Updated'
 
 
-def _resolve_type(t: Any) -> Any:
+def _resolve_type(type_to_resolve: Any) -> Any:
     '''
         Resolves nested Union types.
         Handles cases like Union[int, float] by flattening them 
         into a tuple of concrete types (int, float).
 
-        :param t: Type to resolve.
-        :type t: <Any>
+        :param type_to_resolve: Type to resolve.
+        :type type_to_resolve: <Any>
         :return: Resolved type.
         :rtype: <Any>
         :exceptions: None.
     '''
-    origin = get_origin(t)
+    origin = get_origin(type_to_resolve)
 
     if origin in (Union, UnionType):
-        args = getattr(t, r'__args__', ())
+        args = getattr(type_to_resolve, r'__args__', ())
         resolved_args = []
 
         for arg in args:
@@ -65,7 +65,7 @@ def _resolve_type(t: Any) -> Any:
 
         return tuple(resolved_args)
 
-    return origin or t
+    return origin or type_to_resolve
 
 
 def check_type(
@@ -91,8 +91,8 @@ def check_type(
     if isinstance(class_or_tuple, tuple):
         check_types = []
 
-        for t in class_or_tuple:
-            res = _resolve_type(t)
+        for type_to_check in class_or_tuple:
+            res = _resolve_type(type_to_check)
 
             if isinstance(res, tuple):
                 check_types.extend(res)
@@ -107,7 +107,7 @@ def check_type(
     if not isinstance(instance, check_types):
         raise_context_error(
             fallback_prefix=r'factory_type::check_type(..)',
-            fallback_msg=f"expected {class_or_tuple} for instance, got {type(instance).__name__}",
+            fallback_msg=f'expected {class_or_tuple} for instance, got {type(instance).__name__}',
             exc_message_path=exc_message_path,
             exception_class=exception_class,
             depth=3

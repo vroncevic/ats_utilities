@@ -17,7 +17,7 @@ Copyright
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
     Defines class INILoader with attribute(s) and method(s).
-    Loads the ATS configuration for the ATS.
+    Loads the configuration for the ATS.
 '''
 
 from __future__ import annotations
@@ -52,7 +52,7 @@ __status__ = r'Updated'
 class INILoader(ILoader):
     '''
         Defines class INILoader with attribute(s) and method(s).
-        Loads the ATS configuration for the ATS.
+        Loads the configuration for the ATS.
         INI configuration-based API support.
 
         It defines:
@@ -64,7 +64,7 @@ class INILoader(ILoader):
                 | _configuration - INI processor configuration (default None).
             :methods:
                 | __init__ - Initializes INILoader constructor.
-                | load_configuration - Loads the ATS configuration in dictionary format.
+                | load_configuration - Loads the configuration in dictionary format.
                 | __str__ - Returns the INILoader as string representation.
     '''
 
@@ -100,13 +100,13 @@ class INILoader(ILoader):
             config_file_bundle.file_checker, FileCheck,
             {'config_bundle': ContextBundle(checker=self._checker, reporter=self._reporter, verbose=self._verbose)}
         )
-        validate_component(file_checker, IFileCheck, 'file_checker must be an IFileCheck instance')
+        validate_component(file_checker, IFileCheck, r'file_checker must be an IFileCheck instance')
         processor: IINIProcessor = make_component(ini_processor, INIProcessor, None)
-        validate_component(processor, IINIProcessor, 'processor must be an IINIProcessor instance')
+        validate_component(processor, IINIProcessor, r'processor must be an IINIProcessor instance')
         ini2obj: IRead = make_component(ini2object, Ini2Object, {
             'config_file': info_file, 'config_bundle': config_file_bundle, 'ini_processor': processor
         })
-        validate_component(ini2obj, IRead, 'ini2obj must be an IRead instance')
+        validate_component(ini2obj, IRead, r'ini2obj must be an IRead instance')
         self._configuration = None
 
         if bool(ini2obj):
@@ -115,7 +115,7 @@ class INILoader(ILoader):
     @override
     def load_configuration(self) -> dict[str, str]:
         '''
-            Loads the ATS configuration in dictionary format.
+            Loads the configuration in dictionary format.
 
             :return: Dictionary with INI information.
             :rtype: <dict[str, str]>

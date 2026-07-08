@@ -100,13 +100,13 @@ class CFGLoader(ILoader):
             config_file_bundle.file_checker, FileCheck,
             {'config_bundle': ContextBundle(checker=self._checker, reporter=self._reporter, verbose=self._verbose)}
         )
-        validate_component(file_checker, IFileCheck, 'file_checker must be an IFileCheck instance')
+        validate_component(file_checker, IFileCheck, r'file_checker must be an IFileCheck instance')
         processor: ICFGProcessor = make_component(cfg_processor, CFGProcessor, None)
-        validate_component(processor, ICFGProcessor, 'processor must be an ICFGProcessor instance')
+        validate_component(processor, ICFGProcessor, r'processor must be an ICFGProcessor instance')
         cfg2obj: IRead = make_component(cfg2object, Cfg2Object, {
             'config_file': info_file, 'config_bundle': config_file_bundle, 'cfg_processor': processor
         })
-        validate_component(cfg2obj, IRead, 'cfg2obj must be an IRead instance')
+        validate_component(cfg2obj, IRead, r'cfg2obj must be an IRead instance')
         self._configuration = None
 
         if bool(cfg2obj):

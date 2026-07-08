@@ -77,12 +77,12 @@ class FileBundle:
                 | ATSTypeError: File mode must be a string.
                 | ATSTypeError: File format must be a string.
         '''
-        require_not_empty(self.file_path, 'file path must be provided')
-        require_not_empty(self.file_mode, 'file mode must be provided')
-        require_not_empty(self.file_format, 'file format must be provided')
-        check_type(self.file_path, str, 'file path must be a string')
-        check_type(self.file_mode, str, 'file mode must be a string')
-        check_type(self.file_format, str, 'file format must be a string')
+        require_not_empty(self.file_path, r'file path must be provided')
+        require_not_empty(self.file_mode, r'file mode must be provided')
+        require_not_empty(self.file_format, r'file format must be provided')
+        check_type(self.file_path, str, r'file path must be a string')
+        check_type(self.file_mode, str, r'file mode must be a string')
+        check_type(self.file_format, str, r'file format must be a string')
 
     def merge(self, other: FileBundle) -> None:
         '''
@@ -93,7 +93,7 @@ class FileBundle:
             :exceptions:
                 | ATSTypeError: Other must be a FileBundle instance.
         '''
-        check_type(other, FileBundle, 'other must be a FileBundle instance')
+        check_type(other, FileBundle, r'other must be a FileBundle instance')
 
         for field_name in self.__dataclass_fields__:
             other_value: Any = getattr(other, field_name)

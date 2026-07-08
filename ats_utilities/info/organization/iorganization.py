@@ -17,7 +17,7 @@ Copyright
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
     Defines abstract class IOrganization with method(s).
-    Interface for the ATS organization mechanism.
+    Interface for the organization mechanism.
 '''
 
 from __future__ import annotations
@@ -37,23 +37,25 @@ __status__ = r'Updated'
 class IOrganization(ABC):
     '''
         Defines abstract class IOrganization with method(s).
-        Interface for the ATS organization mechanism.
+        Interface for the organization mechanism.
+        Note: Organization is only prepared when it is set by user (not None).
 
         It defines:
 
             :methods:
                 | organization - Property methods for set/get operations.
-                | not_none - Checks if ATS organization is not None.
-                | __str__ - Returns the ATS organization as string representation.
+                | not_none - Checks if organization is not None.
+                | __str__ - Returns the organization as string representation.
     '''
 
     @property
     @abstractmethod
     def organization(self) -> str | None:
         '''
-            Property method for getting ATS organization.
+            Property method for getting organization.
+            Note: Organization is only prepared when it is set by user (not None).
 
-            :return: The ATS organization in string format | None.
+            :return: The organization in string format | None.
             :rtype: <str | None>
             :exceptions: None.
         '''
@@ -61,12 +63,13 @@ class IOrganization(ABC):
 
     @organization.setter
     @abstractmethod
-    def organization(self, organization: str | None) -> None:
+    def organization(self, organization: str) -> None:
         '''
-            Property method for setting ATS organization.
+            Property method for setting organization.
+            Note: Organization is only prepared when it is set by user (not None).
 
-            :param organization: The ATS organization in string format | None.
-            :type organization: <str | None>
+            :param organization: The organization in string format.
+            :type organization: <str>
             :exceptions: None.
         '''
         pass
@@ -74,9 +77,10 @@ class IOrganization(ABC):
     @abstractmethod
     def not_none(self) -> bool:
         '''
-            Checks if ATS organization is not None.
+            Checks if organization is not None.
+            Note: Organization is only prepared when it is set by user (not None).
 
-            :return: True (success) | False (fail).
+            :return: True (not None) | False (None).
             :rtype: <bool>
             :exceptions: None.
         '''
@@ -85,9 +89,9 @@ class IOrganization(ABC):
     @abstractmethod
     def __str__(self) -> str:
         '''
-            Returns the ATS organization as string representation.
+            Returns the organization as string representation.
 
-            :return: The ATS organization as string representation.
+            :return: The organization as string representation.
             :rtype: <str>
             :exceptions: None.
         '''

@@ -100,11 +100,11 @@ class ContextBundle:
                 | ATSTypeError: Reporter must be an instance of IReporter interface.
                 | ATSTypeError: Verbose must be a boolean.
         '''
-        require_not_none(self.checker, 'checker must be provided')
-        require_not_none(self.reporter, 'reporter must be provided')
-        check_type(self.checker, IChecker, 'checker must be an instance of IChecker interface')
-        check_type(self.reporter, IReporter, 'reporter must be an instance of IReporter interface')
-        check_type(self.verbose, bool, 'verbose must be a boolean')
+        require_not_none(self.checker, r'checker must be provided')
+        require_not_none(self.reporter, r'reporter must be provided')
+        check_type(self.checker, IChecker, r'checker must be an instance of IChecker interface')
+        check_type(self.reporter, IReporter, r'reporter must be an instance of IReporter interface')
+        check_type(self.verbose, bool, r'verbose must be a boolean')
 
     def merge(self, other: ContextBundle) -> None:
         '''
@@ -115,7 +115,7 @@ class ContextBundle:
             :exceptions:
                 | ATSTypeError: Other must be a ContextBundle instance.
         '''
-        check_type(other, ContextBundle, 'other must be a ContextBundle instance')
+        check_type(other, ContextBundle, r'other must be a ContextBundle instance')
 
         for field_name in self.__dataclass_fields__:
             other_value: Any = getattr(other, field_name)

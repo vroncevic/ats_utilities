@@ -70,12 +70,12 @@ class SplashCenterBundle:
                 | ATSTypeError: Columns count 'columns' is not an integer.
                 | ATSTypeError: Additional shifter 'additional_shifter' is not an integer.
         '''
-        check_type(self.columns, int, "columns must be an integer.")
+        check_type(self.columns, int, r'columns must be an integer')
 
         if self.columns < 0:
             self.columns = 0
 
-        check_type(self.additional_shifter, int, "additional_shifter must be an integer.")
+        check_type(self.additional_shifter, int, r'additional_shifter must be an integer')
 
         if self.additional_shifter < 0:
             self.additional_shifter = 0
@@ -99,12 +99,12 @@ class SplashCenterBundle:
                 | ATSTypeError: Text 'text' must be a string.
                 | ATSValueError: Text 'text' cannot be empty.
         '''
-        check_type(self.columns, int, "columns count 'columns' must be an integer.")
-        require_not_satisfied(self.columns < 0, "columns count 'columns' cannot be negative.")
-        check_type(self.additional_shifter, int, "additional_shifter must be an integer.")
-        require_not_satisfied(self.additional_shifter < 0, "additional_shifter 'additional_shifter' cannot be negative.")
-        check_type(self.text, str, "text 'text' must be a string or None.")
-        require_not_satisfied(not self.text.strip(), "text 'text' cannot be empty.")
+        check_type(self.columns, int, r'columns count columns must be an integer')
+        require_not_satisfied(self.columns < 0, r'columns count columns cannot be negative')
+        check_type(self.additional_shifter, int, r'additional_shifter must be an integer')
+        require_not_satisfied(self.additional_shifter < 0, r'additional_shifter additional_shifter cannot be negative')
+        check_type(self.text, str, r'text must be a string')
+        require_not_satisfied(not self.text.strip(), r'text cannot be empty')
 
     def merge(self, other: SplashCenterBundle) -> None:
         '''
@@ -115,7 +115,7 @@ class SplashCenterBundle:
             :exceptions:
                 | ATSTypeError: Other must be a SplashCenterBundle instance.
         '''
-        check_type(other, SplashCenterBundle, "other must be a SplashCenterBundle instance.")
+        check_type(other, SplashCenterBundle, r'other must be a SplashCenterBundle instance')
 
         for field_name in self.__dataclass_fields__:
             other_value: Any = getattr(other, field_name)

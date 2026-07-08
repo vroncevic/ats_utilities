@@ -100,13 +100,13 @@ class JSONLoader(ILoader):
             config_file_bundle.file_checker, FileCheck,
             {'config_bundle': ContextBundle(checker=self._checker, reporter=self._reporter, verbose=self._verbose)}
         )
-        validate_component(file_checker, IFileCheck, 'file_checker must be an IFileCheck instance')
+        validate_component(file_checker, IFileCheck, r'file_checker must be an IFileCheck instance')
         processor: IJSONProcessor = make_component(json_processor, JSONProcessor, None)
-        validate_component(processor, IJSONProcessor, 'processor must be an IJSONProcessor instance')
+        validate_component(processor, IJSONProcessor, r'processor must be an IJSONProcessor instance')
         json2obj: IRead = make_component(json2object, Json2Object, {
             'config_file': info_file, 'config_bundle': config_file_bundle, 'json_processor': processor
         })
-        validate_component(json2obj, IRead, 'json2obj must be an IRead instance')
+        validate_component(json2obj, IRead, r'json2obj must be an IRead instance')
         self._configuration = None
 
         if bool(json2obj):

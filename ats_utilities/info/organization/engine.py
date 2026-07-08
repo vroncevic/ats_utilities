@@ -2,7 +2,7 @@
 
 '''
 Module
-    repository.py
+    engine.py
 Copyright
     Copyright (C) 2017 - 2026 Vladimir Roncevic <elektron.ronca@gmail.com>
     ats_utilities is free software: you can redistribute it and/or modify it
@@ -16,15 +16,15 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines class Repository with attribute(s) and method(s).
-    Creates an API for the ATS repository in one property object.
+    Defines class Organization with attribute(s) and method(s).
+    Creates an API for the organization in one property object.
 '''
 
 from __future__ import annotations
 
 from typing import override
 
-from ats_utilities.info.repository.irepository import IRepository
+from ats_utilities.info.organization.iorganization import IOrganization
 from ats_utilities.context_bundle import ContextBundle
 from ats_utilities.checker.ichecker import IChecker
 from ats_utilities.reporter.ireporter import IReporter
@@ -43,10 +43,11 @@ __email__ = r'elektron.ronca@gmail.com'
 __status__ = r'Updated'
 
 
-class Repository(IRepository):
+class Organization(IOrganization):
     '''
-        Defines class Repository with attribute(s) and method(s).
-        Creates an API for the ATS repository in one property object.
+        Defines class Organization with attribute(s) and method(s).
+        Creates an API for the organization in one property object.
+        Note: Organization is only prepared when it is set by user (not None).
 
         It defines:
 
@@ -54,56 +55,58 @@ class Repository(IRepository):
                 | _checker - Injected parameters checker (default Checker).
                 | _reporter - Injected reporter for messaging (default Reporter).
                 | _verbose - Injected Enable/Disable verbose option (default False).
-                | _repository - The ATS repository (default None).
+                | _organization - The organization for App/Tool/Script (default None).
             :methods:
-                | __init__ - Initializes Repository constructor.
-                | repository - Property methods for set/get repository.
-                | not_none - Checks is ATS repository not None.
-                | __str__ - Returns the ATS repository as string representation.
+                | __init__ - Initializes Organization constructor.
+                | organization - Property methods for set/get organization.
+                | not_none - Checks is organization not None.
+                | __str__ - Returns the organization as string representation.
     '''
 
     _checker: IChecker
     _reporter: IReporter
     _verbose: bool
-    _repository: str | None
+    _organization: str | None
 
     def __init__(self, context_bundle: ContextBundle | None = None) -> None:
         '''
-            Initializes Repository constructor.
+            Initializes Organization constructor.
 
-            :param context_bundle: Context bundle for repository | None.
+            :param context_bundle: Context bundle for organization | None.
             :type context_bundle: <ContextBundle | None>
             :exceptions: None.
         '''
         factory_context_bundle(self, context_bundle)
-        self._repository = None
+        self._organization = None
 
     @property
-    @vreport('get repository {repository}')
+    @vreport('getting organization {organization}')
     @override
-    def repository(self) -> str:
+    def organization(self) -> str | None:
         '''
-            Property method for getting ATS repository.
+            Property method for getting organization.
+            Note: Organization is only prepared when it is set by user (not None).
 
-            :return: The ATS repository in string format.
-            :rtype: <str>
+            :return: The organization in string format | None.
+            :rtype: <str | None>
             :exceptions:
                 | ATSRuntimeError: Decorator cannot be used on a standalone function.
                 | ATSAttributeError: Class is required to provide a '_reporter' object to
                 |                    use the @vreport decorator.
         '''
-        return self._repository
+        return self._organization
 
-    @repository.setter
-    @vcheck([('str:repository', None)])
-    @vreport('set repository {repository}')
+    @organization.setter
+    @vcheck([('str:organization', None)])
+    @vreport('setting organization {organization}')
     @override
-    def repository(self, repository: str) -> None:
+    def organization(self, organization: str) -> None:
         '''
-            Property method for setting ATS repository.
+            Property method for setting organization.
+            Note: Organization is only prepared when it is set by user (not None).
 
-            :param repository: The ATS repository in string format.
-            :type repository: <str>
+            :param organization: The organization in string format.
+            :type organization: <str>
             :exceptions:
                 | ATSRuntimeError: Decorator cannot be used on a standalone function.
                 | ATSAttributeError: Class is required to provide a '_reporter' object to
@@ -113,29 +116,30 @@ class Repository(IRepository):
                 | ATSRuntimeError: Decorator used on a non-class method.
                 | ATSAttributeError: Class does not provide a '_checker' object.
         '''
-        self._repository = repository
+        self._organization = organization
 
-    @vreport('check repository {repository}')
+    @vreport('checking organization {organization}')
     @override
     def not_none(self) -> bool:
         '''
-            Checks is ATS repository not None.
+            Checks is organization not None.
+            Note: Organization is only prepared when it is set by user (not None).
 
-            :return: True (success) | False (fail).
+            :return: True (not None) | False (None).
             :rtype: <bool>
             :exceptions:
                 | ATSRuntimeError: Decorator cannot be used on a standalone function.
                 | ATSAttributeError: Class is required to provide a '_reporter' object to
                 |                    use the @vreport decorator.
         '''
-        return self._repository is not None
+        return self._organization is not None
 
     @override
     def __str__(self) -> str:
         '''
-            Returns the ATS repository as string representation.
+            Returns the Organization as string representation.
 
-            :return: The ATS repository as string representation.
+            :return: The Organization as string representation.
             :rtype: <str>
             :exceptions: None.
         '''

@@ -17,7 +17,7 @@ Copyright
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
     Defines abstract class ISplasher with method(s).
-    Interface for splash screen component.
+    Interface for splash screen.
 '''
 
 from __future__ import annotations
@@ -40,15 +40,15 @@ __status__ = r'Updated'
 class ISplasher(ABC):
     '''
         Defines abstract class ISplasher with method(s).
-        Interface for splash screen component.
+        Interface for splash screen.
 
         It defines:
 
             :methods:
                 | get_shared_context - Returns the shared context.
                 | center - Centers console line.
-                | is_initialized - Checks if splasher component is initialized.
-                | __str__ - Returns the splash screen component as string representation.
+                | is_initialized - Checks if splasher is initialized.
+                | __str__ - Returns the splash screen as string representation.
     '''
 
     @abstractmethod
@@ -76,7 +76,7 @@ class ISplasher(ABC):
     @abstractmethod
     def is_initialized(self) -> bool:
         '''
-            Checks if splasher component is initialized.
+            Checks if splasher is initialized.
 
             :return: True (success) | False (fail)
             :rtype: <bool>
@@ -87,9 +87,9 @@ class ISplasher(ABC):
     @abstractmethod
     def __str__(self) -> str:
         '''
-            Returns the splash screen component as string representation.
+            Returns the splash screen as string representation.
 
-            :return: The splash screen component as string representation.
+            :return: The splash screen as string representation.
             :rtype: <str>
             :exceptions: None.
         '''

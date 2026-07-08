@@ -93,18 +93,18 @@ class TarProcessBundle:
                 | ATSValueError: Values must be provided.
                 | ATSTypeError: Values must be a mapping.
         '''
-        require_not_none(self.archive_path, 'archive_path must be provided.')
-        require_not_none(self.target_dir, 'target_dir must be provided.')
-        require_not_none(self.source_dir, 'source_dir must be provided.')
-        require_not_none(self.path_replacements, 'path_replacements must be provided.')
-        require_not_none(self.exclude_patterns, 'exclude_patterns must be provided.')
-        require_not_none(self.vals, 'vals must be provided.')
-        check_type(self.archive_path, str, 'archive_path must be a string.')
-        check_type(self.target_dir, str, 'target_dir must be a string.')
-        check_type(self.source_dir, str, 'source_dir must be a string.')
-        check_type(self.path_replacements, Mapping, 'path_replacements must be a mapping.')
-        check_type(self.exclude_patterns, Sequence, 'exclude_patterns must be a sequence of strings.')
-        check_type(self.vals, Mapping, 'vals must be a mapping.')
+        require_not_none(self.archive_path, r'archive_path must be provided.')
+        require_not_none(self.target_dir, r'target_dir must be provided.')
+        require_not_none(self.source_dir, r'source_dir must be provided.')
+        require_not_none(self.path_replacements, r'path_replacements must be provided.')
+        require_not_none(self.exclude_patterns, r'exclude_patterns must be provided.')
+        require_not_none(self.vals, r'vals must be provided.')
+        check_type(self.archive_path, str, r'archive_path must be a string.')
+        check_type(self.target_dir, str, r'target_dir must be a string.')
+        check_type(self.source_dir, str, r'source_dir must be a string.')
+        check_type(self.path_replacements, Mapping, r'path_replacements must be a mapping.')
+        check_type(self.exclude_patterns, Sequence, r'exclude_patterns must be a sequence of strings.')
+        check_type(self.vals, Mapping, r'vals must be a mapping.')
 
     def merge(self, other: TarProcessBundle) -> None:
         '''
@@ -115,7 +115,7 @@ class TarProcessBundle:
             :exceptions:
                 | ATSTypeError: Other must be a TarProcessBundle.
         '''
-        check_type(other, TarProcessBundle, 'other must be a TarProcessBundle.')
+        check_type(other, TarProcessBundle, r'other must be a TarProcessBundle.')
 
         for field_name in self.__dataclass_fields__:
             other_value: Any = getattr(other, field_name)

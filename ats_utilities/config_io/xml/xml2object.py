@@ -75,8 +75,8 @@ class Xml2Object(IRead):
                 | __str__ - Returns the Xml2Object as string representation.
     '''
 
-    _EXT: str = 'xml'
-    _MODE: str = 'r'
+    _EXT: str = r'xml'
+    _MODE: str = r'r'
     _checker: IChecker
     _reporter: IReporter
     _verbose: bool
@@ -110,9 +110,9 @@ class Xml2Object(IRead):
             self._config_file_bundle.file_checker, FileCheck,
             {'config_bundle': ContextBundle(checker=self._checker, reporter=self._reporter, verbose=self._verbose)}
         )
-        validate_component(self._file_checker, IFileCheck, 'file_checker must be an IFileCheck instance')
+        validate_component(self._file_checker, IFileCheck, r'file_checker must be an IFileCheck instance')
         self._xml_processor = make_component(xml_processor, XMLProcessor, None)
-        validate_component(self._xml_processor, IXMLProcessor, 'xml_processor must be an IXMLProcessor instance')
+        validate_component(self._xml_processor, IXMLProcessor, r'xml_processor must be an IXMLProcessor instance')
         self._file_path = str(config_file)
         self._file_bundle_shared = FileBundle()
         self._file_bundle_shared.file_path = self._file_path

@@ -49,7 +49,7 @@ class CheckReporter(ICheckReporter):
 
             :methods:
                 | build_message_format - Builds the final message report.
-                | __str__ - Returns the ATS check reporter as string representation.
+                | __str__ - Returns the check reporter as string representation.
     '''
 
     @override
@@ -64,7 +64,7 @@ class CheckReporter(ICheckReporter):
             :exceptions:
                 | ATSValueError: Report bundle must be provided.
         '''
-        require_not_none(report_bundle, 'report bundle must be provided')
+        require_not_none(report_bundle, r'report bundle must be provided')
 
         message = report_bundle.context
         err_set = set(report_bundle.err_indices)
@@ -73,19 +73,19 @@ class CheckReporter(ICheckReporter):
             message += f'\n    expected {pname} <{ptype}> object at {hex(id(inst))}'
 
             if i in err_set:
-                message += ' wrong type'
+                message += r' wrong type'
 
         if report_bundle.is_fmt_err:
-            message += ' format wrong during checking parameters_meta'
+            message += r' format wrong during checking parameters_meta'
 
         return message
 
     @override
     def __str__(self) -> str:
         '''
-            Returns the ATS check reporter as string representation.
+            Returns the check reporter as string representation.
 
-            :return: The ATS check reporter as string representation.
+            :return: The check reporter as string representation.
             :rtype: <str>
             :exceptions: None.
         '''

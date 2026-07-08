@@ -101,11 +101,11 @@ class XMLStorer(IStorer):
         config_file_bundle: ConfigFileBundle = config_bundle or ConfigFileBundle()
         factory_context_bundle(self, config_file_bundle.context)
         self._processor = make_component(xml_processor, XMLProcessor, None)
-        validate_component(self._processor, IXMLProcessor, 'processor must be an IXMLProcessor instance')
+        validate_component(self._processor, IXMLProcessor, r'processor must be an IXMLProcessor instance')
         self._obj2xml = make_component(object2xml, Object2Xml, {
             'config_file': info_file, 'config_bundle': config_file_bundle
         })
-        validate_component(self._obj2xml, IWrite, 'obj2xml must be an IWrite instance')
+        validate_component(self._obj2xml, IWrite, r'obj2xml must be an IWrite instance')
 
     @vcheck([('dict:config', None)])
     @override

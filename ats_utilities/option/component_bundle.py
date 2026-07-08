@@ -78,7 +78,7 @@ class OptionComponentBundle:
         self.strategy = make_component(
             self.strategy, ParserStrategy, {'context_bundle': self.context_bundle}
         )
-        validate_component(self.strategy, IParserStrategy, 'strategy must be an IParserStrategy instance')
+        validate_component(self.strategy, IParserStrategy, r'strategy must be an IParserStrategy instance')
 
     def validate(self) -> None:
         '''
@@ -96,12 +96,12 @@ class OptionComponentBundle:
                 | ATSTypeError: Strategy must be an IParserStrategy instance.
                 | ATSTypeError: Context bundle must be a ContextBundle instance.
         '''
-        require_not_none(self.parameters, 'parameters must be provided')
-        require_not_none(self.strategy, 'strategy must be provided')
-        require_not_none(self.context_bundle, 'context bundle must be provided')
-        check_type(self.parameters, Mapping[str, str], 'parameters must be a Mapping[str, str] instance')
-        check_type(self.strategy, IParserStrategy, 'strategy must be an IParserStrategy instance')
-        check_type(self.context_bundle, ContextBundle, 'context bundle must be a ContextBundle instance')
+        require_not_none(self.parameters, r'parameters must be provided')
+        require_not_none(self.strategy, r'strategy must be provided')
+        require_not_none(self.context_bundle, r'context bundle must be provided')
+        check_type(self.parameters, Mapping[str, str], r'parameters must be a Mapping[str, str] instance')
+        check_type(self.strategy, IParserStrategy, r'strategy must be an IParserStrategy instance')
+        check_type(self.context_bundle, ContextBundle, r'context bundle must be a ContextBundle instance')
 
     def merge(self, other: OptionComponentBundle) -> None:
         '''
@@ -112,7 +112,7 @@ class OptionComponentBundle:
             :exceptions:
                 | ATSTypeError: Other must be a OptionComponentBundle instance.
         '''
-        check_type(other, OptionComponentBundle, 'other must be a OptionComponentBundle instance')
+        check_type(other, OptionComponentBundle, r'other must be a OptionComponentBundle instance')
 
         for field_name in self.__dataclass_fields__:
             other_value: Any = getattr(other, field_name)

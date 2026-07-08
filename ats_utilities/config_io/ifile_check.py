@@ -56,36 +56,36 @@ class IFileCheck(ABC):
     TRUSTED_EXTENSIONS: list[str] = ['makefile']
 
     @abstractmethod
-    def check_path(self, file_path: str | None) -> None:
+    def check_path(self, file_path: str) -> None:
         '''
             Checks file path in string format.
 
-            :param file_path: File path in string format | None.
-            :type file_path: <str | None>
+            :param file_path: File path in string format.
+            :type file_path: <str>
             :exceptions: None.
         '''
         pass
 
     @abstractmethod
-    def check_mode(self, file_mode: str | None) -> None:
+    def check_mode(self, file_mode: str) -> None:
         '''
             Checks file mode in string format.
 
-            :param file_mode: File mode in string format | None.
-            :type file_mode: <str | None>
+            :param file_mode: File mode in string format.
+            :type file_mode: <str>
             :exceptions: None.
         '''
         pass
 
     @abstractmethod
-    def check_format(self, file_path: str | None, file_format: str | None) -> None:
+    def check_format(self, file_path: str, file_format: str) -> None:
         '''
             Checks file format by extension.
 
-            :param file_path: File path in string format | None.
-            :type file_path: <str | None>
-            :param file_format: File format in string format (extension) | None.
-            :type file_format: <str | None>
+            :param file_path: File path in string format.
+            :type file_path: <str>
+            :param file_format: File format in string format (extension).
+            :type file_format: <str>
             :exceptions: None.
         '''
         pass

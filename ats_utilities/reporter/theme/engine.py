@@ -74,7 +74,7 @@ class ConsoleTheme(IConsoleTheme):
                 | ATSTypeError: Palette must be a dictionary.
         '''
         if palette is not None:
-            check_type(palette, dict, "palette must be a dictionary")
+            check_type(palette, dict, r'palette must be a dictionary')
 
         # No dependency injection then use default ones.
         self._palette = palette or self._default_palette_colors
@@ -95,8 +95,8 @@ class ConsoleTheme(IConsoleTheme):
                 | ATSTypeError: Color type must be a string.
                 | ATSValueError: Color type not found in palette.
         '''
-        require_not_none(color_type, "color type must be provided")
-        check_type(color_type, str, "color type must be a string")
+        require_not_none(color_type, r'color type must be provided')
+        check_type(color_type, str, r'color type must be a string')
         require_not_satisfied(color_type not in self._palette, f"color type '{color_type}' not found in palette")
 
         return self._palette[color_type]

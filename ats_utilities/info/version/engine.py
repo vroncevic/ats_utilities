@@ -2,7 +2,7 @@
 
 '''
 Module
-    organization.py
+    engine.py
 Copyright
     Copyright (C) 2017 - 2026 Vladimir Roncevic <elektron.ronca@gmail.com>
     ats_utilities is free software: you can redistribute it and/or modify it
@@ -16,15 +16,15 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines class Organization with attribute(s) and method(s).
-    Creates an API for the ATS organization in one property object.
+    Defines class Version with attribute(s) and method(s).
+    Creates an API for the version in one property object.
 '''
 
 from __future__ import annotations
 
 from typing import override
 
-from ats_utilities.info.organization.iorganization import IOrganization
+from ats_utilities.info.version.iversion import IVersion
 from ats_utilities.context_bundle import ContextBundle
 from ats_utilities.checker.ichecker import IChecker
 from ats_utilities.reporter.ireporter import IReporter
@@ -43,10 +43,11 @@ __email__ = r'elektron.ronca@gmail.com'
 __status__ = r'Updated'
 
 
-class Organization(IOrganization):
+class Version(IVersion):
     '''
-        Defines class Organization with attribute(s) and method(s).
-        Creates an API for the ATS organization in one property object.
+        Defines class Version with attribute(s) and method(s).
+        Creates an API for the version in one property object.
+        Note: Version is only prepared when it is set by user (not None).
 
         It defines:
 
@@ -54,56 +55,58 @@ class Organization(IOrganization):
                 | _checker - Injected parameters checker (default Checker).
                 | _reporter - Injected reporter for messaging (default Reporter).
                 | _verbose - Injected Enable/Disable verbose option (default False).
-                | _organization - The ATS organization (default None).
+                | _version - The version for App/Tool/Script (default None).
             :methods:
-                | __init__ - Initializes Organization constructor.
-                | organization - Property methods for set/get organization.
-                | not_none - Checks is ATS organization not None.
-                | __str__ - Returns the ATS organization as string representation.
+                | __init__ - Initializes Version constructor.
+                | version - Property methods for set/get version.
+                | not_none - Checks is version not None.
+                | __str__ - Returns the version as string representation.
     '''
 
     _checker: IChecker
     _reporter: IReporter
     _verbose: bool
-    _organization: str | None
+    _version: str | None
 
     def __init__(self, context_bundle: ContextBundle | None = None) -> None:
         '''
-            Initializes Organization constructor.
+            Initializes Version constructor.
 
-            :param context_bundle: Context bundle for organization | None.
+            :param context_bundle: Context bundle for version | None.
             :type context_bundle: <ContextBundle | None>
             :exceptions: None.
         '''
         factory_context_bundle(self, context_bundle)
-        self._organization = None
+        self._version = None
 
     @property
-    @vreport('get organization {organization}')
+    @vreport('getting version {version}')
     @override
-    def organization(self) -> str:
+    def version(self) -> str | None:
         '''
-            Property method for getting ATS organization.
+            Property method for getting version.
+            Note: Version is only prepared when it is set by user (not None).
 
-            :return: The ATS organization in string format.
-            :rtype: <str>
+            :return: The version in string format | None.
+            :rtype: <str | None>
             :exceptions:
                 | ATSRuntimeError: Decorator cannot be used on a standalone function.
                 | ATSAttributeError: Class is required to provide a '_reporter' object to
                 |                    use the @vreport decorator.
         '''
-        return self._organization
+        return self._version
 
-    @organization.setter
-    @vcheck([('str:organization', None)])
-    @vreport('set organization {organization}')
+    @version.setter
+    @vcheck([('str:version', None)])
+    @vreport('setting version {version}')
     @override
-    def organization(self, organization: str) -> None:
+    def version(self, version: str) -> None:
         '''
-            Property method for setting ATS organization.
+            Property method for setting version.
+            Note: Version is only prepared when it is set by user (not None).
 
-            :param organization: The ATS organization in string format.
-            :type organization: <str>
+            :param version: The version in string format.
+            :type version: <str>
             :exceptions:
                 | ATSRuntimeError: Decorator cannot be used on a standalone function.
                 | ATSAttributeError: Class is required to provide a '_reporter' object to
@@ -113,29 +116,30 @@ class Organization(IOrganization):
                 | ATSRuntimeError: Decorator used on a non-class method.
                 | ATSAttributeError: Class does not provide a '_checker' object.
         '''
-        self._organization = organization
+        self._version = version
 
-    @vreport('check organization {organization}')
+    @vreport('checking version {version}')
     @override
     def not_none(self) -> bool:
         '''
-            Checks is ATS organization not None.
+            Checks is version not None.
+            Note: Version is only prepared when it is set by user (not None).
 
-            :return: True (success) | False (fail).
+            :return: True (not None) | False (None).
             :rtype: <bool>
             :exceptions:
                 | ATSRuntimeError: Decorator cannot be used on a standalone function.
                 | ATSAttributeError: Class is required to provide a '_reporter' object to
                 |                    use the @vreport decorator.
         '''
-        return self._organization is not None
+        return self._version is not None
 
     @override
     def __str__(self) -> str:
         '''
-            Returns the ATS organization as string representation.
+            Returns the Version as string representation.
 
-            :return: The ATS organization as string representation.
+            :return: The Version as string representation.
             :rtype: <str>
             :exceptions: None.
         '''

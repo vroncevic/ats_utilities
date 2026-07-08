@@ -50,6 +50,7 @@ class SplashProperty(ISplashProperty):
     '''
         Defines class SplashProperty with attribute(s) and method(s).
         Creates an API for checking splash screen property.
+        Note: Splash screen property comes from info configuration file as read only data.
 
         It defines:
 
@@ -57,7 +58,7 @@ class SplashProperty(ISplashProperty):
                 | _checker - Injected parameters checker (default Checker).
                 | _reporter - Injected reporter for messaging (default Reporter).
                 | _verbose - Injected Enable/Disable verbose option (default False).
-                | _splash_keys - Splash keys object (default None).
+                | _splash_keys - Splash keys for App/Tool/Script splash screen (default None).
             :methods:
                 | __init__ - Initials SplashProperty constructor.
                 | splash_keys - Property method for get/set splash keys.  
@@ -82,12 +83,12 @@ class SplashProperty(ISplashProperty):
         self._splash_keys = None
 
     @property
-    @vreport('get splash property {splash_keys}')
+    @vreport('getting splash property {splash_keys}')
     @override
     def splash_keys(self) -> Mapping[str, Any]:
         '''
             Property method for getting splash screen property.
-            Splash screen property comes from info configuration file as read only data.
+            Note: Splash screen property comes from info configuration file as read only data.
 
             :return: Formatted splash screen property in Mapping format (read only data).
             :rtype: <Mapping[str, Any]>
@@ -100,12 +101,12 @@ class SplashProperty(ISplashProperty):
 
     @splash_keys.setter
     @vcheck([('Mapping:setup', None)])
-    @vreport('set splash property {splash_keys}')
+    @vreport('setting splash property {splash_keys}')
     @override
     def splash_keys(self, setup: Mapping[str, Any]) -> None:
         '''
             Property method for setting project splash screen property.
-            Splash screen property comes from info configuration file as read only data.
+            Note: Splash screen property comes from info configuration file as read only data.
 
             :param setup: Project splash property in Mapping format (read only data).
             :type setup: <Mapping[str, Any]>
@@ -120,7 +121,7 @@ class SplashProperty(ISplashProperty):
                 | ATSRuntimeError: Decorator used on a non-class method.
                 | ATSAttributeError: Class does not provide a '_checker' object.
         '''
-        is_enabled = bool(setup.get('enabled', True))
+        is_enabled = bool(setup.get(r'enabled', True))
 
         if is_enabled:
             require_keys(setup, frozenset(SplashKeys.get_all_keys()))
@@ -133,6 +134,7 @@ class SplashProperty(ISplashProperty):
     def validates(self) -> bool:
         '''
             Validates splash screen property.
+            Note: Splash screen property comes from info configuration file as read only data.
 
             :return: True (success) else False (fail).
             :rtype: <bool>

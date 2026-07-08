@@ -64,7 +64,7 @@ class Splasher(ISplasher):
                 | __init__ - Initials Splasher constructor.
                 | get_shared_context - Returns the shared context.
                 | center - Centers console line.
-                | is_initialized - Checks if splasher component is initialized.
+                | is_initialized - Checks if splasher is initialized.
                 | __str__ - Returns the string representation of Splasher.
     '''
 
@@ -103,7 +103,7 @@ class Splasher(ISplasher):
                 if bool(bundle.prop[SplashKeys.ATS_USE_GITHUB_INFRASTRUCTURE]):
                     check_file_exists(
                         bundle.prop[SplashKeys.ATS_LOGO_PATH],
-                        'application/tool/script logo file path is missing or empty'
+                        r'application/tool/script logo file path is missing or empty'
                     )
                     print("\n")
 

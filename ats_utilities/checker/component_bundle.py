@@ -64,7 +64,7 @@ class CheckerComponentBundle:
             :methods:
                 | __post_init__ - Post-initialization hook to set up default components if not provided.
                 | validate - Validates that CheckerComponentBundle is valid (can be called after merge).
-                | merge - Merges non-None values from another bundle into this one.
+                | merge - Merges non-None values from another CheckerComponentBundle into this one.
                 | to_dict - Converts the CheckerComponentBundle instance to a dictionary.
     '''
 
@@ -85,19 +85,19 @@ class CheckerComponentBundle:
         '''
         if self.format_validator is None:
             self.format_validator = FormatValidator()
-            validate_component(self.format_validator, IFormatValidator, 'format_validator must be an IFormatValidator instance')
+            validate_component(self.format_validator, IFormatValidator, r'format_validator must be an IFormatValidator instance')
 
         if self.type_validator is None:
             self.type_validator = TypeValidator()
-            validate_component(self.type_validator, ITypeValidator, 'type_validator must be an ITypeValidator instance')
+            validate_component(self.type_validator, ITypeValidator, r'type_validator must be an ITypeValidator instance')
 
         if self.context_provider is None:
             self.context_provider = ContextProvider()
-            validate_component(self.context_provider, IContextProvider, 'context_provider must be an IContextProvider instance')
+            validate_component(self.context_provider, IContextProvider, r'context_provider must be an IContextProvider instance')
 
         if self.check_reporter is None:
             self.check_reporter = CheckReporter()
-            validate_component(self.check_reporter, ICheckReporter, 'check_reporter must be an ICheckReporter instance')
+            validate_component(self.check_reporter, ICheckReporter, r'check_reporter must be an ICheckReporter instance')
 
     def validate(self) -> None:
         '''
@@ -115,25 +115,25 @@ class CheckerComponentBundle:
                 | ATSTypeError: Format vcheck must be an instance of IFormatValidator.
                 | ATSTypeError: Type vcheck must be an instance of ITypeValidator.
         '''
-        require_not_none(self.context_provider, "context provider must be provided")
-        require_not_none(self.check_reporter, "check reporter must be provided")
-        require_not_none(self.format_validator, "format vcheck must be provided")
-        require_not_none(self.type_validator, "type vcheck must be provided")
-        check_type(self.context_provider, IContextProvider, "context provider must be an instance of IContextProvider")
-        check_type(self.check_reporter, ICheckReporter, "check reporter must be an instance of ICheckReporter")
-        check_type(self.format_validator, IFormatValidator, "format vcheck must be an instance of IFormatValidator")
-        check_type(self.type_validator, ITypeValidator, "type vcheck must be an instance of ITypeValidator")
+        require_not_none(self.context_provider, r'context provider must be provided')
+        require_not_none(self.check_reporter, r'check reporter must be provided')
+        require_not_none(self.format_validator, r'format vcheck must be provided')
+        require_not_none(self.type_validator, r'type vcheck must be provided')
+        check_type(self.context_provider, IContextProvider, r'context provider must be an instance of IContextProvider')
+        check_type(self.check_reporter, ICheckReporter, r'check reporter must be an instance of ICheckReporter')
+        check_type(self.format_validator, IFormatValidator, r'format vcheck must be an instance of IFormatValidator')
+        check_type(self.type_validator, ITypeValidator, r'type vcheck must be an instance of ITypeValidator')
 
     def merge(self, other: CheckerComponentBundle) -> None:
         '''
-            Merges non-None values from another bundle into this one.
+            Merges non-None values from another CheckerComponentBundle into this one.
 
             :param other: Another CheckerComponentBundle to merge into this one.
             :type other: <CheckerComponentBundle>
             :exceptions:
                 | ATSTypeError: Other must be a CheckerComponentBundle instance.
         '''
-        check_type(other, CheckerComponentBundle, "other must be a CheckerComponentBundle instance")
+        check_type(other, CheckerComponentBundle, r'other must be a CheckerComponentBundle instance')
 
         for field_name in self.__dataclass_fields__:
             other_value: Any = getattr(other, field_name)

@@ -17,7 +17,7 @@ Copyright
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
     Defines class Base with attribute(s) and method(s).
-    Creates an API for setup ATS (application, tool, script).
+    Creates an API for setup (application, tool, script).
 '''
 
 from __future__ import annotations
@@ -54,7 +54,7 @@ __status__ = r'Updated'
 class Base(IBase):
     '''
         Defines class Base with attribute(s) and method(s).
-        Creates an API for setup ATS (application, tool, script).
+        Creates an API for setup (App/Tool/Script).
 
         It defines:
 
@@ -73,11 +73,11 @@ class Base(IBase):
             :methods:
                 | __init__ - Initializes Base constructor.
                 | get_shared_context - Returns the shared context.
-                | is_initialized - Checks if the base component is initialized.
+                | is_initialized - Checks if the Base component is initialized.
                 | add_new_option - Adds a new option for the the CL interface.
                 | parse_args - Parses the CLI arguments.
                 | process - Processes and runs tool operations (Abstract).
-                | __str__ - Returns the ATS base as string representation.
+                | __str__ - Returns the Base as string representation.
     '''
 
     _checker: IChecker
@@ -202,9 +202,9 @@ class Base(IBase):
     @override
     def __str__(self) -> str:
         '''
-            Returns the ATS base as string representation.
+            Returns the Base as string representation.
 
-            :return: The ATS base as string representation.
+            :return: The Base as string representation.
             :rtype: <str>
             :exceptions: None.
         '''

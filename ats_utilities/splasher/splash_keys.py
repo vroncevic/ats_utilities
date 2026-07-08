@@ -62,11 +62,11 @@ class SplashKeys:
                 | to_dict - Converts the SplashKeys instance to a dictionary.
     '''
 
-    ATS_NAME: ClassVar[str] = 'ats_name'
-    ATS_REPOSITORY: ClassVar[str] = 'ats_repository'
-    ATS_ORGANIZATION: ClassVar[str] = 'ats_organization'
-    ATS_LOGO_PATH: ClassVar[str] = 'ats_logo_path'
-    ATS_USE_GITHUB_INFRASTRUCTURE: ClassVar[str] = 'ats_use_github_infrastructure'
+    ATS_NAME: ClassVar[str] = r'ats_name'
+    ATS_REPOSITORY: ClassVar[str] = r'ats_repository'
+    ATS_ORGANIZATION: ClassVar[str] = r'ats_organization'
+    ATS_LOGO_PATH: ClassVar[str] = r'ats_logo_path'
+    ATS_USE_GITHUB_INFRASTRUCTURE: ClassVar[str] = r'ats_use_github_infrastructure'
 
     name: str | None = None
     repository: str | None = None
@@ -74,7 +74,6 @@ class SplashKeys:
     logo_path: str | None = None
     use_github_infrastructure: bool | None = None
     enabled: bool = True
-
     _key_to_attr: ClassVar[MappingProxyType[str, str] | None] = None
 
     @classmethod
@@ -91,9 +90,9 @@ class SplashKeys:
 
             attr: str
             for attr in dir(cls):
-                if attr.startswith('ATS_'):
+                if attr.startswith(r'ATS_'):
                     key: str = getattr(cls, attr)
-                    attr_name: str = key.replace('ats_', '', 1)
+                    attr_name: str = key.replace(r'ats_', '', 1)
                     mapping[key] = attr_name
 
             cls._key_to_attr = MappingProxyType(mapping)
@@ -124,7 +123,7 @@ class SplashKeys:
             :rtype: <Self>
             :exceptions: None.
         '''
-        is_enabled: bool = bool(config.get('enabled', True))
+        is_enabled: bool = bool(config.get(r'enabled', True))
         kwargs: dict[str, Any] = {'enabled': is_enabled}
         key: str
         attr_name: str
@@ -156,11 +155,11 @@ class SplashKeys:
         if not self.enabled:
             return {'enabled': False}
 
-        d: dict[str, Any] = {}
+        data: dict[str, Any] = {}
         key: str
         attr_name: str
 
         for key, attr_name in self.get_key_to_attr().items():
-            d[key] = getattr(self, attr_name)
+            data[key] = getattr(self, attr_name)
 
-        return d
+        return data

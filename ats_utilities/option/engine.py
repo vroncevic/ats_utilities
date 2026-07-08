@@ -66,8 +66,8 @@ class OptionManager(IOptionManager):
             :methods:
                 | __init__ - Initials OptionManager constructor.
                 | get_shared_context - Returns the shared context.
-                | add_operation - Adds an option to the ATS parser.
-                | add_version_operation - Adds version option to the ATS parser.
+                | add_operation - Adds an option to the parser.
+                | add_version_operation - Adds version option to the parser.
                 | parse_input_args - Processes arguments from the start.
                 | parse_args - Processes arguments from the start.
                 | parse_command - Parses arguments as a command.
@@ -124,7 +124,7 @@ class OptionManager(IOptionManager):
     @override
     def add_operation(self, *args: str, **kwargs: Any) -> None:
         '''
-            Adds an option to the ATS parser.
+            Adds an option to the parser.
 
             :param args: List of flags for the ATS.
             :type args: <str>
@@ -140,9 +140,9 @@ class OptionManager(IOptionManager):
     @override
     def add_version_operation(self, version: str | None) -> None:
         '''
-            Adds version option to the ATS parser.
+            Adds version option to the parser.
 
-            :param version: The ATS version in string format | None.
+            :param version: The version in string format | None.
             :type version: <str | None>
             :exceptions:
                 | ATSRuntimeError: Decorator cannot be used on a standalone function.
@@ -242,7 +242,7 @@ class OptionManager(IOptionManager):
         '''
             Returns the string representation of OptionManager.
 
-            :return: The ATS option parser as string representation.
+            :return: The option parser as string representation.
             :rtype: <str>
             :exceptions: None.
         '''

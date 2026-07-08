@@ -125,14 +125,14 @@ class BaseComponentBundle:
                 )
             }
         )
-        validate_component(self.config_loader, IConfigLoader, 'config_loader must be an IConfigLoader instance')
+        validate_component(self.config_loader, IConfigLoader, r'config_loader must be an IConfigLoader instance')
         loader: Config = self.config_loader.setup_config_loader()
 
         self.info_manager = make_component(
             self.info_manager, InfoManager,
             {'component_bundle': InfoComponentBundle(context_bundle=self.context_bundle)}
         )
-        validate_component(self.info_manager, IInfoManager, 'info_manager must be an IInfoManager instance')
+        validate_component(self.info_manager, IInfoManager, r'info_manager must be an IInfoManager instance')
         self.info_manager.set_info(loader.load_configuration())
 
         logo_path = self.info_manager.logo_path
@@ -146,7 +146,7 @@ class BaseComponentBundle:
                 )
             }
         )
-        validate_component(self.splasher, ISplasher, 'splasher must be an ISplasher instance')
+        validate_component(self.splasher, ISplasher, r'splasher must be an ISplasher instance')
 
         self.options_parser = make_component(
             self.options_parser, OptionManager,
@@ -157,20 +157,20 @@ class BaseComponentBundle:
                 )
             }
         )
-        validate_component(self.options_parser, IOptionManager, 'options_parser must be an IOptionManager instance')
+        validate_component(self.options_parser, IOptionManager, r'options_parser must be an IOptionManager instance')
 
         self.logger_manager = make_component(
             self.logger_manager, LoggerManager,
             {'component_bundle': LoggingComponentBundle(context_bundle=self.context_bundle)}
         )
-        validate_component(self.logger_manager, ILoggerManager, 'logger_manager must be an ILoggerManager instance')
+        validate_component(self.logger_manager, ILoggerManager, r'logger_manager must be an ILoggerManager instance')
 
         if self.use_generator:
             self.generator = make_component(
                 self.generator, Generator,
                 {'component_bundle': GeneratorComponentBundle(context_bundle=self.context_bundle)}
             )
-            validate_component(self.generator, IGenerator, 'generator must be an IGenerator instance')
+            validate_component(self.generator, IGenerator, r'generator must be an IGenerator instance')
 
     def validate(self, merge_op: bool = False) -> None:
         '''
@@ -212,24 +212,24 @@ class BaseComponentBundle:
                 | ATSTypeError: Splasher must be ISplasher interface.
                 | ATSTypeError: Generator must be IGenerator interface.
         '''
-        require_not_none(self.info_file, 'information file must be provided')
-        check_type(self.info_file, str, 'information file must be str')
+        require_not_none(self.info_file, r'information file must be provided')
+        check_type(self.info_file, str, r'information file must be str')
 
         if merge_op:
-            require_not_none(self.config_loader, 'config_loader must be provided')
-            require_not_none(self.info_manager, 'info_manager must be provided')
-            require_not_none(self.options_parser, 'options_parser must be provided')
-            require_not_none(self.logger_manager, 'logger_manager must be provided')
-            require_not_none(self.splasher, 'splasher must be provided')
-            check_type(self.config_loader, IConfigLoader, 'config_loader must be IConfigLoader interface')
-            check_type(self.info_manager, IInfoManager, 'info_manager must be IInfoManager interface')
-            check_type(self.options_parser, IOptionManager, 'options_parser must be IOptionManager interface')
-            check_type(self.logger_manager, ILoggerManager, 'logger_manager must be ILoggerManager interface')
-            check_type(self.splasher, ISplasher, 'splasher must be ISplasher interface')
+            require_not_none(self.config_loader, r'config_loader must be provided')
+            require_not_none(self.info_manager, r'info_manager must be provided')
+            require_not_none(self.options_parser, r'options_parser must be provided')
+            require_not_none(self.logger_manager, r'logger_manager must be provided')
+            require_not_none(self.splasher, r'splasher must be provided')
+            check_type(self.config_loader, IConfigLoader, r'config_loader must be IConfigLoader interface')
+            check_type(self.info_manager, IInfoManager, r'info_manager must be IInfoManager interface')
+            check_type(self.options_parser, IOptionManager, r'options_parser must be IOptionManager interface')
+            check_type(self.logger_manager, ILoggerManager, r'logger_manager must be ILoggerManager interface')
+            check_type(self.splasher, ISplasher, r'splasher must be ISplasher interface')
 
             if self.use_generator:
-                require_not_none(self.generator, 'generator must be provided')
-                check_type(self.generator, IGenerator, 'generator must be IGenerator interface')
+                require_not_none(self.generator, r'generator must be provided')
+                check_type(self.generator, IGenerator, r'generator must be IGenerator interface')
 
     def merge(self, other: BaseComponentBundle) -> None:
         '''
@@ -240,7 +240,7 @@ class BaseComponentBundle:
             :exceptions:
                 | ATSTypeError: Other must be BaseComponentBundle instance.
         '''
-        check_type(other, BaseComponentBundle, 'other must be BaseComponentBundle instance')
+        check_type(other, BaseComponentBundle, r'other must be BaseComponentBundle instance')
 
         for field_name in self.__dataclass_fields__:
             other_value: Any = getattr(other, field_name)

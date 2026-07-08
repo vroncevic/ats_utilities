@@ -83,14 +83,14 @@ class TarProcessMemberBundle:
                 | ATSTypeError: dest_full_path must be a string.
                 | ATSTypeError: vals must be a mapping.
         '''
-        require_not_none(self.tar, 'tar must be provided.')
-        require_not_none(self.member, 'member must be provided.')
-        require_not_none(self.dest_full_path, 'dest_full_path must be provided.')
-        require_not_none(self.vals, 'vals must be provided.')
-        check_type(self.tar, TarFile, 'tar must be a TarFile instance.')
-        check_type(self.member, TarInfo, 'member must be a TarInfo instance.')
-        check_type(self.dest_full_path, str, 'dest_full_path must be a string.')
-        check_type(self.vals, Mapping, 'vals must be a mapping.')
+        require_not_none(self.tar, r'tar must be provided.')
+        require_not_none(self.member, r'member must be provided.')
+        require_not_none(self.dest_full_path, r'dest_full_path must be provided.')
+        require_not_none(self.vals, r'vals must be provided.')
+        check_type(self.tar, TarFile, r'tar must be a TarFile instance.')
+        check_type(self.member, TarInfo, r'member must be a TarInfo instance.')
+        check_type(self.dest_full_path, str, r'dest_full_path must be a string.')
+        check_type(self.vals, Mapping, r'vals must be a mapping.')
 
     def merge(self, other: TarProcessMemberBundle) -> None:
         '''
@@ -101,7 +101,7 @@ class TarProcessMemberBundle:
             :exceptions:
                 | ATSTypeError: Other must be a TarProcessMemberBundle.
         '''
-        check_type(other, TarProcessMemberBundle, 'other must be a TarProcessMemberBundle.')
+        check_type(other, TarProcessMemberBundle, r'other must be a TarProcessMemberBundle.')
 
         for field_name in self.__dataclass_fields__:
             other_value: Any = getattr(other, field_name)

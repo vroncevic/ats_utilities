@@ -17,7 +17,7 @@ Copyright
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
     Defines abstract class IInfoManager with method(s).
-    Interface for the ATS info manager mechanism.
+    Interface for the info manager mechanism.
 '''
 
 from __future__ import annotations
@@ -41,17 +41,19 @@ __status__ = r'Updated'
 class IInfoManager(ABC):
     '''
         Defines abstract class IInfoManager with method(s).
-        Interface for the ATS info manager mechanism.
+        Interface for the info manager mechanism.
+        Note: The information is read-only data (it is provided by
+              configuraiton file which is loaded by config loader).
 
         It defines:
 
             :methods:
                 | get_shared_context - Returns the shared context.
-                | set_info - Sets the ATS information.
-                | get_info - Gets the ATS information.
-                | info_ok - Checks if ATS information structure is ok.
-                | refresh_status - Refreshes status for ATS information structure.
-                | __str__ - Returns the ATS info manager as string representation.
+                | set_info - Sets the information.
+                | get_info - Gets the information.
+                | is_initialized - Checks if info manager is initialized.
+                | refresh_status - Refreshes status for information structure.
+                | __str__ - Returns the info manager as string representation.
     '''
 
     @abstractmethod
@@ -68,9 +70,9 @@ class IInfoManager(ABC):
     @abstractmethod
     def set_info(self, info: Mapping[str, Any]) -> None:
         '''
-            Sets the ATS information.
+            Sets the information.
 
-            :param info: Mapping with ATS information
+            :param info: Mapping with information.
             :type info: <Mapping[str, Any]>
             :exceptions: None.
         '''
@@ -79,9 +81,9 @@ class IInfoManager(ABC):
     @abstractmethod
     def get_info(self) -> Mapping[str, Any]:
         '''
-            Gets the ATS information.
+            Gets the information.
  
-            :return: Mapping with ATS information.
+            :return: Mapping with information.
             :rtype: <Mapping[str, Any]>
             :exceptions: None.
         '''
@@ -90,7 +92,7 @@ class IInfoManager(ABC):
     @abstractmethod
     def is_initialized(self) -> bool:
         '''
-            Checks if ATS information structure is ok.
+            Checks if info manager is initialized.
 
             :return: True (success) | False (fail)
             :rtype: <bool>
@@ -101,7 +103,7 @@ class IInfoManager(ABC):
     @abstractmethod
     def refresh_status(self) -> None:
         '''
-            Refreshes status for ATS information structure.
+            Refreshes status for information structure.
 
             :exceptions: None.
         '''
@@ -110,9 +112,9 @@ class IInfoManager(ABC):
     @abstractmethod
     def __str__(self) -> str:
         '''
-            Returns the ATS info manager as string representation.
+            Returns the info manager as string representation.
 
-            :return: The ATS info manager as string representation.
+            :return: The info manager as string representation.
             :rtype: <str>
             :exceptions: None.
         '''

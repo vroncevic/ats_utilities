@@ -62,8 +62,8 @@ def check_file_exists(
     check_type(file_path, str, exc_message_path)
     if not file_path:
         raise_context_error(
-            fallback_prefix="factory_file_utils::check_file_exists",
-            fallback_msg="file path must be provided",
+            fallback_prefix=r'factory_file_utils::check_file_exists',
+            fallback_msg=r'file path must be provided',
             exc_message_path=exc_message_path,
             exception_class=exception_class,
             depth=3
@@ -71,8 +71,8 @@ def check_file_exists(
 
     if not Path(file_path).exists():
         raise_context_error(
-            fallback_prefix="factory_file_utils::check_file_exists",
-            fallback_msg=f"file at the provided path does not exist: {file_path}",
+            fallback_prefix=r'factory_file_utils::check_file_exists',
+            fallback_msg=f'file at the provided path does not exist: {file_path}',
             exc_message_path=exc_message_path,
             exception_class=exception_class,
             depth=3
@@ -103,8 +103,8 @@ def normalize_path(
 
     if not file_path:
         raise_context_error(
-            fallback_prefix="factory_file_utils::normalize_path",
-            fallback_msg="file path must be provided",
+            fallback_prefix=r'factory_file_utils::normalize_path',
+            fallback_msg=r'file path must be provided',
             exc_message_path=exc_message_path,
             exception_class=exception_class,
             depth=3
@@ -142,8 +142,8 @@ def resolve_relative_path(
 
     if not normalized_name:
         raise_context_error(
-            fallback_prefix="factory_file_utils::resolve_relative_path",
-            fallback_msg="normalized_name must be provided",
+            fallback_prefix=r'factory_file_utils::resolve_relative_path',
+            fallback_msg=r'normalized_name must be provided',
             exc_message_path=exc_message_path,
             exception_class=exception_class,
             depth=3
@@ -151,8 +151,8 @@ def resolve_relative_path(
 
     if not source_dir_clean:
         raise_context_error(
-            fallback_prefix="factory_file_utils::resolve_relative_path",
-            fallback_msg="source_dir_clean must be provided",
+            fallback_prefix=r'factory_file_utils::resolve_relative_path',
+            fallback_msg=r'source_dir_clean must be provided',
             exc_message_path=exc_message_path,
             exception_class=exception_class,
             depth=3
@@ -190,8 +190,8 @@ def is_excluded_path(
 
     if not rel_path:
         raise_context_error(
-            fallback_prefix="factory_file_utils::is_excluded_path",
-            fallback_msg="rel_path must be provided",
+            fallback_prefix=r'factory_file_utils::is_excluded_path',
+            fallback_msg=r'rel_path must be provided',
             exc_message_path=exc_message_path,
             exception_class=exception_class,
             depth=3
@@ -199,8 +199,8 @@ def is_excluded_path(
 
     if not exclude_patterns:
         raise_context_error(
-            fallback_prefix="factory_file_utils::is_excluded_path",
-            fallback_msg="exclude_patterns must be provided",
+            fallback_prefix=r'factory_file_utils::is_excluded_path',
+            fallback_msg=r'exclude_patterns must be provided',
             exc_message_path=exc_message_path,
             exception_class=exception_class,
             depth=3
@@ -251,8 +251,8 @@ def format_casing_by_match(
 
     if not clean_str:
         raise_context_error(
-            fallback_prefix="factory_file_utils::format_casing_by_match",
-            fallback_msg="clean_str must be provided",
+            fallback_prefix=r'factory_file_utils::format_casing_by_match',
+            fallback_msg=r'clean_str must be provided',
             exc_message_path=exc_message_path,
             exception_class=exception_class,
             depth=3
@@ -260,8 +260,8 @@ def format_casing_by_match(
 
     if not default_val:
         raise_context_error(
-            fallback_prefix="factory_file_utils::format_casing_by_match",
-            fallback_msg="default_val must be provided",
+            fallback_prefix=r'factory_file_utils::format_casing_by_match',
+            fallback_msg=r'default_val must be provided',
             exc_message_path=exc_message_path,
             exception_class=exception_class,
             depth=3
@@ -269,8 +269,8 @@ def format_casing_by_match(
 
     if not upper_val:
         raise_context_error(
-            fallback_prefix="factory_file_utils::format_casing_by_match",
-            fallback_msg="upper_val must be provided",
+            fallback_prefix=r'factory_file_utils::format_casing_by_match',
+            fallback_msg=r'upper_val must be provided',
             exc_message_path=exc_message_path,
             exception_class=exception_class,
             depth=3
@@ -278,8 +278,8 @@ def format_casing_by_match(
 
     if not camel_val:
         raise_context_error(
-            fallback_prefix="factory_file_utils::format_casing_by_match",
-            fallback_msg="camel_val must be provided",
+            fallback_prefix=r'factory_file_utils::format_casing_by_match',
+            fallback_msg=r'camel_val must be provided',
             exc_message_path=exc_message_path,
             exception_class=exception_class,
             depth=3
@@ -287,8 +287,8 @@ def format_casing_by_match(
 
     if not dashed_val:
         raise_context_error(
-            fallback_prefix="factory_file_utils::format_casing_by_match",
-            fallback_msg="dashed_val must be provided",
+            fallback_prefix=r'factory_file_utils::format_casing_by_match',
+            fallback_msg=r'dashed_val must be provided',
             exc_message_path=exc_message_path,
             exception_class=exception_class,
             depth=3
@@ -326,8 +326,8 @@ def write_content(
 
     if not file_path:
         raise_context_error(
-            fallback_prefix="factory_file_utils::write_content",
-            fallback_msg="file_path must be provided",
+            fallback_prefix=r'factory_file_utils::write_content',
+            fallback_msg=r'file_path must be provided',
             exc_message_path=exc_message_path,
             exception_class=exception_class,
             depth=3
@@ -335,8 +335,8 @@ def write_content(
 
     if not content:
         raise_context_error(
-            fallback_prefix="factory_file_utils::write_content",
-            fallback_msg="content must be provided",
+            fallback_prefix=r'factory_file_utils::write_content',
+            fallback_msg=r'content must be provided',
             exc_message_path=exc_message_path,
             exception_class=exception_class,
             depth=3
@@ -378,8 +378,8 @@ def apply_path_replacements(
 
     if not rel_path:
         raise_context_error(
-            fallback_prefix="factory_file_utils::apply_path_replacements",
-            fallback_msg="rel_path must be provided",
+            fallback_prefix=r'factory_file_utils::apply_path_replacements',
+            fallback_msg=r'rel_path must be provided',
             exc_message_path=exc_message_path,
             exception_class=exception_class,
             depth=3
@@ -387,8 +387,8 @@ def apply_path_replacements(
 
     if not path_replacements:
         raise_context_error(
-            fallback_prefix="factory_file_utils::apply_path_replacements",
-            fallback_msg="path_replacements must be provided",
+            fallback_prefix=r'factory_file_utils::apply_path_replacements',
+            fallback_msg=r'path_replacements must be provided',
             exc_message_path=exc_message_path,
             exception_class=exception_class,
             depth=3
@@ -396,8 +396,8 @@ def apply_path_replacements(
 
     if not vals:
         raise_context_error(
-            fallback_prefix="factory_file_utils::apply_path_replacements",
-            fallback_msg="vals must be provided",
+            fallback_prefix=r'factory_file_utils::apply_path_replacements',
+            fallback_msg=r'vals must be provided',
             exc_message_path=exc_message_path,
             exception_class=exception_class,
             depth=3

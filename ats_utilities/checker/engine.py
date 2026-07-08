@@ -17,7 +17,7 @@ Copyright
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
     Defines class Checker with attribute(s) and method(s).
-    Concrete implementation of the ATS parameter(s) checker.
+    Concrete implementation of the parameter(s) checker.
 '''
 
 from __future__ import annotations
@@ -47,7 +47,7 @@ __status__ = r'Updated'
 class Checker(IChecker):
     '''
         Defines class Checker with attribute(s) and method(s).
-        Concrete implementation of the ATS parameter(s) checker.
+        Concrete implementation of the parameter(s) checker.
         Mechanism for application, tool, or script parameters checker.
 
         It defines:
@@ -63,7 +63,7 @@ class Checker(IChecker):
                 | __init__ - Initializes Checker constructor.
                 | validates_parameters - Validates parameter(s) for method(s) or function(s).
                 | is_initialized - Checks if checker component is initialized.
-                | __str__ - Returns the ATS checker as string representation.
+                | __str__ - Returns the checker as string representation.
     '''
 
     ERRORS: ClassVar[type[ErrorChecker]] = ErrorChecker
@@ -101,12 +101,12 @@ class Checker(IChecker):
             print(f"\x1b[31m{cls_name(self)} unexpected exception: {exc}\x1b[0m")
 
     @override
-    def validates_parameters(self, parameters: ParametersSpecs | None) -> ValidationResult:
+    def validates_parameters(self, parameters: ParametersSpecs) -> ValidationResult:
         '''
             Validates parameters for method(s) or function(s).
 
-            :param parameters: Specification for parameters | None.
-            :type parameters: <ParametersSpecs | None>
+            :param parameters: Specification for parameters.
+            :type parameters: <ParametersSpecs>
             :return: Tuple of error message report and error id.
             :rtype: <ValidationResult>
             :exceptions: None.
@@ -116,7 +116,7 @@ class Checker(IChecker):
         err_indices: list[int] = []
         error_id: int = self.ERRORS.NO_ERROR
 
-        if parameters is None:
+        if not parameters:
             return (
                 self._check_reporter.build_message_format(
                     CheckerReporterBundle(
@@ -172,9 +172,9 @@ class Checker(IChecker):
     @override
     def __str__(self) -> str:
         '''
-            Returns the ATS checker as string representation.
+            Returns the Checker as string representation.
 
-            :return: The ATS checker as string representation.
+            :return: The Checker as string representation.
             :rtype: <str>
             :exceptions: None.
         '''

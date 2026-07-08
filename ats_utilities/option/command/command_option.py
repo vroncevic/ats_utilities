@@ -99,16 +99,16 @@ class CommandOption:
                 | ATSValueError: Nargs must be provided.
                 | ATSTypeError: Nargs must be a string or an integer.
         '''
-        require_not_none(self.name, "name must be provided")
-        require_not_none(self.help_text, "help text must be provided")
-        require_not_none(self.action, "action must be provided")
-        require_not_none(self.default, "default must be provided")
-        require_not_none(self.required, "required must be provided")
-        require_not_none(self.choices, "choices must be provided")
-        require_not_none(self.nargs, "nargs must be provided")
-        check_type(self.required, bool, "required must be a boolean")
-        check_type(self.choices, Sequence, "choices must be a sequence")
-        check_type(self.nargs, (str, int), "nargs must be a string or an integer")
+        require_not_none(self.name, r"name must be provided")
+        require_not_none(self.help_text, r"help text must be provided")
+        require_not_none(self.action, r"action must be provided")
+        require_not_none(self.default, r"default must be provided")
+        require_not_none(self.required, r"required must be provided")
+        require_not_none(self.choices, r"choices must be provided")
+        require_not_none(self.nargs, r"nargs must be provided")
+        check_type(self.required, bool, r"required must be a boolean")
+        check_type(self.choices, Sequence, r"choices must be a sequence")
+        check_type(self.nargs, (str, int), r"nargs must be a string or an integer")
 
     def merge(self, other: CommandOption) -> None:
         '''
@@ -119,7 +119,7 @@ class CommandOption:
             :exceptions:
                 | ATSTypeError: Other must be a CommandOption instance.
         '''
-        check_type(other, CommandOption, 'other must be a CommandOption instance')
+        check_type(other, CommandOption, r'other must be a CommandOption instance')
 
         for field_name in self.__dataclass_fields__:
             other_value = getattr(other, field_name)

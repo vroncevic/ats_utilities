@@ -76,9 +76,9 @@ class ReporterComponentBundle:
                 | ATSTypeError: Component type validation failed (checker | theme).
         '''
         self.checker: IChecker = make_component(self.checker, Checker, None)
-        validate_component(self.checker, IChecker, 'checker must be an IChecker instance')
+        validate_component(self.checker, IChecker, r'checker must be an IChecker instance')
         self.theme: IConsoleTheme = make_component(self.theme, ConsoleTheme, None)
-        validate_component(self.theme, IConsoleTheme, 'theme must be an IConsoleTheme instance')
+        validate_component(self.theme, IConsoleTheme, r'theme must be an IConsoleTheme instance')
 
     def validate(self) -> None:
         '''
@@ -93,10 +93,10 @@ class ReporterComponentBundle:
                 | ATSTypeError: Checker must be an instance of IChecker interface.
                 | ATSTypeError: Theme must be an instance of IConsoleTheme interface.
         '''
-        require_not_none(self.checker, "checker must be provided")
-        require_not_none(self.theme, "theme must be provided")
-        check_type(self.checker, IChecker, "checker must be an instance of IChecker")
-        check_type(self.theme, IConsoleTheme, "theme must be an instance of IConsoleTheme")
+        require_not_none(self.checker, r'checker must be provided')
+        require_not_none(self.theme, r'theme must be provided')
+        check_type(self.checker, IChecker, r'checker must be an IChecker instance')
+        check_type(self.theme, IConsoleTheme, r'theme must be an IConsoleTheme instance')
 
     def merge(self, other: ReporterComponentBundle) -> None:
         '''
@@ -107,7 +107,7 @@ class ReporterComponentBundle:
             :exceptions:
                 | ATSTypeError: Other must be a ReporterComponentBundle instance.
         '''
-        check_type(other, ReporterComponentBundle, "other must be a ReporterComponentBundle instance")
+        check_type(other, ReporterComponentBundle, r'other must be a ReporterComponentBundle instance')
 
         for field_name in self.__dataclass_fields__:
             other_value: Any = getattr(other, field_name)

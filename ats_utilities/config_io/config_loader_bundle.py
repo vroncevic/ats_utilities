@@ -26,7 +26,6 @@ from dataclasses import dataclass, asdict
 from typing import Any
 
 from ats_utilities.config_io.iread import IRead
-from ats_utilities.exceptions import ATSValueError
 from ats_utilities.config_io.config_file_bundle import ConfigFileBundle
 from ats_utilities.config_io.iconfig_loader import IConfigProcessor
 from ats_utilities.factory_value import require_not_none
@@ -86,14 +85,14 @@ class ConfigLoaderBundle:
                 | ATSTypeError: Config_bundle must be an instance of ConfigFileBundle interface.
                 | ATSTypeError: Processor must be an instance of IConfigProcessor interface.
         '''
-        require_not_none(self.info_file, 'info file must be provided')
-        check_type(self.info_file, str, 'info file must be a string')
-        require_not_none(self.config2object, 'config2object must be provided')
-        check_type(self.config2object, IRead, 'config2object must be an instance of IRead interface')
-        require_not_none(self.config_bundle, 'configuration bundle must be provided')
-        check_type(self.config_bundle, ConfigFileBundle, 'configuration bundle must be an instance of ConfigFileBundle interface')
-        require_not_none(self.processor, 'configuration processor must be provided')
-        check_type(self.processor, IConfigProcessor, 'configuration processor must be an instance of IConfigProcessor interface')
+        require_not_none(self.info_file, r'info file must be provided')
+        check_type(self.info_file, str, r'info file must be a string')
+        require_not_none(self.config2object, r'config2object must be provided')
+        check_type(self.config2object, IRead, r'config2object must be an instance of IRead interface')
+        require_not_none(self.config_bundle, r'configuration bundle must be provided')
+        check_type(self.config_bundle, ConfigFileBundle, r'configuration bundle must be an instance of ConfigFileBundle interface')
+        require_not_none(self.processor, r'configuration processor must be provided')
+        check_type(self.processor, IConfigProcessor, r'configuration processor must be an instance of IConfigProcessor interface')
 
     def merge(self, other: ConfigLoaderBundle) -> None:
         '''
@@ -104,7 +103,7 @@ class ConfigLoaderBundle:
             :exceptions:
                 | ATSTypeError: Other must be an ConfigLoaderBundle instance.
         '''
-        check_type(other, ConfigLoaderBundle, 'other must be an ConfigLoaderBundle instance')
+        check_type(other, ConfigLoaderBundle, r'other must be an ConfigLoaderBundle instance')
 
         for field_name in self.__dataclass_fields__:
             other_value: Any = getattr(other, field_name)

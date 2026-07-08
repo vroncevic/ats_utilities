@@ -40,6 +40,7 @@ class ISplashProperty(ABC):
     '''
         Defines abstract class ISplashProperty with method(s).
         Interface for checking splash screen property.
+        Note: Splash screen property comes from info configuration file as read only data.
 
         It defines:
 
@@ -54,7 +55,7 @@ class ISplashProperty(ABC):
     def splash_keys(self) -> Mapping[str, Any]:
         '''
             Property method for getting splash keys.
-            Splash screen property comes from info configuration file as read only data.
+            Note: Splash screen property comes from info configuration file as read only data.
 
             :return: Formatted splash screen property in Mapping format (read only data).
             :rtype: <Mapping[str, Any]>
@@ -67,7 +68,7 @@ class ISplashProperty(ABC):
     def splash_keys(self, setup: Mapping[str, Any]) -> None:
         '''
             Property method for setting project splash keys.
-            Splash screen property comes from info configuration file as read only data.
+            Note: Splash screen property comes from info configuration file as read only data.
 
             :param setup: Project splash keys in Mapping format (read only data).
             :type setup: <Mapping[str, Any]>
@@ -79,6 +80,7 @@ class ISplashProperty(ABC):
     def validates(self) -> bool:
         '''
             Validates splash keys.
+            Note: Splash screen property comes from info configuration file as read only data.
 
             :return: True (success) else False (fail).
             :rtype: <bool>

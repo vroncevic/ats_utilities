@@ -78,7 +78,6 @@ class LoggerManager(ILoggerManager):
     ERROR: int
     INFO: int
     WARNING: int
-
     _checker: IChecker
     _reporter: IReporter
     _verbose: bool

@@ -80,7 +80,7 @@ class ProName(IProName):
         self._pro_name = None
 
     @property
-    @vreport('get pro name {pro_name}')
+    @vreport('getting pro name {pro_name}')
     @override
     def pro_name(self) -> str:
         '''
@@ -97,7 +97,7 @@ class ProName(IProName):
 
     @pro_name.setter
     @vcheck([('str:name', None)])
-    @vreport('get pro name {pro_name}')
+    @vreport('getting pro name {pro_name}')
     @override
     def pro_name(self, name: str) -> None:
         '''
@@ -116,7 +116,7 @@ class ProName(IProName):
         '''
         self._pro_name = name
 
-    @vreport('check pro name {pro_name}')
+    @vreport('checking pro name {pro_name}')
     @override
     def not_none(self) -> bool:
         '''

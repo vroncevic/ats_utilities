@@ -17,7 +17,7 @@ Copyright
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
     Defines class InfoKeys with attribute(s).
-    Defines constants for ATS information keys.
+    Defines constants for information keys.
 '''
 
 from __future__ import annotations
@@ -40,34 +40,36 @@ __status__ = r'Updated'
 class InfoKeys:
     '''
         Defines class InfoKeys with attribute(s).
-        Defines constants for ATS information keys.
+        Defines constants for information keys.
+        The information keys are used for information container.
+        The information container store data for App/Tool/Script.
 
         It defines:
 
             :attributes:
-                | ATS_NAME - The key for ATS name.
-                | ATS_VERSION - The key for ATS version.
-                | ATS_BUILD_DATE - The key for ATS build date.
-                | ATS_LICENCE - The key for ATS licence.
-                | ATS_REPOSITORY - The key for ATS repository.
-                | ATS_ORGANIZATION - The key for ATS organization.
-                | ATS_USE_GITHUB_INFRASTRUCTURE - The key for ATS use github infrastructure.
-                | ATS_LOGO_PATH - The key for ATS logo path.
+                | ATS_NAME - The key for name.
+                | ATS_VERSION - The key for version.
+                | ATS_BUILD_DATE - The key for build date.
+                | ATS_LICENCE - The key for licence.
+                | ATS_REPOSITORY - The key for repository.
+                | ATS_ORGANIZATION - The key for organization.
+                | ATS_USE_GITHUB_INFRASTRUCTURE - The key for use github infrastructure.
+                | ATS_LOGO_PATH - The key for logo path.
     '''
 
-    ATS_NAME: ClassVar[str] = 'ats_name'
-    ATS_VERSION: ClassVar[str] = 'ats_version'
-    ATS_BUILD_DATE: ClassVar[str] = 'ats_build_date'
-    ATS_LICENCE: ClassVar[str] = 'ats_licence'
-    ATS_REPOSITORY: ClassVar[str] = 'ats_repository'
-    ATS_ORGANIZATION: ClassVar[str] = 'ats_organization'
-    ATS_USE_GITHUB_INFRASTRUCTURE: ClassVar[str] = 'ats_use_github_infrastructure'
-    ATS_LOGO_PATH: ClassVar[str] = 'ats_logo_path'
+    ATS_NAME: ClassVar[str] = r'ats_name'
+    ATS_VERSION: ClassVar[str] = r'ats_version'
+    ATS_BUILD_DATE: ClassVar[str] = r'ats_build_date'
+    ATS_LICENCE: ClassVar[str] = r'ats_licence'
+    ATS_REPOSITORY: ClassVar[str] = r'ats_repository'
+    ATS_ORGANIZATION: ClassVar[str] = r'ats_organization'
+    ATS_USE_GITHUB_INFRASTRUCTURE: ClassVar[str] = r'ats_use_github_infrastructure'
+    ATS_LOGO_PATH: ClassVar[str] = r'ats_logo_path'
 
     @classmethod
     def get_keys(cls) -> tuple[str, ...]:
         '''
-            Returns a tuple of all ATS information keys.
+            Returns a tuple of all information keys.
 
             :return: Tuple of all keys.
             :rtype: <tuple[str, ...]>
@@ -87,19 +89,19 @@ class InfoKeys:
     @classmethod
     def get_key_to_attr(cls) -> MappingProxyType[str, str]:
         '''
-            Returns a mapping of ATS information keys to attributes.
+            Returns a mapping of information keys to attributes.
 
             :return: Key to attribute mapping.
             :rtype: <MappingProxyType[str, str]>
             :exceptions: None.
         '''
         return MappingProxyType({
-            cls.ATS_NAME: 'name',
-            cls.ATS_VERSION: 'version',
-            cls.ATS_BUILD_DATE: 'build_date',
-            cls.ATS_LICENCE: 'licence',
-            cls.ATS_REPOSITORY: 'repository',
-            cls.ATS_ORGANIZATION: 'organization',
-            cls.ATS_USE_GITHUB_INFRASTRUCTURE: 'use_github',
-            cls.ATS_LOGO_PATH: 'logo'
+            cls.ATS_NAME: r'name',
+            cls.ATS_VERSION: r'version',
+            cls.ATS_BUILD_DATE: r'build_date',
+            cls.ATS_LICENCE: r'licence',
+            cls.ATS_REPOSITORY: r'repository',
+            cls.ATS_ORGANIZATION: r'organization',
+            cls.ATS_USE_GITHUB_INFRASTRUCTURE: r'use_github',
+            cls.ATS_LOGO_PATH: r'logo'
         })

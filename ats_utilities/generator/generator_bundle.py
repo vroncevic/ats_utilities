@@ -87,16 +87,16 @@ class GeneratorBundle:
                 | ATSValueError: Template values must be provided.
                 | ATSTypeError: Template values must be a mapping.
         '''
-        require_not_none(self.archive_path, 'archive_path must be provided')
-        check_type(self.archive_path, str, 'archive_path must be a string')
-        require_not_none(self.target_dir, 'target_dir must be provided')
-        check_type(self.target_dir, str, 'target_dir must be a string')
-        require_not_none(self.template_key, 'template_key must be provided')
-        check_type(self.template_key, str, 'template_key must be a string')
-        require_not_none(self.scheme, 'scheme must be provided')
-        check_type(self.scheme, (str, Mapping), 'scheme must be a string or a mapping')
-        require_not_none(self.template_values, 'template_values must be provided')
-        check_type(self.template_values, Mapping, 'template_values must be a mapping')
+        require_not_none(self.archive_path, r'archive_path must be provided')
+        check_type(self.archive_path, str, r'archive_path must be a string')
+        require_not_none(self.target_dir, r'target_dir must be provided')
+        check_type(self.target_dir, str, r'target_dir must be a string')
+        require_not_none(self.template_key, r'template_key must be provided')
+        check_type(self.template_key, str, r'template_key must be a string')
+        require_not_none(self.scheme, r'scheme must be provided')
+        check_type(self.scheme, (str, Mapping), r'scheme must be a string or a mapping')
+        require_not_none(self.template_values, r'template_values must be provided')
+        check_type(self.template_values, Mapping, r'template_values must be a mapping')
 
     def merge(self, other: GeneratorBundle) -> None:
         '''
@@ -107,7 +107,7 @@ class GeneratorBundle:
             :exceptions:
                 | ATSTypeError: Other must be a GeneratorBundle.
         '''
-        check_type(other, GeneratorBundle, 'other must be a GeneratorBundle')
+        check_type(other, GeneratorBundle, r'other must be a GeneratorBundle')
 
         for field_name in self.__dataclass_fields__:
             other_value: Any = getattr(other, field_name)

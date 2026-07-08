@@ -40,6 +40,7 @@ class IExtInfrastructure(ABC):
     '''
         Defines abstract class IExtInfrastructure with method(s).
         Interface for processing hyperlinks for splash screen.
+        Note: Splash screen infrastructure comes from info configuration file as read only data.
 
         It defines:
 
@@ -56,7 +57,7 @@ class IExtInfrastructure(ABC):
     def infrastructure_property(self) -> Mapping[str, Any]:
         '''
             Property method for getting infrastructure property.
-            Infrastructure property comes from info configuration file as read only data.
+            Note: Splash screen infrastructure comes from info configuration file as read only data.
 
             :return: Formatted infrastructure property in Mapping format (read only data).
             :rtype: <Mapping[str, Any]>
@@ -69,7 +70,7 @@ class IExtInfrastructure(ABC):
     def infrastructure_property(self, setup: Mapping[str, Any]) -> None:
         '''
             Property method for setting project infrastructure property.
-            Infrastructure property comes from info configuration file as read only data.
+            Note: Splash screen infrastructure comes from info configuration file as read only data.
 
             :param setup: Project infrastructure property in Mapping format (read only data).
             :type setup: <Mapping[str, Any]>
@@ -81,6 +82,7 @@ class IExtInfrastructure(ABC):
     def get_info_text(self) -> str:
         '''
             Pre-processes info text for splash screen.
+            Note: Splash screen infrastructure comes from info configuration file as read only data.
 
             :return: Hyperlink with info text.
             :rtype: <str>
@@ -92,6 +94,7 @@ class IExtInfrastructure(ABC):
     def get_issue_text(self) -> str:
         '''
             Pre-processes issue text for splash screen.
+            Note: Splash screen infrastructure comes from info configuration file as read only data.
 
             :return: Hyperlink with issue info.
             :rtype: <str>
@@ -103,6 +106,7 @@ class IExtInfrastructure(ABC):
     def get_author_text(self) -> str:
         '''
             Pre-processes author text for splash screen.
+            Note: Splash screen infrastructure comes from info configuration file as read only data.
 
             :return: Hyperlink with author info.
             :rtype: <str>

@@ -87,7 +87,7 @@ class ProConfig(IProConfig):
         self._config = None
 
     @property
-    @vreport('get config {config}')
+    @vreport('getting config {config}')
     @override
     def config(self) -> Mapping[str, Any]:
         '''
@@ -104,7 +104,7 @@ class ProConfig(IProConfig):
 
     @config.setter
     @vcheck([('Mapping | None:pro_config', None)])
-    @vreport('get config {config}')
+    @vreport('getting config {config}')
     @override
     def config(self, pro_config: Mapping[str, Any]) -> None:
         '''
@@ -123,7 +123,7 @@ class ProConfig(IProConfig):
         '''
         self._config = pro_config
 
-    @vreport('check config {config}')
+    @vreport('checking config {config}')
     @override
     def not_none(self) -> bool:
         '''

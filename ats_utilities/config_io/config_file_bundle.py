@@ -73,10 +73,10 @@ class ConfigFileBundle:
                 | ATSTypeError: Context bundle must be an instance of ContextBundle.
                 | ATSTypeError: File check implementation must be an instance of IFileCheck interface.
         '''
-        require_not_none(self.context, 'context bundle must be provided')
-        require_not_none(self.file_checker, 'file checker implementation must be provided')
-        check_type(self.context, ContextBundle, 'context bundle must be an instance of ContextBundle')
-        check_type(self.file_checker, IFileCheck, 'file checker implementation must be an instance of IFileCheck interface')
+        require_not_none(self.context, r'context bundle must be provided')
+        require_not_none(self.file_checker, r'file checker implementation must be provided')
+        check_type(self.context, ContextBundle, r'context bundle must be an instance of ContextBundle')
+        check_type(self.file_checker, IFileCheck, r'file checker implementation must be an instance of IFileCheck interface')
 
     def merge(self, other: ConfigFileBundle) -> None:
         '''
@@ -87,7 +87,7 @@ class ConfigFileBundle:
             :exceptions:
                 | ATSTypeError: Other must be a ConfigFileBundle instance.
         '''
-        check_type(other, ConfigFileBundle, 'other must be a ConfigFileBundle instance')
+        check_type(other, ConfigFileBundle, r'other must be a ConfigFileBundle instance')
 
         for field_name in self.__dataclass_fields__:
             other_value: Any = getattr(other, field_name)

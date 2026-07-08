@@ -17,7 +17,7 @@ Copyright
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
     Defines abstract class IOptionCommand with method(s).
-    Creates an interface for ATS command with options.
+    Creates an interface for command with options.
 '''
 
 from __future__ import annotations
@@ -40,7 +40,7 @@ __status__ = r'Updated'
 class IOptionCommand(ABC):
     '''
         Defines abstract class IOptionCommand with method(s).
-        Creates an interface for ATS command with options.
+        Creates an interface for command with options.
 
         It defines:
 

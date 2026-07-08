@@ -99,7 +99,7 @@ def require_keys(
         missing = list(keys - frozenset(source.keys() if source else []))
 
         raise_context_error(
-            fallback_prefix='factory_dict_utils::require_keys',
+            fallback_prefix=r'factory_dict_utils::require_keys',
             fallback_msg=f'mapping is missing required keys: {missing}',
             exc_message_path=exc_message_path,
             exception_class=exception_class,

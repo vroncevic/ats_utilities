@@ -47,11 +47,11 @@ class INIProcessor(IINIProcessor):
         It defines:
 
             :attributes:
-                | _SECTION - Section name for ATS configuration.
-                | _NAME - Option name for ATS configuration.
-                | _VERSION - Option version for ATS configuration.
-                | _BUILD_DATE - Option build date for ATS configuration.
-                | _LICENCE - Option licence for ATS configuration.
+                | _SECTION - Section name for configuration.
+                | _NAME - Option name for configuration.
+                | _VERSION - Option version for configuration.
+                | _BUILD_DATE - Option build date for configuration.
+                | _LICENCE - Option licence for configuration.
                 | _config - ConfigParser instance for INI parsing.
             :methods:
                 | __init__ - Initializes INIProcessor constructor.
@@ -108,6 +108,7 @@ class INIProcessor(IINIProcessor):
         try:
             self._config.write(stream, space_around_delimiters=True)
             return True
+
         except (OSError, ConfigParserError):
             return False
 
@@ -116,12 +117,13 @@ class INIProcessor(IINIProcessor):
         '''
             Converts INI configuration to dictionary.
 
-            :return: Dictionary with ATS information.
+            :return: Dictionary with information.
             :rtype: <dict[str, str]>
             :exceptions: None.
         '''
         if not self._config.has_section(self._SECTION):
             return {}
+
         return {
             self._NAME: str(self._config.get(self._SECTION, self._NAME, fallback='')),
             self._VERSION: str(self._config.get(self._SECTION, self._VERSION, fallback='')),

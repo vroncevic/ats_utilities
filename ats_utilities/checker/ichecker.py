@@ -77,13 +77,13 @@ class IChecker(ABC):
     ERRORS: ClassVar[EnumMeta] = ErrorChecker
 
     @abstractmethod
-    def validates_parameters(self, parameters: ParametersSpecs | None) -> ValidationResult:
+    def validates_parameters(self, parameters: ParametersSpecs) -> ValidationResult:
         '''
             Validates parameters for a method(s) or function(s).
 
-            :param parameters: Specification for parameters
-            :type parameters: <ParametersSpecs | None>
-            :return: Tuple of error message report and error id
+            :param parameters: Specification for parameters.
+            :type parameters: <ParametersSpecs>
+            :return: Tuple of error message report and error id.
             :rtype: <ValidationResult>
             :exceptions: None.
         '''

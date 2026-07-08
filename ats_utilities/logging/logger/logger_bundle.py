@@ -81,14 +81,14 @@ class LoggerBundle:
                 | ATSTypeError: Log file must be a string.
                 | ATSTypeError: Name must be a string.
         '''
-        require_not_none(self.name, "name must be provided")
-        require_not_none(self.configure_logging, "configure_logging must be provided")
-        require_not_none(self.log_stdout, "log_stdout must be provided")
-        require_not_none(self.log_file, "log_file must be provided")
-        check_type(self.configure_logging, bool, "configure_logging must be a boolean")
-        check_type(self.log_stdout, bool, "log_stdout must be a boolean")
-        check_type(self.log_file, str, "log_file must be a string")
-        check_type(self.name, str, "name must be a string")
+        require_not_none(self.name, r"name must be provided")
+        require_not_none(self.configure_logging, r"configure_logging must be provided")
+        require_not_none(self.log_stdout, r"log_stdout must be provided")
+        require_not_none(self.log_file, r"log_file must be provided")
+        check_type(self.configure_logging, bool, r"configure_logging must be a boolean")
+        check_type(self.log_stdout, bool, r"log_stdout must be a boolean")
+        check_type(self.log_file, str, r"log_file must be a string")
+        check_type(self.name, str, r"name must be a string")
 
     def merge(self, other: LoggerBundle) -> None:
         '''
@@ -99,7 +99,7 @@ class LoggerBundle:
             :exceptions:
                 | ATSTypeError: Other must be a LoggerBundle instance.
         '''
-        check_type(other, LoggerBundle, "other must be a LoggerBundle instance")
+        check_type(other, LoggerBundle, r"other must be a LoggerBundle instance")
 
         for field_name in self.__dataclass_fields__:
             other_value: Any = getattr(other, field_name)

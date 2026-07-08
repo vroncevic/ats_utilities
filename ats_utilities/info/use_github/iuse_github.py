@@ -17,7 +17,7 @@ Copyright
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
     Defines abstract class IUseGitHub with method(s).
-    Interface for the ATS use GitHub infrastructure mechanism.
+    Interface for the use GitHub infrastructure mechanism.
 '''
 
 from __future__ import annotations
@@ -37,36 +37,39 @@ __status__ = r'Updated'
 class IUseGitHub(ABC):
     '''
         Defines abstract class IUseGitHub with method(s).
-        Interface for the ATS use GitHub infrastructure mechanism.
+        Interface for the use GitHub infrastructure mechanism.
+        Note: Use GitHub is only prepared when it is set by user (not None).
 
         It defines:
 
             :methods:
                 | use_github - Property methods for set/get operations.
-                | not_none - Checks if ATS use GitHub infrastructure is not None.
-                | __str__ - Returns the ATS use GitHub infrastructure as string representation.
+                | not_none - Checks if use GitHub infrastructure is not None.
+                | __str__ - Returns the use GitHub infrastructure as string representation.
     '''
 
     @property
     @abstractmethod
-    def use_github(self) -> bool | None:
+    def use_github(self) -> bool:
         '''
-            Property method for getting ATS use GitHub infrastructure status.
+            Property method for getting use GitHub infrastructure status.
+            Note: Use GitHub is only prepared when it is set by user (not None).
 
-            :return: The ATS use GitHub infrastructure status | None.
-            :rtype: <bool | None>
+            :return: The use GitHub infrastructure status.
+            :rtype: <bool>
             :exceptions: None.
         '''
         pass
 
     @use_github.setter
     @abstractmethod
-    def use_github(self, use_github: bool | None) -> None:
+    def use_github(self, use_github: bool) -> None:
         '''
-            Property method for setting ATS use GitHub infrastructure status.
+            Property method for setting use GitHub infrastructure status.
+            Note: Use GitHub is only prepared when it is set by user (not None).
 
-            :param use_github: The ATS use GitHub infrastructure status | None.
-            :type use_github: <bool | None>
+            :param use_github: The use GitHub infrastructure status.
+            :type use_github: <bool>
             :exceptions: None.
         '''
         pass
@@ -74,9 +77,10 @@ class IUseGitHub(ABC):
     @abstractmethod
     def not_none(self) -> bool:
         '''
-            Checks if ATS use GitHub infrastructure status is not None.
+            Checks if use GitHub infrastructure status is not None.
+            Note: Use GitHub is only prepared when it is set by user (not None).
 
-            :return: True (success) | False (fail).
+            :return: True (not None) | False (None).
             :rtype: <bool>
             :exceptions: None.
         '''
@@ -85,9 +89,9 @@ class IUseGitHub(ABC):
     @abstractmethod
     def __str__(self) -> str:
         '''
-            Returns the ATS use GitHub infrastructure as string representation.
+            Returns the use GitHub infrastructure as string representation.
 
-            :return: The ATS use GitHub infrastructure as string representation.
+            :return: The use GitHub infrastructure as string representation.
             :rtype: <str>
             :exceptions: None.
         '''

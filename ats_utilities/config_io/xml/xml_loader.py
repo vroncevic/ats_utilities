@@ -100,13 +100,13 @@ class XMLLoader(ILoader):
             config_file_bundle.file_checker, FileCheck,
             {'config_bundle': ContextBundle(checker=self._checker, reporter=self._reporter, verbose=self._verbose)}
         )
-        validate_component(file_checker, IFileCheck, 'file_checker must be an IFileCheck instance')
+        validate_component(file_checker, IFileCheck, r'file_checker must be an IFileCheck instance')
         processor: IXMLProcessor = make_component(xml_processor, XMLProcessor, None)
-        validate_component(processor, IXMLProcessor, 'processor must be an IXMLProcessor instance')
+        validate_component(processor, IXMLProcessor, r'processor must be an IXMLProcessor instance')
         xml2obj: IRead = make_component(xml2object, Xml2Object, {
             'config_file': info_file, 'config_bundle': config_file_bundle, 'xml_processor': processor
         })
-        validate_component(xml2obj, IRead, 'xml2obj must be an IRead instance')
+        validate_component(xml2obj, IRead, r'xml2obj must be an IRead instance')
         self._configuration = None
 
         if bool(xml2obj):

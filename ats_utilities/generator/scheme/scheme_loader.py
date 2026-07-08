@@ -99,7 +99,7 @@ class SchemeLoader(ISchemeLoader):
                 | ATSValueError: Failed to setup config loader.
                 | ATSGeneratorError: Loading scheme file fails.
         '''
-        check_type(scheme, (str, Mapping), 'scheme must be of type str or Mapping')
+        check_type(scheme, (str, Mapping), r'scheme must be of type str or Mapping')
 
         if isinstance(scheme, str):
             require_not_satisfied(not exists(scheme), f"scheme file at the provided path does not exist: '{scheme}'")

@@ -85,7 +85,7 @@ class LoggingComponentBundle:
                 'context_bundle': self.context_bundle
             }
         )
-        validate_component(self.logger, ILogger, 'logger must be an ILogger instance')
+        validate_component(self.logger, ILogger, r'logger must be an ILogger instance')
 
     def validate(self) -> None:
         '''
@@ -103,12 +103,12 @@ class LoggingComponentBundle:
                 | ATSTypeError: Logger bundle must be an instance of LoggerBundle.
                 | ATSTypeError: Context bundle must be an instance of ContextBundle.
         '''
-        require_not_none(self.logger, 'logger must be provided')
-        require_not_none(self.logger_bundle, 'logger bundle must be provided')
-        require_not_none(self.context_bundle, 'context bundle must be provided')
-        check_type(self.logger, ILogger, 'logger must be an instance of ILogger interface')
-        check_type(self.logger_bundle, LoggerBundle, 'logger bundle must be an instance of LoggerBundle')
-        check_type(self.context_bundle, ContextBundle, 'context bundle must be an instance of ContextBundle')
+        require_not_none(self.logger, r'logger must be provided')
+        require_not_none(self.logger_bundle, r'logger bundle must be provided')
+        require_not_none(self.context_bundle, r'context bundle must be provided')
+        check_type(self.logger, ILogger, r'logger must be an instance of ILogger interface')
+        check_type(self.logger_bundle, LoggerBundle, r'logger bundle must be an instance of LoggerBundle')
+        check_type(self.context_bundle, ContextBundle, r'context bundle must be an instance of ContextBundle')
 
     def merge(self, other: LoggingComponentBundle) -> None:
         '''
@@ -119,7 +119,7 @@ class LoggingComponentBundle:
             :exceptions:
                 | ATSTypeError: Other must be a LoggingComponentBundle instance.
         '''
-        check_type(other, LoggingComponentBundle, 'other must be a LoggingComponentBundle instance')
+        check_type(other, LoggingComponentBundle, r'other must be a LoggingComponentBundle instance')
 
         for field_name in self.__dataclass_fields__:
             other_value: Any = getattr(other, field_name)

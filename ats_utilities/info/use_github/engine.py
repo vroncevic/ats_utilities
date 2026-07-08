@@ -2,7 +2,7 @@
 
 '''
 Module
-    use_github.py
+    engine.py
 Copyright
     Copyright (C) 2017 - 2026 Vladimir Roncevic <elektron.ronca@gmail.com>
     ats_utilities is free software: you can redistribute it and/or modify it
@@ -17,7 +17,7 @@ Copyright
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
     Defines class UseGitHub with attribute(s) and method(s).
-    Creates an API for the ATS use GitHub infrastructure in one property object.
+    Creates an API for the use GitHub infrastructure in one property object.
 '''
 
 from __future__ import annotations
@@ -46,7 +46,8 @@ __status__ = r'Updated'
 class UseGitHub(IUseGitHub):
     '''
         Defines class UseGitHub with attribute(s) and method(s).
-        Creates an API for the ATS use GitHub infrastructure in one property object.
+        Creates an API for the use GitHub infrastructure in one property object.
+        Note: Use GitHub is only prepared when it is set by user (not None).
 
         It defines:
 
@@ -54,18 +55,18 @@ class UseGitHub(IUseGitHub):
                 | _checker - Injected parameters checker (default Checker).
                 | _reporter - Injected reporter for messaging (default Reporter).
                 | _verbose - Injected Enable/Disable verbose option (default False).
-                | _use_github - The ATS use GitHub infrastructure status (default None).
+                | _use_github - The use GitHub infrastructure for App/Tool/Script (default False).
             :methods:
                 | __init__ - Initializes UseGitHub constructor.
                 | use_github - Property methods for set/get use_github.
-                | not_none - Checks is ATS use GitHub infrastructure not None.
-                | __str__ - Returns the ATS use GitHub infrastructure as string representation.
+                | not_none - Checks is use GitHub infrastructure not None.
+                | __str__ - Returns the use GitHub infrastructure as string representation.
     '''
 
     _checker: IChecker
     _reporter: IReporter
     _verbose: bool
-    _use_github: bool | None
+    _use_github: bool
 
     def __init__(self, context_bundle: ContextBundle | None = None) -> None:
         '''
@@ -76,16 +77,17 @@ class UseGitHub(IUseGitHub):
             :exceptions: None.
         '''
         factory_context_bundle(self, context_bundle)
-        self._use_github = None
+        self._use_github = False
 
     @property
-    @vreport('get use_github {use_github}')
+    @vreport('getting use_github {use_github}')
     @override
     def use_github(self) -> bool:
         '''
-            Property method for getting ATS use GitHub infrastructure status.
+            Property method for getting use GitHub infrastructure.
+            Note: Use GitHub is only prepared when it is set by user (not None).
 
-            :return: The ATS use GitHub infrastructure status.
+            :return: The use GitHub infrastructure.
             :rtype: <bool>
             :exceptions:
                 | ATSRuntimeError: Decorator cannot be used on a standalone function.
@@ -96,13 +98,14 @@ class UseGitHub(IUseGitHub):
 
     @use_github.setter
     @vcheck([('bool:use_github', None)])
-    @vreport('set use_github {use_github}')
+    @vreport('setting use_github {use_github}')
     @override
     def use_github(self, use_github: bool) -> None:
          '''
-             Property method for setting ATS use GitHub infrastructure status.
+             Property method for setting use GitHub infrastructure.
+             Note: Use GitHub is only prepared when it is set by user (not None).
 
-             :param use_github: The ATS use GitHub infrastructure status.
+             :param use_github: The use GitHub infrastructure.
              :type use_github: <bool>
             :exceptions:
                 | ATSRuntimeError: Decorator cannot be used on a standalone function.
@@ -115,13 +118,14 @@ class UseGitHub(IUseGitHub):
          '''
          self._use_github = use_github
 
-    @vreport('check use_github {use_github}')
+    @vreport('checking use_github {use_github}')
     @override
     def not_none(self) -> bool:
         '''
-            Checks is ATS use GitHub infrastructure not None.
+            Checks is use GitHub infrastructure not None.
+            Note: Use GitHub is only prepared when it is set by user (not None).
 
-            :return: True (success) | False (fail).
+            :return: True (not None) | False (None).
             :rtype: <bool>
             :exceptions:
                 | ATSRuntimeError: Decorator cannot be used on a standalone function.
@@ -133,9 +137,9 @@ class UseGitHub(IUseGitHub):
     @override
     def __str__(self) -> str:
         '''
-            Returns the ATS use GitHub infrastructure as string representation.
+            Returns the UseGitHub infrastructure as string representation.
 
-            :return: The ATS use GitHub infrastructure as string representation.
+            :return: The UseGitHub infrastructure as string representation.
             :rtype: <str>
             :exceptions: None.
         '''

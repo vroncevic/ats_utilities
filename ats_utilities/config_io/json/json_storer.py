@@ -98,11 +98,11 @@ class JSONStorer(IStorer):
         config_file_bundle: ConfigFileBundle = config_bundle or ConfigFileBundle()
         factory_context_bundle(self, config_file_bundle.context)
         self._processor = make_component(json_processor, JSONProcessor, None)
-        validate_component(self._processor, IJSONProcessor, 'processor must be an IJSONProcessor instance')
+        validate_component(self._processor, IJSONProcessor, r'processor must be an IJSONProcessor instance')
         self._obj2json = make_component(object2json, Object2Json, {
             'config_file': info_file, 'config_bundle': config_file_bundle
         })
-        validate_component(self._obj2json, IWrite, 'obj2json must be an IWrite instance')
+        validate_component(self._obj2json, IWrite, r'obj2json must be an IWrite instance')
 
     @vcheck([('dict:config', None)])
     @override

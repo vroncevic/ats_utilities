@@ -49,7 +49,7 @@ class IReporter(ABC):
                 | warning - Reports warning message.
                 | error - Reports error message.
                 | is_initialized - Checks if the reporter component is initialized.
-                | __str__ - Returns the ATS reporter as string representation.
+                | __str__ - Returns the reporter as string representation.
     '''
 
     @abstractmethod
@@ -112,9 +112,9 @@ class IReporter(ABC):
     @abstractmethod
     def __str__(self) -> str:
         '''
-            Returns the ATS reporter as string representation.
+            Returns the reporter as string representation.
 
-            :return: The ATS reporter as string representation.
+            :return: The reporter as string representation.
             :rtype: <str>
             :exceptions: None.
         '''

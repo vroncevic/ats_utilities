@@ -60,10 +60,10 @@ class XMLProcessor(IXMLProcessor):
                 | __str__ - Returns the XMLProcessor as string representation.
     '''
 
-    _NAME: str = 'ats_name'
-    _VERSION: str = 'ats_version'
-    _BUILD_DATE: str = 'ats_build_date'
-    _LICENCE: str = 'ats_licence'
+    _NAME: str = r'ats_name'
+    _VERSION: str = r'ats_version'
+    _BUILD_DATE: str = r'ats_build_date'
+    _LICENCE: str = r'ats_licence'
     _root: ET.Element | None
 
     def __init__(self) -> None:

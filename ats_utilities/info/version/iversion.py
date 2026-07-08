@@ -17,7 +17,7 @@ Copyright
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
     Defines abstract class IVersion with method(s).
-    Interface for the ATS version mechanism.
+    Interface for the version mechanism.
 '''
 
 from __future__ import annotations
@@ -37,23 +37,25 @@ __status__ = r'Updated'
 class IVersion(ABC):
     '''
         Defines abstract class IVersion with method(s).
-        Interface for the ATS version mechanism.
+        Interface for the version mechanism.
+        Note: Version is only prepared when it is set by user (not None).
 
         It defines:
 
             :methods:
                 | version - Property methods for set/get operations.
-                | not_none - Checks if ATS version is not None.
-                | __str__ - Returns the ATS version as string representation.
+                | not_none - Checks if version is not None.
+                | __str__ - Returns the version as string representation.
     '''
 
     @property
     @abstractmethod
     def version(self) -> str | None:
         '''
-            Property method for getting ATS version.
+            Property method for getting version.
+            Note: Version is only prepared when it is set by user (not None).
 
-            :return: The ATS version in string format | None
+            :return: The version in string format | None.
             :rtype: <str | None>
             :exceptions: None.
         '''
@@ -61,12 +63,13 @@ class IVersion(ABC):
 
     @version.setter
     @abstractmethod
-    def version(self, version: str | None) -> None:
+    def version(self, version: str) -> None:
         '''
-            Property method for setting ATS version.
+            Property method for setting version.
+            Note: Version is only prepared when it is set by user (not None).
 
-            :param version: The ATS version in string format | None
-            :type version: <str | None>
+            :param version: The version in string format.
+            :type version: <str>
             :exceptions: None.
         '''
         pass
@@ -74,9 +77,10 @@ class IVersion(ABC):
     @abstractmethod
     def not_none(self) -> bool:
         '''
-            Checks if ATS version is not None.
+            Checks if version is not None.
+            Note: Version is only prepared when it is set by user (not None).
 
-            :return: True (success) | False (fail).
+            :return: True (not None) | False (None).
             :rtype: <bool>
             :exceptions: None.
         '''
@@ -85,9 +89,9 @@ class IVersion(ABC):
     @abstractmethod
     def __str__(self) -> str:
         '''
-            Returns the ATS version as string representation.
+            Returns the version as string representation.
 
-            :return: The ATS version as string representation.
+            :return: The version as string representation.
             :rtype: <str>
             :exceptions: None.
         '''

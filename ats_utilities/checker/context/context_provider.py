@@ -52,7 +52,7 @@ class ContextProvider(IContextProvider):
                 | __init__ - Initializes ContextProvider constructor.
                 | set_stack_index_caller - Sets the index in the call stack to identify the caller.
                 | get_context - Returns a string representing the calling context.
-                | __str__ - Returns the ATS context provider as string representation.
+                | __str__ - Returns the context provider as string representation.
     '''
 
     _stack_index_caller: int
@@ -98,10 +98,10 @@ class ContextProvider(IContextProvider):
         caller = current_stack[target_index]
         func_name = caller.function
 
-        if func_name == 'wrapper' and 'func' in caller.frame.f_locals:
-            func_obj = caller.frame.f_locals['func']
+        if func_name == r'wrapper' and r'func' in caller.frame.f_locals:
+            func_obj = caller.frame.f_locals[r'func']
 
-            if hasattr(func_obj, '__name__'):
+            if hasattr(func_obj, r'__name__'):
                 func_name = func_obj.__name__
 
         return f'\nmod: {caller.filename}\n  def: {func_name}()'
@@ -109,9 +109,9 @@ class ContextProvider(IContextProvider):
     @override
     def __str__(self) -> str:
         '''
-            Returns the ATS context provider as string representation.
+            Returns the context provider as string representation.
 
-            :return: The ATS context provider as string representation.
+            :return: The context provider as string representation.
             :rtype: <str>
             :exceptions: None.
         '''

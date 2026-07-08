@@ -80,7 +80,7 @@ class TemplateDir(ITemplateDir):
         self._template_dir = None
 
     @property
-    @vreport('get template dir {template_dir}')
+    @vreport('getting template dir {template_dir}')
     @override
     def template_dir(self) -> str:
         '''
@@ -97,7 +97,7 @@ class TemplateDir(ITemplateDir):
 
     @template_dir.setter
     @vcheck([('str:dir_path', None)])
-    @vreport('get template dir {template_dir}')
+    @vreport('getting template dir {template_dir}')
     @override
     def template_dir(self, dir_path: str) -> None:
         '''
@@ -116,7 +116,7 @@ class TemplateDir(ITemplateDir):
         '''
         self._template_dir = dir_path
 
-    @vreport('check template dir {template_dir}')
+    @vreport('checking template dir {template_dir}')
     @override
     def not_none(self) -> bool:
         '''

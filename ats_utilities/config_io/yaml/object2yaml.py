@@ -74,8 +74,8 @@ class Object2Yaml(IWrite):
                 | __str__ - Returns the Object2Yaml as string representation.
     '''
 
-    _EXT: str = 'yaml'
-    _MODE: str = 'w'
+    _EXT: str = r'yaml'
+    _MODE: str = r'w'
     _checker: IChecker
     _reporter: IReporter
     _verbose: bool
@@ -104,7 +104,7 @@ class Object2Yaml(IWrite):
             self._config_file_bundle.file_checker, FileCheck,
             {'config_bundle': ContextBundle(checker=self._checker, reporter=self._reporter, verbose=self._verbose)}
         )
-        validate_component(self._file_checker, IFileCheck, 'file_checker must be an IFileCheck instance')
+        validate_component(self._file_checker, IFileCheck, r'file_checker must be an IFileCheck instance')
         self._file_path = str(config_file)
         self._file_bundle_shared = FileBundle()
         self._file_bundle_shared.file_path = self._file_path

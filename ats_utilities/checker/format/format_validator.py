@@ -50,7 +50,7 @@ class FormatValidator(IFormatValidator):
             :methods:
                 | is_valid - Checks if the string follows the expected format.
                 | split - Splits the format string into type and name parts.
-                | __str__ - Returns the ATS format vcheck as string representation.
+                | __str__ - Returns the format vcheck as string representation.
     '''
 
     EXPECTED_FORMAT_PARTS: Final[int] = 2
@@ -86,9 +86,9 @@ class FormatValidator(IFormatValidator):
     @override
     def __str__(self) -> str:
         '''
-            Returns the ATS format vcheck as string representation.
+            Returns the format vcheck as string representation.
 
-            :return: The ATS format vcheck as string representation.
+            :return: The format vcheck as string representation.
             :rtype: <str>
             :exceptions: None.
         '''

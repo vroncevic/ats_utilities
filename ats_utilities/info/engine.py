@@ -17,7 +17,7 @@ Copyright
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
     Defines class InfoManager with attribute(s) and method(s).
-    Creates an API for the ATS information in one container object.
+    Creates an API for the information in one container object.
 '''
 
 from __future__ import annotations
@@ -49,13 +49,15 @@ __status__ = r'Updated'
 class InfoManager(IInfoManager):
     '''
         Defines class InfoManager with attribute(s) and method(s).
-        Creates an API for the ATS information in one container object.
-        The ATS information container.
+        Creates an API for the information in one container object.
+        The information container for App/Tool/Script.
+        Note: The information is read-only data (it is provided by
+              configuraiton file which is loaded by config loader).
 
         It defines:
 
             :attributes:
-                | _components - The ATS info components (default InfoComponentBundle).
+                | _components - The info components (default InfoComponentBundle).
                 | _checker - Injected parameters checker (default Checker).
                 | _reporter - Injected reporter for messaging (default Reporter).
                 | _verbose - Injected Enable/Disable verbose option (default False).
@@ -64,10 +66,10 @@ class InfoManager(IInfoManager):
             :methods:
                 | __init__ - Initializes InfoManager constructor.
                 | get_shared_context - Returns the shared context.
-                | set_info - Sets the ATS information.
-                | get_info - Gets the ATS information.
-                | is_initialized - Checks if the info manager component is initialized.
-                | refresh_status - Refresh status for ATS information structure.
+                | set_info - Sets the information.
+                | get_info - Gets the information.
+                | is_initialized - Checks if info manager is initialized.
+                | refresh_status - Refresh status for information structure.
                 | __str__ - Returns the InfoManager as string representation.
     '''
 
@@ -118,9 +120,9 @@ class InfoManager(IInfoManager):
     @override
     def set_info(self, info: Mapping[str, Any]) -> None:
         '''
-            Sets the ATS information (read only data).
+            Sets the information (read only data).
 
-            :param info: Mapping with ATS information.
+            :param info: Mapping with information.
             :type info: <Mapping[str, Any]>
             :exceptions: None.
         '''
@@ -142,9 +144,9 @@ class InfoManager(IInfoManager):
     @override
     def get_info(self) -> Mapping[str, Any]:
         '''
-            Gets the ATS information (read only data).
+            Gets the information (read only data).
 
-            :return: Mapping with ATS information.
+            :return: Mapping with information.
             :rtype: <Mapping[str, Any]>
             :exceptions: None.
         '''
@@ -196,7 +198,7 @@ class InfoManager(IInfoManager):
     @override
     def is_initialized(self) -> bool:
         '''
-            Checks if the info manager component is initialized.
+            Checks if info manager is initialized.
 
             :return: True (success) | False (fail).
             :rtype: <bool>
@@ -209,7 +211,7 @@ class InfoManager(IInfoManager):
     @override
     def refresh_status(self) -> None:
         '''
-            Refresh status for ATS information structure.
+            Refresh status for information structure.
 
             :exceptions: None.
         '''

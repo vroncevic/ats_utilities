@@ -89,7 +89,7 @@ class FileCheck(IFileCheck):
         self._file_format_ok = False
 
     @vcheck([('str:file_path', None)])
-    @vreport('check file path {file_path_ok}')
+    @vreport('checking file path {file_path_ok}')
     @override
     def check_path(self, file_path: str) -> None:
         '''
@@ -113,7 +113,7 @@ class FileCheck(IFileCheck):
 
 
     @vcheck([('str:file_mode', None)])
-    @vreport('check file mode {file_mode_ok}')
+    @vreport('checking file mode {file_mode_ok}')
     @override
     def check_mode(self, file_mode: str) -> None:
         '''
@@ -138,7 +138,7 @@ class FileCheck(IFileCheck):
             self._reporter.error([f'not supported file mode [{file_mode}]'])
 
     @vcheck([('str:file_path', None), ('str:file_format', None)])
-    @vreport('check file format {file_format_ok}')
+    @vreport('checking file format {file_format_ok}')
     @override
     def check_format(self, file_path: str, file_format: str) -> None:
         '''
@@ -176,7 +176,7 @@ class FileCheck(IFileCheck):
         else:
             self._file_format_ok = True
 
-    @vreport('check is file ok path: {file_path_ok}, mode: {file_mode_ok}, format: {file_format_ok}')
+    @vreport('checking is file ok path: {file_path_ok}, mode: {file_mode_ok}, format: {file_format_ok}')
     @override
     def is_file_ok(self) -> bool:
         '''

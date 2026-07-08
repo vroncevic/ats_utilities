@@ -81,12 +81,12 @@ class GeneratorComponentBundle:
         self.template_processor = make_component(
             self.template_processor, TemplateProcessor, {'context_bundle': self.context_bundle}
         )
-        validate_component(self.template_processor, ITemplateProcessor, 'template_processor must be an ITemplateProcessor instance')
+        validate_component(self.template_processor, ITemplateProcessor, r'template_processor must be an ITemplateProcessor instance')
 
         self.scheme_loader = make_component(
             self.scheme_loader, SchemeLoader, {'context_bundle': self.context_bundle}
         )
-        validate_component(self.scheme_loader, ISchemeLoader, 'scheme_loader must be an ISchemeLoader instance')
+        validate_component(self.scheme_loader, ISchemeLoader, r'scheme_loader must be an ISchemeLoader instance')
 
         self.tar_processor = make_component(
             self.tar_processor, TarProcessor, {
@@ -94,7 +94,7 @@ class GeneratorComponentBundle:
                 'template_processor': self.template_processor
             }
         )
-        validate_component(self.tar_processor, ITarProcessor, 'tar_processor must be an ITarProcessor instance')
+        validate_component(self.tar_processor, ITarProcessor, r'tar_processor must be an ITarProcessor instance')
 
 
     def validate(self) -> None:
@@ -116,14 +116,14 @@ class GeneratorComponentBundle:
                 | ATSTypeError: Tar processor must be an ITarProcessor instance.
                 | ATSTypeError: Template processor must be an ITemplateProcessor instance.
         '''
-        require_not_none(self.context_bundle, "context bundle must be provided")
-        require_not_none(self.scheme_loader, "scheme loader must be provided")
-        require_not_none(self.tar_processor, "tar processor must be provided")
-        require_not_none(self.template_processor, "template processor must be provided")
-        check_type(self.context_bundle, ContextBundle, "context bundle must be a ContextBundle instance")
-        check_type(self.scheme_loader, ISchemeLoader, "scheme loader must be an ISchemeLoader instance")
-        check_type(self.tar_processor, ITarProcessor, "tar processor must be an ITarProcessor instance")
-        check_type(self.template_processor, ITemplateProcessor, "template processor must be an ITemplateProcessor instance")
+        require_not_none(self.context_bundle, r"context bundle must be provided")
+        require_not_none(self.scheme_loader, r"scheme loader must be provided")
+        require_not_none(self.tar_processor, r"tar processor must be provided")
+        require_not_none(self.template_processor, r"template processor must be provided")
+        check_type(self.context_bundle, ContextBundle, r"context bundle must be a ContextBundle instance")
+        check_type(self.scheme_loader, ISchemeLoader, r"scheme loader must be an ISchemeLoader instance")
+        check_type(self.tar_processor, ITarProcessor, r"tar processor must be an ITarProcessor instance")
+        check_type(self.template_processor, ITemplateProcessor, r"template processor must be an ITemplateProcessor instance")
 
     def merge(self, other: GeneratorComponentBundle) -> None:
         '''
@@ -134,7 +134,7 @@ class GeneratorComponentBundle:
             :exceptions:
                 | ATSTypeError: Other must be a GeneratorComponentBundle instance.
         '''
-        check_type(other, GeneratorComponentBundle, "other must be a GeneratorComponentBundle instance")
+        check_type(other, GeneratorComponentBundle, r"other must be a GeneratorComponentBundle instance")
 
         for field_name in self.__dataclass_fields__:
             other_value: Any = getattr(other, field_name)

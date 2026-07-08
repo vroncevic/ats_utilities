@@ -51,6 +51,7 @@ class ExtInfrastructure(IExtInfrastructure):
     '''
         Defines class ExtInfrastructure with attribute(s) and method(s).
         Creates an API for processing hyperlinks for splash screen.
+        Note: Splash screen infrastructure comes from info configuration file as read only data.
 
         It defines:
 
@@ -89,12 +90,12 @@ class ExtInfrastructure(IExtInfrastructure):
         self._infrastructure_property = None
 
     @property
-    @vreport('get infrastructure property {infrastructure_property}')
+    @vreport('getting infrastructure property {infrastructure_property}')
     @override
     def infrastructure_property(self) -> Mapping[str, Any]:
         '''
             Property method for getting infrastructure property.
-            Infrastructure property comes from info configuration file as read only data.
+            Note: Splash screen infrastructure comes from info configuration file as read only data.
 
             :return: Formatted infrastructure property in Mapping format (read only data).
             :rtype: <Mapping[str, Any]>
@@ -107,12 +108,12 @@ class ExtInfrastructure(IExtInfrastructure):
 
     @infrastructure_property.setter
     @vcheck([('Mapping:setup', None)])
-    @vreport('set infrastructure property {infrastructure_property}')
+    @vreport('setting infrastructure property {infrastructure_property}')
     @override
     def infrastructure_property(self, setup: Mapping[str, Any]) -> None:
         '''
             Property method for setting project infrastructure property.
-            Infrastructure property comes from info configuration file as read only data.
+            Note: Splash screen infrastructure comes from info configuration file as read only data.
 
             :param setup: Project infrastructure property in Mapping format (read only data).
             :type setup: <Mapping[str, Any]>
@@ -130,12 +131,13 @@ class ExtInfrastructure(IExtInfrastructure):
         require_keys(setup, self._required_keys)
         self._infrastructure_property = cherry_pick_dict(setup, self._required_keys)
 
-    @vreport('get info text {infrastructure_property}')
+    @vreport('getting info text {infrastructure_property}')
     @has_attrs('_infrastructure_property')
     @override
     def get_info_text(self) -> str:
         '''
             Pre-processes info text for splash.
+            Note: Splash screen infrastructure comes from info configuration file as read only data.
 
             :return: Hyperlink with info text.
             :rtype: <str>
@@ -147,16 +149,17 @@ class ExtInfrastructure(IExtInfrastructure):
                 |                    use the @vreport decorator.
         '''
         name: str = self._infrastructure_property.get(SplashKeys.ATS_NAME)
-        require_not_empty(name, "missing name")
+        require_not_empty(name, r'missing name')
 
         return f'\x1b]8;;{name}\a{name}\x1b]8;;\a'
 
-    @vreport('get issue text {infrastructure_property}')
+    @vreport('getting issue text {infrastructure_property}')
     @has_attrs('_infrastructure_property')
     @override
     def get_issue_text(self) -> str:
         '''
             Pre-processes issue text for splash.
+            Note: Splash screen infrastructure comes from info configuration file as read only data.
 
             :return: Hyperlink with issue info.
             :rtype: <str>
@@ -168,16 +171,17 @@ class ExtInfrastructure(IExtInfrastructure):
                 |                    use the @vreport decorator.
         '''
         repo: str = self._infrastructure_property.get(SplashKeys.ATS_REPOSITORY)
-        require_not_empty(repo, "missing repository")
+        require_not_empty(repo, r'missing repository')
 
         return f'\x1b]8;;{repo}\a{repo}\x1b]8;;\a'
 
-    @vreport('get author text {infrastructure_property}')
+    @vreport('getting author text {infrastructure_property}')
     @has_attrs('_infrastructure_property')
     @override
     def get_author_text(self) -> str:
         '''
             Pre-processes author text for splash.
+            Note: Splash screen infrastructure comes from info configuration file as read only data.
 
             :return: Hyperlink with author info.
             :rtype: <str>
@@ -189,7 +193,7 @@ class ExtInfrastructure(IExtInfrastructure):
                 |                    use the @vreport decorator.
         '''
         org: str = self._infrastructure_property.get(SplashKeys.ATS_ORGANIZATION)
-        require_not_empty(org, "missing organization")
+        require_not_empty(org, r'missing organization')
 
         return f'\x1b]8;;{org}\a{org}\x1b]8;;\a'
 

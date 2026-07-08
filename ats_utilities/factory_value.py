@@ -55,8 +55,8 @@ def require_not_none(
     '''
     if value is None:
         raise_context_error(
-            fallback_prefix="factory_value::require_not_none",
-            fallback_msg="value must not be None",
+            fallback_prefix=r'factory_value::require_not_none',
+            fallback_msg=r'value must not be None',
             exc_message_path=exc_message_path,
             exception_class=exception_class,
             depth=3
@@ -82,8 +82,8 @@ def require_not_empty(
     '''
     if not bool(value) and value != 0 and value != False:
         raise_context_error(
-            fallback_prefix="factory_value::require_not_empty",
-            fallback_msg="value must not be empty",
+            fallback_prefix=r'factory_value::require_not_empty',
+            fallback_msg=r'value must not be empty',
             exc_message_path=exc_message_path,
             exception_class=exception_class,
             depth=3
@@ -98,7 +98,7 @@ def require_not_satisfied(
     '''
         Requires a status to be True (statisfied condition for un happy flow).
 
-        :param status: Status to check (not satisfied).
+        :param status: Status which indicates unhappy flow (True = unhappy flow).
         :type status: <bool>
         :param exc_message_path: Path and details to include in the exception message (unhappy flow).
         :type exc_message_path: <str | None>
@@ -109,8 +109,8 @@ def require_not_satisfied(
     '''
     if status:
         raise_context_error(
-            fallback_prefix="factory_value::require_not_satisfied",
-            fallback_msg="condition not satisfied",
+            fallback_prefix=r'factory_value::require_not_satisfied',
+            fallback_msg=r'condition not satisfied',
             exc_message_path=exc_message_path,
             exception_class=exception_class,
             depth=3

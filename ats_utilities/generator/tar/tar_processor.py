@@ -95,10 +95,8 @@ class TarProcessor(ITarProcessor):
                 | ATSTypeError: Template processor component is not of expected type.
         '''
         factory_context_bundle(self, context_bundle)
-        self._template_processor = make_component(
-            template_processor, TemplateProcessor, {'context_bundle': context_bundle}
-        )
-        validate_component(self._template_processor, ITemplateProcessor, 'template_processor must be an ITemplateProcessor instance')
+        self._template_processor = make_component(template_processor, TemplateProcessor, {'context_bundle': context_bundle})
+        validate_component(self._template_processor, ITemplateProcessor, r'template_processor must be an ITemplateProcessor instance')
 
     @override
     def process_tar_member(self, tar_process_member_bundle: TarProcessMemberBundle) -> None:

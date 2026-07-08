@@ -148,7 +148,7 @@ def vcheck[F: Callable[..., Any]](specs: list[tuple[str, Any]]) -> Callable[[F],
                 if error_id != checker.ERRORS.NO_ERROR:
                     if error_id == checker.ERRORS.TYPE_ERROR:
                         raise_context_error(
-                            fallback_prefix='vcheck::decorator',
+                            fallback_prefix=r'vcheck::decorator',
                             fallback_msg=f'Type error: {report_message}',
                             exc_message_path=None,
                             exception_class=ATSTypeError,
@@ -157,7 +157,7 @@ def vcheck[F: Callable[..., Any]](specs: list[tuple[str, Any]]) -> Callable[[F],
                     
                     if error_id == checker.ERRORS.FORMAT_ERROR:
                         raise_context_error(
-                            fallback_prefix='vcheck::decorator',
+                            fallback_prefix=r'vcheck::decorator',
                             fallback_msg=f'Format error: {report_message}',
                             exc_message_path=None,
                             exception_class=ATSValueError,

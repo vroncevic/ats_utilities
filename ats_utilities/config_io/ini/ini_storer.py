@@ -100,11 +100,11 @@ class INIStorer(IStorer):
         config_file_bundle: ConfigFileBundle = config_bundle or ConfigFileBundle()
         factory_context_bundle(self, config_file_bundle.context)
         self._processor = make_component(ini_processor, INIProcessor, None)
-        validate_component(self._processor, IINIProcessor, 'processor must be an IINIProcessor instance')
+        validate_component(self._processor, IINIProcessor, r'processor must be an IINIProcessor instance')
         self._obj2ini = make_component(object2ini, Object2Ini, {
             'config_file': info_file, 'config_bundle': config_file_bundle
         })
-        validate_component(self._obj2ini, IWrite, 'obj2ini must be an IWrite instance')
+        validate_component(self._obj2ini, IWrite, r'obj2ini must be an IWrite instance')
 
     @vcheck([('dict:config', None)])
     @override

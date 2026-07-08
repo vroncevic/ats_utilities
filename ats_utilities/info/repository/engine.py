@@ -2,7 +2,7 @@
 
 '''
 Module
-    version.py
+    engine.py
 Copyright
     Copyright (C) 2017 - 2026 Vladimir Roncevic <elektron.ronca@gmail.com>
     ats_utilities is free software: you can redistribute it and/or modify it
@@ -16,15 +16,15 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines class Version with attribute(s) and method(s).
-    Creates an API for the ATS version in one property object.
+    Defines class Repository with attribute(s) and method(s).
+    Creates an API for the repository in one property object.
 '''
 
 from __future__ import annotations
 
 from typing import override
 
-from ats_utilities.info.version.iversion import IVersion
+from ats_utilities.info.repository.irepository import IRepository
 from ats_utilities.context_bundle import ContextBundle
 from ats_utilities.checker.ichecker import IChecker
 from ats_utilities.reporter.ireporter import IReporter
@@ -43,10 +43,11 @@ __email__ = r'elektron.ronca@gmail.com'
 __status__ = r'Updated'
 
 
-class Version(IVersion):
+class Repository(IRepository):
     '''
-        Defines class Version with attribute(s) and method(s).
-        Creates an API for the ATS version in one property object.
+        Defines class Repository with attribute(s) and method(s).
+        Creates an API for the repository in one property object.
+        Note: Repository is only prepared when it is set by user (not None).
 
         It defines:
 
@@ -54,56 +55,58 @@ class Version(IVersion):
                 | _checker - Injected parameters checker (default Checker).
                 | _reporter - Injected reporter for messaging (default Reporter).
                 | _verbose - Injected Enable/Disable verbose option (default False).
-                | _version - The ATS version (default None).
+                | _repository - The repository for App/Tool/Script (default None).
             :methods:
-                | __init__ - Initializes Version constructor.
-                | version - Property methods for set/get version.
-                | not_none - Checks is ATS version not None.
-                | __str__ - Returns the ATS version as string representation.
+                | __init__ - Initializes Repository constructor.
+                | repository - Property methods for set/get repository.
+                | not_none - Checks is repository not None.
+                | __str__ - Returns the repository as string representation.
     '''
 
     _checker: IChecker
     _reporter: IReporter
     _verbose: bool
-    _version: str | None
+    _repository: str | None
 
     def __init__(self, context_bundle: ContextBundle | None = None) -> None:
         '''
-            Initializes Version constructor.
+            Initializes Repository constructor.
 
-            :param context_bundle: Context bundle for version | None.
+            :param context_bundle: Context bundle for repository | None.
             :type context_bundle: <ContextBundle | None>
             :exceptions: None.
         '''
         factory_context_bundle(self, context_bundle)
-        self._version = None
+        self._repository = None
 
     @property
-    @vreport('get version {version}')
+    @vreport('getting repository {repository}')
     @override
-    def version(self) -> str:
+    def repository(self) -> str | None:
         '''
-            Property method for getting ATS version.
+            Property method for getting repository.
+            Note: Repository is only prepared when it is set by user (not None).
 
-            :return: The ATS version in string format.
-            :rtype: <str>
+            :return: The repository in string format | None.
+            :rtype: <str | None>
             :exceptions:
                 | ATSRuntimeError: Decorator cannot be used on a standalone function.
                 | ATSAttributeError: Class is required to provide a '_reporter' object to
                 |                    use the @vreport decorator.
         '''
-        return self._version
+        return self._repository
 
-    @version.setter
-    @vcheck([('str:version', None)])
-    @vreport('set version {version}')
+    @repository.setter
+    @vcheck([('str:repository', None)])
+    @vreport('setting repository {repository}')
     @override
-    def version(self, version: str) -> None:
+    def repository(self, repository: str) -> None:
         '''
-            Property method for setting ATS version.
+            Property method for setting repository.
+            Note: Repository is only prepared when it is set by user (not None).
 
-            :param version: The ATS version in string format.
-            :type version: <str>
+            :param repository: The repository in string format.
+            :type repository: <str>
             :exceptions:
                 | ATSRuntimeError: Decorator cannot be used on a standalone function.
                 | ATSAttributeError: Class is required to provide a '_reporter' object to
@@ -113,29 +116,30 @@ class Version(IVersion):
                 | ATSRuntimeError: Decorator used on a non-class method.
                 | ATSAttributeError: Class does not provide a '_checker' object.
         '''
-        self._version = version
+        self._repository = repository
 
-    @vreport('check version {version}')
+    @vreport('checking repository {repository}')
     @override
     def not_none(self) -> bool:
         '''
-            Checks is ATS version not None.
+            Checks is repository not None.
+            Note: Repository is only prepared when it is set by user (not None).
 
-            :return: True (success) | False (fail).
+            :return: True (not None) | False (None).
             :rtype: <bool>
             :exceptions:
                 | ATSRuntimeError: Decorator cannot be used on a standalone function.
                 | ATSAttributeError: Class is required to provide a '_reporter' object to
                 |                    use the @vreport decorator.
         '''
-        return self._version is not None
+        return self._repository is not None
 
     @override
     def __str__(self) -> str:
         '''
-            Returns the ATS version as string representation.
+            Returns the Repository as string representation.
 
-            :return: The ATS version as string representation.
+            :return: The Repository as string representation.
             :rtype: <str>
             :exceptions: None.
         '''

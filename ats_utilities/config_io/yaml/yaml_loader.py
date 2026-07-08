@@ -100,13 +100,13 @@ class YAMLLoader(ILoader):
             config_file_bundle.file_checker, FileCheck,
             {'config_bundle': ContextBundle(checker=self._checker, reporter=self._reporter, verbose=self._verbose)}
         )
-        validate_component(file_checker, IFileCheck, 'file_checker must be an IFileCheck instance')
+        validate_component(file_checker, IFileCheck, r'file_checker must be an IFileCheck instance')
         processor: IYAMLProcessor = make_component(yaml_processor, YAMLProcessor, None)
-        validate_component(processor, IYAMLProcessor, 'processor must be an IYAMLProcessor instance')
+        validate_component(processor, IYAMLProcessor, r'processor must be an IYAMLProcessor instance')
         yaml2obj: IRead = make_component(yaml2object, Yaml2Object, {
             'config_file': info_file, 'config_bundle': config_file_bundle, 'yaml_processor': processor
         })
-        validate_component(yaml2obj, IRead, 'yaml2obj must be an IRead instance')
+        validate_component(yaml2obj, IRead, r'yaml2obj must be an IRead instance')
         self._configuration = None
 
         if bool(yaml2obj):

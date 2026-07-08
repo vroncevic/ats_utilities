@@ -96,7 +96,7 @@ class SplashComponentBundle:
                 | ATSTypeError: Property 'pb' must be an IProgressBar instance.
         '''
         if self.prop is not None:
-            check_type(self.prop, Mapping, "prop must be a Mapping[str, Any] instance")
+            check_type(self.prop, Mapping, r'prop must be a Mapping[str, Any] instance')
 
         if self.context_bundle is None:
             self.context_bundle = ContextBundle()
@@ -104,22 +104,22 @@ class SplashComponentBundle:
         factory_args: dict[str, Any] = {'context_bundle': self.context_bundle}
 
         self.splash_property = make_component(self.splash_property, SplashProperty, factory_args)
-        validate_component(self.splash_property, ISplashProperty, 'splash_property must be an ISplashProperty instance')
+        validate_component(self.splash_property, ISplashProperty, r'splash_property must be an ISplashProperty instance')
 
         if self.prop is not None:
             self.splash_property.splash_keys = self.prop
             self.property_validated = self.splash_property.validates()
 
         self.terminal_property = make_component(self.terminal_property, TerminalProperties, factory_args)
-        validate_component(self.terminal_property, ITerminalProperties, 'terminal_property must be an ITerminalProperties instance')
+        validate_component(self.terminal_property, ITerminalProperties, r'terminal_property must be an ITerminalProperties instance')
 
         size: tuple[Any, ...] = self.terminal_property.size()
 
         self.github = make_component(self.github, GitHubInfrastructure, factory_args)
-        validate_component(self.github, IExtInfrastructure, 'github must be an IExtInfrastructure instance')
+        validate_component(self.github, IExtInfrastructure, r'github must be an IExtInfrastructure instance')
 
         self.ext = make_component(self.ext, ExtInfrastructure, factory_args)
-        validate_component(self.ext, IExtInfrastructure, 'ext must be an IExtInfrastructure instance')
+        validate_component(self.ext, IExtInfrastructure, r'ext must be an IExtInfrastructure instance')
 
         if self.property_validated and self.prop is not None:
             is_enabled = bool(self.prop.get('enabled', True))
@@ -133,7 +133,7 @@ class SplashComponentBundle:
                     self.ext.infrastructure_property = self.prop
 
         self.pb = make_component(self.pb, ProgressBar, {'end': int(size[1]) - int(int(size[1]) / 2)})
-        validate_component(self.pb, IProgressBar, 'pb must be an IProgressBar instance')
+        validate_component(self.pb, IProgressBar, r'pb must be an IProgressBar instance')
 
     def validate(self) -> None:
         '''
@@ -158,20 +158,20 @@ class SplashComponentBundle:
                 | ATSTypeError: Progress bar 'pb' must be an IProgressBar instance.
                 | ATSTypeError: Context bundle 'context_bundle' must be a ContextBundle instance.
         '''
-        require_not_none(self.prop, "properties dictionary 'prop' must be provided")
-        require_not_none(self.splash_property, "splash property 'splash_property' must be provided")
-        require_not_none(self.terminal_property, "terminal properties 'terminal_property' must be provided")
-        require_not_none(self.github, "gitHub infrastructure 'github' must be provided")
-        require_not_none(self.ext, "external infrastructure 'ext' must be provided")
-        require_not_none(self.pb, "progress bar 'pb' must be provided")
-        require_not_none(self.context_bundle, "context bundle 'context_bundle' must be provided")
-        check_type(self.prop, Mapping, "properties dictionary 'prop' must be a Mapping[str, Any] instance")
-        check_type(self.splash_property, ISplashProperty, "splash property 'splash_property' must be an ISplashProperty instance")
-        check_type(self.terminal_property, ITerminalProperties, "terminal properties 'terminal_property' must be an ITerminalProperties instance")
-        check_type(self.github, IExtInfrastructure, "gitHub infrastructure 'github' must be an IExtInfrastructure instance")
-        check_type(self.ext, IExtInfrastructure, "external infrastructure 'ext' must be an IExtInfrastructure instance")
-        check_type(self.pb, IProgressBar, "progress bar 'pb' must be an IProgressBar instance")
-        check_type(self.context_bundle, ContextBundle, "context bundle 'context_bundle' must be a ContextBundle instance")
+        require_not_none(self.prop, r'properties dictionary prop must be provided')
+        require_not_none(self.splash_property, r'splash property splash_property must be provided')
+        require_not_none(self.terminal_property, r'terminal properties terminal_property must be provided')
+        require_not_none(self.github, r'gitHub infrastructure github must be provided')
+        require_not_none(self.ext, r'external infrastructure ext must be provided')
+        require_not_none(self.pb, r'progress bar pb must be provided')
+        require_not_none(self.context_bundle, r'context bundle context_bundle must be provided')
+        check_type(self.prop, Mapping, r'properties dictionary prop must be a Mapping[str, Any] instance')
+        check_type(self.splash_property, ISplashProperty, r'splash property splash_property must be an ISplashProperty instance')
+        check_type(self.terminal_property, ITerminalProperties, r'terminal properties terminal_property must be an ITerminalProperties instance')
+        check_type(self.github, IExtInfrastructure, r'gitHub infrastructure github must be an IExtInfrastructure instance')
+        check_type(self.ext, IExtInfrastructure, r'external infrastructure ext must be an IExtInfrastructure instance')
+        check_type(self.pb, IProgressBar, r'progress bar pb must be an IProgressBar instance')
+        check_type(self.context_bundle, ContextBundle, r'context bundle context_bundle must be a ContextBundle instance')
 
     def merge(self, other: SplashComponentBundle) -> None:
         '''
@@ -182,7 +182,7 @@ class SplashComponentBundle:
             :exceptions:
                 | ATSTypeError: Other must be a SplashComponentBundle instance.
         '''
-        check_type(other, SplashComponentBundle, "other must be a SplashComponentBundle instance")
+        check_type(other, SplashComponentBundle, r'other must be a SplashComponentBundle instance')
 
         for field_name in self.__dataclass_fields__:
             other_value: Any = getattr(other, field_name)

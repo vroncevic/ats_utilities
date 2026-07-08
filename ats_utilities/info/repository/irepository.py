@@ -17,7 +17,7 @@ Copyright
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
     Defines abstract class IRepository with method(s).
-    Interface for the ATS repository mechanism.
+    Interface for the repository mechanism.
 '''
 
 from __future__ import annotations
@@ -37,23 +37,25 @@ __status__ = r'Updated'
 class IRepository(ABC):
     '''
         Defines abstract class IRepository with method(s).
-        Interface for the ATS repository mechanism.
+        Interface for the repository mechanism.
+        Note: Repository is only prepared when it is set by user (not None).
 
         It defines:
 
             :methods:
                 | repository - Property methods for set/get operations.
-                | not_none - Checks if ATS repository is not None.
-                | __str__ - Returns the ATS repository as string representation.
+                | not_none - Checks if repository is not None.
+                | __str__ - Returns the repository as string representation.
     '''
 
     @property
     @abstractmethod
     def repository(self) -> str | None:
         '''
-            Property method for getting ATS repository.
+            Property method for getting repository.
+            Note: Repository is only prepared when it is set by user (not None).
 
-            :return: The ATS repository in string format | None.
+            :return: The repository in string format | None.
             :rtype: <str | None>
             :exceptions: None.
         '''
@@ -61,12 +63,13 @@ class IRepository(ABC):
 
     @repository.setter
     @abstractmethod
-    def repository(self, repository: str | None) -> None:
+    def repository(self, repository: str) -> None:
         '''
-            Property method for setting ATS repository.
+            Property method for setting repository.
+            Note: Repository is only prepared when it is set by user (not None).
 
-            :param repository: The ATS repository in string format | None.
-            :type repository: <str | None>
+            :param repository: The repository in string format.
+            :type repository: <str>
             :exceptions: None.
         '''
         pass
@@ -74,9 +77,10 @@ class IRepository(ABC):
     @abstractmethod
     def not_none(self) -> bool:
         '''
-            Checks if ATS repository is not None.
+            Checks if repository is not None.
+            Note: Repository is only prepared when it is set by user (not None).
 
-            :return: True (success) | False (fail).
+            :return: True (not None) | False (None).
             :rtype: <bool>
             :exceptions: None.
         '''
@@ -85,9 +89,9 @@ class IRepository(ABC):
     @abstractmethod
     def __str__(self) -> str:
         '''
-            Returns the ATS repository as string representation.
+            Returns the repository as string representation.
 
-            :return: The ATS repository as string representation.
+            :return: The repository as string representation.
             :rtype: <str>
             :exceptions: None.
         '''
