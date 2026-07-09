@@ -73,10 +73,10 @@ class CheckReporter(ICheckReporter):
             message += f'\n    expected {pname} <{ptype}> object at {hex(id(inst))}'
 
             if i in err_set:
-                message += r' wrong type'
+                message += ' wrong type'
 
         if report_bundle.is_fmt_err:
-            message += r' format wrong during checking parameters_meta'
+            message += ' format wrong during checking parameters_meta'
 
         return message
 

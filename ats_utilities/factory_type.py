@@ -52,7 +52,7 @@ def _resolve_type(type_to_resolve: Any) -> Any:
     origin = get_origin(type_to_resolve)
 
     if origin in (Union, UnionType):
-        args = getattr(type_to_resolve, r'__args__', ())
+        args = getattr(type_to_resolve, '__args__', ())
         resolved_args = []
 
         for arg in args:

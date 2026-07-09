@@ -74,8 +74,8 @@ class Object2Json(IWrite):
                 | __str__ - Returns the Object2Json as string representation.
     '''
 
-    _EXT: str = r'json'
-    _MODE: str = r'w'
+    _EXT: str = 'json'
+    _MODE: str = 'w'
     _checker: IChecker
     _reporter: IReporter
     _verbose: bool

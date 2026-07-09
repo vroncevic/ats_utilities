@@ -54,7 +54,7 @@ def inject(instance: Any, *dependencies: tuple[str, Any, Any, str | list[str] | 
         :type dependencies: <tuple[str, Any, Any, str | list[str] | tuple[str, ...] | None]>
         :exceptions: None.
     '''
-    prefix: str = r'_'
+    prefix: str = '_'
 
     for tuple_data in dependencies:
         attr_name: str = tuple_data[0]
@@ -106,7 +106,7 @@ def get_pvt(instance: Any, attr_name: str) -> Any:
         :exceptions:
             | AttributeError: Attribute must start with '_' prefix.
     '''
-    name = attr_name if attr_name.startswith(r'_') else f'_{attr_name}'
+    name = attr_name if attr_name.startswith('_') else f'_{attr_name}'
 
     return getattr(instance, name)
 
@@ -175,7 +175,7 @@ def to_str(instance: Any) -> str:
 
     formatted_lines: list[str] = []
     for k, v in instance.__dict__.items():
-        clean_key: str = k[1:] if k.startswith(r'_') and not k.startswith(r'__') else k
+        clean_key: str = k[1:] if k.startswith('_') and not k.startswith('__') else k
         val_str: str = str(v).replace('\n', '\n    ')
 
         v_id_hex = f'0x{id(v):x}'

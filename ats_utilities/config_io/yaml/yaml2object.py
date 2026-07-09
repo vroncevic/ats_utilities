@@ -75,8 +75,8 @@ class Yaml2Object(IRead):
                 | __str__ - Returns the Yaml2Object as string representation.
     '''
 
-    _EXT: str = r'yaml'
-    _MODE: str = r'r'
+    _EXT: str = 'yaml'
+    _MODE: str = 'r'
     _checker: IChecker
     _reporter: IReporter
     _verbose: bool

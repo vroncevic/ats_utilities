@@ -55,7 +55,7 @@ def factory_context_bundle(instance: Any, context: ContextBundle | None = None):
 
     inject(
         instance,
-        (r'checker', ctx.checker, Checker, None),
-        (r'reporter', ctx.reporter, Reporter, [r'checker']),
-        (r'verbose', ctx.verbose, False, None)
+        ('checker', ctx.checker, Checker, None),
+        ('reporter', ctx.reporter, Reporter, ['checker']),
+        ('verbose', ctx.verbose, False, None)
     )

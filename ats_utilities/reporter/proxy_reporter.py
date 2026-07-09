@@ -101,7 +101,7 @@ def vreport[F: Callable[..., Any]](templates: str | list[str]) -> Callable[[F], 
             final_messages: list[str] = []
 
             for template in message_templates:
-                placeholders = findall(r'\{([^}]+)\}', template)
+                placeholders = findall('\{([^}]+)\}', template)
                 format_context = {}
 
                 for placeholder in placeholders:

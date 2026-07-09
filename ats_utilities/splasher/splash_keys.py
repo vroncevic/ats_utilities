@@ -90,9 +90,9 @@ class SplashKeys:
 
             attr: str
             for attr in dir(cls):
-                if attr.startswith(r'ATS_'):
+                if attr.startswith('ATS_'):
                     key: str = getattr(cls, attr)
-                    attr_name: str = key.replace(r'ats_', '', 1)
+                    attr_name: str = key.replace('ats_', '', 1)
                     mapping[key] = attr_name
 
             cls._key_to_attr = MappingProxyType(mapping)
@@ -123,7 +123,7 @@ class SplashKeys:
             :rtype: <Self>
             :exceptions: None.
         '''
-        is_enabled: bool = bool(config.get(r'enabled', True))
+        is_enabled: bool = bool(config.get('enabled', True))
         kwargs: dict[str, Any] = {'enabled': is_enabled}
         key: str
         attr_name: str

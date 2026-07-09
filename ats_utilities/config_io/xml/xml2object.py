@@ -75,8 +75,8 @@ class Xml2Object(IRead):
                 | __str__ - Returns the Xml2Object as string representation.
     '''
 
-    _EXT: str = r'xml'
-    _MODE: str = r'r'
+    _EXT: str = 'xml'
+    _MODE: str = 'r'
     _checker: IChecker
     _reporter: IReporter
     _verbose: bool

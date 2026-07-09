@@ -52,14 +52,14 @@ def get_caller_context(depth: int = 1) -> str:
             frame = frame.f_back
 
     if frame is None:
-        return r'unknown'
+        return 'unknown'
 
     method_name: str = frame.f_code.co_name
     class_name: str | None = None
 
-    if r'self' in frame.f_locals:
-        class_name = type(frame.f_locals[r'self']).__name__.lower()
-    elif r'cls' in frame.f_locals:
-        class_name = frame.f_locals[r'cls'].__name__.lower()
+    if 'self' in frame.f_locals:
+        class_name = type(frame.f_locals['self']).__name__.lower()
+    elif 'cls' in frame.f_locals:
+        class_name = frame.f_locals['cls'].__name__.lower()
 
     return f'{class_name}::{method_name}' if class_name else method_name

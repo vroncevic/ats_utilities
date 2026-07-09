@@ -121,7 +121,7 @@ class SplashProperty(ISplashProperty):
                 | ATSRuntimeError: Decorator used on a non-class method.
                 | ATSAttributeError: Class does not provide a '_checker' object.
         '''
-        is_enabled = bool(setup.get(r'enabled', True))
+        is_enabled = bool(setup.get('enabled', True))
 
         if is_enabled:
             require_keys(setup, frozenset(SplashKeys.get_all_keys()))

@@ -74,8 +74,8 @@ class Object2Yaml(IWrite):
                 | __str__ - Returns the Object2Yaml as string representation.
     '''
 
-    _EXT: str = r'yaml'
-    _MODE: str = r'w'
+    _EXT: str = 'yaml'
+    _MODE: str = 'w'
     _checker: IChecker
     _reporter: IReporter
     _verbose: bool
