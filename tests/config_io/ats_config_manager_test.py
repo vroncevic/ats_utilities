@@ -24,6 +24,8 @@ Execute
 
 from os.path import dirname
 from unittest import TestCase, main, mock
+from unittest.mock import MagicMock
+from ats_utilities.exceptions import ATSTypeError, ATSValueError
 from ats_utilities.config_io.config_loader import ConfigLoader
 from ats_utilities.config_io.iconfig_loader import IConfigLoader
 from ats_utilities.config_io.iread import IRead
@@ -42,6 +44,7 @@ from ats_utilities.config_io.ini.ini2object import Ini2Object
 from ats_utilities.config_io.ini.ini_processor import INIProcessor
 from ats_utilities.config_io.json.json_loader import JSONLoader
 from ats_utilities.config_io.json.json2object import Json2Object
+from ats_utilities.config_io.json.ijson_processor import IJSONProcessor
 from ats_utilities.config_io.json.json_processor import JSONProcessor
 from ats_utilities.config_io.xml.xml_loader import XMLLoader
 from ats_utilities.config_io.xml.xml2object import Xml2Object
@@ -300,6 +303,84 @@ class ConfigManagerUnitTestCase(TestCase):
         config = manager.setup_config_loader()
         self.assertIsNone(config)
 
+
+    def test_ats_config_file_bundle(self) -> None:
+        '''Test ConfigFileBundle methods.'''
+        mock_context = ContextBundle()
+        mock_file_checker = MagicMock(spec=IFileCheck)
+        mock_file_checker.__class__ = IFileCheck
+        bundle1 = ConfigFileBundle()
+        bundle2 = ConfigFileBundle(context=mock_context, file_checker=mock_file_checker)
+
+        bundle1.merge(bundle2)
+        self.assertEqual(bundle1.context, mock_context)
+        self.assertEqual(bundle1.file_checker, mock_file_checker)
+
+        bundle1.validate()
+        d = bundle1.to_dict()
+        self.assertEqual(d['context']['verbose'], mock_context.verbose)
+        self.assertIsInstance(d['context']['checker'], type(mock_context.checker))
+        self.assertIsInstance(d['context']['reporter'], type(mock_context.reporter))
+
+    def test_ats_config_file_bundle_validation_errors(self) -> None:
+        '''Test ConfigFileBundle validation exceptions.'''
+        mock_context = ContextBundle()
+        mock_file_checker = MagicMock(spec=IFileCheck)
+        mock_file_checker.__class__ = IFileCheck
+        fields = {
+            'context': mock_context,
+            'file_checker': mock_file_checker
+        }
+        for field in fields:
+            kwargs = fields.copy()
+            kwargs[field] = None
+            bundle = ConfigFileBundle(**kwargs)
+            with self.assertRaises(ATSValueError):
+                bundle.validate()
+
+    def test_ats_config_loader_bundle(self) -> None:
+        '''Test ConfigLoaderBundle methods.'''
+        mock_config2object = MagicMock(spec=IRead)
+        mock_config2object.__class__ = IRead
+        mock_config_bundle = MagicMock(spec=ConfigFileBundle)
+        mock_config_bundle.__class__ = ConfigFileBundle
+        mock_processor = MagicMock(spec=IJSONProcessor)
+        mock_processor.__class__ = IJSONProcessor
+        bundle1 = ConfigLoaderBundle()
+        bundle2 = ConfigLoaderBundle(
+            info_file='config.json',
+            config2object=mock_config2object,
+            config_bundle=mock_config_bundle,
+            processor=mock_processor
+        )
+
+        bundle1.merge(bundle2)
+        self.assertEqual(bundle1.info_file, 'config.json')
+
+        bundle1.validate()
+        d = bundle1.to_dict()
+        self.assertEqual(d['info_file'], 'config.json')
+
+    def test_ats_config_loader_bundle_validation_errors(self) -> None:
+        '''Test ConfigLoaderBundle validation exceptions.'''
+        mock_config2object = MagicMock(spec=IRead)
+        mock_config2object.__class__ = IRead
+        mock_config_bundle = MagicMock(spec=ConfigFileBundle)
+        mock_config_bundle.__class__ = ConfigFileBundle
+        mock_processor = MagicMock(spec=IJSONProcessor)
+        mock_processor.__class__ = IJSONProcessor
+        fields = {
+            'info_file': 'config.json',
+            'config2object': mock_config2object,
+            'config_bundle': mock_config_bundle,
+            'processor': mock_processor
+        }
+        for field in fields:
+            kwargs = fields.copy()
+            kwargs[field] = None
+            bundle = ConfigLoaderBundle(**kwargs)
+            with self.assertRaises(ATSValueError):
+                bundle.validate()
 
 if __name__ == '__main__':
     main()

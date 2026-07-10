@@ -25,12 +25,21 @@ Execute
 import os
 import tempfile
 from unittest import TestCase, main, mock
+from unittest.mock import MagicMock
+from tarfile import TarFile, TarInfo
+
+from ats_utilities.context_bundle import ContextBundle
 from ats_utilities.generator.engine import Generator
 from ats_utilities.generator.generator_bundle import GeneratorBundle
+from ats_utilities.generator.component_bundle import GeneratorComponentBundle
 from ats_utilities.generator.scheme.scheme_loader import SchemeLoader
-from ats_utilities.generator.template.template_processor import TemplateProcessor
+from ats_utilities.generator.scheme.ischeme_loader import ISchemeLoader
 from ats_utilities.generator.tar.tar_processor import TarProcessor
+from ats_utilities.generator.tar.itar_processor import ITarProcessor
+from ats_utilities.generator.template.template_processor import TemplateProcessor
+from ats_utilities.generator.template.itemplate_processor import ITemplateProcessor
 from ats_utilities.generator.tar.tar_process_bundle import TarProcessBundle
+from ats_utilities.generator.tar.tar_process_member_bundle import TarProcessMemberBundle
 from ats_utilities.exceptions import ATSGeneratorError, ATSTypeError, ATSValueError
 
 __author__ = r'Vladimir Roncevic'
@@ -340,6 +349,206 @@ class GeneratorTestCase(TestCase):
         context = self.generator.get_shared_context()
         self.assertIsInstance(context, ContextBundle)
 
+    def test_generator_component_bundle(self) -> None:
+        '''Test GeneratorComponentBundle methods.'''
+        mock_scheme_loader = MagicMock(spec=ISchemeLoader)
+        mock_tar_processor = MagicMock(spec=ITarProcessor)
+        mock_template_processor = MagicMock(spec=ITemplateProcessor)
+        mock_context_bundle = ContextBundle()
+
+        bundle1 = GeneratorComponentBundle()
+        bundle2 = GeneratorComponentBundle(
+            scheme_loader=mock_scheme_loader,
+            tar_processor=mock_tar_processor,
+            template_processor=mock_template_processor,
+            context_bundle=mock_context_bundle
+        )
+
+        bundle1.merge(bundle2)
+        self.assertEqual(bundle1.scheme_loader, mock_scheme_loader)
+        self.assertEqual(bundle1.tar_processor, mock_tar_processor)
+        self.assertEqual(bundle1.template_processor, mock_template_processor)
+        self.assertEqual(bundle1.context_bundle, mock_context_bundle)
+
+        bundle1.validate()
+        d = bundle1.to_dict()
+        self.assertEqual(d['scheme_loader'], mock_scheme_loader)
+
+    def test_generator_component_bundle_validation_errors(self) -> None:
+        '''Test GeneratorComponentBundle validation exceptions.'''
+        mock_scheme_loader = MagicMock(spec=ISchemeLoader)
+        mock_tar_processor = MagicMock(spec=ITarProcessor)
+        mock_template_processor = MagicMock(spec=ITemplateProcessor)
+        mock_context_bundle = ContextBundle()
+
+        fields = {
+            'scheme_loader': mock_scheme_loader,
+            'tar_processor': mock_tar_processor,
+            'template_processor': mock_template_processor,
+            'context_bundle': mock_context_bundle
+        }
+
+        for field in fields:
+            bundle = GeneratorComponentBundle(
+                scheme_loader=mock_scheme_loader,
+                tar_processor=mock_tar_processor,
+                template_processor=mock_template_processor,
+                context_bundle=mock_context_bundle
+            )
+            setattr(bundle, field, None)
+            with self.assertRaises(ATSValueError):
+                bundle.validate()
+
+    def test_generator_bundle_methods(self) -> None:
+        '''Test GeneratorBundle methods.'''
+        bundle1 = GeneratorBundle(
+            archive_path='a.tgz',
+            target_dir='tmp',
+            template_key='key',
+            scheme={},
+            template_values={}
+        )
+        bundle2 = GeneratorBundle(
+            archive_path='b.tgz',
+            target_dir='out',
+            template_key='key2',
+            scheme={'a': 'b'},
+            template_values={'x': 'y'}
+        )
+
+        bundle1.merge(bundle2)
+        self.assertEqual(bundle1.archive_path, 'b.tgz')
+        self.assertEqual(bundle1.target_dir, 'out')
+
+        bundle1.validate()
+        d = bundle1.to_dict()
+        self.assertEqual(d['archive_path'], 'b.tgz')
+
+    def test_generator_bundle_validation_errors(self) -> None:
+        '''Test GeneratorBundle validation exceptions.'''
+        # Missing values (None)
+        fields = {
+            'archive_path': 'a.tgz',
+            'target_dir': 'tmp',
+            'template_key': 'key',
+            'scheme': {},
+            'template_values': {}
+        }
+        for field in fields:
+            kwargs = fields.copy()
+            kwargs[field] = None
+            bundle = GeneratorBundle(**kwargs)
+            with self.assertRaises(ATSValueError):
+                bundle.validate()
+
+        # Type errors
+        type_checks = {
+            'archive_path': 123,
+            'target_dir': 123,
+            'template_key': 123,
+            'scheme': 123,
+            'template_values': 123
+        }
+        for field, invalid_val in type_checks.items():
+            kwargs = fields.copy()
+            kwargs[field] = invalid_val
+            bundle = GeneratorBundle(**kwargs)
+            with self.assertRaises(ATSTypeError):
+                bundle.validate()
+
+    def test_tar_process_bundle(self) -> None:
+        '''Test TarProcessBundle methods.'''
+        bundle1 = TarProcessBundle(
+            archive_path='a.tgz',
+            target_dir='tmp',
+            source_dir='src',
+            path_replacements={},
+            exclude_patterns=[],
+            vals={}
+        )
+        bundle2 = TarProcessBundle(
+            archive_path='b.tgz',
+            target_dir='out',
+            source_dir='src2',
+            path_replacements={'x': 'y'},
+            exclude_patterns=['*.py'],
+            vals={'k': 'v'}
+        )
+
+        bundle1.merge(bundle2)
+        self.assertEqual(bundle1.archive_path, 'b.tgz')
+
+        bundle1.validate()
+        d = bundle1.to_dict()
+        self.assertEqual(d['archive_path'], 'b.tgz')
+
+    def test_tar_process_bundle_validation_errors(self) -> None:
+        '''Test TarProcessBundle validation exceptions.'''
+        fields = {
+            'archive_path': 'a.tgz',
+            'target_dir': 'tmp',
+            'source_dir': 'src',
+            'path_replacements': {},
+            'exclude_patterns': [],
+            'vals': {}
+        }
+        for field in fields:
+            kwargs = fields.copy()
+            kwargs[field] = None
+            bundle = TarProcessBundle(**kwargs)
+            with self.assertRaises(ATSValueError):
+                bundle.validate()
+
+    def test_tar_process_member_bundle(self) -> None:
+        '''Test TarProcessMemberBundle methods.'''
+        mock_tar = MagicMock(spec=TarFile)
+        mock_tar.__class__ = TarFile
+        mock_member = MagicMock(spec=TarInfo)
+        mock_member.__class__ = TarInfo
+        bundle1 = TarProcessMemberBundle(
+            tar=mock_tar,
+            member=mock_member,
+            dest_full_path='dest',
+            vals={}
+        )
+        mock_tar2 = MagicMock(spec=TarFile)
+        mock_tar2.__class__ = TarFile
+        mock_member2 = MagicMock(spec=TarInfo)
+        mock_member2.__class__ = TarInfo
+        bundle2 = TarProcessMemberBundle(
+            tar=mock_tar2,
+            member=mock_member2,
+            dest_full_path='dest2',
+            vals={'x': 'y'}
+        )
+
+        bundle1.merge(bundle2)
+        self.assertEqual(bundle1.tar, mock_tar2)
+        self.assertEqual(bundle1.member, mock_member2)
+        self.assertEqual(bundle1.dest_full_path, 'dest2')
+
+        bundle1.validate()
+        d = bundle1.to_dict()
+        self.assertEqual(d['dest_full_path'], 'dest2')
+
+    def test_tar_process_member_bundle_validation_errors(self) -> None:
+        '''Test TarProcessMemberBundle validation exceptions.'''
+        mock_tar = MagicMock(spec=TarFile)
+        mock_tar.__class__ = TarFile
+        mock_member = MagicMock(spec=TarInfo)
+        mock_member.__class__ = TarInfo
+        fields = {
+            'tar': mock_tar,
+            'member': mock_member,
+            'dest_full_path': 'dest',
+            'vals': {}
+        }
+        for field in fields:
+            kwargs = fields.copy()
+            kwargs[field] = None
+            bundle = TarProcessMemberBundle(**kwargs)
+            with self.assertRaises(ATSValueError):
+                bundle.validate()
 
 
 if __name__ == '__main__':

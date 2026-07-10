@@ -28,8 +28,14 @@ from ats_utilities.splasher.engine import Splasher
 from ats_utilities.splasher.progressbar.progress_bar import ProgressBar
 from ats_utilities.splasher.component_bundle import SplashComponentBundle
 from ats_utilities.splasher.splash_center_bundle import SplashCenterBundle
+from ats_utilities.context_bundle import ContextBundle
 from ats_utilities.splasher.splash_keys import SplashKeys
 from ats_utilities.exceptions import ATSTypeError, ATSValueError
+from unittest.mock import MagicMock
+from ats_utilities.splasher.property.isplash_property import ISplashProperty
+from ats_utilities.splasher.terminal.iterminal_properties import ITerminalProperties
+from ats_utilities.splasher.external.iext_infrastructure import IExtInfrastructure
+from ats_utilities.splasher.progressbar.iprogress_bar import IProgressBar
 
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -235,6 +241,120 @@ class ATSSplashTestCase(TestCase):
         splash: Splasher = Splasher(bundle)
         self.assertTrue(splash.is_initialized())
 
+
+    def test_splash_center_bundle(self) -> None:
+        '''Test SplashCenterBundle methods.'''
+        bundle1 = SplashCenterBundle()
+        bundle2 = SplashCenterBundle(columns=80, additional_shifter=2, text='Welcome')
+
+        bundle1.merge(bundle2)
+        self.assertEqual(bundle1.columns, 80)
+        self.assertEqual(bundle1.additional_shifter, 2)
+        self.assertEqual(bundle1.text, 'Welcome')
+
+        # Test merge when other fields are None (covers 123->120 branch)
+        bundle3 = SplashCenterBundle()
+        bundle3.columns = None
+        bundle3.additional_shifter = None
+        bundle3.text = None
+        bundle2.merge(bundle3)
+        self.assertEqual(bundle2.columns, 80) # should remain unchanged
+
+        bundle1.validate()
+        d = bundle1.to_dict()
+        self.assertEqual(d['text'], 'Welcome')
+
+    def test_splash_center_bundle_validation_errors(self) -> None:
+        '''Test SplashCenterBundle validation exceptions.'''
+        # columns negative value in post init gets set to 0
+        b_neg_cols = SplashCenterBundle(columns=-1)
+        self.assertEqual(b_neg_cols.columns, 0)
+
+        # additional_shifter negative value in post init gets set to 0
+        b_neg_shift = SplashCenterBundle(additional_shifter=-1)
+        self.assertEqual(b_neg_shift.additional_shifter, 0)
+
+        # columns type error
+        with self.assertRaises(ATSTypeError):
+            SplashCenterBundle(columns='not_int', additional_shifter=2, text='ok')
+
+        # columns value error
+        bundle = SplashCenterBundle(columns=80, additional_shifter=2, text='ok')
+        bundle.columns = -1
+        with self.assertRaises(ATSValueError):
+            bundle.validate()
+
+        # additional_shifter type error
+        with self.assertRaises(ATSTypeError):
+            SplashCenterBundle(columns=80, additional_shifter='not_int', text='ok')
+
+        # additional_shifter value error
+        bundle = SplashCenterBundle(columns=80, additional_shifter=2, text='ok')
+        bundle.additional_shifter = -1
+        with self.assertRaises(ATSValueError):
+            bundle.validate()
+
+        # text type error
+        bundle = SplashCenterBundle(columns=80, additional_shifter=2, text=123)  # type: ignore
+        with self.assertRaises(ATSTypeError):
+            bundle.validate()
+
+        # text value error (empty string)
+        bundle = SplashCenterBundle(columns=80, additional_shifter=2, text='   ')
+        with self.assertRaises(ATSValueError):
+            bundle.validate()
+
+    def test_splash_component_bundle(self) -> None:
+        '''Test SplashComponentBundle methods.'''
+        mock_splash_prop = MagicMock(spec=ISplashProperty)
+        mock_term_prop = MagicMock(spec=ITerminalProperties)
+        mock_github = MagicMock(spec=IExtInfrastructure)
+        mock_ext = MagicMock(spec=IExtInfrastructure)
+        mock_pb = MagicMock(spec=IProgressBar)
+        mock_context = ContextBundle()
+
+        bundle1 = SplashComponentBundle()
+        bundle2 = SplashComponentBundle(
+            prop={'a': 'b'},
+            splash_property=mock_splash_prop,
+            terminal_property=mock_term_prop,
+            github=mock_github,
+            ext=mock_ext,
+            pb=mock_pb,
+            context_bundle=mock_context
+        )
+
+        bundle1.merge(bundle2)
+        self.assertEqual(bundle1.prop, {'a': 'b'})
+
+        bundle1.validate()
+        d = bundle1.to_dict()
+        self.assertEqual(d['prop'], {'a': 'b'})
+
+    def test_splash_component_bundle_validation_errors(self) -> None:
+        '''Test SplashComponentBundle validation exceptions.'''
+        mock_splash_prop = MagicMock(spec=ISplashProperty)
+        mock_term_prop = MagicMock(spec=ITerminalProperties)
+        mock_github = MagicMock(spec=IExtInfrastructure)
+        mock_ext = MagicMock(spec=IExtInfrastructure)
+        mock_pb = MagicMock(spec=IProgressBar)
+        mock_context = ContextBundle()
+
+        fields = {
+            'prop': {'enabled': False},
+            'splash_property': mock_splash_prop,
+            'terminal_property': mock_term_prop,
+            'github': mock_github,
+            'ext': mock_ext,
+            'pb': mock_pb,
+            'context_bundle': mock_context
+        }
+
+        for field in fields:
+            bundle = SplashComponentBundle(**fields)
+            setattr(bundle, field, None)
+            with self.assertRaises(ValueError):
+                bundle.validate()
 
 if __name__ == '__main__':
     main()

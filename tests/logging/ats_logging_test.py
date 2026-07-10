@@ -23,8 +23,10 @@ Execute
 '''
 
 from unittest import TestCase, main, mock
+from unittest.mock import MagicMock
 from os.path import dirname
 from ats_utilities.logging.engine import LoggerManager
+from ats_utilities.logging.logger.ilogger import ILogger
 from ats_utilities.logging.logger.logger import StandardLogger
 from ats_utilities.reporter.ireporter import IReporter
 from ats_utilities.reporter.engine import Reporter
@@ -189,6 +191,44 @@ class ATSLoggingTestCase(TestCase):
         logger = self.ats_base_logging.get_logger()
         self.assertIsNotNone(logger)
 
+    def test_logger_bundle(self) -> None:
+        '''Test LoggerBundle methods.'''
+        bundle1 = LoggerBundle()
+        bundle2 = LoggerBundle(name='test_logger', configure_logging=False, log_stdout=False, log_file='test.log')
+
+        bundle1.merge(bundle2)
+        self.assertEqual(bundle1.name, 'test_logger')
+        self.assertFalse(bundle1.configure_logging)
+        self.assertFalse(bundle1.log_stdout)
+        self.assertEqual(bundle1.log_file, 'test.log')
+
+        bundle1.validate()
+        d = bundle1.to_dict()
+        self.assertEqual(d['name'], 'test_logger')
+
+    def test_logger_bundle_validation_errors(self) -> None:
+        '''Test LoggerBundle validation exceptions.'''
+        fields = {
+            'name': 'test_logger',
+            'configure_logging': True,
+            'log_stdout': True,
+            'log_file': 'test.log'
+        }
+        for field in fields:
+            kwargs = fields.copy()
+            kwargs[field] = None
+            bundle = LoggerBundle(**kwargs)
+            with self.assertRaises(ValueError):
+                bundle.validate()
+
+        bundle = LoggerBundle(name='test_logger', configure_logging='not_bool', log_file='test.log')
+        with self.assertRaises(ATSTypeError):
+            bundle.validate()
+
+        bundle = LoggerBundle(name='test_logger', log_stdout='not_bool', log_file='test.log')
+        with self.assertRaises(ATSTypeError):
+            bundle.validate()
+
     @mock.patch('ats_utilities.logging.logger.logger.getLogger')
     @mock.patch('ats_utilities.logging.logger.logger.basicConfig')
     def test_logger_configure_stdout_and_file(self, mock_basicConfig, mock_getLogger) -> None:
@@ -232,6 +272,47 @@ class ATSLoggingTestCase(TestCase):
         for level_attr in ('DEBUG', 'INFO', 'WARNING', 'ERROR', 'CRITICAL'):
             with self.assertRaises(ATSAttributeError):
                 setattr(self.ats_base_logging, level_attr, 999)
+
+    def test_logging_component_bundle(self) -> None:
+        '''Test LoggingComponentBundle methods.'''
+        mock_logger = MagicMock(spec=ILogger)
+        mock_logger_bundle = LoggerBundle()
+        mock_context = ContextBundle()
+        bundle1 = LoggingComponentBundle()
+        bundle2 = LoggingComponentBundle(
+            logger=mock_logger,
+            logger_bundle=mock_logger_bundle,
+            context_bundle=mock_context
+        )
+
+        bundle1.merge(bundle2)
+        self.assertEqual(bundle1.logger, mock_logger)
+
+        bundle1.validate()
+        d = bundle1.to_dict()
+        self.assertEqual(d['logger'], mock_logger)
+
+    def test_logging_component_bundle_validation_errors(self) -> None:
+        '''Test LoggingComponentBundle validation exceptions.'''
+        mock_logger = MagicMock(spec=ILogger)
+        mock_logger_bundle = LoggerBundle()
+        mock_context = ContextBundle()
+
+        fields = {
+            'logger': mock_logger,
+            'logger_bundle': mock_logger_bundle,
+            'context_bundle': mock_context
+        }
+
+        for field in fields:
+            bundle = LoggingComponentBundle(
+                logger=mock_logger,
+                logger_bundle=mock_logger_bundle,
+                context_bundle=mock_context
+            )
+            setattr(bundle, field, None)
+            with self.assertRaises(ATSValueError):
+                bundle.validate()
 
 
 if __name__ == '__main__':

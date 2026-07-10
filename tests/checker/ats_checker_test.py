@@ -24,6 +24,13 @@ Execute
 
 from typing import Any
 from unittest import TestCase, main, mock
+from unittest.mock import MagicMock
+
+from ats_utilities.checker.context.icontext_provider import IContextProvider
+from ats_utilities.checker.format.iformat_validator import IFormatValidator
+from ats_utilities.checker.type.itype_validator import ITypeValidator
+from ats_utilities.checker.context.icontext_provider import IContextProvider
+from ats_utilities.checker.reporter.icheck_reporter import ICheckReporter
 from ats_utilities.checker.engine import Checker
 from ats_utilities.checker.ichecker import ErrorChecker, IChecker, ParametersSpecs
 from ats_utilities.checker.proxy_validator import vcheck
@@ -33,6 +40,7 @@ from ats_utilities.reporter.ireporter import IReporter
 from ats_utilities.reporter.engine import Reporter
 from ats_utilities.checker.reporter.check_reporter import CheckReporter
 from ats_utilities.checker.component_bundle import CheckerComponentBundle
+from ats_utilities.checker.reporter.checker_reporter_bundle import CheckerReporterBundle
 from ats_utilities.checker.context.context_provider import ContextProvider
 
 __author__ = r'Vladimir Roncevic'
@@ -82,6 +90,57 @@ class ATSCheckerTestCase(TestCase):
                 | test_not_none - Test is ATSBaseChecker not None.
                 | test_tool_operational - Test is tool operational.
     '''
+
+    def test_checker_reporter_bundle(self) -> None:
+        '''Test CheckerReporterBundle methods.'''
+        bundle1 = CheckerReporterBundle()
+        bundle2 = CheckerReporterBundle(context='some_context', parameters_meta=[], err_indices=[1, 2], is_fmt_err=True)
+
+        bundle1.merge(bundle2)
+        self.assertEqual(bundle1.context, 'some_context')
+        self.assertEqual(bundle1.parameters_meta, [])
+        self.assertEqual(bundle1.err_indices, [1, 2])
+        self.assertTrue(bundle1.is_fmt_err)
+
+        bundle1.validate()
+        d = bundle1.to_dict()
+        self.assertEqual(d['context'], 'some_context')
+
+    def test_checker_component_bundle(self) -> None:
+        '''Test CheckerComponentBundle methods.'''
+        mock_format_validator = MagicMock(spec=IFormatValidator)
+        mock_type_validator = MagicMock(spec=ITypeValidator)
+        mock_context_provider = MagicMock(spec=IContextProvider)
+        mock_check_reporter = MagicMock(spec=ICheckReporter)
+
+        bundle1 = CheckerComponentBundle()
+        bundle2 = CheckerComponentBundle(
+            format_validator=mock_format_validator,
+            type_validator=mock_type_validator,
+            context_provider=mock_context_provider,
+            check_reporter=mock_check_reporter
+        )
+
+        bundle1.merge(bundle2)
+        self.assertEqual(bundle1.format_validator, mock_format_validator)
+        self.assertEqual(bundle1.type_validator, mock_type_validator)
+        self.assertEqual(bundle1.context_provider, mock_context_provider)
+        self.assertEqual(bundle1.check_reporter, mock_check_reporter)
+
+        bundle1.validate()
+        d = bundle1.to_dict()
+        self.assertEqual(d['format_validator'], mock_format_validator)
+
+    def test_checker_reporter_bundle_validation_errors(self) -> None:
+        '''Test CheckerReporterBundle validation exceptions.'''
+        bundle = CheckerReporterBundle(context=None, parameters_meta=[])
+        with self.assertRaises(ValueError):
+            bundle.validate()
+
+        bundle = CheckerReporterBundle(context='ctx')
+        bundle.parameters_meta = None
+        with self.assertRaises(ValueError):
+            bundle.validate()
 
     def setUp(self) -> None:
         '''Call before every test case.'''

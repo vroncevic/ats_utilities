@@ -113,6 +113,34 @@ class ConfigFileTestCase(TestCase):
             with ConfFile(bundle):
                 pass
 
+    def test_ats_file_bundle(self) -> None:
+        '''Test FileBundle methods.'''
+        bundle1 = FileBundle()
+        bundle2 = FileBundle(file_path='a.txt', file_mode='w', file_format='txt')
+
+        bundle1.merge(bundle2)
+        self.assertEqual(bundle1.file_path, 'a.txt')
+        self.assertEqual(bundle1.file_mode, 'w')
+        self.assertEqual(bundle1.file_format, 'txt')
+
+        bundle1.validate()
+        d = bundle1.to_dict()
+        self.assertEqual(d['file_path'], 'a.txt')
+
+    def test_ats_file_bundle_validation_errors(self) -> None:
+        '''Test FileBundle validation exceptions.'''
+        fields = {
+            'file_path': 'a.txt',
+            'file_mode': 'w',
+            'file_format': 'txt'
+        }
+        for field in fields:
+            kwargs = fields.copy()
+            kwargs[field] = None
+            bundle = FileBundle(**kwargs)
+            with self.assertRaises(ATSValueError):
+                bundle.validate()
+
 
 if __name__ == '__main__':
     main()

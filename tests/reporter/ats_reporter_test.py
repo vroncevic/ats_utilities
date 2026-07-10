@@ -23,11 +23,14 @@ Execute
 '''
 
 from unittest import TestCase, main, mock
+from unittest.mock import MagicMock
 from ats_utilities.reporter.ireporter import IReporter
 from ats_utilities.reporter.engine import Reporter
 from ats_utilities.exceptions import ATSAttributeError, ATSRuntimeError, ATSTypeError, ATSValueError
 from ats_utilities.reporter.component_bundle import ReporterComponentBundle
 from ats_utilities.reporter.proxy_reporter import vreport
+from ats_utilities.checker.ichecker import IChecker
+from ats_utilities.reporter.theme.iconsole_theme import IConsoleTheme
 from ats_utilities.reporter.theme.engine import ConsoleTheme
 
 __author__ = r'Vladimir Roncevic'
@@ -176,6 +179,38 @@ class ReporterTestCase(TestCase):
 
         # Test format error fallback
         d.trigger_index_err()
+
+    def test_reporter_component_bundle(self) -> None:
+        '''Test ReporterComponentBundle methods.'''
+        mock_checker = MagicMock(spec=IChecker)
+        mock_theme = MagicMock(spec=IConsoleTheme)
+        bundle1 = ReporterComponentBundle()
+        bundle2 = ReporterComponentBundle(checker=mock_checker, theme=mock_theme)
+
+        bundle1.merge(bundle2)
+        self.assertEqual(bundle1.checker, mock_checker)
+        self.assertEqual(bundle1.theme, mock_theme)
+
+        bundle1.validate()
+        d = bundle1.to_dict()
+        self.assertEqual(d['checker'], mock_checker)
+
+    def test_reporter_component_bundle_validation_errors(self) -> None:
+        '''Test ReporterComponentBundle validation exceptions.'''
+        mock_checker = MagicMock(spec=IChecker)
+        mock_theme = MagicMock(spec=IConsoleTheme)
+
+        # Missing checker
+        bundle = ReporterComponentBundle()
+        bundle.checker = None
+        with self.assertRaises(ATSValueError):
+            bundle.validate()
+
+        # Missing theme
+        bundle = ReporterComponentBundle()
+        bundle.theme = None
+        with self.assertRaises(ATSValueError):
+            bundle.validate()
 
 
 class ReporterUnitTestCase(TestCase):

@@ -22,13 +22,19 @@ Execute
     python3 -m unittest -v ats_cli_cfg_test
 '''
 
-from unittest.mock import MagicMock
+from unittest.mock import MagicMock, patch
 from unittest import TestCase, main, mock
 from ats_utilities.exceptions import ATSTypeError, ATSValueError
 from os.path import dirname
 from ats_utilities.base.engine import Base
 from ats_utilities.base.component_bundle import BaseComponentBundle
 from ats_utilities.splasher.engine import Splasher
+from ats_utilities.config_io.iconfig_loader import IConfigLoader
+from ats_utilities.info.imanager import IInfoManager
+from ats_utilities.option.ioption_manager import IOptionManager
+from ats_utilities.logging.ilogger_manager import ILoggerManager
+from ats_utilities.splasher.isplasher import ISplasher
+from ats_utilities.generator.igenerator import IGenerator
 
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -205,6 +211,94 @@ class CLITestCase(TestCase):
         context = self.ats_cli_api.get_shared_context()
         self.assertIsInstance(context, ContextBundle)
 
+    def test_base_component_bundle(self) -> None:
+        '''Test BaseComponentBundle methods.'''
+        bundle1 = BaseComponentBundle()
+        mock_config_loader = MagicMock(spec=IConfigLoader)
+        mock_config_loader.__class__ = IConfigLoader
+        mock_info_manager = MagicMock(spec=IInfoManager)
+        mock_info_manager.__class__ = IInfoManager
+        mock_options_parser = MagicMock(spec=IOptionManager)
+        mock_options_parser.__class__ = IOptionManager
+        mock_logger_manager = MagicMock(spec=ILoggerManager)
+        mock_logger_manager.__class__ = ILoggerManager
+        mock_splasher = MagicMock(spec=ISplasher)
+        mock_splasher.__class__ = ISplasher
+
+        bundle2 = BaseComponentBundle(
+            info_file='config_file',
+            config_loader=mock_config_loader,
+            info_manager=mock_info_manager,
+            options_parser=mock_options_parser,
+            logger_manager=mock_logger_manager,
+            splasher=mock_splasher
+        )
+
+        bundle1.merge(bundle2)
+        self.assertEqual(bundle1.info_file, 'config_file')
+
+        bundle1.validate()
+        d = bundle1.to_dict()
+        self.assertEqual(d['info_file'], 'config_file')
+
+    def test_base_component_bundle_validation_errors(self) -> None:
+        '''Test BaseComponentBundle validation exceptions.'''
+        bundle = BaseComponentBundle(info_file=None)
+        with self.assertRaises(ValueError):
+            bundle.validate()
+
+    @patch('ats_utilities.base.component_bundle.exists', return_value=True)
+    def test_base_component_bundle_generator(self, mock_exists) -> None:
+        '''Test BaseComponentBundle with generator enabled.'''
+        mock_config_loader = MagicMock(spec=IConfigLoader)
+        mock_config_loader.__class__ = IConfigLoader
+        mock_info_manager = MagicMock(spec=IInfoManager)
+        mock_info_manager.__class__ = IInfoManager
+        mock_options_parser = MagicMock(spec=IOptionManager)
+        mock_options_parser.__class__ = IOptionManager
+        mock_logger_manager = MagicMock(spec=ILoggerManager)
+        mock_logger_manager.__class__ = ILoggerManager
+        mock_splasher = MagicMock(spec=ISplasher)
+        mock_splasher.__class__ = ISplasher
+        mock_generator = MagicMock(spec=IGenerator)
+        mock_generator.__class__ = IGenerator
+
+        bundle = BaseComponentBundle(
+            info_file='config_file',
+            config_loader=mock_config_loader,
+            info_manager=mock_info_manager,
+            options_parser=mock_options_parser,
+            logger_manager=mock_logger_manager,
+            splasher=mock_splasher,
+            generator=mock_generator,
+            use_generator=True
+        )
+        bundle.validate()
+        self.assertTrue(bundle.use_generator)
+
+        # Merge with other bundle using generator
+        other = BaseComponentBundle(use_generator=True, generator=mock_generator)
+        bundle.merge(other)
+        self.assertTrue(bundle.use_generator)
+
+    @patch('ats_utilities.base.component_bundle.exists', return_value=True)
+    def test_base_component_bundle_build_exceptions(self, mock_exists) -> None:
+        '''Test build exceptions in BaseComponentBundle.'''
+        # Force ATSTypeError in _build_components by providing wrong type
+        bundle = BaseComponentBundle(info_file='config_file', config_loader="not_a_loader")
+        # Post init should print error but not raise
+        self.assertEqual(bundle.config_loader, "not_a_loader")
+
+        # Test merge build exception handling
+        other = BaseComponentBundle(info_file='config_file', config_loader="not_a_loader")
+        with self.assertRaises(ATSValueError):
+            bundle.merge(other)
+
+        # Force generic Exception
+        with patch('ats_utilities.base.component_bundle.make_component', side_effect=RuntimeError("unexpected")):
+            bundle2 = BaseComponentBundle(info_file='config_file')
+            with self.assertRaises(ATSValueError):
+                bundle2.merge(bundle)
 
 
 if __name__ == '__main__':
