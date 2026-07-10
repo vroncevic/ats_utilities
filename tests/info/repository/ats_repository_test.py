@@ -2,7 +2,7 @@
 
 '''
 Module
-    ats_logo_test.py
+    ats_repository_test.py
 Copyright
     Copyright (C) 2017 - 2026 Vladimir Roncevic <elektron.ronca@gmail.com>
     ats_utilities is free software: you can redistribute it and/or modify it
@@ -16,16 +16,16 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines classes LogoTestCase with attribute(s) and method(s).
-    Creates test cases for checking functionalities of Logo.
+    Defines classes RepositoryTestCase with attribute(s) and method(s).
+    Creates test cases for checking functionalities of Repository.
 Execute
-    python3 -m unittest -v ats_logo_test
+    python3 -m unittest -v ats_repository_test
 '''
 
 from unittest import TestCase, main
 
-from ats_utilities.info.logo.ilogo import ILogo
-from ats_utilities.info.logo.engine import Logo
+from ats_utilities.info.repository.irepository import IRepository
+from ats_utilities.info.repository.engine import Repository
 from ats_utilities.exceptions import ATSTypeError
 
 __author__ = r'Vladimir Roncevic'
@@ -38,105 +38,105 @@ __email__ = r'elektron.ronca@gmail.com'
 __status__ = r'Updated'
 
 
-class LogoTestCase(TestCase):
+class RepositoryTestCase(TestCase):
     '''
-        Defines classes LogoTestCase with attribute(s) and method(s).
-        Creates test cases for checking functionalities of Logo.
-        Logo unit tests.
+        Defines classes RepositoryTestCase with attribute(s) and method(s).
+        Creates test cases for checking functionalities of Repository.
+        Repository unit tests.
 
         It defines:
 
             :attributes:
-                | instance - API for logo.
+                | instance - API for repository.
             :methods:
                 | setUp - Call before test case.
                 | tearDown - Call after test case.
-                | test_instance_not_none - Test that Logo instance is not None.
-                | test_logo_value_is_none_by_default - Test that logo value is None by default.
-                | test_logo_try_to_set_none - Test setting logo to None.
-                | test_logo_try_to_set_wrong_type - Test wrong type for logo.
-                | test_logo_set_to_value - Test setting logo with value.
-                | test_logo_set_twice - Test setting logo twice.
-                | test_logo_set_then_changed - Test setting logo then changing it.
-                | test_logo_not_none_after_set - Test that logo is not None after setting it.
-                | test_logo_string_after_set - Test that logo is a string after setting it.
-                | test_logo_str_representation - Test string representation of logo.
+                | test_instance_not_none - Test that Repository instance is not None.
+                | test_repository_value_is_none_by_default - Test that repository value is None by default.
+                | test_repository_try_to_set_none - Test setting repository to None.
+                | test_repository_try_to_set_wrong_type - Test wrong type for repository.
+                | test_repository_set_to_value - Test setting repository with value.
+                | test_repository_set_twice - Test setting repository twice.
+                | test_repository_set_then_changed - Test setting repository then changing it.
+                | test_repository_not_none_after_set - Test that repository is not None after setting it.
+                | test_repository_string_after_set - Test that repository is a string after setting it.
+                | test_repository_str_representation - Test string representation of repository.
     '''
 
     def setUp(self) -> None:
         '''Call before test case.'''
-        self.instance = Logo()
+        self.instance = Repository()
 
     def tearDown(self) -> None:
         '''Call after test case.'''
         del self.instance
 
     def test_instance_not_none(self) -> None:
-        '''By default Logo instance is not None.'''
+        '''By default Repository instance is not None.'''
         self.assertIsNotNone(self.instance)
-        self.assertIsInstance(self.instance, ILogo)
+        self.assertIsInstance(self.instance, IRepository)
 
-    def test_logo_value_is_none_by_default(self) -> None:
-        '''Test logo value is None by default.'''
-        self.assertIsNone(self.instance.logo)
+    def test_repository_value_is_none_by_default(self) -> None:
+        '''Test repository value is None by default.'''
+        self.assertIsNone(self.instance.repository)
         self.assertFalse(self.instance.not_none())
 
-    def test_logo_try_to_set_none(self) -> None:
-        '''Test setting logo to None.'''
+    def test_repository_try_to_set_none(self) -> None:
+        '''Test setting repository to None.'''
         with self.assertRaises(ATSTypeError):
-            self.instance.logo = None
+            self.instance.repository = None
 
-    def test_logo_try_to_set_wrong_type(self) -> None:
-        '''Test wrong type for logo.'''
+    def test_repository_try_to_set_wrong_type(self) -> None:
+        '''Test wrong type for repository.'''
         with self.assertRaises(ATSTypeError):
-            self.instance.logo = True
-
-        with self.assertRaises(ATSTypeError):
-            self.instance.logo = 123
+            self.instance.repository = True
 
         with self.assertRaises(ATSTypeError):
-            self.instance.logo = [r'GPLv2']
+            self.instance.repository = 123
 
         with self.assertRaises(ATSTypeError):
-            self.instance.logo = (r'GPLv2',)
+            self.instance.repository = [r'myrepository']
 
         with self.assertRaises(ATSTypeError):
-            self.instance.logo = {'logo': r'GPLv2'}
+            self.instance.repository = (r'myrepository',)
 
-    def test_logo_set_to_value(self) -> None:
-        '''Test setting logo with value.'''
-        self.instance.logo = r'GPLv2'
-        self.assertEqual(self.instance.logo, r'GPLv2')
+        with self.assertRaises(ATSTypeError):
+            self.instance.repository = {'repository': r'myrepository'}
 
-    def test_logo_set_twice(self) -> None:
-        '''Test setting logo twice.'''
-        self.instance.logo = r'GPLv2'
-        self.instance.logo = r'GPLv2'
-        self.assertEqual(self.instance.logo, r'GPLv2')
+    def test_repository_set_to_value(self) -> None:
+        '''Test setting repository with value.'''
+        self.instance.repository = r'myrepository'
+        self.assertEqual(self.instance.repository, r'myrepository')
 
-    def test_logo_set_then_changed(self) -> None:
-        '''Test setting logo then changing it.'''
-        self.instance.logo = r'GPLv2'
-        self.assertEqual(self.instance.logo, r'GPLv2')
-        self.instance.logo = r'MIT'
-        self.assertEqual(self.instance.logo, r'MIT')
+    def test_repository_set_twice(self) -> None:
+        '''Test setting repository twice.'''
+        self.instance.repository = r'myrepository'
+        self.instance.repository = r'myrepository'
+        self.assertEqual(self.instance.repository, r'myrepository')
 
-    def test_logo_not_none_after_set(self) -> None:
-        '''Test that logo is not None after setting it.'''
-        self.instance.logo = r'MIT'
+    def test_repository_set_then_changed(self) -> None:
+        '''Test setting repository then changing it.'''
+        self.instance.repository = r'myrepository'
+        self.assertEqual(self.instance.repository, r'myrepository')
+        self.instance.repository = r'notmyrepository'
+        self.assertEqual(self.instance.repository, r'notmyrepository')
+
+    def test_repository_not_none_after_set(self) -> None:
+        '''Test that repository is not None after setting it.'''
+        self.instance.repository = r'notmyrepository'
         self.assertTrue(self.instance.not_none())
 
-    def test_logo_string_after_set(self) -> None:
-        '''Test that logo is a string after setting it.'''
-        self.instance.logo = r'MIT'
-        self.assertIsInstance(self.instance.logo, str)
+    def test_repository_string_after_set(self) -> None:
+        '''Test that repository is a string after setting it.'''
+        self.instance.repository = r'notmyrepository'
+        self.assertIsInstance(self.instance.repository, str)
 
-    def test_logo_str_representation(self) -> None:
-        '''Test string representation of logo.'''
-        self.instance.logo = r'MIT'
-        self.assertIsInstance(str(self.instance.logo), str)
-        self.assertEqual(str(self.instance.logo), r'MIT')
-        self.assertNotEqual(str(self.instance.logo), r'GPLv2')
+    def test_repository_str_representation(self) -> None:
+        '''Test string representation of repository.'''
+        self.instance.repository = r'notmyrepository'
+        self.assertIsInstance(str(self.instance.repository), str)
+        self.assertEqual(str(self.instance.repository), r'notmyrepository')
+        self.assertNotEqual(str(self.instance.repository), r'myrepository')
         self.assertIsInstance(str(self.instance), str)
 
 

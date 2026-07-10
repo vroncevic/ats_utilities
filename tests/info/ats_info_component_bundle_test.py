@@ -2,7 +2,7 @@
 
 '''
 Module
-    ats_info_test.py
+    ats_info_component_bundle_test.py
 Copyright
     Copyright (C) 2017 - 2026 Vladimir Roncevic <elektron.ronca@gmail.com>
     ats_utilities is free software: you can redistribute it and/or modify it
@@ -19,22 +19,25 @@ Info
     Defines classes InfoManagerTestCase with attribute(s) and method(s).
     Creates test cases for checking functionalities of InfoManager.
 Execute
-    python3 -m unittest -v ats_info_test
+    python3 -m unittest -v ats_info_component_bundle_test
 '''
 
-from unittest import TestCase, main, mock
-from typing import Any
+from __future__ import annotations
 
-from ats_utilities.info.engine import InfoManager
-from ats_utilities.info.build_date.build_date import BuildDate
-from ats_utilities.info.licence.licence import Licence
-from ats_utilities.info.logo.logo import Logo
-from ats_utilities.info.name.name import Name
-from ats_utilities.info.organization.organization import Organization
-from ats_utilities.info.repository.repository import Repository
-from ats_utilities.info.use_github.use_github import UseGitHub
-from ats_utilities.info.version.version import Version
-from ats_utilities.info.info_ok.info_ok import InfoOk
+from unittest import TestCase, main
+from unittest.mock import MagicMock
+
+from ats_utilities.info.component_bundle import InfoComponentBundle
+from ats_utilities.info.name.iname import IName
+from ats_utilities.info.version.iversion import IVersion
+from ats_utilities.info.licence.ilicence import ILicence
+from ats_utilities.info.build_date.ibuild_date import IBuildDate
+from ats_utilities.info.repository.irepository import IRepository
+from ats_utilities.info.organization.iorganization import IOrganization
+from ats_utilities.info.use_github.iuse_github import IUseGitHub
+from ats_utilities.info.logo.ilogo import ILogo
+from ats_utilities.info.info_ok.iinfo_ok import IInfoOk
+from ats_utilities.context_bundle import ContextBundle
 from ats_utilities.exceptions import ATSTypeError, ATSValueError
 
 __author__ = r'Vladimir Roncevic'
@@ -47,341 +50,154 @@ __email__ = r'elektron.ronca@gmail.com'
 __status__ = r'Updated'
 
 
-class InfoManagerTestCase(TestCase):
+class InfoComponentBundleTestCase(TestCase):
     '''
-        Defines classes InfoManagerTestCase with attribute(s) and method(s).
-        Creates test cases for checking functionalities of InfoManager.
-        InfoManager unit tests.
+        Defines classes InfoComponentBundleTestCase with attribute(s) and method(s).
+        Creates test cases for checking functionalities of InfoComponentBundle.
+        InfoComponentBundle unit tests.
 
         It defines:
 
             :attributes:
-                | base_info - Dict with base info.
-                | manager - API for base info.
+                | instance - The InfoComponentBundle instance.
             :methods:
                 | setUp - Call before test case.
                 | tearDown - Call after test case.
-                | test_create_with_wrong_argument - Test wrong argument type.
-                | test_create_with_wrong_arguments - Test wrong argument types.
-                | test_is_initialized - Test is info manager initialized.
-                | test_initialization_failure - Test info manager initialization failure.
-                | test_info_set_name_none - Test setting name to None.
-                | test_info_set_version_none - Test setting version to None.
-                | test_info_set_licence_none - Test setting licence to None.
-                | test_info_set_build_date_none - Test setting build date to None.
-                | test_info_set_name_wrong_type - Test wrong type for name.
-                | test_info_set_version_wrong_type - Test wrong type for version.
-                | test_info_set_licence_wrong_type - Test wrong type for licence.
-                | test_info_set_build_date_wrong_type - Test wrong type for build date.
-                | test_info_properties_not_none - Test properties are not None.
-                | test_info_optional_properties - Test setting/getting optional properties.
-                | test_info_optional_properties_wrong_types - Test wrong types for optional properties.
-                | test_str - Test string representation of InfoManager.
+                | test_instance_is_not_none - Test instance is not None.
+                | test_info_component_bundle - Test InfoComponentBundle methods.
+                | test_info_component_bundle_validation_errors - Test InfoComponentBundle validation errors.
+                | test_info_component_bundle_validation_errors - Test InfoComponentBundle validation errors.
     '''
 
     def setUp(self) -> None:
         '''Call before test case.'''
-        self.base_info: dict[str, Any] = {
-            'ats_name': 'Simple Tool',
-            'ats_version': '1.0.0',
-            'ats_licence': 'GPLv3',
-            'ats_build_date': 'Sun 25 Apr 2021 08:12:40 PM CEST',
-            'ats_repository': 'my-repo',
-            'ats_organization': 'my-org',
-            'ats_use_github_infrastructure': 'False',
-            'ats_logo_path': '/path/to/logo.png'
-        }
-        self.manager = InfoManager()
-        self.manager.set_info(self.base_info)
+        self.instance = InfoComponentBundle()
 
     def tearDown(self) -> None:
         '''Call after test case.'''
+        del self.instance
 
-    def test_create_with_wrong_argument(self) -> None:
-        '''Test wrong argument type.'''
-        invalid_manager = InfoManager("wrong")  # type: ignore
-        self.assertFalse(invalid_manager.is_initialized())
+    def test_instance_is_not_none(self) -> None:
+        '''By default InfoComponentBundle instance is not None.'''
+        self.assertIsNotNone(self.instance)
+        self.assertIsNotNone(self.instance.name)
+        self.assertIsNotNone(self.instance.version)
+        self.assertIsNotNone(self.instance.licence)
+        self.assertIsNotNone(self.instance.build_date)
+        self.assertIsNotNone(self.instance.repository)
+        self.assertIsNotNone(self.instance.organization)
+        self.assertIsNotNone(self.instance.use_github)
+        self.assertIsNotNone(self.instance.logo)
+        self.assertIsNotNone(self.instance.info_ok)
+        self.assertIsNotNone(self.instance.context_bundle)
+        self.assertIsInstance(self.instance, InfoComponentBundle)
+        self.assertIsInstance(self.instance.name, IName)
+        self.assertIsInstance(self.instance.version, IVersion)
+        self.assertIsInstance(self.instance.licence, ILicence)
+        self.assertIsInstance(self.instance.build_date, IBuildDate)
+        self.assertIsInstance(self.instance.repository, IRepository)
+        self.assertIsInstance(self.instance.organization, IOrganization)
+        self.assertIsInstance(self.instance.use_github, IUseGitHub)
+        self.assertIsInstance(self.instance.logo, ILogo)
+        self.assertIsInstance(self.instance.info_ok, IInfoOk)
+        self.assertIsInstance(self.instance.context_bundle, ContextBundle)
 
-    def test_create_with_wrong_arguments(self) -> None:
-        '''Test wrong argument types.'''
-        manager = InfoManager()
-        with self.assertRaises(ATSValueError):
-            manager.set_info({
-                'ats_name': None,
-                'ats_version': None,
-                'ats_licence': None,
-                'ats_build_date': None
-            })
+    def test_info_component_bundle(self) -> None:
+        '''Test InfoComponentBundle methods.'''
+        mock_name = MagicMock(spec=IName)
+        mock_version = MagicMock(spec=IVersion)
+        mock_licence = MagicMock(spec=ILicence)
+        mock_build_date = MagicMock(spec=IBuildDate)
+        mock_repository = MagicMock(spec=IRepository)
+        mock_organization = MagicMock(spec=IOrganization)
+        mock_use_github = MagicMock(spec=IUseGitHub)
+        mock_logo_path = MagicMock(spec=ILogo)
+        mock_info_ok = MagicMock(spec=IInfoOk)
 
-    def test_is_initialized(self) -> None:
-        '''Test is_initialized method.'''
-        self.assertTrue(self.manager.is_initialized())
+        bundle = InfoComponentBundle(
+            name=mock_name,
+            version=mock_version,
+            licence=mock_licence,
+            build_date=mock_build_date,
+            repository=mock_repository,
+            organization=mock_organization,
+            use_github=mock_use_github,
+            logo=mock_logo_path,
+            info_ok=mock_info_ok
+        )
 
-    @mock.patch('ats_utilities.info.component_bundle.validate_component')
-    def test_initialization_failure(self, mock_validate_component) -> None:
-        '''Test info manager initialization failure.'''
-        mock_validate_component.side_effect = ATSTypeError('Failed to initialize component')
-        invalid_manager = InfoManager()
-        self.assertFalse(invalid_manager.is_initialized())
+        bundle.validate()
+        d = bundle.to_dict()
+        self.assertEqual(d['name'], mock_name)
 
-    @mock.patch('ats_utilities.info.component_bundle.validate_component')
-    def test_initialization_unexpected_exception(self, mock_validate_component) -> None:
-        '''Test info manager initialization unexpected exception.'''
-        mock_validate_component.side_effect = Exception('Unexpected')
-        invalid_manager = InfoManager()
-        self.assertFalse(invalid_manager.is_initialized())
+        # Test merge
+        bundle1 = InfoComponentBundle()
+        bundle1.merge(bundle)
+        self.assertEqual(bundle1.name, mock_name)
+        self.assertEqual(bundle1.version, mock_version)
 
-    def test_str(self) -> None:
-        '''Test string representation of InfoManager.'''
-        self.assertIsInstance(str(self.manager), str)
+    def test_info_component_bundle_validation_errors(self) -> None:
+        '''Test InfoComponentBundle validation exceptions.'''
+        mock_name = MagicMock(spec=IName)
+        mock_version = MagicMock(spec=IVersion)
+        mock_licence = MagicMock(spec=ILicence)
+        mock_build_date = MagicMock(spec=IBuildDate)
+        mock_repository = MagicMock(spec=IRepository)
+        mock_organization = MagicMock(spec=IOrganization)
+        mock_use_github = MagicMock(spec=IUseGitHub)
+        mock_logo = MagicMock(spec=ILogo)
+        mock_info_ok = MagicMock(spec=IInfoOk)
 
-    def test_info_set_name_none(self) -> None:
-        '''Test setting name to None.'''
+        fields = {
+            'name': mock_name,
+            'version': mock_version,
+            'licence': mock_licence,
+            'build_date': mock_build_date,
+            'repository': mock_repository,
+            'organization': mock_organization,
+            'use_github': mock_use_github,
+            'logo': mock_logo,
+            'info_ok': mock_info_ok
+        }
+
+        # Test each required field missing raises ValueError
+        for field in fields:
+            bundle = InfoComponentBundle(**fields)
+            setattr(bundle, field, None)
+
+            with self.assertRaises(ATSValueError):
+                bundle.validate()
+
+    def test_info_component_bundle_validation_errors(self) -> None:
+        '''Test InfoComponentBundle validation exceptions.'''
+        mock_name = MagicMock(spec=IName)
+        mock_version = MagicMock(spec=IVersion)
+        mock_licence = MagicMock(spec=ILicence)
+        mock_build_date = MagicMock(spec=IBuildDate)
+        mock_repository = MagicMock(spec=IRepository)
+        mock_organization = MagicMock(spec=IOrganization)
+        mock_use_github = MagicMock(spec=IUseGitHub)
+        mock_logo = MagicMock(spec=ILogo)
+        mock_info_ok = MagicMock(spec=ILogo)
+
+        fields = {
+            'name': mock_name,
+            'version': mock_version,
+            'licence': mock_licence,
+            'build_date': mock_build_date,
+            'repository': mock_repository,
+            'organization': mock_organization,
+            'use_github': mock_use_github,
+            'logo': mock_logo,
+            'info_ok': mock_info_ok
+        }
+
+        # Test each required field missing raises ValueError
+        bundle = InfoComponentBundle(**fields)
+        bundle.context_bundle = MagicMock(spec=ContextBundle)
+
         with self.assertRaises(ATSTypeError):
-            self.manager.name = None
-
-    def test_info_set_version_none(self) -> None:
-        '''Test setting version to None.'''
-        with self.assertRaises(ATSTypeError):
-            self.manager.version = None
-
-    def test_info_set_licence_none(self) -> None:
-        '''Test setting licence to None.'''
-        with self.assertRaises(ATSTypeError):
-            self.manager.licence = None
-
-    def test_info_set_build_date_none(self) -> None:
-        '''Test setting build date to None.'''
-        with self.assertRaises(ATSTypeError):
-            self.manager.build_date = None
-
-    def test_info_set_name_wrong_type(self) -> None:
-        '''Test wrong type for name.'''
-        with self.assertRaises(ATSTypeError):
-            self.manager.name = 123  # type: ignore
-
-    def test_info_set_version_wrong_type(self) -> None:
-        '''Test wrong type for version.'''
-        with self.assertRaises(ATSTypeError):
-            self.manager.version = 123  # type: ignore
-
-    def test_info_set_licence_wrong_type(self) -> None:
-        '''Test wrong type for licence.'''
-        with self.assertRaises(ATSTypeError):
-            self.manager.licence = 123  # type: ignore
-
-    def test_info_set_build_date_wrong_type(self) -> None:
-        '''Test wrong type for build date.'''
-        with self.assertRaises(ATSTypeError):
-            self.manager.build_date = 123  # type: ignore
-
-    def test_info_properties_not_none(self) -> None:
-        '''Test properties are not None.'''
-        self.assertTrue(self.manager.info_ok)
-        self.assertEqual(self.manager.name, 'Simple Tool')
-        self.assertEqual(self.manager.version, '1.0.0')
-        self.assertEqual(self.manager.licence, 'GPLv3')
-        self.assertEqual(self.manager.build_date, 'Sun 25 Apr 2021 08:12:40 PM CEST')
-
-    def test_info_optional_properties(self) -> None:
-        '''Test setting/getting optional properties.'''
-        self.manager.repository = 'my-repo'
-        self.manager.organization = 'my-org'
-        self.manager.use_github = True
-        self.manager.logo_path = '/path/to/logo.png'
-
-        self.assertEqual(self.manager.repository, 'my-repo')
-        self.assertEqual(self.manager.organization, 'my-org')
-        self.assertEqual(self.manager.use_github, True)
-        self.assertEqual(self.manager.logo_path, '/path/to/logo.png')
-
-    def test_info_optional_properties_wrong_types(self) -> None:
-        '''Test wrong types for optional properties.'''
-        with self.assertRaises(ATSTypeError):
-            self.manager.repository = 123  # type: ignore
-        with self.assertRaises(ATSTypeError):
-            self.manager.organization = 123  # type: ignore
-        with self.assertRaises(ATSTypeError):
-            self.manager.use_github = 'true'  # type: ignore
-        with self.assertRaises(ATSTypeError):
-            self.manager.logo_path = 123  # type: ignore
-
-    def test_getattr_invalid_attribute(self) -> None:
-        '''Test getattr with an invalid attribute raises AttributeError.'''
-        with self.assertRaises(AttributeError):
-            _ = self.manager.non_existent_attribute
-
-    def test_get_shared_context(self) -> None:
-        '''Test get_shared_context returns ContextBundle.'''
-        from ats_utilities.context_bundle import ContextBundle
-        context = self.manager.get_shared_context()
-        self.assertIsInstance(context, ContextBundle)
-
-    def test_info_set_valid_values(self) -> None:
-        '''Test setting valid values on InfoManager.'''
-        self.manager.name = "New name"
-        self.assertEqual(self.manager.name, "New name")
-        self.manager.version = "2.0.0"
-        self.assertEqual(self.manager.version, "2.0.0")
-
-    def test_info_missing_keys_failure(self) -> None:
-        '''Test InfoManager.set_info raises ATSValueError when key is missing.'''
-        with self.assertRaises(ATSValueError):
-            self.manager.set_info({'ats_name': 'Simple Tool'})
-
-    def test_info_use_github_infrastructure_bool(self) -> None:
-        '''Test InfoManager.set_info when ats_use_github_infrastructure is already a boolean.'''
-        info = dict(self.base_info)
-        info['ats_use_github_infrastructure'] = True
-        self.manager.set_info(info)
-        self.assertTrue(self.manager.use_github)
-
-
-class InfoComponentsTestCase(TestCase):
-    '''
-        Defines class InfoComponentsTestCase with attribute(s) and method(s).
-        Creates test cases for checking functionalities of individual info components.
-        Info components unit tests.
-
-        It defines:
-
-            :methods:
-                | test_build_date_component - Tests build date component.
-                | test_licence_component - Tests licence component.
-                | test_logo_component - Tests logo component.
-                | test_name_component - Tests name component.
-                | test_organization_component - Tests organization component.
-                | test_repository_component - Tests repository component.
-                | test_use_github_component - Tests use GitHub component.
-                | test_version_component - Tests version component.
-                | test_info_ok_component - Tests info ok component.
-    '''
-
-    def test_build_date_component(self) -> None:
-        '''
-            Tests build date component.
-
-            :exceptions: None.
-        '''
-        component = BuildDate()
-        self.assertFalse(component.not_none())
-        self.assertIsNone(component.build_date)
-        component.build_date = 'Sun 25 Apr 2021 08:12:40 PM CEST'
-        self.assertTrue(component.not_none())
-        self.assertEqual(component.build_date, 'Sun 25 Apr 2021 08:12:40 PM CEST')
-        self.assertIsInstance(str(component), str)
-
-    def test_licence_component(self) -> None:
-        '''
-            Tests licence component.
-
-            :exceptions: None.
-        '''
-        component = Licence()
-        self.assertFalse(component.not_none())
-        self.assertIsNone(component.licence)
-        component.licence = 'GPLv3'
-        self.assertTrue(component.not_none())
-        self.assertEqual(component.licence, 'GPLv3')
-        self.assertIsInstance(str(component), str)
-
-    def test_logo_component(self) -> None:
-        '''
-            Tests logo component.
-
-            :exceptions: None.
-        '''
-        component = Logo()
-        self.assertFalse(component.not_none())
-        self.assertIsNone(component.logo_path)
-        component.logo_path = '/path/to/logo.png'
-        self.assertTrue(component.not_none())
-        self.assertEqual(component.logo_path, '/path/to/logo.png')
-        self.assertIsInstance(str(component), str)
-
-    def test_name_component(self) -> None:
-        '''
-            Tests name component.
-
-            :exceptions: None.
-        '''
-        component = Name()
-        self.assertFalse(component.not_none())
-        self.assertIsNone(component.name)
-        component.name = 'Simple Tool'
-        self.assertTrue(component.not_none())
-        self.assertEqual(component.name, 'Simple Tool')
-        self.assertIsInstance(str(component), str)
-
-    def test_organization_component(self) -> None:
-        '''
-            Tests organization component.
-
-            :exceptions: None.
-        '''
-        component = Organization()
-        self.assertFalse(component.not_none())
-        self.assertIsNone(component.organization)
-        component.organization = 'my-org'
-        self.assertTrue(component.not_none())
-        self.assertEqual(component.organization, 'my-org')
-        self.assertIsInstance(str(component), str)
-
-    def test_repository_component(self) -> None:
-        '''
-            Tests repository component.
-
-            :exceptions: None.
-        '''
-        component = Repository()
-        self.assertFalse(component.not_none())
-        self.assertIsNone(component.repository)
-        component.repository = 'my-repo'
-        self.assertTrue(component.not_none())
-        self.assertEqual(component.repository, 'my-repo')
-        self.assertIsInstance(str(component), str)
-
-    def test_use_github_component(self) -> None:
-        '''
-            Tests use GitHub component.
-
-            :exceptions: None.
-        '''
-        component = UseGitHub()
-        self.assertFalse(component.not_none())
-        self.assertIsNone(component.use_github)
-        component.use_github = True
-        self.assertTrue(component.not_none())
-        self.assertEqual(component.use_github, True)
-        self.assertIsInstance(str(component), str)
-
-    def test_version_component(self) -> None:
-        '''
-            Tests version component.
-
-            :exceptions: None.
-        '''
-        component = Version()
-        self.assertFalse(component.not_none())
-        self.assertIsNone(component.version)
-        component.version = '1.0.0'
-        self.assertTrue(component.not_none())
-        self.assertEqual(component.version, '1.0.0')
-        self.assertIsInstance(str(component), str)
-
-    def test_info_ok_component(self) -> None:
-        '''
-            Tests info ok component.
-
-            :exceptions: None.
-        '''
-        component = InfoOk()
-        self.assertFalse(component.info_ok)
-        self.assertFalse(component.not_none())
-        component.info_ok = True
-        self.assertTrue(component.info_ok)
-        self.assertTrue(component.not_none())
-        self.assertIsInstance(str(component), str)
+            bundle.validate()
 
 
 if __name__ == '__main__':

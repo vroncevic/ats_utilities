@@ -28,7 +28,7 @@ from tarfile import TarFile, TarInfo
 from ats_utilities.config_io.iread import IRead
 from ats_utilities.config_io.json.ijson_processor import IJSONProcessor
 from ats_utilities.config_io.ifile_check import IFileCheck
-from ats_utilities.config_io.iconfig_loader import IConfigLoader, IConfigProcessor
+from ats_utilities.config_io.iconfig_loader import IConfigLoader
 from ats_utilities.info.imanager import IInfoManager
 from ats_utilities.option.ioption_manager import IOptionManager
 from ats_utilities.logging.ilogger_manager import ILoggerManager
@@ -40,11 +40,9 @@ from ats_utilities.config_io.file_bundle import FileBundle
 from ats_utilities.context_bundle import ContextBundle
 from ats_utilities.logging.logger.logger_bundle import LoggerBundle
 from ats_utilities.logging.component_bundle import LoggingComponentBundle
-from ats_utilities.option.component_bundle import OptionComponentBundle
 from ats_utilities.base.component_bundle import BaseComponentBundle
 from ats_utilities.checker.component_bundle import CheckerComponentBundle
 from ats_utilities.checker.reporter.checker_reporter_bundle import CheckerReporterBundle
-from ats_utilities.info.component_bundle import InfoComponentBundle
 from ats_utilities.reporter.component_bundle import ReporterComponentBundle
 from ats_utilities.splasher.component_bundle import SplashComponentBundle
 from ats_utilities.splasher.splash_center_bundle import SplashCenterBundle
@@ -54,22 +52,11 @@ from ats_utilities.generator.tar.tar_process_bundle import TarProcessBundle
 from ats_utilities.generator.tar.tar_process_member_bundle import TarProcessMemberBundle
 from ats_utilities.exceptions import ATSTypeError, ATSValueError
 from ats_utilities.checker.ichecker import IChecker
-from ats_utilities.reporter.ireporter import IReporter
-from ats_utilities.option.strategy.iparser_strategy import IParserStrategy
 from ats_utilities.logging.logger.ilogger import ILogger
 from ats_utilities.checker.type.itype_validator import ITypeValidator
 from ats_utilities.checker.format.iformat_validator import IFormatValidator
 from ats_utilities.checker.context.icontext_provider import IContextProvider
 from ats_utilities.checker.reporter.icheck_reporter import ICheckReporter
-from ats_utilities.info.name.iname import IName
-from ats_utilities.info.version.iversion import IVersion
-from ats_utilities.info.licence.ilicence import ILicence
-from ats_utilities.info.build_date.ibuild_date import IBuildDate
-from ats_utilities.info.repository.irepository import IRepository
-from ats_utilities.info.organization.iorganization import IOrganization
-from ats_utilities.info.use_github.iuse_github import IUseGitHub
-from ats_utilities.info.logo.ilogo_path import ILogo
-from ats_utilities.info.info_ok.iinfo_ok import IInfoOk
 from ats_utilities.reporter.theme.iconsole_theme import IConsoleTheme
 from ats_utilities.splasher.property.isplash_property import ISplashProperty
 from ats_utilities.splasher.terminal.iterminal_properties import ITerminalProperties
@@ -531,71 +518,6 @@ class ComponentBundlesTestCase(TestCase):
 
         for field in fields:
             bundle = CheckerComponentBundle(**fields)
-            setattr(bundle, field, None)
-            with self.assertRaises(ValueError):
-                bundle.validate()
-
-    def test_info_component_bundle(self) -> None:
-        '''Test InfoComponentBundle methods.'''
-        mock_name = MagicMock(spec=IName)
-        mock_version = MagicMock(spec=IVersion)
-        mock_licence = MagicMock(spec=ILicence)
-        mock_build_date = MagicMock(spec=IBuildDate)
-        mock_repository = MagicMock(spec=IRepository)
-        mock_organization = MagicMock(spec=IOrganization)
-        mock_use_github = MagicMock(spec=IUseGitHub)
-        mock_logo_path = MagicMock(spec=ILogo)
-        mock_info_ok = MagicMock(spec=IInfoOk)
-
-        bundle = InfoComponentBundle(
-            name=mock_name,
-            version=mock_version,
-            licence=mock_licence,
-            build_date=mock_build_date,
-            repository=mock_repository,
-            organization=mock_organization,
-            use_github=mock_use_github,
-            logo_path=mock_logo_path,
-            info_ok=mock_info_ok
-        )
-
-        bundle.validate()
-        d = bundle.to_dict()
-        self.assertEqual(d['name'], mock_name)
-
-        # Test merge
-        bundle1 = InfoComponentBundle()
-        bundle1.merge(bundle)
-        self.assertEqual(bundle1.name, mock_name)
-        self.assertEqual(bundle1.version, mock_version)
-
-    def test_info_component_bundle_validation_errors(self) -> None:
-        '''Test InfoComponentBundle validation exceptions.'''
-        mock_name = MagicMock(spec=IName)
-        mock_version = MagicMock(spec=IVersion)
-        mock_licence = MagicMock(spec=ILicence)
-        mock_build_date = MagicMock(spec=IBuildDate)
-        mock_repository = MagicMock(spec=IRepository)
-        mock_organization = MagicMock(spec=IOrganization)
-        mock_use_github = MagicMock(spec=IUseGitHub)
-        mock_logo_path = MagicMock(spec=ILogo)
-        mock_info_ok = MagicMock(spec=IInfoOk)
-
-        fields = {
-            'name': mock_name,
-            'version': mock_version,
-            'licence': mock_licence,
-            'build_date': mock_build_date,
-            'repository': mock_repository,
-            'organization': mock_organization,
-            'use_github': mock_use_github,
-            'logo_path': mock_logo_path,
-            'info_ok': mock_info_ok
-        }
-
-        # Test each required field missing raises ValueError
-        for field in fields:
-            bundle = InfoComponentBundle(**fields)
             setattr(bundle, field, None)
             with self.assertRaises(ValueError):
                 bundle.validate()
