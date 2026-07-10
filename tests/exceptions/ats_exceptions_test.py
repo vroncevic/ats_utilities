@@ -23,7 +23,16 @@ Execute
 '''
 
 from unittest import TestCase, main
-from ats_utilities.exceptions import ATSAttributeError, ATSBadCallError, ATSFileError, ATSKeyError, ATSLookupError, ATSParameterError, ATSTypeError, ATSValueError
+from ats_utilities.exceptions import (
+    ATSAttributeError,
+    ATSBadCallError,
+    ATSFileError,
+    ATSKeyError,
+    ATSLookupError,
+    ATSParameterError,
+    ATSTypeError,
+    ATSValueError
+)
 
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
