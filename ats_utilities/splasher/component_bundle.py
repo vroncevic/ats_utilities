@@ -111,7 +111,9 @@ class SplashComponentBundle:
             self.property_validated = self.splash_property.validates()
 
         self.terminal_property = make_component(self.terminal_property, TerminalProperties, factory_args)
-        validate_component(self.terminal_property, ITerminalProperties, r'terminal_property must be an ITerminalProperties instance')
+        validate_component(
+            self.terminal_property, ITerminalProperties, r'terminal_property must be an ITerminalProperties instance'
+        )
 
         size: tuple[Any, ...] = self.terminal_property.size()
 

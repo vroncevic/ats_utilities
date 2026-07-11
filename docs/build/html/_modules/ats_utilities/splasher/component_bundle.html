@@ -151,7 +151,9 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">property_validated</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">splash_property</span><span class="o">.</span><span class="n">validates</span><span class="p">()</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">terminal_property</span> <span class="o">=</span> <span class="n">make_component</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">terminal_property</span><span class="p">,</span> <span class="n">TerminalProperties</span><span class="p">,</span> <span class="n">factory_args</span><span class="p">)</span>
-        <span class="n">validate_component</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">terminal_property</span><span class="p">,</span> <span class="n">ITerminalProperties</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;terminal_property must be an ITerminalProperties instance&#39;</span><span class="p">)</span>
+        <span class="n">validate_component</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">terminal_property</span><span class="p">,</span> <span class="n">ITerminalProperties</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;terminal_property must be an ITerminalProperties instance&#39;</span>
+        <span class="p">)</span>
 
         <span class="n">size</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">terminal_property</span><span class="o">.</span><span class="n">size</span><span class="p">()</span>
 

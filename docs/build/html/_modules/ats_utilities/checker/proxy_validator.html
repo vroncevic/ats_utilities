@@ -128,17 +128,19 @@
                     <span class="n">depth</span><span class="o">=</span><span class="mi">3</span>
                 <span class="p">)</span>
 
+            <span class="n">cls_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">self_instance</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span>
+
             <span class="c1"># BORROWING: Extracting the checker object that the class is responsible for.</span>
             <span class="c1"># Supports protected &#39;_checker&#39; or name-mangled private &#39;_checker&#39; attributes.</span>
             <span class="n">checker</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span>
                 <span class="n">self_instance</span><span class="p">,</span> <span class="s1">&#39;_checker&#39;</span><span class="p">,</span>
-                <span class="nb">getattr</span><span class="p">(</span><span class="n">self_instance</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;_</span><span class="si">{</span><span class="n">self_instance</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s1">_checker&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+                <span class="nb">getattr</span><span class="p">(</span><span class="n">self_instance</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;_</span><span class="si">{</span><span class="n">cls_name</span><span class="si">}</span><span class="s1">_checker&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
             <span class="p">)</span>
 
             <span class="k">if</span> <span class="n">checker</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
                 <span class="n">raise_context_error</span><span class="p">(</span>
                     <span class="n">fallback_prefix</span><span class="o">=</span><span class="s1">&#39;vcheck::decorator&#39;</span><span class="p">,</span>
-                    <span class="n">fallback_msg</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;Class &#39;</span><span class="si">{</span><span class="n">self_instance</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">&#39; is required to provide a &#39;_checker&#39; object to use the @vcheck decorator.&quot;</span><span class="p">,</span>
+                    <span class="n">fallback_msg</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;Class &#39;</span><span class="si">{</span><span class="n">cls_name</span><span class="si">}</span><span class="s2">&#39; must have &#39;_checker&#39; attribute to use @vcheck decorator.&quot;</span><span class="p">,</span>
                     <span class="n">exc_message_path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                     <span class="n">exception_class</span><span class="o">=</span><span class="n">ATSAttributeError</span><span class="p">,</span>
                     <span class="n">depth</span><span class="o">=</span><span class="mi">3</span>

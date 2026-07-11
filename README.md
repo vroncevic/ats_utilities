@@ -383,7 +383,7 @@ These modules requires other modules and libraries (Python 3.x)
 | `ats_utilities/checker/format/format_validator.py` | 24 | 0 | 100%|
 | `ats_utilities/checker/format/iformat_validator.py` | 11 | 0 | 100%|
 | `ats_utilities/checker/ichecker.py` | 20 | 0 | 100%|
-| `ats_utilities/checker/proxy_validator.py` | 58 | 0 | 100%|
+| `ats_utilities/checker/proxy_validator.py` | 59 | 0 | 100%|
 | `ats_utilities/checker/reporter/__init__.py` | 9 | 0 | 100%|
 | `ats_utilities/checker/reporter/check_reporter.py` | 30 | 0 | 100%|
 | `ats_utilities/checker/reporter/checker_reporter_bundle.py` | 44 | 0 | 100%|
@@ -566,7 +566,7 @@ These modules requires other modules and libraries (Python 3.x)
 | `ats_utilities/splasher/terminal/__init__.py` | 9 | 0 | 100%|
 | `ats_utilities/splasher/terminal/iterminal_properties.py` | 12 | 0 | 100%|
 | `ats_utilities/splasher/terminal/terminal_properties.py` | 60 | 0 | 100%|
-| **Total** | 6174 | 0 | 100% |
+| **Total** | 6175 | 0 | 100% |
 
 </details>
 

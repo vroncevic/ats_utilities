@@ -85,17 +85,19 @@ def vcheck[F: Callable[..., Any]](specs: list[tuple[str, Any]]) -> Callable[[F],
                     depth=3
                 )
 
+            cls_name: str = self_instance.__class__.__name__
+
             # BORROWING: Extracting the checker object that the class is responsible for.
             # Supports protected '_checker' or name-mangled private '_checker' attributes.
             checker = getattr(
                 self_instance, '_checker',
-                getattr(self_instance, f'_{self_instance.__class__.__name__}_checker', None)
+                getattr(self_instance, f'_{cls_name}_checker', None)
             )
 
             if checker is None:
                 raise_context_error(
                     fallback_prefix='vcheck::decorator',
-                    fallback_msg=f"Class '{self_instance.__class__.__name__}' is required to provide a '_checker' object to use the @vcheck decorator.",
+                    fallback_msg=f"Class '{cls_name}' must have '_checker' attribute to use @vcheck decorator.",
                     exc_message_path=None,
                     exception_class=ATSAttributeError,
                     depth=3
