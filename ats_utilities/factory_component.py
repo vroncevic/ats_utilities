@@ -21,19 +21,29 @@ Info
     Provides a simple factory mechanism for dependency injection.
 '''
 
+from __future__ import annotations
+
+from collections.abc import Mapping
 from typing import Any
-from ats_utilities.exceptions.ats_type_error import ATSTypeError
 
-__author__: str = 'Vladimir Roncevic'
-__copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
-__license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.4.1'
-__maintainer__: str = 'Vladimir Roncevic'
-__email__: str = 'elektron.ronca@gmail.com'
-__status__: str = 'Updated'
+from ats_utilities.exceptions import ATSTypeError
+from ats_utilities.factory_context_error import raise_context_error
 
-def make_component(passed_obj: Any, default_class: Any, factory_args: dict[str, Any] | None = None) -> Any:
+__author__ = r'Vladimir Roncevic'
+__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
+__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = r'3.4.2'
+__maintainer__ = r'Vladimir Roncevic'
+__email__ = r'elektron.ronca@gmail.com'
+__status__ = r'Updated'
+
+
+def make_component(
+    passed_obj: Any,
+    default_class: Any,
+    factory_args: Mapping[str, Any] | None = None
+) -> Any:
     '''
         Creates a component instance or returns an existing one.
 
@@ -42,7 +52,7 @@ def make_component(passed_obj: Any, default_class: Any, factory_args: dict[str, 
         :param default_class: The class to instantiate if passed_obj is None.
         :type default_class: <Any>
         :param factory_args: Arguments to pass to the default_class constructor | None.
-        :type factory_args: <dict[str, Any] | None>
+        :type factory_args: <Mapping[str, Any] | None>
         :return: An instance of the component.
         :rtype: <Any>
         :exceptions: None.
@@ -50,13 +60,18 @@ def make_component(passed_obj: Any, default_class: Any, factory_args: dict[str, 
     if passed_obj is not None:
         return passed_obj
 
-    if factory_args is None:
-        factory_args = {}
+    kwargs = dict(factory_args) if factory_args is not None else {}
 
-    # No dependency injection then use default ones.
-    return default_class(**factory_args)
+    # No dependency injection then create using default ones.
+    return default_class(**kwargs)
 
-def validate_component(instance: Any, expected_class: type[Any]) -> None:
+
+def validate_component(
+    instance: Any,
+    expected_class: type[Any],
+    exc_message_path: str | None = None,
+    exception_class: type[Exception] = ATSTypeError
+) -> None:
     '''
         Validates if a component instance is of the expected class type.
 
@@ -64,8 +79,18 @@ def validate_component(instance: Any, expected_class: type[Any]) -> None:
         :type instance: <Any>
         :param expected_class: The expected concrete class type.
         :type expected_class: <type[Any]>
+        :param exc_message_path: Path and details to include in the exception message.
+        :type exc_message_path: <str | None>
+        :param exception_class: The exception class to raise if value is None.
+        :type exception_class: <type[Exception]> (default ATSTypeError)
         :exceptions:
-            | ATSTypeError - instance is not of expected class type.
+            | Dynamically raises the provided exception_class (e.g., ATSTypeError).
     '''
     if not isinstance(instance, expected_class):
-        raise ATSTypeError(f"instance [{type(instance).__name__}] is not of expected type {expected_class.__name__}.")
+        raise_context_error(
+            fallback_prefix=r'factory_component::validate_component',
+            fallback_msg=f'instance is not of expected type {expected_class}',
+            exc_message_path=exc_message_path,
+            exception_class=exception_class,
+            depth=3
+        )

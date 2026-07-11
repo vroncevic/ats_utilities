@@ -21,21 +21,23 @@ Info
     Provides a simple factory mechanism for dependency injection.
 '''
 
+from __future__ import annotations
+
 from typing import Any
+
 from ats_utilities.factory_class import inject
 from ats_utilities.context_bundle import ContextBundle
 from ats_utilities.checker.engine import Checker
 from ats_utilities.reporter.engine import Reporter
-from ats_utilities.reporter.component_bundle import ReporterComponentBundle
 
-__author__: str = 'Vladimir Roncevic'
-__copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
-__license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.4.1'
-__maintainer__: str = 'Vladimir Roncevic'
-__email__: str = 'elektron.ronca@gmail.com'
-__status__: str = 'Updated'
+__author__ = r'Vladimir Roncevic'
+__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
+__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = r'3.4.2'
+__maintainer__ = r'Vladimir Roncevic'
+__email__ = r'elektron.ronca@gmail.com'
+__status__ = r'Updated'
 
 
 def factory_context_bundle(instance: Any, context: ContextBundle | None = None):
@@ -44,24 +46,16 @@ def factory_context_bundle(instance: Any, context: ContextBundle | None = None):
 
         :param instance: The object instance (self) to inject attributes into.
         :type instance: <Any>
-        :param context: Context bundle of checker, reporter and verbose | None.
+        :param context: Context bundle (checker, reporter and verbose) | None.
         :type context: <ContextBundle | None>
         :exceptions: None.
     '''
-    # No dependency injection then use default ones.
-    if not bool(context):
-        context: ContextBundle = ContextBundle()
-
-    if context.checker is None:
-        context.checker: Checker = Checker()
-
-    if context.reporter is None:
-        reporter_bundle: ReporterComponentBundle = ReporterComponentBundle(checker=context.checker)
-        context.reporter: Reporter = Reporter(component_bundle=reporter_bundle)
+    # Uses provided bundle or creates a default one.
+    ctx: ContextBundle = context or ContextBundle()
 
     inject(
         instance,
-        ('checker', context.checker, Checker, None),
-        ('reporter', context.reporter, Reporter, ['checker']),
-        ('verbose', context.verbose, False, None)
+        ('checker', ctx.checker, Checker, None),
+        ('reporter', ctx.reporter, Reporter, ['checker']),
+        ('verbose', ctx.verbose, False, None)
     )

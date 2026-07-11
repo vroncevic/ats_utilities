@@ -19,26 +19,31 @@ Info
     Defines factory dict utility functions.
 '''
 
+from __future__ import annotations
+
 from typing import Any
-from ats_utilities.exceptions.ats_type_error import ATSTypeError
-from ats_utilities.exceptions.ats_value_error import ATSValueError
+from collections.abc import Mapping
 
-__author__: str = 'Vladimir Roncevic'
-__copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
-__license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.4.1'
-__maintainer__: str = 'Vladimir Roncevic'
-__email__: str = 'elektron.ronca@gmail.com'
-__status__: str = 'Updated'
+from ats_utilities.exceptions import ATSValueError
+from ats_utilities.factory_context_error import raise_context_error
+from ats_utilities.factory_type import check_type
+
+__author__ = r'Vladimir Roncevic'
+__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
+__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = r'3.4.2'
+__maintainer__ = r'Vladimir Roncevic'
+__email__ = r'elektron.ronca@gmail.com'
+__status__ = r'Updated'
 
 
-def cherry_pick_dict(source: dict[Any, Any] | None, keys: frozenset[str]) -> dict[Any, Any]:
+def cherry_pick_dict(source: Mapping[Any, Any], keys: frozenset[str]) -> dict[Any, Any]:
     '''
         Cherry picks keys from a source dictionary.
 
-        :param source: Source dictionary from which to pick keys | None.
-        :type source: <dict[Any, Any] | None>
+        :param source: Source dictionary from which to pick keys.
+        :type source: <Mapping[Any, Any]>
         :param keys: Set of keys to pick from the source dictionary.
         :type keys: <frozenset[str]>
         :return: Dictionary with cherry picked keys.
@@ -51,12 +56,12 @@ def cherry_pick_dict(source: dict[Any, Any] | None, keys: frozenset[str]) -> dic
     return {key: source[key] for key in keys if key in source}
 
 
-def has_required_keys(source: dict[Any, Any] | None, keys: frozenset[str]) -> bool:
+def has_required_keys(source: Mapping[Any, Any], keys: frozenset[str]) -> bool:
     '''
         Checks if all required keys are present in the source dictionary.
 
-        :param source: Source dictionary to check | None.
-        :type source: <dict[Any, Any] | None>
+        :param source: Source dictionary to check.
+        :type source: <dict[Any, Any]>
         :param keys: Set of mandatory keys.
         :type keys: <frozenset[str]>
         :return: True (passed), False (failed).
@@ -66,26 +71,37 @@ def has_required_keys(source: dict[Any, Any] | None, keys: frozenset[str]) -> bo
     return keys.issubset(source or {})
 
 
-def require_keys(source: dict[Any, Any] | None, keys: frozenset[str]) -> None:
+def require_keys(
+    source: Mapping[Any, Any],
+    keys: frozenset[str],
+    exc_message_path: str | None = None,
+    exception_class: type[Exception] = ATSValueError
+) -> None:
     '''
         Requires all keys to be present in the source dictionary.
 
-        :param source: Source dictionary to check | None.
-        :type source: <dict[Any, Any] | None>
+        :param source: Source dictionary to check.
+        :type source: <Mapping[Any, Any]>
         :param keys: Set of mandatory keys.
         :type keys: <frozenset[str]>
+        :param exc_message_path: Path and details to include in the exception message.
+        :type exc_message_path: <str | None>
+        :param exception_class: The exception class to raise if value is None.
+        :type exception_class: <type[Exception]> (default ATSValueError)
         :exceptions:
-            | ATSTypeError: Expected dict or None for 'source', got <type>.
-            | ATSTypeError: Expected frozenset for 'keys', got <type>.
-            | ATSValueError: Missing required keys.
+            | ATSTypeError: Parameter type validation failed.
+            | Dynamically raises the provided exception_class (e.g., ATSValueError).
     '''
-    if source is not None and not isinstance(source, dict):
-        raise ATSTypeError(f"expected dict or None for 'source', got {type(source).__name__}")
+    check_type(source, Mapping, exc_message_path)
+    check_type(keys, frozenset, exc_message_path)
 
-    if not isinstance(keys, frozenset):
-        raise ATSTypeError(f"expected frozenset for 'keys', got {type(keys).__name__}")
+    if not has_required_keys(source, keys):
+        missing = list(keys - frozenset(source.keys() if source else []))
 
-    missing_keys: frozenset[str] = keys.difference(source or {})
-
-    if missing_keys:
-        raise ATSValueError(f'missing required keys {missing_keys}')
+        raise_context_error(
+            fallback_prefix=r'factory_dict_utils::require_keys',
+            fallback_msg=f'mapping is missing required keys: {missing}',
+            exc_message_path=exc_message_path,
+            exception_class=exception_class,
+            depth=3
+        )

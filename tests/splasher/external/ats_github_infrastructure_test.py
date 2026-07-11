@@ -1,0 +1,110 @@
+# -*- coding: UTF-8 -*-
+
+'''
+Module
+    ats_github_infrastructure_test.py
+Copyright
+    Copyright (C) 2017 - 2026 Vladimir Roncevic <elektron.ronca@gmail.com>
+    ats_utilities is free software: you can redistribute it and/or modify it
+    under the terms of the GNU General Public License as published by the
+    Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+    ats_utilities is distributed in the hope that it will be useful, but
+    WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+    See the GNU General Public License for more details.
+    You should have received a copy of the GNU General Public License along
+    with this program. If not, see <http://www.gnu.org/licenses/>.
+Info
+    Defines class ATSGitHubTestCase with attribute(s) and method(s).
+    Creates test cases for checking functionalities of termanl properties.
+Execute
+    python3 -m unittest -v ats_github_infrastructure_test
+'''
+
+from unittest import TestCase, main
+from ats_utilities.splasher.external.github_infrastructure import GitHubInfrastructure
+from ats_utilities.exceptions import ATSTypeError
+
+__author__ = r'Vladimir Roncevic'
+__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
+__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = r'3.4.2'
+__maintainer__ = r'Vladimir Roncevic'
+__email__ = r'elektron.ronca@gmail.com'
+__status__ = r'Updated'
+
+
+class ATSGitHubTestCase(TestCase):
+    '''
+        Defines class ATSGitHubTestCase with attribute(s) and method(s).
+        Creates test cases for checking functionalities of termanl properties.
+        GitHubInfrastructure unit tests.
+
+        It defines:
+
+            :attributes:
+                | None
+            :methods:
+                | setUp - Call before test case.
+                | tearDown - Call after test case.
+                | test_create - Test for create.
+                | test_none_property - Test None splash property.
+                | test_get_info - Test get info.
+                | test_get_issue - Test get issue info.
+                | test_get_author - Test get author info.
+                | test_str - Test string representation.
+    '''
+
+    def setUp(self) -> None:
+        '''Call before test case.'''
+        self.splash_property: dict = {
+            'ats_organization': 'App Example',
+            'ats_repository': 'app_example'
+        }
+
+    def tearDown(self) -> None:
+        '''Call after test case.'''
+
+    def test_create(self) -> None:
+        '''Test for create'''
+        infra = GitHubInfrastructure()
+        infra.infrastructure_property = self.splash_property
+        self.assertIsNotNone(infra)
+        self.assertEqual(infra.infrastructure_property, self.splash_property)
+
+    def test_none_property(self) -> None:
+        '''Test None splash property'''
+        infra = GitHubInfrastructure()
+        with self.assertRaises(ATSTypeError):
+            infra.infrastructure_property = None  # type: ignore
+
+    def test_get_info(self) -> None:
+        '''Test get info'''
+        info = GitHubInfrastructure()
+        info.infrastructure_property = self.splash_property
+        self.assertIsNotNone(info.get_info_text())
+
+    def test_get_issue(self) -> None:
+        '''Test get issue info'''
+        info = GitHubInfrastructure()
+        info.infrastructure_property = self.splash_property
+        self.assertIsNotNone(info.get_issue_text())
+
+    def test_get_author(self) -> None:
+        '''Test get author info'''
+        info = GitHubInfrastructure()
+        info.infrastructure_property = self.splash_property
+        self.assertIsNotNone(info.get_author_text())
+
+    def test_str(self) -> None:
+        '''Test string representation of GitHubInfrastructure.'''
+        info = GitHubInfrastructure()
+        info.infrastructure_property = self.splash_property
+        self.assertIsInstance(str(info), str)
+
+
+if __name__ == '__main__':
+    main()
+

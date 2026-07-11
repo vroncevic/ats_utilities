@@ -68,10 +68,10 @@ Encapsulates file configuration and processor utilities to minimize constructor 
 </dd>
 </dl>
 <dl class="py class">
-<dt class="sig sig-object py" id="ats_utilities.config_io.file_bundle.ATSFileBundle">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ats_utilities.config_io.file_bundle.</span></span><span class="sig-name descname"><span class="pre">ATSFileBundle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_mode</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_format</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ats_utilities/config_io/file_bundle.html#ATSFileBundle"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.config_io.file_bundle.ATSFileBundle" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ats_utilities.config_io.file_bundle.FileBundle">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ats_utilities.config_io.file_bundle.</span></span><span class="sig-name descname"><span class="pre">FileBundle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_mode</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_format</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ats_utilities/config_io/file_bundle.html#FileBundle"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.config_io.file_bundle.FileBundle" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>Defines class ATSFileBundle with attribute(s) and method(s).
+<p>Defines class FileBundle with attribute(s) and method(s).
 Encapsulates file configuration and processor utilities to minimize constructor overhead.
 Acts as a Parameter Object to clean up highly repetitive constructor arguments.</p>
 <p>It defines:</p>
@@ -86,7 +86,7 @@ Acts as a Parameter Object to clean up highly repetitive constructor arguments.<
 </dd>
 <dt class="field-even">methods<span class="colon">:</span></dt>
 <dd class="field-even"><div class="line-block">
-<div class="line">validate - Validates that essential components are set.</div>
+<div class="line">validate - Validates that the FileBundle is valid (can be called after merge).</div>
 <div class="line">merge - Merges non-None values from another bundle into this one.</div>
 <div class="line">to_dict - Converts the bundle attributes to a dictionary.</div>
 </div>
@@ -94,41 +94,43 @@ Acts as a Parameter Object to clean up highly repetitive constructor arguments.<
 </dl>
 </div></blockquote>
 <dl class="py attribute">
-<dt class="sig sig-object py" id="ats_utilities.config_io.file_bundle.ATSFileBundle.file_format">
-<span class="sig-name descname"><span class="pre">file_format</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#ats_utilities.config_io.file_bundle.ATSFileBundle.file_format" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ats_utilities.config_io.file_bundle.FileBundle.file_format">
+<span class="sig-name descname"><span class="pre">file_format</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#ats_utilities.config_io.file_bundle.FileBundle.file_format" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="ats_utilities.config_io.file_bundle.ATSFileBundle.file_mode">
-<span class="sig-name descname"><span class="pre">file_mode</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#ats_utilities.config_io.file_bundle.ATSFileBundle.file_mode" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ats_utilities.config_io.file_bundle.FileBundle.file_mode">
+<span class="sig-name descname"><span class="pre">file_mode</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#ats_utilities.config_io.file_bundle.FileBundle.file_mode" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="ats_utilities.config_io.file_bundle.ATSFileBundle.file_path">
-<span class="sig-name descname"><span class="pre">file_path</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#ats_utilities.config_io.file_bundle.ATSFileBundle.file_path" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ats_utilities.config_io.file_bundle.FileBundle.file_path">
+<span class="sig-name descname"><span class="pre">file_path</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#ats_utilities.config_io.file_bundle.FileBundle.file_path" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="ats_utilities.config_io.file_bundle.ATSFileBundle.merge">
-<span class="sig-name descname"><span class="pre">merge</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#ats_utilities.config_io.file_bundle.ATSFileBundle" title="ats_utilities.config_io.file_bundle.ATSFileBundle"><span class="pre">ATSFileBundle</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/ats_utilities/config_io/file_bundle.html#ATSFileBundle.merge"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.config_io.file_bundle.ATSFileBundle.merge" title="Link to this definition">¶</a></dt>
-<dd><p>Merges non-None values from another bundle into this one.</p>
-<dl class="field-list simple">
+<dt class="sig sig-object py" id="ats_utilities.config_io.file_bundle.FileBundle.merge">
+<span class="sig-name descname"><span class="pre">merge</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#ats_utilities.config_io.file_bundle.FileBundle" title="ats_utilities.config_io.file_bundle.FileBundle"><span class="pre">FileBundle</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/ats_utilities/config_io/file_bundle.html#FileBundle.merge"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.config_io.file_bundle.FileBundle.merge" title="Link to this definition">¶</a></dt>
+<dd><p>Merges non-None values from another FileBundle instance into this one.</p>
+<dl class="field-list">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>other</strong> (<em>&lt;ATSFileBundle&gt;</em>) – Another bundle to merge into this one.</p>
+<dd class="field-odd"><p><strong>other</strong> (<em>&lt;FileBundle&gt;</em>) – Another FileBundle instance to merge into this one.</p>
 </dd>
 <dt class="field-even">Exceptions<span class="colon">:</span></dt>
-<dd class="field-even"><p>None.</p>
+<dd class="field-even"><div class="line-block">
+<div class="line">ATSTypeError: Other must be a FileBundle instance.</div>
+</div>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="ats_utilities.config_io.file_bundle.ATSFileBundle.to_dict">
-<span class="sig-name descname"><span class="pre">to_dict</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/ats_utilities/config_io/file_bundle.html#ATSFileBundle.to_dict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.config_io.file_bundle.ATSFileBundle.to_dict" title="Link to this definition">¶</a></dt>
-<dd><p>Converts the bundle attributes to a dictionary.</p>
+<dt class="sig sig-object py" id="ats_utilities.config_io.file_bundle.FileBundle.to_dict">
+<span class="sig-name descname"><span class="pre">to_dict</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/ats_utilities/config_io/file_bundle.html#FileBundle.to_dict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.config_io.file_bundle.FileBundle.to_dict" title="Link to this definition">¶</a></dt>
+<dd><p>Converts the FileBundle instance to a dictionary.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Dictionary representation of the bundle attributes.</p>
+<dd class="field-odd"><p>Dictionary representation of the FileBundle instance.</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p>&lt;dict[str, Any]&gt;</p>
@@ -140,15 +142,22 @@ Acts as a Parameter Object to clean up highly repetitive constructor arguments.<
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="ats_utilities.config_io.file_bundle.ATSFileBundle.validate">
-<span class="sig-name descname"><span class="pre">validate</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/ats_utilities/config_io/file_bundle.html#ATSFileBundle.validate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.config_io.file_bundle.ATSFileBundle.validate" title="Link to this definition">¶</a></dt>
-<dd><p>Validates that essential components are set.</p>
+<dt class="sig sig-object py" id="ats_utilities.config_io.file_bundle.FileBundle.validate">
+<span class="sig-name descname"><span class="pre">validate</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/ats_utilities/config_io/file_bundle.html#FileBundle.validate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.config_io.file_bundle.FileBundle.validate" title="Link to this definition">¶</a></dt>
+<dd><p>Validates that FileBundle is valid (can be called after merge).
+Performs validation of file path, file mode and file format attributes.
+File path must be non-None and a string.
+File mode must be non-None and a string.
+File format must be non-None and a string.</p>
 <dl class="field-list">
 <dt class="field-odd">Exceptions<span class="colon">:</span></dt>
 <dd class="field-odd"><div class="line-block">
 <div class="line">ATSValueError: File path must be provided.</div>
 <div class="line">ATSValueError: File mode must be provided.</div>
 <div class="line">ATSValueError: File format must be provided.</div>
+<div class="line">ATSTypeError: File path must be a string.</div>
+<div class="line">ATSTypeError: File mode must be a string.</div>
+<div class="line">ATSTypeError: File format must be a string.</div>
 </div>
 </dd>
 </dl>
@@ -169,13 +178,13 @@ Acts as a Parameter Object to clean up highly repetitive constructor arguments.<
     <h3><a href="index.html">Table of Contents</a></h3>
     <ul>
 <li><a class="reference internal" href="#">ats_utilities.config_io.file_bundle module</a><ul>
-<li><a class="reference internal" href="#ats_utilities.config_io.file_bundle.ATSFileBundle"><code class="docutils literal notranslate"><span class="pre">ATSFileBundle</span></code></a><ul>
-<li><a class="reference internal" href="#ats_utilities.config_io.file_bundle.ATSFileBundle.file_format"><code class="docutils literal notranslate"><span class="pre">ATSFileBundle.file_format</span></code></a></li>
-<li><a class="reference internal" href="#ats_utilities.config_io.file_bundle.ATSFileBundle.file_mode"><code class="docutils literal notranslate"><span class="pre">ATSFileBundle.file_mode</span></code></a></li>
-<li><a class="reference internal" href="#ats_utilities.config_io.file_bundle.ATSFileBundle.file_path"><code class="docutils literal notranslate"><span class="pre">ATSFileBundle.file_path</span></code></a></li>
-<li><a class="reference internal" href="#ats_utilities.config_io.file_bundle.ATSFileBundle.merge"><code class="docutils literal notranslate"><span class="pre">ATSFileBundle.merge()</span></code></a></li>
-<li><a class="reference internal" href="#ats_utilities.config_io.file_bundle.ATSFileBundle.to_dict"><code class="docutils literal notranslate"><span class="pre">ATSFileBundle.to_dict()</span></code></a></li>
-<li><a class="reference internal" href="#ats_utilities.config_io.file_bundle.ATSFileBundle.validate"><code class="docutils literal notranslate"><span class="pre">ATSFileBundle.validate()</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.config_io.file_bundle.FileBundle"><code class="docutils literal notranslate"><span class="pre">FileBundle</span></code></a><ul>
+<li><a class="reference internal" href="#ats_utilities.config_io.file_bundle.FileBundle.file_format"><code class="docutils literal notranslate"><span class="pre">FileBundle.file_format</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.config_io.file_bundle.FileBundle.file_mode"><code class="docutils literal notranslate"><span class="pre">FileBundle.file_mode</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.config_io.file_bundle.FileBundle.file_path"><code class="docutils literal notranslate"><span class="pre">FileBundle.file_path</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.config_io.file_bundle.FileBundle.merge"><code class="docutils literal notranslate"><span class="pre">FileBundle.merge()</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.config_io.file_bundle.FileBundle.to_dict"><code class="docutils literal notranslate"><span class="pre">FileBundle.to_dict()</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.config_io.file_bundle.FileBundle.validate"><code class="docutils literal notranslate"><span class="pre">FileBundle.validate()</span></code></a></li>
 </ul>
 </li>
 </ul>

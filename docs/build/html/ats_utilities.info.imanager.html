@@ -15,8 +15,8 @@
     
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="ats_utilities.info.iname module" href="ats_utilities.info.iname.html" />
-    <link rel="prev" title="ats_utilities.info.ilogo_path module" href="ats_utilities.info.ilogo_path.html" /> 
+    <link rel="next" title="ats_utilities.info.info_keys module" href="ats_utilities.info.info_keys.html" />
+    <link rel="prev" title="ats_utilities.info.engine module" href="ats_utilities.info.engine.html" /> 
   </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
@@ -28,10 +28,10 @@
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="ats_utilities.info.iname.html" title="ats_utilities.info.iname module"
+          <a href="ats_utilities.info.info_keys.html" title="ats_utilities.info.info_keys module"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="ats_utilities.info.ilogo_path.html" title="ats_utilities.info.ilogo_path module"
+          <a href="ats_utilities.info.engine.html" title="ats_utilities.info.engine module"
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">ats_utilities https://github.com/vroncevic/ats_utilities/releases documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="modules.html" >ats_utilities</a> &#187;</li>
@@ -64,7 +64,7 @@ You should have received a copy of the GNU General Public License along
 with this program. If not, see &lt;<a class="reference external" href="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</a>&gt;.</p>
 </dd>
 <dt>Info</dt><dd><p>Defines abstract class IInfoManager with method(s).
-Interface for the ATS info manager mechanism.</p>
+Interface for the info manager mechanism.</p>
 </dd>
 </dl>
 <dl class="py class">
@@ -72,21 +72,22 @@ Interface for the ATS info manager mechanism.</p>
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ats_utilities.info.imanager.</span></span><span class="sig-name descname"><span class="pre">IInfoManager</span></span><a class="reference internal" href="_modules/ats_utilities/info/imanager.html#IInfoManager"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.info.imanager.IInfoManager" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">ABC</span></code></p>
 <p>Defines abstract class IInfoManager with method(s).
-Interface for the ATS info manager mechanism.</p>
+Interface for the info manager mechanism.
+Note: The information is read-only data (it is provided by</p>
+<blockquote>
+<div><p>configuraiton file which is loaded by config loader).</p>
+</div></blockquote>
 <p>It defines:</p>
 <blockquote>
 <div><dl class="field-list">
-<dt class="field-odd">attributes<span class="colon">:</span></dt>
-<dd class="field-odd"><p>None.</p>
-</dd>
-<dt class="field-even">methods<span class="colon">:</span></dt>
-<dd class="field-even"><div class="line-block">
+<dt class="field-odd">methods<span class="colon">:</span></dt>
+<dd class="field-odd"><div class="line-block">
 <div class="line">get_shared_context - Returns the shared context.</div>
-<div class="line">set_info - Sets the ATS information.</div>
-<div class="line">get_info - Gets the ATS information.</div>
-<div class="line">info_ok - Checks if ATS information structure is ok.</div>
-<div class="line">refresh_status - Refreshes status for ATS information structure.</div>
-<div class="line">__str__ - Returns the ATS info manager as string representation.</div>
+<div class="line">set_info - Sets the information.</div>
+<div class="line">get_info - Gets the information.</div>
+<div class="line">is_initialized - Checks if info manager is initialized.</div>
+<div class="line">refresh_status - Refreshes status for information structure.</div>
+<div class="line">__str__ - Returns the info manager as string representation.</div>
 </div>
 </dd>
 </dl>
@@ -98,14 +99,14 @@ Interface for the ATS info manager mechanism.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="ats_utilities.info.imanager.IInfoManager.get_info">
-<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_info</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/ats_utilities/info/imanager.html#IInfoManager.get_info"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.info.imanager.IInfoManager.get_info" title="Link to this definition">¶</a></dt>
-<dd><p>Gets the ATS information.</p>
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_info</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Mapping</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/ats_utilities/info/imanager.html#IInfoManager.get_info"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.info.imanager.IInfoManager.get_info" title="Link to this definition">¶</a></dt>
+<dd><p>Gets the information.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Dictionary with ATS information.</p>
+<dd class="field-odd"><p>Mapping with information.</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>&lt;dict[str, Any]&gt;</p>
+<dd class="field-even"><p>&lt;Mapping[str, Any]&gt;</p>
 </dd>
 <dt class="field-odd">Exceptions<span class="colon">:</span></dt>
 <dd class="field-odd"><p>None.</p>
@@ -115,14 +116,14 @@ Interface for the ATS info manager mechanism.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="ats_utilities.info.imanager.IInfoManager.get_shared_context">
-<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_shared_context</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="ats_utilities.context_bundle.html#ats_utilities.context_bundle.ContextBundle" title="ats_utilities.context_bundle.ContextBundle"><span class="pre">ContextBundle</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></span><a class="reference internal" href="_modules/ats_utilities/info/imanager.html#IInfoManager.get_shared_context"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.info.imanager.IInfoManager.get_shared_context" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_shared_context</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="ats_utilities.context_bundle.html#ats_utilities.context_bundle.ContextBundle" title="ats_utilities.context_bundle.ContextBundle"><span class="pre">ContextBundle</span></a></span></span><a class="reference internal" href="_modules/ats_utilities/info/imanager.html#IInfoManager.get_shared_context"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.info.imanager.IInfoManager.get_shared_context" title="Link to this definition">¶</a></dt>
 <dd><p>Returns the shared context.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Shared context | None.</p>
+<dd class="field-odd"><p>Shared context.</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>&lt;ContextBundle | None&gt;</p>
+<dd class="field-even"><p>&lt;ContextBundle&gt;</p>
 </dd>
 <dt class="field-odd">Exceptions<span class="colon">:</span></dt>
 <dd class="field-odd"><p>None.</p>
@@ -133,7 +134,7 @@ Interface for the ATS info manager mechanism.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="ats_utilities.info.imanager.IInfoManager.is_initialized">
 <em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">is_initialized</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="_modules/ats_utilities/info/imanager.html#IInfoManager.is_initialized"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.info.imanager.IInfoManager.is_initialized" title="Link to this definition">¶</a></dt>
-<dd><p>Checks if ATS information structure is ok.</p>
+<dd><p>Checks if info manager is initialized.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>True (success) | False (fail)</p>
@@ -150,7 +151,7 @@ Interface for the ATS info manager mechanism.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="ats_utilities.info.imanager.IInfoManager.refresh_status">
 <em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">refresh_status</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/ats_utilities/info/imanager.html#IInfoManager.refresh_status"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.info.imanager.IInfoManager.refresh_status" title="Link to this definition">¶</a></dt>
-<dd><p>Refreshes status for ATS information structure.</p>
+<dd><p>Refreshes status for information structure.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Exceptions<span class="colon">:</span></dt>
 <dd class="field-odd"><p>None.</p>
@@ -160,11 +161,11 @@ Interface for the ATS info manager mechanism.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="ats_utilities.info.imanager.IInfoManager.set_info">
-<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">set_info</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">info</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/ats_utilities/info/imanager.html#IInfoManager.set_info"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.info.imanager.IInfoManager.set_info" title="Link to this definition">¶</a></dt>
-<dd><p>Sets the ATS information.</p>
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">set_info</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">info</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Mapping</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/ats_utilities/info/imanager.html#IInfoManager.set_info"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.info.imanager.IInfoManager.set_info" title="Link to this definition">¶</a></dt>
+<dd><p>Sets the information.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>info</strong> (<em>&lt;dict</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>]</em><em>&gt;</em>) – Dictionary with ATS information</p>
+<dd class="field-odd"><p><strong>info</strong> (<em>&lt;Mapping</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>]</em><em>&gt;</em>) – Mapping with information.</p>
 </dd>
 <dt class="field-even">Exceptions<span class="colon">:</span></dt>
 <dd class="field-even"><p>None.</p>
@@ -203,13 +204,13 @@ Interface for the ATS info manager mechanism.</p>
   </div>
   <div>
     <h4>Previous topic</h4>
-    <p class="topless"><a href="ats_utilities.info.ilogo_path.html"
-                          title="previous chapter">ats_utilities.info.ilogo_path module</a></p>
+    <p class="topless"><a href="ats_utilities.info.engine.html"
+                          title="previous chapter">ats_utilities.info.engine module</a></p>
   </div>
   <div>
     <h4>Next topic</h4>
-    <p class="topless"><a href="ats_utilities.info.iname.html"
-                          title="next chapter">ats_utilities.info.iname module</a></p>
+    <p class="topless"><a href="ats_utilities.info.info_keys.html"
+                          title="next chapter">ats_utilities.info.info_keys module</a></p>
   </div>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
@@ -242,10 +243,10 @@ Interface for the ATS info manager mechanism.</p>
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="ats_utilities.info.iname.html" title="ats_utilities.info.iname module"
+          <a href="ats_utilities.info.info_keys.html" title="ats_utilities.info.info_keys module"
              >next</a> |</li>
         <li class="right" >
-          <a href="ats_utilities.info.ilogo_path.html" title="ats_utilities.info.ilogo_path module"
+          <a href="ats_utilities.info.engine.html" title="ats_utilities.info.engine module"
              >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">ats_utilities https://github.com/vroncevic/ats_utilities/releases documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="modules.html" >ats_utilities</a> &#187;</li>

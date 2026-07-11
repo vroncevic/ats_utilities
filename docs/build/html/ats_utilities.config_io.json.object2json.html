@@ -70,7 +70,7 @@ Creates an API for writing a configuration to a JSON file.</p>
 </dl>
 <dl class="py class">
 <dt class="sig sig-object py" id="ats_utilities.config_io.json.object2json.Object2Json">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ats_utilities.config_io.json.object2json.</span></span><span class="sig-name descname"><span class="pre">Object2Json</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config_file</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">config_bundle</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="ats_utilities.config_io.config_file_bundle.html#ats_utilities.config_io.config_file_bundle.ATSConfigFileBundle" title="ats_utilities.config_io.config_file_bundle.ATSConfigFileBundle"><span class="pre">ATSConfigFileBundle</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ats_utilities/config_io/json/object2json.html#Object2Json"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.config_io.json.object2json.Object2Json" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ats_utilities.config_io.json.object2json.</span></span><span class="sig-name descname"><span class="pre">Object2Json</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config_file</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">config_bundle</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="ats_utilities.config_io.config_file_bundle.html#ats_utilities.config_io.config_file_bundle.ConfigFileBundle" title="ats_utilities.config_io.config_file_bundle.ConfigFileBundle"><span class="pre">ConfigFileBundle</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ats_utilities/config_io/json/object2json.html#Object2Json"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.config_io.json.object2json.Object2Json" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="ats_utilities.config_io.iwrite.html#ats_utilities.config_io.iwrite.IWrite" title="ats_utilities.config_io.iwrite.IWrite"><code class="xref py py-class docutils literal notranslate"><span class="pre">IWrite</span></code></a></p>
 <p>Defines class Object2Json with attribute(s) and method(s).
 Creates an API for writing a configuration to a JSON file.
@@ -121,6 +121,26 @@ Conversion of Python object to JSON content.</p>
 <dd></dd></dl>
 
 <dl class="py attribute">
+<dt class="sig sig-object py" id="ats_utilities.config_io.json.object2json.Object2Json._config_file_bundle">
+<span class="sig-name descname"><span class="pre">_config_file_bundle</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="ats_utilities.config_io.config_file_bundle.html#ats_utilities.config_io.config_file_bundle.ConfigFileBundle" title="ats_utilities.config_io.config_file_bundle.ConfigFileBundle"><span class="pre">ConfigFileBundle</span></a></em><a class="headerlink" href="#ats_utilities.config_io.json.object2json.Object2Json._config_file_bundle" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ats_utilities.config_io.json.object2json.Object2Json._file_bundle_shared">
+<span class="sig-name descname"><span class="pre">_file_bundle_shared</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="ats_utilities.config_io.file_bundle.html#ats_utilities.config_io.file_bundle.FileBundle" title="ats_utilities.config_io.file_bundle.FileBundle"><span class="pre">FileBundle</span></a></em><a class="headerlink" href="#ats_utilities.config_io.json.object2json.Object2Json._file_bundle_shared" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ats_utilities.config_io.json.object2json.Object2Json._file_checker">
+<span class="sig-name descname"><span class="pre">_file_checker</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="ats_utilities.config_io.ifile_check.html#ats_utilities.config_io.ifile_check.IFileCheck" title="ats_utilities.config_io.ifile_check.IFileCheck"><span class="pre">IFileCheck</span></a></em><a class="headerlink" href="#ats_utilities.config_io.json.object2json.Object2Json._file_checker" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ats_utilities.config_io.json.object2json.Object2Json._file_path">
+<span class="sig-name descname"><span class="pre">_file_path</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#ats_utilities.config_io.json.object2json.Object2Json._file_path" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
 <dt class="sig sig-object py" id="ats_utilities.config_io.json.object2json.Object2Json._reporter">
 <span class="sig-name descname"><span class="pre">_reporter</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="ats_utilities.reporter.ireporter.html#ats_utilities.reporter.ireporter.IReporter" title="ats_utilities.reporter.ireporter.IReporter"><span class="pre">IReporter</span></a></em><a class="headerlink" href="#ats_utilities.config_io.json.object2json.Object2Json._reporter" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -149,7 +169,7 @@ Conversion of Python object to JSON content.</p>
 <div class="line">ATSRuntimeError: Decorator cannot be used on a standalone function.</div>
 <div class="line">ATSAttributeError: Class is required to provide a ‘_reporter’ object to</div>
 <div class="line-block">
-<div class="line">use the &#64;verboser decorator.</div>
+<div class="line">use the &#64;vreport decorator.</div>
 </div>
 <div class="line">ATSTypeError: Parameter type validation failed.</div>
 <div class="line">ATSValueError: Parameter format validation failed.</div>
@@ -180,6 +200,10 @@ Conversion of Python object to JSON content.</p>
 <li><a class="reference internal" href="#ats_utilities.config_io.json.object2json.Object2Json._MODE"><code class="docutils literal notranslate"><span class="pre">Object2Json._MODE</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.config_io.json.object2json.Object2Json._abc_impl"><code class="docutils literal notranslate"><span class="pre">Object2Json._abc_impl</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.config_io.json.object2json.Object2Json._checker"><code class="docutils literal notranslate"><span class="pre">Object2Json._checker</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.config_io.json.object2json.Object2Json._config_file_bundle"><code class="docutils literal notranslate"><span class="pre">Object2Json._config_file_bundle</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.config_io.json.object2json.Object2Json._file_bundle_shared"><code class="docutils literal notranslate"><span class="pre">Object2Json._file_bundle_shared</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.config_io.json.object2json.Object2Json._file_checker"><code class="docutils literal notranslate"><span class="pre">Object2Json._file_checker</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.config_io.json.object2json.Object2Json._file_path"><code class="docutils literal notranslate"><span class="pre">Object2Json._file_path</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.config_io.json.object2json.Object2Json._reporter"><code class="docutils literal notranslate"><span class="pre">Object2Json._reporter</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.config_io.json.object2json.Object2Json._verbose"><code class="docutils literal notranslate"><span class="pre">Object2Json._verbose</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.config_io.json.object2json.Object2Json.write_configuration"><code class="docutils literal notranslate"><span class="pre">Object2Json.write_configuration()</span></code></a></li>

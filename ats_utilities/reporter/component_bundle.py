@@ -20,23 +20,30 @@ Info
     Encapsulates reporter components to minimize constructor overhead.
 '''
 
+from __future__ import annotations
+
 from typing import Any
-from dataclasses import dataclass
+from dataclasses import dataclass, asdict
+
 from ats_utilities.checker.ichecker import IChecker
+from ats_utilities.checker.engine import Checker
 from ats_utilities.reporter.theme.iconsole_theme import IConsoleTheme
-from ats_utilities.exceptions.ats_value_error import ATSValueError
+from ats_utilities.reporter.theme.engine import ConsoleTheme
+from ats_utilities.factory_component import make_component, validate_component
+from ats_utilities.factory_value import require_not_none
+from ats_utilities.factory_type import check_type
 
-__author__: str = 'Vladimir Roncevic'
-__copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
-__license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.4.1'
-__maintainer__: str = 'Vladimir Roncevic'
-__email__: str = 'elektron.ronca@gmail.com'
-__status__: str = 'Updated'
+__author__ = r'Vladimir Roncevic'
+__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
+__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = r'3.4.2'
+__maintainer__ = r'Vladimir Roncevic'
+__email__ = r'elektron.ronca@gmail.com'
+__status__ = r'Updated'
 
 
-@dataclass
+@dataclass(slots=True, kw_only=True)
 class ReporterComponentBundle:
     '''
         Defines component bundle dataclass for dependency grouping and management.
@@ -48,53 +55,74 @@ class ReporterComponentBundle:
                 | checker - Parameters checker API (default None).
                 | theme - Theme for styling messages (default None).
             :methods:
+                | __post_init__ - Post-initializes ReporterComponentBundle.
                 | validate - Validates that essential components are set.
                 | merge - Merges non-None values from another bundle into this one.
-                | to_dict - Converts the bundle attributes to a dictionary.
+                | to_dict - Converts the ReporterComponentBundle instance to a dictionary.
     '''
 
     checker: IChecker | None = None
     theme: IConsoleTheme | None = None
 
-    def validate(self) -> None:
+    def __post_init__(self) -> None:
         '''
-            Validates that essential components are set.
+            Post-initializes ReporterComponentBundle.
+            Post-initialization hook for automatic component creation and
+            validation of component types. It tries to create component from
+            passed parameters otherwise default values are used. In case of
+            type validation failure raises ATSTypeError exception.
 
             :exceptions:
-                | ATSValueError - Checker must be provided.
-                | ATSValueError - Theme must be provided.
+                | ATSTypeError: Component type validation failed (checker | theme).
         '''
-        if self.checker is None:
-            raise ATSValueError("checker must be provided.")
+        self.checker: IChecker = make_component(self.checker, Checker, None)
+        validate_component(self.checker, IChecker, r'checker must be an IChecker instance')
+        self.theme: IConsoleTheme = make_component(self.theme, ConsoleTheme, None)
+        validate_component(self.theme, IConsoleTheme, r'theme must be an IConsoleTheme instance')
 
-        if self.theme is None:
-            raise ATSValueError("theme must be provided.")
+    def validate(self) -> None:
+        '''
+            Validates that ReporterComponentBundle is valid (can be called after merge).
+            Performs validation of checker and theme attributes.
+            Checker must be non-None and an instance of IChecker interface.
+            Theme must be non-None and an instance of IConsoleTheme interface.
 
-    def merge(self, other: 'ReporterComponentBundle') -> None:
+            :exceptions:
+                | ATSValueError: Checker must be provided.
+                | ATSValueError: Theme must be provided.
+                | ATSTypeError: Checker must be an instance of IChecker interface.
+                | ATSTypeError: Theme must be an instance of IConsoleTheme interface.
+        '''
+        require_not_none(self.checker, r'checker must be provided')
+        require_not_none(self.theme, r'theme must be provided')
+        check_type(self.checker, IChecker, r'checker must be an IChecker instance')
+        check_type(self.theme, IConsoleTheme, r'theme must be an IConsoleTheme instance')
+
+    def merge(self, other: ReporterComponentBundle) -> None:
         '''
             Merges non-None values from another bundle into this one.
 
             :param other: Another bundle to merge into this one.
             :type other: <ReporterComponentBundle>
-            :exceptions: None.
+            :exceptions:
+                | ATSTypeError: Other must be a ReporterComponentBundle instance.
         '''
+        check_type(other, ReporterComponentBundle, r'other must be a ReporterComponentBundle instance')
+
         for field_name in self.__dataclass_fields__:
-            other_value = getattr(other, field_name)
+            other_value: Any = getattr(other, field_name)
 
             if other_value is not None:
                 setattr(self, field_name, other_value)
 
+        self.validate()
+
     def to_dict(self) -> dict[str, Any]:
         '''
-            Converts the bundle attributes to a dictionary.
+            Converts the ReporterComponentBundle instance to a dictionary.
 
-            :return: Dictionary representation of the bundle attributes.
+            :return: Dictionary representation of the ReporterComponentBundle instance.
             :rtype: <dict[str, Any]>
             :exceptions: None.
         '''
-        return {
-            name: value
-            for name, value in self.__dict__.items()
-            if not name.startswith('_')
-        }
-
+        return asdict(self)

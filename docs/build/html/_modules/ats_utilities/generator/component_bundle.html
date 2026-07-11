@@ -58,27 +58,35 @@
 <span class="sd">    Encapsulates template generation parameters for simplifcation.</span>
 <span class="sd">&#39;&#39;&#39;</span>
 
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span>
-<span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.context_bundle</span> <span class="kn">import</span> <span class="n">ContextBundle</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.generator.ischeme_loader</span> <span class="kn">import</span> <span class="n">ISchemeLoader</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.generator.itar_processor</span> <span class="kn">import</span> <span class="n">ITarProcessor</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.generator.itemplate_processor</span> <span class="kn">import</span> <span class="n">ITemplateProcessor</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.exceptions.ats_value_error</span> <span class="kn">import</span> <span class="n">ATSValueError</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
 
-<span class="n">__author__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;Vladimir Roncevic&#39;</span>
-<span class="n">__copyright__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;(C) 2026, https://vroncevic.github.io/ats_utilities&#39;</span>
-<span class="n">__credits__</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Vladimir Roncevic&#39;</span><span class="p">,</span> <span class="s1">&#39;Python Software Foundation&#39;</span><span class="p">]</span>
-<span class="n">__license__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE&#39;</span>
-<span class="n">__version__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;3.4.1&#39;</span>
-<span class="n">__maintainer__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;Vladimir Roncevic&#39;</span>
-<span class="n">__email__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;elektron.ronca@gmail.com&#39;</span>
-<span class="n">__status__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;Updated&#39;</span>
+<span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">asdict</span><span class="p">,</span> <span class="n">dataclass</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span>
+
+<span class="kn">from</span> <span class="nn">ats_utilities.context_bundle</span> <span class="kn">import</span> <span class="n">ContextBundle</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.factory_component</span> <span class="kn">import</span> <span class="n">make_component</span><span class="p">,</span> <span class="n">validate_component</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.generator.scheme.ischeme_loader</span> <span class="kn">import</span> <span class="n">ISchemeLoader</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.generator.tar.itar_processor</span> <span class="kn">import</span> <span class="n">ITarProcessor</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.generator.template.itemplate_processor</span> <span class="kn">import</span> <span class="n">ITemplateProcessor</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.generator.scheme.scheme_loader</span> <span class="kn">import</span> <span class="n">SchemeLoader</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.generator.tar.tar_processor</span> <span class="kn">import</span> <span class="n">TarProcessor</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.generator.template.template_processor</span> <span class="kn">import</span> <span class="n">TemplateProcessor</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.factory_value</span> <span class="kn">import</span> <span class="n">require_not_none</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.factory_type</span> <span class="kn">import</span> <span class="n">check_type</span>
+
+<span class="n">__author__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;Vladimir Roncevic&#39;</span>
+<span class="n">__copyright__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;(C) 2026, https://vroncevic.github.io/ats_utilities&#39;</span>
+<span class="n">__credits__</span> <span class="o">=</span> <span class="p">[</span><span class="sa">r</span><span class="s1">&#39;Vladimir Roncevic&#39;</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;Python Software Foundation&#39;</span><span class="p">]</span>
+<span class="n">__license__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE&#39;</span>
+<span class="n">__version__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;3.4.2&#39;</span>
+<span class="n">__maintainer__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;Vladimir Roncevic&#39;</span>
+<span class="n">__email__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;elektron.ronca@gmail.com&#39;</span>
+<span class="n">__status__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;Updated&#39;</span>
 
 
 <div class="viewcode-block" id="GeneratorComponentBundle">
 <a class="viewcode-back" href="../../../ats_utilities.generator.component_bundle.html#ats_utilities.generator.component_bundle.GeneratorComponentBundle">[docs]</a>
-<span class="nd">@dataclass</span>
+<span class="nd">@dataclass</span><span class="p">(</span><span class="n">slots</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">kw_only</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="k">class</span> <span class="nc">GeneratorComponentBundle</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Defines class GeneratorComponentBundle with method(s).</span>
@@ -92,9 +100,10 @@
 <span class="sd">                | template_processor - Processor for template rendering.</span>
 <span class="sd">                | context_bundle - Context bundle for generator.</span>
 <span class="sd">            :methods:</span>
+<span class="sd">                | __post_init__ - Post-initialization hook for automatic component creation.</span>
 <span class="sd">                | validate - Validates that essential components are set.</span>
-<span class="sd">                | merge - Merges non-None values from another bundle into this one.</span>
-<span class="sd">                | to_dict - Converts the bundle attributes to a dictionary.</span>
+<span class="sd">                | merge - Merges non-None values from another GeneratorComponentBundle instance into this one.</span>
+<span class="sd">                | to_dict - Converts the GeneratorComponentBundle instance to a dictionary.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
 
     <span class="n">scheme_loader</span><span class="p">:</span> <span class="n">ISchemeLoader</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
@@ -102,64 +111,96 @@
     <span class="n">template_processor</span><span class="p">:</span> <span class="n">ITemplateProcessor</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">context_bundle</span><span class="p">:</span> <span class="n">ContextBundle</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
 
+    <span class="k">def</span> <span class="nf">__post_init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">            Post-initialization hook for automatic component creation.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">context_bundle</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">context_bundle</span> <span class="o">=</span> <span class="n">ContextBundle</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">template_processor</span> <span class="o">=</span> <span class="n">make_component</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">template_processor</span><span class="p">,</span> <span class="n">TemplateProcessor</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;context_bundle&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">context_bundle</span><span class="p">}</span>
+        <span class="p">)</span>
+        <span class="n">validate_component</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">template_processor</span><span class="p">,</span> <span class="n">ITemplateProcessor</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;template_processor must be an ITemplateProcessor instance&#39;</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">scheme_loader</span> <span class="o">=</span> <span class="n">make_component</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">scheme_loader</span><span class="p">,</span> <span class="n">SchemeLoader</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;context_bundle&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">context_bundle</span><span class="p">}</span>
+        <span class="p">)</span>
+        <span class="n">validate_component</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">scheme_loader</span><span class="p">,</span> <span class="n">ISchemeLoader</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;scheme_loader must be an ISchemeLoader instance&#39;</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">tar_processor</span> <span class="o">=</span> <span class="n">make_component</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">tar_processor</span><span class="p">,</span> <span class="n">TarProcessor</span><span class="p">,</span> <span class="p">{</span>
+                <span class="s1">&#39;context_bundle&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">context_bundle</span><span class="p">,</span>
+                <span class="s1">&#39;template_processor&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">template_processor</span>
+            <span class="p">}</span>
+        <span class="p">)</span>
+        <span class="n">validate_component</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tar_processor</span><span class="p">,</span> <span class="n">ITarProcessor</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;tar_processor must be an ITarProcessor instance&#39;</span><span class="p">)</span>
+
 
 <div class="viewcode-block" id="GeneratorComponentBundle.validate">
 <a class="viewcode-back" href="../../../ats_utilities.generator.component_bundle.html#ats_utilities.generator.component_bundle.GeneratorComponentBundle.validate">[docs]</a>
     <span class="k">def</span> <span class="nf">validate</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">            Validates that essential components are set.</span>
+<span class="sd">            Validates that GeneratorComponentBundle is valid (can be called after merge).</span>
+<span class="sd">            Performs validation of context bundle, scheme loader, tar processor and template processor attributes.</span>
+<span class="sd">            Context bundle must be non-None.</span>
+<span class="sd">            Scheme loader must be non-None and an instance of ISchemeLoader interface.</span>
+<span class="sd">            Tar processor must be non-None and an instance of ITarProcessor interface.</span>
+<span class="sd">            Template processor must be non-None and an instance of ITemplateProcessor interface.</span>
 
 <span class="sd">            :exceptions:</span>
-<span class="sd">                | ATSValueError: Context bundle must be set.</span>
-<span class="sd">                | ATSValueError: Scheme loader must be set.</span>
-<span class="sd">                | ATSValueError: Tar processor must be set.</span>
-<span class="sd">                | ATSValueError: Template processor must be set.</span>
+<span class="sd">                | ATSValueError: Context bundle must be provided.</span>
+<span class="sd">                | ATSValueError: Scheme loader must be provided.</span>
+<span class="sd">                | ATSValueError: Tar processor must be provided.</span>
+<span class="sd">                | ATSValueError: Template processor must be provided.</span>
+<span class="sd">                | ATSTypeError: Context bundle must be a ContextBundle instance.</span>
+<span class="sd">                | ATSTypeError: Scheme loader must be an ISchemeLoader instance.</span>
+<span class="sd">                | ATSTypeError: Tar processor must be an ITarProcessor instance.</span>
+<span class="sd">                | ATSTypeError: Template processor must be an ITemplateProcessor instance.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">context_bundle</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="n">ATSValueError</span><span class="p">(</span><span class="s2">&quot;context bundle must be set.&quot;</span><span class="p">)</span>
-
-        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">scheme_loader</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="n">ATSValueError</span><span class="p">(</span><span class="s2">&quot;scheme loader must be set.&quot;</span><span class="p">)</span>
-
-        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">tar_processor</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="n">ATSValueError</span><span class="p">(</span><span class="s2">&quot;tar processor must be set.&quot;</span><span class="p">)</span>
-
-        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">template_processor</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="n">ATSValueError</span><span class="p">(</span><span class="s2">&quot;template processor must be set.&quot;</span><span class="p">)</span></div>
+        <span class="n">require_not_none</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">context_bundle</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;context bundle must be provided&quot;</span><span class="p">)</span>
+        <span class="n">require_not_none</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">scheme_loader</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;scheme loader must be provided&quot;</span><span class="p">)</span>
+        <span class="n">require_not_none</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tar_processor</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;tar processor must be provided&quot;</span><span class="p">)</span>
+        <span class="n">require_not_none</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">template_processor</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;template processor must be provided&quot;</span><span class="p">)</span>
+        <span class="n">check_type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">context_bundle</span><span class="p">,</span> <span class="n">ContextBundle</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;context bundle must be a ContextBundle instance&quot;</span><span class="p">)</span>
+        <span class="n">check_type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">scheme_loader</span><span class="p">,</span> <span class="n">ISchemeLoader</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;scheme loader must be an ISchemeLoader instance&quot;</span><span class="p">)</span>
+        <span class="n">check_type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tar_processor</span><span class="p">,</span> <span class="n">ITarProcessor</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;tar processor must be an ITarProcessor instance&quot;</span><span class="p">)</span>
+        <span class="n">check_type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">template_processor</span><span class="p">,</span> <span class="n">ITemplateProcessor</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;template processor must be an ITemplateProcessor instance&quot;</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="GeneratorComponentBundle.merge">
 <a class="viewcode-back" href="../../../ats_utilities.generator.component_bundle.html#ats_utilities.generator.component_bundle.GeneratorComponentBundle.merge">[docs]</a>
-    <span class="k">def</span> <span class="nf">merge</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="s1">&#39;GeneratorComponentBundle&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">merge</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="n">GeneratorComponentBundle</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">            Merges non-None values from another bundle into this one.</span>
+<span class="sd">            Merges non-None values from another GeneratorComponentBundle into this one.</span>
 
-<span class="sd">            :param other: Another bundle to merge into this one.</span>
+<span class="sd">            :param other: Another GeneratorComponentBundle to merge into this one.</span>
 <span class="sd">            :type other: &lt;GeneratorComponentBundle&gt;</span>
-<span class="sd">            :exceptions: None.</span>
+<span class="sd">            :exceptions:</span>
+<span class="sd">                | ATSTypeError: Other must be a GeneratorComponentBundle instance.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
+        <span class="n">check_type</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">GeneratorComponentBundle</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;other must be a GeneratorComponentBundle instance&quot;</span><span class="p">)</span>
+
         <span class="k">for</span> <span class="n">field_name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">__dataclass_fields__</span><span class="p">:</span>
             <span class="n">other_value</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">field_name</span><span class="p">)</span>
 
             <span class="k">if</span> <span class="n">other_value</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-                <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">field_name</span><span class="p">,</span> <span class="n">other_value</span><span class="p">)</span></div>
+                <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">field_name</span><span class="p">,</span> <span class="n">other_value</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">validate</span><span class="p">()</span></div>
 
 
 <div class="viewcode-block" id="GeneratorComponentBundle.to_dict">
 <a class="viewcode-back" href="../../../ats_utilities.generator.component_bundle.html#ats_utilities.generator.component_bundle.GeneratorComponentBundle.to_dict">[docs]</a>
     <span class="k">def</span> <span class="nf">to_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">            Converts the bundle attributes to a dictionary.</span>
+<span class="sd">            Converts the GeneratorComponentBundle instance to a dictionary.</span>
 
-<span class="sd">            :return: Dictionary representation of the bundle attributes.</span>
+<span class="sd">            :return: Dictionary representation of the GeneratorComponentBundle instance.</span>
 <span class="sd">            :rtype: &lt;dict[str, Any]&gt;</span>
 <span class="sd">            :exceptions: None.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="k">return</span> <span class="p">{</span>
-            <span class="n">name</span><span class="p">:</span> <span class="n">value</span>
-            <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
-            <span class="k">if</span> <span class="ow">not</span> <span class="n">name</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;_&#39;</span><span class="p">)</span>
-        <span class="p">}</span></div>
+        <span class="k">return</span> <span class="n">asdict</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div>
 </div>
 
 </pre></div>

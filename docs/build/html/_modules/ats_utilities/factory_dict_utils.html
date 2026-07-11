@@ -57,28 +57,33 @@
 <span class="sd">    Defines factory dict utility functions.</span>
 <span class="sd">&#39;&#39;&#39;</span>
 
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.exceptions.ats_type_error</span> <span class="kn">import</span> <span class="n">ATSTypeError</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.exceptions.ats_value_error</span> <span class="kn">import</span> <span class="n">ATSValueError</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
 
-<span class="n">__author__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;Vladimir Roncevic&#39;</span>
-<span class="n">__copyright__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;(C) 2026, https://vroncevic.github.io/ats_utilities&#39;</span>
-<span class="n">__credits__</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Vladimir Roncevic&#39;</span><span class="p">,</span> <span class="s1">&#39;Python Software Foundation&#39;</span><span class="p">]</span>
-<span class="n">__license__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE&#39;</span>
-<span class="n">__version__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;3.4.1&#39;</span>
-<span class="n">__maintainer__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;Vladimir Roncevic&#39;</span>
-<span class="n">__email__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;elektron.ronca@gmail.com&#39;</span>
-<span class="n">__status__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;Updated&#39;</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span>
+<span class="kn">from</span> <span class="nn">collections.abc</span> <span class="kn">import</span> <span class="n">Mapping</span>
+
+<span class="kn">from</span> <span class="nn">ats_utilities.exceptions</span> <span class="kn">import</span> <span class="n">ATSValueError</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.factory_context_error</span> <span class="kn">import</span> <span class="n">raise_context_error</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.factory_type</span> <span class="kn">import</span> <span class="n">check_type</span>
+
+<span class="n">__author__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;Vladimir Roncevic&#39;</span>
+<span class="n">__copyright__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;(C) 2026, https://vroncevic.github.io/ats_utilities&#39;</span>
+<span class="n">__credits__</span> <span class="o">=</span> <span class="p">[</span><span class="sa">r</span><span class="s1">&#39;Vladimir Roncevic&#39;</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;Python Software Foundation&#39;</span><span class="p">]</span>
+<span class="n">__license__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE&#39;</span>
+<span class="n">__version__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;3.4.2&#39;</span>
+<span class="n">__maintainer__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;Vladimir Roncevic&#39;</span>
+<span class="n">__email__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;elektron.ronca@gmail.com&#39;</span>
+<span class="n">__status__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;Updated&#39;</span>
 
 
 <div class="viewcode-block" id="cherry_pick_dict">
 <a class="viewcode-back" href="../../ats_utilities.factory_dict_utils.html#ats_utilities.factory_dict_utils.cherry_pick_dict">[docs]</a>
-<span class="k">def</span> <span class="nf">cherry_pick_dict</span><span class="p">(</span><span class="n">source</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span><span class="p">,</span> <span class="n">keys</span><span class="p">:</span> <span class="nb">frozenset</span><span class="p">[</span><span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+<span class="k">def</span> <span class="nf">cherry_pick_dict</span><span class="p">(</span><span class="n">source</span><span class="p">:</span> <span class="n">Mapping</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span> <span class="n">keys</span><span class="p">:</span> <span class="nb">frozenset</span><span class="p">[</span><span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
 <span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Cherry picks keys from a source dictionary.</span>
 
-<span class="sd">        :param source: Source dictionary from which to pick keys | None.</span>
-<span class="sd">        :type source: &lt;dict[Any, Any] | None&gt;</span>
+<span class="sd">        :param source: Source dictionary from which to pick keys.</span>
+<span class="sd">        :type source: &lt;Mapping[Any, Any]&gt;</span>
 <span class="sd">        :param keys: Set of keys to pick from the source dictionary.</span>
 <span class="sd">        :type keys: &lt;frozenset[str]&gt;</span>
 <span class="sd">        :return: Dictionary with cherry picked keys.</span>
@@ -94,12 +99,12 @@
 
 <div class="viewcode-block" id="has_required_keys">
 <a class="viewcode-back" href="../../ats_utilities.factory_dict_utils.html#ats_utilities.factory_dict_utils.has_required_keys">[docs]</a>
-<span class="k">def</span> <span class="nf">has_required_keys</span><span class="p">(</span><span class="n">source</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span><span class="p">,</span> <span class="n">keys</span><span class="p">:</span> <span class="nb">frozenset</span><span class="p">[</span><span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="k">def</span> <span class="nf">has_required_keys</span><span class="p">(</span><span class="n">source</span><span class="p">:</span> <span class="n">Mapping</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span> <span class="n">keys</span><span class="p">:</span> <span class="nb">frozenset</span><span class="p">[</span><span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Checks if all required keys are present in the source dictionary.</span>
 
-<span class="sd">        :param source: Source dictionary to check | None.</span>
-<span class="sd">        :type source: &lt;dict[Any, Any] | None&gt;</span>
+<span class="sd">        :param source: Source dictionary to check.</span>
+<span class="sd">        :type source: &lt;dict[Any, Any]&gt;</span>
 <span class="sd">        :param keys: Set of mandatory keys.</span>
 <span class="sd">        :type keys: &lt;frozenset[str]&gt;</span>
 <span class="sd">        :return: True (passed), False (failed).</span>
@@ -112,29 +117,40 @@
 
 <div class="viewcode-block" id="require_keys">
 <a class="viewcode-back" href="../../ats_utilities.factory_dict_utils.html#ats_utilities.factory_dict_utils.require_keys">[docs]</a>
-<span class="k">def</span> <span class="nf">require_keys</span><span class="p">(</span><span class="n">source</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span><span class="p">,</span> <span class="n">keys</span><span class="p">:</span> <span class="nb">frozenset</span><span class="p">[</span><span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="k">def</span> <span class="nf">require_keys</span><span class="p">(</span>
+    <span class="n">source</span><span class="p">:</span> <span class="n">Mapping</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span>
+    <span class="n">keys</span><span class="p">:</span> <span class="nb">frozenset</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span>
+    <span class="n">exc_message_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">exception_class</span><span class="p">:</span> <span class="nb">type</span><span class="p">[</span><span class="ne">Exception</span><span class="p">]</span> <span class="o">=</span> <span class="n">ATSValueError</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Requires all keys to be present in the source dictionary.</span>
 
-<span class="sd">        :param source: Source dictionary to check | None.</span>
-<span class="sd">        :type source: &lt;dict[Any, Any] | None&gt;</span>
+<span class="sd">        :param source: Source dictionary to check.</span>
+<span class="sd">        :type source: &lt;Mapping[Any, Any]&gt;</span>
 <span class="sd">        :param keys: Set of mandatory keys.</span>
 <span class="sd">        :type keys: &lt;frozenset[str]&gt;</span>
+<span class="sd">        :param exc_message_path: Path and details to include in the exception message.</span>
+<span class="sd">        :type exc_message_path: &lt;str | None&gt;</span>
+<span class="sd">        :param exception_class: The exception class to raise if value is None.</span>
+<span class="sd">        :type exception_class: &lt;type[Exception]&gt; (default ATSValueError)</span>
 <span class="sd">        :exceptions:</span>
-<span class="sd">            | ATSTypeError: Expected dict or None for &#39;source&#39;, got &lt;type&gt;.</span>
-<span class="sd">            | ATSTypeError: Expected frozenset for &#39;keys&#39;, got &lt;type&gt;.</span>
-<span class="sd">            | ATSValueError: Missing required keys.</span>
+<span class="sd">            | ATSTypeError: Parameter type validation failed.</span>
+<span class="sd">            | Dynamically raises the provided exception_class (e.g., ATSValueError).</span>
 <span class="sd">    &#39;&#39;&#39;</span>
-    <span class="k">if</span> <span class="n">source</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
-        <span class="k">raise</span> <span class="n">ATSTypeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;expected dict or None for &#39;source&#39;, got </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">source</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">check_type</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="n">Mapping</span><span class="p">,</span> <span class="n">exc_message_path</span><span class="p">)</span>
+    <span class="n">check_type</span><span class="p">(</span><span class="n">keys</span><span class="p">,</span> <span class="nb">frozenset</span><span class="p">,</span> <span class="n">exc_message_path</span><span class="p">)</span>
 
-    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">keys</span><span class="p">,</span> <span class="nb">frozenset</span><span class="p">):</span>
-        <span class="k">raise</span> <span class="n">ATSTypeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;expected frozenset for &#39;keys&#39;, got </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">keys</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">has_required_keys</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="n">keys</span><span class="p">):</span>
+        <span class="n">missing</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">keys</span> <span class="o">-</span> <span class="nb">frozenset</span><span class="p">(</span><span class="n">source</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span> <span class="k">if</span> <span class="n">source</span> <span class="k">else</span> <span class="p">[]))</span>
 
-    <span class="n">missing_keys</span><span class="p">:</span> <span class="nb">frozenset</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">keys</span><span class="o">.</span><span class="n">difference</span><span class="p">(</span><span class="n">source</span> <span class="ow">or</span> <span class="p">{})</span>
-
-    <span class="k">if</span> <span class="n">missing_keys</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="n">ATSValueError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;missing required keys </span><span class="si">{</span><span class="n">missing_keys</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span></div>
+        <span class="n">raise_context_error</span><span class="p">(</span>
+            <span class="n">fallback_prefix</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;factory_dict_utils::require_keys&#39;</span><span class="p">,</span>
+            <span class="n">fallback_msg</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;mapping is missing required keys: </span><span class="si">{</span><span class="n">missing</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span>
+            <span class="n">exc_message_path</span><span class="o">=</span><span class="n">exc_message_path</span><span class="p">,</span>
+            <span class="n">exception_class</span><span class="o">=</span><span class="n">exception_class</span><span class="p">,</span>
+            <span class="n">depth</span><span class="o">=</span><span class="mi">3</span>
+        <span class="p">)</span></div>
 
 </pre></div>
 

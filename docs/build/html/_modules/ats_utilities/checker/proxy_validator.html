@@ -54,28 +54,29 @@
 <span class="sd">    You should have received a copy of the GNU General Public License along</span>
 <span class="sd">    with this program. If not, see &lt;http://www.gnu.org/licenses/&gt;.</span>
 <span class="sd">Info</span>
-<span class="sd">    Defines validator decorator for checking method parameters.</span>
+<span class="sd">    Defines vcheck decorator for checking method parameters.</span>
 <span class="sd">    Utility for parameter validation borrowing Checker from class instances.</span>
 <span class="sd">&#39;&#39;&#39;</span>
+
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
 
 <span class="kn">from</span> <span class="nn">collections.abc</span> <span class="kn">import</span> <span class="n">Callable</span>
 <span class="kn">import</span> <span class="nn">inspect</span>
 <span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">wraps</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">cast</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.checker.ichecker</span> <span class="kn">import</span> <span class="n">ParametersSpecs</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.exceptions.ats_type_error</span> <span class="kn">import</span> <span class="n">ATSTypeError</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.exceptions.ats_value_error</span> <span class="kn">import</span> <span class="n">ATSValueError</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.exceptions.ats_attribute_error</span> <span class="kn">import</span> <span class="n">ATSAttributeError</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.exceptions.ats_runtime_error</span> <span class="kn">import</span> <span class="n">ATSRuntimeError</span>
 
-<span class="n">__author__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;Vladimir Roncevic&#39;</span>
-<span class="n">__copyright__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;(C) 2026, https://vroncevic.github.io/ats_utilities&#39;</span>
-<span class="n">__credits__</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Vladimir Roncevic&#39;</span><span class="p">,</span> <span class="s1">&#39;Python Software Foundation&#39;</span><span class="p">]</span>
-<span class="n">__license__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE&#39;</span>
-<span class="n">__version__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;3.4.1&#39;</span>
-<span class="n">__maintainer__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;Vladimir Roncevic&#39;</span>
-<span class="n">__email__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;elektron.ronca@gmail.com&#39;</span>
-<span class="n">__status__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;Updated&#39;</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.checker.ichecker</span> <span class="kn">import</span> <span class="n">ParametersSpecs</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.exceptions</span> <span class="kn">import</span> <span class="n">ATSAttributeError</span><span class="p">,</span> <span class="n">ATSRuntimeError</span><span class="p">,</span> <span class="n">ATSTypeError</span><span class="p">,</span> <span class="n">ATSValueError</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.factory_context_error</span> <span class="kn">import</span> <span class="n">raise_context_error</span>
+
+<span class="n">__author__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;Vladimir Roncevic&#39;</span>
+<span class="n">__copyright__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;(C) 2026, https://vroncevic.github.io/ats_utilities&#39;</span>
+<span class="n">__credits__</span> <span class="o">=</span> <span class="p">[</span><span class="sa">r</span><span class="s1">&#39;Vladimir Roncevic&#39;</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;Python Software Foundation&#39;</span><span class="p">]</span>
+<span class="n">__license__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE&#39;</span>
+<span class="n">__version__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;3.4.2&#39;</span>
+<span class="n">__maintainer__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;Vladimir Roncevic&#39;</span>
+<span class="n">__email__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;elektron.ronca@gmail.com&#39;</span>
+<span class="n">__status__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;Updated&#39;</span>
 
 <div class="viewcode-block" id="proxy_validator_split">
 <a class="viewcode-back" href="../../../ats_utilities.checker.proxy_validator.html#ats_utilities.checker.proxy_validator.proxy_validator_split">[docs]</a>
@@ -94,9 +95,9 @@
     <span class="k">return</span> <span class="n">parts</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">parts</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span></div>
 
 
-<div class="viewcode-block" id="validator">
-<a class="viewcode-back" href="../../../ats_utilities.checker.proxy_validator.html#ats_utilities.checker.proxy_validator.validator">[docs]</a>
-<span class="k">def</span> <span class="nf">validator</span><span class="p">[</span><span class="n">F</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="n">Any</span><span class="p">]](</span><span class="n">specs</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]])</span> <span class="o">-&gt;</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">F</span><span class="p">],</span> <span class="n">F</span><span class="p">]:</span>
+<div class="viewcode-block" id="vcheck">
+<a class="viewcode-back" href="../../../ats_utilities.checker.proxy_validator.html#ats_utilities.checker.proxy_validator.vcheck">[docs]</a>
+<span class="k">def</span> <span class="nf">vcheck</span><span class="p">[</span><span class="n">F</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="n">Any</span><span class="p">]](</span><span class="n">specs</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]])</span> <span class="o">-&gt;</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">F</span><span class="p">],</span> <span class="n">F</span><span class="p">]:</span>
 <span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Decorator supporting class methods (instance methods, classmethods).</span>
 <span class="sd">        Borrows the checker object dynamically from the class instance </span>
@@ -118,23 +119,31 @@
             <span class="c1"># Capturing the class instance (self is always the first argument in args)</span>
             <span class="n">self_instance</span> <span class="o">=</span> <span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">if</span> <span class="n">args</span> <span class="k">else</span> <span class="kc">None</span>
 
-            <span class="k">if</span> <span class="ow">not</span> <span class="n">self_instance</span><span class="p">:</span>
-                <span class="k">raise</span> <span class="n">ATSRuntimeError</span><span class="p">(</span>
-                    <span class="sa">f</span><span class="s2">&quot;Decorator @validator on &#39;</span><span class="si">{</span><span class="n">func</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">&#39; &quot;</span>
-                    <span class="sa">f</span><span class="s2">&quot;can only be used on class methods.&quot;</span>
+            <span class="k">if</span> <span class="n">self_instance</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">raise_context_error</span><span class="p">(</span>
+                    <span class="n">fallback_prefix</span><span class="o">=</span><span class="s1">&#39;vcheck::decorator&#39;</span><span class="p">,</span>
+                    <span class="n">fallback_msg</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;Decorator @vcheck on </span><span class="si">{</span><span class="n">func</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s1"> can only be used on class methods.&#39;</span><span class="p">,</span>
+                    <span class="n">exc_message_path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                    <span class="n">exception_class</span><span class="o">=</span><span class="n">ATSRuntimeError</span><span class="p">,</span>
+                    <span class="n">depth</span><span class="o">=</span><span class="mi">3</span>
                 <span class="p">)</span>
+
+            <span class="n">cls_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">self_instance</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span>
 
             <span class="c1"># BORROWING: Extracting the checker object that the class is responsible for.</span>
             <span class="c1"># Supports protected &#39;_checker&#39; or name-mangled private &#39;_checker&#39; attributes.</span>
             <span class="n">checker</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span>
                 <span class="n">self_instance</span><span class="p">,</span> <span class="s1">&#39;_checker&#39;</span><span class="p">,</span>
-                <span class="nb">getattr</span><span class="p">(</span><span class="n">self_instance</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;_</span><span class="si">{</span><span class="n">self_instance</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s1">_checker&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+                <span class="nb">getattr</span><span class="p">(</span><span class="n">self_instance</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;_</span><span class="si">{</span><span class="n">cls_name</span><span class="si">}</span><span class="s1">_checker&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
             <span class="p">)</span>
 
             <span class="k">if</span> <span class="n">checker</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-                <span class="k">raise</span> <span class="n">ATSAttributeError</span><span class="p">(</span>
-                    <span class="sa">f</span><span class="s2">&quot;Class &#39;</span><span class="si">{</span><span class="n">self_instance</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">&#39; is required to provide &quot;</span>
-                    <span class="sa">f</span><span class="s2">&quot;a &#39;_checker&#39; object to use the @validator decorator.&quot;</span>
+                <span class="n">raise_context_error</span><span class="p">(</span>
+                    <span class="n">fallback_prefix</span><span class="o">=</span><span class="s1">&#39;vcheck::decorator&#39;</span><span class="p">,</span>
+                    <span class="n">fallback_msg</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;Class &#39;</span><span class="si">{</span><span class="n">cls_name</span><span class="si">}</span><span class="s2">&#39; must have &#39;_checker&#39; attribute to use @vcheck decorator.&quot;</span><span class="p">,</span>
+                    <span class="n">exc_message_path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                    <span class="n">exception_class</span><span class="o">=</span><span class="n">ATSAttributeError</span><span class="p">,</span>
+                    <span class="n">depth</span><span class="o">=</span><span class="mi">3</span>
                 <span class="p">)</span>
 
             <span class="c1"># Safely bind the passed args and kwargs to the function&#39;s signature</span>
@@ -183,9 +192,22 @@
 
                 <span class="k">if</span> <span class="n">error_id</span> <span class="o">!=</span> <span class="n">checker</span><span class="o">.</span><span class="n">ERRORS</span><span class="o">.</span><span class="n">NO_ERROR</span><span class="p">:</span>
                     <span class="k">if</span> <span class="n">error_id</span> <span class="o">==</span> <span class="n">checker</span><span class="o">.</span><span class="n">ERRORS</span><span class="o">.</span><span class="n">TYPE_ERROR</span><span class="p">:</span>
-                        <span class="k">raise</span> <span class="n">ATSTypeError</span><span class="p">(</span><span class="n">report_message</span><span class="p">)</span>
-                    <span class="k">elif</span> <span class="n">error_id</span> <span class="o">==</span> <span class="n">checker</span><span class="o">.</span><span class="n">ERRORS</span><span class="o">.</span><span class="n">FORMAT_ERROR</span><span class="p">:</span>
-                        <span class="k">raise</span> <span class="n">ATSValueError</span><span class="p">(</span><span class="n">report_message</span><span class="p">)</span>
+                        <span class="n">raise_context_error</span><span class="p">(</span>
+                            <span class="n">fallback_prefix</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;vcheck::decorator&#39;</span><span class="p">,</span>
+                            <span class="n">fallback_msg</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;Type error: </span><span class="si">{</span><span class="n">report_message</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span>
+                            <span class="n">exc_message_path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                            <span class="n">exception_class</span><span class="o">=</span><span class="n">ATSTypeError</span><span class="p">,</span>
+                            <span class="n">depth</span><span class="o">=</span><span class="mi">3</span>
+                        <span class="p">)</span>
+                    
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">raise_context_error</span><span class="p">(</span>
+                            <span class="n">fallback_prefix</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;vcheck::decorator&#39;</span><span class="p">,</span>
+                            <span class="n">fallback_msg</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;Format error: </span><span class="si">{</span><span class="n">report_message</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span>
+                            <span class="n">exc_message_path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                            <span class="n">exception_class</span><span class="o">=</span><span class="n">ATSValueError</span><span class="p">,</span>
+                            <span class="n">depth</span><span class="o">=</span><span class="mi">3</span>
+                        <span class="p">)</span>
 
             <span class="k">return</span> <span class="n">func</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">cast</span><span class="p">(</span><span class="n">F</span><span class="p">,</span> <span class="n">wrapper</span><span class="p">)</span>

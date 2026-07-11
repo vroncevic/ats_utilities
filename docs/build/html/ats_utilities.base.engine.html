@@ -64,7 +64,7 @@ You should have received a copy of the GNU General Public License along
 with this program. If not, see &lt;<a class="reference external" href="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</a>&gt;.</p>
 </dd>
 <dt>Info</dt><dd><p>Defines class Base with attribute(s) and method(s).
-Creates an API for setup ATS (application, tool, script).</p>
+Creates an API for setup (application, tool, script).</p>
 </dd>
 </dl>
 <dl class="py class">
@@ -72,7 +72,7 @@ Creates an API for setup ATS (application, tool, script).</p>
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ats_utilities.base.engine.</span></span><span class="sig-name descname"><span class="pre">Base</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">component_bundle</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="ats_utilities.base.component_bundle.html#ats_utilities.base.component_bundle.BaseComponentBundle" title="ats_utilities.base.component_bundle.BaseComponentBundle"><span class="pre">BaseComponentBundle</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ats_utilities/base/engine.html#Base"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.base.engine.Base" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="ats_utilities.base.ibase.html#ats_utilities.base.ibase.IBase" title="ats_utilities.base.ibase.IBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">IBase</span></code></a></p>
 <p>Defines class Base with attribute(s) and method(s).
-Creates an API for setup ATS (application, tool, script).</p>
+Creates an API for setup (App/Tool/Script).</p>
 <p>It defines:</p>
 <blockquote>
 <div><dl class="field-list">
@@ -95,11 +95,11 @@ Creates an API for setup ATS (application, tool, script).</p>
 <dd class="field-even"><div class="line-block">
 <div class="line">__init__ - Initializes Base constructor.</div>
 <div class="line">get_shared_context - Returns the shared context.</div>
-<div class="line">is_initialized - Checks if the base component is initialized.</div>
+<div class="line">is_initialized - Checks if the Base component is initialized.</div>
 <div class="line">add_new_option - Adds a new option for the the CL interface.</div>
 <div class="line">parse_args - Parses the CLI arguments.</div>
 <div class="line">process - Processes and runs tool operations (Abstract).</div>
-<div class="line">__str__ - Returns the ATS base as string representation.</div>
+<div class="line">__str__ - Returns the Base as string representation.</div>
 </div>
 </dd>
 </dl>
@@ -115,8 +115,48 @@ Creates an API for setup ATS (application, tool, script).</p>
 <dd></dd></dl>
 
 <dl class="py attribute">
+<dt class="sig sig-object py" id="ats_utilities.base.engine.Base._config_loader">
+<span class="sig-name descname"><span class="pre">_config_loader</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="ats_utilities.config_io.iconfig_loader.html#ats_utilities.config_io.iconfig_loader.IConfigLoader" title="ats_utilities.config_io.iconfig_loader.IConfigLoader"><span class="pre">IConfigLoader</span></a></em><a class="headerlink" href="#ats_utilities.base.engine.Base._config_loader" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ats_utilities.base.engine.Base._generator">
+<span class="sig-name descname"><span class="pre">_generator</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="ats_utilities.generator.igenerator.html#ats_utilities.generator.igenerator.IGenerator" title="ats_utilities.generator.igenerator.IGenerator"><span class="pre">IGenerator</span></a></em><a class="headerlink" href="#ats_utilities.base.engine.Base._generator" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ats_utilities.base.engine.Base._info_manager">
+<span class="sig-name descname"><span class="pre">_info_manager</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="ats_utilities.info.imanager.html#ats_utilities.info.imanager.IInfoManager" title="ats_utilities.info.imanager.IInfoManager"><span class="pre">IInfoManager</span></a></em><a class="headerlink" href="#ats_utilities.base.engine.Base._info_manager" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ats_utilities.base.engine.Base._is_initialized">
+<span class="sig-name descname"><span class="pre">_is_initialized</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#ats_utilities.base.engine.Base._is_initialized" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ats_utilities.base.engine.Base._logger_manager">
+<span class="sig-name descname"><span class="pre">_logger_manager</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="ats_utilities.logging.ilogger_manager.html#ats_utilities.logging.ilogger_manager.ILoggerManager" title="ats_utilities.logging.ilogger_manager.ILoggerManager"><span class="pre">ILoggerManager</span></a></em><a class="headerlink" href="#ats_utilities.base.engine.Base._logger_manager" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ats_utilities.base.engine.Base._options_parser">
+<span class="sig-name descname"><span class="pre">_options_parser</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="ats_utilities.option.ioption_manager.html#ats_utilities.option.ioption_manager.IOptionManager" title="ats_utilities.option.ioption_manager.IOptionManager"><span class="pre">IOptionManager</span></a></em><a class="headerlink" href="#ats_utilities.base.engine.Base._options_parser" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
 <dt class="sig sig-object py" id="ats_utilities.base.engine.Base._reporter">
 <span class="sig-name descname"><span class="pre">_reporter</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="ats_utilities.reporter.ireporter.html#ats_utilities.reporter.ireporter.IReporter" title="ats_utilities.reporter.ireporter.IReporter"><span class="pre">IReporter</span></a></em><a class="headerlink" href="#ats_utilities.base.engine.Base._reporter" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ats_utilities.base.engine.Base._shared_context">
+<span class="sig-name descname"><span class="pre">_shared_context</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="ats_utilities.context_bundle.html#ats_utilities.context_bundle.ContextBundle" title="ats_utilities.context_bundle.ContextBundle"><span class="pre">ContextBundle</span></a></em><a class="headerlink" href="#ats_utilities.base.engine.Base._shared_context" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ats_utilities.base.engine.Base._splasher">
+<span class="sig-name descname"><span class="pre">_splasher</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="ats_utilities.splasher.isplasher.html#ats_utilities.splasher.isplasher.ISplasher" title="ats_utilities.splasher.isplasher.ISplasher"><span class="pre">ISplasher</span></a></em><a class="headerlink" href="#ats_utilities.base.engine.Base._splasher" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
@@ -137,7 +177,7 @@ Creates an API for setup ATS (application, tool, script).</p>
 </dd>
 <dt class="field-even">Exceptions<span class="colon">:</span></dt>
 <dd class="field-even"><div class="line-block">
-<div class="line">ATSAttributeError: ‘_options_parser’ attribute is required.</div>
+<div class="line">ATSValueError: Missing or empty attribute: ‘_options_parser’.</div>
 </div>
 </dd>
 </dl>
@@ -145,14 +185,14 @@ Creates an API for setup ATS (application, tool, script).</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="ats_utilities.base.engine.Base.get_shared_context">
-<span class="sig-name descname"><span class="pre">get_shared_context</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="ats_utilities.context_bundle.html#ats_utilities.context_bundle.ContextBundle" title="ats_utilities.context_bundle.ContextBundle"><span class="pre">ContextBundle</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></span><a class="reference internal" href="_modules/ats_utilities/base/engine.html#Base.get_shared_context"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.base.engine.Base.get_shared_context" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">get_shared_context</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="ats_utilities.context_bundle.html#ats_utilities.context_bundle.ContextBundle" title="ats_utilities.context_bundle.ContextBundle"><span class="pre">ContextBundle</span></a></span></span><a class="reference internal" href="_modules/ats_utilities/base/engine.html#Base.get_shared_context"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.base.engine.Base.get_shared_context" title="Link to this definition">¶</a></dt>
 <dd><p>Returns the shared context.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Shared context | None</p>
+<dd class="field-odd"><p>Shared context.</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>&lt;ContextBundle | None&gt;</p>
+<dd class="field-even"><p>&lt;ContextBundle&gt;</p>
 </dd>
 <dt class="field-odd">Exceptions<span class="colon">:</span></dt>
 <dd class="field-odd"><p>None.</p>
@@ -193,7 +233,7 @@ Creates an API for setup ATS (application, tool, script).</p>
 </dd>
 <dt class="field-even">Exceptions<span class="colon">:</span></dt>
 <dd class="field-even"><div class="line-block">
-<div class="line">ATSAttributeError: ‘_options_parser’ attribute is required.</div>
+<div class="line">ATSValueError: Missing or empty attribute: ‘_options_parser’.</div>
 </div>
 </dd>
 </dl>
@@ -237,7 +277,15 @@ Creates an API for setup ATS (application, tool, script).</p>
 <li><a class="reference internal" href="#ats_utilities.base.engine.Base"><code class="docutils literal notranslate"><span class="pre">Base</span></code></a><ul>
 <li><a class="reference internal" href="#ats_utilities.base.engine.Base._abc_impl"><code class="docutils literal notranslate"><span class="pre">Base._abc_impl</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.base.engine.Base._checker"><code class="docutils literal notranslate"><span class="pre">Base._checker</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.base.engine.Base._config_loader"><code class="docutils literal notranslate"><span class="pre">Base._config_loader</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.base.engine.Base._generator"><code class="docutils literal notranslate"><span class="pre">Base._generator</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.base.engine.Base._info_manager"><code class="docutils literal notranslate"><span class="pre">Base._info_manager</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.base.engine.Base._is_initialized"><code class="docutils literal notranslate"><span class="pre">Base._is_initialized</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.base.engine.Base._logger_manager"><code class="docutils literal notranslate"><span class="pre">Base._logger_manager</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.base.engine.Base._options_parser"><code class="docutils literal notranslate"><span class="pre">Base._options_parser</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.base.engine.Base._reporter"><code class="docutils literal notranslate"><span class="pre">Base._reporter</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.base.engine.Base._shared_context"><code class="docutils literal notranslate"><span class="pre">Base._shared_context</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.base.engine.Base._splasher"><code class="docutils literal notranslate"><span class="pre">Base._splasher</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.base.engine.Base._verbose"><code class="docutils literal notranslate"><span class="pre">Base._verbose</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.base.engine.Base.add_new_option"><code class="docutils literal notranslate"><span class="pre">Base.add_new_option()</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.base.engine.Base.get_shared_context"><code class="docutils literal notranslate"><span class="pre">Base.get_shared_context()</span></code></a></li>

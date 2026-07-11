@@ -69,7 +69,7 @@ Encapsulates template generation parameters for simplifcation.</p>
 </dl>
 <dl class="py class">
 <dt class="sig sig-object py" id="ats_utilities.generator.generator_bundle.GeneratorBundle">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ats_utilities.generator.generator_bundle.</span></span><span class="sig-name descname"><span class="pre">GeneratorBundle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">archive_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target_dir</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">template_key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scheme</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">template_values</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ats_utilities/generator/generator_bundle.html#GeneratorBundle"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.generator.generator_bundle.GeneratorBundle" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ats_utilities.generator.generator_bundle.</span></span><span class="sig-name descname"><span class="pre">GeneratorBundle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">archive_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target_dir</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">template_key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scheme</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Mapping</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">template_values</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Mapping</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ats_utilities/generator/generator_bundle.html#GeneratorBundle"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.generator.generator_bundle.GeneratorBundle" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Defines class GeneratorBundle with method(s).
 Encapsulates template generation parameters for simplifcation.</p>
@@ -81,15 +81,15 @@ Encapsulates template generation parameters for simplifcation.</p>
 <div class="line">archive_path - Path to the .tgz archive.</div>
 <div class="line">target_dir - Directory where the project will be generated.</div>
 <div class="line">template_key - Key for the template configuration.</div>
-<div class="line">scheme - Scheme configuration.</div>
+<div class="line">scheme - Scheme configuration file path.</div>
 <div class="line">template_values - Template values for name case variations.</div>
 </div>
 </dd>
 <dt class="field-even">methods<span class="colon">:</span></dt>
 <dd class="field-even"><div class="line-block">
-<div class="line">validate - Validates that essential components are set.</div>
-<div class="line">merge - Merges non-None values from another bundle into this one.</div>
-<div class="line">to_dict - Converts the bundle attributes to a dictionary.</div>
+<div class="line">validate - Validates that GeneratorBundle is valid (can be called after merge).</div>
+<div class="line">merge - Merges non-None values from another GeneratorBundle instance into this one.</div>
+<div class="line">to_dict - Converts the GeneratorBundle instance to a dictionary.</div>
 </div>
 </dd>
 </dl>
@@ -102,20 +102,22 @@ Encapsulates template generation parameters for simplifcation.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="ats_utilities.generator.generator_bundle.GeneratorBundle.merge">
 <span class="sig-name descname"><span class="pre">merge</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#ats_utilities.generator.generator_bundle.GeneratorBundle" title="ats_utilities.generator.generator_bundle.GeneratorBundle"><span class="pre">GeneratorBundle</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/ats_utilities/generator/generator_bundle.html#GeneratorBundle.merge"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.generator.generator_bundle.GeneratorBundle.merge" title="Link to this definition">¶</a></dt>
-<dd><p>Merges non-None values from another bundle into this one.</p>
-<dl class="field-list simple">
+<dd><p>Merges non-None values from another GeneratorBundle instance into this one.</p>
+<dl class="field-list">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>other</strong> (<em>&lt;GeneratorBundle&gt;</em>) – Another bundle to merge into this one.</p>
+<dd class="field-odd"><p><strong>other</strong> (<em>&lt;GeneratorBundle&gt;</em>) – Another GeneratorBundle instance to merge into this one.</p>
 </dd>
 <dt class="field-even">Exceptions<span class="colon">:</span></dt>
-<dd class="field-even"><p>None.</p>
+<dd class="field-even"><div class="line-block">
+<div class="line">ATSTypeError: Other must be a GeneratorBundle.</div>
+</div>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="ats_utilities.generator.generator_bundle.GeneratorBundle.scheme">
-<span class="sig-name descname"><span class="pre">scheme</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#ats_utilities.generator.generator_bundle.GeneratorBundle.scheme" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">scheme</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Mapping</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#ats_utilities.generator.generator_bundle.GeneratorBundle.scheme" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
@@ -130,16 +132,16 @@ Encapsulates template generation parameters for simplifcation.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="ats_utilities.generator.generator_bundle.GeneratorBundle.template_values">
-<span class="sig-name descname"><span class="pre">template_values</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#ats_utilities.generator.generator_bundle.GeneratorBundle.template_values" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">template_values</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Mapping</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#ats_utilities.generator.generator_bundle.GeneratorBundle.template_values" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="ats_utilities.generator.generator_bundle.GeneratorBundle.to_dict">
 <span class="sig-name descname"><span class="pre">to_dict</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/ats_utilities/generator/generator_bundle.html#GeneratorBundle.to_dict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.generator.generator_bundle.GeneratorBundle.to_dict" title="Link to this definition">¶</a></dt>
-<dd><p>Converts the bundle attributes to a dictionary.</p>
+<dd><p>Converts the GeneratorBundle instance to a dictionary.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Dictionary representation of the bundle attributes.</p>
+<dd class="field-odd"><p>Dictionary representation of the GeneratorBundle instance.</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p>&lt;dict[str, Any]&gt;</p>
@@ -153,16 +155,26 @@ Encapsulates template generation parameters for simplifcation.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="ats_utilities.generator.generator_bundle.GeneratorBundle.validate">
 <span class="sig-name descname"><span class="pre">validate</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/ats_utilities/generator/generator_bundle.html#GeneratorBundle.validate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.generator.generator_bundle.GeneratorBundle.validate" title="Link to this definition">¶</a></dt>
-<dd><p>Validates that essential components are set.</p>
+<dd><p>Validates that GeneratorBundle is valid (can be called after merge).
+Performs validation of archive_path, target_dir, template_key, scheme and template_values attributes.
+Archive path must be non-None and a string.
+Target dir must be non-None and a string.
+Template key must be non-None and a string.
+Scheme must be non-None and a string or a mapping.
+Template values must be non-None and a mapping.</p>
 <dl class="field-list">
 <dt class="field-odd">Exceptions<span class="colon">:</span></dt>
 <dd class="field-odd"><div class="line-block">
-<div class="line">ATSValueError: Archive_path must be set.</div>
-<div class="line">ATSValueError: Target_dir must be set.</div>
-<div class="line">ATSValueError: Template_key must be set.</div>
-<div class="line">ATSValueError: Scheme must be set.</div>
-<div class="line">ATSValueError: Template_values must be set.</div>
-<div class="line">ATSTypeError: Types of fields must be correct.</div>
+<div class="line">ATSValueError: Archive path must be provided.</div>
+<div class="line">ATSTypeError: Archive path must be a string.</div>
+<div class="line">ATSValueError: Target dir must be provided.</div>
+<div class="line">ATSTypeError: Target dir must be a string.</div>
+<div class="line">ATSValueError: Template key must be provided.</div>
+<div class="line">ATSTypeError: Template key must be a string.</div>
+<div class="line">ATSValueError: Scheme must be provided.</div>
+<div class="line">ATSTypeError: Scheme must be a string or a mapping.</div>
+<div class="line">ATSValueError: Template values must be provided.</div>
+<div class="line">ATSTypeError: Template values must be a mapping.</div>
 </div>
 </dd>
 </dl>

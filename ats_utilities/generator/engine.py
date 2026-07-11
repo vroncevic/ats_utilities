@@ -20,34 +20,40 @@ Info
     Template-based file generation from .tgz archives.
 '''
 
-from typing import override
+from __future__ import annotations
+
+from collections.abc import Mapping
 from os.path import exists
-from ats_utilities.generator.igenerator import IGenerator
-from ats_utilities.context_bundle import ContextBundle
-from ats_utilities.generator.component_bundle import GeneratorComponentBundle
-from ats_utilities.generator.generator_bundle import GeneratorBundle
-from ats_utilities.generator.ischeme_loader import ISchemeLoader
-from ats_utilities.generator.scheme_loader import SchemeLoader
-from ats_utilities.generator.itar_processor import ITarProcessor
-from ats_utilities.generator.tar_processor import TarProcessor
-from ats_utilities.generator.tar_process_bundle import TarProcessBundle
+from typing import override
+
 from ats_utilities.checker.ichecker import IChecker
 from ats_utilities.reporter.ireporter import IReporter
-from ats_utilities.exceptions.ats_type_error import ATSTypeError
-from ats_utilities.exceptions.ats_value_error import ATSValueError
-from ats_utilities.exceptions.ats_generator_error import ATSGeneratorError
+from ats_utilities.context_bundle import ContextBundle
+from ats_utilities.exceptions import (
+    ATSAttributeError,
+    ATSGeneratorError,
+    ATSRuntimeError,
+    ATSTypeError,
+    ATSValueError
+)
+from ats_utilities.factory_class import to_str, cls_name
 from ats_utilities.factory_context_bundle import factory_context_bundle
-from ats_utilities.factory_component import make_component, validate_component
-from ats_utilities.factory_class import get_class_name, format_instance_to_string
+from ats_utilities.generator.component_bundle import GeneratorComponentBundle
+from ats_utilities.generator.generator_bundle import GeneratorBundle
+from ats_utilities.generator.igenerator import IGenerator
+from ats_utilities.generator.scheme.ischeme_loader import ISchemeLoader
+from ats_utilities.generator.tar.itar_processor import ITarProcessor
+from ats_utilities.generator.tar.tar_process_bundle import TarProcessBundle
+from ats_utilities.factory_value import require_not_satisfied, require_not_empty
 
-__author__: str = 'Vladimir Roncevic'
-__copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
-__license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.4.1'
-__maintainer__: str = 'Vladimir Roncevic'
-__email__: str = 'elektron.ronca@gmail.com'
-__status__: str = 'Updated'
+__author__ = r'Vladimir Roncevic'
+__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
+__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = r'3.4.2'
+__maintainer__ = r'Vladimir Roncevic'
+__email__ = r'elektron.ronca@gmail.com'
+__status__ = r'Updated'
 
 
 class Generator(IGenerator):
@@ -64,6 +70,7 @@ class Generator(IGenerator):
                 | _shared_context - Bundle of shared context.
                 | _scheme_loader - Loader/resolver for scheme configuration.
                 | _tar_processor - Processor for archive extraction and template rendering.
+                | _is_initialized - Flag indicating if the generator is initialized.
             :methods:
                 | __init__ - Initializes Generator constructor.
                 | get_shared_context - Returns the shared context.
@@ -75,6 +82,10 @@ class Generator(IGenerator):
     _checker: IChecker
     _reporter: IReporter
     _verbose: bool
+    _shared_context: ContextBundle
+    _scheme_loader: ISchemeLoader
+    _tar_processor: ITarProcessor
+    _is_initialized: bool
 
     def __init__(self, component_bundle: GeneratorComponentBundle | None = None) -> None:
         '''
@@ -84,60 +95,49 @@ class Generator(IGenerator):
             :type component_bundle: <GeneratorComponentBundle | None>
             :exceptions: ATSTypeError.
         '''
-        # No dependency injection then use default ones.
-        bundle = component_bundle or GeneratorComponentBundle()
-        factory_context_bundle(self, bundle.context_bundle)
-        self._shared_context: ContextBundle = ContextBundle(
-            checker=self._checker, reporter=self._reporter, verbose=self._verbose
-        )
-        self._is_initialized: bool = False
+        self._is_initialized = False
 
         try:
-            self._scheme_loader: ISchemeLoader = make_component(
-                bundle.scheme_loader, SchemeLoader, {'context_bundle': self._shared_context}
-            )
-            validate_component(self._scheme_loader, SchemeLoader)
-            self._tar_processor: ITarProcessor = make_component(
-                bundle.tar_processor, TarProcessor, {
-                    'context_bundle': self._shared_context,
-                    'template_processor': bundle.template_processor
-                }
-            )
-            validate_component(self._tar_processor, TarProcessor)
+            bundle = component_bundle or GeneratorComponentBundle()
+            factory_context_bundle(self, bundle.context_bundle)
+            self._shared_context = bundle.context_bundle
+            self._scheme_loader = bundle.scheme_loader
+            self._tar_processor = bundle.tar_processor
+
+            # All components initialized successfully.
             self._is_initialized = True
 
-        except (ATSTypeError, ATSValueError) as exc:
-            self._reporter.error([f'{get_class_name(self)} {exc}'])
+        except (ATSTypeError, ATSValueError, ATSRuntimeError, ATSAttributeError) as exc:
+            print(f"\x1b[31m{cls_name(self)} {exc}\x1b[0m")
+
         except Exception as exc:
-            self._reporter.error([f'{get_class_name(self)} unexpected exception: {exc}'])
+            print(f"\x1b[31m{cls_name(self)} unexpected exception: {exc}\x1b[0m")
 
     @override
-    def get_shared_context(self) -> ContextBundle | None:
+    def get_shared_context(self) -> ContextBundle:
         '''
             Returns the shared context.
 
-            :return: Shared context | None
-            :rtype: <ContextBundle | None>
+            :return: Shared context.
+            :rtype: <ContextBundle>
             :exceptions: None.
         '''
         return self._shared_context
 
     @override
-    def prepare_template_values(self, template_values: dict[str, str]) -> dict[str, str]:
+    def prepare_template_values(self, template_values: Mapping[str, str]) -> dict[str, str]:
         '''
             Validates and computes name case variations from template values.
 
             :param template_values: Input replacement values.
-            :type template_values: <dict[str, str]>
+            :type template_values: <Mapping[str, str]>
             :return: The updated template values dictionary.
             :rtype: <dict[str, str]>
             :exceptions:
-                | ATSValueError - If project_name is missing or empty.
+                | ATSValueError: If project_name is missing or empty.
         '''
-        project_name = template_values.get('project_name', '')
-
-        if not project_name:
-            raise ATSValueError("template_values must contain a non-empty 'project_name'")
+        project_name = template_values.get('project_name')
+        require_not_empty(project_name, f"template values must contain a non-empty 'project_name'")
 
         vals = template_values.copy()
         if 'project_name_dashed' not in vals:
@@ -161,24 +161,17 @@ class Generator(IGenerator):
             :return: True if generation was successful, False otherwise.
             :rtype: <bool>
             :exceptions:
-                | ATSTypeError - If parameters are of invalid type.
-                | ATSValueError - If parameter constraints are violated.
-                | ATSGeneratorError - If archive parsing or template rendering fails.
+                | ATSTypeError: If parameters are of invalid type.
+                | ATSValueError: If parameter constraints are violated.
+                | ATSGeneratorError: If archive parsing or template rendering fails.
         '''
         generator_bundle.validate()
-        if not exists(generator_bundle.archive_path):
-            raise ATSValueError(f"Archive file does not exist: '{generator_bundle.archive_path}'")
-
+        require_not_satisfied(not exists(generator_bundle.archive_path), f"Archive file does not exist: '{generator_bundle.archive_path}'")
         resolved_scheme = self._scheme_loader.load(generator_bundle.scheme)
         project_scheme = resolved_scheme.get(generator_bundle.template_key)
-
-        if not project_scheme:
-            raise ATSValueError(f"template_key '{generator_bundle.template_key}' not found in scheme configuration")
-
+        require_not_satisfied(not project_scheme, f"template_key '{generator_bundle.template_key}' not found in scheme configuration")
         source_dir = project_scheme.get('source_dir')
-
-        if not source_dir:
-            raise ATSValueError(f"source_dir not specified for template_key '{generator_bundle.template_key}'")
+        require_not_satisfied(not source_dir, f"source_dir not specified for template_key '{generator_bundle.template_key}'")
 
         path_replacements: dict[str, str] = project_scheme.get('path_replacements', {})
         exclude_patterns: list[str] = project_scheme.get('exclude', [])
@@ -198,7 +191,7 @@ class Generator(IGenerator):
             return True
 
         except Exception as exc:
-            raise ATSGeneratorError(f"generation failed {exc}")
+            require_not_satisfied(True, f"generation failed {exc}", ATSGeneratorError)
 
     @override
     def is_initialized(self) -> bool:
@@ -224,5 +217,5 @@ class Generator(IGenerator):
             :rtype: <str>
             :exceptions: None.
         '''
-        return format_instance_to_string(self)
+        return to_str(self)
 

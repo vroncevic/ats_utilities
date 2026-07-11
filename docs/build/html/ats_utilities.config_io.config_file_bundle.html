@@ -68,10 +68,10 @@ Encapsulates file check configuration to minimize constructor overhead.</p>
 </dd>
 </dl>
 <dl class="py class">
-<dt class="sig sig-object py" id="ats_utilities.config_io.config_file_bundle.ATSConfigFileBundle">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ats_utilities.config_io.config_file_bundle.</span></span><span class="sig-name descname"><span class="pre">ATSConfigFileBundle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">context</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="ats_utilities.context_bundle.html#ats_utilities.context_bundle.ContextBundle" title="ats_utilities.context_bundle.ContextBundle"><span class="pre">ContextBundle</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_checker</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="ats_utilities.config_io.ifile_check.html#ats_utilities.config_io.ifile_check.IFileCheck" title="ats_utilities.config_io.ifile_check.IFileCheck"><span class="pre">IFileCheck</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ats_utilities/config_io/config_file_bundle.html#ATSConfigFileBundle"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.config_io.config_file_bundle.ATSConfigFileBundle" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ats_utilities.config_io.config_file_bundle.ConfigFileBundle">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ats_utilities.config_io.config_file_bundle.</span></span><span class="sig-name descname"><span class="pre">ConfigFileBundle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">context</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="ats_utilities.context_bundle.html#ats_utilities.context_bundle.ContextBundle" title="ats_utilities.context_bundle.ContextBundle"><span class="pre">ContextBundle</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_checker</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="ats_utilities.config_io.ifile_check.html#ats_utilities.config_io.ifile_check.IFileCheck" title="ats_utilities.config_io.ifile_check.IFileCheck"><span class="pre">IFileCheck</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ats_utilities/config_io/config_file_bundle.html#ConfigFileBundle"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.config_io.config_file_bundle.ConfigFileBundle" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>Defines class ATSConfigFileBundle with attribute(s) and method(s).
+<p>Defines class ConfigFileBundle with attribute(s) and method(s).
 Encapsulates file check configuration to minimize constructor overhead.</p>
 <p>It defines:</p>
 <blockquote>
@@ -85,43 +85,45 @@ Encapsulates file check configuration to minimize constructor overhead.</p>
 <dt class="field-even">methods<span class="colon">:</span></dt>
 <dd class="field-even"><div class="line-block">
 <div class="line">validate - Validates that essential components are set.</div>
-<div class="line">merge - Merges non-None values from another bundle into this one.</div>
-<div class="line">to_dict - Converts the bundle attributes to a dictionary.</div>
+<div class="line">merge - Merges non-None values from ConfigFileBundle instance into this one.</div>
+<div class="line">to_dict - Converts the ConfigFileBundle instance to a dictionary.</div>
 </div>
 </dd>
 </dl>
 </div></blockquote>
 <dl class="py attribute">
-<dt class="sig sig-object py" id="ats_utilities.config_io.config_file_bundle.ATSConfigFileBundle.context">
-<span class="sig-name descname"><span class="pre">context</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="ats_utilities.context_bundle.html#ats_utilities.context_bundle.ContextBundle" title="ats_utilities.context_bundle.ContextBundle"><span class="pre">ContextBundle</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#ats_utilities.config_io.config_file_bundle.ATSConfigFileBundle.context" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ats_utilities.config_io.config_file_bundle.ConfigFileBundle.context">
+<span class="sig-name descname"><span class="pre">context</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="ats_utilities.context_bundle.html#ats_utilities.context_bundle.ContextBundle" title="ats_utilities.context_bundle.ContextBundle"><span class="pre">ContextBundle</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#ats_utilities.config_io.config_file_bundle.ConfigFileBundle.context" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="ats_utilities.config_io.config_file_bundle.ATSConfigFileBundle.file_checker">
-<span class="sig-name descname"><span class="pre">file_checker</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="ats_utilities.config_io.ifile_check.html#ats_utilities.config_io.ifile_check.IFileCheck" title="ats_utilities.config_io.ifile_check.IFileCheck"><span class="pre">IFileCheck</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#ats_utilities.config_io.config_file_bundle.ATSConfigFileBundle.file_checker" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ats_utilities.config_io.config_file_bundle.ConfigFileBundle.file_checker">
+<span class="sig-name descname"><span class="pre">file_checker</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="ats_utilities.config_io.ifile_check.html#ats_utilities.config_io.ifile_check.IFileCheck" title="ats_utilities.config_io.ifile_check.IFileCheck"><span class="pre">IFileCheck</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#ats_utilities.config_io.config_file_bundle.ConfigFileBundle.file_checker" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="ats_utilities.config_io.config_file_bundle.ATSConfigFileBundle.merge">
-<span class="sig-name descname"><span class="pre">merge</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#ats_utilities.config_io.config_file_bundle.ATSConfigFileBundle" title="ats_utilities.config_io.config_file_bundle.ATSConfigFileBundle"><span class="pre">ATSConfigFileBundle</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/ats_utilities/config_io/config_file_bundle.html#ATSConfigFileBundle.merge"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.config_io.config_file_bundle.ATSConfigFileBundle.merge" title="Link to this definition">¶</a></dt>
-<dd><p>Merges non-None values from another bundle into this one.</p>
-<dl class="field-list simple">
+<dt class="sig sig-object py" id="ats_utilities.config_io.config_file_bundle.ConfigFileBundle.merge">
+<span class="sig-name descname"><span class="pre">merge</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#ats_utilities.config_io.config_file_bundle.ConfigFileBundle" title="ats_utilities.config_io.config_file_bundle.ConfigFileBundle"><span class="pre">ConfigFileBundle</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/ats_utilities/config_io/config_file_bundle.html#ConfigFileBundle.merge"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.config_io.config_file_bundle.ConfigFileBundle.merge" title="Link to this definition">¶</a></dt>
+<dd><p>Merges non-None values from ConfigFileBundle instance into this one.</p>
+<dl class="field-list">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>other</strong> (<em>&lt;ATSConfigFileBundle&gt;</em>) – Another bundle to merge into this one.</p>
+<dd class="field-odd"><p><strong>other</strong> (<em>&lt;ConfigFileBundle&gt;</em>) – Another ConfigFileBundle instance to merge into this one.</p>
 </dd>
 <dt class="field-even">Exceptions<span class="colon">:</span></dt>
-<dd class="field-even"><p>None.</p>
+<dd class="field-even"><div class="line-block">
+<div class="line">ATSTypeError: Other must be a ConfigFileBundle instance.</div>
+</div>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="ats_utilities.config_io.config_file_bundle.ATSConfigFileBundle.to_dict">
-<span class="sig-name descname"><span class="pre">to_dict</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/ats_utilities/config_io/config_file_bundle.html#ATSConfigFileBundle.to_dict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.config_io.config_file_bundle.ATSConfigFileBundle.to_dict" title="Link to this definition">¶</a></dt>
-<dd><p>Converts the bundle attributes to a dictionary.</p>
+<dt class="sig sig-object py" id="ats_utilities.config_io.config_file_bundle.ConfigFileBundle.to_dict">
+<span class="sig-name descname"><span class="pre">to_dict</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/ats_utilities/config_io/config_file_bundle.html#ConfigFileBundle.to_dict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.config_io.config_file_bundle.ConfigFileBundle.to_dict" title="Link to this definition">¶</a></dt>
+<dd><p>Converts the ConfigFileBundle instance to a dictionary.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Dictionary representation of the bundle attributes.</p>
+<dd class="field-odd"><p>Dictionary representation of the ConfigFileBundle instance.</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p>&lt;dict[str, Any]&gt;</p>
@@ -133,14 +135,19 @@ Encapsulates file check configuration to minimize constructor overhead.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="ats_utilities.config_io.config_file_bundle.ATSConfigFileBundle.validate">
-<span class="sig-name descname"><span class="pre">validate</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/ats_utilities/config_io/config_file_bundle.html#ATSConfigFileBundle.validate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.config_io.config_file_bundle.ATSConfigFileBundle.validate" title="Link to this definition">¶</a></dt>
-<dd><p>Validates that essential components are set.</p>
+<dt class="sig sig-object py" id="ats_utilities.config_io.config_file_bundle.ConfigFileBundle.validate">
+<span class="sig-name descname"><span class="pre">validate</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/ats_utilities/config_io/config_file_bundle.html#ConfigFileBundle.validate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.config_io.config_file_bundle.ConfigFileBundle.validate" title="Link to this definition">¶</a></dt>
+<dd><p>Validates that ConfigFileBundle is valid (can be called after merge).
+Performs validation of context and file_checker attributes.
+Context must be non-None and an instance of ContextBundle.
+File_checker must be non-None and an instance of IFileCheck interface.</p>
 <dl class="field-list">
 <dt class="field-odd">Exceptions<span class="colon">:</span></dt>
 <dd class="field-odd"><div class="line-block">
 <div class="line">ATSValueError: Context bundle must be provided.</div>
 <div class="line">ATSValueError: File check implementation must be provided.</div>
+<div class="line">ATSTypeError: Context bundle must be an instance of ContextBundle.</div>
+<div class="line">ATSTypeError: File check implementation must be an instance of IFileCheck interface.</div>
 </div>
 </dd>
 </dl>
@@ -161,12 +168,12 @@ Encapsulates file check configuration to minimize constructor overhead.</p>
     <h3><a href="index.html">Table of Contents</a></h3>
     <ul>
 <li><a class="reference internal" href="#">ats_utilities.config_io.config_file_bundle module</a><ul>
-<li><a class="reference internal" href="#ats_utilities.config_io.config_file_bundle.ATSConfigFileBundle"><code class="docutils literal notranslate"><span class="pre">ATSConfigFileBundle</span></code></a><ul>
-<li><a class="reference internal" href="#ats_utilities.config_io.config_file_bundle.ATSConfigFileBundle.context"><code class="docutils literal notranslate"><span class="pre">ATSConfigFileBundle.context</span></code></a></li>
-<li><a class="reference internal" href="#ats_utilities.config_io.config_file_bundle.ATSConfigFileBundle.file_checker"><code class="docutils literal notranslate"><span class="pre">ATSConfigFileBundle.file_checker</span></code></a></li>
-<li><a class="reference internal" href="#ats_utilities.config_io.config_file_bundle.ATSConfigFileBundle.merge"><code class="docutils literal notranslate"><span class="pre">ATSConfigFileBundle.merge()</span></code></a></li>
-<li><a class="reference internal" href="#ats_utilities.config_io.config_file_bundle.ATSConfigFileBundle.to_dict"><code class="docutils literal notranslate"><span class="pre">ATSConfigFileBundle.to_dict()</span></code></a></li>
-<li><a class="reference internal" href="#ats_utilities.config_io.config_file_bundle.ATSConfigFileBundle.validate"><code class="docutils literal notranslate"><span class="pre">ATSConfigFileBundle.validate()</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.config_io.config_file_bundle.ConfigFileBundle"><code class="docutils literal notranslate"><span class="pre">ConfigFileBundle</span></code></a><ul>
+<li><a class="reference internal" href="#ats_utilities.config_io.config_file_bundle.ConfigFileBundle.context"><code class="docutils literal notranslate"><span class="pre">ConfigFileBundle.context</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.config_io.config_file_bundle.ConfigFileBundle.file_checker"><code class="docutils literal notranslate"><span class="pre">ConfigFileBundle.file_checker</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.config_io.config_file_bundle.ConfigFileBundle.merge"><code class="docutils literal notranslate"><span class="pre">ConfigFileBundle.merge()</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.config_io.config_file_bundle.ConfigFileBundle.to_dict"><code class="docutils literal notranslate"><span class="pre">ConfigFileBundle.to_dict()</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.config_io.config_file_bundle.ConfigFileBundle.validate"><code class="docutils literal notranslate"><span class="pre">ConfigFileBundle.validate()</span></code></a></li>
 </ul>
 </li>
 </ul>

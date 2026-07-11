@@ -20,24 +20,35 @@ Info
     Encapsulates checker components to minimize constructor overhead.
 '''
 
+from __future__ import annotations
+
 from typing import Any
-from dataclasses import dataclass
-from ats_utilities.checker.itype_validator import ITypeValidator
-from ats_utilities.checker.iformat_validator import IFormatValidator
-from ats_utilities.checker.icontext_provider import IContextProvider
-from ats_utilities.checker.icheck_reporter import ICheckReporter
+from dataclasses import dataclass, asdict
 
-__author__: str = 'Vladimir Roncevic'
-__copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
-__license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.4.1'
-__maintainer__: str = 'Vladimir Roncevic'
-__email__: str = 'elektron.ronca@gmail.com'
-__status__: str = 'Updated'
+from ats_utilities.checker.type.itype_validator import ITypeValidator
+from ats_utilities.checker.type.type_validator import TypeValidator
+from ats_utilities.checker.format.iformat_validator import IFormatValidator
+from ats_utilities.checker.format.format_validator import FormatValidator
+from ats_utilities.checker.context.icontext_provider import IContextProvider
+from ats_utilities.checker.context.context_provider import ContextProvider
+from ats_utilities.checker.reporter.icheck_reporter import ICheckReporter
+from ats_utilities.checker.reporter.check_reporter import CheckReporter
+from ats_utilities.factory_component import validate_component
+from ats_utilities.factory_type import check_type
+from ats_utilities.factory_value import require_not_none
 
 
-@dataclass
+__author__ = r'Vladimir Roncevic'
+__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
+__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = r'3.4.2'
+__maintainer__ = r'Vladimir Roncevic'
+__email__ = r'elektron.ronca@gmail.com'
+__status__ = r'Updated'
+
+
+@dataclass(slots=True, kw_only=True)
 class CheckerComponentBundle:
     '''
         Defines component bundle dataclass for dependency group simplification.
@@ -51,9 +62,10 @@ class CheckerComponentBundle:
                 | context_provider - Provider for call context (default None).
                 | check_reporter - Formatter for message reports (default None).
             :methods:
-                | validate - Validates that essential components are set.
-                | merge - Merges non-None values from another bundle into this one.
-                | to_dict - Converts the bundle attributes to a dictionary.
+                | __post_init__ - Post-initialization hook to set up default components if not provided.
+                | validate - Validates that CheckerComponentBundle is valid (can be called after merge).
+                | merge - Merges non-None values from another CheckerComponentBundle into this one.
+                | to_dict - Converts the CheckerComponentBundle instance to a dictionary.
     '''
 
     format_validator: IFormatValidator | None = None
@@ -61,53 +73,83 @@ class CheckerComponentBundle:
     context_provider: IContextProvider | None = None
     check_reporter: ICheckReporter | None = None
 
-    def validate(self) -> None:
+    def __post_init__(self) -> None:
         '''
-            Validates that essential components are set.
+            Post-initialization hook to set up default validators and providers.
 
             :exceptions:
-                | ValueError - Context provider must be provided.
-                | ValueError - Check reporter must be provided.
-                | ValueError - Format validator must be provided.
-                | ValueError - Type validator must be provided.
+                | ATSTypeError: Format vcheck must be an instance of IFormatValidator.
+                | ATSTypeError: Type vcheck must be an instance of ITypeValidator.
+                | ATSTypeError: Context provider must be an instance of IContextProvider.
+                | ATSTypeError: Check reporter must be an instance of ICheckReporter.
         '''
-        if self.context_provider is None:
-            raise ValueError("context provider must be provided.")
-
-        if self.check_reporter is None:
-            raise ValueError("check reporter must be provided.")
-
         if self.format_validator is None:
-            raise ValueError("format validator must be provided.")
+            self.format_validator = FormatValidator()
+            validate_component(self.format_validator, IFormatValidator, r'format_validator must be an IFormatValidator instance')
 
         if self.type_validator is None:
-            raise ValueError("type validator must be provided.")
+            self.type_validator = TypeValidator()
+            validate_component(self.type_validator, ITypeValidator, r'type_validator must be an ITypeValidator instance')
 
-    def merge(self, other: 'CheckerComponentBundle') -> None:
+        if self.context_provider is None:
+            self.context_provider = ContextProvider()
+            validate_component(self.context_provider, IContextProvider, r'context_provider must be an IContextProvider instance')
+
+        if self.check_reporter is None:
+            self.check_reporter = CheckReporter()
+            validate_component(self.check_reporter, ICheckReporter, r'check_reporter must be an ICheckReporter instance')
+
+    def validate(self) -> None:
         '''
-            Merges non-None values from another bundle into this one.
+            Validates that CheckerComponentBundle is valid (can be called after merge).
+            Performs validation of all bundle attributes.
+            All attributes must be non-None and instances of their respective interfaces.
 
-            :param other: Another bundle to merge into this one.
+            :exceptions:
+                | ATSValueError: Context provider must be provided.
+                | ATSValueError: Check reporter must be provided.
+                | ATSValueError: Format vcheck must be provided.
+                | ATSValueError: Type vcheck must be provided.
+                | ATSTypeError: Context provider must be an instance of IContextProvider.
+                | ATSTypeError: Check reporter must be an instance of ICheckReporter.
+                | ATSTypeError: Format vcheck must be an instance of IFormatValidator.
+                | ATSTypeError: Type vcheck must be an instance of ITypeValidator.
+        '''
+        require_not_none(self.context_provider, r'context provider must be provided')
+        require_not_none(self.check_reporter, r'check reporter must be provided')
+        require_not_none(self.format_validator, r'format vcheck must be provided')
+        require_not_none(self.type_validator, r'type vcheck must be provided')
+        check_type(self.context_provider, IContextProvider, r'context provider must be an instance of IContextProvider')
+        check_type(self.check_reporter, ICheckReporter, r'check reporter must be an instance of ICheckReporter')
+        check_type(self.format_validator, IFormatValidator, r'format vcheck must be an instance of IFormatValidator')
+        check_type(self.type_validator, ITypeValidator, r'type vcheck must be an instance of ITypeValidator')
+
+    def merge(self, other: CheckerComponentBundle) -> None:
+        '''
+            Merges non-None values from another CheckerComponentBundle into this one.
+
+            :param other: Another CheckerComponentBundle to merge into this one.
             :type other: <CheckerComponentBundle>
-            :exceptions: None.
+            :exceptions:
+                | ATSTypeError: Other must be a CheckerComponentBundle instance.
         '''
+        check_type(other, CheckerComponentBundle, r'other must be a CheckerComponentBundle instance')
+
         for field_name in self.__dataclass_fields__:
-            other_value = getattr(other, field_name)
+            other_value: Any = getattr(other, field_name)
 
             if other_value is not None:
                 setattr(self, field_name, other_value)
 
+        self.validate()
+
     def to_dict(self) -> dict[str, Any]:
         '''
-            Converts the bundle attributes to a dictionary.
+            Converts the CheckerComponentBundle instance to a dictionary.
 
-            :return: Dictionary representation of the bundle attributes.
+            :return: Dictionary representation of the CheckerComponentBundle instance.
             :rtype: <dict[str, Any]>
             :exceptions: None.
         '''
-        return {
-            name: value
-            for name, value in self.__dict__.items()
-            if not name.startswith('_')
-        }
+        return asdict(self)
 

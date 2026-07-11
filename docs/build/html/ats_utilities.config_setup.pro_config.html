@@ -124,6 +124,11 @@ Mechanism for project configuration.</p>
 <dd></dd></dl>
 
 <dl class="py attribute">
+<dt class="sig sig-object py" id="ats_utilities.config_setup.pro_config.ProConfig._config">
+<span class="sig-name descname"><span class="pre">_config</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Mapping</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#ats_utilities.config_setup.pro_config.ProConfig._config" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
 <dt class="sig sig-object py" id="ats_utilities.config_setup.pro_config.ProConfig._reporter">
 <span class="sig-name descname"><span class="pre">_reporter</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="ats_utilities.reporter.ireporter.html#ats_utilities.reporter.ireporter.IReporter" title="ats_utilities.reporter.ireporter.IReporter"><span class="pre">IReporter</span></a></em><a class="headerlink" href="#ats_utilities.config_setup.pro_config.ProConfig._reporter" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -135,21 +140,21 @@ Mechanism for project configuration.</p>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="ats_utilities.config_setup.pro_config.ProConfig.config">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">config</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#ats_utilities.config_setup.pro_config.ProConfig.config" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">config</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Mapping</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#ats_utilities.config_setup.pro_config.ProConfig.config" title="Link to this definition">¶</a></dt>
 <dd><p>Property method for getting project configuration.</p>
 <dl class="field-list">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Formatted project configuration in dict format | None.</p>
+<dd class="field-odd"><p>Formatted project configuration in dict format.</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>&lt;dict[Any, Any] | None&gt;</p>
+<dd class="field-even"><p>&lt;Mapping[str, Any]&gt;</p>
 </dd>
 <dt class="field-odd">Exceptions<span class="colon">:</span></dt>
 <dd class="field-odd"><div class="line-block">
 <div class="line">ATSRuntimeError: Decorator cannot be used on a standalone function.</div>
 <div class="line">ATSAttributeError: Class is required to provide a ‘_reporter’ object to</div>
 <div class="line-block">
-<div class="line">use the &#64;verboser decorator.</div>
+<div class="line">use the &#64;vreport decorator.</div>
 </div>
 </div>
 </dd>
@@ -172,7 +177,7 @@ Mechanism for project configuration.</p>
 <div class="line">ATSRuntimeError: Decorator cannot be used on a standalone function.</div>
 <div class="line">ATSAttributeError: Class is required to provide a ‘_reporter’ object to</div>
 <div class="line-block">
-<div class="line">use the &#64;verboser decorator.</div>
+<div class="line">use the &#64;vreport decorator.</div>
 </div>
 </div>
 </dd>
@@ -200,6 +205,7 @@ Mechanism for project configuration.</p>
 <li><a class="reference internal" href="#ats_utilities.config_setup.pro_config.ProConfig.TEMPLATES"><code class="docutils literal notranslate"><span class="pre">ProConfig.TEMPLATES</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.config_setup.pro_config.ProConfig._abc_impl"><code class="docutils literal notranslate"><span class="pre">ProConfig._abc_impl</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.config_setup.pro_config.ProConfig._checker"><code class="docutils literal notranslate"><span class="pre">ProConfig._checker</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.config_setup.pro_config.ProConfig._config"><code class="docutils literal notranslate"><span class="pre">ProConfig._config</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.config_setup.pro_config.ProConfig._reporter"><code class="docutils literal notranslate"><span class="pre">ProConfig._reporter</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.config_setup.pro_config.ProConfig._verbose"><code class="docutils literal notranslate"><span class="pre">ProConfig._verbose</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.config_setup.pro_config.ProConfig.config"><code class="docutils literal notranslate"><span class="pre">ProConfig.config</span></code></a></li>

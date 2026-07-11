@@ -4,6 +4,10 @@
     "path_replacements": {
       "service_base": "project_name"
     },
-    "exclude": []
+    "exclude": [
+      "**/.coverage",
+      "**/.vscode/**",
+      "**/.git/**"
+    ]
   }
 }

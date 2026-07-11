@@ -15,8 +15,8 @@
     
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="ats_utilities.info.info_ok module" href="ats_utilities.info.info_ok.html" />
-    <link rel="prev" title="ats_utilities.info.iname module" href="ats_utilities.info.iname.html" /> 
+    <link rel="next" title="ats_utilities.logging package" href="ats_utilities.logging.html" />
+    <link rel="prev" title="ats_utilities.info.imanager module" href="ats_utilities.info.imanager.html" /> 
   </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
@@ -28,10 +28,10 @@
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="ats_utilities.info.info_ok.html" title="ats_utilities.info.info_ok module"
+          <a href="ats_utilities.logging.html" title="ats_utilities.logging package"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="ats_utilities.info.iname.html" title="ats_utilities.info.iname module"
+          <a href="ats_utilities.info.imanager.html" title="ats_utilities.info.imanager module"
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">ats_utilities https://github.com/vroncevic/ats_utilities/releases documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="modules.html" >ats_utilities</a> &#187;</li>
@@ -64,7 +64,7 @@ You should have received a copy of the GNU General Public License along
 with this program. If not, see &lt;<a class="reference external" href="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</a>&gt;.</p>
 </dd>
 <dt>Info</dt><dd><p>Defines class InfoKeys with attribute(s).
-Defines constants for ATS information keys.</p>
+Defines constants for information keys.</p>
 </dd>
 </dl>
 <dl class="py class">
@@ -72,24 +72,23 @@ Defines constants for ATS information keys.</p>
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ats_utilities.info.info_keys.</span></span><span class="sig-name descname"><span class="pre">InfoKeys</span></span><a class="reference internal" href="_modules/ats_utilities/info/info_keys.html#InfoKeys"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.info.info_keys.InfoKeys" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Defines class InfoKeys with attribute(s).
-Defines constants for ATS information keys.</p>
+Defines constants for information keys.
+The information keys are used for information container.
+The information container store data for App/Tool/Script.</p>
 <p>It defines:</p>
 <blockquote>
 <div><dl class="field-list">
 <dt class="field-odd">attributes<span class="colon">:</span></dt>
 <dd class="field-odd"><div class="line-block">
-<div class="line">ATS_NAME - The key for ATS name.</div>
-<div class="line">ATS_VERSION - The key for ATS version.</div>
-<div class="line">ATS_BUILD_DATE - The key for ATS build date.</div>
-<div class="line">ATS_LICENCE - The key for ATS licence.</div>
-<div class="line">ATS_REPOSITORY - The key for ATS repository.</div>
-<div class="line">ATS_ORGANIZATION - The key for ATS organization.</div>
-<div class="line">ATS_USE_GITHUB_INFRASTRUCTURE - The key for ATS use github infrastructure.</div>
-<div class="line">ATS_LOGO_PATH - The key for ATS logo path.</div>
+<div class="line">ATS_NAME - The key for name.</div>
+<div class="line">ATS_VERSION - The key for version.</div>
+<div class="line">ATS_BUILD_DATE - The key for build date.</div>
+<div class="line">ATS_LICENCE - The key for licence.</div>
+<div class="line">ATS_REPOSITORY - The key for repository.</div>
+<div class="line">ATS_ORGANIZATION - The key for organization.</div>
+<div class="line">ATS_USE_GITHUB_INFRASTRUCTURE - The key for use github infrastructure.</div>
+<div class="line">ATS_LOGO_PATH - The key for logo path.</div>
 </div>
-</dd>
-<dt class="field-even">methods<span class="colon">:</span></dt>
-<dd class="field-even"><p>None.</p>
 </dd>
 </dl>
 </div></blockquote>
@@ -133,6 +132,40 @@ Defines constants for ATS information keys.</p>
 <span class="sig-name descname"><span class="pre">ATS_VERSION</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'ats_version'</span></em><a class="headerlink" href="#ats_utilities.info.info_keys.InfoKeys.ATS_VERSION" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
+<dl class="py method">
+<dt class="sig sig-object py" id="ats_utilities.info.info_keys.InfoKeys.get_key_to_attr">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_key_to_attr</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">mappingproxy</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/ats_utilities/info/info_keys.html#InfoKeys.get_key_to_attr"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.info.info_keys.InfoKeys.get_key_to_attr" title="Link to this definition">¶</a></dt>
+<dd><p>Returns a mapping of information keys to attributes.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Key to attribute mapping.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>&lt;MappingProxyType[str, str]&gt;</p>
+</dd>
+<dt class="field-odd">Exceptions<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ats_utilities.info.info_keys.InfoKeys.get_keys">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_keys</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/ats_utilities/info/info_keys.html#InfoKeys.get_keys"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.info.info_keys.InfoKeys.get_keys" title="Link to this definition">¶</a></dt>
+<dd><p>Returns a tuple of all information keys.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Tuple of all keys.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>&lt;tuple[str, …]&gt;</p>
+</dd>
+<dt class="field-odd">Exceptions<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None.</p>
+</dd>
+</dl>
+</dd></dl>
+
 </dd></dl>
 
 </section>
@@ -157,6 +190,8 @@ Defines constants for ATS information keys.</p>
 <li><a class="reference internal" href="#ats_utilities.info.info_keys.InfoKeys.ATS_REPOSITORY"><code class="docutils literal notranslate"><span class="pre">InfoKeys.ATS_REPOSITORY</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.info.info_keys.InfoKeys.ATS_USE_GITHUB_INFRASTRUCTURE"><code class="docutils literal notranslate"><span class="pre">InfoKeys.ATS_USE_GITHUB_INFRASTRUCTURE</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.info.info_keys.InfoKeys.ATS_VERSION"><code class="docutils literal notranslate"><span class="pre">InfoKeys.ATS_VERSION</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.info.info_keys.InfoKeys.get_key_to_attr"><code class="docutils literal notranslate"><span class="pre">InfoKeys.get_key_to_attr()</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.info.info_keys.InfoKeys.get_keys"><code class="docutils literal notranslate"><span class="pre">InfoKeys.get_keys()</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -166,13 +201,13 @@ Defines constants for ATS information keys.</p>
   </div>
   <div>
     <h4>Previous topic</h4>
-    <p class="topless"><a href="ats_utilities.info.iname.html"
-                          title="previous chapter">ats_utilities.info.iname module</a></p>
+    <p class="topless"><a href="ats_utilities.info.imanager.html"
+                          title="previous chapter">ats_utilities.info.imanager module</a></p>
   </div>
   <div>
     <h4>Next topic</h4>
-    <p class="topless"><a href="ats_utilities.info.info_ok.html"
-                          title="next chapter">ats_utilities.info.info_ok module</a></p>
+    <p class="topless"><a href="ats_utilities.logging.html"
+                          title="next chapter">ats_utilities.logging package</a></p>
   </div>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
@@ -205,10 +240,10 @@ Defines constants for ATS information keys.</p>
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="ats_utilities.info.info_ok.html" title="ats_utilities.info.info_ok module"
+          <a href="ats_utilities.logging.html" title="ats_utilities.logging package"
              >next</a> |</li>
         <li class="right" >
-          <a href="ats_utilities.info.iname.html" title="ats_utilities.info.iname module"
+          <a href="ats_utilities.info.imanager.html" title="ats_utilities.info.imanager module"
              >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">ats_utilities https://github.com/vroncevic/ats_utilities/releases documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="modules.html" >ats_utilities</a> &#187;</li>

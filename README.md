@@ -116,198 +116,249 @@ These modules requires other modules and libraries (Python 3.x)
 
 ```bash
     ats_utilities/
-        ├── base/
-        │   ├── component_bundle.py
-        │   ├── engine.py
-        │   ├── ibase.py
-        │   └── __init__.py
-        ├── checker/
-        │   ├── checker_reporter_bundle.py
-        │   ├── check_reporter.py
-        │   ├── component_bundle.py
-        │   ├── context_provider.py
-        │   ├── engine.py
-        │   ├── format_validator.py
-        │   ├── ichecker.py
-        │   ├── icheck_reporter.py
-        │   ├── icontext_provider.py
-        │   ├── iformat_validator.py
-        │   ├── __init__.py
-        │   ├── itype_validator.py
-        │   ├── proxy_validator.py
-        │   └── type_validator.py
-        ├── config_io/
-        │   ├── cfg/
-        │   │   ├── cfg2object.py
-        │   │   ├── cfg_loader.py
-        │   │   ├── cfg_processor.py
-        │   │   ├── cfg_storer.py
-        │   │   ├── icfg_processor.py
-        │   │   ├── __init__.py
-        │   │   └── object2cfg.py
-        │   ├── conf_file.py
-        │   ├── config_file_bundle.py
-        │   ├── config_loader_bundle.py
-        │   ├── config_loader.py
-        │   ├── file_bundle.py
-        │   ├── file_check.py
-        │   ├── iconf_file.py
-        │   ├── iconfig_loader.py
-        │   ├── ifile_check.py
-        │   ├── iloader.py
-        │   ├── ini/
-        │   │   ├── iini_processor.py
-        │   │   ├── ini2object.py
-        │   │   ├── ini_loader.py
-        │   │   ├── ini_processor.py
-        │   │   ├── ini_storer.py
-        │   │   ├── __init__.py
-        │   │   └── object2ini.py
-        │   ├── __init__.py
-        │   ├── iread.py
-        │   ├── istorer.py
-        │   ├── iwrite.py
-        │   ├── json/
-        │   │   ├── ijson_processor.py
-        │   │   ├── __init__.py
-        │   │   ├── json2object.py
-        │   │   ├── json_loader.py
-        │   │   ├── json_processor.py
-        │   │   ├── json_storer.py
-        │   │   └── object2json.py
-        │   ├── xml/
-        │   │   ├── __init__.py
-        │   │   ├── ixml_processor.py
-        │   │   ├── object2xml.py
-        │   │   ├── xml2object.py
-        │   │   ├── xml_loader.py
-        │   │   ├── xml_processor.py
-        │   │   └── xml_storer.py
-        │   └── yaml/
-        │       ├── __init__.py
-        │       ├── iyaml_processor.py
-        │       ├── object2yaml.py
-        │       ├── yaml2object.py
-        │       ├── yaml_loader.py
-        │       ├── yaml_processor.py
-        │       └── yaml_storer.py
-        ├── config_setup/
-        │   ├── component_bundle.py
-        │   ├── __init__.py
-        │   ├── ipro_config.py
-        │   ├── ipro_name.py
-        │   ├── itemplate_dir.py
-        │   ├── pro_config.py
-        │   ├── pro_name.py
-        │   └── template_dir.py
-        ├── context_bundle.py
-        ├── exceptions/
-        │   ├── ats_attribute_error.py
-        │   ├── ats_bad_call_error.py
-        │   ├── ats_error.py
-        │   ├── ats_file_error.py
-        │   ├── ats_generator_error.py
-        │   ├── ats_key_error.py
-        │   ├── ats_lookup_error.py
-        │   ├── ats_parameter_error.py
-        │   ├── ats_runtime_error.py
-        │   ├── ats_type_error.py
-        │   ├── ats_value_error.py
-        │   └── __init__.py
-        ├── factory_class.py
-        ├── factory_component.py
-        ├── factory_context_bundle.py
-        ├── factory_dict_utils.py
-        ├── factory_file_utils.py
-        ├── generator/
-        │   ├── component_bundle.py
-        │   ├── engine.py
-        │   ├── generator_bundle.py
-        │   ├── igenerator.py
-        │   ├── __init__.py
-        │   ├── ischeme_loader.py
-        │   ├── itar_processor.py
-        │   ├── itemplate_processor.py
-        │   ├── scheme_loader.py
-        │   ├── tar_process_bundle.py
-        │   ├── tar_process_member_bundle.py
-        │   ├── tar_processor.py
-        │   └── template_processor.py
-        ├── info/
-        │   ├── build_date.py
-        │   ├── component_bundle.py
-        │   ├── engine.py
-        │   ├── ibuild_date.py
-        │   ├── iinfo_ok.py
-        │   ├── ilicence.py
-        │   ├── ilogo_path.py
-        │   ├── imanager.py
-        │   ├── iname.py
-        │   ├── info_keys.py
-        │   ├── info_ok.py
-        │   ├── __init__.py
-        │   ├── iorganization.py
-        │   ├── irepository.py
-        │   ├── iuse_github.py
-        │   ├── iversion.py
-        │   ├── licence.py
-        │   ├── logo.py
-        │   ├── name.py
-        │   ├── organization.py
-        │   ├── repository.py
-        │   ├── use_github.py
-        │   └── version.py
-        ├── __init__.py
-        ├── logging/
-        │   ├── component_bundle.py
-        │   ├── engine.py
-        │   ├── ilogger_manager.py
-        │   ├── ilogger.py
-        │   ├── __init__.py
-        │   ├── logger_bundle.py
-        │   └── logger.py
-        ├── option/
-        │   ├── arg_parser.py
-        │   ├── command_option.py
-        │   ├── component_bundle.py
-        │   ├── engine.py
-        │   ├── __init__.py
-        │   ├── ioption_command.py
-        │   ├── ioption_parser.py
-        │   ├── iparser_strategy.py
-        │   ├── option_namespace.py
-        │   └── parser_strategy.py
-        ├── py.typed
-        ├── reporter/
-        │   ├── component_bundle.py
-        │   ├── engine.py
-        │   ├── __init__.py
-        │   ├── ireporter.py
-        │   ├── proxy_reporter.py
-        │   └── theme/
-        │       ├── engine.py
-        │       ├── iconsole_theme.py
-        │       └── __init__.py
-        └── splasher/
-            ├── component_bundle.py
-            ├── engine.py
-            ├── ext_infrastructure.py
-            ├── github_infrastructure.py
-            ├── iext_infrastructure.py
-            ├── __init__.py
-            ├── iprogress_bar.py
-            ├── isplasher.py
-            ├── isplash_property.py
-            ├── iterminal_properties.py
-            ├── progress_bar.py
-            ├── splash_center_bundle.py
-            ├── splash_keys.py
-            ├── splash_property.py
-            └── terminal_properties.py
+         ├── base/
+         │   ├── component_bundle.py
+         │   ├── engine.py
+         │   ├── ibase.py
+         │   └── __init__.py
+         ├── checker/
+         │   ├── component_bundle.py
+         │   ├── context/
+         │   │   ├── context_provider.py
+         │   │   ├── icontext_provider.py
+         │   │   └── __init__.py
+         │   ├── engine.py
+         │   ├── format/
+         │   │   ├── format_validator.py
+         │   │   ├── iformat_validator.py
+         │   │   └── __init__.py
+         │   ├── ichecker.py
+         │   ├── __init__.py
+         │   ├── proxy_validator.py
+         │   ├── reporter/
+         │   │   ├── check_reporter.py
+         │   │   ├── checker_reporter_bundle.py
+         │   │   ├── icheck_reporter.py
+         │   │   └── __init__.py
+         │   └── type/
+         │       ├── __init__.py
+         │       ├── itype_validator.py
+         │       └── type_validator.py
+         ├── config_io/
+         │   ├── cfg/
+         │   │   ├── cfg2object.py
+         │   │   ├── cfg_loader.py
+         │   │   ├── cfg_processor.py
+         │   │   ├── cfg_storer.py
+         │   │   ├── icfg_processor.py
+         │   │   ├── __init__.py
+         │   │   └── object2cfg.py
+         │   ├── conf_file.py
+         │   ├── config_file_bundle.py
+         │   ├── config_loader.py
+         │   ├── config_loader_bundle.py
+         │   ├── file_bundle.py
+         │   ├── file_check.py
+         │   ├── iconf_file.py
+         │   ├── iconfig_loader.py
+         │   ├── ifile_check.py
+         │   ├── iloader.py
+         │   ├── ini/
+         │   │   ├── iini_processor.py
+         │   │   ├── ini2object.py
+         │   │   ├── ini_loader.py
+         │   │   ├── ini_processor.py
+         │   │   ├── ini_storer.py
+         │   │   ├── __init__.py
+         │   │   └── object2ini.py
+         │   ├── __init__.py
+         │   ├── iread.py
+         │   ├── istorer.py
+         │   ├── iwrite.py
+         │   ├── json/
+         │   │   ├── ijson_processor.py
+         │   │   ├── __init__.py
+         │   │   ├── json2object.py
+         │   │   ├── json_loader.py
+         │   │   ├── json_processor.py
+         │   │   ├── json_storer.py
+         │   │   └── object2json.py
+         │   ├── xml/
+         │   │   ├── __init__.py
+         │   │   ├── ixml_processor.py
+         │   │   ├── object2xml.py
+         │   │   ├── xml2object.py
+         │   │   ├── xml_loader.py
+         │   │   ├── xml_processor.py
+         │   │   └── xml_storer.py
+         │   └── yaml/
+         │       ├── __init__.py
+         │       ├── iyaml_processor.py
+         │       ├── object2yaml.py
+         │       ├── yaml2object.py
+         │       ├── yaml_loader.py
+         │       ├── yaml_processor.py
+         │       └── yaml_storer.py
+         ├── config_setup/
+         │   ├── component_bundle.py
+         │   ├── __init__.py
+         │   ├── ipro_config.py
+         │   ├── ipro_name.py
+         │   ├── itemplate_dir.py
+         │   ├── pro_config.py
+         │   ├── pro_name.py
+         │   └── template_dir.py
+         ├── context_bundle.py
+         ├── exceptions/
+         │   ├── ats_attribute_error.py
+         │   ├── ats_bad_call_error.py
+         │   ├── ats_error.py
+         │   ├── ats_file_error.py
+         │   ├── ats_generator_error.py
+         │   ├── ats_key_error.py
+         │   ├── ats_lookup_error.py
+         │   ├── ats_parameter_error.py
+         │   ├── ats_runtime_error.py
+         │   ├── ats_type_error.py
+         │   ├── ats_value_error.py
+         │   └── __init__.py
+         ├── factory_class.py
+         ├── factory_component.py
+         ├── factory_context_bundle.py
+         ├── factory_context_error.py
+         ├── factory_dict_utils.py
+         ├── factory_file_utils.py
+         ├── factory_inspector.py
+         ├── factory_type.py
+         ├── factory_value.py
+         ├── generator/
+         │   ├── component_bundle.py
+         │   ├── engine.py
+         │   ├── generator_bundle.py
+         │   ├── igenerator.py
+         │   ├── __init__.py
+         │   ├── scheme/
+         │   │   ├── __init__.py
+         │   │   ├── ischeme_loader.py
+         │   │   └── scheme_loader.py
+         │   ├── tar/
+         │   │   ├── __init__.py
+         │   │   ├── itar_processor.py
+         │   │   ├── tar_process_bundle.py
+         │   │   ├── tar_process_member_bundle.py
+         │   │   └── tar_processor.py
+         │   └── template/
+         │       ├── __init__.py
+         │       ├── itemplate_processor.py
+         │       └── template_processor.py
+         ├── info/
+         │   ├── build_date/
+         │   │   ├── engine.py
+         │   │   ├── ibuild_date.py
+         │   │   └── __init__.py
+         │   ├── component_bundle.py
+         │   ├── engine.py
+         │   ├── imanager.py
+         │   ├── info_keys.py
+         │   ├── info_ok/
+         │   │   ├── engine.py
+         │   │   ├── iinfo_ok.py
+         │   │   └── __init__.py
+         │   ├── __init__.py
+         │   ├── licence/
+         │   │   ├── engine.py
+         │   │   ├── ilicence.py
+         │   │   └── __init__.py
+         │   ├── logo/
+         │   │   ├── engine.py
+         │   │   ├── ilogo.py
+         │   │   └── __init__.py
+         │   ├── name/
+         │   │   ├── engine.py
+         │   │   ├── iname.py
+         │   │   └── __init__.py
+         │   ├── organization/
+         │   │   ├── engine.py
+         │   │   ├── __init__.py
+         │   │   └── iorganization.py
+         │   ├── repository/
+         │   │   ├── engine.py
+         │   │   ├── __init__.py
+         │   │   └── irepository.py
+         │   ├── use_github/
+         │   │   ├── engine.py
+         │   │   ├── __init__.py
+         │   │   └── iuse_github.py
+         │   └── version/
+         │       ├── engine.py
+         │       ├── __init__.py
+         │       └── iversion.py
+         ├── __init__.py
+         ├── logging/
+         │   ├── component_bundle.py
+         │   ├── engine.py
+         │   ├── ilogger_manager.py
+         │   ├── __init__.py
+         │   └── logger/
+         │       ├── ilogger.py
+         │       ├── __init__.py
+         │       ├── logger.py
+         │       └── logger_bundle.py
+         ├── option/
+         │   ├── command/
+         │   │   ├── command_option.py
+         │   │   ├── __init__.py
+         │   │   └── ioption_command.py
+         │   ├── component_bundle.py
+         │   ├── engine.py
+         │   ├── __init__.py
+         │   ├── ioption_manager.py
+         │   ├── option_namespace.py
+         │   ├── parser/
+         │   │   ├── engine.py
+         │   │   └── __init__.py
+         │   └── strategy/
+         │       ├── __init__.py
+         │       ├── iparser_strategy.py
+         │       └── parser_strategy.py
+         ├── py.typed
+         ├── reporter/
+         │   ├── component_bundle.py
+         │   ├── engine.py
+         │   ├── __init__.py
+         │   ├── ireporter.py
+         │   ├── proxy_reporter.py
+         │   └── theme/
+         │       ├── engine.py
+         │       ├── iconsole_theme.py
+         │       └── __init__.py
+         └── splasher/
+             ├── component_bundle.py
+             ├── engine.py
+             ├── external/
+             │   ├── ext_infrastructure.py
+             │   ├── github_infrastructure.py
+             │   ├── iext_infrastructure.py
+             │   └── __init__.py
+             ├── __init__.py
+             ├── isplasher.py
+             ├── progressbar/
+             │   ├── __init__.py
+             │   ├── iprogress_bar.py
+             │   └── progress_bar.py
+             ├── property/
+             │   ├── __init__.py
+             │   ├── isplash_property.py
+             │   └── splash_property.py
+             ├── splash_center_bundle.py
+             ├── splash_keys.py
+             └── terminal/
+                 ├── __init__.py
+                 ├── iterminal_properties.py
+                 └── terminal_properties.py
 
-    18 directories, 171 files
+     42 directories, 199 files
 ```
-
 </details>
 
 ### Code coverage
@@ -317,177 +368,205 @@ These modules requires other modules and libraries (Python 3.x)
 
 | Name | Stmts | Miss | Cover |
 |------|-------|------|-------|
-| `ats_utilities/__init__.py` | 8 | 0 | 100%|
-| `ats_utilities/base/__init__.py` | 8 | 0 | 100%|
-| `ats_utilities/base/component_bundle.py` | 38 | 0 | 100%|
-| `ats_utilities/base/engine.py` | 104 | 0 | 100%|
-| `ats_utilities/base/ibase.py` | 15 | 0 | 100%|
-| `ats_utilities/checker/__init__.py` | 8 | 0 | 100%|
-| `ats_utilities/checker/check_reporter.py` | 30 | 0 | 100%|
-| `ats_utilities/checker/checker_reporter_bundle.py` | 29 | 0 | 100%|
-| `ats_utilities/checker/component_bundle.py` | 36 | 0 | 100%|
-| `ats_utilities/checker/context_provider.py` | 29 | 0 | 100%|
-| `ats_utilities/checker/engine.py` | 71 | 0 | 100%|
-| `ats_utilities/checker/format_validator.py` | 23 | 0 | 100%|
-| `ats_utilities/checker/icheck_reporter.py` | 11 | 0 | 100%|
-| `ats_utilities/checker/ichecker.py` | 19 | 0 | 100%|
-| `ats_utilities/checker/icontext_provider.py` | 10 | 0 | 100%|
-| `ats_utilities/checker/iformat_validator.py` | 10 | 0 | 100%|
-| `ats_utilities/checker/itype_validator.py` | 11 | 0 | 100%|
-| `ats_utilities/checker/proxy_validator.py` | 60 | 0 | 100%|
-| `ats_utilities/checker/type_validator.py` | 24 | 0 | 100%|
-| `ats_utilities/config_io/__init__.py` | 8 | 0 | 100%|
-| `ats_utilities/config_io/cfg/__init__.py` | 8 | 0 | 100%|
-| `ats_utilities/config_io/cfg/cfg2object.py` | 55 | 0 | 100%|
-| `ats_utilities/config_io/cfg/cfg_loader.py` | 48 | 0 | 100%|
-| `ats_utilities/config_io/cfg/cfg_processor.py` | 34 | 0 | 100%|
-| `ats_utilities/config_io/cfg/cfg_storer.py` | 41 | 0 | 100%|
-| `ats_utilities/config_io/cfg/icfg_processor.py` | 10 | 0 | 100%|
-| `ats_utilities/config_io/cfg/object2cfg.py` | 57 | 0 | 100%|
-| `ats_utilities/config_io/conf_file.py` | 63 | 0 | 100%|
-| `ats_utilities/config_io/config_file_bundle.py` | 29 | 0 | 100%|
-| `ats_utilities/config_io/config_loader.py` | 54 | 0 | 100%|
-| `ats_utilities/config_io/config_loader_bundle.py` | 36 | 0 | 100%|
-| `ats_utilities/config_io/file_bundle.py` | 30 | 0 | 100%|
-| `ats_utilities/config_io/file_check.py` | 65 | 0 | 100%|
-| `ats_utilities/config_io/iconf_file.py` | 13 | 0 | 100%|
-| `ats_utilities/config_io/iconfig_loader.py` | 22 | 0 | 100%|
-| `ats_utilities/config_io/ifile_check.py` | 12 | 0 | 100%|
-| `ats_utilities/config_io/iloader.py` | 10 | 0 | 100%|
-| `ats_utilities/config_io/ini/__init__.py` | 8 | 0 | 100%|
-| `ats_utilities/config_io/ini/iini_processor.py` | 11 | 0 | 100%|
-| `ats_utilities/config_io/ini/ini2object.py` | 54 | 0 | 100%|
-| `ats_utilities/config_io/ini/ini_loader.py` | 48 | 0 | 100%|
-| `ats_utilities/config_io/ini/ini_processor.py` | 38 | 0 | 100%|
-| `ats_utilities/config_io/ini/ini_storer.py` | 47 | 0 | 100%|
-| `ats_utilities/config_io/ini/object2ini.py` | 56 | 0 | 100%|
-| `ats_utilities/config_io/iread.py` | 11 | 0 | 100%|
-| `ats_utilities/config_io/istorer.py` | 10 | 0 | 100%|
-| `ats_utilities/config_io/iwrite.py` | 11 | 0 | 100%|
-| `ats_utilities/config_io/json/__init__.py` | 8 | 0 | 100%|
-| `ats_utilities/config_io/json/ijson_processor.py` | 10 | 0 | 100%|
-| `ats_utilities/config_io/json/json2object.py` | 55 | 0 | 100%|
-| `ats_utilities/config_io/json/json_loader.py` | 48 | 0 | 100%|
-| `ats_utilities/config_io/json/json_processor.py` | 31 | 0 | 100%|
-| `ats_utilities/config_io/json/json_storer.py` | 46 | 0 | 100%|
-| `ats_utilities/config_io/json/object2json.py` | 56 | 0 | 100%|
-| `ats_utilities/config_io/xml/__init__.py` | 8 | 0 | 100%|
-| `ats_utilities/config_io/xml/ixml_processor.py` | 10 | 0 | 100%|
-| `ats_utilities/config_io/xml/object2xml.py` | 59 | 0 | 100%|
-| `ats_utilities/config_io/xml/xml2object.py` | 58 | 0 | 100%|
-| `ats_utilities/config_io/xml/xml_loader.py` | 48 | 0 | 100%|
-| `ats_utilities/config_io/xml/xml_processor.py` | 44 | 0 | 100%|
-| `ats_utilities/config_io/xml/xml_storer.py` | 54 | 0 | 100%|
-| `ats_utilities/config_io/yaml/__init__.py` | 8 | 0 | 100%|
-| `ats_utilities/config_io/yaml/iyaml_processor.py` | 10 | 0 | 100%|
-| `ats_utilities/config_io/yaml/object2yaml.py` | 56 | 0 | 100%|
-| `ats_utilities/config_io/yaml/yaml2object.py` | 56 | 0 | 100%|
-| `ats_utilities/config_io/yaml/yaml_loader.py` | 48 | 0 | 100%|
-| `ats_utilities/config_io/yaml/yaml_processor.py` | 32 | 0 | 100%|
-| `ats_utilities/config_io/yaml/yaml_storer.py` | 46 | 0 | 100%|
-| `ats_utilities/config_setup/__init__.py` | 8 | 0 | 100%|
-| `ats_utilities/config_setup/component_bundle.py` | 36 | 0 | 100%|
-| `ats_utilities/config_setup/ipro_config.py` | 11 | 0 | 100%|
-| `ats_utilities/config_setup/ipro_name.py` | 10 | 0 | 100%|
-| `ats_utilities/config_setup/itemplate_dir.py` | 10 | 0 | 100%|
-| `ats_utilities/config_setup/pro_config.py` | 45 | 0 | 100%|
-| `ats_utilities/config_setup/pro_name.py` | 42 | 0 | 100%|
-| `ats_utilities/config_setup/template_dir.py` | 42 | 0 | 100%|
-| `ats_utilities/context_bundle.py` | 30 | 0 | 100%|
-| `ats_utilities/exceptions/__init__.py` | 8 | 0 | 100%|
-| `ats_utilities/exceptions/ats_attribute_error.py` | 9 | 0 | 100%|
-| `ats_utilities/exceptions/ats_bad_call_error.py` | 9 | 0 | 100%|
-| `ats_utilities/exceptions/ats_error.py` | 9 | 0 | 100%|
-| `ats_utilities/exceptions/ats_file_error.py` | 9 | 0 | 100%|
-| `ats_utilities/exceptions/ats_generator_error.py` | 10 | 0 | 100%|
-| `ats_utilities/exceptions/ats_key_error.py` | 9 | 0 | 100%|
-| `ats_utilities/exceptions/ats_lookup_error.py` | 9 | 0 | 100%|
-| `ats_utilities/exceptions/ats_parameter_error.py` | 9 | 0 | 100%|
-| `ats_utilities/exceptions/ats_runtime_error.py` | 9 | 0 | 100%|
-| `ats_utilities/exceptions/ats_type_error.py` | 9 | 0 | 100%|
-| `ats_utilities/exceptions/ats_value_error.py` | 9 | 0 | 100%|
-| `ats_utilities/factory_class.py` | 66 | 0 | 100%|
-| `ats_utilities/factory_component.py` | 13 | 0 | 100%|
-| `ats_utilities/factory_context_bundle.py` | 23 | 0 | 100%|
-| `ats_utilities/factory_dict_utils.py` | 25 | 0 | 100%|
-| `ats_utilities/factory_file_utils.py` | 90 | 0 | 100%|
-| `ats_utilities/generator/__init__.py` | 8 | 0 | 100%|
-| `ats_utilities/generator/component_bundle.py` | 37 | 0 | 100%|
-| `ats_utilities/generator/engine.py` | 88 | 0 | 100%|
-| `ats_utilities/generator/generator_bundle.py` | 47 | 0 | 100%|
-| `ats_utilities/generator/igenerator.py` | 12 | 0 | 100%|
-| `ats_utilities/generator/ischeme_loader.py` | 11 | 0 | 100%|
-| `ats_utilities/generator/itar_processor.py` | 12 | 0 | 100%|
-| `ats_utilities/generator/itemplate_processor.py` | 10 | 0 | 100%|
-| `ats_utilities/generator/scheme_loader.py` | 53 | 0 | 100%|
-| `ats_utilities/generator/tar_process_bundle.py` | 39 | 0 | 100%|
-| `ats_utilities/generator/tar_process_member_bundle.py` | 34 | 0 | 100%|
-| `ats_utilities/generator/tar_processor.py` | 68 | 0 | 100%|
-| `ats_utilities/generator/template_processor.py` | 37 | 0 | 100%|
-| `ats_utilities/info/__init__.py` | 8 | 0 | 100%|
-| `ats_utilities/info/build_date.py` | 42 | 0 | 100%|
-| `ats_utilities/info/component_bundle.py` | 59 | 0 | 100%|
-| `ats_utilities/info/engine.py` | 123 | 0 | 100%|
-| `ats_utilities/info/ibuild_date.py` | 10 | 0 | 100%|
-| `ats_utilities/info/iinfo_ok.py` | 10 | 0 | 100%|
-| `ats_utilities/info/ilicence.py` | 10 | 0 | 100%|
-| `ats_utilities/info/ilogo_path.py` | 10 | 0 | 100%|
-| `ats_utilities/info/imanager.py` | 12 | 0 | 100%|
-| `ats_utilities/info/iname.py` | 10 | 0 | 100%|
-| `ats_utilities/info/info_keys.py` | 20 | 0 | 100%|
-| `ats_utilities/info/info_ok.py` | 38 | 0 | 100%|
-| `ats_utilities/info/iorganization.py` | 10 | 0 | 100%|
-| `ats_utilities/info/irepository.py` | 10 | 0 | 100%|
-| `ats_utilities/info/iuse_github.py` | 10 | 0 | 100%|
-| `ats_utilities/info/iversion.py` | 10 | 0 | 100%|
-| `ats_utilities/info/licence.py` | 42 | 0 | 100%|
-| `ats_utilities/info/logo.py` | 42 | 0 | 100%|
-| `ats_utilities/info/name.py` | 42 | 0 | 100%|
-| `ats_utilities/info/organization.py` | 42 | 0 | 100%|
-| `ats_utilities/info/repository.py` | 42 | 0 | 100%|
-| `ats_utilities/info/use_github.py` | 42 | 0 | 100%|
-| `ats_utilities/info/version.py` | 42 | 0 | 100%|
-| `ats_utilities/logging/__init__.py` | 8 | 0 | 100%|
-| `ats_utilities/logging/component_bundle.py` | 33 | 0 | 100%|
-| `ats_utilities/logging/engine.py` | 64 | 0 | 100%|
-| `ats_utilities/logging/ilogger.py` | 23 | 0 | 100%|
-| `ats_utilities/logging/ilogger_manager.py` | 12 | 0 | 100%|
-| `ats_utilities/logging/logger.py` | 63 | 0 | 100%|
-| `ats_utilities/logging/logger_bundle.py` | 32 | 0 | 100%|
-| `ats_utilities/option/__init__.py` | 8 | 0 | 100%|
-| `ats_utilities/option/arg_parser.py` | 34 | 0 | 100%|
-| `ats_utilities/option/command_option.py` | 36 | 0 | 100%|
-| `ats_utilities/option/component_bundle.py` | 32 | 0 | 100%|
-| `ats_utilities/option/engine.py` | 86 | 0 | 100%|
-| `ats_utilities/option/ioption_command.py` | 11 | 0 | 100%|
-| `ats_utilities/option/ioption_parser.py` | 15 | 0 | 100%|
-| `ats_utilities/option/iparser_strategy.py` | 14 | 0 | 100%|
-| `ats_utilities/option/option_namespace.py` | 14 | 0 | 100%|
-| `ats_utilities/option/parser_strategy.py` | 85 | 0 | 100%|
-| `ats_utilities/reporter/__init__.py` | 8 | 0 | 100%|
-| `ats_utilities/reporter/component_bundle.py` | 29 | 0 | 100%|
-| `ats_utilities/reporter/engine.py` | 62 | 0 | 100%|
-| `ats_utilities/reporter/ireporter.py` | 11 | 0 | 100%|
-| `ats_utilities/reporter/proxy_reporter.py` | 55 | 0 | 100%|
-| `ats_utilities/reporter/theme/__init__.py` | 8 | 0 | 100%|
-| `ats_utilities/reporter/theme/engine.py` | 22 | 0 | 100%|
-| `ats_utilities/reporter/theme/iconsole_theme.py` | 10 | 0 | 100%|
-| `ats_utilities/splasher/__init__.py` | 8 | 0 | 100%|
-| `ats_utilities/splasher/component_bundle.py` | 46 | 0 | 100%|
-| `ats_utilities/splasher/engine.py` | 114 | 0 | 100%|
-| `ats_utilities/splasher/ext_infrastructure.py` | 60 | 0 | 100%|
-| `ats_utilities/splasher/github_infrastructure.py` | 67 | 0 | 100%|
-| `ats_utilities/splasher/iext_infrastructure.py` | 11 | 0 | 100%|
-| `ats_utilities/splasher/iprogress_bar.py` | 10 | 0 | 100%|
-| `ats_utilities/splasher/isplash_property.py` | 11 | 0 | 100%|
-| `ats_utilities/splasher/isplasher.py` | 12 | 0 | 100%|
-| `ats_utilities/splasher/iterminal_properties.py` | 11 | 0 | 100%|
-| `ats_utilities/splasher/progress_bar.py` | 52 | 0 | 100%|
-| `ats_utilities/splasher/splash_center_bundle.py` | 37 | 0 | 100%|
-| `ats_utilities/splasher/splash_keys.py` | 17 | 0 | 100%|
-| `ats_utilities/splasher/splash_property.py` | 47 | 0 | 100%|
-| `ats_utilities/splasher/terminal_properties.py` | 58 | 0 | 100%|
-| **Total** | 5261 | 0 | 100% |
+| `ats_utilities/__init__.py` | 9 | 0 | 100%|
+| `ats_utilities/base/__init__.py` | 9 | 0 | 100%|
+| `ats_utilities/base/component_bundle.py` | 108 | 0 | 100%|
+| `ats_utilities/base/engine.py` | 78 | 0 | 100%|
+| `ats_utilities/base/ibase.py` | 16 | 0 | 100%|
+| `ats_utilities/checker/__init__.py` | 9 | 0 | 100%|
+| `ats_utilities/checker/component_bundle.py` | 59 | 0 | 100%|
+| `ats_utilities/checker/context/__init__.py` | 9 | 0 | 100%|
+| `ats_utilities/checker/context/context_provider.py` | 36 | 0 | 100%|
+| `ats_utilities/checker/context/icontext_provider.py` | 11 | 0 | 100%|
+| `ats_utilities/checker/engine.py` | 68 | 0 | 100%|
+| `ats_utilities/checker/format/__init__.py` | 9 | 0 | 100%|
+| `ats_utilities/checker/format/format_validator.py` | 24 | 0 | 100%|
+| `ats_utilities/checker/format/iformat_validator.py` | 11 | 0 | 100%|
+| `ats_utilities/checker/ichecker.py` | 20 | 0 | 100%|
+| `ats_utilities/checker/proxy_validator.py` | 59 | 0 | 100%|
+| `ats_utilities/checker/reporter/__init__.py` | 9 | 0 | 100%|
+| `ats_utilities/checker/reporter/check_reporter.py` | 30 | 0 | 100%|
+| `ats_utilities/checker/reporter/checker_reporter_bundle.py` | 44 | 0 | 100%|
+| `ats_utilities/checker/reporter/icheck_reporter.py` | 12 | 0 | 100%|
+| `ats_utilities/checker/type/__init__.py` | 9 | 0 | 100%|
+| `ats_utilities/checker/type/itype_validator.py` | 12 | 0 | 100%|
+| `ats_utilities/checker/type/type_validator.py` | 33 | 0 | 100%|
+| `ats_utilities/config_io/__init__.py` | 9 | 0 | 100%|
+| `ats_utilities/config_io/cfg/__init__.py` | 9 | 0 | 100%|
+| `ats_utilities/config_io/cfg/cfg2object.py` | 60 | 0 | 100%|
+| `ats_utilities/config_io/cfg/cfg_loader.py` | 49 | 0 | 100%|
+| `ats_utilities/config_io/cfg/cfg_processor.py` | 36 | 0 | 100%|
+| `ats_utilities/config_io/cfg/cfg_storer.py` | 44 | 0 | 100%|
+| `ats_utilities/config_io/cfg/icfg_processor.py` | 11 | 0 | 100%|
+| `ats_utilities/config_io/cfg/object2cfg.py` | 61 | 0 | 100%|
+| `ats_utilities/config_io/conf_file.py` | 69 | 0 | 100%|
+| `ats_utilities/config_io/config_file_bundle.py` | 33 | 0 | 100%|
+| `ats_utilities/config_io/config_loader.py` | 59 | 0 | 100%|
+| `ats_utilities/config_io/config_loader_bundle.py` | 40 | 0 | 100%|
+| `ats_utilities/config_io/file_bundle.py` | 34 | 0 | 100%|
+| `ats_utilities/config_io/file_check.py` | 69 | 0 | 100%|
+| `ats_utilities/config_io/iconf_file.py` | 15 | 0 | 100%|
+| `ats_utilities/config_io/iconfig_loader.py` | 23 | 0 | 100%|
+| `ats_utilities/config_io/ifile_check.py` | 13 | 0 | 100%|
+| `ats_utilities/config_io/iloader.py` | 12 | 0 | 100%|
+| `ats_utilities/config_io/ini/__init__.py` | 9 | 0 | 100%|
+| `ats_utilities/config_io/ini/iini_processor.py` | 12 | 0 | 100%|
+| `ats_utilities/config_io/ini/ini2object.py` | 59 | 0 | 100%|
+| `ats_utilities/config_io/ini/ini_loader.py` | 49 | 0 | 100%|
+| `ats_utilities/config_io/ini/ini_processor.py` | 44 | 0 | 100%|
+| `ats_utilities/config_io/ini/ini_storer.py` | 50 | 0 | 100%|
+| `ats_utilities/config_io/ini/object2ini.py` | 60 | 0 | 100%|
+| `ats_utilities/config_io/iread.py` | 12 | 0 | 100%|
+| `ats_utilities/config_io/istorer.py` | 12 | 0 | 100%|
+| `ats_utilities/config_io/iwrite.py` | 12 | 0 | 100%|
+| `ats_utilities/config_io/json/__init__.py` | 9 | 0 | 100%|
+| `ats_utilities/config_io/json/ijson_processor.py` | 11 | 0 | 100%|
+| `ats_utilities/config_io/json/json2object.py` | 60 | 0 | 100%|
+| `ats_utilities/config_io/json/json_loader.py` | 49 | 0 | 100%|
+| `ats_utilities/config_io/json/json_processor.py` | 33 | 0 | 100%|
+| `ats_utilities/config_io/json/json_storer.py` | 49 | 0 | 100%|
+| `ats_utilities/config_io/json/object2json.py` | 60 | 0 | 100%|
+| `ats_utilities/config_io/xml/__init__.py` | 9 | 0 | 100%|
+| `ats_utilities/config_io/xml/ixml_processor.py` | 11 | 0 | 100%|
+| `ats_utilities/config_io/xml/object2xml.py` | 63 | 0 | 100%|
+| `ats_utilities/config_io/xml/xml2object.py` | 63 | 0 | 100%|
+| `ats_utilities/config_io/xml/xml_loader.py` | 49 | 0 | 100%|
+| `ats_utilities/config_io/xml/xml_processor.py` | 46 | 0 | 100%|
+| `ats_utilities/config_io/xml/xml_storer.py` | 57 | 0 | 100%|
+| `ats_utilities/config_io/yaml/__init__.py` | 9 | 0 | 100%|
+| `ats_utilities/config_io/yaml/iyaml_processor.py` | 11 | 0 | 100%|
+| `ats_utilities/config_io/yaml/object2yaml.py` | 60 | 0 | 100%|
+| `ats_utilities/config_io/yaml/yaml2object.py` | 61 | 0 | 100%|
+| `ats_utilities/config_io/yaml/yaml_loader.py` | 49 | 0 | 100%|
+| `ats_utilities/config_io/yaml/yaml_processor.py` | 34 | 0 | 100%|
+| `ats_utilities/config_io/yaml/yaml_storer.py` | 49 | 0 | 100%|
+| `ats_utilities/config_setup/__init__.py` | 9 | 0 | 100%|
+| `ats_utilities/config_setup/component_bundle.py` | 41 | 0 | 100%|
+| `ats_utilities/config_setup/ipro_config.py` | 13 | 0 | 100%|
+| `ats_utilities/config_setup/ipro_name.py` | 11 | 0 | 100%|
+| `ats_utilities/config_setup/itemplate_dir.py` | 11 | 0 | 100%|
+| `ats_utilities/config_setup/pro_config.py` | 48 | 0 | 100%|
+| `ats_utilities/config_setup/pro_name.py` | 44 | 0 | 100%|
+| `ats_utilities/config_setup/template_dir.py` | 44 | 0 | 100%|
+| `ats_utilities/context_bundle.py` | 45 | 0 | 100%|
+| `ats_utilities/exceptions/__init__.py` | 21 | 0 | 100%|
+| `ats_utilities/exceptions/ats_attribute_error.py` | 11 | 0 | 100%|
+| `ats_utilities/exceptions/ats_bad_call_error.py` | 11 | 0 | 100%|
+| `ats_utilities/exceptions/ats_error.py` | 10 | 0 | 100%|
+| `ats_utilities/exceptions/ats_file_error.py` | 11 | 0 | 100%|
+| `ats_utilities/exceptions/ats_generator_error.py` | 11 | 0 | 100%|
+| `ats_utilities/exceptions/ats_key_error.py` | 11 | 0 | 100%|
+| `ats_utilities/exceptions/ats_lookup_error.py` | 11 | 0 | 100%|
+| `ats_utilities/exceptions/ats_parameter_error.py` | 11 | 0 | 100%|
+| `ats_utilities/exceptions/ats_runtime_error.py` | 11 | 0 | 100%|
+| `ats_utilities/exceptions/ats_type_error.py` | 11 | 0 | 100%|
+| `ats_utilities/exceptions/ats_value_error.py` | 11 | 0 | 100%|
+| `ats_utilities/factory_class.py` | 71 | 0 | 100%|
+| `ats_utilities/factory_component.py` | 16 | 0 | 100%|
+| `ats_utilities/factory_context_bundle.py` | 17 | 0 | 100%|
+| `ats_utilities/factory_context_error.py` | 16 | 0 | 100%|
+| `ats_utilities/factory_dict_utils.py` | 26 | 0 | 100%|
+| `ats_utilities/factory_file_utils.py` | 116 | 0 | 100%|
+| `ats_utilities/factory_inspector.py` | 25 | 0 | 100%|
+| `ats_utilities/factory_type.py` | 37 | 0 | 100%|
+| `ats_utilities/factory_value.py` | 21 | 0 | 100%|
+| `ats_utilities/generator/__init__.py` | 9 | 0 | 100%|
+| `ats_utilities/generator/component_bundle.py` | 54 | 0 | 100%|
+| `ats_utilities/generator/engine.py` | 84 | 0 | 100%|
+| `ats_utilities/generator/generator_bundle.py` | 41 | 0 | 100%|
+| `ats_utilities/generator/igenerator.py` | 14 | 0 | 100%|
+| `ats_utilities/generator/scheme/__init__.py` | 9 | 0 | 100%|
+| `ats_utilities/generator/scheme/ischeme_loader.py` | 13 | 0 | 100%|
+| `ats_utilities/generator/scheme/scheme_loader.py` | 51 | 0 | 100%|
+| `ats_utilities/generator/tar/__init__.py` | 9 | 0 | 100%|
+| `ats_utilities/generator/tar/itar_processor.py` | 13 | 0 | 100%|
+| `ats_utilities/generator/tar/tar_process_bundle.py` | 44 | 0 | 100%|
+| `ats_utilities/generator/tar/tar_process_member_bundle.py` | 39 | 0 | 100%|
+| `ats_utilities/generator/tar/tar_processor.py` | 71 | 0 | 100%|
+| `ats_utilities/generator/template/__init__.py` | 9 | 0 | 100%|
+| `ats_utilities/generator/template/itemplate_processor.py` | 11 | 0 | 100%|
+| `ats_utilities/generator/template/template_processor.py` | 40 | 0 | 100%|
+| `ats_utilities/info/__init__.py` | 9 | 0 | 100%|
+| `ats_utilities/info/build_date/__init__.py` | 9 | 0 | 100%|
+| `ats_utilities/info/build_date/engine.py` | 44 | 0 | 100%|
+| `ats_utilities/info/build_date/ibuild_date.py` | 11 | 0 | 100%|
+| `ats_utilities/info/component_bundle.py` | 103 | 0 | 100%|
+| `ats_utilities/info/engine.py` | 82 | 0 | 100%|
+| `ats_utilities/info/imanager.py` | 14 | 0 | 100%|
+| `ats_utilities/info/info_keys.py` | 28 | 0 | 100%|
+| `ats_utilities/info/info_ok/__init__.py` | 9 | 0 | 100%|
+| `ats_utilities/info/info_ok/engine.py` | 44 | 0 | 100%|
+| `ats_utilities/info/info_ok/iinfo_ok.py` | 11 | 0 | 100%|
+| `ats_utilities/info/licence/__init__.py` | 9 | 0 | 100%|
+| `ats_utilities/info/licence/engine.py` | 44 | 0 | 100%|
+| `ats_utilities/info/licence/ilicence.py` | 11 | 0 | 100%|
+| `ats_utilities/info/logo/__init__.py` | 9 | 0 | 100%|
+| `ats_utilities/info/logo/engine.py` | 44 | 0 | 100%|
+| `ats_utilities/info/logo/ilogo.py` | 11 | 0 | 100%|
+| `ats_utilities/info/name/__init__.py` | 9 | 0 | 100%|
+| `ats_utilities/info/name/engine.py` | 44 | 0 | 100%|
+| `ats_utilities/info/name/iname.py` | 11 | 0 | 100%|
+| `ats_utilities/info/organization/__init__.py` | 9 | 0 | 100%|
+| `ats_utilities/info/organization/engine.py` | 44 | 0 | 100%|
+| `ats_utilities/info/organization/iorganization.py` | 11 | 0 | 100%|
+| `ats_utilities/info/repository/__init__.py` | 9 | 0 | 100%|
+| `ats_utilities/info/repository/engine.py` | 44 | 0 | 100%|
+| `ats_utilities/info/repository/irepository.py` | 11 | 0 | 100%|
+| `ats_utilities/info/use_github/__init__.py` | 9 | 0 | 100%|
+| `ats_utilities/info/use_github/engine.py` | 44 | 0 | 100%|
+| `ats_utilities/info/use_github/iuse_github.py` | 11 | 0 | 100%|
+| `ats_utilities/info/version/__init__.py` | 9 | 0 | 100%|
+| `ats_utilities/info/version/engine.py` | 44 | 0 | 100%|
+| `ats_utilities/info/version/iversion.py` | 11 | 0 | 100%|
+| `ats_utilities/logging/__init__.py` | 9 | 0 | 100%|
+| `ats_utilities/logging/component_bundle.py` | 46 | 0 | 100%|
+| `ats_utilities/logging/engine.py` | 70 | 0 | 100%|
+| `ats_utilities/logging/ilogger_manager.py` | 13 | 0 | 100%|
+| `ats_utilities/logging/logger/__init__.py` | 9 | 0 | 100%|
+| `ats_utilities/logging/logger/ilogger.py` | 24 | 0 | 100%|
+| `ats_utilities/logging/logger/logger.py` | 63 | 0 | 100%|
+| `ats_utilities/logging/logger/logger_bundle.py` | 37 | 0 | 100%|
+| `ats_utilities/option/__init__.py` | 9 | 0 | 100%|
+| `ats_utilities/option/command/__init__.py` | 9 | 0 | 100%|
+| `ats_utilities/option/command/command_option.py` | 48 | 0 | 100%|
+| `ats_utilities/option/command/ioption_command.py` | 13 | 0 | 100%|
+| `ats_utilities/option/component_bundle.py` | 44 | 0 | 100%|
+| `ats_utilities/option/engine.py` | 84 | 0 | 100%|
+| `ats_utilities/option/ioption_manager.py` | 17 | 0 | 100%|
+| `ats_utilities/option/option_namespace.py` | 15 | 0 | 100%|
+| `ats_utilities/option/parser/__init__.py` | 9 | 0 | 100%|
+| `ats_utilities/option/parser/engine.py` | 35 | 0 | 100%|
+| `ats_utilities/option/strategy/__init__.py` | 9 | 0 | 100%|
+| `ats_utilities/option/strategy/iparser_strategy.py` | 16 | 0 | 100%|
+| `ats_utilities/option/strategy/parser_strategy.py` | 92 | 0 | 100%|
+| `ats_utilities/reporter/__init__.py` | 9 | 0 | 100%|
+| `ats_utilities/reporter/component_bundle.py` | 41 | 0 | 100%|
+| `ats_utilities/reporter/engine.py` | 60 | 0 | 100%|
+| `ats_utilities/reporter/ireporter.py` | 13 | 0 | 100%|
+| `ats_utilities/reporter/proxy_reporter.py` | 57 | 0 | 100%|
+| `ats_utilities/reporter/theme/__init__.py` | 9 | 0 | 100%|
+| `ats_utilities/reporter/theme/engine.py` | 31 | 0 | 100%|
+| `ats_utilities/reporter/theme/iconsole_theme.py` | 11 | 0 | 100%|
+| `ats_utilities/splasher/__init__.py` | 9 | 0 | 100%|
+| `ats_utilities/splasher/component_bundle.py` | 87 | 0 | 100%|
+| `ats_utilities/splasher/engine.py` | 95 | 0 | 100%|
+| `ats_utilities/splasher/external/__init__.py` | 9 | 0 | 100%|
+| `ats_utilities/splasher/external/ext_infrastructure.py` | 67 | 0 | 100%|
+| `ats_utilities/splasher/external/github_infrastructure.py` | 76 | 0 | 100%|
+| `ats_utilities/splasher/external/iext_infrastructure.py` | 13 | 0 | 100%|
+| `ats_utilities/splasher/isplasher.py` | 13 | 0 | 100%|
+| `ats_utilities/splasher/progressbar/__init__.py` | 9 | 0 | 100%|
+| `ats_utilities/splasher/progressbar/iprogress_bar.py` | 11 | 0 | 100%|
+| `ats_utilities/splasher/progressbar/progress_bar.py` | 60 | 0 | 100%|
+| `ats_utilities/splasher/property/__init__.py` | 9 | 0 | 100%|
+| `ats_utilities/splasher/property/isplash_property.py` | 13 | 0 | 100%|
+| `ats_utilities/splasher/property/splash_property.py` | 53 | 0 | 100%|
+| `ats_utilities/splasher/splash_center_bundle.py` | 43 | 0 | 100%|
+| `ats_utilities/splasher/splash_keys.py` | 59 | 0 | 100%|
+| `ats_utilities/splasher/terminal/__init__.py` | 9 | 0 | 100%|
+| `ats_utilities/splasher/terminal/iterminal_properties.py` | 12 | 0 | 100%|
+| `ats_utilities/splasher/terminal/terminal_properties.py` | 60 | 0 | 100%|
+| **Total** | 6175 | 0 | 100% |
 
 </details>
 

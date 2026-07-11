@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="./">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>ats_utilities.logging.logger.ilogger module &#8212; ats_utilities https://github.com/vroncevic/ats_utilities/releases documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="_static/classic.css?v=514cf933" />
+    
+    <script src="_static/documentation_options.js?v=893dd00a"></script>
+    <script src="_static/doctools.js?v=888ff710"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="ats_utilities.logging.logger.logger module" href="ats_utilities.logging.logger.logger.html" />
+    <link rel="prev" title="ats_utilities.logging.logger package" href="ats_utilities.logging.logger.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="ats_utilities.logging.logger.logger.html" title="ats_utilities.logging.logger.logger module"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="ats_utilities.logging.logger.html" title="ats_utilities.logging.logger package"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">ats_utilities https://github.com/vroncevic/ats_utilities/releases documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="modules.html" >ats_utilities</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="ats_utilities.html" >ats_utilities package</a> &#187;</li>
+          <li class="nav-item nav-item-3"><a href="ats_utilities.logging.html" >ats_utilities.logging package</a> &#187;</li>
+          <li class="nav-item nav-item-4"><a href="ats_utilities.logging.logger.html" accesskey="U">ats_utilities.logging.logger package</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">ats_utilities.logging.logger.ilogger module</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="module-ats_utilities.logging.logger.ilogger">
+<span id="ats-utilities-logging-logger-ilogger-module"></span><h1>ats_utilities.logging.logger.ilogger module<a class="headerlink" href="#module-ats_utilities.logging.logger.ilogger" title="Link to this heading">¶</a></h1>
+<dl class="simple">
+<dt>Module</dt><dd><p>ilogger.py</p>
+</dd>
+<dt>Copyright</dt><dd><p>Copyright (C) 2017 - 2026 Vladimir Roncevic &lt;<a class="reference external" href="mailto:elektron&#46;ronca&#37;&#52;&#48;gmail&#46;com">elektron<span>&#46;</span>ronca<span>&#64;</span>gmail<span>&#46;</span>com</a>&gt;
+ats_utilities is free software: you can redistribute it and/or modify it
+under the terms of the GNU General Public License as published by the
+Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+ats_utilities is distributed in the hope that it will be useful, but
+WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+See the GNU General Public License for more details.
+You should have received a copy of the GNU General Public License along
+with this program. If not, see &lt;<a class="reference external" href="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</a>&gt;.</p>
+</dd>
+<dt>Info</dt><dd><p>Defines abstract class ILogger with attribute(s) and method(s).
+Interface for the logging mechanism.</p>
+</dd>
+</dl>
+<dl class="py class">
+<dt class="sig sig-object py" id="ats_utilities.logging.logger.ilogger.ILogger">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ats_utilities.logging.logger.ilogger.</span></span><span class="sig-name descname"><span class="pre">ILogger</span></span><a class="reference internal" href="_modules/ats_utilities/logging/logger/ilogger.html#ILogger"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.logging.logger.ilogger.ILogger" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">ABC</span></code></p>
+<p>Defines abstract class ILogger with attribute(s) and method(s).
+Interface for the logger mechanism.</p>
+<p>It defines:</p>
+<blockquote>
+<div><dl class="field-list">
+<dt class="field-odd">attributes<span class="colon">:</span></dt>
+<dd class="field-odd"><div class="line-block">
+<div class="line">LOG_FORMATS - Log formats.</div>
+<div class="line">LOG_LEVELS - Log levels.</div>
+</div>
+</dd>
+<dt class="field-even">methods<span class="colon">:</span></dt>
+<dd class="field-even"><div class="line-block">
+<div class="line">write_log - Writes message to log output.</div>
+<div class="line">is_initialized - Checks if logger component is initialized.</div>
+<div class="line">__str__ - Returns the logger as string representation.</div>
+</div>
+</dd>
+</dl>
+</div></blockquote>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ats_utilities.logging.logger.ilogger.ILogger.LOG_FORMATS">
+<span class="sig-name descname"><span class="pre">LOG_FORMATS</span></span><a class="headerlink" href="#ats_utilities.logging.logger.ilogger.ILogger.LOG_FORMATS" title="Link to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="#ats_utilities.logging.logger.ilogger.LogFormats" title="ats_utilities.logging.logger.ilogger.LogFormats"><code class="xref py py-class docutils literal notranslate"><span class="pre">LogFormats</span></code></a></p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ats_utilities.logging.logger.ilogger.ILogger.LOG_LEVELS">
+<span class="sig-name descname"><span class="pre">LOG_LEVELS</span></span><a class="headerlink" href="#ats_utilities.logging.logger.ilogger.ILogger.LOG_LEVELS" title="Link to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="#ats_utilities.logging.logger.ilogger.LogLevels" title="ats_utilities.logging.logger.ilogger.LogLevels"><code class="xref py py-class docutils literal notranslate"><span class="pre">LogLevels</span></code></a></p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ats_utilities.logging.logger.ilogger.ILogger._abc_impl">
+<span class="sig-name descname"><span class="pre">_abc_impl</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;_abc._abc_data</span> <span class="pre">object&gt;</span></em><a class="headerlink" href="#ats_utilities.logging.logger.ilogger.ILogger._abc_impl" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ats_utilities.logging.logger.ilogger.ILogger.is_initialized">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">is_initialized</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="_modules/ats_utilities/logging/logger/ilogger.html#ILogger.is_initialized"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.logging.logger.ilogger.ILogger.is_initialized" title="Link to this definition">¶</a></dt>
+<dd><p>Checks if logger component is initialized.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>True (success) | False (fail)</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>&lt;bool&gt;</p>
+</dd>
+<dt class="field-odd">Exceptions<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ats_utilities.logging.logger.ilogger.ILogger.write_log">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">write_log</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">message</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ctrl</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="_modules/ats_utilities/logging/logger/ilogger.html#ILogger.write_log"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.logging.logger.ilogger.ILogger.write_log" title="Link to this definition">¶</a></dt>
+<dd><p>Writes message to log output.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>message</strong> (<em>&lt;str&gt;</em>) – Log message.</p></li>
+<li><p><strong>ctrl</strong> (<em>&lt;int&gt;</em>) – Log control flag.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>True (success) | False (fail).</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>&lt;bool&gt;</p>
+</dd>
+<dt class="field-even">Exceptions<span class="colon">:</span></dt>
+<dd class="field-even"><p>None.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="ats_utilities.logging.logger.ilogger.LogFormats">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ats_utilities.logging.logger.ilogger.</span></span><span class="sig-name descname"><span class="pre">LogFormats</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">names=&lt;not</span> <span class="pre">given&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">*values</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">module=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qualname=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">type=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start=1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">boundary=None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ats_utilities/logging/logger/ilogger.html#LogFormats"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.logging.logger.ilogger.LogFormats" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></p>
+<p>Defines class LogFormats with attribute(s).
+Log formats for the logging mechanism.</p>
+<p>It defines:</p>
+<blockquote>
+<div><dl class="field-list">
+<dt class="field-odd">attributes<span class="colon">:</span></dt>
+<dd class="field-odd"><div class="line-block">
+<div class="line">MSG_FORMAT - Log message format.</div>
+<div class="line">DATE_FORMAT - Log date format.</div>
+</div>
+</dd>
+</dl>
+</div></blockquote>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ats_utilities.logging.logger.ilogger.LogFormats.DATE_FORMAT">
+<span class="sig-name descname"><span class="pre">DATE_FORMAT</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'%m/%d/%Y</span> <span class="pre">%I:%M:%S</span> <span class="pre">%p'</span></em><a class="headerlink" href="#ats_utilities.logging.logger.ilogger.LogFormats.DATE_FORMAT" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ats_utilities.logging.logger.ilogger.LogFormats.MSG_FORMAT">
+<span class="sig-name descname"><span class="pre">MSG_FORMAT</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'%(asctime)s</span> <span class="pre">-</span> <span class="pre">%(levelname)s</span> <span class="pre">-</span> <span class="pre">%(message)s'</span></em><a class="headerlink" href="#ats_utilities.logging.logger.ilogger.LogFormats.MSG_FORMAT" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ats_utilities.logging.logger.ilogger.LogFormats._generate_next_value_">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">_generate_next_value_</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">count</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">last_values</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ats_utilities.logging.logger.ilogger.LogFormats._generate_next_value_" title="Link to this definition">¶</a></dt>
+<dd><p>Generate the next value when not given.</p>
+<p>name: the name of the member
+start: the initial start value or None
+count: the number of existing members
+last_values: the list of values assigned</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ats_utilities.logging.logger.ilogger.LogFormats._member_map_">
+<span class="sig-name descname"><span class="pre">_member_map_</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'DATE_FORMAT':</span> <span class="pre">LogFormats.DATE_FORMAT,</span> <span class="pre">'MSG_FORMAT':</span> <span class="pre">LogFormats.MSG_FORMAT}</span></em><a class="headerlink" href="#ats_utilities.logging.logger.ilogger.LogFormats._member_map_" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ats_utilities.logging.logger.ilogger.LogFormats._member_names_">
+<span class="sig-name descname"><span class="pre">_member_names_</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">['MSG_FORMAT',</span> <span class="pre">'DATE_FORMAT']</span></em><a class="headerlink" href="#ats_utilities.logging.logger.ilogger.LogFormats._member_names_" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ats_utilities.logging.logger.ilogger.LogFormats._member_type_">
+<span class="sig-name descname"><span class="pre">_member_type_</span></span><a class="headerlink" href="#ats_utilities.logging.logger.ilogger.LogFormats._member_type_" title="Link to this definition">¶</a></dt>
+<dd><p>alias of <code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ats_utilities.logging.logger.ilogger.LogFormats._new_member_">
+<span class="sig-name descname"><span class="pre">_new_member_</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ats_utilities.logging.logger.ilogger.LogFormats._new_member_" title="Link to this definition">¶</a></dt>
+<dd><p>Create and return a new object.  See help(type) for accurate signature.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ats_utilities.logging.logger.ilogger.LogFormats._unhashable_values_">
+<span class="sig-name descname"><span class="pre">_unhashable_values_</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[]</span></em><a class="headerlink" href="#ats_utilities.logging.logger.ilogger.LogFormats._unhashable_values_" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ats_utilities.logging.logger.ilogger.LogFormats._use_args_">
+<span class="sig-name descname"><span class="pre">_use_args_</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">True</span></em><a class="headerlink" href="#ats_utilities.logging.logger.ilogger.LogFormats._use_args_" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ats_utilities.logging.logger.ilogger.LogFormats._value2member_map_">
+<span class="sig-name descname"><span class="pre">_value2member_map_</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'%(asctime)s</span> <span class="pre">-</span> <span class="pre">%(levelname)s</span> <span class="pre">-</span> <span class="pre">%(message)s':</span> <span class="pre">LogFormats.MSG_FORMAT,</span> <span class="pre">'%m/%d/%Y</span> <span class="pre">%I:%M:%S</span> <span class="pre">%p':</span> <span class="pre">LogFormats.DATE_FORMAT}</span></em><a class="headerlink" href="#ats_utilities.logging.logger.ilogger.LogFormats._value2member_map_" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ats_utilities.logging.logger.ilogger.LogFormats._value_repr_">
+<span class="sig-name descname"><span class="pre">_value_repr_</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ats_utilities.logging.logger.ilogger.LogFormats._value_repr_" title="Link to this definition">¶</a></dt>
+<dd><p>Return repr(self).</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="ats_utilities.logging.logger.ilogger.LogLevels">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ats_utilities.logging.logger.ilogger.</span></span><span class="sig-name descname"><span class="pre">LogLevels</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">names=&lt;not</span> <span class="pre">given&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">*values</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">module=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qualname=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">type=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start=1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">boundary=None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ats_utilities/logging/logger/ilogger.html#LogLevels"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.logging.logger.ilogger.LogLevels" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></p>
+<p>Defines class LogLevels with attribute(s).
+Log levels for the logging mechanism.</p>
+<p>It defines:</p>
+<blockquote>
+<div><dl class="field-list">
+<dt class="field-odd">attributes<span class="colon">:</span></dt>
+<dd class="field-odd"><div class="line-block">
+<div class="line">DEBUG - Debug log level.</div>
+<div class="line">INFO - Info log level.</div>
+<div class="line">WARNING - Warning log level.</div>
+<div class="line">ERROR - Error log level.</div>
+<div class="line">CRITICAL - Critical log level.</div>
+</div>
+</dd>
+</dl>
+</div></blockquote>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ats_utilities.logging.logger.ilogger.LogLevels.CRITICAL">
+<span class="sig-name descname"><span class="pre">CRITICAL</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">50</span></em><a class="headerlink" href="#ats_utilities.logging.logger.ilogger.LogLevels.CRITICAL" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ats_utilities.logging.logger.ilogger.LogLevels.DEBUG">
+<span class="sig-name descname"><span class="pre">DEBUG</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">10</span></em><a class="headerlink" href="#ats_utilities.logging.logger.ilogger.LogLevels.DEBUG" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ats_utilities.logging.logger.ilogger.LogLevels.ERROR">
+<span class="sig-name descname"><span class="pre">ERROR</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">40</span></em><a class="headerlink" href="#ats_utilities.logging.logger.ilogger.LogLevels.ERROR" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ats_utilities.logging.logger.ilogger.LogLevels.INFO">
+<span class="sig-name descname"><span class="pre">INFO</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">20</span></em><a class="headerlink" href="#ats_utilities.logging.logger.ilogger.LogLevels.INFO" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ats_utilities.logging.logger.ilogger.LogLevels.WARNING">
+<span class="sig-name descname"><span class="pre">WARNING</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">30</span></em><a class="headerlink" href="#ats_utilities.logging.logger.ilogger.LogLevels.WARNING" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ats_utilities.logging.logger.ilogger.LogLevels._generate_next_value_">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">_generate_next_value_</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">count</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">last_values</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ats_utilities.logging.logger.ilogger.LogLevels._generate_next_value_" title="Link to this definition">¶</a></dt>
+<dd><p>Generate the next value when not given.</p>
+<p>name: the name of the member
+start: the initial start value or None
+count: the number of existing members
+last_values: the list of values assigned</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ats_utilities.logging.logger.ilogger.LogLevels._member_map_">
+<span class="sig-name descname"><span class="pre">_member_map_</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'CRITICAL':</span> <span class="pre">LogLevels.CRITICAL,</span> <span class="pre">'DEBUG':</span> <span class="pre">LogLevels.DEBUG,</span> <span class="pre">'ERROR':</span> <span class="pre">LogLevels.ERROR,</span> <span class="pre">'INFO':</span> <span class="pre">LogLevels.INFO,</span> <span class="pre">'WARNING':</span> <span class="pre">LogLevels.WARNING}</span></em><a class="headerlink" href="#ats_utilities.logging.logger.ilogger.LogLevels._member_map_" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ats_utilities.logging.logger.ilogger.LogLevels._member_names_">
+<span class="sig-name descname"><span class="pre">_member_names_</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">['DEBUG',</span> <span class="pre">'INFO',</span> <span class="pre">'WARNING',</span> <span class="pre">'ERROR',</span> <span class="pre">'CRITICAL']</span></em><a class="headerlink" href="#ats_utilities.logging.logger.ilogger.LogLevels._member_names_" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ats_utilities.logging.logger.ilogger.LogLevels._member_type_">
+<span class="sig-name descname"><span class="pre">_member_type_</span></span><a class="headerlink" href="#ats_utilities.logging.logger.ilogger.LogLevels._member_type_" title="Link to this definition">¶</a></dt>
+<dd><p>alias of <code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ats_utilities.logging.logger.ilogger.LogLevels._new_member_">
+<span class="sig-name descname"><span class="pre">_new_member_</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ats_utilities.logging.logger.ilogger.LogLevels._new_member_" title="Link to this definition">¶</a></dt>
+<dd><p>Create and return a new object.  See help(type) for accurate signature.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ats_utilities.logging.logger.ilogger.LogLevels._unhashable_values_">
+<span class="sig-name descname"><span class="pre">_unhashable_values_</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[]</span></em><a class="headerlink" href="#ats_utilities.logging.logger.ilogger.LogLevels._unhashable_values_" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ats_utilities.logging.logger.ilogger.LogLevels._use_args_">
+<span class="sig-name descname"><span class="pre">_use_args_</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">True</span></em><a class="headerlink" href="#ats_utilities.logging.logger.ilogger.LogLevels._use_args_" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ats_utilities.logging.logger.ilogger.LogLevels._value2member_map_">
+<span class="sig-name descname"><span class="pre">_value2member_map_</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{10:</span> <span class="pre">LogLevels.DEBUG,</span> <span class="pre">20:</span> <span class="pre">LogLevels.INFO,</span> <span class="pre">30:</span> <span class="pre">LogLevels.WARNING,</span> <span class="pre">40:</span> <span class="pre">LogLevels.ERROR,</span> <span class="pre">50:</span> <span class="pre">LogLevels.CRITICAL}</span></em><a class="headerlink" href="#ats_utilities.logging.logger.ilogger.LogLevels._value2member_map_" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ats_utilities.logging.logger.ilogger.LogLevels._value_repr_">
+<span class="sig-name descname"><span class="pre">_value_repr_</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ats_utilities.logging.logger.ilogger.LogLevels._value_repr_" title="Link to this definition">¶</a></dt>
+<dd><p>Return repr(self).</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h3><a href="index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">ats_utilities.logging.logger.ilogger module</a><ul>
+<li><a class="reference internal" href="#ats_utilities.logging.logger.ilogger.ILogger"><code class="docutils literal notranslate"><span class="pre">ILogger</span></code></a><ul>
+<li><a class="reference internal" href="#ats_utilities.logging.logger.ilogger.ILogger.LOG_FORMATS"><code class="docutils literal notranslate"><span class="pre">ILogger.LOG_FORMATS</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.logging.logger.ilogger.ILogger.LOG_LEVELS"><code class="docutils literal notranslate"><span class="pre">ILogger.LOG_LEVELS</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.logging.logger.ilogger.ILogger._abc_impl"><code class="docutils literal notranslate"><span class="pre">ILogger._abc_impl</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.logging.logger.ilogger.ILogger.is_initialized"><code class="docutils literal notranslate"><span class="pre">ILogger.is_initialized()</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.logging.logger.ilogger.ILogger.write_log"><code class="docutils literal notranslate"><span class="pre">ILogger.write_log()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#ats_utilities.logging.logger.ilogger.LogFormats"><code class="docutils literal notranslate"><span class="pre">LogFormats</span></code></a><ul>
+<li><a class="reference internal" href="#ats_utilities.logging.logger.ilogger.LogFormats.DATE_FORMAT"><code class="docutils literal notranslate"><span class="pre">LogFormats.DATE_FORMAT</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.logging.logger.ilogger.LogFormats.MSG_FORMAT"><code class="docutils literal notranslate"><span class="pre">LogFormats.MSG_FORMAT</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.logging.logger.ilogger.LogFormats._generate_next_value_"><code class="docutils literal notranslate"><span class="pre">LogFormats._generate_next_value_()</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.logging.logger.ilogger.LogFormats._member_map_"><code class="docutils literal notranslate"><span class="pre">LogFormats._member_map_</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.logging.logger.ilogger.LogFormats._member_names_"><code class="docutils literal notranslate"><span class="pre">LogFormats._member_names_</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.logging.logger.ilogger.LogFormats._member_type_"><code class="docutils literal notranslate"><span class="pre">LogFormats._member_type_</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.logging.logger.ilogger.LogFormats._new_member_"><code class="docutils literal notranslate"><span class="pre">LogFormats._new_member_()</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.logging.logger.ilogger.LogFormats._unhashable_values_"><code class="docutils literal notranslate"><span class="pre">LogFormats._unhashable_values_</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.logging.logger.ilogger.LogFormats._use_args_"><code class="docutils literal notranslate"><span class="pre">LogFormats._use_args_</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.logging.logger.ilogger.LogFormats._value2member_map_"><code class="docutils literal notranslate"><span class="pre">LogFormats._value2member_map_</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.logging.logger.ilogger.LogFormats._value_repr_"><code class="docutils literal notranslate"><span class="pre">LogFormats._value_repr_()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#ats_utilities.logging.logger.ilogger.LogLevels"><code class="docutils literal notranslate"><span class="pre">LogLevels</span></code></a><ul>
+<li><a class="reference internal" href="#ats_utilities.logging.logger.ilogger.LogLevels.CRITICAL"><code class="docutils literal notranslate"><span class="pre">LogLevels.CRITICAL</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.logging.logger.ilogger.LogLevels.DEBUG"><code class="docutils literal notranslate"><span class="pre">LogLevels.DEBUG</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.logging.logger.ilogger.LogLevels.ERROR"><code class="docutils literal notranslate"><span class="pre">LogLevels.ERROR</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.logging.logger.ilogger.LogLevels.INFO"><code class="docutils literal notranslate"><span class="pre">LogLevels.INFO</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.logging.logger.ilogger.LogLevels.WARNING"><code class="docutils literal notranslate"><span class="pre">LogLevels.WARNING</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.logging.logger.ilogger.LogLevels._generate_next_value_"><code class="docutils literal notranslate"><span class="pre">LogLevels._generate_next_value_()</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.logging.logger.ilogger.LogLevels._member_map_"><code class="docutils literal notranslate"><span class="pre">LogLevels._member_map_</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.logging.logger.ilogger.LogLevels._member_names_"><code class="docutils literal notranslate"><span class="pre">LogLevels._member_names_</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.logging.logger.ilogger.LogLevels._member_type_"><code class="docutils literal notranslate"><span class="pre">LogLevels._member_type_</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.logging.logger.ilogger.LogLevels._new_member_"><code class="docutils literal notranslate"><span class="pre">LogLevels._new_member_()</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.logging.logger.ilogger.LogLevels._unhashable_values_"><code class="docutils literal notranslate"><span class="pre">LogLevels._unhashable_values_</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.logging.logger.ilogger.LogLevels._use_args_"><code class="docutils literal notranslate"><span class="pre">LogLevels._use_args_</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.logging.logger.ilogger.LogLevels._value2member_map_"><code class="docutils literal notranslate"><span class="pre">LogLevels._value2member_map_</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.logging.logger.ilogger.LogLevels._value_repr_"><code class="docutils literal notranslate"><span class="pre">LogLevels._value_repr_()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="ats_utilities.logging.logger.html"
+                          title="previous chapter">ats_utilities.logging.logger package</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="ats_utilities.logging.logger.logger.html"
+                          title="next chapter">ats_utilities.logging.logger.logger module</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/ats_utilities.logging.logger.ilogger.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="ats_utilities.logging.logger.logger.html" title="ats_utilities.logging.logger.logger module"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="ats_utilities.logging.logger.html" title="ats_utilities.logging.logger package"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">ats_utilities https://github.com/vroncevic/ats_utilities/releases documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="modules.html" >ats_utilities</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="ats_utilities.html" >ats_utilities package</a> &#187;</li>
+          <li class="nav-item nav-item-3"><a href="ats_utilities.logging.html" >ats_utilities.logging package</a> &#187;</li>
+          <li class="nav-item nav-item-4"><a href="ats_utilities.logging.logger.html" >ats_utilities.logging.logger package</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">ats_utilities.logging.logger.ilogger module</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+    &#169; Copyright 2026, https://vroncevic.github.io/ats_utilities.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.2.6.
+    </div>
+  </body>
+</html>

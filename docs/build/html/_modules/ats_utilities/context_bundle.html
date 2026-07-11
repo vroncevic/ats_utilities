@@ -58,25 +58,34 @@
 <span class="sd">    Encapsulates core runtime components for simplifcation.</span>
 <span class="sd">&#39;&#39;&#39;</span>
 
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span>
-<span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.checker.ichecker</span> <span class="kn">import</span> <span class="n">IChecker</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.reporter.ireporter</span> <span class="kn">import</span> <span class="n">IReporter</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.exceptions.ats_value_error</span> <span class="kn">import</span> <span class="n">ATSValueError</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
 
-<span class="n">__author__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;Vladimir Roncevic&#39;</span>
-<span class="n">__copyright__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;(C) 2026, https://vroncevic.github.io/ats_utilities&#39;</span>
-<span class="n">__credits__</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Vladimir Roncevic&#39;</span><span class="p">,</span> <span class="s1">&#39;Python Software Foundation&#39;</span><span class="p">]</span>
-<span class="n">__license__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE&#39;</span>
-<span class="n">__version__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;3.4.1&#39;</span>
-<span class="n">__maintainer__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;Vladimir Roncevic&#39;</span>
-<span class="n">__email__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;elektron.ronca@gmail.com&#39;</span>
-<span class="n">__status__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;Updated&#39;</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span>
+<span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span><span class="p">,</span> <span class="n">asdict</span>
+
+<span class="kn">from</span> <span class="nn">ats_utilities.checker.ichecker</span> <span class="kn">import</span> <span class="n">IChecker</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.checker.engine</span> <span class="kn">import</span> <span class="n">Checker</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.checker.component_bundle</span> <span class="kn">import</span> <span class="n">CheckerComponentBundle</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.reporter.ireporter</span> <span class="kn">import</span> <span class="n">IReporter</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.reporter.engine</span> <span class="kn">import</span> <span class="n">Reporter</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.reporter.theme.engine</span> <span class="kn">import</span> <span class="n">ConsoleTheme</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.reporter.component_bundle</span> <span class="kn">import</span> <span class="n">ReporterComponentBundle</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.factory_value</span> <span class="kn">import</span> <span class="n">require_not_none</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.factory_type</span> <span class="kn">import</span> <span class="n">check_type</span>
+
+<span class="n">__author__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;Vladimir Roncevic&#39;</span>
+<span class="n">__copyright__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;(C) 2026, https://vroncevic.github.io/ats_utilities&#39;</span>
+<span class="n">__credits__</span> <span class="o">=</span> <span class="p">[</span><span class="sa">r</span><span class="s1">&#39;Vladimir Roncevic&#39;</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;Python Software Foundation&#39;</span><span class="p">]</span>
+<span class="n">__license__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE&#39;</span>
+<span class="n">__version__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;3.4.2&#39;</span>
+<span class="n">__maintainer__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;Vladimir Roncevic&#39;</span>
+<span class="n">__email__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;elektron.ronca@gmail.com&#39;</span>
+<span class="n">__status__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;Updated&#39;</span>
 
 
 <div class="viewcode-block" id="ContextBundle">
 <a class="viewcode-back" href="../../ats_utilities.context_bundle.html#ats_utilities.context_bundle.ContextBundle">[docs]</a>
-<span class="nd">@dataclass</span>
+<span class="nd">@dataclass</span><span class="p">(</span><span class="n">slots</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">kw_only</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="k">class</span> <span class="nc">ContextBundle</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Encapsulates core runtime components for simplifcation.</span>
@@ -89,64 +98,90 @@
 <span class="sd">                | reporter - Reporter for providing all types of messages (default None).</span>
 <span class="sd">                | verbose - Flag for enabling verbose output (default False).</span>
 <span class="sd">            :methods:</span>
-<span class="sd">                | validate - Validates that essential components are set.</span>
+<span class="sd">                | __post_init__ - Post-initialization hook to set up default components if not provided.</span>
+<span class="sd">                | validate - Validates that ContextBundle is valid (can be called after merge).</span>
 <span class="sd">                | merge - Merges non-None values from another bundle into this one.</span>
-<span class="sd">                | to_dict - Converts the bundle attributes to a dictionary.</span>
+<span class="sd">                | to_dict - Converts the ContextBundle instance to a dictionary.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
 
     <span class="n">checker</span><span class="p">:</span> <span class="n">IChecker</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">reporter</span><span class="p">:</span> <span class="n">IReporter</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">verbose</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
 
+    <span class="k">def</span> <span class="nf">__post_init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">            Post-initialization hook to set up default components if not provided.</span>
+<span class="sd">            Initializes Checker if None, then uses it to initialize Reporter.</span>
+
+<span class="sd">            :exceptions: None.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">checker</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">checker</span> <span class="o">=</span> <span class="n">Checker</span><span class="p">(</span><span class="n">component_bundle</span><span class="o">=</span><span class="n">CheckerComponentBundle</span><span class="p">())</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">reporter</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">reporter</span> <span class="o">=</span> <span class="n">Reporter</span><span class="p">(</span>
+                <span class="n">component_bundle</span><span class="o">=</span><span class="n">ReporterComponentBundle</span><span class="p">(</span>
+                    <span class="n">checker</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">checker</span><span class="p">,</span> <span class="n">theme</span><span class="o">=</span><span class="n">ConsoleTheme</span><span class="p">()</span>
+                <span class="p">)</span>
+            <span class="p">)</span>
+
 <div class="viewcode-block" id="ContextBundle.validate">
 <a class="viewcode-back" href="../../ats_utilities.context_bundle.html#ats_utilities.context_bundle.ContextBundle.validate">[docs]</a>
     <span class="k">def</span> <span class="nf">validate</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">            Validates that essential components are set.</span>
+<span class="sd">            Validates that ContextBundle is valid (can be called after merge).</span>
+<span class="sd">            Performs validation of checker, reporter and verbose attributes.</span>
+<span class="sd">            Checker must be non-None and an instance of IChecker interface.</span>
+<span class="sd">            Reporter must be non-None and an instance of IReporter interface.</span>
+<span class="sd">            Verbose must be boolean.</span>
 
 <span class="sd">            :exceptions:</span>
 <span class="sd">                | ATSValueError: Checker must be provided.</span>
 <span class="sd">                | ATSValueError: Reporter must be provided.</span>
+<span class="sd">                | ATSTypeError: Checker must be an instance of IChecker interface.</span>
+<span class="sd">                | ATSTypeError: Reporter must be an instance of IReporter interface.</span>
+<span class="sd">                | ATSTypeError: Verbose must be a boolean.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">checker</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="n">ATSValueError</span><span class="p">(</span><span class="s1">&#39;checker must be provided.&#39;</span><span class="p">)</span>
-
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">reporter</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="n">ATSValueError</span><span class="p">(</span><span class="s1">&#39;reporter must be provided.&#39;</span><span class="p">)</span></div>
+        <span class="n">require_not_none</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">checker</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;checker must be provided&#39;</span><span class="p">)</span>
+        <span class="n">require_not_none</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">reporter</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;reporter must be provided&#39;</span><span class="p">)</span>
+        <span class="n">check_type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">checker</span><span class="p">,</span> <span class="n">IChecker</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;checker must be an instance of IChecker interface&#39;</span><span class="p">)</span>
+        <span class="n">check_type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">reporter</span><span class="p">,</span> <span class="n">IReporter</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;reporter must be an instance of IReporter interface&#39;</span><span class="p">)</span>
+        <span class="n">check_type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">verbose</span><span class="p">,</span> <span class="nb">bool</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;verbose must be a boolean&#39;</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="ContextBundle.merge">
 <a class="viewcode-back" href="../../ats_utilities.context_bundle.html#ats_utilities.context_bundle.ContextBundle.merge">[docs]</a>
-    <span class="k">def</span> <span class="nf">merge</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="s1">&#39;ContextBundle&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">merge</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="n">ContextBundle</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Merges non-None values from another bundle into this one.</span>
 
 <span class="sd">            :param other: Another bundle to merge into this one.</span>
 <span class="sd">            :type other: &lt;ContextBundle&gt;</span>
-<span class="sd">            :exceptions: None.</span>
+<span class="sd">            :exceptions:</span>
+<span class="sd">                | ATSTypeError: Other must be a ContextBundle instance.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
+        <span class="n">check_type</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">ContextBundle</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;other must be a ContextBundle instance&#39;</span><span class="p">)</span>
+
         <span class="k">for</span> <span class="n">field_name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">__dataclass_fields__</span><span class="p">:</span>
             <span class="n">other_value</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">field_name</span><span class="p">)</span>
 
             <span class="k">if</span> <span class="n">other_value</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-                <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">field_name</span><span class="p">,</span> <span class="n">other_value</span><span class="p">)</span></div>
+                <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">field_name</span><span class="p">,</span> <span class="n">other_value</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">validate</span><span class="p">()</span></div>
 
 
 <div class="viewcode-block" id="ContextBundle.to_dict">
 <a class="viewcode-back" href="../../ats_utilities.context_bundle.html#ats_utilities.context_bundle.ContextBundle.to_dict">[docs]</a>
     <span class="k">def</span> <span class="nf">to_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">            Converts the bundle attributes to a dictionary.</span>
+<span class="sd">            Converts the ContextBundle instance to a dictionary.</span>
 
-<span class="sd">            :return: Dictionary representation of the bundle attributes.</span>
+<span class="sd">            :return: Dictionary representation of the ContextBundle instance.</span>
 <span class="sd">            :rtype: &lt;dict[str, Any]&gt;</span>
 <span class="sd">            :exceptions: None.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="k">return</span> <span class="p">{</span>
-            <span class="n">name</span><span class="p">:</span> <span class="n">value</span>
-            <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
-            <span class="k">if</span> <span class="ow">not</span> <span class="n">name</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;_&#39;</span><span class="p">)</span>
-        <span class="p">}</span></div>
+        <span class="k">return</span> <span class="n">asdict</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div>
 </div>
 
 </pre></div>

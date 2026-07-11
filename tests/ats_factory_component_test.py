@@ -25,16 +25,16 @@ Execute
 from unittest import TestCase, main
 from unittest.mock import MagicMock
 from ats_utilities.factory_component import make_component, validate_component
-from ats_utilities.exceptions.ats_type_error import ATSTypeError
+from ats_utilities.exceptions import ATSTypeError
 
-__author__: str = 'Vladimir Roncevic'
-__copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
-__license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.4.1'
-__maintainer__: str = 'Vladimir Roncevic'
-__email__: str = 'elektron.ronca@gmail.com'
-__status__: str = 'Updated'
+__author__ = r'Vladimir Roncevic'
+__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
+__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = r'3.4.2'
+__maintainer__ = r'Vladimir Roncevic'
+__email__ = r'elektron.ronca@gmail.com'
+__status__ = r'Updated'
 
 
 class DummyComponent:
@@ -43,7 +43,6 @@ class DummyComponent:
 
         It defines:
 
-            :attributes: None
             :methods: None.    '''
 
     def __init__(self, val: str = 'default') -> None:
@@ -65,7 +64,6 @@ class ATSFactoryComponentTestCase(TestCase):
 
         It defines:
 
-            :attributes: None
             :methods:
                 | test_make_component_existing - Test make_component with existing instance.
                 | test_make_component_new - Test make_component instantiating default class.
@@ -113,7 +111,7 @@ class ATSFactoryComponentTestCase(TestCase):
             :exceptions: None.
         '''
         instance = DummyComponent()
-        validate_component(instance, DummyComponent)
+        validate_component(instance, DummyComponent, 'instance must be a DummyComponent instance')
 
     def test_validate_component_mock_success(self) -> None:
         '''
@@ -122,7 +120,7 @@ class ATSFactoryComponentTestCase(TestCase):
             :exceptions: None.
         '''
         instance = MagicMock(spec=DummyComponent)
-        validate_component(instance, DummyComponent)
+        validate_component(instance, DummyComponent, 'instance must be a DummyComponent instance')
 
     def test_validate_component_failure(self) -> None:
         '''
@@ -132,7 +130,20 @@ class ATSFactoryComponentTestCase(TestCase):
         '''
         instance = "not a dummy component"
         with self.assertRaises(ATSTypeError):
-            validate_component(instance, DummyComponent)
+            validate_component(instance, DummyComponent, 'instance must be a DummyComponent instance')
+
+    def test_inject_dependency_none(self) -> None:
+        '''Test inject when depends_on dependency is None/missing in instance.__dict__.'''
+        from ats_utilities.factory_class import inject
+        
+        class MockInstance:
+            def __init__(self) -> None:
+                self._dep_name = None
+        
+        inst = MockInstance()
+        inject(inst, ('comp', None, DummyComponent, 'dep_name'))
+        self.assertIsInstance(inst._comp, DummyComponent)
+        self.assertEqual(inst._comp.val, 'default')
 
 
 if __name__ == '__main__':

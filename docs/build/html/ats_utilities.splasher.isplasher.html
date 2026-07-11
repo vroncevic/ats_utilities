@@ -15,8 +15,8 @@
     
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="ats_utilities.splasher.iterminal_properties module" href="ats_utilities.splasher.iterminal_properties.html" />
-    <link rel="prev" title="ats_utilities.splasher.isplash_property module" href="ats_utilities.splasher.isplash_property.html" /> 
+    <link rel="next" title="ats_utilities.splasher.splash_center_bundle module" href="ats_utilities.splasher.splash_center_bundle.html" />
+    <link rel="prev" title="ats_utilities.splasher.engine module" href="ats_utilities.splasher.engine.html" /> 
   </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
@@ -28,10 +28,10 @@
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="ats_utilities.splasher.iterminal_properties.html" title="ats_utilities.splasher.iterminal_properties module"
+          <a href="ats_utilities.splasher.splash_center_bundle.html" title="ats_utilities.splasher.splash_center_bundle module"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="ats_utilities.splasher.isplash_property.html" title="ats_utilities.splasher.isplash_property module"
+          <a href="ats_utilities.splasher.engine.html" title="ats_utilities.splasher.engine module"
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">ats_utilities https://github.com/vroncevic/ats_utilities/releases documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="modules.html" >ats_utilities</a> &#187;</li>
@@ -64,7 +64,7 @@ You should have received a copy of the GNU General Public License along
 with this program. If not, see &lt;<a class="reference external" href="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</a>&gt;.</p>
 </dd>
 <dt>Info</dt><dd><p>Defines abstract class ISplasher with method(s).
-Interface for splash screen component.</p>
+Interface for splash screen.</p>
 </dd>
 </dl>
 <dl class="py class">
@@ -72,19 +72,16 @@ Interface for splash screen component.</p>
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ats_utilities.splasher.isplasher.</span></span><span class="sig-name descname"><span class="pre">ISplasher</span></span><a class="reference internal" href="_modules/ats_utilities/splasher/isplasher.html#ISplasher"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.splasher.isplasher.ISplasher" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">ABC</span></code></p>
 <p>Defines abstract class ISplasher with method(s).
-Interface for splash screen component.</p>
+Interface for splash screen.</p>
 <p>It defines:</p>
 <blockquote>
 <div><dl class="field-list">
-<dt class="field-odd">attributes<span class="colon">:</span></dt>
-<dd class="field-odd"><p>None</p>
-</dd>
-<dt class="field-even">methods<span class="colon">:</span></dt>
-<dd class="field-even"><div class="line-block">
+<dt class="field-odd">methods<span class="colon">:</span></dt>
+<dd class="field-odd"><div class="line-block">
 <div class="line">get_shared_context - Returns the shared context.</div>
 <div class="line">center - Centers console line.</div>
-<div class="line">is_initialized - Checks if splasher component is initialized.</div>
-<div class="line">__str__ - Returns the splash screen component as string representation.</div>
+<div class="line">is_initialized - Checks if splasher is initialized.</div>
+<div class="line">__str__ - Returns the splash screen as string representation.</div>
 </div>
 </dd>
 </dl>
@@ -110,14 +107,14 @@ Interface for splash screen component.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="ats_utilities.splasher.isplasher.ISplasher.get_shared_context">
-<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_shared_context</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="ats_utilities.context_bundle.html#ats_utilities.context_bundle.ContextBundle" title="ats_utilities.context_bundle.ContextBundle"><span class="pre">ContextBundle</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></span><a class="reference internal" href="_modules/ats_utilities/splasher/isplasher.html#ISplasher.get_shared_context"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.splasher.isplasher.ISplasher.get_shared_context" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_shared_context</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="ats_utilities.context_bundle.html#ats_utilities.context_bundle.ContextBundle" title="ats_utilities.context_bundle.ContextBundle"><span class="pre">ContextBundle</span></a></span></span><a class="reference internal" href="_modules/ats_utilities/splasher/isplasher.html#ISplasher.get_shared_context"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.splasher.isplasher.ISplasher.get_shared_context" title="Link to this definition">¶</a></dt>
 <dd><p>Returns the shared context.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Shared context | None.</p>
+<dd class="field-odd"><p>Shared context.</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>&lt;ContextBundle | None&gt;</p>
+<dd class="field-even"><p>&lt;ContextBundle&gt;</p>
 </dd>
 <dt class="field-odd">Exceptions<span class="colon">:</span></dt>
 <dd class="field-odd"><p>None.</p>
@@ -128,7 +125,7 @@ Interface for splash screen component.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="ats_utilities.splasher.isplasher.ISplasher.is_initialized">
 <em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">is_initialized</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="_modules/ats_utilities/splasher/isplasher.html#ISplasher.is_initialized"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.splasher.isplasher.ISplasher.is_initialized" title="Link to this definition">¶</a></dt>
-<dd><p>Checks if splasher component is initialized.</p>
+<dd><p>Checks if splasher is initialized.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>True (success) | False (fail)</p>
@@ -171,13 +168,13 @@ Interface for splash screen component.</p>
   </div>
   <div>
     <h4>Previous topic</h4>
-    <p class="topless"><a href="ats_utilities.splasher.isplash_property.html"
-                          title="previous chapter">ats_utilities.splasher.isplash_property module</a></p>
+    <p class="topless"><a href="ats_utilities.splasher.engine.html"
+                          title="previous chapter">ats_utilities.splasher.engine module</a></p>
   </div>
   <div>
     <h4>Next topic</h4>
-    <p class="topless"><a href="ats_utilities.splasher.iterminal_properties.html"
-                          title="next chapter">ats_utilities.splasher.iterminal_properties module</a></p>
+    <p class="topless"><a href="ats_utilities.splasher.splash_center_bundle.html"
+                          title="next chapter">ats_utilities.splasher.splash_center_bundle module</a></p>
   </div>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
@@ -210,10 +207,10 @@ Interface for splash screen component.</p>
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="ats_utilities.splasher.iterminal_properties.html" title="ats_utilities.splasher.iterminal_properties module"
+          <a href="ats_utilities.splasher.splash_center_bundle.html" title="ats_utilities.splasher.splash_center_bundle module"
              >next</a> |</li>
         <li class="right" >
-          <a href="ats_utilities.splasher.isplash_property.html" title="ats_utilities.splasher.isplash_property module"
+          <a href="ats_utilities.splasher.engine.html" title="ats_utilities.splasher.engine module"
              >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">ats_utilities https://github.com/vroncevic/ats_utilities/releases documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="modules.html" >ats_utilities</a> &#187;</li>

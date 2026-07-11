@@ -20,28 +20,31 @@ Info
     Stores the ATS configuration for the ATS.
 '''
 
+from __future__ import annotations
+
 from typing import override
+
 from ats_utilities.config_io.iwrite import IWrite
 from ats_utilities.config_io.istorer import IStorer
-from ats_utilities.config_io.config_file_bundle import ATSConfigFileBundle
+from ats_utilities.config_io.config_file_bundle import ConfigFileBundle
 from ats_utilities.config_io.cfg.object2cfg import Object2Cfg
 from ats_utilities.config_io.cfg.cfg_processor import CFGProcessor
 from ats_utilities.config_io.cfg.icfg_processor import ICFGProcessor
 from ats_utilities.checker.ichecker import IChecker
 from ats_utilities.reporter.ireporter import IReporter
-from ats_utilities.checker.proxy_validator import validator
+from ats_utilities.checker.proxy_validator import vcheck
 from ats_utilities.factory_context_bundle import factory_context_bundle
 from ats_utilities.factory_component import make_component, validate_component
-from ats_utilities.factory_class import format_instance_to_string
+from ats_utilities.factory_class import to_str
 
-__author__: str = 'Vladimir Roncevic'
-__copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
-__license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.4.1'
-__maintainer__: str = 'Vladimir Roncevic'
-__email__: str = 'elektron.ronca@gmail.com'
-__status__: str = 'Updated'
+__author__ = r'Vladimir Roncevic'
+__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
+__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = r'3.4.2'
+__maintainer__ = r'Vladimir Roncevic'
+__email__ = r'elektron.ronca@gmail.com'
+__status__ = r'Updated'
 
 
 class CFGStorer(IStorer):
@@ -67,12 +70,14 @@ class CFGStorer(IStorer):
     _checker: IChecker
     _reporter: IReporter
     _verbose: bool
+    _processor: ICFGProcessor
+    _obj2cfg: IWrite
 
     def __init__(
         self,
         info_file: str | None = None,
         object2cfg: IWrite | None = None,
-        config_bundle: ATSConfigFileBundle | None = None,
+        config_bundle: ConfigFileBundle | None = None,
         cfg_processor: ICFGProcessor | None = None
     ) -> None:
         '''
@@ -83,22 +88,22 @@ class CFGStorer(IStorer):
             :param object2cfg: An API for information | None.
             :type object2cfg: <IWrite | None>
             :param config_bundle: Configuration bundle | None.
-            :type config_bundle: <ATSConfigFileBundle | None>
+            :type config_bundle: <ConfigFileBundle | None>
             :param cfg_processor: Processor for CFG content | None.
             :type cfg_processor: <ICFGProcessor | None>
             :exceptions:
                 | ATSTypeError: Invalid type in constructor arguments.
         '''
-        config_file_bundle: ATSConfigFileBundle = config_bundle or ATSConfigFileBundle()
+        config_file_bundle: ConfigFileBundle = config_bundle or ConfigFileBundle()
         factory_context_bundle(self, config_file_bundle.context)
-        self._processor: ICFGProcessor = make_component(cfg_processor, CFGProcessor, None)
-        validate_component(self._processor, CFGProcessor)
-        self._obj2cfg: IWrite = make_component(object2cfg, Object2Cfg, {
+        self._processor = make_component(cfg_processor, CFGProcessor, None)
+        validate_component(self._processor, ICFGProcessor, r'processor must be an ICFGProcessor instance')
+        self._obj2cfg = make_component(object2cfg, Object2Cfg, {
             'config_file': info_file, 'config_bundle': config_file_bundle
         })
-        validate_component(self._obj2cfg, Object2Cfg)
+        validate_component(self._obj2cfg, IWrite, r'obj2cfg must be an IWrite instance')
 
-    @validator([('dict:config', None)])
+    @vcheck([('dict:config', None)])
     @override
     def store_configuration(self, config: dict[str, str]) -> bool:
         '''
@@ -128,4 +133,4 @@ class CFGStorer(IStorer):
             :rtype: <str>
             :exceptions: None.
         '''
-        return format_instance_to_string(self)
+        return to_str(self)

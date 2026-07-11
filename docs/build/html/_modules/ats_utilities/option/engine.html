@@ -58,35 +58,33 @@
 <span class="sd">    Creates an option parser based on the argparse argument processor.</span>
 <span class="sd">&#39;&#39;&#39;</span>
 
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">override</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.option.ioption_parser</span> <span class="kn">import</span> <span class="n">IOptionManager</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.option.component_bundle</span> <span class="kn">import</span> <span class="n">OptionComponentBundle</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.context_bundle</span> <span class="kn">import</span> <span class="n">ContextBundle</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.checker.ichecker</span> <span class="kn">import</span> <span class="n">IChecker</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.reporter.ireporter</span> <span class="kn">import</span> <span class="n">IReporter</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.option.iparser_strategy</span> <span class="kn">import</span> <span class="n">IParserStrategy</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.option.parser_strategy</span> <span class="kn">import</span> <span class="n">ParserStrategy</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.option.option_namespace</span> <span class="kn">import</span> <span class="n">OptionNamespace</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.option.option_namespace</span> <span class="kn">import</span> <span class="n">OptArgs</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.option.ioption_command</span> <span class="kn">import</span> <span class="n">IOptionCommand</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.exceptions.ats_type_error</span> <span class="kn">import</span> <span class="n">ATSTypeError</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.exceptions.ats_value_error</span> <span class="kn">import</span> <span class="n">ATSValueError</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.exceptions.ats_runtime_error</span> <span class="kn">import</span> <span class="n">ATSRuntimeError</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.exceptions.ats_attribute_error</span> <span class="kn">import</span> <span class="n">ATSAttributeError</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.checker.proxy_validator</span> <span class="kn">import</span> <span class="n">validator</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.reporter.proxy_reporter</span> <span class="kn">import</span> <span class="n">vreporter</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.factory_context_bundle</span> <span class="kn">import</span> <span class="n">factory_context_bundle</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.factory_class</span> <span class="kn">import</span> <span class="n">require_attributes</span><span class="p">,</span> <span class="n">get_class_name</span><span class="p">,</span> <span class="n">format_instance_to_string</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.factory_component</span> <span class="kn">import</span> <span class="n">make_component</span><span class="p">,</span> <span class="n">validate_component</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
 
-<span class="n">__author__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;Vladimir Roncevic&#39;</span>
-<span class="n">__copyright__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;(C) 2026, https://vroncevic.github.io/ats_utilities&#39;</span>
-<span class="n">__credits__</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Vladimir Roncevic&#39;</span><span class="p">,</span> <span class="s1">&#39;Python Software Foundation&#39;</span><span class="p">]</span>
-<span class="n">__license__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE&#39;</span>
-<span class="n">__version__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;3.4.1&#39;</span>
-<span class="n">__maintainer__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;Vladimir Roncevic&#39;</span>
-<span class="n">__email__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;elektron.ronca@gmail.com&#39;</span>
-<span class="n">__status__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;Updated&#39;</span>
+<span class="kn">from</span> <span class="nn">collections.abc</span> <span class="kn">import</span> <span class="n">Sequence</span><span class="p">,</span> <span class="n">Mapping</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">override</span>
+
+<span class="kn">from</span> <span class="nn">ats_utilities.checker.ichecker</span> <span class="kn">import</span> <span class="n">IChecker</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.checker.proxy_validator</span> <span class="kn">import</span> <span class="n">vcheck</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.context_bundle</span> <span class="kn">import</span> <span class="n">ContextBundle</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.exceptions</span> <span class="kn">import</span> <span class="n">ATSAttributeError</span><span class="p">,</span> <span class="n">ATSRuntimeError</span><span class="p">,</span> <span class="n">ATSTypeError</span><span class="p">,</span> <span class="n">ATSValueError</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.factory_class</span> <span class="kn">import</span> <span class="n">to_str</span><span class="p">,</span> <span class="n">cls_name</span><span class="p">,</span> <span class="n">has_attrs</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.factory_context_bundle</span> <span class="kn">import</span> <span class="n">factory_context_bundle</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.option.component_bundle</span> <span class="kn">import</span> <span class="n">OptionComponentBundle</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.option.command.ioption_command</span> <span class="kn">import</span> <span class="n">IOptionCommand</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.option.ioption_manager</span> <span class="kn">import</span> <span class="n">IOptionManager</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.option.strategy.iparser_strategy</span> <span class="kn">import</span> <span class="n">IParserStrategy</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.option.option_namespace</span> <span class="kn">import</span> <span class="n">OptArgs</span><span class="p">,</span> <span class="n">OptionNamespace</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.reporter.ireporter</span> <span class="kn">import</span> <span class="n">IReporter</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.reporter.proxy_reporter</span> <span class="kn">import</span> <span class="n">vreport</span>
+
+<span class="n">__author__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;Vladimir Roncevic&#39;</span>
+<span class="n">__copyright__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;(C) 2026, https://vroncevic.github.io/ats_utilities&#39;</span>
+<span class="n">__credits__</span> <span class="o">=</span> <span class="p">[</span><span class="sa">r</span><span class="s1">&#39;Vladimir Roncevic&#39;</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;Python Software Foundation&#39;</span><span class="p">]</span>
+<span class="n">__license__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE&#39;</span>
+<span class="n">__version__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;3.4.2&#39;</span>
+<span class="n">__maintainer__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;Vladimir Roncevic&#39;</span>
+<span class="n">__email__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;elektron.ronca@gmail.com&#39;</span>
+<span class="n">__status__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;Updated&#39;</span>
 
 
 <div class="viewcode-block" id="OptionManager">
@@ -108,8 +106,8 @@
 <span class="sd">            :methods:</span>
 <span class="sd">                | __init__ - Initials OptionManager constructor.</span>
 <span class="sd">                | get_shared_context - Returns the shared context.</span>
-<span class="sd">                | add_operation - Adds an option to the ATS parser.</span>
-<span class="sd">                | add_version_operation - Adds version option to the ATS parser.</span>
+<span class="sd">                | add_operation - Adds an option to the parser.</span>
+<span class="sd">                | add_version_operation - Adds version option to the parser.</span>
 <span class="sd">                | parse_input_args - Processes arguments from the start.</span>
 <span class="sd">                | parse_args - Processes arguments from the start.</span>
 <span class="sd">                | parse_command - Parses arguments as a command.</span>
@@ -121,6 +119,9 @@
     <span class="n">_checker</span><span class="p">:</span> <span class="n">IChecker</span>
     <span class="n">_reporter</span><span class="p">:</span> <span class="n">IReporter</span>
     <span class="n">_verbose</span><span class="p">:</span> <span class="nb">bool</span>
+    <span class="n">_is_initialized</span><span class="p">:</span> <span class="nb">bool</span>
+    <span class="n">_shared_context</span><span class="p">:</span> <span class="n">ContextBundle</span>
+    <span class="n">_strategy</span><span class="p">:</span> <span class="n">IParserStrategy</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">component_bundle</span><span class="p">:</span> <span class="n">OptionComponentBundle</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
@@ -130,36 +131,33 @@
 <span class="sd">            :type component_bundle: &lt;OptionComponentBundle | None&gt;</span>
 <span class="sd">            :exceptions: None.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="c1"># No dependency injection then use default ones.</span>
-        <span class="n">bundle</span><span class="p">:</span> <span class="n">OptionComponentBundle</span> <span class="o">=</span> <span class="n">component_bundle</span> <span class="ow">or</span> <span class="n">OptionComponentBundle</span><span class="p">()</span>
-        <span class="n">factory_context_bundle</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bundle</span><span class="o">.</span><span class="n">context_bundle</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_shared_context</span><span class="p">:</span> <span class="n">ContextBundle</span> <span class="o">=</span> <span class="n">ContextBundle</span><span class="p">(</span>
-            <span class="n">checker</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_checker</span><span class="p">,</span> <span class="n">reporter</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_reporter</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_verbose</span>
-        <span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_is_initialized</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
-
+        <span class="bp">self</span><span class="o">.</span><span class="n">_is_initialized</span> <span class="o">=</span> <span class="kc">False</span>
+ 
         <span class="k">try</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_strategy</span><span class="p">:</span> <span class="n">IParserStrategy</span> <span class="o">=</span> <span class="n">make_component</span><span class="p">(</span>
-                <span class="n">bundle</span><span class="o">.</span><span class="n">strategy</span><span class="p">,</span> <span class="n">ParserStrategy</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;context_bundle&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_shared_context</span><span class="p">}</span>
-            <span class="p">)</span>
-            <span class="n">validate_component</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_strategy</span><span class="p">,</span> <span class="n">ParserStrategy</span><span class="p">)</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">bundle</span><span class="o">.</span><span class="n">strategy</span> <span class="k">else</span> <span class="kc">None</span>
+            <span class="n">bundle</span><span class="p">:</span> <span class="n">OptionComponentBundle</span> <span class="o">=</span> <span class="n">component_bundle</span> <span class="ow">or</span> <span class="n">OptionComponentBundle</span><span class="p">()</span>
+            <span class="n">factory_context_bundle</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bundle</span><span class="o">.</span><span class="n">context_bundle</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_shared_context</span> <span class="o">=</span> <span class="n">bundle</span><span class="o">.</span><span class="n">context_bundle</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_strategy</span> <span class="o">=</span> <span class="n">bundle</span><span class="o">.</span><span class="n">strategy</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_strategy</span><span class="o">.</span><span class="n">setup</span><span class="p">(</span><span class="n">bundle</span><span class="o">.</span><span class="n">parameters</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_is_initialized</span> <span class="o">=</span> <span class="kc">True</span>
 
+            <span class="c1"># All components initialized successfully.</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_is_initialized</span> <span class="o">=</span> <span class="kc">True</span>
+ 
         <span class="k">except</span> <span class="p">(</span><span class="n">ATSTypeError</span><span class="p">,</span> <span class="n">ATSValueError</span><span class="p">,</span> <span class="n">ATSRuntimeError</span><span class="p">,</span> <span class="n">ATSAttributeError</span><span class="p">)</span> <span class="k">as</span> <span class="n">exc</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_reporter</span><span class="o">.</span><span class="n">error</span><span class="p">([</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">get_class_name</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="si">}</span><span class="s1"> </span><span class="si">{</span><span class="n">exc</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">])</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\x1b</span><span class="s2">[31m</span><span class="si">{</span><span class="n">cls_name</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">exc</span><span class="si">}</span><span class="se">\x1b</span><span class="s2">[0m&quot;</span><span class="p">)</span>
+
         <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">exc</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_reporter</span><span class="o">.</span><span class="n">error</span><span class="p">([</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">get_class_name</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="si">}</span><span class="s1"> unexpected exception: </span><span class="si">{</span><span class="n">exc</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">])</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\x1b</span><span class="s2">[31m</span><span class="si">{</span><span class="n">cls_name</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="si">}</span><span class="s2"> unexpected exception: </span><span class="si">{</span><span class="n">exc</span><span class="si">}</span><span class="se">\x1b</span><span class="s2">[0m&quot;</span><span class="p">)</span>
 
 <div class="viewcode-block" id="OptionManager.get_shared_context">
 <a class="viewcode-back" href="../../../ats_utilities.option.engine.html#ats_utilities.option.engine.OptionManager.get_shared_context">[docs]</a>
     <span class="nd">@override</span>
-    <span class="k">def</span> <span class="nf">get_shared_context</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ContextBundle</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">get_shared_context</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ContextBundle</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Returns the shared context.</span>
 
-<span class="sd">            :return: Shared context | None</span>
-<span class="sd">            :rtype: &lt;ContextBundle | None&gt;</span>
+<span class="sd">            :return: Shared context.</span>
+<span class="sd">            :rtype: &lt;ContextBundle&gt;</span>
 <span class="sd">            :exceptions: None.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_shared_context</span></div>
@@ -167,37 +165,37 @@
 
 <div class="viewcode-block" id="OptionManager.add_operation">
 <a class="viewcode-back" href="../../../ats_utilities.option.engine.html#ats_utilities.option.engine.OptionManager.add_operation">[docs]</a>
-    <span class="nd">@require_attributes</span><span class="p">(</span><span class="s1">&#39;_strategy&#39;</span><span class="p">)</span>
+    <span class="nd">@has_attrs</span><span class="p">(</span><span class="s1">&#39;_strategy&#39;</span><span class="p">)</span>
     <span class="nd">@override</span>
     <span class="k">def</span> <span class="nf">add_operation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">            Adds an option to the ATS parser.</span>
+<span class="sd">            Adds an option to the parser.</span>
 
 <span class="sd">            :param args: List of flags for the ATS.</span>
 <span class="sd">            :type args: &lt;str&gt;</span>
 <span class="sd">            :param kwargs: Arguments in shape of dictionary.</span>
 <span class="sd">            :type kwargs: &lt;Any&gt;</span>
 <span class="sd">            :exceptions:</span>
-<span class="sd">                | ATSAttributeError: &#39;_strategy&#39; attribute is required.</span>
+<span class="sd">                | ATSValueError: Missing or empty attribute: &#39;_strategy&#39;.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_strategy</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="OptionManager.add_version_operation">
 <a class="viewcode-back" href="../../../ats_utilities.option.engine.html#ats_utilities.option.engine.OptionManager.add_version_operation">[docs]</a>
-    <span class="nd">@validator</span><span class="p">([(</span><span class="s1">&#39;str | None:version&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)])</span>
-    <span class="nd">@vreporter</span><span class="p">(</span><span class="s1">&#39;add version </span><span class="si">{version}</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="nd">@vcheck</span><span class="p">([(</span><span class="s1">&#39;str | None:version&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)])</span>
+    <span class="nd">@vreport</span><span class="p">(</span><span class="s1">&#39;add version </span><span class="si">{version}</span><span class="s1">&#39;</span><span class="p">)</span>
     <span class="nd">@override</span>
     <span class="k">def</span> <span class="nf">add_version_operation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">version</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">            Adds version option to the ATS parser.</span>
+<span class="sd">            Adds version option to the parser.</span>
 
-<span class="sd">            :param version: The ATS version in string format | None.</span>
+<span class="sd">            :param version: The version in string format | None.</span>
 <span class="sd">            :type version: &lt;str | None&gt;</span>
 <span class="sd">            :exceptions:</span>
 <span class="sd">                | ATSRuntimeError: Decorator cannot be used on a standalone function.</span>
 <span class="sd">                | ATSAttributeError: Class is required to provide a &#39;_reporter&#39; object to</span>
-<span class="sd">                |                    use the @verboser decorator.</span>
+<span class="sd">                |                    use the @vreport decorator.</span>
 <span class="sd">                | ATSTypeError: Parameter type validation failed.</span>
 <span class="sd">                | ATSValueError: Parameter format validation failed.</span>
 <span class="sd">                | ATSRuntimeError: Decorator used on a non-class method.</span>
@@ -209,8 +207,8 @@
 
 <div class="viewcode-block" id="OptionManager.parse_input_args">
 <a class="viewcode-back" href="../../../ats_utilities.option.engine.html#ats_utilities.option.engine.OptionManager.parse_input_args">[docs]</a>
-    <span class="nd">@require_attributes</span><span class="p">(</span><span class="s1">&#39;_strategy&#39;</span><span class="p">)</span>
-    <span class="nd">@vreporter</span><span class="p">(</span><span class="s1">&#39;parse inout args arguments </span><span class="si">{arguments}</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="nd">@has_attrs</span><span class="p">(</span><span class="s1">&#39;_strategy&#39;</span><span class="p">)</span>
+    <span class="nd">@vreport</span><span class="p">(</span><span class="s1">&#39;parse inout args arguments </span><span class="si">{arguments}</span><span class="s1">&#39;</span><span class="p">)</span>
     <span class="nd">@override</span>
     <span class="k">def</span> <span class="nf">parse_input_args</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">arguments</span><span class="p">:</span> <span class="n">OptArgs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">OptionNamespace</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
@@ -221,10 +219,10 @@
 <span class="sd">            :return: Option namespace object.</span>
 <span class="sd">            :rtype: &lt;OptionNamespace&gt;</span>
 <span class="sd">            :exceptions:</span>
+<span class="sd">                | ATSValueError: Missing or empty attribute: &#39;_strategy&#39;.</span>
 <span class="sd">                | ATSRuntimeError: Decorator cannot be used on a standalone function.</span>
 <span class="sd">                | ATSAttributeError: Class is required to provide a &#39;_reporter&#39; object to</span>
-<span class="sd">                |                    use the @verboser decorator.</span>
-<span class="sd">                | ATSAttributeError: &#39;_strategy&#39; attribute is required.</span>
+<span class="sd">                |                    use the @vreport decorator.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="n">args</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_strategy</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">arguments</span><span class="p">,</span> <span class="n">known_only</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">args</span></div>
@@ -232,8 +230,8 @@
 
 <div class="viewcode-block" id="OptionManager.parse_args">
 <a class="viewcode-back" href="../../../ats_utilities.option.engine.html#ats_utilities.option.engine.OptionManager.parse_args">[docs]</a>
-    <span class="nd">@require_attributes</span><span class="p">(</span><span class="s1">&#39;_strategy&#39;</span><span class="p">)</span>
-    <span class="nd">@vreporter</span><span class="p">(</span><span class="s1">&#39;parse args arguments </span><span class="si">{arguments}</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="nd">@has_attrs</span><span class="p">(</span><span class="s1">&#39;_strategy&#39;</span><span class="p">)</span>
+    <span class="nd">@vreport</span><span class="p">(</span><span class="s1">&#39;parse args arguments </span><span class="si">{arguments}</span><span class="s1">&#39;</span><span class="p">)</span>
     <span class="nd">@override</span>
     <span class="k">def</span> <span class="nf">parse_args</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">arguments</span><span class="p">:</span> <span class="n">OptArgs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">OptionNamespace</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
@@ -244,10 +242,10 @@
 <span class="sd">            :return: Option namespace object.</span>
 <span class="sd">            :rtype: &lt;OptionNamespace&gt;</span>
 <span class="sd">            :exceptions:</span>
+<span class="sd">                | ATSValueError: Missing or empty attribute: &#39;_strategy&#39;.</span>
 <span class="sd">                | ATSRuntimeError: Decorator cannot be used on a standalone function.</span>
 <span class="sd">                | ATSAttributeError: Class is required to provide a &#39;_reporter&#39; object to</span>
-<span class="sd">                |                    use the @verboser decorator.</span>
-<span class="sd">                | ATSAttributeError: &#39;_strategy&#39; attribute is required.</span>
+<span class="sd">                |                    use the @vreport decorator.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="n">args</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_strategy</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">arguments</span><span class="p">,</span> <span class="n">known_only</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">args</span></div>
@@ -255,41 +253,41 @@
 
 <div class="viewcode-block" id="OptionManager.register_commands">
 <a class="viewcode-back" href="../../../ats_utilities.option.engine.html#ats_utilities.option.engine.OptionManager.register_commands">[docs]</a>
-    <span class="nd">@require_attributes</span><span class="p">(</span><span class="s1">&#39;_strategy&#39;</span><span class="p">)</span>
+    <span class="nd">@has_attrs</span><span class="p">(</span><span class="s1">&#39;_strategy&#39;</span><span class="p">)</span>
     <span class="nd">@override</span>
-    <span class="k">def</span> <span class="nf">register_commands</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">commands</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">IOptionCommand</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">register_commands</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">commands</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">IOptionCommand</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">            Registers a list of commands with the parser.</span>
+<span class="sd">            Registers a sequence of commands with the parser.</span>
 
-<span class="sd">            :param commands: List of commands to register.</span>
-<span class="sd">            :type commands: &lt;list[IOptionCommand]&gt;</span>
+<span class="sd">            :param commands: Sequence of commands to register (read only data).</span>
+<span class="sd">            :type commands: &lt;Sequence[IOptionCommand]&gt;</span>
 <span class="sd">            :exceptions:</span>
-<span class="sd">                | ATSAttributeError: &#39;_strategy&#39; attribute is required.</span>
+<span class="sd">                | ATSValueError: Missing or empty attribute: &#39;_strategy&#39;.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_strategy</span><span class="o">.</span><span class="n">register_commands</span><span class="p">(</span><span class="n">commands</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="OptionManager.parse_command">
 <a class="viewcode-back" href="../../../ats_utilities.option.engine.html#ats_utilities.option.engine.OptionManager.parse_command">[docs]</a>
-    <span class="nd">@require_attributes</span><span class="p">(</span><span class="s1">&#39;_strategy&#39;</span><span class="p">)</span>
+    <span class="nd">@has_attrs</span><span class="p">(</span><span class="s1">&#39;_strategy&#39;</span><span class="p">)</span>
     <span class="nd">@override</span>
-    <span class="k">def</span> <span class="nf">parse_command</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">arguments</span><span class="p">:</span> <span class="n">OptArgs</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">dict</span><span class="p">]:</span>
+    <span class="k">def</span> <span class="nf">parse_command</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">arguments</span><span class="p">:</span> <span class="n">OptArgs</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Parses arguments as a command.</span>
 
 <span class="sd">            :param arguments: Sequence of arguments | None.</span>
 <span class="sd">            :type arguments: &lt;OptArgs&gt;</span>
-<span class="sd">            :return: Tuple of (command name, command arguments).</span>
-<span class="sd">            :rtype: &lt;tuple[str, dict]&gt;</span>
+<span class="sd">            :return: Tuple of (command name, command arguments) (read only data).</span>
+<span class="sd">            :rtype: &lt;tuple[str, Mapping[str, Any]]&gt;</span>
 <span class="sd">            :exceptions:</span>
-<span class="sd">                | ATSAttributeError: &#39;_strategy&#39; attribute is required.</span>
+<span class="sd">                | ATSValueError: Missing or empty attribute: &#39;_strategy&#39;.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_strategy</span><span class="o">.</span><span class="n">parse_command</span><span class="p">(</span><span class="n">arguments</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="OptionManager.is_initialized">
 <a class="viewcode-back" href="../../../ats_utilities.option.engine.html#ats_utilities.option.engine.OptionManager.is_initialized">[docs]</a>
-    <span class="nd">@require_attributes</span><span class="p">(</span><span class="s1">&#39;_strategy&#39;</span><span class="p">)</span>
+    <span class="nd">@has_attrs</span><span class="p">(</span><span class="s1">&#39;_strategy&#39;</span><span class="p">)</span>
     <span class="nd">@override</span>
     <span class="k">def</span> <span class="nf">is_initialized</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
@@ -298,7 +296,7 @@
 <span class="sd">            :return: True (success) | False (fail).</span>
 <span class="sd">            :rtype: &lt;bool&gt;</span>
 <span class="sd">            :exceptions:</span>
-<span class="sd">                | ATSAttributeError: &#39;_strategy&#39; attribute is required.</span>
+<span class="sd">                | ATSValueError: Missing or empty attribute: &#39;_strategy&#39;.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_is_initialized</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_strategy</span><span class="o">.</span><span class="n">is_initialized</span><span class="p">()</span></div>
 
@@ -308,11 +306,11 @@
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Returns the string representation of OptionManager.</span>
 
-<span class="sd">            :return: The ATS option parser as string representation.</span>
+<span class="sd">            :return: The option parser as string representation.</span>
 <span class="sd">            :rtype: &lt;str&gt;</span>
 <span class="sd">            :exceptions: None.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="k">return</span> <span class="n">format_instance_to_string</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div>
+        <span class="k">return</span> <span class="n">to_str</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div>
 
 </pre></div>
 

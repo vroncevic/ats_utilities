@@ -15,7 +15,7 @@
     
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="ats_utilities.generator.ischeme_loader module" href="ats_utilities.generator.ischeme_loader.html" />
+    <link rel="next" title="ats_utilities.info package" href="ats_utilities.info.html" />
     <link rel="prev" title="ats_utilities.generator.generator_bundle module" href="ats_utilities.generator.generator_bundle.html" /> 
   </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
@@ -28,7 +28,7 @@
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="ats_utilities.generator.ischeme_loader.html" title="ats_utilities.generator.ischeme_loader module"
+          <a href="ats_utilities.info.html" title="ats_utilities.info package"
              accesskey="N">next</a> |</li>
         <li class="right" >
           <a href="ats_utilities.generator.generator_bundle.html" title="ats_utilities.generator.generator_bundle module"
@@ -76,11 +76,8 @@ Creates an interface for template-based file generation from .tgz archives.</p>
 <p>It defines:</p>
 <blockquote>
 <div><dl class="field-list">
-<dt class="field-odd">attributes<span class="colon">:</span></dt>
-<dd class="field-odd"><p>None.</p>
-</dd>
-<dt class="field-even">methods<span class="colon">:</span></dt>
-<dd class="field-even"><div class="line-block">
+<dt class="field-odd">methods<span class="colon">:</span></dt>
+<dd class="field-odd"><div class="line-block">
 <div class="line">get_shared_context - Returns the shared context.</div>
 <div class="line">prepare_template_values - Prepares template values.</div>
 <div class="line">generate - Generates project modules/files from a .tgz archive.</div>
@@ -117,14 +114,14 @@ Creates an interface for template-based file generation from .tgz archives.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="ats_utilities.generator.igenerator.IGenerator.get_shared_context">
-<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_shared_context</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="ats_utilities.context_bundle.html#ats_utilities.context_bundle.ContextBundle" title="ats_utilities.context_bundle.ContextBundle"><span class="pre">ContextBundle</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></span><a class="reference internal" href="_modules/ats_utilities/generator/igenerator.html#IGenerator.get_shared_context"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.generator.igenerator.IGenerator.get_shared_context" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_shared_context</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="ats_utilities.context_bundle.html#ats_utilities.context_bundle.ContextBundle" title="ats_utilities.context_bundle.ContextBundle"><span class="pre">ContextBundle</span></a></span></span><a class="reference internal" href="_modules/ats_utilities/generator/igenerator.html#IGenerator.get_shared_context"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.generator.igenerator.IGenerator.get_shared_context" title="Link to this definition">¶</a></dt>
 <dd><p>Returns the shared context.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Shared context | None</p>
+<dd class="field-odd"><p>Shared context.</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>&lt;ContextBundle | None&gt;</p>
+<dd class="field-even"><p>&lt;ContextBundle&gt;</p>
 </dd>
 <dt class="field-odd">Exceptions<span class="colon">:</span></dt>
 <dd class="field-odd"><p>None.</p>
@@ -151,11 +148,11 @@ Creates an interface for template-based file generation from .tgz archives.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="ats_utilities.generator.igenerator.IGenerator.prepare_template_values">
-<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">prepare_template_values</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">template_values</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/ats_utilities/generator/igenerator.html#IGenerator.prepare_template_values"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.generator.igenerator.IGenerator.prepare_template_values" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">prepare_template_values</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">template_values</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Mapping</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/ats_utilities/generator/igenerator.html#IGenerator.prepare_template_values"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.generator.igenerator.IGenerator.prepare_template_values" title="Link to this definition">¶</a></dt>
 <dd><p>Prepares template values.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>template_values</strong> (<em>&lt;dict</em><em>[</em><em>str</em><em>, </em><em>str</em><em>]</em><em>&gt;</em>) – Input replacement values.</p>
+<dd class="field-odd"><p><strong>template_values</strong> (<em>&lt;Mapping</em><em>[</em><em>str</em><em>, </em><em>str</em><em>]</em><em>&gt;</em>) – Input replacement values.</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>The updated template values dictionary.</p>
@@ -204,8 +201,8 @@ Creates an interface for template-based file generation from .tgz archives.</p>
   </div>
   <div>
     <h4>Next topic</h4>
-    <p class="topless"><a href="ats_utilities.generator.ischeme_loader.html"
-                          title="next chapter">ats_utilities.generator.ischeme_loader module</a></p>
+    <p class="topless"><a href="ats_utilities.info.html"
+                          title="next chapter">ats_utilities.info package</a></p>
   </div>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
@@ -238,7 +235,7 @@ Creates an interface for template-based file generation from .tgz archives.</p>
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="ats_utilities.generator.ischeme_loader.html" title="ats_utilities.generator.ischeme_loader module"
+          <a href="ats_utilities.info.html" title="ats_utilities.info package"
              >next</a> |</li>
         <li class="right" >
           <a href="ats_utilities.generator.generator_bundle.html" title="ats_utilities.generator.generator_bundle module"

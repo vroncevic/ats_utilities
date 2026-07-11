@@ -16,7 +16,7 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="ats_utilities.factory_file_utils module" href="ats_utilities.factory_file_utils.html" />
-    <link rel="prev" title="ats_utilities.factory_context_bundle module" href="ats_utilities.factory_context_bundle.html" /> 
+    <link rel="prev" title="ats_utilities.factory_context_error module" href="ats_utilities.factory_context_error.html" /> 
   </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
@@ -31,7 +31,7 @@
           <a href="ats_utilities.factory_file_utils.html" title="ats_utilities.factory_file_utils module"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="ats_utilities.factory_context_bundle.html" title="ats_utilities.factory_context_bundle module"
+          <a href="ats_utilities.factory_context_error.html" title="ats_utilities.factory_context_error module"
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">ats_utilities https://github.com/vroncevic/ats_utilities/releases documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="modules.html" >ats_utilities</a> &#187;</li>
@@ -67,12 +67,12 @@ with this program. If not, see &lt;<a class="reference external" href="http://ww
 </dl>
 <dl class="py function">
 <dt class="sig sig-object py" id="ats_utilities.factory_dict_utils.cherry_pick_dict">
-<span class="sig-prename descclassname"><span class="pre">ats_utilities.factory_dict_utils.</span></span><span class="sig-name descname"><span class="pre">cherry_pick_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">source</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keys</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">frozenset</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/ats_utilities/factory_dict_utils.html#cherry_pick_dict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.factory_dict_utils.cherry_pick_dict" title="Link to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">ats_utilities.factory_dict_utils.</span></span><span class="sig-name descname"><span class="pre">cherry_pick_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">source</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Mapping</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keys</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">frozenset</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/ats_utilities/factory_dict_utils.html#cherry_pick_dict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.factory_dict_utils.cherry_pick_dict" title="Link to this definition">¶</a></dt>
 <dd><p>Cherry picks keys from a source dictionary.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>source</strong> (<em>&lt;dict</em><em>[</em><em>Any</em><em>, </em><em>Any</em><em>] </em><em>| </em><em>None&gt;</em>) – Source dictionary from which to pick keys | None.</p></li>
+<li><p><strong>source</strong> (<em>&lt;Mapping</em><em>[</em><em>Any</em><em>, </em><em>Any</em><em>]</em><em>&gt;</em>) – Source dictionary from which to pick keys.</p></li>
 <li><p><strong>keys</strong> (<em>&lt;frozenset</em><em>[</em><em>str</em><em>]</em><em>&gt;</em>) – Set of keys to pick from the source dictionary.</p></li>
 </ul>
 </dd>
@@ -90,12 +90,12 @@ with this program. If not, see &lt;<a class="reference external" href="http://ww
 
 <dl class="py function">
 <dt class="sig sig-object py" id="ats_utilities.factory_dict_utils.has_required_keys">
-<span class="sig-prename descclassname"><span class="pre">ats_utilities.factory_dict_utils.</span></span><span class="sig-name descname"><span class="pre">has_required_keys</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">source</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keys</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">frozenset</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="_modules/ats_utilities/factory_dict_utils.html#has_required_keys"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.factory_dict_utils.has_required_keys" title="Link to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">ats_utilities.factory_dict_utils.</span></span><span class="sig-name descname"><span class="pre">has_required_keys</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">source</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Mapping</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keys</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">frozenset</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="_modules/ats_utilities/factory_dict_utils.html#has_required_keys"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.factory_dict_utils.has_required_keys" title="Link to this definition">¶</a></dt>
 <dd><p>Checks if all required keys are present in the source dictionary.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>source</strong> (<em>&lt;dict</em><em>[</em><em>Any</em><em>, </em><em>Any</em><em>] </em><em>| </em><em>None&gt;</em>) – Source dictionary to check | None.</p></li>
+<li><p><strong>source</strong> (<em>&lt;dict</em><em>[</em><em>Any</em><em>, </em><em>Any</em><em>]</em><em>&gt;</em>) – Source dictionary to check.</p></li>
 <li><p><strong>keys</strong> (<em>&lt;frozenset</em><em>[</em><em>str</em><em>]</em><em>&gt;</em>) – Set of mandatory keys.</p></li>
 </ul>
 </dd>
@@ -113,20 +113,21 @@ with this program. If not, see &lt;<a class="reference external" href="http://ww
 
 <dl class="py function">
 <dt class="sig sig-object py" id="ats_utilities.factory_dict_utils.require_keys">
-<span class="sig-prename descclassname"><span class="pre">ats_utilities.factory_dict_utils.</span></span><span class="sig-name descname"><span class="pre">require_keys</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">source</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keys</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">frozenset</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/ats_utilities/factory_dict_utils.html#require_keys"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.factory_dict_utils.require_keys" title="Link to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">ats_utilities.factory_dict_utils.</span></span><span class="sig-name descname"><span class="pre">require_keys</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">source:</span> <span class="pre">~collections.abc.Mapping[~typing.Any,</span> <span class="pre">~typing.Any],</span> <span class="pre">keys:</span> <span class="pre">frozenset[str],</span> <span class="pre">exc_message_path:</span> <span class="pre">str</span> <span class="pre">|</span> <span class="pre">None</span> <span class="pre">=</span> <span class="pre">None,</span> <span class="pre">exception_class:</span> <span class="pre">type[Exception]</span> <span class="pre">=</span> <span class="pre">&lt;class</span> <span class="pre">'ats_utilities.exceptions.ats_value_error.ATSValueError'&gt;</span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/ats_utilities/factory_dict_utils.html#require_keys"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.factory_dict_utils.require_keys" title="Link to this definition">¶</a></dt>
 <dd><p>Requires all keys to be present in the source dictionary.</p>
 <dl class="field-list">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>source</strong> (<em>&lt;dict</em><em>[</em><em>Any</em><em>, </em><em>Any</em><em>] </em><em>| </em><em>None&gt;</em>) – Source dictionary to check | None.</p></li>
+<li><p><strong>source</strong> (<em>&lt;Mapping</em><em>[</em><em>Any</em><em>, </em><em>Any</em><em>]</em><em>&gt;</em>) – Source dictionary to check.</p></li>
 <li><p><strong>keys</strong> (<em>&lt;frozenset</em><em>[</em><em>str</em><em>]</em><em>&gt;</em>) – Set of mandatory keys.</p></li>
+<li><p><strong>exc_message_path</strong> (<em>&lt;str</em><em> | </em><em>None&gt;</em>) – Path and details to include in the exception message.</p></li>
+<li><p><strong>exception_class</strong> (<em>&lt;type</em><em>[</em><em>Exception</em><em>]</em><em>&gt;</em><em> (</em><em>default ATSValueError</em><em>)</em>) – The exception class to raise if value is None.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Exceptions<span class="colon">:</span></dt>
 <dd class="field-even"><div class="line-block">
-<div class="line">ATSTypeError: Expected dict or None for ‘source’, got &lt;type&gt;.</div>
-<div class="line">ATSTypeError: Expected frozenset for ‘keys’, got &lt;type&gt;.</div>
-<div class="line">ATSValueError: Missing required keys.</div>
+<div class="line">ATSTypeError: Parameter type validation failed.</div>
+<div class="line">Dynamically raises the provided exception_class (e.g., ATSValueError).</div>
 </div>
 </dd>
 </dl>
@@ -155,8 +156,8 @@ with this program. If not, see &lt;<a class="reference external" href="http://ww
   </div>
   <div>
     <h4>Previous topic</h4>
-    <p class="topless"><a href="ats_utilities.factory_context_bundle.html"
-                          title="previous chapter">ats_utilities.factory_context_bundle module</a></p>
+    <p class="topless"><a href="ats_utilities.factory_context_error.html"
+                          title="previous chapter">ats_utilities.factory_context_error module</a></p>
   </div>
   <div>
     <h4>Next topic</h4>
@@ -197,7 +198,7 @@ with this program. If not, see &lt;<a class="reference external" href="http://ww
           <a href="ats_utilities.factory_file_utils.html" title="ats_utilities.factory_file_utils module"
              >next</a> |</li>
         <li class="right" >
-          <a href="ats_utilities.factory_context_bundle.html" title="ats_utilities.factory_context_bundle module"
+          <a href="ats_utilities.factory_context_error.html" title="ats_utilities.factory_context_error module"
              >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">ats_utilities https://github.com/vroncevic/ats_utilities/releases documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="modules.html" >ats_utilities</a> &#187;</li>

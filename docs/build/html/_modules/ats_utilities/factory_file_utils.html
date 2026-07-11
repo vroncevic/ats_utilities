@@ -57,73 +57,119 @@
 <span class="sd">    Defines factory file utility functions.</span>
 <span class="sd">&#39;&#39;&#39;</span>
 
-<span class="kn">from</span> <span class="nn">os.path</span> <span class="kn">import</span> <span class="n">exists</span><span class="p">,</span> <span class="n">normpath</span>
-<span class="kn">from</span> <span class="nn">fnmatch</span> <span class="kn">import</span> <span class="n">fnmatch</span>
-<span class="kn">from</span> <span class="nn">re</span> <span class="kn">import</span> <span class="nb">compile</span><span class="p">,</span> <span class="n">escape</span><span class="p">,</span> <span class="n">Match</span><span class="p">,</span> <span class="n">IGNORECASE</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.exceptions.ats_type_error</span> <span class="kn">import</span> <span class="n">ATSTypeError</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.exceptions.ats_value_error</span> <span class="kn">import</span> <span class="n">ATSValueError</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
 
-<span class="n">__author__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;Vladimir Roncevic&#39;</span>
-<span class="n">__copyright__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;(C) 2026, https://vroncevic.github.io/ats_utilities&#39;</span>
-<span class="n">__credits__</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Vladimir Roncevic&#39;</span><span class="p">,</span> <span class="s1">&#39;Python Software Foundation&#39;</span><span class="p">]</span>
-<span class="n">__license__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE&#39;</span>
-<span class="n">__version__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;3.4.1&#39;</span>
-<span class="n">__maintainer__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;Vladimir Roncevic&#39;</span>
-<span class="n">__email__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;elektron.ronca@gmail.com&#39;</span>
-<span class="n">__status__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;Updated&#39;</span>
+<span class="kn">from</span> <span class="nn">collections.abc</span> <span class="kn">import</span> <span class="n">Sequence</span><span class="p">,</span> <span class="n">Mapping</span>
+<span class="kn">from</span> <span class="nn">fnmatch</span> <span class="kn">import</span> <span class="n">fnmatch</span>
+<span class="kn">from</span> <span class="nn">os.path</span> <span class="kn">import</span> <span class="n">normpath</span>
+<span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span><span class="p">,</span> <span class="n">PurePosixPath</span>
+<span class="kn">from</span> <span class="nn">re</span> <span class="kn">import</span> <span class="nb">compile</span><span class="p">,</span> <span class="n">escape</span><span class="p">,</span> <span class="n">Match</span><span class="p">,</span> <span class="n">IGNORECASE</span>
+
+<span class="kn">from</span> <span class="nn">ats_utilities.exceptions</span> <span class="kn">import</span> <span class="n">ATSValueError</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.factory_context_error</span> <span class="kn">import</span> <span class="n">raise_context_error</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.factory_type</span> <span class="kn">import</span> <span class="n">check_type</span>
+
+<span class="n">__author__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;Vladimir Roncevic&#39;</span>
+<span class="n">__copyright__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;(C) 2026, https://vroncevic.github.io/ats_utilities&#39;</span>
+<span class="n">__credits__</span> <span class="o">=</span> <span class="p">[</span><span class="sa">r</span><span class="s1">&#39;Vladimir Roncevic&#39;</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;Python Software Foundation&#39;</span><span class="p">]</span>
+<span class="n">__license__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE&#39;</span>
+<span class="n">__version__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;3.4.2&#39;</span>
+<span class="n">__maintainer__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;Vladimir Roncevic&#39;</span>
+<span class="n">__email__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;elektron.ronca@gmail.com&#39;</span>
+<span class="n">__status__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;Updated&#39;</span>
 
 
 <div class="viewcode-block" id="check_file_exists">
 <a class="viewcode-back" href="../../ats_utilities.factory_file_utils.html#ats_utilities.factory_file_utils.check_file_exists">[docs]</a>
-<span class="k">def</span> <span class="nf">check_file_exists</span><span class="p">(</span><span class="n">file_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="k">def</span> <span class="nf">check_file_exists</span><span class="p">(</span>
+    <span class="n">file_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">exc_message_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">exception_class</span><span class="p">:</span> <span class="nb">type</span><span class="p">[</span><span class="ne">Exception</span><span class="p">]</span> <span class="o">=</span> <span class="n">ATSValueError</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Checks if a file exists.</span>
 
 <span class="sd">        :param file_path: Path to the file.</span>
 <span class="sd">        :type file_path: &lt;str&gt;</span>
+<span class="sd">        :param exc_message_path: Path and details to include in the exception message.</span>
+<span class="sd">        :type exc_message_path: &lt;str | None&gt;</span>
+<span class="sd">        :param exception_class: The exception class to raise if value is None.</span>
+<span class="sd">        :type exception_class: &lt;type[Exception]&gt; (default ATSValueError)</span>
 <span class="sd">        :exceptions:</span>
-<span class="sd">            | ATSTypeError: Expected str for &#39;file_path&#39;, got &lt;type&gt;.</span>
-<span class="sd">            | ATSValueError: File at the provided path does not exist.</span>
+<span class="sd">            | ATSTypeError: Parameter type validation failed.</span>
+<span class="sd">            | Dynamically raises the provided exception_class (e.g., ATSValueError).</span>
 <span class="sd">    &#39;&#39;&#39;</span>
-    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
-        <span class="k">raise</span> <span class="n">ATSTypeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;expected str for &#39;file_path&#39;, got </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">file_path</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">check_type</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="n">exc_message_path</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">file_path</span><span class="p">:</span>
+        <span class="n">raise_context_error</span><span class="p">(</span>
+            <span class="n">fallback_prefix</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;factory_file_utils::check_file_exists&#39;</span><span class="p">,</span>
+            <span class="n">fallback_msg</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;file path must be provided&#39;</span><span class="p">,</span>
+            <span class="n">exc_message_path</span><span class="o">=</span><span class="n">exc_message_path</span><span class="p">,</span>
+            <span class="n">exception_class</span><span class="o">=</span><span class="n">exception_class</span><span class="p">,</span>
+            <span class="n">depth</span><span class="o">=</span><span class="mi">3</span>
+        <span class="p">)</span>
 
-    <span class="k">if</span> <span class="ow">not</span> <span class="n">exists</span><span class="p">(</span><span class="n">file_path</span><span class="p">):</span>
-        <span class="k">raise</span> <span class="n">ATSValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;file at the provided path does not exist: </span><span class="si">{</span><span class="n">file_path</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">Path</span><span class="p">(</span><span class="n">file_path</span><span class="p">)</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
+        <span class="n">raise_context_error</span><span class="p">(</span>
+            <span class="n">fallback_prefix</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;factory_file_utils::check_file_exists&#39;</span><span class="p">,</span>
+            <span class="n">fallback_msg</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;file at the provided path does not exist: </span><span class="si">{</span><span class="n">file_path</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span>
+            <span class="n">exc_message_path</span><span class="o">=</span><span class="n">exc_message_path</span><span class="p">,</span>
+            <span class="n">exception_class</span><span class="o">=</span><span class="n">exception_class</span><span class="p">,</span>
+            <span class="n">depth</span><span class="o">=</span><span class="mi">3</span>
+        <span class="p">)</span></div>
 
 
 
 <div class="viewcode-block" id="normalize_path">
 <a class="viewcode-back" href="../../ats_utilities.factory_file_utils.html#ats_utilities.factory_file_utils.normalize_path">[docs]</a>
-<span class="k">def</span> <span class="nf">normalize_path</span><span class="p">(</span><span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="k">def</span> <span class="nf">normalize_path</span><span class="p">(</span>
+    <span class="n">file_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">exc_message_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">exception_class</span><span class="p">:</span> <span class="nb">type</span><span class="p">[</span><span class="ne">Exception</span><span class="p">]</span> <span class="o">=</span> <span class="n">ATSValueError</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Normalizes file paths and strips leading directory prefixes.</span>
 
-<span class="sd">        :param path: The original path to clean up.</span>
-<span class="sd">        :type path: &lt;str&gt;</span>
+<span class="sd">        :param file_path: The original path to clean up.</span>
+<span class="sd">        :type file_path: &lt;str&gt;</span>
+<span class="sd">        :param exc_message_path: Path and details to include in the exception message.</span>
+<span class="sd">        :type exc_message_path: &lt;str | None&gt;</span>
+<span class="sd">        :param exception_class: The exception class to raise if file_path is None.</span>
+<span class="sd">        :type exception_class: &lt;type[Exception]&gt; (default ATSValueError)</span>
 <span class="sd">        :return: The cleaned up relative path.</span>
 <span class="sd">        :rtype: &lt;str&gt;</span>
 <span class="sd">        :exceptions:</span>
-<span class="sd">            | ATSTypeError: Expected str for &#39;path&#39;, got &lt;type&gt;.</span>
+<span class="sd">            | ATSTypeError: Parameter type validation failed.</span>
+<span class="sd">            | Dynamically raises the provided exception_class (e.g., ATSValueError).</span>
 <span class="sd">    &#39;&#39;&#39;</span>
-    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
-        <span class="k">raise</span> <span class="n">ATSTypeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;expected str for &#39;path&#39;, got </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">path</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">check_type</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="n">exc_message_path</span><span class="p">)</span>
 
-    <span class="n">clean_path</span> <span class="o">=</span> <span class="n">normpath</span><span class="p">(</span><span class="n">path</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\\</span><span class="s1">&#39;</span><span class="p">,</span> <span class="s1">&#39;/&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">file_path</span><span class="p">:</span>
+        <span class="n">raise_context_error</span><span class="p">(</span>
+            <span class="n">fallback_prefix</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;factory_file_utils::normalize_path&#39;</span><span class="p">,</span>
+            <span class="n">fallback_msg</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;file path must be provided&#39;</span><span class="p">,</span>
+            <span class="n">exc_message_path</span><span class="o">=</span><span class="n">exc_message_path</span><span class="p">,</span>
+            <span class="n">exception_class</span><span class="o">=</span><span class="n">exception_class</span><span class="p">,</span>
+            <span class="n">depth</span><span class="o">=</span><span class="mi">3</span>
+        <span class="p">)</span>
 
-    <span class="k">if</span> <span class="n">clean_path</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;./&#39;</span><span class="p">):</span>
-        <span class="n">clean_path</span> <span class="o">=</span> <span class="n">clean_path</span><span class="p">[</span><span class="mi">2</span><span class="p">:]</span>
+    <span class="n">clean_file_path</span> <span class="o">=</span> <span class="n">PurePosixPath</span><span class="p">(</span><span class="n">normpath</span><span class="p">(</span><span class="n">file_path</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\\</span><span class="s1">&#39;</span><span class="p">,</span> <span class="s1">&#39;/&#39;</span><span class="p">)))</span><span class="o">.</span><span class="n">as_posix</span><span class="p">()</span>
 
-    <span class="k">if</span> <span class="n">clean_path</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">):</span>
-        <span class="n">clean_path</span> <span class="o">=</span> <span class="n">clean_path</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
+    <span class="k">if</span> <span class="n">clean_file_path</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">):</span>
+        <span class="n">clean_file_path</span> <span class="o">=</span> <span class="n">clean_file_path</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
 
-    <span class="k">return</span> <span class="n">clean_path</span></div>
+    <span class="k">return</span> <span class="n">clean_file_path</span></div>
 
 
 
 <div class="viewcode-block" id="resolve_relative_path">
 <a class="viewcode-back" href="../../ats_utilities.factory_file_utils.html#ats_utilities.factory_file_utils.resolve_relative_path">[docs]</a>
-<span class="k">def</span> <span class="nf">resolve_relative_path</span><span class="p">(</span><span class="n">normalized_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">source_dir_clean</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
+<span class="k">def</span> <span class="nf">resolve_relative_path</span><span class="p">(</span>
+    <span class="n">normalized_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">source_dir_clean</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">exc_message_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">exception_class</span><span class="p">:</span> <span class="nb">type</span><span class="p">[</span><span class="ne">Exception</span><span class="p">]</span> <span class="o">=</span> <span class="n">ATSValueError</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Calculates relative path to the specified source directory.</span>
 
@@ -134,13 +180,29 @@
 <span class="sd">        :return: The relative path inside the source dir, or None if not matching.</span>
 <span class="sd">        :rtype: &lt;str | None&gt;</span>
 <span class="sd">        :exceptions:</span>
-<span class="sd">            | ATSTypeError: Expected str for parameters, got &lt;type&gt;.</span>
+<span class="sd">            | ATSTypeError: Parameter type validation failed.</span>
+<span class="sd">            | Dynamically raises the provided exception_class (e.g., ATSValueError).</span>
 <span class="sd">    &#39;&#39;&#39;</span>
-    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">normalized_name</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
-        <span class="k">raise</span> <span class="n">ATSTypeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;expected str for &#39;normalized_name&#39;, got </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">normalized_name</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">check_type</span><span class="p">(</span><span class="n">normalized_name</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="n">exc_message_path</span><span class="p">)</span>
+    <span class="n">check_type</span><span class="p">(</span><span class="n">source_dir_clean</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="n">exc_message_path</span><span class="p">)</span>
 
-    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">source_dir_clean</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
-        <span class="k">raise</span> <span class="n">ATSTypeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;expected str for &#39;source_dir_clean&#39;, got </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">source_dir_clean</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">normalized_name</span><span class="p">:</span>
+        <span class="n">raise_context_error</span><span class="p">(</span>
+            <span class="n">fallback_prefix</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;factory_file_utils::resolve_relative_path&#39;</span><span class="p">,</span>
+            <span class="n">fallback_msg</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;normalized_name must be provided&#39;</span><span class="p">,</span>
+            <span class="n">exc_message_path</span><span class="o">=</span><span class="n">exc_message_path</span><span class="p">,</span>
+            <span class="n">exception_class</span><span class="o">=</span><span class="n">exception_class</span><span class="p">,</span>
+            <span class="n">depth</span><span class="o">=</span><span class="mi">3</span>
+        <span class="p">)</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">source_dir_clean</span><span class="p">:</span>
+        <span class="n">raise_context_error</span><span class="p">(</span>
+            <span class="n">fallback_prefix</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;factory_file_utils::resolve_relative_path&#39;</span><span class="p">,</span>
+            <span class="n">fallback_msg</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;source_dir_clean must be provided&#39;</span><span class="p">,</span>
+            <span class="n">exc_message_path</span><span class="o">=</span><span class="n">exc_message_path</span><span class="p">,</span>
+            <span class="n">exception_class</span><span class="o">=</span><span class="n">exception_class</span><span class="p">,</span>
+            <span class="n">depth</span><span class="o">=</span><span class="mi">3</span>
+        <span class="p">)</span>
 
     <span class="k">if</span> <span class="n">normalized_name</span> <span class="o">==</span> <span class="n">source_dir_clean</span><span class="p">:</span>
         <span class="k">return</span> <span class="s2">&quot;&quot;</span>
@@ -153,24 +215,45 @@
 
 <div class="viewcode-block" id="is_excluded_path">
 <a class="viewcode-back" href="../../ats_utilities.factory_file_utils.html#ats_utilities.factory_file_utils.is_excluded_path">[docs]</a>
-<span class="k">def</span> <span class="nf">is_excluded_path</span><span class="p">(</span><span class="n">rel_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">exclude_patterns</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="k">def</span> <span class="nf">is_excluded_path</span><span class="p">(</span>
+    <span class="n">rel_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">exclude_patterns</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span>
+    <span class="n">exc_message_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">exception_class</span><span class="p">:</span> <span class="nb">type</span><span class="p">[</span><span class="ne">Exception</span><span class="p">]</span> <span class="o">=</span> <span class="n">ATSValueError</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Checks if a relative path matches any exclusion patterns.</span>
 
 <span class="sd">        :param rel_path: The relative path to inspect.</span>
 <span class="sd">        :type rel_path: &lt;str&gt;</span>
-<span class="sd">        :param exclude_patterns: List of glob patterns to exclude.</span>
-<span class="sd">        :type exclude_patterns: &lt;list[str]&gt;</span>
+<span class="sd">        :param exclude_patterns: Sequence of glob patterns to exclude.</span>
+<span class="sd">        :type exclude_patterns: &lt;Sequence[str]&gt;</span>
 <span class="sd">        :return: True if the path should be excluded, False otherwise.</span>
 <span class="sd">        :rtype: &lt;bool&gt;</span>
 <span class="sd">        :exceptions:</span>
-<span class="sd">            | ATSTypeError: Expected str and list parameters, got &lt;type&gt;.</span>
+<span class="sd">            | ATSTypeError: Parameter type validation failed.</span>
+<span class="sd">            | Dynamically raises the provided exception_class (e.g., ATSValueError).</span>
 <span class="sd">    &#39;&#39;&#39;</span>
-    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">rel_path</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
-        <span class="k">raise</span> <span class="n">ATSTypeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;expected str for &#39;rel_path&#39;, got </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">rel_path</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">check_type</span><span class="p">(</span><span class="n">rel_path</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="n">exc_message_path</span><span class="p">)</span>
+    <span class="n">check_type</span><span class="p">(</span><span class="n">exclude_patterns</span><span class="p">,</span> <span class="n">Sequence</span><span class="p">,</span> <span class="n">exc_message_path</span><span class="p">)</span>
 
-    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">exclude_patterns</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
-        <span class="k">raise</span> <span class="n">ATSTypeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;expected list for &#39;exclude_patterns&#39;, got </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">exclude_patterns</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">rel_path</span><span class="p">:</span>
+        <span class="n">raise_context_error</span><span class="p">(</span>
+            <span class="n">fallback_prefix</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;factory_file_utils::is_excluded_path&#39;</span><span class="p">,</span>
+            <span class="n">fallback_msg</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;rel_path must be provided&#39;</span><span class="p">,</span>
+            <span class="n">exc_message_path</span><span class="o">=</span><span class="n">exc_message_path</span><span class="p">,</span>
+            <span class="n">exception_class</span><span class="o">=</span><span class="n">exception_class</span><span class="p">,</span>
+            <span class="n">depth</span><span class="o">=</span><span class="mi">3</span>
+        <span class="p">)</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">exclude_patterns</span><span class="p">:</span>
+        <span class="n">raise_context_error</span><span class="p">(</span>
+            <span class="n">fallback_prefix</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;factory_file_utils::is_excluded_path&#39;</span><span class="p">,</span>
+            <span class="n">fallback_msg</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;exclude_patterns must be provided&#39;</span><span class="p">,</span>
+            <span class="n">exc_message_path</span><span class="o">=</span><span class="n">exc_message_path</span><span class="p">,</span>
+            <span class="n">exception_class</span><span class="o">=</span><span class="n">exception_class</span><span class="p">,</span>
+            <span class="n">depth</span><span class="o">=</span><span class="mi">3</span>
+        <span class="p">)</span>
 
     <span class="n">parts</span> <span class="o">=</span> <span class="n">rel_path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">)</span>
 
@@ -189,7 +272,9 @@
     <span class="n">default_val</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
     <span class="n">upper_val</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
     <span class="n">camel_val</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
-    <span class="n">dashed_val</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">dashed_val</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">exc_message_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">exception_class</span><span class="p">:</span> <span class="nb">type</span><span class="p">[</span><span class="ne">Exception</span><span class="p">]</span> <span class="o">=</span> <span class="n">ATSValueError</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Formats a replacement value according to the casing style matched in clean_str.</span>
@@ -207,10 +292,59 @@
 <span class="sd">        :return: The replacement formatted in matching casing style.</span>
 <span class="sd">        :rtype: &lt;str&gt;</span>
 <span class="sd">        :exceptions:</span>
-<span class="sd">            | ATSTypeError: Expected str parameters, got &lt;type&gt;.</span>
+<span class="sd">            | ATSTypeError: Parameter type validation failed.</span>
+<span class="sd">            | Dynamically raises the provided exception_class (e.g., ATSValueError).</span>
 <span class="sd">    &#39;&#39;&#39;</span>
-    <span class="k">if</span> <span class="ow">not</span> <span class="nb">all</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">arg</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="k">for</span> <span class="n">arg</span> <span class="ow">in</span> <span class="p">(</span><span class="n">clean_str</span><span class="p">,</span> <span class="n">default_val</span><span class="p">,</span> <span class="n">upper_val</span><span class="p">,</span> <span class="n">camel_val</span><span class="p">,</span> <span class="n">dashed_val</span><span class="p">)):</span>
-        <span class="k">raise</span> <span class="n">ATSTypeError</span><span class="p">(</span><span class="s2">&quot;All parameters must be of type str&quot;</span><span class="p">)</span>
+    <span class="n">check_type</span><span class="p">(</span><span class="n">clean_str</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="n">exc_message_path</span><span class="p">)</span>
+    <span class="n">check_type</span><span class="p">(</span><span class="n">default_val</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="n">exc_message_path</span><span class="p">)</span>
+    <span class="n">check_type</span><span class="p">(</span><span class="n">upper_val</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="n">exc_message_path</span><span class="p">)</span>
+    <span class="n">check_type</span><span class="p">(</span><span class="n">camel_val</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="n">exc_message_path</span><span class="p">)</span>
+    <span class="n">check_type</span><span class="p">(</span><span class="n">dashed_val</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="n">exc_message_path</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">clean_str</span><span class="p">:</span>
+        <span class="n">raise_context_error</span><span class="p">(</span>
+            <span class="n">fallback_prefix</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;factory_file_utils::format_casing_by_match&#39;</span><span class="p">,</span>
+            <span class="n">fallback_msg</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;clean_str must be provided&#39;</span><span class="p">,</span>
+            <span class="n">exc_message_path</span><span class="o">=</span><span class="n">exc_message_path</span><span class="p">,</span>
+            <span class="n">exception_class</span><span class="o">=</span><span class="n">exception_class</span><span class="p">,</span>
+            <span class="n">depth</span><span class="o">=</span><span class="mi">3</span>
+        <span class="p">)</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">default_val</span><span class="p">:</span>
+        <span class="n">raise_context_error</span><span class="p">(</span>
+            <span class="n">fallback_prefix</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;factory_file_utils::format_casing_by_match&#39;</span><span class="p">,</span>
+            <span class="n">fallback_msg</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;default_val must be provided&#39;</span><span class="p">,</span>
+            <span class="n">exc_message_path</span><span class="o">=</span><span class="n">exc_message_path</span><span class="p">,</span>
+            <span class="n">exception_class</span><span class="o">=</span><span class="n">exception_class</span><span class="p">,</span>
+            <span class="n">depth</span><span class="o">=</span><span class="mi">3</span>
+        <span class="p">)</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">upper_val</span><span class="p">:</span>
+        <span class="n">raise_context_error</span><span class="p">(</span>
+            <span class="n">fallback_prefix</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;factory_file_utils::format_casing_by_match&#39;</span><span class="p">,</span>
+            <span class="n">fallback_msg</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;upper_val must be provided&#39;</span><span class="p">,</span>
+            <span class="n">exc_message_path</span><span class="o">=</span><span class="n">exc_message_path</span><span class="p">,</span>
+            <span class="n">exception_class</span><span class="o">=</span><span class="n">exception_class</span><span class="p">,</span>
+            <span class="n">depth</span><span class="o">=</span><span class="mi">3</span>
+        <span class="p">)</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">camel_val</span><span class="p">:</span>
+        <span class="n">raise_context_error</span><span class="p">(</span>
+            <span class="n">fallback_prefix</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;factory_file_utils::format_casing_by_match&#39;</span><span class="p">,</span>
+            <span class="n">fallback_msg</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;camel_val must be provided&#39;</span><span class="p">,</span>
+            <span class="n">exc_message_path</span><span class="o">=</span><span class="n">exc_message_path</span><span class="p">,</span>
+            <span class="n">exception_class</span><span class="o">=</span><span class="n">exception_class</span><span class="p">,</span>
+            <span class="n">depth</span><span class="o">=</span><span class="mi">3</span>
+        <span class="p">)</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">dashed_val</span><span class="p">:</span>
+        <span class="n">raise_context_error</span><span class="p">(</span>
+            <span class="n">fallback_prefix</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;factory_file_utils::format_casing_by_match&#39;</span><span class="p">,</span>
+            <span class="n">fallback_msg</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;dashed_val must be provided&#39;</span><span class="p">,</span>
+            <span class="n">exc_message_path</span><span class="o">=</span><span class="n">exc_message_path</span><span class="p">,</span>
+            <span class="n">exception_class</span><span class="o">=</span><span class="n">exception_class</span><span class="p">,</span>
+            <span class="n">depth</span><span class="o">=</span><span class="mi">3</span>
+        <span class="p">)</span>
 
     <span class="k">if</span> <span class="n">clean_str</span><span class="o">.</span><span class="n">isupper</span><span class="p">():</span>
         <span class="k">return</span> <span class="n">upper_val</span>
@@ -225,7 +359,12 @@
 
 <div class="viewcode-block" id="write_content">
 <a class="viewcode-back" href="../../ats_utilities.factory_file_utils.html#ats_utilities.factory_file_utils.write_content">[docs]</a>
-<span class="k">def</span> <span class="nf">write_content</span><span class="p">(</span><span class="n">file_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">content</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="nb">bytes</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="k">def</span> <span class="nf">write_content</span><span class="p">(</span>
+    <span class="n">file_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">content</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="nb">bytes</span><span class="p">,</span>
+    <span class="n">exc_message_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">exception_class</span><span class="p">:</span> <span class="nb">type</span><span class="p">[</span><span class="ne">Exception</span><span class="p">]</span> <span class="o">=</span> <span class="n">ATSValueError</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Writes string or bytes content to a file.</span>
 
@@ -234,13 +373,29 @@
 <span class="sd">        :param content: Text string or raw bytes to write.</span>
 <span class="sd">        :type content: &lt;str | bytes&gt;</span>
 <span class="sd">        :exceptions:</span>
-<span class="sd">            | ATSTypeError: Expected str for &#39;file_path&#39;, or str/bytes for &#39;content&#39;.</span>
+<span class="sd">            | ATSTypeError: Parameter type validation failed.</span>
+<span class="sd">            | Dynamically raises the provided exception_class (e.g., ATSValueError).</span>
 <span class="sd">    &#39;&#39;&#39;</span>
-    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
-        <span class="k">raise</span> <span class="n">ATSTypeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;expected str for &#39;file_path&#39;, got </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">file_path</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">check_type</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="n">exc_message_path</span><span class="p">)</span>
+    <span class="n">check_type</span><span class="p">(</span><span class="n">content</span><span class="p">,</span> <span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="nb">bytes</span><span class="p">),</span> <span class="n">exc_message_path</span><span class="p">)</span>
 
-    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">content</span><span class="p">,</span> <span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="nb">bytes</span><span class="p">)):</span>
-        <span class="k">raise</span> <span class="n">ATSTypeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;expected str or bytes for &#39;content&#39;, got </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">content</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">file_path</span><span class="p">:</span>
+        <span class="n">raise_context_error</span><span class="p">(</span>
+            <span class="n">fallback_prefix</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;factory_file_utils::write_content&#39;</span><span class="p">,</span>
+            <span class="n">fallback_msg</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;file_path must be provided&#39;</span><span class="p">,</span>
+            <span class="n">exc_message_path</span><span class="o">=</span><span class="n">exc_message_path</span><span class="p">,</span>
+            <span class="n">exception_class</span><span class="o">=</span><span class="n">exception_class</span><span class="p">,</span>
+            <span class="n">depth</span><span class="o">=</span><span class="mi">3</span>
+        <span class="p">)</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">content</span><span class="p">:</span>
+        <span class="n">raise_context_error</span><span class="p">(</span>
+            <span class="n">fallback_prefix</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;factory_file_utils::write_content&#39;</span><span class="p">,</span>
+            <span class="n">fallback_msg</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;content must be provided&#39;</span><span class="p">,</span>
+            <span class="n">exc_message_path</span><span class="o">=</span><span class="n">exc_message_path</span><span class="p">,</span>
+            <span class="n">exception_class</span><span class="o">=</span><span class="n">exception_class</span><span class="p">,</span>
+            <span class="n">depth</span><span class="o">=</span><span class="mi">3</span>
+        <span class="p">)</span>
 
     <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">content</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
         <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">out_f</span><span class="p">:</span>
@@ -255,8 +410,10 @@
 <a class="viewcode-back" href="../../ats_utilities.factory_file_utils.html#ats_utilities.factory_file_utils.apply_path_replacements">[docs]</a>
 <span class="k">def</span> <span class="nf">apply_path_replacements</span><span class="p">(</span>
     <span class="n">rel_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
-    <span class="n">path_replacements</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">],</span>
-    <span class="n">vals</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span>
+    <span class="n">path_replacements</span><span class="p">:</span> <span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">],</span>
+    <span class="n">vals</span><span class="p">:</span> <span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">],</span>
+    <span class="n">exc_message_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">exception_class</span><span class="p">:</span> <span class="nb">type</span><span class="p">[</span><span class="ne">Exception</span><span class="p">]</span> <span class="o">=</span> <span class="n">ATSValueError</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Applies path replacements to a relative path using casing heuristics.</span>
@@ -264,22 +421,45 @@
 <span class="sd">        :param rel_path: The original relative path.</span>
 <span class="sd">        :type rel_path: &lt;str&gt;</span>
 <span class="sd">        :param path_replacements: String replacements mapping.</span>
-<span class="sd">        :type path_replacements: &lt;dict[str, str]&gt;</span>
+<span class="sd">        :type path_replacements: &lt;Mapping[str, str]&gt;</span>
 <span class="sd">        :param vals: Computed template values.</span>
-<span class="sd">        :type vals: &lt;dict[str, str]&gt;</span>
+<span class="sd">        :type vals: &lt;Mapping[str, str]&gt;</span>
 <span class="sd">        :return: The replaced relative path.</span>
 <span class="sd">        :rtype: &lt;str&gt;</span>
 <span class="sd">        :exceptions:</span>
-<span class="sd">            | ATSTypeError: Expected str parameters, got &lt;type&gt;.</span>
+<span class="sd">            | ATSTypeError: Parameter type validation failed.</span>
+<span class="sd">            | Dynamically raises the provided exception_class (e.g., ATSValueError).</span>
 <span class="sd">    &#39;&#39;&#39;</span>
-    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">rel_path</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
-        <span class="k">raise</span> <span class="n">ATSTypeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;expected str for &#39;rel_path&#39;, got </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">rel_path</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">check_type</span><span class="p">(</span><span class="n">rel_path</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="n">exc_message_path</span><span class="p">)</span>
+    <span class="n">check_type</span><span class="p">(</span><span class="n">path_replacements</span><span class="p">,</span> <span class="n">Mapping</span><span class="p">,</span> <span class="n">exc_message_path</span><span class="p">)</span>
+    <span class="n">check_type</span><span class="p">(</span><span class="n">vals</span><span class="p">,</span> <span class="n">Mapping</span><span class="p">,</span> <span class="n">exc_message_path</span><span class="p">)</span>
 
-    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">path_replacements</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
-        <span class="k">raise</span> <span class="n">ATSTypeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;expected dict for &#39;path_replacements&#39;, got </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">path_replacements</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">rel_path</span><span class="p">:</span>
+        <span class="n">raise_context_error</span><span class="p">(</span>
+            <span class="n">fallback_prefix</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;factory_file_utils::apply_path_replacements&#39;</span><span class="p">,</span>
+            <span class="n">fallback_msg</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;rel_path must be provided&#39;</span><span class="p">,</span>
+            <span class="n">exc_message_path</span><span class="o">=</span><span class="n">exc_message_path</span><span class="p">,</span>
+            <span class="n">exception_class</span><span class="o">=</span><span class="n">exception_class</span><span class="p">,</span>
+            <span class="n">depth</span><span class="o">=</span><span class="mi">3</span>
+        <span class="p">)</span>
 
-    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">vals</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
-        <span class="k">raise</span> <span class="n">ATSTypeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;expected dict for &#39;vals&#39;, got </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">vals</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">path_replacements</span><span class="p">:</span>
+        <span class="n">raise_context_error</span><span class="p">(</span>
+            <span class="n">fallback_prefix</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;factory_file_utils::apply_path_replacements&#39;</span><span class="p">,</span>
+            <span class="n">fallback_msg</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;path_replacements must be provided&#39;</span><span class="p">,</span>
+            <span class="n">exc_message_path</span><span class="o">=</span><span class="n">exc_message_path</span><span class="p">,</span>
+            <span class="n">exception_class</span><span class="o">=</span><span class="n">exception_class</span><span class="p">,</span>
+            <span class="n">depth</span><span class="o">=</span><span class="mi">3</span>
+        <span class="p">)</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">vals</span><span class="p">:</span>
+        <span class="n">raise_context_error</span><span class="p">(</span>
+            <span class="n">fallback_prefix</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;factory_file_utils::apply_path_replacements&#39;</span><span class="p">,</span>
+            <span class="n">fallback_msg</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;vals must be provided&#39;</span><span class="p">,</span>
+            <span class="n">exc_message_path</span><span class="o">=</span><span class="n">exc_message_path</span><span class="p">,</span>
+            <span class="n">exception_class</span><span class="o">=</span><span class="n">exception_class</span><span class="p">,</span>
+            <span class="n">depth</span><span class="o">=</span><span class="mi">3</span>
+        <span class="p">)</span>
 
     <span class="n">dest_rel_path</span> <span class="o">=</span> <span class="n">rel_path</span>
 

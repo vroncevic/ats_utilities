@@ -54,30 +54,33 @@
 <span class="sd">    You should have received a copy of the GNU General Public License along</span>
 <span class="sd">    with this program. If not, see &lt;http://www.gnu.org/licenses/&gt;.</span>
 <span class="sd">Info</span>
-<span class="sd">    Defines vreporter decorator for automatic console logging via templates.</span>
+<span class="sd">    Defines vreport decorator for automatic console logging via templates.</span>
 <span class="sd">    Utility for proxy reporting that borrows IReporter from class instances</span>
 <span class="sd">    and supports multiple message templates and variables.</span>
 <span class="sd">&#39;&#39;&#39;</span>
+
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
 
 <span class="kn">from</span> <span class="nn">collections.abc</span> <span class="kn">import</span> <span class="n">Callable</span>
 <span class="kn">from</span> <span class="nn">re</span> <span class="kn">import</span> <span class="n">findall</span>
 <span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">wraps</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">cast</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.exceptions.ats_attribute_error</span> <span class="kn">import</span> <span class="n">ATSAttributeError</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.exceptions.ats_runtime_error</span> <span class="kn">import</span> <span class="n">ATSRuntimeError</span>
 
-<span class="n">__author__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;Vladimir Roncevic&#39;</span>
-<span class="n">__copyright__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;(C) 2026, https://vroncevic.github.io/ats_utilities&#39;</span>
-<span class="n">__credits__</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Vladimir Roncevic&#39;</span><span class="p">,</span> <span class="s1">&#39;Python Software Foundation&#39;</span><span class="p">]</span>
-<span class="n">__license__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE&#39;</span>
-<span class="n">__version__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;3.4.1&#39;</span>
-<span class="n">__maintainer__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;Vladimir Roncevic&#39;</span>
-<span class="n">__email__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;elektron.ronca@gmail.com&#39;</span>
-<span class="n">__status__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;Updated&#39;</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.factory_context_error</span> <span class="kn">import</span> <span class="n">raise_context_error</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.exceptions</span> <span class="kn">import</span> <span class="n">ATSAttributeError</span><span class="p">,</span> <span class="n">ATSRuntimeError</span><span class="p">,</span> <span class="n">ATSValueError</span>
 
-<div class="viewcode-block" id="vreporter">
-<a class="viewcode-back" href="../../../ats_utilities.reporter.proxy_reporter.html#ats_utilities.reporter.proxy_reporter.vreporter">[docs]</a>
-<span class="k">def</span> <span class="nf">vreporter</span><span class="p">[</span><span class="n">F</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="n">Any</span><span class="p">]](</span><span class="n">templates</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">F</span><span class="p">],</span> <span class="n">F</span><span class="p">]:</span>
+<span class="n">__author__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;Vladimir Roncevic&#39;</span>
+<span class="n">__copyright__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;(C) 2026, https://vroncevic.github.io/ats_utilities&#39;</span>
+<span class="n">__credits__</span> <span class="o">=</span> <span class="p">[</span><span class="sa">r</span><span class="s1">&#39;Vladimir Roncevic&#39;</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;Python Software Foundation&#39;</span><span class="p">]</span>
+<span class="n">__license__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE&#39;</span>
+<span class="n">__version__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;3.4.2&#39;</span>
+<span class="n">__maintainer__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;Vladimir Roncevic&#39;</span>
+<span class="n">__email__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;elektron.ronca@gmail.com&#39;</span>
+<span class="n">__status__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;Updated&#39;</span>
+
+<div class="viewcode-block" id="vreport">
+<a class="viewcode-back" href="../../../ats_utilities.reporter.proxy_reporter.html#ats_utilities.reporter.proxy_reporter.vreport">[docs]</a>
+<span class="k">def</span> <span class="nf">vreport</span><span class="p">[</span><span class="n">F</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="n">Any</span><span class="p">]](</span><span class="n">templates</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">F</span><span class="p">],</span> <span class="n">F</span><span class="p">]:</span>
 <span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Decorator supporting class methods and property operations.</span>
 <span class="sd">        Borrows the reporter object and verbose flag dynamically from the </span>
@@ -89,40 +92,57 @@
 <span class="sd">        :return: Wrapped function.</span>
 <span class="sd">        :rtype: &lt;Callable[[F], F]&gt;</span>
 <span class="sd">        :exceptions:</span>
+<span class="sd">            | ATSValueError: Decorator requires at least one argument.</span>
 <span class="sd">            | ATSRuntimeError: Decorator cannot be used on a standalone function.</span>
 <span class="sd">            | ATSAttributeError: Class is required to provide a &#39;_reporter&#39; object to</span>
-<span class="sd">            |                    use the @verboser decorator.</span>
+<span class="sd">            |                    use the @vreport decorator.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
     <span class="n">message_templates</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">templates</span><span class="p">]</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">templates</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="k">else</span> <span class="n">templates</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">message_templates</span><span class="p">:</span>
+        <span class="n">raise_context_error</span><span class="p">(</span>
+            <span class="n">fallback_prefix</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;vreport::decorator&#39;</span><span class="p">,</span>
+            <span class="n">fallback_msg</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;Decorator @vreport requires at least one argument&quot;</span><span class="p">,</span>
+            <span class="n">exc_message_path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+            <span class="n">exception_class</span><span class="o">=</span><span class="n">ATSValueError</span><span class="p">,</span>
+            <span class="n">depth</span><span class="o">=</span><span class="mi">3</span>
+        <span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">decorator</span><span class="p">(</span><span class="n">func</span><span class="p">:</span> <span class="n">F</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">F</span><span class="p">:</span>
         <span class="nd">@wraps</span><span class="p">(</span><span class="n">func</span><span class="p">)</span>
         <span class="k">def</span> <span class="nf">wrapper</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
             <span class="n">self_instance</span> <span class="o">=</span> <span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">if</span> <span class="n">args</span> <span class="k">else</span> <span class="kc">None</span>
 
-            <span class="k">if</span> <span class="ow">not</span> <span class="n">self_instance</span><span class="p">:</span>
-                <span class="k">raise</span> <span class="n">ATSRuntimeError</span><span class="p">(</span>
-                    <span class="sa">f</span><span class="s2">&quot;Decorator @verboser on &#39;</span><span class="si">{</span><span class="n">func</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">&#39; &quot;</span>
-                    <span class="sa">f</span><span class="s2">&quot;can only be used on class methods.&quot;</span>
-                <span class="p">)</span>
+            <span class="k">if</span> <span class="n">self_instance</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">raise_context_error</span><span class="p">(</span>
+                    <span class="n">fallback_prefix</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;vreport::decorator&#39;</span><span class="p">,</span>
+                    <span class="n">fallback_msg</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;Decorator @vreport on </span><span class="si">{</span><span class="n">func</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s1"> can only be used on class methods&#39;</span><span class="p">,</span>
+                    <span class="n">exc_message_path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                    <span class="n">exception_class</span><span class="o">=</span><span class="n">ATSRuntimeError</span><span class="p">,</span>
+                <span class="n">depth</span><span class="o">=</span><span class="mi">3</span>
+            <span class="p">)</span>
 
             <span class="n">class_name</span> <span class="o">=</span> <span class="n">self_instance</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span>
 
-            <span class="c1"># BORROWING: Extracting reporter and verbose flag from the instance</span>
+            <span class="c1"># BORROWING: Extracting reporter from the instance</span>
             <span class="n">reporter</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span>
                 <span class="n">self_instance</span><span class="p">,</span> <span class="s1">&#39;_reporter&#39;</span><span class="p">,</span>
                 <span class="nb">getattr</span><span class="p">(</span><span class="n">self_instance</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;_</span><span class="si">{</span><span class="n">class_name</span><span class="si">}</span><span class="s1">_reporter&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
             <span class="p">)</span>
 
+            <span class="c1"># BORROWING: Extracting verbose flag from the instance</span>
             <span class="n">is_verbose</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span>
                 <span class="n">self_instance</span><span class="p">,</span> <span class="s1">&#39;_verbose&#39;</span><span class="p">,</span>
                 <span class="nb">getattr</span><span class="p">(</span><span class="n">self_instance</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;_</span><span class="si">{</span><span class="n">class_name</span><span class="si">}</span><span class="s1">_verbose&#39;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
             <span class="p">)</span>
 
             <span class="k">if</span> <span class="n">reporter</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-                <span class="k">raise</span> <span class="n">ATSAttributeError</span><span class="p">(</span>
-                    <span class="sa">f</span><span class="s2">&quot;Class &#39;</span><span class="si">{</span><span class="n">class_name</span><span class="si">}</span><span class="s2">&#39; is required to provide &quot;</span>
-                    <span class="sa">f</span><span class="s2">&quot;a &#39;_reporter&#39; object to use the @verboser decorator.&quot;</span>
+                <span class="n">raise_context_error</span><span class="p">(</span>
+                    <span class="n">fallback_prefix</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;vreport::decorator&#39;</span><span class="p">,</span>
+                    <span class="n">fallback_msg</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;Class &#39;</span><span class="si">{</span><span class="n">class_name</span><span class="si">}</span><span class="s2">&#39; is required to provide a &#39;_reporter&#39; object to use the @vreport decorator&quot;</span><span class="p">,</span>
+                    <span class="n">exc_message_path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                    <span class="n">exception_class</span><span class="o">=</span><span class="n">ATSAttributeError</span><span class="p">,</span>
+                    <span class="n">depth</span><span class="o">=</span><span class="mi">3</span>
                 <span class="p">)</span>
 
             <span class="c1"># Executing the original method first to get updated state (critical for setters)</span>
@@ -160,12 +180,12 @@
                 <span class="k">try</span><span class="p">:</span>
                     <span class="n">formatted_msg</span> <span class="o">=</span> <span class="n">template</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="n">format_context</span><span class="p">)</span>  <span class="c1"># type: ignore</span>
                     <span class="n">final_messages</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">formatted_msg</span><span class="p">)</span>
+
                 <span class="k">except</span> <span class="p">(</span><span class="ne">KeyError</span><span class="p">,</span> <span class="ne">IndexError</span><span class="p">,</span> <span class="ne">ValueError</span><span class="p">,</span> <span class="ne">TypeError</span><span class="p">):</span>
                     <span class="n">final_messages</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">template</span><span class="p">)</span>
 
             <span class="c1"># Forwarding the processed list of messages to the borrowed reporter</span>
-            <span class="k">if</span> <span class="n">final_messages</span><span class="p">:</span>
-                <span class="n">reporter</span><span class="o">.</span><span class="n">verbose</span><span class="p">(</span><span class="n">is_verbose</span><span class="p">,</span> <span class="n">final_messages</span><span class="p">)</span>
+            <span class="n">reporter</span><span class="o">.</span><span class="n">verbose</span><span class="p">(</span><span class="n">is_verbose</span><span class="p">,</span> <span class="n">final_messages</span><span class="p">)</span>
 
             <span class="k">return</span> <span class="n">result</span>
         <span class="k">return</span> <span class="n">cast</span><span class="p">(</span><span class="n">F</span><span class="p">,</span> <span class="n">wrapper</span><span class="p">)</span>

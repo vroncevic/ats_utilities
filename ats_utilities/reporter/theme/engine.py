@@ -20,18 +20,23 @@ Info
     Implements a console theme for console styling.
 '''
 
-from typing import override
-from ats_utilities.factory_class import require_attributes, format_instance_to_string
-from ats_utilities.reporter.theme.iconsole_theme import IConsoleTheme
+from __future__ import annotations
 
-__author__: str = 'Vladimir Roncevic'
-__copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
-__license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.4.1'
-__maintainer__: str = 'Vladimir Roncevic'
-__email__: str = 'elektron.ronca@gmail.com'
-__status__: str = 'Updated'
+from typing import override
+
+from ats_utilities.reporter.theme.iconsole_theme import IConsoleTheme
+from ats_utilities.factory_class import has_attrs, to_str
+from ats_utilities.factory_value import require_not_none, require_not_satisfied
+from ats_utilities.factory_type import check_type
+
+__author__ = r'Vladimir Roncevic'
+__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
+__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = r'3.4.2'
+__maintainer__ = r'Vladimir Roncevic'
+__email__ = r'elektron.ronca@gmail.com'
+__status__ = r'Updated'
 
 
 class ConsoleTheme(IConsoleTheme):
@@ -42,6 +47,7 @@ class ConsoleTheme(IConsoleTheme):
         It defines:
 
             :attributes:
+                | _default_palette_colors - Default palette colors for different message types.
                 | _palette - Dictionary with color codes for different message types.
             :methods:
                 | __init__ - Initializes ConsoleTheme constructor.
@@ -49,13 +55,14 @@ class ConsoleTheme(IConsoleTheme):
                 | __str__ - Returns the string representation of ConsoleTheme.
     '''
 
-    _default_palete_colors: dict[str, str] = {
+    _default_palette_colors: dict[str, str] = {
         'verbose': '\x1b[34m', # ANSI blue
         'success': '\x1b[32m', # ANSI green
         'warning': '\x1b[33m', # ANSI yellow
         'error':   '\x1b[31m', # ANSI red
         'reset':   '\x1b[0m'   # ANSI reset
     }
+    _palette: dict[str, str]
 
     def __init__(self, palette: dict[str, str] | None = None) -> None:
         '''
@@ -63,12 +70,16 @@ class ConsoleTheme(IConsoleTheme):
 
             :param palette: Dictionary with color codes | None.
             :type palette: <dict[str, str] | None>
-            :exceptions: None.
+            :exceptions:
+                | ATSTypeError: Palette must be a dictionary.
         '''
-        # No dependency injection then use default ones.
-        self._palette: dict[str, str] = palette or self._default_palete_colors
+        if palette is not None:
+            check_type(palette, dict, r'palette must be a dictionary')
 
-    @require_attributes('_palette')
+        # No dependency injection then use default ones.
+        self._palette = palette or self._default_palette_colors
+
+    @has_attrs('_palette')
     @override
     def get_color(self, color_type: str) -> str:
         '''
@@ -78,9 +89,17 @@ class ConsoleTheme(IConsoleTheme):
             :type color_type: <str>
             :return: Color code in string format.
             :rtype: <str>
-            :exceptions: ATSValueError.
+            :exceptions:
+                | ATSValueError: Color palette is not defined.
+                | ATSValueError: Color type must be provided.
+                | ATSTypeError: Color type must be a string.
+                | ATSValueError: Color type not found in palette.
         '''
-        return self._palette.get(color_type, '')
+        require_not_none(color_type, r'color type must be provided')
+        check_type(color_type, str, r'color type must be a string')
+        require_not_satisfied(color_type not in self._palette, f"color type '{color_type}' not found in palette")
+
+        return self._palette[color_type]
 
     @override
     def __str__(self) -> str:
@@ -91,4 +110,4 @@ class ConsoleTheme(IConsoleTheme):
             :rtype: <str>
             :exceptions: None.
         '''
-        return format_instance_to_string(self)
+        return to_str(self)

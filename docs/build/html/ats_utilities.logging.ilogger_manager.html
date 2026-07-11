@@ -15,8 +15,8 @@
     
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="ats_utilities.logging.logger module" href="ats_utilities.logging.logger.html" />
-    <link rel="prev" title="ats_utilities.logging.ilogger module" href="ats_utilities.logging.ilogger.html" /> 
+    <link rel="next" title="ats_utilities.option package" href="ats_utilities.option.html" />
+    <link rel="prev" title="ats_utilities.logging.engine module" href="ats_utilities.logging.engine.html" /> 
   </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
@@ -28,10 +28,10 @@
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="ats_utilities.logging.logger.html" title="ats_utilities.logging.logger module"
+          <a href="ats_utilities.option.html" title="ats_utilities.option package"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="ats_utilities.logging.ilogger.html" title="ats_utilities.logging.ilogger module"
+          <a href="ats_utilities.logging.engine.html" title="ats_utilities.logging.engine module"
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">ats_utilities https://github.com/vroncevic/ats_utilities/releases documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="modules.html" >ats_utilities</a> &#187;</li>
@@ -76,11 +76,8 @@ Interface for the ATS logging manager mechanism.</p>
 <p>It defines:</p>
 <blockquote>
 <div><dl class="field-list">
-<dt class="field-odd">attributes<span class="colon">:</span></dt>
-<dd class="field-odd"><p>None</p>
-</dd>
-<dt class="field-even">methods<span class="colon">:</span></dt>
-<dd class="field-even"><div class="line-block">
+<dt class="field-odd">methods<span class="colon">:</span></dt>
+<dd class="field-odd"><div class="line-block">
 <div class="line">get_shared_context - Returns the shared context.</div>
 <div class="line">get_logger - Gets logger instance.</div>
 <div class="line">write_log - Writes message to log output.</div>
@@ -97,7 +94,7 @@ Interface for the ATS logging manager mechanism.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="ats_utilities.logging.ilogger_manager.ILoggerManager.get_logger">
-<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_logger</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="ats_utilities.logging.ilogger.html#ats_utilities.logging.ilogger.ILogger" title="ats_utilities.logging.ilogger.ILogger"><span class="pre">ILogger</span></a></span></span><a class="reference internal" href="_modules/ats_utilities/logging/ilogger_manager.html#ILoggerManager.get_logger"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.logging.ilogger_manager.ILoggerManager.get_logger" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_logger</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="ats_utilities.logging.logger.ilogger.html#ats_utilities.logging.logger.ilogger.ILogger" title="ats_utilities.logging.logger.ilogger.ILogger"><span class="pre">ILogger</span></a></span></span><a class="reference internal" href="_modules/ats_utilities/logging/ilogger_manager.html#ILoggerManager.get_logger"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.logging.ilogger_manager.ILoggerManager.get_logger" title="Link to this definition">¶</a></dt>
 <dd><p>Gets logger instance.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -114,14 +111,14 @@ Interface for the ATS logging manager mechanism.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="ats_utilities.logging.ilogger_manager.ILoggerManager.get_shared_context">
-<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_shared_context</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="ats_utilities.context_bundle.html#ats_utilities.context_bundle.ContextBundle" title="ats_utilities.context_bundle.ContextBundle"><span class="pre">ContextBundle</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></span><a class="reference internal" href="_modules/ats_utilities/logging/ilogger_manager.html#ILoggerManager.get_shared_context"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.logging.ilogger_manager.ILoggerManager.get_shared_context" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_shared_context</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="ats_utilities.context_bundle.html#ats_utilities.context_bundle.ContextBundle" title="ats_utilities.context_bundle.ContextBundle"><span class="pre">ContextBundle</span></a></span></span><a class="reference internal" href="_modules/ats_utilities/logging/ilogger_manager.html#ILoggerManager.get_shared_context"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.logging.ilogger_manager.ILoggerManager.get_shared_context" title="Link to this definition">¶</a></dt>
 <dd><p>Returns the shared context.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Shared context | None</p>
+<dd class="field-odd"><p>Shared context.</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>&lt;ContextBundle | None&gt;</p>
+<dd class="field-even"><p>&lt;ContextBundle&gt;</p>
 </dd>
 <dt class="field-odd">Exceptions<span class="colon">:</span></dt>
 <dd class="field-odd"><p>None.</p>
@@ -148,17 +145,17 @@ Interface for the ATS logging manager mechanism.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="ats_utilities.logging.ilogger_manager.ILoggerManager.write_log">
-<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">write_log</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">message</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ctrl</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="_modules/ats_utilities/logging/ilogger_manager.html#ILoggerManager.write_log"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.logging.ilogger_manager.ILoggerManager.write_log" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">write_log</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">message</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ctrl</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="_modules/ats_utilities/logging/ilogger_manager.html#ILoggerManager.write_log"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.logging.ilogger_manager.ILoggerManager.write_log" title="Link to this definition">¶</a></dt>
 <dd><p>Writes message to log output.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>message</strong> (<em>&lt;str</em><em> | </em><em>None&gt;</em>) – Log message in string format for log output | None</p></li>
-<li><p><strong>ctrl</strong> (<em>&lt;int&gt;</em>) – Control flag (debug, warning, critical, errors, info)</p></li>
+<li><p><strong>message</strong> (<em>&lt;str&gt;</em>) – Log message in string format for log output.</p></li>
+<li><p><strong>ctrl</strong> (<em>&lt;int&gt;</em>) – Control flag (debug, warning, critical, errors, info).</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>True (success) | False (fail)</p>
+<dd class="field-even"><p>True (success) | False (fail).</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>&lt;bool&gt;</p>
@@ -199,13 +196,13 @@ Interface for the ATS logging manager mechanism.</p>
   </div>
   <div>
     <h4>Previous topic</h4>
-    <p class="topless"><a href="ats_utilities.logging.ilogger.html"
-                          title="previous chapter">ats_utilities.logging.ilogger module</a></p>
+    <p class="topless"><a href="ats_utilities.logging.engine.html"
+                          title="previous chapter">ats_utilities.logging.engine module</a></p>
   </div>
   <div>
     <h4>Next topic</h4>
-    <p class="topless"><a href="ats_utilities.logging.logger.html"
-                          title="next chapter">ats_utilities.logging.logger module</a></p>
+    <p class="topless"><a href="ats_utilities.option.html"
+                          title="next chapter">ats_utilities.option package</a></p>
   </div>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
@@ -238,10 +235,10 @@ Interface for the ATS logging manager mechanism.</p>
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="ats_utilities.logging.logger.html" title="ats_utilities.logging.logger module"
+          <a href="ats_utilities.option.html" title="ats_utilities.option package"
              >next</a> |</li>
         <li class="right" >
-          <a href="ats_utilities.logging.ilogger.html" title="ats_utilities.logging.ilogger module"
+          <a href="ats_utilities.logging.engine.html" title="ats_utilities.logging.engine module"
              >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">ats_utilities https://github.com/vroncevic/ats_utilities/releases documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="modules.html" >ats_utilities</a> &#187;</li>

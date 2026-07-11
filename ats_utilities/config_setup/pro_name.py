@@ -20,24 +20,27 @@ Info
     Defines project name container.
 '''
 
+from __future__ import annotations
+
 from typing import override
+
 from ats_utilities.config_setup.ipro_name import IProName
 from ats_utilities.context_bundle import ContextBundle
 from ats_utilities.checker.ichecker import IChecker
 from ats_utilities.reporter.ireporter import IReporter
 from ats_utilities.factory_context_bundle import factory_context_bundle
-from ats_utilities.factory_class import format_instance_to_string
-from ats_utilities.checker.proxy_validator import validator
-from ats_utilities.reporter.proxy_reporter import vreporter
+from ats_utilities.factory_class import to_str
+from ats_utilities.checker.proxy_validator import vcheck
+from ats_utilities.reporter.proxy_reporter import vreport
 
-__author__: str = 'Vladimir Roncevic'
-__copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
-__license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.4.1'
-__maintainer__: str = 'Vladimir Roncevic'
-__email__: str = 'elektron.ronca@gmail.com'
-__status__: str = 'Updated'
+__author__ = r'Vladimir Roncevic'
+__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
+__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = r'3.4.2'
+__maintainer__ = r'Vladimir Roncevic'
+__email__ = r'elektron.ronca@gmail.com'
+__status__ = r'Updated'
 
 
 class ProName(IProName):
@@ -63,6 +66,7 @@ class ProName(IProName):
     _checker: IChecker
     _reporter: IReporter
     _verbose: bool
+    _pro_name: str | None
 
     def __init__(self, context_bundle: ContextBundle | None = None) -> None:
         '''
@@ -73,38 +77,38 @@ class ProName(IProName):
             :exceptions: None.
         '''
         factory_context_bundle(self, context_bundle)
-        self._pro_name: str | None = None
+        self._pro_name = None
 
     @property
-    @vreporter('get pro name {pro_name}')
+    @vreport('getting pro name {pro_name}')
     @override
-    def pro_name(self) -> str | None:
+    def pro_name(self) -> str:
         '''
             Property method for getting project name in string format.
 
-            :return: Formatted project name in string format | None.
-            :rtype: <str | None>
+            :return: Formatted project name in string format.
+            :rtype: <str>
             :exceptions:
                 | ATSRuntimeError: Decorator cannot be used on a standalone function.
                 | ATSAttributeError: Class is required to provide a '_reporter' object to
-                |                    use the @verboser decorator.
+                |                    use the @vreport decorator.
         '''
         return self._pro_name
 
     @pro_name.setter
-    @validator([('str | None:name', None)])
-    @vreporter('get pro name {pro_name}')
+    @vcheck([('str:name', None)])
+    @vreport('getting pro name {pro_name}')
     @override
-    def pro_name(self, name: str | None) -> None:
+    def pro_name(self, name: str) -> None:
         '''
             Property method for setting project name.
 
-            :param name: Project name in string format | None.
-            :type name: <str | None>
+            :param name: Project name in string format.
+            :type name: <str>
             :exceptions:
                 | ATSRuntimeError: Decorator cannot be used on a standalone function.
                 | ATSAttributeError: Class is required to provide a '_reporter' object to
-                |                    use the @verboser decorator.
+                |                    use the @vreport decorator.
                 | ATSTypeError: Parameter type validation failed.
                 | ATSValueError: Parameter format validation failed.
                 | ATSRuntimeError: Decorator used on a non-class method.
@@ -112,7 +116,7 @@ class ProName(IProName):
         '''
         self._pro_name = name
 
-    @vreporter('check pro name {pro_name}')
+    @vreport('checking pro name {pro_name}')
     @override
     def not_none(self) -> bool:
         '''
@@ -123,7 +127,7 @@ class ProName(IProName):
             :exceptions:
                 | ATSRuntimeError: Decorator cannot be used on a standalone function.
                 | ATSAttributeError: Class is required to provide a '_reporter' object to
-                |                    use the @verboser decorator.
+                |                    use the @vreport decorator.
         '''
         return self._pro_name is not None
 
@@ -136,4 +140,4 @@ class ProName(IProName):
             :rtype: <str>
             :exceptions: None.
         '''
-        return format_instance_to_string(self)
+        return to_str(self)

@@ -79,6 +79,7 @@ Implements a console theme for console styling.</p>
 <div><dl class="field-list">
 <dt class="field-odd">attributes<span class="colon">:</span></dt>
 <dd class="field-odd"><div class="line-block">
+<div class="line">_default_palette_colors - Default palette colors for different message types.</div>
 <div class="line">_palette - Dictionary with color codes for different message types.</div>
 </div>
 </dd>
@@ -97,15 +98,20 @@ Implements a console theme for console styling.</p>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="ats_utilities.reporter.theme.engine.ConsoleTheme._default_palete_colors">
-<span class="sig-name descname"><span class="pre">_default_palete_colors</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'error':</span> <span class="pre">'\x1b[31m',</span> <span class="pre">'reset':</span> <span class="pre">'\x1b[0m',</span> <span class="pre">'success':</span> <span class="pre">'\x1b[32m',</span> <span class="pre">'verbose':</span> <span class="pre">'\x1b[34m',</span> <span class="pre">'warning':</span> <span class="pre">'\x1b[33m'}</span></em><a class="headerlink" href="#ats_utilities.reporter.theme.engine.ConsoleTheme._default_palete_colors" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ats_utilities.reporter.theme.engine.ConsoleTheme._default_palette_colors">
+<span class="sig-name descname"><span class="pre">_default_palette_colors</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'error':</span> <span class="pre">'\x1b[31m',</span> <span class="pre">'reset':</span> <span class="pre">'\x1b[0m',</span> <span class="pre">'success':</span> <span class="pre">'\x1b[32m',</span> <span class="pre">'verbose':</span> <span class="pre">'\x1b[34m',</span> <span class="pre">'warning':</span> <span class="pre">'\x1b[33m'}</span></em><a class="headerlink" href="#ats_utilities.reporter.theme.engine.ConsoleTheme._default_palette_colors" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ats_utilities.reporter.theme.engine.ConsoleTheme._palette">
+<span class="sig-name descname"><span class="pre">_palette</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#ats_utilities.reporter.theme.engine.ConsoleTheme._palette" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="ats_utilities.reporter.theme.engine.ConsoleTheme.get_color">
 <span class="sig-name descname"><span class="pre">get_color</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">color_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="_modules/ats_utilities/reporter/theme/engine.html#ConsoleTheme.get_color"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.reporter.theme.engine.ConsoleTheme.get_color" title="Link to this definition">¶</a></dt>
 <dd><p>Returns color code from palette.</p>
-<dl class="field-list simple">
+<dl class="field-list">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>color_type</strong> (<em>&lt;str&gt;</em>) – Type of the message (key in palette).</p>
 </dd>
@@ -116,7 +122,12 @@ Implements a console theme for console styling.</p>
 <dd class="field-odd"><p>&lt;str&gt;</p>
 </dd>
 <dt class="field-even">Exceptions<span class="colon">:</span></dt>
-<dd class="field-even"><p>ATSValueError.</p>
+<dd class="field-even"><div class="line-block">
+<div class="line">ATSValueError: Color palette is not defined.</div>
+<div class="line">ATSValueError: Color type must be provided.</div>
+<div class="line">ATSTypeError: Color type must be a string.</div>
+<div class="line">ATSValueError: Color type not found in palette.</div>
+</div>
 </dd>
 </dl>
 </dd></dl>
@@ -138,7 +149,8 @@ Implements a console theme for console styling.</p>
 <li><a class="reference internal" href="#">ats_utilities.reporter.theme.engine module</a><ul>
 <li><a class="reference internal" href="#ats_utilities.reporter.theme.engine.ConsoleTheme"><code class="docutils literal notranslate"><span class="pre">ConsoleTheme</span></code></a><ul>
 <li><a class="reference internal" href="#ats_utilities.reporter.theme.engine.ConsoleTheme._abc_impl"><code class="docutils literal notranslate"><span class="pre">ConsoleTheme._abc_impl</span></code></a></li>
-<li><a class="reference internal" href="#ats_utilities.reporter.theme.engine.ConsoleTheme._default_palete_colors"><code class="docutils literal notranslate"><span class="pre">ConsoleTheme._default_palete_colors</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.reporter.theme.engine.ConsoleTheme._default_palette_colors"><code class="docutils literal notranslate"><span class="pre">ConsoleTheme._default_palette_colors</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.reporter.theme.engine.ConsoleTheme._palette"><code class="docutils literal notranslate"><span class="pre">ConsoleTheme._palette</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.reporter.theme.engine.ConsoleTheme.get_color"><code class="docutils literal notranslate"><span class="pre">ConsoleTheme.get_color()</span></code></a></li>
 </ul>
 </li>

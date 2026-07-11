@@ -84,6 +84,7 @@ Template-based file generation from .tgz archives.</p>
 <div class="line">_shared_context - Bundle of shared context.</div>
 <div class="line">_scheme_loader - Loader/resolver for scheme configuration.</div>
 <div class="line">_tar_processor - Processor for archive extraction and template rendering.</div>
+<div class="line">_is_initialized - Flag indicating if the generator is initialized.</div>
 </div>
 </dd>
 <dt class="field-even">methods<span class="colon">:</span></dt>
@@ -108,8 +109,28 @@ Template-based file generation from .tgz archives.</p>
 <dd></dd></dl>
 
 <dl class="py attribute">
+<dt class="sig sig-object py" id="ats_utilities.generator.engine.Generator._is_initialized">
+<span class="sig-name descname"><span class="pre">_is_initialized</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#ats_utilities.generator.engine.Generator._is_initialized" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
 <dt class="sig sig-object py" id="ats_utilities.generator.engine.Generator._reporter">
 <span class="sig-name descname"><span class="pre">_reporter</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="ats_utilities.reporter.ireporter.html#ats_utilities.reporter.ireporter.IReporter" title="ats_utilities.reporter.ireporter.IReporter"><span class="pre">IReporter</span></a></em><a class="headerlink" href="#ats_utilities.generator.engine.Generator._reporter" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ats_utilities.generator.engine.Generator._scheme_loader">
+<span class="sig-name descname"><span class="pre">_scheme_loader</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="ats_utilities.generator.scheme.ischeme_loader.html#ats_utilities.generator.scheme.ischeme_loader.ISchemeLoader" title="ats_utilities.generator.scheme.ischeme_loader.ISchemeLoader"><span class="pre">ISchemeLoader</span></a></em><a class="headerlink" href="#ats_utilities.generator.engine.Generator._scheme_loader" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ats_utilities.generator.engine.Generator._shared_context">
+<span class="sig-name descname"><span class="pre">_shared_context</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="ats_utilities.context_bundle.html#ats_utilities.context_bundle.ContextBundle" title="ats_utilities.context_bundle.ContextBundle"><span class="pre">ContextBundle</span></a></em><a class="headerlink" href="#ats_utilities.generator.engine.Generator._shared_context" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ats_utilities.generator.engine.Generator._tar_processor">
+<span class="sig-name descname"><span class="pre">_tar_processor</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="ats_utilities.generator.tar.itar_processor.html#ats_utilities.generator.tar.itar_processor.ITarProcessor" title="ats_utilities.generator.tar.itar_processor.ITarProcessor"><span class="pre">ITarProcessor</span></a></em><a class="headerlink" href="#ats_utilities.generator.engine.Generator._tar_processor" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
@@ -133,9 +154,9 @@ Template-based file generation from .tgz archives.</p>
 </dd>
 <dt class="field-even">Exceptions<span class="colon">:</span></dt>
 <dd class="field-even"><div class="line-block">
-<div class="line">ATSTypeError - If parameters are of invalid type.</div>
-<div class="line">ATSValueError - If parameter constraints are violated.</div>
-<div class="line">ATSGeneratorError - If archive parsing or template rendering fails.</div>
+<div class="line">ATSTypeError: If parameters are of invalid type.</div>
+<div class="line">ATSValueError: If parameter constraints are violated.</div>
+<div class="line">ATSGeneratorError: If archive parsing or template rendering fails.</div>
 </div>
 </dd>
 </dl>
@@ -143,14 +164,14 @@ Template-based file generation from .tgz archives.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="ats_utilities.generator.engine.Generator.get_shared_context">
-<span class="sig-name descname"><span class="pre">get_shared_context</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="ats_utilities.context_bundle.html#ats_utilities.context_bundle.ContextBundle" title="ats_utilities.context_bundle.ContextBundle"><span class="pre">ContextBundle</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></span><a class="reference internal" href="_modules/ats_utilities/generator/engine.html#Generator.get_shared_context"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.generator.engine.Generator.get_shared_context" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">get_shared_context</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="ats_utilities.context_bundle.html#ats_utilities.context_bundle.ContextBundle" title="ats_utilities.context_bundle.ContextBundle"><span class="pre">ContextBundle</span></a></span></span><a class="reference internal" href="_modules/ats_utilities/generator/engine.html#Generator.get_shared_context"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.generator.engine.Generator.get_shared_context" title="Link to this definition">¶</a></dt>
 <dd><p>Returns the shared context.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Shared context | None</p>
+<dd class="field-odd"><p>Shared context.</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>&lt;ContextBundle | None&gt;</p>
+<dd class="field-even"><p>&lt;ContextBundle&gt;</p>
 </dd>
 <dt class="field-odd">Exceptions<span class="colon">:</span></dt>
 <dd class="field-odd"><p>None.</p>
@@ -177,11 +198,11 @@ Template-based file generation from .tgz archives.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="ats_utilities.generator.engine.Generator.prepare_template_values">
-<span class="sig-name descname"><span class="pre">prepare_template_values</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">template_values</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/ats_utilities/generator/engine.html#Generator.prepare_template_values"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.generator.engine.Generator.prepare_template_values" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">prepare_template_values</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">template_values</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Mapping</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/ats_utilities/generator/engine.html#Generator.prepare_template_values"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.generator.engine.Generator.prepare_template_values" title="Link to this definition">¶</a></dt>
 <dd><p>Validates and computes name case variations from template values.</p>
 <dl class="field-list">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>template_values</strong> (<em>&lt;dict</em><em>[</em><em>str</em><em>, </em><em>str</em><em>]</em><em>&gt;</em>) – Input replacement values.</p>
+<dd class="field-odd"><p><strong>template_values</strong> (<em>&lt;Mapping</em><em>[</em><em>str</em><em>, </em><em>str</em><em>]</em><em>&gt;</em>) – Input replacement values.</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>The updated template values dictionary.</p>
@@ -191,7 +212,7 @@ Template-based file generation from .tgz archives.</p>
 </dd>
 <dt class="field-even">Exceptions<span class="colon">:</span></dt>
 <dd class="field-even"><div class="line-block">
-<div class="line">ATSValueError - If project_name is missing or empty.</div>
+<div class="line">ATSValueError: If project_name is missing or empty.</div>
 </div>
 </dd>
 </dl>
@@ -215,7 +236,11 @@ Template-based file generation from .tgz archives.</p>
 <li><a class="reference internal" href="#ats_utilities.generator.engine.Generator"><code class="docutils literal notranslate"><span class="pre">Generator</span></code></a><ul>
 <li><a class="reference internal" href="#ats_utilities.generator.engine.Generator._abc_impl"><code class="docutils literal notranslate"><span class="pre">Generator._abc_impl</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.generator.engine.Generator._checker"><code class="docutils literal notranslate"><span class="pre">Generator._checker</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.generator.engine.Generator._is_initialized"><code class="docutils literal notranslate"><span class="pre">Generator._is_initialized</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.generator.engine.Generator._reporter"><code class="docutils literal notranslate"><span class="pre">Generator._reporter</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.generator.engine.Generator._scheme_loader"><code class="docutils literal notranslate"><span class="pre">Generator._scheme_loader</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.generator.engine.Generator._shared_context"><code class="docutils literal notranslate"><span class="pre">Generator._shared_context</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.generator.engine.Generator._tar_processor"><code class="docutils literal notranslate"><span class="pre">Generator._tar_processor</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.generator.engine.Generator._verbose"><code class="docutils literal notranslate"><span class="pre">Generator._verbose</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.generator.engine.Generator.generate"><code class="docutils literal notranslate"><span class="pre">Generator.generate()</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.generator.engine.Generator.get_shared_context"><code class="docutils literal notranslate"><span class="pre">Generator.get_shared_context()</span></code></a></li>

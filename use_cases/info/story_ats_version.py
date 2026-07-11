@@ -20,18 +20,20 @@ Info
 '''
 
 from ats_utilities.context_bundle import ContextBundle
-from ats_utilities.info.version import Version
+from ats_utilities.info.version.engine import Version
 from ats_utilities.checker.engine import Checker
 from ats_utilities.reporter.engine import Reporter
+from ats_utilities.reporter.theme.engine import ConsoleTheme
+from ats_utilities.reporter.component_bundle import ReporterComponentBundle
 
-__author__: str = 'Vladimir Roncevic'
-__copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
-__license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.4.1'
-__maintainer__: str = 'Vladimir Roncevic'
-__email__: str = 'elektron.ronca@gmail.com'
-__status__: str = 'Updated'
+__author__ = r'Vladimir Roncevic'
+__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
+__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = r'3.4.2'
+__maintainer__ = r'Vladimir Roncevic'
+__email__ = r'elektron.ronca@gmail.com'
+__status__ = r'Updated'
 
 VERBOSE: bool = False
 
@@ -49,10 +51,13 @@ print(150 * '=')
 # with DI
 # ========
 #
-checker = Checker()
-reporter = Reporter(checker=checker)
-info_bundle = ContextBundle(checker=checker, reporter=reporter, verbose=VERBOSE)
-ats_version = Version(info_bundle=info_bundle)
+checker: Checker = Checker()
+theme: ConsoleTheme = ConsoleTheme()
+reporter_bundle: ReporterComponentBundle = ReporterComponentBundle(checker=checker, theme=theme)
+reporter: Reporter = Reporter(component_bundle=reporter_bundle)
+bundle: ContextBundle = ContextBundle(checker=checker, reporter=reporter, verbose=VERBOSE)
+
+ats_version: Version = Version(context_bundle=bundle)
 ats_version.version = '1.2.6'
 print(ats_version.version)
 print(ats_version)
@@ -62,8 +67,8 @@ print(150 * '=')
 # with DI (default ContextBundle)
 # ================================
 #
-info_bundle = ContextBundle()
-ats_version = Version(info_bundle=info_bundle)
+bundle: ContextBundle = ContextBundle()
+ats_version: Version = Version(context_bundle=bundle)
 ats_version.version = '1.2.7'
 print(ats_version.version)
 print(ats_version)

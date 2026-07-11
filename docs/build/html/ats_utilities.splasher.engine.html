@@ -15,7 +15,7 @@
     
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="ats_utilities.splasher.ext_infrastructure module" href="ats_utilities.splasher.ext_infrastructure.html" />
+    <link rel="next" title="ats_utilities.splasher.isplasher module" href="ats_utilities.splasher.isplasher.html" />
     <link rel="prev" title="ats_utilities.splasher.component_bundle module" href="ats_utilities.splasher.component_bundle.html" /> 
   </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
@@ -28,7 +28,7 @@
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="ats_utilities.splasher.ext_infrastructure.html" title="ats_utilities.splasher.ext_infrastructure module"
+          <a href="ats_utilities.splasher.isplasher.html" title="ats_utilities.splasher.isplasher module"
              accesskey="N">next</a> |</li>
         <li class="right" >
           <a href="ats_utilities.splasher.component_bundle.html" title="ats_utilities.splasher.component_bundle module"
@@ -90,7 +90,7 @@ Implements a splash screen with hyperlinks.</p>
 <div class="line">__init__ - Initials Splasher constructor.</div>
 <div class="line">get_shared_context - Returns the shared context.</div>
 <div class="line">center - Centers console line.</div>
-<div class="line">is_initialized - Checks if splasher component is initialized.</div>
+<div class="line">is_initialized - Checks if splasher is initialized.</div>
 <div class="line">__str__ - Returns the string representation of Splasher.</div>
 </div>
 </dd>
@@ -107,8 +107,18 @@ Implements a splash screen with hyperlinks.</p>
 <dd></dd></dl>
 
 <dl class="py attribute">
+<dt class="sig sig-object py" id="ats_utilities.splasher.engine.Splasher._is_initialized">
+<span class="sig-name descname"><span class="pre">_is_initialized</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#ats_utilities.splasher.engine.Splasher._is_initialized" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
 <dt class="sig sig-object py" id="ats_utilities.splasher.engine.Splasher._reporter">
 <span class="sig-name descname"><span class="pre">_reporter</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="ats_utilities.reporter.ireporter.html#ats_utilities.reporter.ireporter.IReporter" title="ats_utilities.reporter.ireporter.IReporter"><span class="pre">IReporter</span></a></em><a class="headerlink" href="#ats_utilities.splasher.engine.Splasher._reporter" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ats_utilities.splasher.engine.Splasher._shared_context">
+<span class="sig-name descname"><span class="pre">_shared_context</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="ats_utilities.context_bundle.html#ats_utilities.context_bundle.ContextBundle" title="ats_utilities.context_bundle.ContextBundle"><span class="pre">ContextBundle</span></a></em><a class="headerlink" href="#ats_utilities.splasher.engine.Splasher._shared_context" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
@@ -126,12 +136,12 @@ Implements a splash screen with hyperlinks.</p>
 </dd>
 <dt class="field-even">Exceptions<span class="colon">:</span></dt>
 <dd class="field-even"><div class="line-block">
-<div class="line">ATSTypeError - columns count ‘columns’ is not an integer.</div>
-<div class="line">ATSValueError - columns count ‘columns’ is less than 0.</div>
-<div class="line">ATSTypeError - additional shifter ‘additional_shifter’ is not an integer.</div>
-<div class="line">ATSValueError - additional shifter ‘additional_shifter’ is less than 0.</div>
-<div class="line">ATSTypeError - text ‘text’ is not a string or None.</div>
-<div class="line">ATSValueError - text ‘text’ is empty.</div>
+<div class="line">ATSTypeError: columns count ‘columns’ is not an integer.</div>
+<div class="line">ATSValueError: columns count ‘columns’ is less than 0.</div>
+<div class="line">ATSTypeError: additional shifter ‘additional_shifter’ is not an integer.</div>
+<div class="line">ATSValueError: additional shifter ‘additional_shifter’ is less than 0.</div>
+<div class="line">ATSTypeError: text ‘text’ is not a string or None.</div>
+<div class="line">ATSValueError: text ‘text’ is empty.</div>
 </div>
 </dd>
 </dl>
@@ -139,14 +149,14 @@ Implements a splash screen with hyperlinks.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="ats_utilities.splasher.engine.Splasher.get_shared_context">
-<span class="sig-name descname"><span class="pre">get_shared_context</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="ats_utilities.context_bundle.html#ats_utilities.context_bundle.ContextBundle" title="ats_utilities.context_bundle.ContextBundle"><span class="pre">ContextBundle</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></span><a class="reference internal" href="_modules/ats_utilities/splasher/engine.html#Splasher.get_shared_context"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.splasher.engine.Splasher.get_shared_context" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">get_shared_context</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="ats_utilities.context_bundle.html#ats_utilities.context_bundle.ContextBundle" title="ats_utilities.context_bundle.ContextBundle"><span class="pre">ContextBundle</span></a></span></span><a class="reference internal" href="_modules/ats_utilities/splasher/engine.html#Splasher.get_shared_context"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.splasher.engine.Splasher.get_shared_context" title="Link to this definition">¶</a></dt>
 <dd><p>Returns the shared context.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Shared context | None.</p>
+<dd class="field-odd"><p>Shared context.</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>&lt;ContextBundle | None&gt;</p>
+<dd class="field-even"><p>&lt;ContextBundle&gt;</p>
 </dd>
 <dt class="field-odd">Exceptions<span class="colon">:</span></dt>
 <dd class="field-odd"><p>None.</p>
@@ -189,7 +199,9 @@ Implements a splash screen with hyperlinks.</p>
 <li><a class="reference internal" href="#ats_utilities.splasher.engine.Splasher"><code class="docutils literal notranslate"><span class="pre">Splasher</span></code></a><ul>
 <li><a class="reference internal" href="#ats_utilities.splasher.engine.Splasher._abc_impl"><code class="docutils literal notranslate"><span class="pre">Splasher._abc_impl</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.splasher.engine.Splasher._checker"><code class="docutils literal notranslate"><span class="pre">Splasher._checker</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.splasher.engine.Splasher._is_initialized"><code class="docutils literal notranslate"><span class="pre">Splasher._is_initialized</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.splasher.engine.Splasher._reporter"><code class="docutils literal notranslate"><span class="pre">Splasher._reporter</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.splasher.engine.Splasher._shared_context"><code class="docutils literal notranslate"><span class="pre">Splasher._shared_context</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.splasher.engine.Splasher._verbose"><code class="docutils literal notranslate"><span class="pre">Splasher._verbose</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.splasher.engine.Splasher.center"><code class="docutils literal notranslate"><span class="pre">Splasher.center()</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.splasher.engine.Splasher.get_shared_context"><code class="docutils literal notranslate"><span class="pre">Splasher.get_shared_context()</span></code></a></li>
@@ -208,8 +220,8 @@ Implements a splash screen with hyperlinks.</p>
   </div>
   <div>
     <h4>Next topic</h4>
-    <p class="topless"><a href="ats_utilities.splasher.ext_infrastructure.html"
-                          title="next chapter">ats_utilities.splasher.ext_infrastructure module</a></p>
+    <p class="topless"><a href="ats_utilities.splasher.isplasher.html"
+                          title="next chapter">ats_utilities.splasher.isplasher module</a></p>
   </div>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
@@ -242,7 +254,7 @@ Implements a splash screen with hyperlinks.</p>
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="ats_utilities.splasher.ext_infrastructure.html" title="ats_utilities.splasher.ext_infrastructure module"
+          <a href="ats_utilities.splasher.isplasher.html" title="ats_utilities.splasher.isplasher module"
              >next</a> |</li>
         <li class="right" >
           <a href="ats_utilities.splasher.component_bundle.html" title="ats_utilities.splasher.component_bundle module"

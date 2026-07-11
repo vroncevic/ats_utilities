@@ -20,35 +20,33 @@ Info
     Creates an option parser based on the argparse argument processor.
 '''
 
-from typing import Any, override
-from ats_utilities.option.ioption_parser import IOptionManager
-from ats_utilities.option.component_bundle import OptionComponentBundle
-from ats_utilities.context_bundle import ContextBundle
-from ats_utilities.checker.ichecker import IChecker
-from ats_utilities.reporter.ireporter import IReporter
-from ats_utilities.option.iparser_strategy import IParserStrategy
-from ats_utilities.option.parser_strategy import ParserStrategy
-from ats_utilities.option.option_namespace import OptionNamespace
-from ats_utilities.option.option_namespace import OptArgs
-from ats_utilities.option.ioption_command import IOptionCommand
-from ats_utilities.exceptions.ats_type_error import ATSTypeError
-from ats_utilities.exceptions.ats_value_error import ATSValueError
-from ats_utilities.exceptions.ats_runtime_error import ATSRuntimeError
-from ats_utilities.exceptions.ats_attribute_error import ATSAttributeError
-from ats_utilities.checker.proxy_validator import validator
-from ats_utilities.reporter.proxy_reporter import vreporter
-from ats_utilities.factory_context_bundle import factory_context_bundle
-from ats_utilities.factory_class import require_attributes, get_class_name, format_instance_to_string
-from ats_utilities.factory_component import make_component, validate_component
+from __future__ import annotations
 
-__author__: str = 'Vladimir Roncevic'
-__copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
-__license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.4.1'
-__maintainer__: str = 'Vladimir Roncevic'
-__email__: str = 'elektron.ronca@gmail.com'
-__status__: str = 'Updated'
+from collections.abc import Sequence, Mapping
+from typing import Any, override
+
+from ats_utilities.checker.ichecker import IChecker
+from ats_utilities.checker.proxy_validator import vcheck
+from ats_utilities.context_bundle import ContextBundle
+from ats_utilities.exceptions import ATSAttributeError, ATSRuntimeError, ATSTypeError, ATSValueError
+from ats_utilities.factory_class import to_str, cls_name, has_attrs
+from ats_utilities.factory_context_bundle import factory_context_bundle
+from ats_utilities.option.component_bundle import OptionComponentBundle
+from ats_utilities.option.command.ioption_command import IOptionCommand
+from ats_utilities.option.ioption_manager import IOptionManager
+from ats_utilities.option.strategy.iparser_strategy import IParserStrategy
+from ats_utilities.option.option_namespace import OptArgs, OptionNamespace
+from ats_utilities.reporter.ireporter import IReporter
+from ats_utilities.reporter.proxy_reporter import vreport
+
+__author__ = r'Vladimir Roncevic'
+__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
+__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = r'3.4.2'
+__maintainer__ = r'Vladimir Roncevic'
+__email__ = r'elektron.ronca@gmail.com'
+__status__ = r'Updated'
 
 
 class OptionManager(IOptionManager):
@@ -68,8 +66,8 @@ class OptionManager(IOptionManager):
             :methods:
                 | __init__ - Initials OptionManager constructor.
                 | get_shared_context - Returns the shared context.
-                | add_operation - Adds an option to the ATS parser.
-                | add_version_operation - Adds version option to the ATS parser.
+                | add_operation - Adds an option to the parser.
+                | add_version_operation - Adds version option to the parser.
                 | parse_input_args - Processes arguments from the start.
                 | parse_args - Processes arguments from the start.
                 | parse_command - Parses arguments as a command.
@@ -81,6 +79,9 @@ class OptionManager(IOptionManager):
     _checker: IChecker
     _reporter: IReporter
     _verbose: bool
+    _is_initialized: bool
+    _shared_context: ContextBundle
+    _strategy: IParserStrategy
 
     def __init__(self, component_bundle: OptionComponentBundle | None = None) -> None:
         '''
@@ -90,66 +91,63 @@ class OptionManager(IOptionManager):
             :type component_bundle: <OptionComponentBundle | None>
             :exceptions: None.
         '''
-        # No dependency injection then use default ones.
-        bundle: OptionComponentBundle = component_bundle or OptionComponentBundle()
-        factory_context_bundle(self, bundle.context_bundle)
-        self._shared_context: ContextBundle = ContextBundle(
-            checker=self._checker, reporter=self._reporter, verbose=self._verbose
-        )
-        self._is_initialized: bool = False
-
+        self._is_initialized = False
+ 
         try:
-            self._strategy: IParserStrategy = make_component(
-                bundle.strategy, ParserStrategy, {'context_bundle': self._shared_context}
-            )
-            validate_component(self._strategy, ParserStrategy) if not bundle.strategy else None
+            bundle: OptionComponentBundle = component_bundle or OptionComponentBundle()
+            factory_context_bundle(self, bundle.context_bundle)
+            self._shared_context = bundle.context_bundle
+            self._strategy = bundle.strategy
             self._strategy.setup(bundle.parameters)
-            self._is_initialized = True
 
+            # All components initialized successfully.
+            self._is_initialized = True
+ 
         except (ATSTypeError, ATSValueError, ATSRuntimeError, ATSAttributeError) as exc:
-            self._reporter.error([f'{get_class_name(self)} {exc}'])
+            print(f"\x1b[31m{cls_name(self)} {exc}\x1b[0m")
+
         except Exception as exc:
-            self._reporter.error([f'{get_class_name(self)} unexpected exception: {exc}'])
+            print(f"\x1b[31m{cls_name(self)} unexpected exception: {exc}\x1b[0m")
 
     @override
-    def get_shared_context(self) -> ContextBundle | None:
+    def get_shared_context(self) -> ContextBundle:
         '''
             Returns the shared context.
 
-            :return: Shared context | None
-            :rtype: <ContextBundle | None>
+            :return: Shared context.
+            :rtype: <ContextBundle>
             :exceptions: None.
         '''
         return self._shared_context
 
-    @require_attributes('_strategy')
+    @has_attrs('_strategy')
     @override
     def add_operation(self, *args: str, **kwargs: Any) -> None:
         '''
-            Adds an option to the ATS parser.
+            Adds an option to the parser.
 
             :param args: List of flags for the ATS.
             :type args: <str>
             :param kwargs: Arguments in shape of dictionary.
             :type kwargs: <Any>
             :exceptions:
-                | ATSAttributeError: '_strategy' attribute is required.
+                | ATSValueError: Missing or empty attribute: '_strategy'.
         '''
         self._strategy.add_argument(*args, **kwargs)
 
-    @validator([('str | None:version', None)])
-    @vreporter('add version {version}')
+    @vcheck([('str | None:version', None)])
+    @vreport('add version {version}')
     @override
     def add_version_operation(self, version: str | None) -> None:
         '''
-            Adds version option to the ATS parser.
+            Adds version option to the parser.
 
-            :param version: The ATS version in string format | None.
+            :param version: The version in string format | None.
             :type version: <str | None>
             :exceptions:
                 | ATSRuntimeError: Decorator cannot be used on a standalone function.
                 | ATSAttributeError: Class is required to provide a '_reporter' object to
-                |                    use the @verboser decorator.
+                |                    use the @vreport decorator.
                 | ATSTypeError: Parameter type validation failed.
                 | ATSValueError: Parameter format validation failed.
                 | ATSRuntimeError: Decorator used on a non-class method.
@@ -158,8 +156,8 @@ class OptionManager(IOptionManager):
         if version:
             self._strategy.add_version(version)
 
-    @require_attributes('_strategy')
-    @vreporter('parse inout args arguments {arguments}')
+    @has_attrs('_strategy')
+    @vreport('parse inout args arguments {arguments}')
     @override
     def parse_input_args(self, arguments: OptArgs) -> OptionNamespace:
         '''
@@ -170,16 +168,16 @@ class OptionManager(IOptionManager):
             :return: Option namespace object.
             :rtype: <OptionNamespace>
             :exceptions:
+                | ATSValueError: Missing or empty attribute: '_strategy'.
                 | ATSRuntimeError: Decorator cannot be used on a standalone function.
                 | ATSAttributeError: Class is required to provide a '_reporter' object to
-                |                    use the @verboser decorator.
-                | ATSAttributeError: '_strategy' attribute is required.
+                |                    use the @vreport decorator.
         '''
         args = self._strategy.parse(arguments, known_only=False)
         return args
 
-    @require_attributes('_strategy')
-    @vreporter('parse args arguments {arguments}')
+    @has_attrs('_strategy')
+    @vreport('parse args arguments {arguments}')
     @override
     def parse_args(self, arguments: OptArgs) -> OptionNamespace:
         '''
@@ -190,43 +188,43 @@ class OptionManager(IOptionManager):
             :return: Option namespace object.
             :rtype: <OptionNamespace>
             :exceptions:
+                | ATSValueError: Missing or empty attribute: '_strategy'.
                 | ATSRuntimeError: Decorator cannot be used on a standalone function.
                 | ATSAttributeError: Class is required to provide a '_reporter' object to
-                |                    use the @verboser decorator.
-                | ATSAttributeError: '_strategy' attribute is required.
+                |                    use the @vreport decorator.
         '''
         args = self._strategy.parse(arguments, known_only=True)
         return args
 
-    @require_attributes('_strategy')
+    @has_attrs('_strategy')
     @override
-    def register_commands(self, commands: list[IOptionCommand]) -> None:
+    def register_commands(self, commands: Sequence[IOptionCommand]) -> None:
         '''
-            Registers a list of commands with the parser.
+            Registers a sequence of commands with the parser.
 
-            :param commands: List of commands to register.
-            :type commands: <list[IOptionCommand]>
+            :param commands: Sequence of commands to register (read only data).
+            :type commands: <Sequence[IOptionCommand]>
             :exceptions:
-                | ATSAttributeError: '_strategy' attribute is required.
+                | ATSValueError: Missing or empty attribute: '_strategy'.
         '''
         self._strategy.register_commands(commands)
 
-    @require_attributes('_strategy')
+    @has_attrs('_strategy')
     @override
-    def parse_command(self, arguments: OptArgs = None) -> tuple[str, dict]:
+    def parse_command(self, arguments: OptArgs = None) -> tuple[str, Mapping[str, Any]]:
         '''
             Parses arguments as a command.
 
             :param arguments: Sequence of arguments | None.
             :type arguments: <OptArgs>
-            :return: Tuple of (command name, command arguments).
-            :rtype: <tuple[str, dict]>
+            :return: Tuple of (command name, command arguments) (read only data).
+            :rtype: <tuple[str, Mapping[str, Any]]>
             :exceptions:
-                | ATSAttributeError: '_strategy' attribute is required.
+                | ATSValueError: Missing or empty attribute: '_strategy'.
         '''
         return self._strategy.parse_command(arguments)
 
-    @require_attributes('_strategy')
+    @has_attrs('_strategy')
     @override
     def is_initialized(self) -> bool:
         '''
@@ -235,7 +233,7 @@ class OptionManager(IOptionManager):
             :return: True (success) | False (fail).
             :rtype: <bool>
             :exceptions:
-                | ATSAttributeError: '_strategy' attribute is required.
+                | ATSValueError: Missing or empty attribute: '_strategy'.
         '''
         return self._is_initialized and self._strategy.is_initialized()
 
@@ -244,8 +242,8 @@ class OptionManager(IOptionManager):
         '''
             Returns the string representation of OptionManager.
 
-            :return: The ATS option parser as string representation.
+            :return: The option parser as string representation.
             :rtype: <str>
             :exceptions: None.
         '''
-        return format_instance_to_string(self)
+        return to_str(self)

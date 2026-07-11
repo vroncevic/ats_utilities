@@ -20,24 +20,29 @@ Info
     Encapsulates logging components to minimize constructor overhead.
 '''
 
+from __future__ import annotations
+
+from dataclasses import asdict, dataclass
 from typing import Any
-from dataclasses import dataclass
-from ats_utilities.logging.ilogger import ILogger
-from ats_utilities.logging.logger_bundle import LoggerBundle
+
 from ats_utilities.context_bundle import ContextBundle
-from ats_utilities.exceptions.ats_value_error import ATSValueError
+from ats_utilities.factory_component import make_component, validate_component
+from ats_utilities.logging.logger.ilogger import ILogger
+from ats_utilities.logging.logger.logger import StandardLogger
+from ats_utilities.logging.logger.logger_bundle import LoggerBundle
+from ats_utilities.factory_value import require_not_none
+from ats_utilities.factory_type import check_type
 
-__author__: str = 'Vladimir Roncevic'
-__copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
-__license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.4.1'
-__maintainer__: str = 'Vladimir Roncevic'
-__email__: str = 'elektron.ronca@gmail.com'
-__status__: str = 'Updated'
+__author__ = r'Vladimir Roncevic'
+__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
+__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = r'3.4.2'
+__maintainer__ = r'Vladimir Roncevic'
+__email__ = r'elektron.ronca@gmail.com'
+__status__ = r'Updated'
 
-
-@dataclass
+@dataclass(slots=True, kw_only=True)
 class LoggingComponentBundle:
     '''
         Defines component bundle data classe for dependency group simplification.
@@ -50,58 +55,86 @@ class LoggingComponentBundle:
                 | logger_bundle - Bundle with logger parameters (default None).
                 | context_bundle - Bundle with context (default None).
             :methods:
-                | validate - Validates that essential components are set.
-                | merge - Merges non-None values from another bundle into this one.
-                | to_dict - Converts the bundle attributes to a dictionary.
+                | __post_init__ - Post-initialization hook for automatic component creation.
+                | validate - Validates that LoggingComponentBundle is valid (can be called after merge).
+                | merge - Merges non-None values from another LoggingComponentBundle into this one.
+                | to_dict - Converts the LoggingComponentBundle instance to a dictionary.
     '''
 
     logger: ILogger | None = None
     logger_bundle: LoggerBundle | None = None
     context_bundle: ContextBundle | None = None
 
-    def validate(self) -> None:
+    def __post_init__(self) -> None:
         '''
-            Validates that essential components are set.
+            Post-initialization hook for automatic component creation.
 
             :exceptions:
-                | ATSValueError - Logger must be provided.
-                | ATSValueError - Logger bundle must be provided.
-                | ATSValueError - Context bundle must be provided.
+                | ATSTypeError: Logger must be an instance of ILogger interface.
         '''
-        if self.logger is None:
-            raise ATSValueError('logger must be provided.')
+        if self.context_bundle is None:
+            self.context_bundle = ContextBundle()
 
         if self.logger_bundle is None:
-            raise ATSValueError('logger bundle must be provided.')
+            self.logger_bundle = LoggerBundle()
 
-        if self.context_bundle is None:
-            raise ATSValueError('context bundle must be provided.')
+        self.logger = make_component(
+            self.logger, StandardLogger,
+            {
+                'logger_bundle': self.logger_bundle,
+                'context_bundle': self.context_bundle
+            }
+        )
+        validate_component(self.logger, ILogger, r'logger must be an ILogger instance')
 
-    def merge(self, other: 'LoggingComponentBundle') -> None:
+    def validate(self) -> None:
         '''
-            Merges non-None values from another bundle into this one.
+            Validates that LoggingComponentBundle is valid (can be called after merge).
+            Performs validation of logger, logger_bundle and context_bundle attributes.
+            Logger must be non-None and an instance of ILogger interface.
+            Logger bundle must be non-None.
+            Context bundle must be non-None.
 
-            :param other: Another bundle to merge into this one.
+            :exceptions:
+                | ATSValueError: Logger must be provided.
+                | ATSValueError: Logger bundle must be provided.
+                | ATSValueError: Context bundle must be provided.
+                | ATSTypeError: Logger must be an instance of ILogger interface.
+                | ATSTypeError: Logger bundle must be an instance of LoggerBundle.
+                | ATSTypeError: Context bundle must be an instance of ContextBundle.
+        '''
+        require_not_none(self.logger, r'logger must be provided')
+        require_not_none(self.logger_bundle, r'logger bundle must be provided')
+        require_not_none(self.context_bundle, r'context bundle must be provided')
+        check_type(self.logger, ILogger, r'logger must be an instance of ILogger interface')
+        check_type(self.logger_bundle, LoggerBundle, r'logger bundle must be an instance of LoggerBundle')
+        check_type(self.context_bundle, ContextBundle, r'context bundle must be an instance of ContextBundle')
+
+    def merge(self, other: LoggingComponentBundle) -> None:
+        '''
+            Merges non-None values from another LoggingComponentBundle into this one.
+
+            :param other: Another LoggingComponentBundle to merge into this one.
             :type other: <LoggingComponentBundle>
-            :exceptions: None.
+            :exceptions:
+                | ATSTypeError: Other must be a LoggingComponentBundle instance.
         '''
+        check_type(other, LoggingComponentBundle, r'other must be a LoggingComponentBundle instance')
+
         for field_name in self.__dataclass_fields__:
-            other_value = getattr(other, field_name)
+            other_value: Any = getattr(other, field_name)
 
             if other_value is not None:
                 setattr(self, field_name, other_value)
 
+        self.validate()
+
     def to_dict(self) -> dict[str, Any]:
         '''
-            Converts the bundle attributes to a dictionary.
+            Converts the LoggingComponentBundle instance to a dictionary.
 
-            :return: Dictionary representation of the bundle attributes.
-            :rtype: <dict>
+            :return: Dictionary representation of the LoggingComponentBundle instance.
+            :rtype: <dict[str, Any]>
             :exceptions: None.
         '''
-        return {
-            name: value
-            for name, value in self.__dict__.items()
-            if not name.startswith('_')
-        }
-
+        return asdict(self)

@@ -20,7 +20,10 @@ Info
     Interface for managing configuration loading.
 '''
 
+from __future__ import annotations
+
 from abc import ABC, abstractmethod
+
 from ats_utilities.config_io.cfg.icfg_processor import ICFGProcessor
 from ats_utilities.config_io.cfg.cfg_loader import CFGLoader
 from ats_utilities.config_io.ini.iini_processor import IINIProcessor
@@ -32,14 +35,14 @@ from ats_utilities.config_io.xml.xml_loader import XMLLoader
 from ats_utilities.config_io.yaml.iyaml_processor import IYAMLProcessor
 from ats_utilities.config_io.yaml.yaml_loader import YAMLLoader
 
-__author__: str = 'Vladimir Roncevic'
-__copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
-__license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.4.1'
-__maintainer__: str = 'Vladimir Roncevic'
-__email__: str = 'elektron.ronca@gmail.com'
-__status__: str = 'Updated'
+__author__ = r'Vladimir Roncevic'
+__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
+__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = r'3.4.2'
+__maintainer__ = r'Vladimir Roncevic'
+__email__ = r'elektron.ronca@gmail.com'
+__status__ = r'Updated'
 
 # Optional configuration type
 Config = CFGLoader | INILoader | JSONLoader | XMLLoader | YAMLLoader | None
@@ -54,7 +57,6 @@ class IConfigLoader(ABC):
 
         It defines:
 
-            :attributes: None
             :methods:
                 | setup_config_loader - Loads the appropriate configuration base based on file type.
                 | __str__ - Returns the IConfigLoader as string representation.

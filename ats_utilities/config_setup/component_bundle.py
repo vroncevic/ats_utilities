@@ -20,24 +20,29 @@ Info
     Encapsulates config setup components to minimize constructor overhead.
 '''
 
-from dataclasses import dataclass
+from __future__ import annotations
+
+from dataclasses import dataclass, asdict
+from typing import Any
+
 from ats_utilities.config_setup.ipro_config import IProConfig
 from ats_utilities.config_setup.ipro_name import IProName
 from ats_utilities.config_setup.itemplate_dir import ITemplateDir
 from ats_utilities.context_bundle import ContextBundle
-from ats_utilities.exceptions.ats_value_error import ATSValueError
+from ats_utilities.factory_value import require_not_none
+from ats_utilities.factory_type import check_type
 
-__author__: str = 'Vladimir Roncevic'
-__copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
-__license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.4.1'
-__maintainer__: str = 'Vladimir Roncevic'
-__email__: str = 'elektron.ronca@gmail.com'
-__status__: str = 'Updated'
+__author__ = r'Vladimir Roncevic'
+__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
+__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = r'3.4.2'
+__maintainer__ = r'Vladimir Roncevic'
+__email__ = r'elektron.ronca@gmail.com'
+__status__ = r'Updated'
 
 
-@dataclass
+@dataclass(slots=True, kw_only=True)
 class ConfigSetupComponentBundle:
     '''
         Defines component bundle dataclass for dependency grouping and management.
@@ -51,9 +56,9 @@ class ConfigSetupComponentBundle:
                 | template_dir - Project template directory mechanism (default None).
                 | context_bundle - Context bundle for configuration utilities (default None).
             :methods:
-                | validate - Validates that essential components are set.
-                | merge - Merges non-None values from another bundle into this one.
-                | to_dict - Converts the bundle attributes to a dictionary.
+                | validate - Validates that ConfigSetupComponentBundle is valid (can be called after merge).
+                | merge - Merges non-None values from another ConfigSetupComponentBundle instance into this one.
+                | to_dict - Converts the ConfigSetupComponentBundle instance to a dictionary.
     '''
 
     pro_config: IProConfig | None = None
@@ -63,50 +68,57 @@ class ConfigSetupComponentBundle:
 
     def validate(self) -> None:
         '''
-            Validates that essential components are set.
+            Validates that ConfigSetupComponentBundle is valid (can be called after merge).
+            Performs validation of pro_config, pro_name, template_dir and context_bundle attributes.
+            Pro config must be non-None and an instance of IProConfig interface.
+            Pro name must be non-None and an instance of IProName interface.
+            Template directory must be non-None and an instance of ITemplateDir interface.
+            Context bundle must be non-None and an instance of ContextBundle.
 
             :exceptions:
-                | ATSValueError - Project configuration must be provided.
-                | ATSValueError - Project name must be provided.
-                | ATSValueError - Template directory must be provided.
-                | ATSValueError - Context bundle must be provided.
+                | ATSValueError: Project configuration must be provided.
+                | ATSValueError: Project name must be provided.
+                | ATSValueError: Template directory must be provided.
+                | ATSValueError: Context bundle must be provided.
+                | ATSTypeError: Project configuration must be an instance of IProConfig interface.
+                | ATSTypeError: Project name must be an instance of IProName interface.
+                | ATSTypeError: Template directory must be an instance of ITemplateDir interface.
+                | ATSTypeError: Context bundle must be an instance of ContextBundle.
         '''
-        if self.pro_config is None:
-            raise ATSValueError('project configuration must be provided.')
+        require_not_none(self.pro_config, 'project configuration must be provided')
+        require_not_none(self.pro_name, 'project name must be provided')
+        require_not_none(self.template_dir, 'template directory must be provided')
+        require_not_none(self.context_bundle, 'context bundle must be provided')
+        check_type(self.pro_config, IProConfig, 'project configuration must be an instance of IProConfig interface')
+        check_type(self.pro_name, IProName, 'project name must be an instance of IProName interface')
+        check_type(self.template_dir, ITemplateDir, 'template directory must be an instance of ITemplateDir interface')
+        check_type(self.context_bundle, ContextBundle, 'context bundle must be an instance of ContextBundle')
 
-        if self.pro_name is None:
-            raise ATSValueError('project name must be provided.')
-
-        if self.template_dir is None:
-            raise ATSValueError('template directory must be provided.')
-
-        if self.context_bundle is None:
-            raise ATSValueError('context bundle must be provided.')
-
-    def merge(self, other: 'ConfigSetupComponentBundle') -> None:
+    def merge(self, other: ConfigSetupComponentBundle) -> None:
         '''
-            Merges non-None values from another bundle into this one.
+            Merges non-None values from another ConfigSetupComponentBundle instance into this one.
 
-            :param other: Another bundle to merge into this one.
+            :param other: Another ConfigSetupComponentBundle instance to merge into this one.
             :type other: <ConfigSetupComponentBundle>
-            :exceptions: None.
+            :exceptions:
+                | ATSTypeError: Other must be ConfigSetupComponentBundle instance.
         '''
+        check_type(other, ConfigSetupComponentBundle, 'other must be ConfigSetupComponentBundle instance')
+
         for field_name in self.__dataclass_fields__:
-            other_value = getattr(other, field_name)
+            other_value: Any = getattr(other, field_name)
 
             if other_value is not None:
                 setattr(self, field_name, other_value)
 
+        self.validate()
+
     def to_dict(self) -> dict:
         '''
-            Converts the bundle attributes to a dictionary.
+            Converts the ConfigSetupComponentBundle instance to a dictionary.
 
-            :return: Dictionary representation of the bundle attributes.
+            :return: Dictionary representation of the ConfigSetupComponentBundle instance.
             :rtype: <dict>
             :exceptions: None.
         '''
-        return {
-            name: value
-            for name, value in self.__dict__.items()
-            if not name.startswith('_')
-        }
+        return asdict(self)

@@ -26,20 +26,20 @@ from typing import Any
 from unittest import TestCase, main
 from ats_utilities.factory_class import (
     inject,
-    get_private_attr,
-    require_attributes,
-    format_instance_to_string
+    get_pvt,
+    has_attrs,
+    to_str
 )
-from ats_utilities.exceptions.ats_value_error import ATSValueError
+from ats_utilities.exceptions import ATSValueError
 
-__author__: str = 'Vladimir Roncevic'
-__copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
-__license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.4.1'
-__maintainer__: str = 'Vladimir Roncevic'
-__email__: str = 'elektron.ronca@gmail.com'
-__status__: str = 'Updated'
+__author__ = r'Vladimir Roncevic'
+__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
+__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = r'3.4.2'
+__maintainer__ = r'Vladimir Roncevic'
+__email__ = r'elektron.ronca@gmail.com'
+__status__ = r'Updated'
 
 
 class DummyDependency:
@@ -58,7 +58,6 @@ class ATSFactoryClassTestCase(TestCase):
 
         It defines:
 
-            :attributes: None
             :methods:
                 | test_inject_passed_value - Test injecting non-None passed value.
                 | test_inject_fallback_type_no_deps - Test injecting fallback type with no dependencies.
@@ -156,8 +155,8 @@ class ATSFactoryClassTestCase(TestCase):
                 self._my_attr = 'secret'
 
         inst = Target()
-        self.assertEqual(get_private_attr(inst, 'my_attr'), 'secret')
-        self.assertEqual(get_private_attr(inst, '_my_attr'), 'secret')
+        self.assertEqual(get_pvt(inst, 'my_attr'), 'secret')
+        self.assertEqual(get_pvt(inst, '_my_attr'), 'secret')
 
     def test_require_attributes_success(self) -> None:
         '''
@@ -170,7 +169,7 @@ class ATSFactoryClassTestCase(TestCase):
                 self.attr1 = 'ok'
                 self.attr2 = 'also_ok'
 
-            @require_attributes('attr1', 'attr2')
+            @has_attrs('attr1', 'attr2')
             def execute(self) -> str:
                 return 'success'
 
@@ -188,13 +187,13 @@ class ATSFactoryClassTestCase(TestCase):
                 self.attr1 = val1
                 self.attr2 = val2
 
-            @require_attributes('attr1', 'attr2')
+            @has_attrs('attr1', 'attr2')
             def execute(self) -> str:
                 return 'success'
 
         # Missing completely
         class EmptyTarget:
-            @require_attributes('attr1')
+            @has_attrs('attr1')
             def execute(self) -> str:
                 return 'success'
 
@@ -229,8 +228,8 @@ class ATSFactoryClassTestCase(TestCase):
         inst1 = SimpleTarget()
         inst2 = EmptyTarget()
 
-        str_repr1 = format_instance_to_string(inst1)
-        str_repr2 = format_instance_to_string(inst2)
+        str_repr1 = to_str(inst1)
+        str_repr2 = to_str(inst2)
 
         self.assertIn('SimpleTarget', str_repr1)
         self.assertIn('val1', str_repr1)

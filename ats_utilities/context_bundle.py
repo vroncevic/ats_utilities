@@ -20,23 +20,32 @@ Info
     Encapsulates core runtime components for simplifcation.
 '''
 
+from __future__ import annotations
+
 from typing import Any
-from dataclasses import dataclass
+from dataclasses import dataclass, asdict
+
 from ats_utilities.checker.ichecker import IChecker
+from ats_utilities.checker.engine import Checker
+from ats_utilities.checker.component_bundle import CheckerComponentBundle
 from ats_utilities.reporter.ireporter import IReporter
-from ats_utilities.exceptions.ats_value_error import ATSValueError
+from ats_utilities.reporter.engine import Reporter
+from ats_utilities.reporter.theme.engine import ConsoleTheme
+from ats_utilities.reporter.component_bundle import ReporterComponentBundle
+from ats_utilities.factory_value import require_not_none
+from ats_utilities.factory_type import check_type
 
-__author__: str = 'Vladimir Roncevic'
-__copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
-__license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.4.1'
-__maintainer__: str = 'Vladimir Roncevic'
-__email__: str = 'elektron.ronca@gmail.com'
-__status__: str = 'Updated'
+__author__ = r'Vladimir Roncevic'
+__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
+__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = r'3.4.2'
+__maintainer__ = r'Vladimir Roncevic'
+__email__ = r'elektron.ronca@gmail.com'
+__status__ = r'Updated'
 
 
-@dataclass
+@dataclass(slots=True, kw_only=True)
 class ContextBundle:
     '''
         Encapsulates core runtime components for simplifcation.
@@ -49,53 +58,79 @@ class ContextBundle:
                 | reporter - Reporter for providing all types of messages (default None).
                 | verbose - Flag for enabling verbose output (default False).
             :methods:
-                | validate - Validates that essential components are set.
+                | __post_init__ - Post-initialization hook to set up default components if not provided.
+                | validate - Validates that ContextBundle is valid (can be called after merge).
                 | merge - Merges non-None values from another bundle into this one.
-                | to_dict - Converts the bundle attributes to a dictionary.
+                | to_dict - Converts the ContextBundle instance to a dictionary.
     '''
 
     checker: IChecker | None = None
     reporter: IReporter | None = None
     verbose: bool = False
 
+    def __post_init__(self) -> None:
+        '''
+            Post-initialization hook to set up default components if not provided.
+            Initializes Checker if None, then uses it to initialize Reporter.
+
+            :exceptions: None.
+        '''
+        if self.checker is None:
+            self.checker = Checker(component_bundle=CheckerComponentBundle())
+
+        if self.reporter is None:
+            self.reporter = Reporter(
+                component_bundle=ReporterComponentBundle(
+                    checker=self.checker, theme=ConsoleTheme()
+                )
+            )
+
     def validate(self) -> None:
         '''
-            Validates that essential components are set.
+            Validates that ContextBundle is valid (can be called after merge).
+            Performs validation of checker, reporter and verbose attributes.
+            Checker must be non-None and an instance of IChecker interface.
+            Reporter must be non-None and an instance of IReporter interface.
+            Verbose must be boolean.
 
             :exceptions:
                 | ATSValueError: Checker must be provided.
                 | ATSValueError: Reporter must be provided.
+                | ATSTypeError: Checker must be an instance of IChecker interface.
+                | ATSTypeError: Reporter must be an instance of IReporter interface.
+                | ATSTypeError: Verbose must be a boolean.
         '''
-        if self.checker is None:
-            raise ATSValueError('checker must be provided.')
+        require_not_none(self.checker, r'checker must be provided')
+        require_not_none(self.reporter, r'reporter must be provided')
+        check_type(self.checker, IChecker, r'checker must be an instance of IChecker interface')
+        check_type(self.reporter, IReporter, r'reporter must be an instance of IReporter interface')
+        check_type(self.verbose, bool, r'verbose must be a boolean')
 
-        if self.reporter is None:
-            raise ATSValueError('reporter must be provided.')
-
-    def merge(self, other: 'ContextBundle') -> None:
+    def merge(self, other: ContextBundle) -> None:
         '''
             Merges non-None values from another bundle into this one.
 
             :param other: Another bundle to merge into this one.
             :type other: <ContextBundle>
-            :exceptions: None.
+            :exceptions:
+                | ATSTypeError: Other must be a ContextBundle instance.
         '''
+        check_type(other, ContextBundle, r'other must be a ContextBundle instance')
+
         for field_name in self.__dataclass_fields__:
             other_value: Any = getattr(other, field_name)
 
             if other_value is not None:
                 setattr(self, field_name, other_value)
 
+        self.validate()
+
     def to_dict(self) -> dict[str, Any]:
         '''
-            Converts the bundle attributes to a dictionary.
+            Converts the ContextBundle instance to a dictionary.
 
-            :return: Dictionary representation of the bundle attributes.
+            :return: Dictionary representation of the ContextBundle instance.
             :rtype: <dict[str, Any]>
             :exceptions: None.
         '''
-        return {
-            name: value
-            for name, value in self.__dict__.items()
-            if not name.startswith('_')
-        }
+        return asdict(self)

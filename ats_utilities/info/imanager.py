@@ -17,69 +17,74 @@ Copyright
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
     Defines abstract class IInfoManager with method(s).
-    Interface for the ATS info manager mechanism.
+    Interface for the info manager mechanism.
 '''
 
-from typing import Any
+from __future__ import annotations
+
 from abc import ABC, abstractmethod
+from collections.abc import Mapping
+from typing import Any
+
 from ats_utilities.context_bundle import ContextBundle
 
-__author__: str = 'Vladimir Roncevic'
-__copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
-__license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.4.1'
-__maintainer__: str = 'Vladimir Roncevic'
-__email__: str = 'elektron.ronca@gmail.com'
-__status__: str = 'Updated'
+__author__ = r'Vladimir Roncevic'
+__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
+__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = r'3.4.2'
+__maintainer__ = r'Vladimir Roncevic'
+__email__ = r'elektron.ronca@gmail.com'
+__status__ = r'Updated'
 
 
 class IInfoManager(ABC):
     '''
         Defines abstract class IInfoManager with method(s).
-        Interface for the ATS info manager mechanism.
+        Interface for the info manager mechanism.
+        Note: The information is read-only data (it is provided by
+              configuraiton file which is loaded by config loader).
 
         It defines:
 
-            :attributes: None.
             :methods:
                 | get_shared_context - Returns the shared context.
-                | set_info - Sets the ATS information.
-                | get_info - Gets the ATS information.
-                | info_ok - Checks if ATS information structure is ok.
-                | refresh_status - Refreshes status for ATS information structure.
-                | __str__ - Returns the ATS info manager as string representation.
+                | set_info - Sets the information.
+                | get_info - Gets the information.
+                | is_initialized - Checks if info manager is initialized.
+                | refresh_status - Refreshes status for information structure.
+                | __str__ - Returns the info manager as string representation.
     '''
 
     @abstractmethod
-    def get_shared_context(self) -> ContextBundle | None:
+    def get_shared_context(self) -> ContextBundle:
         '''
             Returns the shared context.
 
-            :return: Shared context | None.
-            :rtype: <ContextBundle | None>
+            :return: Shared context.
+            :rtype: <ContextBundle>
             :exceptions: None.
         '''
         pass
 
     @abstractmethod
-    def set_info(self, info: dict[str, Any]) -> None:
+    def set_info(self, info: Mapping[str, Any]) -> None:
         '''
-            Sets the ATS information.
+            Sets the information.
 
-            :param info: Dictionary with ATS information
-            :type info: <dict[str, Any]>
+            :param info: Mapping with information.
+            :type info: <Mapping[str, Any]>
             :exceptions: None.
         '''
         pass
 
     @abstractmethod
-    def get_info(self) -> dict[str, Any]:
+    def get_info(self) -> Mapping[str, Any]:
         '''
-            Gets the ATS information.
-
-            :return: Dictionary with ATS information.
-            :rtype: <dict[str, Any]>
+            Gets the information.
+ 
+            :return: Mapping with information.
+            :rtype: <Mapping[str, Any]>
             :exceptions: None.
         '''
         pass
@@ -87,7 +92,7 @@ class IInfoManager(ABC):
     @abstractmethod
     def is_initialized(self) -> bool:
         '''
-            Checks if ATS information structure is ok.
+            Checks if info manager is initialized.
 
             :return: True (success) | False (fail)
             :rtype: <bool>
@@ -98,7 +103,7 @@ class IInfoManager(ABC):
     @abstractmethod
     def refresh_status(self) -> None:
         '''
-            Refreshes status for ATS information structure.
+            Refreshes status for information structure.
 
             :exceptions: None.
         '''
@@ -107,9 +112,9 @@ class IInfoManager(ABC):
     @abstractmethod
     def __str__(self) -> str:
         '''
-            Returns the ATS info manager as string representation.
+            Returns the info manager as string representation.
 
-            :return: The ATS info manager as string representation.
+            :return: The info manager as string representation.
             :rtype: <str>
             :exceptions: None.
         '''

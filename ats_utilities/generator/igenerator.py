@@ -20,18 +20,22 @@ Info
     Creates an interface for template-based file generation from .tgz archives.
 '''
 
+from __future__ import annotations
+
 from abc import ABC, abstractmethod
+from collections.abc import Mapping
+
 from ats_utilities.context_bundle import ContextBundle
 from ats_utilities.generator.generator_bundle import GeneratorBundle
 
-__author__: str = 'Vladimir Roncevic'
-__copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
-__license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.4.1'
-__maintainer__: str = 'Vladimir Roncevic'
-__email__: str = 'elektron.ronca@gmail.com'
-__status__: str = 'Updated'
+__author__ = r'Vladimir Roncevic'
+__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
+__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = r'3.4.2'
+__maintainer__ = r'Vladimir Roncevic'
+__email__ = r'elektron.ronca@gmail.com'
+__status__ = r'Updated'
 
 
 class IGenerator(ABC):
@@ -41,7 +45,6 @@ class IGenerator(ABC):
 
         It defines:
 
-            :attributes: None.
             :methods:
                 | get_shared_context - Returns the shared context.
                 | prepare_template_values - Prepares template values.
@@ -51,23 +54,23 @@ class IGenerator(ABC):
     '''
 
     @abstractmethod
-    def get_shared_context(self) -> ContextBundle | None:
+    def get_shared_context(self) -> ContextBundle:
         '''
             Returns the shared context.
 
-            :return: Shared context | None
-            :rtype: <ContextBundle | None>
+            :return: Shared context.
+            :rtype: <ContextBundle>
             :exceptions: None.
         '''
         pass
 
     @abstractmethod
-    def prepare_template_values(self, template_values: dict[str, str]) -> dict[str, str]:
+    def prepare_template_values(self, template_values: Mapping[str, str]) -> dict[str, str]:
         '''
             Prepares template values.
 
             :param template_values: Input replacement values.
-            :type template_values: <dict[str, str]>
+            :type template_values: <Mapping[str, str]>
             :return: The updated template values dictionary.
             :rtype: <dict[str, str]>
             :exceptions: None.

@@ -24,15 +24,17 @@ from ats_utilities.checker.engine import Checker
 from ats_utilities.reporter.engine import Reporter
 from ats_utilities.reporter.theme.engine import ConsoleTheme 
 from ats_utilities.reporter.component_bundle import ReporterComponentBundle
+from ats_utilities.exceptions.ats_value_error import ATSValueError
+from ats_utilities.exceptions.ats_type_error import ATSTypeError
 
-__author__: str = 'Vladimir Roncevic'
-__copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
-__license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.4.1'
-__maintainer__: str = 'Vladimir Roncevic'
-__email__: str = 'elektron.ronca@gmail.com'
-__status__: str = 'Updated'
+__author__ = r'Vladimir Roncevic'
+__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
+__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = r'3.4.2'
+__maintainer__ = r'Vladimir Roncevic'
+__email__ = r'elektron.ronca@gmail.com'
+__status__ = r'Updated'
 
 #
 # default [without DI]
@@ -40,7 +42,39 @@ __status__: str = 'Updated'
 #
 ats_context_bundle: ContextBundle = ContextBundle()
 print(ats_context_bundle)
+print(50 * '=')
 print(ats_context_bundle.checker)
+print(50 * '=')
 print(ats_context_bundle.reporter)
+print(50 * '=')
 print(ats_context_bundle.verbose)
+print(50 * '=')
+
+try:
+    ats_context_bundle.checker = None
+    ats_context_bundle.validate()
+except ATSValueError as exc:
+    print(f'{exc}')
+print(50 * '=')
+
+ats_context_bundle_2: ContextBundle = ContextBundle()
+print(ats_context_bundle_2)
+print(50 * '=')
+
+try:
+    ats_context_bundle_2.reporter = None
+    ats_context_bundle_2.validate()
+except ATSValueError as exc:
+    print(f'{exc}')
+print(50 * '=')
+
+ats_context_bundle_3: ContextBundle = ContextBundle()
+print(ats_context_bundle_3)
+print(50 * '=')
+
+try:
+    ats_context_bundle_3.verbose = 2
+    ats_context_bundle_3.validate()
+except ATSTypeError as exc:
+    print(f'{exc}')
 print(50 * '=')

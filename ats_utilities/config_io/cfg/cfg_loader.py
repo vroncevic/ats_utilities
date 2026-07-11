@@ -20,7 +20,10 @@ Info
     Loads the ATS configuration for the ATS.
 '''
 
+from __future__ import annotations
+
 from typing import override
+
 from ats_utilities.config_io.iread import IRead
 from ats_utilities.context_bundle import ContextBundle
 from ats_utilities.checker.ichecker import IChecker
@@ -28,22 +31,22 @@ from ats_utilities.reporter.ireporter import IReporter
 from ats_utilities.config_io.iloader import ILoader
 from ats_utilities.config_io.ifile_check import IFileCheck
 from ats_utilities.config_io.file_check import FileCheck
-from ats_utilities.config_io.config_file_bundle import ATSConfigFileBundle
+from ats_utilities.config_io.config_file_bundle import ConfigFileBundle
 from ats_utilities.config_io.cfg.cfg2object import Cfg2Object
 from ats_utilities.config_io.cfg.cfg_processor import CFGProcessor
 from ats_utilities.config_io.cfg.icfg_processor import ICFGProcessor
 from ats_utilities.factory_context_bundle import factory_context_bundle
 from ats_utilities.factory_component import make_component, validate_component
-from ats_utilities.factory_class import format_instance_to_string
+from ats_utilities.factory_class import to_str
 
-__author__: str = 'Vladimir Roncevic'
-__copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
-__license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.4.1'
-__maintainer__: str = 'Vladimir Roncevic'
-__email__: str = 'elektron.ronca@gmail.com'
-__status__: str = 'Updated'
+__author__ = r'Vladimir Roncevic'
+__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
+__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = r'3.4.2'
+__maintainer__ = r'Vladimir Roncevic'
+__email__ = r'elektron.ronca@gmail.com'
+__status__ = r'Updated'
 
 
 class CFGLoader(ILoader):
@@ -68,12 +71,13 @@ class CFGLoader(ILoader):
     _checker: IChecker
     _reporter: IReporter
     _verbose: bool
+    _configuration: ICFGProcessor | None
 
     def __init__(
         self,
         info_file: str | None = None,
         cfg2object: IRead | None = None,
-        config_bundle: ATSConfigFileBundle | None = None,
+        config_bundle: ConfigFileBundle | None = None,
         cfg_processor: ICFGProcessor | None = None
     ) -> None:
         '''
@@ -84,28 +88,26 @@ class CFGLoader(ILoader):
             :param cfg2object: An API for information | None.
             :type cfg2object: <IRead | None>
             :param config_bundle: Configuration bundle | None.
-            :type config_bundle: <ATSConfigFileBundle | None>
+            :type config_bundle: <ConfigFileBundle | None>
             :param cfg_processor: Processor for CFG content | None.
             :type cfg_processor: <ICFGProcessor | None>
             :exceptions:
                 | ATSTypeError: Invalid type in constructor arguments.
         '''
-        config_file_bundle: ATSConfigFileBundle = config_bundle or ATSConfigFileBundle()
+        config_file_bundle: ConfigFileBundle = config_bundle or ConfigFileBundle()
         factory_context_bundle(self, config_file_bundle.context)
-        context_bundle_shared: ContextBundle = ContextBundle(
-            checker=self._checker, reporter=self._reporter, verbose=self._verbose
-        )
         file_checker: IFileCheck = make_component(
-            config_file_bundle.file_checker, FileCheck, {'config_bundle': context_bundle_shared}
+            config_file_bundle.file_checker, FileCheck,
+            {'config_bundle': ContextBundle(checker=self._checker, reporter=self._reporter, verbose=self._verbose)}
         )
-        validate_component(file_checker, FileCheck)
+        validate_component(file_checker, IFileCheck, r'file_checker must be an IFileCheck instance')
         processor: ICFGProcessor = make_component(cfg_processor, CFGProcessor, None)
-        validate_component(processor, CFGProcessor)
+        validate_component(processor, ICFGProcessor, r'processor must be an ICFGProcessor instance')
         cfg2obj: IRead = make_component(cfg2object, Cfg2Object, {
             'config_file': info_file, 'config_bundle': config_file_bundle, 'cfg_processor': processor
         })
-        validate_component(cfg2obj, Cfg2Object)
-        self._configuration: ICFGProcessor | None = None
+        validate_component(cfg2obj, IRead, r'cfg2obj must be an IRead instance')
+        self._configuration = None
 
         if bool(cfg2obj):
             self._configuration = cfg2obj.read_configuration()
@@ -133,4 +135,4 @@ class CFGLoader(ILoader):
             :rtype: <str>
             :exceptions: None.
         '''
-        return format_instance_to_string(self)
+        return to_str(self)

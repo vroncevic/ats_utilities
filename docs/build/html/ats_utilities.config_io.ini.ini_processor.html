@@ -79,11 +79,11 @@ Default implementation for processing INI content.</p>
 <div><dl class="field-list">
 <dt class="field-odd">attributes<span class="colon">:</span></dt>
 <dd class="field-odd"><div class="line-block">
-<div class="line">_SECTION - Section name for ATS configuration.</div>
-<div class="line">_NAME - Option name for ATS configuration.</div>
-<div class="line">_VERSION - Option version for ATS configuration.</div>
-<div class="line">_BUILD_DATE - Option build date for ATS configuration.</div>
-<div class="line">_LICENCE - Option licence for ATS configuration.</div>
+<div class="line">_SECTION - Section name for configuration.</div>
+<div class="line">_NAME - Option name for configuration.</div>
+<div class="line">_VERSION - Option version for configuration.</div>
+<div class="line">_BUILD_DATE - Option build date for configuration.</div>
+<div class="line">_LICENCE - Option licence for configuration.</div>
 <div class="line">_config - ConfigParser instance for INI parsing.</div>
 </div>
 </dd>
@@ -128,6 +128,11 @@ Default implementation for processing INI content.</p>
 <span class="sig-name descname"><span class="pre">_abc_impl</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;_abc._abc_data</span> <span class="pre">object&gt;</span></em><a class="headerlink" href="#ats_utilities.config_io.ini.ini_processor.INIProcessor._abc_impl" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ats_utilities.config_io.ini.ini_processor.INIProcessor._config">
+<span class="sig-name descname"><span class="pre">_config</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ConfigParser</span></em><a class="headerlink" href="#ats_utilities.config_io.ini.ini_processor.INIProcessor._config" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
 <dl class="py method">
 <dt class="sig sig-object py" id="ats_utilities.config_io.ini.ini_processor.INIProcessor.from_stream">
 <span class="sig-name descname"><span class="pre">from_stream</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stream</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="_modules/ats_utilities/config_io/ini/ini_processor.html#INIProcessor.from_stream"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.config_io.ini.ini_processor.INIProcessor.from_stream" title="Link to this definition">¶</a></dt>
@@ -154,7 +159,7 @@ Default implementation for processing INI content.</p>
 <dd><p>Converts INI configuration to dictionary.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Dictionary with ATS information.</p>
+<dd class="field-odd"><p>Dictionary with information.</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p>&lt;dict[str, str]&gt;</p>
@@ -207,6 +212,7 @@ Default implementation for processing INI content.</p>
 <li><a class="reference internal" href="#ats_utilities.config_io.ini.ini_processor.INIProcessor._SECTION"><code class="docutils literal notranslate"><span class="pre">INIProcessor._SECTION</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.config_io.ini.ini_processor.INIProcessor._VERSION"><code class="docutils literal notranslate"><span class="pre">INIProcessor._VERSION</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.config_io.ini.ini_processor.INIProcessor._abc_impl"><code class="docutils literal notranslate"><span class="pre">INIProcessor._abc_impl</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.config_io.ini.ini_processor.INIProcessor._config"><code class="docutils literal notranslate"><span class="pre">INIProcessor._config</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.config_io.ini.ini_processor.INIProcessor.from_stream"><code class="docutils literal notranslate"><span class="pre">INIProcessor.from_stream()</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.config_io.ini.ini_processor.INIProcessor.to_dict"><code class="docutils literal notranslate"><span class="pre">INIProcessor.to_dict()</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.config_io.ini.ini_processor.INIProcessor.to_stream"><code class="docutils literal notranslate"><span class="pre">INIProcessor.to_stream()</span></code></a></li>

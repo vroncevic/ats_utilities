@@ -20,20 +20,23 @@ Info
     Provides a default implementation for processing YAML content.
 '''
 
+from __future__ import annotations
+
 from typing import override
 import yaml
-from ats_utilities.config_io.yaml.iyaml_processor import IYAMLProcessor
-from ats_utilities.exceptions.ats_error import ATSError
-from ats_utilities.factory_class import format_instance_to_string
 
-__author__: str = 'Vladimir Roncevic'
-__copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
-__license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.4.1'
-__maintainer__: str = 'Vladimir Roncevic'
-__email__: str = 'elektron.ronca@gmail.com'
-__status__: str = 'Updated'
+from ats_utilities.config_io.yaml.iyaml_processor import IYAMLProcessor
+from ats_utilities.exceptions import ATSError
+from ats_utilities.factory_class import to_str
+
+__author__ = r'Vladimir Roncevic'
+__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
+__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = r'3.4.2'
+__maintainer__ = r'Vladimir Roncevic'
+__email__ = r'elektron.ronca@gmail.com'
+__status__ = r'Updated'
 
 class YAMLProcessor(IYAMLProcessor):
     '''
@@ -51,6 +54,8 @@ class YAMLProcessor(IYAMLProcessor):
                 | to_dict - Returns configuration as a flat dictionary.
                 | __str__ - Returns the YAMLProcessor as string representation.
     '''
+
+    _data: dict[str, str]
 
     def __init__(self) -> None:
         '''
@@ -74,6 +79,7 @@ class YAMLProcessor(IYAMLProcessor):
         try:
             self._data = yaml.safe_load(yaml_string)
             return True
+
         except ATSError:
             return False
 
@@ -108,4 +114,4 @@ class YAMLProcessor(IYAMLProcessor):
             :rtype: <str>
             :exceptions: None.
         '''
-        return format_instance_to_string(self)
+        return to_str(self)

@@ -20,18 +20,21 @@ Info
     Interface for the ATS logging manager mechanism.
 '''
 
+from __future__ import annotations
+
 from abc import ABC, abstractmethod
-from ats_utilities.logging.ilogger import ILogger
+
+from ats_utilities.logging.logger.ilogger import ILogger
 from ats_utilities.context_bundle import ContextBundle
 
-__author__: str = 'Vladimir Roncevic'
-__copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
-__license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.4.1'
-__maintainer__: str = 'Vladimir Roncevic'
-__email__: str = 'elektron.ronca@gmail.com'
-__status__: str = 'Updated'
+__author__ = r'Vladimir Roncevic'
+__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
+__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = r'3.4.2'
+__maintainer__ = r'Vladimir Roncevic'
+__email__ = r'elektron.ronca@gmail.com'
+__status__ = r'Updated'
 
 
 class ILoggerManager(ABC):
@@ -41,7 +44,6 @@ class ILoggerManager(ABC):
 
         It defines:
 
-            :attributes: None
             :methods:
                 | get_shared_context - Returns the shared context.
                 | get_logger - Gets logger instance.
@@ -51,12 +53,12 @@ class ILoggerManager(ABC):
     '''
 
     @abstractmethod
-    def get_shared_context(self) -> ContextBundle | None:
+    def get_shared_context(self) -> ContextBundle:
         '''
             Returns the shared context.
 
-            :return: Shared context | None
-            :rtype: <ContextBundle | None>
+            :return: Shared context.
+            :rtype: <ContextBundle>
             :exceptions: None.
         '''
         pass
@@ -73,15 +75,15 @@ class ILoggerManager(ABC):
         pass
 
     @abstractmethod
-    def write_log(self, message: str | None, ctrl: int) -> bool:
+    def write_log(self, message: str, ctrl: int) -> bool:
         '''
             Writes message to log output.
 
-            :param message: Log message in string format for log output | None
-            :type message: <str | None>
-            :param ctrl: Control flag (debug, warning, critical, errors, info)
+            :param message: Log message in string format for log output.
+            :type message: <str>
+            :param ctrl: Control flag (debug, warning, critical, errors, info).
             :type ctrl: <int>
-            :return: True (success) | False (fail)
+            :return: True (success) | False (fail).
             :rtype: <bool>
             :exceptions: None.
         '''

@@ -58,24 +58,28 @@
 <span class="sd">    Defines project configuration container.</span>
 <span class="sd">&#39;&#39;&#39;</span>
 
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
+
+<span class="kn">from</span> <span class="nn">collections.abc</span> <span class="kn">import</span> <span class="n">Mapping</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">override</span>
+
 <span class="kn">from</span> <span class="nn">ats_utilities.config_setup.ipro_config</span> <span class="kn">import</span> <span class="n">IProConfig</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.context_bundle</span> <span class="kn">import</span> <span class="n">ContextBundle</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.checker.ichecker</span> <span class="kn">import</span> <span class="n">IChecker</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.reporter.ireporter</span> <span class="kn">import</span> <span class="n">IReporter</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.factory_context_bundle</span> <span class="kn">import</span> <span class="n">factory_context_bundle</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.factory_class</span> <span class="kn">import</span> <span class="n">format_instance_to_string</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.checker.proxy_validator</span> <span class="kn">import</span> <span class="n">validator</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.reporter.proxy_reporter</span> <span class="kn">import</span> <span class="n">vreporter</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.factory_class</span> <span class="kn">import</span> <span class="n">to_str</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.checker.proxy_validator</span> <span class="kn">import</span> <span class="n">vcheck</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.reporter.proxy_reporter</span> <span class="kn">import</span> <span class="n">vreport</span>
 
-<span class="n">__author__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;Vladimir Roncevic&#39;</span>
-<span class="n">__copyright__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;(C) 2026, https://vroncevic.github.io/ats_utilities&#39;</span>
-<span class="n">__credits__</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Vladimir Roncevic&#39;</span><span class="p">,</span> <span class="s1">&#39;Python Software Foundation&#39;</span><span class="p">]</span>
-<span class="n">__license__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE&#39;</span>
-<span class="n">__version__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;3.4.1&#39;</span>
-<span class="n">__maintainer__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;Vladimir Roncevic&#39;</span>
-<span class="n">__email__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;elektron.ronca@gmail.com&#39;</span>
-<span class="n">__status__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;Updated&#39;</span>
+<span class="n">__author__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;Vladimir Roncevic&#39;</span>
+<span class="n">__copyright__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;(C) 2026, https://vroncevic.github.io/ats_utilities&#39;</span>
+<span class="n">__credits__</span> <span class="o">=</span> <span class="p">[</span><span class="sa">r</span><span class="s1">&#39;Vladimir Roncevic&#39;</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;Python Software Foundation&#39;</span><span class="p">]</span>
+<span class="n">__license__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE&#39;</span>
+<span class="n">__version__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;3.4.2&#39;</span>
+<span class="n">__maintainer__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;Vladimir Roncevic&#39;</span>
+<span class="n">__email__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;elektron.ronca@gmail.com&#39;</span>
+<span class="n">__status__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;Updated&#39;</span>
 
 
 <div class="viewcode-block" id="ProConfig">
@@ -106,10 +110,10 @@
     <span class="n">TEMPLATES</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;templates&#39;</span>
     <span class="n">MODULES</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;modules&#39;</span>
     <span class="n">FORMAT</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;template&#39;</span>
-
     <span class="n">_checker</span><span class="p">:</span> <span class="n">IChecker</span>
     <span class="n">_reporter</span><span class="p">:</span> <span class="n">IReporter</span>
     <span class="n">_verbose</span><span class="p">:</span> <span class="nb">bool</span>
+    <span class="n">_config</span><span class="p">:</span> <span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context_bundle</span><span class="p">:</span> <span class="n">ContextBundle</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
@@ -120,38 +124,38 @@
 <span class="sd">            :exceptions: None.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="n">factory_context_bundle</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context_bundle</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_config</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_config</span> <span class="o">=</span> <span class="kc">None</span>
 
     <span class="nd">@property</span>
-    <span class="nd">@vreporter</span><span class="p">(</span><span class="s1">&#39;get config </span><span class="si">{config}</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="nd">@vreport</span><span class="p">(</span><span class="s1">&#39;getting config </span><span class="si">{config}</span><span class="s1">&#39;</span><span class="p">)</span>
     <span class="nd">@override</span>
-    <span class="k">def</span> <span class="nf">config</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">config</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Property method for getting project configuration.</span>
 
-<span class="sd">            :return: Formatted project configuration in dict format | None.</span>
-<span class="sd">            :rtype: &lt;dict[Any, Any] | None&gt;</span>
+<span class="sd">            :return: Formatted project configuration in dict format.</span>
+<span class="sd">            :rtype: &lt;Mapping[str, Any]&gt;</span>
 <span class="sd">            :exceptions:</span>
 <span class="sd">                | ATSRuntimeError: Decorator cannot be used on a standalone function.</span>
 <span class="sd">                | ATSAttributeError: Class is required to provide a &#39;_reporter&#39; object to</span>
-<span class="sd">                |                    use the @verboser decorator.</span>
+<span class="sd">                |                    use the @vreport decorator.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_config</span>
 
     <span class="nd">@config</span><span class="o">.</span><span class="n">setter</span>
-    <span class="nd">@validator</span><span class="p">([(</span><span class="s1">&#39;dict | None:pro_config&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)])</span>
-    <span class="nd">@vreporter</span><span class="p">(</span><span class="s1">&#39;get config </span><span class="si">{config}</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="nd">@vcheck</span><span class="p">([(</span><span class="s1">&#39;Mapping | None:pro_config&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)])</span>
+    <span class="nd">@vreport</span><span class="p">(</span><span class="s1">&#39;getting config </span><span class="si">{config}</span><span class="s1">&#39;</span><span class="p">)</span>
     <span class="nd">@override</span>
-    <span class="k">def</span> <span class="nf">config</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pro_config</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">config</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pro_config</span><span class="p">:</span> <span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Property method for setting project configuration.</span>
 
-<span class="sd">            :param pro_config: Project configuration in dict format | None.</span>
-<span class="sd">            :type pro_config: &lt;dict[Any, Any] | None&gt;</span>
+<span class="sd">            :param pro_config: Project configuration in Mapping format.</span>
+<span class="sd">            :type pro_config: &lt;Mapping[str, Any]&gt;</span>
 <span class="sd">            :exceptions:</span>
 <span class="sd">                | ATSRuntimeError: Decorator cannot be used on a standalone function.</span>
 <span class="sd">                | ATSAttributeError: Class is required to provide a &#39;_reporter&#39; object to</span>
-<span class="sd">                |                    use the @verboser decorator.</span>
+<span class="sd">                |                    use the @vreport decorator.</span>
 <span class="sd">                | ATSTypeError: Parameter type validation failed.</span>
 <span class="sd">                | ATSValueError: Parameter format validation failed.</span>
 <span class="sd">                | ATSRuntimeError: Decorator used on a non-class method.</span>
@@ -161,7 +165,7 @@
 
 <div class="viewcode-block" id="ProConfig.not_none">
 <a class="viewcode-back" href="../../../ats_utilities.config_setup.pro_config.html#ats_utilities.config_setup.pro_config.ProConfig.not_none">[docs]</a>
-    <span class="nd">@vreporter</span><span class="p">(</span><span class="s1">&#39;check config </span><span class="si">{config}</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="nd">@vreport</span><span class="p">(</span><span class="s1">&#39;checking config </span><span class="si">{config}</span><span class="s1">&#39;</span><span class="p">)</span>
     <span class="nd">@override</span>
     <span class="k">def</span> <span class="nf">not_none</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
@@ -172,7 +176,7 @@
 <span class="sd">            :exceptions:</span>
 <span class="sd">                | ATSRuntimeError: Decorator cannot be used on a standalone function.</span>
 <span class="sd">                | ATSAttributeError: Class is required to provide a &#39;_reporter&#39; object to</span>
-<span class="sd">                |                    use the @verboser decorator.</span>
+<span class="sd">                |                    use the @vreport decorator.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_config</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span></div>
 
@@ -186,7 +190,7 @@
 <span class="sd">            :rtype: &lt;str&gt;</span>
 <span class="sd">            :exceptions: None.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="k">return</span> <span class="n">format_instance_to_string</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div>
+        <span class="k">return</span> <span class="n">to_str</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div>
 
 </pre></div>
 

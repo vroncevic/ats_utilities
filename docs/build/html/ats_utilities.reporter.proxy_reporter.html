@@ -63,14 +63,14 @@ Public License for more details.
 You should have received a copy of the GNU General Public License along
 with this program. If not, see &lt;<a class="reference external" href="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</a>&gt;.</p>
 </dd>
-<dt>Info</dt><dd><p>Defines vreporter decorator for automatic console logging via templates.
+<dt>Info</dt><dd><p>Defines vreport decorator for automatic console logging via templates.
 Utility for proxy reporting that borrows IReporter from class instances
 and supports multiple message templates and variables.</p>
 </dd>
 </dl>
 <dl class="py function">
-<dt class="sig sig-object py" id="ats_utilities.reporter.proxy_reporter.vreporter">
-<span class="sig-prename descclassname"><span class="pre">ats_utilities.reporter.proxy_reporter.</span></span><span class="sig-name descname"><span class="pre">vreporter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">templates</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="pre">F</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">F</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/ats_utilities/reporter/proxy_reporter.html#vreporter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.reporter.proxy_reporter.vreporter" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ats_utilities.reporter.proxy_reporter.vreport">
+<span class="sig-prename descclassname"><span class="pre">ats_utilities.reporter.proxy_reporter.</span></span><span class="sig-name descname"><span class="pre">vreport</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">templates</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="pre">F</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">F</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/ats_utilities/reporter/proxy_reporter.html#vreport"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.reporter.proxy_reporter.vreport" title="Link to this definition">¶</a></dt>
 <dd><p>Decorator supporting class methods and property operations.
 Borrows the reporter object and verbose flag dynamically from the 
 class instance to automatically format and report status messages.
@@ -87,10 +87,11 @@ Supports single or multiple message templates with multiple variables.</p>
 </dd>
 <dt class="field-even">Exceptions<span class="colon">:</span></dt>
 <dd class="field-even"><div class="line-block">
+<div class="line">ATSValueError: Decorator requires at least one argument.</div>
 <div class="line">ATSRuntimeError: Decorator cannot be used on a standalone function.</div>
 <div class="line">ATSAttributeError: Class is required to provide a ‘_reporter’ object to</div>
 <div class="line-block">
-<div class="line">use the &#64;verboser decorator.</div>
+<div class="line">use the &#64;vreport decorator.</div>
 </div>
 </div>
 </dd>
@@ -110,7 +111,7 @@ Supports single or multiple message templates with multiple variables.</p>
     <h3><a href="index.html">Table of Contents</a></h3>
     <ul>
 <li><a class="reference internal" href="#">ats_utilities.reporter.proxy_reporter module</a><ul>
-<li><a class="reference internal" href="#ats_utilities.reporter.proxy_reporter.vreporter"><code class="docutils literal notranslate"><span class="pre">vreporter()</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.reporter.proxy_reporter.vreport"><code class="docutils literal notranslate"><span class="pre">vreport()</span></code></a></li>
 </ul>
 </li>
 </ul>

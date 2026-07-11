@@ -59,21 +59,23 @@
 <span class="sd">    Provides a simple factory mechanism for dependency injection.</span>
 <span class="sd">&#39;&#39;&#39;</span>
 
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
+
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span>
+
 <span class="kn">from</span> <span class="nn">ats_utilities.factory_class</span> <span class="kn">import</span> <span class="n">inject</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.context_bundle</span> <span class="kn">import</span> <span class="n">ContextBundle</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.checker.engine</span> <span class="kn">import</span> <span class="n">Checker</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.reporter.engine</span> <span class="kn">import</span> <span class="n">Reporter</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.reporter.component_bundle</span> <span class="kn">import</span> <span class="n">ReporterComponentBundle</span>
 
-<span class="n">__author__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;Vladimir Roncevic&#39;</span>
-<span class="n">__copyright__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;(C) 2026, https://vroncevic.github.io/ats_utilities&#39;</span>
-<span class="n">__credits__</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Vladimir Roncevic&#39;</span><span class="p">,</span> <span class="s1">&#39;Python Software Foundation&#39;</span><span class="p">]</span>
-<span class="n">__license__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE&#39;</span>
-<span class="n">__version__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;3.4.1&#39;</span>
-<span class="n">__maintainer__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;Vladimir Roncevic&#39;</span>
-<span class="n">__email__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;elektron.ronca@gmail.com&#39;</span>
-<span class="n">__status__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;Updated&#39;</span>
+<span class="n">__author__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;Vladimir Roncevic&#39;</span>
+<span class="n">__copyright__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;(C) 2026, https://vroncevic.github.io/ats_utilities&#39;</span>
+<span class="n">__credits__</span> <span class="o">=</span> <span class="p">[</span><span class="sa">r</span><span class="s1">&#39;Vladimir Roncevic&#39;</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;Python Software Foundation&#39;</span><span class="p">]</span>
+<span class="n">__license__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE&#39;</span>
+<span class="n">__version__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;3.4.2&#39;</span>
+<span class="n">__maintainer__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;Vladimir Roncevic&#39;</span>
+<span class="n">__email__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;elektron.ronca@gmail.com&#39;</span>
+<span class="n">__status__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;Updated&#39;</span>
 
 
 <div class="viewcode-block" id="factory_context_bundle">
@@ -84,26 +86,18 @@
 
 <span class="sd">        :param instance: The object instance (self) to inject attributes into.</span>
 <span class="sd">        :type instance: &lt;Any&gt;</span>
-<span class="sd">        :param context: Context bundle of checker, reporter and verbose | None.</span>
+<span class="sd">        :param context: Context bundle (checker, reporter and verbose) | None.</span>
 <span class="sd">        :type context: &lt;ContextBundle | None&gt;</span>
 <span class="sd">        :exceptions: None.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
-    <span class="c1"># No dependency injection then use default ones.</span>
-    <span class="k">if</span> <span class="ow">not</span> <span class="nb">bool</span><span class="p">(</span><span class="n">context</span><span class="p">):</span>
-        <span class="n">context</span><span class="p">:</span> <span class="n">ContextBundle</span> <span class="o">=</span> <span class="n">ContextBundle</span><span class="p">()</span>
-
-    <span class="k">if</span> <span class="n">context</span><span class="o">.</span><span class="n">checker</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">context</span><span class="o">.</span><span class="n">checker</span><span class="p">:</span> <span class="n">Checker</span> <span class="o">=</span> <span class="n">Checker</span><span class="p">()</span>
-
-    <span class="k">if</span> <span class="n">context</span><span class="o">.</span><span class="n">reporter</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">reporter_bundle</span><span class="p">:</span> <span class="n">ReporterComponentBundle</span> <span class="o">=</span> <span class="n">ReporterComponentBundle</span><span class="p">(</span><span class="n">checker</span><span class="o">=</span><span class="n">context</span><span class="o">.</span><span class="n">checker</span><span class="p">)</span>
-        <span class="n">context</span><span class="o">.</span><span class="n">reporter</span><span class="p">:</span> <span class="n">Reporter</span> <span class="o">=</span> <span class="n">Reporter</span><span class="p">(</span><span class="n">component_bundle</span><span class="o">=</span><span class="n">reporter_bundle</span><span class="p">)</span>
+    <span class="c1"># Uses provided bundle or creates a default one.</span>
+    <span class="n">ctx</span><span class="p">:</span> <span class="n">ContextBundle</span> <span class="o">=</span> <span class="n">context</span> <span class="ow">or</span> <span class="n">ContextBundle</span><span class="p">()</span>
 
     <span class="n">inject</span><span class="p">(</span>
         <span class="n">instance</span><span class="p">,</span>
-        <span class="p">(</span><span class="s1">&#39;checker&#39;</span><span class="p">,</span> <span class="n">context</span><span class="o">.</span><span class="n">checker</span><span class="p">,</span> <span class="n">Checker</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span>
-        <span class="p">(</span><span class="s1">&#39;reporter&#39;</span><span class="p">,</span> <span class="n">context</span><span class="o">.</span><span class="n">reporter</span><span class="p">,</span> <span class="n">Reporter</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;checker&#39;</span><span class="p">]),</span>
-        <span class="p">(</span><span class="s1">&#39;verbose&#39;</span><span class="p">,</span> <span class="n">context</span><span class="o">.</span><span class="n">verbose</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="p">(</span><span class="s1">&#39;checker&#39;</span><span class="p">,</span> <span class="n">ctx</span><span class="o">.</span><span class="n">checker</span><span class="p">,</span> <span class="n">Checker</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">&#39;reporter&#39;</span><span class="p">,</span> <span class="n">ctx</span><span class="o">.</span><span class="n">reporter</span><span class="p">,</span> <span class="n">Reporter</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;checker&#39;</span><span class="p">]),</span>
+        <span class="p">(</span><span class="s1">&#39;verbose&#39;</span><span class="p">,</span> <span class="n">ctx</span><span class="o">.</span><span class="n">verbose</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
     <span class="p">)</span></div>
 
 </pre></div>

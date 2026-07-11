@@ -58,33 +58,47 @@
 <span class="sd">    Encapsulates info components to minimize constructor overhead.</span>
 <span class="sd">&#39;&#39;&#39;</span>
 
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span>
-<span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.info.iname</span> <span class="kn">import</span> <span class="n">IName</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.info.iversion</span> <span class="kn">import</span> <span class="n">IVersion</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.info.ilicence</span> <span class="kn">import</span> <span class="n">ILicence</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.info.ibuild_date</span> <span class="kn">import</span> <span class="n">IBuildDate</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.info.irepository</span> <span class="kn">import</span> <span class="n">IRepository</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.info.iorganization</span> <span class="kn">import</span> <span class="n">IOrganization</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.info.iuse_github</span> <span class="kn">import</span> <span class="n">IUseGitHub</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.info.ilogo_path</span> <span class="kn">import</span> <span class="n">ILogoPath</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.info.iinfo_ok</span> <span class="kn">import</span> <span class="n">IInfoOk</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.context_bundle</span> <span class="kn">import</span> <span class="n">ContextBundle</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.exceptions.ats_value_error</span> <span class="kn">import</span> <span class="n">ATSValueError</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
 
-<span class="n">__author__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;Vladimir Roncevic&#39;</span>
-<span class="n">__copyright__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;(C) 2026, https://vroncevic.github.io/ats_utilities&#39;</span>
-<span class="n">__credits__</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Vladimir Roncevic&#39;</span><span class="p">,</span> <span class="s1">&#39;Python Software Foundation&#39;</span><span class="p">]</span>
-<span class="n">__license__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE&#39;</span>
-<span class="n">__version__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;3.4.1&#39;</span>
-<span class="n">__maintainer__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;Vladimir Roncevic&#39;</span>
-<span class="n">__email__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;elektron.ronca@gmail.com&#39;</span>
-<span class="n">__status__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;Updated&#39;</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span>
+<span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span><span class="p">,</span> <span class="n">asdict</span>
+
+<span class="kn">from</span> <span class="nn">ats_utilities.info.name.iname</span> <span class="kn">import</span> <span class="n">IName</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.info.name.engine</span> <span class="kn">import</span> <span class="n">Name</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.info.version.iversion</span> <span class="kn">import</span> <span class="n">IVersion</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.info.version.engine</span> <span class="kn">import</span> <span class="n">Version</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.info.licence.ilicence</span> <span class="kn">import</span> <span class="n">ILicence</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.info.licence.engine</span> <span class="kn">import</span> <span class="n">Licence</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.info.build_date.ibuild_date</span> <span class="kn">import</span> <span class="n">IBuildDate</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.info.build_date.engine</span> <span class="kn">import</span> <span class="n">BuildDate</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.info.repository.irepository</span> <span class="kn">import</span> <span class="n">IRepository</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.info.repository.engine</span> <span class="kn">import</span> <span class="n">Repository</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.info.organization.iorganization</span> <span class="kn">import</span> <span class="n">IOrganization</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.info.organization.engine</span> <span class="kn">import</span> <span class="n">Organization</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.info.use_github.iuse_github</span> <span class="kn">import</span> <span class="n">IUseGitHub</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.info.use_github.engine</span> <span class="kn">import</span> <span class="n">UseGitHub</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.info.logo.ilogo</span> <span class="kn">import</span> <span class="n">ILogo</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.info.logo.engine</span> <span class="kn">import</span> <span class="n">Logo</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.info.info_ok.iinfo_ok</span> <span class="kn">import</span> <span class="n">IInfoOk</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.info.info_ok.engine</span> <span class="kn">import</span> <span class="n">InfoOk</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.context_bundle</span> <span class="kn">import</span> <span class="n">ContextBundle</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.factory_component</span> <span class="kn">import</span> <span class="n">validate_component</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.factory_value</span> <span class="kn">import</span> <span class="n">require_not_empty</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.factory_type</span> <span class="kn">import</span> <span class="n">check_type</span>
+
+<span class="n">__author__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;Vladimir Roncevic&#39;</span>
+<span class="n">__copyright__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;(C) 2026, https://vroncevic.github.io/ats_utilities&#39;</span>
+<span class="n">__credits__</span> <span class="o">=</span> <span class="p">[</span><span class="sa">r</span><span class="s1">&#39;Vladimir Roncevic&#39;</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;Python Software Foundation&#39;</span><span class="p">]</span>
+<span class="n">__license__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE&#39;</span>
+<span class="n">__version__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;3.4.2&#39;</span>
+<span class="n">__maintainer__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;Vladimir Roncevic&#39;</span>
+<span class="n">__email__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;elektron.ronca@gmail.com&#39;</span>
+<span class="n">__status__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;Updated&#39;</span>
 
 
 <div class="viewcode-block" id="InfoComponentBundle">
 <a class="viewcode-back" href="../../../ats_utilities.info.component_bundle.html#ats_utilities.info.component_bundle.InfoComponentBundle">[docs]</a>
-<span class="nd">@dataclass</span>
+<span class="nd">@dataclass</span><span class="p">(</span><span class="n">slots</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">kw_only</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="k">class</span> <span class="nc">InfoComponentBundle</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Defines component bundle data classe for dependency group simplification.</span>
@@ -100,13 +114,13 @@
 <span class="sd">                | repository - The ATS repository (default None).</span>
 <span class="sd">                | organization - The ATS organization (default None).</span>
 <span class="sd">                | use_github - The ATS use GitHub infrastructure status (default None).</span>
-<span class="sd">                | logo_path - The ATS logo path (default None).</span>
+<span class="sd">                | logo - The ATS logo path (default None).</span>
 <span class="sd">                | info_ok - The ATS information status (default None).</span>
 <span class="sd">                | context_bundle - The context bundle (default None).</span>
 <span class="sd">            :methods:</span>
-<span class="sd">                | validate - Validates that essential components are set.</span>
-<span class="sd">                | merge - Merges non-None values from another bundle into this one.</span>
-<span class="sd">                | to_dict - Converts the bundle attributes to a dictionary.</span>
+<span class="sd">                | validate - Validates that ComponentBundle is valid (can be called after merge).</span>
+<span class="sd">                | merge - Merges non-None values from another InfoComponentBundle into this one.</span>
+<span class="sd">                | to_dict - Converts the InfoComponentBundle instance to a dictionary.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
 
     <span class="n">name</span><span class="p">:</span> <span class="n">IName</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
@@ -116,81 +130,155 @@
     <span class="n">repository</span><span class="p">:</span> <span class="n">IRepository</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">organization</span><span class="p">:</span> <span class="n">IOrganization</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">use_github</span><span class="p">:</span> <span class="n">IUseGitHub</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
-    <span class="n">logo_path</span><span class="p">:</span> <span class="n">ILogoPath</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">logo</span><span class="p">:</span> <span class="n">ILogo</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">info_ok</span><span class="p">:</span> <span class="n">IInfoOk</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">context_bundle</span><span class="p">:</span> <span class="n">ContextBundle</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="k">def</span> <span class="nf">__post_init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">            Performs post-initialization validation.</span>
+
+<span class="sd">            :exceptions:</span>
+<span class="sd">                | ATSAttributeError - Name must be an IName implementation.</span>
+<span class="sd">                | ATSAttributeError - Version must be an IVersion implementation.</span>
+<span class="sd">                | ATSAttributeError - Licence must be an ILicence implementation.</span>
+<span class="sd">                | ATSAttributeError - Build date must be an IBuildDate implementation.</span>
+<span class="sd">                | ATSAttributeError - Repository must be an IRepository implementation.</span>
+<span class="sd">                | ATSAttributeError - Organization must be an IOrganization implementation.</span>
+<span class="sd">                | ATSAttributeError - Use GitHub must be an IUseGitHub implementation.</span>
+<span class="sd">                | ATSAttributeError - Logo path must be an ILogo implementation.</span>
+<span class="sd">                | ATSAttributeError - Info ok must be an IInfoOk implementation.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">context_bundle</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">context_bundle</span> <span class="o">=</span> <span class="n">ContextBundle</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">Name</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">context_bundle</span><span class="p">)</span>
+            <span class="n">validate_component</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">IName</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;name must be an IName instance&#39;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">version</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">version</span> <span class="o">=</span> <span class="n">Version</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">context_bundle</span><span class="p">)</span>
+            <span class="n">validate_component</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">version</span><span class="p">,</span> <span class="n">IVersion</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;version must be an IVersion instance&#39;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">licence</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">licence</span> <span class="o">=</span> <span class="n">Licence</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">context_bundle</span><span class="p">)</span>
+            <span class="n">validate_component</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">licence</span><span class="p">,</span> <span class="n">ILicence</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;licence must be an ILicence instance&#39;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">build_date</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">build_date</span> <span class="o">=</span> <span class="n">BuildDate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">context_bundle</span><span class="p">)</span>
+            <span class="n">validate_component</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">build_date</span><span class="p">,</span> <span class="n">IBuildDate</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;build_date must be an IBuildDate instance&#39;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">repository</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">repository</span> <span class="o">=</span> <span class="n">Repository</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">context_bundle</span><span class="p">)</span>
+            <span class="n">validate_component</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">repository</span><span class="p">,</span> <span class="n">IRepository</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;repository must be an IRepository instance&#39;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">organization</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">organization</span> <span class="o">=</span> <span class="n">Organization</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">context_bundle</span><span class="p">)</span>
+            <span class="n">validate_component</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">organization</span><span class="p">,</span> <span class="n">IOrganization</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;organization must be an IOrganization instance&#39;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">use_github</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">use_github</span> <span class="o">=</span> <span class="n">UseGitHub</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">context_bundle</span><span class="p">)</span>
+            <span class="n">validate_component</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">use_github</span><span class="p">,</span> <span class="n">IUseGitHub</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;use_github must be an IUseGitHub instance&#39;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">logo</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logo</span> <span class="o">=</span> <span class="n">Logo</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">context_bundle</span><span class="p">)</span>
+            <span class="n">validate_component</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">logo</span><span class="p">,</span> <span class="n">ILogo</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;logo must be an ILogo instance&#39;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">info_ok</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">info_ok</span> <span class="o">=</span> <span class="n">InfoOk</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">context_bundle</span><span class="p">)</span>
+            <span class="n">validate_component</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">info_ok</span><span class="p">,</span> <span class="n">IInfoOk</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;info_ok must be an IInfoOk instance&#39;</span><span class="p">)</span>
 
 <div class="viewcode-block" id="InfoComponentBundle.validate">
 <a class="viewcode-back" href="../../../ats_utilities.info.component_bundle.html#ats_utilities.info.component_bundle.InfoComponentBundle.validate">[docs]</a>
     <span class="k">def</span> <span class="nf">validate</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">            Validates that essential components are set.</span>
+<span class="sd">            Validates that ComponentBundle is valid (can be called after merge).</span>
+<span class="sd">            Performs validation of name, version, licence, build_date, repository,</span>
+<span class="sd">            organization, use_github, logo and info_ok attributes.</span>
+<span class="sd">            Name must be non-None and an instance of IName interface.</span>
+<span class="sd">            Version must be non-None and an instance of IVersion interface.</span>
+<span class="sd">            Licence must be non-None and an instance of ILicence interface.</span>
+<span class="sd">            Build date must be non-None and an instance of IBuildDate interface.</span>
+<span class="sd">            Repository must be non-None and an instance of IRepository interface.</span>
+<span class="sd">            Organization must be non-None and an instance of IOrganization interface.</span>
+<span class="sd">            Use GitHub must be non-None and an instance of IUseGitHub interface.</span>
+<span class="sd">            Logo path must be non-None and an instance of ILogo interface.</span>
+<span class="sd">            Info ok must be non-None and an instance of IInfoOk interface.</span>
 
 <span class="sd">            :exceptions:</span>
-<span class="sd">                | ATSValueError - Name must be provided.</span>
-<span class="sd">                | ATSValueError - Version must be provided.</span>
-<span class="sd">                | ATSValueError - Licence must be provided.</span>
-<span class="sd">                | ATSValueError - Build date must be provided.</span>
-<span class="sd">                | ATSValueError - Repository must be provided.</span>
-<span class="sd">                | ATSValueError - Organization must be provided.</span>
-<span class="sd">                | ATSValueError - Use GitHub must be provided.</span>
-<span class="sd">                | ATSValueError - Logo path must be provided.</span>
-<span class="sd">                | ATSValueError - Info ok must be provided.</span>
+<span class="sd">                | ATSValueError: Name must be provided.</span>
+<span class="sd">                | ATSValueError: Version must be provided.</span>
+<span class="sd">                | ATSValueError: Licence must be provided.</span>
+<span class="sd">                | ATSValueError: Build date must be provided.</span>
+<span class="sd">                | ATSValueError: Repository must be provided.</span>
+<span class="sd">                | ATSValueError: Organization must be provided.</span>
+<span class="sd">                | ATSValueError: Use GitHub must be provided.</span>
+<span class="sd">                | ATSValueError: Logo path must be provided.</span>
+<span class="sd">                | ATSValueError: Info ok must be provided.</span>
+<span class="sd">                | ATSTypeError: Name must be an instance of IName interface.</span>
+<span class="sd">                | ATSTypeError: Version must be an instance of IVersion interface.</span>
+<span class="sd">                | ATSTypeError: Licence must be an instance of ILicence interface.</span>
+<span class="sd">                | ATSTypeError: Build date must be an instance of IBuildDate interface.</span>
+<span class="sd">                | ATSTypeError: Repository must be an instance of IRepository interface.</span>
+<span class="sd">                | ATSTypeError: Organization must be an instance of IOrganization interface.</span>
+<span class="sd">                | ATSTypeError: Use GitHub must be an instance of IUseGitHub interface.</span>
+<span class="sd">                | ATSTypeError: Logo path must be an instance of ILogo interface.</span>
+<span class="sd">                | ATSTypeError: Info ok must be an instance of IInfoOk interface.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="n">ATSValueError</span><span class="p">(</span><span class="s2">&quot;name must be provided.&quot;</span><span class="p">)</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">version</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="n">ATSValueError</span><span class="p">(</span><span class="s2">&quot;version must be provided.&quot;</span><span class="p">)</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">licence</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="n">ATSValueError</span><span class="p">(</span><span class="s2">&quot;licence must be provided.&quot;</span><span class="p">)</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">build_date</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="n">ATSValueError</span><span class="p">(</span><span class="s2">&quot;build date must be provided.&quot;</span><span class="p">)</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">repository</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="n">ATSValueError</span><span class="p">(</span><span class="s2">&quot;repository must be provided.&quot;</span><span class="p">)</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">organization</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="n">ATSValueError</span><span class="p">(</span><span class="s2">&quot;organization must be provided.&quot;</span><span class="p">)</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">use_github</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="n">ATSValueError</span><span class="p">(</span><span class="s2">&quot;use github must be provided.&quot;</span><span class="p">)</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">logo_path</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="n">ATSValueError</span><span class="p">(</span><span class="s2">&quot;logo path must be provided.&quot;</span><span class="p">)</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">info_ok</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="n">ATSValueError</span><span class="p">(</span><span class="s2">&quot;info ok must be provided.&quot;</span><span class="p">)</span></div>
+        <span class="n">require_not_empty</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;name must be provided&#39;</span><span class="p">)</span>
+        <span class="n">require_not_empty</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">version</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;version must be provided&#39;</span><span class="p">)</span>
+        <span class="n">require_not_empty</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">licence</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;licence must be provided&#39;</span><span class="p">)</span>
+        <span class="n">require_not_empty</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">build_date</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;build date must be provided&#39;</span><span class="p">)</span>
+        <span class="n">require_not_empty</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">repository</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;repository must be provided&#39;</span><span class="p">)</span>
+        <span class="n">require_not_empty</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">organization</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;organization must be provided&#39;</span><span class="p">)</span>
+        <span class="n">require_not_empty</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">use_github</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;use github must be provided&#39;</span><span class="p">)</span>
+        <span class="n">require_not_empty</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">logo</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;logo path must be provided&#39;</span><span class="p">)</span>
+        <span class="n">require_not_empty</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">info_ok</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;info ok must be provided&#39;</span><span class="p">)</span>
+        <span class="n">check_type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">IName</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;name must be an instance of IName interface&#39;</span><span class="p">)</span>
+        <span class="n">check_type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">version</span><span class="p">,</span> <span class="n">IVersion</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;version must be an instance of IVersion interface&#39;</span><span class="p">)</span>
+        <span class="n">check_type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">licence</span><span class="p">,</span> <span class="n">ILicence</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;licence must be an instance of ILicence interface&#39;</span><span class="p">)</span>
+        <span class="n">check_type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">build_date</span><span class="p">,</span> <span class="n">IBuildDate</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;build date must be an instance of IBuildDate interface&#39;</span><span class="p">)</span>
+        <span class="n">check_type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">repository</span><span class="p">,</span> <span class="n">IRepository</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;repository must be an instance of IRepository interface&#39;</span><span class="p">)</span>
+        <span class="n">check_type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">organization</span><span class="p">,</span> <span class="n">IOrganization</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;organization must be an instance of IOrganization interface&#39;</span><span class="p">)</span>
+        <span class="n">check_type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">use_github</span><span class="p">,</span> <span class="n">IUseGitHub</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;use github must be an instance of IUseGitHub interface&#39;</span><span class="p">)</span>
+        <span class="n">check_type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">logo</span><span class="p">,</span> <span class="n">ILogo</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;logo path must be an instance of ILogo interface&#39;</span><span class="p">)</span>
+        <span class="n">check_type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">info_ok</span><span class="p">,</span> <span class="n">IInfoOk</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;info ok must be an instance of IInfoOk interface&#39;</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="InfoComponentBundle.merge">
 <a class="viewcode-back" href="../../../ats_utilities.info.component_bundle.html#ats_utilities.info.component_bundle.InfoComponentBundle.merge">[docs]</a>
-    <span class="k">def</span> <span class="nf">merge</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="s1">&#39;InfoComponentBundle&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">merge</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="n">InfoComponentBundle</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">            Merges non-None values from another bundle into this one.</span>
+<span class="sd">            Merges non-None values from another InfoComponentBundle into this one.</span>
 
-<span class="sd">            :param other: Another bundle to merge into this one.</span>
+<span class="sd">            :param other: Another InfoComponentBundle to merge into this one.</span>
 <span class="sd">            :type other: &lt;InfoComponentBundle&gt;</span>
-<span class="sd">            :exceptions: None.</span>
+<span class="sd">            :exceptions:</span>
+<span class="sd">                | ATSTypeError: Other must be an InfoComponentBundle instance.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
+        <span class="n">check_type</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">InfoComponentBundle</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;other must be an InfoComponentBundle instance&#39;</span><span class="p">)</span>
+
         <span class="k">for</span> <span class="n">field_name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">__dataclass_fields__</span><span class="p">:</span>
-            <span class="n">other_value</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">field_name</span><span class="p">)</span>
+            <span class="n">other_value</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">field_name</span><span class="p">)</span>
 
             <span class="k">if</span> <span class="n">other_value</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-                <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">field_name</span><span class="p">,</span> <span class="n">other_value</span><span class="p">)</span></div>
+                <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">field_name</span><span class="p">,</span> <span class="n">other_value</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">validate</span><span class="p">()</span></div>
 
 
 <div class="viewcode-block" id="InfoComponentBundle.to_dict">
 <a class="viewcode-back" href="../../../ats_utilities.info.component_bundle.html#ats_utilities.info.component_bundle.InfoComponentBundle.to_dict">[docs]</a>
     <span class="k">def</span> <span class="nf">to_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">            Converts the bundle attributes to a dictionary.</span>
+<span class="sd">            Converts the InfoComponentBundle instance to a dictionary.</span>
 
-<span class="sd">            :return: Dictionary representation of the bundle attributes.</span>
+<span class="sd">            :return: Dictionary representation of the InfoComponentBundle instance.</span>
 <span class="sd">            :rtype: &lt;dict[str, Any]&gt;</span>
 <span class="sd">            :exceptions: None.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="k">return</span> <span class="p">{</span>
-            <span class="n">name</span><span class="p">:</span> <span class="n">value</span>
-            <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
-            <span class="k">if</span> <span class="ow">not</span> <span class="n">name</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;_&#39;</span><span class="p">)</span>
-        <span class="p">}</span></div>
+        <span class="k">return</span> <span class="n">asdict</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div>
 </div>
-
 
 </pre></div>
 

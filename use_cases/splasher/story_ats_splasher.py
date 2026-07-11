@@ -25,40 +25,57 @@ from ats_utilities.splasher.engine import Splasher
 from ats_utilities.splasher.splash_keys import SplashKeys
 from ats_utilities.splasher.component_bundle import SplashComponentBundle
 
-__author__: str = 'Vladimir Roncevic'
-__copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
-__license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.4.1'
-__maintainer__: str = 'Vladimir Roncevic'
-__email__: str = 'elektron.ronca@gmail.com'
-__status__: str = 'Updated'
+__author__ = r'Vladimir Roncevic'
+__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
+__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = r'3.4.2'
+__maintainer__ = r'Vladimir Roncevic'
+__email__ = r'elektron.ronca@gmail.com'
+__status__ = r'Updated'
 
 current_dir: str = dirname(realpath(__file__))
-logo_path: str = f'{current_dir}/../../tests/config/app.logo'
-mytool_property: dict[Any, Any] = {}
-bundle: SplashComponentBundle = SplashComponentBundle(prop=mytool_property)
-
+logo_path: str = f'{current_dir}/../../tests/assets/config/app.logo'
 #
 # default [with GitHub]
 # ======================
 #
-bundle.prop[SplashKeys.ATS_ORGANIZATION] = 'myorganization'
-bundle.prop[SplashKeys.ATS_REPOSITORY] = 'myrepository'
-bundle.prop[SplashKeys.ATS_NAME] = 'mytool'
-bundle.prop[SplashKeys.ATS_LOGO_PATH] = logo_path
-bundle.prop[SplashKeys.ATS_USE_GITHUB_INFRASTRUCTURE] = True
-
-ats_splash_with_github: Splasher = Splasher(bundle)
+mytool_property_github: dict[Any, Any] = {
+    SplashKeys.ATS_ORGANIZATION: 'myorganization',
+    SplashKeys.ATS_REPOSITORY: 'myrepository',
+    SplashKeys.ATS_NAME: 'mytool',
+    SplashKeys.ATS_LOGO_PATH: logo_path,
+    SplashKeys.ATS_USE_GITHUB_INFRASTRUCTURE: True
+}
+bundle_github = SplashComponentBundle(prop=mytool_property_github)
+ats_splash_with_github: Splasher = Splasher(bundle_github)
 print(ats_splash_with_github)
-print(50 * '=')
+print(100 * '=')
 
 #
 # default [without GitHub]
 # =========================
 #
-bundle.prop[SplashKeys.ATS_USE_GITHUB_INFRASTRUCTURE] = False
-
-ats_splash_without_github = Splasher(bundle)
+mytool_property_no_github: dict[Any, Any] = {
+    SplashKeys.ATS_ORGANIZATION: 'myorganization',
+    SplashKeys.ATS_REPOSITORY: 'myrepository',
+    SplashKeys.ATS_NAME: 'mytool',
+    SplashKeys.ATS_LOGO_PATH: logo_path,
+    SplashKeys.ATS_USE_GITHUB_INFRASTRUCTURE: False
+}
+bundle_no_github = SplashComponentBundle(prop=mytool_property_no_github)
+ats_splash_without_github = Splasher(bundle_no_github)
 print(ats_splash_without_github)
-print(50 * '=')
+print(100 * '=')
+
+#
+# default [disabled]
+# ==================
+#
+mytool_property_disabled: dict[Any, Any] = {
+    'enabled': False
+}
+bundle_disabled = SplashComponentBundle(prop=mytool_property_disabled)
+ats_splash_disabled = Splasher(bundle_disabled)
+print(ats_splash_disabled)
+print(100 * '=')

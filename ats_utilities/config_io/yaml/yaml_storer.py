@@ -20,29 +20,32 @@ Info
     Stores the ATS configuration for the ATS.
 '''
 
+from __future__ import annotations
+
 from yaml import dump, YAMLError
 from typing import override
+
 from ats_utilities.config_io.iwrite import IWrite
 from ats_utilities.config_io.istorer import IStorer
 from ats_utilities.checker.ichecker import IChecker
 from ats_utilities.reporter.ireporter import IReporter
-from ats_utilities.config_io.config_file_bundle import ATSConfigFileBundle
+from ats_utilities.config_io.config_file_bundle import ConfigFileBundle
 from ats_utilities.config_io.yaml.object2yaml import Object2Yaml
 from ats_utilities.config_io.yaml.yaml_processor import YAMLProcessor
 from ats_utilities.config_io.yaml.iyaml_processor import IYAMLProcessor
-from ats_utilities.checker.proxy_validator import validator
+from ats_utilities.checker.proxy_validator import vcheck
 from ats_utilities.factory_context_bundle import factory_context_bundle
 from ats_utilities.factory_component import make_component, validate_component
-from ats_utilities.factory_class import format_instance_to_string
+from ats_utilities.factory_class import to_str
 
-__author__: str = 'Vladimir Roncevic'
-__copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
-__license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.4.1'
-__maintainer__: str = 'Vladimir Roncevic'
-__email__: str = 'elektron.ronca@gmail.com'
-__status__: str = 'Updated'
+__author__ = r'Vladimir Roncevic'
+__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
+__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = r'3.4.2'
+__maintainer__ = r'Vladimir Roncevic'
+__email__ = r'elektron.ronca@gmail.com'
+__status__ = r'Updated'
 
 
 class YAMLStorer(IStorer):
@@ -68,12 +71,14 @@ class YAMLStorer(IStorer):
     _checker: IChecker
     _reporter: IReporter
     _verbose: bool
+    _processor: IYAMLProcessor
+    _obj2yaml: IWrite
 
     def __init__(
         self,
         info_file: str | None = None,
         object2yaml: IWrite | None = None,
-        config_bundle: ATSConfigFileBundle | None = None,
+        config_bundle: ConfigFileBundle | None = None,
         yaml_processor: IYAMLProcessor | None = None
     ) -> None:
         '''
@@ -84,22 +89,22 @@ class YAMLStorer(IStorer):
             :param object2yaml: An API for information | None.
             :type object2yaml: <IWrite | None>
             :param config_bundle: Configuration bundle | None.
-            :type config_bundle: <ATSConfigFileBundle | None>
+            :type config_bundle: <ConfigFileBundle | None>
             :param yaml_processor: Processor for YAML content | None.
             :type yaml_processor: <IYAMLProcessor | None>
             :exceptions:
                 | ATSTypeError: Invalid type in constructor arguments.
         '''
-        config_file_bundle: ATSConfigFileBundle = config_bundle or ATSConfigFileBundle()
+        config_file_bundle: ConfigFileBundle = config_bundle or ConfigFileBundle()
         factory_context_bundle(self, config_file_bundle.context)
-        self._processor: IYAMLProcessor = make_component(yaml_processor, YAMLProcessor, None)
-        validate_component(self._processor, YAMLProcessor)
-        self._obj2yaml: IWrite = make_component(object2yaml, Object2Yaml, {
+        self._processor = make_component(yaml_processor, YAMLProcessor, None)
+        validate_component(self._processor, IYAMLProcessor, r'processor must be an IYAMLProcessor instance')
+        self._obj2yaml = make_component(object2yaml, Object2Yaml, {
             'config_file': info_file, 'config_bundle': config_file_bundle
         })
-        validate_component(self._obj2yaml, Object2Yaml)
+        validate_component(self._obj2yaml, IWrite, r'obj2yaml must be an IWrite instance')
 
-    @validator([('dict:config', None)])
+    @vcheck([('dict:config', None)])
     @override
     def store_configuration(self, config: dict[str, str]) -> bool:
         '''
@@ -134,4 +139,4 @@ class YAMLStorer(IStorer):
             :rtype: <str>
             :exceptions: None.
         '''
-        return format_instance_to_string(self)
+        return to_str(self)

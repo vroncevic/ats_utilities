@@ -17,45 +17,47 @@ Copyright
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
     Defines abstract class ISplasher with method(s).
-    Interface for splash screen component.
+    Interface for splash screen.
 '''
 
+from __future__ import annotations
+
 from abc import ABC, abstractmethod
+
 from ats_utilities.context_bundle import ContextBundle
 from ats_utilities.splasher.splash_center_bundle import SplashCenterBundle
 
-__author__: str = 'Vladimir Roncevic'
-__copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
-__credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
-__license__: str = 'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__: str = '3.4.1'
-__maintainer__: str = 'Vladimir Roncevic'
-__email__: str = 'elektron.ronca@gmail.com'
-__status__: str = 'Updated'
+__author__ = r'Vladimir Roncevic'
+__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
+__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = r'3.4.2'
+__maintainer__ = r'Vladimir Roncevic'
+__email__ = r'elektron.ronca@gmail.com'
+__status__ = r'Updated'
 
 
 class ISplasher(ABC):
     '''
         Defines abstract class ISplasher with method(s).
-        Interface for splash screen component.
+        Interface for splash screen.
 
         It defines:
 
-            :attributes: None
             :methods:
                 | get_shared_context - Returns the shared context.
                 | center - Centers console line.
-                | is_initialized - Checks if splasher component is initialized.
-                | __str__ - Returns the splash screen component as string representation.
+                | is_initialized - Checks if splasher is initialized.
+                | __str__ - Returns the splash screen as string representation.
     '''
 
     @abstractmethod
-    def get_shared_context(self) -> ContextBundle | None:
+    def get_shared_context(self) -> ContextBundle:
         '''
             Returns the shared context.
 
-            :return: Shared context | None.
-            :rtype: <ContextBundle | None>
+            :return: Shared context.
+            :rtype: <ContextBundle>
             :exceptions: None.
         '''
         pass
@@ -74,7 +76,7 @@ class ISplasher(ABC):
     @abstractmethod
     def is_initialized(self) -> bool:
         '''
-            Checks if splasher component is initialized.
+            Checks if splasher is initialized.
 
             :return: True (success) | False (fail)
             :rtype: <bool>
@@ -85,9 +87,9 @@ class ISplasher(ABC):
     @abstractmethod
     def __str__(self) -> str:
         '''
-            Returns the splash screen component as string representation.
+            Returns the splash screen as string representation.
 
-            :return: The splash screen component as string representation.
+            :return: The splash screen as string representation.
             :rtype: <str>
             :exceptions: None.
         '''

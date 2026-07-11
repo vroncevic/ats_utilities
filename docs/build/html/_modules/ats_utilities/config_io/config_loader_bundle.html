@@ -58,31 +58,35 @@
 <span class="sd">    Encapsulates core configuration and processor utilities to minimize constructor overhead.</span>
 <span class="sd">&#39;&#39;&#39;</span>
 
-<span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
+
+<span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span><span class="p">,</span> <span class="n">asdict</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span>
+
 <span class="kn">from</span> <span class="nn">ats_utilities.config_io.iread</span> <span class="kn">import</span> <span class="n">IRead</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.exceptions.ats_value_error</span> <span class="kn">import</span> <span class="n">ATSValueError</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.config_io.config_file_bundle</span> <span class="kn">import</span> <span class="n">ATSConfigFileBundle</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.config_io.config_file_bundle</span> <span class="kn">import</span> <span class="n">ConfigFileBundle</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.config_io.iconfig_loader</span> <span class="kn">import</span> <span class="n">IConfigProcessor</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.factory_value</span> <span class="kn">import</span> <span class="n">require_not_none</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.factory_type</span> <span class="kn">import</span> <span class="n">check_type</span>
 
-<span class="n">__author__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;Vladimir Roncevic&#39;</span>
-<span class="n">__copyright__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;(C) 2026, https://vroncevic.github.io/ats_utilities&#39;</span>
-<span class="n">__credits__</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Vladimir Roncevic&#39;</span><span class="p">,</span> <span class="s1">&#39;Python Software Foundation&#39;</span><span class="p">]</span>
-<span class="n">__license__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE&#39;</span>
-<span class="n">__version__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;3.4.1&#39;</span>
-<span class="n">__maintainer__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;Vladimir Roncevic&#39;</span>
-<span class="n">__email__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;elektron.ronca@gmail.com&#39;</span>
-<span class="n">__status__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;Updated&#39;</span>
+<span class="n">__author__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;Vladimir Roncevic&#39;</span>
+<span class="n">__copyright__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;(C) 2026, https://vroncevic.github.io/ats_utilities&#39;</span>
+<span class="n">__credits__</span> <span class="o">=</span> <span class="p">[</span><span class="sa">r</span><span class="s1">&#39;Vladimir Roncevic&#39;</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;Python Software Foundation&#39;</span><span class="p">]</span>
+<span class="n">__license__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE&#39;</span>
+<span class="n">__version__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;3.4.2&#39;</span>
+<span class="n">__maintainer__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;Vladimir Roncevic&#39;</span>
+<span class="n">__email__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;elektron.ronca@gmail.com&#39;</span>
+<span class="n">__status__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;Updated&#39;</span>
 
 
-<div class="viewcode-block" id="ATSConfigLoaderBundle">
-<a class="viewcode-back" href="../../../ats_utilities.config_io.config_loader_bundle.html#ats_utilities.config_io.config_loader_bundle.ATSConfigLoaderBundle">[docs]</a>
-<span class="nd">@dataclass</span>
-<span class="k">class</span> <span class="nc">ATSConfigLoaderBundle</span><span class="p">:</span>
+<div class="viewcode-block" id="ConfigLoaderBundle">
+<a class="viewcode-back" href="../../../ats_utilities.config_io.config_loader_bundle.html#ats_utilities.config_io.config_loader_bundle.ConfigLoaderBundle">[docs]</a>
+<span class="nd">@dataclass</span><span class="p">(</span><span class="n">slots</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">kw_only</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="k">class</span> <span class="nc">ConfigLoaderBundle</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">        Defines class ATSConfigLoaderBundle with attribute(s) and method(s).</span>
+<span class="sd">        Defines class ConfigLoaderBundle with attribute(s) and method(s).</span>
 <span class="sd">        Encapsulates the core system tracking, verification, and configuration components.</span>
-<span class="sd">        Acts as a Parameter Object to clean up highly repetitive logger and validator arguments.</span>
+<span class="sd">        Acts as a Parameter Object to clean up highly repetitive logger and vcheck arguments.</span>
 
 <span class="sd">        It defines:</span>
 
@@ -92,75 +96,81 @@
 <span class="sd">                | config_bundle - ATS configuration file bundle (default None).</span>
 <span class="sd">                | processor - Configuration processor implementation (default None).</span>
 <span class="sd">            :methods:</span>
-<span class="sd">                | validate - Validates that essential components are set.</span>
-<span class="sd">                | merge - Merges non-None values from another bundle into this one.</span>
-<span class="sd">                | to_dict - Converts the bundle attributes to a dictionary.</span>
+<span class="sd">                | validate - Validates that ConfigLoaderBundle is valid (can be called after merge).</span>
+<span class="sd">                | merge - Merges non-None values from ConfigLoaderBundle instance into this one.</span>
+<span class="sd">                | to_dict - Converts the ConfigLoaderBundle instance to a dictionary.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
 
     <span class="n">info_file</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">config2object</span><span class="p">:</span> <span class="n">IRead</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
-    <span class="n">config_bundle</span><span class="p">:</span> <span class="n">ATSConfigFileBundle</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">config_bundle</span><span class="p">:</span> <span class="n">ConfigFileBundle</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">processor</span><span class="p">:</span> <span class="n">IConfigProcessor</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
 
-<div class="viewcode-block" id="ATSConfigLoaderBundle.validate">
-<a class="viewcode-back" href="../../../ats_utilities.config_io.config_loader_bundle.html#ats_utilities.config_io.config_loader_bundle.ATSConfigLoaderBundle.validate">[docs]</a>
+<div class="viewcode-block" id="ConfigLoaderBundle.validate">
+<a class="viewcode-back" href="../../../ats_utilities.config_io.config_loader_bundle.html#ats_utilities.config_io.config_loader_bundle.ConfigLoaderBundle.validate">[docs]</a>
     <span class="k">def</span> <span class="nf">validate</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">            Validates that essential components are set.</span>
+<span class="sd">            Validates that ConfigLoaderBundle is valid (can be called after merge).</span>
+<span class="sd">            Performs validation of info_file, config2object, config_bundle and processor attributes.</span>
+<span class="sd">            Info file must be non-None and an instance of str.</span>
+<span class="sd">            Config2object must be non-None and an instance of IRead interface.</span>
+<span class="sd">            Config_bundle must be non-None and an instance of ConfigFileBundle interface.</span>
+<span class="sd">            Processor must be non-None and an instance of IConfigProcessor interface.</span>
 
 <span class="sd">            :exceptions:</span>
 <span class="sd">                | ATSValueError: Info file must be provided.</span>
 <span class="sd">                | ATSValueError: Config2object must be provided.</span>
 <span class="sd">                | ATSValueError: Configuration bundle must be provided.</span>
 <span class="sd">                | ATSValueError: Configuration processor must be provided.</span>
+<span class="sd">                | ATSTypeError: Info file must be a string.</span>
+<span class="sd">                | ATSTypeError: Config2object must be an instance of IRead interface.</span>
+<span class="sd">                | ATSTypeError: Config_bundle must be an instance of ConfigFileBundle interface.</span>
+<span class="sd">                | ATSTypeError: Processor must be an instance of IConfigProcessor interface.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">info_file</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="n">ATSValueError</span><span class="p">(</span><span class="s2">&quot;info file must be provided.&quot;</span><span class="p">)</span>
-
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">config2object</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="n">ATSValueError</span><span class="p">(</span><span class="s2">&quot;config2object must be provided.&quot;</span><span class="p">)</span>
-
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">config_bundle</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="n">ATSValueError</span><span class="p">(</span><span class="s2">&quot;configuration bundle must be provided.&quot;</span><span class="p">)</span>
-
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">processor</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="n">ATSValueError</span><span class="p">(</span><span class="s2">&quot;configuration processor must be provided.&quot;</span><span class="p">)</span></div>
+        <span class="n">require_not_none</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">info_file</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;info file must be provided&#39;</span><span class="p">)</span>
+        <span class="n">check_type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">info_file</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;info file must be a string&#39;</span><span class="p">)</span>
+        <span class="n">require_not_none</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">config2object</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;config2object must be provided&#39;</span><span class="p">)</span>
+        <span class="n">check_type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">config2object</span><span class="p">,</span> <span class="n">IRead</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;config2object must be an instance of IRead interface&#39;</span><span class="p">)</span>
+        <span class="n">require_not_none</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">config_bundle</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;configuration bundle must be provided&#39;</span><span class="p">)</span>
+        <span class="n">check_type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">config_bundle</span><span class="p">,</span> <span class="n">ConfigFileBundle</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;configuration bundle must be an instance of ConfigFileBundle interface&#39;</span><span class="p">)</span>
+        <span class="n">require_not_none</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">processor</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;configuration processor must be provided&#39;</span><span class="p">)</span>
+        <span class="n">check_type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">processor</span><span class="p">,</span> <span class="n">IConfigProcessor</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;configuration processor must be an instance of IConfigProcessor interface&#39;</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="ATSConfigLoaderBundle.merge">
-<a class="viewcode-back" href="../../../ats_utilities.config_io.config_loader_bundle.html#ats_utilities.config_io.config_loader_bundle.ATSConfigLoaderBundle.merge">[docs]</a>
-    <span class="k">def</span> <span class="nf">merge</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="s1">&#39;ATSConfigLoaderBundle&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<div class="viewcode-block" id="ConfigLoaderBundle.merge">
+<a class="viewcode-back" href="../../../ats_utilities.config_io.config_loader_bundle.html#ats_utilities.config_io.config_loader_bundle.ConfigLoaderBundle.merge">[docs]</a>
+    <span class="k">def</span> <span class="nf">merge</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="n">ConfigLoaderBundle</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Merges non-None values from another bundle into this one.</span>
 
 <span class="sd">            :param other: Another bundle to merge into this one.</span>
-<span class="sd">            :type other: &lt;ATSConfigLoaderBundle&gt;</span>
-<span class="sd">            :exceptions: None.</span>
+<span class="sd">            :type other: &lt;ConfigLoaderBundle&gt;</span>
+<span class="sd">            :exceptions:</span>
+<span class="sd">                | ATSTypeError: Other must be an ConfigLoaderBundle instance.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
+        <span class="n">check_type</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">ConfigLoaderBundle</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;other must be an ConfigLoaderBundle instance&#39;</span><span class="p">)</span>
+
         <span class="k">for</span> <span class="n">field_name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">__dataclass_fields__</span><span class="p">:</span>
-            <span class="n">other_value</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">field_name</span><span class="p">)</span>
+            <span class="n">other_value</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">field_name</span><span class="p">)</span>
 
             <span class="k">if</span> <span class="n">other_value</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-                <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">field_name</span><span class="p">,</span> <span class="n">other_value</span><span class="p">)</span></div>
+                <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">field_name</span><span class="p">,</span> <span class="n">other_value</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">validate</span><span class="p">()</span></div>
 
 
-<div class="viewcode-block" id="ATSConfigLoaderBundle.to_dict">
-<a class="viewcode-back" href="../../../ats_utilities.config_io.config_loader_bundle.html#ats_utilities.config_io.config_loader_bundle.ATSConfigLoaderBundle.to_dict">[docs]</a>
+<div class="viewcode-block" id="ConfigLoaderBundle.to_dict">
+<a class="viewcode-back" href="../../../ats_utilities.config_io.config_loader_bundle.html#ats_utilities.config_io.config_loader_bundle.ConfigLoaderBundle.to_dict">[docs]</a>
     <span class="k">def</span> <span class="nf">to_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">            Converts the bundle attributes to a dictionary.</span>
+<span class="sd">            Converts the ConfigLoaderBundle instance to a dictionary.</span>
 
-<span class="sd">            :return: Dictionary representation of the bundle attributes.</span>
+<span class="sd">            :return: Dictionary representation of the ConfigLoaderBundle instance.</span>
 <span class="sd">            :rtype: &lt;dict[str, Any]&gt;</span>
 <span class="sd">            :exceptions: None.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="k">return</span> <span class="p">{</span>
-            <span class="n">name</span><span class="p">:</span> <span class="n">value</span>
-            <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
-            <span class="k">if</span> <span class="ow">not</span> <span class="n">name</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;_&#39;</span><span class="p">)</span>
-        <span class="p">}</span></div>
+        <span class="k">return</span> <span class="n">asdict</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div>
 </div>
-
 
 </pre></div>
 
