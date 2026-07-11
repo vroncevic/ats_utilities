@@ -20,11 +20,11 @@ Info
 '''
 
 from typing import Any
-from ats_utilities.info.version import Version
-from ats_utilities.info.name import Name
-from ats_utilities.info.licence import Licence
-from ats_utilities.info.build_date import BuildDate
-from ats_utilities.info.info_ok import InfoOk
+from ats_utilities.info.version.engine import Version
+from ats_utilities.info.name.engine import Name
+from ats_utilities.info.licence.engine import Licence
+from ats_utilities.info.build_date.engine import BuildDate
+from ats_utilities.info.info_ok.engine import InfoOk
 from ats_utilities.info.engine import InfoManager, InfoComponentBundle
 
 __author__ = r'Vladimir Roncevic'

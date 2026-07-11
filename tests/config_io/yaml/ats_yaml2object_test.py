@@ -22,7 +22,8 @@ Execute
     python3 -m unittest -v ats_yaml2object_test
 '''
 
-from unittest import TestCase, main
+from unittest import TestCase, main, mock
+from unittest.mock import MagicMock
 from os.path import dirname
 from ats_utilities.config_io.yaml.yaml2object import Yaml2Object
 from ats_utilities.exceptions import ATSTypeError
@@ -59,7 +60,7 @@ class Yaml2ObjectTestCase(TestCase):
     def setUp(self) -> None:
         '''Call before test case.'''
         self.yaml2obj: Yaml2Object = Yaml2Object(
-            f'{dirname(__file__)}/config/ats_cli_yaml_api.yaml'
+            f'{dirname(dirname(dirname(__file__)))}/assets/config/ats_cli_yaml_api.yaml'
         )
 
     def tearDown(self) -> None:
@@ -72,6 +73,14 @@ class Yaml2ObjectTestCase(TestCase):
     def test_read_configuration(self) -> None:
         '''Test for read configuration'''
         self.assertIsNotNone(self.yaml2obj.read_configuration())
+
+    @mock.patch('ats_utilities.config_io.yaml.yaml2object.ConfFile')
+    def test_read_configuration_failure(self, mock_conf_file: MagicMock) -> None:
+        '''Test read_configuration when file content is empty.'''
+        mock_file = MagicMock()
+        mock_file.read.return_value = ""
+        mock_conf_file.return_value.__enter__.return_value = mock_file
+        self.assertIsNone(self.yaml2obj.read_configuration())
 
     def test_none_config_path(self) -> None:
         '''Test for None as file path'''

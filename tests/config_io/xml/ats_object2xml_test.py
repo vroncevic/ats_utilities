@@ -101,14 +101,14 @@ class Object2XmlTestCase(TestCase):
     def test_not_none(self) -> None:
         '''Test for create Object2Xml'''
         obj2xml: Object2Xml = Object2Xml(
-            f'{dirname(__file__)}/config/ats_cli_xml_api.xml'
+            f'{dirname(dirname(dirname(__file__)))}/assets/config/ats_cli_xml_api.xml'
         )
         self.assertIsNotNone(obj2xml)
 
     def test_write_configuration(self) -> None:
         '''Test for write configuration'''
         obj2xml: Object2Xml = Object2Xml(
-            f'{dirname(__file__)}/config/ats_cli_xml_api.xml'
+            f'{dirname(dirname(dirname(__file__)))}/assets/config/ats_cli_xml_api.xml'
         )
         mock_config = IXMLProcessor()
         mock_config.to_string_mock.return_value = "<xml></xml>"
@@ -117,13 +117,13 @@ class Object2XmlTestCase(TestCase):
     def test_write_none_configuration(self) -> None:
         '''Test for write none configuration'''
         obj2xml: Object2Xml = Object2Xml(
-            f'{dirname(__file__)}/config/ats_cli_xml_api_none.xml'
+            f'{dirname(dirname(dirname(__file__)))}/assets/config/ats_cli_xml_api_none.xml'
         )
         self.assertFalse(obj2xml.write_configuration(None))  # type: ignore
 
     def test_write_empty_configuration(self) -> None:
         '''Test for write empty configuration'''
-        obj2xml: Object2Xml = Object2Xml(f'{dirname(__file__)}/config/ats_cli_xml_api_empty.xml')
+        obj2xml: Object2Xml = Object2Xml(f'{dirname(dirname(dirname(__file__)))}/assets/config/ats_cli_xml_api_empty.xml')
         mock_config = IXMLProcessor(is_empty=True)
         self.assertFalse(obj2xml.write_configuration(mock_config))
 
@@ -132,6 +132,38 @@ class Object2XmlTestCase(TestCase):
         writer = Object2Xml(None)
         mock_config = IXMLProcessor()
         self.assertFalse(writer.write_configuration(mock_config))
+
+    @mock.patch('ats_utilities.config_io.xml.object2xml.ConfFile')
+    def test_write_configuration_xml_bool_false(self, mock_conf_file: mock.MagicMock) -> None:
+        '''Test write_configuration when ConfFile context manager evaluates to False in bool.'''
+        obj2xml: Object2Xml = Object2Xml(
+            f'{dirname(dirname(dirname(__file__)))}/assets/config/ats_cli_xml_api.xml'
+        )
+        mock_config = IXMLProcessor()
+        mock_config.to_string_mock.return_value = "<xml></xml>"
+        
+        mock_file = mock.MagicMock()
+        mock_file.__bool__.return_value = False
+        mock_conf_file.return_value.__enter__.return_value = mock_file
+        
+        self.assertFalse(obj2xml.write_configuration(mock_config))
+
+    @mock.patch('ats_utilities.config_io.xml.object2xml.ConfFile')
+    def test_write_configuration_write_failure(self, mock_conf_file: mock.MagicMock) -> None:
+        '''Test write_configuration when xml.write returns False.'''
+        obj2xml: Object2Xml = Object2Xml(
+            f'{dirname(dirname(dirname(__file__)))}/assets/config/ats_cli_xml_api.xml'
+        )
+        mock_config = IXMLProcessor()
+        mock_config.to_string_mock.return_value = "<xml></xml>"
+        
+        mock_file = mock.MagicMock()
+        mock_file.__bool__.return_value = True
+        mock_file.write.return_value = False
+        mock_conf_file.return_value.__enter__.return_value = mock_file
+        
+        self.assertFalse(obj2xml.write_configuration(mock_config))
+
 
 
 if __name__ == '__main__':

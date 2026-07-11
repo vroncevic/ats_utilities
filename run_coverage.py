@@ -39,7 +39,7 @@ if __name__ == "__main__":
     cov.start()
 
     loader: TestLoader = TestLoader()
-    suite: TestSuite = loader.discover(start_dir='tests', pattern='*_test.py')
+    suite: TestSuite = loader.discover(start_dir='tests', pattern='*_test.py', top_level_dir='.')
     runner: TextTestRunner = TextTestRunner(verbosity=2)
     runner.run(suite)
 

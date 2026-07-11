@@ -26,6 +26,7 @@ from json import load
 from unittest import TestLoader, TestSuite, TextTestRunner
 from pathlib import Path
 from coverage import Coverage
+
 from ats_utilities.checker.engine import Checker
 from ats_utilities.checker.ichecker import ErrorChecker
 from ats_utilities.reporter.engine import Reporter

@@ -42,11 +42,11 @@ __status__ = r'Updated'
 class ATSBaseIni(INILoader):
     '''Simple Class for checking INILoader.'''
 
-    _CONFIG: str = '/config/correct/ats_cli_ini_api.ini'
+    _CONFIG: str = '/assets/config/correct/ats_cli_ini_api.ini'
 
     def __init__(self) -> None:
         '''Initial constructor.'''
-        current_dir: str = dirname(__file__)
+        current_dir: str = dirname(dirname(dirname(__file__)))
         base_info: str = f'{current_dir}{self._CONFIG}'
         super().__init__(info_file=base_info)
 
@@ -158,6 +158,25 @@ class IniBaseUnitTestCase(TestCase):
             ini2object=mock_ini2obj_empty
         )
         self.assertEqual(loader.load_configuration(), {})
+
+    def test_init_bool_false(self) -> None:
+        '''Test initialization when ini2obj is falsy in bool evaluation.'''
+        class FalsyIni2Object(Ini2Object):
+            def __init__(self):
+                pass
+            def __bool__(self) -> bool:
+                return False
+            def read_configuration(self):
+                return None
+
+        mock_ini2obj = FalsyIni2Object()
+        mock_ini2obj.read_configuration = MagicMock(return_value=None)
+        loader = INILoader(
+            info_file=self.config_path,
+            ini2object=mock_ini2obj
+        )
+        self.assertEqual(loader.load_configuration(), {})
+        mock_ini2obj.read_configuration.assert_not_called()
 
 
 if __name__ == '__main__':

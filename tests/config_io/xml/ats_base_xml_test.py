@@ -42,11 +42,11 @@ __status__ = r'Updated'
 class ATSBaseXml(XMLLoader):
     '''Simple Class for checking XMLLoader.'''
 
-    _CONFIG: str = '/config/correct/ats_cli_xml_api.xml'
+    _CONFIG: str = '/assets/config/correct/ats_cli_xml_api.xml'
 
     def __init__(self) -> None:
         '''Initial constructor.'''
-        current_dir: str = dirname(__file__)
+        current_dir: str = dirname(dirname(dirname(__file__)))
         base_info: str = f'{current_dir}{self._CONFIG}'
         super().__init__(info_file=base_info)
 
@@ -158,6 +158,25 @@ class XmlBaseUnitTestCase(TestCase):
             xml2object=mock_xml2obj_empty
         )
         self.assertEqual(loader.load_configuration(), {})
+
+    def test_init_bool_false(self) -> None:
+        '''Test initialization when xml2obj is falsy in bool evaluation.'''
+        class FalsyXml2Object(Xml2Object):
+            def __init__(self):
+                pass
+            def __bool__(self) -> bool:
+                return False
+            def read_configuration(self):
+                return None
+
+        mock_xml2obj = FalsyXml2Object()
+        mock_xml2obj.read_configuration = MagicMock(return_value=None)
+        loader = XMLLoader(
+            info_file=self.config_path,
+            xml2object=mock_xml2obj
+        )
+        self.assertEqual(loader.load_configuration(), {})
+        mock_xml2obj.read_configuration.assert_not_called()
 
 
 if __name__ == '__main__':

@@ -43,11 +43,11 @@ __status__ = r'Updated'
 class ATSBaseYaml(YAMLLoader):
     '''Simple Class for checking YAMLLoader.'''
 
-    _CONFIG: str = '/config/correct/ats_cli_yaml_api.yaml'
+    _CONFIG: str = '/assets/config/correct/ats_cli_yaml_api.yaml'
 
     def __init__(self) -> None:
         '''Initial constructor.'''
-        current_dir: str = dirname(__file__)
+        current_dir: str = dirname(dirname(dirname(__file__)))
         base_info: str = f'{current_dir}{self._CONFIG}'
         super().__init__(info_file=base_info)
 
@@ -159,6 +159,25 @@ class YamlBaseUnitTestCase(TestCase):
             yaml2object=mock_yaml2obj_empty
         )
         self.assertEqual(loader.load_configuration(), {})
+
+    def test_init_bool_false(self) -> None:
+        '''Test initialization when yaml2obj is falsy in bool evaluation.'''
+        class FalsyYaml2Object(Yaml2Object):
+            def __init__(self):
+                pass
+            def __bool__(self) -> bool:
+                return False
+            def read_configuration(self):
+                return None
+
+        mock_yaml2obj = FalsyYaml2Object()
+        mock_yaml2obj.read_configuration = MagicMock(return_value=None)
+        loader = YAMLLoader(
+            info_file=self.config_path,
+            yaml2object=mock_yaml2obj
+        )
+        self.assertEqual(loader.load_configuration(), {})
+        mock_yaml2obj.read_configuration.assert_not_called()
 
 
 if __name__ == '__main__':

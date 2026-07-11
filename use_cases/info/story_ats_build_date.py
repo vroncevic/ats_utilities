@@ -19,7 +19,7 @@ Info
     Use cases for ATS build date.
 '''
 
-from ats_utilities.info.build_date import BuildDate
+from ats_utilities.info.build_date.engine import BuildDate
 
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'

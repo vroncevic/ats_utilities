@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="./">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>ats_utilities.info.component_bundle module &#8212; ats_utilities https://github.com/vroncevic/ats_utilities/releases documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="_static/classic.css?v=514cf933" />
+    
+    <script src="_static/documentation_options.js?v=893dd00a"></script>
+    <script src="_static/doctools.js?v=888ff710"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="ats_utilities.info.engine module" href="ats_utilities.info.engine.html" />
+    <link rel="prev" title="ats_utilities.info.version.iversion module" href="ats_utilities.info.version.iversion.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="ats_utilities.info.engine.html" title="ats_utilities.info.engine module"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="ats_utilities.info.version.iversion.html" title="ats_utilities.info.version.iversion module"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">ats_utilities https://github.com/vroncevic/ats_utilities/releases documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="modules.html" >ats_utilities</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="ats_utilities.html" >ats_utilities package</a> &#187;</li>
+          <li class="nav-item nav-item-3"><a href="ats_utilities.info.html" accesskey="U">ats_utilities.info package</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">ats_utilities.info.component_bundle module</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="module-ats_utilities.info.component_bundle">
+<span id="ats-utilities-info-component-bundle-module"></span><h1>ats_utilities.info.component_bundle module<a class="headerlink" href="#module-ats_utilities.info.component_bundle" title="Link to this heading">¶</a></h1>
+<dl class="simple">
+<dt>Module</dt><dd><p>component_bundle.py</p>
+</dd>
+<dt>Copyright</dt><dd><p>Copyright (C) 2017 - 2026 Vladimir Roncevic &lt;<a class="reference external" href="mailto:elektron&#46;ronca&#37;&#52;&#48;gmail&#46;com">elektron<span>&#46;</span>ronca<span>&#64;</span>gmail<span>&#46;</span>com</a>&gt;
+ats_utilities is free software: you can redistribute it and/or modify it
+under the terms of the GNU General Public License as published by the
+Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+ats_utilities is distributed in the hope that it will be useful, but
+WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+See the GNU General Public License for more details.
+You should have received a copy of the GNU General Public License along
+with this program. If not, see &lt;<a class="reference external" href="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</a>&gt;.</p>
+</dd>
+<dt>Info</dt><dd><p>Defines component bundle data classe for dependency group simplification.
+Encapsulates info components to minimize constructor overhead.</p>
+</dd>
+</dl>
+<dl class="py class">
+<dt class="sig sig-object py" id="ats_utilities.info.component_bundle.InfoComponentBundle">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ats_utilities.info.component_bundle.</span></span><span class="sig-name descname"><span class="pre">InfoComponentBundle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="ats_utilities.info.name.iname.html#ats_utilities.info.name.iname.IName" title="ats_utilities.info.name.iname.IName"><span class="pre">IName</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">version</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="ats_utilities.info.version.iversion.html#ats_utilities.info.version.iversion.IVersion" title="ats_utilities.info.version.iversion.IVersion"><span class="pre">IVersion</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">licence</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="ats_utilities.info.licence.ilicence.html#ats_utilities.info.licence.ilicence.ILicence" title="ats_utilities.info.licence.ilicence.ILicence"><span class="pre">ILicence</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">build_date</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="ats_utilities.info.build_date.ibuild_date.html#ats_utilities.info.build_date.ibuild_date.IBuildDate" title="ats_utilities.info.build_date.ibuild_date.IBuildDate"><span class="pre">IBuildDate</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">repository</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="ats_utilities.info.repository.irepository.html#ats_utilities.info.repository.irepository.IRepository" title="ats_utilities.info.repository.irepository.IRepository"><span class="pre">IRepository</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">organization</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="ats_utilities.info.organization.iorganization.html#ats_utilities.info.organization.iorganization.IOrganization" title="ats_utilities.info.organization.iorganization.IOrganization"><span class="pre">IOrganization</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_github</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="ats_utilities.info.use_github.iuse_github.html#ats_utilities.info.use_github.iuse_github.IUseGitHub" title="ats_utilities.info.use_github.iuse_github.IUseGitHub"><span class="pre">IUseGitHub</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">logo</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="ats_utilities.info.logo.ilogo.html#ats_utilities.info.logo.ilogo.ILogo" title="ats_utilities.info.logo.ilogo.ILogo"><span class="pre">ILogo</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">info_ok</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="ats_utilities.info.info_ok.iinfo_ok.html#ats_utilities.info.info_ok.iinfo_ok.IInfoOk" title="ats_utilities.info.info_ok.iinfo_ok.IInfoOk"><span class="pre">IInfoOk</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">context_bundle</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="ats_utilities.context_bundle.html#ats_utilities.context_bundle.ContextBundle" title="ats_utilities.context_bundle.ContextBundle"><span class="pre">ContextBundle</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ats_utilities/info/component_bundle.html#InfoComponentBundle"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.info.component_bundle.InfoComponentBundle" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Defines component bundle data classe for dependency group simplification.
+Encapsulates info components to minimize constructor overhead.</p>
+<p>It defines:</p>
+<blockquote>
+<div><dl class="field-list">
+<dt class="field-odd">attributes<span class="colon">:</span></dt>
+<dd class="field-odd"><div class="line-block">
+<div class="line">name - The ATS name (default None).</div>
+<div class="line">version - The ATS version (default None).</div>
+<div class="line">licence - The ATS licence (default None).</div>
+<div class="line">build_date - The ATS build date (default None).</div>
+<div class="line">repository - The ATS repository (default None).</div>
+<div class="line">organization - The ATS organization (default None).</div>
+<div class="line">use_github - The ATS use GitHub infrastructure status (default None).</div>
+<div class="line">logo - The ATS logo path (default None).</div>
+<div class="line">info_ok - The ATS information status (default None).</div>
+<div class="line">context_bundle - The context bundle (default None).</div>
+</div>
+</dd>
+<dt class="field-even">methods<span class="colon">:</span></dt>
+<dd class="field-even"><div class="line-block">
+<div class="line">validate - Validates that ComponentBundle is valid (can be called after merge).</div>
+<div class="line">merge - Merges non-None values from another InfoComponentBundle into this one.</div>
+<div class="line">to_dict - Converts the InfoComponentBundle instance to a dictionary.</div>
+</div>
+</dd>
+</dl>
+</div></blockquote>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ats_utilities.info.component_bundle.InfoComponentBundle.build_date">
+<span class="sig-name descname"><span class="pre">build_date</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="ats_utilities.info.build_date.ibuild_date.html#ats_utilities.info.build_date.ibuild_date.IBuildDate" title="ats_utilities.info.build_date.ibuild_date.IBuildDate"><span class="pre">IBuildDate</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#ats_utilities.info.component_bundle.InfoComponentBundle.build_date" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ats_utilities.info.component_bundle.InfoComponentBundle.context_bundle">
+<span class="sig-name descname"><span class="pre">context_bundle</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="ats_utilities.context_bundle.html#ats_utilities.context_bundle.ContextBundle" title="ats_utilities.context_bundle.ContextBundle"><span class="pre">ContextBundle</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#ats_utilities.info.component_bundle.InfoComponentBundle.context_bundle" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ats_utilities.info.component_bundle.InfoComponentBundle.info_ok">
+<span class="sig-name descname"><span class="pre">info_ok</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="ats_utilities.info.info_ok.iinfo_ok.html#ats_utilities.info.info_ok.iinfo_ok.IInfoOk" title="ats_utilities.info.info_ok.iinfo_ok.IInfoOk"><span class="pre">IInfoOk</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#ats_utilities.info.component_bundle.InfoComponentBundle.info_ok" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ats_utilities.info.component_bundle.InfoComponentBundle.licence">
+<span class="sig-name descname"><span class="pre">licence</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="ats_utilities.info.licence.ilicence.html#ats_utilities.info.licence.ilicence.ILicence" title="ats_utilities.info.licence.ilicence.ILicence"><span class="pre">ILicence</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#ats_utilities.info.component_bundle.InfoComponentBundle.licence" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ats_utilities.info.component_bundle.InfoComponentBundle.logo">
+<span class="sig-name descname"><span class="pre">logo</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="ats_utilities.info.logo.ilogo.html#ats_utilities.info.logo.ilogo.ILogo" title="ats_utilities.info.logo.ilogo.ILogo"><span class="pre">ILogo</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#ats_utilities.info.component_bundle.InfoComponentBundle.logo" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ats_utilities.info.component_bundle.InfoComponentBundle.merge">
+<span class="sig-name descname"><span class="pre">merge</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#ats_utilities.info.component_bundle.InfoComponentBundle" title="ats_utilities.info.component_bundle.InfoComponentBundle"><span class="pre">InfoComponentBundle</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/ats_utilities/info/component_bundle.html#InfoComponentBundle.merge"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.info.component_bundle.InfoComponentBundle.merge" title="Link to this definition">¶</a></dt>
+<dd><p>Merges non-None values from another InfoComponentBundle into this one.</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>other</strong> (<em>&lt;InfoComponentBundle&gt;</em>) – Another InfoComponentBundle to merge into this one.</p>
+</dd>
+<dt class="field-even">Exceptions<span class="colon">:</span></dt>
+<dd class="field-even"><div class="line-block">
+<div class="line">ATSTypeError: Other must be an InfoComponentBundle instance.</div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ats_utilities.info.component_bundle.InfoComponentBundle.name">
+<span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="ats_utilities.info.name.iname.html#ats_utilities.info.name.iname.IName" title="ats_utilities.info.name.iname.IName"><span class="pre">IName</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#ats_utilities.info.component_bundle.InfoComponentBundle.name" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ats_utilities.info.component_bundle.InfoComponentBundle.organization">
+<span class="sig-name descname"><span class="pre">organization</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="ats_utilities.info.organization.iorganization.html#ats_utilities.info.organization.iorganization.IOrganization" title="ats_utilities.info.organization.iorganization.IOrganization"><span class="pre">IOrganization</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#ats_utilities.info.component_bundle.InfoComponentBundle.organization" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ats_utilities.info.component_bundle.InfoComponentBundle.repository">
+<span class="sig-name descname"><span class="pre">repository</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="ats_utilities.info.repository.irepository.html#ats_utilities.info.repository.irepository.IRepository" title="ats_utilities.info.repository.irepository.IRepository"><span class="pre">IRepository</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#ats_utilities.info.component_bundle.InfoComponentBundle.repository" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ats_utilities.info.component_bundle.InfoComponentBundle.to_dict">
+<span class="sig-name descname"><span class="pre">to_dict</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/ats_utilities/info/component_bundle.html#InfoComponentBundle.to_dict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.info.component_bundle.InfoComponentBundle.to_dict" title="Link to this definition">¶</a></dt>
+<dd><p>Converts the InfoComponentBundle instance to a dictionary.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Dictionary representation of the InfoComponentBundle instance.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>&lt;dict[str, Any]&gt;</p>
+</dd>
+<dt class="field-odd">Exceptions<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ats_utilities.info.component_bundle.InfoComponentBundle.use_github">
+<span class="sig-name descname"><span class="pre">use_github</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="ats_utilities.info.use_github.iuse_github.html#ats_utilities.info.use_github.iuse_github.IUseGitHub" title="ats_utilities.info.use_github.iuse_github.IUseGitHub"><span class="pre">IUseGitHub</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#ats_utilities.info.component_bundle.InfoComponentBundle.use_github" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ats_utilities.info.component_bundle.InfoComponentBundle.validate">
+<span class="sig-name descname"><span class="pre">validate</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/ats_utilities/info/component_bundle.html#InfoComponentBundle.validate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.info.component_bundle.InfoComponentBundle.validate" title="Link to this definition">¶</a></dt>
+<dd><p>Validates that ComponentBundle is valid (can be called after merge).
+Performs validation of name, version, licence, build_date, repository,
+organization, use_github, logo and info_ok attributes.
+Name must be non-None and an instance of IName interface.
+Version must be non-None and an instance of IVersion interface.
+Licence must be non-None and an instance of ILicence interface.
+Build date must be non-None and an instance of IBuildDate interface.
+Repository must be non-None and an instance of IRepository interface.
+Organization must be non-None and an instance of IOrganization interface.
+Use GitHub must be non-None and an instance of IUseGitHub interface.
+Logo path must be non-None and an instance of ILogo interface.
+Info ok must be non-None and an instance of IInfoOk interface.</p>
+<dl class="field-list">
+<dt class="field-odd">Exceptions<span class="colon">:</span></dt>
+<dd class="field-odd"><div class="line-block">
+<div class="line">ATSValueError: Name must be provided.</div>
+<div class="line">ATSValueError: Version must be provided.</div>
+<div class="line">ATSValueError: Licence must be provided.</div>
+<div class="line">ATSValueError: Build date must be provided.</div>
+<div class="line">ATSValueError: Repository must be provided.</div>
+<div class="line">ATSValueError: Organization must be provided.</div>
+<div class="line">ATSValueError: Use GitHub must be provided.</div>
+<div class="line">ATSValueError: Logo path must be provided.</div>
+<div class="line">ATSValueError: Info ok must be provided.</div>
+<div class="line">ATSTypeError: Name must be an instance of IName interface.</div>
+<div class="line">ATSTypeError: Version must be an instance of IVersion interface.</div>
+<div class="line">ATSTypeError: Licence must be an instance of ILicence interface.</div>
+<div class="line">ATSTypeError: Build date must be an instance of IBuildDate interface.</div>
+<div class="line">ATSTypeError: Repository must be an instance of IRepository interface.</div>
+<div class="line">ATSTypeError: Organization must be an instance of IOrganization interface.</div>
+<div class="line">ATSTypeError: Use GitHub must be an instance of IUseGitHub interface.</div>
+<div class="line">ATSTypeError: Logo path must be an instance of ILogo interface.</div>
+<div class="line">ATSTypeError: Info ok must be an instance of IInfoOk interface.</div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ats_utilities.info.component_bundle.InfoComponentBundle.version">
+<span class="sig-name descname"><span class="pre">version</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="ats_utilities.info.version.iversion.html#ats_utilities.info.version.iversion.IVersion" title="ats_utilities.info.version.iversion.IVersion"><span class="pre">IVersion</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#ats_utilities.info.component_bundle.InfoComponentBundle.version" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h3><a href="index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">ats_utilities.info.component_bundle module</a><ul>
+<li><a class="reference internal" href="#ats_utilities.info.component_bundle.InfoComponentBundle"><code class="docutils literal notranslate"><span class="pre">InfoComponentBundle</span></code></a><ul>
+<li><a class="reference internal" href="#ats_utilities.info.component_bundle.InfoComponentBundle.build_date"><code class="docutils literal notranslate"><span class="pre">InfoComponentBundle.build_date</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.info.component_bundle.InfoComponentBundle.context_bundle"><code class="docutils literal notranslate"><span class="pre">InfoComponentBundle.context_bundle</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.info.component_bundle.InfoComponentBundle.info_ok"><code class="docutils literal notranslate"><span class="pre">InfoComponentBundle.info_ok</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.info.component_bundle.InfoComponentBundle.licence"><code class="docutils literal notranslate"><span class="pre">InfoComponentBundle.licence</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.info.component_bundle.InfoComponentBundle.logo"><code class="docutils literal notranslate"><span class="pre">InfoComponentBundle.logo</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.info.component_bundle.InfoComponentBundle.merge"><code class="docutils literal notranslate"><span class="pre">InfoComponentBundle.merge()</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.info.component_bundle.InfoComponentBundle.name"><code class="docutils literal notranslate"><span class="pre">InfoComponentBundle.name</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.info.component_bundle.InfoComponentBundle.organization"><code class="docutils literal notranslate"><span class="pre">InfoComponentBundle.organization</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.info.component_bundle.InfoComponentBundle.repository"><code class="docutils literal notranslate"><span class="pre">InfoComponentBundle.repository</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.info.component_bundle.InfoComponentBundle.to_dict"><code class="docutils literal notranslate"><span class="pre">InfoComponentBundle.to_dict()</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.info.component_bundle.InfoComponentBundle.use_github"><code class="docutils literal notranslate"><span class="pre">InfoComponentBundle.use_github</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.info.component_bundle.InfoComponentBundle.validate"><code class="docutils literal notranslate"><span class="pre">InfoComponentBundle.validate()</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.info.component_bundle.InfoComponentBundle.version"><code class="docutils literal notranslate"><span class="pre">InfoComponentBundle.version</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="ats_utilities.info.version.iversion.html"
+                          title="previous chapter">ats_utilities.info.version.iversion module</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="ats_utilities.info.engine.html"
+                          title="next chapter">ats_utilities.info.engine module</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/ats_utilities.info.component_bundle.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="ats_utilities.info.engine.html" title="ats_utilities.info.engine module"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="ats_utilities.info.version.iversion.html" title="ats_utilities.info.version.iversion module"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">ats_utilities https://github.com/vroncevic/ats_utilities/releases documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="modules.html" >ats_utilities</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="ats_utilities.html" >ats_utilities package</a> &#187;</li>
+          <li class="nav-item nav-item-3"><a href="ats_utilities.info.html" >ats_utilities.info package</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">ats_utilities.info.component_bundle module</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+    &#169; Copyright 2026, https://vroncevic.github.io/ats_utilities.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.2.6.
+    </div>
+  </body>
+</html>

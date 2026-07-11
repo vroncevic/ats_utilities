@@ -143,6 +143,15 @@ class ConfigSetupComponentBundleTestCase(TestCase):
         self.assertEqual(bundle1.template_dir, mock_template_dir)
         self.assertEqual(bundle1.context_bundle, mock_context_bundle)
 
+    def test_config_setup_component_bundle_merge_with_none(self) -> None:
+        '''Test ConfigSetupComponentBundle merge with None values.'''
+        bundle1 = ConfigSetupComponentBundle()
+        bundle2 = ConfigSetupComponentBundle()
+        bundle2.pro_config = None
+
+        with self.assertRaises(ATSValueError):
+            bundle1.merge(bundle2)
+
     def test_to_dict(self) -> None:
         '''Test to_dict method.'''
         mock_pro_config = MagicMock(spec=IProConfig)

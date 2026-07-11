@@ -62,7 +62,7 @@ class Xml2ObjectTestCase(TestCase):
         '''Call before test case.'''
         self.xml_processor = mock.MagicMock(spec=XMLProcessor)
         self.xml2obj: Xml2Object = Xml2Object(
-            f'{dirname(__file__)}/config/ats_cli_xml_api.xml', xml_processor=self.xml_processor
+            f'{dirname(dirname(dirname(__file__)))}/assets/config/ats_cli_xml_api.xml', xml_processor=self.xml_processor
         )
 
     def tearDown(self) -> None:
@@ -74,7 +74,21 @@ class Xml2ObjectTestCase(TestCase):
 
     def test_read_configuration(self) -> None:
         '''Test for read configuration'''
+        self.xml_processor.from_string.return_value = True
         self.assertIsNotNone(self.xml2obj.read_configuration())
+
+    def test_read_configuration_empty_content(self) -> None:
+        '''Test read_configuration when file content is empty.'''
+        with mock.patch('ats_utilities.config_io.xml.xml2object.ConfFile') as mock_conf_file:
+            mock_file = mock.MagicMock()
+            mock_file.read.return_value = ""
+            mock_conf_file.return_value.__enter__.return_value = mock_file
+            self.assertIsNone(self.xml2obj.read_configuration())
+
+    def test_read_configuration_from_string_false(self) -> None:
+        '''Test read_configuration when from_string returns False.'''
+        self.xml_processor.from_string.return_value = False
+        self.assertIsNone(self.xml2obj.read_configuration())
 
     def test_none_config_path(self) -> None:
         '''Test for None as file path'''

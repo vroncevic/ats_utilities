@@ -59,7 +59,7 @@ class Json2ObjectTestCase(TestCase):
     def setUp(self) -> None:
         '''Call before test case.'''
         self.json2obj: Json2Object = Json2Object(
-            f'{dirname(__file__)}/config/ats_cli_json_api.json'
+            f'{dirname(dirname(dirname(__file__)))}/assets/config/ats_cli_json_api.json'
         )
 
     def tearDown(self) -> None:
@@ -72,6 +72,13 @@ class Json2ObjectTestCase(TestCase):
     def test_read_configuration(self) -> None:
         '''Test for read configuration'''
         self.assertIsNotNone(self.json2obj.read_configuration())
+
+    def test_read_configuration_failure(self) -> None:
+        '''Test read_configuration when from_lines returns False.'''
+        from unittest.mock import MagicMock
+        self.json2obj._json_processor = MagicMock()
+        self.json2obj._json_processor.decode.return_value = False
+        self.assertIsNone(self.json2obj.read_configuration())
 
     def test_none_config_path(self) -> None:
         '''Test for None as file path'''

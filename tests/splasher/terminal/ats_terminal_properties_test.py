@@ -114,6 +114,20 @@ class ATSTerminalPropTestCase(TestCase):
         size = terminal.size()
         self.assertEqual(size, (24, 80, 0, 0))
 
+    @mock.patch('ats_utilities.splasher.terminal.terminal_properties.os.open')
+    @mock.patch('ats_utilities.splasher.terminal.terminal_properties.TerminalProperties.ioctl_for_all_descriptors')
+    def test_size_cached_oserror(self, mock_ioctl_all, mock_open) -> None:
+        '''Test size() when window_size is already set and OSError is raised.'''
+        terminal = TerminalProperties()
+        terminal._window_size = (100, 200, 0, 0)
+        
+        mock_ioctl_all.side_effect = OSError("Mock error")
+        mock_open.side_effect = OSError("Mock error")
+        
+        size = terminal.size()
+        self.assertEqual(size, (100, 200, 0, 0))
+
+
 
 if __name__ == '__main__':
     main()

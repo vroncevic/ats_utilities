@@ -98,10 +98,10 @@ class Object2IniTestCase(TestCase):
     def setUp(self) -> None:
         '''Call before test case.'''
         self.ini2obj: Ini2Object = Ini2Object(
-            f'{dirname(__file__)}/config/ats_cli_ini_api.ini'
+            f'{dirname(dirname(dirname(__file__)))}/assets/config/ats_cli_ini_api.ini'
         )
         self.obj2ini: Object2Ini = Object2Ini(
-            f'{dirname(__file__)}/config/ats_cli_ini_api.ini'
+            f'{dirname(dirname(dirname(__file__)))}/assets/config/ats_cli_ini_api.ini'
         )
 
     def tearDown(self) -> None:
@@ -131,6 +131,13 @@ class Object2IniTestCase(TestCase):
         writer = Object2Ini(None)
         mock_config = IINIProcessor()
         self.assertFalse(writer.write_configuration(mock_config))
+
+    def test_write_configuration_to_stream_failure(self) -> None:
+        '''Test write_configuration when config.to_stream returns False.'''
+        mock_config = IINIProcessor()
+        mock_config.to_stream_mock.return_value = False
+        self.assertFalse(self.obj2ini.write_configuration(mock_config))
+
 
 
 if __name__ == '__main__':

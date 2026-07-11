@@ -19,7 +19,7 @@ Info
     Use cases for ATS info ok.
 '''
 
-from ats_utilities.info.info_ok import InfoOk
+from ats_utilities.info.info_ok.engine import InfoOk
 
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'

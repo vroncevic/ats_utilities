@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ats_utilities.factory_value &#8212; ats_utilities https://github.com/vroncevic/ats_utilities/releases documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../../_static/classic.css?v=514cf933" />
+    
+    <script src="../../_static/documentation_options.js?v=893dd00a"></script>
+    <script src="../../_static/doctools.js?v=888ff710"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">ats_utilities https://github.com/vroncevic/ats_utilities/releases documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">Module code</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">ats_utilities.factory_value</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for ats_utilities.factory_value</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: UTF-8 -*-</span>
+
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">Module</span>
+<span class="sd">    factory_value.py</span>
+<span class="sd">Copyright</span>
+<span class="sd">    Copyright (C) 2017 - 2026 Vladimir Roncevic &lt;elektron.ronca@gmail.com&gt;</span>
+<span class="sd">    ats_utilities is free software: you can redistribute it and/or modify it</span>
+<span class="sd">    under the terms of the GNU General Public License as published by the</span>
+<span class="sd">    Free Software Foundation, either version 3 of the License, or</span>
+<span class="sd">    (at your option) any later version.</span>
+<span class="sd">    ats_utilities is distributed in the hope that it will be useful, but</span>
+<span class="sd">    WITHOUT ANY WARRANTY; without even the implied warranty of</span>
+<span class="sd">    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.</span>
+<span class="sd">    See the GNU General Public License for more details.</span>
+<span class="sd">    You should have received a copy of the GNU General Public License along</span>
+<span class="sd">    with this program. If not, see &lt;http://www.gnu.org/licenses/&gt;.</span>
+<span class="sd">Info</span>
+<span class="sd">    Defines factory value utility functions.</span>
+<span class="sd">&#39;&#39;&#39;</span>
+
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
+
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span>
+
+<span class="kn">from</span> <span class="nn">ats_utilities.factory_context_error</span> <span class="kn">import</span> <span class="n">raise_context_error</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.exceptions</span> <span class="kn">import</span> <span class="n">ATSValueError</span>
+
+<span class="n">__author__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;Vladimir Roncevic&#39;</span>
+<span class="n">__copyright__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;(C) 2026, https://vroncevic.github.io/ats_utilities&#39;</span>
+<span class="n">__credits__</span> <span class="o">=</span> <span class="p">[</span><span class="sa">r</span><span class="s1">&#39;Vladimir Roncevic&#39;</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;Python Software Foundation&#39;</span><span class="p">]</span>
+<span class="n">__license__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE&#39;</span>
+<span class="n">__version__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;3.4.2&#39;</span>
+<span class="n">__maintainer__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;Vladimir Roncevic&#39;</span>
+<span class="n">__email__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;elektron.ronca@gmail.com&#39;</span>
+<span class="n">__status__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;Updated&#39;</span>
+
+
+<div class="viewcode-block" id="require_not_none">
+<a class="viewcode-back" href="../../ats_utilities.factory_value.html#ats_utilities.factory_value.require_not_none">[docs]</a>
+<span class="k">def</span> <span class="nf">require_not_none</span><span class="p">(</span>
+    <span class="n">value</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
+    <span class="n">exc_message_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">exception_class</span><span class="p">:</span> <span class="nb">type</span><span class="p">[</span><span class="ne">Exception</span><span class="p">]</span> <span class="o">=</span> <span class="n">ATSValueError</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Requires a value to be not None.</span>
+
+<span class="sd">        :param value: Value to check.</span>
+<span class="sd">        :type value: &lt;Any&gt;</span>
+<span class="sd">        :param exc_message_path: Path and details to include in the exception message.</span>
+<span class="sd">        :type exc_message_path: &lt;str | None&gt;</span>
+<span class="sd">        :param exception_class: The exception class to raise if value is None.</span>
+<span class="sd">        :type exception_class: &lt;type[Exception]&gt; (default ATSValueError)</span>
+<span class="sd">        :exceptions:</span>
+<span class="sd">            | Dynamically raises the provided exception_class (e.g., ATSValueError).</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="k">if</span> <span class="n">value</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">raise_context_error</span><span class="p">(</span>
+            <span class="n">fallback_prefix</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;factory_value::require_not_none&#39;</span><span class="p">,</span>
+            <span class="n">fallback_msg</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;value must not be None&#39;</span><span class="p">,</span>
+            <span class="n">exc_message_path</span><span class="o">=</span><span class="n">exc_message_path</span><span class="p">,</span>
+            <span class="n">exception_class</span><span class="o">=</span><span class="n">exception_class</span><span class="p">,</span>
+            <span class="n">depth</span><span class="o">=</span><span class="mi">3</span>
+        <span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="require_not_empty">
+<a class="viewcode-back" href="../../ats_utilities.factory_value.html#ats_utilities.factory_value.require_not_empty">[docs]</a>
+<span class="k">def</span> <span class="nf">require_not_empty</span><span class="p">(</span>
+    <span class="n">value</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
+    <span class="n">exc_message_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">exception_class</span><span class="p">:</span> <span class="nb">type</span><span class="p">[</span><span class="ne">Exception</span><span class="p">]</span> <span class="o">=</span> <span class="n">ATSValueError</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Requires a value to be not empty (not None, not empty sequence/mapping).</span>
+
+<span class="sd">        :param value: Value to check for emptiness.</span>
+<span class="sd">        :type value: &lt;Any&gt;</span>
+<span class="sd">        :param exc_message_path: Path and details to include in the exception message.</span>
+<span class="sd">        :type exc_message_path: &lt;str | None&gt;</span>
+<span class="sd">        :param exception_class: The exception class to raise if value is empty.</span>
+<span class="sd">        :type exception_class: &lt;type[Exception]&gt; (default ATSValueError)</span>
+<span class="sd">        :exceptions:</span>
+<span class="sd">            | Dynamically raises the provided exception_class (e.g., ATSValueError).</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">bool</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="ow">and</span> <span class="n">value</span> <span class="o">!=</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">value</span> <span class="o">!=</span> <span class="kc">False</span><span class="p">:</span>
+        <span class="n">raise_context_error</span><span class="p">(</span>
+            <span class="n">fallback_prefix</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;factory_value::require_not_empty&#39;</span><span class="p">,</span>
+            <span class="n">fallback_msg</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;value must not be empty&#39;</span><span class="p">,</span>
+            <span class="n">exc_message_path</span><span class="o">=</span><span class="n">exc_message_path</span><span class="p">,</span>
+            <span class="n">exception_class</span><span class="o">=</span><span class="n">exception_class</span><span class="p">,</span>
+            <span class="n">depth</span><span class="o">=</span><span class="mi">3</span>
+        <span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="require_not_satisfied">
+<a class="viewcode-back" href="../../ats_utilities.factory_value.html#ats_utilities.factory_value.require_not_satisfied">[docs]</a>
+<span class="k">def</span> <span class="nf">require_not_satisfied</span><span class="p">(</span>
+    <span class="n">status</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span>
+    <span class="n">exc_message_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">exception_class</span><span class="p">:</span> <span class="nb">type</span><span class="p">[</span><span class="ne">Exception</span><span class="p">]</span> <span class="o">=</span> <span class="n">ATSValueError</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Requires a status to be True (statisfied condition for un happy flow).</span>
+
+<span class="sd">        :param status: Status which indicates unhappy flow (True = unhappy flow).</span>
+<span class="sd">        :type status: &lt;bool&gt;</span>
+<span class="sd">        :param exc_message_path: Path and details to include in the exception message (unhappy flow).</span>
+<span class="sd">        :type exc_message_path: &lt;str | None&gt;</span>
+<span class="sd">        :param exception_class: The exception class to raise if status is not True.</span>
+<span class="sd">        :type exception_class: &lt;type[Exception]&gt; (default ATSValueError)</span>
+<span class="sd">        :exceptions:</span>
+<span class="sd">            | Dynamically raises the provided exception_class (e.g., ATSValueError).</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="k">if</span> <span class="n">status</span><span class="p">:</span>
+        <span class="n">raise_context_error</span><span class="p">(</span>
+            <span class="n">fallback_prefix</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;factory_value::require_not_satisfied&#39;</span><span class="p">,</span>
+            <span class="n">fallback_msg</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;condition not satisfied&#39;</span><span class="p">,</span>
+            <span class="n">exc_message_path</span><span class="o">=</span><span class="n">exc_message_path</span><span class="p">,</span>
+            <span class="n">exception_class</span><span class="o">=</span><span class="n">exception_class</span><span class="p">,</span>
+            <span class="n">depth</span><span class="o">=</span><span class="mi">3</span>
+        <span class="p">)</span></div>
+
+</pre></div>
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">ats_utilities https://github.com/vroncevic/ats_utilities/releases documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >Module code</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">ats_utilities.factory_value</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+    &#169; Copyright 2026, https://vroncevic.github.io/ats_utilities.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.2.6.
+    </div>
+  </body>
+</html>

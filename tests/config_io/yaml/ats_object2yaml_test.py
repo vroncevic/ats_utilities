@@ -96,14 +96,14 @@ class Object2YamlTestCase(TestCase):
     def test_not_none(self) -> None:
         '''Test for create Object2Yaml'''
         obj2yaml: Object2Yaml = Object2Yaml(
-            f'{dirname(__file__)}/config/ats_cli_yaml_api.yaml'
+            f'{dirname(dirname(dirname(__file__)))}/assets/config/ats_cli_yaml_api.yaml'
         )
         self.assertIsNotNone(obj2yaml)
 
     def test_write_configuration(self) -> None:
         '''Test for write configuration'''
         obj2yaml: Object2Yaml = Object2Yaml(
-            f'{dirname(__file__)}/config/ats_cli_yaml_api.yaml'
+            f'{dirname(dirname(dirname(__file__)))}/assets/config/ats_cli_yaml_api.yaml'
         )
         # Mock the processor that read_configuration would return
         mock_processor = IYAMLProcessor()
@@ -113,14 +113,14 @@ class Object2YamlTestCase(TestCase):
     def test_write_none_configuration(self) -> None:
         '''Test for write none configuration'''
         obj2yaml: Object2Yaml = Object2Yaml(
-            f'{dirname(__file__)}/config/ats_cli_yaml_api_none.yaml'
+            f'{dirname(dirname(dirname(__file__)))}/assets/config/ats_cli_yaml_api_none.yaml'
         )
         self.assertFalse(obj2yaml.write_configuration(None))  # type: ignore
 
     def test_write_empty_configuration(self) -> None:
         '''Test for write empty configuration'''
         obj2yaml: Object2Yaml = Object2Yaml(
-            f'{dirname(__file__)}/config/ats_cli_yaml_api_empty.yaml'
+            f'{dirname(dirname(dirname(__file__)))}/assets/config/ats_cli_yaml_api_empty.yaml'
         )
         mock_config = IYAMLProcessor(is_empty=True)
         self.assertFalse(obj2yaml.write_configuration(mock_config))

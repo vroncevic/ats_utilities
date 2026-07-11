@@ -90,7 +90,7 @@ class Object2CfgTestCase(TestCase):
     def setUp(self) -> None:
         '''Call before test case.'''
         self.obj2cfg: Object2Cfg = Object2Cfg(
-            f'{dirname(__file__)}/config/ats_cli_cfg_api.cfg'
+            f'{dirname(dirname(dirname(__file__)))}/assets/config/ats_cli_cfg_api.cfg'
         )
 
     def tearDown(self) -> None:

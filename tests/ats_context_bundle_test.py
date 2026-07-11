@@ -83,6 +83,14 @@ class ContextBundleTestCase(TestCase):
         with self.assertRaises(ATSTypeError):
             bundle.merge("not_a_context_bundle")
 
+    def test_context_bundle_merge_with_none(self) -> None:
+        '''Test ContextBundle merge with None values.'''
+        bundle1 = ContextBundle()
+        bundle2 = ContextBundle()
+        bundle2.checker = None
+        bundle1.merge(bundle2)
+        self.assertIsNotNone(bundle1.checker)
+
 
 if __name__ == '__main__':
     main()

@@ -1,0 +1,13 @@
+{
+    "base": {
+        "source_dir": "base_templates",
+        "path_replacements": {
+            "base": "project_name"
+        },
+        "exclude": [
+            "**/.coverage",
+            "**/.vscode/**",
+            "**/.git/**"
+        ]
+    }
+}

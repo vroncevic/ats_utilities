@@ -131,6 +131,37 @@ class OptionParserTestCase(TestCase):
         res2 = self.option_parser.parse_input_args(['-t', 'value'])
         self.assertIsNotNone(res2)
 
+    def test_add_version_operation_none(self) -> None:
+        '''Test adding version operation with None/empty version.'''
+        self.option_parser.add_version_operation(None)
+        self.option_parser.add_version_operation('')
+
+    def test_register_and_parse_commands(self) -> None:
+        '''Test register_commands and parse_command in OptionManager.'''
+        from ats_utilities.option.command.command_option import CommandOption
+        from ats_utilities.option.command.ioption_command import IOptionCommand
+        
+        class LocalDummyCommand(IOptionCommand):
+            @property
+            def name(self) -> str:
+                return 'dummy'
+            @property
+            def help_text(self) -> str:
+                return 'help'
+            @property
+            def options(self) -> list[CommandOption]:
+                return [
+                    CommandOption(name='--param', help_text='p', required=True)
+                ]
+            def __str__(self) -> str:
+                return 'LocalDummyCommand'
+
+        cmd = LocalDummyCommand()
+        self.option_parser.register_commands([cmd])
+        cmd_name, params = self.option_parser.parse_command(['dummy', '--param', 'value'])
+        self.assertEqual(cmd_name, 'dummy')
+        self.assertEqual(params.get('param'), 'value')
+
     def test_initialization_failure(self) -> None:
         '''Test OptionManager initialization failure when parameters are invalid.'''
         invalid_bundle = OptionComponentBundle(

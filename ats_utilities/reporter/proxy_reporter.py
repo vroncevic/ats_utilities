@@ -29,7 +29,7 @@ from functools import wraps
 from typing import Any, cast
 
 from ats_utilities.factory_context_error import raise_context_error
-from ats_utilities.exceptions import ATSAttributeError, ATSRuntimeError
+from ats_utilities.exceptions import ATSAttributeError, ATSRuntimeError, ATSValueError
 
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -52,11 +52,21 @@ def vreport[F: Callable[..., Any]](templates: str | list[str]) -> Callable[[F], 
         :return: Wrapped function.
         :rtype: <Callable[[F], F]>
         :exceptions:
+            | ATSValueError: Decorator requires at least one argument.
             | ATSRuntimeError: Decorator cannot be used on a standalone function.
             | ATSAttributeError: Class is required to provide a '_reporter' object to
             |                    use the @vreport decorator.
     '''
     message_templates: list[str] = [templates] if isinstance(templates, str) else templates
+
+    if not message_templates:
+        raise_context_error(
+            fallback_prefix=r'vreport::decorator',
+            fallback_msg=f"Decorator @vreport requires at least one argument",
+            exc_message_path=None,
+            exception_class=ATSValueError,
+            depth=3
+        )
 
     def decorator(func: F) -> F:
         @wraps(func)
@@ -65,8 +75,8 @@ def vreport[F: Callable[..., Any]](templates: str | list[str]) -> Callable[[F], 
 
             if self_instance is None:
                 raise_context_error(
-                    fallback_prefix='vreport::decorator',
-                    fallback_msg=f'Decorator @vreport on {func.__name__} can only be used on class methods.',
+                    fallback_prefix=r'vreport::decorator',
+                    fallback_msg=f'Decorator @vreport on {func.__name__} can only be used on class methods',
                     exc_message_path=None,
                     exception_class=ATSRuntimeError,
                 depth=3
@@ -88,8 +98,8 @@ def vreport[F: Callable[..., Any]](templates: str | list[str]) -> Callable[[F], 
 
             if reporter is None:
                 raise_context_error(
-                    fallback_prefix='vreport::decorator',
-                    fallback_msg=f"Class '{class_name}' is required to provide a '_reporter' object to use the @vreport decorator.",
+                    fallback_prefix=r'vreport::decorator',
+                    fallback_msg=f"Class '{class_name}' is required to provide a '_reporter' object to use the @vreport decorator",
                     exc_message_path=None,
                     exception_class=ATSAttributeError,
                     depth=3
@@ -101,7 +111,7 @@ def vreport[F: Callable[..., Any]](templates: str | list[str]) -> Callable[[F], 
             final_messages: list[str] = []
 
             for template in message_templates:
-                placeholders = findall('\{([^}]+)\}', template)
+                placeholders = findall(r'\{([^}]+)\}', template)
                 format_context = {}
 
                 for placeholder in placeholders:
@@ -135,8 +145,7 @@ def vreport[F: Callable[..., Any]](templates: str | list[str]) -> Callable[[F], 
                     final_messages.append(template)
 
             # Forwarding the processed list of messages to the borrowed reporter
-            if final_messages:
-                reporter.verbose(is_verbose, final_messages)
+            reporter.verbose(is_verbose, final_messages)
 
             return result
         return cast(F, wrapper)

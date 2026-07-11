@@ -116,7 +116,7 @@ class Checker(IChecker):
         err_indices: list[int] = []
         error_id: int = self.ERRORS.NO_ERROR
 
-        if not parameters:
+        if parameters is None:
             return (
                 self._check_reporter.build_message_format(
                     CheckerReporterBundle(

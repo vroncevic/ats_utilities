@@ -42,11 +42,11 @@ __status__ = r'Updated'
 class ATSBaseJson(JSONLoader):
     '''Simple Class for checking JSONLoader.'''
 
-    _CONFIG: str = '/config/correct/ats_cli_json_api.json'
+    _CONFIG: str = '/assets/config/correct/ats_cli_json_api.json'
 
     def __init__(self) -> None:
         '''Initial constructor.'''
-        current_dir: str = dirname(__file__)
+        current_dir: str = dirname(dirname(dirname(__file__)))
         base_info: str = f'{current_dir}{self._CONFIG}'
         super().__init__(info_file=base_info)
 
@@ -158,6 +158,25 @@ class JsonBaseUnitTestCase(TestCase):
             json2object=mock_json2obj_empty
         )
         self.assertEqual(loader.load_configuration(), {})
+
+    def test_init_bool_false(self) -> None:
+        '''Test initialization when json2obj is falsy in bool evaluation.'''
+        class FalsyJson2Object(Json2Object):
+            def __init__(self):
+                pass
+            def __bool__(self) -> bool:
+                return False
+            def read_configuration(self):
+                return None
+
+        mock_json2obj = FalsyJson2Object()
+        mock_json2obj.read_configuration = MagicMock(return_value=None)
+        loader = JSONLoader(
+            info_file=self.config_path,
+            json2object=mock_json2obj
+        )
+        self.assertEqual(loader.load_configuration(), {})
+        mock_json2obj.read_configuration.assert_not_called()
 
 
 if __name__ == '__main__':

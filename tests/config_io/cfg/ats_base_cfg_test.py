@@ -42,11 +42,11 @@ __status__ = r'Updated'
 class ATSBaseCfg(CFGLoader):
     '''Simple Class for checking CFGLoader.'''
 
-    _CONFIG: str = '/config/correct/ats_cli_cfg_api.cfg'
+    _CONFIG: str = '/assets/config/correct/ats_cli_cfg_api.cfg'
 
     def __init__(self) -> None:
         '''Initial constructor.'''
-        current_dir: str = dirname(__file__)
+        current_dir: str = dirname(dirname(dirname(__file__)))
         base_info: str = f'{current_dir}{self._CONFIG}'
         super().__init__(info_file=base_info)
 
@@ -158,6 +158,25 @@ class CfgBaseUnitTestCase(TestCase):
             cfg2object=mock_cfg2obj_empty
         )
         self.assertEqual(loader.load_configuration(), {})
+
+    def test_init_bool_false(self) -> None:
+        '''Test initialization when cfg2obj is falsy in bool evaluation.'''
+        class FalsyCfg2Object(Cfg2Object):
+            def __init__(self):
+                pass
+            def __bool__(self) -> bool:
+                return False
+            def read_configuration(self):
+                return None
+
+        mock_cfg2obj = FalsyCfg2Object()
+        mock_cfg2obj.read_configuration = MagicMock(return_value=None)
+        loader = CFGLoader(
+            info_file=self.config_path,
+            cfg2object=mock_cfg2obj
+        )
+        self.assertEqual(loader.load_configuration(), {})
+        mock_cfg2obj.read_configuration.assert_not_called()
 
 
 

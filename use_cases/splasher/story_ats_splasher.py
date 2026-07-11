@@ -35,7 +35,7 @@ __email__ = r'elektron.ronca@gmail.com'
 __status__ = r'Updated'
 
 current_dir: str = dirname(realpath(__file__))
-logo_path: str = f'{current_dir}/../../tests/config/app.logo'
+logo_path: str = f'{current_dir}/../../tests/assets/config/app.logo'
 #
 # default [with GitHub]
 # ======================

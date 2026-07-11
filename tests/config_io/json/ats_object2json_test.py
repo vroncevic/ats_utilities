@@ -94,10 +94,10 @@ class Object2JsonTestCase(TestCase):
     def setUp(self) -> None:
         '''Call before test case.'''
         self.json2obj: Json2Object = Json2Object(
-            f'{dirname(__file__)}/config/ats_cli_json_api.json'
+            f'{dirname(dirname(dirname(__file__)))}/assets/config/ats_cli_json_api.json'
         )
         self.obj2json: Object2Json = Object2Json(
-            f'{dirname(__file__)}/config/ats_cli_json_api.json'
+            f'{dirname(dirname(dirname(__file__)))}/assets/config/ats_cli_json_api.json'
         )
 
     def tearDown(self) -> None:

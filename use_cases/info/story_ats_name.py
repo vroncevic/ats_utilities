@@ -19,7 +19,7 @@ Info
     Use cases for ATS name.
 '''
 
-from ats_utilities.info.name import Name
+from ats_utilities.info.name.engine import Name
 
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'

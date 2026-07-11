@@ -35,7 +35,7 @@ __status__ = r'Updated'
 class MyTool(Base):
     '''Concrete implementation of Base for use case illustration.'''
 
-    _INFO_FILE: str = '../../tests/config/correct/ats_cli_cfg_api.cfg'
+    _INFO_FILE: str = '../../tests/assets/config/correct/ats_cli_cfg_api.cfg'
 
     def __init__(self):
         current_dir: str = dirname(realpath(__file__))

@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../../../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ats_utilities.splasher.component_bundle &#8212; ats_utilities https://github.com/vroncevic/ats_utilities/releases documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/classic.css?v=514cf933" />
+    
+    <script src="../../../_static/documentation_options.js?v=893dd00a"></script>
+    <script src="../../../_static/doctools.js?v=888ff710"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">ats_utilities https://github.com/vroncevic/ats_utilities/releases documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../index.html" accesskey="U">Module code</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">ats_utilities.splasher.component_bundle</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for ats_utilities.splasher.component_bundle</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: UTF-8 -*-</span>
+
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">Module</span>
+<span class="sd">    component_bundle.py</span>
+<span class="sd">Copyright</span>
+<span class="sd">    Copyright (C) 2017 - 2026 Vladimir Roncevic &lt;elektron.ronca@gmail.com&gt;</span>
+<span class="sd">    ats_utilities is free software: you can redistribute it and/or modify it</span>
+<span class="sd">    under the terms of the GNU General Public License as published by the</span>
+<span class="sd">    Free Software Foundation, either version 3 of the License, or</span>
+<span class="sd">    (at your option) any later version.</span>
+<span class="sd">    ats_utilities is distributed in the hope that it will be useful, but</span>
+<span class="sd">    WITHOUT ANY WARRANTY; without even the implied warranty of</span>
+<span class="sd">    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.</span>
+<span class="sd">    See the GNU General Public License for more details.</span>
+<span class="sd">    You should have received a copy of the GNU General Public License along</span>
+<span class="sd">    with this program. If not, see &lt;http://www.gnu.org/licenses/&gt;.</span>
+<span class="sd">Info</span>
+<span class="sd">    Defines component bundle dataclass for dependency grouping and management.</span>
+<span class="sd">    Encapsulates splash screen components to minimize constructor overhead.</span>
+<span class="sd">&#39;&#39;&#39;</span>
+
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
+
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span>
+<span class="kn">from</span> <span class="nn">collections.abc</span> <span class="kn">import</span> <span class="n">Mapping</span>
+<span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span><span class="p">,</span> <span class="n">asdict</span>
+
+<span class="kn">from</span> <span class="nn">ats_utilities.splasher.property.isplash_property</span> <span class="kn">import</span> <span class="n">ISplashProperty</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.splasher.property.splash_property</span> <span class="kn">import</span> <span class="n">SplashProperty</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.splasher.splash_keys</span> <span class="kn">import</span> <span class="n">SplashKeys</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.splasher.terminal.iterminal_properties</span> <span class="kn">import</span> <span class="n">ITerminalProperties</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.splasher.terminal.terminal_properties</span> <span class="kn">import</span> <span class="n">TerminalProperties</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.splasher.external.iext_infrastructure</span> <span class="kn">import</span> <span class="n">IExtInfrastructure</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.splasher.external.ext_infrastructure</span> <span class="kn">import</span> <span class="n">ExtInfrastructure</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.splasher.external.github_infrastructure</span> <span class="kn">import</span> <span class="n">GitHubInfrastructure</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.splasher.progressbar.iprogress_bar</span> <span class="kn">import</span> <span class="n">IProgressBar</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.splasher.progressbar.progress_bar</span> <span class="kn">import</span> <span class="n">ProgressBar</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.context_bundle</span> <span class="kn">import</span> <span class="n">ContextBundle</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.factory_component</span> <span class="kn">import</span> <span class="n">make_component</span><span class="p">,</span> <span class="n">validate_component</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.factory_type</span> <span class="kn">import</span> <span class="n">check_type</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.factory_value</span> <span class="kn">import</span> <span class="n">require_not_none</span>
+
+<span class="n">__author__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;Vladimir Roncevic&#39;</span>
+<span class="n">__copyright__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;(C) 2026, https://vroncevic.github.io/ats_utilities&#39;</span>
+<span class="n">__credits__</span> <span class="o">=</span> <span class="p">[</span><span class="sa">r</span><span class="s1">&#39;Vladimir Roncevic&#39;</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;Python Software Foundation&#39;</span><span class="p">]</span>
+<span class="n">__license__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE&#39;</span>
+<span class="n">__version__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;3.4.2&#39;</span>
+<span class="n">__maintainer__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;Vladimir Roncevic&#39;</span>
+<span class="n">__email__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;elektron.ronca@gmail.com&#39;</span>
+<span class="n">__status__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;Updated&#39;</span>
+
+
+<div class="viewcode-block" id="SplashComponentBundle">
+<a class="viewcode-back" href="../../../ats_utilities.splasher.component_bundle.html#ats_utilities.splasher.component_bundle.SplashComponentBundle">[docs]</a>
+<span class="nd">@dataclass</span><span class="p">(</span><span class="n">slots</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">kw_only</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="k">class</span> <span class="nc">SplashComponentBundle</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Defines component bundle dataclass for dependency grouping and management.</span>
+<span class="sd">        Encapsulates splash screen components to minimize constructor overhead.</span>
+
+<span class="sd">        It defines:</span>
+
+<span class="sd">            :attributes:</span>
+<span class="sd">                | prop - Splash screen property in dict format (default None).</span>
+<span class="sd">                | splash_property - Splash screen property API (default None).</span>
+<span class="sd">                | terminal_property - Terminal properties API (default None).</span>
+<span class="sd">                | github - GitHub infrastructure for hyperlinks (default None).</span>
+<span class="sd">                | ext - Generic external infrastructure for hyperlinks (default None).</span>
+<span class="sd">                | pb - Progress bar component (default None).</span>
+<span class="sd">                | context_bundle - Context bundle for dependency injection (default None).</span>
+<span class="sd">            :methods:</span>
+<span class="sd">                | validate - Validates that SplashComponentBundle is valid (can be called after merge).</span>
+<span class="sd">                | merge - Merges non-None values from another SplashComponentBundle into this one.</span>
+<span class="sd">                | to_dict - Converts the SplashComponentBundle instance to a dictionary.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+
+    <span class="n">prop</span><span class="p">:</span> <span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">splash_property</span><span class="p">:</span> <span class="n">ISplashProperty</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">property_validated</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="n">terminal_property</span><span class="p">:</span> <span class="n">ITerminalProperties</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">github</span><span class="p">:</span> <span class="n">IExtInfrastructure</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">ext</span><span class="p">:</span> <span class="n">IExtInfrastructure</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">pb</span><span class="p">:</span> <span class="n">IProgressBar</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">context_bundle</span><span class="p">:</span> <span class="n">ContextBundle</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="k">def</span> <span class="nf">__post_init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">            Post-initialization hook to set up default components if not provided.</span>
+
+<span class="sd">            :exceptions:</span>
+<span class="sd">                | ATSTypeError: Property &#39;prop&#39; must be a Mapping[str, Any] instance.</span>
+<span class="sd">                | ATSTypeError: Property &#39;context_bundle&#39; must be a ContextBundle instance.</span>
+<span class="sd">                | ATSTypeError: Property &#39;splash_property&#39; must be an ISplashProperty instance.</span>
+<span class="sd">                | ATSTypeError: Property &#39;terminal_property&#39; must be an ITerminalProperties instance.</span>
+<span class="sd">                | ATSTypeError: Property &#39;github&#39; must be an IExtInfrastructure instance.</span>
+<span class="sd">                | ATSTypeError: Property &#39;ext&#39; must be an IExtInfrastructure instance.</span>
+<span class="sd">                | ATSTypeError: Property &#39;pb&#39; must be an IProgressBar instance.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">prop</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">check_type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">prop</span><span class="p">,</span> <span class="n">Mapping</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;prop must be a Mapping[str, Any] instance&#39;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">context_bundle</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">context_bundle</span> <span class="o">=</span> <span class="n">ContextBundle</span><span class="p">()</span>
+
+        <span class="n">factory_args</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;context_bundle&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">context_bundle</span><span class="p">}</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">splash_property</span> <span class="o">=</span> <span class="n">make_component</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">splash_property</span><span class="p">,</span> <span class="n">SplashProperty</span><span class="p">,</span> <span class="n">factory_args</span><span class="p">)</span>
+        <span class="n">validate_component</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">splash_property</span><span class="p">,</span> <span class="n">ISplashProperty</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;splash_property must be an ISplashProperty instance&#39;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">prop</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">splash_property</span><span class="o">.</span><span class="n">splash_keys</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">prop</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">property_validated</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">splash_property</span><span class="o">.</span><span class="n">validates</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">terminal_property</span> <span class="o">=</span> <span class="n">make_component</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">terminal_property</span><span class="p">,</span> <span class="n">TerminalProperties</span><span class="p">,</span> <span class="n">factory_args</span><span class="p">)</span>
+        <span class="n">validate_component</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">terminal_property</span><span class="p">,</span> <span class="n">ITerminalProperties</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;terminal_property must be an ITerminalProperties instance&#39;</span><span class="p">)</span>
+
+        <span class="n">size</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">terminal_property</span><span class="o">.</span><span class="n">size</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">github</span> <span class="o">=</span> <span class="n">make_component</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">github</span><span class="p">,</span> <span class="n">GitHubInfrastructure</span><span class="p">,</span> <span class="n">factory_args</span><span class="p">)</span>
+        <span class="n">validate_component</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">github</span><span class="p">,</span> <span class="n">IExtInfrastructure</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;github must be an IExtInfrastructure instance&#39;</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">ext</span> <span class="o">=</span> <span class="n">make_component</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ext</span><span class="p">,</span> <span class="n">ExtInfrastructure</span><span class="p">,</span> <span class="n">factory_args</span><span class="p">)</span>
+        <span class="n">validate_component</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ext</span><span class="p">,</span> <span class="n">IExtInfrastructure</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;ext must be an IExtInfrastructure instance&#39;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">property_validated</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">prop</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">is_enabled</span> <span class="o">=</span> <span class="nb">bool</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">prop</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;enabled&#39;</span><span class="p">,</span> <span class="kc">True</span><span class="p">))</span>
+
+            <span class="k">if</span> <span class="n">is_enabled</span><span class="p">:</span>
+                <span class="n">use_github</span> <span class="o">=</span> <span class="nb">bool</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">prop</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">SplashKeys</span><span class="o">.</span><span class="n">ATS_USE_GITHUB_INFRASTRUCTURE</span><span class="p">,</span> <span class="kc">False</span><span class="p">))</span>
+
+                <span class="k">if</span> <span class="n">use_github</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">github</span><span class="o">.</span><span class="n">infrastructure_property</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">prop</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">ext</span><span class="o">.</span><span class="n">infrastructure_property</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">prop</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">pb</span> <span class="o">=</span> <span class="n">make_component</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pb</span><span class="p">,</span> <span class="n">ProgressBar</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;end&#39;</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="n">size</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">-</span> <span class="nb">int</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">size</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)})</span>
+        <span class="n">validate_component</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pb</span><span class="p">,</span> <span class="n">IProgressBar</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;pb must be an IProgressBar instance&#39;</span><span class="p">)</span>
+
+<div class="viewcode-block" id="SplashComponentBundle.validate">
+<a class="viewcode-back" href="../../../ats_utilities.splasher.component_bundle.html#ats_utilities.splasher.component_bundle.SplashComponentBundle.validate">[docs]</a>
+    <span class="k">def</span> <span class="nf">validate</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">            Validates that SplashComponentBundle is valid (can be called after merge).</span>
+<span class="sd">            Performs validation of splash keys, terminal properties, GitHub infrastructure, </span>
+<span class="sd">            external infrastructure, progress bar and context bundle attributes.</span>
+<span class="sd">            All attributes must be non-None and instances of their respective interfaces.</span>
+
+<span class="sd">            :exceptions:</span>
+<span class="sd">                | ATSValueError: Properties dictionary &#39;prop&#39; must be provided.</span>
+<span class="sd">                | ATSValueError: Splash property &#39;splash_property&#39; must be provided.</span>
+<span class="sd">                | ATSValueError: Terminal properties &#39;terminal_property&#39; must be provided.</span>
+<span class="sd">                | ATSValueError: GitHub infrastructure &#39;github&#39; must be provided.</span>
+<span class="sd">                | ATSValueError: External infrastructure &#39;ext&#39; must be provided.</span>
+<span class="sd">                | ATSValueError: Progress bar &#39;pb&#39; must be provided.</span>
+<span class="sd">                | ATSValueError: Context bundle &#39;context_bundle&#39; must be provided.</span>
+<span class="sd">                | ATSTypeError: Property &#39;prop&#39; must be a Mapping[str, Any] instance.</span>
+<span class="sd">                | ATSTypeError: Splash property &#39;splash_property&#39; must be an ISplashProperty instance.</span>
+<span class="sd">                | ATSTypeError: Terminal properties &#39;terminal_property&#39; must be an ITerminalProperties instance.</span>
+<span class="sd">                | ATSTypeError: GitHub infrastructure &#39;github&#39; must be an IExtInfrastructure instance.</span>
+<span class="sd">                | ATSTypeError: External infrastructure &#39;ext&#39; must be an IExtInfrastructure instance.</span>
+<span class="sd">                | ATSTypeError: Progress bar &#39;pb&#39; must be an IProgressBar instance.</span>
+<span class="sd">                | ATSTypeError: Context bundle &#39;context_bundle&#39; must be a ContextBundle instance.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="n">require_not_none</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">prop</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;properties dictionary prop must be provided&#39;</span><span class="p">)</span>
+        <span class="n">require_not_none</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">splash_property</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;splash property splash_property must be provided&#39;</span><span class="p">)</span>
+        <span class="n">require_not_none</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">terminal_property</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;terminal properties terminal_property must be provided&#39;</span><span class="p">)</span>
+        <span class="n">require_not_none</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">github</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;gitHub infrastructure github must be provided&#39;</span><span class="p">)</span>
+        <span class="n">require_not_none</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ext</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;external infrastructure ext must be provided&#39;</span><span class="p">)</span>
+        <span class="n">require_not_none</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pb</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;progress bar pb must be provided&#39;</span><span class="p">)</span>
+        <span class="n">require_not_none</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">context_bundle</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;context bundle context_bundle must be provided&#39;</span><span class="p">)</span>
+        <span class="n">check_type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">prop</span><span class="p">,</span> <span class="n">Mapping</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;properties dictionary prop must be a Mapping[str, Any] instance&#39;</span><span class="p">)</span>
+        <span class="n">check_type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">splash_property</span><span class="p">,</span> <span class="n">ISplashProperty</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;splash property splash_property must be an ISplashProperty instance&#39;</span><span class="p">)</span>
+        <span class="n">check_type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">terminal_property</span><span class="p">,</span> <span class="n">ITerminalProperties</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;terminal properties terminal_property must be an ITerminalProperties instance&#39;</span><span class="p">)</span>
+        <span class="n">check_type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">github</span><span class="p">,</span> <span class="n">IExtInfrastructure</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;gitHub infrastructure github must be an IExtInfrastructure instance&#39;</span><span class="p">)</span>
+        <span class="n">check_type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ext</span><span class="p">,</span> <span class="n">IExtInfrastructure</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;external infrastructure ext must be an IExtInfrastructure instance&#39;</span><span class="p">)</span>
+        <span class="n">check_type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pb</span><span class="p">,</span> <span class="n">IProgressBar</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;progress bar pb must be an IProgressBar instance&#39;</span><span class="p">)</span>
+        <span class="n">check_type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">context_bundle</span><span class="p">,</span> <span class="n">ContextBundle</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;context bundle context_bundle must be a ContextBundle instance&#39;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="SplashComponentBundle.merge">
+<a class="viewcode-back" href="../../../ats_utilities.splasher.component_bundle.html#ats_utilities.splasher.component_bundle.SplashComponentBundle.merge">[docs]</a>
+    <span class="k">def</span> <span class="nf">merge</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="n">SplashComponentBundle</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">            Merges non-None values from another SplashComponentBundle into this one.</span>
+
+<span class="sd">            :param other: Another SplashComponentBundle to merge into this one.</span>
+<span class="sd">            :type other: &lt;SplashComponentBundle&gt;</span>
+<span class="sd">            :exceptions:</span>
+<span class="sd">                | ATSTypeError: Other must be a SplashComponentBundle instance.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="n">check_type</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">SplashComponentBundle</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;other must be a SplashComponentBundle instance&#39;</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">field_name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">__dataclass_fields__</span><span class="p">:</span>
+            <span class="n">other_value</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">field_name</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">other_value</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">field_name</span><span class="p">,</span> <span class="n">other_value</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">validate</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="SplashComponentBundle.to_dict">
+<a class="viewcode-back" href="../../../ats_utilities.splasher.component_bundle.html#ats_utilities.splasher.component_bundle.SplashComponentBundle.to_dict">[docs]</a>
+    <span class="k">def</span> <span class="nf">to_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">            Converts the SplashComponentBundle instance to a dictionary.</span>
+
+<span class="sd">            :return: Dictionary representation of the SplashComponentBundle instance.</span>
+<span class="sd">            :rtype: &lt;dict[str, Any]&gt;</span>
+<span class="sd">            :exceptions: None.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="n">asdict</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div>
+</div>
+
+</pre></div>
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">ats_utilities https://github.com/vroncevic/ats_utilities/releases documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../index.html" >Module code</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">ats_utilities.splasher.component_bundle</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+    &#169; Copyright 2026, https://vroncevic.github.io/ats_utilities.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.2.6.
+    </div>
+  </body>
+</html>

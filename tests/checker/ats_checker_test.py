@@ -106,6 +106,14 @@ class ATSCheckerTestCase(TestCase):
         d = bundle1.to_dict()
         self.assertEqual(d['context'], 'some_context')
 
+    def test_checker_reporter_bundle_merge_with_none(self) -> None:
+        '''Test CheckerReporterBundle merge with None values.'''
+        bundle1 = CheckerReporterBundle()
+        bundle2 = CheckerReporterBundle()
+        bundle2.context = None
+        with self.assertRaises(ATSValueError):
+            bundle1.merge(bundle2)
+
     def test_checker_component_bundle(self) -> None:
         '''Test CheckerComponentBundle methods.'''
         mock_format_validator = MagicMock(spec=IFormatValidator)
@@ -130,6 +138,14 @@ class ATSCheckerTestCase(TestCase):
         bundle1.validate()
         d = bundle1.to_dict()
         self.assertEqual(d['format_validator'], mock_format_validator)
+
+    def test_checker_component_bundle_merge_with_none(self) -> None:
+        '''Test CheckerComponentBundle merge with None values.'''
+        bundle1 = CheckerComponentBundle()
+        bundle2 = CheckerComponentBundle()
+        bundle2.format_validator = None
+        bundle1.merge(bundle2)
+        self.assertIsNotNone(bundle1.format_validator)
 
     def test_checker_reporter_bundle_validation_errors(self) -> None:
         '''Test CheckerReporterBundle validation exceptions.'''
@@ -341,7 +357,7 @@ class ATSCheckerTestCase(TestCase):
 
     def test_multiple_parameters_failure(self) -> None:
         '''Test validation of multiple parameters where one fails.'''
-        params: ParametersSpecs | None = [('str:p1', 'v1'), ('int:p2', 'not_an_int')]
+        params: ParametersSpecs | None = [('int:p1', 'not_an_int1'), ('int:p2', 'not_an_int2')]
         self.error_msg, self.error_id = self.ats_base_checker.validates_parameters(params)
         self.assertEqual(self.error_id, ErrorChecker.TYPE_ERROR)
 
@@ -369,6 +385,26 @@ class ATSCheckerTestCase(TestCase):
         provider.set_stack_index_caller(9999) # Out of bounds
         ctx = provider.get_context()
         self.assertIsNotNone(ctx)
+
+    def test_context_provider_no_name(self) -> None:
+        '''Test ContextProvider when func_obj has no __name__.'''
+        from unittest.mock import patch, MagicMock
+        from ats_utilities.checker.context.context_provider import ContextProvider
+        
+        mock_frame = MagicMock()
+        mock_frame.f_locals = {'func': object()}  # object() has no __name__
+        
+        mock_caller = MagicMock()
+        mock_caller.function = 'wrapper'
+        mock_caller.filename = 'test_file.py'
+        mock_caller.frame = mock_frame
+        
+        provider = ContextProvider()
+        provider.set_stack_index_caller(0) # Look at top frame
+        
+        with patch('ats_utilities.checker.context.context_provider.stack', return_value=[mock_caller]):
+            ctx = provider.get_context()
+            self.assertIn('wrapper()', ctx)
 
     @mock.patch('ats_utilities.checker.component_bundle.validate_component')
     def test_checker_init_failure(self, mock_validate) -> None:
@@ -483,6 +519,19 @@ class ProxyValidatorTestCase(TestCase):
         obj = TestClass(mock_checker)
         with self.assertRaises(ATSValueError):
             obj.method("test")
+
+    def test_validator_parameter_not_bound(self) -> None:
+        '''Test vcheck when parameter name in spec is not in function arguments.'''
+        class TestClass:
+            def __init__(self) -> None:
+                self._checker = Checker()
+
+            @vcheck([('str:not_arg', None)])
+            def method(self, arg: Any) -> None:
+                pass
+
+        obj = TestClass()
+        obj.method("test")
 
 
 class TypeValidatorTestCase(TestCase):

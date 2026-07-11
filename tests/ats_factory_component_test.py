@@ -132,6 +132,19 @@ class ATSFactoryComponentTestCase(TestCase):
         with self.assertRaises(ATSTypeError):
             validate_component(instance, DummyComponent, 'instance must be a DummyComponent instance')
 
+    def test_inject_dependency_none(self) -> None:
+        '''Test inject when depends_on dependency is None/missing in instance.__dict__.'''
+        from ats_utilities.factory_class import inject
+        
+        class MockInstance:
+            def __init__(self) -> None:
+                self._dep_name = None
+        
+        inst = MockInstance()
+        inject(inst, ('comp', None, DummyComponent, 'dep_name'))
+        self.assertIsInstance(inst._comp, DummyComponent)
+        self.assertEqual(inst._comp.val, 'default')
+
 
 if __name__ == '__main__':
     main()

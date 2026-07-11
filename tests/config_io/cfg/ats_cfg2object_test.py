@@ -59,7 +59,7 @@ class Cfg2ObjectTestCase(TestCase):
     def setUp(self) -> None:
         '''Call before test case.'''
         self.cfg2obj: Cfg2Object = Cfg2Object(
-            f'{dirname(__file__)}/config/ats_cli_cfg_api.cfg'
+            f'{dirname(dirname(dirname(__file__)))}/assets/config/ats_cli_cfg_api.cfg'
         )
 
     def tearDown(self) -> None:
@@ -72,6 +72,13 @@ class Cfg2ObjectTestCase(TestCase):
     def test_read_configuration(self) -> None:
         '''Test for read configuration'''
         self.assertIsNotNone(self.cfg2obj.read_configuration())
+
+    def test_read_configuration_failure(self) -> None:
+        '''Test read_configuration when from_lines returns False.'''
+        from unittest.mock import MagicMock
+        self.cfg2obj._cfg_processor = MagicMock()
+        self.cfg2obj._cfg_processor.from_lines.return_value = False
+        self.assertIsNone(self.cfg2obj.read_configuration())
 
     def test_none_config_path(self) -> None:
         '''Test for None as file path'''

@@ -81,11 +81,17 @@ class OptionComponentBundleTestCase(TestCase):
         with self.assertRaises(ATSValueError):
             bundle.validate()
 
-    def test_option_component_bundle_merge_type_check(self) -> None:
-        '''Test that merge raises error if other is not an OptionComponentBundle.'''
-        bundle = OptionComponentBundle()
         with self.assertRaises(ATSTypeError):
             bundle.merge("not_an_option_component_bundle")
+
+    def test_option_component_bundle_merge_with_none(self) -> None:
+        '''Test OptionComponentBundle merge with None values.'''
+        bundle1 = OptionComponentBundle()
+        bundle2 = OptionComponentBundle()
+        bundle2.parameters = None
+
+        with self.assertRaises(ATSValueError):
+            bundle1.merge(bundle2)
 
 
 if __name__ == '__main__':

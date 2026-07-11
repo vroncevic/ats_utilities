@@ -98,6 +98,8 @@ class BaseComponentBundle:
     def __post_init__(self) -> None:
         '''
             Post-initialization hook for automatic component creation.
+
+            :excpetions: None.
         '''
         if self.context_bundle is None:
             self.context_bundle = ContextBundle()
@@ -115,6 +117,9 @@ class BaseComponentBundle:
     def _build_components(self) -> None:
         '''
             Helper method to build all sub-components.
+
+            :excpetions:
+                | ATSTypeError - Component type is invalid.
         '''
         self.config_loader = make_component(
             self.config_loader, ConfigLoader,
@@ -135,8 +140,8 @@ class BaseComponentBundle:
         validate_component(self.info_manager, IInfoManager, r'info_manager must be an IInfoManager instance')
         self.info_manager.set_info(loader.load_configuration())
 
-        logo_path = self.info_manager.logo_path
-        self.info_manager.logo_path = f"{dirname(self.info_file)}/{logo_path}"
+        logo_path = self.info_manager.logo
+        self.info_manager.logo = f"{dirname(self.info_file)}/{logo_path}"
 
         self.splasher = make_component(
             self.splasher, Splasher,
@@ -175,14 +180,9 @@ class BaseComponentBundle:
     def validate(self, merge_op: bool = False) -> None:
         '''
             Validates that BaseComponentBundle is valid (can be called after merge).
-            Performs validation of:
-              - info_file,
-              - config_loader,
-              - info_manager,
-              - options_parser,
-              - logger_manager,
-              - splasher,
-              - generator
+            Performs validation of info_file, config_loader, info_manager, options_parser,
+            logger_manager, splasher, generator.
+
             Info_file must be non-None and str.
             Config_loader must be non-None and IConfigLoader interface.
             Info_manager must be non-None and IInfoManager interface.
@@ -192,8 +192,8 @@ class BaseComponentBundle:
             Generator must be non-None and IGenerator interface.
 
             :param merge_op: Whether the validation is performed after a merge operation.
-              If True, then all attributes are validated.
-              If False, then only info_file is validated.
+                If True, then all attributes are validated.
+                If False, then only info_file is validated.
             :type merge_op: <bool>
 
             :exceptions:

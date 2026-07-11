@@ -155,7 +155,7 @@ def vcheck[F: Callable[..., Any]](specs: list[tuple[str, Any]]) -> Callable[[F],
                             depth=3
                         )
                     
-                    if error_id == checker.ERRORS.FORMAT_ERROR:
+                    else:
                         raise_context_error(
                             fallback_prefix=r'vcheck::decorator',
                             fallback_msg=f'Format error: {report_message}',

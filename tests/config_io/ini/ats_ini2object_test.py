@@ -59,7 +59,7 @@ class Ini2ObjectTestCase(TestCase):
     def setUp(self) -> None:
         '''Call before test case.'''
         self.ini2obj: Ini2Object = Ini2Object(
-            f'{dirname(__file__)}/config/ats_cli_ini_api.ini'
+            f'{dirname(dirname(dirname(__file__)))}/assets/config/ats_cli_ini_api.ini'
         )
 
     def tearDown(self) -> None:
@@ -72,6 +72,13 @@ class Ini2ObjectTestCase(TestCase):
     def test_read_configuration(self) -> None:
         '''Test for read configuration'''
         self.assertIsNotNone(self.ini2obj.read_configuration())
+
+    def test_read_configuration_failure(self) -> None:
+        '''Test read_configuration when from_lines returns False.'''
+        from unittest.mock import MagicMock
+        self.ini2obj._ini_processor = MagicMock()
+        self.ini2obj._ini_processor.from_stream.return_value = False
+        self.assertIsNone(self.ini2obj.read_configuration())
 
     def test_none_config_path(self) -> None:
         '''Test for None as file path'''

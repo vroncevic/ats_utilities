@@ -80,7 +80,7 @@ class FileCheckTestCase(TestCase):
 
     def test_file(self) -> None:
         '''Test for file'''
-        file_path: str = f'{dirname(__file__)}/config/ats_cli_json_api.json'
+        file_path: str = f'{dirname(dirname(__file__))}/assets/config/ats_cli_json_api.json'
         self.file_check.check_path(file_path)
         self.file_check.check_format(file_path, 'json')
         self.file_check.check_mode('r')
@@ -93,7 +93,7 @@ class FileCheckTestCase(TestCase):
 
     def test_none_config_format(self) -> None:
         '''Test for None as file format'''
-        file_path: str = f'{dirname(__file__)}/config/ats_cli_json_api.json'
+        file_path: str = f'{dirname(dirname(__file__))}/assets/config/ats_cli_json_api.json'
         with self.assertRaises(ATSTypeError):
             self.file_check.check_format(file_path, None)
 
@@ -105,12 +105,12 @@ class FileCheckTestCase(TestCase):
 
     def test_non_file_config_path(self) -> None:
         '''Test for directory as file path'''
-        self.file_check.check_path(f'{dirname(__file__)}/config/')
+        self.file_check.check_path(f'{dirname(dirname(__file__))}/assets/config/')
         self.assertFalse(self.file_check.is_file_ok())
 
     def test_non_supported_mode(self) -> None:
         '''Test for non supported mode'''
-        file_path: str = f'{dirname(__file__)}/config/ats_cli_json_api.json'
+        file_path: str = f'{dirname(dirname(__file__))}/assets/config/ats_cli_json_api.json'
         self.file_check.check_path(file_path)
         self.file_check.check_format(file_path, 'json')
         self.file_check.check_mode('z')
@@ -118,15 +118,23 @@ class FileCheckTestCase(TestCase):
 
     def test_makefile(self) -> None:
         '''Test for Makefile'''
-        file_path: str = f'{dirname(__file__)}/config/Makefile'
+        file_path: str = f'{dirname(dirname(__file__))}/assets/config/Makefile'
         self.file_check.check_path(file_path)
         self.file_check.check_format(file_path, 'makefile')
         self.file_check.check_mode('r')
         self.assertTrue(self.file_check.is_file_ok())
 
+    def test_makefile_name_mismatch(self) -> None:
+        '''Test makefile format check when path does not contain Makefile.'''
+        file_path: str = f'{dirname(dirname(__file__))}/assets/config/ats_cli_json_api.json'
+        self.file_check.check_path(file_path)
+        self.file_check.check_format(file_path, 'makefile')
+        self.file_check.check_mode('r')
+        self.assertFalse(self.file_check.is_file_ok())
+
     def test_wrong_format(self) -> None:
         '''Test for wrong format'''
-        file_path: str = f'{dirname(__file__)}/config/test.rpt'
+        file_path: str = f'{dirname(dirname(__file__))}/assets/config/test.rpt'
         self.file_check.check_path(file_path)
         self.file_check.check_format(file_path, 'txt')
         self.file_check.check_mode('r')
