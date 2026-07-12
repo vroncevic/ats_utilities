@@ -33,7 +33,6 @@ from ats_utilities.splasher.engine import Splasher
 from ats_utilities.config_io.iconfig_loader import IConfigLoader
 from ats_utilities.info.imanager import IInfoManager
 from ats_utilities.option.ioption_manager import IOptionManager
-from ats_utilities.logging.ilogger_manager import ILoggerManager
 from ats_utilities.splasher.isplasher import ISplasher
 from ats_utilities.generator.igenerator import IGenerator
 
@@ -44,7 +43,7 @@ __license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
 __version__ = r'3.4.2'
 __maintainer__ = r'Vladimir Roncevic'
 __email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Updated'
+__status__ = r'Development'
 
 
 class BaseAPI(Base):
@@ -221,8 +220,6 @@ class BaseTestCase(TestCase):
         mock_info_manager.__class__ = IInfoManager
         mock_options_parser = MagicMock(spec=IOptionManager)
         mock_options_parser.__class__ = IOptionManager
-        mock_logger_manager = MagicMock(spec=ILoggerManager)
-        mock_logger_manager.__class__ = ILoggerManager
         mock_splasher = MagicMock(spec=ISplasher)
         mock_splasher.__class__ = ISplasher
 
@@ -231,7 +228,6 @@ class BaseTestCase(TestCase):
             config_loader=mock_config_loader,
             info_manager=mock_info_manager,
             options_parser=mock_options_parser,
-            logger_manager=mock_logger_manager,
             splasher=mock_splasher,
             context_bundle=ContextBundle()
         )
@@ -258,8 +254,6 @@ class BaseTestCase(TestCase):
         mock_info_manager.__class__ = IInfoManager
         mock_options_parser = MagicMock(spec=IOptionManager)
         mock_options_parser.__class__ = IOptionManager
-        mock_logger_manager = MagicMock(spec=ILoggerManager)
-        mock_logger_manager.__class__ = ILoggerManager
         mock_splasher = MagicMock(spec=ISplasher)
         mock_splasher.__class__ = ISplasher
         mock_generator = MagicMock(spec=IGenerator)
@@ -270,7 +264,6 @@ class BaseTestCase(TestCase):
             config_loader=mock_config_loader,
             info_manager=mock_info_manager,
             options_parser=mock_options_parser,
-            logger_manager=mock_logger_manager,
             splasher=mock_splasher,
             generator=mock_generator,
             use_generator=True

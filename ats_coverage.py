@@ -43,7 +43,7 @@ __license__ = r'https://github.com/vroncevic/ats_coverage/blob/dev/LICENSE'
 __version__ = r'1.0.0'
 __maintainer__ = r'Vladimir Roncevic'
 __email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Updated'
+__status__ = r'Development'
 
 
 def run_coverage(pro_name: str) -> str:

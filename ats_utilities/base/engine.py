@@ -24,6 +24,7 @@ from __future__ import annotations
 
 from abc import abstractmethod
 from typing import Any, override
+from sys import stderr
 
 from ats_utilities.base.component_bundle import BaseComponentBundle
 from ats_utilities.base.ibase import ArgSeq, IBase
@@ -35,7 +36,6 @@ from ats_utilities.factory_class import to_str, cls_name, has_attrs
 from ats_utilities.factory_context_bundle import factory_context_bundle
 from ats_utilities.generator.igenerator import IGenerator
 from ats_utilities.info.imanager import IInfoManager
-from ats_utilities.logging.ilogger_manager import ILoggerManager
 from ats_utilities.option.ioption_manager import IOptionManager
 from ats_utilities.option.option_namespace import OptionNamespace
 from ats_utilities.reporter.ireporter import IReporter
@@ -48,7 +48,7 @@ __license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
 __version__ = r'3.4.2'
 __maintainer__ = r'Vladimir Roncevic'
 __email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Updated'
+__status__ = r'Development'
 
 
 class Base(IBase):
@@ -67,7 +67,6 @@ class Base(IBase):
                 | _info_manager - Manager for info component (default InfoManager).
                 | _splasher - Manager for splash component (default Splasher).
                 | _options_parser - Manager for options parser (default OptionManager).
-                | _logger_manager - Manager for logger component (default LoggerManager).
                 | _generator - Generator manager (default Generator).
                 | _is_initialized - Indicates if the base component is initialized (default False).
             :methods:
@@ -89,7 +88,6 @@ class Base(IBase):
     _info_manager: IInfoManager
     _splasher: ISplasher
     _options_parser: IOptionManager
-    _logger_manager: ILoggerManager
     _generator: IGenerator
 
     def __init__(self, component_bundle: BaseComponentBundle | None = None) -> None:
@@ -110,9 +108,8 @@ class Base(IBase):
             self._info_manager = bundle.info_manager
             self._splasher = bundle.splasher
             self._options_parser = bundle.options_parser
-            self._logger_manager = bundle.logger_manager
 
-            components: list[Any] = [self._info_manager, self._splasher, self._options_parser, self._logger_manager]
+            components: list[Any] = [self._info_manager, self._splasher, self._options_parser]
 
             if bundle.use_generator:
                 self._generator = bundle.generator
@@ -124,10 +121,10 @@ class Base(IBase):
             )
 
         except (ATSTypeError, ATSValueError, ATSRuntimeError, ATSAttributeError) as exc:
-            print(f"\x1b[31m{cls_name(self)} {exc}\x1b[0m")
+            stderr.write(f"\x1b[31m{cls_name(self)} {exc}\x1b[0m\n")
 
         except Exception as exc:
-            print(f"\x1b[31m{cls_name(self)} unexpected exception: {exc}\x1b[0m")
+            stderr.write(f"\x1b[31m{cls_name(self)} unexpected exception: {exc}\x1b[0m\n")
 
     @override
     def get_shared_context(self) -> ContextBundle:

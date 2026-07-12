@@ -36,7 +36,7 @@ __license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
 __version__ = r'3.4.2'
 __maintainer__ = r'Vladimir Roncevic'
 __email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Updated'
+__status__ = r'Development'
 
 
 def make_component(
@@ -69,7 +69,7 @@ def make_component(
 def validate_component(
     instance: Any,
     expected_class: type[Any],
-    exc_message_path: str | None = None,
+    exc_message: str | None = None,
     exception_class: type[Exception] = ATSTypeError
 ) -> None:
     '''
@@ -79,8 +79,8 @@ def validate_component(
         :type instance: <Any>
         :param expected_class: The expected concrete class type.
         :type expected_class: <type[Any]>
-        :param exc_message_path: Path and details to include in the exception message.
-        :type exc_message_path: <str | None>
+        :param exc_message: Message to include in the exception message.
+        :type exc_message: <str | None>
         :param exception_class: The exception class to raise if value is None.
         :type exception_class: <type[Exception]> (default ATSTypeError)
         :exceptions:
@@ -90,7 +90,7 @@ def validate_component(
         raise_context_error(
             fallback_prefix=r'factory_component::validate_component',
             fallback_msg=f'instance is not of expected type {expected_class}',
-            exc_message_path=exc_message_path,
+            exc_message=exc_message,
             exception_class=exception_class,
             depth=3
         )

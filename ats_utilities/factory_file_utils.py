@@ -38,12 +38,12 @@ __license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
 __version__ = r'3.4.2'
 __maintainer__ = r'Vladimir Roncevic'
 __email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Updated'
+__status__ = r'Development'
 
 
 def check_file_exists(
     file_path: str,
-    exc_message_path: str | None = None,
+    exc_message: str | None = None,
     exception_class: type[Exception] = ATSValueError
 ) -> None:
     '''
@@ -51,20 +51,20 @@ def check_file_exists(
 
         :param file_path: Path to the file.
         :type file_path: <str>
-        :param exc_message_path: Path and details to include in the exception message.
-        :type exc_message_path: <str | None>
+        :param exc_message: Message to include in the exception message.
+        :type exc_message: <str | None>
         :param exception_class: The exception class to raise if value is None.
         :type exception_class: <type[Exception]> (default ATSValueError)
         :exceptions:
             | ATSTypeError: Parameter type validation failed.
             | Dynamically raises the provided exception_class (e.g., ATSValueError).
     '''
-    check_type(file_path, str, exc_message_path)
+    check_type(file_path, str, exc_message)
     if not file_path:
         raise_context_error(
             fallback_prefix=r'factory_file_utils::check_file_exists',
             fallback_msg=r'file path must be provided',
-            exc_message_path=exc_message_path,
+            exc_message=exc_message,
             exception_class=exception_class,
             depth=3
         )
@@ -73,7 +73,7 @@ def check_file_exists(
         raise_context_error(
             fallback_prefix=r'factory_file_utils::check_file_exists',
             fallback_msg=f'file at the provided path does not exist: {file_path}',
-            exc_message_path=exc_message_path,
+            exc_message=exc_message,
             exception_class=exception_class,
             depth=3
         )
@@ -81,7 +81,7 @@ def check_file_exists(
 
 def normalize_path(
     file_path: str,
-    exc_message_path: str | None = None,
+    exc_message: str | None = None,
     exception_class: type[Exception] = ATSValueError
 ) -> str:
     '''
@@ -89,8 +89,8 @@ def normalize_path(
 
         :param file_path: The original path to clean up.
         :type file_path: <str>
-        :param exc_message_path: Path and details to include in the exception message.
-        :type exc_message_path: <str | None>
+        :param exc_message: Message to include in the exception message.
+        :type exc_message: <str | None>
         :param exception_class: The exception class to raise if file_path is None.
         :type exception_class: <type[Exception]> (default ATSValueError)
         :return: The cleaned up relative path.
@@ -99,13 +99,13 @@ def normalize_path(
             | ATSTypeError: Parameter type validation failed.
             | Dynamically raises the provided exception_class (e.g., ATSValueError).
     '''
-    check_type(file_path, str, exc_message_path)
+    check_type(file_path, str, exc_message)
 
     if not file_path:
         raise_context_error(
             fallback_prefix=r'factory_file_utils::normalize_path',
             fallback_msg=r'file path must be provided',
-            exc_message_path=exc_message_path,
+            exc_message=exc_message,
             exception_class=exception_class,
             depth=3
         )
@@ -121,7 +121,7 @@ def normalize_path(
 def resolve_relative_path(
     normalized_name: str,
     source_dir_clean: str,
-    exc_message_path: str | None = None,
+    exc_message: str | None = None,
     exception_class: type[Exception] = ATSValueError
 ) -> str | None:
     '''
@@ -131,20 +131,24 @@ def resolve_relative_path(
         :type normalized_name: <str>
         :param source_dir_clean: Cleaned source directory name.
         :type source_dir_clean: <str>
+        :param exc_message: Message to include in the exception message.
+        :type exc_message: <str | None>
+        :param exception_class: The exception class to raise if value is None.
+        :type exception_class: <type[Exception]> (default ATSValueError)
         :return: The relative path inside the source dir, or None if not matching.
         :rtype: <str | None>
         :exceptions:
             | ATSTypeError: Parameter type validation failed.
             | Dynamically raises the provided exception_class (e.g., ATSValueError).
     '''
-    check_type(normalized_name, str, exc_message_path)
-    check_type(source_dir_clean, str, exc_message_path)
+    check_type(normalized_name, str, exc_message)
+    check_type(source_dir_clean, str, exc_message)
 
     if not normalized_name:
         raise_context_error(
             fallback_prefix=r'factory_file_utils::resolve_relative_path',
             fallback_msg=r'normalized_name must be provided',
-            exc_message_path=exc_message_path,
+            exc_message=exc_message,
             exception_class=exception_class,
             depth=3
         )
@@ -153,7 +157,7 @@ def resolve_relative_path(
         raise_context_error(
             fallback_prefix=r'factory_file_utils::resolve_relative_path',
             fallback_msg=r'source_dir_clean must be provided',
-            exc_message_path=exc_message_path,
+            exc_message=exc_message,
             exception_class=exception_class,
             depth=3
         )
@@ -169,7 +173,7 @@ def resolve_relative_path(
 def is_excluded_path(
     rel_path: str,
     exclude_patterns: Sequence[str],
-    exc_message_path: str | None = None,
+    exc_message: str | None = None,
     exception_class: type[Exception] = ATSValueError
 ) -> bool:
     '''
@@ -179,20 +183,24 @@ def is_excluded_path(
         :type rel_path: <str>
         :param exclude_patterns: Sequence of glob patterns to exclude.
         :type exclude_patterns: <Sequence[str]>
+        :param exc_message: Message to include in the exception message.
+        :type exc_message: <str | None>
+        :param exception_class: The exception class to raise if value is None.
+        :type exception_class: <type[Exception]> (default ATSValueError)
         :return: True if the path should be excluded, False otherwise.
         :rtype: <bool>
         :exceptions:
             | ATSTypeError: Parameter type validation failed.
             | Dynamically raises the provided exception_class (e.g., ATSValueError).
     '''
-    check_type(rel_path, str, exc_message_path)
-    check_type(exclude_patterns, Sequence, exc_message_path)
+    check_type(rel_path, str, exc_message)
+    check_type(exclude_patterns, Sequence, exc_message)
 
     if not rel_path:
         raise_context_error(
             fallback_prefix=r'factory_file_utils::is_excluded_path',
             fallback_msg=r'rel_path must be provided',
-            exc_message_path=exc_message_path,
+            exc_message=exc_message,
             exception_class=exception_class,
             depth=3
         )
@@ -201,7 +209,7 @@ def is_excluded_path(
         raise_context_error(
             fallback_prefix=r'factory_file_utils::is_excluded_path',
             fallback_msg=r'exclude_patterns must be provided',
-            exc_message_path=exc_message_path,
+            exc_message=exc_message,
             exception_class=exception_class,
             depth=3
         )
@@ -221,7 +229,7 @@ def format_casing_by_match(
     upper_val: str,
     camel_val: str,
     dashed_val: str,
-    exc_message_path: str | None = None,
+    exc_message: str | None = None,
     exception_class: type[Exception] = ATSValueError
 ) -> str:
     '''
@@ -237,23 +245,27 @@ def format_casing_by_match(
         :type camel_val: <str>
         :param dashed_val: Value in dashed-case.
         :type dashed_val: <str>
+        :param exc_message: Message to include in the exception message.
+        :type exc_message: <str | None>
+        :param exception_class: The exception class to raise if value is None.
+        :type exception_class: <type[Exception]> (default ATSValueError)
         :return: The replacement formatted in matching casing style.
         :rtype: <str>
         :exceptions:
             | ATSTypeError: Parameter type validation failed.
             | Dynamically raises the provided exception_class (e.g., ATSValueError).
     '''
-    check_type(clean_str, str, exc_message_path)
-    check_type(default_val, str, exc_message_path)
-    check_type(upper_val, str, exc_message_path)
-    check_type(camel_val, str, exc_message_path)
-    check_type(dashed_val, str, exc_message_path)
+    check_type(clean_str, str, exc_message)
+    check_type(default_val, str, exc_message)
+    check_type(upper_val, str, exc_message)
+    check_type(camel_val, str, exc_message)
+    check_type(dashed_val, str, exc_message)
 
     if not clean_str:
         raise_context_error(
             fallback_prefix=r'factory_file_utils::format_casing_by_match',
             fallback_msg=r'clean_str must be provided',
-            exc_message_path=exc_message_path,
+            exc_message=exc_message,
             exception_class=exception_class,
             depth=3
         )
@@ -262,7 +274,7 @@ def format_casing_by_match(
         raise_context_error(
             fallback_prefix=r'factory_file_utils::format_casing_by_match',
             fallback_msg=r'default_val must be provided',
-            exc_message_path=exc_message_path,
+            exc_message=exc_message,
             exception_class=exception_class,
             depth=3
         )
@@ -271,7 +283,7 @@ def format_casing_by_match(
         raise_context_error(
             fallback_prefix=r'factory_file_utils::format_casing_by_match',
             fallback_msg=r'upper_val must be provided',
-            exc_message_path=exc_message_path,
+            exc_message=exc_message,
             exception_class=exception_class,
             depth=3
         )
@@ -280,7 +292,7 @@ def format_casing_by_match(
         raise_context_error(
             fallback_prefix=r'factory_file_utils::format_casing_by_match',
             fallback_msg=r'camel_val must be provided',
-            exc_message_path=exc_message_path,
+            exc_message=exc_message,
             exception_class=exception_class,
             depth=3
         )
@@ -289,7 +301,7 @@ def format_casing_by_match(
         raise_context_error(
             fallback_prefix=r'factory_file_utils::format_casing_by_match',
             fallback_msg=r'dashed_val must be provided',
-            exc_message_path=exc_message_path,
+            exc_message=exc_message,
             exception_class=exception_class,
             depth=3
         )
@@ -307,7 +319,7 @@ def format_casing_by_match(
 def write_content(
     file_path: str,
     content: str | bytes,
-    exc_message_path: str | None = None,
+    exc_message: str | None = None,
     exception_class: type[Exception] = ATSValueError
 ) -> None:
     '''
@@ -317,18 +329,22 @@ def write_content(
         :type file_path: <str>
         :param content: Text string or raw bytes to write.
         :type content: <str | bytes>
+        :param exc_message: Message to include in the exception message.
+        :type exc_message: <str | None>
+        :param exception_class: The exception class to raise if value is None.
+        :type exception_class: <type[Exception]> (default ATSValueError)
         :exceptions:
             | ATSTypeError: Parameter type validation failed.
             | Dynamically raises the provided exception_class (e.g., ATSValueError).
     '''
-    check_type(file_path, str, exc_message_path)
-    check_type(content, (str, bytes), exc_message_path)
+    check_type(file_path, str, exc_message)
+    check_type(content, (str, bytes), exc_message)
 
     if not file_path:
         raise_context_error(
             fallback_prefix=r'factory_file_utils::write_content',
             fallback_msg=r'file_path must be provided',
-            exc_message_path=exc_message_path,
+            exc_message=exc_message,
             exception_class=exception_class,
             depth=3
         )
@@ -337,7 +353,7 @@ def write_content(
         raise_context_error(
             fallback_prefix=r'factory_file_utils::write_content',
             fallback_msg=r'content must be provided',
-            exc_message_path=exc_message_path,
+            exc_message=exc_message,
             exception_class=exception_class,
             depth=3
         )
@@ -354,7 +370,7 @@ def apply_path_replacements(
     rel_path: str,
     path_replacements: Mapping[str, str],
     vals: Mapping[str, str],
-    exc_message_path: str | None = None,
+    exc_message: str | None = None,
     exception_class: type[Exception] = ATSValueError
 ) -> str:
     '''
@@ -366,21 +382,25 @@ def apply_path_replacements(
         :type path_replacements: <Mapping[str, str]>
         :param vals: Computed template values.
         :type vals: <Mapping[str, str]>
+        :param exc_message: Message to include in the exception message.
+        :type exc_message: <str | None>
+        :param exception_class: The exception class to raise if value is None.
+        :type exception_class: <type[Exception]> (default ATSValueError)
         :return: The replaced relative path.
         :rtype: <str>
         :exceptions:
             | ATSTypeError: Parameter type validation failed.
             | Dynamically raises the provided exception_class (e.g., ATSValueError).
     '''
-    check_type(rel_path, str, exc_message_path)
-    check_type(path_replacements, Mapping, exc_message_path)
-    check_type(vals, Mapping, exc_message_path)
+    check_type(rel_path, str, exc_message)
+    check_type(path_replacements, Mapping, exc_message)
+    check_type(vals, Mapping, exc_message)
 
     if not rel_path:
         raise_context_error(
             fallback_prefix=r'factory_file_utils::apply_path_replacements',
             fallback_msg=r'rel_path must be provided',
-            exc_message_path=exc_message_path,
+            exc_message=exc_message,
             exception_class=exception_class,
             depth=3
         )
@@ -389,7 +409,7 @@ def apply_path_replacements(
         raise_context_error(
             fallback_prefix=r'factory_file_utils::apply_path_replacements',
             fallback_msg=r'path_replacements must be provided',
-            exc_message_path=exc_message_path,
+            exc_message=exc_message,
             exception_class=exception_class,
             depth=3
         )
@@ -398,7 +418,7 @@ def apply_path_replacements(
         raise_context_error(
             fallback_prefix=r'factory_file_utils::apply_path_replacements',
             fallback_msg=r'vals must be provided',
-            exc_message_path=exc_message_path,
+            exc_message=exc_message,
             exception_class=exception_class,
             depth=3
         )

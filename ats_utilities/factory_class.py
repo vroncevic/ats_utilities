@@ -37,7 +37,7 @@ __license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
 __version__ = r'3.4.2'
 __maintainer__ = r'Vladimir Roncevic'
 __email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Updated'
+__status__ = r'Development'
 
 
 def inject(instance: Any, *dependencies: tuple[str, Any, Any, str | list[str] | tuple[str, ...] | None]) -> None:
@@ -138,7 +138,7 @@ def has_attrs(*attr_names: str) -> Callable[[Callable[..., Any]], Callable[..., 
                     raise_context_error(
                         fallback_prefix=context,
                         fallback_msg=f'missing or empty attribute {attr}',
-                        exc_message_path=None,
+                        exc_message=None,
                         exception_class=ATSValueError
                     )
 

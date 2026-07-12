@@ -25,7 +25,7 @@ from typing import Any
 from dataclasses import dataclass, asdict
 
 from ats_utilities.factory_type import check_type
-from ats_utilities.factory_value import require_not_satisfied
+from ats_utilities.factory_value import require_not_satisfied, require_not_none
 
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -34,7 +34,7 @@ __license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
 __version__ = r'3.4.2'
 __maintainer__ = r'Vladimir Roncevic'
 __email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Updated'
+__status__ = r'Development'
 
 
 @dataclass(slots=True, kw_only=True)
@@ -51,7 +51,7 @@ class SplashCenterBundle:
             :methods:
                 | __post_init__ - Post initialization of the SplashCenterBundle.
                 | validate - Validates that SplashCenterBundle is valid (can be called after merge).
-                | merge - Merges non-None values from another bundle into this one.
+                | merge - Merges non-None values from another SplashCenterBundle into this one.
                 | to_dict - Converts the SplashCenterBundle instance to a dictionary.
     '''
 
@@ -113,8 +113,10 @@ class SplashCenterBundle:
             :param other: Another bundle to merge into this one.
             :type other: <SplashCenterBundle>
             :exceptions:
+                | ATSValueError: Other must be provided.
                 | ATSTypeError: Other must be a SplashCenterBundle instance.
         '''
+        require_not_none(other, r'other SplashCenterBundle must be provided')
         check_type(other, SplashCenterBundle, r'other must be a SplashCenterBundle instance')
 
         for field_name in self.__dataclass_fields__:

@@ -58,9 +58,9 @@ class ConfigFileBundleTestCase(TestCase):
 
         bundle1.validate()
         d = bundle1.to_dict()
-        self.assertEqual(d['context']['verbose'], mock_context.verbose)
-        self.assertIsInstance(d['context']['checker'], type(mock_context.checker))
-        self.assertIsInstance(d['context']['reporter'], type(mock_context.reporter))
+        self.assertEqual(d['context'].verbose, mock_context.verbose)
+        self.assertIsInstance(d['context'].checker, type(mock_context.checker))
+        self.assertIsInstance(d['context'].reporter, type(mock_context.reporter))
 
     def test_ats_config_file_bundle_validation_errors(self) -> None:
         '''Test ConfigFileBundle validation exceptions.'''

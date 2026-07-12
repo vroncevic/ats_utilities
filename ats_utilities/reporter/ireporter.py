@@ -33,7 +33,7 @@ __license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
 __version__ = r'3.4.2'
 __maintainer__ = r'Vladimir Roncevic'
 __email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Updated'
+__status__ = r'Development'
 
 
 class IReporter(ABC):
@@ -48,6 +48,7 @@ class IReporter(ABC):
                 | success - Reports success message.
                 | warning - Reports warning message.
                 | error - Reports error message.
+                | set_level - Sets log level.
                 | is_initialized - Checks if the reporter component is initialized.
                 | __str__ - Returns the reporter as string representation.
     '''
@@ -94,6 +95,17 @@ class IReporter(ABC):
 
             :param message: Sequence with message.
             :type message: <Sequence[Any]>
+            :exceptions: None.
+        '''
+        pass
+
+    @abstractmethod
+    def set_level(self, level: int) -> None:
+        '''
+            Sets log level.
+
+            :param level: Log level.
+            :type level: <int>
             :exceptions: None.
         '''
         pass

@@ -82,6 +82,7 @@ Creates an interface for reporting message.</p>
 <div class="line">success - Reports success message.</div>
 <div class="line">warning - Reports warning message.</div>
 <div class="line">error - Reports error message.</div>
+<div class="line">set_level - Sets log level.</div>
 <div class="line">is_initialized - Checks if the reporter component is initialized.</div>
 <div class="line">__str__ - Returns the reporter as string representation.</div>
 </div>
@@ -120,6 +121,20 @@ Creates an interface for reporting message.</p>
 </dd>
 <dt class="field-odd">Exceptions<span class="colon">:</span></dt>
 <dd class="field-odd"><p>None.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ats_utilities.reporter.ireporter.IReporter.set_level">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">set_level</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">level</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/ats_utilities/reporter/ireporter.html#IReporter.set_level"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.reporter.ireporter.IReporter.set_level" title="Link to this definition">¶</a></dt>
+<dd><p>Sets log level.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>level</strong> (<em>&lt;int&gt;</em>) – Log level.</p>
+</dd>
+<dt class="field-even">Exceptions<span class="colon">:</span></dt>
+<dd class="field-even"><p>None.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -188,6 +203,7 @@ Creates an interface for reporting message.</p>
 <li><a class="reference internal" href="#ats_utilities.reporter.ireporter.IReporter._abc_impl"><code class="docutils literal notranslate"><span class="pre">IReporter._abc_impl</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.reporter.ireporter.IReporter.error"><code class="docutils literal notranslate"><span class="pre">IReporter.error()</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.reporter.ireporter.IReporter.is_initialized"><code class="docutils literal notranslate"><span class="pre">IReporter.is_initialized()</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.reporter.ireporter.IReporter.set_level"><code class="docutils literal notranslate"><span class="pre">IReporter.set_level()</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.reporter.ireporter.IReporter.success"><code class="docutils literal notranslate"><span class="pre">IReporter.success()</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.reporter.ireporter.IReporter.verbose"><code class="docutils literal notranslate"><span class="pre">IReporter.verbose()</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.reporter.ireporter.IReporter.warning"><code class="docutils literal notranslate"><span class="pre">IReporter.warning()</span></code></a></li>

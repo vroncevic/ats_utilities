@@ -91,6 +91,7 @@ Implements an API for reporting messages to the console.</p>
 <div class="line">success - Reports success message to console.</div>
 <div class="line">warning - Reports warning message to console.</div>
 <div class="line">error - Reports error message to console.</div>
+<div class="line">set_level - Sets log level.</div>
 <div class="line">is_initialized - Checks if reporter component is initialized.</div>
 <div class="line">__str__ - Returns the string representation of Reporter.</div>
 </div>
@@ -112,15 +113,21 @@ Implements an API for reporting messages to the console.</p>
 <span class="sig-name descname"><span class="pre">_is_initialized</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#ats_utilities.reporter.engine.Reporter._is_initialized" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ats_utilities.reporter.engine.Reporter._logger">
+<span class="sig-name descname"><span class="pre">_logger</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="ats_utilities.logger.ilogger.html#ats_utilities.logger.ilogger.ILogger" title="ats_utilities.logger.ilogger.ILogger"><span class="pre">ILogger</span></a></em><a class="headerlink" href="#ats_utilities.reporter.engine.Reporter._logger" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
 <dl class="py method">
 <dt class="sig sig-object py" id="ats_utilities.reporter.engine.Reporter._report">
-<span class="sig-name descname"><span class="pre">_report</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">message</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">color</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/ats_utilities/reporter/engine.html#Reporter._report"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.reporter.engine.Reporter._report" title="Link to this definition">¶</a></dt>
-<dd><p>Utility method for reporting message to console.</p>
+<span class="sig-name descname"><span class="pre">_report</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">message</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">color</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ctrl</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/ats_utilities/reporter/engine.html#Reporter._report"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.reporter.engine.Reporter._report" title="Link to this definition">¶</a></dt>
+<dd><p>Utility method for reporting message to log/console.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>message</strong> (<em>&lt;Sequence</em><em>[</em><em>Any</em><em>]</em><em>&gt;</em>) – Sequence with message components.</p></li>
 <li><p><strong>color</strong> (<em>&lt;str&gt;</em>) – Theme color for the message.</p></li>
+<li><p><strong>ctrl</strong> (<em>&lt;int&gt;</em>) – Log control flag.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Exceptions<span class="colon">:</span></dt>
@@ -166,6 +173,25 @@ Implements an API for reporting messages to the console.</p>
 </dd>
 <dt class="field-odd">Exceptions<span class="colon">:</span></dt>
 <dd class="field-odd"><p>None.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ats_utilities.reporter.engine.Reporter.set_level">
+<span class="sig-name descname"><span class="pre">set_level</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">level</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/ats_utilities/reporter/engine.html#Reporter.set_level"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.reporter.engine.Reporter.set_level" title="Link to this definition">¶</a></dt>
+<dd><p>Sets log level.</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>level</strong> (<em>&lt;int&gt;</em>) – Log level.</p>
+</dd>
+<dt class="field-even">Exceptions<span class="colon">:</span></dt>
+<dd class="field-even"><div class="line-block">
+<div class="line">ATSTypeError: Parameter type validation failed.</div>
+<div class="line">ATSValueError: Parameter format validation failed.</div>
+<div class="line">ATSRuntimeError: Decorator used on a non-class method.</div>
+<div class="line">ATSAttributeError: Class does not provide a ‘_checker’ object.</div>
+</div>
 </dd>
 </dl>
 </dd></dl>
@@ -249,10 +275,12 @@ Implements an API for reporting messages to the console.</p>
 <li><a class="reference internal" href="#ats_utilities.reporter.engine.Reporter._abc_impl"><code class="docutils literal notranslate"><span class="pre">Reporter._abc_impl</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.reporter.engine.Reporter._checker"><code class="docutils literal notranslate"><span class="pre">Reporter._checker</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.reporter.engine.Reporter._is_initialized"><code class="docutils literal notranslate"><span class="pre">Reporter._is_initialized</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.reporter.engine.Reporter._logger"><code class="docutils literal notranslate"><span class="pre">Reporter._logger</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.reporter.engine.Reporter._report"><code class="docutils literal notranslate"><span class="pre">Reporter._report()</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.reporter.engine.Reporter._theme"><code class="docutils literal notranslate"><span class="pre">Reporter._theme</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.reporter.engine.Reporter.error"><code class="docutils literal notranslate"><span class="pre">Reporter.error()</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.reporter.engine.Reporter.is_initialized"><code class="docutils literal notranslate"><span class="pre">Reporter.is_initialized()</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.reporter.engine.Reporter.set_level"><code class="docutils literal notranslate"><span class="pre">Reporter.set_level()</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.reporter.engine.Reporter.success"><code class="docutils literal notranslate"><span class="pre">Reporter.success()</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.reporter.engine.Reporter.verbose"><code class="docutils literal notranslate"><span class="pre">Reporter.verbose()</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.reporter.engine.Reporter.warning"><code class="docutils literal notranslate"><span class="pre">Reporter.warning()</span></code></a></li>

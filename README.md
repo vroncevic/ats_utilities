@@ -294,16 +294,11 @@ These modules requires other modules and libraries (Python 3.x)
          │       ├── __init__.py
          │       └── iversion.py
          ├── __init__.py
-         ├── logging/
+         ├── logger/
          │   ├── component_bundle.py
          │   ├── engine.py
-         │   ├── ilogger_manager.py
-         │   ├── __init__.py
-         │   └── logger/
-         │       ├── ilogger.py
-         │       ├── __init__.py
-         │       ├── logger.py
-         │       └── logger_bundle.py
+         │   ├── ilogger.py
+         │   └── __init__.py
          ├── option/
          │   ├── command/
          │   │   ├── command_option.py
@@ -357,7 +352,7 @@ These modules requires other modules and libraries (Python 3.x)
                  ├── iterminal_properties.py
                  └── terminal_properties.py
 
-     42 directories, 199 files
+     41 directories, 195 files
 ```
 </details>
 
@@ -370,15 +365,15 @@ These modules requires other modules and libraries (Python 3.x)
 |------|-------|------|-------|
 | `ats_utilities/__init__.py` | 9 | 0 | 100%|
 | `ats_utilities/base/__init__.py` | 9 | 0 | 100%|
-| `ats_utilities/base/component_bundle.py` | 108 | 0 | 100%|
-| `ats_utilities/base/engine.py` | 78 | 0 | 100%|
+| `ats_utilities/base/component_bundle.py` | 101 | 0 | 100%|
+| `ats_utilities/base/engine.py` | 76 | 0 | 100%|
 | `ats_utilities/base/ibase.py` | 16 | 0 | 100%|
 | `ats_utilities/checker/__init__.py` | 9 | 0 | 100%|
 | `ats_utilities/checker/component_bundle.py` | 59 | 0 | 100%|
 | `ats_utilities/checker/context/__init__.py` | 9 | 0 | 100%|
 | `ats_utilities/checker/context/context_provider.py` | 36 | 0 | 100%|
 | `ats_utilities/checker/context/icontext_provider.py` | 11 | 0 | 100%|
-| `ats_utilities/checker/engine.py` | 68 | 0 | 100%|
+| `ats_utilities/checker/engine.py` | 69 | 0 | 100%|
 | `ats_utilities/checker/format/__init__.py` | 9 | 0 | 100%|
 | `ats_utilities/checker/format/format_validator.py` | 24 | 0 | 100%|
 | `ats_utilities/checker/format/iformat_validator.py` | 11 | 0 | 100%|
@@ -448,7 +443,7 @@ These modules requires other modules and libraries (Python 3.x)
 | `ats_utilities/config_setup/pro_config.py` | 48 | 0 | 100%|
 | `ats_utilities/config_setup/pro_name.py` | 44 | 0 | 100%|
 | `ats_utilities/config_setup/template_dir.py` | 44 | 0 | 100%|
-| `ats_utilities/context_bundle.py` | 45 | 0 | 100%|
+| `ats_utilities/context_bundle.py` | 54 | 0 | 100%|
 | `ats_utilities/exceptions/__init__.py` | 21 | 0 | 100%|
 | `ats_utilities/exceptions/ats_attribute_error.py` | 11 | 0 | 100%|
 | `ats_utilities/exceptions/ats_bad_call_error.py` | 11 | 0 | 100%|
@@ -472,7 +467,7 @@ These modules requires other modules and libraries (Python 3.x)
 | `ats_utilities/factory_value.py` | 21 | 0 | 100%|
 | `ats_utilities/generator/__init__.py` | 9 | 0 | 100%|
 | `ats_utilities/generator/component_bundle.py` | 54 | 0 | 100%|
-| `ats_utilities/generator/engine.py` | 84 | 0 | 100%|
+| `ats_utilities/generator/engine.py` | 85 | 0 | 100%|
 | `ats_utilities/generator/generator_bundle.py` | 41 | 0 | 100%|
 | `ats_utilities/generator/igenerator.py` | 14 | 0 | 100%|
 | `ats_utilities/generator/scheme/__init__.py` | 9 | 0 | 100%|
@@ -491,7 +486,7 @@ These modules requires other modules and libraries (Python 3.x)
 | `ats_utilities/info/build_date/engine.py` | 44 | 0 | 100%|
 | `ats_utilities/info/build_date/ibuild_date.py` | 11 | 0 | 100%|
 | `ats_utilities/info/component_bundle.py` | 103 | 0 | 100%|
-| `ats_utilities/info/engine.py` | 82 | 0 | 100%|
+| `ats_utilities/info/engine.py` | 83 | 0 | 100%|
 | `ats_utilities/info/imanager.py` | 14 | 0 | 100%|
 | `ats_utilities/info/info_keys.py` | 28 | 0 | 100%|
 | `ats_utilities/info/info_ok/__init__.py` | 9 | 0 | 100%|
@@ -518,20 +513,16 @@ These modules requires other modules and libraries (Python 3.x)
 | `ats_utilities/info/version/__init__.py` | 9 | 0 | 100%|
 | `ats_utilities/info/version/engine.py` | 44 | 0 | 100%|
 | `ats_utilities/info/version/iversion.py` | 11 | 0 | 100%|
-| `ats_utilities/logging/__init__.py` | 9 | 0 | 100%|
-| `ats_utilities/logging/component_bundle.py` | 46 | 0 | 100%|
-| `ats_utilities/logging/engine.py` | 70 | 0 | 100%|
-| `ats_utilities/logging/ilogger_manager.py` | 13 | 0 | 100%|
-| `ats_utilities/logging/logger/__init__.py` | 9 | 0 | 100%|
-| `ats_utilities/logging/logger/ilogger.py` | 24 | 0 | 100%|
-| `ats_utilities/logging/logger/logger.py` | 63 | 0 | 100%|
-| `ats_utilities/logging/logger/logger_bundle.py` | 37 | 0 | 100%|
+| `ats_utilities/logger/__init__.py` | 9 | 0 | 100%|
+| `ats_utilities/logger/component_bundle.py` | 43 | 1 | 94%|
+| `ats_utilities/logger/engine.py` | 57 | 3 | 86%|
+| `ats_utilities/logger/ilogger.py` | 12 | 0 | 100%|
 | `ats_utilities/option/__init__.py` | 9 | 0 | 100%|
 | `ats_utilities/option/command/__init__.py` | 9 | 0 | 100%|
 | `ats_utilities/option/command/command_option.py` | 48 | 0 | 100%|
 | `ats_utilities/option/command/ioption_command.py` | 13 | 0 | 100%|
 | `ats_utilities/option/component_bundle.py` | 44 | 0 | 100%|
-| `ats_utilities/option/engine.py` | 84 | 0 | 100%|
+| `ats_utilities/option/engine.py` | 85 | 0 | 100%|
 | `ats_utilities/option/ioption_manager.py` | 17 | 0 | 100%|
 | `ats_utilities/option/option_namespace.py` | 15 | 0 | 100%|
 | `ats_utilities/option/parser/__init__.py` | 9 | 0 | 100%|
@@ -540,16 +531,16 @@ These modules requires other modules and libraries (Python 3.x)
 | `ats_utilities/option/strategy/iparser_strategy.py` | 16 | 0 | 100%|
 | `ats_utilities/option/strategy/parser_strategy.py` | 92 | 0 | 100%|
 | `ats_utilities/reporter/__init__.py` | 9 | 0 | 100%|
-| `ats_utilities/reporter/component_bundle.py` | 41 | 0 | 100%|
-| `ats_utilities/reporter/engine.py` | 60 | 0 | 100%|
+| `ats_utilities/reporter/component_bundle.py` | 49 | 0 | 100%|
+| `ats_utilities/reporter/engine.py` | 72 | 4 | 90%|
 | `ats_utilities/reporter/ireporter.py` | 13 | 0 | 100%|
 | `ats_utilities/reporter/proxy_reporter.py` | 57 | 0 | 100%|
 | `ats_utilities/reporter/theme/__init__.py` | 9 | 0 | 100%|
 | `ats_utilities/reporter/theme/engine.py` | 31 | 0 | 100%|
 | `ats_utilities/reporter/theme/iconsole_theme.py` | 11 | 0 | 100%|
 | `ats_utilities/splasher/__init__.py` | 9 | 0 | 100%|
-| `ats_utilities/splasher/component_bundle.py` | 87 | 0 | 100%|
-| `ats_utilities/splasher/engine.py` | 95 | 0 | 100%|
+| `ats_utilities/splasher/component_bundle.py` | 88 | 0 | 100%|
+| `ats_utilities/splasher/engine.py` | 99 | 1 | 98%|
 | `ats_utilities/splasher/external/__init__.py` | 9 | 0 | 100%|
 | `ats_utilities/splasher/external/ext_infrastructure.py` | 67 | 0 | 100%|
 | `ats_utilities/splasher/external/github_infrastructure.py` | 76 | 0 | 100%|
@@ -561,12 +552,12 @@ These modules requires other modules and libraries (Python 3.x)
 | `ats_utilities/splasher/property/__init__.py` | 9 | 0 | 100%|
 | `ats_utilities/splasher/property/isplash_property.py` | 13 | 0 | 100%|
 | `ats_utilities/splasher/property/splash_property.py` | 53 | 0 | 100%|
-| `ats_utilities/splasher/splash_center_bundle.py` | 43 | 0 | 100%|
+| `ats_utilities/splasher/splash_center_bundle.py` | 44 | 0 | 100%|
 | `ats_utilities/splasher/splash_keys.py` | 59 | 0 | 100%|
 | `ats_utilities/splasher/terminal/__init__.py` | 9 | 0 | 100%|
 | `ats_utilities/splasher/terminal/iterminal_properties.py` | 12 | 0 | 100%|
 | `ats_utilities/splasher/terminal/terminal_properties.py` | 60 | 0 | 100%|
-| **Total** | 6175 | 0 | 100% |
+| **Total** | 6055 | 9 | 99% |
 
 </details>
 

@@ -34,7 +34,7 @@ __license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
 __version__ = r'3.4.2'
 __maintainer__ = r'Vladimir Roncevic'
 __email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Updated'
+__status__ = r'Development'
 
 
 def _resolve_type(type_to_resolve: Any) -> Any:
@@ -71,7 +71,7 @@ def _resolve_type(type_to_resolve: Any) -> Any:
 def check_type(
     instance: object,
     class_or_tuple: type[Any] | tuple[type[Any], ...],
-    exc_message_path: str | None = None,
+    exc_message: str | None = None,
     exception_class: type[Exception] = ATSTypeError
 ) -> None:
     '''
@@ -81,8 +81,8 @@ def check_type(
         :type instance: <any>
         :param class_or_tuple: Type or tuple of types to check against.
         :type class_or_tuple: <type | tuple[type, ...]>
-        :param exc_message_path: Path and details to include in the exception message.
-        :type exc_message_path: <str | None>
+        :param exc_message: Message to include in the exception message.
+        :type exc_message: <str | None>
         :param exception_class: The exception class to raise if instance is not of the specified type.
         :type exception_class: <type[Exception]> (default ATSTypeError)
         :exceptions:
@@ -108,7 +108,7 @@ def check_type(
         raise_context_error(
             fallback_prefix=r'factory_type::check_type(..)',
             fallback_msg=f'expected {class_or_tuple} for instance, got {type(instance).__name__}',
-            exc_message_path=exc_message_path,
+            exc_message=exc_message,
             exception_class=exception_class,
             depth=3
         )

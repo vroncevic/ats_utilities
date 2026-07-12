@@ -33,7 +33,7 @@ __license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
 __version__ = r'3.4.2'
 __maintainer__ = r'Vladimir Roncevic'
 __email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Updated'
+__status__ = r'Development'
 
 
 class ATSFactoryValueTestCase(TestCase):
@@ -67,7 +67,7 @@ class ATSFactoryValueTestCase(TestCase):
     def test_require_not_none_message_path(self) -> None:
         '''Test require_not_none exception contains path details.'''
         with self.assertRaises(ATSValueError) as context:
-            require_not_none(None, exc_message_path="some/config/path")
+            require_not_none(None, exc_message="some/config/path")
         self.assertIn("some/config/path", str(context.exception))
 
     def test_require_not_empty_success(self) -> None:
@@ -96,7 +96,7 @@ class ATSFactoryValueTestCase(TestCase):
     def test_require_not_empty_message_path(self) -> None:
         '''Test require_not_empty exception contains path details.'''
         with self.assertRaises(ATSValueError) as context:
-            require_not_empty("", exc_message_path="some/config/path")
+            require_not_empty("", exc_message="some/config/path")
         self.assertIn("some/config/path", str(context.exception))
 
     def test_require_not_satisfied_success(self) -> None:
@@ -116,7 +116,7 @@ class ATSFactoryValueTestCase(TestCase):
     def test_require_not_satisfied_message_path(self) -> None:
         '''Test require_not_satisfied exception contains path details.'''
         with self.assertRaises(ATSValueError) as context:
-            require_not_satisfied(True, exc_message_path="some/config/path")
+            require_not_satisfied(True, exc_message="some/config/path")
         self.assertIn("some/config/path", str(context.exception))
 
 

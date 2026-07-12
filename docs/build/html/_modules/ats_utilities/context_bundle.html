@@ -61,11 +61,14 @@
 <span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
 
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span>
-<span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span><span class="p">,</span> <span class="n">asdict</span>
+<span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span>
 
 <span class="kn">from</span> <span class="nn">ats_utilities.checker.ichecker</span> <span class="kn">import</span> <span class="n">IChecker</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.checker.engine</span> <span class="kn">import</span> <span class="n">Checker</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.checker.component_bundle</span> <span class="kn">import</span> <span class="n">CheckerComponentBundle</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.logger.ilogger</span> <span class="kn">import</span> <span class="n">ILogger</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.logger.engine</span> <span class="kn">import</span> <span class="n">Logger</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.logger.component_bundle</span> <span class="kn">import</span> <span class="n">LoggerComponentBundle</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.reporter.ireporter</span> <span class="kn">import</span> <span class="n">IReporter</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.reporter.engine</span> <span class="kn">import</span> <span class="n">Reporter</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.reporter.theme.engine</span> <span class="kn">import</span> <span class="n">ConsoleTheme</span>
@@ -80,7 +83,7 @@
 <span class="n">__version__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;3.4.2&#39;</span>
 <span class="n">__maintainer__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;Vladimir Roncevic&#39;</span>
 <span class="n">__email__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;elektron.ronca@gmail.com&#39;</span>
-<span class="n">__status__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;Updated&#39;</span>
+<span class="n">__status__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;Development&#39;</span>
 
 
 <div class="viewcode-block" id="ContextBundle">
@@ -100,11 +103,12 @@
 <span class="sd">            :methods:</span>
 <span class="sd">                | __post_init__ - Post-initialization hook to set up default components if not provided.</span>
 <span class="sd">                | validate - Validates that ContextBundle is valid (can be called after merge).</span>
-<span class="sd">                | merge - Merges non-None values from another bundle into this one.</span>
+<span class="sd">                | merge - Merges non-None values from another ContextBundle into this one.</span>
 <span class="sd">                | to_dict - Converts the ContextBundle instance to a dictionary.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
 
     <span class="n">checker</span><span class="p">:</span> <span class="n">IChecker</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">logger</span><span class="p">:</span> <span class="n">ILogger</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">reporter</span><span class="p">:</span> <span class="n">IReporter</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">verbose</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
 
@@ -118,10 +122,13 @@
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">checker</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">checker</span> <span class="o">=</span> <span class="n">Checker</span><span class="p">(</span><span class="n">component_bundle</span><span class="o">=</span><span class="n">CheckerComponentBundle</span><span class="p">())</span>
 
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">logger</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span> <span class="o">=</span> <span class="n">Logger</span><span class="p">(</span><span class="n">component_bundle</span><span class="o">=</span><span class="n">LoggerComponentBundle</span><span class="p">())</span>
+
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">reporter</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">reporter</span> <span class="o">=</span> <span class="n">Reporter</span><span class="p">(</span>
                 <span class="n">component_bundle</span><span class="o">=</span><span class="n">ReporterComponentBundle</span><span class="p">(</span>
-                    <span class="n">checker</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">checker</span><span class="p">,</span> <span class="n">theme</span><span class="o">=</span><span class="n">ConsoleTheme</span><span class="p">()</span>
+                    <span class="n">checker</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">checker</span><span class="p">,</span> <span class="n">theme</span><span class="o">=</span><span class="n">ConsoleTheme</span><span class="p">(),</span> <span class="n">logger</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">logger</span>
                 <span class="p">)</span>
             <span class="p">)</span>
 
@@ -130,21 +137,26 @@
     <span class="k">def</span> <span class="nf">validate</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Validates that ContextBundle is valid (can be called after merge).</span>
-<span class="sd">            Performs validation of checker, reporter and verbose attributes.</span>
+<span class="sd">            Performs validation of checker, logger, reporter and verbose attributes.</span>
 <span class="sd">            Checker must be non-None and an instance of IChecker interface.</span>
+<span class="sd">            Logger must be non-None and an instance of ILogger interface.</span>
 <span class="sd">            Reporter must be non-None and an instance of IReporter interface.</span>
 <span class="sd">            Verbose must be boolean.</span>
 
 <span class="sd">            :exceptions:</span>
 <span class="sd">                | ATSValueError: Checker must be provided.</span>
+<span class="sd">                | ATSValueError: Logger must be provided.</span>
 <span class="sd">                | ATSValueError: Reporter must be provided.</span>
 <span class="sd">                | ATSTypeError: Checker must be an instance of IChecker interface.</span>
+<span class="sd">                | ATSTypeError: Logger must be an instance of ILogger interface.</span>
 <span class="sd">                | ATSTypeError: Reporter must be an instance of IReporter interface.</span>
 <span class="sd">                | ATSTypeError: Verbose must be a boolean.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="n">require_not_none</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">checker</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;checker must be provided&#39;</span><span class="p">)</span>
+        <span class="n">require_not_none</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;logger must be provided&#39;</span><span class="p">)</span>
         <span class="n">require_not_none</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">reporter</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;reporter must be provided&#39;</span><span class="p">)</span>
         <span class="n">check_type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">checker</span><span class="p">,</span> <span class="n">IChecker</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;checker must be an instance of IChecker interface&#39;</span><span class="p">)</span>
+        <span class="n">check_type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="p">,</span> <span class="n">ILogger</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;logger must be an instance of ILogger interface&#39;</span><span class="p">)</span>
         <span class="n">check_type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">reporter</span><span class="p">,</span> <span class="n">IReporter</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;reporter must be an instance of IReporter interface&#39;</span><span class="p">)</span>
         <span class="n">check_type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">verbose</span><span class="p">,</span> <span class="nb">bool</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;verbose must be a boolean&#39;</span><span class="p">)</span></div>
 
@@ -158,8 +170,10 @@
 <span class="sd">            :param other: Another bundle to merge into this one.</span>
 <span class="sd">            :type other: &lt;ContextBundle&gt;</span>
 <span class="sd">            :exceptions:</span>
+<span class="sd">                | ATSValueError: Other must be provided.</span>
 <span class="sd">                | ATSTypeError: Other must be a ContextBundle instance.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
+        <span class="n">require_not_none</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;other must be provided&#39;</span><span class="p">)</span>
         <span class="n">check_type</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">ContextBundle</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;other must be a ContextBundle instance&#39;</span><span class="p">)</span>
 
         <span class="k">for</span> <span class="n">field_name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">__dataclass_fields__</span><span class="p">:</span>
@@ -177,11 +191,14 @@
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Converts the ContextBundle instance to a dictionary.</span>
 
-<span class="sd">            :return: Dictionary representation of the ContextBundle instance.</span>
+<span class="sd">            :return: Dictionary representation of the ContextBundle.</span>
 <span class="sd">            :rtype: &lt;dict[str, Any]&gt;</span>
 <span class="sd">            :exceptions: None.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="k">return</span> <span class="n">asdict</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div>
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="n">field</span><span class="p">:</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">field</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">field</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">__dataclass_fields__</span>
+        <span class="p">}</span></div>
 </div>
 
 </pre></div>

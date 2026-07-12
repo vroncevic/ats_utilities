@@ -19,6 +19,7 @@ Info
     Use cases for ATS reporter.
 '''
 
+from logging import DEBUG
 from ats_utilities.reporter.engine import Reporter
 
 __author__ = r'Vladimir Roncevic'
@@ -28,9 +29,10 @@ __license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
 __version__ = r'3.4.2'
 __maintainer__ = r'Vladimir Roncevic'
 __email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Updated'
+__status__ = r'Development'
 
 reporter: Reporter = Reporter()
+reporter.set_level(DEBUG)
 
 reporter.warning(['Warning'])
 print('simple test')

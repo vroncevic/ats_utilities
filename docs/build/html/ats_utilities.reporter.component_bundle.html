@@ -69,7 +69,7 @@ Encapsulates reporter components to minimize constructor overhead.</p>
 </dl>
 <dl class="py class">
 <dt class="sig sig-object py" id="ats_utilities.reporter.component_bundle.ReporterComponentBundle">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ats_utilities.reporter.component_bundle.</span></span><span class="sig-name descname"><span class="pre">ReporterComponentBundle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">checker</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="ats_utilities.checker.ichecker.html#ats_utilities.checker.ichecker.IChecker" title="ats_utilities.checker.ichecker.IChecker"><span class="pre">IChecker</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">theme</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="ats_utilities.reporter.theme.iconsole_theme.html#ats_utilities.reporter.theme.iconsole_theme.IConsoleTheme" title="ats_utilities.reporter.theme.iconsole_theme.IConsoleTheme"><span class="pre">IConsoleTheme</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ats_utilities/reporter/component_bundle.html#ReporterComponentBundle"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.reporter.component_bundle.ReporterComponentBundle" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ats_utilities.reporter.component_bundle.</span></span><span class="sig-name descname"><span class="pre">ReporterComponentBundle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">checker</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="ats_utilities.checker.ichecker.html#ats_utilities.checker.ichecker.IChecker" title="ats_utilities.checker.ichecker.IChecker"><span class="pre">IChecker</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">theme</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="ats_utilities.reporter.theme.iconsole_theme.html#ats_utilities.reporter.theme.iconsole_theme.IConsoleTheme" title="ats_utilities.reporter.theme.iconsole_theme.IConsoleTheme"><span class="pre">IConsoleTheme</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">logger</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="ats_utilities.logger.ilogger.html#ats_utilities.logger.ilogger.ILogger" title="ats_utilities.logger.ilogger.ILogger"><span class="pre">ILogger</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ats_utilities/reporter/component_bundle.html#ReporterComponentBundle"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.reporter.component_bundle.ReporterComponentBundle" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Defines component bundle dataclass for dependency grouping and management.
 Encapsulates reporter components to minimize constructor overhead.</p>
@@ -80,13 +80,14 @@ Encapsulates reporter components to minimize constructor overhead.</p>
 <dd class="field-odd"><div class="line-block">
 <div class="line">checker - Parameters checker API (default None).</div>
 <div class="line">theme - Theme for styling messages (default None).</div>
+<div class="line">logger - Logger API (default None).</div>
 </div>
 </dd>
 <dt class="field-even">methods<span class="colon">:</span></dt>
 <dd class="field-even"><div class="line-block">
 <div class="line">__post_init__ - Post-initializes ReporterComponentBundle.</div>
-<div class="line">validate - Validates that essential components are set.</div>
-<div class="line">merge - Merges non-None values from another bundle into this one.</div>
+<div class="line">validate - Validates that ReporterComponentBundle is valid (can be called after merge).</div>
+<div class="line">merge - Merges non-None values from another ReporterComponentBundle into this one.</div>
 <div class="line">to_dict - Converts the ReporterComponentBundle instance to a dictionary.</div>
 </div>
 </dd>
@@ -95,6 +96,11 @@ Encapsulates reporter components to minimize constructor overhead.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="ats_utilities.reporter.component_bundle.ReporterComponentBundle.checker">
 <span class="sig-name descname"><span class="pre">checker</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="ats_utilities.checker.ichecker.html#ats_utilities.checker.ichecker.IChecker" title="ats_utilities.checker.ichecker.IChecker"><span class="pre">IChecker</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#ats_utilities.reporter.component_bundle.ReporterComponentBundle.checker" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ats_utilities.reporter.component_bundle.ReporterComponentBundle.logger">
+<span class="sig-name descname"><span class="pre">logger</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="ats_utilities.logger.ilogger.html#ats_utilities.logger.ilogger.ILogger" title="ats_utilities.logger.ilogger.ILogger"><span class="pre">ILogger</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#ats_utilities.reporter.component_bundle.ReporterComponentBundle.logger" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -107,6 +113,7 @@ Encapsulates reporter components to minimize constructor overhead.</p>
 </dd>
 <dt class="field-even">Exceptions<span class="colon">:</span></dt>
 <dd class="field-even"><div class="line-block">
+<div class="line">ATSValueError: Other ReporterComponentBundle must be provided.</div>
 <div class="line">ATSTypeError: Other must be a ReporterComponentBundle instance.</div>
 </div>
 </dd>
@@ -139,16 +146,19 @@ Encapsulates reporter components to minimize constructor overhead.</p>
 <dt class="sig sig-object py" id="ats_utilities.reporter.component_bundle.ReporterComponentBundle.validate">
 <span class="sig-name descname"><span class="pre">validate</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/ats_utilities/reporter/component_bundle.html#ReporterComponentBundle.validate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.reporter.component_bundle.ReporterComponentBundle.validate" title="Link to this definition">¶</a></dt>
 <dd><p>Validates that ReporterComponentBundle is valid (can be called after merge).
-Performs validation of checker and theme attributes.
+Performs validation of checker, theme and logger attributes.
 Checker must be non-None and an instance of IChecker interface.
-Theme must be non-None and an instance of IConsoleTheme interface.</p>
+Theme must be non-None and an instance of IConsoleTheme interface.
+Logger must be non-None and an instance of ILogger interface.</p>
 <dl class="field-list">
 <dt class="field-odd">Exceptions<span class="colon">:</span></dt>
 <dd class="field-odd"><div class="line-block">
 <div class="line">ATSValueError: Checker must be provided.</div>
 <div class="line">ATSValueError: Theme must be provided.</div>
+<div class="line">ATSValueError: Logger must be provided.</div>
 <div class="line">ATSTypeError: Checker must be an instance of IChecker interface.</div>
 <div class="line">ATSTypeError: Theme must be an instance of IConsoleTheme interface.</div>
+<div class="line">ATSTypeError: Logger must be an instance of ILogger interface.</div>
 </div>
 </dd>
 </dl>
@@ -171,6 +181,7 @@ Theme must be non-None and an instance of IConsoleTheme interface.</p>
 <li><a class="reference internal" href="#">ats_utilities.reporter.component_bundle module</a><ul>
 <li><a class="reference internal" href="#ats_utilities.reporter.component_bundle.ReporterComponentBundle"><code class="docutils literal notranslate"><span class="pre">ReporterComponentBundle</span></code></a><ul>
 <li><a class="reference internal" href="#ats_utilities.reporter.component_bundle.ReporterComponentBundle.checker"><code class="docutils literal notranslate"><span class="pre">ReporterComponentBundle.checker</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.reporter.component_bundle.ReporterComponentBundle.logger"><code class="docutils literal notranslate"><span class="pre">ReporterComponentBundle.logger</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.reporter.component_bundle.ReporterComponentBundle.merge"><code class="docutils literal notranslate"><span class="pre">ReporterComponentBundle.merge()</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.reporter.component_bundle.ReporterComponentBundle.theme"><code class="docutils literal notranslate"><span class="pre">ReporterComponentBundle.theme</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.reporter.component_bundle.ReporterComponentBundle.to_dict"><code class="docutils literal notranslate"><span class="pre">ReporterComponentBundle.to_dict()</span></code></a></li>

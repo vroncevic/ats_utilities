@@ -29,6 +29,7 @@ from unittest.mock import MagicMock
 from ats_utilities.reporter.component_bundle import ReporterComponentBundle
 from ats_utilities.checker.ichecker import IChecker
 from ats_utilities.reporter.theme.iconsole_theme import IConsoleTheme
+from ats_utilities.logger.ilogger import ILogger
 from ats_utilities.exceptions import ATSValueError, ATSTypeError
 
 __author__: str = 'Vladimir Roncevic'
@@ -48,21 +49,27 @@ class ReporterComponentBundleTestCase(TestCase):
         '''Test ReporterComponentBundle methods.'''
         mock_checker = MagicMock(spec=IChecker)
         mock_theme = MagicMock(spec=IConsoleTheme)
+        mock_logger = MagicMock(spec=ILogger)
         bundle1 = ReporterComponentBundle()
-        bundle2 = ReporterComponentBundle(checker=mock_checker, theme=mock_theme)
+        bundle2 = ReporterComponentBundle(
+            checker=mock_checker, theme=mock_theme, logger=mock_logger
+        )
 
         bundle1.merge(bundle2)
         self.assertEqual(bundle1.checker, mock_checker)
         self.assertEqual(bundle1.theme, mock_theme)
+        self.assertEqual(bundle1.logger, mock_logger)
 
         bundle1.validate()
         d = bundle1.to_dict()
         self.assertEqual(d['checker'], mock_checker)
+        self.assertEqual(d['logger'], mock_logger)
 
     def test_reporter_component_bundle_validation_errors(self) -> None:
         '''Test ReporterComponentBundle validation exceptions.'''
         mock_checker = MagicMock(spec=IChecker)
         mock_theme = MagicMock(spec=IConsoleTheme)
+        mock_logger = MagicMock(spec=ILogger)
 
         # Missing checker
         bundle = ReporterComponentBundle()
@@ -73,6 +80,12 @@ class ReporterComponentBundleTestCase(TestCase):
         # Missing theme
         bundle = ReporterComponentBundle()
         bundle.theme = None
+        with self.assertRaises(ATSValueError):
+            bundle.validate()
+
+        # Missing logger
+        bundle = ReporterComponentBundle()
+        bundle.logger = None
         with self.assertRaises(ATSValueError):
             bundle.validate()
 
@@ -87,6 +100,11 @@ class ReporterComponentBundleTestCase(TestCase):
         with self.assertRaises(ATSTypeError):
             bundle.validate()
 
+        bundle = ReporterComponentBundle()
+        bundle.logger = "not_a_logger"
+        with self.assertRaises(ATSTypeError):
+            bundle.validate()
+
         with self.assertRaises(ATSTypeError):
             bundle.merge("not_a_reporter_component_bundle")
 
@@ -95,8 +113,10 @@ class ReporterComponentBundleTestCase(TestCase):
         bundle1 = ReporterComponentBundle()
         bundle2 = ReporterComponentBundle()
         bundle2.theme = None
+        bundle2.logger = None
         bundle1.merge(bundle2)
         self.assertIsNotNone(bundle1.theme)
+        self.assertIsNotNone(bundle1.logger)
 
 
 

@@ -38,7 +38,7 @@ __license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
 __version__ = r'3.4.2'
 __maintainer__ = r'Vladimir Roncevic'
 __email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Updated'
+__status__ = r'Development'
 
 def proxy_validator_split(exp_type: str) -> tuple[str, str]:
     '''
@@ -80,7 +80,7 @@ def vcheck[F: Callable[..., Any]](specs: list[tuple[str, Any]]) -> Callable[[F],
                 raise_context_error(
                     fallback_prefix='vcheck::decorator',
                     fallback_msg=f'Decorator @vcheck on {func.__name__} can only be used on class methods.',
-                    exc_message_path=None,
+                    exc_message=None,
                     exception_class=ATSRuntimeError,
                     depth=3
                 )
@@ -98,7 +98,7 @@ def vcheck[F: Callable[..., Any]](specs: list[tuple[str, Any]]) -> Callable[[F],
                 raise_context_error(
                     fallback_prefix='vcheck::decorator',
                     fallback_msg=f"Class '{cls_name}' must have '_checker' attribute to use @vcheck decorator.",
-                    exc_message_path=None,
+                    exc_message=None,
                     exception_class=ATSAttributeError,
                     depth=3
                 )
@@ -152,7 +152,7 @@ def vcheck[F: Callable[..., Any]](specs: list[tuple[str, Any]]) -> Callable[[F],
                         raise_context_error(
                             fallback_prefix=r'vcheck::decorator',
                             fallback_msg=f'Type error: {report_message}',
-                            exc_message_path=None,
+                            exc_message=None,
                             exception_class=ATSTypeError,
                             depth=3
                         )
@@ -161,7 +161,7 @@ def vcheck[F: Callable[..., Any]](specs: list[tuple[str, Any]]) -> Callable[[F],
                         raise_context_error(
                             fallback_prefix=r'vcheck::decorator',
                             fallback_msg=f'Format error: {report_message}',
-                            exc_message_path=None,
+                            exc_message=None,
                             exception_class=ATSValueError,
                             depth=3
                         )

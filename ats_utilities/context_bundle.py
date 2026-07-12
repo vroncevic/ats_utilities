@@ -23,11 +23,14 @@ Info
 from __future__ import annotations
 
 from typing import Any
-from dataclasses import dataclass, asdict
+from dataclasses import dataclass
 
 from ats_utilities.checker.ichecker import IChecker
 from ats_utilities.checker.engine import Checker
 from ats_utilities.checker.component_bundle import CheckerComponentBundle
+from ats_utilities.logger.ilogger import ILogger
+from ats_utilities.logger.engine import Logger
+from ats_utilities.logger.component_bundle import LoggerComponentBundle
 from ats_utilities.reporter.ireporter import IReporter
 from ats_utilities.reporter.engine import Reporter
 from ats_utilities.reporter.theme.engine import ConsoleTheme
@@ -42,7 +45,7 @@ __license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
 __version__ = r'3.4.2'
 __maintainer__ = r'Vladimir Roncevic'
 __email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Updated'
+__status__ = r'Development'
 
 
 @dataclass(slots=True, kw_only=True)
@@ -60,11 +63,12 @@ class ContextBundle:
             :methods:
                 | __post_init__ - Post-initialization hook to set up default components if not provided.
                 | validate - Validates that ContextBundle is valid (can be called after merge).
-                | merge - Merges non-None values from another bundle into this one.
+                | merge - Merges non-None values from another ContextBundle into this one.
                 | to_dict - Converts the ContextBundle instance to a dictionary.
     '''
 
     checker: IChecker | None = None
+    logger: ILogger | None = None
     reporter: IReporter | None = None
     verbose: bool = False
 
@@ -78,31 +82,39 @@ class ContextBundle:
         if self.checker is None:
             self.checker = Checker(component_bundle=CheckerComponentBundle())
 
+        if self.logger is None:
+            self.logger = Logger(component_bundle=LoggerComponentBundle())
+
         if self.reporter is None:
             self.reporter = Reporter(
                 component_bundle=ReporterComponentBundle(
-                    checker=self.checker, theme=ConsoleTheme()
+                    checker=self.checker, theme=ConsoleTheme(), logger=self.logger
                 )
             )
 
     def validate(self) -> None:
         '''
             Validates that ContextBundle is valid (can be called after merge).
-            Performs validation of checker, reporter and verbose attributes.
+            Performs validation of checker, logger, reporter and verbose attributes.
             Checker must be non-None and an instance of IChecker interface.
+            Logger must be non-None and an instance of ILogger interface.
             Reporter must be non-None and an instance of IReporter interface.
             Verbose must be boolean.
 
             :exceptions:
                 | ATSValueError: Checker must be provided.
+                | ATSValueError: Logger must be provided.
                 | ATSValueError: Reporter must be provided.
                 | ATSTypeError: Checker must be an instance of IChecker interface.
+                | ATSTypeError: Logger must be an instance of ILogger interface.
                 | ATSTypeError: Reporter must be an instance of IReporter interface.
                 | ATSTypeError: Verbose must be a boolean.
         '''
         require_not_none(self.checker, r'checker must be provided')
+        require_not_none(self.logger, r'logger must be provided')
         require_not_none(self.reporter, r'reporter must be provided')
         check_type(self.checker, IChecker, r'checker must be an instance of IChecker interface')
+        check_type(self.logger, ILogger, r'logger must be an instance of ILogger interface')
         check_type(self.reporter, IReporter, r'reporter must be an instance of IReporter interface')
         check_type(self.verbose, bool, r'verbose must be a boolean')
 
@@ -113,8 +125,10 @@ class ContextBundle:
             :param other: Another bundle to merge into this one.
             :type other: <ContextBundle>
             :exceptions:
+                | ATSValueError: Other must be provided.
                 | ATSTypeError: Other must be a ContextBundle instance.
         '''
+        require_not_none(other, r'other must be provided')
         check_type(other, ContextBundle, r'other must be a ContextBundle instance')
 
         for field_name in self.__dataclass_fields__:
@@ -129,8 +143,11 @@ class ContextBundle:
         '''
             Converts the ContextBundle instance to a dictionary.
 
-            :return: Dictionary representation of the ContextBundle instance.
+            :return: Dictionary representation of the ContextBundle.
             :rtype: <dict[str, Any]>
             :exceptions: None.
         '''
-        return asdict(self)
+        return {
+            field: getattr(self, field)
+            for field in self.__dataclass_fields__
+        }

@@ -28,6 +28,8 @@ from ats_utilities.exceptions import ATSValueError, ATSTypeError
 from ats_utilities.checker.ichecker import IChecker
 from ats_utilities.reporter.ireporter import IReporter
 
+from ats_utilities.logger.ilogger import ILogger
+
 __author__: str = 'Vladimir Roncevic'
 __copyright__: str = '(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__: list[str] = ['Vladimir Roncevic', 'Python Software Foundation']
@@ -44,14 +46,18 @@ class ContextBundleTestCase(TestCase):
     def test_context_bundle(self) -> None:
         '''Test ContextBundle methods.'''
         mock_checker = MagicMock(spec=IChecker)
+        mock_logger = MagicMock(spec=ILogger)
         mock_reporter = MagicMock(spec=IReporter)
 
         bundle1 = ContextBundle()
-        bundle2 = ContextBundle(checker=mock_checker, reporter=mock_reporter, verbose=True)
+        bundle2 = ContextBundle(
+            checker=mock_checker, logger=mock_logger, reporter=mock_reporter, verbose=True
+        )
 
         # test merge
         bundle1.merge(bundle2)
         self.assertEqual(bundle1.checker, mock_checker)
+        self.assertEqual(bundle1.logger, mock_logger)
         self.assertEqual(bundle1.reporter, mock_reporter)
         self.assertTrue(bundle1.verbose)
 
@@ -62,6 +68,7 @@ class ContextBundleTestCase(TestCase):
         d = bundle1.to_dict()
         self.assertIsInstance(d, dict)
         self.assertEqual(d['checker'], mock_checker)
+        self.assertEqual(d['logger'], mock_logger)
         self.assertEqual(d['reporter'], mock_reporter)
         self.assertTrue(d['verbose'])
 
@@ -69,6 +76,11 @@ class ContextBundleTestCase(TestCase):
         '''Test ContextBundle validation exceptions.'''
         bundle = ContextBundle()
         bundle.checker = None
+        with self.assertRaises(ATSValueError):
+            bundle.validate()
+
+        bundle = ContextBundle()
+        bundle.logger = None
         with self.assertRaises(ATSValueError):
             bundle.validate()
 

@@ -22,9 +22,10 @@ Info
 
 from __future__ import annotations
 
-from dataclasses import asdict, dataclass
+from dataclasses import dataclass
 from os.path import dirname, exists
 from typing import Any
+from sys import stderr
 
 from ats_utilities.config_io.config_file_bundle import ConfigFileBundle
 from ats_utilities.config_io.config_loader import ConfigLoader
@@ -38,9 +39,6 @@ from ats_utilities.generator.igenerator import IGenerator
 from ats_utilities.info.component_bundle import InfoComponentBundle
 from ats_utilities.info.engine import InfoManager
 from ats_utilities.info.imanager import IInfoManager
-from ats_utilities.logging.component_bundle import LoggingComponentBundle
-from ats_utilities.logging.engine import LoggerManager
-from ats_utilities.logging.ilogger_manager import ILoggerManager
 from ats_utilities.option.component_bundle import OptionComponentBundle
 from ats_utilities.option.engine import OptionManager
 from ats_utilities.option.ioption_manager import IOptionManager
@@ -58,7 +56,7 @@ __license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
 __version__ = r'3.4.2'
 __maintainer__ = r'Vladimir Roncevic'
 __email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Updated'
+__status__ = r'Development'
 
 
 @dataclass(slots=True, kw_only=True)
@@ -74,7 +72,6 @@ class BaseComponentBundle:
                 | config_loader - Configuration loader (default None).
                 | info_manager - Information manager (default None).
                 | options_parser - Options parser (default None).
-                | logger_manager - Logger manager (default None).
                 | splasher - Splasher (default None).
                 | generator - Generator (default None).
                 | use_generator - Enable/Disable generator usage (default False).
@@ -89,7 +86,6 @@ class BaseComponentBundle:
     config_loader: IConfigLoader | None = None
     info_manager: IInfoManager | None = None
     options_parser: IOptionManager | None = None
-    logger_manager: ILoggerManager | None = None
     splasher: ISplasher | None = None
     generator: IGenerator | None = None
     use_generator: bool = False
@@ -109,10 +105,10 @@ class BaseComponentBundle:
                 self._build_components()
 
             except (ATSTypeError, ATSValueError, ATSRuntimeError, ATSAttributeError) as exc:
-                print(f"\x1b[31mBase {exc}\x1b[0m")
+                stderr.write(f"\x1b[31mBase {exc}\x1b[0m\n")
 
             except Exception as exc:
-                print(f"\x1b[31mBase unexpected exception: {exc}\x1b[0m")
+                stderr.write(f"\x1b[31mBase unexpected exception: {exc}\x1b[0m\n")
 
     def _build_components(self) -> None:
         '''
@@ -164,12 +160,6 @@ class BaseComponentBundle:
         )
         validate_component(self.options_parser, IOptionManager, r'options_parser must be an IOptionManager instance')
 
-        self.logger_manager = make_component(
-            self.logger_manager, LoggerManager,
-            {'component_bundle': LoggingComponentBundle(context_bundle=self.context_bundle)}
-        )
-        validate_component(self.logger_manager, ILoggerManager, r'logger_manager must be an ILoggerManager instance')
-
         if self.use_generator:
             self.generator = make_component(
                 self.generator, Generator,
@@ -181,13 +171,12 @@ class BaseComponentBundle:
         '''
             Validates that BaseComponentBundle is valid (can be called after merge).
             Performs validation of info_file, config_loader, info_manager, options_parser,
-            logger_manager, splasher, generator.
+            splasher, generator.
 
             Info_file must be non-None and str.
             Config_loader must be non-None and IConfigLoader interface.
             Info_manager must be non-None and IInfoManager interface.
             Options_parser must be non-None and IOptionManager interface.
-            Logger_manager must be non-None and ILoggerManager interface.
             Splasher must be non-None and ISplasher interface.
             Generator must be non-None and IGenerator interface.
 
@@ -202,13 +191,11 @@ class BaseComponentBundle:
                 | ATSValueError: Config_loader must be provided.
                 | ATSValueError: Info_manager must be provided.
                 | ATSValueError: Options_parser must be provided.
-                | ATSValueError: Logger_manager must be provided.
                 | ATSValueError: Splasher must be provided.
                 | ATSValueError: Generator must be provided.
                 | ATSTypeError: Config_loader must be IConfigLoader interface.
                 | ATSTypeError: Info_manager must be IInfoManager interface.
                 | ATSTypeError: Options_parser must be IOptionManager interface.
-                | ATSTypeError: Logger_manager must be ILoggerManager interface.
                 | ATSTypeError: Splasher must be ISplasher interface.
                 | ATSTypeError: Generator must be IGenerator interface.
         '''
@@ -219,12 +206,10 @@ class BaseComponentBundle:
             require_not_none(self.config_loader, r'config_loader must be provided')
             require_not_none(self.info_manager, r'info_manager must be provided')
             require_not_none(self.options_parser, r'options_parser must be provided')
-            require_not_none(self.logger_manager, r'logger_manager must be provided')
             require_not_none(self.splasher, r'splasher must be provided')
             check_type(self.config_loader, IConfigLoader, r'config_loader must be IConfigLoader interface')
             check_type(self.info_manager, IInfoManager, r'info_manager must be IInfoManager interface')
             check_type(self.options_parser, IOptionManager, r'options_parser must be IOptionManager interface')
-            check_type(self.logger_manager, ILoggerManager, r'logger_manager must be ILoggerManager interface')
             check_type(self.splasher, ISplasher, r'splasher must be ISplasher interface')
 
             if self.use_generator:
@@ -253,10 +238,10 @@ class BaseComponentBundle:
                 self._build_components()
 
             except (ATSTypeError, ATSValueError, ATSRuntimeError, ATSAttributeError) as exc:
-                print(f"\x1b[31mBase {exc}\x1b[0m")
+                stderr.write(f"\x1b[31mBase {exc}\x1b[0m\n")
 
             except Exception as exc:
-                print(f"\x1b[31mBase unexpected exception: {exc}\x1b[0m")
+                stderr.write(f"\x1b[31mBase unexpected exception: {exc}\x1b[0m\n")
 
         self.validate(merge_op=True)
 
@@ -268,4 +253,7 @@ class BaseComponentBundle:
             :rtype: <dict[str, Any]>
             :exceptions: None.
         '''
-        return asdict(self)
+        return {
+            field: getattr(self, field)
+            for field in self.__dataclass_fields__
+        }

@@ -78,11 +78,12 @@ Implements a splash screen with hyperlinks.</p>
 <div><dl class="field-list">
 <dt class="field-odd">attributes<span class="colon">:</span></dt>
 <dd class="field-odd"><div class="line-block">
+<div class="line">_is_initialized - Indicates if the splasher component is initialized (default False).</div>
+<div class="line">_show_splash - Indicates if the splasher should be shown (default False).</div>
 <div class="line">_checker - Injected parameters checker (default Checker).</div>
 <div class="line">_reporter - Injected reporter for messaging (default Reporter).</div>
 <div class="line">_verbose - Injected Enable/Disable verbose option (default False).</div>
 <div class="line">_shared_context - Context bundle with shared context.</div>
-<div class="line">_is_initialized - Indicates if the splasher component is initialized (default False).</div>
 </div>
 </dd>
 <dt class="field-even">methods<span class="colon">:</span></dt>
@@ -108,7 +109,7 @@ Implements a splash screen with hyperlinks.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="ats_utilities.splasher.engine.Splasher._is_initialized">
-<span class="sig-name descname"><span class="pre">_is_initialized</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#ats_utilities.splasher.engine.Splasher._is_initialized" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">_is_initialized</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></em><a class="headerlink" href="#ats_utilities.splasher.engine.Splasher._is_initialized" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
@@ -119,6 +120,11 @@ Implements a splash screen with hyperlinks.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="ats_utilities.splasher.engine.Splasher._shared_context">
 <span class="sig-name descname"><span class="pre">_shared_context</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="ats_utilities.context_bundle.html#ats_utilities.context_bundle.ContextBundle" title="ats_utilities.context_bundle.ContextBundle"><span class="pre">ContextBundle</span></a></em><a class="headerlink" href="#ats_utilities.splasher.engine.Splasher._shared_context" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ats_utilities.splasher.engine.Splasher._show_splash">
+<span class="sig-name descname"><span class="pre">_show_splash</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></em><a class="headerlink" href="#ats_utilities.splasher.engine.Splasher._show_splash" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
@@ -170,7 +176,7 @@ Implements a splash screen with hyperlinks.</p>
 <dd><p>Checks if splasher component is initialized.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>True (success) | False (fail).</p>
+<dd class="field-odd"><p>&lt;True&gt; If splasher is initialized | &lt;False&gt; if it is not initialized.</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p>&lt;bool&gt;</p>
@@ -202,6 +208,7 @@ Implements a splash screen with hyperlinks.</p>
 <li><a class="reference internal" href="#ats_utilities.splasher.engine.Splasher._is_initialized"><code class="docutils literal notranslate"><span class="pre">Splasher._is_initialized</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.splasher.engine.Splasher._reporter"><code class="docutils literal notranslate"><span class="pre">Splasher._reporter</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.splasher.engine.Splasher._shared_context"><code class="docutils literal notranslate"><span class="pre">Splasher._shared_context</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.splasher.engine.Splasher._show_splash"><code class="docutils literal notranslate"><span class="pre">Splasher._show_splash</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.splasher.engine.Splasher._verbose"><code class="docutils literal notranslate"><span class="pre">Splasher._verbose</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.splasher.engine.Splasher.center"><code class="docutils literal notranslate"><span class="pre">Splasher.center()</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.splasher.engine.Splasher.get_shared_context"><code class="docutils literal notranslate"><span class="pre">Splasher.get_shared_context()</span></code></a></li>

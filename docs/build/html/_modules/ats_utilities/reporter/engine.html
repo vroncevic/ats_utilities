@@ -61,12 +61,15 @@
 <span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
 
 <span class="kn">from</span> <span class="nn">collections.abc</span> <span class="kn">import</span> <span class="n">Sequence</span>
+<span class="kn">from</span> <span class="nn">logging</span> <span class="kn">import</span> <span class="n">DEBUG</span><span class="p">,</span> <span class="n">INFO</span><span class="p">,</span> <span class="n">WARNING</span><span class="p">,</span> <span class="n">ERROR</span>
+<span class="kn">from</span> <span class="nn">sys</span> <span class="kn">import</span> <span class="n">stderr</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">override</span>
 
 <span class="kn">from</span> <span class="nn">ats_utilities.reporter.ireporter</span> <span class="kn">import</span> <span class="n">IReporter</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.reporter.component_bundle</span> <span class="kn">import</span> <span class="n">ReporterComponentBundle</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.checker.ichecker</span> <span class="kn">import</span> <span class="n">IChecker</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.reporter.theme.iconsole_theme</span> <span class="kn">import</span> <span class="n">IConsoleTheme</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.logger.ilogger</span> <span class="kn">import</span> <span class="n">ILogger</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.exceptions</span> <span class="kn">import</span> <span class="n">ATSAttributeError</span><span class="p">,</span> <span class="n">ATSRuntimeError</span><span class="p">,</span> <span class="n">ATSTypeError</span><span class="p">,</span> <span class="n">ATSValueError</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.checker.proxy_validator</span> <span class="kn">import</span> <span class="n">vcheck</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.factory_class</span> <span class="kn">import</span> <span class="n">cls_name</span><span class="p">,</span> <span class="n">to_str</span>
@@ -78,7 +81,7 @@
 <span class="n">__version__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;3.4.2&#39;</span>
 <span class="n">__maintainer__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;Vladimir Roncevic&#39;</span>
 <span class="n">__email__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;elektron.ronca@gmail.com&#39;</span>
-<span class="n">__status__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;Updated&#39;</span>
+<span class="n">__status__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;Development&#39;</span>
 
 
 <div class="viewcode-block" id="Reporter">
@@ -101,12 +104,14 @@
 <span class="sd">                | success - Reports success message to console.</span>
 <span class="sd">                | warning - Reports warning message to console.</span>
 <span class="sd">                | error - Reports error message to console.</span>
+<span class="sd">                | set_level - Sets log level.</span>
 <span class="sd">                | is_initialized - Checks if reporter component is initialized.</span>
 <span class="sd">                | __str__ - Returns the string representation of Reporter.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
 
     <span class="n">_checker</span><span class="p">:</span> <span class="n">IChecker</span>
     <span class="n">_theme</span><span class="p">:</span> <span class="n">IConsoleTheme</span>
+    <span class="n">_logger</span><span class="p">:</span> <span class="n">ILogger</span>
     <span class="n">_is_initialized</span><span class="p">:</span> <span class="nb">bool</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">component_bundle</span><span class="p">:</span> <span class="n">ReporterComponentBundle</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
@@ -124,32 +129,37 @@
             <span class="n">bundle</span><span class="p">:</span> <span class="n">ReporterComponentBundle</span> <span class="o">=</span> <span class="n">component_bundle</span> <span class="ow">or</span> <span class="n">ReporterComponentBundle</span><span class="p">()</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_checker</span> <span class="o">=</span> <span class="n">bundle</span><span class="o">.</span><span class="n">checker</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_theme</span> <span class="o">=</span> <span class="n">bundle</span><span class="o">.</span><span class="n">theme</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span> <span class="o">=</span> <span class="n">bundle</span><span class="o">.</span><span class="n">logger</span>
 
             <span class="c1"># All components initialized successfully.</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_is_initialized</span> <span class="o">=</span> <span class="kc">True</span>
 
         <span class="k">except</span> <span class="p">(</span><span class="n">ATSTypeError</span><span class="p">,</span> <span class="n">ATSValueError</span><span class="p">,</span> <span class="n">ATSRuntimeError</span><span class="p">,</span> <span class="n">ATSAttributeError</span><span class="p">)</span> <span class="k">as</span> <span class="n">exc</span><span class="p">:</span>
-            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\x1b</span><span class="s2">[31m</span><span class="si">{</span><span class="n">cls_name</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">exc</span><span class="si">}</span><span class="se">\x1b</span><span class="s2">[0m&quot;</span><span class="p">)</span>
+            <span class="n">stderr</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\x1b</span><span class="s2">[31m</span><span class="si">{</span><span class="n">cls_name</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">exc</span><span class="si">}</span><span class="se">\x1b</span><span class="s2">[0m</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
 
         <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">exc</span><span class="p">:</span>
-            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\x1b</span><span class="s2">[31m</span><span class="si">{</span><span class="n">cls_name</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="si">}</span><span class="s2"> unexpected exception: </span><span class="si">{</span><span class="n">exc</span><span class="si">}</span><span class="se">\x1b</span><span class="s2">[0m&quot;</span><span class="p">)</span>
+            <span class="n">stderr</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\x1b</span><span class="s2">[31m</span><span class="si">{</span><span class="n">cls_name</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="si">}</span><span class="s2"> unexpected exception: </span><span class="si">{</span><span class="n">exc</span><span class="si">}</span><span class="se">\x1b</span><span class="s2">[0m</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
 
 <div class="viewcode-block" id="Reporter._report">
 <a class="viewcode-back" href="../../../ats_utilities.reporter.engine.html#ats_utilities.reporter.engine.Reporter._report">[docs]</a>
-    <span class="k">def</span> <span class="nf">_report</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">Any</span><span class="p">],</span> <span class="n">color</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">_report</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">Any</span><span class="p">],</span> <span class="n">color</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">ctrl</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">            Utility method for reporting message to console.</span>
+<span class="sd">            Utility method for reporting message to log/console.</span>
 
 <span class="sd">            :param message: Sequence with message components.</span>
 <span class="sd">            :type message: &lt;Sequence[Any]&gt;</span>
 <span class="sd">            :param color: Theme color for the message.</span>
 <span class="sd">            :type color: &lt;str&gt;</span>
+<span class="sd">            :param ctrl: Log control flag.</span>
+<span class="sd">            :type ctrl: &lt;int&gt;</span>
 <span class="sd">            :exceptions: None.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="n">message_out</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="nb">str</span><span class="p">(</span><span class="n">item</span><span class="p">)</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">message</span><span class="p">])</span>
 
         <span class="k">if</span> <span class="n">message_out</span><span class="p">:</span>
-            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">color</span><span class="si">}{</span><span class="n">message_out</span><span class="si">}{</span><span class="bp">self</span><span class="o">.</span><span class="n">_theme</span><span class="o">.</span><span class="n">get_color</span><span class="p">(</span><span class="s1">&#39;reset&#39;</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">write_log</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">color</span><span class="si">}{</span><span class="n">message_out</span><span class="si">}{</span><span class="bp">self</span><span class="o">.</span><span class="n">_theme</span><span class="o">.</span><span class="n">get_color</span><span class="p">(</span><span class="s1">&#39;reset&#39;</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">ctrl</span>
+            <span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="Reporter.verbose">
@@ -171,7 +181,7 @@
 <span class="sd">                | ATSAttributeError: Class does not provide a &#39;_checker&#39; object.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="k">if</span> <span class="n">is_verbose</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_report</span><span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_theme</span><span class="o">.</span><span class="n">get_color</span><span class="p">(</span><span class="s1">&#39;verbose&#39;</span><span class="p">))</span></div>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_report</span><span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_theme</span><span class="o">.</span><span class="n">get_color</span><span class="p">(</span><span class="s1">&#39;verbose&#39;</span><span class="p">),</span> <span class="n">DEBUG</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="Reporter.success">
@@ -190,7 +200,7 @@
 <span class="sd">                | ATSRuntimeError: Decorator used on a non-class method.</span>
 <span class="sd">                | ATSAttributeError: Class does not provide a &#39;_checker&#39; object.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_report</span><span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_theme</span><span class="o">.</span><span class="n">get_color</span><span class="p">(</span><span class="s1">&#39;success&#39;</span><span class="p">))</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_report</span><span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_theme</span><span class="o">.</span><span class="n">get_color</span><span class="p">(</span><span class="s1">&#39;success&#39;</span><span class="p">),</span> <span class="n">INFO</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="Reporter.warning">
@@ -209,7 +219,7 @@
 <span class="sd">                | ATSRuntimeError: Decorator used on a non-class method.</span>
 <span class="sd">                | ATSAttributeError: Class does not provide a &#39;_checker&#39; object.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_report</span><span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_theme</span><span class="o">.</span><span class="n">get_color</span><span class="p">(</span><span class="s1">&#39;warning&#39;</span><span class="p">))</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_report</span><span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_theme</span><span class="o">.</span><span class="n">get_color</span><span class="p">(</span><span class="s1">&#39;warning&#39;</span><span class="p">),</span> <span class="n">WARNING</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="Reporter.error">
@@ -228,7 +238,29 @@
 <span class="sd">                | ATSRuntimeError: Decorator used on a non-class method.</span>
 <span class="sd">                | ATSAttributeError: Class does not provide a &#39;_checker&#39; object.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_report</span><span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_theme</span><span class="o">.</span><span class="n">get_color</span><span class="p">(</span><span class="s1">&#39;error&#39;</span><span class="p">))</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_report</span><span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_theme</span><span class="o">.</span><span class="n">get_color</span><span class="p">(</span><span class="s1">&#39;error&#39;</span><span class="p">),</span> <span class="n">ERROR</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Reporter.set_level">
+<a class="viewcode-back" href="../../../ats_utilities.reporter.engine.html#ats_utilities.reporter.engine.Reporter.set_level">[docs]</a>
+    <span class="nd">@vcheck</span><span class="p">([(</span><span class="s1">&#39;int:level&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)])</span>
+    <span class="nd">@override</span>
+    <span class="k">def</span> <span class="nf">set_level</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">level</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">            Sets log level.</span>
+
+<span class="sd">            :param level: Log level.</span>
+<span class="sd">            :type level: &lt;int&gt;</span>
+<span class="sd">            :exceptions:</span>
+<span class="sd">                | ATSTypeError: Parameter type validation failed.</span>
+<span class="sd">                | ATSValueError: Parameter format validation failed.</span>
+<span class="sd">                | ATSRuntimeError: Decorator used on a non-class method.</span>
+<span class="sd">                | ATSAttributeError: Class does not provide a &#39;_checker&#39; object.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="p">,</span> <span class="s1">&#39;set_level&#39;</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">set_level</span><span class="p">(</span><span class="n">level</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="p">,</span> <span class="s1">&#39;setLevel&#39;</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">level</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="Reporter.is_initialized">

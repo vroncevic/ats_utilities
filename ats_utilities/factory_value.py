@@ -33,12 +33,12 @@ __license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
 __version__ = r'3.4.2'
 __maintainer__ = r'Vladimir Roncevic'
 __email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Updated'
+__status__ = r'Development'
 
 
 def require_not_none(
     value: Any,
-    exc_message_path: str | None = None,
+    exc_message: str | None = None,
     exception_class: type[Exception] = ATSValueError
 ) -> None:
     '''
@@ -46,8 +46,8 @@ def require_not_none(
 
         :param value: Value to check.
         :type value: <Any>
-        :param exc_message_path: Path and details to include in the exception message.
-        :type exc_message_path: <str | None>
+        :param exc_message: Message to include in the exception message.
+        :type exc_message: <str | None>
         :param exception_class: The exception class to raise if value is None.
         :type exception_class: <type[Exception]> (default ATSValueError)
         :exceptions:
@@ -57,7 +57,7 @@ def require_not_none(
         raise_context_error(
             fallback_prefix=r'factory_value::require_not_none',
             fallback_msg=r'value must not be None',
-            exc_message_path=exc_message_path,
+            exc_message=exc_message,
             exception_class=exception_class,
             depth=3
         )
@@ -65,7 +65,7 @@ def require_not_none(
 
 def require_not_empty(
     value: Any,
-    exc_message_path: str | None = None,
+    exc_message: str | None = None,
     exception_class: type[Exception] = ATSValueError
 ) -> None:
     '''
@@ -73,8 +73,8 @@ def require_not_empty(
 
         :param value: Value to check for emptiness.
         :type value: <Any>
-        :param exc_message_path: Path and details to include in the exception message.
-        :type exc_message_path: <str | None>
+        :param exc_message: Message to include in the exception message.
+        :type exc_message: <str | None>
         :param exception_class: The exception class to raise if value is empty.
         :type exception_class: <type[Exception]> (default ATSValueError)
         :exceptions:
@@ -84,7 +84,7 @@ def require_not_empty(
         raise_context_error(
             fallback_prefix=r'factory_value::require_not_empty',
             fallback_msg=r'value must not be empty',
-            exc_message_path=exc_message_path,
+            exc_message=exc_message,
             exception_class=exception_class,
             depth=3
         )
@@ -92,7 +92,7 @@ def require_not_empty(
 
 def require_not_satisfied(
     status: bool,
-    exc_message_path: str | None = None,
+    exc_message: str | None = None,
     exception_class: type[Exception] = ATSValueError
 ) -> None:
     '''
@@ -100,8 +100,8 @@ def require_not_satisfied(
 
         :param status: Status which indicates unhappy flow (True = unhappy flow).
         :type status: <bool>
-        :param exc_message_path: Path and details to include in the exception message (unhappy flow).
-        :type exc_message_path: <str | None>
+        :param exc_message: Message to include in the exception message (unhappy flow).
+        :type exc_message: <str | None>
         :param exception_class: The exception class to raise if status is not True.
         :type exception_class: <type[Exception]> (default ATSValueError)
         :exceptions:
@@ -111,7 +111,7 @@ def require_not_satisfied(
         raise_context_error(
             fallback_prefix=r'factory_value::require_not_satisfied',
             fallback_msg=r'condition not satisfied',
-            exc_message_path=exc_message_path,
+            exc_message=exc_message,
             exception_class=exception_class,
             depth=3
         )

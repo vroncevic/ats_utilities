@@ -34,7 +34,7 @@ __license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
 __version__ = r'3.4.2'
 __maintainer__ = r'Vladimir Roncevic'
 __email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Updated'
+__status__ = r'Development'
 
 
 class ATSFactoryTypeTestCase(TestCase):
@@ -91,7 +91,7 @@ class ATSFactoryTypeTestCase(TestCase):
     def test_check_type_with_message_path(self) -> None:
         '''Test check_type raises exception with path details.'''
         with self.assertRaises(ATSTypeError) as context:
-            check_type("not_int", int, exc_message_path="some/config/path")
+            check_type("not_int", int, exc_message="some/config/path")
         self.assertIn("some/config/path", str(context.exception))
 
     @mock.patch('ats_utilities.factory_type.get_origin')

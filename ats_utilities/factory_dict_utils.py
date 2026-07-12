@@ -35,7 +35,7 @@ __license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
 __version__ = r'3.4.2'
 __maintainer__ = r'Vladimir Roncevic'
 __email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Updated'
+__status__ = r'Development'
 
 
 def cherry_pick_dict(source: Mapping[Any, Any], keys: frozenset[str]) -> dict[Any, Any]:
@@ -74,7 +74,7 @@ def has_required_keys(source: Mapping[Any, Any], keys: frozenset[str]) -> bool:
 def require_keys(
     source: Mapping[Any, Any],
     keys: frozenset[str],
-    exc_message_path: str | None = None,
+    exc_message: str | None = None,
     exception_class: type[Exception] = ATSValueError
 ) -> None:
     '''
@@ -84,16 +84,16 @@ def require_keys(
         :type source: <Mapping[Any, Any]>
         :param keys: Set of mandatory keys.
         :type keys: <frozenset[str]>
-        :param exc_message_path: Path and details to include in the exception message.
-        :type exc_message_path: <str | None>
+        :param exc_message: Message to include in the exception message.
+        :type exc_message: <str | None>
         :param exception_class: The exception class to raise if value is None.
         :type exception_class: <type[Exception]> (default ATSValueError)
         :exceptions:
             | ATSTypeError: Parameter type validation failed.
             | Dynamically raises the provided exception_class (e.g., ATSValueError).
     '''
-    check_type(source, Mapping, exc_message_path)
-    check_type(keys, frozenset, exc_message_path)
+    check_type(source, Mapping, exc_message)
+    check_type(keys, frozenset, exc_message)
 
     if not has_required_keys(source, keys):
         missing = list(keys - frozenset(source.keys() if source else []))
@@ -101,7 +101,7 @@ def require_keys(
         raise_context_error(
             fallback_prefix=r'factory_dict_utils::require_keys',
             fallback_msg=f'mapping is missing required keys: {missing}',
-            exc_message_path=exc_message_path,
+            exc_message=exc_message,
             exception_class=exception_class,
             depth=3
         )

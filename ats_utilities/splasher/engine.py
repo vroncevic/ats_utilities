@@ -24,6 +24,7 @@ from __future__ import annotations
 
 from typing import Any, override
 from time import sleep
+from sys import stdout, stderr
 
 from ats_utilities.splasher.isplasher import ISplasher
 from ats_utilities.context_bundle import ContextBundle
@@ -44,7 +45,7 @@ __license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
 __version__ = r'3.4.2'
 __maintainer__ = r'Vladimir Roncevic'
 __email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Updated'
+__status__ = r'Development'
 
 
 class Splasher(ISplasher):
@@ -55,11 +56,12 @@ class Splasher(ISplasher):
         It defines:
 
             :attributes:
+                | _is_initialized - Indicates if the splasher component is initialized (default False).
+                | _show_splash - Indicates if the splasher should be shown (default False).
                 | _checker - Injected parameters checker (default Checker).
                 | _reporter - Injected reporter for messaging (default Reporter).
                 | _verbose - Injected Enable/Disable verbose option (default False).
                 | _shared_context - Context bundle with shared context.
-                | _is_initialized - Indicates if the splasher component is initialized (default False).
             :methods:
                 | __init__ - Initials Splasher constructor.
                 | get_shared_context - Returns the shared context.
@@ -68,10 +70,11 @@ class Splasher(ISplasher):
                 | __str__ - Returns the string representation of Splasher.
     '''
 
+    _is_initialized: bool = False
+    _show_splash: bool = False
     _checker: IChecker
     _reporter: IReporter
     _verbose: bool
-    _is_initialized: bool
     _shared_context: ContextBundle
 
     def __init__(self, component_bundle: SplashComponentBundle | None = None) -> None:
@@ -82,8 +85,6 @@ class Splasher(ISplasher):
             :type component_bundle: <SplashComponentBundle | None>
             :exceptions: None.
         '''
-        self._is_initialized = False
-
         try:
             bundle: SplashComponentBundle = component_bundle or SplashComponentBundle()
             factory_context_bundle(self, bundle.context_bundle)
@@ -97,6 +98,9 @@ class Splasher(ISplasher):
 
                     return
 
+                else:
+                    self._show_splash = True
+
                 size: tuple[Any, ...] = bundle.terminal_property.size()
                 splash_center_bundle: SplashCenterBundle = SplashCenterBundle()
 
@@ -105,7 +109,7 @@ class Splasher(ISplasher):
                         bundle.prop[SplashKeys.ATS_LOGO_PATH],
                         r'application/tool/script logo file path is missing or empty'
                     )
-                    print("\n")
+                    stdout.write("\n\n")
 
                     with open(bundle.prop[SplashKeys.ATS_LOGO_PATH], 'r', encoding='utf-8') as scr:
                         for line in scr:
@@ -125,7 +129,7 @@ class Splasher(ISplasher):
                     self.center(splash_center_bundle)
                     splash_center_bundle.text = bundle.github.get_author_text()
                     self.center(splash_center_bundle)
-                    print("\n")
+                    stdout.write("\n\n")
                 else:
                     splash_center_bundle.columns = int(size[1])
                     splash_center_bundle.additional_shifter = 2
@@ -135,21 +139,21 @@ class Splasher(ISplasher):
                     self.center(splash_center_bundle)
                     splash_center_bundle.text = bundle.ext.get_author_text()
                     self.center(splash_center_bundle)
-                    print("\n")
+                    stdout.write("\n\n")
 
                 for i in range(0, int(size[1]) - int(int(size[1]) / 2)):
                     bundle.pb.set_and_plot(i + 1, int(size[1]))
                     sleep(0.01)
-                print()
+                stdout.write("\n")
 
                 # All components initialized successfully.
                 self._is_initialized = True
 
         except (ATSTypeError, ATSValueError, ATSRuntimeError, ATSAttributeError) as exc:
-            print(f"\x1b[31m{cls_name(self)} {exc}\x1b[0m")
+            stderr.write(f"\x1b[31m{cls_name(self)} {exc}\x1b[0m\n")
 
         except Exception as exc:
-            print(f"\x1b[31m{cls_name(self)} unexpected exception: {exc}\x1b[0m")
+            stderr.write(f"\x1b[31m{cls_name(self)} unexpected exception: {exc}\x1b[0m\n")
 
     @override
     def get_shared_context(self) -> ContextBundle:
@@ -177,18 +181,21 @@ class Splasher(ISplasher):
                 | ATSTypeError: text 'text' is not a string or None.
                 | ATSValueError: text 'text' is empty.
         '''
+        if not self._show_splash:
+            return
+
         bundle: SplashCenterBundle = splash_center_bundle or SplashCenterBundle()
         bundle.validate()
         start_position: float = (bundle.columns / 2) - 30
         number_of_tabs = int((start_position / 8) - 1 + bundle.additional_shifter)
-        print('{0}{1}'.format('\011' * number_of_tabs, bundle.text))
+        stdout.write('{0}{1}\n'.format('\011' * number_of_tabs, bundle.text))
 
     @override
     def is_initialized(self) -> bool:
         '''
             Checks if splasher component is initialized.
 
-            :return: True (success) | False (fail).
+            :return: <True> If splasher is initialized | <False> if it is not initialized.
             :rtype: <bool>
             :exceptions: None.
         '''

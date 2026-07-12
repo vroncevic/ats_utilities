@@ -22,7 +22,7 @@ Info
 
 from __future__ import annotations
 
-from dataclasses import dataclass, asdict
+from dataclasses import dataclass
 from typing import Any
 
 from ats_utilities.context_bundle import ContextBundle
@@ -37,7 +37,7 @@ __license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
 __version__ = r'3.4.2'
 __maintainer__ = r'Vladimir Roncevic'
 __email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Updated'
+__status__ = r'Development'
 
 
 @dataclass(slots=True, kw_only=True)
@@ -105,4 +105,7 @@ class ConfigFileBundle:
             :rtype: <dict[str, Any]>
             :exceptions: None.
         '''
-        return asdict(self)
+        return {
+            field: getattr(self, field)
+            for field in self.__dataclass_fields__
+        }

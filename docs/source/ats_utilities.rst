@@ -14,7 +14,7 @@ Subpackages
    ats_utilities.exceptions
    ats_utilities.generator
    ats_utilities.info
-   ats_utilities.logging
+   ats_utilities.logger
    ats_utilities.option
    ats_utilities.reporter
    ats_utilities.splasher

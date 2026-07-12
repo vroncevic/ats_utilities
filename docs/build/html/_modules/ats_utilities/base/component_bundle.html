@@ -60,9 +60,10 @@
 
 <span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
 
-<span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">asdict</span><span class="p">,</span> <span class="n">dataclass</span>
+<span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span>
 <span class="kn">from</span> <span class="nn">os.path</span> <span class="kn">import</span> <span class="n">dirname</span><span class="p">,</span> <span class="n">exists</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span>
+<span class="kn">from</span> <span class="nn">sys</span> <span class="kn">import</span> <span class="n">stderr</span>
 
 <span class="kn">from</span> <span class="nn">ats_utilities.config_io.config_file_bundle</span> <span class="kn">import</span> <span class="n">ConfigFileBundle</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.config_io.config_loader</span> <span class="kn">import</span> <span class="n">ConfigLoader</span>
@@ -76,9 +77,6 @@
 <span class="kn">from</span> <span class="nn">ats_utilities.info.component_bundle</span> <span class="kn">import</span> <span class="n">InfoComponentBundle</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.info.engine</span> <span class="kn">import</span> <span class="n">InfoManager</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.info.imanager</span> <span class="kn">import</span> <span class="n">IInfoManager</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.logging.component_bundle</span> <span class="kn">import</span> <span class="n">LoggingComponentBundle</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.logging.engine</span> <span class="kn">import</span> <span class="n">LoggerManager</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.logging.ilogger_manager</span> <span class="kn">import</span> <span class="n">ILoggerManager</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.option.component_bundle</span> <span class="kn">import</span> <span class="n">OptionComponentBundle</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.option.engine</span> <span class="kn">import</span> <span class="n">OptionManager</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.option.ioption_manager</span> <span class="kn">import</span> <span class="n">IOptionManager</span>
@@ -96,7 +94,7 @@
 <span class="n">__version__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;3.4.2&#39;</span>
 <span class="n">__maintainer__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;Vladimir Roncevic&#39;</span>
 <span class="n">__email__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;elektron.ronca@gmail.com&#39;</span>
-<span class="n">__status__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;Updated&#39;</span>
+<span class="n">__status__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;Development&#39;</span>
 
 
 <div class="viewcode-block" id="BaseComponentBundle">
@@ -114,7 +112,6 @@
 <span class="sd">                | config_loader - Configuration loader (default None).</span>
 <span class="sd">                | info_manager - Information manager (default None).</span>
 <span class="sd">                | options_parser - Options parser (default None).</span>
-<span class="sd">                | logger_manager - Logger manager (default None).</span>
 <span class="sd">                | splasher - Splasher (default None).</span>
 <span class="sd">                | generator - Generator (default None).</span>
 <span class="sd">                | use_generator - Enable/Disable generator usage (default False).</span>
@@ -129,7 +126,6 @@
     <span class="n">config_loader</span><span class="p">:</span> <span class="n">IConfigLoader</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">info_manager</span><span class="p">:</span> <span class="n">IInfoManager</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">options_parser</span><span class="p">:</span> <span class="n">IOptionManager</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
-    <span class="n">logger_manager</span><span class="p">:</span> <span class="n">ILoggerManager</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">splasher</span><span class="p">:</span> <span class="n">ISplasher</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">generator</span><span class="p">:</span> <span class="n">IGenerator</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">use_generator</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
@@ -149,10 +145,10 @@
                 <span class="bp">self</span><span class="o">.</span><span class="n">_build_components</span><span class="p">()</span>
 
             <span class="k">except</span> <span class="p">(</span><span class="n">ATSTypeError</span><span class="p">,</span> <span class="n">ATSValueError</span><span class="p">,</span> <span class="n">ATSRuntimeError</span><span class="p">,</span> <span class="n">ATSAttributeError</span><span class="p">)</span> <span class="k">as</span> <span class="n">exc</span><span class="p">:</span>
-                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\x1b</span><span class="s2">[31mBase </span><span class="si">{</span><span class="n">exc</span><span class="si">}</span><span class="se">\x1b</span><span class="s2">[0m&quot;</span><span class="p">)</span>
+                <span class="n">stderr</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\x1b</span><span class="s2">[31mBase </span><span class="si">{</span><span class="n">exc</span><span class="si">}</span><span class="se">\x1b</span><span class="s2">[0m</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
 
             <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">exc</span><span class="p">:</span>
-                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\x1b</span><span class="s2">[31mBase unexpected exception: </span><span class="si">{</span><span class="n">exc</span><span class="si">}</span><span class="se">\x1b</span><span class="s2">[0m&quot;</span><span class="p">)</span>
+                <span class="n">stderr</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\x1b</span><span class="s2">[31mBase unexpected exception: </span><span class="si">{</span><span class="n">exc</span><span class="si">}</span><span class="se">\x1b</span><span class="s2">[0m</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
 
 <div class="viewcode-block" id="BaseComponentBundle._build_components">
 <a class="viewcode-back" href="../../../ats_utilities.base.component_bundle.html#ats_utilities.base.component_bundle.BaseComponentBundle._build_components">[docs]</a>
@@ -206,12 +202,6 @@
         <span class="p">)</span>
         <span class="n">validate_component</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">options_parser</span><span class="p">,</span> <span class="n">IOptionManager</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;options_parser must be an IOptionManager instance&#39;</span><span class="p">)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">logger_manager</span> <span class="o">=</span> <span class="n">make_component</span><span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">logger_manager</span><span class="p">,</span> <span class="n">LoggerManager</span><span class="p">,</span>
-            <span class="p">{</span><span class="s1">&#39;component_bundle&#39;</span><span class="p">:</span> <span class="n">LoggingComponentBundle</span><span class="p">(</span><span class="n">context_bundle</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">context_bundle</span><span class="p">)}</span>
-        <span class="p">)</span>
-        <span class="n">validate_component</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">logger_manager</span><span class="p">,</span> <span class="n">ILoggerManager</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;logger_manager must be an ILoggerManager instance&#39;</span><span class="p">)</span>
-
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">use_generator</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">generator</span> <span class="o">=</span> <span class="n">make_component</span><span class="p">(</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">generator</span><span class="p">,</span> <span class="n">Generator</span><span class="p">,</span>
@@ -226,13 +216,12 @@
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Validates that BaseComponentBundle is valid (can be called after merge).</span>
 <span class="sd">            Performs validation of info_file, config_loader, info_manager, options_parser,</span>
-<span class="sd">            logger_manager, splasher, generator.</span>
+<span class="sd">            splasher, generator.</span>
 
 <span class="sd">            Info_file must be non-None and str.</span>
 <span class="sd">            Config_loader must be non-None and IConfigLoader interface.</span>
 <span class="sd">            Info_manager must be non-None and IInfoManager interface.</span>
 <span class="sd">            Options_parser must be non-None and IOptionManager interface.</span>
-<span class="sd">            Logger_manager must be non-None and ILoggerManager interface.</span>
 <span class="sd">            Splasher must be non-None and ISplasher interface.</span>
 <span class="sd">            Generator must be non-None and IGenerator interface.</span>
 
@@ -247,13 +236,11 @@
 <span class="sd">                | ATSValueError: Config_loader must be provided.</span>
 <span class="sd">                | ATSValueError: Info_manager must be provided.</span>
 <span class="sd">                | ATSValueError: Options_parser must be provided.</span>
-<span class="sd">                | ATSValueError: Logger_manager must be provided.</span>
 <span class="sd">                | ATSValueError: Splasher must be provided.</span>
 <span class="sd">                | ATSValueError: Generator must be provided.</span>
 <span class="sd">                | ATSTypeError: Config_loader must be IConfigLoader interface.</span>
 <span class="sd">                | ATSTypeError: Info_manager must be IInfoManager interface.</span>
 <span class="sd">                | ATSTypeError: Options_parser must be IOptionManager interface.</span>
-<span class="sd">                | ATSTypeError: Logger_manager must be ILoggerManager interface.</span>
 <span class="sd">                | ATSTypeError: Splasher must be ISplasher interface.</span>
 <span class="sd">                | ATSTypeError: Generator must be IGenerator interface.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
@@ -264,12 +251,10 @@
             <span class="n">require_not_none</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">config_loader</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;config_loader must be provided&#39;</span><span class="p">)</span>
             <span class="n">require_not_none</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">info_manager</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;info_manager must be provided&#39;</span><span class="p">)</span>
             <span class="n">require_not_none</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">options_parser</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;options_parser must be provided&#39;</span><span class="p">)</span>
-            <span class="n">require_not_none</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">logger_manager</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;logger_manager must be provided&#39;</span><span class="p">)</span>
             <span class="n">require_not_none</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">splasher</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;splasher must be provided&#39;</span><span class="p">)</span>
             <span class="n">check_type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">config_loader</span><span class="p">,</span> <span class="n">IConfigLoader</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;config_loader must be IConfigLoader interface&#39;</span><span class="p">)</span>
             <span class="n">check_type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">info_manager</span><span class="p">,</span> <span class="n">IInfoManager</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;info_manager must be IInfoManager interface&#39;</span><span class="p">)</span>
             <span class="n">check_type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">options_parser</span><span class="p">,</span> <span class="n">IOptionManager</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;options_parser must be IOptionManager interface&#39;</span><span class="p">)</span>
-            <span class="n">check_type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">logger_manager</span><span class="p">,</span> <span class="n">ILoggerManager</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;logger_manager must be ILoggerManager interface&#39;</span><span class="p">)</span>
             <span class="n">check_type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">splasher</span><span class="p">,</span> <span class="n">ISplasher</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;splasher must be ISplasher interface&#39;</span><span class="p">)</span>
 
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">use_generator</span><span class="p">:</span>
@@ -301,10 +286,10 @@
                 <span class="bp">self</span><span class="o">.</span><span class="n">_build_components</span><span class="p">()</span>
 
             <span class="k">except</span> <span class="p">(</span><span class="n">ATSTypeError</span><span class="p">,</span> <span class="n">ATSValueError</span><span class="p">,</span> <span class="n">ATSRuntimeError</span><span class="p">,</span> <span class="n">ATSAttributeError</span><span class="p">)</span> <span class="k">as</span> <span class="n">exc</span><span class="p">:</span>
-                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\x1b</span><span class="s2">[31mBase </span><span class="si">{</span><span class="n">exc</span><span class="si">}</span><span class="se">\x1b</span><span class="s2">[0m&quot;</span><span class="p">)</span>
+                <span class="n">stderr</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\x1b</span><span class="s2">[31mBase </span><span class="si">{</span><span class="n">exc</span><span class="si">}</span><span class="se">\x1b</span><span class="s2">[0m</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
 
             <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">exc</span><span class="p">:</span>
-                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\x1b</span><span class="s2">[31mBase unexpected exception: </span><span class="si">{</span><span class="n">exc</span><span class="si">}</span><span class="se">\x1b</span><span class="s2">[0m&quot;</span><span class="p">)</span>
+                <span class="n">stderr</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\x1b</span><span class="s2">[31mBase unexpected exception: </span><span class="si">{</span><span class="n">exc</span><span class="si">}</span><span class="se">\x1b</span><span class="s2">[0m</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">validate</span><span class="p">(</span><span class="n">merge_op</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></div>
 
@@ -319,7 +304,10 @@
 <span class="sd">            :rtype: &lt;dict[str, Any]&gt;</span>
 <span class="sd">            :exceptions: None.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="k">return</span> <span class="n">asdict</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div>
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="n">field</span><span class="p">:</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">field</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">field</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">__dataclass_fields__</span>
+        <span class="p">}</span></div>
 </div>
 
 </pre></div>

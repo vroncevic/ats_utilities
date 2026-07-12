@@ -24,6 +24,7 @@ Execute
 
 from __future__ import annotations
 
+from logging import DEBUG, INFO, WARNING, ERROR
 from unittest import TestCase, main, mock
 from ats_utilities.reporter.ireporter import IReporter
 from ats_utilities.reporter.engine import Reporter
@@ -46,7 +47,6 @@ class ReporterTestCase(TestCase):
         Reporter unit tests.
 
         It defines:
-
             :attributes:
                 | reporter - API for checking Reporter.
             :methods:
@@ -63,6 +63,7 @@ class ReporterTestCase(TestCase):
     def setUp(self) -> None:
         '''Call before test case.'''
         self.reporter: Reporter = Reporter()
+        self.reporter._logger = mock.MagicMock()
 
     def tearDown(self) -> None:
         '''Call after test case.'''
@@ -72,41 +73,35 @@ class ReporterTestCase(TestCase):
         self.assertIsNotNone(self.reporter)
         self.assertTrue(self.reporter.is_initialized())
 
-    @mock.patch('builtins.print')
-    def test_success(self, mock_print: mock.MagicMock) -> None:
+    def test_success(self) -> None:
         '''Test success message.'''
         self.reporter.success(['test success'])
-        mock_print.assert_called_once_with('\x1b[32mtest success\x1b[0m')
+        self.reporter._logger.write_log.assert_called_once_with('\x1b[32mtest success\x1b[0m', INFO)
 
-    @mock.patch('builtins.print')
-    def test_error(self, mock_print: mock.MagicMock) -> None:
+    def test_error(self) -> None:
         '''Test error message.'''
         self.reporter.error(['test error'])
-        mock_print.assert_called_once_with('\x1b[31mtest error\x1b[0m')
+        self.reporter._logger.write_log.assert_called_once_with('\x1b[31mtest error\x1b[0m', ERROR)
 
-    @mock.patch('builtins.print')
-    def test_warning(self, mock_print: mock.MagicMock) -> None:
+    def test_warning(self) -> None:
         '''Test warning message.'''
         self.reporter.warning(['test warning'])
-        mock_print.assert_called_once_with('\x1b[33mtest warning\x1b[0m')
+        self.reporter._logger.write_log.assert_called_once_with('\x1b[33mtest warning\x1b[0m', WARNING)
 
-    @mock.patch('builtins.print')
-    def test_verbose(self, mock_print: mock.MagicMock) -> None:
+    def test_verbose(self) -> None:
         '''Test info message.'''
         self.reporter.verbose(True, ['test info'])
-        mock_print.assert_called_once_with('\x1b[34mtest info\x1b[0m')
+        self.reporter._logger.write_log.assert_called_once_with('\x1b[34mtest info\x1b[0m', DEBUG)
 
-    @mock.patch('builtins.print')
-    def test_verbose_disabled(self, mock_print: mock.MagicMock) -> None:
+    def test_verbose_disabled(self) -> None:
         '''Test info message when verbose is disabled.'''
         self.reporter.verbose(False, ['test info'])
-        mock_print.assert_not_called()
+        self.reporter._logger.write_log.assert_not_called()
 
-    @mock.patch('builtins.print')
-    def test_message_empty(self, mock_print: mock.MagicMock) -> None:
+    def test_message_empty(self) -> None:
         '''Test print call is skipped when message is empty.'''
         self.reporter.success([])
-        mock_print.assert_not_called()
+        self.reporter._logger.write_log.assert_not_called()
 
     @mock.patch('ats_utilities.reporter.component_bundle.make_component')
     def test_initialization_failure(self, mock_make_component) -> None:

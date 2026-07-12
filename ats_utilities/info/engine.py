@@ -24,6 +24,7 @@ from __future__ import annotations
 
 from collections.abc import Mapping
 from typing import Any, override
+from sys import stderr
 
 from ats_utilities.info.imanager import IInfoManager
 from ats_utilities.context_bundle import ContextBundle
@@ -43,7 +44,7 @@ __license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
 __version__ = r'3.4.2'
 __maintainer__ = r'Vladimir Roncevic'
 __email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Updated'
+__status__ = r'Development'
 
 
 class InfoManager(IInfoManager):
@@ -101,10 +102,10 @@ class InfoManager(IInfoManager):
             self._is_initialized = True
 
         except (ATSTypeError, ATSValueError, ATSRuntimeError, ATSAttributeError) as exc:
-            print(f"\x1b[31m{cls_name(self)} {exc}\x1b[0m")
+            stderr.write(f"\x1b[31m{cls_name(self)} {exc}\x1b[0m\n")
 
         except Exception as exc:
-            print(f"\x1b[31m{cls_name(self)} unexpected exception: {exc}\x1b[0m")
+            stderr.write(f"\x1b[31m{cls_name(self)} unexpected exception: {exc}\x1b[0m\n")
 
     @override
     def get_shared_context(self) -> ContextBundle:

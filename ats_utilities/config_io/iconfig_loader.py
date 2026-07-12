@@ -42,7 +42,7 @@ __license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
 __version__ = r'3.4.2'
 __maintainer__ = r'Vladimir Roncevic'
 __email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Updated'
+__status__ = r'Development'
 
 # Optional configuration type
 Config = CFGLoader | INILoader | JSONLoader | XMLLoader | YAMLLoader | None

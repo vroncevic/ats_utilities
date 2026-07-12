@@ -31,34 +31,34 @@ __license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
 __version__ = r'3.4.2'
 __maintainer__ = r'Vladimir Roncevic'
 __email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Updated'
+__status__ = r'Development'
 
 
 def raise_context_error(
     fallback_prefix: str,
     fallback_msg: str,
-    exc_message_path: str | None = None,
+    exc_message: str | None = None,
     exception_class: type[Exception] = ATSValueError,
     depth: int = 2
 ) -> None:
     '''
         Raises a contextual exception using caller context from the specified stack depth.
 
-        :param fallback_prefix: Prefix to use in the exception message if no path is provided.
+        :param fallback_prefix: Fallback prefix to use in the exception message if no message is provided.
         :type fallback_prefix: <str>
-        :param fallback_msg: Message to include in the exception message if no path is provided.
+        :param fallback_msg: Fallback message to include in the exception message if no message is provided.
         :type fallback_msg: <str>
-        :param exc_message_path: Path and details to include in the exception message.
-        :type exc_message_path: <str | None>
+        :param exc_message: Message to include in the exception message.
+        :type exc_message: <str | None>
         :param exception_class: The exception class to raise.
-        :type exception_class: <type[Exception]>
+        :type exception_class: <type[Exception]> (default ATSValueError)
         :param depth: Stack depth to inspect.
-        :type depth: <int>
+        :type depth: <int> (default 2)
         :exceptions:
             | Dynamically raises the provided exception_class (e.g., ATSValueError).
     '''
-    if exc_message_path is None:
+    if exc_message is None:
         raise exception_class(f'{fallback_prefix} - {fallback_msg}')
 
     context = get_caller_context(depth=depth)
-    raise exception_class(f'{context} - {exc_message_path}')
+    raise exception_class(f'{context} - {exc_message}')
