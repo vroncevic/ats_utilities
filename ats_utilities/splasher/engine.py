@@ -201,7 +201,7 @@ class Splasher(ISplasher):
         '''
             Checks if splasher component is initialized.
 
-            :return: <True> If splasher is initialized | <False> if it is not initialized.
+            :return: <True> if successful, <False> otherwise.
             :rtype: <bool>
             :exceptions: None.
         '''

@@ -74,7 +74,7 @@ class IBase(ABC):
         '''
             Checks if App/Tool/Script base engine is initialized.
 
-            :return: <True> if successful else <False>.
+            :return: <True> if successful, <False> otherwise.
             :rtype: <bool>
             :exceptions: None.
         '''

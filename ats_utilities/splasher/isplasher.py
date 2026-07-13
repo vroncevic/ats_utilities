@@ -78,7 +78,7 @@ class ISplasher(ABC):
         '''
             Checks if splasher is initialized.
 
-            :return: <True> If splasher is initialized | <False> if it is not initialized.
+            :return: <True> if successful, <False> otherwise.
             :rtype: <bool>
             :exceptions: None.
         '''

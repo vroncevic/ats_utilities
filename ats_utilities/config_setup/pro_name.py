@@ -125,7 +125,7 @@ class ProName(IProName):
         '''
             Checks project name is not None.
 
-            :return: True (success) | False (fail).
+            :return: <True> if successful, <False> otherwise.
             :rtype: <bool>
             :exceptions:
                 | ATSRuntimeError: Decorator cannot be used on a standalone function.

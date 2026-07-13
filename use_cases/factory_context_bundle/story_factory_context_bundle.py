@@ -52,7 +52,7 @@ class IMyClass(ABC):
         '''
             Checks is attribute not None.
 
-            :return: True (success) | False (fail)
+            :return: <True> if successful, <False> otherwise.
             :rtype: <bool>
             :exceptions: TypeError
         '''
@@ -104,7 +104,7 @@ class MyClass(IMyClass):
         '''
             Checks is attribute not None.
 
-            :return: True (success) | False (fail)
+            :return: <True> if successful, <False> otherwise.
             :rtype: <bool>
             :exceptions: None.
         '''

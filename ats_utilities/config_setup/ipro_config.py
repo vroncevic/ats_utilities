@@ -78,7 +78,7 @@ class IProConfig(ABC):
         '''
             Checks if project configuration is not None.
 
-            :return: True (success) | False (fail)
+            :return: <True> if successful, <False> otherwise.
             :rtype: <bool>
             :exceptions: None.
         '''

@@ -24,31 +24,31 @@ Execute
 
 from os.path import dirname
 from unittest import TestCase, main, mock
-from ats_utilities.config_io.config_loader import ConfigLoader
-from ats_utilities.config_io.iconfig_loader import IConfigLoader
-from ats_utilities.config_io.iread import IRead
-from ats_utilities.config_io.iwrite import IWrite
+from ats_utilities.config_io.loader.config_loader import ConfigLoader
+from ats_utilities.config_io.loader.iconfig_loader import IConfigLoadManager
+from ats_utilities.config_io.loader.iread import IRead
+from ats_utilities.config_io.storer.iwrite import IWrite
 from ats_utilities.config_io.file_check import FileCheck
 from ats_utilities.checker.ichecker import IChecker
 from ats_utilities.reporter.ireporter import IReporter
 from ats_utilities.option.engine import OptionManager
 from ats_utilities.option.strategy.iparser_strategy import IParserStrategy
-from ats_utilities.config_io.cfg.cfg_loader import CFGLoader
-from ats_utilities.config_io.cfg.cfg2object import Cfg2Object
-from ats_utilities.config_io.cfg.cfg_processor import CFGProcessor
-from ats_utilities.config_io.ini.ini_loader import INILoader
-from ats_utilities.config_io.ini.ini2object import Ini2Object
-from ats_utilities.config_io.ini.ini_processor import INIProcessor
-from ats_utilities.config_io.json.json_loader import JSONLoader
-from ats_utilities.config_io.json.json2object import Json2Object
-from ats_utilities.config_io.json.json_processor import JSONProcessor
-from ats_utilities.config_io.xml.xml_loader import XMLLoader
-from ats_utilities.config_io.xml.xml2object import Xml2Object
-from ats_utilities.config_io.xml.xml_processor import XMLProcessor
-from ats_utilities.config_io.yaml.yaml_loader import YAMLLoader
-from ats_utilities.config_io.yaml.yaml2object import Yaml2Object
-from ats_utilities.config_io.yaml.yaml_processor import YAMLProcessor
-from ats_utilities.config_io.config_loader_bundle import ConfigLoaderBundle
+from ats_utilities.config_io.loader.config_loader import ConfigLoader
+from ats_utilities.config_io.loader.file2object import File2Object
+from ats_utilities.config_io.processor.cfg_processor import CFGProcessor
+from ats_utilities.config_io.loader.config_loader import ConfigLoader
+from ats_utilities.config_io.loader.file2object import File2Object
+from ats_utilities.config_io.processor.ini_processor import INIProcessor
+from ats_utilities.config_io.loader.config_loader import ConfigLoader
+from ats_utilities.config_io.loader.file2object import File2Object
+from ats_utilities.config_io.processor.json_processor import JSONProcessor
+from ats_utilities.config_io.loader.config_loader import ConfigLoader
+from ats_utilities.config_io.loader.file2object import File2Object
+from ats_utilities.config_io.processor.xml_processor import XMLProcessor
+from ats_utilities.config_io.loader.config_loader import ConfigLoader
+from ats_utilities.config_io.loader.file2object import File2Object
+from ats_utilities.config_io.processor.yaml_processor import YAMLProcessor
+from ats_utilities.config_io.loader.config_loader_bundle import ConfigLoaderBundle
 from ats_utilities.config_io.config_file_bundle import ConfigFileBundle
 from ats_utilities.context_bundle import ContextBundle
 
@@ -84,7 +84,7 @@ class ConfigManagerTestCase(TestCase):
         bundle = ConfigLoaderBundle()
         manager = ConfigLoader(bundle)
         self.assertIsNotNone(manager)
-        self.assertTrue(isinstance(manager, IConfigLoader))  # type: ignore
+        self.assertTrue(isinstance(manager, IConfigLoadManager))  # type: ignore
 
     def test_str(self) -> None:
         '''Test string representation of ConfigLoader.'''
@@ -153,7 +153,7 @@ class ConfigManagerUnitTestCase(TestCase):
         current_dir: str = dirname(dirname(__file__))
         base_info: str = f'{current_dir}{config_file}'
 
-        mock_read = mock.MagicMock(spec=Cfg2Object)
+        mock_read = mock.MagicMock(spec=File2Object)
         mock_processor = mock.MagicMock(spec=CFGProcessor)
         mock_processor.to_dict.return_value = {
             'ats_name': 'Test Tool',
@@ -170,8 +170,8 @@ class ConfigManagerUnitTestCase(TestCase):
             processor=mock_processor
         )
         manager = ConfigLoader(bundle)
-        config = manager.setup_config_loader()
-        self.assertIsInstance(config, CFGLoader)
+        config = manager.setup_loader()
+        self.assertIsInstance(config, ConfigLoader)
 
     def test_setup_config_loader_ini(self) -> None:
         '''Test loading .ini file.'''
@@ -179,7 +179,7 @@ class ConfigManagerUnitTestCase(TestCase):
         current_dir: str = dirname(dirname(__file__))
         base_info: str = f'{current_dir}{config_file}'
 
-        mock_read = mock.MagicMock(spec=Ini2Object)
+        mock_read = mock.MagicMock(spec=File2Object)
         mock_processor = mock.MagicMock(spec=INIProcessor)
         mock_processor.to_dict.return_value = {
             'ats_name': 'Test Tool',
@@ -196,8 +196,8 @@ class ConfigManagerUnitTestCase(TestCase):
             processor=mock_processor
         )
         manager = ConfigLoader(bundle)
-        config = manager.setup_config_loader()
-        self.assertIsInstance(config, INILoader)
+        config = manager.setup_loader()
+        self.assertIsInstance(config, ConfigLoader)
 
     def test_setup_config_loader_json(self) -> None:
         '''Test loading .json file.'''
@@ -205,7 +205,7 @@ class ConfigManagerUnitTestCase(TestCase):
         current_dir: str = dirname(dirname(__file__))
         base_info: str = f'{current_dir}{config_file}'
 
-        mock_read = mock.MagicMock(spec=Json2Object)
+        mock_read = mock.MagicMock(spec=File2Object)
         mock_processor = mock.MagicMock(spec=JSONProcessor)
         mock_processor.to_dict.return_value = {
             'ats_name': 'Test Tool',
@@ -222,8 +222,8 @@ class ConfigManagerUnitTestCase(TestCase):
             processor=mock_processor
         )
         manager = ConfigLoader(bundle)
-        config = manager.setup_config_loader()
-        self.assertIsInstance(config, JSONLoader)
+        config = manager.setup_loader()
+        self.assertIsInstance(config, ConfigLoader)
 
     def test_setup_config_loader_xml(self) -> None:
         '''Test loading .xml file.'''
@@ -231,7 +231,7 @@ class ConfigManagerUnitTestCase(TestCase):
         current_dir: str = dirname(dirname(__file__))
         base_info: str = f'{current_dir}{config_file}'
 
-        mock_read = mock.MagicMock(spec=Xml2Object)
+        mock_read = mock.MagicMock(spec=File2Object)
         mock_processor = mock.MagicMock(spec=XMLProcessor)
         mock_processor.to_dict.return_value = {
             'ats_name': 'Test Tool',
@@ -248,8 +248,8 @@ class ConfigManagerUnitTestCase(TestCase):
             processor=mock_processor
         )
         manager = ConfigLoader(bundle)
-        config = manager.setup_config_loader()
-        self.assertIsInstance(config, XMLLoader)
+        config = manager.setup_loader()
+        self.assertIsInstance(config, ConfigLoader)
 
     def test_setup_config_loader_yaml(self) -> None:
         '''Test loading .yaml file.'''
@@ -257,7 +257,7 @@ class ConfigManagerUnitTestCase(TestCase):
         current_dir: str = dirname(dirname(__file__))
         base_info: str = f'{current_dir}{config_file}'
 
-        mock_read = mock.MagicMock(spec=Yaml2Object)
+        mock_read = mock.MagicMock(spec=File2Object)
         mock_processor = mock.MagicMock(spec=YAMLProcessor)
         mock_processor.to_dict.return_value = {
             'ats_name': 'Test Tool',
@@ -274,8 +274,8 @@ class ConfigManagerUnitTestCase(TestCase):
             processor=mock_processor
         )
         manager = ConfigLoader(bundle)
-        config = manager.setup_config_loader()
-        self.assertIsInstance(config, YAMLLoader)
+        config = manager.setup_loader()
+        self.assertIsInstance(config, ConfigLoader)
 
     def test_setup_config_loader_none(self) -> None:
         '''Test loading with None.'''
@@ -285,7 +285,7 @@ class ConfigManagerUnitTestCase(TestCase):
             config_bundle=self.config_file_bundle
         )
         manager = ConfigLoader(bundle)
-        config = manager.setup_config_loader()
+        config = manager.setup_loader()
         self.assertIsNone(config)
 
     def test_setup_config_loader_unsupported(self) -> None:
@@ -296,13 +296,13 @@ class ConfigManagerUnitTestCase(TestCase):
             config_bundle=self.config_file_bundle
         )
         manager = ConfigLoader(bundle)
-        config = manager.setup_config_loader()
+        config = manager.setup_loader()
         self.assertIsNone(config)
 
 
     def test_cfg_loader_bool_false(self) -> None:
-        '''Test CFGLoader when cfg2obj is False.'''
-        class FalsyCfg2Object(Cfg2Object):
+        '''Test ConfigLoader when cfg2obj is False.'''
+        class FalsyCfg2Object(File2Object):
             def __init__(self):
                 pass
             def __bool__(self) -> bool:
@@ -312,17 +312,17 @@ class ConfigManagerUnitTestCase(TestCase):
 
         mock_read = FalsyCfg2Object()
         mock_processor = mock.MagicMock(spec=CFGProcessor)
-        loader = CFGLoader(
+        loader = ConfigLoader(
             info_file='some_file.cfg',
             config_bundle=self.config_file_bundle,
-            cfg_processor=mock_processor,
-            cfg2object=mock_read
+            processor=mock_processor,
+            config2object=mock_read
         )
         self.assertIsNone(loader._configuration)
 
     def test_ini_loader_bool_false(self) -> None:
-        '''Test INILoader when ini2obj is False.'''
-        class FalsyIni2Object(Ini2Object):
+        '''Test ConfigLoader when ini2obj is False.'''
+        class FalsyIni2Object(File2Object):
             def __init__(self):
                 pass
             def __bool__(self) -> bool:
@@ -332,17 +332,17 @@ class ConfigManagerUnitTestCase(TestCase):
 
         mock_read = FalsyIni2Object()
         mock_processor = mock.MagicMock(spec=INIProcessor)
-        loader = INILoader(
+        loader = ConfigLoader(
             info_file='some_file.ini',
             config_bundle=self.config_file_bundle,
-            ini_processor=mock_processor,
-            ini2object=mock_read
+            processor=mock_processor,
+            config2object=mock_read
         )
         self.assertIsNone(loader._configuration)
 
     def test_json_loader_bool_false(self) -> None:
-        '''Test JSONLoader when json2obj is False.'''
-        class FalsyJson2Object(Json2Object):
+        '''Test ConfigLoader when json2obj is False.'''
+        class FalsyJson2Object(File2Object):
             def __init__(self):
                 pass
             def __bool__(self) -> bool:
@@ -352,17 +352,17 @@ class ConfigManagerUnitTestCase(TestCase):
 
         mock_read = FalsyJson2Object()
         mock_processor = mock.MagicMock(spec=JSONProcessor)
-        loader = JSONLoader(
+        loader = ConfigLoader(
             info_file='some_file.json',
             config_bundle=self.config_file_bundle,
-            json_processor=mock_processor,
-            json2object=mock_read
+            processor=mock_processor,
+            config2object=mock_read
         )
         self.assertIsNone(loader._configuration)
 
     def test_xml_loader_bool_false(self) -> None:
-        '''Test XMLLoader when xml2obj is False.'''
-        class FalsyXml2Object(Xml2Object):
+        '''Test ConfigLoader when xml2obj is False.'''
+        class FalsyXml2Object(File2Object):
             def __init__(self):
                 pass
             def __bool__(self) -> bool:
@@ -372,17 +372,17 @@ class ConfigManagerUnitTestCase(TestCase):
 
         mock_read = FalsyXml2Object()
         mock_processor = mock.MagicMock(spec=XMLProcessor)
-        loader = XMLLoader(
+        loader = ConfigLoader(
             info_file='some_file.xml',
             config_bundle=self.config_file_bundle,
-            xml_processor=mock_processor,
-            xml2object=mock_read
+            processor=mock_processor,
+            config2object=mock_read
         )
         self.assertIsNone(loader._configuration)
 
     def test_yaml_loader_bool_false(self) -> None:
-        '''Test YAMLLoader when yaml2obj is False.'''
-        class FalsyYaml2Object(Yaml2Object):
+        '''Test ConfigLoader when yaml2obj is False.'''
+        class FalsyYaml2Object(File2Object):
             def __init__(self):
                 pass
             def __bool__(self) -> bool:
@@ -392,11 +392,11 @@ class ConfigManagerUnitTestCase(TestCase):
 
         mock_read = FalsyYaml2Object()
         mock_processor = mock.MagicMock(spec=YAMLProcessor)
-        loader = YAMLLoader(
+        loader = ConfigLoader(
             info_file='some_file.yaml',
             config_bundle=self.config_file_bundle,
-            yaml_processor=mock_processor,
-            yaml2object=mock_read
+            processor=mock_processor,
+            config2object=mock_read
         )
         self.assertIsNone(loader._configuration)
 

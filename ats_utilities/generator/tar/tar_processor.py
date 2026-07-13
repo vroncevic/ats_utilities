@@ -163,7 +163,7 @@ class TarProcessor(ITarProcessor):
         '''
             Checks if tar processor component is initialized.
 
-            :return: True (success) | False (fail).
+            :return: <True> if successful, <False> otherwise.
             :rtype: <bool>
             :exceptions: None.
         '''

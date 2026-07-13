@@ -31,8 +31,8 @@ from ats_utilities.context_bundle import ContextBundle
 from ats_utilities.checker.ichecker import IChecker
 from ats_utilities.logger.ilogger import ILogger
 from ats_utilities.reporter.ireporter import IReporter
-from ats_utilities.config_io.config_loader_bundle import ConfigLoaderBundle
-from ats_utilities.config_io.config_loader import ConfigLoader
+from ats_utilities.config_io.loader.config_loader_bundle import ConfigLoaderBundle
+from ats_utilities.config_io.loader.config_loader import ConfigLoader
 from ats_utilities.exceptions import ATSGeneratorError
 from ats_utilities.factory_context_bundle import factory_context_bundle
 from ats_utilities.factory_class import to_str
@@ -110,7 +110,7 @@ class SchemeLoader(ISchemeLoader):
 
             try:
                 config_loader: ConfigLoader = ConfigLoader(ConfigLoaderBundle(info_file=scheme))
-                loader = config_loader.setup_config_loader()
+                loader = config_loader.setup_loader()
                 require_not_satisfied(loader is None, f'failed to setup config loader for: {scheme}')
 
                 return loader.load_configuration()
@@ -125,7 +125,7 @@ class SchemeLoader(ISchemeLoader):
         '''
             Checks if scheme loader component is initialized.
 
-            :return: True (success) | False (fail).
+            :return: <True> if successful, <False> otherwise.
             :rtype: <bool>
             :exceptions: None.
         '''

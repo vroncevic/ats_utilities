@@ -113,9 +113,9 @@ class IReporter(ABC):
     @abstractmethod
     def is_initialized(self) -> bool:
         '''
-            Returns whether the reporter component is initialized.
+            Returns whether the reporter is initialized.
 
-            :return: True (success) | False (fail).
+            :return: <True> if successful, <False> otherwise.
             :rtype: <bool>
             :exceptions: None.
         '''

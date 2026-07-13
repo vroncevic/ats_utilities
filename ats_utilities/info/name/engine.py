@@ -128,7 +128,7 @@ class Name(IName):
             Checks is name not None.
             Note: Name is only prepared when it is set by user (not None).
 
-            :return: True (success) | False (fail).
+            :return: <True> if successful, <False> otherwise.
             :rtype: <bool>
             :exceptions:
                 | ATSRuntimeError: Decorator cannot be used on a standalone function.

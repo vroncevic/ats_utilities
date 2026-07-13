@@ -61,13 +61,13 @@ class SchemeLoaderTestCase(TestCase):
 
         # Failed setup config loader (returns None)
         with tempfile.NamedTemporaryFile(suffix='.json') as tmp:
-            with mock.patch('ats_utilities.generator.scheme.scheme_loader.ConfigLoader.setup_config_loader', return_value=None):
+            with mock.patch('ats_utilities.generator.scheme.scheme_loader.ConfigLoader.setup_loader', return_value=None):
                 with self.assertRaises(ATSGeneratorError):
                     loader.load(tmp.name)
 
         # Failed setup config loader (raises Exception)
         with tempfile.NamedTemporaryFile(suffix='.json') as tmp:
-            with mock.patch('ats_utilities.generator.scheme.scheme_loader.ConfigLoader.setup_config_loader', side_effect=Exception('Load failed')):
+            with mock.patch('ats_utilities.generator.scheme.scheme_loader.ConfigLoader.setup_loader', side_effect=Exception('Load failed')):
                 with self.assertRaises(ATSGeneratorError):
                     loader.load(tmp.name)
 

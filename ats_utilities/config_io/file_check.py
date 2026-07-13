@@ -134,7 +134,7 @@ class FileCheck(IFileCheck):
                 | ATSAttributeError: Class does not provide a '_checker' object.
         '''
         self._file_mode_ok = bool(file_mode) and all(
-            char in self.MODES for char in file_mode  # type: ignore
+            mode in self.MODES for mode in file_mode
         )
 
         if not self._file_mode_ok:
@@ -185,7 +185,7 @@ class FileCheck(IFileCheck):
         '''
             Returns status for file.
 
-            :return: True (success) | False (fail).
+            :return: <True> if successful, <False> otherwise.
             :rtype: <bool>
             :exceptions:
                 | ATSRuntimeError: Decorator cannot be used on a standalone function.

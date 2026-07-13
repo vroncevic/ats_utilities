@@ -94,7 +94,7 @@ class IInfoManager(ABC):
         '''
             Checks if info manager is initialized.
 
-            :return: True (success) | False (fail)
+            :return: <True> if successful, <False> otherwise.
             :rtype: <bool>
             :exceptions: None.
         '''

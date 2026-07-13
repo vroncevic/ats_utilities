@@ -30,7 +30,7 @@ from ats_utilities.base.engine import Base
 from ats_utilities.base.component_bundle import BaseComponentBundle
 from ats_utilities.context_bundle import ContextBundle
 from ats_utilities.splasher.engine import Splasher
-from ats_utilities.config_io.iconfig_loader import IConfigLoader
+from ats_utilities.config_io.loader.iconfig_loader import IConfigLoadManager
 from ats_utilities.info.imanager import IInfoManager
 from ats_utilities.option.ioption_manager import IOptionManager
 from ats_utilities.splasher.isplasher import ISplasher
@@ -214,8 +214,8 @@ class BaseTestCase(TestCase):
     def test_base_component_bundle(self) -> None:
         '''Test BaseComponentBundle methods.'''
         bundle1 = BaseComponentBundle()
-        mock_config_loader = MagicMock(spec=IConfigLoader)
-        mock_config_loader.__class__ = IConfigLoader
+        mock_config_loader = MagicMock(spec=IConfigLoadManager)
+        mock_config_loader.__class__ = IConfigLoadManager
         mock_info_manager = MagicMock(spec=IInfoManager)
         mock_info_manager.__class__ = IInfoManager
         mock_options_parser = MagicMock(spec=IOptionManager)
@@ -248,8 +248,8 @@ class BaseTestCase(TestCase):
     @patch('ats_utilities.base.component_bundle.exists', return_value=True)
     def test_base_component_bundle_generator(self, mock_exists) -> None:
         '''Test BaseComponentBundle with generator enabled.'''
-        mock_config_loader = MagicMock(spec=IConfigLoader)
-        mock_config_loader.__class__ = IConfigLoader
+        mock_config_loader = MagicMock(spec=IConfigLoadManager)
+        mock_config_loader.__class__ = IConfigLoadManager
         mock_info_manager = MagicMock(spec=IInfoManager)
         mock_info_manager.__class__ = IInfoManager
         mock_options_parser = MagicMock(spec=IOptionManager)

@@ -9,4 +9,5 @@
 
 python3 run_coverage.py
 python3 ats_coverage.py -n ats_utilities
+pylint ats_utilities > ats_utilities.report
 echo "Done"

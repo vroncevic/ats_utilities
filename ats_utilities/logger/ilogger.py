@@ -68,7 +68,7 @@ class ILogger(ABC):
         '''
             Checks if logger is initialized.
 
-            :return: <True> if logger is initialized, <False> otherwise.
+            :return: <True> if successful, <False> otherwise.
             :rtype: <bool>
             :exceptions: None.
         '''

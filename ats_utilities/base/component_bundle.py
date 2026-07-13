@@ -28,9 +28,9 @@ from sys import stderr
 from typing import Any
 
 from ats_utilities.config_io.config_file_bundle import ConfigFileBundle
-from ats_utilities.config_io.config_loader import ConfigLoader
-from ats_utilities.config_io.config_loader_bundle import ConfigLoaderBundle
-from ats_utilities.config_io.iconfig_loader import Config, IConfigLoader
+from ats_utilities.config_io.loader.config_loader import ConfigLoader
+from ats_utilities.config_io.loader.config_loader_bundle import ConfigLoaderBundle
+from ats_utilities.config_io.loader.iconfig_manager import Config, IConfigLoadManager
 from ats_utilities.context_bundle import ContextBundle
 from ats_utilities.factory_component import make_component, validate_component
 from ats_utilities.generator.component_bundle import GeneratorComponentBundle
@@ -83,7 +83,7 @@ class BaseComponentBundle:
     '''
 
     info_file: str | None = None
-    config_loader: IConfigLoader | None = None
+    config_loader: IConfigLoadManager | None = None
     info_manager: IInfoManager | None = None
     options_parser: IOptionManager | None = None
     splasher: ISplasher | None = None
@@ -126,8 +126,8 @@ class BaseComponentBundle:
                 )
             }
         )
-        validate_component(self.config_loader, IConfigLoader, r'config_loader must be an IConfigLoader instance')
-        loader: Config = self.config_loader.setup_config_loader()
+        validate_component(self.config_loader, IConfigLoadManager, r'config_loader must be an IConfigLoadManager instance')
+        loader: Config = self.config_loader.setup_loader()
         config_data = loader.load_configuration()
 
         log_file = config_data.get('ats_log_path') or config_data.get('ats_log_file')
@@ -183,7 +183,7 @@ class BaseComponentBundle:
             splasher, generator.
 
             Info_file must be non-None and str.
-            Config_loader must be non-None and IConfigLoader interface.
+            Config_loader must be non-None and IConfigLoadManager interface.
             Info_manager must be non-None and IInfoManager interface.
             Options_parser must be non-None and IOptionManager interface.
             Splasher must be non-None and ISplasher interface.
@@ -202,7 +202,7 @@ class BaseComponentBundle:
                 | ATSValueError: Options_parser must be provided.
                 | ATSValueError: Splasher must be provided.
                 | ATSValueError: Generator must be provided.
-                | ATSTypeError: Config_loader must be IConfigLoader interface.
+                | ATSTypeError: Config_loader must be IConfigLoadManager interface.
                 | ATSTypeError: Info_manager must be IInfoManager interface.
                 | ATSTypeError: Options_parser must be IOptionManager interface.
                 | ATSTypeError: Splasher must be ISplasher interface.
@@ -216,7 +216,7 @@ class BaseComponentBundle:
             require_not_none(self.info_manager, r'info_manager must be provided')
             require_not_none(self.options_parser, r'options_parser must be provided')
             require_not_none(self.splasher, r'splasher must be provided')
-            check_type(self.config_loader, IConfigLoader, r'config_loader must be IConfigLoader interface')
+            check_type(self.config_loader, IConfigLoadManager, r'config_loader must be IConfigLoadManager interface')
             check_type(self.info_manager, IInfoManager, r'info_manager must be IInfoManager interface')
             check_type(self.options_parser, IOptionManager, r'options_parser must be IOptionManager interface')
             check_type(self.splasher, ISplasher, r'splasher must be ISplasher interface')

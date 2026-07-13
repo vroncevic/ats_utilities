@@ -128,7 +128,7 @@ class Logo(ILogo):
             Checks is logo path not None.
             Note: Logo path is only prepared when it is set by user (not None).
 
-            :return: True (success) | False (fail).
+            :return: <True> if successful, <False> otherwise.
             :rtype: <bool>
             :exceptions:
                 | ATSRuntimeError: Decorator cannot be used on a standalone function.

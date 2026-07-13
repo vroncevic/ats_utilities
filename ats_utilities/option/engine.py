@@ -232,7 +232,7 @@ class OptionManager(IOptionManager):
         '''
             Checks if option parser component is initialized.
 
-            :return: True (success) | False (fail).
+            :return: <True> if successful, <False> otherwise.
             :rtype: <bool>
             :exceptions:
                 | ATSValueError: Missing or empty attribute: '_strategy'.

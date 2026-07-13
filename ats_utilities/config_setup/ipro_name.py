@@ -76,7 +76,7 @@ class IProName(ABC):
         '''
             Checks if project name is not None.
 
-            :return: True (success) | False (fail)
+            :return: <True> if successful, <False> otherwise.
             :rtype: <bool>
             :exceptions: None.
         '''

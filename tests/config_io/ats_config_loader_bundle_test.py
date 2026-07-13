@@ -26,10 +26,10 @@ from __future__ import annotations
 from unittest import TestCase, main
 from unittest.mock import MagicMock
 
-from ats_utilities.config_io.config_loader_bundle import ConfigLoaderBundle
+from ats_utilities.config_io.loader.config_loader_bundle import ConfigLoaderBundle
 from ats_utilities.config_io.config_file_bundle import ConfigFileBundle
-from ats_utilities.config_io.iread import IRead
-from ats_utilities.config_io.json.ijson_processor import IJSONProcessor
+from ats_utilities.config_io.loader.iread import IRead
+from ats_utilities.config_io.processor.ijson_processor import IJSONProcessor
 from ats_utilities.exceptions import ATSTypeError, ATSValueError
 
 __author__: str = 'Vladimir Roncevic'

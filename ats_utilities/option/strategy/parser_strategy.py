@@ -237,7 +237,7 @@ class ParserStrategy(IParserStrategy):
         '''
             Checks if parser strategy component is ok.
 
-            :return: True (success) | False (fail)
+            :return: <True> if successful, <False> otherwise.
             :rtype: <bool>
             :exceptions: None.
         '''

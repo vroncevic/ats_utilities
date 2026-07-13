@@ -95,7 +95,7 @@ class IGenerator(ABC):
         '''
             Checks if generator component is initialized.
 
-            :return: True (success) | False (fail).
+            :return: <True> if successful, <False> otherwise.
             :rtype: <bool>
             :exceptions: None.
         '''
