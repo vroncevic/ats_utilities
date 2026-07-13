@@ -31,7 +31,10 @@ from ats_utilities.base.ibase import ArgSeq, IBase
 from ats_utilities.checker.ichecker import IChecker
 from ats_utilities.config_io.iconfig_loader import IConfigLoader
 from ats_utilities.context_bundle import ContextBundle
-from ats_utilities.exceptions import ATSAttributeError, ATSRuntimeError, ATSTypeError, ATSValueError
+from ats_utilities.exceptions import (
+    ATSAttributeError, ATSRuntimeError, ATSTypeError, ATSValueError
+)
+from ats_utilities.logger.ilogger import ILogger
 from ats_utilities.factory_class import to_str, cls_name, has_attrs
 from ats_utilities.factory_context_bundle import factory_context_bundle
 from ats_utilities.generator.igenerator import IGenerator
@@ -60,26 +63,28 @@ class Base(IBase):
 
             :attributes:
                 | _checker - Injected parameters checker (default Checker).
+                | _logger - Injected logger for logging (default Logger).
                 | _reporter - Injected reporter for messaging (default Reporter).
                 | _verbose - Injected Enable/Disable verbose option (default False).
+                | _is_initialized - Indicates if the base is initialized (default False).
                 | _shared_context - Shared context for components.
                 | _config_loader - Manager for configuration loading (default ConfigLoader).
-                | _info_manager - Manager for info component (default InfoManager).
-                | _splasher - Manager for splash component (default Splasher).
+                | _info_manager - Manager for info property (default InfoManager).
+                | _splasher - Manager for splash screen (default Splasher).
                 | _options_parser - Manager for options parser (default OptionManager).
                 | _generator - Generator manager (default Generator).
-                | _is_initialized - Indicates if the base component is initialized (default False).
             :methods:
                 | __init__ - Initializes Base constructor.
                 | get_shared_context - Returns the shared context.
-                | is_initialized - Checks if the Base component is initialized.
-                | add_new_option - Adds a new option for the the CL interface.
-                | parse_args - Parses the CLI arguments.
-                | process - Processes and runs tool operations (Abstract).
+                | is_initialized - Checks if App/Tool/Script base engine is initialized.
+                | add_new_option - Adds a new option for App/Tool/Script.
+                | parse_args - Parses App/Tool/Script arguments.
+                | process - Processes and runs App/Tool/Script (Abstract).
                 | __str__ - Returns the Base as string representation.
     '''
 
     _checker: IChecker
+    _logger: ILogger
     _reporter: IReporter
     _verbose: bool
     _is_initialized: bool
@@ -98,8 +103,6 @@ class Base(IBase):
             :type component_bundle: <BaseComponentBundle | None>
             :exceptions: None.
         '''
-        self._is_initialized = False
-
         try:
             bundle: BaseComponentBundle = component_bundle or BaseComponentBundle()
             factory_context_bundle(self, bundle.context_bundle)
@@ -121,10 +124,10 @@ class Base(IBase):
             )
 
         except (ATSTypeError, ATSValueError, ATSRuntimeError, ATSAttributeError) as exc:
-            stderr.write(f"\x1b[31m{cls_name(self)} {exc}\x1b[0m\n")
+            stderr.write(f'\x1b[31m{cls_name(self)} {exc}\x1b[0m\n')
 
         except Exception as exc:
-            stderr.write(f"\x1b[31m{cls_name(self)} unexpected exception: {exc}\x1b[0m\n")
+            stderr.write(f'\x1b[31m{cls_name(self)} unexpected exception: {exc}\x1b[0m\n')
 
     @override
     def get_shared_context(self) -> ContextBundle:
@@ -140,9 +143,9 @@ class Base(IBase):
     @override
     def is_initialized(self) -> bool:
         '''
-            Checks if the base component is initialized.
+            Checks if App/Tool/Script base engine is initialized.
 
-            :return: True (success) | False (fail).
+            :return: <True> if successful else <False>.
             :rtype: <bool>
             :exceptions: None.
         '''
@@ -152,11 +155,11 @@ class Base(IBase):
     @override
     def add_new_option(self, *args: str, **kwargs: Any) -> None:
         '''
-            Adds a new option for the CL interface.
+            Adds a new option for App/Tool/Script.
 
-            :param args: Arguments in string form.
+            :param args: Arguments in string format.
             :type args: <str>
-            :param kwargs: arguments in Any form.
+            :param kwargs: Arguments in Any format.
             :type kwargs: <Any>
             :exceptions:
                 | ATSValueError: Missing or empty attribute: '_options_parser'.
@@ -168,7 +171,7 @@ class Base(IBase):
     @override
     def parse_args(self, argv: ArgSeq) -> OptionNamespace | None:
         '''
-            Parses the CLI arguments.
+            Parses App/Tool/Script arguments.
 
             :param argv: Sequence of arguments | None.
             :type argv: <ArgSeq>
@@ -183,14 +186,13 @@ class Base(IBase):
         return None
 
     @abstractmethod
-    @override
     def process(self, verbose: bool = False) -> bool:
         '''
-            Processes and runs tool operations (Abstract).
+            Processes and runs App/Tool/Script (Abstract).
 
             :param verbose: Enable/Disable verbose option (default False).
             :type verbose: <bool>
-            :return: True (success) | False (fail).
+            :return: <True> if successful else <False>.
             :rtype: <bool>
             :exceptions: None.
         '''

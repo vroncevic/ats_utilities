@@ -30,6 +30,7 @@ from types import MappingProxyType
 from ats_utilities.option.strategy.iparser_strategy import IParserStrategy
 from ats_utilities.context_bundle import ContextBundle
 from ats_utilities.checker.ichecker import IChecker
+from ats_utilities.logger.ilogger import ILogger
 from ats_utilities.reporter.ireporter import IReporter
 from ats_utilities.option.parser.engine import ArgParser
 from ats_utilities.option.option_namespace import OptionNamespace
@@ -56,11 +57,15 @@ class ParserStrategy(IParserStrategy):
     '''
         Defines class ParserStrategy with attribute(s) and method(s).
         Default built-in strategy using Python's standard argparse module.
+        Note: If extern argument parser strategy is injected this object
+              is not instantiated (then the complete strategy is provided
+              by external parser strategy).
 
         It defines:
 
             :attributes:
                 | _checker - Injected parameters checker (default Checker).
+                | _logger - Injected logger (default Logger).
                 | _reporter - Injected reporter for messaging (default Reporter).
                 | _verbose - Injected Enable/Disable verbose option (default False).
                 | _parser - Options parser (default None).
@@ -77,6 +82,7 @@ class ParserStrategy(IParserStrategy):
     '''
 
     _checker: IChecker
+    _logger: ILogger
     _reporter: IReporter
     _verbose: bool
     _parser: ArgParser | None
@@ -113,7 +119,7 @@ class ParserStrategy(IParserStrategy):
             'epilog': f'{parameters.get(InfoKeys.ATS_NAME)} copyright (c) {parameters.get(InfoKeys.ATS_LICENCE)}',
             'description': f'{parameters.get(InfoKeys.ATS_NAME)} build date {parameters.get(InfoKeys.ATS_BUILD_DATE)}'
         })
-        validate_component(self._parser, ArgParser, 'parser must be an ArgParser instance')
+        validate_component(self._parser, ArgParser, r'parser must be an ArgParser instance')
 
     @has_attrs('_parser')
     @override
@@ -177,7 +183,7 @@ class ParserStrategy(IParserStrategy):
         '''
         if not hasattr(self, '_subparsers') or self._subparsers is None:
             self._subparsers = self._parser.add_subparsers(
-                dest="command", required=True, help="Available commands"
+                dest='command', required=True, help='Available commands'
             )
 
         for cmd in commands:
@@ -187,21 +193,21 @@ class ParserStrategy(IParserStrategy):
                 kwargs: dict[str, Any] = {}
 
                 if getattr(opt, 'action', None) is not None:
-                    kwargs["action"] = opt.action
+                    kwargs['action'] = opt.action
                 else:
                     if opt.choices is not None:
-                        kwargs["choices"] = opt.choices
+                        kwargs['choices'] = opt.choices
 
                     if getattr(opt, 'nargs', None) is not None:
-                        kwargs["nargs"] = opt.nargs
+                        kwargs['nargs'] = opt.nargs
 
                 if opt.default is not None:
-                    kwargs["default"] = opt.default
+                    kwargs['default'] = opt.default
 
                 if opt.required:
-                    kwargs["required"] = opt.required
+                    kwargs['required'] = opt.required
 
-                kwargs["help"] = opt.help_text
+                kwargs['help'] = opt.help_text
                 cmd_parser.add_argument(opt.name, **kwargs)
 
     @has_attrs('_parser')
@@ -222,7 +228,7 @@ class ParserStrategy(IParserStrategy):
 
         option_namespace: OptionNamespace = self._parser.parse_args(arguments)
         params: dict[str, Any] = vars(option_namespace)
-        command_name: str = params.pop("command", "")
+        command_name: str = params.pop('command')
 
         return command_name, MappingProxyType(params)
 

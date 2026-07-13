@@ -54,9 +54,10 @@ class Reporter(IReporter):
         It defines:
 
             :attributes:
-                | _checker - Factorized parameters checker (default Checker).
-                | _theme - Factorized theme for styling messages (default ConsoleTheme).
-                | _is_initialized -  Indicates if the reporter component is initialized (default False).
+                | _checker - Injected parameters checker (default Checker).
+                | _theme - Injected theme for styling messages (default ConsoleTheme).
+                | _logger - Injected logger for reporting messages (default Logger).
+                | _is_initialized -  Indicates if the reporter is initialized (default False).
             :methods:
                 | __init__ - Initializes Reporter.
                 | _report - Utility method for reporting messages to console.
@@ -65,7 +66,7 @@ class Reporter(IReporter):
                 | warning - Reports warning message to console.
                 | error - Reports error message to console.
                 | set_level - Sets log level.
-                | is_initialized - Checks if reporter component is initialized.
+                | is_initialized - Checks if reporter is initialized.
                 | __str__ - Returns the string representation of Reporter.
     '''
 
@@ -95,10 +96,10 @@ class Reporter(IReporter):
             self._is_initialized = True
 
         except (ATSTypeError, ATSValueError, ATSRuntimeError, ATSAttributeError) as exc:
-            stderr.write(f"\x1b[31m{cls_name(self)} {exc}\x1b[0m\n")
+            stderr.write(f'\x1b[31m{cls_name(self)} {exc}\x1b[0m\n')
 
         except Exception as exc:
-            stderr.write(f"\x1b[31m{cls_name(self)} unexpected exception: {exc}\x1b[0m\n")
+            stderr.write(f'\x1b[31m{cls_name(self)} unexpected exception: {exc}\x1b[0m\n')
 
     def _report(self, message: Sequence[Any], color: str, ctrl: int) -> None:
         '''
@@ -115,9 +116,8 @@ class Reporter(IReporter):
         message_out: str = ' '.join([str(item) for item in message])
 
         if message_out:
-            self._logger.write_log(
-                f"{color}{message_out}{self._theme.get_color('reset')}", ctrl
-            )
+            reset: str = self._theme.get_color('reset')
+            self._logger.write_log(f'{color}{message_out}{reset}', ctrl)
 
     @vcheck([('bool:is_verbose', None), ('Sequence:message', None)])
     @override
@@ -208,9 +208,9 @@ class Reporter(IReporter):
     @override
     def is_initialized(self) -> bool:
         '''
-            Checks if reporter component is initialized.
+            Checks if reporter is initialized.
 
-            :return: True (success) | False (fail)
+            :return: <True> if successful else <False>.
             :rtype: <bool>
             :exceptions: None.
         '''

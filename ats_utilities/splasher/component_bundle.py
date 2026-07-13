@@ -68,6 +68,7 @@ class SplashComponentBundle:
                 | pb - Progress bar component (default None).
                 | context_bundle - Context bundle for dependency injection (default None).
             :methods:
+                | __post_init__ - Post initials SplashComponentBundle constructor.
                 | validate - Validates that SplashComponentBundle is valid (can be called after merge).
                 | merge - Merges non-None values from another SplashComponentBundle into this one.
                 | to_dict - Converts the SplashComponentBundle instance to a dictionary.

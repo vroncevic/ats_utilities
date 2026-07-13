@@ -28,6 +28,7 @@ from typing import Any, override
 from ats_utilities.config_setup.ipro_config import IProConfig
 from ats_utilities.context_bundle import ContextBundle
 from ats_utilities.checker.ichecker import IChecker
+from ats_utilities.logger.ilogger import ILogger
 from ats_utilities.reporter.ireporter import IReporter
 from ats_utilities.factory_context_bundle import factory_context_bundle
 from ats_utilities.factory_class import to_str
@@ -57,6 +58,7 @@ class ProConfig(IProConfig):
                 | MODULES - Modules key used for processing template files.
                 | FORMAT - Format for template file extension.
                 | _checker - Injected parameters checker (default Checker).
+                | _logger - Injected logger for logging (default Logger).
                 | _reporter - Injected reporter for messaging (default Reporter).
                 | _verbose - Injected Enable/Disable verbose option (default False).
                 | _config - Tool configuration in dictionary format (default None).
@@ -71,6 +73,7 @@ class ProConfig(IProConfig):
     MODULES: str = 'modules'
     FORMAT: str = 'template'
     _checker: IChecker
+    _logger: ILogger
     _reporter: IReporter
     _verbose: bool
     _config: Mapping[str, Any] | None

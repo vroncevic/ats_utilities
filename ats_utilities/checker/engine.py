@@ -96,10 +96,10 @@ class Checker(IChecker):
             self._is_initialized = True
 
         except (ATSTypeError, ATSValueError, ATSRuntimeError, ATSAttributeError) as exc:
-            stderr.write(f"\x1b[31m{cls_name(self)} {exc}\x1b[0m\n")
+            stderr.write(f'\x1b[31m{cls_name(self)} {exc}\x1b[0m\n')
 
         except Exception as exc:
-            stderr.write(f"\x1b[31m{cls_name(self)} unexpected exception: {exc}\x1b[0m\n")
+            stderr.write(f'\x1b[31m{cls_name(self)} unexpected exception: {exc}\x1b[0m\n')
 
     @override
     def validates_parameters(self, parameters: ParametersSpecs) -> ValidationResult:

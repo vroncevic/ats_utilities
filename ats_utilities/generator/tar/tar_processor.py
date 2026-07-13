@@ -34,6 +34,7 @@ from ats_utilities.generator.template.itemplate_processor import ITemplateProces
 from ats_utilities.generator.template.template_processor import TemplateProcessor
 from ats_utilities.context_bundle import ContextBundle
 from ats_utilities.checker.ichecker import IChecker
+from ats_utilities.logger.ilogger import ILogger
 from ats_utilities.reporter.ireporter import IReporter
 from ats_utilities.factory_context_bundle import factory_context_bundle
 from ats_utilities.factory_component import make_component, validate_component
@@ -63,6 +64,7 @@ class TarProcessor(ITarProcessor):
 
             :attributes:
                 | _checker - Injected parameters checker (default Checker).
+                | _logger - Injected logger for logging (default Logger).
                 | _reporter - Injected reporter for messaging (default Reporter).
                 | _verbose - Injected Enable/Disable verbose option (default False).
                 | _template_processor - Renders placeholders inside template files.
@@ -75,6 +77,7 @@ class TarProcessor(ITarProcessor):
     '''
 
     _checker: IChecker
+    _logger: ILogger
     _reporter: IReporter
     _verbose: bool
     _template_processor: ITemplateProcessor
@@ -153,7 +156,7 @@ class TarProcessor(ITarProcessor):
                     )
 
         except Exception as exc:
-            require_not_satisfied(True, f"TarProcessor execution failed: {exc}", ATSGeneratorError)
+            require_not_satisfied(True, f'TarProcessor execution failed: {exc}', ATSGeneratorError)
 
     @override
     def is_initialized(self) -> bool:

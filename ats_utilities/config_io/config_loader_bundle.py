@@ -22,7 +22,7 @@ Info
 
 from __future__ import annotations
 
-from dataclasses import dataclass, asdict
+from dataclasses import dataclass
 from typing import Any
 
 from ats_utilities.config_io.iread import IRead
@@ -101,8 +101,10 @@ class ConfigLoaderBundle:
             :param other: Another bundle to merge into this one.
             :type other: <ConfigLoaderBundle>
             :exceptions:
+                | ATSValueError: Other ConfigLoaderBundle must be provided.
                 | ATSTypeError: Other must be an ConfigLoaderBundle instance.
         '''
+        require_not_none(other, r'other ConfigLoaderBundle must be provided')
         check_type(other, ConfigLoaderBundle, r'other must be an ConfigLoaderBundle instance')
 
         for field_name in self.__dataclass_fields__:
@@ -121,4 +123,4 @@ class ConfigLoaderBundle:
             :rtype: <dict[str, Any]>
             :exceptions: None.
         '''
-        return asdict(self)
+        return {name: getattr(self, name) for name in self.__slots__}

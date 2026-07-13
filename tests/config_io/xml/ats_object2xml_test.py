@@ -69,7 +69,7 @@ class IXMLProcessor(BaseIXMLProcessor):
 
     def __str__(self) -> str:
         '''Implementation of abstract method.'''
-        return ""
+        return ''
 
 
 class Object2XmlTestCase(TestCase):

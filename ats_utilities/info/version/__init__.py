@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines ats_utilities.info.version.
+    Initialize ats_utilities.info.version package.
 '''
 
 from __future__ import annotations

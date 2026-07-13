@@ -75,9 +75,7 @@ class OptionComponentBundle:
         if self.context_bundle is None:
             self.context_bundle = ContextBundle()
 
-        self.strategy = make_component(
-            self.strategy, ParserStrategy, {'context_bundle': self.context_bundle}
-        )
+        self.strategy = make_component(self.strategy, ParserStrategy, {'context_bundle': self.context_bundle})
         validate_component(self.strategy, IParserStrategy, r'strategy must be an IParserStrategy instance')
 
     def validate(self) -> None:
@@ -110,8 +108,10 @@ class OptionComponentBundle:
             :param other: Another OptionComponentBundle instance to merge into this one.
             :type other: <OptionComponentBundle>
             :exceptions:
+                | ATSValueError: Other OptionComponentBundle must be provided.
                 | ATSTypeError: Other must be a OptionComponentBundle instance.
         '''
+        require_not_none(other, r'other OptionComponentBundle must be provided')
         check_type(other, OptionComponentBundle, r'other must be a OptionComponentBundle instance')
 
         for field_name in self.__dataclass_fields__:

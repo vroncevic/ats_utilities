@@ -85,8 +85,10 @@ class ConfigFileBundle:
             :param other: Another ConfigFileBundle instance to merge into this one.
             :type other: <ConfigFileBundle>
             :exceptions:
+                | ATSValueError: Other ConfigFileBundle must be provided.
                 | ATSTypeError: Other must be a ConfigFileBundle instance.
         '''
+        require_not_none(other, r'other ConfigFileBundle must be provided')
         check_type(other, ConfigFileBundle, r'other must be a ConfigFileBundle instance')
 
         for field_name in self.__dataclass_fields__:

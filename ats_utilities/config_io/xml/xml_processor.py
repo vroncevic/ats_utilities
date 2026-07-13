@@ -101,7 +101,7 @@ class XMLProcessor(IXMLProcessor):
         if self._root is not None:
             return ET.tostring(self._root, encoding='utf-8').decode('utf-8')
 
-        return ""
+        return ''
 
     @override
     def to_dict(self) -> dict[str, str]:
@@ -135,14 +135,14 @@ class XMLProcessor(IXMLProcessor):
             :exceptions: None.
         '''
         if self._root is None:
-            return ""
+            return ''
 
         node = self._root.find(tag)
 
         if node is None:
-            return ""
+            return ''
 
-        return node.text if node.text is not None else ""
+        return node.text if node.text is not None else ''
 
     @override
     def __str__(self) -> str:

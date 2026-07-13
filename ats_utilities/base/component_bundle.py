@@ -24,8 +24,8 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from os.path import dirname, exists
-from typing import Any
 from sys import stderr
+from typing import Any
 
 from ats_utilities.config_io.config_file_bundle import ConfigFileBundle
 from ats_utilities.config_io.config_loader import ConfigLoader
@@ -105,10 +105,10 @@ class BaseComponentBundle:
                 self._build_components()
 
             except (ATSTypeError, ATSValueError, ATSRuntimeError, ATSAttributeError) as exc:
-                stderr.write(f"\x1b[31mBase {exc}\x1b[0m\n")
+                stderr.write(f'\x1b[31mBase {exc}\x1b[0m\n')
 
             except Exception as exc:
-                stderr.write(f"\x1b[31mBase unexpected exception: {exc}\x1b[0m\n")
+                stderr.write(f'\x1b[31mBase unexpected exception: {exc}\x1b[0m\n')
 
     def _build_components(self) -> None:
         '''
@@ -128,16 +128,22 @@ class BaseComponentBundle:
         )
         validate_component(self.config_loader, IConfigLoader, r'config_loader must be an IConfigLoader instance')
         loader: Config = self.config_loader.setup_config_loader()
+        config_data = loader.load_configuration()
+
+        log_file = config_data.get('ats_log_path') or config_data.get('ats_log_file')
+
+        if log_file and hasattr(self.context_bundle.logger, 'set_log_file'):
+            self.context_bundle.logger.set_log_file(log_file)
 
         self.info_manager = make_component(
             self.info_manager, InfoManager,
             {'component_bundle': InfoComponentBundle(context_bundle=self.context_bundle)}
         )
         validate_component(self.info_manager, IInfoManager, r'info_manager must be an IInfoManager instance')
-        self.info_manager.set_info(loader.load_configuration())
+        self.info_manager.set_info(config_data)
 
         logo_path = self.info_manager.logo
-        self.info_manager.logo = f"{dirname(self.info_file)}/{logo_path}"
+        self.info_manager.logo = f'{dirname(self.info_file)}/{logo_path}'
 
         self.splasher = make_component(
             self.splasher, Splasher,
@@ -166,6 +172,9 @@ class BaseComponentBundle:
                 {'component_bundle': GeneratorComponentBundle(context_bundle=self.context_bundle)}
             )
             validate_component(self.generator, IGenerator, r'generator must be an IGenerator instance')
+
+        if hasattr(self.context_bundle.logger, 'stop_buffering'):
+            self.context_bundle.logger.stop_buffering()
 
     def validate(self, merge_op: bool = False) -> None:
         '''
@@ -223,8 +232,10 @@ class BaseComponentBundle:
             :param other: Another BaseComponentBundle instance to merge into this one.
             :type other: <BaseComponentBundle>
             :exceptions:
+                | ATSValueError: Other BaseComponentBundle must be provided.
                 | ATSTypeError: Other must be BaseComponentBundle instance.
         '''
+        require_not_none(other, r'other BaseComponentBundle must be provided')
         check_type(other, BaseComponentBundle, r'other must be BaseComponentBundle instance')
 
         for field_name in self.__dataclass_fields__:
@@ -238,10 +249,10 @@ class BaseComponentBundle:
                 self._build_components()
 
             except (ATSTypeError, ATSValueError, ATSRuntimeError, ATSAttributeError) as exc:
-                stderr.write(f"\x1b[31mBase {exc}\x1b[0m\n")
+                stderr.write(f'\x1b[31mBase {exc}\x1b[0m\n')
 
             except Exception as exc:
-                stderr.write(f"\x1b[31mBase unexpected exception: {exc}\x1b[0m\n")
+                stderr.write(f'\x1b[31mBase unexpected exception: {exc}\x1b[0m\n')
 
         self.validate(merge_op=True)
 

@@ -126,7 +126,7 @@ class ProgressBar(IProgressBar):
         start_position: float = (columns / 2) - (columns / 10)
         number_of_tabs: int = int((start_position/8) - 3)
         sys.stdout.write(
-            "\r %s %3i%% %s%s".expandtabs(4) % (
+            '\r %s %3i%% %s%s'.expandtabs(4) % (
                 '\011' * number_of_tabs,
                 int(self._ratio * 100.0),
                 self.DEFAULT_CHAR_ON * int(self._level_chars),
@@ -159,7 +159,7 @@ class ProgressBar(IProgressBar):
 
             :exceptions: None.
         '''
-        sys.stdout.write("\n")
+        sys.stdout.write('\n')
 
     @override
     def __str__(self) -> str:

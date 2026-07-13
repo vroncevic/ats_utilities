@@ -31,6 +31,7 @@ from ats_utilities.config_io.cfg.object2cfg import Object2Cfg
 from ats_utilities.config_io.cfg.cfg_processor import CFGProcessor
 from ats_utilities.config_io.cfg.icfg_processor import ICFGProcessor
 from ats_utilities.checker.ichecker import IChecker
+from ats_utilities.logger.ilogger import ILogger
 from ats_utilities.reporter.ireporter import IReporter
 from ats_utilities.checker.proxy_validator import vcheck
 from ats_utilities.factory_context_bundle import factory_context_bundle
@@ -57,6 +58,7 @@ class CFGStorer(IStorer):
 
             :attributes:
                 | _checker - Injected parameters checker (default Checker).
+                | _logger - Injected logger for logging (default Logger).
                 | _reporter - Injected reporter for messaging (default Reporter).
                 | _verbose - Injected Enable/Disable verbose option (default False).
                 | _processor - Processor for CFG content (default CFGProcessor).
@@ -68,6 +70,7 @@ class CFGStorer(IStorer):
     '''
 
     _checker: IChecker
+    _logger: ILogger
     _reporter: IReporter
     _verbose: bool
     _processor: ICFGProcessor
@@ -119,7 +122,7 @@ class CFGStorer(IStorer):
                 | ATSRuntimeError: Decorator used on a non-class method.
                 | ATSAttributeError: Class does not provide a '_checker' object.
         '''
-        lines: list[str] = [f"{k} = {v}\n" for k, v in config.items()]
+        lines: list[str] = [f'{k} = {v}\n' for k, v in config.items()]
         self._processor.from_lines(lines)
 
         return self._obj2cfg.write_configuration(self._processor)

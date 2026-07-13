@@ -55,6 +55,7 @@ class InfoKeys:
                 | ATS_ORGANIZATION - The key for organization.
                 | ATS_USE_GITHUB_INFRASTRUCTURE - The key for use github infrastructure.
                 | ATS_LOGO_PATH - The key for logo path.
+                | ATS_LOG_FILE - The key for log file path (Optional).
     '''
 
     ATS_NAME: ClassVar[str] = r'ats_name'
@@ -65,6 +66,7 @@ class InfoKeys:
     ATS_ORGANIZATION: ClassVar[str] = r'ats_organization'
     ATS_USE_GITHUB_INFRASTRUCTURE: ClassVar[str] = r'ats_use_github_infrastructure'
     ATS_LOGO_PATH: ClassVar[str] = r'ats_logo_path'
+    ATS_LOG_FILE: ClassVar[str] = r'ats_log_file'
 
     @classmethod
     def get_keys(cls) -> tuple[str, ...]:
@@ -83,7 +85,8 @@ class InfoKeys:
             cls.ATS_REPOSITORY,
             cls.ATS_ORGANIZATION,
             cls.ATS_USE_GITHUB_INFRASTRUCTURE,
-            cls.ATS_LOGO_PATH
+            cls.ATS_LOGO_PATH,
+            cls.ATS_LOG_FILE
         )
 
     @classmethod
@@ -103,5 +106,6 @@ class InfoKeys:
             cls.ATS_REPOSITORY: r'repository',
             cls.ATS_ORGANIZATION: r'organization',
             cls.ATS_USE_GITHUB_INFRASTRUCTURE: r'use_github',
-            cls.ATS_LOGO_PATH: r'logo'
+            cls.ATS_LOGO_PATH: r'logo',
+            cls.ATS_LOG_FILE: r'log_file'
         })

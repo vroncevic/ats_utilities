@@ -89,7 +89,7 @@ def require_keys(
         :param exception_class: The exception class to raise if value is None.
         :type exception_class: <type[Exception]> (default ATSValueError)
         :exceptions:
-            | ATSTypeError: Parameter type validation failed.
+            | ATSTypeError: Parameters (source and keys) types validation failed.
             | Dynamically raises the provided exception_class (e.g., ATSValueError).
     '''
     check_type(source, Mapping, exc_message)

@@ -16,7 +16,8 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Factory universally injects instances, gets private instances and setup instance string representation.
+    Factory universally injects instances, gets private instances
+    and setup instance string representation.
     Encapsulates core utilities to minimize constructor overhead.
     Provides a simple factory mechanism for dependency injection.
 '''
@@ -27,7 +28,6 @@ from typing import Any
 from collections.abc import Callable
 from functools import wraps
 
-from ats_utilities.exceptions import ATSValueError
 from ats_utilities.factory_context_error import raise_context_error
 
 __author__ = r'Vladimir Roncevic'
@@ -138,8 +138,7 @@ def has_attrs(*attr_names: str) -> Callable[[Callable[..., Any]], Callable[..., 
                     raise_context_error(
                         fallback_prefix=context,
                         fallback_msg=f'missing or empty attribute {attr}',
-                        exc_message=None,
-                        exception_class=ATSValueError
+                        exc_message=None
                     )
 
             return func(self, *args, **kwargs)
@@ -182,9 +181,9 @@ def to_str(instance: Any) -> str:
 
         if f'at {v_id_hex}' not in val_str:
             if isinstance(v, (str, int, float, bool)):
-                val_str = f"'{val_str}' at {v_id_hex}" if isinstance(v, str) else f"{val_str} at {v_id_hex}"
+                val_str = f'{val_str} at {v_id_hex}' if isinstance(v, str) else f'{val_str} at {v_id_hex}'
             else:
-                val_str = f"{val_str} at {v_id_hex}"
+                val_str = f'{val_str} at {v_id_hex}'
 
         formatted_lines.append(f'    {clean_key}={val_str}')
 

@@ -27,6 +27,7 @@ from typing import override
 from ats_utilities.info.use_github.iuse_github import IUseGitHub
 from ats_utilities.context_bundle import ContextBundle
 from ats_utilities.checker.ichecker import IChecker
+from ats_utilities.logger.ilogger import ILogger
 from ats_utilities.reporter.ireporter import IReporter
 from ats_utilities.factory_context_bundle import factory_context_bundle
 from ats_utilities.factory_class import to_str
@@ -53,6 +54,7 @@ class UseGitHub(IUseGitHub):
 
             :attributes:
                 | _checker - Injected parameters checker (default Checker).
+                | _logger - Injected logger (default Logger).
                 | _reporter - Injected reporter for messaging (default Reporter).
                 | _verbose - Injected Enable/Disable verbose option (default False).
                 | _use_github - The use GitHub infrastructure for App/Tool/Script (default False).
@@ -64,6 +66,7 @@ class UseGitHub(IUseGitHub):
     '''
 
     _checker: IChecker
+    _logger: ILogger
     _reporter: IReporter
     _verbose: bool
     _use_github: bool
@@ -101,12 +104,12 @@ class UseGitHub(IUseGitHub):
     @vreport('setting use_github {use_github}')
     @override
     def use_github(self, use_github: bool) -> None:
-         '''
-             Property method for setting use GitHub infrastructure.
-             Note: Use GitHub is only prepared when it is set by user (not None).
+        '''
+            Property method for setting use GitHub infrastructure.
+            Note: Use GitHub is only prepared when it is set by user (not None).
 
-             :param use_github: The use GitHub infrastructure.
-             :type use_github: <bool>
+            :param use_github: The use GitHub infrastructure.
+            :type use_github: <bool>
             :exceptions:
                 | ATSRuntimeError: Decorator cannot be used on a standalone function.
                 | ATSAttributeError: Class is required to provide a '_reporter' object to
@@ -115,8 +118,8 @@ class UseGitHub(IUseGitHub):
                 | ATSValueError: Parameter format validation failed.
                 | ATSRuntimeError: Decorator used on a non-class method.
                 | ATSAttributeError: Class does not provide a '_checker' object.
-         '''
-         self._use_github = use_github
+        '''
+        self._use_github = use_github
 
     @vreport('checking use_github {use_github}')
     @override

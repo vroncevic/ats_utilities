@@ -23,7 +23,7 @@ Info
 from __future__ import annotations
 
 from collections.abc import Mapping, Sequence
-from dataclasses import dataclass, asdict
+from dataclasses import dataclass
 from typing import Any
 
 from ats_utilities.factory_value import require_not_none
@@ -113,8 +113,10 @@ class TarProcessBundle:
             :param other: Another TarProcessBundle to merge into this one.
             :type other: <TarProcessBundle>
             :exceptions:
+                | ATSValueError: Other TarProcessBundle must be provided.
                 | ATSTypeError: Other must be a TarProcessBundle.
         '''
+        require_not_none(other, r'other TarProcessBundle must be provided')
         check_type(other, TarProcessBundle, r'other must be a TarProcessBundle.')
 
         for field_name in self.__dataclass_fields__:
@@ -133,4 +135,4 @@ class TarProcessBundle:
             :rtype: <dict[str, Any]>
             :exceptions: None.
         '''
-        return asdict(self)
+        return {name: getattr(self, name) for name in self.__slots__}

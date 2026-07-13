@@ -22,10 +22,10 @@ Info
 
 from __future__ import annotations
 
-from dataclasses import dataclass, asdict
+from dataclasses import dataclass
 from typing import Any
 
-from ats_utilities.factory_value import require_not_empty
+from ats_utilities.factory_value import require_not_empty, require_not_none
 from ats_utilities.factory_type import check_type
 
 __author__ = r'Vladimir Roncevic'
@@ -91,8 +91,10 @@ class FileBundle:
             :param other: Another FileBundle instance to merge into this one.
             :type other: <FileBundle>
             :exceptions:
+                | ATSValueError: Other FileBundle must be provided.
                 | ATSTypeError: Other must be a FileBundle instance.
         '''
+        require_not_none(other, r'other FileBundle must be provided')
         check_type(other, FileBundle, r'other must be a FileBundle instance')
 
         for field_name in self.__dataclass_fields__:
@@ -111,4 +113,4 @@ class FileBundle:
             :rtype: <dict[str, Any]>
             :exceptions: None.
         '''
-        return asdict(self)
+        return {name: getattr(self, name) for name in self.__slots__}

@@ -41,7 +41,7 @@ def get_caller_context(depth: int = 1) -> str:
 
         :param depth: Stack depth to inspect (1 for direct caller).
         :type depth: <int>
-        :return: Context representation.
+        :return: Context representation in string format.
         :rtype: <str>
         :exceptions: None.
     '''

@@ -51,11 +51,11 @@ class IBase(ABC):
 
             :methods:
                 | get_shared_context - Returns the shared context.
-                | is_initialized - Checks if the base component is initialized.
-                | add_new_option - Adds a new option for the CL interface.
-                | parse_args - Parses the CLI arguments.
-                | process - Processes and runs tool operations.
-                | __str__ - Returns the ATS base as string representation.
+                | is_initialized - Checks if App/Tool/Script base engine is initialized.
+                | add_new_option - Adds a new option for App/Tool/Script.
+                | parse_args - Parses App/Tool/Script arguments.
+                | process - Processes and runs App/Tool/Script (Abstract).
+                | __str__ - Returns the App/Tool/Script base as string representation.
     '''
 
     @abstractmethod
@@ -72,9 +72,9 @@ class IBase(ABC):
     @abstractmethod
     def is_initialized(self) -> bool:
         '''
-            Checks if the base component is initialized.
+            Checks if App/Tool/Script base engine is initialized.
 
-            :return: True (success) | False (fail)
+            :return: <True> if successful else <False>.
             :rtype: <bool>
             :exceptions: None.
         '''
@@ -83,11 +83,11 @@ class IBase(ABC):
     @abstractmethod
     def add_new_option(self, *args: str, **kwargs: Any) -> None:
         '''
-            Adds a new option for the CL interface.
+            Adds a new option for App/Tool/Script.
 
-            :param args: Arguments in string form
+            :param args: Arguments in string format.
             :type args: <str>
-            :param kwargs: Arguments in Any form
+            :param kwargs: Arguments in Any format.
             :type kwargs: <Any>
             :exceptions: None.
         '''
@@ -96,9 +96,9 @@ class IBase(ABC):
     @abstractmethod
     def parse_args(self, argv: ArgSeq) -> OptionNamespace | None:
         '''
-            Parses the CLI arguments.
+            Parses App/Tool/Script arguments.
 
-            :param argv: Sequence of arguments | None
+            :param argv: Sequence of arguments.
             :type argv: <ArgSeq>
             :return: Options and arguments | None
             :rtype: <OptionNamespace | None>
@@ -109,11 +109,11 @@ class IBase(ABC):
     @abstractmethod
     def process(self, verbose: bool = False) -> bool:
         '''
-            Processes and runs tool operations.
+            Processes and runs App/Tool/Script (Abstract).
 
-            :param verbose: Enable/Disable verbose option (default False)
+            :param verbose: Enable/Disable verbose option (default False).
             :type verbose: <bool>
-            :return: True (success) | False (fail)
+            :return: <True> if successful else <False>.
             :rtype: <bool>
             :exceptions: None.
         '''
@@ -122,9 +122,9 @@ class IBase(ABC):
     @abstractmethod
     def __str__(self) -> str:
         '''
-            Returns the ATS base as string representation.
+            Returns the App/Tool/Script base as string representation.
 
-            :return: The ATS base as string representation.
+            :return: The App/Tool/Script base as string representation.
             :rtype: <str>
             :exceptions: None.
         '''

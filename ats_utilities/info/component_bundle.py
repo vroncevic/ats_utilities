@@ -41,11 +41,13 @@ from ats_utilities.info.use_github.iuse_github import IUseGitHub
 from ats_utilities.info.use_github.engine import UseGitHub
 from ats_utilities.info.logo.ilogo import ILogo
 from ats_utilities.info.logo.engine import Logo
+from ats_utilities.info.log_file.ilog_file import ILogFile
+from ats_utilities.info.log_file.engine import LogFile
 from ats_utilities.info.info_ok.iinfo_ok import IInfoOk
 from ats_utilities.info.info_ok.engine import InfoOk
 from ats_utilities.context_bundle import ContextBundle
-from ats_utilities.factory_component import validate_component
-from ats_utilities.factory_value import require_not_empty
+from ats_utilities.factory_component import make_component, validate_component
+from ats_utilities.factory_value import require_not_empty, require_not_none
 from ats_utilities.factory_type import check_type
 
 __author__ = r'Vladimir Roncevic'
@@ -91,6 +93,7 @@ class InfoComponentBundle:
     organization: IOrganization | None = None
     use_github: IUseGitHub | None = None
     logo: ILogo | None = None
+    log_file: ILogFile | None = None
     info_ok: IInfoOk | None = None
     context_bundle: ContextBundle | None = None
 
@@ -112,41 +115,37 @@ class InfoComponentBundle:
         if self.context_bundle is None:
             self.context_bundle = ContextBundle()
 
-        if self.name is None:
-            self.name = Name(self.context_bundle)
-            validate_component(self.name, IName, r'name must be an IName instance')
+        args = {'context_bundle': self.context_bundle}
 
-        if self.version is None:
-            self.version = Version(self.context_bundle)
-            validate_component(self.version, IVersion, r'version must be an IVersion instance')
+        self.name = make_component(self.name, Name, args)
+        validate_component(self.name, IName, r'name must be an IName instance')
 
-        if self.licence is None:
-            self.licence = Licence(self.context_bundle)
-            validate_component(self.licence, ILicence, r'licence must be an ILicence instance')
+        self.version = make_component(self.version, Version, args)
+        validate_component(self.version, IVersion, r'version must be an IVersion instance')
 
-        if self.build_date is None:
-            self.build_date = BuildDate(self.context_bundle)
-            validate_component(self.build_date, IBuildDate, r'build_date must be an IBuildDate instance')
+        self.licence = make_component(self.licence, Licence, args)
+        validate_component(self.licence, ILicence, r'licence must be an ILicence instance')
 
-        if self.repository is None:
-            self.repository = Repository(self.context_bundle)
-            validate_component(self.repository, IRepository, r'repository must be an IRepository instance')
+        self.build_date = make_component(self.build_date, BuildDate, args)
+        validate_component(self.build_date, IBuildDate, r'build_date must be an IBuildDate instance')
 
-        if self.organization is None:
-            self.organization = Organization(self.context_bundle)
-            validate_component(self.organization, IOrganization, r'organization must be an IOrganization instance')
+        self.repository = make_component(self.repository, Repository, args)
+        validate_component(self.repository, IRepository, r'repository must be an IRepository instance')
 
-        if self.use_github is None:
-            self.use_github = UseGitHub(self.context_bundle)
-            validate_component(self.use_github, IUseGitHub, r'use_github must be an IUseGitHub instance')
+        self.organization = make_component(self.organization, Organization, args)
+        validate_component(self.organization, IOrganization, r'organization must be an IOrganization instance')
 
-        if self.logo is None:
-            self.logo = Logo(self.context_bundle)
-            validate_component(self.logo, ILogo, r'logo must be an ILogo instance')
+        self.use_github = make_component(self.use_github, UseGitHub, args)
+        validate_component(self.use_github, IUseGitHub, r'use_github must be an IUseGitHub instance')
 
-        if self.info_ok is None:
-            self.info_ok = InfoOk(self.context_bundle)
-            validate_component(self.info_ok, IInfoOk, r'info_ok must be an IInfoOk instance')
+        self.logo = make_component(self.logo, Logo, args)
+        validate_component(self.logo, ILogo, r'logo must be an ILogo instance')
+
+        self.log_file = make_component(self.log_file, LogFile, args)
+        validate_component(self.log_file, ILogFile, r'log_file must be an ILogFile instance')
+
+        self.info_ok = make_component(self.info_ok, InfoOk, args)
+        validate_component(self.info_ok, IInfoOk, r'info_ok must be an IInfoOk instance')
 
     def validate(self) -> None:
         '''
@@ -191,6 +190,7 @@ class InfoComponentBundle:
         require_not_empty(self.organization, r'organization must be provided')
         require_not_empty(self.use_github, r'use github must be provided')
         require_not_empty(self.logo, r'logo path must be provided')
+        require_not_empty(self.log_file, r'log file must be provided')
         require_not_empty(self.info_ok, r'info ok must be provided')
         check_type(self.name, IName, r'name must be an instance of IName interface')
         check_type(self.version, IVersion, r'version must be an instance of IVersion interface')
@@ -200,6 +200,7 @@ class InfoComponentBundle:
         check_type(self.organization, IOrganization, r'organization must be an instance of IOrganization interface')
         check_type(self.use_github, IUseGitHub, r'use github must be an instance of IUseGitHub interface')
         check_type(self.logo, ILogo, r'logo path must be an instance of ILogo interface')
+        check_type(self.log_file, ILogFile, r'log file must be an instance of ILogFile interface')
         check_type(self.info_ok, IInfoOk, r'info ok must be an instance of IInfoOk interface')
 
     def merge(self, other: InfoComponentBundle) -> None:
@@ -209,8 +210,10 @@ class InfoComponentBundle:
             :param other: Another InfoComponentBundle to merge into this one.
             :type other: <InfoComponentBundle>
             :exceptions:
+                | ATSValueError: Other InfoComponentBundle must be provided.
                 | ATSTypeError: Other must be an InfoComponentBundle instance.
         '''
+        require_not_none(other, r'other InfoComponentBundle must be provided')
         check_type(other, InfoComponentBundle, r'other must be an InfoComponentBundle instance')
 
         for field_name in self.__dataclass_fields__:

@@ -68,7 +68,7 @@ class IJSONProcessor(BaseIJSONProcessor):
 
     def __str__(self) -> str:
         '''Implementation of abstract method.'''
-        return ""
+        return ''
 
 
 

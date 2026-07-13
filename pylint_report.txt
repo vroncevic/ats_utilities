@@ -1,0 +1,3701 @@
+************* Module /data/dev/python/ats_utilities/github/ats_utilities/.pylintrc
+.pylintrc:1:0: E0015: Unrecognized option found: max-positional-arguments (unrecognized-option)
+************* Module ats_utilities.factory_class
+ats_utilities/factory_class.py:59:4: R1702: Too many nested blocks (6/5) (too-many-nested-blocks)
+ats_utilities/factory_class.py:137:54: C0121: Comparison 'value != False' should be 'value is not False' if checking for the singleton value False, or 'bool(value)' if testing for truthiness (singleton-comparison)
+************* Module ats_utilities.factory_value
+ats_utilities/factory_value.py:83:42: C0121: Comparison 'value != False' should be 'value is not False' if checking for the singleton value False, or 'bool(value)' if testing for truthiness (singleton-comparison)
+************* Module ats_utilities.context_bundle
+ats_utilities/context_bundle.py:135:26: E1101: Instance of 'ContextBundle' has no '__dataclass_fields__' member (no-member)
+ats_utilities/context_bundle.py:153:25: E1101: Instance of 'ContextBundle' has no '__dataclass_fields__' member (no-member)
+************* Module ats_utilities.factory_file_utils
+ats_utilities/factory_file_utils.py:28:0: W0622: Redefining built-in 'compile' (redefined-builtin)
+ats_utilities/factory_file_utils.py:165:4: R1705: Unnecessary "elif" after "return", remove the leading "el" from "elif" (no-else-return)
+ats_utilities/factory_file_utils.py:310:4: R1705: Unnecessary "elif" after "return", remove the leading "el" from "elif" (no-else-return)
+ats_utilities/factory_file_utils.py:449:28: W0640: Cell variable replacement_val defined in loop (cell-var-from-loop)
+ats_utilities/factory_file_utils.py:450:38: W0640: Cell variable var_name defined in loop (cell-var-from-loop)
+ats_utilities/factory_file_utils.py:450:56: W0640: Cell variable replacement_val defined in loop (cell-var-from-loop)
+ats_utilities/factory_file_utils.py:451:38: W0640: Cell variable var_name defined in loop (cell-var-from-loop)
+ats_utilities/factory_file_utils.py:451:56: W0640: Cell variable replacement_val defined in loop (cell-var-from-loop)
+ats_utilities/factory_file_utils.py:452:39: W0640: Cell variable var_name defined in loop (cell-var-from-loop)
+ats_utilities/factory_file_utils.py:452:58: W0640: Cell variable replacement_val defined in loop (cell-var-from-loop)
+************* Module ats_utilities.generator.generator_bundle
+ats_utilities/generator/generator_bundle.py:114:26: E1101: Instance of 'GeneratorBundle' has no '__dataclass_fields__' member (no-member)
+ats_utilities/generator/generator_bundle.py:130:54: E1101: Instance of 'GeneratorBundle' has no '__slots__' member (no-member)
+************* Module ats_utilities.generator.engine
+ats_utilities/generator/engine.py:225:0: C0305: Trailing newlines (trailing-newlines)
+ats_utilities/generator/engine.py:117:15: W0718: Catching too general exception Exception (broad-exception-caught)
+ats_utilities/generator/engine.py:197:15: W0718: Catching too general exception Exception (broad-exception-caught)
+ats_utilities/generator/engine.py:159:4: R1710: Either all return statements in a function should return an expression, or none of them should. (inconsistent-return-statements)
+************* Module ats_utilities.generator.component_bundle
+ats_utilities/generator/component_bundle.py:141:26: E1101: Instance of 'GeneratorComponentBundle' has no '__dataclass_fields__' member (no-member)
+ats_utilities/generator/component_bundle.py:159:25: E1101: Instance of 'GeneratorComponentBundle' has no '__dataclass_fields__' member (no-member)
+************* Module ats_utilities.generator.tar.tar_process_bundle
+ats_utilities/generator/tar/tar_process_bundle.py:122:26: E1101: Instance of 'TarProcessBundle' has no '__dataclass_fields__' member (no-member)
+ats_utilities/generator/tar/tar_process_bundle.py:138:54: E1101: Instance of 'TarProcessBundle' has no '__slots__' member (no-member)
+************* Module ats_utilities.generator.tar.tar_process_member_bundle
+ats_utilities/generator/tar/tar_process_member_bundle.py:108:26: E1101: Instance of 'TarProcessMemberBundle' has no '__dataclass_fields__' member (no-member)
+ats_utilities/generator/tar/tar_process_member_bundle.py:124:54: E1101: Instance of 'TarProcessMemberBundle' has no '__slots__' member (no-member)
+************* Module ats_utilities.generator.tar.tar_processor
+ats_utilities/generator/tar/tar_processor.py:27:0: W0622: Redefining built-in 'open' (redefined-builtin)
+ats_utilities/generator/tar/tar_processor.py:158:15: W0718: Catching too general exception Exception (broad-exception-caught)
+************* Module ats_utilities.generator.scheme.scheme_loader
+ats_utilities/generator/scheme/scheme_loader.py:118:19: W0718: Catching too general exception Exception (broad-exception-caught)
+************* Module ats_utilities.reporter.proxy_reporter
+ats_utilities/reporter/proxy_reporter.py:119:76: C0303: Trailing whitespace (trailing-whitespace)
+************* Module ats_utilities.reporter.engine
+ats_utilities/reporter/engine.py:101:15: W0718: Catching too general exception Exception (broad-exception-caught)
+************* Module ats_utilities.reporter.component_bundle
+ats_utilities/reporter/component_bundle.py:125:26: E1101: Instance of 'ReporterComponentBundle' has no '__dataclass_fields__' member (no-member)
+ats_utilities/reporter/component_bundle.py:143:25: E1101: Instance of 'ReporterComponentBundle' has no '__dataclass_fields__' member (no-member)
+************* Module ats_utilities.reporter.theme.engine
+ats_utilities/reporter/theme/engine.py:67:4: C0103: Class constant name "_palette" doesn't conform to UPPER_CASE naming style (invalid-name)
+************* Module ats_utilities.base.engine
+ats_utilities/base/engine.py:129:15: W0718: Catching too general exception Exception (broad-exception-caught)
+************* Module ats_utilities.base.component_bundle
+ats_utilities/base/component_bundle.py:111:19: W0718: Catching too general exception Exception (broad-exception-caught)
+ats_utilities/base/component_bundle.py:242:26: E1101: Instance of 'BaseComponentBundle' has no '__dataclass_fields__' member (no-member)
+ats_utilities/base/component_bundle.py:255:19: W0718: Catching too general exception Exception (broad-exception-caught)
+ats_utilities/base/component_bundle.py:270:25: E1101: Instance of 'BaseComponentBundle' has no '__dataclass_fields__' member (no-member)
+ats_utilities/base/component_bundle.py:26:0: W0611: Unused environ imported from os (unused-import)
+************* Module ats_utilities.exceptions.__init__
+ats_utilities/exceptions/__init__.py:58:0: C0305: Trailing newlines (trailing-newlines)
+************* Module ats_utilities.option.engine
+ats_utilities/option/engine.py:97:11: C0303: Trailing whitespace (trailing-whitespace)
+ats_utilities/option/engine.py:109:0: C0303: Trailing whitespace (trailing-whitespace)
+ats_utilities/option/engine.py:113:15: W0718: Catching too general exception Exception (broad-exception-caught)
+************* Module ats_utilities.option.component_bundle
+ats_utilities/option/component_bundle.py:117:26: E1101: Instance of 'OptionComponentBundle' has no '__dataclass_fields__' member (no-member)
+ats_utilities/option/component_bundle.py:135:25: E1101: Instance of 'OptionComponentBundle' has no '__dataclass_fields__' member (no-member)
+************* Module ats_utilities.option.strategy.parser_strategy
+ats_utilities/option/strategy/parser_strategy.py:244:15: R1719: The if expression can be replaced with 'test' (simplifiable-if-expression)
+************* Module ats_utilities.option.command.command_option
+ats_utilities/option/command/command_option.py:127:26: E1101: Instance of 'CommandOption' has no '__dataclass_fields__' member (no-member)
+ats_utilities/option/command/command_option.py:147:25: E1101: Instance of 'CommandOption' has no '__dataclass_fields__' member (no-member)
+************* Module ats_utilities.config_setup.component_bundle
+ats_utilities/config_setup/component_bundle.py:110:26: E1101: Instance of 'ConfigSetupComponentBundle' has no '__dataclass_fields__' member (no-member)
+ats_utilities/config_setup/component_bundle.py:126:54: E1101: Instance of 'ConfigSetupComponentBundle' has no '__slots__' member (no-member)
+************* Module ats_utilities.config_io.file_bundle
+ats_utilities/config_io/file_bundle.py:100:26: E1101: Instance of 'FileBundle' has no '__dataclass_fields__' member (no-member)
+ats_utilities/config_io/file_bundle.py:116:54: E1101: Instance of 'FileBundle' has no '__slots__' member (no-member)
+************* Module ats_utilities.config_io.config_loader_bundle
+ats_utilities/config_io/config_loader_bundle.py:110:26: E1101: Instance of 'ConfigLoaderBundle' has no '__dataclass_fields__' member (no-member)
+ats_utilities/config_io/config_loader_bundle.py:126:54: E1101: Instance of 'ConfigLoaderBundle' has no '__slots__' member (no-member)
+************* Module ats_utilities.config_io.conf_file
+ats_utilities/config_io/conf_file.py:42:0: W0611: Unused require_not_none imported from ats_utilities.factory_value (unused-import)
+************* Module ats_utilities.config_io.config_file_bundle
+ats_utilities/config_io/config_file_bundle.py:94:26: E1101: Instance of 'ConfigFileBundle' has no '__dataclass_fields__' member (no-member)
+ats_utilities/config_io/config_file_bundle.py:112:25: E1101: Instance of 'ConfigFileBundle' has no '__dataclass_fields__' member (no-member)
+************* Module ats_utilities.config_io.yaml.yaml_storer
+ats_utilities/config_io/yaml/yaml_storer.py:26:0: C0411: standard import "from typing import override" should be placed before "from yaml import dump, YAMLError" (wrong-import-order)
+************* Module ats_utilities.splasher.engine
+ats_utilities/splasher/engine.py:161:15: W0718: Catching too general exception Exception (broad-exception-caught)
+ats_utilities/splasher/engine.py:102:16: R1705: Unnecessary "else" after "return", remove the "else" and de-indent the code inside it (no-else-return)
+************* Module ats_utilities.splasher.splash_center_bundle
+ats_utilities/splasher/splash_center_bundle.py:75:8: R1731: Consider using 'columns = max(columns, 0)' instead of unnecessary if block (consider-using-max-builtin)
+ats_utilities/splasher/splash_center_bundle.py:80:8: R1731: Consider using 'additional_shifter = max(additional_shifter, 0)' instead of unnecessary if block (consider-using-max-builtin)
+ats_utilities/splasher/splash_center_bundle.py:122:26: E1101: Instance of 'SplashCenterBundle' has no '__dataclass_fields__' member (no-member)
+ats_utilities/splasher/splash_center_bundle.py:140:25: E1101: Instance of 'SplashCenterBundle' has no '__dataclass_fields__' member (no-member)
+************* Module ats_utilities.splasher.component_bundle
+ats_utilities/splasher/component_bundle.py:192:26: E1101: Instance of 'SplashComponentBundle' has no '__dataclass_fields__' member (no-member)
+ats_utilities/splasher/component_bundle.py:210:25: E1101: Instance of 'SplashComponentBundle' has no '__dataclass_fields__' member (no-member)
+************* Module ats_utilities.info.engine
+ats_utilities/info/engine.py:110:15: W0718: Catching too general exception Exception (broad-exception-caught)
+ats_utilities/info/engine.py:148:26: R1719: The if expression can be replaced with 'test' (simplifiable-if-expression)
+ats_utilities/info/engine.py:167:4: R1710: Either all return statements in a function should return an expression, or none of them should. (inconsistent-return-statements)
+************* Module ats_utilities.info.component_bundle
+ats_utilities/info/component_bundle.py:219:26: E1101: Instance of 'InfoComponentBundle' has no '__dataclass_fields__' member (no-member)
+ats_utilities/info/component_bundle.py:237:25: E1101: Instance of 'InfoComponentBundle' has no '__dataclass_fields__' member (no-member)
+************* Module ats_utilities.info.use_github.engine
+ats_utilities/info/use_github/engine.py:107:0: W0311: Bad indentation. Found 9 spaces, expected 8 (bad-indentation)
+ats_utilities/info/use_github/engine.py:122:0: W0311: Bad indentation. Found 9 spaces, expected 8 (bad-indentation)
+************* Module ats_utilities.logger.engine
+ats_utilities/logger/engine.py:141:0: C0303: Trailing whitespace (trailing-whitespace)
+ats_utilities/logger/engine.py:144:0: C0303: Trailing whitespace (trailing-whitespace)
+ats_utilities/logger/engine.py:29:0: W0622: Redefining built-in 'compile' (redefined-builtin)
+ats_utilities/logger/engine.py:26:0: W0611: Unused basicConfig imported from logging (unused-import)
+************* Module ats_utilities.logger.component_bundle
+ats_utilities/logger/component_bundle.py:75:12: C0415: Import outside toplevel (logging.getLogger, logging.basicConfig, logging.INFO) (import-outside-toplevel)
+ats_utilities/logger/component_bundle.py:132:26: E1101: Instance of 'LoggerComponentBundle' has no '__dataclass_fields__' member (no-member)
+ats_utilities/logger/component_bundle.py:150:25: E1101: Instance of 'LoggerComponentBundle' has no '__dataclass_fields__' member (no-member)
+************* Module ats_utilities.checker.proxy_validator
+ats_utilities/checker/proxy_validator.py:159:0: C0303: Trailing whitespace (trailing-whitespace)
+************* Module ats_utilities.checker.engine
+ats_utilities/checker/engine.py:101:15: W0718: Catching too general exception Exception (broad-exception-caught)
+************* Module ats_utilities.checker.component_bundle
+ats_utilities/checker/component_bundle.py:160:0: C0305: Trailing newlines (trailing-newlines)
+ats_utilities/checker/component_bundle.py:140:26: E1101: Instance of 'CheckerComponentBundle' has no '__dataclass_fields__' member (no-member)
+ats_utilities/checker/component_bundle.py:158:25: E1101: Instance of 'CheckerComponentBundle' has no '__dataclass_fields__' member (no-member)
+************* Module ats_utilities.checker.reporter.checker_reporter_bundle
+ats_utilities/checker/reporter/checker_reporter_bundle.py:118:26: E1101: Instance of 'CheckerReporterBundle' has no '__dataclass_fields__' member (no-member)
+ats_utilities/checker/reporter/checker_reporter_bundle.py:134:54: E1101: Instance of 'CheckerReporterBundle' has no '__slots__' member (no-member)
+************* Module ats_utilities.checker.context.icontext_provider
+ats_utilities/checker/context/icontext_provider.py:82:0: C0305: Trailing newlines (trailing-newlines)
+************* Module ats_utilities.checker.format.iformat_validator
+ats_utilities/checker/format/iformat_validator.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.config_io.json.object2json:[79:142]
+==ats_utilities.config_io.xml.object2xml:[79:142]
+    _MODE: str = 'w'
+    _checker: IChecker
+    _logger: ILogger
+    _reporter: IReporter
+    _verbose: bool
+    _config_file_bundle: ConfigFileBundle
+    _file_checker: IFileCheck
+    _file_path: str
+    _file_bundle_shared: FileBundle
+
+    def __init__(
+        self,
+        config_file: str | None,
+        config_bundle: ConfigFileBundle | None = None
+    ) -> None:
+        '''
+            Initializes Object2Xml constructor.
+
+            :param config_file: Configuration file path in string format | None.
+            :type config_file: <str | None>
+            :param config_bundle: Configuration file bundle parameters | None.
+            :type config_bundle: <ConfigFileBundle | None>
+            :exceptions:
+                | ATSTypeError: Invalid type in constructor arguments.
+        '''
+        self._config_file_bundle = config_bundle or ConfigFileBundle()
+        factory_context_bundle(self, self._config_file_bundle.context)
+        self._file_checker = make_component(
+            self._config_file_bundle.file_checker, FileCheck,
+            {'config_bundle': ContextBundle(checker=self._checker, reporter=self._reporter, verbose=self._verbose)}
+        )
+        validate_component(self._file_checker, IFileCheck, r'file_checker must be an IFileCheck instance')
+        self._file_path = str(config_file)
+        self._file_bundle_shared = FileBundle()
+        self._file_bundle_shared.file_path = self._file_path
+        self._file_bundle_shared.file_mode = self._MODE
+        self._file_bundle_shared.file_format = self._EXT
+
+    @vcheck([('IXMLProcessor | None:config', None)])
+    @vreport('write configuration to file {file_path}')
+    @override
+    def write_configuration(self, config: IXMLProcessor | None) -> bool:
+        '''
+            Writes configuration to an XML file.
+
+            :param config: Configuration object | None.
+            :type config: <IXMLProcessor | None>
+            :return: True (success) | False (fail).
+            :rtype: <bool>
+            :exceptions:
+                | ATSRuntimeError: Decorator cannot be used on a standalone function.
+                | ATSAttributeError: Class is required to provide a '_reporter' object to
+                |                    use the @vreport decorator.
+                | ATSTypeError: Parameter type validation failed.
+                | ATSValueError: Parameter format validation failed.
+                | ATSRuntimeError: Decorator used on a non-class method.
+                | ATSAttributeError: Class does not provide a '_checker' object.
+        '''
+        status: bool = False
+
+        if not bool(config):
+            return status
+ (duplicate-code)
+ats_utilities/checker/format/iformat_validator.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.config_io.cfg.object2cfg:[79:142]
+==ats_utilities.config_io.yaml.object2yaml:[79:141]
+    _MODE: str = 'w'
+    _checker: IChecker
+    _logger: ILogger
+    _reporter: IReporter
+    _verbose: bool
+    _config_file_bundle: ConfigFileBundle
+    _file_checker: IFileCheck
+    _file_path: str
+    _file_bundle_shared: FileBundle
+
+    def __init__(
+        self,
+        config_file: str | None,
+        config_bundle: ConfigFileBundle | None = None
+    ) -> None:
+        '''
+            Initializes Object2Cfg constructor.
+
+            :param config_file: Configuration file path in string format | None.
+            :type config_file: <str | None>
+            :param config_bundle: Configuration file bundle parameters | None.
+            :type config_bundle: <ConfigFileBundle | None>
+            :exceptions:
+                | ATSTypeError: Invalid type in constructor arguments.
+        '''
+        self._config_file_bundle = config_bundle or ConfigFileBundle()
+        factory_context_bundle(self, self._config_file_bundle.context)
+        self._file_checker = make_component(
+            self._config_file_bundle.file_checker, FileCheck,
+            {'config_bundle': ContextBundle(checker=self._checker, reporter=self._reporter, verbose=self._verbose)}
+        )
+        validate_component(self._file_checker, IFileCheck, r'file_checker must be an IFileCheck instance')
+        self._file_path = str(config_file)
+        self._file_bundle_shared = FileBundle()
+        self._file_bundle_shared.file_path = self._file_path
+        self._file_bundle_shared.file_mode = self._MODE
+        self._file_bundle_shared.file_format = self._EXT
+
+    @vcheck([('ICFGProcessor | None:config', None)])
+    @vreport('write configuration to file {file_path}')
+    @override
+    def write_configuration(self, config: ICFGProcessor | None) -> bool:
+        '''
+            Writes a configuration to a CFG file.
+
+            :param config: Configuration object | None.
+            :type config: <ICFGProcessor | None>
+            :return: True (success) | False (fail).
+            :rtype: <bool>
+            :exceptions:
+                | ATSRuntimeError: Decorator cannot be used on a standalone function.
+                | ATSAttributeError: Class is required to provide a '_reporter' object to
+                |                    use the @vreport decorator.
+                | ATSTypeError: Parameter type validation failed.
+                | ATSValueError: Parameter format validation failed.
+                | ATSRuntimeError: Decorator used on a non-class method.
+                | ATSAttributeError: Class does not provide a '_checker' object.
+        '''
+        status: bool = False
+
+        if not bool(config):
+            return status
+ (duplicate-code)
+ats_utilities/checker/format/iformat_validator.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.splasher.external.ext_infrastructure:[77:153]
+==ats_utilities.splasher.external.github_infrastructure:[74:150]
+    _checker: IChecker
+    _logger: ILogger
+    _reporter: IReporter
+    _verbose: bool
+    _infrastructure_property: Mapping[str, Any] | None
+
+    def __init__(self, context_bundle: ContextBundle | None = None) -> None:
+        '''
+            Initials ExtInfrastructure constructor.
+
+            :param context_bundle: Context bundle for external infrastructure | None.
+            :type context_bundle: <ContextBundle | None>
+            :exceptions: None.
+        '''
+        factory_context_bundle(self, context_bundle)
+        self._infrastructure_property = None
+
+    @property
+    @vreport('getting infrastructure property {infrastructure_property}')
+    @override
+    def infrastructure_property(self) -> Mapping[str, Any]:
+        '''
+            Property method for getting infrastructure property.
+            Note: Splash screen infrastructure comes from info configuration file as read only data.
+
+            :return: Formatted infrastructure property in Mapping format (read only data).
+            :rtype: <Mapping[str, Any]>
+            :exceptions:
+                | ATSRuntimeError: Decorator cannot be used on a standalone function.
+                | ATSAttributeError: Class is required to provide a '_reporter' object to
+                |                    use the @vreport decorator.
+        '''
+        return self._infrastructure_property or {}
+
+    @infrastructure_property.setter
+    @vcheck([('Mapping:setup', None)])
+    @vreport('setting infrastructure property {infrastructure_property}')
+    @override
+    def infrastructure_property(self, setup: Mapping[str, Any]) -> None:
+        '''
+            Property method for setting project infrastructure property.
+            Note: Splash screen infrastructure comes from info configuration file as read only data.
+
+            :param setup: Project infrastructure property in Mapping format (read only data).
+            :type setup: <Mapping[str, Any]>
+            :exceptions:
+                | ATSTypeError: infrastructure property setup is not a Mapping.
+                | ATSValueError: infrastructure property setup is missing required keys.
+                | ATSRuntimeError: Decorator cannot be used on a standalone function.
+                | ATSAttributeError: Class is required to provide a '_reporter' object to
+                |                    use the @vreport decorator.
+                | ATSTypeError: Parameter type validation failed.
+                | ATSValueError: Parameter format validation failed.
+                | ATSRuntimeError: Decorator used on a non-class method.
+                | ATSAttributeError: Class does not provide a '_checker' object.
+        '''
+        require_keys(setup, self._REQUIRED_KEYS)
+        self._infrastructure_property = cherry_pick_dict(setup, self._REQUIRED_KEYS)
+
+    @vreport('getting info text {infrastructure_property}')
+    @has_attrs('_infrastructure_property')
+    @override
+    def get_info_text(self) -> str:
+        '''
+            Pre-processes info text for splash.
+            Note: Splash screen infrastructure comes from info configuration file as read only data.
+
+            :return: Hyperlink with info text.
+            :rtype: <str>
+            :exceptions:
+                | ATSValueError: Missing or empty attribute: '_infrastructure_property'.
+                | ATSValueError: Target property name value is missing or empty.
+                | ATSRuntimeError: Decorator cannot be used on a standalone function.
+                | ATSAttributeError: Class is required to provide a '_reporter' object to
+                |                    use the @vreport decorator.
+        ''' (duplicate-code)
+ats_utilities/checker/format/iformat_validator.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.config_io.ini.object2ini:[86:111]
+==ats_utilities.config_io.xml.xml2object:[88:116]
+    _file_path: str
+    _file_bundle_shared: FileBundle
+
+    def __init__(
+        self,
+        config_file: str | None,
+        config_bundle: ConfigFileBundle | None = None,
+        xml_processor: IXMLProcessor | None = None
+    ) -> None:
+        '''
+            Initializes Xml2Object constructor.
+
+            :param config_file: Configuration file path in string format | None.
+            :type config_file: <str | None>
+            :param config_bundle: Configuration file bundle parameters | None.
+            :type config_bundle: <ConfigFileBundle | None>
+            :param xml_processor: Processor for XML content | None.
+            :type xml_processor: <IXMLProcessor | None>
+            :exceptions:
+                | ATSTypeError: Invalid type in constructor arguments.
+        '''
+        self._config_file_bundle = config_bundle or ConfigFileBundle()
+        factory_context_bundle(self, self._config_file_bundle.context)
+        self._file_checker = make_component(
+            self._config_file_bundle.file_checker, FileCheck,
+            {'config_bundle': ContextBundle(checker=self._checker, reporter=self._reporter, verbose=self._verbose)}
+        )
+        validate_component(self._file_checker, IFileCheck, r'file_checker must be an IFileCheck instance') (duplicate-code)
+ats_utilities/checker/format/iformat_validator.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.checker.component_bundle:[139:159]
+==ats_utilities.config_io.config_file_bundle:[93:113]
+        for field_name in self.__dataclass_fields__:
+            other_value: Any = getattr(other, field_name)
+
+            if other_value is not None:
+                setattr(self, field_name, other_value)
+
+        self.validate()
+
+    def to_dict(self) -> dict[str, Any]:
+        '''
+            Converts the CheckerComponentBundle instance to a dictionary.
+
+            :return: Dictionary representation of the CheckerComponentBundle instance.
+            :rtype: <dict[str, Any]>
+            :exceptions: None.
+        '''
+        return {
+            field: getattr(self, field)
+            for field in self.__dataclass_fields__
+        } (duplicate-code)
+ats_utilities/checker/format/iformat_validator.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.checker.component_bundle:[40:51]
+==ats_utilities.config_io.config_file_bundle:[32:43]
+__author__ = r'Vladimir Roncevic'
+__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
+__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = r'3.4.2'
+__maintainer__ = r'Vladimir Roncevic'
+__email__ = r'elektron.ronca@gmail.com'
+__status__ = r'Development'
+
+
+@dataclass(slots=True, kw_only=True) (duplicate-code)
+ats_utilities/checker/format/iformat_validator.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.generator.component_bundle:[140:160]
+==ats_utilities.option.component_bundle:[116:136]
+        for field_name in self.__dataclass_fields__:
+            other_value: Any = getattr(other, field_name)
+
+            if other_value is not None:
+                setattr(self, field_name, other_value)
+
+        self.validate()
+
+    def to_dict(self) -> dict[str, Any]:
+        '''
+            Converts the bundle OptionComponentBundle instance to a dictionary.
+
+            :return: Dictionary representation of the OptionComponentBundle instance.
+            :rtype: <dict[str, Any]>
+            :exceptions: None.
+        '''
+        return {
+            field: getattr(self, field)
+            for field in self.__dataclass_fields__
+        } (duplicate-code)
+ats_utilities/checker/format/iformat_validator.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.generator.component_bundle:[38:49]
+==ats_utilities.option.component_bundle:[35:46]
+__author__ = r'Vladimir Roncevic'
+__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
+__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = r'3.4.2'
+__maintainer__ = r'Vladimir Roncevic'
+__email__ = r'elektron.ronca@gmail.com'
+__status__ = r'Development'
+
+
+@dataclass(slots=True, kw_only=True) (duplicate-code)
+ats_utilities/checker/format/iformat_validator.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.generator.generator_bundle:[31:42]
+==ats_utilities.reporter.component_bundle:[37:48]
+__author__ = r'Vladimir Roncevic'
+__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
+__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = r'3.4.2'
+__maintainer__ = r'Vladimir Roncevic'
+__email__ = r'elektron.ronca@gmail.com'
+__status__ = r'Development'
+
+
+@dataclass(slots=True, kw_only=True) (duplicate-code)
+ats_utilities/checker/format/iformat_validator.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.info.component_bundle:[218:238]
+==ats_utilities.reporter.component_bundle:[124:144]
+        for field_name in self.__dataclass_fields__:
+            other_value: Any = getattr(other, field_name)
+
+            if other_value is not None:
+                setattr(self, field_name, other_value)
+
+        self.validate()
+
+    def to_dict(self) -> dict[str, Any]:
+        '''
+            Converts the ReporterComponentBundle instance to a dictionary.
+
+            :return: Dictionary representation of the ReporterComponentBundle instance.
+            :rtype: <dict[str, Any]>
+            :exceptions: None.
+        '''
+        return {
+            field: getattr(self, field)
+            for field in self.__dataclass_fields__
+        } (duplicate-code)
+ats_utilities/checker/format/iformat_validator.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.config_io.json.json2object:[88:116]
+==ats_utilities.config_io.json.object2json:[86:111]
+    _file_path: str
+    _file_bundle_shared: FileBundle
+
+    def __init__(
+        self,
+        config_file: str | None,
+        config_bundle: ConfigFileBundle | None = None
+    ) -> None:
+        '''
+            Initializes Object2Json constructor.
+
+            :param config_file: Configuration file path in string format | None.
+            :type config_file: <str | None>
+            :param config_bundle: Configuration file bundle parameters | None.
+            :type config_bundle: <ConfigFileBundle | None>
+            :exceptions:
+                | ATSTypeError: Invalid type in constructor arguments.
+        '''
+        self._config_file_bundle = config_bundle or ConfigFileBundle()
+        factory_context_bundle(self, self._config_file_bundle.context)
+        self._file_checker = make_component(
+            self._config_file_bundle.file_checker, FileCheck,
+            {'config_bundle': ContextBundle(checker=self._checker, reporter=self._reporter, verbose=self._verbose)}
+        )
+        validate_component(self._file_checker, IFileCheck, r'file_checker must be an IFileCheck instance') (duplicate-code)
+ats_utilities/checker/format/iformat_validator.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.context_bundle:[40:51]
+==ats_utilities.info.component_bundle:[52:63]
+__author__ = r'Vladimir Roncevic'
+__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
+__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = r'3.4.2'
+__maintainer__ = r'Vladimir Roncevic'
+__email__ = r'elektron.ronca@gmail.com'
+__status__ = r'Development'
+
+
+@dataclass(slots=True, kw_only=True) (duplicate-code)
+ats_utilities/checker/format/iformat_validator.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.info.info_keys:[28:39]
+==ats_utilities.splasher.splash_keys:[28:39]
+__author__ = r'Vladimir Roncevic'
+__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
+__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = r'3.4.2'
+__maintainer__ = r'Vladimir Roncevic'
+__email__ = r'elektron.ronca@gmail.com'
+__status__ = r'Development'
+
+
+@dataclass(frozen=True, slots=True, kw_only=True) (duplicate-code)
+ats_utilities/checker/format/iformat_validator.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.context_bundle:[134:154]
+==ats_utilities.splasher.splash_center_bundle:[121:141]
+        for field_name in self.__dataclass_fields__:
+            other_value: Any = getattr(other, field_name)
+
+            if other_value is not None:
+                setattr(self, field_name, other_value)
+
+        self.validate()
+
+    def to_dict(self) -> dict[str, Any]:
+        '''
+            Converts the ContextBundle instance to a dictionary.
+
+            :return: Dictionary representation of the ContextBundle.
+            :rtype: <dict[str, Any]>
+            :exceptions: None.
+        '''
+        return {
+            field: getattr(self, field)
+            for field in self.__dataclass_fields__
+        } (duplicate-code)
+ats_utilities/checker/format/iformat_validator.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.config_io.config_loader_bundle:[33:44]
+==ats_utilities.splasher.splash_center_bundle:[29:40]
+__author__ = r'Vladimir Roncevic'
+__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
+__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = r'3.4.2'
+__maintainer__ = r'Vladimir Roncevic'
+__email__ = r'elektron.ronca@gmail.com'
+__status__ = r'Development'
+
+
+@dataclass(slots=True, kw_only=True) (duplicate-code)
+ats_utilities/checker/format/iformat_validator.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.base.component_bundle:[52:63]
+==ats_utilities.generator.tar.tar_process_bundle:[31:42]
+__author__ = r'Vladimir Roncevic'
+__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
+__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = r'3.4.2'
+__maintainer__ = r'Vladimir Roncevic'
+__email__ = r'elektron.ronca@gmail.com'
+__status__ = r'Development'
+
+
+@dataclass(slots=True, kw_only=True) (duplicate-code)
+ats_utilities/checker/format/iformat_validator.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.config_io.ini.ini2object:[88:116]
+==ats_utilities.config_io.xml.object2xml:[86:111]
+    _file_path: str
+    _file_bundle_shared: FileBundle
+
+    def __init__(
+        self,
+        config_file: str | None,
+        config_bundle: ConfigFileBundle | None = None
+    ) -> None:
+        '''
+            Initializes Object2Xml constructor.
+
+            :param config_file: Configuration file path in string format | None.
+            :type config_file: <str | None>
+            :param config_bundle: Configuration file bundle parameters | None.
+            :type config_bundle: <ConfigFileBundle | None>
+            :exceptions:
+                | ATSTypeError: Invalid type in constructor arguments.
+        '''
+        self._config_file_bundle = config_bundle or ConfigFileBundle()
+        factory_context_bundle(self, self._config_file_bundle.context)
+        self._file_checker = make_component(
+            self._config_file_bundle.file_checker, FileCheck,
+            {'config_bundle': ContextBundle(checker=self._checker, reporter=self._reporter, verbose=self._verbose)}
+        )
+        validate_component(self._file_checker, IFileCheck, r'file_checker must be an IFileCheck instance') (duplicate-code)
+ats_utilities/checker/format/iformat_validator.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.config_io.yaml.object2yaml:[86:110]
+==ats_utilities.config_io.yaml.yaml2object:[88:116]
+    _file_path: str
+    _file_bundle_shared: FileBundle
+
+    def __init__(
+        self,
+        config_file: str | None,
+        config_bundle: ConfigFileBundle | None = None,
+        yaml_processor: IYAMLProcessor | None = None
+    ) -> None:
+        '''
+            Initializes Yaml2Object constructor.
+
+            :param config_file: Configuration file path in string format | None.
+            :type config_file: <str | None>
+            :param config_bundle: Configuration file bundle parameters | None.
+            :type config_bundle: <ConfigFileBundle | None>
+            :param yaml_processor: Processor for YAML content | None.
+            :type yaml_processor: <IYAMLProcessor | None>
+            :exceptions:
+                | ATSTypeError: Invalid type in constructor arguments.
+        '''
+        self._config_file_bundle = config_bundle or ConfigFileBundle()
+        factory_context_bundle(self, self._config_file_bundle.context)
+        self._file_checker = make_component(
+            self._config_file_bundle.file_checker, FileCheck,
+            {'config_bundle': ContextBundle(checker=self._checker, reporter=self._reporter, verbose=self._verbose)}
+        )
+        validate_component(self._file_checker, IFileCheck, r'file_checker must be an IFileCheck instance') (duplicate-code)
+ats_utilities/checker/format/iformat_validator.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.config_io.cfg.cfg2object:[88:116]
+==ats_utilities.config_io.cfg.object2cfg:[86:111]
+    _file_path: str
+    _file_bundle_shared: FileBundle
+
+    def __init__(
+        self,
+        config_file: str | None,
+        config_bundle: ConfigFileBundle | None = None
+    ) -> None:
+        '''
+            Initializes Object2Cfg constructor.
+
+            :param config_file: Configuration file path in string format | None.
+            :type config_file: <str | None>
+            :param config_bundle: Configuration file bundle parameters | None.
+            :type config_bundle: <ConfigFileBundle | None>
+            :exceptions:
+                | ATSTypeError: Invalid type in constructor arguments.
+        '''
+        self._config_file_bundle = config_bundle or ConfigFileBundle()
+        factory_context_bundle(self, self._config_file_bundle.context)
+        self._file_checker = make_component(
+            self._config_file_bundle.file_checker, FileCheck,
+            {'config_bundle': ContextBundle(checker=self._checker, reporter=self._reporter, verbose=self._verbose)}
+        )
+        validate_component(self._file_checker, IFileCheck, r'file_checker must be an IFileCheck instance') (duplicate-code)
+ats_utilities/checker/format/iformat_validator.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.logger.component_bundle:[131:151]
+==ats_utilities.splasher.component_bundle:[191:211]
+        for field_name in self.__dataclass_fields__:
+            other_value: Any = getattr(other, field_name)
+
+            if other_value is not None:
+                setattr(self, field_name, other_value)
+
+        self.validate()
+
+    def to_dict(self) -> dict[str, Any]:
+        '''
+            Converts the LoggerComponentBundle instance to a dictionary.
+
+            :return: Dictionary representation of the LoggerComponentBundle instance.
+            :rtype: <dict[str, Any]>
+            :exceptions: None.
+        '''
+        return {
+            field: getattr(self, field)
+            for field in self.__dataclass_fields__
+        } (duplicate-code)
+ats_utilities/checker/format/iformat_validator.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.logger.component_bundle:[31:42]
+==ats_utilities.splasher.component_bundle:[43:54]
+__author__ = r'Vladimir Roncevic'
+__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
+__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = r'3.4.2'
+__maintainer__ = r'Vladimir Roncevic'
+__email__ = r'elektron.ronca@gmail.com'
+__status__ = r'Development'
+
+
+@dataclass(slots=True, kw_only=True) (duplicate-code)
+ats_utilities/checker/format/iformat_validator.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.config_io.file_bundle:[30:41]
+==ats_utilities.config_setup.component_bundle:[34:45]
+__author__ = r'Vladimir Roncevic'
+__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
+__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = r'3.4.2'
+__maintainer__ = r'Vladimir Roncevic'
+__email__ = r'elektron.ronca@gmail.com'
+__status__ = r'Development'
+
+
+@dataclass(slots=True, kw_only=True) (duplicate-code)
+ats_utilities/checker/format/iformat_validator.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.config_io.file_check:[37:47]
+==ats_utilities.config_io.yaml.yaml_loader:[42:52]
+__author__ = r'Vladimir Roncevic'
+__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
+__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = r'3.4.2'
+__maintainer__ = r'Vladimir Roncevic'
+__email__ = r'elektron.ronca@gmail.com'
+__status__ = r'Development'
+
+ (duplicate-code)
+ats_utilities/checker/format/iformat_validator.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.generator.igenerator:[30:40]
+==ats_utilities.generator.tar.tar_process_member_bundle:[32:42]
+__author__ = r'Vladimir Roncevic'
+__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
+__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = r'3.4.2'
+__maintainer__ = r'Vladimir Roncevic'
+__email__ = r'elektron.ronca@gmail.com'
+__status__ = r'Development'
+
+ (duplicate-code)
+ats_utilities/checker/format/iformat_validator.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.checker.component_bundle:[40:50]
+==ats_utilities.info.engine:[40:50]
+__author__ = r'Vladimir Roncevic'
+__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
+__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = r'3.4.2'
+__maintainer__ = r'Vladimir Roncevic'
+__email__ = r'elektron.ronca@gmail.com'
+__status__ = r'Development'
+
+ (duplicate-code)
+ats_utilities/checker/format/iformat_validator.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.info.__init__:[23:31]
+==ats_utilities.splasher.terminal.__init__:[23:31]
+__author__ = r'Vladimir Roncevic'
+__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
+__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = r'3.4.2'
+__maintainer__ = r'Vladimir Roncevic'
+__email__ = r'elektron.ronca@gmail.com'
+__status__ = r'Development' (duplicate-code)
+ats_utilities/checker/format/iformat_validator.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.config_io.xml.xml2object:[43:53]
+==ats_utilities.splasher.external.iext_infrastructure:[28:38]
+__author__ = r'Vladimir Roncevic'
+__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
+__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = r'3.4.2'
+__maintainer__ = r'Vladimir Roncevic'
+__email__ = r'elektron.ronca@gmail.com'
+__status__ = r'Development'
+
+ (duplicate-code)
+ats_utilities/checker/format/iformat_validator.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.config_io.ini.object2ini:[43:53]
+==ats_utilities.config_io.json.object2json:[43:53]
+__author__ = r'Vladimir Roncevic'
+__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
+__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = r'3.4.2'
+__maintainer__ = r'Vladimir Roncevic'
+__email__ = r'elektron.ronca@gmail.com'
+__status__ = r'Development'
+
+ (duplicate-code)
+ats_utilities/checker/format/iformat_validator.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.config_io.config_file_bundle:[32:42]
+==ats_utilities.config_io.json.json_storer:[41:51]
+__author__ = r'Vladimir Roncevic'
+__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
+__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = r'3.4.2'
+__maintainer__ = r'Vladimir Roncevic'
+__email__ = r'elektron.ronca@gmail.com'
+__status__ = r'Development'
+
+ (duplicate-code)
+ats_utilities/checker/format/iformat_validator.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.option.component_bundle:[35:45]
+==ats_utilities.option.option_namespace:[27:37]
+__author__ = r'Vladimir Roncevic'
+__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
+__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = r'3.4.2'
+__maintainer__ = r'Vladimir Roncevic'
+__email__ = r'elektron.ronca@gmail.com'
+__status__ = r'Development'
+
+ (duplicate-code)
+ats_utilities/checker/format/iformat_validator.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.exceptions.ats_runtime_error:[26:36]
+==ats_utilities.option.__init__:[23:31]
+__author__ = r'Vladimir Roncevic'
+__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
+__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = r'3.4.2'
+__maintainer__ = r'Vladimir Roncevic'
+__email__ = r'elektron.ronca@gmail.com'
+__status__ = r'Development' (duplicate-code)
+ats_utilities/checker/format/iformat_validator.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.exceptions.ats_attribute_error:[26:36]
+==ats_utilities.exceptions.ats_bad_call_error:[26:36]
+__author__ = r'Vladimir Roncevic'
+__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
+__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = r'3.4.2'
+__maintainer__ = r'Vladimir Roncevic'
+__email__ = r'elektron.ronca@gmail.com'
+__status__ = r'Development'
+
+ (duplicate-code)
+ats_utilities/checker/format/iformat_validator.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.exceptions.ats_file_error:[26:36]
+==ats_utilities.exceptions.ats_parameter_error:[26:36]
+__author__ = r'Vladimir Roncevic'
+__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
+__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = r'3.4.2'
+__maintainer__ = r'Vladimir Roncevic'
+__email__ = r'elektron.ronca@gmail.com'
+__status__ = r'Development'
+
+ (duplicate-code)
+ats_utilities/checker/format/iformat_validator.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.config_io.yaml.yaml_storer:[41:51]
+==ats_utilities.generator.component_bundle:[38:48]
+__author__ = r'Vladimir Roncevic'
+__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
+__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = r'3.4.2'
+__maintainer__ = r'Vladimir Roncevic'
+__email__ = r'elektron.ronca@gmail.com'
+__status__ = r'Development'
+
+ (duplicate-code)
+ats_utilities/checker/format/iformat_validator.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.config_io.cfg.cfg_storer:[40:50]
+==ats_utilities.config_io.json.ijson_processor:[26:35]
+__author__ = r'Vladimir Roncevic'
+__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
+__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = r'3.4.2'
+__maintainer__ = r'Vladimir Roncevic'
+__email__ = r'elektron.ronca@gmail.com'
+__status__ = r'Development'
+
+ (duplicate-code)
+ats_utilities/checker/format/iformat_validator.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.config_io.iconf_file:[29:39]
+==ats_utilities.config_io.iread:[27:37]
+__author__ = r'Vladimir Roncevic'
+__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
+__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = r'3.4.2'
+__maintainer__ = r'Vladimir Roncevic'
+__email__ = r'elektron.ronca@gmail.com'
+__status__ = r'Development'
+
+ (duplicate-code)
+ats_utilities/checker/format/iformat_validator.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.config_setup.__init__:[23:31]
+==ats_utilities.config_setup.template_dir:[36:46]
+__author__ = r'Vladimir Roncevic'
+__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
+__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = r'3.4.2'
+__maintainer__ = r'Vladimir Roncevic'
+__email__ = r'elektron.ronca@gmail.com'
+__status__ = r'Development' (duplicate-code)
+ats_utilities/checker/format/iformat_validator.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.generator.engine:[50:60]
+==ats_utilities.option.command.command_option:[30:40]
+__author__ = r'Vladimir Roncevic'
+__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
+__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = r'3.4.2'
+__maintainer__ = r'Vladimir Roncevic'
+__email__ = r'elektron.ronca@gmail.com'
+__status__ = r'Development'
+
+ (duplicate-code)
+ats_utilities/checker/format/iformat_validator.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.config_io.yaml.__init__:[23:31]
+==ats_utilities.config_io.yaml.yaml_processor:[31:40]
+__author__ = r'Vladimir Roncevic'
+__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
+__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = r'3.4.2'
+__maintainer__ = r'Vladimir Roncevic'
+__email__ = r'elektron.ronca@gmail.com'
+__status__ = r'Development' (duplicate-code)
+ats_utilities/checker/format/iformat_validator.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.config_io.cfg.cfg_processor:[30:40]
+==ats_utilities.config_io.ifile_check:[26:36]
+__author__ = r'Vladimir Roncevic'
+__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
+__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = r'3.4.2'
+__maintainer__ = r'Vladimir Roncevic'
+__email__ = r'elektron.ronca@gmail.com'
+__status__ = r'Development'
+
+ (duplicate-code)
+ats_utilities/checker/format/iformat_validator.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.config_io.__init__:[23:31]
+==ats_utilities.config_io.istorer:[27:37]
+__author__ = r'Vladimir Roncevic'
+__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
+__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = r'3.4.2'
+__maintainer__ = r'Vladimir Roncevic'
+__email__ = r'elektron.ronca@gmail.com'
+__status__ = r'Development'
+
+ (duplicate-code)
+ats_utilities/checker/format/iformat_validator.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.config_setup.pro_config:[37:47]
+==ats_utilities.option.parser.__init__:[23:31]
+__author__ = r'Vladimir Roncevic'
+__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
+__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = r'3.4.2'
+__maintainer__ = r'Vladimir Roncevic'
+__email__ = r'elektron.ronca@gmail.com'
+__status__ = r'Development'
+
+ (duplicate-code)
+ats_utilities/checker/format/iformat_validator.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.exceptions.ats_lookup_error:[26:36]
+==ats_utilities.option.ioption_manager:[33:43]
+__author__ = r'Vladimir Roncevic'
+__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
+__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = r'3.4.2'
+__maintainer__ = r'Vladimir Roncevic'
+__email__ = r'elektron.ronca@gmail.com'
+__status__ = r'Development'
+
+ (duplicate-code)
+ats_utilities/checker/format/iformat_validator.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.exceptions.ats_key_error:[26:36]
+==ats_utilities.exceptions.ats_value_error:[26:36]
+__author__ = r'Vladimir Roncevic'
+__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
+__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = r'3.4.2'
+__maintainer__ = r'Vladimir Roncevic'
+__email__ = r'elektron.ronca@gmail.com'
+__status__ = r'Development'
+
+ (duplicate-code)
+ats_utilities/checker/format/iformat_validator.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.exceptions.ats_type_error:[26:36]
+==ats_utilities.reporter.component_bundle:[37:47]
+__author__ = r'Vladimir Roncevic'
+__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
+__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = r'3.4.2'
+__maintainer__ = r'Vladimir Roncevic'
+__email__ = r'elektron.ronca@gmail.com'
+__status__ = r'Development'
+
+ (duplicate-code)
+ats_utilities/checker/format/iformat_validator.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.generator.generator_bundle:[31:41]
+==ats_utilities.reporter.ireporter:[28:38]
+__author__ = r'Vladimir Roncevic'
+__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
+__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = r'3.4.2'
+__maintainer__ = r'Vladimir Roncevic'
+__email__ = r'elektron.ronca@gmail.com'
+__status__ = r'Development'
+
+ (duplicate-code)
+ats_utilities/checker/format/iformat_validator.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.info.component_bundle:[52:62]
+==ats_utilities.splasher.terminal.iterminal_properties:[27:37]
+__author__ = r'Vladimir Roncevic'
+__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
+__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = r'3.4.2'
+__maintainer__ = r'Vladimir Roncevic'
+__email__ = r'elektron.ronca@gmail.com'
+__status__ = r'Development'
+
+ (duplicate-code)
+ats_utilities/checker/format/iformat_validator.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.splasher.property.isplash_property:[28:38]
+==ats_utilities.splasher.splash_keys:[28:38]
+__author__ = r'Vladimir Roncevic'
+__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
+__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = r'3.4.2'
+__maintainer__ = r'Vladimir Roncevic'
+__email__ = r'elektron.ronca@gmail.com'
+__status__ = r'Development'
+
+ (duplicate-code)
+ats_utilities/checker/format/iformat_validator.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.reporter.__init__:[23:31]
+==ats_utilities.reporter.engine:[38:48]
+__author__ = r'Vladimir Roncevic'
+__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
+__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = r'3.4.2'
+__maintainer__ = r'Vladimir Roncevic'
+__email__ = r'elektron.ronca@gmail.com'
+__status__ = r'Development'
+
+ (duplicate-code)
+ats_utilities/checker/format/iformat_validator.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.generator.tar.__init__:[23:31]
+==ats_utilities.generator.tar.itar_processor:[29:39]
+__author__ = r'Vladimir Roncevic'
+__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
+__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = r'3.4.2'
+__maintainer__ = r'Vladimir Roncevic'
+__email__ = r'elektron.ronca@gmail.com'
+__status__ = r'Development'
+
+ (duplicate-code)
+ats_utilities/checker/format/iformat_validator.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.generator.__init__:[23:31]
+==ats_utilities.generator.template.itemplate_processor:[26:36]
+__author__ = r'Vladimir Roncevic'
+__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
+__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = r'3.4.2'
+__maintainer__ = r'Vladimir Roncevic'
+__email__ = r'elektron.ronca@gmail.com'
+__status__ = r'Development' (duplicate-code)
+ats_utilities/checker/format/iformat_validator.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.checker.context.context_provider:[30:40]
+==ats_utilities.checker.type.__init__:[23:31]
+__author__ = r'Vladimir Roncevic'
+__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
+__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = r'3.4.2'
+__maintainer__ = r'Vladimir Roncevic'
+__email__ = r'elektron.ronca@gmail.com'
+__status__ = r'Development' (duplicate-code)
+ats_utilities/checker/format/iformat_validator.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.checker.reporter.__init__:[23:31]
+==ats_utilities.info.log_file.engine:[36:46]
+__author__ = r'Vladimir Roncevic'
+__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
+__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = r'3.4.2'
+__maintainer__ = r'Vladimir Roncevic'
+__email__ = r'elektron.ronca@gmail.com'
+__status__ = r'Development'
+
+ (duplicate-code)
+ats_utilities/checker/format/iformat_validator.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.config_io.json.json2object:[43:53]
+==ats_utilities.info.repository.irepository:[26:36]
+__author__ = r'Vladimir Roncevic'
+__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
+__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = r'3.4.2'
+__maintainer__ = r'Vladimir Roncevic'
+__email__ = r'elektron.ronca@gmail.com'
+__status__ = r'Development'
+
+ (duplicate-code)
+ats_utilities/checker/format/iformat_validator.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.option.ioption_manager:[71:168]
+==ats_utilities.option.strategy.iparser_strategy:[70:157]
+        pass
+
+    @abstractmethod
+    def add_argument(self, *args: str, **kwargs: Any) -> None:
+        '''
+            Adds an operational argument/flag to the parser.
+
+            :param args: Arguments in string format.
+            :type args: <str>
+            :param kwargs: Arguments in Any form
+            :type kwargs: <Any>
+            :exceptions: None.
+        '''
+        pass
+
+    @abstractmethod
+    def add_version(self, version: str | None) -> None:
+        '''
+            Adds a version display option to the parser.
+
+            :param version: The ATS version in string format | None.
+            :type version: <str | None>
+            :exceptions: None.
+        '''
+        pass
+
+    @abstractmethod
+    def parse(self, arguments: OptArgs, known_only: bool = False) -> OptionNamespace:
+        '''
+            Parses the input arguments and returns an OptionNamespace.
+
+            :param arguments: Sequence of arguments | None.
+            :type arguments: <OptArgs>
+            :param known_only: Parse only known arguments.
+            :type known_only: <bool>
+            :return: Option namespace object.
+            :rtype: <OptionNamespace>
+            :exceptions: None.
+        '''
+        pass
+
+    @abstractmethod
+    def register_commands(self, commands: Sequence[IOptionCommand]) -> None:
+        '''
+            Register a sequence of commands with the parser.
+
+            :param commands: Sequence of commands to register.
+            :type commands: <Sequence[IOptionCommand]>
+            :exceptions: None.
+        '''
+        pass
+
+    @abstractmethod
+    def parse_command(self, arguments: OptArgs = None) -> tuple[str, Mapping[str, Any]]:
+        '''
+            Parses CLI arguments for subcommands and returns command name and parameters.
+
+            :param arguments: Sequence of arguments | None.
+            :type arguments: <OptArgs>
+            :return: Tuple containing command name and parsed parameters (read only data).
+            :rtype: <tuple[str, Mapping[str, Any]]>
+            :exceptions: None.
+        '''
+        pass
+
+
+    @abstractmethod
+    def is_initialized(self) -> bool:
+        '''
+            Checks if parser strategy component is ok.
+
+            :return: True (success) | False (fail).
+            :rtype: <bool>
+            :exceptions: None.
+        '''
+        pass
+
+    @abstractmethod
+    def __str__(self) -> str:
+        '''
+            Returns the ATS parser strategy as string representation.
+
+            :return: The ATS parser strategy as string representation.
+            :rtype: <str>
+            :exceptions: None.
+        '''
+        pass (duplicate-code)
+ats_utilities/checker/format/iformat_validator.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.config_io.cfg.icfg_processor:[26:36]
+==ats_utilities.option.strategy.iparser_strategy:[32:42]
+__author__ = r'Vladimir Roncevic'
+__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
+__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = r'3.4.2'
+__maintainer__ = r'Vladimir Roncevic'
+__email__ = r'elektron.ronca@gmail.com'
+__status__ = r'Development'
+
+ (duplicate-code)
+ats_utilities/checker/format/iformat_validator.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.config_io.xml.xml_processor:[30:40]
+==ats_utilities.factory_file_utils:[33:61]
+__author__ = r'Vladimir Roncevic'
+__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
+__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = r'3.4.2'
+__maintainer__ = r'Vladimir Roncevic'
+__email__ = r'elektron.ronca@gmail.com'
+__status__ = r'Development'
+
+
+def check_file_exists(
+    file_path: str,
+    exc_message: str | None = None,
+    exception_class: type[Exception] = ATSValueError
+) -> None:
+    '''
+        Checks if a file exists.
+
+        :param file_path: Path to the file.
+        :type file_path: <str>
+        :param exc_message: Message to include in the exception message.
+        :type exc_message: <str | None>
+        :param exception_class: The exception class to raise if value is None.
+        :type exception_class: <type[Exception]> (default ATSValueError)
+        :exceptions:
+            | ATSTypeError: Parameter type validation failed.
+            | Dynamically raises the provided exception_class (e.g., ATSValueError).
+    ''' (duplicate-code)
+ats_utilities/checker/format/iformat_validator.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.config_io.config_loader:[44:53]
+==ats_utilities.config_io.ini.__init__:[23:31]
+__author__ = r'Vladimir Roncevic'
+__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
+__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = r'3.4.2'
+__maintainer__ = r'Vladimir Roncevic'
+__email__ = r'elektron.ronca@gmail.com'
+__status__ = r'Development'
+ (duplicate-code)
+ats_utilities/checker/format/iformat_validator.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.config_setup.itemplate_dir:[26:36]
+==ats_utilities.config_setup.pro_name:[36:46]
+__author__ = r'Vladimir Roncevic'
+__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
+__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = r'3.4.2'
+__maintainer__ = r'Vladimir Roncevic'
+__email__ = r'elektron.ronca@gmail.com'
+__status__ = r'Development'
+
+ (duplicate-code)
+ats_utilities/checker/format/iformat_validator.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.option.command.__init__:[23:31]
+==ats_utilities.option.command.ioption_command:[29:39]
+__author__ = r'Vladimir Roncevic'
+__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
+__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = r'3.4.2'
+__maintainer__ = r'Vladimir Roncevic'
+__email__ = r'elektron.ronca@gmail.com'
+__status__ = r'Development'
+
+ (duplicate-code)
+ats_utilities/checker/format/iformat_validator.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.exceptions.__init__:[35:44]
+==ats_utilities.option.strategy.__init__:[23:31]
+__author__ = r'Vladimir Roncevic'
+__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
+__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = r'3.4.2'
+__maintainer__ = r'Vladimir Roncevic'
+__email__ = r'elektron.ronca@gmail.com'
+__status__ = r'Development' (duplicate-code)
+ats_utilities/checker/format/iformat_validator.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.exceptions.ats_error:[24:34]
+==ats_utilities.exceptions.ats_generator_error:[26:36]
+__author__ = r'Vladimir Roncevic'
+__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
+__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = r'3.4.2'
+__maintainer__ = r'Vladimir Roncevic'
+__email__ = r'elektron.ronca@gmail.com'
+__status__ = r'Development'
+
+ (duplicate-code)
+ats_utilities/checker/format/iformat_validator.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.checker.engine:[37:47]
+==ats_utilities.context_bundle:[40:50]
+__author__ = r'Vladimir Roncevic'
+__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
+__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = r'3.4.2'
+__maintainer__ = r'Vladimir Roncevic'
+__email__ = r'elektron.ronca@gmail.com'
+__status__ = r'Development'
+
+ (duplicate-code)
+ats_utilities/checker/format/iformat_validator.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.info.licence.engine:[36:46]
+==ats_utilities.info.version.__init__:[23:31]
+__author__ = r'Vladimir Roncevic'
+__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
+__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = r'3.4.2'
+__maintainer__ = r'Vladimir Roncevic'
+__email__ = r'elektron.ronca@gmail.com'
+__status__ = r'Development' (duplicate-code)
+ats_utilities/checker/format/iformat_validator.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.config_io.config_loader_bundle:[33:43]
+==ats_utilities.info.info_keys:[28:38]
+__author__ = r'Vladimir Roncevic'
+__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
+__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = r'3.4.2'
+__maintainer__ = r'Vladimir Roncevic'
+__email__ = r'elektron.ronca@gmail.com'
+__status__ = r'Development'
+
+ (duplicate-code)
+ats_utilities/checker/format/iformat_validator.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.checker.reporter.checker_reporter_bundle:[31:41]
+==ats_utilities.factory_inspector:[26:47]
+__author__ = r'Vladimir Roncevic'
+__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
+__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = r'3.4.2'
+__maintainer__ = r'Vladimir Roncevic'
+__email__ = r'elektron.ronca@gmail.com'
+__status__ = r'Development'
+
+# Type alias for parameter metadata: (parameter name, expected type, actual value) (duplicate-code)
+ats_utilities/checker/format/iformat_validator.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.info.logo.ilogo:[26:36]
+==ats_utilities.info.organization.iorganization:[26:36]
+__author__ = r'Vladimir Roncevic'
+__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
+__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = r'3.4.2'
+__maintainer__ = r'Vladimir Roncevic'
+__email__ = r'elektron.ronca@gmail.com'
+__status__ = r'Development'
+
+ (duplicate-code)
+ats_utilities/checker/format/iformat_validator.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.info.build_date.ibuild_date:[26:36]
+==ats_utilities.info.version.engine:[36:46]
+__author__ = r'Vladimir Roncevic'
+__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
+__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = r'3.4.2'
+__maintainer__ = r'Vladimir Roncevic'
+__email__ = r'elektron.ronca@gmail.com'
+__status__ = r'Development'
+
+ (duplicate-code)
+ats_utilities/checker/format/iformat_validator.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.splasher.external.ext_infrastructure:[40:50]
+==ats_utilities.splasher.splash_center_bundle:[29:39]
+__author__ = r'Vladimir Roncevic'
+__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
+__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = r'3.4.2'
+__maintainer__ = r'Vladimir Roncevic'
+__email__ = r'elektron.ronca@gmail.com'
+__status__ = r'Development'
+
+ (duplicate-code)
+ats_utilities/checker/format/iformat_validator.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.config_io.ini.ini2object:[43:53]
+==ats_utilities.splasher.__init__:[23:31]
+__author__ = r'Vladimir Roncevic'
+__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
+__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = r'3.4.2'
+__maintainer__ = r'Vladimir Roncevic'
+__email__ = r'elektron.ronca@gmail.com'
+__status__ = r'Development' (duplicate-code)
+ats_utilities/checker/format/iformat_validator.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.config_io.cfg.cfg2object:[43:53]
+==ats_utilities.config_io.yaml.yaml2object:[43:53]
+__author__ = r'Vladimir Roncevic'
+__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
+__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = r'3.4.2'
+__maintainer__ = r'Vladimir Roncevic'
+__email__ = r'elektron.ronca@gmail.com'
+__status__ = r'Development'
+
+ (duplicate-code)
+ats_utilities/checker/format/iformat_validator.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.config_io.iwrite:[27:37]
+==ats_utilities.option.strategy.parser_strategy:[45:55]
+__author__ = r'Vladimir Roncevic'
+__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
+__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = r'3.4.2'
+__maintainer__ = r'Vladimir Roncevic'
+__email__ = r'elektron.ronca@gmail.com'
+__status__ = r'Development'
+
+ (duplicate-code)
+ats_utilities/checker/format/iformat_validator.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.reporter.theme.__init__:[23:31]
+==ats_utilities.reporter.theme.engine:[33:43]
+__author__ = r'Vladimir Roncevic'
+__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
+__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = r'3.4.2'
+__maintainer__ = r'Vladimir Roncevic'
+__email__ = r'elektron.ronca@gmail.com'
+__status__ = r'Development' (duplicate-code)
+ats_utilities/checker/format/iformat_validator.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.checker.format.__init__:[23:31]
+==ats_utilities.factory_context_bundle:[33:54]
+__author__ = r'Vladimir Roncevic'
+__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
+__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = r'3.4.2'
+__maintainer__ = r'Vladimir Roncevic'
+__email__ = r'elektron.ronca@gmail.com'
+__status__ = r'Development'
+
+
+def factory_context_bundle(instance: Any, context: ContextBundle | None = None):
+    '''
+        Factory universally injects components (checker, reporter, verbose).
+
+        :param instance: The object instance (self) to inject attributes into.
+        :type instance: <Any>
+        :param context: Context bundle (checker, logger, reporter and verbose) | None.
+        :type context: <ContextBundle | None>
+        :exceptions: None.
+    '''
+    # Uses provided bundle or creates a default one. (duplicate-code)
+ats_utilities/checker/format/iformat_validator.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.checker.context.__init__:[23:31]
+==ats_utilities.checker.type.itype_validator:[27:37]
+__author__ = r'Vladimir Roncevic'
+__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
+__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = r'3.4.2'
+__maintainer__ = r'Vladimir Roncevic'
+__email__ = r'elektron.ronca@gmail.com'
+__status__ = r'Development'
+
+ (duplicate-code)
+ats_utilities/checker/format/iformat_validator.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.info.info_ok.engine:[36:46]
+==ats_utilities.info.log_file.ilog_file:[26:36]
+__author__ = r'Vladimir Roncevic'
+__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
+__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = r'3.4.2'
+__maintainer__ = r'Vladimir Roncevic'
+__email__ = r'elektron.ronca@gmail.com'
+__status__ = r'Development'
+
+ (duplicate-code)
+ats_utilities/checker/format/iformat_validator.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.config_io.ini.ini_storer:[41:51]
+==ats_utilities.splasher.engine:[41:51]
+__author__ = r'Vladimir Roncevic'
+__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
+__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = r'3.4.2'
+__maintainer__ = r'Vladimir Roncevic'
+__email__ = r'elektron.ronca@gmail.com'
+__status__ = r'Development'
+
+ (duplicate-code)
+ats_utilities/checker/format/iformat_validator.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.config_io.cfg.cfg_loader:[42:52]
+==ats_utilities.config_io.ini.iini_processor:[27:37]
+__author__ = r'Vladimir Roncevic'
+__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
+__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = r'3.4.2'
+__maintainer__ = r'Vladimir Roncevic'
+__email__ = r'elektron.ronca@gmail.com'
+__status__ = r'Development'
+
+ (duplicate-code)
+ats_utilities/checker/format/iformat_validator.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.config_io.iconfig_loader:[37:47]
+==ats_utilities.config_io.iloader:[27:37]
+__author__ = r'Vladimir Roncevic'
+__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
+__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = r'3.4.2'
+__maintainer__ = r'Vladimir Roncevic'
+__email__ = r'elektron.ronca@gmail.com'
+__status__ = r'Development'
+
+# Optional configuration type (duplicate-code)
+ats_utilities/checker/format/iformat_validator.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.factory_value:[28:55]
+==ats_utilities.generator.scheme.scheme_loader:[41:51]
+__author__ = r'Vladimir Roncevic'
+__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
+__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = r'3.4.2'
+__maintainer__ = r'Vladimir Roncevic'
+__email__ = r'elektron.ronca@gmail.com'
+__status__ = r'Development'
+
+
+def require_not_none(
+    value: Any,
+    exc_message: str | None = None,
+    exception_class: type[Exception] = ATSValueError
+) -> None:
+    '''
+        Requires a value to be not None.
+
+        :param value: Value to check.
+        :type value: <Any>
+        :param exc_message: Message to include in the exception message.
+        :type exc_message: <str | None>
+        :param exception_class: The exception class to raise if value is None.
+        :type exception_class: <type[Exception]> (default ATSValueError)
+        :exceptions:
+            | Dynamically raises the provided exception_class (e.g., ATSValueError).
+    ''' (duplicate-code)
+ats_utilities/checker/format/iformat_validator.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.checker.format.iformat_validator:[26:36]
+==ats_utilities.checker.reporter.check_reporter:[31:41]
+__author__ = r'Vladimir Roncevic'
+__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
+__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = r'3.4.2'
+__maintainer__ = r'Vladimir Roncevic'
+__email__ = r'elektron.ronca@gmail.com'
+__status__ = r'Development'
+
+ (duplicate-code)
+ats_utilities/checker/format/iformat_validator.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.checker.__init__:[23:31]
+==ats_utilities.info.repository.engine:[36:46]
+__author__ = r'Vladimir Roncevic'
+__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
+__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = r'3.4.2'
+__maintainer__ = r'Vladimir Roncevic'
+__email__ = r'elektron.ronca@gmail.com'
+__status__ = r'Development'
+
+ (duplicate-code)
+ats_utilities/checker/format/iformat_validator.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.info.name.__init__:[23:31]
+==ats_utilities.info.use_github.__init__:[23:31]
+__author__ = r'Vladimir Roncevic'
+__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
+__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = r'3.4.2'
+__maintainer__ = r'Vladimir Roncevic'
+__email__ = r'elektron.ronca@gmail.com'
+__status__ = r'Development' (duplicate-code)
+ats_utilities/checker/format/iformat_validator.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.config_io.json.json_loader:[42:52]
+==ats_utilities.generator.tar.tar_processor:[47:57]
+__author__ = r'Vladimir Roncevic'
+__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
+__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = r'3.4.2'
+__maintainer__ = r'Vladimir Roncevic'
+__email__ = r'elektron.ronca@gmail.com'
+__status__ = r'Development'
+
+ (duplicate-code)
+ats_utilities/checker/format/iformat_validator.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.factory_component:[31:59]
+==ats_utilities.info.info_ok.__init__:[23:31]
+__author__ = r'Vladimir Roncevic'
+__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
+__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = r'3.4.2'
+__maintainer__ = r'Vladimir Roncevic'
+__email__ = r'elektron.ronca@gmail.com'
+__status__ = r'Development' (duplicate-code)
+ats_utilities/checker/format/iformat_validator.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.splasher.property.__init__:[23:31]
+==ats_utilities.splasher.terminal.terminal_properties:[40:50]
+__author__ = r'Vladimir Roncevic'
+__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
+__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = r'3.4.2'
+__maintainer__ = r'Vladimir Roncevic'
+__email__ = r'elektron.ronca@gmail.com'
+__status__ = r'Development'
+
+ (duplicate-code)
+ats_utilities/checker/format/iformat_validator.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.splasher.external.__init__:[23:31]
+==ats_utilities.splasher.progressbar.iprogress_bar:[26:36]
+__author__ = r'Vladimir Roncevic'
+__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
+__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = r'3.4.2'
+__maintainer__ = r'Vladimir Roncevic'
+__email__ = r'elektron.ronca@gmail.com'
+__status__ = r'Development'
+
+ (duplicate-code)
+ats_utilities/checker/format/iformat_validator.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.config_io.ini.ini_loader:[42:52]
+==ats_utilities.splasher.progressbar.__init__:[23:31]
+__author__ = r'Vladimir Roncevic'
+__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
+__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = r'3.4.2'
+__maintainer__ = r'Vladimir Roncevic'
+__email__ = r'elektron.ronca@gmail.com'
+__status__ = r'Development' (duplicate-code)
+ats_utilities/checker/format/iformat_validator.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.base.__init__:[23:31]
+==ats_utilities.base.engine:[46:56]
+__author__ = r'Vladimir Roncevic'
+__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
+__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = r'3.4.2'
+__maintainer__ = r'Vladimir Roncevic'
+__email__ = r'elektron.ronca@gmail.com'
+__status__ = r'Development' (duplicate-code)
+ats_utilities/checker/format/iformat_validator.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.checker.type.type_validator:[30:40]
+==ats_utilities.factory_dict_utils:[30:52]
+__author__ = r'Vladimir Roncevic'
+__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
+__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = r'3.4.2'
+__maintainer__ = r'Vladimir Roncevic'
+__email__ = r'elektron.ronca@gmail.com'
+__status__ = r'Development'
+
+
+def cherry_pick_dict(source: Mapping[Any, Any], keys: frozenset[str]) -> dict[Any, Any]:
+    '''
+        Cherry picks keys from a source dictionary.
+
+        :param source: Source dictionary from which to pick keys.
+        :type source: <Mapping[Any, Any]>
+        :param keys: Set of keys to pick from the source dictionary.
+        :type keys: <frozenset[str]>
+        :return: Dictionary with cherry picked keys.
+        :rtype: <dict[Any, Any]>
+        :exceptions: None.
+    ''' (duplicate-code)
+ats_utilities/checker/format/iformat_validator.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.logger.engine:[37:47]
+==ats_utilities.logger.ilogger:[26:36]
+__author__ = r'Vladimir Roncevic'
+__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
+__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = r'1.0.0'
+__maintainer__ = r'Vladimir Roncevic'
+__email__ = r'elektron.ronca@gmail.com'
+__status__ = r'Development'
+
+ (duplicate-code)
+ats_utilities/checker/format/iformat_validator.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.checker.ichecker:[28:38]
+==ats_utilities.info.logo.engine:[36:46]
+__author__ = r'Vladimir Roncevic'
+__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
+__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = r'3.4.2'
+__maintainer__ = r'Vladimir Roncevic'
+__email__ = r'elektron.ronca@gmail.com'
+__status__ = r'Development'
+
+ (duplicate-code)
+ats_utilities/checker/format/iformat_validator.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.info.repository.__init__:[23:31]
+==ats_utilities.info.use_github.iuse_github:[26:36]
+__author__ = r'Vladimir Roncevic'
+__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
+__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = r'3.4.2'
+__maintainer__ = r'Vladimir Roncevic'
+__email__ = r'elektron.ronca@gmail.com'
+__status__ = r'Development' (duplicate-code)
+ats_utilities/checker/format/iformat_validator.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.info.build_date.__init__:[23:31]
+==ats_utilities.info.build_date.engine:[36:46]
+__author__ = r'Vladimir Roncevic'
+__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
+__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = r'3.4.2'
+__maintainer__ = r'Vladimir Roncevic'
+__email__ = r'elektron.ronca@gmail.com'
+__status__ = r'Development' (duplicate-code)
+ats_utilities/checker/format/iformat_validator.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.base.component_bundle:[52:62]
+==ats_utilities.info.imanager:[30:40]
+__author__ = r'Vladimir Roncevic'
+__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
+__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = r'3.4.2'
+__maintainer__ = r'Vladimir Roncevic'
+__email__ = r'elektron.ronca@gmail.com'
+__status__ = r'Development'
+
+ (duplicate-code)
+ats_utilities/checker/format/iformat_validator.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.checker.proxy_validator:[33:52]
+==ats_utilities.factory_class:[32:56]
+__author__ = r'Vladimir Roncevic'
+__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
+__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = r'3.4.2'
+__maintainer__ = r'Vladimir Roncevic'
+__email__ = r'elektron.ronca@gmail.com'
+__status__ = r'Development'
+
+def proxy_validator_split(exp_type: str) -> tuple[str, str]:
+    '''
+        Splits the format string into type and name parts.
+
+        :param exp_type: The format string to split.
+        :type exp_type: <str>
+        :return: A tuple containing the split components.
+        :rtype: <tuple[str, str]>
+        :exceptions: None.
+    ''' (duplicate-code)
+ats_utilities/checker/format/iformat_validator.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.info.organization.__init__:[23:31]
+==ats_utilities.logger.__init__:[23:31]
+__author__ = r'Vladimir Roncevic'
+__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
+__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = r'3.4.2'
+__maintainer__ = r'Vladimir Roncevic'
+__email__ = r'elektron.ronca@gmail.com'
+__status__ = r'Development' (duplicate-code)
+ats_utilities/checker/format/iformat_validator.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.info.use_github.engine:[36:46]
+==ats_utilities.info.version.iversion:[26:36]
+__author__ = r'Vladimir Roncevic'
+__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
+__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = r'3.4.2'
+__maintainer__ = r'Vladimir Roncevic'
+__email__ = r'elektron.ronca@gmail.com'
+__status__ = r'Development'
+
+ (duplicate-code)
+ats_utilities/checker/format/iformat_validator.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.config_io.xml.xml_loader:[42:52]
+==ats_utilities.splasher.external.github_infrastructure:[40:50]
+__author__ = r'Vladimir Roncevic'
+__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
+__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = r'3.4.2'
+__maintainer__ = r'Vladimir Roncevic'
+__email__ = r'elektron.ronca@gmail.com'
+__status__ = r'Development'
+
+ (duplicate-code)
+ats_utilities/checker/format/iformat_validator.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.config_io.xml.__init__:[23:31]
+==ats_utilities.config_io.xml.ixml_processor:[26:36]
+__author__ = r'Vladimir Roncevic'
+__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
+__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = r'3.4.2'
+__maintainer__ = r'Vladimir Roncevic'
+__email__ = r'elektron.ronca@gmail.com'
+__status__ = r'Development' (duplicate-code)
+ats_utilities/checker/format/iformat_validator.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.config_io.json.__init__:[23:31]
+==ats_utilities.config_io.json.json_processor:[30:39]
+__author__ = r'Vladimir Roncevic'
+__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
+__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = r'3.4.2'
+__maintainer__ = r'Vladimir Roncevic'
+__email__ = r'elektron.ronca@gmail.com'
+__status__ = r'Development'
+ (duplicate-code)
+ats_utilities/checker/format/iformat_validator.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.base.ibase:[31:41]
+==ats_utilities.option.engine:[43:53]
+__author__ = r'Vladimir Roncevic'
+__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
+__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = r'3.4.2'
+__maintainer__ = r'Vladimir Roncevic'
+__email__ = r'elektron.ronca@gmail.com'
+__status__ = r'Development'
+
+ (duplicate-code)
+ats_utilities/checker/format/iformat_validator.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.generator.tar.tar_process_bundle:[31:41]
+==ats_utilities.reporter.theme.iconsole_theme:[26:36]
+__author__ = r'Vladimir Roncevic'
+__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
+__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = r'3.4.2'
+__maintainer__ = r'Vladimir Roncevic'
+__email__ = r'elektron.ronca@gmail.com'
+__status__ = r'Development'
+
+ (duplicate-code)
+ats_utilities/checker/format/iformat_validator.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.factory_context_error:[26:59]
+==ats_utilities.generator.template.__init__:[23:31]
+__author__ = r'Vladimir Roncevic'
+__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
+__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = r'3.4.2'
+__maintainer__ = r'Vladimir Roncevic'
+__email__ = r'elektron.ronca@gmail.com'
+__status__ = r'Development' (duplicate-code)
+ats_utilities/checker/format/iformat_validator.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.checker.context.icontext_provider:[26:36]
+==ats_utilities.checker.format.format_validator:[29:39]
+__author__ = r'Vladimir Roncevic'
+__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
+__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = r'3.4.2'
+__maintainer__ = r'Vladimir Roncevic'
+__email__ = r'elektron.ronca@gmail.com'
+__status__ = r'Development'
+
+ (duplicate-code)
+ats_utilities/checker/format/iformat_validator.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.checker.reporter.icheck_reporter:[28:38]
+==ats_utilities.info.organization.engine:[36:46]
+__author__ = r'Vladimir Roncevic'
+__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
+__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = r'3.4.2'
+__maintainer__ = r'Vladimir Roncevic'
+__email__ = r'elektron.ronca@gmail.com'
+__status__ = r'Development'
+
+ (duplicate-code)
+ats_utilities/checker/format/iformat_validator.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.info.log_file.__init__:[23:31]
+==ats_utilities.info.logo.__init__:[23:31]
+__author__ = r'Vladimir Roncevic'
+__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
+__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = r'3.4.2'
+__maintainer__ = r'Vladimir Roncevic'
+__email__ = r'elektron.ronca@gmail.com'
+__status__ = r'Development' (duplicate-code)
+ats_utilities/checker/format/iformat_validator.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.info.licence.__init__:[23:31]
+==ats_utilities.info.name.iname:[26:36]
+__author__ = r'Vladimir Roncevic'
+__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
+__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = r'3.4.2'
+__maintainer__ = r'Vladimir Roncevic'
+__email__ = r'elektron.ronca@gmail.com'
+__status__ = r'Development'
+
+ (duplicate-code)
+ats_utilities/checker/format/iformat_validator.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.splasher.progressbar.progress_bar:[30:40]
+==ats_utilities.splasher.property.splash_property:[39:49]
+__author__ = r'Vladimir Roncevic'
+__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
+__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = r'3.4.2'
+__maintainer__ = r'Vladimir Roncevic'
+__email__ = r'elektron.ronca@gmail.com'
+__status__ = r'Development'
+
+ (duplicate-code)
+ats_utilities/checker/format/iformat_validator.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.config_io.xml.object2xml:[43:53]
+==ats_utilities.splasher.isplasher:[29:39]
+__author__ = r'Vladimir Roncevic'
+__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
+__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = r'3.4.2'
+__maintainer__ = r'Vladimir Roncevic'
+__email__ = r'elektron.ronca@gmail.com'
+__status__ = r'Development'
+
+ (duplicate-code)
+ats_utilities/checker/format/iformat_validator.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.config_io.cfg.object2cfg:[43:53]
+==ats_utilities.config_io.yaml.object2yaml:[43:53]
+__author__ = r'Vladimir Roncevic'
+__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
+__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = r'3.4.2'
+__maintainer__ = r'Vladimir Roncevic'
+__email__ = r'elektron.ronca@gmail.com'
+__status__ = r'Development'
+
+ (duplicate-code)
+ats_utilities/checker/format/iformat_validator.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.config_io.cfg.__init__:[23:31]
+==ats_utilities.option.parser.engine:[37:47]
+__author__ = r'Vladimir Roncevic'
+__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
+__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = r'3.4.2'
+__maintainer__ = r'Vladimir Roncevic'
+__email__ = r'elektron.ronca@gmail.com'
+__status__ = r'Development' (duplicate-code)
+ats_utilities/checker/format/iformat_validator.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.generator.scheme.ischeme_loader:[29:39]
+==ats_utilities.reporter.proxy_reporter:[33:59]
+__author__ = r'Vladimir Roncevic'
+__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
+__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = r'3.4.2'
+__maintainer__ = r'Vladimir Roncevic'
+__email__ = r'elektron.ronca@gmail.com'
+__status__ = r'Development'
+
+ (duplicate-code)
+ats_utilities/checker/format/iformat_validator.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.factory_type:[29:51]
+==ats_utilities.generator.scheme.__init__:[23:31]
+__author__ = r'Vladimir Roncevic'
+__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
+__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = r'3.4.2'
+__maintainer__ = r'Vladimir Roncevic'
+__email__ = r'elektron.ronca@gmail.com'
+__status__ = r'Development'
+
+
+def _resolve_type(type_to_resolve: Any) -> Any:
+    '''
+        Resolves nested Union types.
+        Handles cases like Union[int, float] by flattening them
+        into a tuple of concrete types (int, float).
+
+        :param type_to_resolve: Type to resolve.
+        :type type_to_resolve: <Any>
+        :return: Resolved type.
+        :rtype: <Any>
+        :exceptions: None.
+    ''' (duplicate-code)
+ats_utilities/checker/format/iformat_validator.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.info.info_ok.iinfo_ok:[26:36]
+==ats_utilities.logger.component_bundle:[31:41]
+__author__ = r'Vladimir Roncevic'
+__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
+__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = r'3.4.2'
+__maintainer__ = r'Vladimir Roncevic'
+__email__ = r'elektron.ronca@gmail.com'
+__status__ = r'Development'
+
+ (duplicate-code)
+ats_utilities/checker/format/iformat_validator.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.info.licence.ilicence:[26:36]
+==ats_utilities.info.name.engine:[36:46]
+__author__ = r'Vladimir Roncevic'
+__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
+__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = r'3.4.2'
+__maintainer__ = r'Vladimir Roncevic'
+__email__ = r'elektron.ronca@gmail.com'
+__status__ = r'Development'
+
+ (duplicate-code)
+ats_utilities/checker/format/iformat_validator.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.config_io.ini.ini_processor:[31:41]
+==ats_utilities.splasher.component_bundle:[43:53]
+__author__ = r'Vladimir Roncevic'
+__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
+__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = r'3.4.2'
+__maintainer__ = r'Vladimir Roncevic'
+__email__ = r'elektron.ronca@gmail.com'
+__status__ = r'Development'
+
+ (duplicate-code)
+ats_utilities/checker/format/iformat_validator.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.config_io.file_bundle:[30:40]
+==ats_utilities.config_io.yaml.iyaml_processor:[26:35]
+__author__ = r'Vladimir Roncevic'
+__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
+__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = r'3.4.2'
+__maintainer__ = r'Vladimir Roncevic'
+__email__ = r'elektron.ronca@gmail.com'
+__status__ = r'Development'
+
+ (duplicate-code)
+ats_utilities/checker/format/iformat_validator.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.config_io.conf_file:[44:54]
+==ats_utilities.config_setup.component_bundle:[34:44]
+__author__ = r'Vladimir Roncevic'
+__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
+__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = r'3.4.2'
+__maintainer__ = r'Vladimir Roncevic'
+__email__ = r'elektron.ronca@gmail.com'
+__status__ = r'Development'
+
+ (duplicate-code)
+ats_utilities/checker/format/iformat_validator.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.config_setup.ipro_config:[28:38]
+==ats_utilities.config_setup.ipro_name:[26:36]
+__author__ = r'Vladimir Roncevic'
+__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
+__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = r'3.4.2'
+__maintainer__ = r'Vladimir Roncevic'
+__email__ = r'elektron.ronca@gmail.com'
+__status__ = r'Development'
+
+ (duplicate-code)
+ats_utilities/checker/format/iformat_validator.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.generator.template.template_processor:[35:45]
+==ats_utilities:[23:31]
+__author__ = r'Vladimir Roncevic'
+__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
+__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = r'3.4.2'
+__maintainer__ = r'Vladimir Roncevic'
+__email__ = r'elektron.ronca@gmail.com'
+__status__ = r'Development' (duplicate-code)
+ats_utilities/checker/format/iformat_validator.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.option.ioption_manager:[71:157]
+==ats_utilities.option.strategy.iparser_strategy:[83:157]
+        pass
+
+    @abstractmethod
+    def add_version(self, version: str | None) -> None:
+        '''
+            Adds a version display option to the parser.
+
+            :param version: The ATS version in string format | None.
+            :type version: <str | None>
+            :exceptions: None.
+        '''
+        pass
+
+    @abstractmethod
+    def parse(self, arguments: OptArgs, known_only: bool = False) -> OptionNamespace:
+        '''
+            Parses the input arguments and returns an OptionNamespace.
+
+            :param arguments: Sequence of arguments | None.
+            :type arguments: <OptArgs>
+            :param known_only: Parse only known arguments.
+            :type known_only: <bool>
+            :return: Option namespace object.
+            :rtype: <OptionNamespace>
+            :exceptions: None.
+        '''
+        pass
+
+    @abstractmethod
+    def register_commands(self, commands: Sequence[IOptionCommand]) -> None:
+        '''
+            Register a sequence of commands with the parser.
+
+            :param commands: Sequence of commands to register.
+            :type commands: <Sequence[IOptionCommand]>
+            :exceptions: None.
+        '''
+        pass
+
+    @abstractmethod
+    def parse_command(self, arguments: OptArgs = None) -> tuple[str, Mapping[str, Any]]:
+        '''
+            Parses CLI arguments for subcommands and returns command name and parameters.
+
+            :param arguments: Sequence of arguments | None.
+            :type arguments: <OptArgs>
+            :return: Tuple containing command name and parsed parameters (read only data).
+            :rtype: <tuple[str, Mapping[str, Any]]>
+            :exceptions: None.
+        '''
+        pass
+
+
+    @abstractmethod
+    def is_initialized(self) -> bool:
+        '''
+            Checks if parser strategy component is ok.
+
+            :return: True (success) | False (fail).
+            :rtype: <bool>
+            :exceptions: None.
+        '''
+        pass
+
+    @abstractmethod
+    def __str__(self) -> str:
+        '''
+            Returns the ATS parser strategy as string representation.
+
+            :return: The ATS parser strategy as string representation.
+            :rtype: <str>
+            :exceptions: None.
+        '''
+        pass (duplicate-code)
+ats_utilities/checker/format/iformat_validator.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.option.strategy.iparser_strategy:[70:156]
+==ats_utilities.reporter.ireporter:[66:133]
+        pass
+
+    @abstractmethod
+    def add_argument(self, *args: str, **kwargs: Any) -> None:
+        '''
+            Adds an operational argument/flag to the parser.
+
+            :param args: Arguments in string format.
+            :type args: <str>
+            :param kwargs: Arguments in Any form
+            :type kwargs: <Any>
+            :exceptions: None.
+        '''
+        pass
+
+    @abstractmethod
+    def add_version(self, version: str | None) -> None:
+        '''
+            Adds a version display option to the parser.
+
+            :param version: The ATS version in string format | None.
+            :type version: <str | None>
+            :exceptions: None.
+        '''
+        pass
+
+    @abstractmethod
+    def parse(self, arguments: OptArgs, known_only: bool = False) -> OptionNamespace:
+        '''
+            Parses the input arguments and returns an OptionNamespace.
+
+            :param arguments: Sequence of arguments | None.
+            :type arguments: <OptArgs>
+            :param known_only: Parse only known arguments.
+            :type known_only: <bool>
+            :return: Option namespace object.
+            :rtype: <OptionNamespace>
+            :exceptions: None.
+        '''
+        pass
+
+    @abstractmethod
+    def register_commands(self, commands: Sequence[IOptionCommand]) -> None:
+        '''
+            Register a sequence of commands with the parser.
+
+            :param commands: Sequence of commands to register.
+            :type commands: <Sequence[IOptionCommand]>
+            :exceptions: None.
+        '''
+        pass
+
+    @abstractmethod
+    def parse_command(self, arguments: OptArgs = None) -> tuple[str, Mapping[str, Any]]:
+        '''
+            Parses CLI arguments for subcommands and returns command name and parameters.
+
+            :param arguments: Sequence of arguments | None.
+            :type arguments: <OptArgs>
+            :return: Tuple containing command name and parsed parameters (read only data).
+            :rtype: <tuple[str, Mapping[str, Any]]>
+            :exceptions: None.
+        '''
+        pass
+
+
+    @abstractmethod
+    def is_initialized(self) -> bool:
+        '''
+            Checks if parser strategy component is ok.
+
+            :return: True (success) | False (fail).
+            :rtype: <bool>
+            :exceptions: None.
+        '''
+        pass
+
+    @abstractmethod
+    def __str__(self) -> str:
+        '''
+            Returns the ATS parser strategy as string representation.
+
+            :return: The ATS parser strategy as string representation.
+            :rtype: <str>
+            :exceptions: None.
+        ''' (duplicate-code)
+ats_utilities/checker/format/iformat_validator.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.config_io.ini.ini2object:[80:87]
+==ats_utilities.config_io.json.json2object:[80:87]
+    _MODE: str = 'r'
+    _checker: IChecker
+    _logger: ILogger
+    _reporter: IReporter
+    _verbose: bool
+    _config_file_bundle: ConfigFileBundle
+    _file_checker: IFileCheck (duplicate-code)
+ats_utilities/checker/format/iformat_validator.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.config_io.cfg.cfg2object:[80:87]
+==ats_utilities.config_io.yaml.yaml2object:[80:87]
+    _MODE: str = 'r'
+    _checker: IChecker
+    _logger: ILogger
+    _reporter: IReporter
+    _verbose: bool
+    _config_file_bundle: ConfigFileBundle
+    _file_checker: IFileCheck (duplicate-code)
+ats_utilities/checker/format/iformat_validator.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.config_io.cfg.cfg_loader:[99:106]
+==ats_utilities.config_io.json.json_loader:[99:106]
+        config_file_bundle: ConfigFileBundle = config_bundle or ConfigFileBundle()
+        factory_context_bundle(self, config_file_bundle.context)
+        file_checker: IFileCheck = make_component(
+            config_file_bundle.file_checker, FileCheck,
+            {'config_bundle': ContextBundle(checker=self._checker, reporter=self._reporter, verbose=self._verbose)}
+        )
+        validate_component(file_checker, IFileCheck, r'file_checker must be an IFileCheck instance') (duplicate-code)
+ats_utilities/checker/format/iformat_validator.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.config_io.ini.ini_loader:[99:106]
+==ats_utilities.config_io.xml.xml_loader:[99:106]
+        config_file_bundle: ConfigFileBundle = config_bundle or ConfigFileBundle()
+        factory_context_bundle(self, config_file_bundle.context)
+        file_checker: IFileCheck = make_component(
+            config_file_bundle.file_checker, FileCheck,
+            {'config_bundle': ContextBundle(checker=self._checker, reporter=self._reporter, verbose=self._verbose)}
+        )
+        validate_component(file_checker, IFileCheck, r'file_checker must be an IFileCheck instance') (duplicate-code)
+ats_utilities/checker/format/iformat_validator.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.config_io.ini.object2ini:[80:86]
+==ats_utilities.config_io.xml.xml2object:[81:87]
+    _checker: IChecker
+    _logger: ILogger
+    _reporter: IReporter
+    _verbose: bool
+    _config_file_bundle: ConfigFileBundle
+    _file_checker: IFileCheck (duplicate-code)
+ats_utilities/checker/format/iformat_validator.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.generator.engine:[111:142]
+==ats_utilities.info.engine:[104:132]
+            self._is_initialized = True
+
+        except (ATSTypeError, ATSValueError, ATSRuntimeError, ATSAttributeError) as exc:
+            stderr.write(f'\x1b[31m{cls_name(self)} {exc}\x1b[0m\n')
+
+        except Exception as exc:
+            stderr.write(f'\x1b[31m{cls_name(self)} unexpected exception: {exc}\x1b[0m\n')
+
+    @override
+    def get_shared_context(self) -> ContextBundle:
+        '''
+            Returns the shared context.
+
+            :return: Shared context.
+            :rtype: <ContextBundle>
+            :exceptions: None.
+        '''
+        return self._shared_context
+
+    @override
+    def set_info(self, info: Mapping[str, Any]) -> None:
+        '''
+            Sets the information (read only data).
+
+            :param info: Mapping with information.
+            :type info: <Mapping[str, Any]>
+            :exceptions: None.
+        ''' (duplicate-code)
+ats_utilities/checker/format/iformat_validator.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.option.ioption_manager:[71:145]
+==ats_utilities.reporter.ireporter:[77:133]
+        pass
+
+    @abstractmethod
+    def add_operation(self, *args: str, **kwargs: Any) -> None:
+        '''
+            Adds an option to the parser.
+
+            :param args: Arguments in string form
+            :type args: <str>
+            :param kwargs: Arguments in Any form
+            :type kwargs: <Any>
+            :exceptions: None.
+        '''
+        pass
+
+    @abstractmethod
+    def add_version_operation(self, version: str | None) -> None:
+        '''
+            Adds version option to the parser.
+
+            :param version: The version in string format | None
+            :type version: <str | None>
+            :exceptions: None.
+        '''
+        pass
+
+    @abstractmethod
+    def parse_input_args(self, arguments: OptArgs) -> OptionNamespace:
+        '''
+            Processes arguments from the start.
+
+            :param arguments: Sequence of arguments | None
+            :type arguments: <OptArgs>
+            :return: Option namespace object
+            :rtype: <OptionNamespace>
+            :exceptions: None.
+        '''
+        pass
+
+    @abstractmethod
+    def parse_args(self, arguments: OptArgs) -> OptionNamespace:
+        '''
+            Processes arguments from the start.
+
+            :param arguments: Sequence of arguments | None
+            :type arguments: <OptArgs>
+            :return: Option namespace object
+            :rtype: <OptionNamespace>
+            :exceptions: None.
+        '''
+        pass
+
+    @abstractmethod
+    def register_commands(self, commands: Sequence[IOptionCommand]) -> None:
+        '''
+            Register a sequence of commands with the parser.
+
+            :param commands: Sequence of commands to register.
+            :type commands: <Sequence[IOptionCommand]>
+            :exceptions: None.
+        '''
+        pass
+
+    @abstractmethod
+    def parse_command(self, arguments: OptArgs = None) -> tuple[str, Mapping[str, Any]]:
+        '''
+            Parses CLI arguments for subcommands and returns command name and parameters.
+
+            :param arguments: Sequence of arguments | None.
+            :type arguments: <OptArgs>
+            :return: Tuple containing command name and parsed parameters (read only data).
+            :rtype: <tuple[str, Mapping[str, Any]]>
+            :exceptions: None.
+        ''' (duplicate-code)
+ats_utilities/checker/format/iformat_validator.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.config_io.json.json2object:[81:87]
+==ats_utilities.config_io.json.object2json:[80:86]
+    _checker: IChecker
+    _logger: ILogger
+    _reporter: IReporter
+    _verbose: bool
+    _config_file_bundle: ConfigFileBundle
+    _file_checker: IFileCheck (duplicate-code)
+ats_utilities/checker/format/iformat_validator.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.option.strategy.iparser_strategy:[83:156]
+==ats_utilities.splasher.external.iext_infrastructure:[65:126]
+        pass
+
+    @infrastructure_property.setter
+    @abstractmethod
+    def infrastructure_property(self, setup: Mapping[str, Any]) -> None:
+        '''
+            Property method for setting project infrastructure property.
+            Note: Splash screen infrastructure comes from info configuration file as read only data.
+
+            :param setup: Project infrastructure property in Mapping format (read only data).
+            :type setup: <Mapping[str, Any]>
+            :exceptions: None.
+        '''
+        pass
+
+    @abstractmethod
+    def get_info_text(self) -> str:
+        '''
+            Pre-processes info text for splash screen.
+            Note: Splash screen infrastructure comes from info configuration file as read only data.
+
+            :return: Hyperlink with info text.
+            :rtype: <str>
+            :exceptions: None.
+        '''
+        pass
+
+    @abstractmethod
+    def get_issue_text(self) -> str:
+        '''
+            Pre-processes issue text for splash screen.
+            Note: Splash screen infrastructure comes from info configuration file as read only data.
+
+            :return: Hyperlink with issue info.
+            :rtype: <str>
+            :exceptions: None.
+        '''
+        pass
+
+    @abstractmethod
+    def get_author_text(self) -> str:
+        '''
+            Pre-processes author text for splash screen.
+            Note: Splash screen infrastructure comes from info configuration file as read only data.
+
+            :return: Hyperlink with author info.
+            :rtype: <str>
+            :exceptions: None.
+        '''
+        pass
+
+    @abstractmethod
+    def __str__(self) -> str:
+        '''
+            Returns the external infrastructure as string representation.
+
+            :return: The external infrastructure as string representation.
+            :rtype: <str>
+            :exceptions: None.
+        '''
+        pass (duplicate-code)
+ats_utilities/checker/format/iformat_validator.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.option.strategy.iparser_strategy:[94:157]
+==ats_utilities.reporter.ireporter:[66:132]
+        pass
+
+    @abstractmethod
+    def parse(self, arguments: OptArgs, known_only: bool = False) -> OptionNamespace:
+        '''
+            Parses the input arguments and returns an OptionNamespace.
+
+            :param arguments: Sequence of arguments | None.
+            :type arguments: <OptArgs>
+            :param known_only: Parse only known arguments.
+            :type known_only: <bool>
+            :return: Option namespace object.
+            :rtype: <OptionNamespace>
+            :exceptions: None.
+        '''
+        pass
+
+    @abstractmethod
+    def register_commands(self, commands: Sequence[IOptionCommand]) -> None:
+        '''
+            Register a sequence of commands with the parser.
+
+            :param commands: Sequence of commands to register.
+            :type commands: <Sequence[IOptionCommand]>
+            :exceptions: None.
+        '''
+        pass
+
+    @abstractmethod
+    def parse_command(self, arguments: OptArgs = None) -> tuple[str, Mapping[str, Any]]:
+        '''
+            Parses CLI arguments for subcommands and returns command name and parameters.
+
+            :param arguments: Sequence of arguments | None.
+            :type arguments: <OptArgs>
+            :return: Tuple containing command name and parsed parameters (read only data).
+            :rtype: <tuple[str, Mapping[str, Any]]>
+            :exceptions: None.
+        '''
+        pass
+
+
+    @abstractmethod
+    def is_initialized(self) -> bool:
+        '''
+            Checks if parser strategy component is ok.
+
+            :return: True (success) | False (fail).
+            :rtype: <bool>
+            :exceptions: None.
+        '''
+        pass
+
+    @abstractmethod
+    def __str__(self) -> str:
+        '''
+            Returns the ATS parser strategy as string representation.
+
+            :return: The ATS parser strategy as string representation.
+            :rtype: <str>
+            :exceptions: None.
+        '''
+        pass (duplicate-code)
+ats_utilities/checker/format/iformat_validator.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.config_io.config_loader_bundle:[109:126]
+==ats_utilities.generator.generator_bundle:[113:130]
+        for field_name in self.__dataclass_fields__:
+            other_value: Any = getattr(other, field_name)
+
+            if other_value is not None:
+                setattr(self, field_name, other_value)
+
+        self.validate()
+
+    def to_dict(self) -> dict[str, Any]:
+        '''
+            Converts the ConfigLoaderBundle instance to a dictionary.
+
+            :return: Dictionary representation of the ConfigLoaderBundle instance.
+            :rtype: <dict[str, Any]>
+            :exceptions: None.
+        '''
+        return {name: getattr(self, name) for name in self.__slots__} (duplicate-code)
+ats_utilities/checker/format/iformat_validator.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.logger.ilogger:[63:116]
+==ats_utilities.option.strategy.iparser_strategy:[70:145]
+        pass
+
+    @abstractmethod
+    def add_argument(self, *args: str, **kwargs: Any) -> None:
+        '''
+            Adds an operational argument/flag to the parser.
+
+            :param args: Arguments in string format.
+            :type args: <str>
+            :param kwargs: Arguments in Any form
+            :type kwargs: <Any>
+            :exceptions: None.
+        '''
+        pass
+
+    @abstractmethod
+    def add_version(self, version: str | None) -> None:
+        '''
+            Adds a version display option to the parser.
+
+            :param version: The ATS version in string format | None.
+            :type version: <str | None>
+            :exceptions: None.
+        '''
+        pass
+
+    @abstractmethod
+    def parse(self, arguments: OptArgs, known_only: bool = False) -> OptionNamespace:
+        '''
+            Parses the input arguments and returns an OptionNamespace.
+
+            :param arguments: Sequence of arguments | None.
+            :type arguments: <OptArgs>
+            :param known_only: Parse only known arguments.
+            :type known_only: <bool>
+            :return: Option namespace object.
+            :rtype: <OptionNamespace>
+            :exceptions: None.
+        '''
+        pass
+
+    @abstractmethod
+    def register_commands(self, commands: Sequence[IOptionCommand]) -> None:
+        '''
+            Register a sequence of commands with the parser.
+
+            :param commands: Sequence of commands to register.
+            :type commands: <Sequence[IOptionCommand]>
+            :exceptions: None.
+        '''
+        pass
+
+    @abstractmethod
+    def parse_command(self, arguments: OptArgs = None) -> tuple[str, Mapping[str, Any]]:
+        '''
+            Parses CLI arguments for subcommands and returns command name and parameters.
+
+            :param arguments: Sequence of arguments | None.
+            :type arguments: <OptArgs>
+            :return: Tuple containing command name and parsed parameters (read only data).
+            :rtype: <tuple[str, Mapping[str, Any]]>
+            :exceptions: None.
+        '''
+        pass
+
+
+    @abstractmethod
+    def is_initialized(self) -> bool:
+        '''
+            Checks if parser strategy component is ok.
+
+            :return: True (success) | False (fail).
+            :rtype: <bool>
+            :exceptions: None.
+        ''' (duplicate-code)
+ats_utilities/checker/format/iformat_validator.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.option.engine:[107:139]
+==ats_utilities.splasher.engine:[155:189]
+            self._is_initialized = True
+
+        except (ATSTypeError, ATSValueError, ATSRuntimeError, ATSAttributeError) as exc:
+            stderr.write(f'\x1b[31m{cls_name(self)} {exc}\x1b[0m\n')
+
+        except Exception as exc:
+            stderr.write(f'\x1b[31m{cls_name(self)} unexpected exception: {exc}\x1b[0m\n')
+
+    @override
+    def get_shared_context(self) -> ContextBundle:
+        '''
+            Returns the shared context.
+
+            :return: Shared context.
+            :rtype: <ContextBundle>
+            :exceptions: None.
+        '''
+        return self._shared_context
+
+    @has_attrs('_strategy')
+    @override
+    def add_operation(self, *args: str, **kwargs: Any) -> None:
+        '''
+            Adds an option to the parser.
+
+            :param args: List of flags for the ATS.
+            :type args: <str>
+            :param kwargs: Arguments in shape of dictionary.
+            :type kwargs: <Any>
+            :exceptions:
+                | ATSValueError: Missing or empty attribute: '_strategy'.
+        ''' (duplicate-code)
+ats_utilities/checker/format/iformat_validator.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.base.engine:[85:91]
+==ats_utilities.option.engine:[81:87]
+    _checker: IChecker
+    _logger: ILogger
+    _reporter: IReporter
+    _verbose: bool
+    _is_initialized: bool
+    _shared_context: ContextBundle (duplicate-code)
+ats_utilities/checker/format/iformat_validator.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.base.ibase:[69:131]
+==ats_utilities.info.imanager:[67:121]
+        pass
+
+    @abstractmethod
+    def set_info(self, info: Mapping[str, Any]) -> None:
+        '''
+            Sets the information.
+
+            :param info: Mapping with information.
+            :type info: <Mapping[str, Any]>
+            :exceptions: None.
+        '''
+        pass
+
+    @abstractmethod
+    def get_info(self) -> Mapping[str, Any]:
+        '''
+            Gets the information.
+
+            :return: Mapping with information.
+            :rtype: <Mapping[str, Any]>
+            :exceptions: None.
+        '''
+        pass
+
+    @abstractmethod
+    def is_initialized(self) -> bool:
+        '''
+            Checks if info manager is initialized.
+
+            :return: True (success) | False (fail)
+            :rtype: <bool>
+            :exceptions: None.
+        '''
+        pass
+
+    @abstractmethod
+    def refresh_status(self) -> None:
+        '''
+            Refreshes status for information structure.
+
+            :exceptions: None.
+        '''
+        pass
+
+    @abstractmethod
+    def __str__(self) -> str:
+        '''
+            Returns the info manager as string representation.
+
+            :return: The info manager as string representation.
+            :rtype: <str>
+            :exceptions: None.
+        '''
+        pass (duplicate-code)
+ats_utilities/checker/format/iformat_validator.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.checker.reporter.checker_reporter_bundle:[117:134]
+==ats_utilities.generator.tar.tar_process_bundle:[121:138]
+        for field_name in self.__dataclass_fields__:
+            other_value: Any = getattr(other, field_name)
+
+            if other_value is not None:
+                setattr(self, field_name, other_value)
+
+        self.validate()
+
+    def to_dict(self) -> dict[str, Any]:
+        '''
+            Converts the CheckerReporterBundle instance to a dictionary.
+
+            :return: Dictionary representation of the CheckerReporterBundle instance.
+            :rtype: <dict[str, Any]>
+            :exceptions: None.
+        '''
+        return {name: getattr(self, name) for name in self.__slots__} (duplicate-code)
+ats_utilities/checker/format/iformat_validator.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.config_io.ini.ini2object:[81:87]
+==ats_utilities.config_io.xml.object2xml:[80:86]
+    _checker: IChecker
+    _logger: ILogger
+    _reporter: IReporter
+    _verbose: bool
+    _config_file_bundle: ConfigFileBundle
+    _file_checker: IFileCheck (duplicate-code)
+ats_utilities/checker/format/iformat_validator.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.config_io.yaml.object2yaml:[80:86]
+==ats_utilities.config_io.yaml.yaml2object:[81:87]
+    _checker: IChecker
+    _logger: ILogger
+    _reporter: IReporter
+    _verbose: bool
+    _config_file_bundle: ConfigFileBundle
+    _file_checker: IFileCheck (duplicate-code)
+ats_utilities/checker/format/iformat_validator.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.config_io.cfg.cfg2object:[81:87]
+==ats_utilities.config_io.cfg.object2cfg:[80:86]
+    _checker: IChecker
+    _logger: ILogger
+    _reporter: IReporter
+    _verbose: bool
+    _config_file_bundle: ConfigFileBundle
+    _file_checker: IFileCheck (duplicate-code)
+ats_utilities/checker/format/iformat_validator.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.option.command.command_option:[132:148]
+==ats_utilities.splasher.component_bundle:[195:211]
+                setattr(self, field_name, other_value)
+
+        self.validate()
+
+    def to_dict(self) -> dict[str, Any]:
+        '''
+            Converts the SplashComponentBundle instance to a dictionary.
+
+            :return: Dictionary representation of the SplashComponentBundle instance.
+            :rtype: <dict[str, Any]>
+            :exceptions: None.
+        '''
+        return {
+            field: getattr(self, field)
+            for field in self.__dataclass_fields__
+        } (duplicate-code)
+ats_utilities/checker/format/iformat_validator.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.config_io.file_bundle:[99:116]
+==ats_utilities.config_setup.component_bundle:[109:126]
+        for field_name in self.__dataclass_fields__:
+            other_value: Any = getattr(other, field_name)
+
+            if other_value is not None:
+                setattr(self, field_name, other_value)
+
+        self.validate()
+
+    def to_dict(self) -> dict:
+        '''
+            Converts the ConfigSetupComponentBundle instance to a dictionary.
+
+            :return: Dictionary representation of the ConfigSetupComponentBundle instance.
+            :rtype: <dict>
+            :exceptions: None.
+        '''
+        return {name: getattr(self, name) for name in self.__slots__} (duplicate-code)
+ats_utilities/checker/format/iformat_validator.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.config_io.ini.object2ini:[111:137]
+==ats_utilities.config_io.xml.xml2object:[118:137]
+        self._file_path = str(config_file)
+        self._file_bundle_shared = FileBundle()
+        self._file_bundle_shared.file_path = self._file_path
+        self._file_bundle_shared.file_mode = self._MODE
+        self._file_bundle_shared.file_format = self._EXT
+
+    @vreport('read configuration from file {file_path}')
+    @override
+    def read_configuration(self) -> IXMLProcessor | None:
+        '''
+            Reads a configuration from an XML file.
+
+            :return: Configuration object | None.
+            :rtype: <IXMLProcessor | None>
+            :exceptions:
+                | ATSRuntimeError: Decorator cannot be used on a standalone function.
+                | ATSAttributeError: Class is required to provide a '_reporter' object to
+                |                    use the @vreport decorator.
+        ''' (duplicate-code)
+ats_utilities/checker/format/iformat_validator.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.generator.component_bundle:[140:156]
+==ats_utilities.generator.tar.tar_process_member_bundle:[107:123]
+        for field_name in self.__dataclass_fields__:
+            other_value: Any = getattr(other, field_name)
+
+            if other_value is not None:
+                setattr(self, field_name, other_value)
+
+        self.validate()
+
+    def to_dict(self) -> dict[str, Any]:
+        '''
+            Converts the GeneratorComponentBundle instance to a dictionary.
+
+            :return: Dictionary representation of the GeneratorComponentBundle instance.
+            :rtype: <dict[str, Any]>
+            :exceptions: None.
+        ''' (duplicate-code)
+ats_utilities/checker/format/iformat_validator.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.option.ioption_manager:[71:132]
+==ats_utilities.reporter.ireporter:[88:133]
+        pass
+
+    @abstractmethod
+    def error(self, message: Sequence[Any]) -> None:
+        '''
+            Reports error message.
+
+            :param message: Sequence with message.
+            :type message: <Sequence[Any]>
+            :exceptions: None.
+        '''
+        pass
+
+    @abstractmethod
+    def set_level(self, level: int) -> None:
+        '''
+            Sets log level.
+
+            :param level: Log level.
+            :type level: <int>
+            :exceptions: None.
+        '''
+        pass
+
+    @abstractmethod
+    def is_initialized(self) -> bool:
+        '''
+            Returns whether the reporter component is initialized.
+
+            :return: True (success) | False (fail).
+            :rtype: <bool>
+            :exceptions: None.
+        '''
+        pass
+
+    @abstractmethod
+    def __str__(self) -> str:
+        '''
+            Returns the reporter as string representation.
+
+            :return: The reporter as string representation.
+            :rtype: <str>
+            :exceptions: None.
+        '''
+        pass (duplicate-code)
+ats_utilities/checker/format/iformat_validator.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.option.ioption_manager:[121:169]
+==ats_utilities.reporter.ireporter:[66:121]
+        pass
+
+    @abstractmethod
+    def register_commands(self, commands: Sequence[IOptionCommand]) -> None:
+        '''
+            Register a sequence of commands with the parser.
+
+            :param commands: Sequence of commands to register.
+            :type commands: <Sequence[IOptionCommand]>
+            :exceptions: None.
+        '''
+        pass
+
+    @abstractmethod
+    def parse_command(self, arguments: OptArgs = None) -> tuple[str, Mapping[str, Any]]:
+        '''
+            Parses CLI arguments for subcommands and returns command name and parameters.
+
+            :param arguments: Sequence of arguments | None.
+            :type arguments: <OptArgs>
+            :return: Tuple containing command name and parsed parameters (read only data).
+            :rtype: <tuple[str, Mapping[str, Any]]>
+            :exceptions: None.
+        '''
+        pass
+
+
+    @abstractmethod
+    def is_initialized(self) -> bool:
+        '''
+            Checks if option parser component is initialized.
+
+            :return: True (success) | False (fail).
+            :rtype: <bool>
+            :exceptions: None.
+        '''
+        pass
+
+    @abstractmethod
+    def __str__(self) -> str:
+        '''
+            Returns the option parser as string representation.
+
+            :return: The option parser as string representation.
+            :rtype: <str>
+            :exceptions: None.
+        '''
+        pass (duplicate-code)
+ats_utilities/checker/format/iformat_validator.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.generator.generator_bundle:[113:129]
+==ats_utilities.reporter.component_bundle:[124:140]
+        for field_name in self.__dataclass_fields__:
+            other_value: Any = getattr(other, field_name)
+
+            if other_value is not None:
+                setattr(self, field_name, other_value)
+
+        self.validate()
+
+    def to_dict(self) -> dict[str, Any]:
+        '''
+            Converts the ReporterComponentBundle instance to a dictionary.
+
+            :return: Dictionary representation of the ReporterComponentBundle instance.
+            :rtype: <dict[str, Any]>
+            :exceptions: None.
+        ''' (duplicate-code)
+ats_utilities/checker/format/iformat_validator.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.config_io.json.json2object:[118:137]
+==ats_utilities.config_io.json.object2json:[111:137]
+        self._file_path = str(config_file)
+        self._file_bundle_shared = FileBundle()
+        self._file_bundle_shared.file_path = self._file_path
+        self._file_bundle_shared.file_mode = self._MODE
+        self._file_bundle_shared.file_format = self._EXT
+
+    @vreport('read configuration from file {file_path}')
+    @override
+    def read_configuration(self) -> IJSONProcessor | None:
+        '''
+            Reads a configuration from a JSON file.
+
+            :return: Configuration object.
+            :rtype: <IJSONProcessor | None>
+            :exceptions:
+                | ATSRuntimeError: Decorator cannot be used on a standalone function.
+                | ATSAttributeError: Class is required to provide a '_reporter' object to
+                |                    use the @vreport decorator.
+        ''' (duplicate-code)
+ats_utilities/checker/format/iformat_validator.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.generator.igenerator:[64:113]
+==ats_utilities.option.strategy.iparser_strategy:[94:156]
+        pass
+
+    @abstractmethod
+    def prepare_template_values(self, template_values: Mapping[str, str]) -> dict[str, str]:
+        '''
+            Prepares template values.
+
+            :param template_values: Input replacement values.
+            :type template_values: <Mapping[str, str]>
+            :return: The updated template values dictionary.
+            :rtype: <dict[str, str]>
+            :exceptions: None.
+        '''
+        pass
+
+    @abstractmethod
+    def generate(self, generator_bundle: GeneratorBundle) -> bool:
+        '''
+            Generates project modules/files from a .tgz archive.
+
+            :param generator_bundle: Generator bundle containing template generation parameters.
+            :type generator_bundle: <GeneratorBundle>
+            :return: True if generation was successful, False otherwise.
+            :rtype: <bool>
+            :exceptions: None.
+        '''
+        pass
+
+    @abstractmethod
+    def is_initialized(self) -> bool:
+        '''
+            Checks if generator component is initialized.
+
+            :return: True (success) | False (fail).
+            :rtype: <bool>
+            :exceptions: None.
+        '''
+        pass
+
+    @abstractmethod
+    def __str__(self) -> str:
+        '''
+            Returns the generator as string representation.
+
+            :return: The generator as string representation.
+            :rtype: <str>
+            :exceptions: None.
+        '''
+        pass (duplicate-code)
+ats_utilities/checker/format/iformat_validator.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.config_io.ifile_check:[66:113]
+==ats_utilities.option.strategy.iparser_strategy:[83:145]
+        pass
+
+    @abstractmethod
+    def add_version(self, version: str | None) -> None:
+        '''
+            Adds a version display option to the parser.
+
+            :param version: The ATS version in string format | None.
+            :type version: <str | None>
+            :exceptions: None.
+        '''
+        pass
+
+    @abstractmethod
+    def parse(self, arguments: OptArgs, known_only: bool = False) -> OptionNamespace:
+        '''
+            Parses the input arguments and returns an OptionNamespace.
+
+            :param arguments: Sequence of arguments | None.
+            :type arguments: <OptArgs>
+            :param known_only: Parse only known arguments.
+            :type known_only: <bool>
+            :return: Option namespace object.
+            :rtype: <OptionNamespace>
+            :exceptions: None.
+        '''
+        pass
+
+    @abstractmethod
+    def register_commands(self, commands: Sequence[IOptionCommand]) -> None:
+        '''
+            Register a sequence of commands with the parser.
+
+            :param commands: Sequence of commands to register.
+            :type commands: <Sequence[IOptionCommand]>
+            :exceptions: None.
+        '''
+        pass
+
+    @abstractmethod
+    def parse_command(self, arguments: OptArgs = None) -> tuple[str, Mapping[str, Any]]:
+        '''
+            Parses CLI arguments for subcommands and returns command name and parameters.
+
+            :param arguments: Sequence of arguments | None.
+            :type arguments: <OptArgs>
+            :return: Tuple containing command name and parsed parameters (read only data).
+            :rtype: <tuple[str, Mapping[str, Any]]>
+            :exceptions: None.
+        '''
+        pass
+
+
+    @abstractmethod
+    def is_initialized(self) -> bool:
+        '''
+            Checks if parser strategy component is ok.
+
+            :return: True (success) | False (fail).
+            :rtype: <bool>
+            :exceptions: None.
+        ''' (duplicate-code)
+ats_utilities/checker/format/iformat_validator.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.config_io.config_loader_bundle:[109:125]
+==ats_utilities.info.component_bundle:[218:234]
+        for field_name in self.__dataclass_fields__:
+            other_value: Any = getattr(other, field_name)
+
+            if other_value is not None:
+                setattr(self, field_name, other_value)
+
+        self.validate()
+
+    def to_dict(self) -> dict[str, Any]:
+        '''
+            Converts the ConfigLoaderBundle instance to a dictionary.
+
+            :return: Dictionary representation of the ConfigLoaderBundle instance.
+            :rtype: <dict[str, Any]>
+            :exceptions: None.
+        ''' (duplicate-code)
+ats_utilities/checker/format/iformat_validator.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.checker.reporter.checker_reporter_bundle:[117:133]
+==ats_utilities.context_bundle:[134:150]
+        for field_name in self.__dataclass_fields__:
+            other_value: Any = getattr(other, field_name)
+
+            if other_value is not None:
+                setattr(self, field_name, other_value)
+
+        self.validate()
+
+    def to_dict(self) -> dict[str, Any]:
+        '''
+            Converts the ContextBundle instance to a dictionary.
+
+            :return: Dictionary representation of the ContextBundle.
+            :rtype: <dict[str, Any]>
+            :exceptions: None.
+        ''' (duplicate-code)
+ats_utilities/checker/format/iformat_validator.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.generator.engine:[84:89]
+==ats_utilities.splasher.engine:[76:90]
+    _checker: IChecker
+    _logger: ILogger
+    _reporter: IReporter
+    _verbose: bool
+    _shared_context: ContextBundle (duplicate-code)
+ats_utilities/checker/format/iformat_validator.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.reporter.engine:[95:115]
+==ats_utilities.splasher.engine:[155:172]
+            self._is_initialized = True
+
+        except (ATSTypeError, ATSValueError, ATSRuntimeError, ATSAttributeError) as exc:
+            stderr.write(f'\x1b[31m{cls_name(self)} {exc}\x1b[0m\n')
+
+        except Exception as exc:
+            stderr.write(f'\x1b[31m{cls_name(self)} unexpected exception: {exc}\x1b[0m\n')
+
+    def _report(self, message: Sequence[Any], color: str, ctrl: int) -> None:
+        '''
+            Utility method for reporting message to log/console.
+
+            :param message: Sequence with message components.
+            :type message: <Sequence[Any]>
+            :param color: Theme color for the message.
+            :type color: <str>
+            :param ctrl: Log control flag.
+            :type ctrl: <int>
+            :exceptions: None.
+        ''' (duplicate-code)
+ats_utilities/checker/format/iformat_validator.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.logger.ilogger:[74:116]
+==ats_utilities.option.strategy.iparser_strategy:[70:133]
+        pass
+
+    @abstractmethod
+    def add_argument(self, *args: str, **kwargs: Any) -> None:
+        '''
+            Adds an operational argument/flag to the parser.
+
+            :param args: Arguments in string format.
+            :type args: <str>
+            :param kwargs: Arguments in Any form
+            :type kwargs: <Any>
+            :exceptions: None.
+        '''
+        pass
+
+    @abstractmethod
+    def add_version(self, version: str | None) -> None:
+        '''
+            Adds a version display option to the parser.
+
+            :param version: The ATS version in string format | None.
+            :type version: <str | None>
+            :exceptions: None.
+        '''
+        pass
+
+    @abstractmethod
+    def parse(self, arguments: OptArgs, known_only: bool = False) -> OptionNamespace:
+        '''
+            Parses the input arguments and returns an OptionNamespace.
+
+            :param arguments: Sequence of arguments | None.
+            :type arguments: <OptArgs>
+            :param known_only: Parse only known arguments.
+            :type known_only: <bool>
+            :return: Option namespace object.
+            :rtype: <OptionNamespace>
+            :exceptions: None.
+        '''
+        pass
+
+    @abstractmethod
+    def register_commands(self, commands: Sequence[IOptionCommand]) -> None:
+        '''
+            Register a sequence of commands with the parser.
+
+            :param commands: Sequence of commands to register.
+            :type commands: <Sequence[IOptionCommand]>
+            :exceptions: None.
+        '''
+        pass
+
+    @abstractmethod
+    def parse_command(self, arguments: OptArgs = None) -> tuple[str, Mapping[str, Any]]:
+        '''
+            Parses CLI arguments for subcommands and returns command name and parameters.
+
+            :param arguments: Sequence of arguments | None.
+            :type arguments: <OptArgs>
+            :return: Tuple containing command name and parsed parameters (read only data).
+            :rtype: <tuple[str, Mapping[str, Any]]>
+            :exceptions: None.
+        ''' (duplicate-code)
+ats_utilities/checker/format/iformat_validator.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.logger.ilogger:[63:115]
+==ats_utilities.option.strategy.iparser_strategy:[109:157]
+        pass
+
+    @abstractmethod
+    def is_initialized(self) -> bool:
+        '''
+            Checks if logger is initialized.
+
+            :return: <True> if logger is initialized, <False> otherwise.
+            :rtype: <bool>
+            :exceptions: None.
+        '''
+        pass
+
+    @abstractmethod
+    def set_level(self, level: int) -> None:
+        '''
+            Sets log level.
+
+            :param level: Log level.
+            :type level: <int>
+            :exceptions: None.
+        '''
+        pass
+
+    @abstractmethod
+    def set_log_file(self, log_file: str) -> None:
+        '''
+            Sets log file.
+
+            :param log_file: Log file path.
+            :type log_file: <str>
+            :exceptions: None.
+        '''
+        pass
+
+    @abstractmethod
+    def stop_buffering(self) -> None:
+        '''
+            Stops log buffering.
+
+            :exceptions: None.
+        '''
+        pass
+
+    def __str__(self) -> str:
+        '''
+            Returns the logger as string representation.
+
+            :return: The logger as string representation.
+            :rtype: <str>
+            :exceptions: None.
+        ''' (duplicate-code)
+ats_utilities/checker/format/iformat_validator.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.info.engine:[78:83]
+==ats_utilities.option.engine:[81:86]
+    _checker: IChecker
+    _logger: ILogger
+    _reporter: IReporter
+    _verbose: bool
+    _is_initialized: bool (duplicate-code)
+ats_utilities/checker/format/iformat_validator.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.checker.engine:[95:114]
+==ats_utilities.option.engine:[107:124]
+            self._is_initialized = True
+
+        except (ATSTypeError, ATSValueError, ATSRuntimeError, ATSAttributeError) as exc:
+            stderr.write(f'\x1b[31m{cls_name(self)} {exc}\x1b[0m\n')
+
+        except Exception as exc:
+            stderr.write(f'\x1b[31m{cls_name(self)} unexpected exception: {exc}\x1b[0m\n')
+
+    @override
+    def validates_parameters(self, parameters: ParametersSpecs) -> ValidationResult:
+        '''
+            Validates parameters for method(s) or function(s).
+
+            :param parameters: Specification for parameters.
+            :type parameters: <ParametersSpecs>
+            :return: Tuple of error message report and error id.
+            :rtype: <ValidationResult>
+            :exceptions: None.
+        ''' (duplicate-code)
+ats_utilities/checker/format/iformat_validator.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.base.engine:[125:151]
+==ats_utilities.option.engine:[109:139]
+        except (ATSTypeError, ATSValueError, ATSRuntimeError, ATSAttributeError) as exc:
+            stderr.write(f'\x1b[31m{cls_name(self)} {exc}\x1b[0m\n')
+
+        except Exception as exc:
+            stderr.write(f'\x1b[31m{cls_name(self)} unexpected exception: {exc}\x1b[0m\n')
+
+    @override
+    def get_shared_context(self) -> ContextBundle:
+        '''
+            Returns the shared context.
+
+            :return: Shared context.
+            :rtype: <ContextBundle>
+            :exceptions: None.
+        '''
+        return self._shared_context
+
+    @has_attrs('_strategy')
+    @override
+    def add_operation(self, *args: str, **kwargs: Any) -> None:
+        '''
+            Adds an option to the parser.
+
+            :param args: List of flags for the ATS.
+            :type args: <str>
+            :param kwargs: Arguments in shape of dictionary.
+            :type kwargs: <Any>
+            :exceptions:
+                | ATSValueError: Missing or empty attribute: '_strategy'.
+        ''' (duplicate-code)
+ats_utilities/checker/format/iformat_validator.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.base.ibase:[80:131]
+==ats_utilities.info.imanager:[67:120]
+        pass
+
+    @abstractmethod
+    def set_info(self, info: Mapping[str, Any]) -> None:
+        '''
+            Sets the information.
+
+            :param info: Mapping with information.
+            :type info: <Mapping[str, Any]>
+            :exceptions: None.
+        '''
+        pass
+
+    @abstractmethod
+    def get_info(self) -> Mapping[str, Any]:
+        '''
+            Gets the information.
+
+            :return: Mapping with information.
+            :rtype: <Mapping[str, Any]>
+            :exceptions: None.
+        '''
+        pass
+
+    @abstractmethod
+    def is_initialized(self) -> bool:
+        '''
+            Checks if info manager is initialized.
+
+            :return: True (success) | False (fail)
+            :rtype: <bool>
+            :exceptions: None.
+        '''
+        pass
+
+    @abstractmethod
+    def refresh_status(self) -> None:
+        '''
+            Refreshes status for information structure.
+
+            :exceptions: None.
+        '''
+        pass
+
+    @abstractmethod
+    def __str__(self) -> str:
+        '''
+            Returns the info manager as string representation.
+
+            :return: The info manager as string representation.
+            :rtype: <str>
+            :exceptions: None.
+        ''' (duplicate-code)
+ats_utilities/checker/format/iformat_validator.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.base.ibase:[69:130]
+==ats_utilities.info.imanager:[78:121]
+        pass
+
+    @abstractmethod
+    def get_info(self) -> Mapping[str, Any]:
+        '''
+            Gets the information.
+
+            :return: Mapping with information.
+            :rtype: <Mapping[str, Any]>
+            :exceptions: None.
+        '''
+        pass
+
+    @abstractmethod
+    def is_initialized(self) -> bool:
+        '''
+            Checks if info manager is initialized.
+
+            :return: True (success) | False (fail)
+            :rtype: <bool>
+            :exceptions: None.
+        '''
+        pass
+
+    @abstractmethod
+    def refresh_status(self) -> None:
+        '''
+            Refreshes status for information structure.
+
+            :exceptions: None.
+        '''
+        pass
+
+    @abstractmethod
+    def __str__(self) -> str:
+        '''
+            Returns the info manager as string representation.
+
+            :return: The info manager as string representation.
+            :rtype: <str>
+            :exceptions: None.
+        '''
+        pass (duplicate-code)
+ats_utilities/checker/format/iformat_validator.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.generator.tar.tar_process_bundle:[121:137]
+==ats_utilities.splasher.splash_center_bundle:[121:137]
+        for field_name in self.__dataclass_fields__:
+            other_value: Any = getattr(other, field_name)
+
+            if other_value is not None:
+                setattr(self, field_name, other_value)
+
+        self.validate()
+
+    def to_dict(self) -> dict[str, Any]:
+        '''
+            Converts the TarProcessBundle instance to a dictionary.
+
+            :return: Dictionary representation of the TarProcessBundle instance.
+            :rtype: <dict[str, Any]>
+            :exceptions: None.
+        ''' (duplicate-code)
+ats_utilities/checker/format/iformat_validator.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.config_io.ini.ini2object:[118:137]
+==ats_utilities.config_io.xml.object2xml:[111:137]
+        self._file_path = str(config_file)
+        self._file_bundle_shared = FileBundle()
+        self._file_bundle_shared.file_path = self._file_path
+        self._file_bundle_shared.file_mode = self._MODE
+        self._file_bundle_shared.file_format = self._EXT
+
+    @vcheck([('IXMLProcessor | None:config', None)])
+    @vreport('write configuration to file {file_path}')
+    @override
+    def write_configuration(self, config: IXMLProcessor | None) -> bool:
+        '''
+            Writes configuration to an XML file.
+
+            :param config: Configuration object | None.
+            :type config: <IXMLProcessor | None>
+            :return: True (success) | False (fail).
+            :rtype: <bool>
+            :exceptions:
+                | ATSRuntimeError: Decorator cannot be used on a standalone function.
+                | ATSAttributeError: Class is required to provide a '_reporter' object to
+                |                    use the @vreport decorator.
+                | ATSTypeError: Parameter type validation failed.
+                | ATSValueError: Parameter format validation failed.
+                | ATSRuntimeError: Decorator used on a non-class method.
+                | ATSAttributeError: Class does not provide a '_checker' object.
+        ''' (duplicate-code)
+ats_utilities/checker/format/iformat_validator.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.config_io.yaml.object2yaml:[110:136]
+==ats_utilities.config_io.yaml.yaml2object:[118:137]
+        self._file_path = str(config_file)
+        self._file_bundle_shared = FileBundle()
+        self._file_bundle_shared.file_path = self._file_path
+        self._file_bundle_shared.file_mode = self._MODE
+        self._file_bundle_shared.file_format = self._EXT
+
+    @vreport('read configuration from file {file_path}')
+    @override
+    def read_configuration(self) -> IYAMLProcessor | None:
+        '''
+            Reads a configuration from a YAML file.
+
+            :return: Configuration object | None.
+            :rtype: <IYAMLProcessor | None>
+            :exceptions:
+                | ATSRuntimeError: Decorator cannot be used on a standalone function.
+                | ATSAttributeError: Class is required to provide a '_reporter' object to
+                |                    use the @vreport decorator.
+        ''' (duplicate-code)
+ats_utilities/checker/format/iformat_validator.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.config_io.cfg.cfg2object:[118:137]
+==ats_utilities.config_io.cfg.object2cfg:[111:137]
+        self._file_path = str(config_file)
+        self._file_bundle_shared = FileBundle()
+        self._file_bundle_shared.file_path = self._file_path
+        self._file_bundle_shared.file_mode = self._MODE
+        self._file_bundle_shared.file_format = self._EXT
+
+    @vcheck([('ICFGProcessor | None:config', None)])
+    @vreport('write configuration to file {file_path}')
+    @override
+    def write_configuration(self, config: ICFGProcessor | None) -> bool:
+        '''
+            Writes a configuration to a CFG file.
+
+            :param config: Configuration object | None.
+            :type config: <ICFGProcessor | None>
+            :return: True (success) | False (fail).
+            :rtype: <bool>
+            :exceptions:
+                | ATSRuntimeError: Decorator cannot be used on a standalone function.
+                | ATSAttributeError: Class is required to provide a '_reporter' object to
+                |                    use the @vreport decorator.
+                | ATSTypeError: Parameter type validation failed.
+                | ATSValueError: Parameter format validation failed.
+                | ATSRuntimeError: Decorator used on a non-class method.
+                | ATSAttributeError: Class does not provide a '_checker' object.
+        ''' (duplicate-code)
+ats_utilities/checker/format/iformat_validator.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.config_io.file_bundle:[99:115]
+==ats_utilities.logger.component_bundle:[131:147]
+        for field_name in self.__dataclass_fields__:
+            other_value: Any = getattr(other, field_name)
+
+            if other_value is not None:
+                setattr(self, field_name, other_value)
+
+        self.validate()
+
+    def to_dict(self) -> dict[str, Any]:
+        '''
+            Converts the LoggerComponentBundle instance to a dictionary.
+
+            :return: Dictionary representation of the LoggerComponentBundle instance.
+            :rtype: <dict[str, Any]>
+            :exceptions: None.
+        ''' (duplicate-code)
+ats_utilities/checker/format/iformat_validator.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.config_setup.component_bundle:[109:125]
+==ats_utilities.splasher.component_bundle:[191:207]
+        for field_name in self.__dataclass_fields__:
+            other_value: Any = getattr(other, field_name)
+
+            if other_value is not None:
+                setattr(self, field_name, other_value)
+
+        self.validate()
+
+    def to_dict(self) -> dict:
+        '''
+            Converts the ConfigSetupComponentBundle instance to a dictionary.
+
+            :return: Dictionary representation of the ConfigSetupComponentBundle instance.
+            :rtype: <dict>
+            :exceptions: None.
+        ''' (duplicate-code)
+ats_utilities/checker/format/iformat_validator.py:1:0: R0801: Similar lines in 2 files
+==ats_utilities.generator.scheme.scheme_loader:[73:104]
+==ats_utilities.generator.template.template_processor:[65:93]
+    _reporter: IReporter
+    _verbose: bool
+    _initialized: bool
+
+    def __init__(self, context_bundle: ContextBundle | None = None) -> None:
+        '''
+            Initializes TemplateProcessor constructor.
+
+            :param context_bundle: Context bundle for template processor | None.
+            :type context_bundle: <ContextBundle | None>
+            :exceptions: None.
+        '''
+        factory_context_bundle(self, context_bundle)
+        self._initialized = True
+
+    @override
+    def render(self, raw_content: bytes, vals: Mapping[str, str]) -> str | bytes:
+        '''
+            Decodes and renders template placeholders.
+
+            :param raw_content: The raw byte content of the file.
+            :type raw_content: <bytes>
+            :param vals: String replacement values.
+            :type vals: <Mapping[str, str]>
+            :return: Rendered text content, or raw bytes if binary format.
+            :rtype: <str | bytes>
+            :exceptions: None.
+        ''' (duplicate-code)
+
+------------------------------------------------------------------
+Your code has been rated at 9.34/10 (previous run: 9.34/10, +0.00)
+

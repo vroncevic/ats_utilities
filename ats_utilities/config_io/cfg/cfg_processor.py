@@ -97,7 +97,7 @@ class CFGProcessor(ICFGProcessor):
             :rtype: <str>
             :exceptions: None.
         '''
-        return "".join([f"{k} = {v}\n" for k, v in self._data.items()])
+        return ''.join([f'{k} = {v}\n' for k, v in self._data.items()])
 
     @override
     def to_dict(self) -> dict[str, str]:

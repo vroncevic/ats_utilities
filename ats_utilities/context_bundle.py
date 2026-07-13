@@ -58,6 +58,7 @@ class ContextBundle:
 
             :attributes:
                 | checker - Checker for parameters (default None).
+                | logger - Logger for logging (default None).
                 | reporter - Reporter for providing all types of messages (default None).
                 | verbose - Flag for enabling verbose output (default False).
             :methods:
@@ -74,8 +75,8 @@ class ContextBundle:
 
     def __post_init__(self) -> None:
         '''
-            Post-initialization hook to set up default components if not provided.
-            Initializes Checker if None, then uses it to initialize Reporter.
+            Post-initialization hook to set up core components if not provided.
+            Initializes Checker, Logger and Reporter if None.
 
             :exceptions: None.
         '''

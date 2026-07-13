@@ -29,6 +29,7 @@ from ats_utilities.splasher.external.iext_infrastructure import IExtInfrastructu
 from ats_utilities.splasher.splash_keys import SplashKeys
 from ats_utilities.context_bundle import ContextBundle
 from ats_utilities.checker.ichecker import IChecker
+from ats_utilities.logger.ilogger import ILogger
 from ats_utilities.reporter.ireporter import IReporter
 from ats_utilities.factory_context_bundle import factory_context_bundle
 from ats_utilities.factory_class import has_attrs, to_str
@@ -56,8 +57,9 @@ class ExtInfrastructure(IExtInfrastructure):
         It defines:
 
             :attributes:
-                | _required_keys - Required keys for infrastructure property (default frozenset).
+                | _REQUIRED_KEYS - Required keys for infrastructure property (default frozenset).
                 | _checker - Injected parameters checker (default Checker).
+                | _logger - Injected logger (default Logger).
                 | _reporter - Injected reporter for messaging (default Reporter).
                 | _verbose - Injected Enable/Disable verbose option (default False).
                 | _infrastructure_property - Splasher hyperlinks property (default None).
@@ -70,10 +72,11 @@ class ExtInfrastructure(IExtInfrastructure):
                 | __str__ - Returns the string representation of ExtInfrastructure.
     '''
 
-    _required_keys: frozenset[str] = frozenset([
+    _REQUIRED_KEYS: frozenset[str] = frozenset([
         SplashKeys.ATS_NAME, SplashKeys.ATS_ORGANIZATION, SplashKeys.ATS_REPOSITORY
     ])
     _checker: IChecker
+    _logger: ILogger
     _reporter: IReporter
     _verbose: bool
     _infrastructure_property: Mapping[str, Any] | None
@@ -128,8 +131,8 @@ class ExtInfrastructure(IExtInfrastructure):
                 | ATSRuntimeError: Decorator used on a non-class method.
                 | ATSAttributeError: Class does not provide a '_checker' object.
         '''
-        require_keys(setup, self._required_keys)
-        self._infrastructure_property = cherry_pick_dict(setup, self._required_keys)
+        require_keys(setup, self._REQUIRED_KEYS)
+        self._infrastructure_property = cherry_pick_dict(setup, self._REQUIRED_KEYS)
 
     @vreport('getting info text {infrastructure_property}')
     @has_attrs('_infrastructure_property')

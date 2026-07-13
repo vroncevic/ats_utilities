@@ -28,6 +28,7 @@ from io import StringIO
 from ats_utilities.config_io.iwrite import IWrite
 from ats_utilities.config_io.istorer import IStorer
 from ats_utilities.checker.ichecker import IChecker
+from ats_utilities.logger.ilogger import ILogger
 from ats_utilities.reporter.ireporter import IReporter
 from ats_utilities.config_io.config_file_bundle import ConfigFileBundle
 from ats_utilities.config_io.ini.object2ini import Object2Ini
@@ -59,6 +60,7 @@ class INIStorer(IStorer):
             :attributes:
                 | _SECTION - Section name for ATS configuration.
                 | _checker - Injected parameters checker (default Checker).
+                | _logger - Injected logger for logging (default Logger).
                 | _reporter - Injected reporter for messaging (default Reporter).
                 | _verbose - Injected Enable/Disable verbose option (default False).
                 | _processor - Processor for INI content (default INIProcessor).
@@ -71,6 +73,7 @@ class INIStorer(IStorer):
 
     _SECTION: str = '[ats_info]'
     _checker: IChecker
+    _logger: ILogger
     _reporter: IReporter
     _verbose: bool
     _processor: IINIProcessor
@@ -125,7 +128,7 @@ class INIStorer(IStorer):
         ini_content = f'{self._SECTION}\n'
 
         for k, v in config.items():
-            ini_content += f"{k} = {v}\n"
+            ini_content += f'{k} = {v}\n'
 
         stream: StringIO = StringIO(ini_content)
 

@@ -22,7 +22,7 @@ Info
 from __future__ import annotations
 
 from typing import Any
-from dataclasses import dataclass, asdict
+from dataclasses import dataclass
 
 from ats_utilities.factory_type import check_type
 from ats_utilities.factory_value import require_not_satisfied, require_not_none
@@ -81,7 +81,7 @@ class SplashCenterBundle:
             self.additional_shifter = 0
 
         if self.text is None:
-            self.text = ""
+            self.text = ''
 
     def validate(self) -> None:
         '''
@@ -135,4 +135,7 @@ class SplashCenterBundle:
             :rtype: <dict[str, Any]>
             :exceptions: None.
         '''
-        return asdict(self)
+        return {
+            field: getattr(self, field)
+            for field in self.__dataclass_fields__
+        }

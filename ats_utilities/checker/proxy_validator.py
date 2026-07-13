@@ -79,7 +79,7 @@ def vcheck[F: Callable[..., Any]](specs: list[tuple[str, Any]]) -> Callable[[F],
             if self_instance is None:
                 raise_context_error(
                     fallback_prefix='vcheck::decorator',
-                    fallback_msg=f'Decorator @vcheck on {func.__name__} can only be used on class methods.',
+                    fallback_msg=f'Decorator @vcheck on {func.__name__} can only be used on class methods',
                     exc_message=None,
                     exception_class=ATSRuntimeError,
                     depth=3
@@ -97,7 +97,7 @@ def vcheck[F: Callable[..., Any]](specs: list[tuple[str, Any]]) -> Callable[[F],
             if checker is None:
                 raise_context_error(
                     fallback_prefix='vcheck::decorator',
-                    fallback_msg=f"Class '{cls_name}' must have '_checker' attribute to use @vcheck decorator.",
+                    fallback_msg=f'Class {cls_name} must have _checker attribute to use @vcheck decorator',
                     exc_message=None,
                     exception_class=ATSAttributeError,
                     depth=3
@@ -122,10 +122,10 @@ def vcheck[F: Callable[..., Any]](specs: list[tuple[str, Any]]) -> Callable[[F],
                     actual_value = actual_params_dict[pname]
 
                     # We check if the type uses | None union syntax
-                    is_optional = raw_type.endswith(" | None")
+                    is_optional = raw_type.endswith(' | None')
 
                     if is_optional:
-                        # We highlight the internal type, e.g. "str | None" -> "str"
+                        # We highlight the internal type, e.g. str | None -> str
                         target_type = raw_type[:-7].strip()
 
                         # If the value is None, it is valid and we skip the check
@@ -136,11 +136,11 @@ def vcheck[F: Callable[..., Any]](specs: list[tuple[str, Any]]) -> Callable[[F],
 
                         # If it is not optional and the value is None, it is immediately a type error
                         if actual_value is None:
-                            runtime_parameters.append((f"{target_type}:{pname}", actual_value))
+                            runtime_parameters.append((f'{target_type}:{pname}', actual_value))
                             continue
 
-                    # We form a cleaned specification string for Checker (eg "str:version")
-                    clean_exp_type = f"{target_type}:{pname}"
+                    # We form a cleaned specification string for Checker (eg str:version)
+                    clean_exp_type = f'{target_type}:{pname}'
                     runtime_parameters.append((clean_exp_type, actual_value))
 
             # FORWARDING: Process parameter validation via the borrowed checker instance

@@ -269,6 +269,10 @@ These modules requires other modules and libraries (Python 3.x)
          │   │   ├── engine.py
          │   │   ├── ilicence.py
          │   │   └── __init__.py
+         │   ├── log_file/
+         │   │   ├── engine.py
+         │   │   ├── ilog_file.py
+         │   │   └── __init__.py
          │   ├── logo/
          │   │   ├── engine.py
          │   │   ├── ilogo.py
@@ -352,7 +356,7 @@ These modules requires other modules and libraries (Python 3.x)
                  ├── iterminal_properties.py
                  └── terminal_properties.py
 
-     41 directories, 195 files
+     42 directories, 198 files
 ```
 </details>
 
@@ -365,8 +369,8 @@ These modules requires other modules and libraries (Python 3.x)
 |------|-------|------|-------|
 | `ats_utilities/__init__.py` | 9 | 0 | 100%|
 | `ats_utilities/base/__init__.py` | 9 | 0 | 100%|
-| `ats_utilities/base/component_bundle.py` | 101 | 0 | 100%|
-| `ats_utilities/base/engine.py` | 76 | 0 | 100%|
+| `ats_utilities/base/component_bundle.py` | 108 | 0 | 99%|
+| `ats_utilities/base/engine.py` | 78 | 0 | 100%|
 | `ats_utilities/base/ibase.py` | 16 | 0 | 100%|
 | `ats_utilities/checker/__init__.py` | 9 | 0 | 100%|
 | `ats_utilities/checker/component_bundle.py` | 59 | 0 | 100%|
@@ -458,7 +462,7 @@ These modules requires other modules and libraries (Python 3.x)
 | `ats_utilities/exceptions/ats_value_error.py` | 11 | 0 | 100%|
 | `ats_utilities/factory_class.py` | 71 | 0 | 100%|
 | `ats_utilities/factory_component.py` | 16 | 0 | 100%|
-| `ats_utilities/factory_context_bundle.py` | 17 | 0 | 100%|
+| `ats_utilities/factory_context_bundle.py` | 18 | 0 | 100%|
 | `ats_utilities/factory_context_error.py` | 16 | 0 | 100%|
 | `ats_utilities/factory_dict_utils.py` | 26 | 0 | 100%|
 | `ats_utilities/factory_file_utils.py` | 116 | 0 | 100%|
@@ -485,16 +489,19 @@ These modules requires other modules and libraries (Python 3.x)
 | `ats_utilities/info/build_date/__init__.py` | 9 | 0 | 100%|
 | `ats_utilities/info/build_date/engine.py` | 44 | 0 | 100%|
 | `ats_utilities/info/build_date/ibuild_date.py` | 11 | 0 | 100%|
-| `ats_utilities/info/component_bundle.py` | 103 | 0 | 100%|
-| `ats_utilities/info/engine.py` | 83 | 0 | 100%|
+| `ats_utilities/info/component_bundle.py` | 111 | 0 | 99%|
+| `ats_utilities/info/engine.py` | 87 | 0 | 100%|
 | `ats_utilities/info/imanager.py` | 14 | 0 | 100%|
-| `ats_utilities/info/info_keys.py` | 28 | 0 | 100%|
+| `ats_utilities/info/info_keys.py` | 29 | 0 | 100%|
 | `ats_utilities/info/info_ok/__init__.py` | 9 | 0 | 100%|
 | `ats_utilities/info/info_ok/engine.py` | 44 | 0 | 100%|
 | `ats_utilities/info/info_ok/iinfo_ok.py` | 11 | 0 | 100%|
 | `ats_utilities/info/licence/__init__.py` | 9 | 0 | 100%|
 | `ats_utilities/info/licence/engine.py` | 44 | 0 | 100%|
 | `ats_utilities/info/licence/ilicence.py` | 11 | 0 | 100%|
+| `ats_utilities/info/log_file/__init__.py` | 9 | 0 | 100%|
+| `ats_utilities/info/log_file/engine.py` | 44 | 0 | 100%|
+| `ats_utilities/info/log_file/ilog_file.py` | 11 | 0 | 100%|
 | `ats_utilities/info/logo/__init__.py` | 9 | 0 | 100%|
 | `ats_utilities/info/logo/engine.py` | 44 | 0 | 100%|
 | `ats_utilities/info/logo/ilogo.py` | 11 | 0 | 100%|
@@ -515,7 +522,7 @@ These modules requires other modules and libraries (Python 3.x)
 | `ats_utilities/info/version/iversion.py` | 11 | 0 | 100%|
 | `ats_utilities/logger/__init__.py` | 9 | 0 | 100%|
 | `ats_utilities/logger/component_bundle.py` | 43 | 1 | 94%|
-| `ats_utilities/logger/engine.py` | 57 | 3 | 86%|
+| `ats_utilities/logger/engine.py` | 94 | 14 | 74%|
 | `ats_utilities/logger/ilogger.py` | 12 | 0 | 100%|
 | `ats_utilities/option/__init__.py` | 9 | 0 | 100%|
 | `ats_utilities/option/command/__init__.py` | 9 | 0 | 100%|
@@ -557,7 +564,7 @@ These modules requires other modules and libraries (Python 3.x)
 | `ats_utilities/splasher/terminal/__init__.py` | 9 | 0 | 100%|
 | `ats_utilities/splasher/terminal/iterminal_properties.py` | 12 | 0 | 100%|
 | `ats_utilities/splasher/terminal/terminal_properties.py` | 60 | 0 | 100%|
-| **Total** | 6055 | 9 | 99% |
+| **Total** | 6179 | 20 | 99% |
 
 </details>
 

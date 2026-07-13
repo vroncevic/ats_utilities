@@ -59,7 +59,7 @@ class FormatValidator(IFormatValidator):
     def is_valid(self, exp_type: str) -> bool:
         '''
             Checks if the string follows the expected format.
-            Checks if the string follows the "type:name" format.
+            Checks if the string follows the type:name format.
 
             :param exp_type: The expected format string to validate.
             :type exp_type: <str>

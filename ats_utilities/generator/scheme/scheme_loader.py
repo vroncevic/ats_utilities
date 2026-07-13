@@ -29,6 +29,7 @@ from collections.abc import Mapping
 from ats_utilities.generator.scheme.ischeme_loader import ISchemeLoader
 from ats_utilities.context_bundle import ContextBundle
 from ats_utilities.checker.ichecker import IChecker
+from ats_utilities.logger.ilogger import ILogger
 from ats_utilities.reporter.ireporter import IReporter
 from ats_utilities.config_io.config_loader_bundle import ConfigLoaderBundle
 from ats_utilities.config_io.config_loader import ConfigLoader
@@ -57,6 +58,7 @@ class SchemeLoader(ISchemeLoader):
 
             :attributes:
                 | _checker - Injected parameters checker (default Checker).
+                | _logger - Injected logger for logging (default Logger).
                 | _reporter - Injected reporter for messaging (default Reporter).
                 | _verbose - Injected Enable/Disable verbose option (default False).
                 | _initialized - Flag indicating if the loader is initialized.
@@ -68,6 +70,7 @@ class SchemeLoader(ISchemeLoader):
     '''
 
     _checker: IChecker
+    _logger: ILogger
     _reporter: IReporter
     _verbose: bool
     _initialized: bool
@@ -102,18 +105,18 @@ class SchemeLoader(ISchemeLoader):
         check_type(scheme, (str, Mapping), r'scheme must be of type str or Mapping')
 
         if isinstance(scheme, str):
-            require_not_satisfied(not exists(scheme), f"scheme file at the provided path does not exist: '{scheme}'")
-            require_not_satisfied(not scheme.endswith('.json'), f"unsupported scheme file format for: '{scheme}'. Only .json is supported.")
+            require_not_satisfied(not exists(scheme), f'scheme file at the provided path does not exist: {scheme}')
+            require_not_satisfied(not scheme.endswith('.json'), f'unsupported scheme file format for: {scheme}. Only .json is supported.')
 
             try:
                 config_loader: ConfigLoader = ConfigLoader(ConfigLoaderBundle(info_file=scheme))
                 loader = config_loader.setup_config_loader()
-                require_not_satisfied(loader is None, f"failed to setup config loader for: '{scheme}'")
+                require_not_satisfied(loader is None, f'failed to setup config loader for: {scheme}')
 
                 return loader.load_configuration()
 
             except Exception as exc:
-                require_not_satisfied(True, f"failed to load scheme file '{scheme}': {exc}", ATSGeneratorError)
+                require_not_satisfied(True, f'failed to load scheme file {scheme}: {exc}', ATSGeneratorError)
 
         return dict(scheme)
 

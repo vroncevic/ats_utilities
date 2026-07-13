@@ -72,7 +72,7 @@ class IINIProcessor(BaseIINIProcessor):
 
     def __str__(self) -> str:
         '''Implementation of abstract method.'''
-        return ""
+        return ''
 
 
 

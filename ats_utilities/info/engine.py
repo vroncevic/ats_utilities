@@ -31,6 +31,7 @@ from ats_utilities.context_bundle import ContextBundle
 from ats_utilities.info.component_bundle import InfoComponentBundle
 from ats_utilities.info.info_keys import InfoKeys
 from ats_utilities.checker.ichecker import IChecker
+from ats_utilities.logger.ilogger import ILogger
 from ats_utilities.reporter.ireporter import IReporter
 from ats_utilities.exceptions import ATSAttributeError, ATSRuntimeError, ATSTypeError, ATSValueError
 from ats_utilities.factory_context_bundle import factory_context_bundle
@@ -60,6 +61,7 @@ class InfoManager(IInfoManager):
             :attributes:
                 | _components - The info components (default InfoComponentBundle).
                 | _checker - Injected parameters checker (default Checker).
+                | _logger - Injected logger (default Logger).
                 | _reporter - Injected reporter for messaging (default Reporter).
                 | _verbose - Injected Enable/Disable verbose option (default False).
                 | _shared_context - Context bundle with shared context.
@@ -75,6 +77,7 @@ class InfoManager(IInfoManager):
     '''
 
     _checker: IChecker
+    _logger: ILogger
     _reporter: IReporter
     _verbose: bool
     _is_initialized: bool
@@ -102,10 +105,10 @@ class InfoManager(IInfoManager):
             self._is_initialized = True
 
         except (ATSTypeError, ATSValueError, ATSRuntimeError, ATSAttributeError) as exc:
-            stderr.write(f"\x1b[31m{cls_name(self)} {exc}\x1b[0m\n")
+            stderr.write(f'\x1b[31m{cls_name(self)} {exc}\x1b[0m\n')
 
         except Exception as exc:
-            stderr.write(f"\x1b[31m{cls_name(self)} unexpected exception: {exc}\x1b[0m\n")
+            stderr.write(f'\x1b[31m{cls_name(self)} unexpected exception: {exc}\x1b[0m\n')
 
     @override
     def get_shared_context(self) -> ContextBundle:
@@ -128,13 +131,17 @@ class InfoManager(IInfoManager):
             :exceptions: None.
         '''
         for key in InfoKeys.get_keys():
+            if key == InfoKeys.ATS_LOG_FILE:
+                continue
             if key not in info:
-                require_not_none(None, f"info::set_info - missing key: {key}")
+                require_not_none(None, f'info::set_info - missing key: {key}')
 
-            require_not_none(info.get(key), f"info::set_info - null value for key: {key}")
+            require_not_none(info.get(key), f'info::set_info - null value for key: {key}')
 
         for key, attr in InfoKeys.get_key_to_attr().items():
             val = info.get(key)
+            if key == InfoKeys.ATS_LOG_FILE and val is None:
+                continue
 
             if key == InfoKeys.ATS_USE_GITHUB_INFRASTRUCTURE:
                 if isinstance(val, str):
@@ -151,7 +158,11 @@ class InfoManager(IInfoManager):
             :rtype: <Mapping[str, Any]>
             :exceptions: None.
         '''
-        return {key: getattr(self, attr) for key, attr in InfoKeys.get_key_to_attr().items()}
+        return {
+            key: getattr(self, attr)
+            for key, attr in InfoKeys.get_key_to_attr().items()
+            if key != InfoKeys.ATS_LOG_FILE or getattr(self, attr) is not None
+        }
 
     def __getattr__(self, name: str) -> str | bool | None:
         '''
@@ -171,7 +182,7 @@ class InfoManager(IInfoManager):
 
         require_not_satisfied(
             True,
-            f"'{type(self).__name__}' object has no attribute '{name}'",
+            f'{type(self).__name__} object has no attribute {name}',
             ATSAttributeError
         )
 
@@ -220,6 +231,7 @@ class InfoManager(IInfoManager):
         info_ok.info_ok = all(
             getattr(self._components, attr, None).not_none()
             for attr in InfoKeys.get_key_to_attr().values()
+            if attr != 'log_file'
         )
 
     @override

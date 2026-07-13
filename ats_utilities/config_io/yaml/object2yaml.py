@@ -27,6 +27,7 @@ from typing import override
 from ats_utilities.config_io.iwrite import IWrite
 from ats_utilities.context_bundle import ContextBundle
 from ats_utilities.checker.ichecker import IChecker
+from ats_utilities.logger.ilogger import ILogger
 from ats_utilities.reporter.ireporter import IReporter
 from ats_utilities.config_io.conf_file import ConfFile
 from ats_utilities.config_io.ifile_check import IFileCheck
@@ -63,6 +64,7 @@ class Object2Yaml(IWrite):
                 | _MODE - File open mode.
                 | _config_file_bundle - Configuration file bundle parameters (default None).
                 | _checker - Injected parameters checker (default Checker).
+                | _logger - Injected logger for logging (default Logger).
                 | _reporter - Injected reporter for messaging (default Reporter).
                 | _verbose - Injected Enable/Disable verbose option (default False).
                 | _file_checker - FileCheck for checking file (default FileCheck).
@@ -77,6 +79,7 @@ class Object2Yaml(IWrite):
     _EXT: str = 'yaml'
     _MODE: str = 'w'
     _checker: IChecker
+    _logger: ILogger
     _reporter: IReporter
     _verbose: bool
     _config_file_bundle: ConfigFileBundle

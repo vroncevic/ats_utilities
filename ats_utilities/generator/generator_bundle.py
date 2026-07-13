@@ -23,7 +23,7 @@ Info
 from __future__ import annotations
 
 from collections.abc import Mapping
-from dataclasses import dataclass, asdict
+from dataclasses import dataclass
 from typing import Any
 
 from ats_utilities.factory_value import require_not_none
@@ -105,8 +105,10 @@ class GeneratorBundle:
             :param other: Another GeneratorBundle instance to merge into this one.
             :type other: <GeneratorBundle>
             :exceptions:
+                | ATSValueError: Other GeneratorBundle must be provided.
                 | ATSTypeError: Other must be a GeneratorBundle.
         '''
+        require_not_none(other, r'other GeneratorBundle must be provided')
         check_type(other, GeneratorBundle, r'other must be a GeneratorBundle')
 
         for field_name in self.__dataclass_fields__:
@@ -125,4 +127,4 @@ class GeneratorBundle:
             :rtype: <dict[str, Any]>
             :exceptions: None.
         '''
-        return asdict(self)
+        return {name: getattr(self, name) for name in self.__slots__}

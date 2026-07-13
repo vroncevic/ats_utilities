@@ -28,6 +28,7 @@ from typing import Any
 from ats_utilities.factory_class import inject
 from ats_utilities.context_bundle import ContextBundle
 from ats_utilities.checker.engine import Checker
+from ats_utilities.logger.engine import Logger
 from ats_utilities.reporter.engine import Reporter
 
 __author__ = r'Vladimir Roncevic'
@@ -46,7 +47,7 @@ def factory_context_bundle(instance: Any, context: ContextBundle | None = None):
 
         :param instance: The object instance (self) to inject attributes into.
         :type instance: <Any>
-        :param context: Context bundle (checker, reporter and verbose) | None.
+        :param context: Context bundle (checker, logger, reporter and verbose) | None.
         :type context: <ContextBundle | None>
         :exceptions: None.
     '''
@@ -56,6 +57,7 @@ def factory_context_bundle(instance: Any, context: ContextBundle | None = None):
     inject(
         instance,
         ('checker', ctx.checker, Checker, None),
-        ('reporter', ctx.reporter, Reporter, ['checker']),
+        ('logger', ctx.logger, Logger, None),
+        ('reporter', ctx.reporter, Reporter, ['checker', 'logger']),
         ('verbose', ctx.verbose, False, None)
     )

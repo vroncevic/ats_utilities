@@ -62,7 +62,7 @@ def vreport[F: Callable[..., Any]](templates: str | list[str]) -> Callable[[F], 
     if not message_templates:
         raise_context_error(
             fallback_prefix=r'vreport::decorator',
-            fallback_msg=f"Decorator @vreport requires at least one argument",
+            fallback_msg=r'Decorator @vreport requires at least one argument',
             exc_message=None,
             exception_class=ATSValueError,
             depth=3
@@ -99,7 +99,7 @@ def vreport[F: Callable[..., Any]](templates: str | list[str]) -> Callable[[F], 
             if reporter is None:
                 raise_context_error(
                     fallback_prefix=r'vreport::decorator',
-                    fallback_msg=f"Class '{class_name}' is required to provide a '_reporter' object to use the @vreport decorator",
+                    fallback_msg=f'Class {class_name} is required to provide a _reporter object to use the @vreport decorator',
                     exc_message=None,
                     exception_class=ATSAttributeError,
                     depth=3

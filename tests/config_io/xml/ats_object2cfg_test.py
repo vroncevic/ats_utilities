@@ -65,7 +65,7 @@ class ICFGProcessor(BaseICFGProcessor):
 
     def __str__(self) -> str:
         '''Implementation of abstract method.'''
-        return ""
+        return ''
 
 
 

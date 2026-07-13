@@ -29,6 +29,7 @@ from typing import override
 from ats_utilities.config_io.iwrite import IWrite
 from ats_utilities.config_io.istorer import IStorer
 from ats_utilities.checker.ichecker import IChecker
+from ats_utilities.logger.ilogger import ILogger
 from ats_utilities.reporter.ireporter import IReporter
 from ats_utilities.config_io.config_file_bundle import ConfigFileBundle
 from ats_utilities.config_io.xml.object2xml import Object2Xml
@@ -58,8 +59,10 @@ class XMLStorer(IStorer):
         It defines:
 
             :attributes:
-                | _SECTION - Section name for ATS configuration.
+                | _section - Section name for ATS configuration.
+                | _xml_indent - XML indent for pretty printing.
                 | _checker - Injected parameters checker (default Checker).
+                | _logger - Injected logger for logging (default Logger).
                 | _reporter - Injected reporter for messaging (default Reporter).
                 | _verbose - Injected Enable/Disable verbose option (default False).
                 | _processor - Processor for XML content (default XMLProcessor).
@@ -70,8 +73,10 @@ class XMLStorer(IStorer):
                 | __str__ - Returns the XMLStorer as string representation.
     '''
 
-    _SECTION: str = '[ats_info]'
+    _section: str = '[ats_info]'
+    _xml_indent: str = '    '
     _checker: IChecker
+    _logger: ILogger
     _reporter: IReporter
     _verbose: bool
     _processor: IXMLProcessor
@@ -132,7 +137,7 @@ class XMLStorer(IStorer):
 
             raw_xml = tostring(root, encoding='utf-8')
             parsed_xml = parseString(raw_xml)
-            xml_content = parsed_xml.toprettyxml(indent="    ")
+            xml_content = parsed_xml.toprettyxml(indent=self._xml_indent)
 
         except (TypeError, ValueError, ParseError):
             return False

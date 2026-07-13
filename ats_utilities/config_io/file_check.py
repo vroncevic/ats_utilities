@@ -28,6 +28,7 @@ from typing import override
 from ats_utilities.config_io.ifile_check import IFileCheck
 from ats_utilities.context_bundle import ContextBundle
 from ats_utilities.checker.ichecker import IChecker
+from ats_utilities.logger.ilogger import ILogger
 from ats_utilities.checker.proxy_validator import vcheck
 from ats_utilities.reporter.ireporter import IReporter
 from ats_utilities.reporter.proxy_reporter import vreport
@@ -54,6 +55,7 @@ class FileCheck(IFileCheck):
 
             :attributes:
                 | _checker - Injected parameters checker (default Checker).
+                | _logger - Injected logger for logging (default Logger).
                 | _reporter - Injected reporter for messaging (default Reporter).
                 | _verbose - Injected Enable/Disable verbose option (default False).
                 | _file_path_ok - File exist, path ok (default False).
@@ -69,6 +71,7 @@ class FileCheck(IFileCheck):
     '''
 
     _checker: IChecker
+    _logger: ILogger
     _reporter: IReporter
     _verbose: bool
     _file_path_ok: bool

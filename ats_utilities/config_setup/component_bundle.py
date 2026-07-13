@@ -22,7 +22,7 @@ Info
 
 from __future__ import annotations
 
-from dataclasses import dataclass, asdict
+from dataclasses import dataclass
 from typing import Any
 
 from ats_utilities.config_setup.ipro_config import IProConfig
@@ -101,8 +101,10 @@ class ConfigSetupComponentBundle:
             :param other: Another ConfigSetupComponentBundle instance to merge into this one.
             :type other: <ConfigSetupComponentBundle>
             :exceptions:
+                | ATSValueError: Other ConfigSetupComponentBundle must be provided.
                 | ATSTypeError: Other must be ConfigSetupComponentBundle instance.
         '''
+        require_not_none(other, r'other ConfigSetupComponentBundle must be provided')
         check_type(other, ConfigSetupComponentBundle, 'other must be ConfigSetupComponentBundle instance')
 
         for field_name in self.__dataclass_fields__:
@@ -121,4 +123,4 @@ class ConfigSetupComponentBundle:
             :rtype: <dict>
             :exceptions: None.
         '''
-        return asdict(self)
+        return {name: getattr(self, name) for name in self.__slots__}

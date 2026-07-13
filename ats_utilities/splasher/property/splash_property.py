@@ -29,6 +29,7 @@ from ats_utilities.splasher.property.isplash_property import ISplashProperty
 from ats_utilities.splasher.splash_keys import SplashKeys
 from ats_utilities.context_bundle import ContextBundle
 from ats_utilities.checker.ichecker import IChecker
+from ats_utilities.logger.ilogger import ILogger
 from ats_utilities.reporter.ireporter import IReporter
 from ats_utilities.factory_context_bundle import factory_context_bundle
 from ats_utilities.factory_class import has_attrs, to_str
@@ -56,6 +57,7 @@ class SplashProperty(ISplashProperty):
 
             :attributes:
                 | _checker - Injected parameters checker (default Checker).
+                | _logger - Injected logger (default Logger).
                 | _reporter - Injected reporter for messaging (default Reporter).
                 | _verbose - Injected Enable/Disable verbose option (default False).
                 | _splash_keys - Splash keys for App/Tool/Script splash screen (default None).
@@ -67,6 +69,7 @@ class SplashProperty(ISplashProperty):
     '''
 
     _checker: IChecker
+    _logger: ILogger
     _reporter: IReporter
     _verbose: bool
     _splash_keys: SplashKeys | None

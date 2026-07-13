@@ -22,7 +22,7 @@ Info
 from __future__ import annotations
 
 from collections.abc import Sequence
-from dataclasses import dataclass, asdict
+from dataclasses import dataclass
 from typing import Any
 
 from ats_utilities.factory_value import require_not_none
@@ -54,6 +54,7 @@ class CommandOption:
                 | choices - Optional choices for this option.
                 | nargs - Optional number of arguments for this option.
             :methods:
+                | __post_init__ - Post-initializes CommandOption instance.
                 | validate - Validates that CommandOption instance is valid (can be called after merge).
                 | merge - Merges non-None values from another CommandOption instance into this one.
                 | to_dict - Converts the CommandOption instance to a dictionary.
@@ -99,16 +100,16 @@ class CommandOption:
                 | ATSValueError: Nargs must be provided.
                 | ATSTypeError: Nargs must be a string or an integer.
         '''
-        require_not_none(self.name, r"name must be provided")
-        require_not_none(self.help_text, r"help text must be provided")
-        require_not_none(self.action, r"action must be provided")
-        require_not_none(self.default, r"default must be provided")
-        require_not_none(self.required, r"required must be provided")
-        require_not_none(self.choices, r"choices must be provided")
-        require_not_none(self.nargs, r"nargs must be provided")
-        check_type(self.required, bool, r"required must be a boolean")
-        check_type(self.choices, Sequence, r"choices must be a sequence")
-        check_type(self.nargs, (str, int), r"nargs must be a string or an integer")
+        require_not_none(self.name, r'name must be provided')
+        require_not_none(self.help_text, r'help text must be provided')
+        require_not_none(self.action, r'action must be provided')
+        require_not_none(self.default, r'default must be provided')
+        require_not_none(self.required, r'required must be provided')
+        require_not_none(self.choices, r'choices must be provided')
+        require_not_none(self.nargs, r'nargs must be provided')
+        check_type(self.required, bool, r'required must be a boolean')
+        check_type(self.choices, Sequence, r'choices must be a sequence')
+        check_type(self.nargs, (str, int), r'nargs must be a string or an integer')
 
     def merge(self, other: CommandOption) -> None:
         '''
@@ -117,12 +118,14 @@ class CommandOption:
             :param other: Another CommandOption to merge into this one.
             :type other: <CommandOption>
             :exceptions:
+                | ATSValueError: Other CommandOption must be provided.
                 | ATSTypeError: Other must be a CommandOption instance.
         '''
+        require_not_none(other, r'other CommandOption must be provided')
         check_type(other, CommandOption, r'other must be a CommandOption instance')
 
         for field_name in self.__dataclass_fields__:
-            other_value = getattr(other, field_name)
+            other_value: Any = getattr(other, field_name)
 
             if other_value is not None:
                 if field_name == 'choices':
@@ -139,4 +142,7 @@ class CommandOption:
             :rtype: <dict[str, Any]>
             :exceptions: None.
         '''
-        return asdict(self)
+        return {
+            field: getattr(self, field)
+            for field in self.__dataclass_fields__
+        }

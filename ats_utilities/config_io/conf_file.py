@@ -28,6 +28,7 @@ from typing import Any, override
 from ats_utilities.config_io.iconf_file import IConfFile
 from ats_utilities.context_bundle import ContextBundle
 from ats_utilities.checker.ichecker import IChecker
+from ats_utilities.logger.ilogger import ILogger
 from ats_utilities.reporter.ireporter import IReporter
 from ats_utilities.reporter.proxy_reporter import vreport
 from ats_utilities.config_io.ifile_check import IFileCheck
@@ -38,7 +39,7 @@ from ats_utilities.config_io.config_file_bundle import ConfigFileBundle
 from ats_utilities.factory_context_bundle import factory_context_bundle
 from ats_utilities.factory_component import make_component, validate_component
 from ats_utilities.factory_class import to_str
-from ats_utilities.factory_value import require_not_none, require_not_empty
+from ats_utilities.factory_value import require_not_empty
 from ats_utilities.factory_type import check_type
 
 __author__ = r'Vladimir Roncevic'
@@ -61,6 +62,7 @@ class ConfFile(IConfFile):
 
             :attributes:
                 | _checker - Injected parameters checker (default Checker).
+                | _logger - Injected logger for logging (default Logger).
                 | _reporter - Injected reporter for messaging (default Reporter).
                 | _verbose - Injected Enable/Disable verbose option (default False).
                 | _file_path - Configuration file path (default None).
@@ -74,6 +76,7 @@ class ConfFile(IConfFile):
     '''
 
     _checker: IChecker
+    _logger: ILogger
     _reporter: IReporter
     _verbose: bool
     _file: File | None

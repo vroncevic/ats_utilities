@@ -163,7 +163,8 @@ def resolve_relative_path(
         )
 
     if normalized_name == source_dir_clean:
-        return ""
+        return ''
+
     elif normalized_name.startswith(source_dir_clean + '/'):
         return normalized_name[len(source_dir_clean) + 1:]
 
@@ -446,9 +447,9 @@ def apply_path_replacements(
             return format_casing_by_match(
                 clean_str=clean_str,
                 default_val=replacement_val,
-                upper_val=vals.get(f"{var_name}_upper", replacement_val.upper()),
-                camel_val=vals.get(f"{var_name}_camel", replacement_val),
-                dashed_val=vals.get(f"{var_name}_dashed", replacement_val.replace('_', '-'))
+                upper_val=vals.get(f'{var_name}_upper', replacement_val.upper()),
+                camel_val=vals.get(f'{var_name}_camel', replacement_val),
+                dashed_val=vals.get(f'{var_name}_dashed', replacement_val.replace('_', '-'))
             )
 
         dest_rel_path = pattern.sub(replace_match, dest_rel_path)

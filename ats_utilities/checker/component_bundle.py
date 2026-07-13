@@ -131,8 +131,10 @@ class CheckerComponentBundle:
             :param other: Another CheckerComponentBundle to merge into this one.
             :type other: <CheckerComponentBundle>
             :exceptions:
+                | ATSValueError: Other CheckerComponentBundle must be provided.
                 | ATSTypeError: Other must be a CheckerComponentBundle instance.
         '''
+        require_not_none(other, r'other CheckerComponentBundle must be provided')
         check_type(other, CheckerComponentBundle, r'other must be a CheckerComponentBundle instance')
 
         for field_name in self.__dataclass_fields__:

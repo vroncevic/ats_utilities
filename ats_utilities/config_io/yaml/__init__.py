@@ -16,7 +16,7 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines ats_utilities.config_io.yaml.
+    Initialize ats_utilities.config_io.yaml package.
 '''
 
 from __future__ import annotations

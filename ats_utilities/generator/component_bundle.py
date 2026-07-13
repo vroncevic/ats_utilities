@@ -116,14 +116,14 @@ class GeneratorComponentBundle:
                 | ATSTypeError: Tar processor must be an ITarProcessor instance.
                 | ATSTypeError: Template processor must be an ITemplateProcessor instance.
         '''
-        require_not_none(self.context_bundle, r"context bundle must be provided")
-        require_not_none(self.scheme_loader, r"scheme loader must be provided")
-        require_not_none(self.tar_processor, r"tar processor must be provided")
-        require_not_none(self.template_processor, r"template processor must be provided")
-        check_type(self.context_bundle, ContextBundle, r"context bundle must be a ContextBundle instance")
-        check_type(self.scheme_loader, ISchemeLoader, r"scheme loader must be an ISchemeLoader instance")
-        check_type(self.tar_processor, ITarProcessor, r"tar processor must be an ITarProcessor instance")
-        check_type(self.template_processor, ITemplateProcessor, r"template processor must be an ITemplateProcessor instance")
+        require_not_none(self.context_bundle, r'context bundle must be provided')
+        require_not_none(self.scheme_loader, r'scheme loader must be provided')
+        require_not_none(self.tar_processor, r'tar processor must be provided')
+        require_not_none(self.template_processor, r'template processor must be provided')
+        check_type(self.context_bundle, ContextBundle, r'context bundle must be a ContextBundle instance')
+        check_type(self.scheme_loader, ISchemeLoader, r'scheme loader must be an ISchemeLoader instance')
+        check_type(self.tar_processor, ITarProcessor, r'tar processor must be an ITarProcessor instance')
+        check_type(self.template_processor, ITemplateProcessor, r'template processor must be an ITemplateProcessor instance')
 
     def merge(self, other: GeneratorComponentBundle) -> None:
         '''
@@ -132,9 +132,11 @@ class GeneratorComponentBundle:
             :param other: Another GeneratorComponentBundle to merge into this one.
             :type other: <GeneratorComponentBundle>
             :exceptions:
+                | ATSValueError: Other GeneratorComponentBundle must be provided.
                 | ATSTypeError: Other must be a GeneratorComponentBundle instance.
         '''
-        check_type(other, GeneratorComponentBundle, r"other must be a GeneratorComponentBundle instance")
+        require_not_none(other, r'other GeneratorComponentBundle must be provided')
+        check_type(other, GeneratorComponentBundle, r'other must be a GeneratorComponentBundle instance')
 
         for field_name in self.__dataclass_fields__:
             other_value: Any = getattr(other, field_name)

@@ -27,6 +27,7 @@ from os.path import exists
 from typing import override
 from sys import stderr
 
+from ats_utilities.logger.ilogger import ILogger
 from ats_utilities.checker.ichecker import IChecker
 from ats_utilities.reporter.ireporter import IReporter
 from ats_utilities.context_bundle import ContextBundle
@@ -66,6 +67,7 @@ class Generator(IGenerator):
 
             :attributes:
                 | _checker - Injected parameters checker (default Checker).
+                | _logger - Injected logger for logging (default Logger).
                 | _reporter - Injected reporter for messaging (default Reporter).
                 | _verbose - Injected Enable/Disable verbose option (default False).
                 | _shared_context - Bundle of shared context.
@@ -81,6 +83,7 @@ class Generator(IGenerator):
     '''
 
     _checker: IChecker
+    _logger: ILogger
     _reporter: IReporter
     _verbose: bool
     _shared_context: ContextBundle
@@ -109,10 +112,10 @@ class Generator(IGenerator):
             self._is_initialized = True
 
         except (ATSTypeError, ATSValueError, ATSRuntimeError, ATSAttributeError) as exc:
-            stderr.write(f"\x1b[31m{cls_name(self)} {exc}\x1b[0m\n")
+            stderr.write(f'\x1b[31m{cls_name(self)} {exc}\x1b[0m\n')
 
         except Exception as exc:
-            stderr.write(f"\x1b[31m{cls_name(self)} unexpected exception: {exc}\x1b[0m\n")
+            stderr.write(f'\x1b[31m{cls_name(self)} unexpected exception: {exc}\x1b[0m\n')
 
     @override
     def get_shared_context(self) -> ContextBundle:
@@ -138,13 +141,13 @@ class Generator(IGenerator):
                 | ATSValueError: If project_name is missing or empty.
         '''
         project_name = template_values.get('project_name')
-        require_not_empty(project_name, f"template values must contain a non-empty 'project_name'")
+        require_not_empty(project_name, f'template values must contain a non-empty {project_name}')
 
         vals = template_values.copy()
         if 'project_name_dashed' not in vals:
             vals['project_name_dashed'] = project_name.replace('_', '-')
         if 'project_name_camel' not in vals:
-            vals['project_name_camel'] = "".join(
+            vals['project_name_camel'] = ''.join(
                 word.capitalize() for word in project_name.replace('-', '_').split('_')
             )
         if 'project_name_upper' not in vals:
@@ -167,12 +170,12 @@ class Generator(IGenerator):
                 | ATSGeneratorError: If archive parsing or template rendering fails.
         '''
         generator_bundle.validate()
-        require_not_satisfied(not exists(generator_bundle.archive_path), f"Archive file does not exist: '{generator_bundle.archive_path}'")
+        require_not_satisfied(not exists(generator_bundle.archive_path), f'Archive file does not exist: {generator_bundle.archive_path}')
         resolved_scheme = self._scheme_loader.load(generator_bundle.scheme)
         project_scheme = resolved_scheme.get(generator_bundle.template_key)
-        require_not_satisfied(not project_scheme, f"template_key '{generator_bundle.template_key}' not found in scheme configuration")
+        require_not_satisfied(not project_scheme, f'template_key {generator_bundle.template_key} not found in scheme configuration')
         source_dir = project_scheme.get('source_dir')
-        require_not_satisfied(not source_dir, f"source_dir not specified for template_key '{generator_bundle.template_key}'")
+        require_not_satisfied(not source_dir, f'source_dir not specified for template_key {generator_bundle.template_key}')
 
         path_replacements: dict[str, str] = project_scheme.get('path_replacements', {})
         exclude_patterns: list[str] = project_scheme.get('exclude', [])
@@ -192,7 +195,7 @@ class Generator(IGenerator):
             return True
 
         except Exception as exc:
-            require_not_satisfied(True, f"generation failed {exc}", ATSGeneratorError)
+            require_not_satisfied(True, f'generation failed {exc}', ATSGeneratorError)
 
     @override
     def is_initialized(self) -> bool:

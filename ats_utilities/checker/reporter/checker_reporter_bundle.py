@@ -23,7 +23,7 @@ Info
 from __future__ import annotations
 
 from collections.abc import Sequence
-from dataclasses import dataclass, asdict
+from dataclasses import dataclass
 from typing import Any
 
 from ats_utilities.factory_value import require_not_none
@@ -109,8 +109,10 @@ class CheckerReporterBundle:
             :param other: Another CheckerReporterBundle to merge into this one.
             :type other: <CheckerReporterBundle>
             :exceptions:
+                | ATSValueError: Other CheckerReporterBundle must be provided.
                 | ATSTypeError: Other must be a CheckerReporterBundle instance.
         '''
+        require_not_none(other, r'other CheckerReporterBundle must be provided')
         check_type(other, CheckerReporterBundle, r'other must be a CheckerReporterBundle instance')
 
         for field_name in self.__dataclass_fields__:
@@ -129,4 +131,4 @@ class CheckerReporterBundle:
             :rtype: <dict[str, Any]>
             :exceptions: None.
         '''
-        return asdict(self)
+        return {name: getattr(self, name) for name in self.__slots__}

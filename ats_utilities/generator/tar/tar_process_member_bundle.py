@@ -23,7 +23,7 @@ Info
 from __future__ import annotations
 
 from collections.abc import Mapping
-from dataclasses import dataclass, asdict
+from dataclasses import dataclass
 from tarfile import TarFile, TarInfo
 from typing import Any
 
@@ -99,8 +99,10 @@ class TarProcessMemberBundle:
             :param other: Another TarProcessMemberBundle to merge into this one.
             :type other: <TarProcessMemberBundle>
             :exceptions:
+                | ATSValueError: Other TarProcessMemberBundle must be provided.
                 | ATSTypeError: Other must be a TarProcessMemberBundle.
         '''
+        require_not_none(other, r'other TarProcessMemberBundle must be provided')
         check_type(other, TarProcessMemberBundle, r'other must be a TarProcessMemberBundle.')
 
         for field_name in self.__dataclass_fields__:
@@ -119,4 +121,4 @@ class TarProcessMemberBundle:
             :rtype: <dict[str, Any]>
             :exceptions: None.
         '''
-        return asdict(self)
+        return {name: getattr(self, name) for name in self.__slots__}

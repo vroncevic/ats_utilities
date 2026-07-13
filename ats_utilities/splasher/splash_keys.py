@@ -55,10 +55,12 @@ class SplashKeys:
                 | logo_path - Path to the logo image (default None).
                 | use_github_infrastructure - Use GitHub infrastructure (default None).
                 | enabled - Enable/disable splash screen (default True).
+                | _key_to_attr - Mapping of constant keys to instance attributes (default None).
             :methods:
-                | __init__ - Initials SplashKeys constructor.
-                | from_dict - Factory method to safely parse a dictionary into a SplashKeys instance.
-                | get_all_keys - Returns a tuple of all defined ClassVar keys for the splash screen.
+                | get_key_to_attr - Returns a read-only mapping of constant keys to instance attributes.
+                | __post_init__ - Post initials SplashKeys constructor.
+                | from_dict - Factory method to safely create a SplashKeys instance from a dictionary.
+                | get_all_keys - Returns an immutable tuple of all defined ClassVar keys for the splash screen.
                 | to_dict - Converts the SplashKeys instance to a dictionary.
     '''
 

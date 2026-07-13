@@ -27,6 +27,7 @@ from typing import Any, override
 from sys import stderr
 
 from ats_utilities.checker.ichecker import IChecker
+from ats_utilities.logger.ilogger import ILogger
 from ats_utilities.checker.proxy_validator import vcheck
 from ats_utilities.context_bundle import ContextBundle
 from ats_utilities.exceptions import ATSAttributeError, ATSRuntimeError, ATSTypeError, ATSValueError
@@ -59,6 +60,7 @@ class OptionManager(IOptionManager):
 
             :attributes:
                 | _checker - Injected parameters checker (default Checker).
+                | _logger - Injected logger (default Logger).
                 | _reporter - Injected reporter for messaging (default Reporter).
                 | _verbose - Injected Enable/Disable verbose option (default False).
                 | _shared_context - Context bundle with shared context.
@@ -78,6 +80,7 @@ class OptionManager(IOptionManager):
     '''
 
     _checker: IChecker
+    _logger: ILogger
     _reporter: IReporter
     _verbose: bool
     _is_initialized: bool
@@ -91,9 +94,9 @@ class OptionManager(IOptionManager):
             :param component_bundle: Bundle with components for option manager | None.
             :type component_bundle: <OptionComponentBundle | None>
             :exceptions: None.
-        '''
+        ''' 
         self._is_initialized = False
- 
+
         try:
             bundle: OptionComponentBundle = component_bundle or OptionComponentBundle()
             factory_context_bundle(self, bundle.context_bundle)
@@ -105,10 +108,10 @@ class OptionManager(IOptionManager):
             self._is_initialized = True
  
         except (ATSTypeError, ATSValueError, ATSRuntimeError, ATSAttributeError) as exc:
-            stderr.write(f"\x1b[31m{cls_name(self)} {exc}\x1b[0m\n")
+            stderr.write(f'\x1b[31m{cls_name(self)} {exc}\x1b[0m\n')
 
         except Exception as exc:
-            stderr.write(f"\x1b[31m{cls_name(self)} unexpected exception: {exc}\x1b[0m\n")
+            stderr.write(f'\x1b[31m{cls_name(self)} unexpected exception: {exc}\x1b[0m\n')
 
     @override
     def get_shared_context(self) -> ContextBundle:
@@ -174,8 +177,7 @@ class OptionManager(IOptionManager):
                 | ATSAttributeError: Class is required to provide a '_reporter' object to
                 |                    use the @vreport decorator.
         '''
-        args = self._strategy.parse(arguments, known_only=False)
-        return args
+        return self._strategy.parse(arguments, known_only=False)
 
     @has_attrs('_strategy')
     @vreport('parse args arguments {arguments}')
@@ -194,8 +196,7 @@ class OptionManager(IOptionManager):
                 | ATSAttributeError: Class is required to provide a '_reporter' object to
                 |                    use the @vreport decorator.
         '''
-        args = self._strategy.parse(arguments, known_only=True)
-        return args
+        return self._strategy.parse(arguments, known_only=True)
 
     @has_attrs('_strategy')
     @override
