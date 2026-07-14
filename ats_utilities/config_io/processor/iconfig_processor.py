@@ -18,12 +18,13 @@ Copyright
 Info
     Defines abstract class IConfigProcessor with method(s).
     Creates an interface for processing configuration content.
-    0th level of configuration loader/storer interface.
+    1th level of configuration loader/storer interface.
 '''
 
 from __future__ import annotations
 
 from abc import ABC, abstractmethod
+from collections.abc import Mapping
 from typing import Any
 
 __author__ = r'Vladimir Roncevic'
@@ -40,13 +41,14 @@ class IConfigProcessor(ABC):
     '''
         Defines abstract class IConfigProcessor with method(s).
         Creates an interface for processing configuration content.
-        0th level of configuration loader/storer interface.
+        1th level of configuration loader/storer interface.
 
         It defines:
 
             :methods:
                 | deserialize - Loads and parses configuration from a raw source (string, stream, or lines).
                 | serialize - Converts the internal configuration structure back to a formatted string representation.
+                | update_data - Updates the internal configuration data and validates it against the scheme.
                 | to_dict - Returns the parsed configuration as a flat or structured dictionary.
                 | validate_by_scheme - Validates the internal parsed data structure against the provided scheme.
                 | __str__ - Returns the configuration processor as string representation.
@@ -84,6 +86,19 @@ class IConfigProcessor(ABC):
 
             :return: Configuration content as string.
             :rtype: <str>
+            :exceptions: None.
+        '''
+        pass
+
+    @abstractmethod
+    def update_data(self, new_data: Mapping[str, str]) -> bool:
+        '''
+            Updates the internal configuration data and validates it against the scheme.
+
+            :param new_data: Mapping containing configuration keys and values.
+            :type new_data: <Mapping[str, str]>
+            :return: <True> if successful, <False> otherwise.
+            :rtype: <bool>
             :exceptions: None.
         '''
         pass

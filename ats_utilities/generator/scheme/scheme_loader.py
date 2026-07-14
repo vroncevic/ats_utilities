@@ -31,8 +31,8 @@ from ats_utilities.context_bundle import ContextBundle
 from ats_utilities.checker.ichecker import IChecker
 from ats_utilities.logger.ilogger import ILogger
 from ats_utilities.reporter.ireporter import IReporter
-from ats_utilities.config_io.loader.config_loader_bundle import ConfigLoaderBundle
-from ats_utilities.config_io.loader.config_loader import ConfigLoader
+from ats_utilities.config_io.loader.engine import Loader
+from ats_utilities.config_io.config_io_bundle import ConfigIOBundle
 from ats_utilities.exceptions import ATSGeneratorError
 from ats_utilities.factory_context_bundle import factory_context_bundle
 from ats_utilities.factory_class import to_str
@@ -109,11 +109,10 @@ class SchemeLoader(ISchemeLoader):
             require_not_satisfied(not scheme.endswith('.json'), f'unsupported scheme file format for: {scheme}. Only .json is supported.')
 
             try:
-                config_loader: ConfigLoader = ConfigLoader(ConfigLoaderBundle(info_file=scheme))
-                loader = config_loader.setup_loader()
-                require_not_satisfied(loader is None, f'failed to setup config loader for: {scheme}')
+                config_loader: Loader = Loader(ConfigIOBundle(file_path=scheme, context_bundle=self.context_bundle))
+                require_not_satisfied(config_loader is None, f'failed to setup config loader for: {scheme}')
 
-                return loader.load_configuration()
+                return config_loader.load_configuration()
 
             except Exception as exc:
                 require_not_satisfied(True, f'failed to load scheme file {scheme}: {exc}', ATSGeneratorError)

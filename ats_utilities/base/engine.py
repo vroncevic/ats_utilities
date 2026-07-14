@@ -29,7 +29,7 @@ from sys import stderr
 from ats_utilities.base.component_bundle import BaseComponentBundle
 from ats_utilities.base.ibase import ArgSeq, IBase
 from ats_utilities.checker.ichecker import IChecker
-from ats_utilities.config_io.loader.iconfig_manager import IConfigLoadManager
+from ats_utilities.config_io.loader.iloader import ILoader
 from ats_utilities.context_bundle import ContextBundle
 from ats_utilities.exceptions import (
     ATSAttributeError, ATSRuntimeError, ATSTypeError, ATSValueError
@@ -89,7 +89,7 @@ class Base(IBase):
     _verbose: bool
     _is_initialized: bool
     _shared_context: ContextBundle
-    _config_loader: IConfigLoadManager
+    _config_loader: ILoader
     _info_manager: IInfoManager
     _splasher: ISplasher
     _options_parser: IOptionManager

@@ -18,6 +18,7 @@ Copyright
 Info
     Defines abstract class IConfFile with method(s).
     Creates an interface for configuration file context manager.
+    0th level of configuration loader/storer interface.
 '''
 
 from __future__ import annotations
@@ -44,22 +45,23 @@ class IConfFile(ABC):
     '''
         Defines abstract class IConfFile with method(s).
         Creates an interface for configuration file context manager.
+        0th level of configuration loader/storer interface.
 
         It defines:
 
             :methods:
-                | __enter__ - Opens configuration context manager.
-                | __exit__ - Closes configuration context manager.
-                | __str__ - Returns the IConfFile as string representation.
+                | __enter__ - Opens configuration context manager and opens the file.
+                | __exit__ - Closes configuration context manager and closes the file.
+                | __str__ - Returns the file context manager instance as string representation.
     '''
 
     @abstractmethod
-    def __enter__(self) -> File:
+    def __enter__(self) -> File | None:
         '''
-            Opens configuration context manager.
+            Opens configuration context manager and opens the file.
 
             :return: File IO object | None.
-            :rtype: <File>
+            :rtype: <File | None>
             :exceptions: None.
         '''
         pass
@@ -67,11 +69,11 @@ class IConfFile(ABC):
     @abstractmethod
     def __exit__(self, *args: tuple[Any, ...], **kwargs: Mapping[Any, Any]) -> None:
         '''
-            Closes configuration context manager.
+            Closes configuration context manager and closes the file.
 
-            :param args: List of arguments.
+            :param args: Tuple of arguments.
             :type args: <tuple[Any, ...]>  
-            :param kwargs: Dictionary of mapped arguments.
+            :param kwargs: Mapping of arguments.
             :type kwargs: <Mapping[Any, Any]>
             :exceptions: None.
         '''

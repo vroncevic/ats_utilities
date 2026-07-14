@@ -59,7 +59,6 @@ def check_file_exists(
             | ATSTypeError: Parameter type validation failed.
             | Dynamically raises the provided exception_class (e.g., ATSValueError).
     '''
-    check_type(file_path, str, exc_message)
     if not file_path:
         raise_context_error(
             fallback_prefix=r'factory_file_utils::check_file_exists',
@@ -68,6 +67,8 @@ def check_file_exists(
             exception_class=exception_class,
             depth=3
         )
+
+    check_type(file_path, str, exc_message)
 
     if not Path(file_path).exists():
         raise_context_error(

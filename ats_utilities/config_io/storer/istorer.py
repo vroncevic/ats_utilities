@@ -17,13 +17,16 @@ Copyright
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
     Defines abstract class IStorer with method(s).
-    Interface for storing the ATS configuration.
+    Creates an interface for storing the configuration to writer.
+    2nd level of configuration storer interface.
 '''
 
 from __future__ import annotations
 
 from abc import ABC, abstractmethod
 from collections.abc import Mapping
+
+from ats_utilities.context_bundle import ContextBundle
 
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -38,19 +41,32 @@ __status__ = r'Development'
 class IStorer(ABC):
     '''
         Defines abstract class IStorer with method(s).
-        Interface for storing the ATS configuration.
+        Creates an interface for storing the configuration to writer.
+        2nd level of configuration storer interface.
 
         It defines:
 
             :methods:
-                | store_configuration - Stores the ATS configuration from dictionary.
-                | __str__ - Returns the storer component as string representation.
+                | get_shared_context - Returns the shared context.
+                | store_configuration - Stores configuration content from mapping to configuration file.
+                | __str__ - Returns the storer instance as string representation.
     '''
+
+    @abstractmethod
+    def get_shared_context(self) -> ContextBundle:
+        '''
+            Returns the shared context.
+
+            :return: Shared context.
+            :rtype: <ContextBundle>
+            :exceptions: None.
+        '''
+        pass
 
     @abstractmethod
     def store_configuration(self, config: Mapping[str, str]) -> bool:
         '''
-            Stores the ATS configuration from mapping format.
+            Stores configuration content from mapping to configuration file.
 
             :param config: Mapping with configuration information (read only data).
             :type config: <Mapping[str, str]>
@@ -63,9 +79,9 @@ class IStorer(ABC):
     @abstractmethod
     def __str__(self) -> str:
         '''
-            Returns the storer component as string representation.
+            Returns the storer instance as string representation.
 
-            :return: The storer component as string representation.
+            :return: The storer instance as string representation.
             :rtype: <str>
             :exceptions: None.
         '''

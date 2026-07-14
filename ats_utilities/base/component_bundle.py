@@ -27,13 +27,12 @@ from os.path import dirname, exists
 from sys import stderr
 from typing import Any
 
-from ats_utilities.config_io.config_file_bundle import ConfigFileBundle
-from ats_utilities.config_io.loader.config_loader import ConfigLoader
-from ats_utilities.config_io.loader.config_loader_bundle import ConfigLoaderBundle
-from ats_utilities.config_io.loader.iconfig_manager import Config, IConfigLoadManager
 from ats_utilities.context_bundle import ContextBundle
 from ats_utilities.factory_component import make_component, validate_component
 from ats_utilities.generator.component_bundle import GeneratorComponentBundle
+from ats_utilities.config_io.loader.engine import Loader
+from ats_utilities.config_io.loader.iloader import ILoader
+from ats_utilities.config_io.config_io_bundle import ConfigIOBundle
 from ats_utilities.generator.engine import Generator
 from ats_utilities.generator.igenerator import IGenerator
 from ats_utilities.info.component_bundle import InfoComponentBundle
@@ -83,7 +82,7 @@ class BaseComponentBundle:
     '''
 
     info_file: str | None = None
-    config_loader: IConfigLoadManager | None = None
+    config_loader: ILoader | None = None
     info_manager: IInfoManager | None = None
     options_parser: IOptionManager | None = None
     splasher: ISplasher | None = None
@@ -118,17 +117,16 @@ class BaseComponentBundle:
                 | ATSTypeError - Component type is invalid.
         '''
         self.config_loader = make_component(
-            self.config_loader, ConfigLoader,
+            self.config_loader, Loader,
             {
-                'config_loader_bundle': ConfigLoaderBundle(
-                    info_file=self.info_file,
-                    config_bundle=ConfigFileBundle(context=self.context_bundle)
+                'component_bundle': ConfigIOBundle(
+                    file_path=self.info_file,
+                    context_bundle=self.context_bundle
                 )
             }
         )
-        validate_component(self.config_loader, IConfigLoadManager, r'config_loader must be an IConfigLoadManager instance')
-        loader: Config = self.config_loader.setup_loader()
-        config_data = loader.load_configuration()
+        validate_component(self.config_loader, ILoader, r'config_loader must be an IConfigLoadManager instance')
+        config_data = self.config_loader.load_configuration()
 
         log_file = config_data.get('ats_log_path') or config_data.get('ats_log_file')
 
@@ -216,10 +214,10 @@ class BaseComponentBundle:
             require_not_none(self.info_manager, r'info_manager must be provided')
             require_not_none(self.options_parser, r'options_parser must be provided')
             require_not_none(self.splasher, r'splasher must be provided')
-            check_type(self.config_loader, IConfigLoadManager, r'config_loader must be IConfigLoadManager interface')
-            check_type(self.info_manager, IInfoManager, r'info_manager must be IInfoManager interface')
-            check_type(self.options_parser, IOptionManager, r'options_parser must be IOptionManager interface')
-            check_type(self.splasher, ISplasher, r'splasher must be ISplasher interface')
+            check_type(self.config_loader, ILoader, r'config_loader must be an ILoader interface')
+            check_type(self.info_manager, IInfoManager, r'info_manager must be an IInfoManager interface')
+            check_type(self.options_parser, IOptionManager, r'options_parser must be an IOptionManager interface')
+            check_type(self.splasher, ISplasher, r'splasher must be an ISplasher interface')
 
             if self.use_generator:
                 require_not_none(self.generator, r'generator must be provided')

@@ -18,7 +18,7 @@ Copyright
 Info
     Defines class YAMLProcessor with attribute(s) and method(s).
     Creates an API to process configuration in YAML format.
-    0th level of configuration loader/storer implementation.
+    1th level of configuration loader/storer implementation.
 '''
 
 from __future__ import annotations
@@ -43,7 +43,7 @@ class YAMLProcessor(IConfigProcessor):
     '''
         Defines class YAMLProcessor with attribute(s) and method(s).
         Creates an API to process configuration in YAML format.
-        0th level of configuration loader/storer implementation.
+        1th level of configuration loader/storer implementation.
 
         It defines:
 
@@ -54,6 +54,7 @@ class YAMLProcessor(IConfigProcessor):
                 | __init__ - Initializes YAMLProcessor constructor.
                 | deserialize - Loads and parses configuration from a raw source (string, stream, or lines).
                 | serialize - Converts the internal configuration structure back to a formatted string representation.
+                | update_data - Updates the internal configuration data and validates it against the scheme.
                 | to_dict - Returns the parsed configuration as a flat or structured dictionary.
                 | validate_by_scheme - Validates the internal parsed data structure against the provided scheme.
                 | __str__ - Returns the YAMLProcessor instance as string representation.
@@ -117,6 +118,28 @@ class YAMLProcessor(IConfigProcessor):
             :exceptions: None.
         '''
         return yaml.safe_dump(self._data, default_flow_style=False)
+
+    @override
+    def update_data(self, new_data: Mapping[str, str]) -> bool:
+        '''
+            Updates the internal configuration data and validates it against the scheme.
+
+            :param new_data: Mapping containing configuration keys and values.
+            :type new_data: <Mapping[str, str]>
+            :return: <True> if successful, <False> otherwise.
+            :rtype: <bool>
+            :exceptions: None.
+        '''
+        old_data = self._data.copy()
+
+        self._data.update(new_data)
+
+        if not self.validate_by_scheme():
+            self._data = old_data
+
+            return False
+
+        return True
 
     @override
     def to_dict(self) -> dict[str, str]:

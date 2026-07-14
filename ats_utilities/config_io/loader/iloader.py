@@ -17,14 +17,16 @@ Copyright
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
     Defines abstract class ILoader with method(s).
-    Creates an interface for loading the configuration from configuration reader.
-    2st level of configuration loader interface.
+    Creates an interface for loading the configuration from reader.
+    2nd level of configuration loader interface.
 '''
 
 from __future__ import annotations
 
 from abc import ABC, abstractmethod
 from typing import Any
+
+from ats_utilities.context_bundle import ContextBundle
 
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -40,19 +42,31 @@ class ILoader(ABC):
     '''
         Defines abstract class ILoader with method(s).
         Creates an interface for loading the configuration from configuration reader.
-        1st level of configuration loader interface.
+        2nd level of configuration loader interface.
 
         It defines:
 
             :methods:
-                | load_configuration - Returns configuration in dict format from configuration reader.
+                | get_shared_context - Returns the shared context.
+                | load_configuration - Loads configuration from file and returns dictionary with configuration content.
                 | __str__ - Returns the loader instance as string representation.
     '''
 
     @abstractmethod
+    def get_shared_context(self) -> ContextBundle:
+        '''
+            Returns the shared context.
+
+            :return: Shared context.
+            :rtype: <ContextBundle>
+            :exceptions: None.
+        '''
+        pass
+
+    @abstractmethod
     def load_configuration(self) -> dict[str, Any]:
         '''
-            Returns configuration in dict format from configuration reader.
+            Loads configuration from file and returns dictionary with configuration content.
 
             :return: Dictionary with configuration content.
             :rtype: <dict[str, Any]>

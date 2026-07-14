@@ -19,11 +19,12 @@ Copyright
 Info
     Defines class INIProcessor with attribute(s) and method(s).
     Creates an API to process configuration in INI format.
-    0th level of configuration loader/storer implementation.
+    1th level of configuration loader/storer implementation.
 '''
 
 from __future__ import annotations
 
+from copy import deepcopy
 from collections.abc import Mapping
 from configparser import ConfigParser, Error as ConfigParserError
 from io import StringIO
@@ -46,7 +47,7 @@ class INIProcessor(IConfigProcessor):
     '''
         Defines class INIProcessor with attribute(s) and method(s).
         Creates an API to process configuration in INI format.
-        0th level of configuration loader/storer implementation.
+        1th level of configuration loader/storer implementation.
 
         It defines:
 
@@ -57,6 +58,7 @@ class INIProcessor(IConfigProcessor):
                 | __init__ - Initializes INIProcessor constructor.
                 | deserialize - Loads and parses configuration from a raw source (string, stream, or lines).
                 | serialize - Converts the internal configuration structure back to a formatted string representation.
+                | update_data - Updates the internal configuration data and validates it against the scheme.
                 | to_dict - Returns the parsed configuration as a flat or structured dictionary.
                 | validate_by_scheme - Validates the internal parsed data structure against the provided scheme.
                 | __str__ - Returns the INIProcessor instance as string representation.
@@ -129,6 +131,41 @@ class INIProcessor(IConfigProcessor):
 
         except (OSError, ConfigParserError):
             return ''
+
+    @override
+    def update_data(self, new_data: Mapping[str, str]) -> bool:
+        '''
+            Updates the internal configuration data and validates it against the scheme.
+
+            :param new_data: Mapping containing configuration keys and values.
+            :type new_data: <Mapping[str, str]>
+            :return: <True> if successful, <False> otherwise.
+            :rtype: <bool>
+            :exceptions: None.
+        '''
+        if self._scheme is None:
+            return False
+
+        old_config = deepcopy(self._config)
+
+        for key, value in new_data.items():
+            section = self._scheme.get(key)
+
+            if section:
+                if not self._config.has_section(section):
+                    self._config.add_section(section)
+
+                self._config.set(section, key, str(value))
+            else:
+                if self._config.sections():
+                    self._config.set(self._config.sections()[0], key, str(value))
+
+        if not self.validate_by_scheme():
+            self._config = old_config
+
+            return False
+
+        return True
 
     @override
     def to_dict(self) -> dict[str, str]:

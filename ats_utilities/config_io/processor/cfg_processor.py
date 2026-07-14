@@ -18,7 +18,7 @@ Copyright
 Info
     Defines class CFGProcessor with attribute(s) and method(s).
     Creates an API to process configuration in CFG format.
-    0th level of configuration loader/storer implementation.
+    1th level of configuration loader/storer implementation.
 '''
 
 from __future__ import annotations
@@ -44,7 +44,7 @@ class CFGProcessor(IConfigProcessor):
     '''
         Defines class CFGProcessor with attribute(s) and method(s).
         Creates an API to process configuration in CFG format.
-        0th level of configuration loader/storer implementation.
+        1th level of configuration loader/storer implementation.
 
         It defines:
 
@@ -56,6 +56,7 @@ class CFGProcessor(IConfigProcessor):
                 | __init__ - Initializes CFGProcessor constructor.
                 | deserialize - Loads and parses configuration from a raw source (string, stream, or lines).
                 | serialize - Converts the internal configuration structure back to a formatted string representation.
+                | update_data - Updates the internal configuration data and validates it against the scheme.
                 | to_dict - Returns the parsed configuration as a flat or structured dictionary.
                 | validate_by_scheme - Validates the internal parsed data structure against the provided scheme.
                 | __str__ - Returns the CFGProcessor instance as string representation.
@@ -123,6 +124,28 @@ class CFGProcessor(IConfigProcessor):
             :exceptions: None.
         '''
         return ''.join([f'{k} = {v}\n' for k, v in self._data.items()])
+
+    @override
+    def update_data(self, new_data: Mapping[str, str]) -> bool:
+        '''
+            Updates the internal configuration data and validates it against the scheme.
+
+            :param new_data: Mapping containing configuration keys and values.
+            :type new_data: <Mapping[str, str]>
+            :return: <True> if successful, <False> otherwise.
+            :rtype: <bool>
+            :exceptions: None.
+        '''
+        old_data = self._data.copy()
+
+        self._data.update(new_data)
+
+        if not self.validate_by_scheme():
+            self._data = old_data
+
+            return False
+
+        return True
 
     @override
     def to_dict(self) -> dict[str, str]:
