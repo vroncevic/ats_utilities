@@ -47,6 +47,7 @@ from ats_utilities.splasher.isplasher import ISplasher
 from ats_utilities.exceptions import ATSAttributeError, ATSRuntimeError, ATSTypeError, ATSValueError
 from ats_utilities.factory_type import check_type
 from ats_utilities.factory_value import require_not_none
+from ats_utilities.factory_dict_utils import get_first_available
 
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -128,7 +129,7 @@ class BaseComponentBundle:
         validate_component(self.config_loader, ILoader, r'config_loader must be an IConfigLoadManager instance')
         config_data = self.config_loader.load_configuration()
 
-        log_file = config_data.get('ats_log_path') or config_data.get('ats_log_file')
+        log_file: str = get_first_available(config_data, ('ats_log_path', 'ats_log_file'))
 
         if log_file and hasattr(self.context_bundle.logger, 'set_log_file'):
             self.context_bundle.logger.set_log_file(log_file)

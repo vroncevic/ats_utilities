@@ -85,14 +85,14 @@ class ConfigSetupComponentBundle:
                 | ATSTypeError: Template directory must be an instance of ITemplateDir interface.
                 | ATSTypeError: Context bundle must be an instance of ContextBundle.
         '''
-        require_not_none(self.pro_config, 'project configuration must be provided')
-        require_not_none(self.pro_name, 'project name must be provided')
-        require_not_none(self.template_dir, 'template directory must be provided')
-        require_not_none(self.context_bundle, 'context bundle must be provided')
-        check_type(self.pro_config, IProConfig, 'project configuration must be an instance of IProConfig interface')
-        check_type(self.pro_name, IProName, 'project name must be an instance of IProName interface')
-        check_type(self.template_dir, ITemplateDir, 'template directory must be an instance of ITemplateDir interface')
-        check_type(self.context_bundle, ContextBundle, 'context bundle must be an instance of ContextBundle')
+        require_not_none(self.pro_config, r'project configuration must be provided')
+        require_not_none(self.pro_name, r'project name must be provided')
+        require_not_none(self.template_dir, r'template directory must be provided')
+        require_not_none(self.context_bundle, r'context bundle must be provided')
+        check_type(self.pro_config, IProConfig, r'project configuration must be an instance of IProConfig interface')
+        check_type(self.pro_name, IProName, r'project name must be an instance of IProName interface')
+        check_type(self.template_dir, ITemplateDir, r'template directory must be an instance of ITemplateDir interface')
+        check_type(self.context_bundle, ContextBundle, r'context bundle must be an instance of ContextBundle')
 
     def merge(self, other: ConfigSetupComponentBundle) -> None:
         '''
@@ -105,7 +105,7 @@ class ConfigSetupComponentBundle:
                 | ATSTypeError: Other must be ConfigSetupComponentBundle instance.
         '''
         require_not_none(other, r'other ConfigSetupComponentBundle must be provided')
-        check_type(other, ConfigSetupComponentBundle, 'other must be ConfigSetupComponentBundle instance')
+        check_type(other, ConfigSetupComponentBundle, r'other must be ConfigSetupComponentBundle instance')
 
         for field_name in self.__dataclass_fields__:
             other_value: Any = getattr(other, field_name)

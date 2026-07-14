@@ -21,8 +21,8 @@ Info
 
 from __future__ import annotations
 
+from collections.abc import Mapping, Sequence
 from typing import Any
-from collections.abc import Mapping
 
 from ats_utilities.exceptions import ATSValueError
 from ats_utilities.factory_context_error import raise_context_error
@@ -105,3 +105,38 @@ def require_keys(
             exception_class=exception_class,
             depth=3
         )
+
+
+def get_first_available(
+    source: Mapping[Any, Any],
+    keys: Sequence[Any],
+    exc_message: str | None = None
+) -> Any | None:
+    '''
+        Retrieves the first available value from a list of keys in priority order.
+        Simulates the logic of: source.get(key1) or source.get(key2) ...
+
+        :param source: Source dictionary/mapping to search.
+        :type source: <Mapping[Any, Any]>
+        :param keys: Sequence of keys to check in order of priority.
+        :type keys: <Sequence[Any]>
+        :param exc_message: Message to include in the exception message.
+        :type exc_message: <str | None>
+        :return: The first non-empty value found, or None if none of the keys exist/have value.
+        :rtype: <Any | None>
+        :exceptions:
+            | ATSTypeError: Parameters (source and keys) types validation failed.
+    '''
+    check_type(source, Mapping, exc_message)
+    check_type(keys, Sequence, exc_message)
+
+    if not source or not keys:
+        return None
+
+    for key in keys:
+        value = source.get(key)
+
+        if bool(value) or value == 0 or value == False:
+            return value
+
+    return None
