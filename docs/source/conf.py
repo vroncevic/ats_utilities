@@ -27,7 +27,7 @@ __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
 __license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = r'3.4.2'
+__version__ = r'3.4.3'
 __maintainer__ = r'Vladimir Roncevic'
 __email__ = r'elektron.ronca@gmail.com'
 __status__ = r'Development'
@@ -37,7 +37,7 @@ sys.path.insert(0, abspath('../../'))
 project: str = 'ats_utilities'
 project_copyright: str = '2026, https://vroncevic.github.io/ats_utilities'
 author: str = 'Vladimir Roncevic <elektron.ronca@gmail.com>'
-version: str = '3.4.2'
+version: str = '3.4.3'
 release: str = 'https://github.com/vroncevic/ats_utilities/releases'
 extensions: list[str] = ['sphinx.ext.autodoc', 'sphinx.ext.viewcode', ]
 templates_path: list[str] = ['_templates']
