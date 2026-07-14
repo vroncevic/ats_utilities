@@ -72,7 +72,7 @@ def check_type(
     instance: object,
     class_or_tuple: type[Any] | tuple[type[Any], ...],
     exc_message: str | None = None,
-    exception_class: type[Exception] = ATSTypeError
+    exception_class: type[BaseException] = ATSTypeError
 ) -> None:
     '''
         Checks if an instance is of a specified type.

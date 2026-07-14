@@ -39,7 +39,7 @@ __status__ = r'Development'
 def require_not_none(
     value: Any,
     exc_message: str | None = None,
-    exception_class: type[Exception] = ATSValueError
+    exception_class: type[BaseException] = ATSValueError
 ) -> None:
     '''
         Requires a value to be not None.
@@ -66,7 +66,7 @@ def require_not_none(
 def require_not_empty(
     value: Any,
     exc_message: str | None = None,
-    exception_class: type[Exception] = ATSValueError
+    exception_class: type[BaseException] = ATSValueError
 ) -> None:
     '''
         Requires a value to be not empty (not None, not empty sequence/mapping).
@@ -93,14 +93,15 @@ def require_not_empty(
 def require_not_satisfied(
     status: bool,
     exc_message: str | None = None,
-    exception_class: type[Exception] = ATSValueError
+    exception_class: type[BaseException] = ATSValueError
 ) -> None:
     '''
-        Requires a status to be True (statisfied condition for un happy flow).
+        Ensures that an unhappy status is NOT True. 
+        Raises an exception if status is True (unhappy flow detected).
 
         :param status: Status which indicates unhappy flow (True = unhappy flow).
         :type status: <bool>
-        :param exc_message: Message to include in the exception message (unhappy flow).
+        :param exc_message: Message to include in the exception message.
         :type exc_message: <str | None>
         :param exception_class: The exception class to raise if status is not True.
         :type exception_class: <type[Exception]> (default ATSValueError)

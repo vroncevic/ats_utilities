@@ -74,6 +74,7 @@ class SchemeLoader(ISchemeLoader):
     _reporter: IReporter
     _verbose: bool
     _initialized: bool
+    _shared_context: ContextBundle
 
     def __init__(self, context_bundle: ContextBundle | None = None) -> None:
         '''
@@ -84,6 +85,7 @@ class SchemeLoader(ISchemeLoader):
             :exceptions: None.
         '''
         factory_context_bundle(self, context_bundle)
+        self._shared_context = context_bundle
         self._initialized = True
 
     @override
@@ -109,7 +111,7 @@ class SchemeLoader(ISchemeLoader):
             require_not_satisfied(not scheme.endswith('.json'), f'unsupported scheme file format for: {scheme}. Only .json is supported.')
 
             try:
-                config_loader: Loader = Loader(ConfigIOBundle(file_path=scheme, context_bundle=self.context_bundle))
+                config_loader: Loader = Loader(ConfigIOBundle(file_path=scheme, context_bundle=self._shared_context))
                 require_not_satisfied(config_loader is None, f'failed to setup config loader for: {scheme}')
 
                 return config_loader.load_configuration()

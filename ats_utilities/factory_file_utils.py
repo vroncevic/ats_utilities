@@ -44,7 +44,7 @@ __status__ = r'Development'
 def check_file_exists(
     file_path: str,
     exc_message: str | None = None,
-    exception_class: type[Exception] = ATSValueError
+    exception_class: type[BaseException] = ATSValueError
 ) -> None:
     '''
         Checks if a file exists.
@@ -83,7 +83,7 @@ def check_file_exists(
 def normalize_path(
     file_path: str,
     exc_message: str | None = None,
-    exception_class: type[Exception] = ATSValueError
+    exception_class: type[BaseException] = ATSValueError
 ) -> str:
     '''
         Normalizes file paths and strips leading directory prefixes.
@@ -111,7 +111,12 @@ def normalize_path(
             depth=3
         )
 
-    clean_file_path = PurePosixPath(normpath(file_path.replace('\\', '/'))).as_posix()
+    path_obj = PurePosixPath(file_path.replace('\\', '/'))
+
+    if path_obj.drive:
+        path_obj = PurePosixPath(*path_obj.parts[1:])
+
+    clean_file_path = path_obj.as_posix()
 
     if clean_file_path.startswith('/'):
         clean_file_path = clean_file_path[1:]
@@ -123,7 +128,7 @@ def resolve_relative_path(
     normalized_name: str,
     source_dir_clean: str,
     exc_message: str | None = None,
-    exception_class: type[Exception] = ATSValueError
+    exception_class: type[BaseException] = ATSValueError
 ) -> str | None:
     '''
         Calculates relative path to the specified source directory.
@@ -166,17 +171,21 @@ def resolve_relative_path(
     if normalized_name == source_dir_clean:
         return ''
 
-    elif normalized_name.startswith(source_dir_clean + '/'):
-        return normalized_name[len(source_dir_clean) + 1:]
+    try:
+        target = PurePosixPath(normalized_name)
+        base = PurePosixPath(source_dir_clean)
+        
+        return target.relative_to(base).as_posix()
 
-    return None
+    except ValueError:
+        return None
 
 
 def is_excluded_path(
     rel_path: str,
     exclude_patterns: Sequence[str],
     exc_message: str | None = None,
-    exception_class: type[Exception] = ATSValueError
+    exception_class: type[BaseException] = ATSValueError
 ) -> bool:
     '''
         Checks if a relative path matches any exclusion patterns.
@@ -216,10 +225,13 @@ def is_excluded_path(
             depth=3
         )
 
-    parts = rel_path.split('/')
+    path_obj = Path(rel_path)
+    parts = path_obj.parts
 
     for pattern in exclude_patterns:
-        if fnmatch(rel_path, pattern) or any(fnmatch(part, pattern) for part in parts):
+        posix_path = path_obj.as_posix()
+
+        if fnmatch(posix_path, pattern) or any(fnmatch(part, pattern) for part in parts):
             return True
 
     return False
@@ -232,7 +244,7 @@ def format_casing_by_match(
     camel_val: str,
     dashed_val: str,
     exc_message: str | None = None,
-    exception_class: type[Exception] = ATSValueError
+    exception_class: type[BaseException] = ATSValueError
 ) -> str:
     '''
         Formats a replacement value according to the casing style matched in clean_str.
@@ -322,7 +334,7 @@ def write_content(
     file_path: str,
     content: str | bytes,
     exc_message: str | None = None,
-    exception_class: type[Exception] = ATSValueError
+    exception_class: type[BaseException] = ATSValueError
 ) -> None:
     '''
         Writes string or bytes content to a file.
@@ -360,12 +372,13 @@ def write_content(
             depth=3
         )
 
+    target_path = Path(file_path)
+    target_path.parent.mkdir(parents=True, exist_ok=True)
+
     if isinstance(content, str):
-        with open(file_path, 'w', encoding='utf-8') as out_f:
-            out_f.write(content)
+        target_path.write_text(content, encoding='utf-8')
     else:
-        with open(file_path, 'wb') as out_f:
-            out_f.write(content)
+        target_path.write_bytes(content)
 
 
 def apply_path_replacements(
@@ -373,7 +386,7 @@ def apply_path_replacements(
     path_replacements: Mapping[str, str],
     vals: Mapping[str, str],
     exc_message: str | None = None,
-    exception_class: type[Exception] = ATSValueError
+    exception_class: type[BaseException] = ATSValueError
 ) -> str:
     '''
         Applies path replacements to a relative path using casing heuristics.
@@ -440,7 +453,7 @@ def apply_path_replacements(
             continue
 
         pattern_str = r'[-_]?'.join(escape(w) for w in words)
-        pattern = compile(pattern_str, IGNORECASE)
+        pattern = compile(rf'\b{pattern_str}\b', IGNORECASE)
 
         def replace_match(match: Match) -> str:
             clean_str = match.group(0).lstrip('-_')

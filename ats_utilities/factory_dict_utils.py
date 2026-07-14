@@ -75,7 +75,7 @@ def require_keys(
     source: Mapping[Any, Any],
     keys: frozenset[str],
     exc_message: str | None = None,
-    exception_class: type[Exception] = ATSValueError
+    exception_class: type[BaseException] = ATSValueError
 ) -> None:
     '''
         Requires all keys to be present in the source dictionary.
