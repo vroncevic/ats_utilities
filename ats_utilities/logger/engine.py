@@ -23,17 +23,21 @@ Info
 from __future__ import annotations
 
 from collections.abc import Callable, Mapping
-from logging import getLogger, basicConfig, DEBUG, INFO, WARNING, ERROR, CRITICAL, FileHandler, Formatter
+from logging import (
+    getLogger, DEBUG, INFO, WARNING, ERROR, CRITICAL, FileHandler, Formatter
+)
 from os import environ, makedirs
 from os.path import dirname, exists
 from re import compile, Pattern
-from sys import stdout
+from sys import stdout, stderr
 from types import MappingProxyType
 from typing import Any, override
 
+from ats_utilities.exceptions import ATSValueError, ATSTypeError
 from ats_utilities.logger.ilogger import ILogger
 from ats_utilities.logger.component_bundle import LoggerComponentBundle
 from ats_utilities.factory_class import to_str
+from ats_utilities.factory_format_error import format_error
 
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -81,27 +85,34 @@ class Logger(ILogger):
             :type component_bundle: <LoggerComponentBundle | None>
             :exceptions: None.
         '''
-        bundle: LoggerComponentBundle = component_bundle or LoggerComponentBundle()
-        self._logger = bundle.logger
-        self._early_logs_buffer = []
-        self._has_file_handler = bool(bundle.log_file)
+        try:
+            bundle: LoggerComponentBundle = component_bundle or LoggerComponentBundle()
+            self._logger = bundle.logger
+            self._early_logs_buffer = []
+            self._has_file_handler = bool(bundle.log_file)
 
-        if hasattr(self._logger, 'info'):
-            self._log_methods = MappingProxyType({
-                DEBUG: self._logger.debug,
-                INFO: self._logger.info,
-                WARNING: self._logger.warning,
-                ERROR: self._logger.error,
-                CRITICAL: self._logger.critical,
-            })
-        elif hasattr(self._logger, 'write_log'):
-            self._log_methods = MappingProxyType({
-                DEBUG: lambda msg: self._logger.write_log(msg, DEBUG),
-                INFO: lambda msg: self._logger.write_log(msg, INFO),
-                WARNING: lambda msg: self._logger.write_log(msg, WARNING),
-                ERROR: lambda msg: self._logger.write_log(msg, ERROR),
-                CRITICAL: lambda msg: self._logger.write_log(msg, CRITICAL),
-            })
+            if hasattr(self._logger, 'info'):
+                self._log_methods = MappingProxyType({
+                    DEBUG: self._logger.debug,
+                    INFO: self._logger.info,
+                    WARNING: self._logger.warning,
+                    ERROR: self._logger.error,
+                    CRITICAL: self._logger.critical,
+                })
+            elif hasattr(self._logger, 'write_log'):
+                self._log_methods = MappingProxyType({
+                    DEBUG: lambda msg: self._logger.write_log(msg, DEBUG),
+                    INFO: lambda msg: self._logger.write_log(msg, INFO),
+                    WARNING: lambda msg: self._logger.write_log(msg, WARNING),
+                    ERROR: lambda msg: self._logger.write_log(msg, ERROR),
+                    CRITICAL: lambda msg: self._logger.write_log(msg, CRITICAL),
+                })
+
+        except (ATSTypeError, ATSValueError) as exc:
+            stderr.write(format_error(self, exc))
+
+        except Exception as exc:
+            stderr.write(format_error(self, exc, prefix='unexpected exception'))
 
     def _process_message(self, message: str) -> str:
         '''

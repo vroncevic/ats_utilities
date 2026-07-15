@@ -34,7 +34,8 @@ from ats_utilities.reporter.theme.iconsole_theme import IConsoleTheme
 from ats_utilities.logger.ilogger import ILogger
 from ats_utilities.exceptions import ATSAttributeError, ATSRuntimeError, ATSTypeError, ATSValueError
 from ats_utilities.checker.proxy_validator import vcheck
-from ats_utilities.factory_class import cls_name, to_str
+from ats_utilities.factory_class import to_str
+from ats_utilities.factory_format_error import format_error
 
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -96,10 +97,10 @@ class Reporter(IReporter):
             self._is_initialized = True
 
         except (ATSTypeError, ATSValueError, ATSRuntimeError, ATSAttributeError) as exc:
-            stderr.write(f'\x1b[31m{cls_name(self)} {exc}\x1b[0m\n')
+            stderr.write(format_error(self, exc))
 
         except Exception as exc:
-            stderr.write(f'\x1b[31m{cls_name(self)} unexpected exception: {exc}\x1b[0m\n')
+            stderr.write(format_error(self, exc, prefix='unexpected exception'))
 
     def _report(self, message: Sequence[Any], color: str, ctrl: int) -> None:
         '''

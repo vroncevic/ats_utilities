@@ -38,6 +38,7 @@ from ats_utilities.factory_context_bundle import factory_context_bundle
 from ats_utilities.factory_class import to_str
 from ats_utilities.factory_type import check_type
 from ats_utilities.factory_value import require_not_satisfied
+from ats_utilities.factory_format_error import format_error_raw
 
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -117,7 +118,8 @@ class SchemeLoader(ISchemeLoader):
                 return config_loader.load_configuration()
 
             except Exception as exc:
-                require_not_satisfied(True, f'failed to load scheme file {scheme}: {exc}', ATSGeneratorError)
+                msg: str = format_error_raw(self, exc)
+                require_not_satisfied(True, f'failed to load scheme file {scheme}: {msg}', ATSGeneratorError)
 
         return dict(scheme)
 

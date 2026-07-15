@@ -35,7 +35,7 @@ from ats_utilities.exceptions import (
     ATSAttributeError, ATSRuntimeError, ATSTypeError, ATSValueError
 )
 from ats_utilities.logger.ilogger import ILogger
-from ats_utilities.factory_class import to_str, cls_name, has_attrs
+from ats_utilities.factory_class import to_str, has_attrs
 from ats_utilities.factory_context_bundle import factory_context_bundle
 from ats_utilities.generator.igenerator import IGenerator
 from ats_utilities.info.imanager import IInfoManager
@@ -43,6 +43,7 @@ from ats_utilities.option.ioption_manager import IOptionManager
 from ats_utilities.option.option_namespace import OptionNamespace
 from ats_utilities.reporter.ireporter import IReporter
 from ats_utilities.splasher.isplasher import ISplasher
+from ats_utilities.factory_format_error import format_error
 
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -103,6 +104,8 @@ class Base(IBase):
             :type component_bundle: <BaseComponentBundle | None>
             :exceptions: None.
         '''
+        self._is_initialized = False
+
         try:
             bundle: BaseComponentBundle = component_bundle or BaseComponentBundle()
             factory_context_bundle(self, bundle.context_bundle)
@@ -124,10 +127,10 @@ class Base(IBase):
             )
 
         except (ATSTypeError, ATSValueError, ATSRuntimeError, ATSAttributeError) as exc:
-            stderr.write(f'\x1b[31m{cls_name(self)} {exc}\x1b[0m\n')
+            stderr.write(format_error(self, exc))
 
         except Exception as exc:
-            stderr.write(f'\x1b[31m{cls_name(self)} unexpected exception: {exc}\x1b[0m\n')
+            stderr.write(format_error(self, exc, prefix='unexpected exception'))
 
     @override
     def get_shared_context(self) -> ContextBundle:

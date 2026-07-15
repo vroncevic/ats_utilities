@@ -25,15 +25,22 @@ from __future__ import annotations
 from typing import ClassVar, override
 from sys import stderr
 
-from ats_utilities.checker.ichecker import IChecker, ErrorChecker, ValidationResult, ParametersSpecs
+from ats_utilities.checker.ichecker import (
+    IChecker, ErrorChecker, ValidationResult, ParametersSpecs
+)
 from ats_utilities.checker.type.itype_validator import ITypeValidator
 from ats_utilities.checker.format.iformat_validator import IFormatValidator
 from ats_utilities.checker.context.icontext_provider import IContextProvider
 from ats_utilities.checker.reporter.icheck_reporter import ICheckReporter
 from ats_utilities.checker.component_bundle import CheckerComponentBundle
-from ats_utilities.checker.reporter.checker_reporter_bundle import CheckerReporterBundle, ParamMetadata
-from ats_utilities.exceptions import ATSAttributeError, ATSRuntimeError, ATSTypeError, ATSValueError
-from ats_utilities.factory_class import cls_name, to_str
+from ats_utilities.checker.reporter.checker_reporter_bundle import (
+    CheckerReporterBundle, ParamMetadata
+)
+from ats_utilities.exceptions import (
+    ATSAttributeError, ATSRuntimeError, ATSTypeError, ATSValueError
+)
+from ats_utilities.factory_class import to_str
+from ats_utilities.factory_format_error import format_error
 
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -96,10 +103,10 @@ class Checker(IChecker):
             self._is_initialized = True
 
         except (ATSTypeError, ATSValueError, ATSRuntimeError, ATSAttributeError) as exc:
-            stderr.write(f'\x1b[31m{cls_name(self)} {exc}\x1b[0m\n')
+            stderr.write(format_error(self, exc))
 
         except Exception as exc:
-            stderr.write(f'\x1b[31m{cls_name(self)} unexpected exception: {exc}\x1b[0m\n')
+            stderr.write(format_error(self, exc, prefix='unexpected exception'))
 
     @override
     def validates_parameters(self, parameters: ParametersSpecs) -> ValidationResult:

@@ -30,8 +30,10 @@ from ats_utilities.checker.ichecker import IChecker
 from ats_utilities.logger.ilogger import ILogger
 from ats_utilities.checker.proxy_validator import vcheck
 from ats_utilities.context_bundle import ContextBundle
-from ats_utilities.exceptions import ATSAttributeError, ATSRuntimeError, ATSTypeError, ATSValueError
-from ats_utilities.factory_class import to_str, cls_name, has_attrs
+from ats_utilities.exceptions import (
+    ATSAttributeError, ATSRuntimeError, ATSTypeError, ATSValueError
+)
+from ats_utilities.factory_class import to_str, has_attrs
 from ats_utilities.factory_context_bundle import factory_context_bundle
 from ats_utilities.option.component_bundle import OptionComponentBundle
 from ats_utilities.option.command.ioption_command import IOptionCommand
@@ -40,6 +42,7 @@ from ats_utilities.option.strategy.iparser_strategy import IParserStrategy
 from ats_utilities.option.option_namespace import OptArgs, OptionNamespace
 from ats_utilities.reporter.ireporter import IReporter
 from ats_utilities.reporter.proxy_reporter import vreport
+from ats_utilities.factory_format_error import format_error
 
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -108,10 +111,10 @@ class OptionManager(IOptionManager):
             self._is_initialized = True
  
         except (ATSTypeError, ATSValueError, ATSRuntimeError, ATSAttributeError) as exc:
-            stderr.write(f'\x1b[31m{cls_name(self)} {exc}\x1b[0m\n')
+            stderr.write(format_error(self, exc))
 
         except Exception as exc:
-            stderr.write(f'\x1b[31m{cls_name(self)} unexpected exception: {exc}\x1b[0m\n')
+            stderr.write(format_error(self, exc, prefix='unexpected exception'))
 
     @override
     def get_shared_context(self) -> ContextBundle:

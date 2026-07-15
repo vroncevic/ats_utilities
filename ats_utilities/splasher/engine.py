@@ -34,10 +34,14 @@ from ats_utilities.splasher.splash_keys import SplashKeys
 from ats_utilities.checker.ichecker import IChecker
 from ats_utilities.logger.ilogger import ILogger
 from ats_utilities.reporter.ireporter import IReporter
-from ats_utilities.exceptions import ATSAttributeError, ATSRuntimeError, ATSTypeError, ATSValueError
+from ats_utilities.exceptions import (
+    ATSAttributeError, ATSRuntimeError, ATSTypeError, ATSValueError
+)
 from ats_utilities.factory_context_bundle import factory_context_bundle
-from ats_utilities.factory_class import cls_name, to_str
+from ats_utilities.factory_class import to_str
 from ats_utilities.factory_file_utils import check_file_exists
+from ats_utilities.factory_format_error import format_error
+from ats_utilities.factory_value import require_not_satisfied
 
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -117,15 +121,20 @@ class Splasher(ISplasher):
                     )
                     stdout.write('\n\n')
 
-                    with open(bundle.prop[SplashKeys.ATS_LOGO_PATH], 'r', encoding='utf-8') as scr:
-                        for line in scr:
-                            processed_line: str = line.rstrip()
+                    try:
+                        with open(bundle.prop[SplashKeys.ATS_LOGO_PATH], 'r', encoding='utf-8') as scr:
+                            for line in scr:
+                                processed_line: str = line.rstrip()
 
-                            if bool(processed_line):
-                                splash_center_bundle.columns = int(size[1])
-                                splash_center_bundle.additional_shifter = 0
-                                splash_center_bundle.text = processed_line
-                                self.center(splash_center_bundle)
+                                if bool(processed_line):
+                                    splash_center_bundle.columns = int(size[1])
+                                    splash_center_bundle.additional_shifter = 0
+                                    splash_center_bundle.text = processed_line
+                                    self.center(splash_center_bundle)
+                    except (OSError, UnicodeDecodeError) as exc:
+                        require_not_satisfied(
+                            True, f'logo file content is invalid {exc}', ATSRuntimeError
+                        )
 
                     splash_center_bundle.columns = int(size[1])
                     splash_center_bundle.additional_shifter = 2
@@ -156,10 +165,10 @@ class Splasher(ISplasher):
                 self._is_initialized = True
 
         except (ATSTypeError, ATSValueError, ATSRuntimeError, ATSAttributeError) as exc:
-            stderr.write(f'\x1b[31m{cls_name(self)} {exc}\x1b[0m\n')
+            stderr.write(format_error(self, exc))
 
         except Exception as exc:
-            stderr.write(f'\x1b[31m{cls_name(self)} unexpected exception: {exc}\x1b[0m\n')
+            stderr.write(format_error(self, exc, prefix='unexpected exception'))
 
     @override
     def get_shared_context(self) -> ContextBundle:

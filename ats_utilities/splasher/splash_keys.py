@@ -78,6 +78,19 @@ class SplashKeys:
     enabled: bool = True
     _key_to_attr: ClassVar[MappingProxyType[str, str] | None] = None
 
+    def __post_init__(self) -> None:
+        '''
+            Post initials SplashKeys constructor.
+            Safely bypasses frozen restriction via object.__setattr__.
+
+            :exceptions: None.
+        '''
+        if not self.enabled:
+            attr_name: str
+
+            for attr_name in self.get_key_to_attr().values():
+                object.__setattr__(self, attr_name, None)
+
     @classmethod
     def get_key_to_attr(cls) -> MappingProxyType[str, str]:
         '''
@@ -100,19 +113,6 @@ class SplashKeys:
             cls._key_to_attr = MappingProxyType(mapping)
 
         return cls._key_to_attr
-
-    def __post_init__(self) -> None:
-        '''
-            Post initials SplashKeys constructor.
-            Safely bypasses frozen restriction via object.__setattr__.
-
-            :exceptions: None.
-        '''
-        if not self.enabled:
-            attr_name: str
-
-            for attr_name in self.get_key_to_attr().values():
-                object.__setattr__(self, attr_name, None)
 
     @classmethod
     def from_dict(cls, config: Mapping[str, Any]) -> Self:

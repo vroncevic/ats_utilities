@@ -44,6 +44,7 @@ from ats_utilities.factory_file_utils import (
 )
 from ats_utilities.exceptions import ATSGeneratorError
 from ats_utilities.factory_value import require_not_satisfied
+from ats_utilities.factory_format_error import format_error_raw
 
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -156,7 +157,8 @@ class TarProcessor(ITarProcessor):
                     )
 
         except Exception as exc:
-            require_not_satisfied(True, f'TarProcessor execution failed: {exc}', ATSGeneratorError)
+            msg: str = format_error_raw(self, exc)
+            require_not_satisfied(True, f'TarProcessor execution failed: {msg}', ATSGeneratorError)
 
     @override
     def is_initialized(self) -> bool:

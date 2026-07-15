@@ -25,6 +25,7 @@ from __future__ import annotations
 
 from collections.abc import Mapping
 from typing import override
+from sys import stderr
 
 from ats_utilities.config_io.storer.istorer import IStorer
 from ats_utilities.context_bundle import ContextBundle
@@ -36,8 +37,10 @@ from ats_utilities.config_io.conf_file import ConfFile
 from ats_utilities.config_io.conf_file_bundle import ConfFileBundle
 from ats_utilities.config_io.processor.iconfig_processor import IConfigProcessor
 from ats_utilities.config_io.processor.factory_processor import ConfigProcessorFactory
+from ats_utilities.exceptions import ATSValueError, ATSTypeError
 from ats_utilities.factory_context_bundle import factory_context_bundle
 from ats_utilities.factory_class import to_str
+from ats_utilities.factory_format_error import format_error
 
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -102,17 +105,24 @@ class Storer(IStorer):
                 | ATSValueError: Extension is not supported.
                 | ATSTypeError: Validation of processor instance failed.
         '''
-        bundle: ConfigIOBundle = component_bundle or ConfigIOBundle()
-        self._context_bundle_shared = bundle.context
-        factory_context_bundle(self, self._context_bundle_shared)
-        self._processor = ConfigProcessorFactory.create_from_file_path(
-            bundle.file_path, bundle.scheme, bundle.processor
-        )
-        self._conf_file_bundle = ConfFileBundle(
-            file_path=bundle.file_path,
-            file_mode=bundle.WRITE_MODE,
-            context_bundle=self._context_bundle_shared
-        )
+        try:
+            bundle: ConfigIOBundle = component_bundle or ConfigIOBundle()
+            self._context_bundle_shared = bundle.context
+            factory_context_bundle(self, self._context_bundle_shared)
+            self._processor = ConfigProcessorFactory.create_from_file_path(
+                bundle.file_path, bundle.scheme, bundle.processor
+            )
+            self._conf_file_bundle = ConfFileBundle(
+                file_path=bundle.file_path,
+                file_mode=bundle.WRITE_MODE,
+                context_bundle=self._context_bundle_shared
+            )
+
+        except (ATSTypeError, ATSValueError) as exc:
+            stderr.write(format_error(self, exc))
+
+        except Exception as exc:
+            stderr.write(format_error(self, exc, prefix='unexpected exception'))
 
     @override
     def get_shared_context(self) -> ContextBundle:

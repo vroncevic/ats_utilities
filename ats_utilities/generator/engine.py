@@ -38,7 +38,7 @@ from ats_utilities.exceptions import (
     ATSTypeError,
     ATSValueError
 )
-from ats_utilities.factory_class import to_str, cls_name
+from ats_utilities.factory_class import to_str
 from ats_utilities.factory_context_bundle import factory_context_bundle
 from ats_utilities.generator.component_bundle import GeneratorComponentBundle
 from ats_utilities.generator.generator_bundle import GeneratorBundle
@@ -47,6 +47,7 @@ from ats_utilities.generator.scheme.ischeme_loader import ISchemeLoader
 from ats_utilities.generator.tar.itar_processor import ITarProcessor
 from ats_utilities.generator.tar.tar_process_bundle import TarProcessBundle
 from ats_utilities.factory_value import require_not_satisfied, require_not_empty
+from ats_utilities.factory_format_error import format_error
 
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -112,10 +113,10 @@ class Generator(IGenerator):
             self._is_initialized = True
 
         except (ATSTypeError, ATSValueError, ATSRuntimeError, ATSAttributeError) as exc:
-            stderr.write(f'\x1b[31m{cls_name(self)} {exc}\x1b[0m\n')
+            stderr.write(format_error(self, exc))
 
         except Exception as exc:
-            stderr.write(f'\x1b[31m{cls_name(self)} unexpected exception: {exc}\x1b[0m\n')
+            stderr.write(format_error(self, exc, prefix='unexpected exception'))
 
     @override
     def get_shared_context(self) -> ContextBundle:

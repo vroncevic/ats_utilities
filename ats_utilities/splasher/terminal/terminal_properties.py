@@ -22,9 +22,9 @@ Info
 
 from __future__ import annotations
 
-import os
-from typing import Any, override
 from fcntl import ioctl
+from os import open, ctermid, close, O_RDONLY
+from typing import Any, override
 from termios import TIOCGWINSZ
 from struct import unpack, pack
 
@@ -64,7 +64,7 @@ class TerminalProperties(ITerminalProperties):
             :methods:
                 | __init__ - Initials TerminalProperties constructor.
                 | ioctl_get_window_size - Gets size for file descriptor.
-                | ioctl_for_all_descriptors - Sets size for all file descriptors.
+                | ioctl_for_all_descriptors - Tries to get and set terminal window size.
                 | size - Gets terminal window size.
                 | __str__ - Returns the string representation of TerminalProperties.
     '''
@@ -114,17 +114,23 @@ class TerminalProperties(ITerminalProperties):
     @override
     def ioctl_for_all_descriptors(self) -> None:
         '''
-            Sets size for all file descriptors.
+            Tries to get and set terminal window size using standard file descriptors (0, 1, 2).
+            It stops and returns on the first successfully queried descriptor.
 
             :exceptions:
                 | ATSRuntimeError: Decorator cannot be used on a standalone function.
                 | ATSAttributeError: Class is required to provide a '_reporter' object to
                 |                    use the @vreport decorator.
         '''
-        std_in: tuple[Any, ...] = self.ioctl_get_window_size(0)
-        std_out: tuple[Any, ...] = self.ioctl_get_window_size(1)
-        std_err: tuple[Any, ...] = self.ioctl_get_window_size(2)
-        self._window_size = std_in or std_out or std_err
+        for fd in (0, 1, 2):
+            try:
+                self._window_size = self.ioctl_get_window_size(fd)
+
+                if self._window_size:
+                    return
+
+            except (OSError, Exception):
+                continue
 
     @vreport('size {window_size}')
     @override
@@ -146,9 +152,12 @@ class TerminalProperties(ITerminalProperties):
             pass
 
         try:
-            file_descriptor: int = os.open(os.ctermid(), os.O_RDONLY)
-            self._window_size = self.ioctl_get_window_size(file_descriptor)
-            os.close(file_descriptor)
+            file_descriptor: int = open(ctermid(), O_RDONLY)
+
+            try:
+                self._window_size = self.ioctl_get_window_size(file_descriptor)
+            finally:
+                close(file_descriptor)
 
         except OSError:
             if not self._window_size:
