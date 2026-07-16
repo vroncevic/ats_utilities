@@ -31,7 +31,7 @@ from ats_utilities.checker.engine import Checker
 from ats_utilities.checker.ichecker import ErrorChecker
 from ats_utilities.reporter.engine import Reporter
 from ats_utilities.option.engine import OptionManager
-from ats_utilities.option.component_bundle import OptionComponentBundle
+from ats_utilities.option.option_bundle import OptionBundle
 from ats_utilities.option.option_namespace import OptionNamespace
 from ats_utilities.exceptions.ats_type_error import ATSTypeError
 from ats_utilities.exceptions.ats_file_error import ATSFileError
@@ -380,7 +380,7 @@ def update_structure(pro_name: str, section: str) -> None:
 
 if __name__ == "__main__":
     cli: OptionManager = OptionManager(
-        OptionComponentBundle(
+        OptionBundle(
             parameters={
                 'description': 'ats_coverage 2025',
                 'version': '1.0.0',

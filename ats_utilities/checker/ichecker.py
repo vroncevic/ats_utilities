@@ -53,7 +53,8 @@ class ErrorChecker(int, Enum):
                 | NO_ERROR - Marks no param error report (0).
                 | TYPE_ERROR - Marks type param error report (1).
                 | FORMAT_ERROR - Marks wrong format error report (2).
-            :methods: None.    '''
+            :methods: None.
+    '''
     NO_ERROR = 0
     TYPE_ERROR = 1
     FORMAT_ERROR = 2

@@ -25,12 +25,12 @@ from __future__ import annotations
 from typing import override
 
 from ats_utilities.info.build_date.ibuild_date import IBuildDate
-from ats_utilities.context_bundle import ContextBundle
+from ats_utilities.context.context_bundle import ContextBundle
 from ats_utilities.checker.ichecker import IChecker
 from ats_utilities.logger.ilogger import ILogger
 from ats_utilities.reporter.ireporter import IReporter
-from ats_utilities.factory_context_bundle import factory_context_bundle
-from ats_utilities.factory_class import to_str
+from ats_utilities.context.context_bundle_inject import inject_context_bundle
+from ats_utilities.utils.reflection import to_str
 from ats_utilities.checker.proxy_validator import vcheck
 from ats_utilities.reporter.proxy_reporter import vreport
 
@@ -71,15 +71,17 @@ class BuildDate(IBuildDate):
     _verbose: bool
     _build_date: str | None
 
-    def __init__(self, context_bundle: ContextBundle | None = None) -> None:
+    def __init__(self, context_bundle: ContextBundle) -> None:
         '''
             Initializes BuildDate constructor.
 
-            :param context_bundle: Context bundle for build date | None.
-            :type context_bundle: <ContextBundle | None>
-            :exceptions: None.
+            :param context_bundle: Context bundle for build date.
+            :type context_bundle: <ContextBundle>
+            :exceptions:
+                | ATSValueError: Context bundle must be provided.
+                | ATSTypeError: Context bundle must be an instance of ContextBundle.
         '''
-        factory_context_bundle(self, context_bundle)
+        inject_context_bundle(self, context_bundle)
         self._build_date = None
 
     @property
@@ -128,7 +130,7 @@ class BuildDate(IBuildDate):
             Checks is build date not None.
             Note: Build date is only prepared when it is set by user (not None).
 
-            :return: True (not None) | False (None).
+            :return: <True> if successful, <False> otherwise.
             :rtype: <bool>
             :exceptions:
                 | ATSRuntimeError: Decorator cannot be used on a standalone function.

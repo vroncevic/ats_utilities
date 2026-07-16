@@ -19,11 +19,14 @@ Info
     Use cases for ATS context bundle.
 '''
 
-from ats_utilities.context_bundle import ContextBundle
+from ats_utilities.context.context_bundle import ContextBundle
 from ats_utilities.checker.engine import Checker
+from ats_utilities.checker.checker_registry import CheckerRegistry
+from ats_utilities.logger.engine import Logger
+from ats_utilities.logger.logger_registry import LoggerRegistry
 from ats_utilities.reporter.engine import Reporter
 from ats_utilities.reporter.theme.engine import ConsoleTheme 
-from ats_utilities.reporter.component_bundle import ReporterComponentBundle
+from ats_utilities.reporter.reporter_bundle import ReporterBundle
 
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -38,17 +41,20 @@ __status__ = r'Development'
 # [with complex DI]
 # ==================
 #
-mychecker: Checker = Checker()
+mychecker: Checker = Checker(component_bundle=CheckerRegistry.create_default_checker_bundle())
 mytheme: ConsoleTheme = ConsoleTheme()
-component_bundle: ReporterComponentBundle = ReporterComponentBundle(
+mylogger: Logger = Logger(component_bundle=LoggerRegistry.create_default_logger_bundle())
+component_bundle: ReporterBundle = ReporterBundle(
     checker=mychecker,
-    theme=mytheme
+    theme=mytheme,
+    logger=mylogger
 )
 
 myreporter: Reporter = Reporter(component_bundle=component_bundle)
 
 ats_context_bundle_di: ContextBundle = ContextBundle(
     checker=mychecker,
+    logger=mylogger,
     reporter=myreporter,
     verbose=True
 )

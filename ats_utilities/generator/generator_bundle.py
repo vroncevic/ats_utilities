@@ -26,8 +26,8 @@ from collections.abc import Mapping
 from dataclasses import dataclass
 from typing import Any
 
-from ats_utilities.factory_value import require_not_none
-from ats_utilities.factory_type import check_type
+from ats_utilities.validation.check_value import not_none
+from ats_utilities.validation.check_type import istype
 
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -87,16 +87,16 @@ class GeneratorBundle:
                 | ATSValueError: Template values must be provided.
                 | ATSTypeError: Template values must be a mapping.
         '''
-        require_not_none(self.archive_path, r'archive_path must be provided')
-        check_type(self.archive_path, str, r'archive_path must be a string')
-        require_not_none(self.target_dir, r'target_dir must be provided')
-        check_type(self.target_dir, str, r'target_dir must be a string')
-        require_not_none(self.template_key, r'template_key must be provided')
-        check_type(self.template_key, str, r'template_key must be a string')
-        require_not_none(self.scheme, r'scheme must be provided')
-        check_type(self.scheme, (str, Mapping), r'scheme must be a string or a mapping')
-        require_not_none(self.template_values, r'template_values must be provided')
-        check_type(self.template_values, Mapping, r'template_values must be a mapping')
+        not_none(self.archive_path, r'archive_path must be provided')
+        istype(self.archive_path, str, r'archive_path must be a string')
+        not_none(self.target_dir, r'target_dir must be provided')
+        istype(self.target_dir, str, r'target_dir must be a string')
+        not_none(self.template_key, r'template_key must be provided')
+        istype(self.template_key, str, r'template_key must be a string')
+        not_none(self.scheme, r'scheme must be provided')
+        istype(self.scheme, (str, Mapping), r'scheme must be a string or a mapping')
+        not_none(self.template_values, r'template_values must be provided')
+        istype(self.template_values, Mapping, r'template_values must be a mapping')
 
     def merge(self, other: GeneratorBundle) -> None:
         '''
@@ -108,8 +108,8 @@ class GeneratorBundle:
                 | ATSValueError: Other GeneratorBundle must be provided.
                 | ATSTypeError: Other must be a GeneratorBundle.
         '''
-        require_not_none(other, r'other GeneratorBundle must be provided')
-        check_type(other, GeneratorBundle, r'other must be a GeneratorBundle')
+        not_none(other, r'other GeneratorBundle must be provided')
+        istype(other, GeneratorBundle, r'other must be a GeneratorBundle')
 
         for field_name in self.__dataclass_fields__:
             other_value: Any = getattr(other, field_name)

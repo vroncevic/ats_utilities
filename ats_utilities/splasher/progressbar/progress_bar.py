@@ -25,7 +25,7 @@ from __future__ import annotations
 import sys
 from typing import override
 
-from ats_utilities.factory_class import to_str
+from ats_utilities.utils.reflection import to_str
 from ats_utilities.splasher.progressbar.iprogress_bar import IProgressBar
 
 __author__ = r'Vladimir Roncevic'

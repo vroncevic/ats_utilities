@@ -24,20 +24,19 @@ from __future__ import annotations
 
 from collections.abc import Mapping
 from typing import Any, override
-from sys import stderr
 
-from ats_utilities.info.imanager import IInfoManager
-from ats_utilities.context_bundle import ContextBundle
-from ats_utilities.info.component_bundle import InfoComponentBundle
+from ats_utilities.info.iinfo_manager import IInfoManager
+from ats_utilities.context.context_bundle import ContextBundle
+from ats_utilities.info.info_bundle import InfoBundle
 from ats_utilities.info.info_keys import InfoKeys
 from ats_utilities.checker.ichecker import IChecker
 from ats_utilities.logger.ilogger import ILogger
 from ats_utilities.reporter.ireporter import IReporter
-from ats_utilities.exceptions import ATSAttributeError, ATSRuntimeError, ATSTypeError, ATSValueError
-from ats_utilities.factory_context_bundle import factory_context_bundle
-from ats_utilities.factory_class import to_str
-from ats_utilities.factory_value import require_not_satisfied, require_not_none
-from ats_utilities.factory_format_error import format_error
+from ats_utilities.exceptions import ATSAttributeError
+from ats_utilities.context.context_bundle_inject import inject_context_bundle
+from ats_utilities.utils.reflection import to_str
+from ats_utilities.validation.check_value import not_satisfied, not_none
+from ats_utilities.validation.check_type import istype
 
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -60,7 +59,7 @@ class InfoManager(IInfoManager):
         It defines:
 
             :attributes:
-                | _components - The info components (default InfoComponentBundle).
+                | _components - The info components (default InfoBundle).
                 | _checker - Injected parameters checker (default Checker).
                 | _logger - Injected logger (default Logger).
                 | _reporter - Injected reporter for messaging (default Reporter).
@@ -82,34 +81,26 @@ class InfoManager(IInfoManager):
     _reporter: IReporter
     _verbose: bool
     _is_initialized: bool
-    _components: InfoComponentBundle
+    _components: InfoBundle
     _shared_context: ContextBundle
 
-    def __init__(self, component_bundle: InfoComponentBundle | None = None) -> None:
+    def __init__(self, component_bundle: InfoBundle) -> None:
         '''
             Initializes InfoManager constructor.
 
-            :param component_bundle: Bundle with components | None.
-            :type component_bundle: <InfoComponentBundle | None>
-            :exceptions: None.
+            :param component_bundle: Bundle with components.
+            :type component_bundle: <InfoBundle>
+            :exceptions:
+                | ATSValueError: Component bundle must be provided.
+                | ATSTypeError: Component bundle must be an instance of InfoBundle interface.
         '''
-        self._is_initialized = False
-
-        try:
-            # No dependency injection then use default ones.
-            self._components = component_bundle or InfoComponentBundle()
-            factory_context_bundle(self, self._components.context_bundle)
-            self._shared_context = self._components.context_bundle
-            self.refresh_status()
-
-            # All components initialized successfully.
-            self._is_initialized = True
-
-        except (ATSTypeError, ATSValueError, ATSRuntimeError, ATSAttributeError) as exc:
-            stderr.write(format_error(self, exc))
-
-        except Exception as exc:
-            stderr.write(format_error(self, exc, prefix='unexpected exception'))
+        not_none(component_bundle, r'component_bundle must be provided')
+        istype(component_bundle, InfoBundle, r'component_bundle must be an instance of InfoBundle interface')
+        self._components = component_bundle
+        inject_context_bundle(self, self._components.context_bundle)
+        self._shared_context = self._components.context_bundle
+        self.refresh_status()
+        self._is_initialized = True
 
     @override
     def get_shared_context(self) -> ContextBundle:
@@ -134,13 +125,15 @@ class InfoManager(IInfoManager):
         for key in InfoKeys.get_keys():
             if key == InfoKeys.ATS_LOG_FILE:
                 continue
-            if key not in info:
-                require_not_none(None, f'info::set_info - missing key: {key}')
 
-            require_not_none(info.get(key), f'info::set_info - null value for key: {key}')
+            if key not in info:
+                not_none(None, f'info::set_info - missing key: {key}')
+
+            not_none(info.get(key), f'info::set_info - null value for key: {key}')
 
         for key, attr in InfoKeys.get_key_to_attr().items():
             val = info.get(key)
+
             if key == InfoKeys.ATS_LOG_FILE and val is None:
                 continue
 
@@ -181,7 +174,7 @@ class InfoManager(IInfoManager):
 
             return getattr(component, name, None) if component else None
 
-        require_not_satisfied(
+        not_satisfied(
             True,
             f'{type(self).__name__} object has no attribute {name}',
             ATSAttributeError

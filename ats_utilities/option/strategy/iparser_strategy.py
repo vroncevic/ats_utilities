@@ -49,7 +49,6 @@ class IParserStrategy(ABC):
         It defines:
 
             :methods:
-                | setup - Initializes the underlying parser with metadata parameters.
                 | add_argument - Adds an operational argument/flag to the parser.
                 | add_version - Adds a version display option to the parser.
                 | parse - Parses the input arguments and returns an OptionNamespace.
@@ -58,17 +57,6 @@ class IParserStrategy(ABC):
                 | ok - Checks if parser strategy component is ok.
                 | __str__ - Returns the ATS parser strategy as string representation.
     '''
-
-    @abstractmethod
-    def setup(self, parameters: Mapping[str, str]) -> None:
-        '''
-            Initializes the underlying parser with metadata parameters.
-
-            :param parameters: Metadata parameters in mapping format (read only data).
-            :type parameters: <Mapping[str, str]>
-            :exceptions: None.
-        '''
-        pass
 
     @abstractmethod
     def add_argument(self, *args: str, **kwargs: Any) -> None:

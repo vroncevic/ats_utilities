@@ -20,6 +20,7 @@ Info
 '''
 
 from ats_utilities.checker.engine import Checker
+from ats_utilities.checker.checker_registry import CheckerRegistry
 
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -30,5 +31,5 @@ __maintainer__ = r'Vladimir Roncevic'
 __email__ = r'elektron.ronca@gmail.com'
 __status__ = r'Development'
 
-ats_checker = Checker()
+ats_checker = Checker(component_bundle=CheckerRegistry.create_default_checker_bundle())
 print(ats_checker)

@@ -24,25 +24,23 @@ from __future__ import annotations
 
 from collections.abc import Sequence, Mapping
 from typing import Any, override
-from sys import stderr
 
 from ats_utilities.checker.ichecker import IChecker
 from ats_utilities.logger.ilogger import ILogger
 from ats_utilities.checker.proxy_validator import vcheck
-from ats_utilities.context_bundle import ContextBundle
-from ats_utilities.exceptions import (
-    ATSAttributeError, ATSRuntimeError, ATSTypeError, ATSValueError
-)
-from ats_utilities.factory_class import to_str, has_attrs
-from ats_utilities.factory_context_bundle import factory_context_bundle
-from ats_utilities.option.component_bundle import OptionComponentBundle
+from ats_utilities.context.context_bundle import ContextBundle
+from ats_utilities.utils.reflection import to_str, has_attrs
+from ats_utilities.context.context_bundle_inject import inject_context_bundle
+from ats_utilities.option.option_bundle import OptionBundle
 from ats_utilities.option.command.ioption_command import IOptionCommand
 from ats_utilities.option.ioption_manager import IOptionManager
 from ats_utilities.option.strategy.iparser_strategy import IParserStrategy
 from ats_utilities.option.option_namespace import OptArgs, OptionNamespace
 from ats_utilities.reporter.ireporter import IReporter
 from ats_utilities.reporter.proxy_reporter import vreport
-from ats_utilities.factory_format_error import format_error
+from ats_utilities.validation.check_value import not_none
+from ats_utilities.validation.check_type import istype
+
 
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -90,31 +88,22 @@ class OptionManager(IOptionManager):
     _shared_context: ContextBundle
     _strategy: IParserStrategy
 
-    def __init__(self, component_bundle: OptionComponentBundle | None = None) -> None:
+    def __init__(self, component_bundle: OptionBundle) -> None:
         '''
             Initializes OptionManager constructor.
 
-            :param component_bundle: Bundle with components for option manager | None.
-            :type component_bundle: <OptionComponentBundle | None>
-            :exceptions: None.
-        ''' 
-        self._is_initialized = False
-
-        try:
-            bundle: OptionComponentBundle = component_bundle or OptionComponentBundle()
-            factory_context_bundle(self, bundle.context_bundle)
-            self._shared_context = bundle.context_bundle
-            self._strategy = bundle.strategy
-            self._strategy.setup(bundle.parameters)
-
-            # All components initialized successfully.
-            self._is_initialized = True
- 
-        except (ATSTypeError, ATSValueError, ATSRuntimeError, ATSAttributeError) as exc:
-            stderr.write(format_error(self, exc))
-
-        except Exception as exc:
-            stderr.write(format_error(self, exc, prefix='unexpected exception'))
+            :param component_bundle: Bundle with components for option manager.
+            :type component_bundle: <OptionBundle>
+            :exceptions:
+                | ATSValueError - Component bundle must be provided.
+                | ATSTypeError - Component bundle must be an OptionBundle instance.
+        '''
+        not_none(component_bundle, r'component bundle must be provided')
+        istype(component_bundle, OptionBundle, r'component bundle must be an OptionBundle instance')
+        inject_context_bundle(self, component_bundle.context_bundle)
+        self._shared_context = component_bundle.context_bundle
+        self._strategy = component_bundle.strategy
+        self._is_initialized = True
 
     @override
     def get_shared_context(self) -> ContextBundle:

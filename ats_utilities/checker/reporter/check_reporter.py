@@ -24,10 +24,10 @@ from __future__ import annotations
 
 from typing import override
 
-from ats_utilities.factory_class import to_str
+from ats_utilities.utils.reflection import to_str
 from ats_utilities.checker.reporter.icheck_reporter import ICheckReporter
 from ats_utilities.checker.reporter.checker_reporter_bundle import CheckerReporterBundle
-from ats_utilities.factory_value import require_not_none
+from ats_utilities.validation.check_value import not_none
 
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -64,7 +64,7 @@ class CheckReporter(ICheckReporter):
             :exceptions:
                 | ATSValueError: Report bundle must be provided.
         '''
-        require_not_none(report_bundle, r'report bundle must be provided')
+        not_none(report_bundle, r'report bundle must be provided')
 
         message = report_bundle.context
         err_set = set(report_bundle.err_indices)

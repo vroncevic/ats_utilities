@@ -21,9 +21,9 @@ Info
 '''
 
 from abc import ABC, abstractmethod
-from ats_utilities.context_bundle import ContextBundle
-from ats_utilities.factory_context_bundle import factory_context_bundle
-from ats_utilities.factory_class import to_str
+from ats_utilities.context.context_bundle import ContextBundle
+from ats_utilities.context.context_bundle_inject import inject_context_bundle
+from ats_utilities.utils.reflection import to_str
 
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -88,7 +88,7 @@ class MyClass(IMyClass):
                 | __str__ - Returns the string representation of MyClass.
     '''
 
-    def __init__(self, context_bundle: ContextBundle | None = None) -> None:
+    def __init__(self, context_bundle: ContextBundle) -> None:
         '''
             Initials MyClass constructor.
 
@@ -97,7 +97,7 @@ class MyClass(IMyClass):
             :exceptions: None.
         '''
         # No dependency injection then use default ones.
-        factory_context_bundle(self, context_bundle)
+        inject_context_bundle(self, context_bundle)
         self.my: str | None = None
 
     def not_none(self) -> bool:

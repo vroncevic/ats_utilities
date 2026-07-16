@@ -24,8 +24,8 @@ from __future__ import annotations
 from typing import Any
 from dataclasses import dataclass
 
-from ats_utilities.factory_type import check_type
-from ats_utilities.factory_value import require_not_satisfied, require_not_none
+from ats_utilities.validation.check_type import istype
+from ats_utilities.validation.check_value import not_satisfied, not_none
 
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -70,12 +70,12 @@ class SplashCenterBundle:
                 | ATSTypeError: Columns count 'columns' is not an integer.
                 | ATSTypeError: Additional shifter 'additional_shifter' is not an integer.
         '''
-        check_type(self.columns, int, r'columns must be an integer')
+        istype(self.columns, int, r'columns must be an integer')
 
         if self.columns < 0:
             self.columns = 0
 
-        check_type(self.additional_shifter, int, r'additional_shifter must be an integer')
+        istype(self.additional_shifter, int, r'additional_shifter must be an integer')
 
         if self.additional_shifter < 0:
             self.additional_shifter = 0
@@ -99,12 +99,12 @@ class SplashCenterBundle:
                 | ATSTypeError: Text 'text' must be a string.
                 | ATSValueError: Text 'text' cannot be empty.
         '''
-        check_type(self.columns, int, r'columns count columns must be an integer')
-        require_not_satisfied(self.columns < 0, r'columns count columns cannot be negative')
-        check_type(self.additional_shifter, int, r'additional_shifter must be an integer')
-        require_not_satisfied(self.additional_shifter < 0, r'additional_shifter additional_shifter cannot be negative')
-        check_type(self.text, str, r'text must be a string')
-        require_not_satisfied(not self.text.strip(), r'text cannot be empty')
+        istype(self.columns, int, r'columns count columns must be an integer')
+        not_satisfied(self.columns < 0, r'columns count columns cannot be negative')
+        istype(self.additional_shifter, int, r'additional_shifter must be an integer')
+        not_satisfied(self.additional_shifter < 0, r'additional_shifter additional_shifter cannot be negative')
+        istype(self.text, str, r'text must be a string')
+        not_satisfied(not self.text.strip(), r'text cannot be empty')
 
     def merge(self, other: SplashCenterBundle) -> None:
         '''
@@ -116,8 +116,8 @@ class SplashCenterBundle:
                 | ATSValueError: Other must be provided.
                 | ATSTypeError: Other must be a SplashCenterBundle instance.
         '''
-        require_not_none(other, r'other SplashCenterBundle must be provided')
-        check_type(other, SplashCenterBundle, r'other must be a SplashCenterBundle instance')
+        not_none(other, r'other SplashCenterBundle must be provided')
+        istype(other, SplashCenterBundle, r'other must be a SplashCenterBundle instance')
 
         for field_name in self.__dataclass_fields__:
             other_value: Any = getattr(other, field_name)

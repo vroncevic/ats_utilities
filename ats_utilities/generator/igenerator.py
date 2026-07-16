@@ -25,7 +25,7 @@ from __future__ import annotations
 from abc import ABC, abstractmethod
 from collections.abc import Mapping
 
-from ats_utilities.context_bundle import ContextBundle
+from ats_utilities.context.context_bundle import ContextBundle
 from ats_utilities.generator.generator_bundle import GeneratorBundle
 
 __author__ = r'Vladimir Roncevic'

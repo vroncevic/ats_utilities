@@ -29,15 +29,15 @@ from logging import (
 from os import environ, makedirs
 from os.path import dirname, exists
 from re import compile, Pattern
-from sys import stdout, stderr
+from sys import stdout
 from types import MappingProxyType
 from typing import Any, override
 
-from ats_utilities.exceptions import ATSValueError, ATSTypeError
 from ats_utilities.logger.ilogger import ILogger
-from ats_utilities.logger.component_bundle import LoggerComponentBundle
-from ats_utilities.factory_class import to_str
-from ats_utilities.factory_format_error import format_error
+from ats_utilities.logger.logger_bundle import LoggerBundle
+from ats_utilities.utils.reflection import to_str
+from ats_utilities.validation.check_value import not_none
+from ats_utilities.validation.check_type import istype
 
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -77,42 +77,38 @@ class Logger(ILogger):
     _early_logs_buffer: list[tuple[str, int]]
     _has_file_handler: bool
 
-    def __init__(self, component_bundle: LoggerComponentBundle | None = None) -> None:
+    def __init__(self, component_bundle: LoggerBundle) -> None:
         '''
             Initializes Logger constructor.
 
             :param component_bundle: Component bundle with logger and log file.
-            :type component_bundle: <LoggerComponentBundle | None>
-            :exceptions: None.
+            :type component_bundle: <LoggerBundle>
+            :exceptions:
+                | ATSValueError - Component bundle must be provided.
+                | ATSTypeError - Component bundle must be a LoggerBundle instance.
         '''
-        try:
-            bundle: LoggerComponentBundle = component_bundle or LoggerComponentBundle()
-            self._logger = bundle.logger
-            self._early_logs_buffer = []
-            self._has_file_handler = bool(bundle.log_file)
+        not_none(component_bundle, r'component_bundle must be provided')
+        istype(component_bundle, LoggerBundle, r'component_bundle must be a LoggerBundle instance')
+        self._logger = component_bundle.logger
+        self._early_logs_buffer = []
+        self._has_file_handler = bool(component_bundle.log_file)
 
-            if hasattr(self._logger, 'info'):
-                self._log_methods = MappingProxyType({
-                    DEBUG: self._logger.debug,
-                    INFO: self._logger.info,
-                    WARNING: self._logger.warning,
-                    ERROR: self._logger.error,
-                    CRITICAL: self._logger.critical,
-                })
-            elif hasattr(self._logger, 'write_log'):
-                self._log_methods = MappingProxyType({
-                    DEBUG: lambda msg: self._logger.write_log(msg, DEBUG),
-                    INFO: lambda msg: self._logger.write_log(msg, INFO),
-                    WARNING: lambda msg: self._logger.write_log(msg, WARNING),
-                    ERROR: lambda msg: self._logger.write_log(msg, ERROR),
-                    CRITICAL: lambda msg: self._logger.write_log(msg, CRITICAL),
-                })
-
-        except (ATSTypeError, ATSValueError) as exc:
-            stderr.write(format_error(self, exc))
-
-        except Exception as exc:
-            stderr.write(format_error(self, exc, prefix='unexpected exception'))
+        if hasattr(self._logger, 'info'):
+            self._log_methods = MappingProxyType({
+                DEBUG: self._logger.debug,
+                INFO: self._logger.info,
+                WARNING: self._logger.warning,
+                ERROR: self._logger.error,
+                CRITICAL: self._logger.critical,
+            })
+        elif hasattr(self._logger, 'write_log'):
+            self._log_methods = MappingProxyType({
+                DEBUG: lambda msg: self._logger.write_log(msg, DEBUG),
+                INFO: lambda msg: self._logger.write_log(msg, INFO),
+                WARNING: lambda msg: self._logger.write_log(msg, WARNING),
+                ERROR: lambda msg: self._logger.write_log(msg, ERROR),
+                CRITICAL: lambda msg: self._logger.write_log(msg, CRITICAL),
+            })
 
     def _process_message(self, message: str) -> str:
         '''

@@ -30,7 +30,7 @@ from sys import stderr
 from ats_utilities.logger.ilogger import ILogger
 from ats_utilities.checker.ichecker import IChecker
 from ats_utilities.reporter.ireporter import IReporter
-from ats_utilities.context_bundle import ContextBundle
+from ats_utilities.context.context_bundle import ContextBundle
 from ats_utilities.exceptions import (
     ATSAttributeError,
     ATSGeneratorError,
@@ -38,16 +38,16 @@ from ats_utilities.exceptions import (
     ATSTypeError,
     ATSValueError
 )
-from ats_utilities.factory_class import to_str
-from ats_utilities.factory_context_bundle import factory_context_bundle
+from ats_utilities.utils.reflection import to_str
+from ats_utilities.context.context_bundle_inject import inject_context_bundle
 from ats_utilities.generator.component_bundle import GeneratorComponentBundle
 from ats_utilities.generator.generator_bundle import GeneratorBundle
 from ats_utilities.generator.igenerator import IGenerator
 from ats_utilities.generator.scheme.ischeme_loader import ISchemeLoader
 from ats_utilities.generator.tar.itar_processor import ITarProcessor
 from ats_utilities.generator.tar.tar_process_bundle import TarProcessBundle
-from ats_utilities.factory_value import require_not_satisfied, require_not_empty
-from ats_utilities.factory_format_error import format_error
+from ats_utilities.validation.check_value import not_satisfied, not_empty
+from ats_utilities.exceptions.format_error import format_error
 
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -104,7 +104,7 @@ class Generator(IGenerator):
 
         try:
             bundle = component_bundle or GeneratorComponentBundle()
-            factory_context_bundle(self, bundle.context_bundle)
+            inject_context_bundle(self, bundle.context_bundle)
             self._shared_context = bundle.context_bundle
             self._scheme_loader = bundle.scheme_loader
             self._tar_processor = bundle.tar_processor
@@ -113,10 +113,10 @@ class Generator(IGenerator):
             self._is_initialized = True
 
         except (ATSTypeError, ATSValueError, ATSRuntimeError, ATSAttributeError) as exc:
-            stderr.write(format_error(self, exc))
+            stderr.write(format_error(exc))
 
         except Exception as exc:
-            stderr.write(format_error(self, exc, prefix='unexpected exception'))
+            stderr.write(format_error(exc, prefix='unexpected exception'))
 
     @override
     def get_shared_context(self) -> ContextBundle:
@@ -142,7 +142,7 @@ class Generator(IGenerator):
                 | ATSValueError: If project_name is missing or empty.
         '''
         project_name = template_values.get('project_name')
-        require_not_empty(project_name, f'template values must contain a non-empty {project_name}')
+        not_empty(project_name, f'template values must contain a non-empty {project_name}')
 
         vals = template_values.copy()
         if 'project_name_dashed' not in vals:
@@ -171,12 +171,12 @@ class Generator(IGenerator):
                 | ATSGeneratorError: If archive parsing or template rendering fails.
         '''
         generator_bundle.validate()
-        require_not_satisfied(not exists(generator_bundle.archive_path), f'Archive file does not exist: {generator_bundle.archive_path}')
+        not_satisfied(not exists(generator_bundle.archive_path), f'Archive file does not exist: {generator_bundle.archive_path}')
         resolved_scheme = self._scheme_loader.load(generator_bundle.scheme)
         project_scheme = resolved_scheme.get(generator_bundle.template_key)
-        require_not_satisfied(not project_scheme, f'template_key {generator_bundle.template_key} not found in scheme configuration')
+        not_satisfied(not project_scheme, f'template_key {generator_bundle.template_key} not found in scheme configuration')
         source_dir = project_scheme.get('source_dir')
-        require_not_satisfied(not source_dir, f'source_dir not specified for template_key {generator_bundle.template_key}')
+        not_satisfied(not source_dir, f'source_dir not specified for template_key {generator_bundle.template_key}')
 
         path_replacements: dict[str, str] = project_scheme.get('path_replacements', {})
         exclude_patterns: list[str] = project_scheme.get('exclude', [])
@@ -196,7 +196,7 @@ class Generator(IGenerator):
             return True
 
         except Exception as exc:
-            require_not_satisfied(True, f'generation failed {exc}', ATSGeneratorError)
+            not_satisfied(True, f'generation failed {exc}', ATSGeneratorError)
 
     @override
     def is_initialized(self) -> bool:

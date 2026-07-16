@@ -29,12 +29,12 @@ from termios import TIOCGWINSZ
 from struct import unpack, pack
 
 from ats_utilities.splasher.terminal.iterminal_properties import ITerminalProperties
-from ats_utilities.context_bundle import ContextBundle
+from ats_utilities.context.context_bundle import ContextBundle
 from ats_utilities.checker.ichecker import IChecker
 from ats_utilities.logger.ilogger import ILogger
 from ats_utilities.reporter.ireporter import IReporter
-from ats_utilities.factory_context_bundle import factory_context_bundle
-from ats_utilities.factory_class import to_str
+from ats_utilities.context.context_bundle_inject import inject_context_bundle
+from ats_utilities.utils.reflection import to_str
 from ats_utilities.checker.proxy_validator import vcheck
 from ats_utilities.reporter.proxy_reporter import vreport
 
@@ -75,7 +75,7 @@ class TerminalProperties(ITerminalProperties):
     _verbose: bool
     _window_size: tuple[Any, ...] | None
 
-    def __init__(self, context_bundle: ContextBundle | None = None) -> None:
+    def __init__(self, context_bundle: ContextBundle) -> None:
         '''
             Initials TerminalProperties constructor.
 
@@ -83,7 +83,7 @@ class TerminalProperties(ITerminalProperties):
             :type context_bundle: <ContextBundle | None>
             :exceptions: None.
         '''
-        factory_context_bundle(self, context_bundle)
+        inject_context_bundle(self, context_bundle)
         self._window_size = None
 
     @vcheck([('int:file_descriptor', None)])

@@ -25,7 +25,7 @@ from __future__ import annotations
 from typing import Any, override
 from collections.abc import Mapping, Sequence, Iterable
 
-from ats_utilities.factory_class import to_str
+from ats_utilities.utils.reflection import to_str
 from ats_utilities.checker.type.itype_validator import ITypeValidator
 
 __author__ = r'Vladimir Roncevic'

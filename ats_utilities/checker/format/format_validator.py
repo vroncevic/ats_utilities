@@ -24,7 +24,7 @@ from __future__ import annotations
 
 from typing import Final, override
 
-from ats_utilities.factory_class import to_str
+from ats_utilities.utils.reflection import to_str
 from ats_utilities.checker.format.iformat_validator import IFormatValidator
 
 __author__ = r'Vladimir Roncevic'

@@ -19,11 +19,12 @@ Info
     Use cases for ATS context bundle.
 '''
 
-from ats_utilities.context_bundle import ContextBundle
+from ats_utilities.context.context_bundle import ContextBundle
+from ats_utilities.context.context_registry import ContextRegistry
 from ats_utilities.checker.engine import Checker
 from ats_utilities.reporter.engine import Reporter
 from ats_utilities.reporter.theme.engine import ConsoleTheme 
-from ats_utilities.reporter.component_bundle import ReporterComponentBundle
+from ats_utilities.reporter.reporter_bundle import ReporterBundle
 from ats_utilities.exceptions.ats_value_error import ATSValueError
 from ats_utilities.exceptions.ats_type_error import ATSTypeError
 
@@ -40,7 +41,7 @@ __status__ = r'Development'
 # default [without DI]
 # ======================
 #
-ats_context_bundle: ContextBundle = ContextBundle()
+ats_context_bundle: ContextBundle = ContextRegistry.create_default_context_bundle()
 print(ats_context_bundle)
 print(50 * '=')
 print(ats_context_bundle.checker)
@@ -51,29 +52,29 @@ print(ats_context_bundle.verbose)
 print(50 * '=')
 
 try:
-    ats_context_bundle.checker = None
+    object.__setattr__(ats_context_bundle, 'checker', None)
     ats_context_bundle.validate()
 except ATSValueError as exc:
     print(f'{exc}')
 print(50 * '=')
 
-ats_context_bundle_2: ContextBundle = ContextBundle()
+ats_context_bundle_2: ContextBundle = ContextRegistry.create_default_context_bundle()
 print(ats_context_bundle_2)
 print(50 * '=')
 
 try:
-    ats_context_bundle_2.reporter = None
+    object.__setattr__(ats_context_bundle_2, 'reporter', None)
     ats_context_bundle_2.validate()
 except ATSValueError as exc:
     print(f'{exc}')
 print(50 * '=')
 
-ats_context_bundle_3: ContextBundle = ContextBundle()
+ats_context_bundle_3: ContextBundle = ContextRegistry.create_default_context_bundle()
 print(ats_context_bundle_3)
 print(50 * '=')
 
 try:
-    ats_context_bundle_3.verbose = 2
+    object.__setattr__(ats_context_bundle_3, 'verbose', 2)
     ats_context_bundle_3.validate()
 except ATSTypeError as exc:
     print(f'{exc}')

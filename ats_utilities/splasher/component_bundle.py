@@ -36,10 +36,11 @@ from ats_utilities.splasher.external.ext_infrastructure import ExtInfrastructure
 from ats_utilities.splasher.external.github_infrastructure import GitHubInfrastructure
 from ats_utilities.splasher.progressbar.iprogress_bar import IProgressBar
 from ats_utilities.splasher.progressbar.progress_bar import ProgressBar
-from ats_utilities.context_bundle import ContextBundle
-from ats_utilities.factory_component import make_component, validate_component
-from ats_utilities.factory_type import check_type
-from ats_utilities.factory_value import require_not_none
+from ats_utilities.context.context_bundle import ContextBundle
+from ats_utilities.context.context_registry import ContextRegistry
+from ats_utilities.utils.component import make_component, validate_component
+from ats_utilities.validation.check_type import istype
+from ats_utilities.validation.check_value import not_none
 
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -97,10 +98,10 @@ class SplashComponentBundle:
                 | ATSTypeError: Property 'pb' must be an IProgressBar instance.
         '''
         if self.prop is not None:
-            check_type(self.prop, Mapping, r'prop must be a Mapping[str, Any] instance')
+            istype(self.prop, Mapping, r'prop must be a Mapping[str, Any] instance')
 
         if self.context_bundle is None:
-            self.context_bundle = ContextBundle()
+            self.context_bundle = ContextRegistry.create_default_context_bundle()
 
         factory_args: dict[str, Any] = {'context_bundle': self.context_bundle}
 
@@ -161,20 +162,20 @@ class SplashComponentBundle:
                 | ATSTypeError: Progress bar 'pb' must be an IProgressBar instance.
                 | ATSTypeError: Context bundle 'context_bundle' must be a ContextBundle instance.
         '''
-        require_not_none(self.prop, r'properties dictionary prop must be provided')
-        require_not_none(self.splash_property, r'splash property splash_property must be provided')
-        require_not_none(self.terminal_property, r'terminal properties terminal_property must be provided')
-        require_not_none(self.github, r'gitHub infrastructure github must be provided')
-        require_not_none(self.ext, r'external infrastructure ext must be provided')
-        require_not_none(self.pb, r'progress bar pb must be provided')
-        require_not_none(self.context_bundle, r'context bundle context_bundle must be provided')
-        check_type(self.prop, Mapping, r'properties dictionary prop must be a Mapping[str, Any] instance')
-        check_type(self.splash_property, ISplashProperty, r'splash property splash_property must be an ISplashProperty instance')
-        check_type(self.terminal_property, ITerminalProperties, r'terminal properties terminal_property must be an ITerminalProperties instance')
-        check_type(self.github, IExtInfrastructure, r'gitHub infrastructure github must be an IExtInfrastructure instance')
-        check_type(self.ext, IExtInfrastructure, r'external infrastructure ext must be an IExtInfrastructure instance')
-        check_type(self.pb, IProgressBar, r'progress bar pb must be an IProgressBar instance')
-        check_type(self.context_bundle, ContextBundle, r'context bundle context_bundle must be a ContextBundle instance')
+        not_none(self.prop, r'properties dictionary prop must be provided')
+        not_none(self.splash_property, r'splash property splash_property must be provided')
+        not_none(self.terminal_property, r'terminal properties terminal_property must be provided')
+        not_none(self.github, r'gitHub infrastructure github must be provided')
+        not_none(self.ext, r'external infrastructure ext must be provided')
+        not_none(self.pb, r'progress bar pb must be provided')
+        not_none(self.context_bundle, r'context bundle context_bundle must be provided')
+        istype(self.prop, Mapping, r'properties dictionary prop must be a Mapping[str, Any] instance')
+        istype(self.splash_property, ISplashProperty, r'splash property splash_property must be an ISplashProperty instance')
+        istype(self.terminal_property, ITerminalProperties, r'terminal properties terminal_property must be an ITerminalProperties instance')
+        istype(self.github, IExtInfrastructure, r'gitHub infrastructure github must be an IExtInfrastructure instance')
+        istype(self.ext, IExtInfrastructure, r'external infrastructure ext must be an IExtInfrastructure instance')
+        istype(self.pb, IProgressBar, r'progress bar pb must be an IProgressBar instance')
+        istype(self.context_bundle, ContextBundle, r'context bundle context_bundle must be a ContextBundle instance')
 
     def merge(self, other: SplashComponentBundle) -> None:
         '''
@@ -186,8 +187,8 @@ class SplashComponentBundle:
                 | ATSValueError: Other SplashComponentBundle must be provided.
                 | ATSTypeError: Other must be a SplashComponentBundle instance.
         '''
-        require_not_none(other, r'other SplashComponentBundle must be provided')
-        check_type(other, SplashComponentBundle, r'other must be a SplashComponentBundle instance')
+        not_none(other, r'other SplashComponentBundle must be provided')
+        istype(other, SplashComponentBundle, r'other must be a SplashComponentBundle instance')
 
         for field_name in self.__dataclass_fields__:
             other_value: Any = getattr(other, field_name)

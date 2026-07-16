@@ -25,7 +25,7 @@ from __future__ import annotations
 from inspect import stack
 from typing import override
 
-from ats_utilities.factory_class import to_str
+from ats_utilities.utils.reflection import to_str
 from ats_utilities.checker.context.icontext_provider import IContextProvider
 
 __author__ = r'Vladimir Roncevic'

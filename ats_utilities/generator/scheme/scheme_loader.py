@@ -27,18 +27,19 @@ from typing import Any, override
 from collections.abc import Mapping
 
 from ats_utilities.generator.scheme.ischeme_loader import ISchemeLoader
-from ats_utilities.context_bundle import ContextBundle
+from ats_utilities.context.context_bundle import ContextBundle
 from ats_utilities.checker.ichecker import IChecker
 from ats_utilities.logger.ilogger import ILogger
 from ats_utilities.reporter.ireporter import IReporter
 from ats_utilities.config_io.loader.engine import Loader
 from ats_utilities.config_io.config_io_bundle import ConfigIOBundle
+from ats_utilities.config_io.config_io_registry import ConfigIORegistry
 from ats_utilities.exceptions import ATSGeneratorError
-from ats_utilities.factory_context_bundle import factory_context_bundle
-from ats_utilities.factory_class import to_str
-from ats_utilities.factory_type import check_type
-from ats_utilities.factory_value import require_not_satisfied
-from ats_utilities.factory_format_error import format_error_raw
+from ats_utilities.context.context_bundle_inject import inject_context_bundle
+from ats_utilities.utils.reflection import to_str
+from ats_utilities.validation.check_type import istype
+from ats_utilities.validation.check_value import not_satisfied
+from ats_utilities.exceptions.format_error import format_error_raw
 
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -77,7 +78,7 @@ class SchemeLoader(ISchemeLoader):
     _initialized: bool
     _shared_context: ContextBundle
 
-    def __init__(self, context_bundle: ContextBundle | None = None) -> None:
+    def __init__(self, context_bundle: ContextBundle) -> None:
         '''
             Initializes SchemeLoader constructor.
 
@@ -85,7 +86,7 @@ class SchemeLoader(ISchemeLoader):
             :type context_bundle: <ContextBundle | None>
             :exceptions: None.
         '''
-        factory_context_bundle(self, context_bundle)
+        inject_context_bundle(self, context_bundle)
         self._shared_context = context_bundle
         self._initialized = True
 
@@ -105,21 +106,27 @@ class SchemeLoader(ISchemeLoader):
                 | ATSValueError: Failed to setup config loader.
                 | ATSGeneratorError: Loading scheme file fails.
         '''
-        check_type(scheme, (str, Mapping), r'scheme must be of type str or Mapping')
+        istype(scheme, (str, Mapping), r'scheme must be of type str or Mapping')
 
         if isinstance(scheme, str):
-            require_not_satisfied(not exists(scheme), f'scheme file at the provided path does not exist: {scheme}')
-            require_not_satisfied(not scheme.endswith('.json'), f'unsupported scheme file format for: {scheme}. Only .json is supported.')
+            not_satisfied(not exists(scheme), f'scheme file at the provided path does not exist: {scheme}')
+            not_satisfied(not scheme.endswith('.json'), f'unsupported scheme file format for: {scheme}. Only .json is supported.')
 
             try:
-                config_loader: Loader = Loader(ConfigIOBundle(file_path=scheme, context_bundle=self._shared_context))
-                require_not_satisfied(config_loader is None, f'failed to setup config loader for: {scheme}')
+                config_loader: Loader = Loader(
+                    ConfigIORegistry.create_config_io_bundle_by_file_path_and_scheme(
+                        file_path=scheme,
+                        scheme={},
+                        context_bundle=self._shared_context
+                    )
+                )
+                not_satisfied(config_loader is None, f'failed to setup config loader for: {scheme}')
 
                 return config_loader.load_configuration()
 
             except Exception as exc:
                 msg: str = format_error_raw(self, exc)
-                require_not_satisfied(True, f'failed to load scheme file {scheme}: {msg}', ATSGeneratorError)
+                not_satisfied(True, f'failed to load scheme file {scheme}: {msg}', ATSGeneratorError)
 
         return dict(scheme)
 

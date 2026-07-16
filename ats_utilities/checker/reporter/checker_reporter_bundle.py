@@ -26,8 +26,8 @@ from collections.abc import Sequence
 from dataclasses import dataclass
 from typing import Any
 
-from ats_utilities.factory_value import require_not_none
-from ats_utilities.factory_type import check_type
+from ats_utilities.validation.check_value import not_none
+from ats_utilities.validation.check_type import istype
 
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -93,14 +93,14 @@ class CheckerReporterBundle:
                 | ATSTypeError: Error indices must be a sequence of integers.
                 | ATSTypeError: Is format error must be a boolean.
         '''
-        require_not_none(self.context, r'context must be provided')
-        require_not_none(self.parameters_meta, r'parameters_meta must be provided')
-        require_not_none(self.err_indices, r'err_indices must be provided')
-        require_not_none(self.is_fmt_err, r'is_fmt_err must be provided')
-        check_type(self.context, str, r'context must be a string')
-        check_type(self.parameters_meta, Sequence[ParamMetadata], r'parameters_meta must be a sequence of ParamMetadata')
-        check_type(self.err_indices, Sequence[int], r'err_indices must be a sequence of integers')
-        check_type(self.is_fmt_err, bool, r'is_fmt_err must be a boolean')
+        not_none(self.context, r'context must be provided')
+        not_none(self.parameters_meta, r'parameters_meta must be provided')
+        not_none(self.err_indices, r'err_indices must be provided')
+        not_none(self.is_fmt_err, r'is_fmt_err must be provided')
+        istype(self.context, str, r'context must be a string')
+        istype(self.parameters_meta, Sequence[ParamMetadata], r'parameters_meta must be a sequence of ParamMetadata')
+        istype(self.err_indices, Sequence[int], r'err_indices must be a sequence of integers')
+        istype(self.is_fmt_err, bool, r'is_fmt_err must be a boolean')
 
     def merge(self, other: CheckerReporterBundle) -> None:
         '''
@@ -112,8 +112,8 @@ class CheckerReporterBundle:
                 | ATSValueError: Other CheckerReporterBundle must be provided.
                 | ATSTypeError: Other must be a CheckerReporterBundle instance.
         '''
-        require_not_none(other, r'other CheckerReporterBundle must be provided')
-        check_type(other, CheckerReporterBundle, r'other must be a CheckerReporterBundle instance')
+        not_none(other, r'other CheckerReporterBundle must be provided')
+        istype(other, CheckerReporterBundle, r'other must be a CheckerReporterBundle instance')
 
         for field_name in self.__dataclass_fields__:
             other_value: Any = getattr(other, field_name)

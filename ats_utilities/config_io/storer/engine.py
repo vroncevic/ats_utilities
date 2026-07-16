@@ -28,7 +28,7 @@ from typing import override
 from sys import stderr
 
 from ats_utilities.config_io.storer.istorer import IStorer
-from ats_utilities.context_bundle import ContextBundle
+from ats_utilities.context.context_bundle import ContextBundle
 from ats_utilities.config_io.config_io_bundle import ConfigIOBundle
 from ats_utilities.checker.ichecker import IChecker
 from ats_utilities.logger.ilogger import ILogger
@@ -38,7 +38,7 @@ from ats_utilities.config_io.conf_file_bundle import ConfFileBundle
 from ats_utilities.config_io.processor.iconfig_processor import IConfigProcessor
 from ats_utilities.config_io.processor.factory_processor import ConfigProcessorFactory
 from ats_utilities.exceptions import ATSValueError, ATSTypeError
-from ats_utilities.factory_context_bundle import factory_context_bundle
+from ats_utilities.inject_context_bundle import inject_context_bundle
 from ats_utilities.factory_class import to_str
 from ats_utilities.factory_format_error import format_error
 
@@ -107,8 +107,8 @@ class Storer(IStorer):
         '''
         try:
             bundle: ConfigIOBundle = component_bundle or ConfigIOBundle()
-            self._context_bundle_shared = bundle.context
-            factory_context_bundle(self, self._context_bundle_shared)
+            self._context_bundle_shared = bundle.context_bundle
+            inject_context_bundle(self, self._context_bundle_shared)
             self._processor = ConfigProcessorFactory.create_from_file_path(
                 bundle.file_path, bundle.scheme, bundle.processor
             )
@@ -119,10 +119,10 @@ class Storer(IStorer):
             )
 
         except (ATSTypeError, ATSValueError) as exc:
-            stderr.write(format_error(self, exc))
+            stderr.write(format_error(exc))
 
         except Exception as exc:
-            stderr.write(format_error(self, exc, prefix='unexpected exception'))
+            stderr.write(format_error(exc, prefix='unexpected exception'))
 
     @override
     def get_shared_context(self) -> ContextBundle:

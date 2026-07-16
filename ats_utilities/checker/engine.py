@@ -23,7 +23,6 @@ Info
 from __future__ import annotations
 
 from typing import ClassVar, override
-from sys import stderr
 
 from ats_utilities.checker.ichecker import (
     IChecker, ErrorChecker, ValidationResult, ParametersSpecs
@@ -32,15 +31,13 @@ from ats_utilities.checker.type.itype_validator import ITypeValidator
 from ats_utilities.checker.format.iformat_validator import IFormatValidator
 from ats_utilities.checker.context.icontext_provider import IContextProvider
 from ats_utilities.checker.reporter.icheck_reporter import ICheckReporter
-from ats_utilities.checker.component_bundle import CheckerComponentBundle
+from ats_utilities.checker.checker_bundle import CheckerBundle
 from ats_utilities.checker.reporter.checker_reporter_bundle import (
     CheckerReporterBundle, ParamMetadata
 )
-from ats_utilities.exceptions import (
-    ATSAttributeError, ATSRuntimeError, ATSTypeError, ATSValueError
-)
-from ats_utilities.factory_class import to_str
-from ats_utilities.factory_format_error import format_error
+from ats_utilities.utils.reflection import to_str
+from ats_utilities.validation.check_value import not_none
+from ats_utilities.validation.check_type import istype
 
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -81,32 +78,23 @@ class Checker(IChecker):
     _context_provider: IContextProvider
     _check_reporter: ICheckReporter
 
-    def __init__(self, component_bundle: CheckerComponentBundle | None = None) -> None:
+    def __init__(self, component_bundle: CheckerBundle) -> None:
         '''
             Initializes Checker constructor.
 
-            :param component_bundle: Bundle with components | None.
-            :type component_bundle: <CheckerComponentBundle | None>
-            :exceptions: None.
+            :param component_bundle: Bundle with components.
+            :type component_bundle: <CheckerBundle>
+            :exceptions:
+                | ATSValueError - Component bundle must be provided.
+                | ATSTypeError - Component bundle must be a CheckerBundle instance.
         '''
-        self._is_initialized = False
-
-        try:
-            # No dependency injection then use default ones.
-            components: CheckerComponentBundle = component_bundle or CheckerComponentBundle()
-            self._format_validator = components.format_validator
-            self._type_validator = components.type_validator
-            self._context_provider = components.context_provider
-            self._check_reporter = components.check_reporter
-
-            # All components initialized successfully.
-            self._is_initialized = True
-
-        except (ATSTypeError, ATSValueError, ATSRuntimeError, ATSAttributeError) as exc:
-            stderr.write(format_error(self, exc))
-
-        except Exception as exc:
-            stderr.write(format_error(self, exc, prefix='unexpected exception'))
+        not_none(component_bundle, r'component bundle must be provided')
+        istype(component_bundle, CheckerBundle, r'component bundle must be a CheckerBundle instance')
+        self._format_validator = component_bundle.format_validator
+        self._type_validator = component_bundle.type_validator
+        self._context_provider = component_bundle.context_provider
+        self._check_reporter = component_bundle.check_reporter
+        self._is_initialized = True
 
     @override
     def validates_parameters(self, parameters: ParametersSpecs) -> ValidationResult:

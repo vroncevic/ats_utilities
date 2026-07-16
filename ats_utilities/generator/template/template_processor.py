@@ -27,11 +27,11 @@ from string import Template
 from typing import override
 
 from ats_utilities.generator.template.itemplate_processor import ITemplateProcessor
-from ats_utilities.context_bundle import ContextBundle
+from ats_utilities.context.context_bundle import ContextBundle
 from ats_utilities.checker.ichecker import IChecker
 from ats_utilities.reporter.ireporter import IReporter
-from ats_utilities.factory_context_bundle import factory_context_bundle
-from ats_utilities.factory_class import to_str
+from ats_utilities.context.context_bundle_inject import inject_context_bundle
+from ats_utilities.utils.reflection import to_str
 
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -67,7 +67,7 @@ class TemplateProcessor(ITemplateProcessor):
     _verbose: bool
     _initialized: bool
 
-    def __init__(self, context_bundle: ContextBundle | None = None) -> None:
+    def __init__(self, context_bundle: ContextBundle) -> None:
         '''
             Initializes TemplateProcessor constructor.
 
@@ -75,7 +75,7 @@ class TemplateProcessor(ITemplateProcessor):
             :type context_bundle: <ContextBundle | None>
             :exceptions: None.
         '''
-        factory_context_bundle(self, context_bundle)
+        inject_context_bundle(self, context_bundle)
         self._initialized = True
 
     @override

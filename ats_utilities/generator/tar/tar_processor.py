@@ -32,19 +32,19 @@ from ats_utilities.generator.tar.tar_process_bundle import TarProcessBundle
 from ats_utilities.generator.tar.tar_process_member_bundle import TarProcessMemberBundle
 from ats_utilities.generator.template.itemplate_processor import ITemplateProcessor
 from ats_utilities.generator.template.template_processor import TemplateProcessor
-from ats_utilities.context_bundle import ContextBundle
+from ats_utilities.context.context_bundle import ContextBundle
 from ats_utilities.checker.ichecker import IChecker
 from ats_utilities.logger.ilogger import ILogger
 from ats_utilities.reporter.ireporter import IReporter
-from ats_utilities.factory_context_bundle import factory_context_bundle
-from ats_utilities.factory_component import make_component, validate_component
-from ats_utilities.factory_class import to_str
-from ats_utilities.factory_file_utils import (
+from ats_utilities.context.context_bundle_inject import inject_context_bundle
+from ats_utilities.utils.component import make_component, validate_component
+from ats_utilities.utils.reflection import to_str
+from ats_utilities.utils.files import (
     normalize_path, resolve_relative_path, is_excluded_path, apply_path_replacements, write_content
 )
 from ats_utilities.exceptions import ATSGeneratorError
-from ats_utilities.factory_value import require_not_satisfied
-from ats_utilities.factory_format_error import format_error_raw
+from ats_utilities.validation.check_value import not_satisfied
+from ats_utilities.exceptions.format_error import format_error_raw
 
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -98,7 +98,7 @@ class TarProcessor(ITarProcessor):
             :exceptions:
                 | ATSTypeError: Template processor component is not of expected type.
         '''
-        factory_context_bundle(self, context_bundle)
+        inject_context_bundle(self, context_bundle)
         self._template_processor = make_component(template_processor, TemplateProcessor, {'context_bundle': context_bundle})
         validate_component(self._template_processor, ITemplateProcessor, r'template_processor must be an ITemplateProcessor instance')
 
@@ -158,7 +158,7 @@ class TarProcessor(ITarProcessor):
 
         except Exception as exc:
             msg: str = format_error_raw(self, exc)
-            require_not_satisfied(True, f'TarProcessor execution failed: {msg}', ATSGeneratorError)
+            not_satisfied(True, f'TarProcessor execution failed: {msg}', ATSGeneratorError)
 
     @override
     def is_initialized(self) -> bool:

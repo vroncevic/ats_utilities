@@ -30,20 +30,20 @@ from ats_utilities.base.component_bundle import BaseComponentBundle
 from ats_utilities.base.ibase import ArgSeq, IBase
 from ats_utilities.checker.ichecker import IChecker
 from ats_utilities.config_io.loader.iloader import ILoader
-from ats_utilities.context_bundle import ContextBundle
+from ats_utilities.context.context_bundle import ContextBundle
 from ats_utilities.exceptions import (
     ATSAttributeError, ATSRuntimeError, ATSTypeError, ATSValueError
 )
 from ats_utilities.logger.ilogger import ILogger
-from ats_utilities.factory_class import to_str, has_attrs
-from ats_utilities.factory_context_bundle import factory_context_bundle
+from ats_utilities.utils.reflection import to_str, has_attrs
+from ats_utilities.context.context_bundle_inject import inject_context_bundle
 from ats_utilities.generator.igenerator import IGenerator
-from ats_utilities.info.imanager import IInfoManager
+from ats_utilities.info.iinfo_manager import IInfoManager
 from ats_utilities.option.ioption_manager import IOptionManager
 from ats_utilities.option.option_namespace import OptionNamespace
 from ats_utilities.reporter.ireporter import IReporter
 from ats_utilities.splasher.isplasher import ISplasher
-from ats_utilities.factory_format_error import format_error
+from ats_utilities.exceptions.format_error import format_error
 
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -108,7 +108,7 @@ class Base(IBase):
 
         try:
             bundle: BaseComponentBundle = component_bundle or BaseComponentBundle()
-            factory_context_bundle(self, bundle.context_bundle)
+            inject_context_bundle(self, bundle.context_bundle)
             self._shared_context = bundle.context_bundle
             self._config_loader = bundle.config_loader
             self._info_manager = bundle.info_manager
@@ -127,10 +127,10 @@ class Base(IBase):
             )
 
         except (ATSTypeError, ATSValueError, ATSRuntimeError, ATSAttributeError) as exc:
-            stderr.write(format_error(self, exc))
+            stderr.write(format_error(exc))
 
         except Exception as exc:
-            stderr.write(format_error(self, exc, prefix='unexpected exception'))
+            stderr.write(format_error(exc, prefix='unexpected exception'))
 
     @override
     def get_shared_context(self) -> ContextBundle:

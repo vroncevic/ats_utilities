@@ -23,12 +23,16 @@ from collections.abc import Sequence
 
 from ats_utilities.checker.ichecker import IChecker
 from ats_utilities.checker.engine import Checker
+from ats_utilities.checker.checker_registry import CheckerRegistry
+from ats_utilities.logger.ilogger import ILogger
+from ats_utilities.logger.engine import Logger
+from ats_utilities.logger.logger_registry import LoggerRegistry
 from ats_utilities.reporter.ireporter import IReporter
 from ats_utilities.reporter.engine import Reporter
 from ats_utilities.reporter.theme.iconsole_theme import IConsoleTheme
 from ats_utilities.reporter.theme.engine import ConsoleTheme
-from ats_utilities.reporter.component_bundle import ReporterComponentBundle
-from ats_utilities.factory_component import make_component, validate_component
+from ats_utilities.reporter.reporter_bundle import ReporterBundle
+from ats_utilities.utils.component import make_component, validate_component
 from ats_utilities.exceptions.ats_type_error import ATSTypeError
 
 __author__ = r'Vladimir Roncevic'
@@ -51,9 +55,13 @@ class TestComponent:
 
         :exceptions: None.
         '''
-        self.checker: IChecker = make_component(None, Checker, None)
+        checker_bundle = CheckerRegistry.create_default_checker_bundle()
+        self.checker: IChecker = make_component(None, Checker, {'component_bundle': checker_bundle})
         self.theme: IConsoleTheme = make_component(None, ConsoleTheme, None)
-        self.reporter: IReporter = make_component(None, Reporter, {'component_bundle': ReporterComponentBundle(theme=self.theme, checker=self.checker)})
+        logger_bundle = LoggerRegistry.create_default_logger_bundle()
+        logger_instance = make_component(None, Logger, {'component_bundle': logger_bundle})
+        reporter_bundle = ReporterBundle(theme=self.theme, checker=self.checker, logger=logger_instance)
+        self.reporter: IReporter = make_component(None, Reporter, {'component_bundle': reporter_bundle})
 
     def validate(self) -> None:
         '''

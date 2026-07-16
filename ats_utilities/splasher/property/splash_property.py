@@ -27,15 +27,15 @@ from collections.abc import Mapping
 
 from ats_utilities.splasher.property.isplash_property import ISplashProperty
 from ats_utilities.splasher.splash_keys import SplashKeys
-from ats_utilities.context_bundle import ContextBundle
+from ats_utilities.context.context_bundle import ContextBundle
 from ats_utilities.checker.ichecker import IChecker
 from ats_utilities.logger.ilogger import ILogger
 from ats_utilities.reporter.ireporter import IReporter
-from ats_utilities.factory_context_bundle import factory_context_bundle
-from ats_utilities.factory_class import has_attrs, to_str
+from ats_utilities.context.context_bundle_inject import inject_context_bundle
+from ats_utilities.utils.reflection import has_attrs, to_str
 from ats_utilities.checker.proxy_validator import vcheck
 from ats_utilities.reporter.proxy_reporter import vreport
-from ats_utilities.factory_dict_utils import require_keys, has_required_keys
+from ats_utilities.utils.dicts import require_keys, has_required_keys
 
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -74,7 +74,7 @@ class SplashProperty(ISplashProperty):
     _verbose: bool
     _splash_keys: SplashKeys | None
 
-    def __init__(self, context_bundle: ContextBundle | None = None) -> None:
+    def __init__(self, context_bundle: ContextBundle) -> None:
         '''
             Initials SplashProperty constructor.
 
@@ -82,7 +82,7 @@ class SplashProperty(ISplashProperty):
             :type context_bundle: <ContextBundle | None>
             :exceptions: None.
         '''
-        factory_context_bundle(self, context_bundle)
+        inject_context_bundle(self, context_bundle)
         self._splash_keys = None
 
     @property

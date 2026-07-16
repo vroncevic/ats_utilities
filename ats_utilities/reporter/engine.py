@@ -24,18 +24,17 @@ from __future__ import annotations
 
 from collections.abc import Sequence
 from logging import DEBUG, INFO, WARNING, ERROR
-from sys import stderr
 from typing import Any, override
 
 from ats_utilities.reporter.ireporter import IReporter
-from ats_utilities.reporter.component_bundle import ReporterComponentBundle
+from ats_utilities.reporter.reporter_bundle import ReporterBundle
 from ats_utilities.checker.ichecker import IChecker
 from ats_utilities.reporter.theme.iconsole_theme import IConsoleTheme
 from ats_utilities.logger.ilogger import ILogger
-from ats_utilities.exceptions import ATSAttributeError, ATSRuntimeError, ATSTypeError, ATSValueError
 from ats_utilities.checker.proxy_validator import vcheck
-from ats_utilities.factory_class import to_str
-from ats_utilities.factory_format_error import format_error
+from ats_utilities.utils.reflection import to_str
+from ats_utilities.validation.check_value import not_none
+from ats_utilities.validation.check_type import istype
 
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -76,31 +75,22 @@ class Reporter(IReporter):
     _logger: ILogger
     _is_initialized: bool
 
-    def __init__(self, component_bundle: ReporterComponentBundle | None = None) -> None:
+    def __init__(self, component_bundle: ReporterBundle) -> None:
         '''
             Initializes Reporter.
 
-            :param component_bundle: Reporter component bundle | None.
-            :type component_bundle: <ReporterComponentBundle | None>
-            :exceptions: None.
+            :param component_bundle: Reporter component bundle.
+            :type component_bundle: <ReporterBundle>
+            :exceptions:
+                | ATSValueError - Component bundle must be provided.
+                | ATSTypeError - Component bundle must be a ReporterBundle instance.
         '''
-        self._is_initialized = False
-
-        try:
-            # No dependency injection then use default ones.
-            bundle: ReporterComponentBundle = component_bundle or ReporterComponentBundle()
-            self._checker = bundle.checker
-            self._theme = bundle.theme
-            self._logger = bundle.logger
-
-            # All components initialized successfully.
-            self._is_initialized = True
-
-        except (ATSTypeError, ATSValueError, ATSRuntimeError, ATSAttributeError) as exc:
-            stderr.write(format_error(self, exc))
-
-        except Exception as exc:
-            stderr.write(format_error(self, exc, prefix='unexpected exception'))
+        not_none(component_bundle, r'component bundle must be provided')
+        istype(component_bundle, ReporterBundle, r'component bundle must be a ReporterBundle instance')
+        self._checker = component_bundle.checker
+        self._theme = component_bundle.theme
+        self._logger = component_bundle.logger
+        self._is_initialized = True
 
     def _report(self, message: Sequence[Any], color: str, ctrl: int) -> None:
         '''

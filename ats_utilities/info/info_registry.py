@@ -1,0 +1,119 @@
+# -*- coding: UTF-8 -*-
+
+'''
+Module
+    info_registry.py
+Copyright
+    Copyright (C) 2017 - 2026 Vladimir Roncevic <elektron.ronca@gmail.com>
+    ats_utilities is free software: you can redistribute it and/or modify it
+    under the terms of the GNU General Public License as published by the
+    Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+    ats_utilities is distributed in the hope that it will be useful, but
+    WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+    See the GNU General Public License for more details.
+    You should have received a copy of the GNU General Public License along
+    with this program. If not, see <http://www.gnu.org/licenses/>.
+Info
+    Encapsulates core runtime components for simplification of InfoBundle creation.
+'''
+
+from __future__ import annotations
+
+from collections.abc import Mapping
+from types import MappingProxyType
+from typing import Any, Final
+
+from ats_utilities.info.info_bundle import InfoBundle
+from ats_utilities.info.info_keys import InfoKeys
+from ats_utilities.info.name.engine import Name
+from ats_utilities.info.version.engine import Version
+from ats_utilities.info.licence.engine import Licence
+from ats_utilities.info.build_date.engine import BuildDate
+from ats_utilities.info.repository.engine import Repository
+from ats_utilities.info.organization.engine import Organization
+from ats_utilities.info.use_github.engine import UseGitHub
+from ats_utilities.info.logo.engine import Logo
+from ats_utilities.info.log_file.engine import LogFile
+from ats_utilities.info.info_ok.engine import InfoOk
+from ats_utilities.context.context_bundle import ContextBundle
+from ats_utilities.validation.check_value import not_none
+from ats_utilities.validation.check_type import istype
+
+__author__ = r'Vladimir Roncevic'
+__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
+__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = r'3.4.3'
+__maintainer__ = r'Vladimir Roncevic'
+__email__ = r'elektron.ronca@gmail.com'
+__status__ = r'Development'
+
+
+class InfoRegistry:
+    '''
+        Encapsulates core runtime components for simplification of InfoBundle creation.
+
+        It defines:
+
+            :attributes:
+                | _ATTR_TO_CLASS - Mapping of attribute names to engine classes.
+            :methods:
+                | create_default_info_bundle - Creates a default InfoBundle.
+    '''
+
+    _ATTR_TO_CLASS: Final[Mapping[str, Any]] = MappingProxyType({
+        InfoKeys.ATS_NAME: Name,
+        InfoKeys.ATS_VERSION: Version,
+        InfoKeys.ATS_LICENCE: Licence,
+        InfoKeys.ATS_BUILD_DATE: BuildDate,
+        InfoKeys.ATS_REPOSITORY: Repository,
+        InfoKeys.ATS_ORGANIZATION: Organization,
+        InfoKeys.ATS_USE_GITHUB_INFRASTRUCTURE: UseGitHub,
+        InfoKeys.ATS_LOGO_PATH: Logo,
+        InfoKeys.ATS_LOG_FILE: LogFile,
+        InfoKeys.ATS_INFO_OK: InfoOk
+    })
+
+    @classmethod
+    def create_info_bundle_from_dict(
+        cls,
+        info: Mapping[str, Any],
+        context_bundle: ContextBundle
+    ) -> InfoBundle:
+        '''
+            Creates a default InfoBundle with pre-configured components.
+
+            :param info: Dictionary containing info components.
+            :type info: <Mapping[str, Any]>
+            :param context_bundle: ContextBundle instance.
+            :type context_bundle: <ContextBundle>
+            :param verbose: Enables verbose output (default False).
+            :type verbose: <bool>
+            :return: Default InfoBundle instance.
+            :rtype: <InfoBundle>
+            :exceptions: None.
+        '''
+        not_none(context_bundle, r'context_bundle must be provided')
+        not_none(info, r'info must be provided')
+        istype(context_bundle, ContextBundle, r'context_bundle must be ContextBundle instance')
+        istype(info, Mapping, r'info must be Mapping instance')
+        key_to_attr: MappingProxyType[str, str] = InfoKeys.get_key_to_attr()
+        bundle_kwargs: dict[str, Any] = {}
+
+        for raw_key, attr_name in key_to_attr.items():
+            engine_class: type[Any] = cls._ATTR_TO_CLASS.get(raw_key)
+
+            if engine_class is None:
+                continue
+
+            engine_instance: Any = engine_class(context_bundle=context_bundle)
+            default_val: Any = False if attr_name in ('use_github', 'info_ok') else ''
+            val: Any = info.get(raw_key, default_val)
+            setattr(engine_instance, attr_name, val)
+            bundle_kwargs[attr_name] = engine_instance
+
+        bundle_kwargs['context_bundle'] = context_bundle
+
+        return InfoBundle(**bundle_kwargs)

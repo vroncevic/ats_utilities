@@ -24,7 +24,7 @@ from __future__ import annotations
 
 from abc import ABC, abstractmethod
 
-from ats_utilities.context_bundle import ContextBundle
+from ats_utilities.context.context_bundle import ContextBundle
 from ats_utilities.splasher.splash_center_bundle import SplashCenterBundle
 
 __author__ = r'Vladimir Roncevic'

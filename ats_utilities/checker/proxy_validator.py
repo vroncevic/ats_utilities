@@ -29,7 +29,7 @@ from typing import Any, cast
 
 from ats_utilities.checker.ichecker import ParametersSpecs
 from ats_utilities.exceptions import ATSAttributeError, ATSRuntimeError, ATSTypeError, ATSValueError
-from ats_utilities.factory_context_error import raise_context_error
+from ats_utilities.validation.context_error import raise_error
 
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -68,7 +68,7 @@ def vcheck[F: Callable[..., Any]](specs: list[tuple[str, Any]]) -> Callable[[F],
             | ATSTypeError: Parameter type validation failed.
             | ATSValueError: Parameter format validation failed.
             | ATSRuntimeError: Decorator used on a non-class method.
-            | ATSAttributeError: Class does not provide a '_checker' object.
+            | ATSAttributeError: Class does not provide a _checker object.
     '''
     def decorator(func: F) -> F:
         @wraps(func)
@@ -77,7 +77,7 @@ def vcheck[F: Callable[..., Any]](specs: list[tuple[str, Any]]) -> Callable[[F],
             self_instance = args[0] if args else None
 
             if self_instance is None:
-                raise_context_error(
+                raise_error(
                     fallback_prefix='vcheck::decorator',
                     fallback_msg=f'Decorator @vcheck on {func.__name__} can only be used on class methods',
                     exc_message=None,
@@ -95,7 +95,7 @@ def vcheck[F: Callable[..., Any]](specs: list[tuple[str, Any]]) -> Callable[[F],
             )
 
             if checker is None:
-                raise_context_error(
+                raise_error(
                     fallback_prefix='vcheck::decorator',
                     fallback_msg=f'Class {cls_name} must have _checker attribute to use @vcheck decorator',
                     exc_message=None,
@@ -149,7 +149,7 @@ def vcheck[F: Callable[..., Any]](specs: list[tuple[str, Any]]) -> Callable[[F],
 
                 if error_id != checker.ERRORS.NO_ERROR:
                     if error_id == checker.ERRORS.TYPE_ERROR:
-                        raise_context_error(
+                        raise_error(
                             fallback_prefix=r'vcheck::decorator',
                             fallback_msg=f'Type error: {report_message}',
                             exc_message=None,
@@ -158,7 +158,7 @@ def vcheck[F: Callable[..., Any]](specs: list[tuple[str, Any]]) -> Callable[[F],
                         )
                     
                     else:
-                        raise_context_error(
+                        raise_error(
                             fallback_prefix=r'vcheck::decorator',
                             fallback_msg=f'Format error: {report_message}',
                             exc_message=None,

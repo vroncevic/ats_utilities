@@ -27,7 +27,7 @@ from time import sleep
 from sys import stdout, stderr
 
 from ats_utilities.splasher.isplasher import ISplasher
-from ats_utilities.context_bundle import ContextBundle
+from ats_utilities.context.context_bundle import ContextBundle
 from ats_utilities.splasher.component_bundle import SplashComponentBundle
 from ats_utilities.splasher.splash_center_bundle import SplashCenterBundle
 from ats_utilities.splasher.splash_keys import SplashKeys
@@ -37,11 +37,11 @@ from ats_utilities.reporter.ireporter import IReporter
 from ats_utilities.exceptions import (
     ATSAttributeError, ATSRuntimeError, ATSTypeError, ATSValueError
 )
-from ats_utilities.factory_context_bundle import factory_context_bundle
-from ats_utilities.factory_class import to_str
-from ats_utilities.factory_file_utils import check_file_exists
-from ats_utilities.factory_format_error import format_error
-from ats_utilities.factory_value import require_not_satisfied
+from ats_utilities.context.context_bundle_inject import inject_context_bundle
+from ats_utilities.utils.reflection import to_str
+from ats_utilities.utils.files import check_file_exists
+from ats_utilities.exceptions.format_error import format_error
+from ats_utilities.validation.check_value import not_satisfied
 
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -97,7 +97,7 @@ class Splasher(ISplasher):
 
         try:
             bundle: SplashComponentBundle = component_bundle or SplashComponentBundle()
-            factory_context_bundle(self, bundle.context_bundle)
+            inject_context_bundle(self, bundle.context_bundle)
             self._shared_context = bundle.context_bundle
 
             if bundle.property_validated:
@@ -132,7 +132,7 @@ class Splasher(ISplasher):
                                     splash_center_bundle.text = processed_line
                                     self.center(splash_center_bundle)
                     except (OSError, UnicodeDecodeError) as exc:
-                        require_not_satisfied(
+                        not_satisfied(
                             True, f'logo file content is invalid {exc}', ATSRuntimeError
                         )
 
@@ -165,10 +165,10 @@ class Splasher(ISplasher):
                 self._is_initialized = True
 
         except (ATSTypeError, ATSValueError, ATSRuntimeError, ATSAttributeError) as exc:
-            stderr.write(format_error(self, exc))
+            stderr.write(format_error(exc))
 
         except Exception as exc:
-            stderr.write(format_error(self, exc, prefix='unexpected exception'))
+            stderr.write(format_error(exc, prefix='unexpected exception'))
 
     @override
     def get_shared_context(self) -> ContextBundle:

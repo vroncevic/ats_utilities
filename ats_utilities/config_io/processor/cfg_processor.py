@@ -27,7 +27,7 @@ from collections.abc import Mapping
 from re import match
 from typing import Any, override
 
-from ats_utilities.factory_class import to_str
+from ats_utilities.utils.reflection import to_str
 from ats_utilities.config_io.processor.iconfig_processor import IConfigProcessor
 
 __author__ = r'Vladimir Roncevic'

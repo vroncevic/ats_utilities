@@ -33,11 +33,11 @@ from ats_utilities.checker.ichecker import IChecker
 from ats_utilities.logger.ilogger import ILogger
 from ats_utilities.reporter.ireporter import IReporter
 from ats_utilities.reporter.proxy_reporter import vreport
-from ats_utilities.factory_context_bundle import factory_context_bundle
-from ats_utilities.factory_class import to_str
-from ats_utilities.factory_file_utils import check_file_exists
-from ats_utilities.factory_value import require_not_none
-from ats_utilities.factory_type import check_type
+from ats_utilities.context.context_bundle_inject import inject_context_bundle
+from ats_utilities.utils.reflection import to_str
+from ats_utilities.utils.files import check_file_exists
+from ats_utilities.validation.check_value import not_none
+from ats_utilities.validation.check_type import istype
 
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -80,16 +80,16 @@ class ConfFile(IConfFile):
     _file_path: str | None
     _file_mode: str | None
 
-    def __init__(self, file_bundle: ConfFileBundle | None = None) -> None:
+    def __init__(self, file_bundle: ConfFileBundle) -> None:
         '''
             Initializes ConfFile constructor.
 
-            :param file_bundle: File configuration bundle | None.
-            :type file_bundle: <ConfFileBundle | None>
+            :param file_bundle: File configuration bundle.
+            :type file_bundle: <ConfFileBundle>
             :exceptions: None.
         '''
         bundle: ConfFileBundle = file_bundle or ConfFileBundle()
-        factory_context_bundle(self, bundle.context_bundle)
+        inject_context_bundle(self, bundle.context_bundle)
         self._file = None
         self._file_path = bundle.file_path
         self._file_mode = bundle.file_mode
@@ -110,10 +110,10 @@ class ConfFile(IConfFile):
                 | ATSValueError: File does not exist (when opening in read mode).
                 | ATSTypeError: File path and mode must be strings.
         '''
-        require_not_none(self._file_path, 'file path must be provided')
-        check_type(self._file_path, str, 'file path must be a string')
-        require_not_none(self._file_mode, 'file mode must be provided')
-        check_type(self._file_mode, str, 'file mode must be a string')
+        not_none(self._file_path, 'file path must be provided')
+        istype(self._file_path, str, 'file path must be a string')
+        not_none(self._file_mode, 'file mode must be provided')
+        istype(self._file_mode, str, 'file mode must be a string')
 
         if 'r' in self._file_mode:
             check_file_exists(self._file_path, f'file {self._file_path} does not exist')

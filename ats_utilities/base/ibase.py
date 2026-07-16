@@ -26,7 +26,7 @@ from abc import ABC, abstractmethod
 from collections.abc import Sequence
 from typing import Any
 
-from ats_utilities.context_bundle import ContextBundle
+from ats_utilities.context.context_bundle import ContextBundle
 from ats_utilities.option.option_namespace import OptionNamespace
 
 __author__ = r'Vladimir Roncevic'

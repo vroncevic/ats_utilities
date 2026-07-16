@@ -27,16 +27,16 @@ from typing import Any, override
 
 from ats_utilities.splasher.external.iext_infrastructure import IExtInfrastructure
 from ats_utilities.splasher.splash_keys import SplashKeys
-from ats_utilities.context_bundle import ContextBundle
+from ats_utilities.context.context_bundle import ContextBundle
 from ats_utilities.checker.ichecker import IChecker
 from ats_utilities.logger.ilogger import ILogger
 from ats_utilities.reporter.ireporter import IReporter
-from ats_utilities.factory_context_bundle import factory_context_bundle
-from ats_utilities.factory_class import has_attrs, to_str
+from ats_utilities.context.context_bundle_inject import inject_context_bundle
+from ats_utilities.utils.reflection import has_attrs, to_str
 from ats_utilities.checker.proxy_validator import vcheck
 from ats_utilities.reporter.proxy_reporter import vreport
-from ats_utilities.factory_dict_utils import require_keys, cherry_pick_dict
-from ats_utilities.factory_value import require_not_empty
+from ats_utilities.utils.dicts import require_keys, cherry_pick_dict
+from ats_utilities.validation.check_value import not_empty
 
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -78,7 +78,7 @@ class GitHubInfrastructure(IExtInfrastructure):
     _verbose: bool
     _infrastructure_property: Mapping[str, Any] | None
 
-    def __init__(self, context_bundle: ContextBundle | None = None) -> None:
+    def __init__(self, context_bundle: ContextBundle) -> None:
         '''
             Initials GitHubInfrastructure constructor.
 
@@ -86,7 +86,7 @@ class GitHubInfrastructure(IExtInfrastructure):
             :type context_bundle: <ContextBundle | None>
             :exceptions: None.
         '''
-        factory_context_bundle(self, context_bundle)
+        inject_context_bundle(self, context_bundle)
         self._infrastructure_property = None
 
     @property
@@ -149,9 +149,9 @@ class GitHubInfrastructure(IExtInfrastructure):
                 |                    use the @vreport decorator.
         '''
         org: str = self._infrastructure_property.get(SplashKeys.ATS_ORGANIZATION)
-        require_not_empty(org, r'missing organization')
+        not_empty(org, r'missing organization')
         repo: str = self._infrastructure_property.get(SplashKeys.ATS_REPOSITORY)
-        require_not_empty(repo, r'missing repository')
+        not_empty(repo, r'missing repository')
 
         url_short: str = f'github.io/{repo}'
         url_long: str = f'https://{org}.github.io/{repo}'
@@ -176,9 +176,9 @@ class GitHubInfrastructure(IExtInfrastructure):
                 |                    use the @vreport decorator.
         '''
         org: str = self._infrastructure_property.get(SplashKeys.ATS_ORGANIZATION)
-        require_not_empty(org, r'missing organization')
+        not_empty(org, r'missing organization')
         repo: str = self._infrastructure_property.get(SplashKeys.ATS_REPOSITORY)
-        require_not_empty(repo, r'missing repository')
+        not_empty(repo, r'missing repository')
 
         url: str = f'https://github.com/{org}/{repo}/issues/new/choose'
 
@@ -202,7 +202,7 @@ class GitHubInfrastructure(IExtInfrastructure):
                 |                    use the @vreport decorator.
         '''
         org: str = self._infrastructure_property.get(SplashKeys.ATS_ORGANIZATION)
-        require_not_empty(org, r'missing organization')
+        not_empty(org, r'missing organization')
 
         org_short: str = f'{org}.github.io'
         org_long: str = f'https://{org}.github.io/bio/'

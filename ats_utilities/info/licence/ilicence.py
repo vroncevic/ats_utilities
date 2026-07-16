@@ -80,7 +80,7 @@ class ILicence(ABC):
             Checks if licence is not None.
             Note: Info licence is only prepared when it is set by user (not None).
 
-            :return: True (not None) | False (None).
+            :return: <True> if successful, <False> otherwise.
             :rtype: <bool>
             :exceptions: None.
         '''

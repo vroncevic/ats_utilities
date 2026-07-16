@@ -38,8 +38,9 @@ __email__ = r'elektron.ronca@gmail.com'
 __status__ = r'Development'
 
 # Paths to the generated archive and scheme
-archive_path = 'templates.tgz'
-scheme_path = 'scheme.json'
+dir_path = os.path.dirname(os.path.abspath(__file__))
+archive_path = os.path.join(dir_path, 'templates.tgz')
+scheme_path = os.path.join(dir_path, 'scheme.json')
 
 #
 # Use Case 1: High-level generation using Generator orchestrator
@@ -89,8 +90,8 @@ print("\n" + 50 * "=" + "\n")
 print("Use Case 3: Generating a custom mini web service from a new archive and scheme:")
 
 # Define paths for the new mini service archive and scheme
-mini_archive = 'mini_service_templates.tgz'
-mini_scheme = 'mini_service_templates.json'
+mini_archive = os.path.join(dir_path, 'mini_service_templates.tgz')
+mini_scheme = os.path.join(dir_path, 'mini_service_templates.json')
 
 generator2 = Generator()
 target_dir2 = tempfile.mkdtemp()

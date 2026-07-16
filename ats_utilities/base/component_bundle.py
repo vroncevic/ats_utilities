@@ -27,27 +27,29 @@ from os.path import dirname, exists
 from sys import stderr
 from typing import Any
 
-from ats_utilities.context_bundle import ContextBundle
-from ats_utilities.factory_component import make_component, validate_component
+from ats_utilities.context.context_bundle import ContextBundle
+from ats_utilities.context.context_registry import ContextRegistry
+from ats_utilities.utils.component import make_component, validate_component
 from ats_utilities.generator.component_bundle import GeneratorComponentBundle
 from ats_utilities.config_io.loader.engine import Loader
 from ats_utilities.config_io.loader.iloader import ILoader
 from ats_utilities.config_io.config_io_bundle import ConfigIOBundle
+from ats_utilities.config_io.config_io_registry import ConfigIORegistry
 from ats_utilities.generator.engine import Generator
 from ats_utilities.generator.igenerator import IGenerator
-from ats_utilities.info.component_bundle import InfoComponentBundle
+from ats_utilities.info.info_bundle import InfoBundle
 from ats_utilities.info.engine import InfoManager
-from ats_utilities.info.imanager import IInfoManager
-from ats_utilities.option.component_bundle import OptionComponentBundle
+from ats_utilities.info.iinfo_manager import IInfoManager
+from ats_utilities.option.option_bundle import OptionBundle
 from ats_utilities.option.engine import OptionManager
 from ats_utilities.option.ioption_manager import IOptionManager
 from ats_utilities.splasher.component_bundle import SplashComponentBundle
 from ats_utilities.splasher.engine import Splasher
 from ats_utilities.splasher.isplasher import ISplasher
 from ats_utilities.exceptions import ATSAttributeError, ATSRuntimeError, ATSTypeError, ATSValueError
-from ats_utilities.factory_type import check_type
-from ats_utilities.factory_value import require_not_none
-from ats_utilities.factory_dict_utils import get_first_available
+from ats_utilities.validation.check_type import istype
+from ats_utilities.validation.check_value import not_none
+from ats_utilities.utils.dicts import get_first_available
 
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -98,7 +100,7 @@ class BaseComponentBundle:
             :excpetions: None.
         '''
         if self.context_bundle is None:
-            self.context_bundle = ContextBundle()
+            self.context_bundle = ContextRegistry.create_default_context_bundle()
 
         if self.info_file is not None and exists(self.info_file):
             try:
@@ -120,8 +122,9 @@ class BaseComponentBundle:
         self.config_loader = make_component(
             self.config_loader, Loader,
             {
-                'component_bundle': ConfigIOBundle(
+                'component_bundle': ConfigIORegistry.create_config_io_bundle_by_file_path_and_scheme(
                     file_path=self.info_file,
+                    scheme={},
                     context_bundle=self.context_bundle
                 )
             }
@@ -136,7 +139,7 @@ class BaseComponentBundle:
 
         self.info_manager = make_component(
             self.info_manager, InfoManager,
-            {'component_bundle': InfoComponentBundle(context_bundle=self.context_bundle)}
+            {'component_bundle': InfoBundle(context_bundle=self.context_bundle)}
         )
         validate_component(self.info_manager, IInfoManager, r'info_manager must be an IInfoManager instance')
         self.info_manager.set_info(config_data)
@@ -157,7 +160,7 @@ class BaseComponentBundle:
         self.options_parser = make_component(
             self.options_parser, OptionManager,
             {
-                'component_bundle': OptionComponentBundle(
+                'component_bundle': OptionBundle(
                     parameters=self.info_manager.get_info(),
                     context_bundle=self.context_bundle
                 )
@@ -207,22 +210,22 @@ class BaseComponentBundle:
                 | ATSTypeError: Splasher must be ISplasher interface.
                 | ATSTypeError: Generator must be IGenerator interface.
         '''
-        require_not_none(self.info_file, r'information file must be provided')
-        check_type(self.info_file, str, r'information file must be str')
+        not_none(self.info_file, r'information file must be provided')
+        istype(self.info_file, str, r'information file must be str')
 
         if merge_op:
-            require_not_none(self.config_loader, r'config_loader must be provided')
-            require_not_none(self.info_manager, r'info_manager must be provided')
-            require_not_none(self.options_parser, r'options_parser must be provided')
-            require_not_none(self.splasher, r'splasher must be provided')
-            check_type(self.config_loader, ILoader, r'config_loader must be an ILoader interface')
-            check_type(self.info_manager, IInfoManager, r'info_manager must be an IInfoManager interface')
-            check_type(self.options_parser, IOptionManager, r'options_parser must be an IOptionManager interface')
-            check_type(self.splasher, ISplasher, r'splasher must be an ISplasher interface')
+            not_none(self.config_loader, r'config_loader must be provided')
+            not_none(self.info_manager, r'info_manager must be provided')
+            not_none(self.options_parser, r'options_parser must be provided')
+            not_none(self.splasher, r'splasher must be provided')
+            istype(self.config_loader, ILoader, r'config_loader must be an ILoader interface')
+            istype(self.info_manager, IInfoManager, r'info_manager must be an IInfoManager interface')
+            istype(self.options_parser, IOptionManager, r'options_parser must be an IOptionManager interface')
+            istype(self.splasher, ISplasher, r'splasher must be an ISplasher interface')
 
             if self.use_generator:
-                require_not_none(self.generator, r'generator must be provided')
-                check_type(self.generator, IGenerator, r'generator must be IGenerator interface')
+                not_none(self.generator, r'generator must be provided')
+                istype(self.generator, IGenerator, r'generator must be IGenerator interface')
 
     def merge(self, other: BaseComponentBundle) -> None:
         '''
@@ -234,8 +237,8 @@ class BaseComponentBundle:
                 | ATSValueError: Other BaseComponentBundle must be provided.
                 | ATSTypeError: Other must be BaseComponentBundle instance.
         '''
-        require_not_none(other, r'other BaseComponentBundle must be provided')
-        check_type(other, BaseComponentBundle, r'other must be BaseComponentBundle instance')
+        not_none(other, r'other BaseComponentBundle must be provided')
+        istype(other, BaseComponentBundle, r'other must be BaseComponentBundle instance')
 
         for field_name in self.__dataclass_fields__:
             other_value: Any = getattr(other, field_name)

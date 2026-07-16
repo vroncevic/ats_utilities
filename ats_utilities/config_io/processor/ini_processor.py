@@ -31,7 +31,7 @@ from io import StringIO
 from typing import Any, override
 
 from ats_utilities.config_io.processor.iconfig_processor import IConfigProcessor
-from ats_utilities.factory_class import to_str
+from ats_utilities.utils.reflection import to_str
 
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'

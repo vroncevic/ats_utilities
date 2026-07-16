@@ -23,8 +23,9 @@ from __future__ import annotations
 
 from ats_utilities.checker.ichecker import IChecker
 from ats_utilities.checker.engine import Checker
+from ats_utilities.checker.checker_registry import CheckerRegistry
 from ats_utilities.checker.proxy_validator import vcheck
-from ats_utilities.factory_class import to_str
+from ats_utilities.utils.reflection import to_str
 
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -60,7 +61,7 @@ class TestData:
 
             :exceptions: None.
         '''
-        self._checker = Checker()
+        self._checker = Checker(component_bundle=CheckerRegistry.create_default_checker_bundle())
         self._data: dict[str, int] = {}
 
     @property

@@ -27,7 +27,7 @@ from typing import override, Any
 from sys import stderr
 
 from ats_utilities.config_io.loader.iloader import ILoader
-from ats_utilities.context_bundle import ContextBundle
+from ats_utilities.context.context_bundle import ContextBundle
 from ats_utilities.config_io.config_io_bundle import ConfigIOBundle
 from ats_utilities.checker.ichecker import IChecker
 from ats_utilities.logger.ilogger import ILogger
@@ -37,9 +37,9 @@ from ats_utilities.config_io.conf_file_bundle import ConfFileBundle
 from ats_utilities.config_io.processor.iconfig_processor import IConfigProcessor
 from ats_utilities.config_io.processor.factory_processor import ConfigProcessorFactory
 from ats_utilities.exceptions import ATSValueError, ATSTypeError
-from ats_utilities.factory_context_bundle import factory_context_bundle
-from ats_utilities.factory_class import to_str
-from ats_utilities.factory_format_error import format_error
+from ats_utilities.context.context_bundle_inject import inject_context_bundle
+from ats_utilities.utils.reflection import to_str
+from ats_utilities.exceptions.format_error import format_error
 
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -82,12 +82,12 @@ class Loader(ILoader):
     _processor: IConfigProcessor | None
     _conf_file_bundle: ConfFileBundle
 
-    def __init__(self, component_bundle: ConfigIOBundle | None = None) -> None:
+    def __init__(self, component_bundle: ConfigIOBundle) -> None:
         '''
             Initializes Loader constructor.
 
-            :param component_bundle: Component bundle for dependency injection | None.
-            :type component_bundle: <ConfigIOBundle | None>
+            :param component_bundle: Component bundle for dependency injection.
+            :type component_bundle: <ConfigIOBundle>
             :exceptions:
                 | ATSValueError: File path must be provided when processor is None.
                 | ATSTypeError: File path must be a string.
@@ -97,24 +97,14 @@ class Loader(ILoader):
                 | ATSValueError: Extension is not supported.
                 | ATSTypeError: Validation of processor instance failed.
         '''
-        try:
-            bundle: ConfigIOBundle = component_bundle or ConfigIOBundle()
-            self._context_bundle_shared = bundle.context_bundle
-            factory_context_bundle(self, self._context_bundle_shared)
-            self._processor = ConfigProcessorFactory.create_from_file_path(
-                bundle.file_path, bundle.scheme, bundle.processor
-            )
-            self._conf_file_bundle = ConfFileBundle(
-                file_path=bundle.file_path,
-                file_mode=bundle.READ_MODE,
-                context_bundle=self._context_bundle_shared
-            )
-
-        except (ATSTypeError, ATSValueError) as exc:
-            stderr.write(format_error(self, exc))
-
-        except Exception as exc:
-            stderr.write(format_error(self, exc, prefix='unexpected exception'))
+        self._context_bundle_shared = component_bundle.context_bundle
+        inject_context_bundle(self, self._context_bundle_shared)
+        self._processor = component_bundle.processor
+        self._conf_file_bundle = ConfFileBundle(
+            file_path=component_bundle.file_path,
+            file_mode=component_bundle.READ_MODE,
+            context_bundle=self._context_bundle_shared
+        )
 
     @override
     def get_shared_context(self) -> ContextBundle:
@@ -142,6 +132,7 @@ class Loader(ILoader):
             with ConfFile(self._conf_file_bundle) as config_file:
                 if config_file:
                     content = config_file.read()
+
         except Exception:
             return {}
 

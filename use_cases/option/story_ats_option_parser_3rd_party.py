@@ -27,12 +27,15 @@ from typing import Any
 
 from fire import Fire  # type: ignore
 
+from ats_utilities.context.context_registry import ContextRegistry
+from ats_utilities.context.context_bundle_inject import inject_context_bundle
 from ats_utilities.option.command.ioption_command import IOptionCommand
-from ats_utilities.factory_class import to_str
+from ats_utilities.utils.reflection import to_str
 from ats_utilities.option.engine import OptionManager
 from ats_utilities.option.option_namespace import OptionNamespace, OptArgs
 from ats_utilities.option.strategy.iparser_strategy import IParserStrategy
-from ats_utilities.option.component_bundle import OptionComponentBundle
+from ats_utilities.option.strategy.parser_strategy_bundle import ParserStrategyBundle
+from ats_utilities.option.option_bundle import OptionBundle
 
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -56,18 +59,22 @@ class MyAppFireStrategy(IParserStrategy):
                 | _parameters - dict of parameters for the parser.
             :methods:
                 | __init__ - initialize the instance.
-                | setup - setup the parser.
                 | add_argument - add argument to the parser.
                 | add_version - add version to the parser.
                 | parse - parse the arguments.
                 | is_initialized - check if the parser is initialized.
                 | __str__ - return string representation of the parser.
     '''
-    def __init__(self):
-        self._target = types.SimpleNamespace()
+    def __init__(self, component_bundle: ParserStrategyBundle) -> None:
+        '''
+            Initializes MyAppFireStrategy.
 
-    def setup(self, parameters: dict) -> None:
-        pass
+            :param component_bundle: Bundle with components for strategy.
+            :type component_bundle: <ParserStrategyBundle>
+            :exceptions: None.
+        '''
+        inject_context_bundle(self, component_bundle.context_bundle)
+        self._target = types.SimpleNamespace()
 
     def add_argument(self, *args: str, **kwargs: Any) -> None:
         if args:
@@ -112,13 +119,20 @@ class MyAppFireStrategy(IParserStrategy):
         return to_str(self)
 
 
-fire_strategy = MyAppFireStrategy()
 opt_parser = {
     'name': 'mytool'
 }
 OPS: list[str] = ['-n', '--name', '-v', '--verbose']
-bundle: OptionComponentBundle = OptionComponentBundle(
-    parameters=opt_parser, strategy=fire_strategy
+context_bundle = ContextRegistry.create_default_context_bundle()
+strategy_bundle = ParserStrategyBundle(
+    parameters=opt_parser,
+    context_bundle=context_bundle
+)
+fire_strategy = MyAppFireStrategy(component_bundle=strategy_bundle)
+bundle: OptionBundle = OptionBundle(
+    parameters=opt_parser,
+    strategy=fire_strategy,
+    context_bundle=context_bundle
 )
 parser2 = OptionManager(component_bundle=bundle)
 parser2.add_version_operation('1.2.5')

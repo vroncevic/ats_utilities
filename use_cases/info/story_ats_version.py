@@ -19,12 +19,17 @@ Info
     Use cases for ATS version.
 '''
 
-from ats_utilities.context_bundle import ContextBundle
+from ats_utilities.context.context_bundle import ContextBundle
+from ats_utilities.context.context_registry import ContextRegistry
 from ats_utilities.info.version.engine import Version
 from ats_utilities.checker.engine import Checker
+from ats_utilities.checker.checker_registry import CheckerRegistry
+from ats_utilities.logger.engine import Logger
+from ats_utilities.logger.logger_registry import LoggerRegistry
 from ats_utilities.reporter.engine import Reporter
+from ats_utilities.reporter.reporter_bundle import ReporterBundle
 from ats_utilities.reporter.theme.engine import ConsoleTheme
-from ats_utilities.reporter.component_bundle import ReporterComponentBundle
+from ats_utilities.reporter.reporter_registry import ReporterRegistry
 
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -48,15 +53,10 @@ print(ats_version)
 print(150 * '=')
 
 #
-# with DI
-# ========
+# with DI (default ContextBundle)
+# ================================
 #
-checker: Checker = Checker()
-theme: ConsoleTheme = ConsoleTheme()
-reporter_bundle: ReporterComponentBundle = ReporterComponentBundle(checker=checker, theme=theme)
-reporter: Reporter = Reporter(component_bundle=reporter_bundle)
-bundle: ContextBundle = ContextBundle(checker=checker, reporter=reporter, verbose=VERBOSE)
-
+bundle: ContextBundle = ContextRegistry.create_default_context_bundle()
 ats_version: Version = Version(context_bundle=bundle)
 ats_version.version = '1.2.6'
 print(ats_version.version)
@@ -64,10 +64,16 @@ print(ats_version)
 print(150 * '=')
 
 #
-# with DI (default ContextBundle)
-# ================================
+# with DI (setting components manually)
+# =====================================
 #
-bundle: ContextBundle = ContextBundle()
+checker: Checker = Checker(component_bundle=CheckerRegistry.create_default_checker_bundle())
+theme: ConsoleTheme = ConsoleTheme()
+logger: Logger = Logger(component_bundle=LoggerRegistry.create_default_logger_bundle())
+reporter_bundle: ReporterBundle = ReporterBundle(checker=checker, logger=logger, theme=theme)
+reporter: Reporter = Reporter(component_bundle=reporter_bundle)
+bundle: ContextBundle = ContextBundle(checker=checker, logger=logger, reporter=reporter, verbose=VERBOSE)
+
 ats_version: Version = Version(context_bundle=bundle)
 ats_version.version = '1.2.7'
 print(ats_version.version)

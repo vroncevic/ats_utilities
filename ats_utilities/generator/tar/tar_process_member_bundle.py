@@ -27,8 +27,8 @@ from dataclasses import dataclass
 from tarfile import TarFile, TarInfo
 from typing import Any
 
-from ats_utilities.factory_value import require_not_none
-from ats_utilities.factory_type import check_type
+from ats_utilities.validation.check_value import not_none
+from ats_utilities.validation.check_type import istype
 
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -83,14 +83,14 @@ class TarProcessMemberBundle:
                 | ATSTypeError: dest_full_path must be a string.
                 | ATSTypeError: vals must be a mapping.
         '''
-        require_not_none(self.tar, r'tar must be provided.')
-        require_not_none(self.member, r'member must be provided.')
-        require_not_none(self.dest_full_path, r'dest_full_path must be provided.')
-        require_not_none(self.vals, r'vals must be provided.')
-        check_type(self.tar, TarFile, r'tar must be a TarFile instance.')
-        check_type(self.member, TarInfo, r'member must be a TarInfo instance.')
-        check_type(self.dest_full_path, str, r'dest_full_path must be a string.')
-        check_type(self.vals, Mapping, r'vals must be a mapping.')
+        not_none(self.tar, r'tar must be provided.')
+        not_none(self.member, r'member must be provided.')
+        not_none(self.dest_full_path, r'dest_full_path must be provided.')
+        not_none(self.vals, r'vals must be provided.')
+        istype(self.tar, TarFile, r'tar must be a TarFile instance.')
+        istype(self.member, TarInfo, r'member must be a TarInfo instance.')
+        istype(self.dest_full_path, str, r'dest_full_path must be a string.')
+        istype(self.vals, Mapping, r'vals must be a mapping.')
 
     def merge(self, other: TarProcessMemberBundle) -> None:
         '''
@@ -102,8 +102,8 @@ class TarProcessMemberBundle:
                 | ATSValueError: Other TarProcessMemberBundle must be provided.
                 | ATSTypeError: Other must be a TarProcessMemberBundle.
         '''
-        require_not_none(other, r'other TarProcessMemberBundle must be provided')
-        check_type(other, TarProcessMemberBundle, r'other must be a TarProcessMemberBundle.')
+        not_none(other, r'other TarProcessMemberBundle must be provided')
+        istype(other, TarProcessMemberBundle, r'other must be a TarProcessMemberBundle.')
 
         for field_name in self.__dataclass_fields__:
             other_value: Any = getattr(other, field_name)

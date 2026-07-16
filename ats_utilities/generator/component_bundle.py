@@ -25,16 +25,17 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Any
 
-from ats_utilities.context_bundle import ContextBundle
-from ats_utilities.factory_component import make_component, validate_component
+from ats_utilities.context.context_bundle import ContextBundle
+from ats_utilities.context.context_registry import ContextRegistry
+from ats_utilities.utils.component import make_component, validate_component
 from ats_utilities.generator.scheme.ischeme_loader import ISchemeLoader
 from ats_utilities.generator.tar.itar_processor import ITarProcessor
 from ats_utilities.generator.template.itemplate_processor import ITemplateProcessor
 from ats_utilities.generator.scheme.scheme_loader import SchemeLoader
 from ats_utilities.generator.tar.tar_processor import TarProcessor
 from ats_utilities.generator.template.template_processor import TemplateProcessor
-from ats_utilities.factory_value import require_not_none
-from ats_utilities.factory_type import check_type
+from ats_utilities.validation.check_value import not_none
+from ats_utilities.validation.check_type import istype
 
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -76,7 +77,7 @@ class GeneratorComponentBundle:
             Post-initialization hook for automatic component creation.
         '''
         if self.context_bundle is None:
-            self.context_bundle = ContextBundle()
+            self.context_bundle = ContextRegistry.create_default_context_bundle()
 
         self.template_processor = make_component(
             self.template_processor, TemplateProcessor, {'context_bundle': self.context_bundle}
@@ -116,14 +117,14 @@ class GeneratorComponentBundle:
                 | ATSTypeError: Tar processor must be an ITarProcessor instance.
                 | ATSTypeError: Template processor must be an ITemplateProcessor instance.
         '''
-        require_not_none(self.context_bundle, r'context bundle must be provided')
-        require_not_none(self.scheme_loader, r'scheme loader must be provided')
-        require_not_none(self.tar_processor, r'tar processor must be provided')
-        require_not_none(self.template_processor, r'template processor must be provided')
-        check_type(self.context_bundle, ContextBundle, r'context bundle must be a ContextBundle instance')
-        check_type(self.scheme_loader, ISchemeLoader, r'scheme loader must be an ISchemeLoader instance')
-        check_type(self.tar_processor, ITarProcessor, r'tar processor must be an ITarProcessor instance')
-        check_type(self.template_processor, ITemplateProcessor, r'template processor must be an ITemplateProcessor instance')
+        not_none(self.context_bundle, r'context bundle must be provided')
+        not_none(self.scheme_loader, r'scheme loader must be provided')
+        not_none(self.tar_processor, r'tar processor must be provided')
+        not_none(self.template_processor, r'template processor must be provided')
+        istype(self.context_bundle, ContextBundle, r'context bundle must be a ContextBundle instance')
+        istype(self.scheme_loader, ISchemeLoader, r'scheme loader must be an ISchemeLoader instance')
+        istype(self.tar_processor, ITarProcessor, r'tar processor must be an ITarProcessor instance')
+        istype(self.template_processor, ITemplateProcessor, r'template processor must be an ITemplateProcessor instance')
 
     def merge(self, other: GeneratorComponentBundle) -> None:
         '''
@@ -135,8 +136,8 @@ class GeneratorComponentBundle:
                 | ATSValueError: Other GeneratorComponentBundle must be provided.
                 | ATSTypeError: Other must be a GeneratorComponentBundle instance.
         '''
-        require_not_none(other, r'other GeneratorComponentBundle must be provided')
-        check_type(other, GeneratorComponentBundle, r'other must be a GeneratorComponentBundle instance')
+        not_none(other, r'other GeneratorComponentBundle must be provided')
+        istype(other, GeneratorComponentBundle, r'other must be a GeneratorComponentBundle instance')
 
         for field_name in self.__dataclass_fields__:
             other_value: Any = getattr(other, field_name)

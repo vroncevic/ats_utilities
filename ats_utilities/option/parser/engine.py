@@ -23,17 +23,20 @@ Info
 from __future__ import annotations
 
 import sys
-from typing import Any, NoReturn, override
 from argparse import ArgumentParser
+from typing import NoReturn, override
 
-from ats_utilities.context_bundle import ContextBundle
+from ats_utilities.option.parser.iarg_parser import IArgParser
+from ats_utilities.option.parser.parser_bundle import ParserBundle
 from ats_utilities.checker.ichecker import IChecker
 from ats_utilities.logger.ilogger import ILogger
 from ats_utilities.reporter.ireporter import IReporter
-from ats_utilities.factory_context_bundle import factory_context_bundle
-from ats_utilities.factory_class import to_str
+from ats_utilities.context.context_bundle_inject import inject_context_bundle
+from ats_utilities.utils.reflection import to_str
 from ats_utilities.checker.proxy_validator import vcheck
 from ats_utilities.reporter.proxy_reporter import vreport
+from ats_utilities.validation.check_type import istype
+from ats_utilities.validation.check_value import not_none
 
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -45,7 +48,7 @@ __email__ = r'elektron.ronca@gmail.com'
 __status__ = r'Development'
 
 
-class ArgParser(ArgumentParser):
+class ArgParser(ArgumentParser, IArgParser):
     '''
         Defines class ArgParser with attribute(s) and method(s).
         Custom ArgumentParser to route errors to IReporter.
@@ -60,7 +63,6 @@ class ArgParser(ArgumentParser):
             :methods:
                 | __init__ - Initials ArgParser constructor.
                 | error - Overrides default error handling to use IReporter.
-                | _reporter - Returns the reporter instance.
                 | __str__ - Returns the string representation of ArgParser.
     '''
 
@@ -69,25 +71,26 @@ class ArgParser(ArgumentParser):
     _reporter: IReporter
     _verbose: bool
 
-    def __init__(
-        self,
-        *args: Any,
-        context_bundle: ContextBundle | None = None,
-        **kwargs: Any
-    ) -> None:
+    def __init__(self, component_bundle: ParserBundle) -> None:
         '''
             Initializes ArgParser constructor.
 
             :param args: Additional positional arguments.
             :type args: <Any>
-            :param context_bundle: Context bundle for argument parser | None.
-            :type context_bundle: <ContextBundle | None>
+            :param context_bundle: Context bundle for argument parser.
+            :type context_bundle: <ContextBundle>
             :param kwargs: Additional keyword arguments.
             :type kwargs: <Any>
             :exceptions: None.
         '''
-        super().__init__(*args, **kwargs)
-        factory_context_bundle(self, context_bundle)
+        not_none(component_bundle, r'component_bundle must be provided')
+        istype(component_bundle, ParserBundle, r'component_bundle must be a ParserBundle instance')
+        super().__init__(
+            prog=component_bundle.prog,
+            epilog=component_bundle.epilog,
+            description=component_bundle.description
+        )
+        inject_context_bundle(self, component_bundle.context_bundle)
 
     @vcheck([('str:message', None)])
     @vreport('argument error: {message}')

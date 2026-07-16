@@ -80,7 +80,7 @@ class IVersion(ABC):
             Checks if version is not None.
             Note: Version is only prepared when it is set by user (not None).
 
-            :return: True (not None) | False (None).
+            :return: <True> if successful, <False> otherwise.
             :rtype: <bool>
             :exceptions: None.
         '''
