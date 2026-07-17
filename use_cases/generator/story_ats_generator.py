@@ -133,4 +133,3 @@ if status:
                 print(f"  {rel_dir}/{file}")
 else:
     print("Project generation failed.")
-

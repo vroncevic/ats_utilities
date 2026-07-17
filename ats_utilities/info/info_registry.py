@@ -38,7 +38,6 @@ from ats_utilities.info.logo.engine import Logo
 from ats_utilities.info.log_file.engine import LogFile
 from ats_utilities.info.info_ok.engine import InfoOk
 from ats_utilities.context.context_bundle import ContextBundle
-from ats_utilities.utils.boolean import str_bool_to_bool
 from ats_utilities.validation.check_value import not_none
 from ats_utilities.validation.check_type import istype
 
@@ -113,7 +112,8 @@ class InfoRegistry:
             val: Any = info.get(raw_key)
 
             if raw_key == InfoKeys.ATS_USE_GITHUB_INFRASTRUCTURE and val is not None:
-                val = str_bool_to_bool(val)
+                if isinstance(val, str):
+                    val = True if val == 'True' else False
 
             if val is not None:
                 setattr(engine_instance, attr_name, val)
