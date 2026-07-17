@@ -22,6 +22,7 @@ Info
 
 from abc import ABC, abstractmethod
 from ats_utilities.context.context_bundle import ContextBundle
+from ats_utilities.context.context_registry import ContextRegistry
 from ats_utilities.context.context_bundle_inject import inject_context_bundle
 from ats_utilities.utils.reflection import to_str
 
@@ -120,12 +121,10 @@ class MyClass(IMyClass):
         '''
         return to_str(self)
 
-
-#
-# without DI
-#
 obj: IMyClass | None = None
-obj = MyClass()
+
+context_bundle: ContextBundle = ContextRegistry.create_default_context_bundle()
+obj = MyClass(context_bundle=context_bundle)
 print(obj)
 print(obj.not_none())
 obj.my = "myvalue"

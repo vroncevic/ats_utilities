@@ -19,17 +19,9 @@ Info
     Use cases for ATS version.
 '''
 
+from ats_utilities.info.version.engine import Version
 from ats_utilities.context.context_bundle import ContextBundle
 from ats_utilities.context.context_registry import ContextRegistry
-from ats_utilities.info.version.engine import Version
-from ats_utilities.checker.engine import Checker
-from ats_utilities.checker.checker_registry import CheckerRegistry
-from ats_utilities.logger.engine import Logger
-from ats_utilities.logger.logger_registry import LoggerRegistry
-from ats_utilities.reporter.engine import Reporter
-from ats_utilities.reporter.reporter_bundle import ReporterBundle
-from ats_utilities.reporter.theme.engine import ConsoleTheme
-from ats_utilities.reporter.reporter_registry import ReporterRegistry
 
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -40,41 +32,8 @@ __maintainer__ = r'Vladimir Roncevic'
 __email__ = r'elektron.ronca@gmail.com'
 __status__ = r'Development'
 
-VERBOSE: bool = False
-
-#
-# default [without DI]
-# =====================
-#
-ats_version = Version()
-ats_version.version = '1.2.5'
-print(ats_version.version)
-print(ats_version)
-print(150 * '=')
-
-#
-# with DI (default ContextBundle)
-# ================================
-#
-bundle: ContextBundle = ContextRegistry.create_default_context_bundle()
-ats_version: Version = Version(context_bundle=bundle)
-ats_version.version = '1.2.6'
-print(ats_version.version)
-print(ats_version)
-print(150 * '=')
-
-#
-# with DI (setting components manually)
-# =====================================
-#
-checker: Checker = Checker(component_bundle=CheckerRegistry.create_default_checker_bundle())
-theme: ConsoleTheme = ConsoleTheme()
-logger: Logger = Logger(component_bundle=LoggerRegistry.create_default_logger_bundle())
-reporter_bundle: ReporterBundle = ReporterBundle(checker=checker, logger=logger, theme=theme)
-reporter: Reporter = Reporter(component_bundle=reporter_bundle)
-bundle: ContextBundle = ContextBundle(checker=checker, logger=logger, reporter=reporter, verbose=VERBOSE)
-
-ats_version: Version = Version(context_bundle=bundle)
+context_bundle: ContextBundle = ContextRegistry.create_default_context_bundle()
+ats_version: Version = Version(context_bundle=context_bundle)
 ats_version.version = '1.2.7'
 print(ats_version.version)
 print(ats_version)

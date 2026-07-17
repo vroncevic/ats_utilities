@@ -20,6 +20,8 @@ Info
 '''
 
 from ats_utilities.info.info_ok.engine import InfoOk
+from ats_utilities.context.context_bundle import ContextBundle
+from ats_utilities.context.context_registry import ContextRegistry
 
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -30,7 +32,8 @@ __maintainer__ = r'Vladimir Roncevic'
 __email__ = r'elektron.ronca@gmail.com'
 __status__ = r'Development'
 
-ats_info_ok = InfoOk()
+context_bundle: ContextBundle = ContextRegistry.create_default_context_bundle()
+ats_info_ok: InfoOk = InfoOk(context_bundle=context_bundle)
 ats_info_ok.info_ok = True
 print(ats_info_ok.info_ok)
 print(ats_info_ok)

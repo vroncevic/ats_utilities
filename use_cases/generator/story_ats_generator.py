@@ -23,10 +23,11 @@ import os
 import tempfile
 
 from ats_utilities.generator.engine import Generator
-from ats_utilities.generator.generator_bundle import GenParamsBundle
-from ats_utilities.generator.scheme.scheme_loader import SchemeLoader
-from ats_utilities.generator.tar.tar_processor import TarProcessor
-from ats_utilities.generator.tar.tar_process_bundle import TarProcessBundle
+from ats_utilities.generator.generator_bundle import GeneratorBundle
+from ats_utilities.generator.generator_registry import GeneratorRegistry
+from ats_utilities.generator.gen_params_registry import GenParamsRegistry
+from ats_utilities.context.context_bundle import ContextBundle
+from ats_utilities.context.context_registry import ContextRegistry
 
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -39,41 +40,46 @@ __status__ = r'Development'
 
 # Paths to the generated archive and scheme
 dir_path = os.path.dirname(os.path.abspath(__file__))
-archive_path = os.path.join(dir_path, 'templates.tgz')
-scheme_path = os.path.join(dir_path, 'scheme.json')
+context_bundle: ContextBundle = ContextRegistry.create_default_context_bundle()
 
 #
 # Use Case 1: High-level generation using Generator orchestrator
 # ==============================================================
 #
 print("Use Case 1: High-level generation using Generator orchestrator:")
-generator = Generator()
+generator_bundle: GeneratorBundle = GeneratorRegistry.create_default_generator_bundle(context_bundle)
+generator = Generator(component_bundle=generator_bundle)
+status: bool = False
 
-# Output target directory
-target_dir = tempfile.mkdtemp()
-template_key = 'base'
-template_values = {'project_name': 'my_hexagonal_app'}
+# Archive and scheme paths for use case 1
+archive1 = os.path.join(dir_path, 'templates.tgz')
+scheme1 = os.path.join(dir_path, 'scheme.json')
 
-print(f"Extracting '{template_key}' project to: {target_dir}")
-print(f"Project Name: {template_values['project_name']}")
+# Output target directory for use case 1
+target_dir1 = tempfile.mkdtemp()
+template_key1 = 'base'
+template_values1 = {'project_name': 'my_hexagonal_app'}
 
-# Run generator
-success = generator.generate(
-    GenParamsBundle(
-        archive_path=archive_path,
-        target_dir=target_dir,
-        template_key=template_key,
-        scheme=scheme_path,
-        template_values=template_values
+print(f"Extracting '{template_key1}' project to: {target_dir1}")
+print(f"Project Name: {template_values1['project_name']}")
+
+# Run generator for use case 1
+status = generator.generate(
+    GenParamsRegistry.create_gen_params_bundle(
+        archive_path=archive1,
+        target_dir=target_dir1,
+        template_key=template_key1,
+        scheme=scheme1,
+        template_values=template_values1
     )
 )
 
-if success:
+if status:
     print("Project successfully generated!")
     print("Generated files:")
-    for root, dirs, files in os.walk(target_dir):
+    for root, dirs, files in os.walk(target_dir1):
         for file in files:
-            rel_dir = os.path.relpath(root, target_dir)
+            rel_dir = os.path.relpath(root, target_dir1)
             if rel_dir == '.':
                 print(f"  {file}")
             else:
@@ -84,16 +90,15 @@ else:
 print("\n" + 50 * "=" + "\n")
 
 #
-# Use Case 3: Generating a mini web service from a custom archive and JSON scheme
+# Use Case 2: Generating a mini web service from a custom archive and JSON scheme
 # ==============================================================================
 #
-print("Use Case 3: Generating a custom mini web service from a new archive and scheme:")
+print("Use Case 2: Generating a custom mini web service from a new archive and scheme:")
 
-# Define paths for the new mini service archive and scheme
-mini_archive = os.path.join(dir_path, 'mini_service_templates.tgz')
-mini_scheme = os.path.join(dir_path, 'mini_service_templates.json')
+# Archive and scheme paths for use case 2
+archive2 = os.path.join(dir_path, 'mini_service_templates.tgz')
+scheme2 = os.path.join(dir_path, 'mini_service_templates.json')
 
-generator2 = Generator()
 target_dir2 = tempfile.mkdtemp()
 template_values2 = {
     'project_name': 'my_billing_service',
@@ -105,18 +110,18 @@ template_values2 = {
 print(f"Extracting 'mini_service' project to: {target_dir2}")
 print(f"Service Name: {template_values2['service_name']}")
 
-# Run generator
-success2 = generator2.generate(
-    GenParamsBundle(
-        archive_path=mini_archive,
+# Run generator for use case 2
+status = generator.generate(
+    GenParamsRegistry.create_gen_params_bundle(
+        archive_path=archive2,
         target_dir=target_dir2,
         template_key='mini_service',
-        scheme=mini_scheme,
+        scheme=scheme2,
         template_values=template_values2
     )
 )
 
-if success2:
+if status:
     print("Project successfully generated!")
     print("Generated files:")
     for root, dirs, files in os.walk(target_dir2):

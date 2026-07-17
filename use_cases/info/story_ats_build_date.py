@@ -20,6 +20,8 @@ Info
 '''
 
 from ats_utilities.info.build_date.engine import BuildDate
+from ats_utilities.context.context_bundle import ContextBundle
+from ats_utilities.context.context_registry import ContextRegistry
 
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -30,7 +32,8 @@ __maintainer__ = r'Vladimir Roncevic'
 __email__ = r'elektron.ronca@gmail.com'
 __status__ = r'Development'
 
-ats_build_date = BuildDate()
+context_bundle: ContextBundle = ContextRegistry.create_default_context_bundle()
+ats_build_date: BuildDate = BuildDate(context_bundle=context_bundle)
 ats_build_date.build_date = 'Sun Jun 14 03:06:12 PM CEST 2026'
 print(ats_build_date.build_date)
 print(ats_build_date)

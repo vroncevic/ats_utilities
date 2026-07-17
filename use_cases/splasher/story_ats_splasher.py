@@ -23,7 +23,9 @@ from typing import Any
 from os.path import dirname, realpath
 from ats_utilities.splasher.engine import Splasher
 from ats_utilities.splasher.splash_keys import SplashKeys
-from ats_utilities.splasher.component_bundle import SplashBundle
+from ats_utilities.splasher.splash_registry import SplashRegistry
+from ats_utilities.context.context_bundle import ContextBundle
+from ats_utilities.context.context_registry import ContextRegistry
 
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -35,7 +37,9 @@ __email__ = r'elektron.ronca@gmail.com'
 __status__ = r'Development'
 
 current_dir: str = dirname(realpath(__file__))
-logo_path: str = f'{current_dir}/../../tests/assets/config/app.logo'
+logo_path: str = f'{current_dir}/../../tests/assets/config/read_only/app.logo'
+context_bundle: ContextBundle = ContextRegistry.create_default_context_bundle()
+
 #
 # default [with GitHub]
 # ======================
@@ -47,8 +51,11 @@ mytool_property_github: dict[Any, Any] = {
     SplashKeys.ATS_LOGO_PATH: logo_path,
     SplashKeys.ATS_USE_GITHUB_INFRASTRUCTURE: True
 }
-bundle_github = SplashBundle(prop=mytool_property_github)
-ats_splash_with_github: Splasher = Splasher(bundle_github)
+ats_splash_with_github: Splasher = Splasher(
+    component_bundle=SplashRegistry.create_splash_bundle_from_dict(
+        mytool_property_github, context_bundle=context_bundle
+    )
+)
 print(ats_splash_with_github)
 print(100 * '=')
 
@@ -63,8 +70,11 @@ mytool_property_no_github: dict[Any, Any] = {
     SplashKeys.ATS_LOGO_PATH: logo_path,
     SplashKeys.ATS_USE_GITHUB_INFRASTRUCTURE: False
 }
-bundle_no_github = SplashBundle(prop=mytool_property_no_github)
-ats_splash_without_github = Splasher(bundle_no_github)
+ats_splash_without_github = Splasher(
+    component_bundle=SplashRegistry.create_splash_bundle_from_dict(
+        mytool_property_no_github, context_bundle=context_bundle
+    )
+)
 print(ats_splash_without_github)
 print(100 * '=')
 
@@ -75,7 +85,10 @@ print(100 * '=')
 mytool_property_disabled: dict[Any, Any] = {
     'enabled': False
 }
-bundle_disabled = SplashBundle(prop=mytool_property_disabled)
-ats_splash_disabled = Splasher(bundle_disabled)
+ats_splash_disabled: Splasher = Splasher(
+    component_bundle=SplashRegistry.create_splash_bundle_from_dict(
+        mytool_property_disabled, context_bundle=context_bundle
+    )
+)
 print(ats_splash_disabled)
 print(100 * '=')
