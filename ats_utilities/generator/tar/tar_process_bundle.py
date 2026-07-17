@@ -39,7 +39,7 @@ __email__ = r'elektron.ronca@gmail.com'
 __status__ = r'Development'
 
 
-@dataclass(slots=True, kw_only=True)
+@dataclass(slots=True, frozen=True, kw_only=True)
 class TarProcessBundle:
     '''
         Defines class TarProcessBundle with method(s).
@@ -55,9 +55,9 @@ class TarProcessBundle:
                 | exclude_patterns - Patterns of files/directories to exclude.
                 | vals - Computed template values for substitution.
             :methods:
-                | validate - Validates that TarProcessBundle is valid (can be called after merge).
-                | merge - Merges non-None values from another TarProcessBundle into this one.
-                | to_dict - Converts the TarProcessBundle instance to a dictionary.
+                | __post_init__ - Post-initialization hook to validate tar process bundle.
+                | validate - Validates tar process bundle.
+                | to_dict - Converts the tar process bundle into a dictionary.
     '''
 
     archive_path: str
@@ -67,17 +67,31 @@ class TarProcessBundle:
     exclude_patterns: Sequence[str]
     vals: Mapping[str, str]
 
+    def __post_init__(self) -> None:
+        '''
+            Post-initialization hook to validate tar process bundle.
+
+            :exceptions:
+                | ATSValueError: Archive path must be provided.
+                | ATSTypeError: Archive path must be a string.
+                | ATSValueError: Target directory must be provided.
+                | ATSTypeError: Target directory must be a string.
+                | ATSValueError: Source directory must be provided.
+                | ATSTypeError: Source directory must be a string.
+                | ATSValueError: Path replacements must be provided.
+                | ATSTypeError: Path replacements must be a mapping.
+                | ATSValueError: Exclude patterns must be provided.
+                | ATSTypeError: Exclude patterns must be a sequence.
+                | ATSValueError: Values must be provided.
+                | ATSTypeError: Values must be a mapping.
+        '''
+        self.validate()
+
     def validate(self) -> None:
         '''
-            Validates that TarProcessBundle is valid (can be called after merge).
-            Performs validation of archive_path, target_dir, source_dir,
-            path_replacements, exclude_patterns and vals attributes.
-            Archive path must be non-None and a string.
-            Target dir must be non-None and a string.
-            Source dir must be non-None and a string.
-            Path replacements must be non-None and a mapping.
-            Exclude patterns must be non-None and a sequence.
-            Vals must be non-None and a mapping.
+            Validates tar processor bundle.
+            Performs validation of all bundle attributes.
+            All attributes must be non-None and instances of their respective interfaces.
 
             :exceptions:
                 | ATSValueError: Archive path must be provided.
@@ -106,32 +120,11 @@ class TarProcessBundle:
         istype(self.exclude_patterns, Sequence, r'exclude_patterns must be a sequence of strings.')
         istype(self.vals, Mapping, r'vals must be a mapping.')
 
-    def merge(self, other: TarProcessBundle) -> None:
-        '''
-            Merges non-None values from another TarProcessBundle into this one.
-
-            :param other: Another TarProcessBundle to merge into this one.
-            :type other: <TarProcessBundle>
-            :exceptions:
-                | ATSValueError: Other TarProcessBundle must be provided.
-                | ATSTypeError: Other must be a TarProcessBundle.
-        '''
-        not_none(other, r'other TarProcessBundle must be provided')
-        istype(other, TarProcessBundle, r'other must be a TarProcessBundle.')
-
-        for field_name in self.__dataclass_fields__:
-            other_value: Any = getattr(other, field_name)
-
-            if other_value is not None:
-                setattr(self, field_name, other_value)
-
-        self.validate()
-
     def to_dict(self) -> dict[str, Any]:
         '''
-            Converts the TarProcessBundle instance to a dictionary.
+            Converts tar process bundle into a dictionary.
 
-            :return: Dictionary representation of the TarProcessBundle instance.
+            :return: Dictionary representation of tar process bundle.
             :rtype: <dict[str, Any]>
             :exceptions: None.
         '''

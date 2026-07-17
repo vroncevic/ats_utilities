@@ -31,19 +31,18 @@ from ats_utilities.generator.tar.itar_processor import ITarProcessor
 from ats_utilities.generator.tar.tar_process_bundle import TarProcessBundle
 from ats_utilities.generator.tar.tar_process_member_bundle import TarProcessMemberBundle
 from ats_utilities.generator.template.itemplate_processor import ITemplateProcessor
-from ats_utilities.generator.template.template_processor import TemplateProcessor
 from ats_utilities.context.context_bundle import ContextBundle
 from ats_utilities.checker.ichecker import IChecker
 from ats_utilities.logger.ilogger import ILogger
 from ats_utilities.reporter.ireporter import IReporter
 from ats_utilities.context.context_bundle_inject import inject_context_bundle
-from ats_utilities.utils.component import make_component, validate_component
 from ats_utilities.utils.reflection import to_str
 from ats_utilities.utils.files import (
     normalize_path, resolve_relative_path, is_excluded_path, apply_path_replacements, write_content
 )
 from ats_utilities.exceptions import ATSGeneratorError
-from ats_utilities.validation.check_value import not_satisfied
+from ats_utilities.validation.check_value import not_satisfied, not_none
+from ats_utilities.validation.check_type import istype
 from ats_utilities.exceptions.format_error import format_error_raw
 
 __author__ = r'Vladimir Roncevic'
@@ -85,22 +84,26 @@ class TarProcessor(ITarProcessor):
 
     def __init__(
         self,
-        context_bundle: ContextBundle | None = None,
-        template_processor: ITemplateProcessor | None = None
+        context_bundle: ContextBundle,
+        template_processor: ITemplateProcessor
     ) -> None:
         '''
             Initializes TarProcessor constructor.
 
-            :param context_bundle: Context bundle for tar processor | None.
-            :type context_bundle: <ContextBundle | None>
-            :param template_processor: Custom template rendering component | None.
-            :type template_processor: <ITemplateProcessor | None>
+            :param context_bundle: Context bundle for tar processor.
+            :type context_bundle: <ContextBundle>
+            :param template_processor: Custom template rendering component.
+            :type template_processor: <ITemplateProcessor>
             :exceptions:
-                | ATSTypeError: Template processor component is not of expected type.
+                | ATSValueError: Context bundle must be provided.
+                | ATSTypeError: Context bundle must be an instance of ContextBundle.
+                | ATSValueError: Template processor must be provided.
+                | ATSTypeError: Template processor must be an instance of ITemplateProcessor.   
         '''
         inject_context_bundle(self, context_bundle)
-        self._template_processor = make_component(template_processor, TemplateProcessor, {'context_bundle': context_bundle})
-        validate_component(self._template_processor, ITemplateProcessor, r'template_processor must be an ITemplateProcessor instance')
+        not_none(template_processor, r'template processor must be provided')
+        istype(template_processor, ITemplateProcessor, r'template processor must be an instance of ITemplateProcessor')
+        self._template_processor = template_processor
 
     @override
     def process_tar_member(self, tar_process_member_bundle: TarProcessMemberBundle) -> None:
@@ -110,8 +113,12 @@ class TarProcessor(ITarProcessor):
             :param tar_process_member_bundle: Parameters defining what to do with the tar archive member.
             :type tar_process_member_bundle: <TarProcessMemberBundle>
             :exceptions:
-                | IOError - If file write or extraction fails.
+                | ATSValueError: Tar process member bundle must be provided.
+                | ATSTypeError: Tar process member bundle must be an instance of TarProcessMemberBundle.
         '''
+        not_none(tar_process_member_bundle, r'tar process member bundle must be provided')
+        istype(tar_process_member_bundle, TarProcessMemberBundle, r'tar process member bundle must be an instance of TarProcessMemberBundle')
+
         if tar_process_member_bundle.member.isdir():
             makedirs(tar_process_member_bundle.dest_full_path, exist_ok=True)
         elif tar_process_member_bundle.member.isfile():
@@ -131,8 +138,13 @@ class TarProcessor(ITarProcessor):
             :param tar_process_bundle: Parameters defining what to do with the tar archive.
             :type tar_process_bundle: <TarProcessBundle>
             :exceptions:
+                | ATSValueError: Tar process bundle must be provided.
+                | ATSTypeError: Tar process bundle must be an instance of TarProcessBundle.
                 | ATSGeneratorError: Archive processing or rendering failed.
         '''
+        not_none(tar_process_bundle, r'tar process bundle must be provided')
+        istype(tar_process_bundle, TarProcessBundle, r'tar process bundle must be an instance of TarProcessBundle')
+
         try:
             makedirs(tar_process_bundle.target_dir, exist_ok=True)
 

@@ -23,7 +23,7 @@ from typing import Any
 from os.path import dirname, realpath
 from ats_utilities.splasher.engine import Splasher
 from ats_utilities.splasher.splash_keys import SplashKeys
-from ats_utilities.splasher.component_bundle import SplashComponentBundle
+from ats_utilities.splasher.component_bundle import SplashBundle
 
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -47,7 +47,7 @@ mytool_property_github: dict[Any, Any] = {
     SplashKeys.ATS_LOGO_PATH: logo_path,
     SplashKeys.ATS_USE_GITHUB_INFRASTRUCTURE: True
 }
-bundle_github = SplashComponentBundle(prop=mytool_property_github)
+bundle_github = SplashBundle(prop=mytool_property_github)
 ats_splash_with_github: Splasher = Splasher(bundle_github)
 print(ats_splash_with_github)
 print(100 * '=')
@@ -63,7 +63,7 @@ mytool_property_no_github: dict[Any, Any] = {
     SplashKeys.ATS_LOGO_PATH: logo_path,
     SplashKeys.ATS_USE_GITHUB_INFRASTRUCTURE: False
 }
-bundle_no_github = SplashComponentBundle(prop=mytool_property_no_github)
+bundle_no_github = SplashBundle(prop=mytool_property_no_github)
 ats_splash_without_github = Splasher(bundle_no_github)
 print(ats_splash_without_github)
 print(100 * '=')
@@ -75,7 +75,7 @@ print(100 * '=')
 mytool_property_disabled: dict[Any, Any] = {
     'enabled': False
 }
-bundle_disabled = SplashComponentBundle(prop=mytool_property_disabled)
+bundle_disabled = SplashBundle(prop=mytool_property_disabled)
 ats_splash_disabled = Splasher(bundle_disabled)
 print(ats_splash_disabled)
 print(100 * '=')

@@ -50,43 +50,45 @@ class ITypeValidator(ABC):
     '''
 
     @abstractmethod
-    def is_match(self, inst: Any, expected_type_name: str) -> bool:
+    def is_match(self, instance: Any, expected_type_name: str) -> bool:
         '''
             Compares instance type with expected type name.
 
-            :param inst: The instance to check
-            :type inst: <Any>
-            :param expected_type_name: The expected type name
+            :param instance: The instance to check.
+            :type instance: <Any>
+            :param expected_type_name: The expected type name.
             :type expected_type_name: <str>
-            :return: True if the types match, False otherwise
+            :return: <True> successfully, <False> otherwise.
             :rtype: <bool>
-            :exceptions: None.
+            :exceptions:
+                | ATSTypeError: Expected type name must be a string.
         '''
         pass
 
     @abstractmethod
-    def is_subtype(self, inst: Any, expected_type_name: str) -> bool:
+    def is_subtype(self, instance: Any, expected_type_name: str) -> bool:
         '''
             Checks if instance is a subtype of expected type name.
 
-            :param inst: The instance to check
-            :type inst: <Any>
-            :param expected_type_name: The expected parent type name
+            :param instance: The instance to check.
+            :type instance: <Any>
+            :param expected_type_name: The expected parent type name.
             :type expected_type_name: <str>
-            :return: True (is), False (not)
+            :return: <True> successfully, <False> otherwise.
             :rtype: <bool>
-            :exceptions: None.
+            :exceptions:
+                | ATSTypeError: Expected type name must be a string.
         '''
         pass
 
     @abstractmethod
-    def get_type_name(self, inst: Any) -> str:
+    def get_type_name(self, instance: Any) -> str:
         '''
             Returns the string representation of an instance type.
 
-            :param inst: The instance to inspect
-            :type inst: <Any>
-            :return: String name of the type
+            :param instance: The instance to inspect.
+            :type instance: <Any>
+            :return: String name of the type.
             :rtype: <str>
             :exceptions: None.
         '''

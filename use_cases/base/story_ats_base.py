@@ -22,7 +22,9 @@ Info
 from os.path import dirname, realpath
 import logging
 from ats_utilities.base.engine import Base
-from ats_utilities.base.component_bundle import BaseComponentBundle
+from ats_utilities.base.base_registry import BaseRegistry
+from ats_utilities.context.context_registry import ContextRegistry
+
 
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -36,11 +38,16 @@ __status__ = r'Development'
 class MyTool(Base):
     '''Concrete implementation of Base for use case illustration.'''
 
-    _INFO_FILE: str = '../../tests/assets/config/correct/ats_cli_cfg_api.cfg'
+    _INFO_FILE: str = '../../tests/assets/config/read_only/ats_cli_cfg_api.cfg'
 
     def __init__(self):
         current_dir: str = dirname(realpath(__file__))
-        super().__init__(BaseComponentBundle(info_file=f'{current_dir}/{self._INFO_FILE}'))
+        super().__init__(
+            BaseRegistry.create_default_base_bundle(
+                info_file=f'{current_dir}/{self._INFO_FILE}',
+                context_bundle=ContextRegistry.create_default_context_bundle()
+            )
+        )
         
         # Log that initialization is complete using both logger and reporter
         context = self.get_shared_context()

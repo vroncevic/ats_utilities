@@ -36,11 +36,10 @@ from ats_utilities.reporter.ireporter import IReporter
 from ats_utilities.config_io.conf_file import ConfFile
 from ats_utilities.config_io.conf_file_bundle import ConfFileBundle
 from ats_utilities.config_io.processor.iconfig_processor import IConfigProcessor
-from ats_utilities.config_io.processor.factory_processor import ConfigProcessorFactory
-from ats_utilities.exceptions import ATSValueError, ATSTypeError
-from ats_utilities.inject_context_bundle import inject_context_bundle
-from ats_utilities.factory_class import to_str
-from ats_utilities.factory_format_error import format_error
+from ats_utilities.context.context_bundle_inject import inject_context_bundle
+from ats_utilities.utils.reflection import to_str
+from ats_utilities.validation.check_value import not_none
+from ats_utilities.validation.check_type import istype
 
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -86,17 +85,17 @@ class Storer(IStorer):
     _processor: IConfigProcessor | None
     _conf_file_bundle: ConfFileBundle
 
-    def __init__(self, component_bundle: ConfigIOBundle | None = None) -> None:
+    def __init__(self, component_bundle: ConfigIOBundle) -> None:
         '''
             Initializes Storer constructor.
 
-            :param format_type: Type of format (xml, json, yaml, ini, cfg).
-            :type format_type: <str>
-            :param config_file: Configuration file path in string format | None.
-            :type config_file: <str | None>
-            :param config_bundle: Configuration file bundle parameters | None.
-            :type config_bundle: <ConfigFileBundle | None>
+            :param component_bundle: Component bundle parameters.
+            :type component_bundle: <ConfigIOBundle>
             :exceptions:
+                | ATSValueError: Component bundle must be provided.
+                | ATSTypeError: Component bundle must be of type ConfigIOBundle.
+                | ATSValueError: Context bundle must be provided.
+                | ATSTypeError: Context bundle must be of type ContextBundle.
                 | ATSValueError: File path must be provided when processor is None.
                 | ATSTypeError: File path must be a string.
                 | ATSValueError: File does not exist.
@@ -105,24 +104,16 @@ class Storer(IStorer):
                 | ATSValueError: Extension is not supported.
                 | ATSTypeError: Validation of processor instance failed.
         '''
-        try:
-            bundle: ConfigIOBundle = component_bundle or ConfigIOBundle()
-            self._context_bundle_shared = bundle.context_bundle
-            inject_context_bundle(self, self._context_bundle_shared)
-            self._processor = ConfigProcessorFactory.create_from_file_path(
-                bundle.file_path, bundle.scheme, bundle.processor
-            )
-            self._conf_file_bundle = ConfFileBundle(
-                file_path=bundle.file_path,
-                file_mode=bundle.WRITE_MODE,
-                context_bundle=self._context_bundle_shared
-            )
-
-        except (ATSTypeError, ATSValueError) as exc:
-            stderr.write(format_error(exc))
-
-        except Exception as exc:
-            stderr.write(format_error(exc, prefix='unexpected exception'))
+        not_none(component_bundle, r'component bundle must be provided')
+        istype(component_bundle, ConfigIOBundle, r'component bundle must be of type ConfigIOBundle')
+        self._context_bundle_shared = component_bundle.context_bundle
+        inject_context_bundle(self, self._context_bundle_shared)
+        self._processor = component_bundle.processor
+        self._conf_file_bundle = ConfFileBundle(
+            file_path=component_bundle.file_path,
+            file_mode=component_bundle.WRITE_MODE,
+            context_bundle=self._context_bundle_shared
+        )
 
     @override
     def get_shared_context(self) -> ContextBundle:

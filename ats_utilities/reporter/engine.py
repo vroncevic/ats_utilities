@@ -82,8 +82,8 @@ class Reporter(IReporter):
             :param component_bundle: Reporter component bundle.
             :type component_bundle: <ReporterBundle>
             :exceptions:
-                | ATSValueError - Component bundle must be provided.
-                | ATSTypeError - Component bundle must be a ReporterBundle instance.
+                | ATSValueError: Component bundle must be provided.
+                | ATSTypeError: Component bundle must be a ReporterBundle instance.
         '''
         not_none(component_bundle, r'component bundle must be provided')
         istype(component_bundle, ReporterBundle, r'component bundle must be a ReporterBundle instance')

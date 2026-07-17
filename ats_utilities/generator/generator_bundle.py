@@ -2,7 +2,7 @@
 
 '''
 Module
-    generator_bundle.py
+    component_bundle.py
 Copyright
     Copyright (C) 2017 - 2026 Vladimir Roncevic <elektron.ronca@gmail.com>
     ats_utilities is free software: you can redistribute it and/or modify it
@@ -22,10 +22,13 @@ Info
 
 from __future__ import annotations
 
-from collections.abc import Mapping
 from dataclasses import dataclass
 from typing import Any
 
+from ats_utilities.context.context_bundle import ContextBundle
+from ats_utilities.generator.scheme.ischeme_loader import ISchemeLoader
+from ats_utilities.generator.tar.itar_processor import ITarProcessor
+from ats_utilities.generator.template.itemplate_processor import ITemplateProcessor
 from ats_utilities.validation.check_value import not_none
 from ats_utilities.validation.check_type import istype
 
@@ -39,7 +42,7 @@ __email__ = r'elektron.ronca@gmail.com'
 __status__ = r'Development'
 
 
-@dataclass(slots=True, kw_only=True)
+@dataclass(slots=True, frozen=True, kw_only=True)
 class GeneratorBundle:
     '''
         Defines class GeneratorBundle with method(s).
@@ -48,83 +51,71 @@ class GeneratorBundle:
         It defines:
 
             :attributes:
-                | archive_path - Path to the .tgz archive.
-                | target_dir - Directory where the project will be generated.
-                | template_key - Key for the template configuration.
-                | scheme - Scheme configuration file path.
-                | template_values - Template values for name case variations.
+                | scheme_loader - Loader/resolver for scheme configuration.
+                | tar_processor - Processor for archive extraction and template rendering.
+                | template_processor - Processor for template rendering.
+                | context_bundle - Context bundle for generator.
             :methods:
-                | validate - Validates that GeneratorBundle is valid (can be called after merge).
-                | merge - Merges non-None values from another GeneratorBundle instance into this one.
-                | to_dict - Converts the GeneratorBundle instance to a dictionary.
+                | __post_init__ - Post-initialization hook to validate generator bundle.
+                | validate - Validates generator bundle.
+                | to_dict - Converts the generator bundle to a dictionary.
     '''
 
-    archive_path: str
-    target_dir: str
-    template_key: str
-    scheme: str | Mapping[str, Any]
-    template_values: Mapping[str, str]
+    scheme_loader: ISchemeLoader
+    tar_processor: ITarProcessor
+    template_processor: ITemplateProcessor
+    context_bundle: ContextBundle
+
+    def __post_init__(self) -> None:
+        '''
+            Post-initialization hook to validate generator bundle.
+
+            :exceptions:
+                | ATSValueError: Context bundle must be provided.
+                | ATSValueError: Scheme loader must be provided.
+                | ATSValueError: Tar processor must be provided.
+                | ATSValueError: Template processor must be provided.
+                | ATSTypeError: Context bundle must be a ContextBundle instance.
+                | ATSTypeError: Scheme loader must be an ISchemeLoader instance.
+                | ATSTypeError: Tar processor must be an ITarProcessor instance.
+                | ATSTypeError: Template processor must be an ITemplateProcessor instance.
+        '''
+        self.validate()
 
     def validate(self) -> None:
         '''
-            Validates that GeneratorBundle is valid (can be called after merge).
-            Performs validation of archive_path, target_dir, template_key, scheme and template_values attributes.
-            Archive path must be non-None and a string.
-            Target dir must be non-None and a string.
-            Template key must be non-None and a string.
-            Scheme must be non-None and a string or a mapping.
-            Template values must be non-None and a mapping.
+            Validates generator bundle.
+            Performs validation of all bundle attributes.
+            All attributes must be non-None and instances of their respective interfaces.
 
             :exceptions:
-                | ATSValueError: Archive path must be provided.
-                | ATSTypeError: Archive path must be a string.
-                | ATSValueError: Target dir must be provided.
-                | ATSTypeError: Target dir must be a string.
-                | ATSValueError: Template key must be provided.
-                | ATSTypeError: Template key must be a string.
-                | ATSValueError: Scheme must be provided.
-                | ATSTypeError: Scheme must be a string or a mapping.
-                | ATSValueError: Template values must be provided.
-                | ATSTypeError: Template values must be a mapping.
+                | ATSValueError: Context bundle must be provided.
+                | ATSValueError: Scheme loader must be provided.
+                | ATSValueError: Tar processor must be provided.
+                | ATSValueError: Template processor must be provided.
+                | ATSTypeError: Context bundle must be a ContextBundle instance.
+                | ATSTypeError: Scheme loader must be an ISchemeLoader instance.
+                | ATSTypeError: Tar processor must be an ITarProcessor instance.
+                | ATSTypeError: Template processor must be an ITemplateProcessor instance.
         '''
-        not_none(self.archive_path, r'archive_path must be provided')
-        istype(self.archive_path, str, r'archive_path must be a string')
-        not_none(self.target_dir, r'target_dir must be provided')
-        istype(self.target_dir, str, r'target_dir must be a string')
-        not_none(self.template_key, r'template_key must be provided')
-        istype(self.template_key, str, r'template_key must be a string')
-        not_none(self.scheme, r'scheme must be provided')
-        istype(self.scheme, (str, Mapping), r'scheme must be a string or a mapping')
-        not_none(self.template_values, r'template_values must be provided')
-        istype(self.template_values, Mapping, r'template_values must be a mapping')
-
-    def merge(self, other: GeneratorBundle) -> None:
-        '''
-            Merges non-None values from another GeneratorBundle instance into this one.
-
-            :param other: Another GeneratorBundle instance to merge into this one.
-            :type other: <GeneratorBundle>
-            :exceptions:
-                | ATSValueError: Other GeneratorBundle must be provided.
-                | ATSTypeError: Other must be a GeneratorBundle.
-        '''
-        not_none(other, r'other GeneratorBundle must be provided')
-        istype(other, GeneratorBundle, r'other must be a GeneratorBundle')
-
-        for field_name in self.__dataclass_fields__:
-            other_value: Any = getattr(other, field_name)
-
-            if other_value is not None:
-                setattr(self, field_name, other_value)
-
-        self.validate()
+        not_none(self.context_bundle, r'context bundle must be provided')
+        not_none(self.scheme_loader, r'scheme loader must be provided')
+        not_none(self.tar_processor, r'tar processor must be provided')
+        not_none(self.template_processor, r'template processor must be provided')
+        istype(self.context_bundle, ContextBundle, r'context bundle must be a ContextBundle instance')
+        istype(self.scheme_loader, ISchemeLoader, r'scheme loader must be an ISchemeLoader instance')
+        istype(self.tar_processor, ITarProcessor, r'tar processor must be an ITarProcessor instance')
+        istype(self.template_processor, ITemplateProcessor, r'template processor must be an ITemplateProcessor instance')
 
     def to_dict(self) -> dict[str, Any]:
         '''
-            Converts the GeneratorBundle instance to a dictionary.
+            Converts the generator bundle to a dictionary.
 
-            :return: Dictionary representation of the GeneratorBundle instance.
+            :return: Dictionary representation of the generator bundle.
             :rtype: <dict[str, Any]>
             :exceptions: None.
         '''
-        return {name: getattr(self, name) for name in self.__slots__}
+        return {
+            field: getattr(self, field)
+            for field in self.__dataclass_fields__
+        }

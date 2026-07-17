@@ -63,8 +63,8 @@ class ConfFile(IConfFile):
                 | _reporter - Injected reporter for messaging (default Reporter).
                 | _verbose - Injected Enable/Disable verbose option (default False).
                 | _file - File instance (default None).
-                | _file_path - Configuration file path (default None).
-                | _file_mode - Configuration file mode (default None).
+                | _file_path - Configuration file path.
+                | _file_mode - Configuration file mode.
             :methods:
                 | __init__ - Initializes ConfFile constructor.
                 | __enter__ - Opens configuration file in mode.
@@ -77,8 +77,8 @@ class ConfFile(IConfFile):
     _reporter: IReporter
     _verbose: bool
     _file: File | None
-    _file_path: str | None
-    _file_mode: str | None
+    _file_path: str
+    _file_mode: str
 
     def __init__(self, file_bundle: ConfFileBundle) -> None:
         '''
@@ -86,13 +86,18 @@ class ConfFile(IConfFile):
 
             :param file_bundle: File configuration bundle.
             :type file_bundle: <ConfFileBundle>
-            :exceptions: None.
+            :exceptions:
+                | ATSValueErro: File bundle must be provided.
+                | ATSValueError: Context bundle must be provided.
+                | ATSTypeError: File bundle must be an instance of ConfFileBundle.
+                | ATSTypeError: Context bundle must be an instance of ContextBundle.
         '''
-        bundle: ConfFileBundle = file_bundle or ConfFileBundle()
-        inject_context_bundle(self, bundle.context_bundle)
+        not_none(file_bundle, r'file bundle must be provided')
+        istype(file_bundle, ConfFileBundle, r'file bundle must be an instance of ConfFileBundle')
+        inject_context_bundle(self, file_bundle.context_bundle)
         self._file = None
-        self._file_path = bundle.file_path
-        self._file_mode = bundle.file_mode
+        self._file_path = file_bundle.file_path
+        self._file_mode = file_bundle.file_mode
 
     @vreport('open file {file_path} with mode {file_mode}')
     @override
@@ -111,8 +116,8 @@ class ConfFile(IConfFile):
                 | ATSTypeError: File path and mode must be strings.
         '''
         not_none(self._file_path, 'file path must be provided')
-        istype(self._file_path, str, 'file path must be a string')
         not_none(self._file_mode, 'file mode must be provided')
+        istype(self._file_path, str, 'file path must be a string')
         istype(self._file_mode, str, 'file mode must be a string')
 
         if 'r' in self._file_mode:
@@ -140,6 +145,7 @@ class ConfFile(IConfFile):
         try:
             if self._file is not None and hasattr(self._file, 'closed') and not self._file.closed:
                 self._file.close()
+
         except Exception:
             pass
         finally:

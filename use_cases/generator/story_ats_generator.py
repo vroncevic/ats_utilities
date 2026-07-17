@@ -23,7 +23,7 @@ import os
 import tempfile
 
 from ats_utilities.generator.engine import Generator
-from ats_utilities.generator.generator_bundle import GeneratorBundle
+from ats_utilities.generator.generator_bundle import GenParamsBundle
 from ats_utilities.generator.scheme.scheme_loader import SchemeLoader
 from ats_utilities.generator.tar.tar_processor import TarProcessor
 from ats_utilities.generator.tar.tar_process_bundle import TarProcessBundle
@@ -59,7 +59,7 @@ print(f"Project Name: {template_values['project_name']}")
 
 # Run generator
 success = generator.generate(
-    GeneratorBundle(
+    GenParamsBundle(
         archive_path=archive_path,
         target_dir=target_dir,
         template_key=template_key,
@@ -107,7 +107,7 @@ print(f"Service Name: {template_values2['service_name']}")
 
 # Run generator
 success2 = generator2.generate(
-    GeneratorBundle(
+    GenParamsBundle(
         archive_path=mini_archive,
         target_dir=target_dir2,
         template_key='mini_service',

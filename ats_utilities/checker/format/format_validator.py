@@ -24,8 +24,9 @@ from __future__ import annotations
 
 from typing import Final, override
 
-from ats_utilities.utils.reflection import to_str
 from ats_utilities.checker.format.iformat_validator import IFormatValidator
+from ats_utilities.validation.check_type import istype
+from ats_utilities.utils.reflection import to_str
 
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -65,8 +66,11 @@ class FormatValidator(IFormatValidator):
             :type exp_type: <str>
             :return: True (success), False (fail).
             :rtype: <bool>
-            :exceptions: None.
+            :exceptions:
+                | ATSTypeError: exp_type must be a string.
         '''
+        istype(exp_type, str, r'expected type must be a string')
+
         return len(exp_type.split(sep=':')) == self.EXPECTED_FORMAT_PARTS
 
     @override
@@ -78,9 +82,12 @@ class FormatValidator(IFormatValidator):
             :type exp_type: <str>
             :return: A tuple containing the split components.
             :rtype: <tuple[str, str]>
-            :exceptions: None.
+            :exceptions:
+                | ATSTypeError: exp_type must be a string.
         '''
+        istype(exp_type, str, r'expected type must be a string')
         parts = exp_type.split(sep=':')
+
         return parts[0], parts[1]
 
     @override

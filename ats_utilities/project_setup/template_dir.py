@@ -78,8 +78,8 @@ class TemplateDir(ITemplateDir):
             :param context_bundle: Context bundle for template dir.
             :type context_bundle: <ContextBundle>
             :exceptions:
-                | ATSValueError - Context bundle must be provided.
-                | ATSTypeError - Context bundle must be a ContextBundle instance.
+                | ATSValueError: Context bundle must be provided.
+                | ATSTypeError: Context bundle must be a ContextBundle instance.
         '''
         inject_context_bundle(self, context_bundle)
         self._template_dir = None

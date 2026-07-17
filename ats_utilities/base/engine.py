@@ -24,26 +24,23 @@ from __future__ import annotations
 
 from abc import abstractmethod
 from typing import Any, override
-from sys import stderr
 
-from ats_utilities.base.component_bundle import BaseComponentBundle
+from ats_utilities.base.base_bundle import BaseBundle
 from ats_utilities.base.ibase import ArgSeq, IBase
 from ats_utilities.checker.ichecker import IChecker
 from ats_utilities.config_io.loader.iloader import ILoader
 from ats_utilities.context.context_bundle import ContextBundle
-from ats_utilities.exceptions import (
-    ATSAttributeError, ATSRuntimeError, ATSTypeError, ATSValueError
-)
 from ats_utilities.logger.ilogger import ILogger
-from ats_utilities.utils.reflection import to_str, has_attrs
-from ats_utilities.context.context_bundle_inject import inject_context_bundle
 from ats_utilities.generator.igenerator import IGenerator
 from ats_utilities.info.iinfo_manager import IInfoManager
 from ats_utilities.option.ioption_manager import IOptionManager
 from ats_utilities.option.option_namespace import OptionNamespace
 from ats_utilities.reporter.ireporter import IReporter
 from ats_utilities.splasher.isplasher import ISplasher
-from ats_utilities.exceptions.format_error import format_error
+from ats_utilities.context.context_bundle_inject import inject_context_bundle
+from ats_utilities.utils.reflection import to_str, has_attrs
+from ats_utilities.validation.check_value import not_none
+from ats_utilities.validation.check_type import istype
 
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -96,41 +93,48 @@ class Base(IBase):
     _options_parser: IOptionManager
     _generator: IGenerator
 
-    def __init__(self, component_bundle: BaseComponentBundle | None = None) -> None:
+    def __init__(self, component_bundle: BaseBundle) -> None:
         '''
             Initializes Base constructor.
 
-            :param component_bundle: Component bundle for base package | None.
-            :type component_bundle: <BaseComponentBundle | None>
-            :exceptions: None.
+            :param component_bundle: Component bundle for base package.
+            :type component_bundle: <BaseBundle>
+            :exceptions:
+                | ATSValueError: Component bundle must be provided.
+                | ATSValueError: Context bundle must be provided.
+                | ATSValueError: Information file must be provided.
+                | ATSValueError: Config loader must be provided.
+                | ATSValueError: Info manager must be provided.
+                | ATSValueError: Options parser must be provided.
+                | ATSValueError: Splasher must be provided.
+                | ATSValueError: Use generator must be provided.
+                | ATSValueError: Context bundle must be provided.
+                | ATSTypeError: Information file must be str.
+                | ATSTypeError: Config loader must be IConfigLoadManager interface.
+                | ATSTypeError: Info manager must be IInfoManager interface.
+                | ATSTypeError: Options parser must be IOptionManager interface.
+                | ATSTypeError: Splasher must be ISplasher interface.
+                | ATSTypeError: Use generator must be bool.
+                | ATSTypeError: Generator must be IGenerator interface or None.
+                | ATSTypeError: Context bundle must be a ContextBundle instance.
         '''
-        self._is_initialized = False
+        not_none(component_bundle, r'component bundle must be provided')
+        istype(component_bundle, BaseBundle, r'component bundle must be an instance of BaseBundle')
+        self._shared_context = component_bundle.context_bundle
+        inject_context_bundle(self, self._shared_context)
+        self._config_loader = component_bundle.config_loader
+        self._info_manager = component_bundle.info_manager
+        self._splasher = component_bundle.splasher
+        self._options_parser = component_bundle.options_parser
+        components: list[Any] = [self._info_manager, self._splasher, self._options_parser]
 
-        try:
-            bundle: BaseComponentBundle = component_bundle or BaseComponentBundle()
-            inject_context_bundle(self, bundle.context_bundle)
-            self._shared_context = bundle.context_bundle
-            self._config_loader = bundle.config_loader
-            self._info_manager = bundle.info_manager
-            self._splasher = bundle.splasher
-            self._options_parser = bundle.options_parser
+        if component_bundle.use_generator:
+            self._generator = component_bundle.generator
+            components.append(self._generator)
 
-            components: list[Any] = [self._info_manager, self._splasher, self._options_parser]
-
-            if bundle.use_generator:
-                self._generator = bundle.generator
-                components.append(self._generator)
-
-            # All components initialized successfully.
-            self._is_initialized = all(
-                component is not None and component.is_initialized() for component in components
-            )
-
-        except (ATSTypeError, ATSValueError, ATSRuntimeError, ATSAttributeError) as exc:
-            stderr.write(format_error(exc))
-
-        except Exception as exc:
-            stderr.write(format_error(exc, prefix='unexpected exception'))
+        self._is_initialized = all(
+            component is not None and component.is_initialized() for component in components
+        )
 
     @override
     def get_shared_context(self) -> ContextBundle:

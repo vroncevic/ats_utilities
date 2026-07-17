@@ -92,13 +92,15 @@ class InfoManager(IInfoManager):
             :type component_bundle: <InfoBundle>
             :exceptions:
                 | ATSValueError: Component bundle must be provided.
-                | ATSTypeError: Component bundle must be an instance of InfoBundle interface.
+                | ATSValueError: Context bundle must be provided.
+                | ATSTypeError: Component bundle must be an instance of InfoBundle.
+                | ATSTypeError: Context bundle must be an instance of ContextBundle.
         '''
         not_none(component_bundle, r'component_bundle must be provided')
-        istype(component_bundle, InfoBundle, r'component_bundle must be an instance of InfoBundle interface')
+        istype(component_bundle, InfoBundle, r'component_bundle must be an instance of InfoBundle')
         self._components = component_bundle
-        inject_context_bundle(self, self._components.context_bundle)
         self._shared_context = self._components.context_bundle
+        inject_context_bundle(self, self._shared_context)
         self.refresh_status()
         self._is_initialized = True
 

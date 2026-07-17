@@ -85,9 +85,11 @@ class ExtInfrastructure(IExtInfrastructure):
         '''
             Initials ExtInfrastructure constructor.
 
-            :param context_bundle: Context bundle for external infrastructure | None.
-            :type context_bundle: <ContextBundle | None>
-            :exceptions: None.
+            :param context_bundle: Context bundle for external infrastructure.
+            :type context_bundle: <ContextBundle>
+            :exceptions:
+                | ATSValueError: Context bundle must be provided.
+                | ATSTypeError: Context bundle must be a ContextBundle instance.
         '''
         inject_context_bundle(self, context_bundle)
         self._infrastructure_property = None

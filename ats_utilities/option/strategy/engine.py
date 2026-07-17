@@ -97,21 +97,24 @@ class ParserStrategy(IParserStrategy):
         '''
             Initializes ParserStrategy constructor.
 
-            :param parameters: Metadata parameters in mapping format (read only data).
-            :type parameters: <Mapping[str, str]>
-            :param context_bundle: Context bundle for parser strategy.
-            :type context_bundle: <ContextBundle>
-            :param parser_class: Injected parser class type.
-            :type parser_class: <type[IArgParser]>
-            :exceptions: None.
+            :param component_bundle: Component bundle for parser strategy.
+            :type component_bundle: <ParserStrategyBundle>
+            :exceptions:
+                | ATSValueError: Component bundle must be provided.
+                | ATSTypeError: Component bundle must be a ParserStrategyBundle instance.
+                | ATSTypeError: Parser class must be an IArgParser subclass.
+                | ATSValueError: Context bundle must be provided.
+                | ATSTypeError: Context bundle must be an instance of ContextBundle.
+                | ATSTypeError: Parser must be an IArgParser instance.
         '''
         not_none(component_bundle, r'component_bundle must be provided')
         istype(component_bundle, ParserStrategyBundle, r'component_bundle must be a ParserStrategyBundle instance')
+        istype(component_bundle.parser_class, type[IArgParser], r'parser_class must be a type[IArgParser]')
         self._shared_context = component_bundle.context_bundle
         inject_context_bundle(self, self._shared_context)
         self._parser_class = component_bundle.parser_class
-        bundle = ParserRegistry.create_parser_bundle_from_dict(component_bundle.parameters, self._shared_context)
-        self._parser = self._parser_class(component_bundle=bundle)
+        parser_bundle = ParserRegistry.create_parser_bundle_from_dict(component_bundle.parameters, self._shared_context)
+        self._parser = self._parser_class(component_bundle=parser_bundle)
         istype(self._parser, IArgParser, r'parser must be an IArgParser instance')
 
     @has_attrs('_parser')

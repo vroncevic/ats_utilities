@@ -78,9 +78,11 @@ class SplashProperty(ISplashProperty):
         '''
             Initials SplashProperty constructor.
 
-            :param context_bundle: Context bundle for splash screen property | None.
-            :type context_bundle: <ContextBundle | None>
-            :exceptions: None.
+            :param context_bundle: Context bundle for splash screen property.
+            :type context_bundle: <ContextBundle>
+            :exceptions:
+                | ATSValueError: Context bundle must be provided.
+                | ATSTypeError: Context bundle must be a ContextBundle instance.
         '''
         inject_context_bundle(self, context_bundle)
         self._splash_keys = None

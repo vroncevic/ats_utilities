@@ -100,8 +100,8 @@ class OptionManager(IOptionManager):
         '''
         not_none(component_bundle, r'component bundle must be provided')
         istype(component_bundle, OptionBundle, r'component bundle must be an OptionBundle instance')
-        inject_context_bundle(self, component_bundle.context_bundle)
         self._shared_context = component_bundle.context_bundle
+        inject_context_bundle(self, self._shared_context)
         self._strategy = component_bundle.strategy
         self._is_initialized = True
 

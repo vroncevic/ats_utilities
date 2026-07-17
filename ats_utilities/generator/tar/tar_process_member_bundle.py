@@ -16,8 +16,8 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Defines parameter bundle dataclass for component dependency management.
-    Encapsulates core runtime components for simplifcation.
+    Defines parameter bundle dataclass for tar member processing.
+    Encapsulates tar member processing parameters.
 '''
 
 from __future__ import annotations
@@ -40,11 +40,11 @@ __email__ = r'elektron.ronca@gmail.com'
 __status__ = r'Development'
 
 
-@dataclass(slots=True, kw_only=True)
+@dataclass(slots=True, frozen=True, kw_only=True)
 class TarProcessMemberBundle:
     '''
-        Defines class TarProcessMemberBundle with method(s).
-        Encapsulates tar member processing parameters for simplifcation.
+        Defines parameter bundle dataclass for tar member processing.
+        Encapsulates tar member processing parameters.
 
         It defines:
 
@@ -54,8 +54,8 @@ class TarProcessMemberBundle:
                 | dest_full_path - Absolute destination file path.
                 | vals - Computed template values for substitution.
             :methods:
-                | validate - Validates that TarProcessMemberBundle is valid (can be called after merge).
-                | merge - Merges non-None values from another TarProcessMemberBundle into this one.
+                | __post_init__ - Post-initialization hook that validates tar process member bundle.
+                | validate - Validates tar process member bundle.
                 | to_dict - Converts the TarProcessMemberBundle instance to a dictionary.
     '''
 
@@ -64,14 +64,27 @@ class TarProcessMemberBundle:
     dest_full_path: str
     vals: Mapping[str, str]
 
+    def __post_init__(self) -> None:
+        '''
+            Post-initialization hook that validates tar process member bundle.
+
+            :exceptions:
+                | ATSValueError: tar must be provided.
+                | ATSValueError: member must be provided.
+                | ATSValueError: dest_full_path must be provided.
+                | ATSValueError: vals must be provided.
+                | ATSTypeError: tar must be a TarFile instance.
+                | ATSTypeError: member must be a TarInfo instance.
+                | ATSTypeError: dest_full_path must be a string.
+                | ATSTypeError: vals must be a mapping.
+        '''
+        self.validate()
+
     def validate(self) -> None:
         '''
-            Validates that TarProcessMemberBundle is valid (can be called after merge).
-            Performs validation of tar, member, dest_full_path and vals attributes.
-            Tar must be non-None and a TarFile instance.
-            Member must be non-None and a TarInfo instance.
-            Dest full path must be non-None and a string.
-            Vals must be non-None and a mapping.
+            Validates tar process member bundle.
+            Performs validation of all bundle attributes.
+            All attributes must be non-None and instances of their respective interfaces.
 
             :exceptions:
                 | ATSValueError: tar must be provided.
@@ -91,27 +104,6 @@ class TarProcessMemberBundle:
         istype(self.member, TarInfo, r'member must be a TarInfo instance.')
         istype(self.dest_full_path, str, r'dest_full_path must be a string.')
         istype(self.vals, Mapping, r'vals must be a mapping.')
-
-    def merge(self, other: TarProcessMemberBundle) -> None:
-        '''
-            Merges non-None values from another TarProcessMemberBundle into this one.
-
-            :param other: Another TarProcessMemberBundle to merge into this one.
-            :type other: <TarProcessMemberBundle>
-            :exceptions:
-                | ATSValueError: Other TarProcessMemberBundle must be provided.
-                | ATSTypeError: Other must be a TarProcessMemberBundle.
-        '''
-        not_none(other, r'other TarProcessMemberBundle must be provided')
-        istype(other, TarProcessMemberBundle, r'other must be a TarProcessMemberBundle.')
-
-        for field_name in self.__dataclass_fields__:
-            other_value: Any = getattr(other, field_name)
-
-            if other_value is not None:
-                setattr(self, field_name, other_value)
-
-        self.validate()
 
     def to_dict(self) -> dict[str, Any]:
         '''

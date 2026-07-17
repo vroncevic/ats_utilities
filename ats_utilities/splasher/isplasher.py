@@ -63,12 +63,14 @@ class ISplasher(ABC):
         pass
 
     @abstractmethod
-    def center(self, splash_center_bundle: SplashCenterBundle | None = None) -> None:
+    def center(self, splash_center_bundle: SplashCenterBundle, text: str) -> None:
         '''
-            Centers console line.
+            Centers console line with given text.
 
-            :param splash_center_bundle: Splash center bundle for centering console output | None.
-            :type splash_center_bundle: <SplashCenterBundle | None>
+            :param splash_center_bundle: Splash center bundle for centering console output.
+            :type splash_center_bundle: <SplashCenterBundle>
+            :param text: Text to center.
+            :type text: <str>
             :exceptions: None.
         '''
         pass

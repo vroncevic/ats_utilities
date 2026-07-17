@@ -73,7 +73,9 @@ class TemplateProcessor(ITemplateProcessor):
 
             :param context_bundle: Context bundle for template processor | None.
             :type context_bundle: <ContextBundle | None>
-            :exceptions: None.
+            :exceptions:
+                | ATSValueError: Context bundle must be provided.
+                | ATSTypeError: Context bundle must be a ContextBundle instance.
         '''
         inject_context_bundle(self, context_bundle)
         self._initialized = True

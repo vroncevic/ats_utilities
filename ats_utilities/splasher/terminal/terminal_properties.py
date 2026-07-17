@@ -81,7 +81,9 @@ class TerminalProperties(ITerminalProperties):
 
             :param context_bundle: Context bundle for terminal properties | None
             :type context_bundle: <ContextBundle | None>
-            :exceptions: None.
+            :exceptions:
+                | ATSValueError: Context bundle must be provided.
+                | ATSTypeError: Context bundle must be an instance of ContextBundle.
         '''
         inject_context_bundle(self, context_bundle)
         self._window_size = None

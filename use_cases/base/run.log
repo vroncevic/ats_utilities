@@ -1,0 +1,21 @@
+07/17/2026 07:45:02 PM - INFO - MyTool initialized successfully
+07/17/2026 07:45:02 PM - INFO - [32mMyTool initialized successfully (Reporter Success)[0m
+07/17/2026 07:45:02 PM - INFO - Processing starting, verbose: True
+07/17/2026 07:45:02 PM - INFO - Performing a specific tool action
+07/17/2026 07:45:02 PM - WARNING - This is a warning log from MyTool action
+07/17/2026 07:45:02 PM - WARNING - [33mThis is a colored warning from MyTool (Reporter Warning)[0m
+07/17/2026 07:45:02 PM - ERROR - [31mThis is a colored error from MyTool (Reporter Error)[0m
+07/17/2026 07:47:18 PM - INFO - MyTool initialized successfully
+07/17/2026 07:47:18 PM - INFO - [32mMyTool initialized successfully (Reporter Success)[0m
+07/17/2026 07:47:18 PM - INFO - Processing starting, verbose: True
+07/17/2026 07:47:18 PM - INFO - Performing a specific tool action
+07/17/2026 07:47:18 PM - WARNING - This is a warning log from MyTool action
+07/17/2026 07:47:18 PM - WARNING - [33mThis is a colored warning from MyTool (Reporter Warning)[0m
+07/17/2026 07:47:18 PM - ERROR - [31mThis is a colored error from MyTool (Reporter Error)[0m
+07/17/2026 07:47:30 PM - INFO - MyTool initialized successfully
+07/17/2026 07:47:30 PM - INFO - [32mMyTool initialized successfully (Reporter Success)[0m
+07/17/2026 07:47:30 PM - INFO - Processing starting, verbose: True
+07/17/2026 07:47:30 PM - INFO - Performing a specific tool action
+07/17/2026 07:47:30 PM - WARNING - This is a warning log from MyTool action
+07/17/2026 07:47:30 PM - WARNING - [33mThis is a colored warning from MyTool (Reporter Warning)[0m
+07/17/2026 07:47:30 PM - ERROR - [31mThis is a colored error from MyTool (Reporter Error)[0m

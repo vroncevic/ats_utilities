@@ -54,7 +54,8 @@ class IContextProvider(ABC):
 
             :param stack_index_caller: Index in the call stack to identify the caller.
             :type stack_index_caller: <int>
-            :exceptions: None.
+            :exceptions:
+                | ATSTypeError: Stack index caller must be an integer.
         '''
         pass
 

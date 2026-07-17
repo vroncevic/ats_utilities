@@ -81,10 +81,14 @@ class ArgParser(ArgumentParser, IArgParser):
             :type context_bundle: <ContextBundle>
             :param kwargs: Additional keyword arguments.
             :type kwargs: <Any>
-            :exceptions: None.
+            :exceptions:
+                | ATSValueError: Component bundle must be provided.
+                | ATSTypeError: Component bundle must be a ParserBundle instance.
+                | ATSValueError: Context bundle must be provided.
+                | ATSTypeError: Context bundle must be an instance of ContextBundle.
         '''
-        not_none(component_bundle, r'component_bundle must be provided')
-        istype(component_bundle, ParserBundle, r'component_bundle must be a ParserBundle instance')
+        not_none(component_bundle, r'component bundle must be provided')
+        istype(component_bundle, ParserBundle, r'component bundle must be a ParserBundle instance')
         super().__init__(
             prog=component_bundle.prog,
             epilog=component_bundle.epilog,

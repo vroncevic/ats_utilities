@@ -26,7 +26,7 @@ from abc import ABC, abstractmethod
 from collections.abc import Mapping
 
 from ats_utilities.context.context_bundle import ContextBundle
-from ats_utilities.generator.generator_bundle import GeneratorBundle
+from ats_utilities.generator.gen_params_bundle import GenParamsBundle
 
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -78,12 +78,12 @@ class IGenerator(ABC):
         pass
 
     @abstractmethod
-    def generate(self, generator_bundle: GeneratorBundle) -> bool:
+    def generate(self, generator_bundle: GenParamsBundle) -> bool:
         '''
             Generates project modules/files from a .tgz archive.
 
             :param generator_bundle: Generator bundle containing template generation parameters.
-            :type generator_bundle: <GeneratorBundle>
+            :type generator_bundle: <GenParamsBundle>
             :return: True if generation was successful, False otherwise.
             :rtype: <bool>
             :exceptions: None.

@@ -48,15 +48,17 @@ class ICheckReporter(ABC):
                 | __str__ - Returns the reporter as string representation.
     '''
     @abstractmethod
-    def build_message_format(self, report_bundle: CheckerReporterBundle | None = None) -> str:
+    def build_message_format(self, report_bundle: CheckerReporterBundle) -> str:
         '''
             Builds the final message report for checker.
 
-            :param report_bundle: Bundle with parameters | None
-            :type report_bundle: <CheckerReporterBundle | None>
+            :param report_bundle: Bundle with parameters.
+            :type report_bundle: <CheckerReporterBundle>
             :return: Formatted message report
             :rtype: <str>
-            :exceptions: None.
+            :exceptions:
+                | ATSValueError: Checker reporter bundle must be provided.
+                | ATSTypeError: Checker reporter bundle must be a CheckerReporterBundle instance.
         '''
         pass
 

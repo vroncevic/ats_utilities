@@ -48,11 +48,11 @@ class CommandOption:
             :attributes:
                 | name - The command line option name.
                 | help_text - Help text for this option.
-                | action - Optional action for this option.
-                | default - Optional default value for this option.
-                | required - True if this option is required.
-                | choices - Optional choices for this option.
-                | nargs - Optional number of arguments for this option.
+                | action - Optional action for this option (default None).
+                | default - Optional default value for this option (default None).
+                | required - True if this option is required (default False).
+                | choices - Optional choices for this option (default None).
+                | nargs - Optional number of arguments for this option (default None).
             :methods:
                 | __post_init__ - Post-initializes CommandOption instance.
                 | validate - Validates that CommandOption instance is valid (can be called after merge).

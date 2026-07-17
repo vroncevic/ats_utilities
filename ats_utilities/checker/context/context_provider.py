@@ -25,8 +25,9 @@ from __future__ import annotations
 from inspect import stack
 from typing import override
 
-from ats_utilities.utils.reflection import to_str
 from ats_utilities.checker.context.icontext_provider import IContextProvider
+from ats_utilities.utils.reflection import to_str
+from ats_utilities.validation.check_type import istype
 
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -74,8 +75,10 @@ class ContextProvider(IContextProvider):
 
             :param stack_index_caller: Index in the call stack to identify the caller.
             :type stack_index_caller: <int>
-            :exceptions: None.
+            :exceptions:
+                | ATSTypeError: Stack index caller must be an integer.
         '''
+        istype(stack_index_caller, int, r'stack index caller must be an integer')
         self._stack_index_caller = stack_index_caller
 
     @override

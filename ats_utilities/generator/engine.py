@@ -23,31 +23,22 @@ Info
 from __future__ import annotations
 
 from collections.abc import Mapping
-from os.path import exists
 from typing import override
-from sys import stderr
 
 from ats_utilities.logger.ilogger import ILogger
 from ats_utilities.checker.ichecker import IChecker
 from ats_utilities.reporter.ireporter import IReporter
 from ats_utilities.context.context_bundle import ContextBundle
-from ats_utilities.exceptions import (
-    ATSAttributeError,
-    ATSGeneratorError,
-    ATSRuntimeError,
-    ATSTypeError,
-    ATSValueError
-)
 from ats_utilities.utils.reflection import to_str
 from ats_utilities.context.context_bundle_inject import inject_context_bundle
-from ats_utilities.generator.component_bundle import GeneratorComponentBundle
 from ats_utilities.generator.generator_bundle import GeneratorBundle
+from ats_utilities.generator.gen_params_bundle import GenParamsBundle
 from ats_utilities.generator.igenerator import IGenerator
 from ats_utilities.generator.scheme.ischeme_loader import ISchemeLoader
 from ats_utilities.generator.tar.itar_processor import ITarProcessor
 from ats_utilities.generator.tar.tar_process_bundle import TarProcessBundle
-from ats_utilities.validation.check_value import not_satisfied, not_empty
-from ats_utilities.exceptions.format_error import format_error
+from ats_utilities.validation.check_value import not_satisfied, not_empty, not_none
+from ats_utilities.validation.check_type import istype
 
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -92,31 +83,33 @@ class Generator(IGenerator):
     _tar_processor: ITarProcessor
     _is_initialized: bool
 
-    def __init__(self, component_bundle: GeneratorComponentBundle | None = None) -> None:
+    def __init__(self, component_bundle: GeneratorBundle) -> None:
         '''
             Initializes Generator constructor.
 
-            :param component_bundle: Generator component bundle for generator | None.
-            :type component_bundle: <GeneratorComponentBundle | None>
-            :exceptions: ATSTypeError.
+            :param component_bundle: Generator component bundle for generator.
+            :type component_bundle: <GeneratorBundle>
+            :exceptions:
+                | ATSValueError: Component bundle must be provided.
+                | ATSValueError: Component bundle must not be provided.
+                | ATSValueError: Context bundle must not be provided.
+                | ATSValueError: Scheme loader must be provided.
+                | ATSValueError: Tar processor must be provided.
+                | ATSValueError: Template processor must be provided.
+                | ATSTypeError: Context bundle must be a ContextBundle instance.
+                | ATSTypeError: Scheme loader must be an ISchemeLoader instance.
+                | ATSTypeError: Tar processor must be an ITarProcessor instance.
+                | ATSTypeError: Template processor must be an ITemplateProcessor instance.
+                | ATSTypeError: Component bundle must be of type GeneratorBundle.
+                | ATSTypeError: Context bundle must be of type ContextBundle.
         '''
-        self._is_initialized = False
-
-        try:
-            bundle = component_bundle or GeneratorComponentBundle()
-            inject_context_bundle(self, bundle.context_bundle)
-            self._shared_context = bundle.context_bundle
-            self._scheme_loader = bundle.scheme_loader
-            self._tar_processor = bundle.tar_processor
-
-            # All components initialized successfully.
-            self._is_initialized = True
-
-        except (ATSTypeError, ATSValueError, ATSRuntimeError, ATSAttributeError) as exc:
-            stderr.write(format_error(exc))
-
-        except Exception as exc:
-            stderr.write(format_error(exc, prefix='unexpected exception'))
+        not_none(component_bundle, 'component bundle must not be provided')
+        istype(component_bundle, GeneratorBundle, 'component bundle must be of type GeneratorBundle')
+        self._shared_context = component_bundle.context_bundle
+        inject_context_bundle(self, self._shared_context)
+        self._scheme_loader = component_bundle.scheme_loader
+        self._tar_processor = component_bundle.tar_processor
+        self._is_initialized = True
 
     @override
     def get_shared_context(self) -> ContextBundle:
@@ -139,45 +132,59 @@ class Generator(IGenerator):
             :return: The updated template values dictionary.
             :rtype: <dict[str, str]>
             :exceptions:
-                | ATSValueError: If project_name is missing or empty.
+                | ATSValueError: Template values must be provided.
+                | ATSTypeError: Template values must be a mapping.
+                | ATSValueError: Template values is missing or empty.
         '''
+        not_none(template_values, r'template_values must be provided')
+        istype(template_values, Mapping, r'template_values must be a mapping')
+
         project_name = template_values.get('project_name')
         not_empty(project_name, f'template values must contain a non-empty {project_name}')
 
-        vals = template_values.copy()
-        if 'project_name_dashed' not in vals:
-            vals['project_name_dashed'] = project_name.replace('_', '-')
-        if 'project_name_camel' not in vals:
-            vals['project_name_camel'] = ''.join(
+        values = template_values.copy()
+        if 'project_name_dashed' not in values:
+            values['project_name_dashed'] = project_name.replace('_', '-')
+        if 'project_name_camel' not in values:
+            values['project_name_camel'] = ''.join(
                 word.capitalize() for word in project_name.replace('-', '_').split('_')
             )
-        if 'project_name_upper' not in vals:
-            vals['project_name_upper'] = project_name.upper().replace('-', '_')
+        if 'project_name_upper' not in values:
+            values['project_name_upper'] = project_name.upper().replace('-', '_')
 
-        return vals
+        return values
 
     @override
-    def generate(self, generator_bundle: GeneratorBundle) -> bool:
+    def generate(self, generator_bundle: GenParamsBundle) -> bool:
         '''
             Generates project modules/files from a .tgz archive.
 
             :param generator_bundle: Generator bundle containing template generation parameters.
-            :type generator_bundle: <GeneratorBundle>
+            :type generator_bundle: <GenParamsBundle>
             :return: True if generation was successful, False otherwise.
             :rtype: <bool>
             :exceptions:
-                | ATSTypeError: If parameters are of invalid type.
-                | ATSValueError: If parameter constraints are violated.
-                | ATSGeneratorError: If archive parsing or template rendering fails.
+                | ATSValueError: Archive path must be provided.
+                | ATSValueError: Target dir must be provided.
+                | ATSValueError: Template key must be provided.
+                | ATSValueError: Scheme must be provided.
+                | ATSValueError: Template values must be provided.
+                | ATSTypeError: Archive path must be a string.
+                | ATSTypeError: Target dir must be a string.
+                | ATSTypeError: Template key must be a string.
+                | ATSTypeError: Scheme must be a string or a mapping.
+                | ATSTypeError: Template values must be a mapping.
+                | ATSValueError: Archive file does not exist.
+                | ATSValueError: Scheme file does not exist.
+                | ATSTypeError: Parameters are of invalid type.
+                | ATSValueError: Parameter constraints are violated.
+                | ATSGeneratorError: Archive parsing or template rendering fails.
         '''
-        generator_bundle.validate()
-        not_satisfied(not exists(generator_bundle.archive_path), f'Archive file does not exist: {generator_bundle.archive_path}')
         resolved_scheme = self._scheme_loader.load(generator_bundle.scheme)
         project_scheme = resolved_scheme.get(generator_bundle.template_key)
         not_satisfied(not project_scheme, f'template_key {generator_bundle.template_key} not found in scheme configuration')
         source_dir = project_scheme.get('source_dir')
         not_satisfied(not source_dir, f'source_dir not specified for template_key {generator_bundle.template_key}')
-
         path_replacements: dict[str, str] = project_scheme.get('path_replacements', {})
         exclude_patterns: list[str] = project_scheme.get('exclude', [])
         vals = self.prepare_template_values(generator_bundle.template_values)
@@ -193,10 +200,11 @@ class Generator(IGenerator):
                     vals=vals
                 )
             )
+
             return True
 
         except Exception as exc:
-            not_satisfied(True, f'generation failed {exc}', ATSGeneratorError)
+            not_satisfied(True, f'generation failed {exc}')
 
     @override
     def is_initialized(self) -> bool:

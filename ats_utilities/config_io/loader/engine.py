@@ -24,7 +24,6 @@ Info
 from __future__ import annotations
 
 from typing import override, Any
-from sys import stderr
 
 from ats_utilities.config_io.loader.iloader import ILoader
 from ats_utilities.context.context_bundle import ContextBundle
@@ -35,11 +34,10 @@ from ats_utilities.reporter.ireporter import IReporter
 from ats_utilities.config_io.conf_file import ConfFile
 from ats_utilities.config_io.conf_file_bundle import ConfFileBundle
 from ats_utilities.config_io.processor.iconfig_processor import IConfigProcessor
-from ats_utilities.config_io.processor.factory_processor import ConfigProcessorFactory
-from ats_utilities.exceptions import ATSValueError, ATSTypeError
 from ats_utilities.context.context_bundle_inject import inject_context_bundle
 from ats_utilities.utils.reflection import to_str
-from ats_utilities.exceptions.format_error import format_error
+from ats_utilities.validation.check_value import not_none
+from ats_utilities.validation.check_type import istype
 
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
@@ -89,6 +87,10 @@ class Loader(ILoader):
             :param component_bundle: Component bundle for dependency injection.
             :type component_bundle: <ConfigIOBundle>
             :exceptions:
+                | ATSTypeError: Component bundle must be an instance of ConfigIOBundle.
+                | ATSValueError: Component bundle must not be None.
+                | ATSValueError: Context bundle must be provided.
+                | ATSTypeError: Context bundle must be an instance of ContextBundle.
                 | ATSValueError: File path must be provided when processor is None.
                 | ATSTypeError: File path must be a string.
                 | ATSValueError: File does not exist.
@@ -97,6 +99,8 @@ class Loader(ILoader):
                 | ATSValueError: Extension is not supported.
                 | ATSTypeError: Validation of processor instance failed.
         '''
+        not_none(component_bundle, r'component bundle must be provided')
+        istype(component_bundle, ConfigIOBundle, r'component bundle must be an instance of ConfigIOBundle')
         self._context_bundle_shared = component_bundle.context_bundle
         inject_context_bundle(self, self._context_bundle_shared)
         self._processor = component_bundle.processor

@@ -52,9 +52,9 @@ class ConfFileBundle:
                 | file_mode - File mode.
                 | context_bundle - Context bundle for dependency injection.
             :methods:
-                | __post_init__ - Post-initialization hook to validate config file bundle.
-                | validate - Validates config file bundle.
-                | to_dict - Converts the config file bundle instance to a dictionary.
+                | __post_init__ - Post-initialization hook to validate conf file bundle.
+                | validate - Validates conf file bundle.
+                | to_dict - Converts the conf file bundle instance to a dictionary.
     '''
 
     file_path: str
@@ -63,7 +63,7 @@ class ConfFileBundle:
 
     def __post_init__(self) -> None:
         '''
-            Post-initialization hook to validate config file bundle.
+            Post-initialization hook to validate conf file bundle.
 
             :exceptions:
                 | ATSValueError: File path must be provided.
@@ -77,7 +77,7 @@ class ConfFileBundle:
 
     def validate(self) -> None:
         '''
-            Validates config file bundle.
+            Validates conf file bundle.
             Performs validation of all bundle attributes.
             All attributes must be non-None and instances of their respective interfaces.
 
@@ -98,9 +98,9 @@ class ConfFileBundle:
 
     def to_dict(self) -> dict[str, Any]:
         '''
-            Converts the config file bundle instance to a dictionary.
+            Converts the conf file bundle instance to a dictionary.
 
-            :return: Dictionary representation of the config file bundle.
+            :return: Dictionary representation of the conf file bundle.
             :rtype: <dict[str, Any]>
             :exceptions: None.
         '''

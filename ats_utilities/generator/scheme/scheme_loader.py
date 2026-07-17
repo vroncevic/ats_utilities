@@ -32,7 +32,6 @@ from ats_utilities.checker.ichecker import IChecker
 from ats_utilities.logger.ilogger import ILogger
 from ats_utilities.reporter.ireporter import IReporter
 from ats_utilities.config_io.loader.engine import Loader
-from ats_utilities.config_io.config_io_bundle import ConfigIOBundle
 from ats_utilities.config_io.config_io_registry import ConfigIORegistry
 from ats_utilities.exceptions import ATSGeneratorError
 from ats_utilities.context.context_bundle_inject import inject_context_bundle
@@ -84,10 +83,12 @@ class SchemeLoader(ISchemeLoader):
 
             :param context_bundle: Context bundle for scheme loader | None.
             :type context_bundle: <ContextBundle | None>
-            :exceptions: None.
+            :exceptions:
+                | ATSValueError: Context bundle must be provided.
+                | ATSTypeError: Context bundle must be a ContextBundle instance.
         '''
-        inject_context_bundle(self, context_bundle)
         self._shared_context = context_bundle
+        inject_context_bundle(self, self._shared_context)
         self._initialized = True
 
     @override
