@@ -109,7 +109,15 @@ These modules requires other modules and libraries (Python 3.x)
 
 ### Framework structure
 
-**ats_utilities** is based on OOP and following SOLID principles and it is organized in packages.
+**ats_utilities** is designed from the ground up around robust, object-oriented paradigms and industrial-grade design patterns. The codebase strictly adheres to SOLID principles and is partitioned into highly decoupled, modular packages.
+
+Design Pillars
+
+Object-Oriented Architecture (OOP): Employs strong encapsulation, strict interface segregation, and clear class hierarchies to model system components.
+
+SOLID Compliance: Engineered to facilitate seamless framework extension without modification (Open/Closed) and to decouple operations via explicit interface abstractions (Dependency Inversion).
+
+Domain-Driven Package Organization: Functionality is organized into dedicated sub-packages—such as registries, bundle dataclasses, engines, and validators—ensuring clear separation of concerns.
 
 <details>
 <summary><b>Click to expand framework structure</b></summary>
