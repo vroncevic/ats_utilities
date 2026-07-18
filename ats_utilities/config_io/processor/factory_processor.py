@@ -27,6 +27,7 @@ from collections.abc import Mapping
 from typing import override
 from pathlib import Path
 
+from ats_utilities.config_io.processor.ifactory_processor import IConfigProcessorFactory
 from ats_utilities.config_io.processor.iconfig_processor import IConfigProcessor
 from ats_utilities.config_io.processor.cfg_processor import CFGProcessor
 from ats_utilities.config_io.processor.ini_processor import INIProcessor
@@ -48,7 +49,7 @@ __email__ = r'elektron.ronca@gmail.com'
 __status__ = r'Development'
 
 
-class ConfigProcessorFactory:
+class ConfigProcessorFactory(IConfigProcessorFactory):
     '''
         Defines class ConfigProcessorFactory with attribute(s) and method(s).
         Creates an API for creating an file processor instance based on the file extension.
