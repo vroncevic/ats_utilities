@@ -23,24 +23,27 @@ Info
 from __future__ import annotations
 
 from collections.abc import Sequence
+from logging import DEBUG, INFO, WARNING, ERROR
 from typing import Any, override
 
 from ats_utilities.reporter.ireporter import IReporter
-from ats_utilities.reporter.component_bundle import ReporterComponentBundle
+from ats_utilities.reporter.reporter_bundle import ReporterBundle
 from ats_utilities.checker.ichecker import IChecker
 from ats_utilities.reporter.theme.iconsole_theme import IConsoleTheme
-from ats_utilities.exceptions import ATSAttributeError, ATSRuntimeError, ATSTypeError, ATSValueError
-from ats_utilities.checker.proxy_validator import vcheck
-from ats_utilities.factory_class import cls_name, to_str
+from ats_utilities.logger.ilogger import ILogger
+from ats_utilities.checker.proxy_validator import mcheck
+from ats_utilities.utils.reflection import to_str
+from ats_utilities.validation.check_value import not_none
+from ats_utilities.validation.check_type import istype
 
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
 __license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = r'3.4.2'
+__version__ = r'3.4.3'
 __maintainer__ = r'Vladimir Roncevic'
 __email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Updated'
+__status__ = r'Development'
 
 
 class Reporter(IReporter):
@@ -51,9 +54,10 @@ class Reporter(IReporter):
         It defines:
 
             :attributes:
-                | _checker - Factorized parameters checker (default Checker).
-                | _theme - Factorized theme for styling messages (default ConsoleTheme).
-                | _is_initialized -  Indicates if the reporter component is initialized (default False).
+                | _checker - Injected parameters checker (default Checker).
+                | _theme - Injected theme for styling messages (default ConsoleTheme).
+                | _logger - Injected logger for reporting messages (default Logger).
+                | _is_initialized -  Indicates if the reporter is initialized (default False).
             :methods:
                 | __init__ - Initializes Reporter.
                 | _report - Utility method for reporting messages to console.
@@ -61,55 +65,52 @@ class Reporter(IReporter):
                 | success - Reports success message to console.
                 | warning - Reports warning message to console.
                 | error - Reports error message to console.
-                | is_initialized - Checks if reporter component is initialized.
+                | set_level - Sets log level.
+                | is_initialized - Checks if reporter is initialized.
                 | __str__ - Returns the string representation of Reporter.
     '''
 
     _checker: IChecker
     _theme: IConsoleTheme
+    _logger: ILogger
     _is_initialized: bool
 
-    def __init__(self, component_bundle: ReporterComponentBundle | None = None) -> None:
+    def __init__(self, component_bundle: ReporterBundle) -> None:
         '''
             Initializes Reporter.
 
-            :param component_bundle: Reporter component bundle | None.
-            :type component_bundle: <ReporterComponentBundle | None>
-            :exceptions: None.
+            :param component_bundle: Reporter component bundle.
+            :type component_bundle: <ReporterBundle>
+            :exceptions:
+                | ATSValueError: Component bundle must be provided.
+                | ATSTypeError: Component bundle must be a ReporterBundle instance.
         '''
-        self._is_initialized = False
+        not_none(component_bundle, r'component bundle must be provided')
+        istype(component_bundle, ReporterBundle, r'component bundle must be a ReporterBundle instance')
+        self._checker = component_bundle.checker
+        self._theme = component_bundle.theme
+        self._logger = component_bundle.logger
+        self._is_initialized = True
 
-        try:
-            # No dependency injection then use default ones.
-            bundle: ReporterComponentBundle = component_bundle or ReporterComponentBundle()
-            self._checker = bundle.checker
-            self._theme = bundle.theme
-
-            # All components initialized successfully.
-            self._is_initialized = True
-
-        except (ATSTypeError, ATSValueError, ATSRuntimeError, ATSAttributeError) as exc:
-            print(f"\x1b[31m{cls_name(self)} {exc}\x1b[0m")
-
-        except Exception as exc:
-            print(f"\x1b[31m{cls_name(self)} unexpected exception: {exc}\x1b[0m")
-
-    def _report(self, message: Sequence[Any], color: str) -> None:
+    def _report(self, message: Sequence[Any], color: str, ctrl: int) -> None:
         '''
-            Utility method for reporting message to console.
+            Utility method for reporting message to log/console.
 
             :param message: Sequence with message components.
             :type message: <Sequence[Any]>
             :param color: Theme color for the message.
             :type color: <str>
+            :param ctrl: Log control flag.
+            :type ctrl: <int>
             :exceptions: None.
         '''
         message_out: str = ' '.join([str(item) for item in message])
 
         if message_out:
-            print(f"{color}{message_out}{self._theme.get_color('reset')}")
+            reset: str = self._theme.get_color('reset')
+            self._logger.write_log(f'{color}{message_out}{reset}', ctrl)
 
-    @vcheck([('bool:is_verbose', None), ('Sequence:message', None)])
+    @mcheck([('bool:is_verbose', None), ('Sequence:message', None)])
     @override
     def verbose(self, is_verbose: bool, message: Sequence[Any]) -> None:
         '''
@@ -126,9 +127,9 @@ class Reporter(IReporter):
                 | ATSAttributeError: Class does not provide a '_checker' object.
         '''
         if is_verbose:
-            self._report(message, self._theme.get_color('verbose'))
+            self._report(message, self._theme.get_color('verbose'), DEBUG)
 
-    @vcheck([('Sequence:message', None)])
+    @mcheck([('Sequence:message', None)])
     @override
     def success(self, message: Sequence[Any]) -> None:
         '''
@@ -142,9 +143,9 @@ class Reporter(IReporter):
                 | ATSRuntimeError: Decorator used on a non-class method.
                 | ATSAttributeError: Class does not provide a '_checker' object.
         '''
-        self._report(message, self._theme.get_color('success'))
+        self._report(message, self._theme.get_color('success'), INFO)
 
-    @vcheck([('Sequence:message', None)])
+    @mcheck([('Sequence:message', None)])
     @override
     def warning(self, message: Sequence[Any]) -> None:
         '''
@@ -158,9 +159,9 @@ class Reporter(IReporter):
                 | ATSRuntimeError: Decorator used on a non-class method.
                 | ATSAttributeError: Class does not provide a '_checker' object.
         '''
-        self._report(message, self._theme.get_color('warning'))
+        self._report(message, self._theme.get_color('warning'), WARNING)
 
-    @vcheck([('Sequence:message', None)])
+    @mcheck([('Sequence:message', None)])
     @override
     def error(self, message: Sequence[Any]) -> None:
         '''
@@ -174,14 +175,33 @@ class Reporter(IReporter):
                 | ATSRuntimeError: Decorator used on a non-class method.
                 | ATSAttributeError: Class does not provide a '_checker' object.
         '''
-        self._report(message, self._theme.get_color('error'))
+        self._report(message, self._theme.get_color('error'), ERROR)
+
+    @mcheck([('int:level', None)])
+    @override
+    def set_level(self, level: int) -> None:
+        '''
+            Sets log level.
+
+            :param level: Log level.
+            :type level: <int>
+            :exceptions:
+                | ATSTypeError: Parameter type validation failed.
+                | ATSValueError: Parameter format validation failed.
+                | ATSRuntimeError: Decorator used on a non-class method.
+                | ATSAttributeError: Class does not provide a '_checker' object.
+        '''
+        if hasattr(self._logger, 'set_level'):
+            self._logger.set_level(level)
+        elif hasattr(self._logger, 'setLevel'):
+            self._logger.setLevel(level)
 
     @override
     def is_initialized(self) -> bool:
         '''
-            Checks if reporter component is initialized.
+            Checks if reporter is initialized.
 
-            :return: True (success) | False (fail)
+            :return: <True> if successful else <False>.
             :rtype: <bool>
             :exceptions: None.
         '''

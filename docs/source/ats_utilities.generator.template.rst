@@ -7,8 +7,8 @@ Submodules
 .. toctree::
    :maxdepth: 4
 
+   ats_utilities.generator.template.engine
    ats_utilities.generator.template.itemplate_processor
-   ats_utilities.generator.template.template_processor
 
 Module contents
 ---------------

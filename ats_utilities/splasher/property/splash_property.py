@@ -27,23 +27,24 @@ from collections.abc import Mapping
 
 from ats_utilities.splasher.property.isplash_property import ISplashProperty
 from ats_utilities.splasher.splash_keys import SplashKeys
-from ats_utilities.context_bundle import ContextBundle
+from ats_utilities.context.context_bundle import ContextBundle
 from ats_utilities.checker.ichecker import IChecker
+from ats_utilities.logger.ilogger import ILogger
 from ats_utilities.reporter.ireporter import IReporter
-from ats_utilities.factory_context_bundle import factory_context_bundle
-from ats_utilities.factory_class import has_attrs, to_str
-from ats_utilities.checker.proxy_validator import vcheck
+from ats_utilities.context.context_bundle_inject import inject_context_bundle
+from ats_utilities.utils.reflection import has_attrs, to_str
+from ats_utilities.checker.proxy_validator import mcheck
 from ats_utilities.reporter.proxy_reporter import vreport
-from ats_utilities.factory_dict_utils import require_keys, has_required_keys
+from ats_utilities.utils.dicts import require_keys, has_required_keys
 
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
 __license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = r'3.4.2'
+__version__ = r'3.4.3'
 __maintainer__ = r'Vladimir Roncevic'
 __email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Updated'
+__status__ = r'Development'
 
 
 class SplashProperty(ISplashProperty):
@@ -56,6 +57,7 @@ class SplashProperty(ISplashProperty):
 
             :attributes:
                 | _checker - Injected parameters checker (default Checker).
+                | _logger - Injected logger (default Logger).
                 | _reporter - Injected reporter for messaging (default Reporter).
                 | _verbose - Injected Enable/Disable verbose option (default False).
                 | _splash_keys - Splash keys for App/Tool/Script splash screen (default None).
@@ -67,19 +69,22 @@ class SplashProperty(ISplashProperty):
     '''
 
     _checker: IChecker
+    _logger: ILogger
     _reporter: IReporter
     _verbose: bool
     _splash_keys: SplashKeys | None
 
-    def __init__(self, context_bundle: ContextBundle | None = None) -> None:
+    def __init__(self, context_bundle: ContextBundle) -> None:
         '''
             Initials SplashProperty constructor.
 
-            :param context_bundle: Context bundle for splash screen property | None.
-            :type context_bundle: <ContextBundle | None>
-            :exceptions: None.
+            :param context_bundle: Context bundle for splash screen property.
+            :type context_bundle: <ContextBundle>
+            :exceptions:
+                | ATSValueError: Context bundle must be provided.
+                | ATSTypeError: Context bundle must be a ContextBundle instance.
         '''
-        factory_context_bundle(self, context_bundle)
+        inject_context_bundle(self, context_bundle)
         self._splash_keys = None
 
     @property
@@ -100,7 +105,7 @@ class SplashProperty(ISplashProperty):
         return self._splash_keys.to_dict() if self._splash_keys is not None else {}
 
     @splash_keys.setter
-    @vcheck([('Mapping:setup', None)])
+    @mcheck([('Mapping:setup', None)])
     @vreport('setting splash property {splash_keys}')
     @override
     def splash_keys(self, setup: Mapping[str, Any]) -> None:

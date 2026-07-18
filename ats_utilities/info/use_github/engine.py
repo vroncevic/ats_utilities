@@ -25,22 +25,23 @@ from __future__ import annotations
 from typing import override
 
 from ats_utilities.info.use_github.iuse_github import IUseGitHub
-from ats_utilities.context_bundle import ContextBundle
+from ats_utilities.context.context_bundle import ContextBundle
 from ats_utilities.checker.ichecker import IChecker
+from ats_utilities.logger.ilogger import ILogger
 from ats_utilities.reporter.ireporter import IReporter
-from ats_utilities.factory_context_bundle import factory_context_bundle
-from ats_utilities.factory_class import to_str
-from ats_utilities.checker.proxy_validator import vcheck
+from ats_utilities.context.context_bundle_inject import inject_context_bundle
+from ats_utilities.utils.reflection import to_str
+from ats_utilities.checker.proxy_validator import mcheck
 from ats_utilities.reporter.proxy_reporter import vreport
 
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
 __license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = r'3.4.2'
+__version__ = r'3.4.3'
 __maintainer__ = r'Vladimir Roncevic'
 __email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Updated'
+__status__ = r'Development'
 
 
 class UseGitHub(IUseGitHub):
@@ -53,6 +54,7 @@ class UseGitHub(IUseGitHub):
 
             :attributes:
                 | _checker - Injected parameters checker (default Checker).
+                | _logger - Injected logger (default Logger).
                 | _reporter - Injected reporter for messaging (default Reporter).
                 | _verbose - Injected Enable/Disable verbose option (default False).
                 | _use_github - The use GitHub infrastructure for App/Tool/Script (default False).
@@ -64,19 +66,22 @@ class UseGitHub(IUseGitHub):
     '''
 
     _checker: IChecker
+    _logger: ILogger
     _reporter: IReporter
     _verbose: bool
     _use_github: bool
 
-    def __init__(self, context_bundle: ContextBundle | None = None) -> None:
+    def __init__(self, context_bundle: ContextBundle) -> None:
         '''
             Initializes UseGitHub constructor.
 
-            :param context_bundle: Context bundle for use_github | None.
-            :type context_bundle: <ContextBundle | None>
-            :exceptions: None.
+            :param context_bundle: Context bundle for use_github.
+            :type context_bundle: <ContextBundle>
+            :exceptions:
+                | ATSValueError: Context bundle must be provided.
+                | ATSTypeError: Context bundle must be an instance of ContextBundle.
         '''
-        factory_context_bundle(self, context_bundle)
+        inject_context_bundle(self, context_bundle)
         self._use_github = False
 
     @property
@@ -97,16 +102,16 @@ class UseGitHub(IUseGitHub):
         return self._use_github
 
     @use_github.setter
-    @vcheck([('bool:use_github', None)])
+    @mcheck([('bool:use_github', None)])
     @vreport('setting use_github {use_github}')
     @override
     def use_github(self, use_github: bool) -> None:
-         '''
-             Property method for setting use GitHub infrastructure.
-             Note: Use GitHub is only prepared when it is set by user (not None).
+        '''
+            Property method for setting use GitHub infrastructure.
+            Note: Use GitHub is only prepared when it is set by user (not None).
 
-             :param use_github: The use GitHub infrastructure.
-             :type use_github: <bool>
+            :param use_github: The use GitHub infrastructure.
+            :type use_github: <bool>
             :exceptions:
                 | ATSRuntimeError: Decorator cannot be used on a standalone function.
                 | ATSAttributeError: Class is required to provide a '_reporter' object to
@@ -115,8 +120,8 @@ class UseGitHub(IUseGitHub):
                 | ATSValueError: Parameter format validation failed.
                 | ATSRuntimeError: Decorator used on a non-class method.
                 | ATSAttributeError: Class does not provide a '_checker' object.
-         '''
-         self._use_github = use_github
+        '''
+        self._use_github = use_github
 
     @vreport('checking use_github {use_github}')
     @override
@@ -125,7 +130,7 @@ class UseGitHub(IUseGitHub):
             Checks is use GitHub infrastructure not None.
             Note: Use GitHub is only prepared when it is set by user (not None).
 
-            :return: True (not None) | False (None).
+            :return: <True> if successful, <False> otherwise.
             :rtype: <bool>
             :exceptions:
                 | ATSRuntimeError: Decorator cannot be used on a standalone function.

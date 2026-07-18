@@ -17,10 +17,11 @@ Submodules
 .. toctree::
    :maxdepth: 4
 
-   ats_utilities.option.component_bundle
    ats_utilities.option.engine
    ats_utilities.option.ioption_manager
+   ats_utilities.option.option_bundle
    ats_utilities.option.option_namespace
+   ats_utilities.option.option_registry
 
 Module contents
 ---------------

@@ -24,17 +24,17 @@ from __future__ import annotations
 
 from abc import ABC, abstractmethod
 
-from ats_utilities.context_bundle import ContextBundle
+from ats_utilities.context.context_bundle import ContextBundle
 from ats_utilities.splasher.splash_center_bundle import SplashCenterBundle
 
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
 __license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = r'3.4.2'
+__version__ = r'3.4.3'
 __maintainer__ = r'Vladimir Roncevic'
 __email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Updated'
+__status__ = r'Development'
 
 
 class ISplasher(ABC):
@@ -63,12 +63,14 @@ class ISplasher(ABC):
         pass
 
     @abstractmethod
-    def center(self, splash_center_bundle: SplashCenterBundle | None = None) -> None:
+    def center(self, splash_center_bundle: SplashCenterBundle, text: str) -> None:
         '''
-            Centers console line.
+            Centers console line with given text.
 
-            :param splash_center_bundle: Splash center bundle for centering console output | None.
-            :type splash_center_bundle: <SplashCenterBundle | None>
+            :param splash_center_bundle: Splash center bundle for centering console output.
+            :type splash_center_bundle: <SplashCenterBundle>
+            :param text: Text to center.
+            :type text: <str>
             :exceptions: None.
         '''
         pass
@@ -78,7 +80,7 @@ class ISplasher(ABC):
         '''
             Checks if splasher is initialized.
 
-            :return: True (success) | False (fail)
+            :return: <True> if successful, <False> otherwise.
             :rtype: <bool>
             :exceptions: None.
         '''

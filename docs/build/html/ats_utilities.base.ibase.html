@@ -79,11 +79,11 @@ Interface for ATS base setup.</p>
 <dt class="field-odd">methods<span class="colon">:</span></dt>
 <dd class="field-odd"><div class="line-block">
 <div class="line">get_shared_context - Returns the shared context.</div>
-<div class="line">is_initialized - Checks if the base component is initialized.</div>
-<div class="line">add_new_option - Adds a new option for the CL interface.</div>
-<div class="line">parse_args - Parses the CLI arguments.</div>
-<div class="line">process - Processes and runs tool operations.</div>
-<div class="line">__str__ - Returns the ATS base as string representation.</div>
+<div class="line">is_initialized - Checks if App/Tool/Script base engine is initialized.</div>
+<div class="line">add_new_option - Adds a new option for App/Tool/Script.</div>
+<div class="line">parse_args - Parses App/Tool/Script arguments.</div>
+<div class="line">process - Processes and runs App/Tool/Script (Abstract).</div>
+<div class="line">__str__ - Returns the App/Tool/Script base as string representation.</div>
 </div>
 </dd>
 </dl>
@@ -96,12 +96,12 @@ Interface for ATS base setup.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="ats_utilities.base.ibase.IBase.add_new_option">
 <em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">add_new_option</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/ats_utilities/base/ibase.html#IBase.add_new_option"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.base.ibase.IBase.add_new_option" title="Link to this definition">¶</a></dt>
-<dd><p>Adds a new option for the CL interface.</p>
+<dd><p>Adds a new option for App/Tool/Script.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>args</strong> (<em>&lt;str&gt;</em>) – Arguments in string form</p></li>
-<li><p><strong>kwargs</strong> (<em>&lt;Any&gt;</em>) – Arguments in Any form</p></li>
+<li><p><strong>args</strong> (<em>&lt;str&gt;</em>) – Arguments in string format.</p></li>
+<li><p><strong>kwargs</strong> (<em>&lt;Any&gt;</em>) – Arguments in Any format.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Exceptions<span class="colon">:</span></dt>
@@ -112,7 +112,7 @@ Interface for ATS base setup.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="ats_utilities.base.ibase.IBase.get_shared_context">
-<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_shared_context</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="ats_utilities.context_bundle.html#ats_utilities.context_bundle.ContextBundle" title="ats_utilities.context_bundle.ContextBundle"><span class="pre">ContextBundle</span></a></span></span><a class="reference internal" href="_modules/ats_utilities/base/ibase.html#IBase.get_shared_context"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.base.ibase.IBase.get_shared_context" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_shared_context</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="ats_utilities.context.context_bundle.html#ats_utilities.context.context_bundle.ContextBundle" title="ats_utilities.context.context_bundle.ContextBundle"><span class="pre">ContextBundle</span></a></span></span><a class="reference internal" href="_modules/ats_utilities/base/ibase.html#IBase.get_shared_context"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.base.ibase.IBase.get_shared_context" title="Link to this definition">¶</a></dt>
 <dd><p>Returns the shared context.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -130,10 +130,10 @@ Interface for ATS base setup.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="ats_utilities.base.ibase.IBase.is_initialized">
 <em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">is_initialized</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="_modules/ats_utilities/base/ibase.html#IBase.is_initialized"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.base.ibase.IBase.is_initialized" title="Link to this definition">¶</a></dt>
-<dd><p>Checks if the base component is initialized.</p>
+<dd><p>Checks if App/Tool/Script base engine is initialized.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>True (success) | False (fail)</p>
+<dd class="field-odd"><p>&lt;True&gt; if successful, &lt;False&gt; otherwise.</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p>&lt;bool&gt;</p>
@@ -147,10 +147,10 @@ Interface for ATS base setup.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="ats_utilities.base.ibase.IBase.parse_args">
 <em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">parse_args</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">argv</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ArgSeq</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="ats_utilities.option.option_namespace.html#ats_utilities.option.option_namespace.OptionNamespace" title="ats_utilities.option.option_namespace.OptionNamespace"><span class="pre">OptionNamespace</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></span><a class="reference internal" href="_modules/ats_utilities/base/ibase.html#IBase.parse_args"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.base.ibase.IBase.parse_args" title="Link to this definition">¶</a></dt>
-<dd><p>Parses the CLI arguments.</p>
+<dd><p>Parses App/Tool/Script arguments.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>argv</strong> (<em>&lt;ArgSeq&gt;</em>) – Sequence of arguments | None</p>
+<dd class="field-odd"><p><strong>argv</strong> (<em>&lt;ArgSeq&gt;</em>) – Sequence of arguments.</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>Options and arguments | None</p>
@@ -167,13 +167,13 @@ Interface for ATS base setup.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="ats_utilities.base.ibase.IBase.process">
 <em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">process</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="_modules/ats_utilities/base/ibase.html#IBase.process"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.base.ibase.IBase.process" title="Link to this definition">¶</a></dt>
-<dd><p>Processes and runs tool operations.</p>
+<dd><p>Processes and runs App/Tool/Script (Abstract).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>verbose</strong> (<em>&lt;bool&gt;</em>) – Enable/Disable verbose option (default False)</p>
+<dd class="field-odd"><p><strong>verbose</strong> (<em>&lt;bool&gt;</em>) – Enable/Disable verbose option (default False).</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>True (success) | False (fail)</p>
+<dd class="field-even"><p>&lt;True&gt; if successful else &lt;False&gt;.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>&lt;bool&gt;</p>

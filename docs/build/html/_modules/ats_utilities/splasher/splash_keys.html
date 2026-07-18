@@ -68,10 +68,10 @@
 <span class="n">__copyright__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;(C) 2026, https://vroncevic.github.io/ats_utilities&#39;</span>
 <span class="n">__credits__</span> <span class="o">=</span> <span class="p">[</span><span class="sa">r</span><span class="s1">&#39;Vladimir Roncevic&#39;</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;Python Software Foundation&#39;</span><span class="p">]</span>
 <span class="n">__license__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE&#39;</span>
-<span class="n">__version__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;3.4.2&#39;</span>
+<span class="n">__version__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;3.4.3&#39;</span>
 <span class="n">__maintainer__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;Vladimir Roncevic&#39;</span>
 <span class="n">__email__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;elektron.ronca@gmail.com&#39;</span>
-<span class="n">__status__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;Updated&#39;</span>
+<span class="n">__status__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;Development&#39;</span>
 
 
 <div class="viewcode-block" id="SplashKeys">
@@ -95,10 +95,12 @@
 <span class="sd">                | logo_path - Path to the logo image (default None).</span>
 <span class="sd">                | use_github_infrastructure - Use GitHub infrastructure (default None).</span>
 <span class="sd">                | enabled - Enable/disable splash screen (default True).</span>
+<span class="sd">                | _key_to_attr - Mapping of constant keys to instance attributes (default None).</span>
 <span class="sd">            :methods:</span>
-<span class="sd">                | __init__ - Initials SplashKeys constructor.</span>
-<span class="sd">                | from_dict - Factory method to safely parse a dictionary into a SplashKeys instance.</span>
-<span class="sd">                | get_all_keys - Returns a tuple of all defined ClassVar keys for the splash screen.</span>
+<span class="sd">                | get_key_to_attr - Returns a read-only mapping of constant keys to instance attributes.</span>
+<span class="sd">                | __post_init__ - Post initials SplashKeys constructor.</span>
+<span class="sd">                | from_dict - Factory method to safely create a SplashKeys instance from a dictionary.</span>
+<span class="sd">                | get_all_keys - Returns an immutable tuple of all defined ClassVar keys for the splash screen.</span>
 <span class="sd">                | to_dict - Converts the SplashKeys instance to a dictionary.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
 
@@ -115,6 +117,19 @@
     <span class="n">use_github_infrastructure</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">enabled</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span>
     <span class="n">_key_to_attr</span><span class="p">:</span> <span class="n">ClassVar</span><span class="p">[</span><span class="n">MappingProxyType</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="k">def</span> <span class="nf">__post_init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">            Post initials SplashKeys constructor.</span>
+<span class="sd">            Safely bypasses frozen restriction via object.__setattr__.</span>
+
+<span class="sd">            :exceptions: None.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">enabled</span><span class="p">:</span>
+            <span class="n">attr_name</span><span class="p">:</span> <span class="nb">str</span>
+
+            <span class="k">for</span> <span class="n">attr_name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_key_to_attr</span><span class="p">()</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+                <span class="nb">object</span><span class="o">.</span><span class="fm">__setattr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">attr_name</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
 
 <div class="viewcode-block" id="SplashKeys.get_key_to_attr">
 <a class="viewcode-back" href="../../../ats_utilities.splasher.splash_keys.html#ats_utilities.splasher.splash_keys.SplashKeys.get_key_to_attr">[docs]</a>
@@ -141,19 +156,6 @@
 
         <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_key_to_attr</span></div>
 
-
-    <span class="k">def</span> <span class="nf">__post_init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">            Post initials SplashKeys constructor.</span>
-<span class="sd">            Safely bypasses frozen restriction via object.__setattr__.</span>
-
-<span class="sd">            :exceptions: None.</span>
-<span class="sd">        &#39;&#39;&#39;</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">enabled</span><span class="p">:</span>
-            <span class="n">attr_name</span><span class="p">:</span> <span class="nb">str</span>
-
-            <span class="k">for</span> <span class="n">attr_name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_key_to_attr</span><span class="p">()</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
-                <span class="nb">object</span><span class="o">.</span><span class="fm">__setattr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">attr_name</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
 
 <div class="viewcode-block" id="SplashKeys.from_dict">
 <a class="viewcode-back" href="../../../ats_utilities.splasher.splash_keys.html#ats_utilities.splasher.splash_keys.SplashKeys.from_dict">[docs]</a>

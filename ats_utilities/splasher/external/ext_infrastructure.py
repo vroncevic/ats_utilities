@@ -27,24 +27,25 @@ from typing import Any, override
 
 from ats_utilities.splasher.external.iext_infrastructure import IExtInfrastructure
 from ats_utilities.splasher.splash_keys import SplashKeys
-from ats_utilities.context_bundle import ContextBundle
+from ats_utilities.context.context_bundle import ContextBundle
 from ats_utilities.checker.ichecker import IChecker
+from ats_utilities.logger.ilogger import ILogger
 from ats_utilities.reporter.ireporter import IReporter
-from ats_utilities.factory_context_bundle import factory_context_bundle
-from ats_utilities.factory_class import has_attrs, to_str
-from ats_utilities.checker.proxy_validator import vcheck
+from ats_utilities.context.context_bundle_inject import inject_context_bundle
+from ats_utilities.utils.reflection import has_attrs, to_str
+from ats_utilities.checker.proxy_validator import mcheck
 from ats_utilities.reporter.proxy_reporter import vreport
-from ats_utilities.factory_dict_utils import require_keys, cherry_pick_dict
-from ats_utilities.factory_value import require_not_empty
+from ats_utilities.utils.dicts import require_keys, cherry_pick_dict
+from ats_utilities.validation.check_value import not_empty
 
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
 __license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = r'3.4.2'
+__version__ = r'3.4.3'
 __maintainer__ = r'Vladimir Roncevic'
 __email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Updated'
+__status__ = r'Development'
 
 
 class ExtInfrastructure(IExtInfrastructure):
@@ -56,8 +57,9 @@ class ExtInfrastructure(IExtInfrastructure):
         It defines:
 
             :attributes:
-                | _required_keys - Required keys for infrastructure property (default frozenset).
+                | _REQUIRED_KEYS - Required keys for infrastructure property (default frozenset).
                 | _checker - Injected parameters checker (default Checker).
+                | _logger - Injected logger (default Logger).
                 | _reporter - Injected reporter for messaging (default Reporter).
                 | _verbose - Injected Enable/Disable verbose option (default False).
                 | _infrastructure_property - Splasher hyperlinks property (default None).
@@ -70,23 +72,26 @@ class ExtInfrastructure(IExtInfrastructure):
                 | __str__ - Returns the string representation of ExtInfrastructure.
     '''
 
-    _required_keys: frozenset[str] = frozenset([
+    _REQUIRED_KEYS: frozenset[str] = frozenset([
         SplashKeys.ATS_NAME, SplashKeys.ATS_ORGANIZATION, SplashKeys.ATS_REPOSITORY
     ])
     _checker: IChecker
+    _logger: ILogger
     _reporter: IReporter
     _verbose: bool
     _infrastructure_property: Mapping[str, Any] | None
 
-    def __init__(self, context_bundle: ContextBundle | None = None) -> None:
+    def __init__(self, context_bundle: ContextBundle) -> None:
         '''
             Initials ExtInfrastructure constructor.
 
-            :param context_bundle: Context bundle for external infrastructure | None.
-            :type context_bundle: <ContextBundle | None>
-            :exceptions: None.
+            :param context_bundle: Context bundle for external infrastructure.
+            :type context_bundle: <ContextBundle>
+            :exceptions:
+                | ATSValueError: Context bundle must be provided.
+                | ATSTypeError: Context bundle must be a ContextBundle instance.
         '''
-        factory_context_bundle(self, context_bundle)
+        inject_context_bundle(self, context_bundle)
         self._infrastructure_property = None
 
     @property
@@ -107,7 +112,7 @@ class ExtInfrastructure(IExtInfrastructure):
         return self._infrastructure_property or {}
 
     @infrastructure_property.setter
-    @vcheck([('Mapping:setup', None)])
+    @mcheck([('Mapping:setup', None)])
     @vreport('setting infrastructure property {infrastructure_property}')
     @override
     def infrastructure_property(self, setup: Mapping[str, Any]) -> None:
@@ -128,8 +133,8 @@ class ExtInfrastructure(IExtInfrastructure):
                 | ATSRuntimeError: Decorator used on a non-class method.
                 | ATSAttributeError: Class does not provide a '_checker' object.
         '''
-        require_keys(setup, self._required_keys)
-        self._infrastructure_property = cherry_pick_dict(setup, self._required_keys)
+        require_keys(setup, self._REQUIRED_KEYS)
+        self._infrastructure_property = cherry_pick_dict(setup, self._REQUIRED_KEYS)
 
     @vreport('getting info text {infrastructure_property}')
     @has_attrs('_infrastructure_property')
@@ -149,7 +154,7 @@ class ExtInfrastructure(IExtInfrastructure):
                 |                    use the @vreport decorator.
         '''
         name: str = self._infrastructure_property.get(SplashKeys.ATS_NAME)
-        require_not_empty(name, r'missing name')
+        not_empty(name, r'missing name')
 
         return f'\x1b]8;;{name}\a{name}\x1b]8;;\a'
 
@@ -171,7 +176,7 @@ class ExtInfrastructure(IExtInfrastructure):
                 |                    use the @vreport decorator.
         '''
         repo: str = self._infrastructure_property.get(SplashKeys.ATS_REPOSITORY)
-        require_not_empty(repo, r'missing repository')
+        not_empty(repo, r'missing repository')
 
         return f'\x1b]8;;{repo}\a{repo}\x1b]8;;\a'
 
@@ -193,7 +198,7 @@ class ExtInfrastructure(IExtInfrastructure):
                 |                    use the @vreport decorator.
         '''
         org: str = self._infrastructure_property.get(SplashKeys.ATS_ORGANIZATION)
-        require_not_empty(org, r'missing organization')
+        not_empty(org, r'missing organization')
 
         return f'\x1b]8;;{org}\a{org}\x1b]8;;\a'
 

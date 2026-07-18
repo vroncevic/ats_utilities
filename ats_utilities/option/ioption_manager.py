@@ -2,7 +2,7 @@
 
 '''
 Module
-    ioption_parser.py
+    ioption_manager.py
 Copyright
     Copyright (C) 2017 - 2026 Vladimir Roncevic <elektron.ronca@gmail.com>
     ats_utilities is free software: you can redistribute it and/or modify it
@@ -29,16 +29,16 @@ from typing import Any
 from ats_utilities.option.command.ioption_command import IOptionCommand
 from ats_utilities.option.option_namespace import OptionNamespace
 from ats_utilities.option.option_namespace import OptArgs
-from ats_utilities.context_bundle import ContextBundle
+from ats_utilities.context.context_bundle import ContextBundle
 
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
 __license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = r'3.4.2'
+__version__ = r'3.4.3'
 __maintainer__ = r'Vladimir Roncevic'
 __email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Updated'
+__status__ = r'Development'
 
 
 class IOptionManager(ABC):
@@ -151,7 +151,7 @@ class IOptionManager(ABC):
         '''
             Checks if option parser component is initialized.
 
-            :return: True (success) | False (fail).
+            :return: <True> if successful, <False> otherwise.
             :rtype: <bool>
             :exceptions: None.
         '''

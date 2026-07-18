@@ -61,25 +61,25 @@
 <span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
 
 <span class="kn">from</span> <span class="nn">collections.abc</span> <span class="kn">import</span> <span class="n">Mapping</span><span class="p">,</span> <span class="n">Sequence</span>
-<span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span><span class="p">,</span> <span class="n">asdict</span>
+<span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span>
 
-<span class="kn">from</span> <span class="nn">ats_utilities.factory_value</span> <span class="kn">import</span> <span class="n">require_not_none</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.factory_type</span> <span class="kn">import</span> <span class="n">check_type</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.validation.check_value</span> <span class="kn">import</span> <span class="n">not_none</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.validation.check_type</span> <span class="kn">import</span> <span class="n">istype</span>
 
 <span class="n">__author__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;Vladimir Roncevic&#39;</span>
 <span class="n">__copyright__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;(C) 2026, https://vroncevic.github.io/ats_utilities&#39;</span>
 <span class="n">__credits__</span> <span class="o">=</span> <span class="p">[</span><span class="sa">r</span><span class="s1">&#39;Vladimir Roncevic&#39;</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;Python Software Foundation&#39;</span><span class="p">]</span>
 <span class="n">__license__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE&#39;</span>
-<span class="n">__version__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;3.4.2&#39;</span>
+<span class="n">__version__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;3.4.3&#39;</span>
 <span class="n">__maintainer__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;Vladimir Roncevic&#39;</span>
 <span class="n">__email__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;elektron.ronca@gmail.com&#39;</span>
-<span class="n">__status__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;Updated&#39;</span>
+<span class="n">__status__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;Development&#39;</span>
 
 
 <div class="viewcode-block" id="TarProcessBundle">
 <a class="viewcode-back" href="../../../../ats_utilities.generator.tar.tar_process_bundle.html#ats_utilities.generator.tar.tar_process_bundle.TarProcessBundle">[docs]</a>
-<span class="nd">@dataclass</span><span class="p">(</span><span class="n">slots</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">kw_only</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="nd">@dataclass</span><span class="p">(</span><span class="n">slots</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">frozen</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">kw_only</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="k">class</span> <span class="nc">TarProcessBundle</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Defines class TarProcessBundle with method(s).</span>
@@ -95,9 +95,9 @@
 <span class="sd">                | exclude_patterns - Patterns of files/directories to exclude.</span>
 <span class="sd">                | vals - Computed template values for substitution.</span>
 <span class="sd">            :methods:</span>
-<span class="sd">                | validate - Validates that TarProcessBundle is valid (can be called after merge).</span>
-<span class="sd">                | merge - Merges non-None values from another TarProcessBundle into this one.</span>
-<span class="sd">                | to_dict - Converts the TarProcessBundle instance to a dictionary.</span>
+<span class="sd">                | __post_init__ - Post-initialization hook to validate tar process bundle.</span>
+<span class="sd">                | validate - Validates tar process bundle.</span>
+<span class="sd">                | to_dict - Converts the tar process bundle into a dictionary.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
 
     <span class="n">archive_path</span><span class="p">:</span> <span class="nb">str</span>
@@ -107,19 +107,9 @@
     <span class="n">exclude_patterns</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span>
     <span class="n">vals</span><span class="p">:</span> <span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span>
 
-<div class="viewcode-block" id="TarProcessBundle.validate">
-<a class="viewcode-back" href="../../../../ats_utilities.generator.tar.tar_process_bundle.html#ats_utilities.generator.tar.tar_process_bundle.TarProcessBundle.validate">[docs]</a>
-    <span class="k">def</span> <span class="nf">validate</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">__post_init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">            Validates that TarProcessBundle is valid (can be called after merge).</span>
-<span class="sd">            Performs validation of archive_path, target_dir, source_dir,</span>
-<span class="sd">            path_replacements, exclude_patterns and vals attributes.</span>
-<span class="sd">            Archive path must be non-None and a string.</span>
-<span class="sd">            Target dir must be non-None and a string.</span>
-<span class="sd">            Source dir must be non-None and a string.</span>
-<span class="sd">            Path replacements must be non-None and a mapping.</span>
-<span class="sd">            Exclude patterns must be non-None and a sequence.</span>
-<span class="sd">            Vals must be non-None and a mapping.</span>
+<span class="sd">            Post-initialization hook to validate tar process bundle.</span>
 
 <span class="sd">            :exceptions:</span>
 <span class="sd">                | ATSValueError: Archive path must be provided.</span>
@@ -135,53 +125,55 @@
 <span class="sd">                | ATSValueError: Values must be provided.</span>
 <span class="sd">                | ATSTypeError: Values must be a mapping.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="n">require_not_none</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">archive_path</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;archive_path must be provided.&#39;</span><span class="p">)</span>
-        <span class="n">require_not_none</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">target_dir</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;target_dir must be provided.&#39;</span><span class="p">)</span>
-        <span class="n">require_not_none</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">source_dir</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;source_dir must be provided.&#39;</span><span class="p">)</span>
-        <span class="n">require_not_none</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">path_replacements</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;path_replacements must be provided.&#39;</span><span class="p">)</span>
-        <span class="n">require_not_none</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">exclude_patterns</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;exclude_patterns must be provided.&#39;</span><span class="p">)</span>
-        <span class="n">require_not_none</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">vals</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;vals must be provided.&#39;</span><span class="p">)</span>
-        <span class="n">check_type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">archive_path</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;archive_path must be a string.&#39;</span><span class="p">)</span>
-        <span class="n">check_type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">target_dir</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;target_dir must be a string.&#39;</span><span class="p">)</span>
-        <span class="n">check_type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">source_dir</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;source_dir must be a string.&#39;</span><span class="p">)</span>
-        <span class="n">check_type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">path_replacements</span><span class="p">,</span> <span class="n">Mapping</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;path_replacements must be a mapping.&#39;</span><span class="p">)</span>
-        <span class="n">check_type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">exclude_patterns</span><span class="p">,</span> <span class="n">Sequence</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;exclude_patterns must be a sequence of strings.&#39;</span><span class="p">)</span>
-        <span class="n">check_type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">vals</span><span class="p">,</span> <span class="n">Mapping</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;vals must be a mapping.&#39;</span><span class="p">)</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">validate</span><span class="p">()</span>
 
-
-<div class="viewcode-block" id="TarProcessBundle.merge">
-<a class="viewcode-back" href="../../../../ats_utilities.generator.tar.tar_process_bundle.html#ats_utilities.generator.tar.tar_process_bundle.TarProcessBundle.merge">[docs]</a>
-    <span class="k">def</span> <span class="nf">merge</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="n">TarProcessBundle</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<div class="viewcode-block" id="TarProcessBundle.validate">
+<a class="viewcode-back" href="../../../../ats_utilities.generator.tar.tar_process_bundle.html#ats_utilities.generator.tar.tar_process_bundle.TarProcessBundle.validate">[docs]</a>
+    <span class="k">def</span> <span class="nf">validate</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">            Merges non-None values from another TarProcessBundle into this one.</span>
+<span class="sd">            Validates tar processor bundle.</span>
+<span class="sd">            Performs validation of all bundle attributes.</span>
+<span class="sd">            All attributes must be non-None and instances of their respective interfaces.</span>
 
-<span class="sd">            :param other: Another TarProcessBundle to merge into this one.</span>
-<span class="sd">            :type other: &lt;TarProcessBundle&gt;</span>
 <span class="sd">            :exceptions:</span>
-<span class="sd">                | ATSTypeError: Other must be a TarProcessBundle.</span>
+<span class="sd">                | ATSValueError: Archive path must be provided.</span>
+<span class="sd">                | ATSTypeError: Archive path must be a string.</span>
+<span class="sd">                | ATSValueError: Target directory must be provided.</span>
+<span class="sd">                | ATSTypeError: Target directory must be a string.</span>
+<span class="sd">                | ATSValueError: Source directory must be provided.</span>
+<span class="sd">                | ATSTypeError: Source directory must be a string.</span>
+<span class="sd">                | ATSValueError: Path replacements must be provided.</span>
+<span class="sd">                | ATSTypeError: Path replacements must be a mapping.</span>
+<span class="sd">                | ATSValueError: Exclude patterns must be provided.</span>
+<span class="sd">                | ATSTypeError: Exclude patterns must be a sequence.</span>
+<span class="sd">                | ATSValueError: Values must be provided.</span>
+<span class="sd">                | ATSTypeError: Values must be a mapping.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="n">check_type</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">TarProcessBundle</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;other must be a TarProcessBundle.&#39;</span><span class="p">)</span>
-
-        <span class="k">for</span> <span class="n">field_name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">__dataclass_fields__</span><span class="p">:</span>
-            <span class="n">other_value</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">field_name</span><span class="p">)</span>
-
-            <span class="k">if</span> <span class="n">other_value</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-                <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">field_name</span><span class="p">,</span> <span class="n">other_value</span><span class="p">)</span>
-
-        <span class="bp">self</span><span class="o">.</span><span class="n">validate</span><span class="p">()</span></div>
+        <span class="n">not_none</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">archive_path</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;archive_path must be provided.&#39;</span><span class="p">)</span>
+        <span class="n">not_none</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">target_dir</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;target_dir must be provided.&#39;</span><span class="p">)</span>
+        <span class="n">not_none</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">source_dir</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;source_dir must be provided.&#39;</span><span class="p">)</span>
+        <span class="n">not_none</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">path_replacements</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;path_replacements must be provided.&#39;</span><span class="p">)</span>
+        <span class="n">not_none</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">exclude_patterns</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;exclude_patterns must be provided.&#39;</span><span class="p">)</span>
+        <span class="n">not_none</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">vals</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;vals must be provided.&#39;</span><span class="p">)</span>
+        <span class="n">istype</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">archive_path</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;archive_path must be a string.&#39;</span><span class="p">)</span>
+        <span class="n">istype</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">target_dir</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;target_dir must be a string.&#39;</span><span class="p">)</span>
+        <span class="n">istype</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">source_dir</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;source_dir must be a string.&#39;</span><span class="p">)</span>
+        <span class="n">istype</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">path_replacements</span><span class="p">,</span> <span class="n">Mapping</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;path_replacements must be a mapping.&#39;</span><span class="p">)</span>
+        <span class="n">istype</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">exclude_patterns</span><span class="p">,</span> <span class="n">Sequence</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;exclude_patterns must be a sequence of strings.&#39;</span><span class="p">)</span>
+        <span class="n">istype</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">vals</span><span class="p">,</span> <span class="n">Mapping</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;vals must be a mapping.&#39;</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="TarProcessBundle.to_dict">
 <a class="viewcode-back" href="../../../../ats_utilities.generator.tar.tar_process_bundle.html#ats_utilities.generator.tar.tar_process_bundle.TarProcessBundle.to_dict">[docs]</a>
     <span class="k">def</span> <span class="nf">to_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">            Converts the TarProcessBundle instance to a dictionary.</span>
+<span class="sd">            Converts tar process bundle into a dictionary.</span>
 
-<span class="sd">            :return: Dictionary representation of the TarProcessBundle instance.</span>
+<span class="sd">            :return: Dictionary representation of tar process bundle.</span>
 <span class="sd">            :rtype: &lt;dict[str, Any]&gt;</span>
 <span class="sd">            :exceptions: None.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="k">return</span> <span class="n">asdict</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div>
+        <span class="k">return</span> <span class="p">{</span><span class="n">name</span><span class="p">:</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span> <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__slots__</span><span class="p">}</span></div>
 </div>
 
 </pre></div>

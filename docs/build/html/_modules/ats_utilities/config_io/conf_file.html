@@ -55,7 +55,8 @@
 <span class="sd">    with this program. If not, see &lt;http://www.gnu.org/licenses/&gt;.</span>
 <span class="sd">Info</span>
 <span class="sd">    Defines class ConfFile with attribute(s) and method(s).</span>
-<span class="sd">    Creates an API for the configuration context manager.</span>
+<span class="sd">    Creates an API for configuration file context manager.</span>
+<span class="sd">    0th level of configuration loader/storer implementation.</span>
 <span class="sd">&#39;&#39;&#39;</span>
 
 <span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
@@ -64,29 +65,26 @@
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">override</span>
 
 <span class="kn">from</span> <span class="nn">ats_utilities.config_io.iconf_file</span> <span class="kn">import</span> <span class="n">IConfFile</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.context_bundle</span> <span class="kn">import</span> <span class="n">ContextBundle</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.config_io.conf_file_bundle</span> <span class="kn">import</span> <span class="n">ConfFileBundle</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.config_io.iconf_file</span> <span class="kn">import</span> <span class="n">File</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.checker.ichecker</span> <span class="kn">import</span> <span class="n">IChecker</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.logger.ilogger</span> <span class="kn">import</span> <span class="n">ILogger</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.reporter.ireporter</span> <span class="kn">import</span> <span class="n">IReporter</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.reporter.proxy_reporter</span> <span class="kn">import</span> <span class="n">vreport</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.config_io.ifile_check</span> <span class="kn">import</span> <span class="n">IFileCheck</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.config_io.file_check</span> <span class="kn">import</span> <span class="n">FileCheck</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.config_io.iconf_file</span> <span class="kn">import</span> <span class="n">File</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.config_io.file_bundle</span> <span class="kn">import</span> <span class="n">FileBundle</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.config_io.config_file_bundle</span> <span class="kn">import</span> <span class="n">ConfigFileBundle</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.factory_context_bundle</span> <span class="kn">import</span> <span class="n">factory_context_bundle</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.factory_component</span> <span class="kn">import</span> <span class="n">make_component</span><span class="p">,</span> <span class="n">validate_component</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.factory_class</span> <span class="kn">import</span> <span class="n">to_str</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.factory_value</span> <span class="kn">import</span> <span class="n">require_not_none</span><span class="p">,</span> <span class="n">require_not_empty</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.factory_type</span> <span class="kn">import</span> <span class="n">check_type</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.context.context_bundle_inject</span> <span class="kn">import</span> <span class="n">inject_context_bundle</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.utils.reflection</span> <span class="kn">import</span> <span class="n">to_str</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.utils.files</span> <span class="kn">import</span> <span class="n">check_file_exists</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.validation.check_value</span> <span class="kn">import</span> <span class="n">not_none</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.validation.check_type</span> <span class="kn">import</span> <span class="n">istype</span>
 
 <span class="n">__author__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;Vladimir Roncevic&#39;</span>
 <span class="n">__copyright__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;(C) 2026, https://vroncevic.github.io/ats_utilities&#39;</span>
 <span class="n">__credits__</span> <span class="o">=</span> <span class="p">[</span><span class="sa">r</span><span class="s1">&#39;Vladimir Roncevic&#39;</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;Python Software Foundation&#39;</span><span class="p">]</span>
 <span class="n">__license__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE&#39;</span>
-<span class="n">__version__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;3.4.2&#39;</span>
+<span class="n">__version__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;3.4.3&#39;</span>
 <span class="n">__maintainer__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;Vladimir Roncevic&#39;</span>
 <span class="n">__email__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;elektron.ronca@gmail.com&#39;</span>
-<span class="n">__status__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;Updated&#39;</span>
+<span class="n">__status__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;Development&#39;</span>
 
 
 <div class="viewcode-block" id="ConfFile">
@@ -94,18 +92,19 @@
 <span class="k">class</span> <span class="nc">ConfFile</span><span class="p">(</span><span class="n">IConfFile</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Defines class ConfFile with attribute(s) and method(s).</span>
-<span class="sd">        Creates an API for the configuration context manager.</span>
-<span class="sd">        Configuration file context manager.</span>
+<span class="sd">        Creates an API for configuration file context manager.</span>
+<span class="sd">        0th level of configuration loader/storer implementation.</span>
 
 <span class="sd">        It defines:</span>
 
 <span class="sd">            :attributes:</span>
 <span class="sd">                | _checker - Injected parameters checker (default Checker).</span>
+<span class="sd">                | _logger - Injected logger for logging (default Logger).</span>
 <span class="sd">                | _reporter - Injected reporter for messaging (default Reporter).</span>
 <span class="sd">                | _verbose - Injected Enable/Disable verbose option (default False).</span>
-<span class="sd">                | _file_path - Configuration file path (default None).</span>
-<span class="sd">                | _file_mode - Configuration file mode (default None).</span>
-<span class="sd">                | _file - File object (default None).</span>
+<span class="sd">                | _file - File instance (default None).</span>
+<span class="sd">                | _file_path - Configuration file path.</span>
+<span class="sd">                | _file_mode - Configuration file mode.</span>
 <span class="sd">            :methods:</span>
 <span class="sd">                | __init__ - Initializes ConfFile constructor.</span>
 <span class="sd">                | __enter__ - Opens configuration file in mode.</span>
@@ -114,77 +113,57 @@
 <span class="sd">    &#39;&#39;&#39;</span>
 
     <span class="n">_checker</span><span class="p">:</span> <span class="n">IChecker</span>
+    <span class="n">_logger</span><span class="p">:</span> <span class="n">ILogger</span>
     <span class="n">_reporter</span><span class="p">:</span> <span class="n">IReporter</span>
     <span class="n">_verbose</span><span class="p">:</span> <span class="nb">bool</span>
     <span class="n">_file</span><span class="p">:</span> <span class="n">File</span> <span class="o">|</span> <span class="kc">None</span>
-    <span class="n">_file_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span>
-    <span class="n">_file_mode</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span>
+    <span class="n">_file_path</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">_file_mode</span><span class="p">:</span> <span class="nb">str</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span>
-        <span class="n">file_bundle</span><span class="p">:</span> <span class="n">FileBundle</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-        <span class="n">config_file_bundle</span><span class="p">:</span> <span class="n">ConfigFileBundle</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file_bundle</span><span class="p">:</span> <span class="n">ConfFileBundle</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Initializes ConfFile constructor.</span>
 
-<span class="sd">            :param file_bundle: File bundle parameters | None.</span>
-<span class="sd">            :type file_bundle: &lt;FileBundle | None&gt;</span>
-<span class="sd">            :param config_file_bundle: File configuration bundle parameters | None.</span>
-<span class="sd">            :type config_file_bundle: &lt;ConfigFileBundle | None&gt;</span>
+<span class="sd">            :param file_bundle: File configuration bundle.</span>
+<span class="sd">            :type file_bundle: &lt;ConfFileBundle&gt;</span>
 <span class="sd">            :exceptions:</span>
-<span class="sd">                | ATSTypeError: File bundle must be a FileBundle instance or None.</span>
-<span class="sd">                | ATSTypeError: Config file bundle must be a ConfigFileBundle instance or None.</span>
-<span class="sd">                | ATSValueError: Missing file path.</span>
-<span class="sd">                | ATSValueError: Missing file mode.</span>
-<span class="sd">                | ATSValueError: Missing file format.</span>
-<span class="sd">                | ATSTypeError: File path must be a string.</span>
-<span class="sd">                | ATSTypeError: File mode must be a string.</span>
-<span class="sd">                | ATSTypeError: File format must be a string.</span>
+<span class="sd">                | ATSValueErro: File bundle must be provided.</span>
+<span class="sd">                | ATSValueError: Context bundle must be provided.</span>
+<span class="sd">                | ATSTypeError: File bundle must be an instance of ConfFileBundle.</span>
+<span class="sd">                | ATSTypeError: Context bundle must be an instance of ContextBundle.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="n">bundle</span><span class="p">:</span> <span class="n">FileBundle</span> <span class="o">=</span> <span class="n">file_bundle</span> <span class="ow">or</span> <span class="n">FileBundle</span><span class="p">()</span>
-        <span class="n">config_bundle</span><span class="p">:</span> <span class="n">ConfigFileBundle</span> <span class="o">=</span> <span class="n">config_file_bundle</span> <span class="ow">or</span> <span class="n">ConfigFileBundle</span><span class="p">()</span>
-        <span class="n">factory_context_bundle</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config_bundle</span><span class="o">.</span><span class="n">context</span><span class="p">)</span>
-        <span class="n">shared_bundle</span><span class="p">:</span> <span class="n">ContextBundle</span> <span class="o">=</span> <span class="n">ContextBundle</span><span class="p">(</span>
-            <span class="n">checker</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_checker</span><span class="p">,</span> <span class="n">reporter</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_reporter</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_verbose</span>
-        <span class="p">)</span>
-        <span class="n">file_checker</span><span class="p">:</span> <span class="n">IFileCheck</span> <span class="o">=</span> <span class="n">make_component</span><span class="p">(</span><span class="n">config_bundle</span><span class="o">.</span><span class="n">file_checker</span><span class="p">,</span> <span class="n">FileCheck</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;config_bundle&#39;</span><span class="p">:</span> <span class="n">shared_bundle</span><span class="p">})</span>
-        <span class="n">validate_component</span><span class="p">(</span><span class="n">file_checker</span><span class="p">,</span> <span class="n">IFileCheck</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;file_checker must be an IFileCheck instance&#39;</span><span class="p">)</span>
-
-        <span class="n">require_not_empty</span><span class="p">(</span><span class="n">bundle</span><span class="o">.</span><span class="n">file_path</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;missing file path&#39;</span><span class="p">)</span>
-        <span class="n">require_not_empty</span><span class="p">(</span><span class="n">bundle</span><span class="o">.</span><span class="n">file_mode</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;missing file mode&#39;</span><span class="p">)</span>
-        <span class="n">require_not_empty</span><span class="p">(</span><span class="n">bundle</span><span class="o">.</span><span class="n">file_format</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;missing file format&#39;</span><span class="p">)</span>
-        <span class="n">check_type</span><span class="p">(</span><span class="n">bundle</span><span class="o">.</span><span class="n">file_path</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;file_path must be a string&#39;</span><span class="p">)</span>
-        <span class="n">check_type</span><span class="p">(</span><span class="n">bundle</span><span class="o">.</span><span class="n">file_mode</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;file_mode must be a string&#39;</span><span class="p">)</span>
-        <span class="n">check_type</span><span class="p">(</span><span class="n">bundle</span><span class="o">.</span><span class="n">file_format</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;file_format must be a string&#39;</span><span class="p">)</span>
-
+        <span class="n">not_none</span><span class="p">(</span><span class="n">file_bundle</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;file bundle must be provided&#39;</span><span class="p">)</span>
+        <span class="n">istype</span><span class="p">(</span><span class="n">file_bundle</span><span class="p">,</span> <span class="n">ConfFileBundle</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;file bundle must be an instance of ConfFileBundle&#39;</span><span class="p">)</span>
+        <span class="n">inject_context_bundle</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file_bundle</span><span class="o">.</span><span class="n">context_bundle</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_file</span> <span class="o">=</span> <span class="kc">None</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_file_path</span> <span class="o">=</span> <span class="kc">None</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_file_mode</span> <span class="o">=</span> <span class="kc">None</span>
-
-        <span class="n">file_checker</span><span class="o">.</span><span class="n">check_path</span><span class="p">(</span><span class="n">bundle</span><span class="o">.</span><span class="n">file_path</span><span class="p">)</span>
-        <span class="n">file_checker</span><span class="o">.</span><span class="n">check_mode</span><span class="p">(</span><span class="n">bundle</span><span class="o">.</span><span class="n">file_mode</span><span class="p">)</span>
-        <span class="n">file_checker</span><span class="o">.</span><span class="n">check_format</span><span class="p">(</span><span class="n">bundle</span><span class="o">.</span><span class="n">file_path</span><span class="p">,</span> <span class="n">bundle</span><span class="o">.</span><span class="n">file_format</span><span class="p">)</span>
-
-        <span class="k">if</span> <span class="n">file_checker</span><span class="o">.</span><span class="n">is_file_ok</span><span class="p">():</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_file_path</span> <span class="o">=</span> <span class="n">bundle</span><span class="o">.</span><span class="n">file_path</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_file_mode</span> <span class="o">=</span> <span class="n">bundle</span><span class="o">.</span><span class="n">file_mode</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_file_path</span> <span class="o">=</span> <span class="n">file_bundle</span><span class="o">.</span><span class="n">file_path</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_file_mode</span> <span class="o">=</span> <span class="n">file_bundle</span><span class="o">.</span><span class="n">file_mode</span>
 
     <span class="nd">@vreport</span><span class="p">(</span><span class="s1">&#39;open file </span><span class="si">{file_path}</span><span class="s1"> with mode </span><span class="si">{file_mode}</span><span class="s1">&#39;</span><span class="p">)</span>
     <span class="nd">@override</span>
-    <span class="k">def</span> <span class="fm">__enter__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">File</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__enter__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">File</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Opens configuration file in mode.</span>
 
-<span class="sd">            :return: File IO object | None.</span>
+<span class="sd">            :return: File IO object.</span>
 <span class="sd">            :rtype: &lt;File&gt;</span>
 <span class="sd">            :exceptions:</span>
 <span class="sd">                | ATSRuntimeError: Decorator cannot be used on a standalone function.</span>
 <span class="sd">                | ATSAttributeError: Class is required to provide a &#39;_reporter&#39; object to</span>
 <span class="sd">                |                    use the @vreport decorator.</span>
+<span class="sd">                | ATSValueError: File path must be provided.</span>
+<span class="sd">                | ATSValueError: File does not exist (when opening in read mode).</span>
+<span class="sd">                | ATSTypeError: File path and mode must be strings.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_file_path</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_file_mode</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_file</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_file_path</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_file_mode</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span>
+        <span class="n">not_none</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_file_path</span><span class="p">,</span> <span class="s1">&#39;file path must be provided&#39;</span><span class="p">)</span>
+        <span class="n">not_none</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_file_mode</span><span class="p">,</span> <span class="s1">&#39;file mode must be provided&#39;</span><span class="p">)</span>
+        <span class="n">istype</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_file_path</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="s1">&#39;file path must be a string&#39;</span><span class="p">)</span>
+        <span class="n">istype</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_file_mode</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="s1">&#39;file mode must be a string&#39;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="s1">&#39;r&#39;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_file_mode</span><span class="p">:</span>
+            <span class="n">check_file_exists</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_file_path</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;file </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_file_path</span><span class="si">}</span><span class="s1"> does not exist&#39;</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_file</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_file_path</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_file_mode</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span>
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_file</span>
 
@@ -203,8 +182,14 @@
 <span class="sd">                | ATSAttributeError: Class is required to provide a &#39;_reporter&#39; object to</span>
 <span class="sd">                |                    use the @vreport decorator.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_file</span> <span class="ow">and</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_file</span><span class="o">.</span><span class="n">closed</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_file</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_file</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_file</span><span class="p">,</span> <span class="s1">&#39;closed&#39;</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_file</span><span class="o">.</span><span class="n">closed</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_file</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+        <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+            <span class="k">pass</span>
+        <span class="k">finally</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_file</span> <span class="o">=</span> <span class="kc">None</span>
 
     <span class="nd">@override</span>
     <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>

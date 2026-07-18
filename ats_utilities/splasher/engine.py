@@ -24,27 +24,31 @@ from __future__ import annotations
 
 from typing import Any, override
 from time import sleep
+from sys import stdout
 
 from ats_utilities.splasher.isplasher import ISplasher
-from ats_utilities.context_bundle import ContextBundle
-from ats_utilities.splasher.component_bundle import SplashComponentBundle
+from ats_utilities.context.context_bundle import ContextBundle
+from ats_utilities.splasher.splash_bundle import SplashBundle
 from ats_utilities.splasher.splash_center_bundle import SplashCenterBundle
+from ats_utilities.splasher.splash_center_registry import SplashCenterRegistry
 from ats_utilities.splasher.splash_keys import SplashKeys
 from ats_utilities.checker.ichecker import IChecker
+from ats_utilities.logger.ilogger import ILogger
 from ats_utilities.reporter.ireporter import IReporter
-from ats_utilities.exceptions import ATSAttributeError, ATSRuntimeError, ATSTypeError, ATSValueError
-from ats_utilities.factory_context_bundle import factory_context_bundle
-from ats_utilities.factory_class import cls_name, to_str
-from ats_utilities.factory_file_utils import check_file_exists
+from ats_utilities.context.context_bundle_inject import inject_context_bundle
+from ats_utilities.utils.reflection import to_str
+from ats_utilities.utils.files import check_file_exists
+from ats_utilities.validation.check_value import not_satisfied, not_none
+from ats_utilities.validation.check_type import istype
 
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
 __license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = r'3.4.2'
+__version__ = r'3.4.3'
 __maintainer__ = r'Vladimir Roncevic'
 __email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Updated'
+__status__ = r'Development'
 
 
 class Splasher(ISplasher):
@@ -55,11 +59,13 @@ class Splasher(ISplasher):
         It defines:
 
             :attributes:
+                | _is_initialized - Indicates if the splasher component is initialized (default False).
+                | _show_splash - Indicates if the splasher should be shown (default False).
                 | _checker - Injected parameters checker (default Checker).
+                | _logger - Injected logger (default Logger).
                 | _reporter - Injected reporter for messaging (default Reporter).
                 | _verbose - Injected Enable/Disable verbose option (default False).
                 | _shared_context - Context bundle with shared context.
-                | _is_initialized - Indicates if the splasher component is initialized (default False).
             :methods:
                 | __init__ - Initials Splasher constructor.
                 | get_shared_context - Returns the shared context.
@@ -68,88 +74,98 @@ class Splasher(ISplasher):
                 | __str__ - Returns the string representation of Splasher.
     '''
 
+    _is_initialized: bool
+    _show_splash: bool
     _checker: IChecker
+    _logger: ILogger
     _reporter: IReporter
     _verbose: bool
-    _is_initialized: bool
     _shared_context: ContextBundle
 
-    def __init__(self, component_bundle: SplashComponentBundle | None = None) -> None:
+    def __init__(self, component_bundle: SplashBundle) -> None:
         '''
             Initials Splasher constructor.
 
-            :param component_bundle: Splash screen component bundle | None.
-            :type component_bundle: <SplashComponentBundle | None>
-            :exceptions: None.
+            :param component_bundle: Splash screen component bundle.
+            :type component_bundle: <SplashBundle>
+            :exceptions:
+                | ATSValueError: Component bundle must be provided.
+                | ATSTypeError: Component bundle must be a SplashBundle instance.
+                | ATSValueError: Context bundle must be provided.
+                | ATSTypeError: Context bundle must be an instance of ContextBundle.
         '''
         self._is_initialized = False
+        self._show_splash = False
+        not_none(component_bundle, r'component_bundle must be provided')
+        istype(component_bundle, SplashBundle, r'component_bundle must be a SplashBundle instance')
+        self._shared_context = component_bundle.context_bundle
+        inject_context_bundle(self, self._shared_context)
 
-        try:
-            bundle: SplashComponentBundle = component_bundle or SplashComponentBundle()
-            factory_context_bundle(self, bundle.context_bundle)
-            self._shared_context = bundle.context_bundle
+        if component_bundle.property_validated:
+            splash_keys = component_bundle.splash_property.splash_keys or {}
 
-            if bundle.property_validated:
-                splash_keys = bundle.splash_property.splash_keys or {}
+            if not splash_keys.get('enabled', True):
+                self._is_initialized = True
 
-                if not splash_keys.get('enabled', True):
-                    self._is_initialized = True
+                return
 
-                    return
+            else:
+                self._show_splash = True
 
-                size: tuple[Any, ...] = bundle.terminal_property.size()
-                splash_center_bundle: SplashCenterBundle = SplashCenterBundle()
+            size: tuple[Any, ...] = component_bundle.terminal_property.size()
 
-                if bool(bundle.prop[SplashKeys.ATS_USE_GITHUB_INFRASTRUCTURE]):
-                    check_file_exists(
-                        bundle.prop[SplashKeys.ATS_LOGO_PATH],
-                        r'application/tool/script logo file path is missing or empty'
-                    )
-                    print("\n")
+            if bool(component_bundle.prop[SplashKeys.ATS_USE_GITHUB_INFRASTRUCTURE]):
+                check_file_exists(
+                    component_bundle.prop[SplashKeys.ATS_LOGO_PATH],
+                    r'App/Tool/Script logo file path not correct'
+                )
+                stdout.write('\n\n')
 
-                    with open(bundle.prop[SplashKeys.ATS_LOGO_PATH], 'r', encoding='utf-8') as scr:
+                try:
+                    with open(component_bundle.prop[SplashKeys.ATS_LOGO_PATH], 'r', encoding='utf-8') as scr:
                         for line in scr:
                             processed_line: str = line.rstrip()
 
                             if bool(processed_line):
-                                splash_center_bundle.columns = int(size[1])
-                                splash_center_bundle.additional_shifter = 0
-                                splash_center_bundle.text = processed_line
-                                self.center(splash_center_bundle)
+                                splash_center_bundle: SplashCenterBundle = SplashCenterRegistry.create_splash_center_bundle(
+                                    columns=int(size[1]),
+                                    additional_shifter=0,
+                                )
 
-                    splash_center_bundle.columns = int(size[1])
-                    splash_center_bundle.additional_shifter = 2
-                    splash_center_bundle.text = bundle.github.get_info_text()
-                    self.center(splash_center_bundle)
-                    splash_center_bundle.text = bundle.github.get_issue_text()
-                    self.center(splash_center_bundle)
-                    splash_center_bundle.text = bundle.github.get_author_text()
-                    self.center(splash_center_bundle)
-                    print("\n")
-                else:
-                    splash_center_bundle.columns = int(size[1])
-                    splash_center_bundle.additional_shifter = 2
-                    splash_center_bundle.text = bundle.ext.get_info_text()
-                    self.center(splash_center_bundle)
-                    splash_center_bundle.text = bundle.ext.get_issue_text()
-                    self.center(splash_center_bundle)
-                    splash_center_bundle.text = bundle.ext.get_author_text()
-                    self.center(splash_center_bundle)
-                    print("\n")
+                                self.center(splash_center_bundle, processed_line)
 
-                for i in range(0, int(size[1]) - int(int(size[1]) / 2)):
-                    bundle.pb.set_and_plot(i + 1, int(size[1]))
-                    sleep(0.01)
-                print()
+                except (OSError, UnicodeDecodeError) as exc:
+                    not_satisfied(True, f'logo file content is invalid {exc}')
 
-                # All components initialized successfully.
-                self._is_initialized = True
+                splash_center_bundle: SplashCenterBundle = SplashCenterRegistry.create_splash_center_bundle(
+                    columns=int(size[1]),
+                    additional_shifter=2,
+                )
 
-        except (ATSTypeError, ATSValueError, ATSRuntimeError, ATSAttributeError) as exc:
-            print(f"\x1b[31m{cls_name(self)} {exc}\x1b[0m")
+                self.center(splash_center_bundle, component_bundle.github.get_info_text())
+                self.center(splash_center_bundle, component_bundle.github.get_issue_text())
+                self.center(splash_center_bundle, component_bundle.github.get_author_text())
+                stdout.write('\n\n')
+            else:
+                splash_center_bundle: SplashCenterBundle = SplashCenterRegistry.create_splash_center_bundle(
+                    columns=int(size[1]),
+                    additional_shifter=2,
+                )
 
-        except Exception as exc:
-            print(f"\x1b[31m{cls_name(self)} unexpected exception: {exc}\x1b[0m")
+                self.center(splash_center_bundle, component_bundle.ext.get_info_text())
+                self.center(splash_center_bundle, component_bundle.ext.get_issue_text())
+                self.center(splash_center_bundle, component_bundle.ext.get_author_text())
+                stdout.write('\n\n')
+                self.center(splash_center_bundle, component_bundle.ext.get_issue_text())
+                self.center(splash_center_bundle, component_bundle.ext.get_author_text())
+                stdout.write('\n\n')
+
+            for i in range(0, int(size[1]) - int(int(size[1]) / 2)):
+                component_bundle.pb.set_and_plot(i + 1, int(size[1]))
+                sleep(0.01)
+            stdout.write('\n')
+
+        self._is_initialized = True
 
     @override
     def get_shared_context(self) -> ContextBundle:
@@ -163,32 +179,29 @@ class Splasher(ISplasher):
         return self._shared_context
 
     @override
-    def center(self, splash_center_bundle: SplashCenterBundle | None = None) -> None:
+    def center(self, splash_center_bundle: SplashCenterBundle, text: str = '') -> None:
         '''
-            Centers console line.
+            Centers console line with given text.
 
-            :param splash_center_bundle: Splash center bundle for centering console output | None.
-            :type splash_center_bundle: <SplashCenterBundle | None>
-            :exceptions:
-                | ATSTypeError: columns count 'columns' is not an integer.
-                | ATSValueError: columns count 'columns' is less than 0.
-                | ATSTypeError: additional shifter 'additional_shifter' is not an integer.
-                | ATSValueError: additional shifter 'additional_shifter' is less than 0.
-                | ATSTypeError: text 'text' is not a string or None.
-                | ATSValueError: text 'text' is empty.
+            :param splash_center_bundle: Splash center bundle for centering console output.
+            :type splash_center_bundle: <SplashCenterBundle>
+            :param text: Text to center.
+            :type text: <str>
+            :exceptions: None.
         '''
-        bundle: SplashCenterBundle = splash_center_bundle or SplashCenterBundle()
-        bundle.validate()
-        start_position: float = (bundle.columns / 2) - 30
-        number_of_tabs = int((start_position / 8) - 1 + bundle.additional_shifter)
-        print('{0}{1}'.format('\011' * number_of_tabs, bundle.text))
+        if not self._show_splash:
+            return
+
+        start_position: float = (splash_center_bundle.columns / 2) - 30
+        number_of_tabs = int((start_position / 8) - 1 + splash_center_bundle.additional_shifter)
+        stdout.write('{0}{1}\n'.format('\011' * number_of_tabs, text))
 
     @override
     def is_initialized(self) -> bool:
         '''
             Checks if splasher component is initialized.
 
-            :return: True (success) | False (fail).
+            :return: <True> if successful, <False> otherwise.
             :rtype: <bool>
             :exceptions: None.
         '''

@@ -63,17 +63,18 @@
 <span class="kn">from</span> <span class="nn">inspect</span> <span class="kn">import</span> <span class="n">stack</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">override</span>
 
-<span class="kn">from</span> <span class="nn">ats_utilities.factory_class</span> <span class="kn">import</span> <span class="n">to_str</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.checker.context.icontext_provider</span> <span class="kn">import</span> <span class="n">IContextProvider</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.utils.reflection</span> <span class="kn">import</span> <span class="n">to_str</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.validation.check_type</span> <span class="kn">import</span> <span class="n">istype</span>
 
 <span class="n">__author__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;Vladimir Roncevic&#39;</span>
 <span class="n">__copyright__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;(C) 2026, https://vroncevic.github.io/ats_utilities&#39;</span>
 <span class="n">__credits__</span> <span class="o">=</span> <span class="p">[</span><span class="sa">r</span><span class="s1">&#39;Vladimir Roncevic&#39;</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;Python Software Foundation&#39;</span><span class="p">]</span>
 <span class="n">__license__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE&#39;</span>
-<span class="n">__version__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;3.4.2&#39;</span>
+<span class="n">__version__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;3.4.3&#39;</span>
 <span class="n">__maintainer__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;Vladimir Roncevic&#39;</span>
 <span class="n">__email__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;elektron.ronca@gmail.com&#39;</span>
-<span class="n">__status__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;Updated&#39;</span>
+<span class="n">__status__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;Development&#39;</span>
 
 
 <div class="viewcode-block" id="ContextProvider">
@@ -116,8 +117,10 @@
 
 <span class="sd">            :param stack_index_caller: Index in the call stack to identify the caller.</span>
 <span class="sd">            :type stack_index_caller: &lt;int&gt;</span>
-<span class="sd">            :exceptions: None.</span>
+<span class="sd">            :exceptions:</span>
+<span class="sd">                | ATSTypeError: Stack index caller must be an integer.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
+        <span class="n">istype</span><span class="p">(</span><span class="n">stack_index_caller</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;stack index caller must be an integer&#39;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_stack_index_caller</span> <span class="o">=</span> <span class="n">stack_index_caller</span></div>
 
 

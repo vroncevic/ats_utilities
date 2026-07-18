@@ -24,17 +24,18 @@ from __future__ import annotations
 
 from typing import Final, override
 
-from ats_utilities.factory_class import to_str
 from ats_utilities.checker.format.iformat_validator import IFormatValidator
+from ats_utilities.validation.check_type import istype
+from ats_utilities.utils.reflection import to_str
 
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
 __license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = r'3.4.2'
+__version__ = r'3.4.3'
 __maintainer__ = r'Vladimir Roncevic'
 __email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Updated'
+__status__ = r'Development'
 
 
 class FormatValidator(IFormatValidator):
@@ -50,7 +51,7 @@ class FormatValidator(IFormatValidator):
             :methods:
                 | is_valid - Checks if the string follows the expected format.
                 | split - Splits the format string into type and name parts.
-                | __str__ - Returns the format vcheck as string representation.
+                | __str__ - Returns the format mcheck as string representation.
     '''
 
     EXPECTED_FORMAT_PARTS: Final[int] = 2
@@ -59,14 +60,17 @@ class FormatValidator(IFormatValidator):
     def is_valid(self, exp_type: str) -> bool:
         '''
             Checks if the string follows the expected format.
-            Checks if the string follows the "type:name" format.
+            Checks if the string follows the type:name format.
 
             :param exp_type: The expected format string to validate.
             :type exp_type: <str>
             :return: True (success), False (fail).
             :rtype: <bool>
-            :exceptions: None.
+            :exceptions:
+                | ATSTypeError: exp_type must be a string.
         '''
+        istype(exp_type, str, r'expected type must be a string')
+
         return len(exp_type.split(sep=':')) == self.EXPECTED_FORMAT_PARTS
 
     @override
@@ -78,17 +82,20 @@ class FormatValidator(IFormatValidator):
             :type exp_type: <str>
             :return: A tuple containing the split components.
             :rtype: <tuple[str, str]>
-            :exceptions: None.
+            :exceptions:
+                | ATSTypeError: exp_type must be a string.
         '''
+        istype(exp_type, str, r'expected type must be a string')
         parts = exp_type.split(sep=':')
+
         return parts[0], parts[1]
 
     @override
     def __str__(self) -> str:
         '''
-            Returns the format vcheck as string representation.
+            Returns the format mcheck as string representation.
 
-            :return: The format vcheck as string representation.
+            :return: The format mcheck as string representation.
             :rtype: <str>
             :exceptions: None.
         '''

@@ -19,31 +19,62 @@ Info
     Use cases for ATS version.
 '''
 
+from logging import INFO, WARNING
 from os.path import dirname, realpath
+from typing import override
+
 from ats_utilities.base.engine import Base
-from ats_utilities.base.component_bundle import BaseComponentBundle
+from ats_utilities.base.base_registry import BaseRegistry
+from ats_utilities.context.context_registry import ContextRegistry
 
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
 __license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = r'3.4.2'
+__version__ = r'3.4.3'
 __maintainer__ = r'Vladimir Roncevic'
 __email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Updated'
+__status__ = r'Development'
 
 class MyTool(Base):
     '''Concrete implementation of Base for use case illustration.'''
 
-    _INFO_FILE: str = '../../tests/assets/config/correct/ats_cli_cfg_api.cfg'
+    _INFO_FILE: str = '../../tests/assets/config/read_only/ats_cli_cfg_api.cfg'
 
     def __init__(self):
         current_dir: str = dirname(realpath(__file__))
-        super().__init__(BaseComponentBundle(info_file=f'{current_dir}/{self._INFO_FILE}'))
+        super().__init__(
+            BaseRegistry.create_default_base_bundle(
+                info_file=f'{current_dir}/{self._INFO_FILE}',
+                context_bundle=ContextRegistry.create_default_context_bundle()
+            )
+        )
 
+        # Log that initialization is complete using both logger and reporter
+        context = self.get_shared_context()
+        my_logger = context.logger
+        my_reporter = context.reporter
+
+        my_logger.write_log('MyTool initialized successfully', INFO)
+        my_reporter.success(['MyTool initialized successfully (Reporter Success)'])
+
+    @override
     def process(self, verbose: bool = False) -> bool:
+        context = self.get_shared_context()
+        context.logger.write_log(f'Processing starting, verbose: {verbose}', INFO)
+        context.reporter.verbose(verbose, [f'Processing starting, verbose: {verbose} (Reporter Verbose)'])
         print(f'Overwrite result {verbose} ...')
         return verbose
+
+    def perform_action(self) -> None:
+        '''A new method showing logging and reporting with different levels and colors.'''
+        context = self.get_shared_context()
+        context.logger.write_log('Performing a specific tool action', INFO)
+        context.logger.write_log('This is a warning log from MyTool action', WARNING)
+
+        # Color logs via reporter
+        context.reporter.warning(['This is a colored warning from MyTool (Reporter Warning)'])
+        context.reporter.error(['This is a colored error from MyTool (Reporter Error)'])
 
 tool: MyTool = MyTool()
 
@@ -52,5 +83,7 @@ print(f'Result: {result}')
 
 if tool.is_initialized():
     result = tool.process(True)
+    tool.perform_action()
 
 print(f'Result: {result}')
+print(str(tool))

@@ -64,17 +64,17 @@
 <span class="kn">from</span> <span class="nn">collections.abc</span> <span class="kn">import</span> <span class="n">Sequence</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span>
 
-<span class="kn">from</span> <span class="nn">ats_utilities.context_bundle</span> <span class="kn">import</span> <span class="n">ContextBundle</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.context.context_bundle</span> <span class="kn">import</span> <span class="n">ContextBundle</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.option.option_namespace</span> <span class="kn">import</span> <span class="n">OptionNamespace</span>
 
 <span class="n">__author__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;Vladimir Roncevic&#39;</span>
 <span class="n">__copyright__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;(C) 2026, https://vroncevic.github.io/ats_utilities&#39;</span>
 <span class="n">__credits__</span> <span class="o">=</span> <span class="p">[</span><span class="sa">r</span><span class="s1">&#39;Vladimir Roncevic&#39;</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;Python Software Foundation&#39;</span><span class="p">]</span>
 <span class="n">__license__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE&#39;</span>
-<span class="n">__version__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;3.4.2&#39;</span>
+<span class="n">__version__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;3.4.3&#39;</span>
 <span class="n">__maintainer__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;Vladimir Roncevic&#39;</span>
 <span class="n">__email__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;elektron.ronca@gmail.com&#39;</span>
-<span class="n">__status__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;Updated&#39;</span>
+<span class="n">__status__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;Development&#39;</span>
 
 <span class="c1"># Optional string sequence type</span>
 <span class="nb">type</span> <span class="n">ArgSeq</span> <span class="o">=</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span>
@@ -91,11 +91,11 @@
 
 <span class="sd">            :methods:</span>
 <span class="sd">                | get_shared_context - Returns the shared context.</span>
-<span class="sd">                | is_initialized - Checks if the base component is initialized.</span>
-<span class="sd">                | add_new_option - Adds a new option for the CL interface.</span>
-<span class="sd">                | parse_args - Parses the CLI arguments.</span>
-<span class="sd">                | process - Processes and runs tool operations.</span>
-<span class="sd">                | __str__ - Returns the ATS base as string representation.</span>
+<span class="sd">                | is_initialized - Checks if App/Tool/Script base engine is initialized.</span>
+<span class="sd">                | add_new_option - Adds a new option for App/Tool/Script.</span>
+<span class="sd">                | parse_args - Parses App/Tool/Script arguments.</span>
+<span class="sd">                | process - Processes and runs App/Tool/Script (Abstract).</span>
+<span class="sd">                | __str__ - Returns the App/Tool/Script base as string representation.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
 
 <div class="viewcode-block" id="IBase.get_shared_context">
@@ -117,9 +117,9 @@
     <span class="nd">@abstractmethod</span>
     <span class="k">def</span> <span class="nf">is_initialized</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">            Checks if the base component is initialized.</span>
+<span class="sd">            Checks if App/Tool/Script base engine is initialized.</span>
 
-<span class="sd">            :return: True (success) | False (fail)</span>
+<span class="sd">            :return: &lt;True&gt; if successful, &lt;False&gt; otherwise.</span>
 <span class="sd">            :rtype: &lt;bool&gt;</span>
 <span class="sd">            :exceptions: None.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
@@ -131,11 +131,11 @@
     <span class="nd">@abstractmethod</span>
     <span class="k">def</span> <span class="nf">add_new_option</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">            Adds a new option for the CL interface.</span>
+<span class="sd">            Adds a new option for App/Tool/Script.</span>
 
-<span class="sd">            :param args: Arguments in string form</span>
+<span class="sd">            :param args: Arguments in string format.</span>
 <span class="sd">            :type args: &lt;str&gt;</span>
-<span class="sd">            :param kwargs: Arguments in Any form</span>
+<span class="sd">            :param kwargs: Arguments in Any format.</span>
 <span class="sd">            :type kwargs: &lt;Any&gt;</span>
 <span class="sd">            :exceptions: None.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
@@ -147,9 +147,9 @@
     <span class="nd">@abstractmethod</span>
     <span class="k">def</span> <span class="nf">parse_args</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">argv</span><span class="p">:</span> <span class="n">ArgSeq</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">OptionNamespace</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">            Parses the CLI arguments.</span>
+<span class="sd">            Parses App/Tool/Script arguments.</span>
 
-<span class="sd">            :param argv: Sequence of arguments | None</span>
+<span class="sd">            :param argv: Sequence of arguments.</span>
 <span class="sd">            :type argv: &lt;ArgSeq&gt;</span>
 <span class="sd">            :return: Options and arguments | None</span>
 <span class="sd">            :rtype: &lt;OptionNamespace | None&gt;</span>
@@ -163,11 +163,11 @@
     <span class="nd">@abstractmethod</span>
     <span class="k">def</span> <span class="nf">process</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">verbose</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">            Processes and runs tool operations.</span>
+<span class="sd">            Processes and runs App/Tool/Script (Abstract).</span>
 
-<span class="sd">            :param verbose: Enable/Disable verbose option (default False)</span>
+<span class="sd">            :param verbose: Enable/Disable verbose option (default False).</span>
 <span class="sd">            :type verbose: &lt;bool&gt;</span>
-<span class="sd">            :return: True (success) | False (fail)</span>
+<span class="sd">            :return: &lt;True&gt; if successful else &lt;False&gt;.</span>
 <span class="sd">            :rtype: &lt;bool&gt;</span>
 <span class="sd">            :exceptions: None.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
@@ -177,9 +177,9 @@
     <span class="nd">@abstractmethod</span>
     <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">            Returns the ATS base as string representation.</span>
+<span class="sd">            Returns the App/Tool/Script base as string representation.</span>
 
-<span class="sd">            :return: The ATS base as string representation.</span>
+<span class="sd">            :return: The App/Tool/Script base as string representation.</span>
 <span class="sd">            :rtype: &lt;str&gt;</span>
 <span class="sd">            :exceptions: None.</span>
 <span class="sd">        &#39;&#39;&#39;</span>

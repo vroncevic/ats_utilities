@@ -28,10 +28,10 @@ __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
 __license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = r'3.4.2'
+__version__ = r'3.4.3'
 __maintainer__ = r'Vladimir Roncevic'
 __email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Updated'
+__status__ = r'Development'
 
 
 class IFormatValidator(ABC):
@@ -44,7 +44,7 @@ class IFormatValidator(ABC):
             :methods:
                 | is_valid - Checks if the string follows the expected format.
                 | split - Splits the format string into components.
-                | __str__ - Returns the vcheck as string representation.
+                | __str__ - Returns the mcheck as string representation.
     '''
 
     @abstractmethod
@@ -76,9 +76,9 @@ class IFormatValidator(ABC):
     @abstractmethod
     def __str__(self) -> str:
         '''
-            Returns the vcheck as string representation.
+            Returns the mcheck as string representation.
 
-            :return: The vcheck as string representation.
+            :return: The mcheck as string representation.
             :rtype: <str>
             :exceptions: None.
         '''

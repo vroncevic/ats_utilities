@@ -61,30 +61,34 @@
 <span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
 
 <span class="kn">import</span> <span class="nn">sys</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">NoReturn</span><span class="p">,</span> <span class="n">override</span>
 <span class="kn">from</span> <span class="nn">argparse</span> <span class="kn">import</span> <span class="n">ArgumentParser</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">NoReturn</span><span class="p">,</span> <span class="n">override</span>
 
-<span class="kn">from</span> <span class="nn">ats_utilities.context_bundle</span> <span class="kn">import</span> <span class="n">ContextBundle</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.option.parser.iarg_parser</span> <span class="kn">import</span> <span class="n">IArgParser</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.option.parser.parser_bundle</span> <span class="kn">import</span> <span class="n">ParserBundle</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.checker.ichecker</span> <span class="kn">import</span> <span class="n">IChecker</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.logger.ilogger</span> <span class="kn">import</span> <span class="n">ILogger</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.reporter.ireporter</span> <span class="kn">import</span> <span class="n">IReporter</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.factory_context_bundle</span> <span class="kn">import</span> <span class="n">factory_context_bundle</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.factory_class</span> <span class="kn">import</span> <span class="n">to_str</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.checker.proxy_validator</span> <span class="kn">import</span> <span class="n">vcheck</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.context.context_bundle_inject</span> <span class="kn">import</span> <span class="n">inject_context_bundle</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.utils.reflection</span> <span class="kn">import</span> <span class="n">to_str</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.checker.proxy_validator</span> <span class="kn">import</span> <span class="n">mcheck</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.reporter.proxy_reporter</span> <span class="kn">import</span> <span class="n">vreport</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.validation.check_type</span> <span class="kn">import</span> <span class="n">istype</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.validation.check_value</span> <span class="kn">import</span> <span class="n">not_none</span>
 
 <span class="n">__author__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;Vladimir Roncevic&#39;</span>
 <span class="n">__copyright__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;(C) 2026, https://vroncevic.github.io/ats_utilities&#39;</span>
 <span class="n">__credits__</span> <span class="o">=</span> <span class="p">[</span><span class="sa">r</span><span class="s1">&#39;Vladimir Roncevic&#39;</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;Python Software Foundation&#39;</span><span class="p">]</span>
 <span class="n">__license__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE&#39;</span>
-<span class="n">__version__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;3.4.2&#39;</span>
+<span class="n">__version__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;3.4.3&#39;</span>
 <span class="n">__maintainer__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;Vladimir Roncevic&#39;</span>
 <span class="n">__email__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;elektron.ronca@gmail.com&#39;</span>
-<span class="n">__status__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;Updated&#39;</span>
+<span class="n">__status__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;Development&#39;</span>
 
 
 <div class="viewcode-block" id="ArgParser">
 <a class="viewcode-back" href="../../../../ats_utilities.option.parser.engine.html#ats_utilities.option.parser.engine.ArgParser">[docs]</a>
-<span class="k">class</span> <span class="nc">ArgParser</span><span class="p">(</span><span class="n">ArgumentParser</span><span class="p">):</span>
+<span class="k">class</span> <span class="nc">ArgParser</span><span class="p">(</span><span class="n">ArgumentParser</span><span class="p">,</span> <span class="n">IArgParser</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Defines class ArgParser with attribute(s) and method(s).</span>
 <span class="sd">        Custom ArgumentParser to route errors to IReporter.</span>
@@ -93,42 +97,59 @@
 
 <span class="sd">            :attributes:</span>
 <span class="sd">                | _checker - Injected parameters checker (default Checker).</span>
+<span class="sd">                | _logger - Injected logger (default Logger).</span>
 <span class="sd">                | _reporter - Injected reporter for messaging (default Reporter).</span>
 <span class="sd">                | _verbose - Injected Enable/Disable verbose option (default False).</span>
 <span class="sd">            :methods:</span>
 <span class="sd">                | __init__ - Initials ArgParser constructor.</span>
 <span class="sd">                | error - Overrides default error handling to use IReporter.</span>
-<span class="sd">                | _reporter - Returns the reporter instance.</span>
 <span class="sd">                | __str__ - Returns the string representation of ArgParser.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
 
     <span class="n">_checker</span><span class="p">:</span> <span class="n">IChecker</span>
+    <span class="n">_logger</span><span class="p">:</span> <span class="n">ILogger</span>
     <span class="n">_reporter</span><span class="p">:</span> <span class="n">IReporter</span>
     <span class="n">_verbose</span><span class="p">:</span> <span class="nb">bool</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span>
-        <span class="o">*</span><span class="n">args</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
-        <span class="n">context_bundle</span><span class="p">:</span> <span class="n">ContextBundle</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-        <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">component_bundle</span><span class="p">:</span> <span class="n">ParserBundle</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Initializes ArgParser constructor.</span>
 
-<span class="sd">            :param args: Additional positional arguments.</span>
-<span class="sd">            :type args: &lt;Any&gt;</span>
-<span class="sd">            :param context_bundle: Context bundle for argument parser | None.</span>
-<span class="sd">            :type context_bundle: &lt;ContextBundle | None&gt;</span>
+<span class="sd">            :param component_bundle: Bundle with components for argument parser.</span>
+<span class="sd">            :type component_bundle: &lt;ParserBundle | None&gt;</span>
 <span class="sd">            :param kwargs: Additional keyword arguments.</span>
 <span class="sd">            :type kwargs: &lt;Any&gt;</span>
-<span class="sd">            :exceptions: None.</span>
+<span class="sd">            :exceptions:</span>
+<span class="sd">                | ATSValueError: Component bundle must be provided.</span>
+<span class="sd">                | ATSTypeError: Component bundle must be a ParserBundle instance.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-        <span class="n">factory_context_bundle</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context_bundle</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">component_bundle</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">not_none</span><span class="p">(</span><span class="n">component_bundle</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;component bundle must be provided&#39;</span><span class="p">)</span>
+            <span class="n">istype</span><span class="p">(</span><span class="n">component_bundle</span><span class="p">,</span> <span class="n">ParserBundle</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;component bundle must be a ParserBundle instance&#39;</span><span class="p">)</span>
+            <span class="n">prog</span> <span class="o">=</span> <span class="n">component_bundle</span><span class="o">.</span><span class="n">prog</span>
+            <span class="n">epilog</span> <span class="o">=</span> <span class="n">component_bundle</span><span class="o">.</span><span class="n">epilog</span>
+            <span class="n">description</span> <span class="o">=</span> <span class="n">component_bundle</span><span class="o">.</span><span class="n">description</span>
+            <span class="n">context_bundle</span> <span class="o">=</span> <span class="n">component_bundle</span><span class="o">.</span><span class="n">context_bundle</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="kn">from</span> <span class="nn">ats_utilities.context.context_registry</span> <span class="kn">import</span> <span class="n">ContextRegistry</span>
+            <span class="n">prog</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;prog&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+            <span class="n">epilog</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;epilog&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+            <span class="n">description</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;description&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+            <span class="n">context_bundle</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;context_bundle&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">context_bundle</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">context_bundle</span> <span class="o">=</span> <span class="n">ContextRegistry</span><span class="o">.</span><span class="n">create_default_context_bundle</span><span class="p">()</span>
+
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
+            <span class="n">prog</span><span class="o">=</span><span class="n">prog</span><span class="p">,</span>
+            <span class="n">epilog</span><span class="o">=</span><span class="n">epilog</span><span class="p">,</span>
+            <span class="n">description</span><span class="o">=</span><span class="n">description</span><span class="p">,</span>
+            <span class="o">**</span><span class="n">kwargs</span>
+        <span class="p">)</span>
+        <span class="n">inject_context_bundle</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context_bundle</span><span class="p">)</span>
 
 <div class="viewcode-block" id="ArgParser.error">
 <a class="viewcode-back" href="../../../../ats_utilities.option.parser.engine.html#ats_utilities.option.parser.engine.ArgParser.error">[docs]</a>
-    <span class="nd">@vcheck</span><span class="p">([(</span><span class="s1">&#39;str:message&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)])</span>
+    <span class="nd">@mcheck</span><span class="p">([(</span><span class="s1">&#39;str:message&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)])</span>
     <span class="nd">@vreport</span><span class="p">(</span><span class="s1">&#39;argument error: </span><span class="si">{message}</span><span class="s1">&#39;</span><span class="p">)</span>
     <span class="nd">@override</span>
     <span class="k">def</span> <span class="nf">error</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">NoReturn</span><span class="p">:</span>

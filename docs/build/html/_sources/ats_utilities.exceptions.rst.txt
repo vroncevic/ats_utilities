@@ -18,6 +18,7 @@ Submodules
    ats_utilities.exceptions.ats_runtime_error
    ats_utilities.exceptions.ats_type_error
    ats_utilities.exceptions.ats_value_error
+   ats_utilities.exceptions.format_error
 
 Module contents
 ---------------

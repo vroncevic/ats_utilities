@@ -25,17 +25,17 @@ from __future__ import annotations
 from abc import ABC, abstractmethod
 from collections.abc import Mapping
 
-from ats_utilities.context_bundle import ContextBundle
-from ats_utilities.generator.generator_bundle import GeneratorBundle
+from ats_utilities.context.context_bundle import ContextBundle
+from ats_utilities.generator.gen_params_bundle import GenParamsBundle
 
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
 __license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = r'3.4.2'
+__version__ = r'3.4.3'
 __maintainer__ = r'Vladimir Roncevic'
 __email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Updated'
+__status__ = r'Development'
 
 
 class IGenerator(ABC):
@@ -78,12 +78,12 @@ class IGenerator(ABC):
         pass
 
     @abstractmethod
-    def generate(self, generator_bundle: GeneratorBundle) -> bool:
+    def generate(self, generator_bundle: GenParamsBundle) -> bool:
         '''
             Generates project modules/files from a .tgz archive.
 
             :param generator_bundle: Generator bundle containing template generation parameters.
-            :type generator_bundle: <GeneratorBundle>
+            :type generator_bundle: <GenParamsBundle>
             :return: True if generation was successful, False otherwise.
             :rtype: <bool>
             :exceptions: None.
@@ -95,7 +95,7 @@ class IGenerator(ABC):
         '''
             Checks if generator component is initialized.
 
-            :return: True (success) | False (fail).
+            :return: <True> if successful, <False> otherwise.
             :rtype: <bool>
             :exceptions: None.
         '''

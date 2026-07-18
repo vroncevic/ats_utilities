@@ -15,8 +15,8 @@
     
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="ats_utilities.logging package" href="ats_utilities.logging.html" />
-    <link rel="prev" title="ats_utilities.info.imanager module" href="ats_utilities.info.imanager.html" /> 
+    <link rel="next" title="ats_utilities.info.info_registry module" href="ats_utilities.info.info_registry.html" />
+    <link rel="prev" title="ats_utilities.info.info_bundle module" href="ats_utilities.info.info_bundle.html" /> 
   </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
@@ -28,10 +28,10 @@
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="ats_utilities.logging.html" title="ats_utilities.logging package"
+          <a href="ats_utilities.info.info_registry.html" title="ats_utilities.info.info_registry module"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="ats_utilities.info.imanager.html" title="ats_utilities.info.imanager module"
+          <a href="ats_utilities.info.info_bundle.html" title="ats_utilities.info.info_bundle module"
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">ats_utilities https://github.com/vroncevic/ats_utilities/releases documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="modules.html" >ats_utilities</a> &#187;</li>
@@ -88,6 +88,7 @@ The information container store data for App/Tool/Script.</p>
 <div class="line">ATS_ORGANIZATION - The key for organization.</div>
 <div class="line">ATS_USE_GITHUB_INFRASTRUCTURE - The key for use github infrastructure.</div>
 <div class="line">ATS_LOGO_PATH - The key for logo path.</div>
+<div class="line">ATS_LOG_FILE - The key for log file path (Optional).</div>
 </div>
 </dd>
 </dl>
@@ -98,6 +99,11 @@ The information container store data for App/Tool/Script.</p>
 <dd></dd></dl>
 
 <dl class="py attribute">
+<dt class="sig sig-object py" id="ats_utilities.info.info_keys.InfoKeys.ATS_INFO_OK">
+<span class="sig-name descname"><span class="pre">ATS_INFO_OK</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'ats_info_ok'</span></em><a class="headerlink" href="#ats_utilities.info.info_keys.InfoKeys.ATS_INFO_OK" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
 <dt class="sig sig-object py" id="ats_utilities.info.info_keys.InfoKeys.ATS_LICENCE">
 <span class="sig-name descname"><span class="pre">ATS_LICENCE</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'ats_licence'</span></em><a class="headerlink" href="#ats_utilities.info.info_keys.InfoKeys.ATS_LICENCE" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -105,6 +111,11 @@ The information container store data for App/Tool/Script.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="ats_utilities.info.info_keys.InfoKeys.ATS_LOGO_PATH">
 <span class="sig-name descname"><span class="pre">ATS_LOGO_PATH</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'ats_logo_path'</span></em><a class="headerlink" href="#ats_utilities.info.info_keys.InfoKeys.ATS_LOGO_PATH" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ats_utilities.info.info_keys.InfoKeys.ATS_LOG_FILE">
+<span class="sig-name descname"><span class="pre">ATS_LOG_FILE</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'ats_log_file'</span></em><a class="headerlink" href="#ats_utilities.info.info_keys.InfoKeys.ATS_LOG_FILE" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
@@ -183,8 +194,10 @@ The information container store data for App/Tool/Script.</p>
 <li><a class="reference internal" href="#">ats_utilities.info.info_keys module</a><ul>
 <li><a class="reference internal" href="#ats_utilities.info.info_keys.InfoKeys"><code class="docutils literal notranslate"><span class="pre">InfoKeys</span></code></a><ul>
 <li><a class="reference internal" href="#ats_utilities.info.info_keys.InfoKeys.ATS_BUILD_DATE"><code class="docutils literal notranslate"><span class="pre">InfoKeys.ATS_BUILD_DATE</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.info.info_keys.InfoKeys.ATS_INFO_OK"><code class="docutils literal notranslate"><span class="pre">InfoKeys.ATS_INFO_OK</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.info.info_keys.InfoKeys.ATS_LICENCE"><code class="docutils literal notranslate"><span class="pre">InfoKeys.ATS_LICENCE</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.info.info_keys.InfoKeys.ATS_LOGO_PATH"><code class="docutils literal notranslate"><span class="pre">InfoKeys.ATS_LOGO_PATH</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.info.info_keys.InfoKeys.ATS_LOG_FILE"><code class="docutils literal notranslate"><span class="pre">InfoKeys.ATS_LOG_FILE</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.info.info_keys.InfoKeys.ATS_NAME"><code class="docutils literal notranslate"><span class="pre">InfoKeys.ATS_NAME</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.info.info_keys.InfoKeys.ATS_ORGANIZATION"><code class="docutils literal notranslate"><span class="pre">InfoKeys.ATS_ORGANIZATION</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.info.info_keys.InfoKeys.ATS_REPOSITORY"><code class="docutils literal notranslate"><span class="pre">InfoKeys.ATS_REPOSITORY</span></code></a></li>
@@ -201,13 +214,13 @@ The information container store data for App/Tool/Script.</p>
   </div>
   <div>
     <h4>Previous topic</h4>
-    <p class="topless"><a href="ats_utilities.info.imanager.html"
-                          title="previous chapter">ats_utilities.info.imanager module</a></p>
+    <p class="topless"><a href="ats_utilities.info.info_bundle.html"
+                          title="previous chapter">ats_utilities.info.info_bundle module</a></p>
   </div>
   <div>
     <h4>Next topic</h4>
-    <p class="topless"><a href="ats_utilities.logging.html"
-                          title="next chapter">ats_utilities.logging package</a></p>
+    <p class="topless"><a href="ats_utilities.info.info_registry.html"
+                          title="next chapter">ats_utilities.info.info_registry module</a></p>
   </div>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
@@ -240,10 +253,10 @@ The information container store data for App/Tool/Script.</p>
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="ats_utilities.logging.html" title="ats_utilities.logging package"
+          <a href="ats_utilities.info.info_registry.html" title="ats_utilities.info.info_registry module"
              >next</a> |</li>
         <li class="right" >
-          <a href="ats_utilities.info.imanager.html" title="ats_utilities.info.imanager module"
+          <a href="ats_utilities.info.info_bundle.html" title="ats_utilities.info.info_bundle module"
              >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">ats_utilities https://github.com/vroncevic/ats_utilities/releases documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="modules.html" >ats_utilities</a> &#187;</li>

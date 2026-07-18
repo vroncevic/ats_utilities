@@ -25,22 +25,23 @@ from __future__ import annotations
 from typing import override
 
 from ats_utilities.info.info_ok.iinfo_ok import IInfoOk
-from ats_utilities.context_bundle import ContextBundle
+from ats_utilities.context.context_bundle import ContextBundle
 from ats_utilities.checker.ichecker import IChecker
+from ats_utilities.logger.ilogger import ILogger
 from ats_utilities.reporter.ireporter import IReporter
-from ats_utilities.factory_context_bundle import factory_context_bundle
-from ats_utilities.factory_class import to_str
-from ats_utilities.checker.proxy_validator import vcheck
+from ats_utilities.context.context_bundle_inject import inject_context_bundle
+from ats_utilities.utils.reflection import to_str
+from ats_utilities.checker.proxy_validator import mcheck
 from ats_utilities.reporter.proxy_reporter import vreport
 
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
 __license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = r'3.4.2'
+__version__ = r'3.4.3'
 __maintainer__ = r'Vladimir Roncevic'
 __email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Updated'
+__status__ = r'Development'
 
 
 class InfoOk(IInfoOk):
@@ -53,6 +54,7 @@ class InfoOk(IInfoOk):
 
             :attributes:
                 | _checker - Injected parameters checker (default Checker).
+                | _logger - Injected logger for logging (default Logger).
                 | _reporter - Injected reporter for messaging (default Reporter).
                 | _verbose - Injected Enable/Disable verbose option (default False).
                 | _info_ok - The info status App/Tool/Script is OK (default False).
@@ -64,19 +66,22 @@ class InfoOk(IInfoOk):
     '''
 
     _checker: IChecker
+    _logger: ILogger
     _reporter: IReporter
     _verbose: bool
     _info_ok: bool
 
-    def __init__(self, context_bundle: ContextBundle | None = None) -> None:
+    def __init__(self, context_bundle: ContextBundle) -> None:
         '''
             Initializes InfoOk constructor.
 
-            :param context_bundle: Context bundle for info ok status | None.
-            :type context_bundle: <ContextBundle | None>
-            :exceptions: None.
+            :param context_bundle: Context bundle for info ok status.
+            :type context_bundle: <ContextBundle>
+            :exceptions:
+                | ATSValueError: Context bundle must be provided.
+                | ATSTypeError: Context bundle must be an instance of ContextBundle.
         '''
-        factory_context_bundle(self, context_bundle)
+        inject_context_bundle(self, context_bundle)
         self._info_ok = False
 
     @property
@@ -97,7 +102,7 @@ class InfoOk(IInfoOk):
         return self._info_ok
 
     @info_ok.setter
-    @vcheck([('bool:info_ok', None)])
+    @mcheck([('bool:info_ok', None)])
     @vreport('setting info_ok {info_ok}')
     @override
     def info_ok(self, info_ok: bool) -> None:
@@ -125,7 +130,7 @@ class InfoOk(IInfoOk):
             Checks if info status is not None.
             Note: Info status is only prepared when it is set by user (not None).
 
-            :return: True (not None) | False (None).
+            :return: <True> if successful, <False> otherwise.
             :rtype: <bool>
             :exceptions:
                 | ATSRuntimeError: Decorator cannot be used on a standalone function.

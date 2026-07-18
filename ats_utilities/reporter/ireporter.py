@@ -30,10 +30,10 @@ __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
 __license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = r'3.4.2'
+__version__ = r'3.4.3'
 __maintainer__ = r'Vladimir Roncevic'
 __email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Updated'
+__status__ = r'Development'
 
 
 class IReporter(ABC):
@@ -48,6 +48,7 @@ class IReporter(ABC):
                 | success - Reports success message.
                 | warning - Reports warning message.
                 | error - Reports error message.
+                | set_level - Sets log level.
                 | is_initialized - Checks if the reporter component is initialized.
                 | __str__ - Returns the reporter as string representation.
     '''
@@ -99,11 +100,22 @@ class IReporter(ABC):
         pass
 
     @abstractmethod
+    def set_level(self, level: int) -> None:
+        '''
+            Sets log level.
+
+            :param level: Log level.
+            :type level: <int>
+            :exceptions: None.
+        '''
+        pass
+
+    @abstractmethod
     def is_initialized(self) -> bool:
         '''
-            Returns whether the reporter component is initialized.
+            Returns whether the reporter is initialized.
 
-            :return: True (success) | False (fail).
+            :return: <True> if successful, <False> otherwise.
             :rtype: <bool>
             :exceptions: None.
         '''

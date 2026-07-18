@@ -23,28 +23,32 @@ Info
 from __future__ import annotations
 
 import sys
-from typing import Any, NoReturn, override
 from argparse import ArgumentParser
+from typing import Any, NoReturn, override
 
-from ats_utilities.context_bundle import ContextBundle
+from ats_utilities.option.parser.iarg_parser import IArgParser
+from ats_utilities.option.parser.parser_bundle import ParserBundle
 from ats_utilities.checker.ichecker import IChecker
+from ats_utilities.logger.ilogger import ILogger
 from ats_utilities.reporter.ireporter import IReporter
-from ats_utilities.factory_context_bundle import factory_context_bundle
-from ats_utilities.factory_class import to_str
-from ats_utilities.checker.proxy_validator import vcheck
+from ats_utilities.context.context_bundle_inject import inject_context_bundle
+from ats_utilities.utils.reflection import to_str
+from ats_utilities.checker.proxy_validator import mcheck
 from ats_utilities.reporter.proxy_reporter import vreport
+from ats_utilities.validation.check_type import istype
+from ats_utilities.validation.check_value import not_none
 
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
 __license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = r'3.4.2'
+__version__ = r'3.4.3'
 __maintainer__ = r'Vladimir Roncevic'
 __email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Updated'
+__status__ = r'Development'
 
 
-class ArgParser(ArgumentParser):
+class ArgParser(ArgumentParser, IArgParser):
     '''
         Defines class ArgParser with attribute(s) and method(s).
         Custom ArgumentParser to route errors to IReporter.
@@ -53,40 +57,57 @@ class ArgParser(ArgumentParser):
 
             :attributes:
                 | _checker - Injected parameters checker (default Checker).
+                | _logger - Injected logger (default Logger).
                 | _reporter - Injected reporter for messaging (default Reporter).
                 | _verbose - Injected Enable/Disable verbose option (default False).
             :methods:
                 | __init__ - Initials ArgParser constructor.
                 | error - Overrides default error handling to use IReporter.
-                | _reporter - Returns the reporter instance.
                 | __str__ - Returns the string representation of ArgParser.
     '''
 
     _checker: IChecker
+    _logger: ILogger
     _reporter: IReporter
     _verbose: bool
 
-    def __init__(
-        self,
-        *args: Any,
-        context_bundle: ContextBundle | None = None,
-        **kwargs: Any
-    ) -> None:
+    def __init__(self, component_bundle: ParserBundle | None = None, **kwargs: Any) -> None:
         '''
             Initializes ArgParser constructor.
 
-            :param args: Additional positional arguments.
-            :type args: <Any>
-            :param context_bundle: Context bundle for argument parser | None.
-            :type context_bundle: <ContextBundle | None>
+            :param component_bundle: Bundle with components for argument parser.
+            :type component_bundle: <ParserBundle | None>
             :param kwargs: Additional keyword arguments.
             :type kwargs: <Any>
-            :exceptions: None.
+            :exceptions:
+                | ATSValueError: Component bundle must be provided.
+                | ATSTypeError: Component bundle must be a ParserBundle instance.
         '''
-        super().__init__(*args, **kwargs)
-        factory_context_bundle(self, context_bundle)
+        if component_bundle is not None:
+            not_none(component_bundle, r'component bundle must be provided')
+            istype(component_bundle, ParserBundle, r'component bundle must be a ParserBundle instance')
+            prog = component_bundle.prog
+            epilog = component_bundle.epilog
+            description = component_bundle.description
+            context_bundle = component_bundle.context_bundle
+        else:
+            from ats_utilities.context.context_registry import ContextRegistry
+            prog = kwargs.pop('prog', None)
+            epilog = kwargs.pop('epilog', None)
+            description = kwargs.pop('description', None)
+            context_bundle = kwargs.pop('context_bundle', None)
+            if context_bundle is None:
+                context_bundle = ContextRegistry.create_default_context_bundle()
 
-    @vcheck([('str:message', None)])
+        super().__init__(
+            prog=prog,
+            epilog=epilog,
+            description=description,
+            **kwargs
+        )
+        inject_context_bundle(self, context_bundle)
+
+    @mcheck([('str:message', None)])
     @vreport('argument error: {message}')
     @override
     def error(self, message: str) -> NoReturn:

@@ -18,7 +18,8 @@ Submodules
 .. toctree::
    :maxdepth: 4
 
-   ats_utilities.checker.component_bundle
+   ats_utilities.checker.checker_bundle
+   ats_utilities.checker.checker_registry
    ats_utilities.checker.engine
    ats_utilities.checker.ichecker
    ats_utilities.checker.proxy_validator

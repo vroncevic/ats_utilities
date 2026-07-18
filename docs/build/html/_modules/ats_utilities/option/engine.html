@@ -64,27 +64,30 @@
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">override</span>
 
 <span class="kn">from</span> <span class="nn">ats_utilities.checker.ichecker</span> <span class="kn">import</span> <span class="n">IChecker</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.checker.proxy_validator</span> <span class="kn">import</span> <span class="n">vcheck</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.context_bundle</span> <span class="kn">import</span> <span class="n">ContextBundle</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.exceptions</span> <span class="kn">import</span> <span class="n">ATSAttributeError</span><span class="p">,</span> <span class="n">ATSRuntimeError</span><span class="p">,</span> <span class="n">ATSTypeError</span><span class="p">,</span> <span class="n">ATSValueError</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.factory_class</span> <span class="kn">import</span> <span class="n">to_str</span><span class="p">,</span> <span class="n">cls_name</span><span class="p">,</span> <span class="n">has_attrs</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.factory_context_bundle</span> <span class="kn">import</span> <span class="n">factory_context_bundle</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.option.component_bundle</span> <span class="kn">import</span> <span class="n">OptionComponentBundle</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.logger.ilogger</span> <span class="kn">import</span> <span class="n">ILogger</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.checker.proxy_validator</span> <span class="kn">import</span> <span class="n">mcheck</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.context.context_bundle</span> <span class="kn">import</span> <span class="n">ContextBundle</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.utils.reflection</span> <span class="kn">import</span> <span class="n">to_str</span><span class="p">,</span> <span class="n">has_attrs</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.context.context_bundle_inject</span> <span class="kn">import</span> <span class="n">inject_context_bundle</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.option.option_bundle</span> <span class="kn">import</span> <span class="n">OptionBundle</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.option.command.ioption_command</span> <span class="kn">import</span> <span class="n">IOptionCommand</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.option.ioption_manager</span> <span class="kn">import</span> <span class="n">IOptionManager</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.option.strategy.iparser_strategy</span> <span class="kn">import</span> <span class="n">IParserStrategy</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.option.option_namespace</span> <span class="kn">import</span> <span class="n">OptArgs</span><span class="p">,</span> <span class="n">OptionNamespace</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.reporter.ireporter</span> <span class="kn">import</span> <span class="n">IReporter</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.reporter.proxy_reporter</span> <span class="kn">import</span> <span class="n">vreport</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.validation.check_value</span> <span class="kn">import</span> <span class="n">not_none</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.validation.check_type</span> <span class="kn">import</span> <span class="n">istype</span>
+
 
 <span class="n">__author__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;Vladimir Roncevic&#39;</span>
 <span class="n">__copyright__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;(C) 2026, https://vroncevic.github.io/ats_utilities&#39;</span>
 <span class="n">__credits__</span> <span class="o">=</span> <span class="p">[</span><span class="sa">r</span><span class="s1">&#39;Vladimir Roncevic&#39;</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;Python Software Foundation&#39;</span><span class="p">]</span>
 <span class="n">__license__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE&#39;</span>
-<span class="n">__version__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;3.4.2&#39;</span>
+<span class="n">__version__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;3.4.3&#39;</span>
 <span class="n">__maintainer__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;Vladimir Roncevic&#39;</span>
 <span class="n">__email__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;elektron.ronca@gmail.com&#39;</span>
-<span class="n">__status__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;Updated&#39;</span>
+<span class="n">__status__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;Development&#39;</span>
 
 
 <div class="viewcode-block" id="OptionManager">
@@ -98,6 +101,7 @@
 
 <span class="sd">            :attributes:</span>
 <span class="sd">                | _checker - Injected parameters checker (default Checker).</span>
+<span class="sd">                | _logger - Injected logger (default Logger).</span>
 <span class="sd">                | _reporter - Injected reporter for messaging (default Reporter).</span>
 <span class="sd">                | _verbose - Injected Enable/Disable verbose option (default False).</span>
 <span class="sd">                | _shared_context - Context bundle with shared context.</span>
@@ -117,37 +121,29 @@
 <span class="sd">    &#39;&#39;&#39;</span>
 
     <span class="n">_checker</span><span class="p">:</span> <span class="n">IChecker</span>
+    <span class="n">_logger</span><span class="p">:</span> <span class="n">ILogger</span>
     <span class="n">_reporter</span><span class="p">:</span> <span class="n">IReporter</span>
     <span class="n">_verbose</span><span class="p">:</span> <span class="nb">bool</span>
     <span class="n">_is_initialized</span><span class="p">:</span> <span class="nb">bool</span>
     <span class="n">_shared_context</span><span class="p">:</span> <span class="n">ContextBundle</span>
     <span class="n">_strategy</span><span class="p">:</span> <span class="n">IParserStrategy</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">component_bundle</span><span class="p">:</span> <span class="n">OptionComponentBundle</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">component_bundle</span><span class="p">:</span> <span class="n">OptionBundle</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Initializes OptionManager constructor.</span>
 
-<span class="sd">            :param component_bundle: Bundle with components for option manager | None.</span>
-<span class="sd">            :type component_bundle: &lt;OptionComponentBundle | None&gt;</span>
-<span class="sd">            :exceptions: None.</span>
+<span class="sd">            :param component_bundle: Bundle with components for option manager.</span>
+<span class="sd">            :type component_bundle: &lt;OptionBundle&gt;</span>
+<span class="sd">            :exceptions:</span>
+<span class="sd">                | ATSValueError - Component bundle must be provided.</span>
+<span class="sd">                | ATSTypeError - Component bundle must be an OptionBundle instance.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_is_initialized</span> <span class="o">=</span> <span class="kc">False</span>
- 
-        <span class="k">try</span><span class="p">:</span>
-            <span class="n">bundle</span><span class="p">:</span> <span class="n">OptionComponentBundle</span> <span class="o">=</span> <span class="n">component_bundle</span> <span class="ow">or</span> <span class="n">OptionComponentBundle</span><span class="p">()</span>
-            <span class="n">factory_context_bundle</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bundle</span><span class="o">.</span><span class="n">context_bundle</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_shared_context</span> <span class="o">=</span> <span class="n">bundle</span><span class="o">.</span><span class="n">context_bundle</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_strategy</span> <span class="o">=</span> <span class="n">bundle</span><span class="o">.</span><span class="n">strategy</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_strategy</span><span class="o">.</span><span class="n">setup</span><span class="p">(</span><span class="n">bundle</span><span class="o">.</span><span class="n">parameters</span><span class="p">)</span>
-
-            <span class="c1"># All components initialized successfully.</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_is_initialized</span> <span class="o">=</span> <span class="kc">True</span>
- 
-        <span class="k">except</span> <span class="p">(</span><span class="n">ATSTypeError</span><span class="p">,</span> <span class="n">ATSValueError</span><span class="p">,</span> <span class="n">ATSRuntimeError</span><span class="p">,</span> <span class="n">ATSAttributeError</span><span class="p">)</span> <span class="k">as</span> <span class="n">exc</span><span class="p">:</span>
-            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\x1b</span><span class="s2">[31m</span><span class="si">{</span><span class="n">cls_name</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">exc</span><span class="si">}</span><span class="se">\x1b</span><span class="s2">[0m&quot;</span><span class="p">)</span>
-
-        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">exc</span><span class="p">:</span>
-            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\x1b</span><span class="s2">[31m</span><span class="si">{</span><span class="n">cls_name</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="si">}</span><span class="s2"> unexpected exception: </span><span class="si">{</span><span class="n">exc</span><span class="si">}</span><span class="se">\x1b</span><span class="s2">[0m&quot;</span><span class="p">)</span>
+        <span class="n">not_none</span><span class="p">(</span><span class="n">component_bundle</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;component bundle must be provided&#39;</span><span class="p">)</span>
+        <span class="n">istype</span><span class="p">(</span><span class="n">component_bundle</span><span class="p">,</span> <span class="n">OptionBundle</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;component bundle must be an OptionBundle instance&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_shared_context</span> <span class="o">=</span> <span class="n">component_bundle</span><span class="o">.</span><span class="n">context_bundle</span>
+        <span class="n">inject_context_bundle</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_shared_context</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_strategy</span> <span class="o">=</span> <span class="n">component_bundle</span><span class="o">.</span><span class="n">strategy</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_is_initialized</span> <span class="o">=</span> <span class="kc">True</span>
 
 <div class="viewcode-block" id="OptionManager.get_shared_context">
 <a class="viewcode-back" href="../../../ats_utilities.option.engine.html#ats_utilities.option.engine.OptionManager.get_shared_context">[docs]</a>
@@ -183,7 +179,7 @@
 
 <div class="viewcode-block" id="OptionManager.add_version_operation">
 <a class="viewcode-back" href="../../../ats_utilities.option.engine.html#ats_utilities.option.engine.OptionManager.add_version_operation">[docs]</a>
-    <span class="nd">@vcheck</span><span class="p">([(</span><span class="s1">&#39;str | None:version&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)])</span>
+    <span class="nd">@mcheck</span><span class="p">([(</span><span class="s1">&#39;str | None:version&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)])</span>
     <span class="nd">@vreport</span><span class="p">(</span><span class="s1">&#39;add version </span><span class="si">{version}</span><span class="s1">&#39;</span><span class="p">)</span>
     <span class="nd">@override</span>
     <span class="k">def</span> <span class="nf">add_version_operation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">version</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
@@ -224,8 +220,7 @@
 <span class="sd">                | ATSAttributeError: Class is required to provide a &#39;_reporter&#39; object to</span>
 <span class="sd">                |                    use the @vreport decorator.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="n">args</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_strategy</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">arguments</span><span class="p">,</span> <span class="n">known_only</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">args</span></div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_strategy</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">arguments</span><span class="p">,</span> <span class="n">known_only</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="OptionManager.parse_args">
@@ -247,8 +242,7 @@
 <span class="sd">                | ATSAttributeError: Class is required to provide a &#39;_reporter&#39; object to</span>
 <span class="sd">                |                    use the @vreport decorator.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="n">args</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_strategy</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">arguments</span><span class="p">,</span> <span class="n">known_only</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">args</span></div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_strategy</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">arguments</span><span class="p">,</span> <span class="n">known_only</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="OptionManager.register_commands">
@@ -293,7 +287,7 @@
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Checks if option parser component is initialized.</span>
 
-<span class="sd">            :return: True (success) | False (fail).</span>
+<span class="sd">            :return: &lt;True&gt; if successful, &lt;False&gt; otherwise.</span>
 <span class="sd">            :rtype: &lt;bool&gt;</span>
 <span class="sd">            :exceptions:</span>
 <span class="sd">                | ATSValueError: Missing or empty attribute: &#39;_strategy&#39;.</span>

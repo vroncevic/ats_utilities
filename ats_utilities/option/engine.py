@@ -26,27 +26,30 @@ from collections.abc import Sequence, Mapping
 from typing import Any, override
 
 from ats_utilities.checker.ichecker import IChecker
-from ats_utilities.checker.proxy_validator import vcheck
-from ats_utilities.context_bundle import ContextBundle
-from ats_utilities.exceptions import ATSAttributeError, ATSRuntimeError, ATSTypeError, ATSValueError
-from ats_utilities.factory_class import to_str, cls_name, has_attrs
-from ats_utilities.factory_context_bundle import factory_context_bundle
-from ats_utilities.option.component_bundle import OptionComponentBundle
+from ats_utilities.logger.ilogger import ILogger
+from ats_utilities.checker.proxy_validator import mcheck
+from ats_utilities.context.context_bundle import ContextBundle
+from ats_utilities.utils.reflection import to_str, has_attrs
+from ats_utilities.context.context_bundle_inject import inject_context_bundle
+from ats_utilities.option.option_bundle import OptionBundle
 from ats_utilities.option.command.ioption_command import IOptionCommand
 from ats_utilities.option.ioption_manager import IOptionManager
 from ats_utilities.option.strategy.iparser_strategy import IParserStrategy
 from ats_utilities.option.option_namespace import OptArgs, OptionNamespace
 from ats_utilities.reporter.ireporter import IReporter
 from ats_utilities.reporter.proxy_reporter import vreport
+from ats_utilities.validation.check_value import not_none
+from ats_utilities.validation.check_type import istype
+
 
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
 __license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = r'3.4.2'
+__version__ = r'3.4.3'
 __maintainer__ = r'Vladimir Roncevic'
 __email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Updated'
+__status__ = r'Development'
 
 
 class OptionManager(IOptionManager):
@@ -58,6 +61,7 @@ class OptionManager(IOptionManager):
 
             :attributes:
                 | _checker - Injected parameters checker (default Checker).
+                | _logger - Injected logger (default Logger).
                 | _reporter - Injected reporter for messaging (default Reporter).
                 | _verbose - Injected Enable/Disable verbose option (default False).
                 | _shared_context - Context bundle with shared context.
@@ -77,37 +81,29 @@ class OptionManager(IOptionManager):
     '''
 
     _checker: IChecker
+    _logger: ILogger
     _reporter: IReporter
     _verbose: bool
     _is_initialized: bool
     _shared_context: ContextBundle
     _strategy: IParserStrategy
 
-    def __init__(self, component_bundle: OptionComponentBundle | None = None) -> None:
+    def __init__(self, component_bundle: OptionBundle) -> None:
         '''
             Initializes OptionManager constructor.
 
-            :param component_bundle: Bundle with components for option manager | None.
-            :type component_bundle: <OptionComponentBundle | None>
-            :exceptions: None.
+            :param component_bundle: Bundle with components for option manager.
+            :type component_bundle: <OptionBundle>
+            :exceptions:
+                | ATSValueError - Component bundle must be provided.
+                | ATSTypeError - Component bundle must be an OptionBundle instance.
         '''
-        self._is_initialized = False
- 
-        try:
-            bundle: OptionComponentBundle = component_bundle or OptionComponentBundle()
-            factory_context_bundle(self, bundle.context_bundle)
-            self._shared_context = bundle.context_bundle
-            self._strategy = bundle.strategy
-            self._strategy.setup(bundle.parameters)
-
-            # All components initialized successfully.
-            self._is_initialized = True
- 
-        except (ATSTypeError, ATSValueError, ATSRuntimeError, ATSAttributeError) as exc:
-            print(f"\x1b[31m{cls_name(self)} {exc}\x1b[0m")
-
-        except Exception as exc:
-            print(f"\x1b[31m{cls_name(self)} unexpected exception: {exc}\x1b[0m")
+        not_none(component_bundle, r'component bundle must be provided')
+        istype(component_bundle, OptionBundle, r'component bundle must be an OptionBundle instance')
+        self._shared_context = component_bundle.context_bundle
+        inject_context_bundle(self, self._shared_context)
+        self._strategy = component_bundle.strategy
+        self._is_initialized = True
 
     @override
     def get_shared_context(self) -> ContextBundle:
@@ -135,7 +131,7 @@ class OptionManager(IOptionManager):
         '''
         self._strategy.add_argument(*args, **kwargs)
 
-    @vcheck([('str | None:version', None)])
+    @mcheck([('str | None:version', None)])
     @vreport('add version {version}')
     @override
     def add_version_operation(self, version: str | None) -> None:
@@ -173,8 +169,7 @@ class OptionManager(IOptionManager):
                 | ATSAttributeError: Class is required to provide a '_reporter' object to
                 |                    use the @vreport decorator.
         '''
-        args = self._strategy.parse(arguments, known_only=False)
-        return args
+        return self._strategy.parse(arguments, known_only=False)
 
     @has_attrs('_strategy')
     @vreport('parse args arguments {arguments}')
@@ -193,8 +188,7 @@ class OptionManager(IOptionManager):
                 | ATSAttributeError: Class is required to provide a '_reporter' object to
                 |                    use the @vreport decorator.
         '''
-        args = self._strategy.parse(arguments, known_only=True)
-        return args
+        return self._strategy.parse(arguments, known_only=True)
 
     @has_attrs('_strategy')
     @override
@@ -230,7 +224,7 @@ class OptionManager(IOptionManager):
         '''
             Checks if option parser component is initialized.
 
-            :return: True (success) | False (fail).
+            :return: <True> if successful, <False> otherwise.
             :rtype: <bool>
             :exceptions:
                 | ATSValueError: Missing or empty attribute: '_strategy'.

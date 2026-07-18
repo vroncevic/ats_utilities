@@ -25,30 +25,31 @@ from __future__ import annotations
 from abc import abstractmethod
 from typing import Any, override
 
-from ats_utilities.base.component_bundle import BaseComponentBundle
+from ats_utilities.base.base_bundle import BaseBundle
 from ats_utilities.base.ibase import ArgSeq, IBase
 from ats_utilities.checker.ichecker import IChecker
-from ats_utilities.config_io.iconfig_loader import IConfigLoader
-from ats_utilities.context_bundle import ContextBundle
-from ats_utilities.exceptions import ATSAttributeError, ATSRuntimeError, ATSTypeError, ATSValueError
-from ats_utilities.factory_class import to_str, cls_name, has_attrs
-from ats_utilities.factory_context_bundle import factory_context_bundle
+from ats_utilities.config_io.loader.iloader import ILoader
+from ats_utilities.context.context_bundle import ContextBundle
+from ats_utilities.logger.ilogger import ILogger
 from ats_utilities.generator.igenerator import IGenerator
-from ats_utilities.info.imanager import IInfoManager
-from ats_utilities.logging.ilogger_manager import ILoggerManager
+from ats_utilities.info.iinfo_manager import IInfoManager
 from ats_utilities.option.ioption_manager import IOptionManager
 from ats_utilities.option.option_namespace import OptionNamespace
 from ats_utilities.reporter.ireporter import IReporter
 from ats_utilities.splasher.isplasher import ISplasher
+from ats_utilities.context.context_bundle_inject import inject_context_bundle
+from ats_utilities.utils.reflection import to_str, has_attrs
+from ats_utilities.validation.check_value import not_none
+from ats_utilities.validation.check_type import istype
 
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
 __license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = r'3.4.2'
+__version__ = r'3.4.3'
 __maintainer__ = r'Vladimir Roncevic'
 __email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Updated'
+__status__ = r'Development'
 
 
 class Base(IBase):
@@ -60,74 +61,80 @@ class Base(IBase):
 
             :attributes:
                 | _checker - Injected parameters checker (default Checker).
+                | _logger - Injected logger for logging (default Logger).
                 | _reporter - Injected reporter for messaging (default Reporter).
                 | _verbose - Injected Enable/Disable verbose option (default False).
+                | _is_initialized - Indicates if the base is initialized (default False).
                 | _shared_context - Shared context for components.
                 | _config_loader - Manager for configuration loading (default ConfigLoader).
-                | _info_manager - Manager for info component (default InfoManager).
-                | _splasher - Manager for splash component (default Splasher).
+                | _info_manager - Manager for info property (default InfoManager).
+                | _splasher - Manager for splash screen (default Splasher).
                 | _options_parser - Manager for options parser (default OptionManager).
-                | _logger_manager - Manager for logger component (default LoggerManager).
                 | _generator - Generator manager (default Generator).
-                | _is_initialized - Indicates if the base component is initialized (default False).
             :methods:
                 | __init__ - Initializes Base constructor.
                 | get_shared_context - Returns the shared context.
-                | is_initialized - Checks if the Base component is initialized.
-                | add_new_option - Adds a new option for the the CL interface.
-                | parse_args - Parses the CLI arguments.
-                | process - Processes and runs tool operations (Abstract).
+                | is_initialized - Checks if App/Tool/Script base engine is initialized.
+                | add_new_option - Adds a new option for App/Tool/Script.
+                | parse_args - Parses App/Tool/Script arguments.
+                | process - Processes and runs App/Tool/Script (Abstract).
                 | __str__ - Returns the Base as string representation.
     '''
 
     _checker: IChecker
+    _logger: ILogger
     _reporter: IReporter
     _verbose: bool
     _is_initialized: bool
     _shared_context: ContextBundle
-    _config_loader: IConfigLoader
+    _config_loader: ILoader
     _info_manager: IInfoManager
     _splasher: ISplasher
     _options_parser: IOptionManager
-    _logger_manager: ILoggerManager
     _generator: IGenerator
 
-    def __init__(self, component_bundle: BaseComponentBundle | None = None) -> None:
+    def __init__(self, component_bundle: BaseBundle) -> None:
         '''
             Initializes Base constructor.
 
-            :param component_bundle: Component bundle for base package | None.
-            :type component_bundle: <BaseComponentBundle | None>
-            :exceptions: None.
+            :param component_bundle: Component bundle for base package.
+            :type component_bundle: <BaseBundle>
+            :exceptions:
+                | ATSValueError: Component bundle must be provided.
+                | ATSValueError: Context bundle must be provided.
+                | ATSValueError: Information file must be provided.
+                | ATSValueError: Config loader must be provided.
+                | ATSValueError: Info manager must be provided.
+                | ATSValueError: Options parser must be provided.
+                | ATSValueError: Splasher must be provided.
+                | ATSValueError: Use generator must be provided.
+                | ATSValueError: Context bundle must be provided.
+                | ATSTypeError: Information file must be str.
+                | ATSTypeError: Config loader must be IConfigLoadManager interface.
+                | ATSTypeError: Info manager must be IInfoManager interface.
+                | ATSTypeError: Options parser must be IOptionManager interface.
+                | ATSTypeError: Splasher must be ISplasher interface.
+                | ATSTypeError: Use generator must be bool.
+                | ATSTypeError: Generator must be IGenerator interface or None.
+                | ATSTypeError: Context bundle must be a ContextBundle instance.
         '''
-        self._is_initialized = False
+        not_none(component_bundle, r'component bundle must be provided')
+        istype(component_bundle, BaseBundle, r'component bundle must be an instance of BaseBundle')
+        self._shared_context = component_bundle.context_bundle
+        inject_context_bundle(self, self._shared_context)
+        self._config_loader = component_bundle.config_loader
+        self._info_manager = component_bundle.info_manager
+        self._splasher = component_bundle.splasher
+        self._options_parser = component_bundle.options_parser
+        components: list[Any] = [self._info_manager, self._splasher, self._options_parser]
 
-        try:
-            bundle: BaseComponentBundle = component_bundle or BaseComponentBundle()
-            factory_context_bundle(self, bundle.context_bundle)
-            self._shared_context = bundle.context_bundle
-            self._config_loader = bundle.config_loader
-            self._info_manager = bundle.info_manager
-            self._splasher = bundle.splasher
-            self._options_parser = bundle.options_parser
-            self._logger_manager = bundle.logger_manager
+        if component_bundle.use_generator:
+            self._generator = component_bundle.generator
+            components.append(self._generator)
 
-            components: list[Any] = [self._info_manager, self._splasher, self._options_parser, self._logger_manager]
-
-            if bundle.use_generator:
-                self._generator = bundle.generator
-                components.append(self._generator)
-
-            # All components initialized successfully.
-            self._is_initialized = all(
-                component is not None and component.is_initialized() for component in components
-            )
-
-        except (ATSTypeError, ATSValueError, ATSRuntimeError, ATSAttributeError) as exc:
-            print(f"\x1b[31m{cls_name(self)} {exc}\x1b[0m")
-
-        except Exception as exc:
-            print(f"\x1b[31m{cls_name(self)} unexpected exception: {exc}\x1b[0m")
+        self._is_initialized = all(
+            component is not None and component.is_initialized() for component in components
+        )
 
     @override
     def get_shared_context(self) -> ContextBundle:
@@ -143,9 +150,9 @@ class Base(IBase):
     @override
     def is_initialized(self) -> bool:
         '''
-            Checks if the base component is initialized.
+            Checks if App/Tool/Script base engine is initialized.
 
-            :return: True (success) | False (fail).
+            :return: <True> if successful, <False> otherwise.
             :rtype: <bool>
             :exceptions: None.
         '''
@@ -155,11 +162,11 @@ class Base(IBase):
     @override
     def add_new_option(self, *args: str, **kwargs: Any) -> None:
         '''
-            Adds a new option for the CL interface.
+            Adds a new option for App/Tool/Script.
 
-            :param args: Arguments in string form.
+            :param args: Arguments in string format.
             :type args: <str>
-            :param kwargs: arguments in Any form.
+            :param kwargs: Arguments in Any format.
             :type kwargs: <Any>
             :exceptions:
                 | ATSValueError: Missing or empty attribute: '_options_parser'.
@@ -171,7 +178,7 @@ class Base(IBase):
     @override
     def parse_args(self, argv: ArgSeq) -> OptionNamespace | None:
         '''
-            Parses the CLI arguments.
+            Parses App/Tool/Script arguments.
 
             :param argv: Sequence of arguments | None.
             :type argv: <ArgSeq>
@@ -186,14 +193,13 @@ class Base(IBase):
         return None
 
     @abstractmethod
-    @override
     def process(self, verbose: bool = False) -> bool:
         '''
-            Processes and runs tool operations (Abstract).
+            Processes and runs App/Tool/Script (Abstract).
 
             :param verbose: Enable/Disable verbose option (default False).
             :type verbose: <bool>
-            :return: True (success) | False (fail).
+            :return: <True> if successful else <False>.
             :rtype: <bool>
             :exceptions: None.
         '''

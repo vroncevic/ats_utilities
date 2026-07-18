@@ -19,22 +19,18 @@ Info
     Use cases for ATS info manager.
 '''
 
-from typing import Any
-from ats_utilities.info.version.engine import Version
-from ats_utilities.info.name.engine import Name
-from ats_utilities.info.licence.engine import Licence
-from ats_utilities.info.build_date.engine import BuildDate
-from ats_utilities.info.info_ok.engine import InfoOk
-from ats_utilities.info.engine import InfoManager, InfoComponentBundle
+from ats_utilities.context.context_registry import ContextRegistry
+from ats_utilities.info.info_registry import InfoRegistry
+from ats_utilities.info.engine import InfoManager
 
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
 __license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = r'3.4.2'
+__version__ = r'3.4.3'
 __maintainer__ = r'Vladimir Roncevic'
 __email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Updated'
+__status__ = r'Development'
 
 VERBOSE: bool = False
 
@@ -42,34 +38,25 @@ VERBOSE: bool = False
 # default [without DI]
 # ====================
 #
-ats_info_manager_without_di = InfoManager()
+context_bundle = ContextRegistry.create_default_context_bundle()
+default_bundle = InfoRegistry.create_info_bundle_from_dict({}, context_bundle)
+ats_info_manager_without_di = InfoManager(component_bundle=default_bundle)
 print(ats_info_manager_without_di)
 
 #
 # default [with DI and with case overwrite info (should get warning message)]
 # ============================================================================
 #
-ats_name = Name()
-ats_name.name = 'mytool2'
-ats_version = Version()
-ats_version.version = '1.0.1'
-ats_licence = Licence()
-ats_licence.licence = 'gplv3'
-ats_build_date = BuildDate()
-ats_build_date.build_date = 'Sun Jun 14 03:06:11 PM CEST 2026'
-ats_info_ok = InfoOk()
-ats_info_ok.info_ok = True
-
-bundle: InfoComponentBundle = InfoComponentBundle(
-    name=ats_name,
-    version=ats_version,
-    licence=ats_licence,
-    build_date=ats_build_date,
-    info_ok=ats_info_ok
-)
-
+info_dict_overwrite = {
+    'ats_name': 'mytool2',
+    'ats_version': '1.0.1',
+    'ats_licence': 'gplv3',
+    'ats_build_date': 'Sun Jun 14 03:06:11 PM CEST 2026',
+    'ats_info_ok': True
+}
+bundle_overwrite = InfoRegistry.create_info_bundle_from_dict(info_dict_overwrite, context_bundle)
 ats_info_manager_with_di_and_case_overwrite = InfoManager(
-    component_bundle=bundle, 
+    component_bundle=bundle_overwrite, 
 )
 print(ats_info_manager_with_di_and_case_overwrite)
 
@@ -77,26 +64,15 @@ print(ats_info_manager_with_di_and_case_overwrite)
 # default [with DI and without case overwrite info (without warning message)]
 # ============================================================================
 #
-ats_name = Name()
-ats_name.name = 'mytool4'
-ats_version = Version()
-ats_version.version = '1.0.3'
-ats_licence = Licence()
-ats_licence.licence = 'gplv3'
-ats_build_date = BuildDate()
-ats_build_date.build_date = 'Sun Jun 14 03:06:13 PM CEST 2026'
-ats_info_ok = InfoOk()
-ats_info_ok.info_ok = True
-
-bundle: InfoComponentBundle = InfoComponentBundle(
-    name=ats_name,
-    version=ats_version,
-    licence=ats_licence,
-    build_date=ats_build_date,
-    info_ok=ats_info_ok
-)
-
+info_dict_no_overwrite = {
+    'ats_name': 'mytool4',
+    'ats_version': '1.0.3',
+    'ats_licence': 'gplv3',
+    'ats_build_date': 'Sun Jun 14 03:06:13 PM CEST 2026',
+    'ats_info_ok': True
+}
+bundle_no_overwrite = InfoRegistry.create_info_bundle_from_dict(info_dict_no_overwrite, context_bundle)
 ats_info_manager_with_di_and_without_case_overwrite = InfoManager(
-    component_bundle=bundle, 
+    component_bundle=bundle_no_overwrite, 
 )
 print(ats_info_manager_with_di_and_without_case_overwrite)

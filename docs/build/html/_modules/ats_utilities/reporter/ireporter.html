@@ -68,10 +68,10 @@
 <span class="n">__copyright__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;(C) 2026, https://vroncevic.github.io/ats_utilities&#39;</span>
 <span class="n">__credits__</span> <span class="o">=</span> <span class="p">[</span><span class="sa">r</span><span class="s1">&#39;Vladimir Roncevic&#39;</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;Python Software Foundation&#39;</span><span class="p">]</span>
 <span class="n">__license__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE&#39;</span>
-<span class="n">__version__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;3.4.2&#39;</span>
+<span class="n">__version__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;3.4.3&#39;</span>
 <span class="n">__maintainer__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;Vladimir Roncevic&#39;</span>
 <span class="n">__email__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;elektron.ronca@gmail.com&#39;</span>
-<span class="n">__status__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;Updated&#39;</span>
+<span class="n">__status__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;Development&#39;</span>
 
 
 <div class="viewcode-block" id="IReporter">
@@ -88,6 +88,7 @@
 <span class="sd">                | success - Reports success message.</span>
 <span class="sd">                | warning - Reports warning message.</span>
 <span class="sd">                | error - Reports error message.</span>
+<span class="sd">                | set_level - Sets log level.</span>
 <span class="sd">                | is_initialized - Checks if the reporter component is initialized.</span>
 <span class="sd">                | __str__ - Returns the reporter as string representation.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
@@ -150,14 +151,28 @@
         <span class="k">pass</span></div>
 
 
+<div class="viewcode-block" id="IReporter.set_level">
+<a class="viewcode-back" href="../../../ats_utilities.reporter.ireporter.html#ats_utilities.reporter.ireporter.IReporter.set_level">[docs]</a>
+    <span class="nd">@abstractmethod</span>
+    <span class="k">def</span> <span class="nf">set_level</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">level</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">            Sets log level.</span>
+
+<span class="sd">            :param level: Log level.</span>
+<span class="sd">            :type level: &lt;int&gt;</span>
+<span class="sd">            :exceptions: None.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">pass</span></div>
+
+
 <div class="viewcode-block" id="IReporter.is_initialized">
 <a class="viewcode-back" href="../../../ats_utilities.reporter.ireporter.html#ats_utilities.reporter.ireporter.IReporter.is_initialized">[docs]</a>
     <span class="nd">@abstractmethod</span>
     <span class="k">def</span> <span class="nf">is_initialized</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">            Returns whether the reporter component is initialized.</span>
+<span class="sd">            Returns whether the reporter is initialized.</span>
 
-<span class="sd">            :return: True (success) | False (fail).</span>
+<span class="sd">            :return: &lt;True&gt; if successful, &lt;False&gt; otherwise.</span>
 <span class="sd">            :rtype: &lt;bool&gt;</span>
 <span class="sd">            :exceptions: None.</span>
 <span class="sd">        &#39;&#39;&#39;</span>

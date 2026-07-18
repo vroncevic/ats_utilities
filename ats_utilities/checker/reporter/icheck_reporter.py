@@ -30,10 +30,10 @@ __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
 __license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = r'3.4.2'
+__version__ = r'3.4.3'
 __maintainer__ = r'Vladimir Roncevic'
 __email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Updated'
+__status__ = r'Development'
 
 
 class ICheckReporter(ABC):
@@ -48,15 +48,17 @@ class ICheckReporter(ABC):
                 | __str__ - Returns the reporter as string representation.
     '''
     @abstractmethod
-    def build_message_format(self, report_bundle: CheckerReporterBundle | None = None) -> str:
+    def build_message_format(self, report_bundle: CheckerReporterBundle) -> str:
         '''
             Builds the final message report for checker.
 
-            :param report_bundle: Bundle with parameters | None
-            :type report_bundle: <CheckerReporterBundle | None>
+            :param report_bundle: Bundle with parameters.
+            :type report_bundle: <CheckerReporterBundle>
             :return: Formatted message report
             :rtype: <str>
-            :exceptions: None.
+            :exceptions:
+                | ATSValueError: Checker reporter bundle must be provided.
+                | ATSTypeError: Checker reporter bundle must be a CheckerReporterBundle instance.
         '''
         pass
 

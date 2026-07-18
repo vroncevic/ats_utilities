@@ -63,17 +63,17 @@
 <span class="kn">from</span> <span class="nn">abc</span> <span class="kn">import</span> <span class="n">ABC</span><span class="p">,</span> <span class="n">abstractmethod</span>
 <span class="kn">from</span> <span class="nn">collections.abc</span> <span class="kn">import</span> <span class="n">Mapping</span>
 
-<span class="kn">from</span> <span class="nn">ats_utilities.context_bundle</span> <span class="kn">import</span> <span class="n">ContextBundle</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.generator.generator_bundle</span> <span class="kn">import</span> <span class="n">GeneratorBundle</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.context.context_bundle</span> <span class="kn">import</span> <span class="n">ContextBundle</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.generator.gen_params_bundle</span> <span class="kn">import</span> <span class="n">GenParamsBundle</span>
 
 <span class="n">__author__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;Vladimir Roncevic&#39;</span>
 <span class="n">__copyright__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;(C) 2026, https://vroncevic.github.io/ats_utilities&#39;</span>
 <span class="n">__credits__</span> <span class="o">=</span> <span class="p">[</span><span class="sa">r</span><span class="s1">&#39;Vladimir Roncevic&#39;</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;Python Software Foundation&#39;</span><span class="p">]</span>
 <span class="n">__license__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE&#39;</span>
-<span class="n">__version__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;3.4.2&#39;</span>
+<span class="n">__version__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;3.4.3&#39;</span>
 <span class="n">__maintainer__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;Vladimir Roncevic&#39;</span>
 <span class="n">__email__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;elektron.ronca@gmail.com&#39;</span>
-<span class="n">__status__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;Updated&#39;</span>
+<span class="n">__status__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;Development&#39;</span>
 
 
 <div class="viewcode-block" id="IGenerator">
@@ -126,12 +126,12 @@
 <div class="viewcode-block" id="IGenerator.generate">
 <a class="viewcode-back" href="../../../ats_utilities.generator.igenerator.html#ats_utilities.generator.igenerator.IGenerator.generate">[docs]</a>
     <span class="nd">@abstractmethod</span>
-    <span class="k">def</span> <span class="nf">generate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">generator_bundle</span><span class="p">:</span> <span class="n">GeneratorBundle</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">generate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">generator_bundle</span><span class="p">:</span> <span class="n">GenParamsBundle</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Generates project modules/files from a .tgz archive.</span>
 
 <span class="sd">            :param generator_bundle: Generator bundle containing template generation parameters.</span>
-<span class="sd">            :type generator_bundle: &lt;GeneratorBundle&gt;</span>
+<span class="sd">            :type generator_bundle: &lt;GenParamsBundle&gt;</span>
 <span class="sd">            :return: True if generation was successful, False otherwise.</span>
 <span class="sd">            :rtype: &lt;bool&gt;</span>
 <span class="sd">            :exceptions: None.</span>
@@ -146,7 +146,7 @@
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Checks if generator component is initialized.</span>
 
-<span class="sd">            :return: True (success) | False (fail).</span>
+<span class="sd">            :return: &lt;True&gt; if successful, &lt;False&gt; otherwise.</span>
 <span class="sd">            :rtype: &lt;bool&gt;</span>
 <span class="sd">            :exceptions: None.</span>
 <span class="sd">        &#39;&#39;&#39;</span>

@@ -24,19 +24,20 @@ from __future__ import annotations
 
 from typing import override
 
-from ats_utilities.factory_class import to_str
+from ats_utilities.utils.reflection import to_str
 from ats_utilities.checker.reporter.icheck_reporter import ICheckReporter
 from ats_utilities.checker.reporter.checker_reporter_bundle import CheckerReporterBundle
-from ats_utilities.factory_value import require_not_none
+from ats_utilities.validation.check_value import not_none
+from ats_utilities.validation.check_type import istype
 
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
 __license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = r'3.4.2'
+__version__ = r'3.4.3'
 __maintainer__ = r'Vladimir Roncevic'
 __email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Updated'
+__status__ = r'Development'
 
 
 class CheckReporter(ICheckReporter):
@@ -53,18 +54,20 @@ class CheckReporter(ICheckReporter):
     '''
 
     @override
-    def build_message_format(self, report_bundle: CheckerReporterBundle | None = None) -> str:
+    def build_message_format(self, report_bundle: CheckerReporterBundle) -> str:
         '''
             Builds the final message report for checker.
 
-            :param report_bundle: Bundle with parameters | None.
-            :type report_bundle: <CheckerReporterBundle | None>
+            :param report_bundle: Bundle with parameters.
+            :type report_bundle: <CheckerReporterBundle>
             :return: Formatted message report.
             :rtype: <str>
             :exceptions:
-                | ATSValueError: Report bundle must be provided.
+                | ATSValueError: Report checker reporter bundle must be provided.
+                | ATSTypeError: Report checker reporter bundle must be an instance of CheckerReporterBundle.
         '''
-        require_not_none(report_bundle, r'report bundle must be provided')
+        not_none(report_bundle, r'report checker reporter bundle must be provided')
+        istype(report_bundle, CheckerReporterBundle , r'report bundle must be an instance of CheckerReporterBundle')
 
         message = report_bundle.context
         err_set = set(report_bundle.err_indices)

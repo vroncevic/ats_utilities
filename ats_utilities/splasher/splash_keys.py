@@ -30,10 +30,10 @@ __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
 __license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = r'3.4.2'
+__version__ = r'3.4.3'
 __maintainer__ = r'Vladimir Roncevic'
 __email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Updated'
+__status__ = r'Development'
 
 
 @dataclass(frozen=True, slots=True, kw_only=True)
@@ -55,10 +55,12 @@ class SplashKeys:
                 | logo_path - Path to the logo image (default None).
                 | use_github_infrastructure - Use GitHub infrastructure (default None).
                 | enabled - Enable/disable splash screen (default True).
+                | _key_to_attr - Mapping of constant keys to instance attributes (default None).
             :methods:
-                | __init__ - Initials SplashKeys constructor.
-                | from_dict - Factory method to safely parse a dictionary into a SplashKeys instance.
-                | get_all_keys - Returns a tuple of all defined ClassVar keys for the splash screen.
+                | get_key_to_attr - Returns a read-only mapping of constant keys to instance attributes.
+                | __post_init__ - Post initials SplashKeys constructor.
+                | from_dict - Factory method to safely create a SplashKeys instance from a dictionary.
+                | get_all_keys - Returns an immutable tuple of all defined ClassVar keys for the splash screen.
                 | to_dict - Converts the SplashKeys instance to a dictionary.
     '''
 
@@ -75,6 +77,19 @@ class SplashKeys:
     use_github_infrastructure: bool | None = None
     enabled: bool = True
     _key_to_attr: ClassVar[MappingProxyType[str, str] | None] = None
+
+    def __post_init__(self) -> None:
+        '''
+            Post initials SplashKeys constructor.
+            Safely bypasses frozen restriction via object.__setattr__.
+
+            :exceptions: None.
+        '''
+        if not self.enabled:
+            attr_name: str
+
+            for attr_name in self.get_key_to_attr().values():
+                object.__setattr__(self, attr_name, None)
 
     @classmethod
     def get_key_to_attr(cls) -> MappingProxyType[str, str]:
@@ -98,19 +113,6 @@ class SplashKeys:
             cls._key_to_attr = MappingProxyType(mapping)
 
         return cls._key_to_attr
-
-    def __post_init__(self) -> None:
-        '''
-            Post initials SplashKeys constructor.
-            Safely bypasses frozen restriction via object.__setattr__.
-
-            :exceptions: None.
-        '''
-        if not self.enabled:
-            attr_name: str
-
-            for attr_name in self.get_key_to_attr().values():
-                object.__setattr__(self, attr_name, None)
 
     @classmethod
     def from_dict(cls, config: Mapping[str, Any]) -> Self:

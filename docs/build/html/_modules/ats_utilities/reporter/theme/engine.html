@@ -60,21 +60,23 @@
 
 <span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
 
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">override</span>
+<span class="kn">from</span> <span class="nn">collections.abc</span> <span class="kn">import</span> <span class="n">Mapping</span>
+<span class="kn">from</span> <span class="nn">types</span> <span class="kn">import</span> <span class="n">MappingProxyType</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Final</span><span class="p">,</span> <span class="n">override</span>
 
 <span class="kn">from</span> <span class="nn">ats_utilities.reporter.theme.iconsole_theme</span> <span class="kn">import</span> <span class="n">IConsoleTheme</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.factory_class</span> <span class="kn">import</span> <span class="n">has_attrs</span><span class="p">,</span> <span class="n">to_str</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.factory_value</span> <span class="kn">import</span> <span class="n">require_not_none</span><span class="p">,</span> <span class="n">require_not_satisfied</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.factory_type</span> <span class="kn">import</span> <span class="n">check_type</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.utils.reflection</span> <span class="kn">import</span> <span class="n">has_attrs</span><span class="p">,</span> <span class="n">to_str</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.validation.check_value</span> <span class="kn">import</span> <span class="n">not_none</span><span class="p">,</span> <span class="n">not_satisfied</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.validation.check_type</span> <span class="kn">import</span> <span class="n">istype</span>
 
 <span class="n">__author__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;Vladimir Roncevic&#39;</span>
 <span class="n">__copyright__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;(C) 2026, https://vroncevic.github.io/ats_utilities&#39;</span>
 <span class="n">__credits__</span> <span class="o">=</span> <span class="p">[</span><span class="sa">r</span><span class="s1">&#39;Vladimir Roncevic&#39;</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;Python Software Foundation&#39;</span><span class="p">]</span>
 <span class="n">__license__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE&#39;</span>
-<span class="n">__version__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;3.4.2&#39;</span>
+<span class="n">__version__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;3.4.3&#39;</span>
 <span class="n">__maintainer__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;Vladimir Roncevic&#39;</span>
 <span class="n">__email__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;elektron.ronca@gmail.com&#39;</span>
-<span class="n">__status__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;Updated&#39;</span>
+<span class="n">__status__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;Development&#39;</span>
 
 
 <div class="viewcode-block" id="ConsoleTheme">
@@ -87,22 +89,22 @@
 <span class="sd">        It defines:</span>
 
 <span class="sd">            :attributes:</span>
-<span class="sd">                | _default_palette_colors - Default palette colors for different message types.</span>
-<span class="sd">                | _palette - Dictionary with color codes for different message types.</span>
+<span class="sd">                | _DEFAULT_PALETTE_COLORS - Final default palette colors for different message types.</span>
+<span class="sd">                | _palette - Final mapping with color codes for different message types.</span>
 <span class="sd">            :methods:</span>
 <span class="sd">                | __init__ - Initializes ConsoleTheme constructor.</span>
 <span class="sd">                | get_color - Returns color code from palette.</span>
 <span class="sd">                | __str__ - Returns the string representation of ConsoleTheme.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
 
-    <span class="n">_default_palette_colors</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="n">_DEFAULT_PALETTE_COLORS</span><span class="p">:</span> <span class="n">Final</span><span class="p">[</span><span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="n">MappingProxyType</span><span class="p">({</span>
         <span class="s1">&#39;verbose&#39;</span><span class="p">:</span> <span class="s1">&#39;</span><span class="se">\x1b</span><span class="s1">[34m&#39;</span><span class="p">,</span> <span class="c1"># ANSI blue</span>
         <span class="s1">&#39;success&#39;</span><span class="p">:</span> <span class="s1">&#39;</span><span class="se">\x1b</span><span class="s1">[32m&#39;</span><span class="p">,</span> <span class="c1"># ANSI green</span>
         <span class="s1">&#39;warning&#39;</span><span class="p">:</span> <span class="s1">&#39;</span><span class="se">\x1b</span><span class="s1">[33m&#39;</span><span class="p">,</span> <span class="c1"># ANSI yellow</span>
         <span class="s1">&#39;error&#39;</span><span class="p">:</span>   <span class="s1">&#39;</span><span class="se">\x1b</span><span class="s1">[31m&#39;</span><span class="p">,</span> <span class="c1"># ANSI red</span>
         <span class="s1">&#39;reset&#39;</span><span class="p">:</span>   <span class="s1">&#39;</span><span class="se">\x1b</span><span class="s1">[0m&#39;</span>   <span class="c1"># ANSI reset</span>
-    <span class="p">}</span>
-    <span class="n">_palette</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span>
+    <span class="p">})</span>
+    <span class="n">_palette</span><span class="p">:</span> <span class="n">Final</span><span class="p">[</span><span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">palette</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
@@ -114,10 +116,10 @@
 <span class="sd">                | ATSTypeError: Palette must be a dictionary.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="k">if</span> <span class="n">palette</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">check_type</span><span class="p">(</span><span class="n">palette</span><span class="p">,</span> <span class="nb">dict</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;palette must be a dictionary&#39;</span><span class="p">)</span>
+            <span class="n">istype</span><span class="p">(</span><span class="n">palette</span><span class="p">,</span> <span class="nb">dict</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;palette must be a dictionary&#39;</span><span class="p">)</span>
 
         <span class="c1"># No dependency injection then use default ones.</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_palette</span> <span class="o">=</span> <span class="n">palette</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">_default_palette_colors</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_palette</span> <span class="o">=</span> <span class="n">MappingProxyType</span><span class="p">(</span><span class="n">palette</span><span class="p">)</span> <span class="k">if</span> <span class="n">palette</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">_DEFAULT_PALETTE_COLORS</span>
 
 <div class="viewcode-block" id="ConsoleTheme.get_color">
 <a class="viewcode-back" href="../../../../ats_utilities.reporter.theme.engine.html#ats_utilities.reporter.theme.engine.ConsoleTheme.get_color">[docs]</a>
@@ -137,9 +139,9 @@
 <span class="sd">                | ATSTypeError: Color type must be a string.</span>
 <span class="sd">                | ATSValueError: Color type not found in palette.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="n">require_not_none</span><span class="p">(</span><span class="n">color_type</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;color type must be provided&#39;</span><span class="p">)</span>
-        <span class="n">check_type</span><span class="p">(</span><span class="n">color_type</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;color type must be a string&#39;</span><span class="p">)</span>
-        <span class="n">require_not_satisfied</span><span class="p">(</span><span class="n">color_type</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_palette</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;color type &#39;</span><span class="si">{</span><span class="n">color_type</span><span class="si">}</span><span class="s2">&#39; not found in palette&quot;</span><span class="p">)</span>
+        <span class="n">not_none</span><span class="p">(</span><span class="n">color_type</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;color type must be provided&#39;</span><span class="p">)</span>
+        <span class="n">istype</span><span class="p">(</span><span class="n">color_type</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;color type must be a string&#39;</span><span class="p">)</span>
+        <span class="n">not_satisfied</span><span class="p">(</span><span class="n">color_type</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_palette</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;color type </span><span class="si">{</span><span class="n">color_type</span><span class="si">}</span><span class="s1"> not found in palette&#39;</span><span class="p">)</span>
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_palette</span><span class="p">[</span><span class="n">color_type</span><span class="p">]</span></div>
 

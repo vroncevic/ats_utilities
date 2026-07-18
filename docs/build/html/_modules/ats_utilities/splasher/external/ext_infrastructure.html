@@ -65,24 +65,25 @@
 
 <span class="kn">from</span> <span class="nn">ats_utilities.splasher.external.iext_infrastructure</span> <span class="kn">import</span> <span class="n">IExtInfrastructure</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.splasher.splash_keys</span> <span class="kn">import</span> <span class="n">SplashKeys</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.context_bundle</span> <span class="kn">import</span> <span class="n">ContextBundle</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.context.context_bundle</span> <span class="kn">import</span> <span class="n">ContextBundle</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.checker.ichecker</span> <span class="kn">import</span> <span class="n">IChecker</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.logger.ilogger</span> <span class="kn">import</span> <span class="n">ILogger</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.reporter.ireporter</span> <span class="kn">import</span> <span class="n">IReporter</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.factory_context_bundle</span> <span class="kn">import</span> <span class="n">factory_context_bundle</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.factory_class</span> <span class="kn">import</span> <span class="n">has_attrs</span><span class="p">,</span> <span class="n">to_str</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.checker.proxy_validator</span> <span class="kn">import</span> <span class="n">vcheck</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.context.context_bundle_inject</span> <span class="kn">import</span> <span class="n">inject_context_bundle</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.utils.reflection</span> <span class="kn">import</span> <span class="n">has_attrs</span><span class="p">,</span> <span class="n">to_str</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.checker.proxy_validator</span> <span class="kn">import</span> <span class="n">mcheck</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.reporter.proxy_reporter</span> <span class="kn">import</span> <span class="n">vreport</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.factory_dict_utils</span> <span class="kn">import</span> <span class="n">require_keys</span><span class="p">,</span> <span class="n">cherry_pick_dict</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.factory_value</span> <span class="kn">import</span> <span class="n">require_not_empty</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.utils.dicts</span> <span class="kn">import</span> <span class="n">require_keys</span><span class="p">,</span> <span class="n">cherry_pick_dict</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.validation.check_value</span> <span class="kn">import</span> <span class="n">not_empty</span>
 
 <span class="n">__author__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;Vladimir Roncevic&#39;</span>
 <span class="n">__copyright__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;(C) 2026, https://vroncevic.github.io/ats_utilities&#39;</span>
 <span class="n">__credits__</span> <span class="o">=</span> <span class="p">[</span><span class="sa">r</span><span class="s1">&#39;Vladimir Roncevic&#39;</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;Python Software Foundation&#39;</span><span class="p">]</span>
 <span class="n">__license__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE&#39;</span>
-<span class="n">__version__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;3.4.2&#39;</span>
+<span class="n">__version__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;3.4.3&#39;</span>
 <span class="n">__maintainer__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;Vladimir Roncevic&#39;</span>
 <span class="n">__email__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;elektron.ronca@gmail.com&#39;</span>
-<span class="n">__status__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;Updated&#39;</span>
+<span class="n">__status__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;Development&#39;</span>
 
 
 <div class="viewcode-block" id="ExtInfrastructure">
@@ -96,8 +97,9 @@
 <span class="sd">        It defines:</span>
 
 <span class="sd">            :attributes:</span>
-<span class="sd">                | _required_keys - Required keys for infrastructure property (default frozenset).</span>
+<span class="sd">                | _REQUIRED_KEYS - Required keys for infrastructure property (default frozenset).</span>
 <span class="sd">                | _checker - Injected parameters checker (default Checker).</span>
+<span class="sd">                | _logger - Injected logger (default Logger).</span>
 <span class="sd">                | _reporter - Injected reporter for messaging (default Reporter).</span>
 <span class="sd">                | _verbose - Injected Enable/Disable verbose option (default False).</span>
 <span class="sd">                | _infrastructure_property - Splasher hyperlinks property (default None).</span>
@@ -110,23 +112,26 @@
 <span class="sd">                | __str__ - Returns the string representation of ExtInfrastructure.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
 
-    <span class="n">_required_keys</span><span class="p">:</span> <span class="nb">frozenset</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="nb">frozenset</span><span class="p">([</span>
+    <span class="n">_REQUIRED_KEYS</span><span class="p">:</span> <span class="nb">frozenset</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="nb">frozenset</span><span class="p">([</span>
         <span class="n">SplashKeys</span><span class="o">.</span><span class="n">ATS_NAME</span><span class="p">,</span> <span class="n">SplashKeys</span><span class="o">.</span><span class="n">ATS_ORGANIZATION</span><span class="p">,</span> <span class="n">SplashKeys</span><span class="o">.</span><span class="n">ATS_REPOSITORY</span>
     <span class="p">])</span>
     <span class="n">_checker</span><span class="p">:</span> <span class="n">IChecker</span>
+    <span class="n">_logger</span><span class="p">:</span> <span class="n">ILogger</span>
     <span class="n">_reporter</span><span class="p">:</span> <span class="n">IReporter</span>
     <span class="n">_verbose</span><span class="p">:</span> <span class="nb">bool</span>
     <span class="n">_infrastructure_property</span><span class="p">:</span> <span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context_bundle</span><span class="p">:</span> <span class="n">ContextBundle</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context_bundle</span><span class="p">:</span> <span class="n">ContextBundle</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Initials ExtInfrastructure constructor.</span>
 
-<span class="sd">            :param context_bundle: Context bundle for external infrastructure | None.</span>
-<span class="sd">            :type context_bundle: &lt;ContextBundle | None&gt;</span>
-<span class="sd">            :exceptions: None.</span>
+<span class="sd">            :param context_bundle: Context bundle for external infrastructure.</span>
+<span class="sd">            :type context_bundle: &lt;ContextBundle&gt;</span>
+<span class="sd">            :exceptions:</span>
+<span class="sd">                | ATSValueError: Context bundle must be provided.</span>
+<span class="sd">                | ATSTypeError: Context bundle must be a ContextBundle instance.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="n">factory_context_bundle</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context_bundle</span><span class="p">)</span>
+        <span class="n">inject_context_bundle</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context_bundle</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_infrastructure_property</span> <span class="o">=</span> <span class="kc">None</span>
 
     <span class="nd">@property</span>
@@ -147,7 +152,7 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_infrastructure_property</span> <span class="ow">or</span> <span class="p">{}</span>
 
     <span class="nd">@infrastructure_property</span><span class="o">.</span><span class="n">setter</span>
-    <span class="nd">@vcheck</span><span class="p">([(</span><span class="s1">&#39;Mapping:setup&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)])</span>
+    <span class="nd">@mcheck</span><span class="p">([(</span><span class="s1">&#39;Mapping:setup&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)])</span>
     <span class="nd">@vreport</span><span class="p">(</span><span class="s1">&#39;setting infrastructure property </span><span class="si">{infrastructure_property}</span><span class="s1">&#39;</span><span class="p">)</span>
     <span class="nd">@override</span>
     <span class="k">def</span> <span class="nf">infrastructure_property</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">setup</span><span class="p">:</span> <span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
@@ -168,8 +173,8 @@
 <span class="sd">                | ATSRuntimeError: Decorator used on a non-class method.</span>
 <span class="sd">                | ATSAttributeError: Class does not provide a &#39;_checker&#39; object.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="n">require_keys</span><span class="p">(</span><span class="n">setup</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_required_keys</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_infrastructure_property</span> <span class="o">=</span> <span class="n">cherry_pick_dict</span><span class="p">(</span><span class="n">setup</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_required_keys</span><span class="p">)</span>
+        <span class="n">require_keys</span><span class="p">(</span><span class="n">setup</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_REQUIRED_KEYS</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_infrastructure_property</span> <span class="o">=</span> <span class="n">cherry_pick_dict</span><span class="p">(</span><span class="n">setup</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_REQUIRED_KEYS</span><span class="p">)</span>
 
 <div class="viewcode-block" id="ExtInfrastructure.get_info_text">
 <a class="viewcode-back" href="../../../../ats_utilities.splasher.external.ext_infrastructure.html#ats_utilities.splasher.external.ext_infrastructure.ExtInfrastructure.get_info_text">[docs]</a>
@@ -191,7 +196,7 @@
 <span class="sd">                |                    use the @vreport decorator.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_infrastructure_property</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">SplashKeys</span><span class="o">.</span><span class="n">ATS_NAME</span><span class="p">)</span>
-        <span class="n">require_not_empty</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;missing name&#39;</span><span class="p">)</span>
+        <span class="n">not_empty</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;missing name&#39;</span><span class="p">)</span>
 
         <span class="k">return</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="se">\x1b</span><span class="s1">]8;;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="se">\a</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="se">\x1b</span><span class="s1">]8;;</span><span class="se">\a</span><span class="s1">&#39;</span></div>
 
@@ -216,7 +221,7 @@
 <span class="sd">                |                    use the @vreport decorator.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="n">repo</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_infrastructure_property</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">SplashKeys</span><span class="o">.</span><span class="n">ATS_REPOSITORY</span><span class="p">)</span>
-        <span class="n">require_not_empty</span><span class="p">(</span><span class="n">repo</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;missing repository&#39;</span><span class="p">)</span>
+        <span class="n">not_empty</span><span class="p">(</span><span class="n">repo</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;missing repository&#39;</span><span class="p">)</span>
 
         <span class="k">return</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="se">\x1b</span><span class="s1">]8;;</span><span class="si">{</span><span class="n">repo</span><span class="si">}</span><span class="se">\a</span><span class="si">{</span><span class="n">repo</span><span class="si">}</span><span class="se">\x1b</span><span class="s1">]8;;</span><span class="se">\a</span><span class="s1">&#39;</span></div>
 
@@ -241,7 +246,7 @@
 <span class="sd">                |                    use the @vreport decorator.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="n">org</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_infrastructure_property</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">SplashKeys</span><span class="o">.</span><span class="n">ATS_ORGANIZATION</span><span class="p">)</span>
-        <span class="n">require_not_empty</span><span class="p">(</span><span class="n">org</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;missing organization&#39;</span><span class="p">)</span>
+        <span class="n">not_empty</span><span class="p">(</span><span class="n">org</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;missing organization&#39;</span><span class="p">)</span>
 
         <span class="k">return</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="se">\x1b</span><span class="s1">]8;;</span><span class="si">{</span><span class="n">org</span><span class="si">}</span><span class="se">\a</span><span class="si">{</span><span class="n">org</span><span class="si">}</span><span class="se">\x1b</span><span class="s1">]8;;</span><span class="se">\a</span><span class="s1">&#39;</span></div>
 

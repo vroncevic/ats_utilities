@@ -60,20 +60,20 @@
 <span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
 
 <span class="kn">from</span> <span class="nn">collections.abc</span> <span class="kn">import</span> <span class="n">Sequence</span>
-<span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span><span class="p">,</span> <span class="n">asdict</span>
+<span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span>
 
-<span class="kn">from</span> <span class="nn">ats_utilities.factory_value</span> <span class="kn">import</span> <span class="n">require_not_none</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.factory_type</span> <span class="kn">import</span> <span class="n">check_type</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.validation.check_value</span> <span class="kn">import</span> <span class="n">not_none</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.validation.check_type</span> <span class="kn">import</span> <span class="n">istype</span>
 
 <span class="n">__author__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;Vladimir Roncevic&#39;</span>
 <span class="n">__copyright__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;(C) 2026, https://vroncevic.github.io/ats_utilities&#39;</span>
 <span class="n">__credits__</span> <span class="o">=</span> <span class="p">[</span><span class="sa">r</span><span class="s1">&#39;Vladimir Roncevic&#39;</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;Python Software Foundation&#39;</span><span class="p">]</span>
 <span class="n">__license__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE&#39;</span>
-<span class="n">__version__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;3.4.2&#39;</span>
+<span class="n">__version__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;3.4.3&#39;</span>
 <span class="n">__maintainer__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;Vladimir Roncevic&#39;</span>
 <span class="n">__email__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;elektron.ronca@gmail.com&#39;</span>
-<span class="n">__status__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;Updated&#39;</span>
+<span class="n">__status__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;Development&#39;</span>
 
 
 <div class="viewcode-block" id="CommandOption">
@@ -88,12 +88,13 @@
 <span class="sd">            :attributes:</span>
 <span class="sd">                | name - The command line option name.</span>
 <span class="sd">                | help_text - Help text for this option.</span>
-<span class="sd">                | action - Optional action for this option.</span>
-<span class="sd">                | default - Optional default value for this option.</span>
-<span class="sd">                | required - True if this option is required.</span>
-<span class="sd">                | choices - Optional choices for this option.</span>
-<span class="sd">                | nargs - Optional number of arguments for this option.</span>
+<span class="sd">                | action - Optional action for this option (default None).</span>
+<span class="sd">                | default - Optional default value for this option (default None).</span>
+<span class="sd">                | required - True if this option is required (default False).</span>
+<span class="sd">                | choices - Optional choices for this option (default None).</span>
+<span class="sd">                | nargs - Optional number of arguments for this option (default None).</span>
 <span class="sd">            :methods:</span>
+<span class="sd">                | __post_init__ - Post-initializes CommandOption instance.</span>
 <span class="sd">                | validate - Validates that CommandOption instance is valid (can be called after merge).</span>
 <span class="sd">                | merge - Merges non-None values from another CommandOption instance into this one.</span>
 <span class="sd">                | to_dict - Converts the CommandOption instance to a dictionary.</span>
@@ -141,16 +142,16 @@
 <span class="sd">                | ATSValueError: Nargs must be provided.</span>
 <span class="sd">                | ATSTypeError: Nargs must be a string or an integer.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="n">require_not_none</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;name must be provided&quot;</span><span class="p">)</span>
-        <span class="n">require_not_none</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">help_text</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;help text must be provided&quot;</span><span class="p">)</span>
-        <span class="n">require_not_none</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">action</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;action must be provided&quot;</span><span class="p">)</span>
-        <span class="n">require_not_none</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">default</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;default must be provided&quot;</span><span class="p">)</span>
-        <span class="n">require_not_none</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">required</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;required must be provided&quot;</span><span class="p">)</span>
-        <span class="n">require_not_none</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">choices</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;choices must be provided&quot;</span><span class="p">)</span>
-        <span class="n">require_not_none</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">nargs</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;nargs must be provided&quot;</span><span class="p">)</span>
-        <span class="n">check_type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">required</span><span class="p">,</span> <span class="nb">bool</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;required must be a boolean&quot;</span><span class="p">)</span>
-        <span class="n">check_type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">choices</span><span class="p">,</span> <span class="n">Sequence</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;choices must be a sequence&quot;</span><span class="p">)</span>
-        <span class="n">check_type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">nargs</span><span class="p">,</span> <span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">),</span> <span class="sa">r</span><span class="s2">&quot;nargs must be a string or an integer&quot;</span><span class="p">)</span></div>
+        <span class="n">not_none</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;name must be provided&#39;</span><span class="p">)</span>
+        <span class="n">not_none</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">help_text</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;help text must be provided&#39;</span><span class="p">)</span>
+        <span class="n">not_none</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">action</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;action must be provided&#39;</span><span class="p">)</span>
+        <span class="n">not_none</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">default</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;default must be provided&#39;</span><span class="p">)</span>
+        <span class="n">not_none</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">required</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;required must be provided&#39;</span><span class="p">)</span>
+        <span class="n">not_none</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">choices</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;choices must be provided&#39;</span><span class="p">)</span>
+        <span class="n">not_none</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">nargs</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;nargs must be provided&#39;</span><span class="p">)</span>
+        <span class="n">istype</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">required</span><span class="p">,</span> <span class="nb">bool</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;required must be a boolean&#39;</span><span class="p">)</span>
+        <span class="n">istype</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">choices</span><span class="p">,</span> <span class="n">Sequence</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;choices must be a sequence&#39;</span><span class="p">)</span>
+        <span class="n">istype</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">nargs</span><span class="p">,</span> <span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">),</span> <span class="sa">r</span><span class="s1">&#39;nargs must be a string or an integer&#39;</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="CommandOption.merge">
@@ -162,12 +163,14 @@
 <span class="sd">            :param other: Another CommandOption to merge into this one.</span>
 <span class="sd">            :type other: &lt;CommandOption&gt;</span>
 <span class="sd">            :exceptions:</span>
+<span class="sd">                | ATSValueError: Other CommandOption must be provided.</span>
 <span class="sd">                | ATSTypeError: Other must be a CommandOption instance.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="n">check_type</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">CommandOption</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;other must be a CommandOption instance&#39;</span><span class="p">)</span>
+        <span class="n">not_none</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;other CommandOption must be provided&#39;</span><span class="p">)</span>
+        <span class="n">istype</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">CommandOption</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;other must be a CommandOption instance&#39;</span><span class="p">)</span>
 
         <span class="k">for</span> <span class="n">field_name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">__dataclass_fields__</span><span class="p">:</span>
-            <span class="n">other_value</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">field_name</span><span class="p">)</span>
+            <span class="n">other_value</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">field_name</span><span class="p">)</span>
 
             <span class="k">if</span> <span class="n">other_value</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
                 <span class="k">if</span> <span class="n">field_name</span> <span class="o">==</span> <span class="s1">&#39;choices&#39;</span><span class="p">:</span>
@@ -187,7 +190,10 @@
 <span class="sd">            :rtype: &lt;dict[str, Any]&gt;</span>
 <span class="sd">            :exceptions: None.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="k">return</span> <span class="n">asdict</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div>
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="n">field</span><span class="p">:</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">field</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">field</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">__dataclass_fields__</span>
+        <span class="p">}</span></div>
 </div>
 
 </pre></div>

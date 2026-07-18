@@ -22,21 +22,23 @@ Info
 
 from __future__ import annotations
 
-from typing import override
+from collections.abc import Mapping
+from types import MappingProxyType
+from typing import Final, override
 
 from ats_utilities.reporter.theme.iconsole_theme import IConsoleTheme
-from ats_utilities.factory_class import has_attrs, to_str
-from ats_utilities.factory_value import require_not_none, require_not_satisfied
-from ats_utilities.factory_type import check_type
+from ats_utilities.utils.reflection import has_attrs, to_str
+from ats_utilities.validation.check_value import not_none, not_satisfied
+from ats_utilities.validation.check_type import istype
 
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
 __license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = r'3.4.2'
+__version__ = r'3.4.3'
 __maintainer__ = r'Vladimir Roncevic'
 __email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Updated'
+__status__ = r'Development'
 
 
 class ConsoleTheme(IConsoleTheme):
@@ -47,22 +49,22 @@ class ConsoleTheme(IConsoleTheme):
         It defines:
 
             :attributes:
-                | _default_palette_colors - Default palette colors for different message types.
-                | _palette - Dictionary with color codes for different message types.
+                | _DEFAULT_PALETTE_COLORS - Final default palette colors for different message types.
+                | _palette - Final mapping with color codes for different message types.
             :methods:
                 | __init__ - Initializes ConsoleTheme constructor.
                 | get_color - Returns color code from palette.
                 | __str__ - Returns the string representation of ConsoleTheme.
     '''
 
-    _default_palette_colors: dict[str, str] = {
+    _DEFAULT_PALETTE_COLORS: Final[Mapping[str, str]] = MappingProxyType({
         'verbose': '\x1b[34m', # ANSI blue
         'success': '\x1b[32m', # ANSI green
         'warning': '\x1b[33m', # ANSI yellow
         'error':   '\x1b[31m', # ANSI red
         'reset':   '\x1b[0m'   # ANSI reset
-    }
-    _palette: dict[str, str]
+    })
+    _palette: Final[Mapping[str, str]]
 
     def __init__(self, palette: dict[str, str] | None = None) -> None:
         '''
@@ -74,10 +76,10 @@ class ConsoleTheme(IConsoleTheme):
                 | ATSTypeError: Palette must be a dictionary.
         '''
         if palette is not None:
-            check_type(palette, dict, r'palette must be a dictionary')
+            istype(palette, dict, r'palette must be a dictionary')
 
         # No dependency injection then use default ones.
-        self._palette = palette or self._default_palette_colors
+        self._palette = MappingProxyType(palette) if palette is not None else self._DEFAULT_PALETTE_COLORS
 
     @has_attrs('_palette')
     @override
@@ -95,9 +97,9 @@ class ConsoleTheme(IConsoleTheme):
                 | ATSTypeError: Color type must be a string.
                 | ATSValueError: Color type not found in palette.
         '''
-        require_not_none(color_type, r'color type must be provided')
-        check_type(color_type, str, r'color type must be a string')
-        require_not_satisfied(color_type not in self._palette, f"color type '{color_type}' not found in palette")
+        not_none(color_type, r'color type must be provided')
+        istype(color_type, str, r'color type must be a string')
+        not_satisfied(color_type not in self._palette, f'color type {color_type} not found in palette')
 
         return self._palette[color_type]
 

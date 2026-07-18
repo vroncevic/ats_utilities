@@ -70,7 +70,7 @@ Creates an API for processing hyperlinks for splash screen.</p>
 </dl>
 <dl class="py class">
 <dt class="sig sig-object py" id="ats_utilities.splasher.external.ext_infrastructure.ExtInfrastructure">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ats_utilities.splasher.external.ext_infrastructure.</span></span><span class="sig-name descname"><span class="pre">ExtInfrastructure</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">context_bundle</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="ats_utilities.context_bundle.html#ats_utilities.context_bundle.ContextBundle" title="ats_utilities.context_bundle.ContextBundle"><span class="pre">ContextBundle</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ats_utilities/splasher/external/ext_infrastructure.html#ExtInfrastructure"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.splasher.external.ext_infrastructure.ExtInfrastructure" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ats_utilities.splasher.external.ext_infrastructure.</span></span><span class="sig-name descname"><span class="pre">ExtInfrastructure</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">context_bundle</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="ats_utilities.context.context_bundle.html#ats_utilities.context.context_bundle.ContextBundle" title="ats_utilities.context.context_bundle.ContextBundle"><span class="pre">ContextBundle</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ats_utilities/splasher/external/ext_infrastructure.html#ExtInfrastructure"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.splasher.external.ext_infrastructure.ExtInfrastructure" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="ats_utilities.splasher.external.iext_infrastructure.html#ats_utilities.splasher.external.iext_infrastructure.IExtInfrastructure" title="ats_utilities.splasher.external.iext_infrastructure.IExtInfrastructure"><code class="xref py py-class docutils literal notranslate"><span class="pre">IExtInfrastructure</span></code></a></p>
 <p>Defines class ExtInfrastructure with attribute(s) and method(s).
 Creates an API for processing hyperlinks for splash screen.
@@ -80,8 +80,9 @@ Note: Splash screen infrastructure comes from info configuration file as read on
 <div><dl class="field-list">
 <dt class="field-odd">attributes<span class="colon">:</span></dt>
 <dd class="field-odd"><div class="line-block">
-<div class="line">_required_keys - Required keys for infrastructure property (default frozenset).</div>
+<div class="line">_REQUIRED_KEYS - Required keys for infrastructure property (default frozenset).</div>
 <div class="line">_checker - Injected parameters checker (default Checker).</div>
+<div class="line">_logger - Injected logger (default Logger).</div>
 <div class="line">_reporter - Injected reporter for messaging (default Reporter).</div>
 <div class="line">_verbose - Injected Enable/Disable verbose option (default False).</div>
 <div class="line">_infrastructure_property - Splasher hyperlinks property (default None).</div>
@@ -100,6 +101,11 @@ Note: Splash screen infrastructure comes from info configuration file as read on
 </dl>
 </div></blockquote>
 <dl class="py attribute">
+<dt class="sig sig-object py" id="ats_utilities.splasher.external.ext_infrastructure.ExtInfrastructure._REQUIRED_KEYS">
+<span class="sig-name descname"><span class="pre">_REQUIRED_KEYS</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">frozenset</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">frozenset({'ats_name',</span> <span class="pre">'ats_organization',</span> <span class="pre">'ats_repository'})</span></em><a class="headerlink" href="#ats_utilities.splasher.external.ext_infrastructure.ExtInfrastructure._REQUIRED_KEYS" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
 <dt class="sig sig-object py" id="ats_utilities.splasher.external.ext_infrastructure.ExtInfrastructure._abc_impl">
 <span class="sig-name descname"><span class="pre">_abc_impl</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;_abc._abc_data</span> <span class="pre">object&gt;</span></em><a class="headerlink" href="#ats_utilities.splasher.external.ext_infrastructure.ExtInfrastructure._abc_impl" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -115,13 +121,13 @@ Note: Splash screen infrastructure comes from info configuration file as read on
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="ats_utilities.splasher.external.ext_infrastructure.ExtInfrastructure._reporter">
-<span class="sig-name descname"><span class="pre">_reporter</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="ats_utilities.reporter.ireporter.html#ats_utilities.reporter.ireporter.IReporter" title="ats_utilities.reporter.ireporter.IReporter"><span class="pre">IReporter</span></a></em><a class="headerlink" href="#ats_utilities.splasher.external.ext_infrastructure.ExtInfrastructure._reporter" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ats_utilities.splasher.external.ext_infrastructure.ExtInfrastructure._logger">
+<span class="sig-name descname"><span class="pre">_logger</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="ats_utilities.logger.ilogger.html#ats_utilities.logger.ilogger.ILogger" title="ats_utilities.logger.ilogger.ILogger"><span class="pre">ILogger</span></a></em><a class="headerlink" href="#ats_utilities.splasher.external.ext_infrastructure.ExtInfrastructure._logger" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="ats_utilities.splasher.external.ext_infrastructure.ExtInfrastructure._required_keys">
-<span class="sig-name descname"><span class="pre">_required_keys</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">frozenset</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">frozenset({'ats_name',</span> <span class="pre">'ats_organization',</span> <span class="pre">'ats_repository'})</span></em><a class="headerlink" href="#ats_utilities.splasher.external.ext_infrastructure.ExtInfrastructure._required_keys" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="ats_utilities.splasher.external.ext_infrastructure.ExtInfrastructure._reporter">
+<span class="sig-name descname"><span class="pre">_reporter</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="ats_utilities.reporter.ireporter.html#ats_utilities.reporter.ireporter.IReporter" title="ats_utilities.reporter.ireporter.IReporter"><span class="pre">IReporter</span></a></em><a class="headerlink" href="#ats_utilities.splasher.external.ext_infrastructure.ExtInfrastructure._reporter" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
@@ -247,11 +253,12 @@ Note: Splash screen infrastructure comes from info configuration file as read on
     <ul>
 <li><a class="reference internal" href="#">ats_utilities.splasher.external.ext_infrastructure module</a><ul>
 <li><a class="reference internal" href="#ats_utilities.splasher.external.ext_infrastructure.ExtInfrastructure"><code class="docutils literal notranslate"><span class="pre">ExtInfrastructure</span></code></a><ul>
+<li><a class="reference internal" href="#ats_utilities.splasher.external.ext_infrastructure.ExtInfrastructure._REQUIRED_KEYS"><code class="docutils literal notranslate"><span class="pre">ExtInfrastructure._REQUIRED_KEYS</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.splasher.external.ext_infrastructure.ExtInfrastructure._abc_impl"><code class="docutils literal notranslate"><span class="pre">ExtInfrastructure._abc_impl</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.splasher.external.ext_infrastructure.ExtInfrastructure._checker"><code class="docutils literal notranslate"><span class="pre">ExtInfrastructure._checker</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.splasher.external.ext_infrastructure.ExtInfrastructure._infrastructure_property"><code class="docutils literal notranslate"><span class="pre">ExtInfrastructure._infrastructure_property</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.splasher.external.ext_infrastructure.ExtInfrastructure._logger"><code class="docutils literal notranslate"><span class="pre">ExtInfrastructure._logger</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.splasher.external.ext_infrastructure.ExtInfrastructure._reporter"><code class="docutils literal notranslate"><span class="pre">ExtInfrastructure._reporter</span></code></a></li>
-<li><a class="reference internal" href="#ats_utilities.splasher.external.ext_infrastructure.ExtInfrastructure._required_keys"><code class="docutils literal notranslate"><span class="pre">ExtInfrastructure._required_keys</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.splasher.external.ext_infrastructure.ExtInfrastructure._verbose"><code class="docutils literal notranslate"><span class="pre">ExtInfrastructure._verbose</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.splasher.external.ext_infrastructure.ExtInfrastructure.get_author_text"><code class="docutils literal notranslate"><span class="pre">ExtInfrastructure.get_author_text()</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.splasher.external.ext_infrastructure.ExtInfrastructure.get_info_text"><code class="docutils literal notranslate"><span class="pre">ExtInfrastructure.get_info_text()</span></code></a></li>

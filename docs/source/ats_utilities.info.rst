@@ -10,6 +10,7 @@ Subpackages
    ats_utilities.info.build_date
    ats_utilities.info.info_ok
    ats_utilities.info.licence
+   ats_utilities.info.log_file
    ats_utilities.info.logo
    ats_utilities.info.name
    ats_utilities.info.organization
@@ -23,10 +24,11 @@ Submodules
 .. toctree::
    :maxdepth: 4
 
-   ats_utilities.info.component_bundle
    ats_utilities.info.engine
-   ats_utilities.info.imanager
+   ats_utilities.info.iinfo_manager
+   ats_utilities.info.info_bundle
    ats_utilities.info.info_keys
+   ats_utilities.info.info_registry
 
 Module contents
 ---------------

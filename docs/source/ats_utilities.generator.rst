@@ -17,9 +17,11 @@ Submodules
 .. toctree::
    :maxdepth: 4
 
-   ats_utilities.generator.component_bundle
    ats_utilities.generator.engine
+   ats_utilities.generator.gen_params_bundle
+   ats_utilities.generator.gen_params_registry
    ats_utilities.generator.generator_bundle
+   ats_utilities.generator.generator_registry
    ats_utilities.generator.igenerator
 
 Module contents

@@ -21,17 +21,18 @@ Info
 
 import sys
 from typing import Any
+from ats_utilities.context.context_registry import ContextRegistry
+from ats_utilities.option.option_registry import OptionRegistry
 from ats_utilities.option.engine import OptionManager
-from ats_utilities.option.component_bundle import OptionComponentBundle
 
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
 __license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = r'3.4.2'
+__version__ = r'3.4.3'
 __maintainer__ = r'Vladimir Roncevic'
 __email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Updated'
+__status__ = r'Development'
 
 
 #
@@ -46,7 +47,11 @@ opt_parser = {
 }
 
 OPS: list[str] = ['-n', '--name', '-v', '--verbose']
-component_bundle: OptionComponentBundle = OptionComponentBundle(parameters=opt_parser)
+context_bundle = ContextRegistry.create_default_context_bundle()
+component_bundle = OptionRegistry.create_option_bundle_from_dict(
+    parameters=opt_parser,
+    context_bundle=context_bundle
+)
 parser: OptionManager = OptionManager(component_bundle=component_bundle)
 parser.add_version_operation('1.2.4')
 parser.add_operation(OPS[0], OPS[1], dest='name', help='generate project (provide name)')

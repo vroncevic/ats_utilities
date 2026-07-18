@@ -15,8 +15,8 @@
     
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="ats_utilities.option.strategy.parser_strategy module" href="ats_utilities.option.strategy.parser_strategy.html" />
-    <link rel="prev" title="ats_utilities.option.strategy package" href="ats_utilities.option.strategy.html" /> 
+    <link rel="next" title="ats_utilities.option.strategy.parser_strategy_bundle module" href="ats_utilities.option.strategy.parser_strategy_bundle.html" />
+    <link rel="prev" title="ats_utilities.option.strategy.engine module" href="ats_utilities.option.strategy.engine.html" /> 
   </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
@@ -28,10 +28,10 @@
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="ats_utilities.option.strategy.parser_strategy.html" title="ats_utilities.option.strategy.parser_strategy module"
+          <a href="ats_utilities.option.strategy.parser_strategy_bundle.html" title="ats_utilities.option.strategy.parser_strategy_bundle module"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="ats_utilities.option.strategy.html" title="ats_utilities.option.strategy package"
+          <a href="ats_utilities.option.strategy.engine.html" title="ats_utilities.option.strategy.engine module"
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">ats_utilities https://github.com/vroncevic/ats_utilities/releases documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="modules.html" >ats_utilities</a> &#187;</li>
@@ -80,7 +80,6 @@ Allows third-party parsers to be injected from the outside.</p>
 <div><dl class="field-list">
 <dt class="field-odd">methods<span class="colon">:</span></dt>
 <dd class="field-odd"><div class="line-block">
-<div class="line">setup - Initializes the underlying parser with metadata parameters.</div>
 <div class="line">add_argument - Adds an operational argument/flag to the parser.</div>
 <div class="line">add_version - Adds a version display option to the parser.</div>
 <div class="line">parse - Parses the input arguments and returns an OptionNamespace.</div>
@@ -134,7 +133,7 @@ Allows third-party parsers to be injected from the outside.</p>
 <dd><p>Checks if parser strategy component is ok.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>True (success) | False (fail).</p>
+<dd class="field-odd"><p>&lt;True&gt; if successful, &lt;False&gt; otherwise.</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p>&lt;bool&gt;</p>
@@ -202,20 +201,6 @@ Allows third-party parsers to be injected from the outside.</p>
 </dl>
 </dd></dl>
 
-<dl class="py method">
-<dt class="sig sig-object py" id="ats_utilities.option.strategy.iparser_strategy.IParserStrategy.setup">
-<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">setup</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parameters</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Mapping</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/ats_utilities/option/strategy/iparser_strategy.html#IParserStrategy.setup"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.option.strategy.iparser_strategy.IParserStrategy.setup" title="Link to this definition">¶</a></dt>
-<dd><p>Initializes the underlying parser with metadata parameters.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>parameters</strong> (<em>&lt;Mapping</em><em>[</em><em>str</em><em>, </em><em>str</em><em>]</em><em>&gt;</em>) – Metadata parameters in mapping format (read only data).</p>
-</dd>
-<dt class="field-even">Exceptions<span class="colon">:</span></dt>
-<dd class="field-even"><p>None.</p>
-</dd>
-</dl>
-</dd></dl>
-
 </dd></dl>
 
 </section>
@@ -239,7 +224,6 @@ Allows third-party parsers to be injected from the outside.</p>
 <li><a class="reference internal" href="#ats_utilities.option.strategy.iparser_strategy.IParserStrategy.parse"><code class="docutils literal notranslate"><span class="pre">IParserStrategy.parse()</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.option.strategy.iparser_strategy.IParserStrategy.parse_command"><code class="docutils literal notranslate"><span class="pre">IParserStrategy.parse_command()</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.option.strategy.iparser_strategy.IParserStrategy.register_commands"><code class="docutils literal notranslate"><span class="pre">IParserStrategy.register_commands()</span></code></a></li>
-<li><a class="reference internal" href="#ats_utilities.option.strategy.iparser_strategy.IParserStrategy.setup"><code class="docutils literal notranslate"><span class="pre">IParserStrategy.setup()</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -249,13 +233,13 @@ Allows third-party parsers to be injected from the outside.</p>
   </div>
   <div>
     <h4>Previous topic</h4>
-    <p class="topless"><a href="ats_utilities.option.strategy.html"
-                          title="previous chapter">ats_utilities.option.strategy package</a></p>
+    <p class="topless"><a href="ats_utilities.option.strategy.engine.html"
+                          title="previous chapter">ats_utilities.option.strategy.engine module</a></p>
   </div>
   <div>
     <h4>Next topic</h4>
-    <p class="topless"><a href="ats_utilities.option.strategy.parser_strategy.html"
-                          title="next chapter">ats_utilities.option.strategy.parser_strategy module</a></p>
+    <p class="topless"><a href="ats_utilities.option.strategy.parser_strategy_bundle.html"
+                          title="next chapter">ats_utilities.option.strategy.parser_strategy_bundle module</a></p>
   </div>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
@@ -288,10 +272,10 @@ Allows third-party parsers to be injected from the outside.</p>
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="ats_utilities.option.strategy.parser_strategy.html" title="ats_utilities.option.strategy.parser_strategy module"
+          <a href="ats_utilities.option.strategy.parser_strategy_bundle.html" title="ats_utilities.option.strategy.parser_strategy_bundle module"
              >next</a> |</li>
         <li class="right" >
-          <a href="ats_utilities.option.strategy.html" title="ats_utilities.option.strategy package"
+          <a href="ats_utilities.option.strategy.engine.html" title="ats_utilities.option.strategy.engine module"
              >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">ats_utilities https://github.com/vroncevic/ats_utilities/releases documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="modules.html" >ats_utilities</a> &#187;</li>

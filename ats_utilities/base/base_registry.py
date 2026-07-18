@@ -1,0 +1,169 @@
+# -*- coding: UTF-8 -*-
+
+'''
+Module
+    base_registry.py
+Copyright
+    Copyright (C) 2017 - 2026 Vladimir Roncevic <elektron.ronca@gmail.com>
+    ats_utilities is free software: you can redistribute it and/or modify it
+    under the terms of the GNU General Public License as published by the
+    Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+    ats_utilities is distributed in the hope that it will be useful, but
+    WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+    See the GNU General Public License for more details.
+    You should have received a copy of the GNU General Public License along
+    with this program. If not, see <http://www.gnu.org/licenses/>.
+Info
+    Encapsulates core runtime components for simplification of CheckerBundle creation.
+'''
+
+from __future__ import annotations
+
+from os.path import dirname
+from typing import Any, override
+
+from ats_utilities.utils.iregistry import IRegistry
+from ats_utilities.base.base_bundle import BaseBundle
+from ats_utilities.context.context_bundle import ContextBundle
+from ats_utilities.config_io.loader.engine import Loader
+from ats_utilities.info.engine import InfoManager
+from ats_utilities.option.engine import OptionManager
+from ats_utilities.splasher.engine import Splasher
+from ats_utilities.generator.engine import Generator
+from ats_utilities.config_io.config_io_registry import ConfigIORegistry
+from ats_utilities.info.info_registry import InfoRegistry
+from ats_utilities.option.option_registry import OptionRegistry
+from ats_utilities.splasher.splash_registry import SplashRegistry
+from ats_utilities.generator.generator_registry import GeneratorRegistry
+from ats_utilities.utils.dicts import get_first_available
+from ats_utilities.validation.check_value import not_none
+from ats_utilities.validation.check_type import istype
+
+__author__ = r'Vladimir Roncevic'
+__copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
+__credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
+__license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
+__version__ = r'3.4.3'
+__maintainer__ = r'Vladimir Roncevic'
+__email__ = r'elektron.ronca@gmail.com'
+__status__ = r'Development'
+
+
+class BaseRegistry(IRegistry[BaseBundle]):
+    '''
+        Encapsulates core runtime components for simplification of CheckerBundle creation.
+
+        It defines:
+
+            :methods:
+                | create_bundle - Creates a BaseBundle.
+                | create_default_base_bundle - Creates a default BaseBundle.
+    '''
+
+    @classmethod
+    @override
+    def create_bundle(cls, **kwargs: Any) -> BaseBundle:
+        '''
+            Creates a BaseBundle.
+
+            :param kwargs: Additional registry-specific orchestration parameters.
+            :return: BaseBundle instance.
+            :rtype: <BaseBundle>
+            :exceptions:
+                | ATSValueError: info_file must be provided.
+                | ATSValueError: context_bundle must be provided.
+                | ATSTypeError: info_file must be a string.
+                | ATSTypeError: context_bundle must be a ContextBundle instance.
+                | ATSTypeError: use generator must be a boolean.
+        '''
+        info_file: str = kwargs.get('info_file')
+        context_bundle: ContextBundle = kwargs.get('context_bundle')
+        use_generator: bool = kwargs.get('use_generator', False)
+
+        return cls.create_default_base_bundle(
+            info_file=info_file,
+            context_bundle=context_bundle,
+            use_generator=use_generator
+        )
+
+    @classmethod
+    def create_default_base_bundle(
+        cls,
+        info_file: str,
+        context_bundle: ContextBundle,
+        use_generator: bool = False
+    ) -> BaseBundle:
+        '''
+            Creates a default BaseBundle with pre-configured components.
+
+            :param info_file: Path to the info file.
+            :type info_file: <str>
+            :param context_bundle: ContextBundle instance.
+            :type context_bundle: <ContextBundle>
+            :param use_generator: Whether to use the generator.
+            :type use_generator: <bool>
+            :return: Default BaseBundle instance.
+            :rtype: <BaseBundle>
+            :exceptions:
+                | ATSValueError: info_file must be provided.
+                | ATSValueError: context_bundle must be provided.
+                | ATSTypeError: info_file must be a string.
+                | ATSTypeError: context_bundle must be a ContextBundle instance.
+                | ATSTypeError: use generator must be a boolean.
+        '''
+        not_none(info_file, r'info file must be provided')
+        not_none(context_bundle, r'context bundle must be provided')
+        istype(info_file, str, r'info file must be a string')
+        istype(context_bundle, ContextBundle, r'context bundle must be a ContextBundle instance')
+        istype(use_generator, bool, r'use generator must be a boolean')
+
+        config_loader: Loader = Loader(
+            component_bundle=ConfigIORegistry.create_config_io_bundle_by_file_path_and_scheme(
+                file_path=info_file,
+                scheme={},
+                context_bundle=context_bundle
+            )
+        )
+        config_data: dict[str, Any] = config_loader.load_configuration()
+        log_file: str = get_first_available(config_data, ('ats_log_path', 'ats_log_file'))
+
+        if log_file and hasattr(context_bundle.logger, 'set_log_file'):
+            context_bundle.logger.set_log_file(log_file)
+
+        info_manager: InfoManager = InfoManager(
+            component_bundle=InfoRegistry.create_info_bundle_from_dict(
+                info=config_data,
+                context_bundle=context_bundle
+            )
+        )
+        logo_path = info_manager.logo
+        info_manager.logo = f'{dirname(info_file)}/{logo_path}'
+        splasher: Splasher = Splasher(
+            component_bundle=SplashRegistry.create_splash_bundle_from_dict(
+                prop=info_manager.get_info(), context_bundle=context_bundle
+            )
+        )
+        options_parser: OptionManager = OptionManager(
+            component_bundle=OptionRegistry.create_option_bundle_from_dict(
+                parameters=info_manager.get_info(), context_bundle=context_bundle
+            )
+        )
+        generator: Generator | None = Generator(
+            component_bundle=GeneratorRegistry.create_default_generator_bundle(context_bundle=context_bundle)
+        ) if use_generator else None
+
+        if hasattr(context_bundle.logger, 'stop_buffering'):
+            context_bundle.logger.stop_buffering()
+
+        return BaseBundle(
+            info_file=info_file,
+            config_loader=config_loader,
+            info_manager=info_manager,
+            options_parser=options_parser,
+            splasher=splasher,
+            generator=generator,
+            use_generator=use_generator,
+            context_bundle=context_bundle
+        )

@@ -16,7 +16,7 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="ats_utilities.option.ioption_manager module" href="ats_utilities.option.ioption_manager.html" />
-    <link rel="prev" title="ats_utilities.option.component_bundle module" href="ats_utilities.option.component_bundle.html" /> 
+    <link rel="prev" title="ats_utilities.option.strategy.parser_strategy_bundle module" href="ats_utilities.option.strategy.parser_strategy_bundle.html" /> 
   </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
@@ -31,7 +31,7 @@
           <a href="ats_utilities.option.ioption_manager.html" title="ats_utilities.option.ioption_manager module"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="ats_utilities.option.component_bundle.html" title="ats_utilities.option.component_bundle module"
+          <a href="ats_utilities.option.strategy.parser_strategy_bundle.html" title="ats_utilities.option.strategy.parser_strategy_bundle module"
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">ats_utilities https://github.com/vroncevic/ats_utilities/releases documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="modules.html" >ats_utilities</a> &#187;</li>
@@ -69,7 +69,7 @@ Creates an option parser based on the argparse argument processor.</p>
 </dl>
 <dl class="py class">
 <dt class="sig sig-object py" id="ats_utilities.option.engine.OptionManager">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ats_utilities.option.engine.</span></span><span class="sig-name descname"><span class="pre">OptionManager</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">component_bundle</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="ats_utilities.option.component_bundle.html#ats_utilities.option.component_bundle.OptionComponentBundle" title="ats_utilities.option.component_bundle.OptionComponentBundle"><span class="pre">OptionComponentBundle</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ats_utilities/option/engine.html#OptionManager"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.option.engine.OptionManager" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ats_utilities.option.engine.</span></span><span class="sig-name descname"><span class="pre">OptionManager</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">component_bundle</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="ats_utilities.option.option_bundle.html#ats_utilities.option.option_bundle.OptionBundle" title="ats_utilities.option.option_bundle.OptionBundle"><span class="pre">OptionBundle</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ats_utilities/option/engine.html#OptionManager"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.option.engine.OptionManager" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="ats_utilities.option.ioption_manager.html#ats_utilities.option.ioption_manager.IOptionManager" title="ats_utilities.option.ioption_manager.IOptionManager"><code class="xref py py-class docutils literal notranslate"><span class="pre">IOptionManager</span></code></a></p>
 <p>Defines class OptionManager with attribute(s) and method(s).
 Creates an option parser based on the argparse argument processor.</p>
@@ -79,6 +79,7 @@ Creates an option parser based on the argparse argument processor.</p>
 <dt class="field-odd">attributes<span class="colon">:</span></dt>
 <dd class="field-odd"><div class="line-block">
 <div class="line">_checker - Injected parameters checker (default Checker).</div>
+<div class="line">_logger - Injected logger (default Logger).</div>
 <div class="line">_reporter - Injected reporter for messaging (default Reporter).</div>
 <div class="line">_verbose - Injected Enable/Disable verbose option (default False).</div>
 <div class="line">_shared_context - Context bundle with shared context.</div>
@@ -118,13 +119,18 @@ Creates an option parser based on the argparse argument processor.</p>
 <dd></dd></dl>
 
 <dl class="py attribute">
+<dt class="sig sig-object py" id="ats_utilities.option.engine.OptionManager._logger">
+<span class="sig-name descname"><span class="pre">_logger</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="ats_utilities.logger.ilogger.html#ats_utilities.logger.ilogger.ILogger" title="ats_utilities.logger.ilogger.ILogger"><span class="pre">ILogger</span></a></em><a class="headerlink" href="#ats_utilities.option.engine.OptionManager._logger" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
 <dt class="sig sig-object py" id="ats_utilities.option.engine.OptionManager._reporter">
 <span class="sig-name descname"><span class="pre">_reporter</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="ats_utilities.reporter.ireporter.html#ats_utilities.reporter.ireporter.IReporter" title="ats_utilities.reporter.ireporter.IReporter"><span class="pre">IReporter</span></a></em><a class="headerlink" href="#ats_utilities.option.engine.OptionManager._reporter" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="ats_utilities.option.engine.OptionManager._shared_context">
-<span class="sig-name descname"><span class="pre">_shared_context</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="ats_utilities.context_bundle.html#ats_utilities.context_bundle.ContextBundle" title="ats_utilities.context_bundle.ContextBundle"><span class="pre">ContextBundle</span></a></em><a class="headerlink" href="#ats_utilities.option.engine.OptionManager._shared_context" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">_shared_context</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="ats_utilities.context.context_bundle.html#ats_utilities.context.context_bundle.ContextBundle" title="ats_utilities.context.context_bundle.ContextBundle"><span class="pre">ContextBundle</span></a></em><a class="headerlink" href="#ats_utilities.option.engine.OptionManager._shared_context" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
@@ -182,7 +188,7 @@ Creates an option parser based on the argparse argument processor.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="ats_utilities.option.engine.OptionManager.get_shared_context">
-<span class="sig-name descname"><span class="pre">get_shared_context</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="ats_utilities.context_bundle.html#ats_utilities.context_bundle.ContextBundle" title="ats_utilities.context_bundle.ContextBundle"><span class="pre">ContextBundle</span></a></span></span><a class="reference internal" href="_modules/ats_utilities/option/engine.html#OptionManager.get_shared_context"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.option.engine.OptionManager.get_shared_context" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">get_shared_context</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="ats_utilities.context.context_bundle.html#ats_utilities.context.context_bundle.ContextBundle" title="ats_utilities.context.context_bundle.ContextBundle"><span class="pre">ContextBundle</span></a></span></span><a class="reference internal" href="_modules/ats_utilities/option/engine.html#OptionManager.get_shared_context"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.option.engine.OptionManager.get_shared_context" title="Link to this definition">¶</a></dt>
 <dd><p>Returns the shared context.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -203,7 +209,7 @@ Creates an option parser based on the argparse argument processor.</p>
 <dd><p>Checks if option parser component is initialized.</p>
 <dl class="field-list">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>True (success) | False (fail).</p>
+<dd class="field-odd"><p>&lt;True&gt; if successful, &lt;False&gt; otherwise.</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p>&lt;bool&gt;</p>
@@ -327,6 +333,7 @@ Creates an option parser based on the argparse argument processor.</p>
 <li><a class="reference internal" href="#ats_utilities.option.engine.OptionManager._abc_impl"><code class="docutils literal notranslate"><span class="pre">OptionManager._abc_impl</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.option.engine.OptionManager._checker"><code class="docutils literal notranslate"><span class="pre">OptionManager._checker</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.option.engine.OptionManager._is_initialized"><code class="docutils literal notranslate"><span class="pre">OptionManager._is_initialized</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.option.engine.OptionManager._logger"><code class="docutils literal notranslate"><span class="pre">OptionManager._logger</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.option.engine.OptionManager._reporter"><code class="docutils literal notranslate"><span class="pre">OptionManager._reporter</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.option.engine.OptionManager._shared_context"><code class="docutils literal notranslate"><span class="pre">OptionManager._shared_context</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.option.engine.OptionManager._strategy"><code class="docutils literal notranslate"><span class="pre">OptionManager._strategy</span></code></a></li>
@@ -348,8 +355,8 @@ Creates an option parser based on the argparse argument processor.</p>
   </div>
   <div>
     <h4>Previous topic</h4>
-    <p class="topless"><a href="ats_utilities.option.component_bundle.html"
-                          title="previous chapter">ats_utilities.option.component_bundle module</a></p>
+    <p class="topless"><a href="ats_utilities.option.strategy.parser_strategy_bundle.html"
+                          title="previous chapter">ats_utilities.option.strategy.parser_strategy_bundle module</a></p>
   </div>
   <div>
     <h4>Next topic</h4>
@@ -390,7 +397,7 @@ Creates an option parser based on the argparse argument processor.</p>
           <a href="ats_utilities.option.ioption_manager.html" title="ats_utilities.option.ioption_manager module"
              >next</a> |</li>
         <li class="right" >
-          <a href="ats_utilities.option.component_bundle.html" title="ats_utilities.option.component_bundle module"
+          <a href="ats_utilities.option.strategy.parser_strategy_bundle.html" title="ats_utilities.option.strategy.parser_strategy_bundle module"
              >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">ats_utilities https://github.com/vroncevic/ats_utilities/releases documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="modules.html" >ats_utilities</a> &#187;</li>

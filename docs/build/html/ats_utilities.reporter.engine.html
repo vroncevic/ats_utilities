@@ -16,7 +16,7 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="ats_utilities.reporter.ireporter module" href="ats_utilities.reporter.ireporter.html" />
-    <link rel="prev" title="ats_utilities.reporter.component_bundle module" href="ats_utilities.reporter.component_bundle.html" /> 
+    <link rel="prev" title="ats_utilities.reporter.theme.iconsole_theme module" href="ats_utilities.reporter.theme.iconsole_theme.html" /> 
   </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
@@ -31,7 +31,7 @@
           <a href="ats_utilities.reporter.ireporter.html" title="ats_utilities.reporter.ireporter module"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="ats_utilities.reporter.component_bundle.html" title="ats_utilities.reporter.component_bundle module"
+          <a href="ats_utilities.reporter.theme.iconsole_theme.html" title="ats_utilities.reporter.theme.iconsole_theme module"
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">ats_utilities https://github.com/vroncevic/ats_utilities/releases documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="modules.html" >ats_utilities</a> &#187;</li>
@@ -69,7 +69,7 @@ Implements an API for reporting messages to the console.</p>
 </dl>
 <dl class="py class">
 <dt class="sig sig-object py" id="ats_utilities.reporter.engine.Reporter">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ats_utilities.reporter.engine.</span></span><span class="sig-name descname"><span class="pre">Reporter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">component_bundle</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="ats_utilities.reporter.component_bundle.html#ats_utilities.reporter.component_bundle.ReporterComponentBundle" title="ats_utilities.reporter.component_bundle.ReporterComponentBundle"><span class="pre">ReporterComponentBundle</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ats_utilities/reporter/engine.html#Reporter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.reporter.engine.Reporter" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ats_utilities.reporter.engine.</span></span><span class="sig-name descname"><span class="pre">Reporter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">component_bundle</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="ats_utilities.reporter.reporter_bundle.html#ats_utilities.reporter.reporter_bundle.ReporterBundle" title="ats_utilities.reporter.reporter_bundle.ReporterBundle"><span class="pre">ReporterBundle</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ats_utilities/reporter/engine.html#Reporter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.reporter.engine.Reporter" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="ats_utilities.reporter.ireporter.html#ats_utilities.reporter.ireporter.IReporter" title="ats_utilities.reporter.ireporter.IReporter"><code class="xref py py-class docutils literal notranslate"><span class="pre">IReporter</span></code></a></p>
 <p>Defines class Reporter with attribute(s) and method(s).
 Implements an API for reporting messages to the console.</p>
@@ -78,9 +78,10 @@ Implements an API for reporting messages to the console.</p>
 <div><dl class="field-list">
 <dt class="field-odd">attributes<span class="colon">:</span></dt>
 <dd class="field-odd"><div class="line-block">
-<div class="line">_checker - Factorized parameters checker (default Checker).</div>
-<div class="line">_theme - Factorized theme for styling messages (default ConsoleTheme).</div>
-<div class="line">_is_initialized -  Indicates if the reporter component is initialized (default False).</div>
+<div class="line">_checker - Injected parameters checker (default Checker).</div>
+<div class="line">_theme - Injected theme for styling messages (default ConsoleTheme).</div>
+<div class="line">_logger - Injected logger for reporting messages (default Logger).</div>
+<div class="line">_is_initialized -  Indicates if the reporter is initialized (default False).</div>
 </div>
 </dd>
 <dt class="field-even">methods<span class="colon">:</span></dt>
@@ -91,7 +92,8 @@ Implements an API for reporting messages to the console.</p>
 <div class="line">success - Reports success message to console.</div>
 <div class="line">warning - Reports warning message to console.</div>
 <div class="line">error - Reports error message to console.</div>
-<div class="line">is_initialized - Checks if reporter component is initialized.</div>
+<div class="line">set_level - Sets log level.</div>
+<div class="line">is_initialized - Checks if reporter is initialized.</div>
 <div class="line">__str__ - Returns the string representation of Reporter.</div>
 </div>
 </dd>
@@ -112,15 +114,21 @@ Implements an API for reporting messages to the console.</p>
 <span class="sig-name descname"><span class="pre">_is_initialized</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#ats_utilities.reporter.engine.Reporter._is_initialized" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ats_utilities.reporter.engine.Reporter._logger">
+<span class="sig-name descname"><span class="pre">_logger</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="ats_utilities.logger.ilogger.html#ats_utilities.logger.ilogger.ILogger" title="ats_utilities.logger.ilogger.ILogger"><span class="pre">ILogger</span></a></em><a class="headerlink" href="#ats_utilities.reporter.engine.Reporter._logger" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
 <dl class="py method">
 <dt class="sig sig-object py" id="ats_utilities.reporter.engine.Reporter._report">
-<span class="sig-name descname"><span class="pre">_report</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">message</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">color</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/ats_utilities/reporter/engine.html#Reporter._report"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.reporter.engine.Reporter._report" title="Link to this definition">¶</a></dt>
-<dd><p>Utility method for reporting message to console.</p>
+<span class="sig-name descname"><span class="pre">_report</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">message</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">color</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ctrl</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/ats_utilities/reporter/engine.html#Reporter._report"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.reporter.engine.Reporter._report" title="Link to this definition">¶</a></dt>
+<dd><p>Utility method for reporting message to log/console.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>message</strong> (<em>&lt;Sequence</em><em>[</em><em>Any</em><em>]</em><em>&gt;</em>) – Sequence with message components.</p></li>
 <li><p><strong>color</strong> (<em>&lt;str&gt;</em>) – Theme color for the message.</p></li>
+<li><p><strong>ctrl</strong> (<em>&lt;int&gt;</em>) – Log control flag.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Exceptions<span class="colon">:</span></dt>
@@ -156,16 +164,35 @@ Implements an API for reporting messages to the console.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="ats_utilities.reporter.engine.Reporter.is_initialized">
 <span class="sig-name descname"><span class="pre">is_initialized</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="_modules/ats_utilities/reporter/engine.html#Reporter.is_initialized"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.reporter.engine.Reporter.is_initialized" title="Link to this definition">¶</a></dt>
-<dd><p>Checks if reporter component is initialized.</p>
+<dd><p>Checks if reporter is initialized.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>True (success) | False (fail)</p>
+<dd class="field-odd"><p>&lt;True&gt; if successful else &lt;False&gt;.</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p>&lt;bool&gt;</p>
 </dd>
 <dt class="field-odd">Exceptions<span class="colon">:</span></dt>
 <dd class="field-odd"><p>None.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ats_utilities.reporter.engine.Reporter.set_level">
+<span class="sig-name descname"><span class="pre">set_level</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">level</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/ats_utilities/reporter/engine.html#Reporter.set_level"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.reporter.engine.Reporter.set_level" title="Link to this definition">¶</a></dt>
+<dd><p>Sets log level.</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>level</strong> (<em>&lt;int&gt;</em>) – Log level.</p>
+</dd>
+<dt class="field-even">Exceptions<span class="colon">:</span></dt>
+<dd class="field-even"><div class="line-block">
+<div class="line">ATSTypeError: Parameter type validation failed.</div>
+<div class="line">ATSValueError: Parameter format validation failed.</div>
+<div class="line">ATSRuntimeError: Decorator used on a non-class method.</div>
+<div class="line">ATSAttributeError: Class does not provide a ‘_checker’ object.</div>
+</div>
 </dd>
 </dl>
 </dd></dl>
@@ -249,10 +276,12 @@ Implements an API for reporting messages to the console.</p>
 <li><a class="reference internal" href="#ats_utilities.reporter.engine.Reporter._abc_impl"><code class="docutils literal notranslate"><span class="pre">Reporter._abc_impl</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.reporter.engine.Reporter._checker"><code class="docutils literal notranslate"><span class="pre">Reporter._checker</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.reporter.engine.Reporter._is_initialized"><code class="docutils literal notranslate"><span class="pre">Reporter._is_initialized</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.reporter.engine.Reporter._logger"><code class="docutils literal notranslate"><span class="pre">Reporter._logger</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.reporter.engine.Reporter._report"><code class="docutils literal notranslate"><span class="pre">Reporter._report()</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.reporter.engine.Reporter._theme"><code class="docutils literal notranslate"><span class="pre">Reporter._theme</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.reporter.engine.Reporter.error"><code class="docutils literal notranslate"><span class="pre">Reporter.error()</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.reporter.engine.Reporter.is_initialized"><code class="docutils literal notranslate"><span class="pre">Reporter.is_initialized()</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.reporter.engine.Reporter.set_level"><code class="docutils literal notranslate"><span class="pre">Reporter.set_level()</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.reporter.engine.Reporter.success"><code class="docutils literal notranslate"><span class="pre">Reporter.success()</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.reporter.engine.Reporter.verbose"><code class="docutils literal notranslate"><span class="pre">Reporter.verbose()</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.reporter.engine.Reporter.warning"><code class="docutils literal notranslate"><span class="pre">Reporter.warning()</span></code></a></li>
@@ -265,8 +294,8 @@ Implements an API for reporting messages to the console.</p>
   </div>
   <div>
     <h4>Previous topic</h4>
-    <p class="topless"><a href="ats_utilities.reporter.component_bundle.html"
-                          title="previous chapter">ats_utilities.reporter.component_bundle module</a></p>
+    <p class="topless"><a href="ats_utilities.reporter.theme.iconsole_theme.html"
+                          title="previous chapter">ats_utilities.reporter.theme.iconsole_theme module</a></p>
   </div>
   <div>
     <h4>Next topic</h4>
@@ -307,7 +336,7 @@ Implements an API for reporting messages to the console.</p>
           <a href="ats_utilities.reporter.ireporter.html" title="ats_utilities.reporter.ireporter module"
              >next</a> |</li>
         <li class="right" >
-          <a href="ats_utilities.reporter.component_bundle.html" title="ats_utilities.reporter.component_bundle module"
+          <a href="ats_utilities.reporter.theme.iconsole_theme.html" title="ats_utilities.reporter.theme.iconsole_theme module"
              >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">ats_utilities https://github.com/vroncevic/ats_utilities/releases documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="modules.html" >ats_utilities</a> &#187;</li>

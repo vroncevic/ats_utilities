@@ -8,6 +8,9 @@ Submodules
    :maxdepth: 4
 
    ats_utilities.option.parser.engine
+   ats_utilities.option.parser.iarg_parser
+   ats_utilities.option.parser.parser_bundle
+   ats_utilities.option.parser.parser_registry
 
 Module contents
 ---------------

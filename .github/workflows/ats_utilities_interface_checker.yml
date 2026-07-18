@@ -25,6 +25,8 @@ jobs:
           import sys
 
           def get_base_name(node):
+              if isinstance(node, ast.Subscript):
+                  return get_base_name(node.value)
               if isinstance(node, ast.Name):
                   return node.id
               elif isinstance(node, ast.Attribute):
@@ -133,4 +135,3 @@ jobs:
           if __name__ == '__main__':
               main()
           EOF
-

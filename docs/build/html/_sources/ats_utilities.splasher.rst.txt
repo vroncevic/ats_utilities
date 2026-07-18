@@ -18,11 +18,13 @@ Submodules
 .. toctree::
    :maxdepth: 4
 
-   ats_utilities.splasher.component_bundle
    ats_utilities.splasher.engine
    ats_utilities.splasher.isplasher
+   ats_utilities.splasher.splash_bundle
    ats_utilities.splasher.splash_center_bundle
+   ats_utilities.splasher.splash_center_registry
    ats_utilities.splasher.splash_keys
+   ats_utilities.splasher.splash_registry
 
 Module contents
 ---------------

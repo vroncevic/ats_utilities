@@ -19,56 +19,21 @@ Info
     Use cases for ATS version.
 '''
 
-from ats_utilities.context_bundle import ContextBundle
 from ats_utilities.info.version.engine import Version
-from ats_utilities.checker.engine import Checker
-from ats_utilities.reporter.engine import Reporter
-from ats_utilities.reporter.theme.engine import ConsoleTheme
-from ats_utilities.reporter.component_bundle import ReporterComponentBundle
+from ats_utilities.context.context_bundle import ContextBundle
+from ats_utilities.context.context_registry import ContextRegistry
 
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
 __license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = r'3.4.2'
+__version__ = r'3.4.3'
 __maintainer__ = r'Vladimir Roncevic'
 __email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Updated'
+__status__ = r'Development'
 
-VERBOSE: bool = False
-
-#
-# default [without DI]
-# =====================
-#
-ats_version = Version()
-ats_version.version = '1.2.5'
-print(ats_version.version)
-print(ats_version)
-print(150 * '=')
-
-#
-# with DI
-# ========
-#
-checker: Checker = Checker()
-theme: ConsoleTheme = ConsoleTheme()
-reporter_bundle: ReporterComponentBundle = ReporterComponentBundle(checker=checker, theme=theme)
-reporter: Reporter = Reporter(component_bundle=reporter_bundle)
-bundle: ContextBundle = ContextBundle(checker=checker, reporter=reporter, verbose=VERBOSE)
-
-ats_version: Version = Version(context_bundle=bundle)
-ats_version.version = '1.2.6'
-print(ats_version.version)
-print(ats_version)
-print(150 * '=')
-
-#
-# with DI (default ContextBundle)
-# ================================
-#
-bundle: ContextBundle = ContextBundle()
-ats_version: Version = Version(context_bundle=bundle)
+context_bundle: ContextBundle = ContextRegistry.create_default_context_bundle()
+ats_version: Version = Version(context_bundle=context_bundle)
 ats_version.version = '1.2.7'
 print(ats_version.version)
 print(ats_version)

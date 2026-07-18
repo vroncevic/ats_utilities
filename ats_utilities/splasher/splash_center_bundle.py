@@ -16,121 +16,90 @@ Copyright
     You should have received a copy of the GNU General Public License along
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
-    Encapsulates runtime parameters for centering console output.
+    Encapsulates components of splash screen for simplification of SplashCenterBundle creation.
 '''
 
 from __future__ import annotations
 
 from typing import Any
-from dataclasses import dataclass, asdict
+from dataclasses import dataclass
 
-from ats_utilities.factory_type import check_type
-from ats_utilities.factory_value import require_not_satisfied
+from ats_utilities.validation.check_type import istype
+from ats_utilities.validation.check_value import not_none, not_satisfied
 
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
 __license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = r'3.4.2'
+__version__ = r'3.4.3'
 __maintainer__ = r'Vladimir Roncevic'
 __email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Updated'
+__status__ = r'Development'
 
 
-@dataclass(slots=True, kw_only=True)
+@dataclass(slots=True, frozen=True, kw_only=True)
 class SplashCenterBundle:
     '''
-        Encapsulates runtime parameters for console output centering.
+        Encapsulates components of splash screen for simplification of SplashCenterBundle creation.
 
         It defines:
 
             :attributes:
-                | columns - Column count for console session (default 0).
-                | additional_shifter - Additional shifters (default 0).
-                | text - Text for console session (default None).
+                | columns - Column count for console session.
+                | additional_shifter - Additional shifters.
             :methods:
                 | __post_init__ - Post initialization of the SplashCenterBundle.
-                | validate - Validates that SplashCenterBundle is valid (can be called after merge).
-                | merge - Merges non-None values from another bundle into this one.
-                | to_dict - Converts the SplashCenterBundle instance to a dictionary.
+                | validate - Validates splash center bundle.
+                | to_dict - Converts the splash center bundle instance to a dictionary.
     '''
 
-    columns: int = 0
-    additional_shifter: int = 0
-    text: str | None = None
+    columns: int
+    additional_shifter: int
 
     def __post_init__(self) -> None:
         '''
             Post initialization of the SplashCenterBundle.
 
-            Sets default values for columns and additional_shifter if they are less than 0.
-            Sets default value for text if it is None.
-
             :exceptions:
-                | ATSTypeError: Columns count 'columns' is not an integer.
-                | ATSTypeError: Additional shifter 'additional_shifter' is not an integer.
+                | ATSValueError: Columns count must be provided.
+                | ATSTypeError: Columns count is not an integer.
+                | ATSValueError: Columns count cannot be negative.
+                | ATSValueError: Additional shifter must be provided.
+                | ATSTypeError: Additional shifter is not an integer.
+                | ATSValueError: Additional shifter cannot be negative.
         '''
-        check_type(self.columns, int, r'columns must be an integer')
-
-        if self.columns < 0:
-            self.columns = 0
-
-        check_type(self.additional_shifter, int, r'additional_shifter must be an integer')
-
-        if self.additional_shifter < 0:
-            self.additional_shifter = 0
-
-        if self.text is None:
-            self.text = ""
+        self.validate()
 
     def validate(self) -> None:
         '''
-            Validates that SplashCenterBundle is valid (can be called after merge).
-            Performs validation of columns, additional_shifter and text attributes.
-            Columns must be non-None and an instance of integer.
-            Additional_shifter must be non-None and an instance of integer.
-            Text must be non-None and an instance of string.
+            Validates splash center bundle.
+            Performs validation of all bundle attributes.
+            All attributes must be non-None and instances of their respective interfaces.
 
             :exceptions:
-                | ATSTypeError: Columns count 'columns' is not an integer.
-                | ATSValueError: Columns count 'columns' cannot be negative.
-                | ATSTypeError: Additional shifter 'additional_shifter' is not an integer.
-                | ATSValueError: Additional shifter 'additional_shifter' cannot be negative.
-                | ATSTypeError: Text 'text' must be a string.
-                | ATSValueError: Text 'text' cannot be empty.
+                | ATSValueError: Columns count must be provided.
+                | ATSTypeError: Columns count is not an integer.
+                | ATSValueError: Columns count cannot be negative.
+                | ATSValueError: Additional shifter must be provided.
+                | ATSTypeError: Additional shifter is not an integer.
+                | ATSValueError: Additional shifter cannot be negative.
         '''
-        check_type(self.columns, int, r'columns count columns must be an integer')
-        require_not_satisfied(self.columns < 0, r'columns count columns cannot be negative')
-        check_type(self.additional_shifter, int, r'additional_shifter must be an integer')
-        require_not_satisfied(self.additional_shifter < 0, r'additional_shifter additional_shifter cannot be negative')
-        check_type(self.text, str, r'text must be a string')
-        require_not_satisfied(not self.text.strip(), r'text cannot be empty')
-
-    def merge(self, other: SplashCenterBundle) -> None:
-        '''
-            Merges non-None values from another bundle into this one.
-
-            :param other: Another bundle to merge into this one.
-            :type other: <SplashCenterBundle>
-            :exceptions:
-                | ATSTypeError: Other must be a SplashCenterBundle instance.
-        '''
-        check_type(other, SplashCenterBundle, r'other must be a SplashCenterBundle instance')
-
-        for field_name in self.__dataclass_fields__:
-            other_value: Any = getattr(other, field_name)
-
-            if other_value is not None:
-                setattr(self, field_name, other_value)
-
-        self.validate()
+        not_none(self.columns, r'columns count must be provided')
+        istype(self.columns, int, r'columns count must be an integer')
+        not_satisfied(self.columns < 0, r'columns count cannot be negative')
+        not_none(self.additional_shifter, r'additional shifter must be provided')
+        istype(self.additional_shifter, int, r'additional shifter must be an integer')
+        not_satisfied(self.additional_shifter < 0, r'additional shifter cannot be negative')
 
     def to_dict(self) -> dict[str, Any]:
         '''
-            Converts the SplashCenterBundle instance to a dictionary.
+            Converts the splash center bundle instance to a dictionary.
 
-            :return: Dictionary representation of the SplashCenterBundle instance.
+            :return: Dictionary representation of the splash center bundle instance.
             :rtype: <dict[str, Any]>
             :exceptions: None.
         '''
-        return asdict(self)
+        return {
+            field: getattr(self, field)
+            for field in self.__dataclass_fields__
+        }

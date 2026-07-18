@@ -25,17 +25,17 @@ from __future__ import annotations
 import sys
 from typing import override
 
-from ats_utilities.factory_class import to_str
+from ats_utilities.utils.reflection import to_str
 from ats_utilities.splasher.progressbar.iprogress_bar import IProgressBar
 
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
 __license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = r'3.4.2'
+__version__ = r'3.4.3'
 __maintainer__ = r'Vladimir Roncevic'
 __email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Updated'
+__status__ = r'Development'
 
 
 class ProgressBar(IProgressBar):
@@ -126,7 +126,7 @@ class ProgressBar(IProgressBar):
         start_position: float = (columns / 2) - (columns / 10)
         number_of_tabs: int = int((start_position/8) - 3)
         sys.stdout.write(
-            "\r %s %3i%% %s%s".expandtabs(4) % (
+            '\r %s %3i%% %s%s'.expandtabs(4) % (
                 '\011' * number_of_tabs,
                 int(self._ratio * 100.0),
                 self.DEFAULT_CHAR_ON * int(self._level_chars),
@@ -159,7 +159,7 @@ class ProgressBar(IProgressBar):
 
             :exceptions: None.
         '''
-        sys.stdout.write("\n")
+        sys.stdout.write('\n')
 
     @override
     def __str__(self) -> str:

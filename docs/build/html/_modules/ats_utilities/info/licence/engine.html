@@ -63,22 +63,23 @@
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">override</span>
 
 <span class="kn">from</span> <span class="nn">ats_utilities.info.licence.ilicence</span> <span class="kn">import</span> <span class="n">ILicence</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.context_bundle</span> <span class="kn">import</span> <span class="n">ContextBundle</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.context.context_bundle</span> <span class="kn">import</span> <span class="n">ContextBundle</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.checker.ichecker</span> <span class="kn">import</span> <span class="n">IChecker</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.logger.ilogger</span> <span class="kn">import</span> <span class="n">ILogger</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.reporter.ireporter</span> <span class="kn">import</span> <span class="n">IReporter</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.factory_context_bundle</span> <span class="kn">import</span> <span class="n">factory_context_bundle</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.factory_class</span> <span class="kn">import</span> <span class="n">to_str</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.checker.proxy_validator</span> <span class="kn">import</span> <span class="n">vcheck</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.context.context_bundle_inject</span> <span class="kn">import</span> <span class="n">inject_context_bundle</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.utils.reflection</span> <span class="kn">import</span> <span class="n">to_str</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.checker.proxy_validator</span> <span class="kn">import</span> <span class="n">mcheck</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.reporter.proxy_reporter</span> <span class="kn">import</span> <span class="n">vreport</span>
 
 <span class="n">__author__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;Vladimir Roncevic&#39;</span>
 <span class="n">__copyright__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;(C) 2026, https://vroncevic.github.io/ats_utilities&#39;</span>
 <span class="n">__credits__</span> <span class="o">=</span> <span class="p">[</span><span class="sa">r</span><span class="s1">&#39;Vladimir Roncevic&#39;</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;Python Software Foundation&#39;</span><span class="p">]</span>
 <span class="n">__license__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE&#39;</span>
-<span class="n">__version__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;3.4.2&#39;</span>
+<span class="n">__version__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;3.4.3&#39;</span>
 <span class="n">__maintainer__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;Vladimir Roncevic&#39;</span>
 <span class="n">__email__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;elektron.ronca@gmail.com&#39;</span>
-<span class="n">__status__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;Updated&#39;</span>
+<span class="n">__status__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;Development&#39;</span>
 
 
 <div class="viewcode-block" id="Licence">
@@ -93,6 +94,7 @@
 
 <span class="sd">            :attributes:</span>
 <span class="sd">                | _checker - Injected parameters checker (default Checker).</span>
+<span class="sd">                | _logger - Injected logger for logging (default Logger).</span>
 <span class="sd">                | _reporter - Injected reporter for messaging (default Reporter).</span>
 <span class="sd">                | _verbose - Injected Enable/Disable verbose option (default False).</span>
 <span class="sd">                | _licence - The licence for App/Tool/Script (default None).</span>
@@ -104,19 +106,22 @@
 <span class="sd">    &#39;&#39;&#39;</span>
 
     <span class="n">_checker</span><span class="p">:</span> <span class="n">IChecker</span>
+    <span class="n">_logger</span><span class="p">:</span> <span class="n">ILogger</span>
     <span class="n">_reporter</span><span class="p">:</span> <span class="n">IReporter</span>
     <span class="n">_verbose</span><span class="p">:</span> <span class="nb">bool</span>
     <span class="n">_licence</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context_bundle</span><span class="p">:</span> <span class="n">ContextBundle</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context_bundle</span><span class="p">:</span> <span class="n">ContextBundle</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Initializes Licence constructor.</span>
 
-<span class="sd">            :param context_bundle: Context bundle for licence | None.</span>
-<span class="sd">            :type context_bundle: &lt;ContextBundle | None&gt;</span>
-<span class="sd">            :exceptions: None.</span>
+<span class="sd">            :param context_bundle: Context bundle for licence.</span>
+<span class="sd">            :type context_bundle: &lt;ContextBundle&gt;</span>
+<span class="sd">            :exceptions:</span>
+<span class="sd">                | ATSValueError: Context bundle must be provided.</span>
+<span class="sd">                | ATSTypeError: Context bundle must be an instance of ContextBundle.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="n">factory_context_bundle</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context_bundle</span><span class="p">)</span>
+        <span class="n">inject_context_bundle</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context_bundle</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_licence</span> <span class="o">=</span> <span class="kc">None</span>
 
     <span class="nd">@property</span>
@@ -137,7 +142,7 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_licence</span>
 
     <span class="nd">@licence</span><span class="o">.</span><span class="n">setter</span>
-    <span class="nd">@vcheck</span><span class="p">([(</span><span class="s1">&#39;str:licence&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)])</span>
+    <span class="nd">@mcheck</span><span class="p">([(</span><span class="s1">&#39;str:licence&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)])</span>
     <span class="nd">@vreport</span><span class="p">(</span><span class="s1">&#39;setting licence </span><span class="si">{licence}</span><span class="s1">&#39;</span><span class="p">)</span>
     <span class="nd">@override</span>
     <span class="k">def</span> <span class="nf">licence</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">licence</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
@@ -167,7 +172,7 @@
 <span class="sd">            Checks is licence not None.</span>
 <span class="sd">            Note: Info licence is only prepared when it is set by user (not None).</span>
 
-<span class="sd">            :return: True (not None) | False (None).</span>
+<span class="sd">            :return: &lt;True&gt; if successful, &lt;False&gt; otherwise.</span>
 <span class="sd">            :rtype: &lt;bool&gt;</span>
 <span class="sd">            :exceptions:</span>
 <span class="sd">                | ATSRuntimeError: Decorator cannot be used on a standalone function.</span>

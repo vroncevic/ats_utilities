@@ -30,10 +30,10 @@ __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
 __license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = r'3.4.2'
+__version__ = r'3.4.3'
 __maintainer__ = r'Vladimir Roncevic'
 __email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Updated'
+__status__ = r'Development'
 
 # Validation resut type: (error message report, error id)
 type ValidationResult = tuple[str, int]
@@ -53,7 +53,8 @@ class ErrorChecker(int, Enum):
                 | NO_ERROR - Marks no param error report (0).
                 | TYPE_ERROR - Marks type param error report (1).
                 | FORMAT_ERROR - Marks wrong format error report (2).
-            :methods: None.    '''
+            :methods: None.
+    '''
     NO_ERROR = 0
     TYPE_ERROR = 1
     FORMAT_ERROR = 2
@@ -94,7 +95,7 @@ class IChecker(ABC):
         '''
             Checks if checker component is initialized.
 
-            :return: True (success) | False (fail)
+            :return: <True> if successful, <False> otherwise.
             :rtype: <bool>
             :exceptions: None.
         '''

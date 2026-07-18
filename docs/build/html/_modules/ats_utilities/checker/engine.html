@@ -62,24 +62,29 @@
 
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">ClassVar</span><span class="p">,</span> <span class="n">override</span>
 
-<span class="kn">from</span> <span class="nn">ats_utilities.checker.ichecker</span> <span class="kn">import</span> <span class="n">IChecker</span><span class="p">,</span> <span class="n">ErrorChecker</span><span class="p">,</span> <span class="n">ValidationResult</span><span class="p">,</span> <span class="n">ParametersSpecs</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.checker.ichecker</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">IChecker</span><span class="p">,</span> <span class="n">ErrorChecker</span><span class="p">,</span> <span class="n">ValidationResult</span><span class="p">,</span> <span class="n">ParametersSpecs</span>
+<span class="p">)</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.checker.type.itype_validator</span> <span class="kn">import</span> <span class="n">ITypeValidator</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.checker.format.iformat_validator</span> <span class="kn">import</span> <span class="n">IFormatValidator</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.checker.context.icontext_provider</span> <span class="kn">import</span> <span class="n">IContextProvider</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.checker.reporter.icheck_reporter</span> <span class="kn">import</span> <span class="n">ICheckReporter</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.checker.component_bundle</span> <span class="kn">import</span> <span class="n">CheckerComponentBundle</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.checker.reporter.checker_reporter_bundle</span> <span class="kn">import</span> <span class="n">CheckerReporterBundle</span><span class="p">,</span> <span class="n">ParamMetadata</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.exceptions</span> <span class="kn">import</span> <span class="n">ATSAttributeError</span><span class="p">,</span> <span class="n">ATSRuntimeError</span><span class="p">,</span> <span class="n">ATSTypeError</span><span class="p">,</span> <span class="n">ATSValueError</span>
-<span class="kn">from</span> <span class="nn">ats_utilities.factory_class</span> <span class="kn">import</span> <span class="n">cls_name</span><span class="p">,</span> <span class="n">to_str</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.checker.checker_bundle</span> <span class="kn">import</span> <span class="n">CheckerBundle</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.checker.reporter.checker_reporter_bundle</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">CheckerReporterBundle</span><span class="p">,</span> <span class="n">ParamMetadata</span>
+<span class="p">)</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.utils.reflection</span> <span class="kn">import</span> <span class="n">to_str</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.validation.check_value</span> <span class="kn">import</span> <span class="n">not_none</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.validation.check_type</span> <span class="kn">import</span> <span class="n">istype</span>
 
 <span class="n">__author__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;Vladimir Roncevic&#39;</span>
 <span class="n">__copyright__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;(C) 2026, https://vroncevic.github.io/ats_utilities&#39;</span>
 <span class="n">__credits__</span> <span class="o">=</span> <span class="p">[</span><span class="sa">r</span><span class="s1">&#39;Vladimir Roncevic&#39;</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;Python Software Foundation&#39;</span><span class="p">]</span>
 <span class="n">__license__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE&#39;</span>
-<span class="n">__version__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;3.4.2&#39;</span>
+<span class="n">__version__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;3.4.3&#39;</span>
 <span class="n">__maintainer__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;Vladimir Roncevic&#39;</span>
 <span class="n">__email__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;elektron.ronca@gmail.com&#39;</span>
-<span class="n">__status__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;Updated&#39;</span>
+<span class="n">__status__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;Development&#39;</span>
 
 
 <div class="viewcode-block" id="Checker">
@@ -113,32 +118,23 @@
     <span class="n">_context_provider</span><span class="p">:</span> <span class="n">IContextProvider</span>
     <span class="n">_check_reporter</span><span class="p">:</span> <span class="n">ICheckReporter</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">component_bundle</span><span class="p">:</span> <span class="n">CheckerComponentBundle</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">component_bundle</span><span class="p">:</span> <span class="n">CheckerBundle</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Initializes Checker constructor.</span>
 
-<span class="sd">            :param component_bundle: Bundle with components | None.</span>
-<span class="sd">            :type component_bundle: &lt;CheckerComponentBundle | None&gt;</span>
-<span class="sd">            :exceptions: None.</span>
+<span class="sd">            :param component_bundle: Bundle with components.</span>
+<span class="sd">            :type component_bundle: &lt;CheckerBundle&gt;</span>
+<span class="sd">            :exceptions:</span>
+<span class="sd">                | ATSValueError - Component bundle must be provided.</span>
+<span class="sd">                | ATSTypeError - Component bundle must be a CheckerBundle instance.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_is_initialized</span> <span class="o">=</span> <span class="kc">False</span>
-
-        <span class="k">try</span><span class="p">:</span>
-            <span class="c1"># No dependency injection then use default ones.</span>
-            <span class="n">components</span><span class="p">:</span> <span class="n">CheckerComponentBundle</span> <span class="o">=</span> <span class="n">component_bundle</span> <span class="ow">or</span> <span class="n">CheckerComponentBundle</span><span class="p">()</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_format_validator</span> <span class="o">=</span> <span class="n">components</span><span class="o">.</span><span class="n">format_validator</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_type_validator</span> <span class="o">=</span> <span class="n">components</span><span class="o">.</span><span class="n">type_validator</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_context_provider</span> <span class="o">=</span> <span class="n">components</span><span class="o">.</span><span class="n">context_provider</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_check_reporter</span> <span class="o">=</span> <span class="n">components</span><span class="o">.</span><span class="n">check_reporter</span>
-
-            <span class="c1"># All components initialized successfully.</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_is_initialized</span> <span class="o">=</span> <span class="kc">True</span>
-
-        <span class="k">except</span> <span class="p">(</span><span class="n">ATSTypeError</span><span class="p">,</span> <span class="n">ATSValueError</span><span class="p">,</span> <span class="n">ATSRuntimeError</span><span class="p">,</span> <span class="n">ATSAttributeError</span><span class="p">)</span> <span class="k">as</span> <span class="n">exc</span><span class="p">:</span>
-            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\x1b</span><span class="s2">[31m</span><span class="si">{</span><span class="n">cls_name</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">exc</span><span class="si">}</span><span class="se">\x1b</span><span class="s2">[0m&quot;</span><span class="p">)</span>
-
-        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">exc</span><span class="p">:</span>
-            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\x1b</span><span class="s2">[31m</span><span class="si">{</span><span class="n">cls_name</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="si">}</span><span class="s2"> unexpected exception: </span><span class="si">{</span><span class="n">exc</span><span class="si">}</span><span class="se">\x1b</span><span class="s2">[0m&quot;</span><span class="p">)</span>
+        <span class="n">not_none</span><span class="p">(</span><span class="n">component_bundle</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;component bundle must be provided&#39;</span><span class="p">)</span>
+        <span class="n">istype</span><span class="p">(</span><span class="n">component_bundle</span><span class="p">,</span> <span class="n">CheckerBundle</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;component bundle must be a CheckerBundle instance&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_format_validator</span> <span class="o">=</span> <span class="n">component_bundle</span><span class="o">.</span><span class="n">format_validator</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_type_validator</span> <span class="o">=</span> <span class="n">component_bundle</span><span class="o">.</span><span class="n">type_validator</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_context_provider</span> <span class="o">=</span> <span class="n">component_bundle</span><span class="o">.</span><span class="n">context_provider</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_check_reporter</span> <span class="o">=</span> <span class="n">component_bundle</span><span class="o">.</span><span class="n">check_reporter</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_is_initialized</span> <span class="o">=</span> <span class="kc">True</span>
 
 <div class="viewcode-block" id="Checker.validates_parameters">
 <a class="viewcode-back" href="../../../ats_utilities.checker.engine.html#ats_utilities.checker.engine.Checker.validates_parameters">[docs]</a>
@@ -208,7 +204,7 @@
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Checks if checker component is initialized.</span>
 
-<span class="sd">            :return: True (success) | False (fail).</span>
+<span class="sd">            :return: &lt;True&gt; if successful, &lt;False&gt; otherwise.</span>
 <span class="sd">            :rtype: &lt;bool&gt;</span>
 <span class="sd">            :exceptions: None.</span>
 <span class="sd">        &#39;&#39;&#39;</span>

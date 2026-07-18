@@ -79,15 +79,16 @@ with this program. If not, see &lt;<a class="reference external" href="http://ww
 <dd class="field-odd"><div class="line-block">
 <div class="line">name - The command line option name.</div>
 <div class="line">help_text - Help text for this option.</div>
-<div class="line">action - Optional action for this option.</div>
-<div class="line">default - Optional default value for this option.</div>
-<div class="line">required - True if this option is required.</div>
-<div class="line">choices - Optional choices for this option.</div>
-<div class="line">nargs - Optional number of arguments for this option.</div>
+<div class="line">action - Optional action for this option (default None).</div>
+<div class="line">default - Optional default value for this option (default None).</div>
+<div class="line">required - True if this option is required (default False).</div>
+<div class="line">choices - Optional choices for this option (default None).</div>
+<div class="line">nargs - Optional number of arguments for this option (default None).</div>
 </div>
 </dd>
 <dt class="field-even">methods<span class="colon">:</span></dt>
 <dd class="field-even"><div class="line-block">
+<div class="line">__post_init__ - Post-initializes CommandOption instance.</div>
 <div class="line">validate - Validates that CommandOption instance is valid (can be called after merge).</div>
 <div class="line">merge - Merges non-None values from another CommandOption instance into this one.</div>
 <div class="line">to_dict - Converts the CommandOption instance to a dictionary.</div>
@@ -125,6 +126,7 @@ with this program. If not, see &lt;<a class="reference external" href="http://ww
 </dd>
 <dt class="field-even">Exceptions<span class="colon">:</span></dt>
 <dd class="field-even"><div class="line-block">
+<div class="line">ATSValueError: Other CommandOption must be provided.</div>
 <div class="line">ATSTypeError: Other must be a CommandOption instance.</div>
 </div>
 </dd>

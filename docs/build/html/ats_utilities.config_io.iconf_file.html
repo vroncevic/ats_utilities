@@ -15,8 +15,8 @@
     
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="ats_utilities.config_io.iconfig_loader module" href="ats_utilities.config_io.iconfig_loader.html" />
-    <link rel="prev" title="ats_utilities.config_io.file_check module" href="ats_utilities.config_io.file_check.html" /> 
+    <link rel="next" title="ats_utilities.context package" href="ats_utilities.context.html" />
+    <link rel="prev" title="ats_utilities.config_io.config_io_registry module" href="ats_utilities.config_io.config_io_registry.html" /> 
   </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
@@ -28,10 +28,10 @@
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="ats_utilities.config_io.iconfig_loader.html" title="ats_utilities.config_io.iconfig_loader module"
+          <a href="ats_utilities.context.html" title="ats_utilities.context package"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="ats_utilities.config_io.file_check.html" title="ats_utilities.config_io.file_check module"
+          <a href="ats_utilities.config_io.config_io_registry.html" title="ats_utilities.config_io.config_io_registry module"
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">ats_utilities https://github.com/vroncevic/ats_utilities/releases documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="modules.html" >ats_utilities</a> &#187;</li>
@@ -64,7 +64,8 @@ You should have received a copy of the GNU General Public License along
 with this program. If not, see &lt;<a class="reference external" href="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</a>&gt;.</p>
 </dd>
 <dt>Info</dt><dd><p>Defines abstract class IConfFile with method(s).
-Creates an interface for configuration file context manager.</p>
+Creates an interface for configuration file context manager.
+0th level of configuration loader/storer interface.</p>
 </dd>
 </dl>
 <dl class="py class">
@@ -72,15 +73,16 @@ Creates an interface for configuration file context manager.</p>
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ats_utilities.config_io.iconf_file.</span></span><span class="sig-name descname"><span class="pre">IConfFile</span></span><a class="reference internal" href="_modules/ats_utilities/config_io/iconf_file.html#IConfFile"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.config_io.iconf_file.IConfFile" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">ABC</span></code></p>
 <p>Defines abstract class IConfFile with method(s).
-Creates an interface for configuration file context manager.</p>
+Creates an interface for configuration file context manager.
+0th level of configuration loader/storer interface.</p>
 <p>It defines:</p>
 <blockquote>
 <div><dl class="field-list">
 <dt class="field-odd">methods<span class="colon">:</span></dt>
 <dd class="field-odd"><div class="line-block">
-<div class="line">__enter__ - Opens configuration context manager.</div>
-<div class="line">__exit__ - Closes configuration context manager.</div>
-<div class="line">__str__ - Returns the IConfFile as string representation.</div>
+<div class="line">__enter__ - Opens configuration context manager and opens the file.</div>
+<div class="line">__exit__ - Closes configuration context manager and closes the file.</div>
+<div class="line">__str__ - Returns the file context manager instance as string representation.</div>
 </div>
 </dd>
 </dl>
@@ -116,13 +118,13 @@ Creates an interface for configuration file context manager.</p>
   </div>
   <div>
     <h4>Previous topic</h4>
-    <p class="topless"><a href="ats_utilities.config_io.file_check.html"
-                          title="previous chapter">ats_utilities.config_io.file_check module</a></p>
+    <p class="topless"><a href="ats_utilities.config_io.config_io_registry.html"
+                          title="previous chapter">ats_utilities.config_io.config_io_registry module</a></p>
   </div>
   <div>
     <h4>Next topic</h4>
-    <p class="topless"><a href="ats_utilities.config_io.iconfig_loader.html"
-                          title="next chapter">ats_utilities.config_io.iconfig_loader module</a></p>
+    <p class="topless"><a href="ats_utilities.context.html"
+                          title="next chapter">ats_utilities.context package</a></p>
   </div>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
@@ -155,10 +157,10 @@ Creates an interface for configuration file context manager.</p>
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="ats_utilities.config_io.iconfig_loader.html" title="ats_utilities.config_io.iconfig_loader module"
+          <a href="ats_utilities.context.html" title="ats_utilities.context package"
              >next</a> |</li>
         <li class="right" >
-          <a href="ats_utilities.config_io.file_check.html" title="ats_utilities.config_io.file_check module"
+          <a href="ats_utilities.config_io.config_io_registry.html" title="ats_utilities.config_io.config_io_registry module"
              >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">ats_utilities https://github.com/vroncevic/ats_utilities/releases documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="modules.html" >ats_utilities</a> &#187;</li>

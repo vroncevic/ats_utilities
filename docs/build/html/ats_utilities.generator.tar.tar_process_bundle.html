@@ -89,9 +89,9 @@ Encapsulates tar processing parameters for simplifcation.</p>
 </dd>
 <dt class="field-even">methods<span class="colon">:</span></dt>
 <dd class="field-even"><div class="line-block">
-<div class="line">validate - Validates that TarProcessBundle is valid (can be called after merge).</div>
-<div class="line">merge - Merges non-None values from another TarProcessBundle into this one.</div>
-<div class="line">to_dict - Converts the TarProcessBundle instance to a dictionary.</div>
+<div class="line">__post_init__ - Post-initialization hook to validate tar process bundle.</div>
+<div class="line">validate - Validates tar process bundle.</div>
+<div class="line">to_dict - Converts the tar process bundle into a dictionary.</div>
 </div>
 </dd>
 </dl>
@@ -105,22 +105,6 @@ Encapsulates tar processing parameters for simplifcation.</p>
 <dt class="sig sig-object py" id="ats_utilities.generator.tar.tar_process_bundle.TarProcessBundle.exclude_patterns">
 <span class="sig-name descname"><span class="pre">exclude_patterns</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#ats_utilities.generator.tar.tar_process_bundle.TarProcessBundle.exclude_patterns" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="ats_utilities.generator.tar.tar_process_bundle.TarProcessBundle.merge">
-<span class="sig-name descname"><span class="pre">merge</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#ats_utilities.generator.tar.tar_process_bundle.TarProcessBundle" title="ats_utilities.generator.tar.tar_process_bundle.TarProcessBundle"><span class="pre">TarProcessBundle</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/ats_utilities/generator/tar/tar_process_bundle.html#TarProcessBundle.merge"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.generator.tar.tar_process_bundle.TarProcessBundle.merge" title="Link to this definition">¶</a></dt>
-<dd><p>Merges non-None values from another TarProcessBundle into this one.</p>
-<dl class="field-list">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>other</strong> (<em>&lt;TarProcessBundle&gt;</em>) – Another TarProcessBundle to merge into this one.</p>
-</dd>
-<dt class="field-even">Exceptions<span class="colon">:</span></dt>
-<dd class="field-even"><div class="line-block">
-<div class="line">ATSTypeError: Other must be a TarProcessBundle.</div>
-</div>
-</dd>
-</dl>
-</dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="ats_utilities.generator.tar.tar_process_bundle.TarProcessBundle.path_replacements">
@@ -140,10 +124,10 @@ Encapsulates tar processing parameters for simplifcation.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="ats_utilities.generator.tar.tar_process_bundle.TarProcessBundle.to_dict">
 <span class="sig-name descname"><span class="pre">to_dict</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/ats_utilities/generator/tar/tar_process_bundle.html#TarProcessBundle.to_dict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.generator.tar.tar_process_bundle.TarProcessBundle.to_dict" title="Link to this definition">¶</a></dt>
-<dd><p>Converts the TarProcessBundle instance to a dictionary.</p>
+<dd><p>Converts tar process bundle into a dictionary.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Dictionary representation of the TarProcessBundle instance.</p>
+<dd class="field-odd"><p>Dictionary representation of tar process bundle.</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p>&lt;dict[str, Any]&gt;</p>
@@ -157,15 +141,9 @@ Encapsulates tar processing parameters for simplifcation.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="ats_utilities.generator.tar.tar_process_bundle.TarProcessBundle.validate">
 <span class="sig-name descname"><span class="pre">validate</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/ats_utilities/generator/tar/tar_process_bundle.html#TarProcessBundle.validate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.generator.tar.tar_process_bundle.TarProcessBundle.validate" title="Link to this definition">¶</a></dt>
-<dd><p>Validates that TarProcessBundle is valid (can be called after merge).
-Performs validation of archive_path, target_dir, source_dir,
-path_replacements, exclude_patterns and vals attributes.
-Archive path must be non-None and a string.
-Target dir must be non-None and a string.
-Source dir must be non-None and a string.
-Path replacements must be non-None and a mapping.
-Exclude patterns must be non-None and a sequence.
-Vals must be non-None and a mapping.</p>
+<dd><p>Validates tar processor bundle.
+Performs validation of all bundle attributes.
+All attributes must be non-None and instances of their respective interfaces.</p>
 <dl class="field-list">
 <dt class="field-odd">Exceptions<span class="colon">:</span></dt>
 <dd class="field-odd"><div class="line-block">
@@ -209,7 +187,6 @@ Vals must be non-None and a mapping.</p>
 <li><a class="reference internal" href="#ats_utilities.generator.tar.tar_process_bundle.TarProcessBundle"><code class="docutils literal notranslate"><span class="pre">TarProcessBundle</span></code></a><ul>
 <li><a class="reference internal" href="#ats_utilities.generator.tar.tar_process_bundle.TarProcessBundle.archive_path"><code class="docutils literal notranslate"><span class="pre">TarProcessBundle.archive_path</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.generator.tar.tar_process_bundle.TarProcessBundle.exclude_patterns"><code class="docutils literal notranslate"><span class="pre">TarProcessBundle.exclude_patterns</span></code></a></li>
-<li><a class="reference internal" href="#ats_utilities.generator.tar.tar_process_bundle.TarProcessBundle.merge"><code class="docutils literal notranslate"><span class="pre">TarProcessBundle.merge()</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.generator.tar.tar_process_bundle.TarProcessBundle.path_replacements"><code class="docutils literal notranslate"><span class="pre">TarProcessBundle.path_replacements</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.generator.tar.tar_process_bundle.TarProcessBundle.source_dir"><code class="docutils literal notranslate"><span class="pre">TarProcessBundle.source_dir</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.generator.tar.tar_process_bundle.TarProcessBundle.target_dir"><code class="docutils literal notranslate"><span class="pre">TarProcessBundle.target_dir</span></code></a></li>

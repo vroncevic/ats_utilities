@@ -22,29 +22,30 @@ Info
 
 from __future__ import annotations
 
-import os
-from typing import Any, override
 from fcntl import ioctl
+from os import open, ctermid, close, O_RDONLY
+from typing import Any, override
 from termios import TIOCGWINSZ
 from struct import unpack, pack
 
 from ats_utilities.splasher.terminal.iterminal_properties import ITerminalProperties
-from ats_utilities.context_bundle import ContextBundle
+from ats_utilities.context.context_bundle import ContextBundle
 from ats_utilities.checker.ichecker import IChecker
+from ats_utilities.logger.ilogger import ILogger
 from ats_utilities.reporter.ireporter import IReporter
-from ats_utilities.factory_context_bundle import factory_context_bundle
-from ats_utilities.factory_class import to_str
-from ats_utilities.checker.proxy_validator import vcheck
+from ats_utilities.context.context_bundle_inject import inject_context_bundle
+from ats_utilities.utils.reflection import to_str
+from ats_utilities.checker.proxy_validator import mcheck
 from ats_utilities.reporter.proxy_reporter import vreport
 
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
 __license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = r'3.4.2'
+__version__ = r'3.4.3'
 __maintainer__ = r'Vladimir Roncevic'
 __email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Updated'
+__status__ = r'Development'
 
 
 class TerminalProperties(ITerminalProperties):
@@ -56,34 +57,38 @@ class TerminalProperties(ITerminalProperties):
 
             :attributes:
                 | _checker - Injected parameters checker (default Checker).
+                | _logger - Injected logger (default Logger).
                 | _reporter - Injected reporter for messaging (default Reporter).
                 | _verbose - Injected Enable/Disable verbose option (default False).
                 | _window_size - Terminal window size (default None).
             :methods:
                 | __init__ - Initials TerminalProperties constructor.
                 | ioctl_get_window_size - Gets size for file descriptor.
-                | ioctl_for_all_descriptors - Sets size for all file descriptors.
+                | ioctl_for_all_descriptors - Tries to get and set terminal window size.
                 | size - Gets terminal window size.
                 | __str__ - Returns the string representation of TerminalProperties.
     '''
 
     _checker: IChecker
+    _logger: ILogger
     _reporter: IReporter
     _verbose: bool
     _window_size: tuple[Any, ...] | None
 
-    def __init__(self, context_bundle: ContextBundle | None = None) -> None:
+    def __init__(self, context_bundle: ContextBundle) -> None:
         '''
             Initials TerminalProperties constructor.
 
             :param context_bundle: Context bundle for terminal properties | None
             :type context_bundle: <ContextBundle | None>
-            :exceptions: None.
+            :exceptions:
+                | ATSValueError: Context bundle must be provided.
+                | ATSTypeError: Context bundle must be an instance of ContextBundle.
         '''
-        factory_context_bundle(self, context_bundle)
+        inject_context_bundle(self, context_bundle)
         self._window_size = None
 
-    @vcheck([('int:file_descriptor', None)])
+    @mcheck([('int:file_descriptor', None)])
     @vreport('ioctl get window size {window_size}')
     @override
     def ioctl_get_window_size(self, file_descriptor: int) -> tuple[Any, ...]:
@@ -111,17 +116,23 @@ class TerminalProperties(ITerminalProperties):
     @override
     def ioctl_for_all_descriptors(self) -> None:
         '''
-            Sets size for all file descriptors.
+            Tries to get and set terminal window size using standard file descriptors (0, 1, 2).
+            It stops and returns on the first successfully queried descriptor.
 
             :exceptions:
                 | ATSRuntimeError: Decorator cannot be used on a standalone function.
                 | ATSAttributeError: Class is required to provide a '_reporter' object to
                 |                    use the @vreport decorator.
         '''
-        std_in: tuple[Any, ...] = self.ioctl_get_window_size(0)
-        std_out: tuple[Any, ...] = self.ioctl_get_window_size(1)
-        std_err: tuple[Any, ...] = self.ioctl_get_window_size(2)
-        self._window_size = std_in or std_out or std_err
+        for fd in (0, 1, 2):
+            try:
+                self._window_size = self.ioctl_get_window_size(fd)
+
+                if self._window_size:
+                    return
+
+            except (OSError, Exception):
+                continue
 
     @vreport('size {window_size}')
     @override
@@ -143,9 +154,12 @@ class TerminalProperties(ITerminalProperties):
             pass
 
         try:
-            file_descriptor: int = os.open(os.ctermid(), os.O_RDONLY)
-            self._window_size = self.ioctl_get_window_size(file_descriptor)
-            os.close(file_descriptor)
+            file_descriptor: int = open(ctermid(), O_RDONLY)
+
+            try:
+                self._window_size = self.ioctl_get_window_size(file_descriptor)
+            finally:
+                close(file_descriptor)
 
         except OSError:
             if not self._window_size:

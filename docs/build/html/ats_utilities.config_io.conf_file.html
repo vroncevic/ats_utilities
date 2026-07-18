@@ -15,8 +15,8 @@
     
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="ats_utilities.config_io.config_file_bundle module" href="ats_utilities.config_io.config_file_bundle.html" />
-    <link rel="prev" title="ats_utilities.config_io.yaml.yaml_storer module" href="ats_utilities.config_io.yaml.yaml_storer.html" /> 
+    <link rel="next" title="ats_utilities.config_io.conf_file_bundle module" href="ats_utilities.config_io.conf_file_bundle.html" />
+    <link rel="prev" title="ats_utilities.config_io.storer.istorer module" href="ats_utilities.config_io.storer.istorer.html" /> 
   </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
@@ -28,10 +28,10 @@
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="ats_utilities.config_io.config_file_bundle.html" title="ats_utilities.config_io.config_file_bundle module"
+          <a href="ats_utilities.config_io.conf_file_bundle.html" title="ats_utilities.config_io.conf_file_bundle module"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="ats_utilities.config_io.yaml.yaml_storer.html" title="ats_utilities.config_io.yaml.yaml_storer module"
+          <a href="ats_utilities.config_io.storer.istorer.html" title="ats_utilities.config_io.storer.istorer module"
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">ats_utilities https://github.com/vroncevic/ats_utilities/releases documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="modules.html" >ats_utilities</a> &#187;</li>
@@ -64,27 +64,29 @@ You should have received a copy of the GNU General Public License along
 with this program. If not, see &lt;<a class="reference external" href="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</a>&gt;.</p>
 </dd>
 <dt>Info</dt><dd><p>Defines class ConfFile with attribute(s) and method(s).
-Creates an API for the configuration context manager.</p>
+Creates an API for configuration file context manager.
+0th level of configuration loader/storer implementation.</p>
 </dd>
 </dl>
 <dl class="py class">
 <dt class="sig sig-object py" id="ats_utilities.config_io.conf_file.ConfFile">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ats_utilities.config_io.conf_file.</span></span><span class="sig-name descname"><span class="pre">ConfFile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_bundle</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="ats_utilities.config_io.file_bundle.html#ats_utilities.config_io.file_bundle.FileBundle" title="ats_utilities.config_io.file_bundle.FileBundle"><span class="pre">FileBundle</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">config_file_bundle</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="ats_utilities.config_io.config_file_bundle.html#ats_utilities.config_io.config_file_bundle.ConfigFileBundle" title="ats_utilities.config_io.config_file_bundle.ConfigFileBundle"><span class="pre">ConfigFileBundle</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ats_utilities/config_io/conf_file.html#ConfFile"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.config_io.conf_file.ConfFile" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ats_utilities.config_io.conf_file.</span></span><span class="sig-name descname"><span class="pre">ConfFile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_bundle</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="ats_utilities.config_io.conf_file_bundle.html#ats_utilities.config_io.conf_file_bundle.ConfFileBundle" title="ats_utilities.config_io.conf_file_bundle.ConfFileBundle"><span class="pre">ConfFileBundle</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ats_utilities/config_io/conf_file.html#ConfFile"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.config_io.conf_file.ConfFile" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="ats_utilities.config_io.iconf_file.html#ats_utilities.config_io.iconf_file.IConfFile" title="ats_utilities.config_io.iconf_file.IConfFile"><code class="xref py py-class docutils literal notranslate"><span class="pre">IConfFile</span></code></a></p>
 <p>Defines class ConfFile with attribute(s) and method(s).
-Creates an API for the configuration context manager.
-Configuration file context manager.</p>
+Creates an API for configuration file context manager.
+0th level of configuration loader/storer implementation.</p>
 <p>It defines:</p>
 <blockquote>
 <div><dl class="field-list">
 <dt class="field-odd">attributes<span class="colon">:</span></dt>
 <dd class="field-odd"><div class="line-block">
 <div class="line">_checker - Injected parameters checker (default Checker).</div>
+<div class="line">_logger - Injected logger for logging (default Logger).</div>
 <div class="line">_reporter - Injected reporter for messaging (default Reporter).</div>
 <div class="line">_verbose - Injected Enable/Disable verbose option (default False).</div>
-<div class="line">_file_path - Configuration file path (default None).</div>
-<div class="line">_file_mode - Configuration file mode (default None).</div>
-<div class="line">_file - File object (default None).</div>
+<div class="line">_file - File instance (default None).</div>
+<div class="line">_file_path - Configuration file path.</div>
+<div class="line">_file_mode - Configuration file mode.</div>
 </div>
 </dd>
 <dt class="field-even">methods<span class="colon">:</span></dt>
@@ -114,12 +116,17 @@ Configuration file context manager.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="ats_utilities.config_io.conf_file.ConfFile._file_mode">
-<span class="sig-name descname"><span class="pre">_file_mode</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#ats_utilities.config_io.conf_file.ConfFile._file_mode" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">_file_mode</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#ats_utilities.config_io.conf_file.ConfFile._file_mode" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="ats_utilities.config_io.conf_file.ConfFile._file_path">
-<span class="sig-name descname"><span class="pre">_file_path</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#ats_utilities.config_io.conf_file.ConfFile._file_path" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">_file_path</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#ats_utilities.config_io.conf_file.ConfFile._file_path" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ats_utilities.config_io.conf_file.ConfFile._logger">
+<span class="sig-name descname"><span class="pre">_logger</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="ats_utilities.logger.ilogger.html#ats_utilities.logger.ilogger.ILogger" title="ats_utilities.logger.ilogger.ILogger"><span class="pre">ILogger</span></a></em><a class="headerlink" href="#ats_utilities.config_io.conf_file.ConfFile._logger" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
@@ -153,6 +160,7 @@ Configuration file context manager.</p>
 <li><a class="reference internal" href="#ats_utilities.config_io.conf_file.ConfFile._file"><code class="docutils literal notranslate"><span class="pre">ConfFile._file</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.config_io.conf_file.ConfFile._file_mode"><code class="docutils literal notranslate"><span class="pre">ConfFile._file_mode</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.config_io.conf_file.ConfFile._file_path"><code class="docutils literal notranslate"><span class="pre">ConfFile._file_path</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.config_io.conf_file.ConfFile._logger"><code class="docutils literal notranslate"><span class="pre">ConfFile._logger</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.config_io.conf_file.ConfFile._reporter"><code class="docutils literal notranslate"><span class="pre">ConfFile._reporter</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.config_io.conf_file.ConfFile._verbose"><code class="docutils literal notranslate"><span class="pre">ConfFile._verbose</span></code></a></li>
 </ul>
@@ -164,13 +172,13 @@ Configuration file context manager.</p>
   </div>
   <div>
     <h4>Previous topic</h4>
-    <p class="topless"><a href="ats_utilities.config_io.yaml.yaml_storer.html"
-                          title="previous chapter">ats_utilities.config_io.yaml.yaml_storer module</a></p>
+    <p class="topless"><a href="ats_utilities.config_io.storer.istorer.html"
+                          title="previous chapter">ats_utilities.config_io.storer.istorer module</a></p>
   </div>
   <div>
     <h4>Next topic</h4>
-    <p class="topless"><a href="ats_utilities.config_io.config_file_bundle.html"
-                          title="next chapter">ats_utilities.config_io.config_file_bundle module</a></p>
+    <p class="topless"><a href="ats_utilities.config_io.conf_file_bundle.html"
+                          title="next chapter">ats_utilities.config_io.conf_file_bundle module</a></p>
   </div>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
@@ -203,10 +211,10 @@ Configuration file context manager.</p>
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="ats_utilities.config_io.config_file_bundle.html" title="ats_utilities.config_io.config_file_bundle module"
+          <a href="ats_utilities.config_io.conf_file_bundle.html" title="ats_utilities.config_io.conf_file_bundle module"
              >next</a> |</li>
         <li class="right" >
-          <a href="ats_utilities.config_io.yaml.yaml_storer.html" title="ats_utilities.config_io.yaml.yaml_storer module"
+          <a href="ats_utilities.config_io.storer.istorer.html" title="ats_utilities.config_io.storer.istorer module"
              >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">ats_utilities https://github.com/vroncevic/ats_utilities/releases documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="modules.html" >ats_utilities</a> &#187;</li>

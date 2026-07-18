@@ -60,20 +60,22 @@
 
 <span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
 
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">override</span>
 <span class="kn">from</span> <span class="nn">collections.abc</span> <span class="kn">import</span> <span class="n">Mapping</span><span class="p">,</span> <span class="n">Sequence</span><span class="p">,</span> <span class="n">Iterable</span>
+<span class="kn">from</span> <span class="nn">types</span> <span class="kn">import</span> <span class="n">MappingProxyType</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Final</span><span class="p">,</span> <span class="n">override</span>
 
-<span class="kn">from</span> <span class="nn">ats_utilities.factory_class</span> <span class="kn">import</span> <span class="n">to_str</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.checker.type.itype_validator</span> <span class="kn">import</span> <span class="n">ITypeValidator</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.utils.reflection</span> <span class="kn">import</span> <span class="n">to_str</span>
+<span class="kn">from</span> <span class="nn">ats_utilities.validation.check_type</span> <span class="kn">import</span> <span class="n">istype</span>
 
 <span class="n">__author__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;Vladimir Roncevic&#39;</span>
 <span class="n">__copyright__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;(C) 2026, https://vroncevic.github.io/ats_utilities&#39;</span>
 <span class="n">__credits__</span> <span class="o">=</span> <span class="p">[</span><span class="sa">r</span><span class="s1">&#39;Vladimir Roncevic&#39;</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;Python Software Foundation&#39;</span><span class="p">]</span>
 <span class="n">__license__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE&#39;</span>
-<span class="n">__version__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;3.4.2&#39;</span>
+<span class="n">__version__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;3.4.3&#39;</span>
 <span class="n">__maintainer__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;Vladimir Roncevic&#39;</span>
 <span class="n">__email__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;elektron.ronca@gmail.com&#39;</span>
-<span class="n">__status__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;Updated&#39;</span>
+<span class="n">__status__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;Development&#39;</span>
 
 
 <div class="viewcode-block" id="TypeValidator">
@@ -88,89 +90,111 @@
 
 <span class="sd">            :attributes:</span>
 <span class="sd">                | _ABSTRACT_TYPES - Mapping of abstract type names to their implementations.</span>
+<span class="sd">                | _abstract_types - Mapping of abstract type names to their implementations.</span>
 <span class="sd">            :methods:</span>
+<span class="sd">                | __init__ - Initializes TypeValidator constructor.</span>
 <span class="sd">                | is_match - Compares instance type with expected type name.</span>
 <span class="sd">                | is_subtype - Checks if instance is a subtype of expected type name.</span>
 <span class="sd">                | get_type_name - Returns the string representation of an instance type.</span>
-<span class="sd">                | __str__ - Returns the ATS type vcheck as string representation.</span>
+<span class="sd">                | __str__ - Returns the ATS type mcheck as string representation.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
 
-    <span class="n">_ABSTRACT_TYPES</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">type</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="n">_ABSTRACT_TYPES</span><span class="p">:</span> <span class="n">Final</span><span class="p">[</span><span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">type</span><span class="p">]]</span> <span class="o">=</span> <span class="n">MappingProxyType</span><span class="p">({</span>
         <span class="s1">&#39;Mapping&#39;</span><span class="p">:</span> <span class="n">Mapping</span><span class="p">,</span>
         <span class="s1">&#39;Sequence&#39;</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">,</span>
         <span class="s1">&#39;Iterable&#39;</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">,</span>
-    <span class="p">}</span>
+    <span class="p">})</span>
+    <span class="n">_abstract_types</span><span class="p">:</span> <span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">type</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">abstract_types</span><span class="p">:</span> <span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">type</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">            Initializes TypeValidator constructor.</span>
+
+<span class="sd">            :param abstract_types: Mapping of abstract type names to their implementations.</span>
+<span class="sd">            :type abstract_types: &lt;Mapping[str, type] | None&gt;</span>
+<span class="sd">            :exceptions:</span>
+<span class="sd">                | ATSTypeError: Abstract types must be a Mapping.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">if</span> <span class="n">abstract_types</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">istype</span><span class="p">(</span><span class="n">abstract_types</span><span class="p">,</span> <span class="n">Mapping</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;abstract types must be a Mapping&#39;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_abstract_types</span> <span class="o">=</span> <span class="n">MappingProxyType</span><span class="p">(</span><span class="n">abstract_types</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_abstract_types</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ABSTRACT_TYPES</span>
 
 <div class="viewcode-block" id="TypeValidator.is_match">
 <a class="viewcode-back" href="../../../../ats_utilities.checker.type.type_validator.html#ats_utilities.checker.type.type_validator.TypeValidator.is_match">[docs]</a>
     <span class="nd">@override</span>
-    <span class="k">def</span> <span class="nf">is_match</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">inst</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">expected_type_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">is_match</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">instance</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">expected_type_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Compares instance type with expected type name.</span>
 <span class="sd">            Compares the __name__ of the instance type with expected string.</span>
 
-<span class="sd">            :param inst: The instance to check.</span>
-<span class="sd">            :type inst: &lt;Any&gt;</span>
+<span class="sd">            :param instance: The instance to check.</span>
+<span class="sd">            :type instance: &lt;Any&gt;</span>
 <span class="sd">            :param expected_type_name: The expected type name.</span>
 <span class="sd">            :type expected_type_name: &lt;str&gt;</span>
-<span class="sd">            :return: True (success), False (fail).</span>
+<span class="sd">            :return: &lt;True&gt; successfully, &lt;False&gt; otherwise.</span>
 <span class="sd">            :rtype: &lt;bool&gt;</span>
-<span class="sd">            :exceptions: None.</span>
+<span class="sd">            :exceptions:</span>
+<span class="sd">                | ATSTypeError: Expected type name must be a string.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
+        <span class="n">istype</span><span class="p">(</span><span class="n">expected_type_name</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;expected type name must be a string&#39;</span><span class="p">)</span>
         <span class="n">base_type_name</span> <span class="o">=</span> <span class="n">expected_type_name</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;[&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
 
-        <span class="k">if</span> <span class="n">base_type_name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ABSTRACT_TYPES</span><span class="p">:</span>
-            <span class="k">return</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">inst</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ABSTRACT_TYPES</span><span class="p">[</span><span class="n">base_type_name</span><span class="p">])</span>
+        <span class="k">if</span> <span class="n">base_type_name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_abstract_types</span><span class="p">:</span>
+            <span class="k">return</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">instance</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_abstract_types</span><span class="p">[</span><span class="n">base_type_name</span><span class="p">])</span>
 
-        <span class="k">return</span> <span class="nb">any</span><span class="p">(</span><span class="bp">cls</span><span class="o">.</span><span class="vm">__name__</span> <span class="o">==</span> <span class="n">base_type_name</span> <span class="k">for</span> <span class="bp">cls</span> <span class="ow">in</span> <span class="nb">type</span><span class="p">(</span><span class="n">inst</span><span class="p">)</span><span class="o">.</span><span class="n">mro</span><span class="p">())</span></div>
+        <span class="k">return</span> <span class="nb">any</span><span class="p">(</span><span class="bp">cls</span><span class="o">.</span><span class="vm">__name__</span> <span class="o">==</span> <span class="n">base_type_name</span> <span class="k">for</span> <span class="bp">cls</span> <span class="ow">in</span> <span class="nb">type</span><span class="p">(</span><span class="n">instance</span><span class="p">)</span><span class="o">.</span><span class="n">mro</span><span class="p">())</span></div>
 
 
 <div class="viewcode-block" id="TypeValidator.is_subtype">
 <a class="viewcode-back" href="../../../../ats_utilities.checker.type.type_validator.html#ats_utilities.checker.type.type_validator.TypeValidator.is_subtype">[docs]</a>
     <span class="nd">@override</span>
-    <span class="k">def</span> <span class="nf">is_subtype</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">inst</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">expected_type_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">is_subtype</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">instance</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">expected_type_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Checks if instance is a subtype of expected type name.</span>
 <span class="sd">            Traverses the Method Resolution Order (MRO) to find a match.</span>
 
-<span class="sd">            :param inst: The instance to check.</span>
-<span class="sd">            :type inst: &lt;Any&gt;</span>
+<span class="sd">            :param instance: The instance to check.</span>
+<span class="sd">            :type instance: &lt;Any&gt;</span>
 <span class="sd">            :param expected_type_name: The expected parent type name.</span>
 <span class="sd">            :type expected_type_name: &lt;str&gt;</span>
-<span class="sd">            :return: True (is), False (not).</span>
+<span class="sd">            :return: &lt;True&gt; successfully, &lt;False&gt; otherwise.</span>
 <span class="sd">            :rtype: &lt;bool&gt;</span>
-<span class="sd">            :exceptions: None.</span>
+<span class="sd">            :exceptions:</span>
+<span class="sd">                | ATSTypeError: Expected type name must be a string.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
+        <span class="n">istype</span><span class="p">(</span><span class="n">expected_type_name</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;expected type name must be a string&#39;</span><span class="p">)</span>
         <span class="n">base_type_name</span> <span class="o">=</span> <span class="n">expected_type_name</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;[&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
 
-        <span class="k">if</span> <span class="n">base_type_name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ABSTRACT_TYPES</span><span class="p">:</span>
-            <span class="k">return</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">inst</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ABSTRACT_TYPES</span><span class="p">[</span><span class="n">base_type_name</span><span class="p">])</span>
+        <span class="k">if</span> <span class="n">base_type_name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_abstract_types</span><span class="p">:</span>
+            <span class="k">return</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">instance</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_abstract_types</span><span class="p">[</span><span class="n">base_type_name</span><span class="p">])</span>
 
-        <span class="k">return</span> <span class="nb">any</span><span class="p">(</span><span class="bp">cls</span><span class="o">.</span><span class="vm">__name__</span> <span class="o">==</span> <span class="n">base_type_name</span> <span class="k">for</span> <span class="bp">cls</span> <span class="ow">in</span> <span class="nb">type</span><span class="p">(</span><span class="n">inst</span><span class="p">)</span><span class="o">.</span><span class="n">mro</span><span class="p">())</span></div>
+        <span class="k">return</span> <span class="nb">any</span><span class="p">(</span><span class="bp">cls</span><span class="o">.</span><span class="vm">__name__</span> <span class="o">==</span> <span class="n">base_type_name</span> <span class="k">for</span> <span class="bp">cls</span> <span class="ow">in</span> <span class="nb">type</span><span class="p">(</span><span class="n">instance</span><span class="p">)</span><span class="o">.</span><span class="n">mro</span><span class="p">())</span></div>
 
 
 <div class="viewcode-block" id="TypeValidator.get_type_name">
 <a class="viewcode-back" href="../../../../ats_utilities.checker.type.type_validator.html#ats_utilities.checker.type.type_validator.TypeValidator.get_type_name">[docs]</a>
     <span class="nd">@override</span>
-    <span class="k">def</span> <span class="nf">get_type_name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">inst</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">get_type_name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">instance</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Returns the string representation of an instance type.</span>
 
-<span class="sd">            :param inst: The instance to inspect.</span>
-<span class="sd">            :type inst: &lt;Any&gt;</span>
+<span class="sd">            :param instance: The instance to inspect.</span>
+<span class="sd">            :type instance: &lt;Any&gt;</span>
 <span class="sd">            :return: String name of the type.</span>
 <span class="sd">            :rtype: &lt;str&gt;</span>
 <span class="sd">            :exceptions: None.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="k">return</span> <span class="nb">type</span><span class="p">(</span><span class="n">inst</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span></div>
+        <span class="k">return</span> <span class="nb">type</span><span class="p">(</span><span class="n">instance</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span></div>
 
 
     <span class="nd">@override</span>
     <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">            Returns the ATS type vcheck as string representation.</span>
+<span class="sd">            Returns the ATS type mcheck as string representation.</span>
 
-<span class="sd">            :return: The ATS type vcheck as string representation.</span>
+<span class="sd">            :return: The ATS type mcheck as string representation.</span>
 <span class="sd">            :rtype: &lt;str&gt;</span>
 <span class="sd">            :exceptions: None.</span>
 <span class="sd">        &#39;&#39;&#39;</span>

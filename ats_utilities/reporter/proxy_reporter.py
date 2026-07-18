@@ -28,17 +28,17 @@ from re import findall
 from functools import wraps
 from typing import Any, cast
 
-from ats_utilities.factory_context_error import raise_context_error
+from ats_utilities.validation.context_error import raise_error
 from ats_utilities.exceptions import ATSAttributeError, ATSRuntimeError, ATSValueError
 
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
 __license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = r'3.4.2'
+__version__ = r'3.4.3'
 __maintainer__ = r'Vladimir Roncevic'
 __email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Updated'
+__status__ = r'Development'
 
 def vreport[F: Callable[..., Any]](templates: str | list[str]) -> Callable[[F], F]:
     '''
@@ -60,10 +60,10 @@ def vreport[F: Callable[..., Any]](templates: str | list[str]) -> Callable[[F], 
     message_templates: list[str] = [templates] if isinstance(templates, str) else templates
 
     if not message_templates:
-        raise_context_error(
+        raise_error(
             fallback_prefix=r'vreport::decorator',
-            fallback_msg=f"Decorator @vreport requires at least one argument",
-            exc_message_path=None,
+            fallback_msg=r'Decorator @vreport requires at least one argument',
+            exc_message=None,
             exception_class=ATSValueError,
             depth=3
         )
@@ -74,10 +74,10 @@ def vreport[F: Callable[..., Any]](templates: str | list[str]) -> Callable[[F], 
             self_instance = args[0] if args else None
 
             if self_instance is None:
-                raise_context_error(
+                raise_error(
                     fallback_prefix=r'vreport::decorator',
                     fallback_msg=f'Decorator @vreport on {func.__name__} can only be used on class methods',
-                    exc_message_path=None,
+                    exc_message=None,
                     exception_class=ATSRuntimeError,
                 depth=3
             )
@@ -97,10 +97,10 @@ def vreport[F: Callable[..., Any]](templates: str | list[str]) -> Callable[[F], 
             )
 
             if reporter is None:
-                raise_context_error(
+                raise_error(
                     fallback_prefix=r'vreport::decorator',
-                    fallback_msg=f"Class '{class_name}' is required to provide a '_reporter' object to use the @vreport decorator",
-                    exc_message_path=None,
+                    fallback_msg=f'Class {class_name} is required to provide a _reporter object to use the @vreport decorator',
+                    exc_message=None,
                     exception_class=ATSAttributeError,
                     depth=3
                 )

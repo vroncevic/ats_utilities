@@ -70,7 +70,7 @@ Creates an API for the name in one property object.</p>
 </dl>
 <dl class="py class">
 <dt class="sig sig-object py" id="ats_utilities.info.name.engine.Name">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ats_utilities.info.name.engine.</span></span><span class="sig-name descname"><span class="pre">Name</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">context_bundle</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="ats_utilities.context_bundle.html#ats_utilities.context_bundle.ContextBundle" title="ats_utilities.context_bundle.ContextBundle"><span class="pre">ContextBundle</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ats_utilities/info/name/engine.html#Name"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.info.name.engine.Name" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ats_utilities.info.name.engine.</span></span><span class="sig-name descname"><span class="pre">Name</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">context_bundle</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="ats_utilities.context.context_bundle.html#ats_utilities.context.context_bundle.ContextBundle" title="ats_utilities.context.context_bundle.ContextBundle"><span class="pre">ContextBundle</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ats_utilities/info/name/engine.html#Name"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.info.name.engine.Name" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="ats_utilities.info.name.iname.html#ats_utilities.info.name.iname.IName" title="ats_utilities.info.name.iname.IName"><code class="xref py py-class docutils literal notranslate"><span class="pre">IName</span></code></a></p>
 <p>Defines class Name with attribute(s) and method(s).
 Creates an API for the name in one property object.
@@ -81,6 +81,7 @@ Note: Name is only prepared when it is set by user (not None).</p>
 <dt class="field-odd">attributes<span class="colon">:</span></dt>
 <dd class="field-odd"><div class="line-block">
 <div class="line">_checker - Injected parameters checker (default Checker).</div>
+<div class="line">_logger - Injected logger for logging (default Logger).</div>
 <div class="line">_reporter - Injected reporter for messaging (default Reporter).</div>
 <div class="line">_verbose - Injected Enable/Disable verbose option (default False).</div>
 <div class="line">_name - The name for App/Tool/Script (default None).</div>
@@ -104,6 +105,11 @@ Note: Name is only prepared when it is set by user (not None).</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="ats_utilities.info.name.engine.Name._checker">
 <span class="sig-name descname"><span class="pre">_checker</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="ats_utilities.checker.ichecker.html#ats_utilities.checker.ichecker.IChecker" title="ats_utilities.checker.ichecker.IChecker"><span class="pre">IChecker</span></a></em><a class="headerlink" href="#ats_utilities.info.name.engine.Name._checker" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ats_utilities.info.name.engine.Name._logger">
+<span class="sig-name descname"><span class="pre">_logger</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="ats_utilities.logger.ilogger.html#ats_utilities.logger.ilogger.ILogger" title="ats_utilities.logger.ilogger.ILogger"><span class="pre">ILogger</span></a></em><a class="headerlink" href="#ats_utilities.info.name.engine.Name._logger" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
@@ -152,7 +158,7 @@ Note: Name is only prepared when it is set by user (not None).</p>
 Note: Name is only prepared when it is set by user (not None).</p>
 <dl class="field-list">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>True (success) | False (fail).</p>
+<dd class="field-odd"><p>&lt;True&gt; if successful, &lt;False&gt; otherwise.</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p>&lt;bool&gt;</p>
@@ -187,6 +193,7 @@ Note: Name is only prepared when it is set by user (not None).</p>
 <li><a class="reference internal" href="#ats_utilities.info.name.engine.Name"><code class="docutils literal notranslate"><span class="pre">Name</span></code></a><ul>
 <li><a class="reference internal" href="#ats_utilities.info.name.engine.Name._abc_impl"><code class="docutils literal notranslate"><span class="pre">Name._abc_impl</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.info.name.engine.Name._checker"><code class="docutils literal notranslate"><span class="pre">Name._checker</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.info.name.engine.Name._logger"><code class="docutils literal notranslate"><span class="pre">Name._logger</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.info.name.engine.Name._name"><code class="docutils literal notranslate"><span class="pre">Name._name</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.info.name.engine.Name._reporter"><code class="docutils literal notranslate"><span class="pre">Name._reporter</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.info.name.engine.Name._verbose"><code class="docutils literal notranslate"><span class="pre">Name._verbose</span></code></a></li>

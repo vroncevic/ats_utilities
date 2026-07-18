@@ -34,10 +34,10 @@ __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
 __license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = r'3.4.2'
+__version__ = r'3.4.3'
 __maintainer__ = r'Vladimir Roncevic'
 __email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Updated'
+__status__ = r'Development'
 
 
 class IParserStrategy(ABC):
@@ -49,7 +49,6 @@ class IParserStrategy(ABC):
         It defines:
 
             :methods:
-                | setup - Initializes the underlying parser with metadata parameters.
                 | add_argument - Adds an operational argument/flag to the parser.
                 | add_version - Adds a version display option to the parser.
                 | parse - Parses the input arguments and returns an OptionNamespace.
@@ -58,17 +57,6 @@ class IParserStrategy(ABC):
                 | ok - Checks if parser strategy component is ok.
                 | __str__ - Returns the ATS parser strategy as string representation.
     '''
-
-    @abstractmethod
-    def setup(self, parameters: Mapping[str, str]) -> None:
-        '''
-            Initializes the underlying parser with metadata parameters.
-
-            :param parameters: Metadata parameters in mapping format (read only data).
-            :type parameters: <Mapping[str, str]>
-            :exceptions: None.
-        '''
-        pass
 
     @abstractmethod
     def add_argument(self, *args: str, **kwargs: Any) -> None:
@@ -139,7 +127,7 @@ class IParserStrategy(ABC):
         '''
             Checks if parser strategy component is ok.
 
-            :return: True (success) | False (fail).
+            :return: <True> if successful, <False> otherwise.
             :rtype: <bool>
             :exceptions: None.
         '''

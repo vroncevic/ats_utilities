@@ -113,12 +113,14 @@ Framework structure
 
     ats_utilities/
          ├── base/
-         │   ├── component_bundle.py
+         │   ├── base_bundle.py
+         │   ├── base_registry.py
          │   ├── engine.py
          │   ├── ibase.py
          │   └── __init__.py
          ├── checker/
-         │   ├── component_bundle.py
+         │   ├── checker_bundle.py
+         │   ├── checker_registry.py
          │   ├── context/
          │   │   ├── context_provider.py
          │   │   ├── icontext_provider.py
@@ -134,6 +136,7 @@ Framework structure
          │   ├── reporter/
          │   │   ├── check_reporter.py
          │   │   ├── checker_reporter_bundle.py
+         │   │   ├── checker_reporter_registry.py
          │   │   ├── icheck_reporter.py
          │   │   └── __init__.py
          │   └── type/
@@ -141,70 +144,35 @@ Framework structure
          │       ├── itype_validator.py
          │       └── type_validator.py
          ├── config_io/
-         │   ├── cfg/
-         │   │   ├── cfg2object.py
-         │   │   ├── cfg_loader.py
-         │   │   ├── cfg_processor.py
-         │   │   ├── cfg_storer.py
-         │   │   ├── icfg_processor.py
-         │   │   ├── __init__.py
-         │   │   └── object2cfg.py
          │   ├── conf_file.py
-         │   ├── config_file_bundle.py
-         │   ├── config_loader.py
-         │   ├── config_loader_bundle.py
-         │   ├── file_bundle.py
-         │   ├── file_check.py
+         │   ├── conf_file_bundle.py
+         │   ├── conf_file_registry.py
+         │   ├── config_io_bundle.py
+         │   ├── config_io_registry.py
          │   ├── iconf_file.py
-         │   ├── iconfig_loader.py
-         │   ├── ifile_check.py
-         │   ├── iloader.py
-         │   ├── ini/
-         │   │   ├── iini_processor.py
-         │   │   ├── ini2object.py
-         │   │   ├── ini_loader.py
+         │   ├── __init__.py
+         │   ├── loader/
+         │   │   ├── engine.py
+         │   │   ├── iloader.py
+         │   │   └── __init__.py
+         │   ├── processor/
+         │   │   ├── cfg_processor.py
+         │   │   ├── factory_processor.py
+         │   │   ├── iconfig_processor.py
          │   │   ├── ini_processor.py
-         │   │   ├── ini_storer.py
          │   │   ├── __init__.py
-         │   │   └── object2ini.py
-         │   ├── __init__.py
-         │   ├── iread.py
-         │   ├── istorer.py
-         │   ├── iwrite.py
-         │   ├── json/
-         │   │   ├── ijson_processor.py
-         │   │   ├── __init__.py
-         │   │   ├── json2object.py
-         │   │   ├── json_loader.py
          │   │   ├── json_processor.py
-         │   │   ├── json_storer.py
-         │   │   └── object2json.py
-         │   ├── xml/
-         │   │   ├── __init__.py
-         │   │   ├── ixml_processor.py
-         │   │   ├── object2xml.py
-         │   │   ├── xml2object.py
-         │   │   ├── xml_loader.py
          │   │   ├── xml_processor.py
-         │   │   └── xml_storer.py
-         │   └── yaml/
+         │   │   └── yaml_processor.py
+         │   └── storer/
+         │       ├── engine.py
          │       ├── __init__.py
-         │       ├── iyaml_processor.py
-         │       ├── object2yaml.py
-         │       ├── yaml2object.py
-         │       ├── yaml_loader.py
-         │       ├── yaml_processor.py
-         │       └── yaml_storer.py
-         ├── config_setup/
-         │   ├── component_bundle.py
-         │   ├── __init__.py
-         │   ├── ipro_config.py
-         │   ├── ipro_name.py
-         │   ├── itemplate_dir.py
-         │   ├── pro_config.py
-         │   ├── pro_name.py
-         │   └── template_dir.py
-         ├── context_bundle.py
+         │       └── istorer.py
+         ├── context/
+         │   ├── context_bundle.py
+         │   ├── context_bundle_inject.py
+         │   ├── context_registry.py
+         │   └── __init__.py
          ├── exceptions/
          │   ├── ats_attribute_error.py
          │   ├── ats_bad_call_error.py
@@ -217,53 +185,54 @@ Framework structure
          │   ├── ats_runtime_error.py
          │   ├── ats_type_error.py
          │   ├── ats_value_error.py
+         │   ├── format_error.py
          │   └── __init__.py
-         ├── factory_class.py
-         ├── factory_component.py
-         ├── factory_context_bundle.py
-         ├── factory_context_error.py
-         ├── factory_dict_utils.py
-         ├── factory_file_utils.py
-         ├── factory_inspector.py
-         ├── factory_type.py
-         ├── factory_value.py
          ├── generator/
-         │   ├── component_bundle.py
          │   ├── engine.py
+         │   ├── gen_params_bundle.py
+         │   ├── gen_params_registry.py
          │   ├── generator_bundle.py
+         │   ├── generator_registry.py
          │   ├── igenerator.py
          │   ├── __init__.py
          │   ├── scheme/
+         │   │   ├── engine.py
          │   │   ├── __init__.py
-         │   │   ├── ischeme_loader.py
-         │   │   └── scheme_loader.py
+         │   │   └── ischeme_loader.py
          │   ├── tar/
+         │   │   ├── engine.py
          │   │   ├── __init__.py
          │   │   ├── itar_processor.py
          │   │   ├── tar_process_bundle.py
          │   │   ├── tar_process_member_bundle.py
-         │   │   └── tar_processor.py
+         │   │   ├── tar_process_member_registry.py
+         │   │   └── tar_process_registry.py
          │   └── template/
+         │       ├── engine.py
          │       ├── __init__.py
-         │       ├── itemplate_processor.py
-         │       └── template_processor.py
+         │       └── itemplate_processor.py
          ├── info/
          │   ├── build_date/
          │   │   ├── engine.py
          │   │   ├── ibuild_date.py
          │   │   └── __init__.py
-         │   ├── component_bundle.py
          │   ├── engine.py
-         │   ├── imanager.py
+         │   ├── iinfo_manager.py
+         │   ├── info_bundle.py
          │   ├── info_keys.py
          │   ├── info_ok/
          │   │   ├── engine.py
          │   │   ├── iinfo_ok.py
          │   │   └── __init__.py
+         │   ├── info_registry.py
          │   ├── __init__.py
          │   ├── licence/
          │   │   ├── engine.py
          │   │   ├── ilicence.py
+         │   │   └── __init__.py
+         │   ├── log_file/
+         │   │   ├── engine.py
+         │   │   ├── ilog_file.py
          │   │   └── __init__.py
          │   ├── logo/
          │   │   ├── engine.py
@@ -290,70 +259,97 @@ Framework structure
          │       ├── __init__.py
          │       └── iversion.py
          ├── __init__.py
-         ├── logging/
-         │   ├── component_bundle.py
+         ├── logger/
          │   ├── engine.py
-         │   ├── ilogger_manager.py
+         │   ├── ilogger.py
          │   ├── __init__.py
-         │   └── logger/
-         │       ├── ilogger.py
-         │       ├── __init__.py
-         │       ├── logger.py
-         │       └── logger_bundle.py
+         │   ├── logger_bundle.py
+         │   └── logger_registry.py
          ├── option/
          │   ├── command/
          │   │   ├── command_option.py
          │   │   ├── __init__.py
          │   │   └── ioption_command.py
-         │   ├── component_bundle.py
          │   ├── engine.py
          │   ├── __init__.py
          │   ├── ioption_manager.py
+         │   ├── option_bundle.py
          │   ├── option_namespace.py
+         │   ├── option_registry.py
          │   ├── parser/
          │   │   ├── engine.py
-         │   │   └── __init__.py
+         │   │   ├── iarg_parser.py
+         │   │   ├── __init__.py
+         │   │   ├── parser_bundle.py
+         │   │   └── parser_registry.py
          │   └── strategy/
+         │       ├── engine.py
          │       ├── __init__.py
          │       ├── iparser_strategy.py
-         │       └── parser_strategy.py
+         │       └── parser_strategy_bundle.py
+         ├── project_setup/
+         │   ├── __init__.py
+         │   ├── ipro_config.py
+         │   ├── ipro_name.py
+         │   ├── itemplate_dir.py
+         │   ├── pro_config.py
+         │   ├── pro_name.py
+         │   ├── project_setup_bundle.py
+         │   ├── project_setup_registry.py
+         │   └── template_dir.py
          ├── py.typed
          ├── reporter/
-         │   ├── component_bundle.py
          │   ├── engine.py
          │   ├── __init__.py
          │   ├── ireporter.py
          │   ├── proxy_reporter.py
+         │   ├── reporter_bundle.py
+         │   ├── reporter_registry.py
          │   └── theme/
          │       ├── engine.py
          │       ├── iconsole_theme.py
          │       └── __init__.py
-         └── splasher/
-             ├── component_bundle.py
-             ├── engine.py
-             ├── external/
-             │   ├── ext_infrastructure.py
-             │   ├── github_infrastructure.py
-             │   ├── iext_infrastructure.py
-             │   └── __init__.py
-             ├── __init__.py
-             ├── isplasher.py
-             ├── progressbar/
-             │   ├── __init__.py
-             │   ├── iprogress_bar.py
-             │   └── progress_bar.py
-             ├── property/
-             │   ├── __init__.py
-             │   ├── isplash_property.py
-             │   └── splash_property.py
-             ├── splash_center_bundle.py
-             ├── splash_keys.py
-             └── terminal/
-                 ├── __init__.py
-                 ├── iterminal_properties.py
-                 └── terminal_properties.py
+         ├── splasher/
+         │   ├── engine.py
+         │   ├── external/
+         │   │   ├── ext_infrastructure.py
+         │   │   ├── github_infrastructure.py
+         │   │   ├── iext_infrastructure.py
+         │   │   └── __init__.py
+         │   ├── __init__.py
+         │   ├── isplasher.py
+         │   ├── progressbar/
+         │   │   ├── __init__.py
+         │   │   ├── iprogress_bar.py
+         │   │   └── progress_bar.py
+         │   ├── property/
+         │   │   ├── __init__.py
+         │   │   ├── isplash_property.py
+         │   │   └── splash_property.py
+         │   ├── splash_bundle.py
+         │   ├── splash_center_bundle.py
+         │   ├── splash_center_registry.py
+         │   ├── splash_keys.py
+         │   ├── splash_registry.py
+         │   └── terminal/
+         │       ├── __init__.py
+         │       ├── iterminal_properties.py
+         │       └── terminal_properties.py
+         ├── utils/
+         │   ├── boolean.py
+         │   ├── component.py
+         │   ├── dicts.py
+         │   ├── dirs.py
+         │   ├── files.py
+         │   ├── __init__.py
+         │   └── reflection.py
+         └── validation/
+             ├── check_type.py
+             ├── check_value.py
+             ├── context_error.py
+             └── __init__.py
 
-     42 directories, 199 files
+     43 directories, 194 files
 
 Copyright and licence
 ----------------------

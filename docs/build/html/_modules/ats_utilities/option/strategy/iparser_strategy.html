@@ -72,10 +72,10 @@
 <span class="n">__copyright__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;(C) 2026, https://vroncevic.github.io/ats_utilities&#39;</span>
 <span class="n">__credits__</span> <span class="o">=</span> <span class="p">[</span><span class="sa">r</span><span class="s1">&#39;Vladimir Roncevic&#39;</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;Python Software Foundation&#39;</span><span class="p">]</span>
 <span class="n">__license__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE&#39;</span>
-<span class="n">__version__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;3.4.2&#39;</span>
+<span class="n">__version__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;3.4.3&#39;</span>
 <span class="n">__maintainer__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;Vladimir Roncevic&#39;</span>
 <span class="n">__email__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;elektron.ronca@gmail.com&#39;</span>
-<span class="n">__status__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;Updated&#39;</span>
+<span class="n">__status__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;Development&#39;</span>
 
 
 <div class="viewcode-block" id="IParserStrategy">
@@ -89,7 +89,6 @@
 <span class="sd">        It defines:</span>
 
 <span class="sd">            :methods:</span>
-<span class="sd">                | setup - Initializes the underlying parser with metadata parameters.</span>
 <span class="sd">                | add_argument - Adds an operational argument/flag to the parser.</span>
 <span class="sd">                | add_version - Adds a version display option to the parser.</span>
 <span class="sd">                | parse - Parses the input arguments and returns an OptionNamespace.</span>
@@ -98,20 +97,6 @@
 <span class="sd">                | ok - Checks if parser strategy component is ok.</span>
 <span class="sd">                | __str__ - Returns the ATS parser strategy as string representation.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
-
-<div class="viewcode-block" id="IParserStrategy.setup">
-<a class="viewcode-back" href="../../../../ats_utilities.option.strategy.iparser_strategy.html#ats_utilities.option.strategy.iparser_strategy.IParserStrategy.setup">[docs]</a>
-    <span class="nd">@abstractmethod</span>
-    <span class="k">def</span> <span class="nf">setup</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parameters</span><span class="p">:</span> <span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">            Initializes the underlying parser with metadata parameters.</span>
-
-<span class="sd">            :param parameters: Metadata parameters in mapping format (read only data).</span>
-<span class="sd">            :type parameters: &lt;Mapping[str, str]&gt;</span>
-<span class="sd">            :exceptions: None.</span>
-<span class="sd">        &#39;&#39;&#39;</span>
-        <span class="k">pass</span></div>
-
 
 <div class="viewcode-block" id="IParserStrategy.add_argument">
 <a class="viewcode-back" href="../../../../ats_utilities.option.strategy.iparser_strategy.html#ats_utilities.option.strategy.iparser_strategy.IParserStrategy.add_argument">[docs]</a>
@@ -199,7 +184,7 @@
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Checks if parser strategy component is ok.</span>
 
-<span class="sd">            :return: True (success) | False (fail).</span>
+<span class="sd">            :return: &lt;True&gt; if successful, &lt;False&gt; otherwise.</span>
 <span class="sd">            :rtype: &lt;bool&gt;</span>
 <span class="sd">            :exceptions: None.</span>
 <span class="sd">        &#39;&#39;&#39;</span>

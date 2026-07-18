@@ -20,17 +20,20 @@ Info
 '''
 
 from ats_utilities.info.name.engine import Name
+from ats_utilities.context.context_bundle import ContextBundle
+from ats_utilities.context.context_registry import ContextRegistry
 
 __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
 __license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = r'3.4.2'
+__version__ = r'3.4.3'
 __maintainer__ = r'Vladimir Roncevic'
 __email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Updated'
+__status__ = r'Development'
 
-ats_name = Name()
+context_bundle: ContextBundle = ContextRegistry.create_default_context_bundle()
+ats_name: Name = Name(context_bundle=context_bundle)
 ats_name.name = 'mytool'
 print(ats_name.name)
 print(ats_name)

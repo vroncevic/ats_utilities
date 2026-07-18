@@ -15,7 +15,7 @@
     
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="ats_utilities.splasher.component_bundle module" href="ats_utilities.splasher.component_bundle.html" />
+    <link rel="next" title="ats_utilities.splasher.engine module" href="ats_utilities.splasher.engine.html" />
     <link rel="prev" title="ats_utilities.splasher.terminal.iterminal_properties module" href="ats_utilities.splasher.terminal.iterminal_properties.html" /> 
   </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
@@ -28,7 +28,7 @@
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="ats_utilities.splasher.component_bundle.html" title="ats_utilities.splasher.component_bundle module"
+          <a href="ats_utilities.splasher.engine.html" title="ats_utilities.splasher.engine module"
              accesskey="N">next</a> |</li>
         <li class="right" >
           <a href="ats_utilities.splasher.terminal.iterminal_properties.html" title="ats_utilities.splasher.terminal.iterminal_properties module"
@@ -70,7 +70,7 @@ Creates an API for getting terminal properties.</p>
 </dl>
 <dl class="py class">
 <dt class="sig sig-object py" id="ats_utilities.splasher.terminal.terminal_properties.TerminalProperties">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ats_utilities.splasher.terminal.terminal_properties.</span></span><span class="sig-name descname"><span class="pre">TerminalProperties</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">context_bundle</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="ats_utilities.context_bundle.html#ats_utilities.context_bundle.ContextBundle" title="ats_utilities.context_bundle.ContextBundle"><span class="pre">ContextBundle</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ats_utilities/splasher/terminal/terminal_properties.html#TerminalProperties"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.splasher.terminal.terminal_properties.TerminalProperties" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ats_utilities.splasher.terminal.terminal_properties.</span></span><span class="sig-name descname"><span class="pre">TerminalProperties</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">context_bundle</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="ats_utilities.context.context_bundle.html#ats_utilities.context.context_bundle.ContextBundle" title="ats_utilities.context.context_bundle.ContextBundle"><span class="pre">ContextBundle</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ats_utilities/splasher/terminal/terminal_properties.html#TerminalProperties"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.splasher.terminal.terminal_properties.TerminalProperties" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="ats_utilities.splasher.terminal.iterminal_properties.html#ats_utilities.splasher.terminal.iterminal_properties.ITerminalProperties" title="ats_utilities.splasher.terminal.iterminal_properties.ITerminalProperties"><code class="xref py py-class docutils literal notranslate"><span class="pre">ITerminalProperties</span></code></a></p>
 <p>Defines class TerminalProperties with attribute(s) and method(s).
 Creates an API for getting terminal properties.</p>
@@ -80,6 +80,7 @@ Creates an API for getting terminal properties.</p>
 <dt class="field-odd">attributes<span class="colon">:</span></dt>
 <dd class="field-odd"><div class="line-block">
 <div class="line">_checker - Injected parameters checker (default Checker).</div>
+<div class="line">_logger - Injected logger (default Logger).</div>
 <div class="line">_reporter - Injected reporter for messaging (default Reporter).</div>
 <div class="line">_verbose - Injected Enable/Disable verbose option (default False).</div>
 <div class="line">_window_size - Terminal window size (default None).</div>
@@ -89,7 +90,7 @@ Creates an API for getting terminal properties.</p>
 <dd class="field-even"><div class="line-block">
 <div class="line">__init__ - Initials TerminalProperties constructor.</div>
 <div class="line">ioctl_get_window_size - Gets size for file descriptor.</div>
-<div class="line">ioctl_for_all_descriptors - Sets size for all file descriptors.</div>
+<div class="line">ioctl_for_all_descriptors - Tries to get and set terminal window size.</div>
 <div class="line">size - Gets terminal window size.</div>
 <div class="line">__str__ - Returns the string representation of TerminalProperties.</div>
 </div>
@@ -104,6 +105,11 @@ Creates an API for getting terminal properties.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="ats_utilities.splasher.terminal.terminal_properties.TerminalProperties._checker">
 <span class="sig-name descname"><span class="pre">_checker</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="ats_utilities.checker.ichecker.html#ats_utilities.checker.ichecker.IChecker" title="ats_utilities.checker.ichecker.IChecker"><span class="pre">IChecker</span></a></em><a class="headerlink" href="#ats_utilities.splasher.terminal.terminal_properties.TerminalProperties._checker" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ats_utilities.splasher.terminal.terminal_properties.TerminalProperties._logger">
+<span class="sig-name descname"><span class="pre">_logger</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="ats_utilities.logger.ilogger.html#ats_utilities.logger.ilogger.ILogger" title="ats_utilities.logger.ilogger.ILogger"><span class="pre">ILogger</span></a></em><a class="headerlink" href="#ats_utilities.splasher.terminal.terminal_properties.TerminalProperties._logger" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
@@ -124,7 +130,8 @@ Creates an API for getting terminal properties.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="ats_utilities.splasher.terminal.terminal_properties.TerminalProperties.ioctl_for_all_descriptors">
 <span class="sig-name descname"><span class="pre">ioctl_for_all_descriptors</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/ats_utilities/splasher/terminal/terminal_properties.html#TerminalProperties.ioctl_for_all_descriptors"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.splasher.terminal.terminal_properties.TerminalProperties.ioctl_for_all_descriptors" title="Link to this definition">¶</a></dt>
-<dd><p>Sets size for all file descriptors.</p>
+<dd><p>Tries to get and set terminal window size using standard file descriptors (0, 1, 2).
+It stops and returns on the first successfully queried descriptor.</p>
 <dl class="field-list">
 <dt class="field-odd">Exceptions<span class="colon">:</span></dt>
 <dd class="field-odd"><div class="line-block">
@@ -209,6 +216,7 @@ Creates an API for getting terminal properties.</p>
 <li><a class="reference internal" href="#ats_utilities.splasher.terminal.terminal_properties.TerminalProperties"><code class="docutils literal notranslate"><span class="pre">TerminalProperties</span></code></a><ul>
 <li><a class="reference internal" href="#ats_utilities.splasher.terminal.terminal_properties.TerminalProperties._abc_impl"><code class="docutils literal notranslate"><span class="pre">TerminalProperties._abc_impl</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.splasher.terminal.terminal_properties.TerminalProperties._checker"><code class="docutils literal notranslate"><span class="pre">TerminalProperties._checker</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.splasher.terminal.terminal_properties.TerminalProperties._logger"><code class="docutils literal notranslate"><span class="pre">TerminalProperties._logger</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.splasher.terminal.terminal_properties.TerminalProperties._reporter"><code class="docutils literal notranslate"><span class="pre">TerminalProperties._reporter</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.splasher.terminal.terminal_properties.TerminalProperties._verbose"><code class="docutils literal notranslate"><span class="pre">TerminalProperties._verbose</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.splasher.terminal.terminal_properties.TerminalProperties._window_size"><code class="docutils literal notranslate"><span class="pre">TerminalProperties._window_size</span></code></a></li>
@@ -229,8 +237,8 @@ Creates an API for getting terminal properties.</p>
   </div>
   <div>
     <h4>Next topic</h4>
-    <p class="topless"><a href="ats_utilities.splasher.component_bundle.html"
-                          title="next chapter">ats_utilities.splasher.component_bundle module</a></p>
+    <p class="topless"><a href="ats_utilities.splasher.engine.html"
+                          title="next chapter">ats_utilities.splasher.engine module</a></p>
   </div>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
@@ -263,7 +271,7 @@ Creates an API for getting terminal properties.</p>
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="ats_utilities.splasher.component_bundle.html" title="ats_utilities.splasher.component_bundle module"
+          <a href="ats_utilities.splasher.engine.html" title="ats_utilities.splasher.engine module"
              >next</a> |</li>
         <li class="right" >
           <a href="ats_utilities.splasher.terminal.iterminal_properties.html" title="ats_utilities.splasher.terminal.iterminal_properties module"

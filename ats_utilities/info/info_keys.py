@@ -30,10 +30,10 @@ __author__ = r'Vladimir Roncevic'
 __copyright__ = r'(C) 2026, https://vroncevic.github.io/ats_utilities'
 __credits__ = [r'Vladimir Roncevic', r'Python Software Foundation']
 __license__ = r'https://github.com/vroncevic/ats_utilities/blob/dev/LICENSE'
-__version__ = r'3.4.2'
+__version__ = r'3.4.3'
 __maintainer__ = r'Vladimir Roncevic'
 __email__ = r'elektron.ronca@gmail.com'
-__status__ = r'Updated'
+__status__ = r'Development'
 
 
 @dataclass(frozen=True, slots=True, kw_only=True)
@@ -55,6 +55,7 @@ class InfoKeys:
                 | ATS_ORGANIZATION - The key for organization.
                 | ATS_USE_GITHUB_INFRASTRUCTURE - The key for use github infrastructure.
                 | ATS_LOGO_PATH - The key for logo path.
+                | ATS_LOG_FILE - The key for log file path (Optional).
     '''
 
     ATS_NAME: ClassVar[str] = r'ats_name'
@@ -65,6 +66,8 @@ class InfoKeys:
     ATS_ORGANIZATION: ClassVar[str] = r'ats_organization'
     ATS_USE_GITHUB_INFRASTRUCTURE: ClassVar[str] = r'ats_use_github_infrastructure'
     ATS_LOGO_PATH: ClassVar[str] = r'ats_logo_path'
+    ATS_LOG_FILE: ClassVar[str] = r'ats_log_file'
+    ATS_INFO_OK: ClassVar[str] = r'ats_info_ok'
 
     @classmethod
     def get_keys(cls) -> tuple[str, ...]:
@@ -83,7 +86,9 @@ class InfoKeys:
             cls.ATS_REPOSITORY,
             cls.ATS_ORGANIZATION,
             cls.ATS_USE_GITHUB_INFRASTRUCTURE,
-            cls.ATS_LOGO_PATH
+            cls.ATS_LOGO_PATH,
+            cls.ATS_LOG_FILE,
+            cls.ATS_INFO_OK
         )
 
     @classmethod
@@ -103,5 +108,7 @@ class InfoKeys:
             cls.ATS_REPOSITORY: r'repository',
             cls.ATS_ORGANIZATION: r'organization',
             cls.ATS_USE_GITHUB_INFRASTRUCTURE: r'use_github',
-            cls.ATS_LOGO_PATH: r'logo'
+            cls.ATS_LOGO_PATH: r'logo',
+            cls.ATS_LOG_FILE: r'log_file',
+            cls.ATS_INFO_OK: r'info_ok'
         })
