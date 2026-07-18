@@ -163,6 +163,7 @@ These modules requires other modules and libraries (Python 3.x)
          │   │   ├── cfg_processor.py
          │   │   ├── factory_processor.py
          │   │   ├── iconfig_processor.py
+         │   │   ├── ifactory_processor.py
          │   │   ├── ini_processor.py
          │   │   ├── __init__.py
          │   │   ├── json_processor.py
@@ -355,7 +356,7 @@ These modules requires other modules and libraries (Python 3.x)
              ├── context_error.py
              └── __init__.py
 
-     43 directories, 196 files
+     43 directories, 197 files
 ```
 </details>
 
@@ -369,7 +370,7 @@ These modules requires other modules and libraries (Python 3.x)
 | `ats_utilities/__init__.py` | 9 | 0 | 100%|
 | `ats_utilities/base/__init__.py` | 9 | 0 | 100%|
 | `ats_utilities/base/base_bundle.py` | 49 | 0 | 100%|
-| `ats_utilities/base/base_registry.py` | 48 | 0 | 96%|
+| `ats_utilities/base/base_registry.py` | 56 | 4 | 90%|
 | `ats_utilities/base/engine.py` | 73 | 0 | 100%|
 | `ats_utilities/base/ibase.py` | 16 | 0 | 100%|
 | `ats_utilities/checker/__init__.py` | 9 | 0 | 100%|
@@ -404,8 +405,9 @@ These modules requires other modules and libraries (Python 3.x)
 | `ats_utilities/config_io/loader/iloader.py` | 13 | 0 | 100%|
 | `ats_utilities/config_io/processor/__init__.py` | 9 | 0 | 100%|
 | `ats_utilities/config_io/processor/cfg_processor.py` | 56 | 0 | 99%|
-| `ats_utilities/config_io/processor/factory_processor.py` | 48 | 0 | 100%|
+| `ats_utilities/config_io/processor/factory_processor.py` | 53 | 0 | 100%|
 | `ats_utilities/config_io/processor/iconfig_processor.py` | 13 | 0 | 100%|
+| `ats_utilities/config_io/processor/ifactory_processor.py` | 13 | 0 | 100%|
 | `ats_utilities/config_io/processor/ini_processor.py` | 94 | 15 | 77%|
 | `ats_utilities/config_io/processor/json_processor.py` | 52 | 0 | 100%|
 | `ats_utilities/config_io/processor/xml_processor.py` | 94 | 2 | 96%|
@@ -561,7 +563,7 @@ These modules requires other modules and libraries (Python 3.x)
 | `ats_utilities/validation/check_type.py` | 37 | 0 | 100%|
 | `ats_utilities/validation/check_value.py` | 21 | 0 | 100%|
 | `ats_utilities/validation/context_error.py` | 31 | 0 | 100%|
-| **Total** | 5666 | 83 | 98% |
+| **Total** | 5692 | 87 | 98% |
 
 </details>
 

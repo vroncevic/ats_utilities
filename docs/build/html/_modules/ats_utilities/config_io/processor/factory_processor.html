@@ -62,8 +62,10 @@
 <span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
 
 <span class="kn">from</span> <span class="nn">collections.abc</span> <span class="kn">import</span> <span class="n">Mapping</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">override</span>
 <span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
 
+<span class="kn">from</span> <span class="nn">ats_utilities.config_io.processor.ifactory_processor</span> <span class="kn">import</span> <span class="n">IConfigProcessorFactory</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.config_io.processor.iconfig_processor</span> <span class="kn">import</span> <span class="n">IConfigProcessor</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.config_io.processor.cfg_processor</span> <span class="kn">import</span> <span class="n">CFGProcessor</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.config_io.processor.ini_processor</span> <span class="kn">import</span> <span class="n">INIProcessor</span>
@@ -87,7 +89,7 @@
 
 <div class="viewcode-block" id="ConfigProcessorFactory">
 <a class="viewcode-back" href="../../../../ats_utilities.config_io.processor.factory_processor.html#ats_utilities.config_io.processor.factory_processor.ConfigProcessorFactory">[docs]</a>
-<span class="k">class</span> <span class="nc">ConfigProcessorFactory</span><span class="p">:</span>
+<span class="k">class</span> <span class="nc">ConfigProcessorFactory</span><span class="p">(</span><span class="n">IConfigProcessorFactory</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Defines class ConfigProcessorFactory with attribute(s) and method(s).</span>
 <span class="sd">        Creates an API for creating an file processor instance based on the file extension.</span>
@@ -115,6 +117,7 @@
 <div class="viewcode-block" id="ConfigProcessorFactory.get_processor_class">
 <a class="viewcode-back" href="../../../../ats_utilities.config_io.processor.factory_processor.html#ats_utilities.config_io.processor.factory_processor.ConfigProcessorFactory.get_processor_class">[docs]</a>
     <span class="nd">@classmethod</span>
+    <span class="nd">@override</span>
     <span class="k">def</span> <span class="nf">get_processor_class</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">extension</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">type</span><span class="p">[</span><span class="n">IConfigProcessor</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            Returns the processor class for a specific file extension.</span>
@@ -146,6 +149,7 @@
 <div class="viewcode-block" id="ConfigProcessorFactory.create_from_extension">
 <a class="viewcode-back" href="../../../../ats_utilities.config_io.processor.factory_processor.html#ats_utilities.config_io.processor.factory_processor.ConfigProcessorFactory.create_from_extension">[docs]</a>
     <span class="nd">@classmethod</span>
+    <span class="nd">@override</span>
     <span class="k">def</span> <span class="nf">create_from_extension</span><span class="p">(</span>
         <span class="bp">cls</span><span class="p">,</span> 
         <span class="n">extension</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -200,6 +204,7 @@
 <div class="viewcode-block" id="ConfigProcessorFactory.create_from_file_path">
 <a class="viewcode-back" href="../../../../ats_utilities.config_io.processor.factory_processor.html#ats_utilities.config_io.processor.factory_processor.ConfigProcessorFactory.create_from_file_path">[docs]</a>
     <span class="nd">@classmethod</span>
+    <span class="nd">@override</span>
     <span class="k">def</span> <span class="nf">create_from_file_path</span><span class="p">(</span>
         <span class="bp">cls</span><span class="p">,</span> 
         <span class="n">file_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
