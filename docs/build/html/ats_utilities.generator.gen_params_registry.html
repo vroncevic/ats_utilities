@@ -69,18 +69,57 @@ with this program. If not, see &lt;<a class="reference external" href="http://ww
 <dl class="py class">
 <dt class="sig sig-object py" id="ats_utilities.generator.gen_params_registry.GenParamsRegistry">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ats_utilities.generator.gen_params_registry.</span></span><span class="sig-name descname"><span class="pre">GenParamsRegistry</span></span><a class="reference internal" href="_modules/ats_utilities/generator/gen_params_registry.html#GenParamsRegistry"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.generator.gen_params_registry.GenParamsRegistry" title="Link to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">IRegistry</span></code>[<a class="reference internal" href="ats_utilities.generator.gen_params_bundle.html#ats_utilities.generator.gen_params_bundle.GenParamsBundle" title="ats_utilities.generator.gen_params_bundle.GenParamsBundle"><code class="xref py py-class docutils literal notranslate"><span class="pre">GenParamsBundle</span></code></a>]</p>
 <p>Encapsulates core runtime components for creation of generator parameters bundle.</p>
 <p>It defines:</p>
 <blockquote>
 <div><dl class="field-list">
 <dt class="field-odd">methods<span class="colon">:</span></dt>
 <dd class="field-odd"><div class="line-block">
+<div class="line">create_bundle - Creates a GenParamsBundle.</div>
 <div class="line">create_gen_params_bundle - Creates a GenParamsBundle.</div>
 </div>
 </dd>
 </dl>
 </div></blockquote>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ats_utilities.generator.gen_params_registry.GenParamsRegistry._abc_impl">
+<span class="sig-name descname"><span class="pre">_abc_impl</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;_abc._abc_data</span> <span class="pre">object&gt;</span></em><a class="headerlink" href="#ats_utilities.generator.gen_params_registry.GenParamsRegistry._abc_impl" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ats_utilities.generator.gen_params_registry.GenParamsRegistry.create_bundle">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">create_bundle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="ats_utilities.generator.gen_params_bundle.html#ats_utilities.generator.gen_params_bundle.GenParamsBundle" title="ats_utilities.generator.gen_params_bundle.GenParamsBundle"><span class="pre">GenParamsBundle</span></a></span></span><a class="reference internal" href="_modules/ats_utilities/generator/gen_params_registry.html#GenParamsRegistry.create_bundle"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.generator.gen_params_registry.GenParamsRegistry.create_bundle" title="Link to this definition">¶</a></dt>
+<dd><p>Creates a GenParamsBundle instance.</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>kwargs</strong> – Additional registry-specific orchestration parameters.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>GenParamsBundle instance.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>&lt;GenParamsBundle&gt;</p>
+</dd>
+<dt class="field-even">Exceptions<span class="colon">:</span></dt>
+<dd class="field-even"><div class="line-block">
+<div class="line">ATSValueError: Archive path must be provided.</div>
+<div class="line">ATSValueError: Target dir must be provided.</div>
+<div class="line">ATSValueError: Template key must be provided.</div>
+<div class="line">ATSValueError: Scheme must be provided.</div>
+<div class="line">ATSValueError: Template values must be provided.</div>
+<div class="line">ATSTypeError: Archive path must be a string.</div>
+<div class="line">ATSTypeError: Target dir must be a string.</div>
+<div class="line">ATSTypeError: Template key must be a string.</div>
+<div class="line">ATSTypeError: Scheme must be a string or a mapping.</div>
+<div class="line">ATSTypeError: Template values must be a mapping.</div>
+<div class="line">ATSValueError: Archive file does not exist.</div>
+<div class="line">ATSValueError: Scheme file does not exist.</div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
 <dl class="py method">
 <dt class="sig sig-object py" id="ats_utilities.generator.gen_params_registry.GenParamsRegistry.create_gen_params_bundle">
 <em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">create_gen_params_bundle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">archive_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target_dir</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">template_key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scheme</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Mapping</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">template_values</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Mapping</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="ats_utilities.generator.gen_params_bundle.html#ats_utilities.generator.gen_params_bundle.GenParamsBundle" title="ats_utilities.generator.gen_params_bundle.GenParamsBundle"><span class="pre">GenParamsBundle</span></a></span></span><a class="reference internal" href="_modules/ats_utilities/generator/gen_params_registry.html#GenParamsRegistry.create_gen_params_bundle"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.generator.gen_params_registry.GenParamsRegistry.create_gen_params_bundle" title="Link to this definition">¶</a></dt>
@@ -136,6 +175,8 @@ with this program. If not, see &lt;<a class="reference external" href="http://ww
     <ul>
 <li><a class="reference internal" href="#">ats_utilities.generator.gen_params_registry module</a><ul>
 <li><a class="reference internal" href="#ats_utilities.generator.gen_params_registry.GenParamsRegistry"><code class="docutils literal notranslate"><span class="pre">GenParamsRegistry</span></code></a><ul>
+<li><a class="reference internal" href="#ats_utilities.generator.gen_params_registry.GenParamsRegistry._abc_impl"><code class="docutils literal notranslate"><span class="pre">GenParamsRegistry._abc_impl</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.generator.gen_params_registry.GenParamsRegistry.create_bundle"><code class="docutils literal notranslate"><span class="pre">GenParamsRegistry.create_bundle()</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.generator.gen_params_registry.GenParamsRegistry.create_gen_params_bundle"><code class="docutils literal notranslate"><span class="pre">GenParamsRegistry.create_gen_params_bundle()</span></code></a></li>
 </ul>
 </li>

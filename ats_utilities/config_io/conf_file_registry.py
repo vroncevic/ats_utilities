@@ -21,6 +21,9 @@ Info
 
 from __future__ import annotations
 
+from typing import Any, override
+
+from ats_utilities.utils.iregistry import IRegistry
 from ats_utilities.config_io.conf_file_bundle import ConfFileBundle
 from ats_utilities.context.context_bundle import ContextBundle
 
@@ -34,16 +37,43 @@ __email__ = r'elektron.ronca@gmail.com'
 __status__ = r'Development'
 
 
-
-class ConfFileRegistry:
+class ConfFileRegistry(IRegistry[ConfFileBundle]):
     '''
         Encapsulates core config I/O components for simplification of ConfFileBundle creation.
 
-        It defines:ats_utilities/config_io/config_io_registry.py
+        It defines:
 
             :methods:
-                | create_conf_file_bundle_by_file_path_and_scheme - Creates a ConfFileBundle based on file path and scheme.
+                | create_bundle - Creates a ConfFileBundle instance using either file path and file mode.
+                | create_conf_file_bundle_by_file_path_and_file_mode - Creates a ConfFileBundle based on file path and file mode.
     '''
+
+    @classmethod
+    @override
+    def create_bundle(cls, **kwargs: Any) -> ConfFileBundle:
+        '''
+            Creates a ConfFileBundle instance using either file path and file mode.
+
+            :param kwargs: Additional registry-specific orchestration parameters.
+            :return: ConfFileBundle instance.
+            :rtype: <ConfFileBundle>
+            :exceptions:
+                | ATSValueError: File path must be provided.
+                | ATSValueError: File mode must be provided.
+                | ATSValueError: Context bundle must be provided.
+                | ATSTypeError: File path must be a string.
+                | ATSTypeError: File mode must be a string.
+                | ATSTypeError: Context bundle must be an instance of ContextBundle interface.
+        '''
+        file_path: str = kwargs.get('file_path')
+        file_mode: str = kwargs.get('file_mode')
+        context_bundle: ContextBundle = kwargs.get('context_bundle')
+
+        return cls.create_conf_file_bundle(
+            file_path=file_path,
+            file_mode=file_mode,
+            context_bundle=context_bundle
+        )
 
     @classmethod
     def create_conf_file_bundle(
@@ -53,7 +83,7 @@ class ConfFileRegistry:
         context_bundle: ContextBundle
     ) -> ConfFileBundle:
         '''
-            Creates a ConfFileBundle with pre-configured components based on file path and scheme.
+            Creates a ConfFileBundle with pre-configured components based on file path and file mode.
 
             :param file_path: Config file path.
             :type file_path: <str>

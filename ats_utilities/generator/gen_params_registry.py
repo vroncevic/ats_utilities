@@ -22,7 +22,9 @@ Info
 from __future__ import annotations
 
 from collections.abc import Mapping
+from typing import Any, override
 
+from ats_utilities.utils.iregistry import IRegistry
 from ats_utilities.generator.gen_params_bundle import GenParamsBundle
 
 __author__ = r'Vladimir Roncevic'
@@ -35,15 +37,53 @@ __email__ = r'elektron.ronca@gmail.com'
 __status__ = r'Development'
 
 
-class GenParamsRegistry:
+class GenParamsRegistry(IRegistry[GenParamsBundle]):
     '''
         Encapsulates core runtime components for creation of generator parameters bundle.
 
         It defines:
 
             :methods:
+                | create_bundle - Creates a GenParamsBundle.
                 | create_gen_params_bundle - Creates a GenParamsBundle.
     '''
+
+    @classmethod
+    @override
+    def create_bundle(cls, **kwargs: Any) -> GenParamsBundle:
+        '''
+            Creates a GenParamsBundle instance.
+
+            :param kwargs: Additional registry-specific orchestration parameters.
+            :return: GenParamsBundle instance.
+            :rtype: <GenParamsBundle>
+            :exceptions:
+                | ATSValueError: Archive path must be provided.
+                | ATSValueError: Target dir must be provided.
+                | ATSValueError: Template key must be provided.
+                | ATSValueError: Scheme must be provided.
+                | ATSValueError: Template values must be provided.
+                | ATSTypeError: Archive path must be a string.
+                | ATSTypeError: Target dir must be a string.
+                | ATSTypeError: Template key must be a string.
+                | ATSTypeError: Scheme must be a string or a mapping.
+                | ATSTypeError: Template values must be a mapping.
+                | ATSValueError: Archive file does not exist.
+                | ATSValueError: Scheme file does not exist.
+        '''
+        archive_path: str = kwargs.get('archive_path')
+        target_dir: str = kwargs.get('target_dir')
+        template_key: str = kwargs.get('template_key')
+        scheme: str | Mapping[str, str] = kwargs.get('scheme')
+        template_values: Mapping[str, str] = kwargs.get('template_values')
+
+        return cls.create_gen_params_bundle(
+            archive_path=archive_path,
+            target_dir=target_dir,
+            template_key=template_key,
+            scheme=scheme,
+            template_values=template_values,
+        )
 
     @classmethod
     def create_gen_params_bundle(

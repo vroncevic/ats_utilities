@@ -61,7 +61,9 @@
 
 <span class="kn">from</span> <span class="nn">collections.abc</span> <span class="kn">import</span> <span class="n">Mapping</span>
 <span class="kn">from</span> <span class="nn">tarfile</span> <span class="kn">import</span> <span class="n">TarFile</span><span class="p">,</span> <span class="n">TarInfo</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">override</span>
 
+<span class="kn">from</span> <span class="nn">ats_utilities.utils.iregistry</span> <span class="kn">import</span> <span class="n">IRegistry</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.generator.tar.tar_process_member_bundle</span> <span class="kn">import</span> <span class="n">TarProcessMemberBundle</span>
 
 <span class="n">__author__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;Vladimir Roncevic&#39;</span>
@@ -76,15 +78,50 @@
 
 <div class="viewcode-block" id="TarProcessRegistry">
 <a class="viewcode-back" href="../../../../ats_utilities.generator.tar.tar_process_member_registry.html#ats_utilities.generator.tar.tar_process_member_registry.TarProcessRegistry">[docs]</a>
-<span class="k">class</span> <span class="nc">TarProcessRegistry</span><span class="p">:</span>
+<span class="k">class</span> <span class="nc">TarProcessRegistry</span><span class="p">(</span><span class="n">IRegistry</span><span class="p">[</span><span class="n">TarProcessMemberBundle</span><span class="p">]):</span>
 <span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Encapsulates core runtime components for creation of tar process member bundle.</span>
 
 <span class="sd">        It defines:</span>
 
 <span class="sd">            :methods:</span>
+<span class="sd">                | create_bundle - Creates a TarProcessMemberBundle.</span>
 <span class="sd">                | create_tar_process_member_bundle - Creates a TarProcessMemberBundle.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
+
+<div class="viewcode-block" id="TarProcessRegistry.create_bundle">
+<a class="viewcode-back" href="../../../../ats_utilities.generator.tar.tar_process_member_registry.html#ats_utilities.generator.tar.tar_process_member_registry.TarProcessRegistry.create_bundle">[docs]</a>
+    <span class="nd">@classmethod</span>
+    <span class="nd">@override</span>
+    <span class="k">def</span> <span class="nf">create_bundle</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">TarProcessMemberBundle</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">            Creates a TarProcessMemberBundle instance.</span>
+
+<span class="sd">            :param kwargs: Additional registry-specific orchestration parameters.</span>
+<span class="sd">            :return: TarProcessMemberBundle instance.</span>
+<span class="sd">            :rtype: &lt;TarProcessMemberBundle&gt;</span>
+<span class="sd">            :exceptions:</span>
+<span class="sd">                | ATSValueError: Tar must be provided.</span>
+<span class="sd">                | ATSValueError: Member must be provided.</span>
+<span class="sd">                | ATSValueError: Dest full path must be provided.</span>
+<span class="sd">                | ATSValueError: Vals must be provided.</span>
+<span class="sd">                | ATSTypeError: Tar must be a TarFile instance.</span>
+<span class="sd">                | ATSTypeError: Member must be a TarInfo instance.</span>
+<span class="sd">                | ATSTypeError: Dest full path must be a string.</span>
+<span class="sd">                | ATSTypeError: Vals must be a mapping.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="n">tar</span><span class="p">:</span> <span class="n">TarFile</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;tar&#39;</span><span class="p">)</span>
+        <span class="n">member</span><span class="p">:</span> <span class="n">TarInfo</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;member&#39;</span><span class="p">)</span>
+        <span class="n">dest_full_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;dest_full_path&#39;</span><span class="p">)</span>
+        <span class="n">vals</span><span class="p">:</span> <span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;vals&#39;</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="n">create_tar_process_member_bundle</span><span class="p">(</span>
+            <span class="n">tar</span><span class="o">=</span><span class="n">tar</span><span class="p">,</span>
+            <span class="n">member</span><span class="o">=</span><span class="n">member</span><span class="p">,</span>
+            <span class="n">dest_full_path</span><span class="o">=</span><span class="n">dest_full_path</span><span class="p">,</span>
+            <span class="n">vals</span><span class="o">=</span><span class="n">vals</span><span class="p">,</span>
+        <span class="p">)</span></div>
+
 
 <div class="viewcode-block" id="TarProcessRegistry.create_tar_process_member_bundle">
 <a class="viewcode-back" href="../../../../ats_utilities.generator.tar.tar_process_member_registry.html#ats_utilities.generator.tar.tar_process_member_registry.TarProcessRegistry.create_tar_process_member_bundle">[docs]</a>

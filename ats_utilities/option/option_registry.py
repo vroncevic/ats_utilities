@@ -22,10 +22,12 @@ Info
 from __future__ import annotations
 
 from collections.abc import Mapping
+from typing import Any, override
 
+from ats_utilities.utils.iregistry import IRegistry
 from ats_utilities.option.option_bundle import OptionBundle
 from ats_utilities.option.strategy.engine import ParserStrategy
-from ats_utilities.option.strategy.parser_strategy_bundle import ParserStrategyBundle
+from ats_utilities.option.strategy.parser_strategy_registry import ParserStrategyRegistry
 from ats_utilities.context.context_bundle import ContextBundle
 from ats_utilities.option.parser.engine import ArgParser
 from ats_utilities.option.parser.iarg_parser import IArgParser
@@ -40,18 +42,44 @@ __email__ = r'elektron.ronca@gmail.com'
 __status__ = r'Development'
 
 
-class OptionRegistry:
+class OptionRegistry(IRegistry[OptionBundle]):
     '''
         Encapsulates core option components for simplification of OptionBundle creation.
 
         It defines:
 
             :methods:
+                | create_bundle - Creates an OptionBundle.
                 | create_option_bundle_from_dict - Creates an OptionBundle.
     '''
 
-    @staticmethod
+    @override
+    def create_bundle(cls, **kwargs: Any) -> OptionBundle:
+        '''
+            Creates an OptionBundle.
+
+            :param kwargs: Additional registry-specific orchestration parameters.
+            :return: OptionBundle.
+            :rtype: <OptionBundle>
+            :exceptions:
+                | ATSValueError: Parameters must be provided.
+                | ATSValueError: Context bundle must be provided.
+                | ATSTypeError: Parameters must be a mapping.
+                | ATSTypeError: Context bundle must be a ContextBundle instance.
+        '''
+        parameters: Mapping[str, str] = kwargs.get('parameters')
+        context_bundle: ContextBundle = kwargs.get('context_bundle')
+        parser_class: type[IArgParser] = kwargs.get('parser_class', ArgParser)
+
+        return cls.create_option_bundle_from_dict(
+            parameters=parameters,
+            context_bundle=context_bundle,
+            parser_class=parser_class
+        )
+
+    @classmethod
     def create_option_bundle_from_dict(
+        cls,
         parameters: Mapping[str, str],
         context_bundle: ContextBundle,
         parser_class: type[IArgParser] = ArgParser
@@ -69,12 +97,12 @@ class OptionRegistry:
             :rtype: <OptionBundle>
             :exceptions: None.
         '''
-        strategy_bundle = ParserStrategyBundle(
+        parser_strategy_bundle = ParserStrategyRegistry.create_parser_strategy_bundle_from_dict(
             parameters=parameters,
             context_bundle=context_bundle,
             parser_class=parser_class
         )
-        strategy: ParserStrategy = ParserStrategy(component_bundle=strategy_bundle)
+        strategy: ParserStrategy = ParserStrategy(component_bundle=parser_strategy_bundle)
 
         return OptionBundle(
             parameters=parameters,

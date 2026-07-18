@@ -21,6 +21,9 @@ Info
 
 from __future__ import annotations
 
+from typing import Any, override
+
+from ats_utilities.utils.iregistry import IRegistry
 from ats_utilities.reporter.reporter_bundle import ReporterBundle
 from ats_utilities.checker.engine import Checker
 from ats_utilities.checker.checker_registry import CheckerRegistry
@@ -38,15 +41,34 @@ __email__ = r'elektron.ronca@gmail.com'
 __status__ = r'Development'
 
 
-class ReporterRegistry:
+class ReporterRegistry(IRegistry[ReporterBundle]):
     '''
         Encapsulates core runtime components for simplification of ReporterBundle creation.
 
         It defines:
 
             :methods:
+                | create_bundle - Creates a ReporterBundle.
                 | create_default_reporter_bundle - Creates a default ReporterBundle.
     '''
+
+    @override
+    def create_bundle(cls, **kwargs: Any) -> ReporterBundle:
+        '''
+            Creates a ReporterBundle instance.
+
+            :param kwargs: Additional registry-specific orchestration parameters.
+            :return: ReporterBundle instance.
+            :rtype: <ReporterBundle>
+            :exceptions:
+                | ATSValueError: Checker bundle must be provided.
+                | ATSValueError: Theme must be provided.
+                | ATSValueError: Logger bundle must be provided.
+                | ATSTypeError: Checker bundle must be a CheckerBundle instance.
+                | ATSTypeError: Theme must be a Theme instance.
+                | ATSTypeError: Logger bundle must be a LoggerBundle instance.
+        '''
+        return cls.create_default_reporter_bundle()
 
     @classmethod
     def create_default_reporter_bundle(cls) -> ReporterBundle:

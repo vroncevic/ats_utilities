@@ -23,7 +23,9 @@ from __future__ import annotations
 
 from collections.abc import Mapping
 from tarfile import TarFile, TarInfo
+from typing import Any, override
 
+from ats_utilities.utils.iregistry import IRegistry
 from ats_utilities.generator.tar.tar_process_member_bundle import TarProcessMemberBundle
 
 __author__ = r'Vladimir Roncevic'
@@ -36,15 +38,47 @@ __email__ = r'elektron.ronca@gmail.com'
 __status__ = r'Development'
 
 
-class TarProcessRegistry:
+class TarProcessRegistry(IRegistry[TarProcessMemberBundle]):
     '''
         Encapsulates core runtime components for creation of tar process member bundle.
 
         It defines:
 
             :methods:
+                | create_bundle - Creates a TarProcessMemberBundle.
                 | create_tar_process_member_bundle - Creates a TarProcessMemberBundle.
     '''
+
+    @classmethod
+    @override
+    def create_bundle(cls, **kwargs: Any) -> TarProcessMemberBundle:
+        '''
+            Creates a TarProcessMemberBundle instance.
+
+            :param kwargs: Additional registry-specific orchestration parameters.
+            :return: TarProcessMemberBundle instance.
+            :rtype: <TarProcessMemberBundle>
+            :exceptions:
+                | ATSValueError: Tar must be provided.
+                | ATSValueError: Member must be provided.
+                | ATSValueError: Dest full path must be provided.
+                | ATSValueError: Vals must be provided.
+                | ATSTypeError: Tar must be a TarFile instance.
+                | ATSTypeError: Member must be a TarInfo instance.
+                | ATSTypeError: Dest full path must be a string.
+                | ATSTypeError: Vals must be a mapping.
+        '''
+        tar: TarFile = kwargs.get('tar')
+        member: TarInfo = kwargs.get('member')
+        dest_full_path: str = kwargs.get('dest_full_path')
+        vals: Mapping[str, str] = kwargs.get('vals')
+
+        return cls.create_tar_process_member_bundle(
+            tar=tar,
+            member=member,
+            dest_full_path=dest_full_path,
+            vals=vals,
+        )
 
     @classmethod
     def create_tar_process_member_bundle(

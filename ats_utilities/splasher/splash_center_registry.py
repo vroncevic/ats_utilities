@@ -21,6 +21,9 @@ Info
 
 from __future__ import annotations
 
+from typing import Any, override
+
+from ats_utilities.utils.iregistry import IRegistry
 from ats_utilities.splasher.splash_center_bundle import SplashCenterBundle
 
 __author__ = r'Vladimir Roncevic'
@@ -33,15 +36,38 @@ __email__ = r'elektron.ronca@gmail.com'
 __status__ = r'Development'
 
 
-class SplashCenterRegistry:
+class SplashCenterRegistry(IRegistry[SplashCenterBundle]):
     '''
         Encapsulates splash screen components for simplification of SplashCenterBundle creation.
 
         It defines:
 
             :methods:
+                | create_bundle - Creates a SplashCenterBundle.
                 | create_splash_center_bundle - Creates a SplashCenterBundle.
     '''
+
+    @override
+    def create_bundle(cls, **kwargs: Any) -> SplashCenterBundle:
+        '''
+            Creates a SplashCenterBundle instance.
+
+            :param kwargs: Additional registry-specific orchestration parameters.
+            :return: SplashCenterBundle instance.
+            :rtype: <SplashCenterBundle>
+            :exceptions:
+                | ATSValueError: Columns must be provided.
+                | ATSValueError: Additional shifter must be provided.
+                | ATSTypeError: Columns must be an integer.
+                | ATSTypeError: Additional shifter must be an integer.
+        '''
+        columns: int = kwargs.get('columns')
+        additional_shifter: int = kwargs.get('additional_shifter')
+
+        return cls.create_splash_center_bundle(
+            columns=columns,
+            additional_shifter=additional_shifter,
+        )
 
     @classmethod
     def create_splash_center_bundle(cls, columns: int, additional_shifter: int) -> SplashCenterBundle:

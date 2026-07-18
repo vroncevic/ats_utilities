@@ -22,7 +22,9 @@ Info
 from __future__ import annotations
 
 from collections.abc import Sequence
+from typing import Any, override
 
+from ats_utilities.utils.iregistry import IRegistry
 from ats_utilities.checker.reporter.checker_reporter_bundle import CheckerReporterBundle, ParamMetadata
 
 __author__ = r'Vladimir Roncevic'
@@ -35,15 +37,47 @@ __email__ = r'elektron.ronca@gmail.com'
 __status__ = r'Development'
 
 
-class CheckerReporterRegistry:
+class CheckerReporterRegistry(IRegistry[CheckerReporterBundle]):
     '''
         Encapsulates core runtime components for simplification of CheckerReporterBundle creation.
 
         It defines:
 
             :methods:
+                | create_bundle - Creates a CheckerReporterBundle.
                 | create_checker_reporter_bundle - Creates a CheckerReporterBundle.
     '''
+
+    @classmethod
+    @override
+    def create_bundle(cls, **kwargs: Any) -> CheckerReporterBundle:
+        '''
+            Creates a CheckerReporterBundle instance.
+
+            :param kwargs: Additional registry-specific orchestration parameters.
+            :return: CheckerReporterBundle instance.
+            :rtype: <CheckerReporterBundle>
+            :exceptions:
+                | ATSValueError: Context must be provided.
+                | ATSValueError: Parameters metadata must be provided.
+                | ATSValueError: Error indices must be provided.
+                | ATSValueError: Is format error must be provided.
+                | ATSTypeError: Context must be a string.
+                | ATSTypeError: Parameters metadata must be a sequence of ParamMetadata.
+                | ATSTypeError: Error indices must be a sequence of integers.
+                | ATSTypeError: Is format error must be a boolean.
+        '''
+        context: str = kwargs.get('context')
+        parameters_meta: Sequence[ParamMetadata] = kwargs.get('parameters_meta')
+        err_indices: Sequence[int] = kwargs.get('err_indices')
+        is_fmt_err: bool = kwargs.get('is_fmt_err')
+
+        return cls.create_checker_reporter_bundle(
+            context=context,
+            parameters_meta=parameters_meta,
+            err_indices=err_indices,
+            is_fmt_err=is_fmt_err
+        )
 
     @classmethod
     def create_checker_reporter_bundle(

@@ -21,6 +21,9 @@ Info
 
 from __future__ import annotations
 
+from typing import Any, override
+
+from ats_utilities.utils.iregistry import IRegistry
 from ats_utilities.checker.engine import Checker
 from ats_utilities.checker.checker_registry import CheckerRegistry
 from ats_utilities.logger.engine import Logger
@@ -40,15 +43,35 @@ __email__ = r'elektron.ronca@gmail.com'
 __status__ = r'Development'
 
 
-class ContextRegistry:
+class ContextRegistry(IRegistry[ContextBundle]):
     '''
         Encapsulates core runtime components for simplification of ContextBundle creation.
 
         It defines:
 
             :methods:
+                | create_bundle - Creates a ContextBundle instance.
                 | create_default_context_bundle - Creates a default ContextBundle.
     '''
+
+    @classmethod
+    @override
+    def create_bundle(cls, **kwargs: Any) -> ContextBundle:
+        '''
+            Creates a ContextBundle instance using optional verbose parameter.
+
+            :param kwargs: Additional registry-specific orchestration parameters.
+            :return: ContextBundle instance.
+            :rtype: <ContextBundle>
+            :exceptions:
+                | ATSValueError: Verbose must be provided.
+                | ATSTypeError: Verbose must be a boolean.
+        '''
+        verbose: bool = kwargs.get('verbose')
+
+        return cls.create_default_context_bundle(
+            verbose=verbose
+        )
 
     @classmethod
     def create_default_context_bundle(cls, verbose: bool = False) -> ContextBundle:

@@ -59,6 +59,9 @@
 
 <span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
 
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">override</span>
+
+<span class="kn">from</span> <span class="nn">ats_utilities.utils.iregistry</span> <span class="kn">import</span> <span class="n">IRegistry</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.checker.checker_bundle</span> <span class="kn">import</span> <span class="n">CheckerBundle</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.checker.format.format_validator</span> <span class="kn">import</span> <span class="n">FormatValidator</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.checker.type.type_validator</span> <span class="kn">import</span> <span class="n">TypeValidator</span>
@@ -77,15 +80,39 @@
 
 <div class="viewcode-block" id="CheckerRegistry">
 <a class="viewcode-back" href="../../../ats_utilities.checker.checker_registry.html#ats_utilities.checker.checker_registry.CheckerRegistry">[docs]</a>
-<span class="k">class</span> <span class="nc">CheckerRegistry</span><span class="p">:</span>
+<span class="k">class</span> <span class="nc">CheckerRegistry</span><span class="p">(</span><span class="n">IRegistry</span><span class="p">[</span><span class="n">CheckerBundle</span><span class="p">]):</span>
 <span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Encapsulates core runtime components for simplification of CheckerBundle creation.</span>
 
 <span class="sd">        It defines:</span>
 
 <span class="sd">            :methods:</span>
-<span class="sd">                | create_default_checker_bundle - Creates a default CheckerBundle.</span>
+<span class="sd">                | create_bundle - Creates a CheckerBundle instance using either file path and scheme or injected processor.</span>
+<span class="sd">                | create_checker_bundle_by_file_path_and_scheme - Creates a CheckerBundle based on file path and scheme.</span>
+<span class="sd">                | create_checker_bundle_by_processor - Creates a CheckerBundle based on an injected processor.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
+
+<div class="viewcode-block" id="CheckerRegistry.create_bundle">
+<a class="viewcode-back" href="../../../ats_utilities.checker.checker_registry.html#ats_utilities.checker.checker_registry.CheckerRegistry.create_bundle">[docs]</a>
+    <span class="nd">@classmethod</span>
+    <span class="nd">@override</span>
+    <span class="k">def</span> <span class="nf">create_bundle</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">CheckerBundle</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">            Creates a CheckerBundle instance using either file path and scheme or injected processor.</span>
+
+<span class="sd">            :param kwargs: Additional registry-specific orchestration parameters.</span>
+<span class="sd">            :return: CheckerBundle instance.</span>
+<span class="sd">            :rtype: &lt;CheckerBundle&gt;</span>
+<span class="sd">            :exceptions:</span>
+<span class="sd">                | ATSValueError: File path must be provided.</span>
+<span class="sd">                | ATSValueError: Scheme must be provided.</span>
+<span class="sd">                | ATSValueError: Context bundle must be provided.</span>
+<span class="sd">                | ATSTypeError: File path must be a string.</span>
+<span class="sd">                | ATSTypeError: Scheme must be an instance of Mapping interface.</span>
+<span class="sd">                | ATSTypeError: Context bundle must be an instance of ContextBundle interface.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="n">create_default_checker_bundle</span><span class="p">()</span></div>
+
 
 <div class="viewcode-block" id="CheckerRegistry.create_default_checker_bundle">
 <a class="viewcode-back" href="../../../ats_utilities.checker.checker_registry.html#ats_utilities.checker.checker_registry.CheckerRegistry.create_default_checker_bundle">[docs]</a>

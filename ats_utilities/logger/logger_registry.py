@@ -22,8 +22,9 @@ Info
 from __future__ import annotations
 
 from logging import Logger, getLogger, basicConfig, INFO
-from typing import Any
+from typing import Any, override
 
+from ats_utilities.utils.iregistry import IRegistry
 from ats_utilities.logger.logger_bundle import LoggerBundle
 
 __author__ = r'Vladimir Roncevic'
@@ -36,15 +37,38 @@ __email__ = r'elektron.ronca@gmail.com'
 __status__ = r'Development'
 
 
-class LoggerRegistry:
+class LoggerRegistry(IRegistry[LoggerBundle]):
     '''
         Encapsulates core runtime components for simplification of LoggerBundle creation.
 
         It defines:
 
             :methods:
+                | create_bundle - Creates a LoggerBundle.
                 | create_default_logger_bundle - Creates a default LoggerBundle.
     '''
+
+    @override
+    def create_bundle(cls, **kwargs: Any) -> LoggerBundle:
+        '''
+            Creates a LoggerBundle instance.
+
+            :param kwargs: Additional registry-specific orchestration parameters.
+            :return: LoggerBundle instance.
+            :rtype: <LoggerBundle>
+            :exceptions:
+                | ATSValueError: Log file must be provided.
+                | ATSValueError: Log level must be provided.
+                | ATSTypeError: Log file must be a string.
+                | ATSTypeError: Log level must be an integer.
+        '''
+        log_file: str = kwargs.get('log_file')
+        log_level: int = kwargs.get('log_level')
+
+        return cls.create_default_logger_bundle(
+            log_file=log_file,
+            log_level=log_level,
+        )
 
     @classmethod
     def create_default_logger_bundle(cls, log_file: str = 'run.log', log_level: int = INFO) -> LoggerBundle:

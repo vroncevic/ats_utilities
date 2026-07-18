@@ -69,22 +69,55 @@ with this program. If not, see &lt;<a class="reference external" href="http://ww
 <dl class="py class">
 <dt class="sig sig-object py" id="ats_utilities.config_io.conf_file_registry.ConfFileRegistry">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ats_utilities.config_io.conf_file_registry.</span></span><span class="sig-name descname"><span class="pre">ConfFileRegistry</span></span><a class="reference internal" href="_modules/ats_utilities/config_io/conf_file_registry.html#ConfFileRegistry"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.config_io.conf_file_registry.ConfFileRegistry" title="Link to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">IRegistry</span></code>[<a class="reference internal" href="ats_utilities.config_io.conf_file_bundle.html#ats_utilities.config_io.conf_file_bundle.ConfFileBundle" title="ats_utilities.config_io.conf_file_bundle.ConfFileBundle"><code class="xref py py-class docutils literal notranslate"><span class="pre">ConfFileBundle</span></code></a>]</p>
 <p>Encapsulates core config I/O components for simplification of ConfFileBundle creation.</p>
-<p>It defines:ats_utilities/config_io/config_io_registry.py</p>
+<p>It defines:</p>
 <blockquote>
 <div><dl class="field-list">
 <dt class="field-odd">methods<span class="colon">:</span></dt>
 <dd class="field-odd"><div class="line-block">
-<div class="line">create_conf_file_bundle_by_file_path_and_scheme - Creates a ConfFileBundle based on file path and scheme.</div>
+<div class="line">create_bundle - Creates a ConfFileBundle instance using either file path and file mode.</div>
+<div class="line">create_conf_file_bundle_by_file_path_and_file_mode - Creates a ConfFileBundle based on file path and file mode.</div>
 </div>
 </dd>
 </dl>
 </div></blockquote>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ats_utilities.config_io.conf_file_registry.ConfFileRegistry._abc_impl">
+<span class="sig-name descname"><span class="pre">_abc_impl</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;_abc._abc_data</span> <span class="pre">object&gt;</span></em><a class="headerlink" href="#ats_utilities.config_io.conf_file_registry.ConfFileRegistry._abc_impl" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ats_utilities.config_io.conf_file_registry.ConfFileRegistry.create_bundle">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">create_bundle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="ats_utilities.config_io.conf_file_bundle.html#ats_utilities.config_io.conf_file_bundle.ConfFileBundle" title="ats_utilities.config_io.conf_file_bundle.ConfFileBundle"><span class="pre">ConfFileBundle</span></a></span></span><a class="reference internal" href="_modules/ats_utilities/config_io/conf_file_registry.html#ConfFileRegistry.create_bundle"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.config_io.conf_file_registry.ConfFileRegistry.create_bundle" title="Link to this definition">¶</a></dt>
+<dd><p>Creates a ConfFileBundle instance using either file path and file mode.</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>kwargs</strong> – Additional registry-specific orchestration parameters.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>ConfFileBundle instance.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>&lt;ConfFileBundle&gt;</p>
+</dd>
+<dt class="field-even">Exceptions<span class="colon">:</span></dt>
+<dd class="field-even"><div class="line-block">
+<div class="line">ATSValueError: File path must be provided.</div>
+<div class="line">ATSValueError: File mode must be provided.</div>
+<div class="line">ATSValueError: Context bundle must be provided.</div>
+<div class="line">ATSTypeError: File path must be a string.</div>
+<div class="line">ATSTypeError: File mode must be a string.</div>
+<div class="line">ATSTypeError: Context bundle must be an instance of ContextBundle interface.</div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
 <dl class="py method">
 <dt class="sig sig-object py" id="ats_utilities.config_io.conf_file_registry.ConfFileRegistry.create_conf_file_bundle">
 <em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">create_conf_file_bundle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_mode</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">context_bundle</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="ats_utilities.context.context_bundle.html#ats_utilities.context.context_bundle.ContextBundle" title="ats_utilities.context.context_bundle.ContextBundle"><span class="pre">ContextBundle</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="ats_utilities.config_io.conf_file_bundle.html#ats_utilities.config_io.conf_file_bundle.ConfFileBundle" title="ats_utilities.config_io.conf_file_bundle.ConfFileBundle"><span class="pre">ConfFileBundle</span></a></span></span><a class="reference internal" href="_modules/ats_utilities/config_io/conf_file_registry.html#ConfFileRegistry.create_conf_file_bundle"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.config_io.conf_file_registry.ConfFileRegistry.create_conf_file_bundle" title="Link to this definition">¶</a></dt>
-<dd><p>Creates a ConfFileBundle with pre-configured components based on file path and scheme.</p>
+<dd><p>Creates a ConfFileBundle with pre-configured components based on file path and file mode.</p>
 <dl class="field-list">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -128,6 +161,8 @@ with this program. If not, see &lt;<a class="reference external" href="http://ww
     <ul>
 <li><a class="reference internal" href="#">ats_utilities.config_io.conf_file_registry module</a><ul>
 <li><a class="reference internal" href="#ats_utilities.config_io.conf_file_registry.ConfFileRegistry"><code class="docutils literal notranslate"><span class="pre">ConfFileRegistry</span></code></a><ul>
+<li><a class="reference internal" href="#ats_utilities.config_io.conf_file_registry.ConfFileRegistry._abc_impl"><code class="docutils literal notranslate"><span class="pre">ConfFileRegistry._abc_impl</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.config_io.conf_file_registry.ConfFileRegistry.create_bundle"><code class="docutils literal notranslate"><span class="pre">ConfFileRegistry.create_bundle()</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.config_io.conf_file_registry.ConfFileRegistry.create_conf_file_bundle"><code class="docutils literal notranslate"><span class="pre">ConfFileRegistry.create_conf_file_bundle()</span></code></a></li>
 </ul>
 </li>

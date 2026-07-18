@@ -60,7 +60,9 @@
 <span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
 
 <span class="kn">from</span> <span class="nn">collections.abc</span> <span class="kn">import</span> <span class="n">Sequence</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">override</span>
 
+<span class="kn">from</span> <span class="nn">ats_utilities.utils.iregistry</span> <span class="kn">import</span> <span class="n">IRegistry</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.checker.reporter.checker_reporter_bundle</span> <span class="kn">import</span> <span class="n">CheckerReporterBundle</span><span class="p">,</span> <span class="n">ParamMetadata</span>
 
 <span class="n">__author__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;Vladimir Roncevic&#39;</span>
@@ -75,15 +77,50 @@
 
 <div class="viewcode-block" id="CheckerReporterRegistry">
 <a class="viewcode-back" href="../../../../ats_utilities.checker.reporter.checker_reporter_registry.html#ats_utilities.checker.reporter.checker_reporter_registry.CheckerReporterRegistry">[docs]</a>
-<span class="k">class</span> <span class="nc">CheckerReporterRegistry</span><span class="p">:</span>
+<span class="k">class</span> <span class="nc">CheckerReporterRegistry</span><span class="p">(</span><span class="n">IRegistry</span><span class="p">[</span><span class="n">CheckerReporterBundle</span><span class="p">]):</span>
 <span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Encapsulates core runtime components for simplification of CheckerReporterBundle creation.</span>
 
 <span class="sd">        It defines:</span>
 
 <span class="sd">            :methods:</span>
+<span class="sd">                | create_bundle - Creates a CheckerReporterBundle.</span>
 <span class="sd">                | create_checker_reporter_bundle - Creates a CheckerReporterBundle.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
+
+<div class="viewcode-block" id="CheckerReporterRegistry.create_bundle">
+<a class="viewcode-back" href="../../../../ats_utilities.checker.reporter.checker_reporter_registry.html#ats_utilities.checker.reporter.checker_reporter_registry.CheckerReporterRegistry.create_bundle">[docs]</a>
+    <span class="nd">@classmethod</span>
+    <span class="nd">@override</span>
+    <span class="k">def</span> <span class="nf">create_bundle</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">CheckerReporterBundle</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">            Creates a CheckerReporterBundle instance.</span>
+
+<span class="sd">            :param kwargs: Additional registry-specific orchestration parameters.</span>
+<span class="sd">            :return: CheckerReporterBundle instance.</span>
+<span class="sd">            :rtype: &lt;CheckerReporterBundle&gt;</span>
+<span class="sd">            :exceptions:</span>
+<span class="sd">                | ATSValueError: Context must be provided.</span>
+<span class="sd">                | ATSValueError: Parameters metadata must be provided.</span>
+<span class="sd">                | ATSValueError: Error indices must be provided.</span>
+<span class="sd">                | ATSValueError: Is format error must be provided.</span>
+<span class="sd">                | ATSTypeError: Context must be a string.</span>
+<span class="sd">                | ATSTypeError: Parameters metadata must be a sequence of ParamMetadata.</span>
+<span class="sd">                | ATSTypeError: Error indices must be a sequence of integers.</span>
+<span class="sd">                | ATSTypeError: Is format error must be a boolean.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="n">context</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;context&#39;</span><span class="p">)</span>
+        <span class="n">parameters_meta</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">ParamMetadata</span><span class="p">]</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;parameters_meta&#39;</span><span class="p">)</span>
+        <span class="n">err_indices</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;err_indices&#39;</span><span class="p">)</span>
+        <span class="n">is_fmt_err</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;is_fmt_err&#39;</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="n">create_checker_reporter_bundle</span><span class="p">(</span>
+            <span class="n">context</span><span class="o">=</span><span class="n">context</span><span class="p">,</span>
+            <span class="n">parameters_meta</span><span class="o">=</span><span class="n">parameters_meta</span><span class="p">,</span>
+            <span class="n">err_indices</span><span class="o">=</span><span class="n">err_indices</span><span class="p">,</span>
+            <span class="n">is_fmt_err</span><span class="o">=</span><span class="n">is_fmt_err</span>
+        <span class="p">)</span></div>
+
 
 <div class="viewcode-block" id="CheckerReporterRegistry.create_checker_reporter_bundle">
 <a class="viewcode-back" href="../../../../ats_utilities.checker.reporter.checker_reporter_registry.html#ats_utilities.checker.reporter.checker_reporter_registry.CheckerReporterRegistry.create_checker_reporter_bundle">[docs]</a>

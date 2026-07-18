@@ -59,6 +59,9 @@
 
 <span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
 
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">override</span>
+
+<span class="kn">from</span> <span class="nn">ats_utilities.utils.iregistry</span> <span class="kn">import</span> <span class="n">IRegistry</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.reporter.reporter_bundle</span> <span class="kn">import</span> <span class="n">ReporterBundle</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.checker.engine</span> <span class="kn">import</span> <span class="n">Checker</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.checker.checker_registry</span> <span class="kn">import</span> <span class="n">CheckerRegistry</span>
@@ -78,15 +81,37 @@
 
 <div class="viewcode-block" id="ReporterRegistry">
 <a class="viewcode-back" href="../../../ats_utilities.reporter.reporter_registry.html#ats_utilities.reporter.reporter_registry.ReporterRegistry">[docs]</a>
-<span class="k">class</span> <span class="nc">ReporterRegistry</span><span class="p">:</span>
+<span class="k">class</span> <span class="nc">ReporterRegistry</span><span class="p">(</span><span class="n">IRegistry</span><span class="p">[</span><span class="n">ReporterBundle</span><span class="p">]):</span>
 <span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Encapsulates core runtime components for simplification of ReporterBundle creation.</span>
 
 <span class="sd">        It defines:</span>
 
 <span class="sd">            :methods:</span>
+<span class="sd">                | create_bundle - Creates a ReporterBundle.</span>
 <span class="sd">                | create_default_reporter_bundle - Creates a default ReporterBundle.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
+
+<div class="viewcode-block" id="ReporterRegistry.create_bundle">
+<a class="viewcode-back" href="../../../ats_utilities.reporter.reporter_registry.html#ats_utilities.reporter.reporter_registry.ReporterRegistry.create_bundle">[docs]</a>
+    <span class="nd">@override</span>
+    <span class="k">def</span> <span class="nf">create_bundle</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ReporterBundle</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">            Creates a ReporterBundle instance.</span>
+
+<span class="sd">            :param kwargs: Additional registry-specific orchestration parameters.</span>
+<span class="sd">            :return: ReporterBundle instance.</span>
+<span class="sd">            :rtype: &lt;ReporterBundle&gt;</span>
+<span class="sd">            :exceptions:</span>
+<span class="sd">                | ATSValueError: Checker bundle must be provided.</span>
+<span class="sd">                | ATSValueError: Theme must be provided.</span>
+<span class="sd">                | ATSValueError: Logger bundle must be provided.</span>
+<span class="sd">                | ATSTypeError: Checker bundle must be a CheckerBundle instance.</span>
+<span class="sd">                | ATSTypeError: Theme must be a Theme instance.</span>
+<span class="sd">                | ATSTypeError: Logger bundle must be a LoggerBundle instance.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="n">create_default_reporter_bundle</span><span class="p">()</span></div>
+
 
 <div class="viewcode-block" id="ReporterRegistry.create_default_reporter_bundle">
 <a class="viewcode-back" href="../../../ats_utilities.reporter.reporter_registry.html#ats_utilities.reporter.reporter_registry.ReporterRegistry.create_default_reporter_bundle">[docs]</a>

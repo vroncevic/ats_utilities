@@ -23,8 +23,9 @@ from __future__ import annotations
 
 from collections.abc import Mapping
 from types import MappingProxyType
-from typing import Any, Final
+from typing import Any, Final, override
 
+from ats_utilities.utils.iregistry import IRegistry
 from ats_utilities.info.info_bundle import InfoBundle
 from ats_utilities.info.info_keys import InfoKeys
 from ats_utilities.info.name.engine import Name
@@ -51,7 +52,7 @@ __email__ = r'elektron.ronca@gmail.com'
 __status__ = r'Development'
 
 
-class InfoRegistry:
+class InfoRegistry(IRegistry[InfoBundle]):
     '''
         Encapsulates core runtime components for simplification of InfoBundle creation.
 
@@ -60,7 +61,8 @@ class InfoRegistry:
             :attributes:
                 | _ATTR_TO_CLASS - Mapping of attribute names to engine classes.
             :methods:
-                | create_default_info_bundle - Creates a default InfoBundle.
+                | create_bundle - Creates an InfoBundle.
+                | create_info_bundle_from_dict - Creates an InfoBundle from a dictionary.
     '''
 
     _ATTR_TO_CLASS: Final[Mapping[str, Any]] = MappingProxyType({
@@ -75,6 +77,28 @@ class InfoRegistry:
         InfoKeys.ATS_LOG_FILE: LogFile,
         InfoKeys.ATS_INFO_OK: InfoOk
     })
+
+    @override
+    def create_bundle(cls, **kwargs: Any) -> InfoBundle:
+        '''
+            Creates an InfoBundle instance.
+
+            :param kwargs: Additional registry-specific orchestration parameters.
+            :return: InfoBundle instance.
+            :rtype: <InfoBundle>
+            :exceptions:
+                | ATSValueError: Info must be provided.
+                | ATSValueError: Context bundle must be provided.
+                | ATSTypeError: Info must be a mapping.
+                | ATSTypeError: Context bundle must be a ContextBundle instance.
+        '''
+        info: Mapping[str, Any] = kwargs.get('info')
+        context_bundle: ContextBundle = kwargs.get('context_bundle')
+
+        return cls.create_info_bundle_from_dict(
+            info=info,
+            context_bundle=context_bundle,
+        )
 
     @classmethod
     def create_info_bundle_from_dict(

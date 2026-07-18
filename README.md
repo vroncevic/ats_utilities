@@ -290,7 +290,8 @@ These modules requires other modules and libraries (Python 3.x)
          │       ├── engine.py
          │       ├── __init__.py
          │       ├── iparser_strategy.py
-         │       └── parser_strategy_bundle.py
+         │       ├── parser_strategy_bundle.py
+         │       └── parser_strategy_registry.py
          ├── project_setup/
          │   ├── __init__.py
          │   ├── ipro_config.py
@@ -346,6 +347,7 @@ These modules requires other modules and libraries (Python 3.x)
          │   ├── dirs.py
          │   ├── files.py
          │   ├── __init__.py
+         │   ├── iregistry.py
          │   └── reflection.py
          └── validation/
              ├── check_type.py
@@ -353,7 +355,7 @@ These modules requires other modules and libraries (Python 3.x)
              ├── context_error.py
              └── __init__.py
 
-     43 directories, 194 files
+     43 directories, 196 files
 ```
 </details>
 
@@ -372,7 +374,7 @@ These modules requires other modules and libraries (Python 3.x)
 | `ats_utilities/base/ibase.py` | 16 | 0 | 100%|
 | `ats_utilities/checker/__init__.py` | 9 | 0 | 100%|
 | `ats_utilities/checker/checker_bundle.py` | 36 | 0 | 100%|
-| `ats_utilities/checker/checker_registry.py` | 18 | 0 | 100%|
+| `ats_utilities/checker/checker_registry.py` | 24 | 1 | 96%|
 | `ats_utilities/checker/context/__init__.py` | 9 | 0 | 100%|
 | `ats_utilities/checker/context/context_provider.py` | 38 | 1 | 95%|
 | `ats_utilities/checker/context/icontext_provider.py` | 11 | 0 | 100%|
@@ -385,7 +387,7 @@ These modules requires other modules and libraries (Python 3.x)
 | `ats_utilities/checker/reporter/__init__.py` | 9 | 0 | 100%|
 | `ats_utilities/checker/reporter/check_reporter.py` | 32 | 0 | 100%|
 | `ats_utilities/checker/reporter/checker_reporter_bundle.py` | 34 | 0 | 100%|
-| `ats_utilities/checker/reporter/checker_reporter_registry.py` | 15 | 0 | 100%|
+| `ats_utilities/checker/reporter/checker_reporter_registry.py` | 25 | 5 | 80%|
 | `ats_utilities/checker/reporter/icheck_reporter.py` | 12 | 0 | 100%|
 | `ats_utilities/checker/type/__init__.py` | 9 | 0 | 100%|
 | `ats_utilities/checker/type/itype_validator.py` | 12 | 0 | 100%|
@@ -393,9 +395,9 @@ These modules requires other modules and libraries (Python 3.x)
 | `ats_utilities/config_io/__init__.py` | 9 | 0 | 100%|
 | `ats_utilities/config_io/conf_file.py` | 60 | 0 | 98%|
 | `ats_utilities/config_io/conf_file_bundle.py` | 30 | 0 | 100%|
-| `ats_utilities/config_io/conf_file_registry.py` | 15 | 0 | 100%|
+| `ats_utilities/config_io/conf_file_registry.py` | 24 | 4 | 83%|
 | `ats_utilities/config_io/config_io_bundle.py` | 37 | 0 | 100%|
-| `ats_utilities/config_io/config_io_registry.py` | 22 | 0 | 100%|
+| `ats_utilities/config_io/config_io_registry.py` | 32 | 5 | 84%|
 | `ats_utilities/config_io/iconf_file.py` | 15 | 0 | 100%|
 | `ats_utilities/config_io/loader/__init__.py` | 9 | 0 | 100%|
 | `ats_utilities/config_io/loader/engine.py` | 58 | 0 | 98%|
@@ -414,7 +416,7 @@ These modules requires other modules and libraries (Python 3.x)
 | `ats_utilities/context/__init__.py` | 9 | 0 | 100%|
 | `ats_utilities/context/context_bundle.py` | 35 | 0 | 100%|
 | `ats_utilities/context/context_bundle_inject.py` | 42 | 0 | 100%|
-| `ats_utilities/context/context_registry.py` | 26 | 0 | 100%|
+| `ats_utilities/context/context_registry.py` | 33 | 2 | 94%|
 | `ats_utilities/exceptions/__init__.py` | 21 | 0 | 100%|
 | `ats_utilities/exceptions/ats_attribute_error.py` | 11 | 0 | 100%|
 | `ats_utilities/exceptions/ats_bad_call_error.py` | 11 | 0 | 100%|
@@ -431,9 +433,9 @@ These modules requires other modules and libraries (Python 3.x)
 | `ats_utilities/generator/__init__.py` | 9 | 0 | 100%|
 | `ats_utilities/generator/engine.py` | 80 | 0 | 97%|
 | `ats_utilities/generator/gen_params_bundle.py` | 40 | 0 | 100%|
-| `ats_utilities/generator/gen_params_registry.py` | 15 | 0 | 100%|
+| `ats_utilities/generator/gen_params_registry.py` | 26 | 6 | 77%|
 | `ats_utilities/generator/generator_bundle.py` | 36 | 0 | 100%|
-| `ats_utilities/generator/generator_registry.py` | 21 | 0 | 100%|
+| `ats_utilities/generator/generator_registry.py` | 28 | 2 | 93%|
 | `ats_utilities/generator/igenerator.py` | 14 | 0 | 100%|
 | `ats_utilities/generator/scheme/__init__.py` | 9 | 0 | 100%|
 | `ats_utilities/generator/scheme/engine.py` | 56 | 0 | 100%|
@@ -443,8 +445,8 @@ These modules requires other modules and libraries (Python 3.x)
 | `ats_utilities/generator/tar/itar_processor.py` | 13 | 0 | 100%|
 | `ats_utilities/generator/tar/tar_process_bundle.py` | 39 | 0 | 100%|
 | `ats_utilities/generator/tar/tar_process_member_bundle.py` | 34 | 0 | 100%|
-| `ats_utilities/generator/tar/tar_process_member_registry.py` | 16 | 0 | 100%|
-| `ats_utilities/generator/tar/tar_process_registry.py` | 15 | 0 | 100%|
+| `ats_utilities/generator/tar/tar_process_member_registry.py` | 26 | 5 | 81%|
+| `ats_utilities/generator/tar/tar_process_registry.py` | 27 | 7 | 74%|
 | `ats_utilities/generator/template/__init__.py` | 9 | 0 | 100%|
 | `ats_utilities/generator/template/engine.py` | 40 | 0 | 100%|
 | `ats_utilities/generator/template/itemplate_processor.py` | 11 | 0 | 100%|
@@ -459,7 +461,7 @@ These modules requires other modules and libraries (Python 3.x)
 | `ats_utilities/info/info_ok/__init__.py` | 9 | 0 | 100%|
 | `ats_utilities/info/info_ok/engine.py` | 46 | 0 | 100%|
 | `ats_utilities/info/info_ok/iinfo_ok.py` | 11 | 0 | 100%|
-| `ats_utilities/info/info_registry.py` | 51 | 0 | 100%|
+| `ats_utilities/info/info_registry.py` | 57 | 3 | 96%|
 | `ats_utilities/info/licence/__init__.py` | 9 | 0 | 100%|
 | `ats_utilities/info/licence/engine.py` | 46 | 0 | 100%|
 | `ats_utilities/info/licence/ilicence.py` | 11 | 0 | 100%|
@@ -488,7 +490,7 @@ These modules requires other modules and libraries (Python 3.x)
 | `ats_utilities/logger/engine.py` | 97 | 0 | 98%|
 | `ats_utilities/logger/ilogger.py` | 12 | 0 | 100%|
 | `ats_utilities/logger/logger_bundle.py` | 29 | 0 | 100%|
-| `ats_utilities/logger/logger_registry.py` | 20 | 0 | 100%|
+| `ats_utilities/logger/logger_registry.py` | 26 | 3 | 89%|
 | `ats_utilities/option/__init__.py` | 9 | 0 | 100%|
 | `ats_utilities/option/command/__init__.py` | 9 | 0 | 100%|
 | `ats_utilities/option/command/command_option.py` | 49 | 0 | 100%|
@@ -497,16 +499,17 @@ These modules requires other modules and libraries (Python 3.x)
 | `ats_utilities/option/ioption_manager.py` | 17 | 0 | 100%|
 | `ats_utilities/option/option_bundle.py` | 32 | 0 | 100%|
 | `ats_utilities/option/option_namespace.py` | 15 | 0 | 100%|
-| `ats_utilities/option/option_registry.py` | 22 | 0 | 100%|
+| `ats_utilities/option/option_registry.py` | 30 | 4 | 87%|
 | `ats_utilities/option/parser/__init__.py` | 9 | 0 | 100%|
 | `ats_utilities/option/parser/engine.py` | 54 | 0 | 100%|
 | `ats_utilities/option/parser/iarg_parser.py` | 14 | 0 | 100%|
 | `ats_utilities/option/parser/parser_bundle.py` | 33 | 0 | 100%|
-| `ats_utilities/option/parser/parser_registry.py` | 17 | 0 | 100%|
+| `ats_utilities/option/parser/parser_registry.py` | 24 | 3 | 88%|
 | `ats_utilities/option/strategy/__init__.py` | 9 | 0 | 100%|
 | `ats_utilities/option/strategy/engine.py` | 99 | 0 | 100%|
 | `ats_utilities/option/strategy/iparser_strategy.py` | 16 | 0 | 100%|
 | `ats_utilities/option/strategy/parser_strategy_bundle.py` | 34 | 0 | 100%|
+| `ats_utilities/option/strategy/parser_strategy_registry.py` | 27 | 4 | 85%|
 | `ats_utilities/project_setup/__init__.py` | 9 | 0 | 100%|
 | `ats_utilities/project_setup/ipro_config.py` | 13 | 0 | 100%|
 | `ats_utilities/project_setup/ipro_name.py` | 11 | 0 | 100%|
@@ -514,14 +517,14 @@ These modules requires other modules and libraries (Python 3.x)
 | `ats_utilities/project_setup/pro_config.py` | 50 | 0 | 100%|
 | `ats_utilities/project_setup/pro_name.py` | 46 | 0 | 100%|
 | `ats_utilities/project_setup/project_setup_bundle.py` | 35 | 0 | 100%|
-| `ats_utilities/project_setup/project_setup_registry.py` | 26 | 0 | 100%|
+| `ats_utilities/project_setup/project_setup_registry.py` | 32 | 3 | 91%|
 | `ats_utilities/project_setup/template_dir.py` | 46 | 0 | 100%|
 | `ats_utilities/reporter/__init__.py` | 9 | 0 | 100%|
 | `ats_utilities/reporter/engine.py` | 68 | 0 | 100%|
 | `ats_utilities/reporter/ireporter.py` | 13 | 0 | 100%|
 | `ats_utilities/reporter/proxy_reporter.py` | 57 | 0 | 100%|
 | `ats_utilities/reporter/reporter_bundle.py` | 32 | 0 | 100%|
-| `ats_utilities/reporter/reporter_registry.py` | 22 | 0 | 100%|
+| `ats_utilities/reporter/reporter_registry.py` | 27 | 1 | 96%|
 | `ats_utilities/reporter/theme/__init__.py` | 9 | 0 | 100%|
 | `ats_utilities/reporter/theme/engine.py` | 33 | 0 | 100%|
 | `ats_utilities/reporter/theme/iconsole_theme.py` | 11 | 0 | 100%|
@@ -540,9 +543,9 @@ These modules requires other modules and libraries (Python 3.x)
 | `ats_utilities/splasher/property/splash_property.py` | 55 | 0 | 100%|
 | `ats_utilities/splasher/splash_bundle.py` | 48 | 0 | 100%|
 | `ats_utilities/splasher/splash_center_bundle.py` | 28 | 0 | 100%|
-| `ats_utilities/splasher/splash_center_registry.py` | 14 | 0 | 100%|
+| `ats_utilities/splasher/splash_center_registry.py` | 21 | 3 | 86%|
 | `ats_utilities/splasher/splash_keys.py` | 59 | 0 | 100%|
-| `ats_utilities/splasher/splash_registry.py` | 40 | 0 | 100%|
+| `ats_utilities/splasher/splash_registry.py` | 46 | 3 | 94%|
 | `ats_utilities/splasher/terminal/__init__.py` | 9 | 0 | 100%|
 | `ats_utilities/splasher/terminal/iterminal_properties.py` | 12 | 0 | 100%|
 | `ats_utilities/splasher/terminal/terminal_properties.py` | 66 | 0 | 99%|
@@ -552,12 +555,13 @@ These modules requires other modules and libraries (Python 3.x)
 | `ats_utilities/utils/dicts.py` | 36 | 0 | 100%|
 | `ats_utilities/utils/dirs.py` | 19 | 0 | 100%|
 | `ats_utilities/utils/files.py` | 123 | 0 | 100%|
+| `ats_utilities/utils/iregistry.py` | 12 | 0 | 100%|
 | `ats_utilities/utils/reflection.py` | 48 | 0 | 100%|
 | `ats_utilities/validation/__init__.py` | 9 | 0 | 100%|
 | `ats_utilities/validation/check_type.py` | 37 | 0 | 100%|
 | `ats_utilities/validation/check_value.py` | 21 | 0 | 100%|
 | `ats_utilities/validation/context_error.py` | 31 | 0 | 100%|
-| **Total** | 5494 | 19 | 99% |
+| **Total** | 5666 | 83 | 98% |
 
 </details>
 

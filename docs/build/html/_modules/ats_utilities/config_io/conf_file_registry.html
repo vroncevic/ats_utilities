@@ -59,6 +59,9 @@
 
 <span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
 
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">override</span>
+
+<span class="kn">from</span> <span class="nn">ats_utilities.utils.iregistry</span> <span class="kn">import</span> <span class="n">IRegistry</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.config_io.conf_file_bundle</span> <span class="kn">import</span> <span class="n">ConfFileBundle</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.context.context_bundle</span> <span class="kn">import</span> <span class="n">ContextBundle</span>
 
@@ -72,18 +75,48 @@
 <span class="n">__status__</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;Development&#39;</span>
 
 
-
 <div class="viewcode-block" id="ConfFileRegistry">
 <a class="viewcode-back" href="../../../ats_utilities.config_io.conf_file_registry.html#ats_utilities.config_io.conf_file_registry.ConfFileRegistry">[docs]</a>
-<span class="k">class</span> <span class="nc">ConfFileRegistry</span><span class="p">:</span>
+<span class="k">class</span> <span class="nc">ConfFileRegistry</span><span class="p">(</span><span class="n">IRegistry</span><span class="p">[</span><span class="n">ConfFileBundle</span><span class="p">]):</span>
 <span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Encapsulates core config I/O components for simplification of ConfFileBundle creation.</span>
 
-<span class="sd">        It defines:ats_utilities/config_io/config_io_registry.py</span>
+<span class="sd">        It defines:</span>
 
 <span class="sd">            :methods:</span>
-<span class="sd">                | create_conf_file_bundle_by_file_path_and_scheme - Creates a ConfFileBundle based on file path and scheme.</span>
+<span class="sd">                | create_bundle - Creates a ConfFileBundle instance using either file path and file mode.</span>
+<span class="sd">                | create_conf_file_bundle_by_file_path_and_file_mode - Creates a ConfFileBundle based on file path and file mode.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
+
+<div class="viewcode-block" id="ConfFileRegistry.create_bundle">
+<a class="viewcode-back" href="../../../ats_utilities.config_io.conf_file_registry.html#ats_utilities.config_io.conf_file_registry.ConfFileRegistry.create_bundle">[docs]</a>
+    <span class="nd">@classmethod</span>
+    <span class="nd">@override</span>
+    <span class="k">def</span> <span class="nf">create_bundle</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ConfFileBundle</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">            Creates a ConfFileBundle instance using either file path and file mode.</span>
+
+<span class="sd">            :param kwargs: Additional registry-specific orchestration parameters.</span>
+<span class="sd">            :return: ConfFileBundle instance.</span>
+<span class="sd">            :rtype: &lt;ConfFileBundle&gt;</span>
+<span class="sd">            :exceptions:</span>
+<span class="sd">                | ATSValueError: File path must be provided.</span>
+<span class="sd">                | ATSValueError: File mode must be provided.</span>
+<span class="sd">                | ATSValueError: Context bundle must be provided.</span>
+<span class="sd">                | ATSTypeError: File path must be a string.</span>
+<span class="sd">                | ATSTypeError: File mode must be a string.</span>
+<span class="sd">                | ATSTypeError: Context bundle must be an instance of ContextBundle interface.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="n">file_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;file_path&#39;</span><span class="p">)</span>
+        <span class="n">file_mode</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;file_mode&#39;</span><span class="p">)</span>
+        <span class="n">context_bundle</span><span class="p">:</span> <span class="n">ContextBundle</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;context_bundle&#39;</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="n">create_conf_file_bundle</span><span class="p">(</span>
+            <span class="n">file_path</span><span class="o">=</span><span class="n">file_path</span><span class="p">,</span>
+            <span class="n">file_mode</span><span class="o">=</span><span class="n">file_mode</span><span class="p">,</span>
+            <span class="n">context_bundle</span><span class="o">=</span><span class="n">context_bundle</span>
+        <span class="p">)</span></div>
+
 
 <div class="viewcode-block" id="ConfFileRegistry.create_conf_file_bundle">
 <a class="viewcode-back" href="../../../ats_utilities.config_io.conf_file_registry.html#ats_utilities.config_io.conf_file_registry.ConfFileRegistry.create_conf_file_bundle">[docs]</a>
@@ -95,7 +128,7 @@
         <span class="n">context_bundle</span><span class="p">:</span> <span class="n">ContextBundle</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ConfFileBundle</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">            Creates a ConfFileBundle with pre-configured components based on file path and scheme.</span>
+<span class="sd">            Creates a ConfFileBundle with pre-configured components based on file path and file mode.</span>
 
 <span class="sd">            :param file_path: Config file path.</span>
 <span class="sd">            :type file_path: &lt;str&gt;</span>

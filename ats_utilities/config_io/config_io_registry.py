@@ -22,7 +22,9 @@ Info
 from __future__ import annotations
 
 from collections.abc import Mapping
+from typing import Any, override
 
+from ats_utilities.utils.iregistry import IRegistry
 from ats_utilities.config_io.config_io_bundle import ConfigIOBundle
 from ats_utilities.config_io.processor.factory_processor import ConfigProcessorFactory
 from ats_utilities.config_io.processor.iconfig_processor import IConfigProcessor
@@ -38,16 +40,48 @@ __email__ = r'elektron.ronca@gmail.com'
 __status__ = r'Development'
 
 
-class ConfigIORegistry:
+class ConfigIORegistry(IRegistry[ConfigIOBundle]):
     '''
         Encapsulates core config I/O components for simplification of ConfigIOBundle creation.
 
         It defines:
 
             :methods:
+                | create_bundle - Creates a ConfigIOBundle instance using either file path and scheme or injected processor.
                 | create_config_io_bundle_by_file_path_and_scheme - Creates a ConfigIOBundle based on file path and scheme.
                 | create_config_io_bundle_by_injected_processor - Creates a ConfigIOBundle with injected processor.
     '''
+
+    @classmethod
+    @override
+    def create_bundle(cls, **kwargs: Any) -> ConfigIOBundle:
+        '''
+            Creates a ConfigIOBundle instance using either file path and scheme or injected processor.
+
+            :param kwargs: Additional registry-specific orchestration parameters.
+            :return: ConfigIOBundle instance.
+            :rtype: <ConfigIOBundle>
+            :exceptions:
+                | ATSValueError: File path must be provided.
+                | ATSValueError: Scheme must be provided.
+                | ATSValueError: Context bundle must be provided.
+                | ATSTypeError: File path must be a string.
+                | ATSTypeError: Scheme must be an instance of Mapping interface.
+                | ATSTypeError: Context bundle must be an instance of ContextBundle interface.
+        '''
+        file_path: str = kwargs.get('file_path')
+        scheme: Mapping[str, str] | None = kwargs.get('scheme')
+        context_bundle: ContextBundle = kwargs.get('context_bundle')
+        processor: IConfigProcessor | None = kwargs.get('processor')
+
+        return cls.create_config_io_bundle_by_file_path_and_scheme(
+            file_path=file_path,
+            scheme=scheme,
+            context_bundle=context_bundle
+        ) if processor is None else cls.create_config_io_bundle_by_injected_processor(
+            processor=processor,
+            context_bundle=context_bundle
+        )
 
     @classmethod
     def create_config_io_bundle_by_file_path_and_scheme(

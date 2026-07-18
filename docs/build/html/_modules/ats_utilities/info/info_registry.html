@@ -61,8 +61,9 @@
 
 <span class="kn">from</span> <span class="nn">collections.abc</span> <span class="kn">import</span> <span class="n">Mapping</span>
 <span class="kn">from</span> <span class="nn">types</span> <span class="kn">import</span> <span class="n">MappingProxyType</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Final</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Final</span><span class="p">,</span> <span class="n">override</span>
 
+<span class="kn">from</span> <span class="nn">ats_utilities.utils.iregistry</span> <span class="kn">import</span> <span class="n">IRegistry</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.info.info_bundle</span> <span class="kn">import</span> <span class="n">InfoBundle</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.info.info_keys</span> <span class="kn">import</span> <span class="n">InfoKeys</span>
 <span class="kn">from</span> <span class="nn">ats_utilities.info.name.engine</span> <span class="kn">import</span> <span class="n">Name</span>
@@ -91,7 +92,7 @@
 
 <div class="viewcode-block" id="InfoRegistry">
 <a class="viewcode-back" href="../../../ats_utilities.info.info_registry.html#ats_utilities.info.info_registry.InfoRegistry">[docs]</a>
-<span class="k">class</span> <span class="nc">InfoRegistry</span><span class="p">:</span>
+<span class="k">class</span> <span class="nc">InfoRegistry</span><span class="p">(</span><span class="n">IRegistry</span><span class="p">[</span><span class="n">InfoBundle</span><span class="p">]):</span>
 <span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Encapsulates core runtime components for simplification of InfoBundle creation.</span>
 
@@ -100,7 +101,8 @@
 <span class="sd">            :attributes:</span>
 <span class="sd">                | _ATTR_TO_CLASS - Mapping of attribute names to engine classes.</span>
 <span class="sd">            :methods:</span>
-<span class="sd">                | create_default_info_bundle - Creates a default InfoBundle.</span>
+<span class="sd">                | create_bundle - Creates an InfoBundle.</span>
+<span class="sd">                | create_info_bundle_from_dict - Creates an InfoBundle from a dictionary.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
 
     <span class="n">_ATTR_TO_CLASS</span><span class="p">:</span> <span class="n">Final</span><span class="p">[</span><span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="n">MappingProxyType</span><span class="p">({</span>
@@ -115,6 +117,31 @@
         <span class="n">InfoKeys</span><span class="o">.</span><span class="n">ATS_LOG_FILE</span><span class="p">:</span> <span class="n">LogFile</span><span class="p">,</span>
         <span class="n">InfoKeys</span><span class="o">.</span><span class="n">ATS_INFO_OK</span><span class="p">:</span> <span class="n">InfoOk</span>
     <span class="p">})</span>
+
+<div class="viewcode-block" id="InfoRegistry.create_bundle">
+<a class="viewcode-back" href="../../../ats_utilities.info.info_registry.html#ats_utilities.info.info_registry.InfoRegistry.create_bundle">[docs]</a>
+    <span class="nd">@override</span>
+    <span class="k">def</span> <span class="nf">create_bundle</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">InfoBundle</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">            Creates an InfoBundle instance.</span>
+
+<span class="sd">            :param kwargs: Additional registry-specific orchestration parameters.</span>
+<span class="sd">            :return: InfoBundle instance.</span>
+<span class="sd">            :rtype: &lt;InfoBundle&gt;</span>
+<span class="sd">            :exceptions:</span>
+<span class="sd">                | ATSValueError: Info must be provided.</span>
+<span class="sd">                | ATSValueError: Context bundle must be provided.</span>
+<span class="sd">                | ATSTypeError: Info must be a mapping.</span>
+<span class="sd">                | ATSTypeError: Context bundle must be a ContextBundle instance.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="n">info</span><span class="p">:</span> <span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;info&#39;</span><span class="p">)</span>
+        <span class="n">context_bundle</span><span class="p">:</span> <span class="n">ContextBundle</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;context_bundle&#39;</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="n">create_info_bundle_from_dict</span><span class="p">(</span>
+            <span class="n">info</span><span class="o">=</span><span class="n">info</span><span class="p">,</span>
+            <span class="n">context_bundle</span><span class="o">=</span><span class="n">context_bundle</span><span class="p">,</span>
+        <span class="p">)</span></div>
+
 
 <div class="viewcode-block" id="InfoRegistry.create_info_bundle_from_dict">
 <a class="viewcode-back" href="../../../ats_utilities.info.info_registry.html#ats_utilities.info.info_registry.InfoRegistry.create_info_bundle_from_dict">[docs]</a>

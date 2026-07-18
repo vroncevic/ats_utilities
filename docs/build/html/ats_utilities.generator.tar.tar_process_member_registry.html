@@ -70,18 +70,53 @@ with this program. If not, see &lt;<a class="reference external" href="http://ww
 <dl class="py class">
 <dt class="sig sig-object py" id="ats_utilities.generator.tar.tar_process_member_registry.TarProcessRegistry">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ats_utilities.generator.tar.tar_process_member_registry.</span></span><span class="sig-name descname"><span class="pre">TarProcessRegistry</span></span><a class="reference internal" href="_modules/ats_utilities/generator/tar/tar_process_member_registry.html#TarProcessRegistry"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.generator.tar.tar_process_member_registry.TarProcessRegistry" title="Link to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">IRegistry</span></code>[<a class="reference internal" href="ats_utilities.generator.tar.tar_process_member_bundle.html#ats_utilities.generator.tar.tar_process_member_bundle.TarProcessMemberBundle" title="ats_utilities.generator.tar.tar_process_member_bundle.TarProcessMemberBundle"><code class="xref py py-class docutils literal notranslate"><span class="pre">TarProcessMemberBundle</span></code></a>]</p>
 <p>Encapsulates core runtime components for creation of tar process member bundle.</p>
 <p>It defines:</p>
 <blockquote>
 <div><dl class="field-list">
 <dt class="field-odd">methods<span class="colon">:</span></dt>
 <dd class="field-odd"><div class="line-block">
+<div class="line">create_bundle - Creates a TarProcessMemberBundle.</div>
 <div class="line">create_tar_process_member_bundle - Creates a TarProcessMemberBundle.</div>
 </div>
 </dd>
 </dl>
 </div></blockquote>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ats_utilities.generator.tar.tar_process_member_registry.TarProcessRegistry._abc_impl">
+<span class="sig-name descname"><span class="pre">_abc_impl</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;_abc._abc_data</span> <span class="pre">object&gt;</span></em><a class="headerlink" href="#ats_utilities.generator.tar.tar_process_member_registry.TarProcessRegistry._abc_impl" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ats_utilities.generator.tar.tar_process_member_registry.TarProcessRegistry.create_bundle">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">create_bundle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="ats_utilities.generator.tar.tar_process_member_bundle.html#ats_utilities.generator.tar.tar_process_member_bundle.TarProcessMemberBundle" title="ats_utilities.generator.tar.tar_process_member_bundle.TarProcessMemberBundle"><span class="pre">TarProcessMemberBundle</span></a></span></span><a class="reference internal" href="_modules/ats_utilities/generator/tar/tar_process_member_registry.html#TarProcessRegistry.create_bundle"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.generator.tar.tar_process_member_registry.TarProcessRegistry.create_bundle" title="Link to this definition">¶</a></dt>
+<dd><p>Creates a TarProcessMemberBundle instance.</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>kwargs</strong> – Additional registry-specific orchestration parameters.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>TarProcessMemberBundle instance.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>&lt;TarProcessMemberBundle&gt;</p>
+</dd>
+<dt class="field-even">Exceptions<span class="colon">:</span></dt>
+<dd class="field-even"><div class="line-block">
+<div class="line">ATSValueError: Tar must be provided.</div>
+<div class="line">ATSValueError: Member must be provided.</div>
+<div class="line">ATSValueError: Dest full path must be provided.</div>
+<div class="line">ATSValueError: Vals must be provided.</div>
+<div class="line">ATSTypeError: Tar must be a TarFile instance.</div>
+<div class="line">ATSTypeError: Member must be a TarInfo instance.</div>
+<div class="line">ATSTypeError: Dest full path must be a string.</div>
+<div class="line">ATSTypeError: Vals must be a mapping.</div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
 <dl class="py method">
 <dt class="sig sig-object py" id="ats_utilities.generator.tar.tar_process_member_registry.TarProcessRegistry.create_tar_process_member_bundle">
 <em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">create_tar_process_member_bundle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tar</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">TarFile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">member</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">TarInfo</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dest_full_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vals</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Mapping</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="ats_utilities.generator.tar.tar_process_member_bundle.html#ats_utilities.generator.tar.tar_process_member_bundle.TarProcessMemberBundle" title="ats_utilities.generator.tar.tar_process_member_bundle.TarProcessMemberBundle"><span class="pre">TarProcessMemberBundle</span></a></span></span><a class="reference internal" href="_modules/ats_utilities/generator/tar/tar_process_member_registry.html#TarProcessRegistry.create_tar_process_member_bundle"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ats_utilities.generator.tar.tar_process_member_registry.TarProcessRegistry.create_tar_process_member_bundle" title="Link to this definition">¶</a></dt>
@@ -132,6 +167,8 @@ with this program. If not, see &lt;<a class="reference external" href="http://ww
     <ul>
 <li><a class="reference internal" href="#">ats_utilities.generator.tar.tar_process_member_registry module</a><ul>
 <li><a class="reference internal" href="#ats_utilities.generator.tar.tar_process_member_registry.TarProcessRegistry"><code class="docutils literal notranslate"><span class="pre">TarProcessRegistry</span></code></a><ul>
+<li><a class="reference internal" href="#ats_utilities.generator.tar.tar_process_member_registry.TarProcessRegistry._abc_impl"><code class="docutils literal notranslate"><span class="pre">TarProcessRegistry._abc_impl</span></code></a></li>
+<li><a class="reference internal" href="#ats_utilities.generator.tar.tar_process_member_registry.TarProcessRegistry.create_bundle"><code class="docutils literal notranslate"><span class="pre">TarProcessRegistry.create_bundle()</span></code></a></li>
 <li><a class="reference internal" href="#ats_utilities.generator.tar.tar_process_member_registry.TarProcessRegistry.create_tar_process_member_bundle"><code class="docutils literal notranslate"><span class="pre">TarProcessRegistry.create_tar_process_member_bundle()</span></code></a></li>
 </ul>
 </li>

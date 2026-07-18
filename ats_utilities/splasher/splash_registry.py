@@ -22,8 +22,9 @@ Info
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import Any
+from typing import Any, override
 
+from ats_utilities.utils.iregistry import IRegistry
 from ats_utilities.splasher.splash_bundle import SplashBundle
 from ats_utilities.context.context_bundle import ContextBundle
 from ats_utilities.splasher.property.splash_property import SplashProperty
@@ -43,15 +44,36 @@ __email__ = r'elektron.ronca@gmail.com'
 __status__ = r'Development'
 
 
-class SplashRegistry:
+class SplashRegistry(IRegistry[SplashBundle]):
     '''
         Encapsulates splash screen components for simplification of SplashBundle creation.
 
         It defines:
 
             :methods:
+                | create_bundle - Creates a SplashBundle.
                 | create_splash_bundle_from_dict - Creates a SplashBundle from properties.
     '''
+
+    @override
+    def create_bundle(cls, **kwargs: Any) -> SplashBundle:
+        '''
+            Creates a SplashBundle instance.
+
+            :param kwargs: Additional registry-specific orchestration parameters.
+            :return: SplashBundle instance.
+            :rtype: <SplashBundle>
+            :exceptions:
+                | ATSValueError: Context bundle must not be provided.
+                | ATSTypeError: Context bundle must be of type ContextBundle.
+        '''
+        prop: Mapping[str, Any] = kwargs.get('prop')
+        context_bundle: ContextBundle = kwargs.get('context_bundle')
+
+        return cls.create_splash_bundle_from_dict(
+            prop=prop,
+            context_bundle=context_bundle,
+        )
 
     @classmethod
     def create_splash_bundle_from_dict(cls, prop: Mapping[str, Any], context_bundle: ContextBundle) -> SplashBundle:

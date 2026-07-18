@@ -21,6 +21,9 @@ Info
 
 from __future__ import annotations
 
+from typing import Any, override
+
+from ats_utilities.utils.iregistry import IRegistry
 from ats_utilities.checker.checker_bundle import CheckerBundle
 from ats_utilities.checker.format.format_validator import FormatValidator
 from ats_utilities.checker.type.type_validator import TypeValidator
@@ -37,15 +40,36 @@ __email__ = r'elektron.ronca@gmail.com'
 __status__ = r'Development'
 
 
-class CheckerRegistry:
+class CheckerRegistry(IRegistry[CheckerBundle]):
     '''
         Encapsulates core runtime components for simplification of CheckerBundle creation.
 
         It defines:
 
             :methods:
-                | create_default_checker_bundle - Creates a default CheckerBundle.
+                | create_bundle - Creates a CheckerBundle instance using either file path and scheme or injected processor.
+                | create_checker_bundle_by_file_path_and_scheme - Creates a CheckerBundle based on file path and scheme.
+                | create_checker_bundle_by_processor - Creates a CheckerBundle based on an injected processor.
     '''
+
+    @classmethod
+    @override
+    def create_bundle(cls, **kwargs: Any) -> CheckerBundle:
+        '''
+            Creates a CheckerBundle instance using either file path and scheme or injected processor.
+
+            :param kwargs: Additional registry-specific orchestration parameters.
+            :return: CheckerBundle instance.
+            :rtype: <CheckerBundle>
+            :exceptions:
+                | ATSValueError: File path must be provided.
+                | ATSValueError: Scheme must be provided.
+                | ATSValueError: Context bundle must be provided.
+                | ATSTypeError: File path must be a string.
+                | ATSTypeError: Scheme must be an instance of Mapping interface.
+                | ATSTypeError: Context bundle must be an instance of ContextBundle interface.
+        '''
+        return cls.create_default_checker_bundle()
 
     @classmethod
     def create_default_checker_bundle(cls) -> CheckerBundle:
