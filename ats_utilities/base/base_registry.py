@@ -22,8 +22,9 @@ Info
 from __future__ import annotations
 
 from os.path import dirname
-from typing import Any
+from typing import Any, override
 
+from ats_utilities.utils.iregistry import IRegistry
 from ats_utilities.base.base_bundle import BaseBundle
 from ats_utilities.context.context_bundle import ContextBundle
 from ats_utilities.config_io.loader.engine import Loader
@@ -50,15 +51,42 @@ __email__ = r'elektron.ronca@gmail.com'
 __status__ = r'Development'
 
 
-class BaseRegistry:
+class BaseRegistry(IRegistry[BaseBundle]):
     '''
         Encapsulates core runtime components for simplification of CheckerBundle creation.
 
         It defines:
 
             :methods:
+                | create_bundle - Creates a BaseBundle.
                 | create_default_base_bundle - Creates a default BaseBundle.
     '''
+
+    @classmethod
+    @override
+    def create_bundle(cls, **kwargs: Any) -> BaseBundle:
+        '''
+            Creates a BaseBundle.
+
+            :param kwargs: Additional registry-specific orchestration parameters.
+            :return: BaseBundle instance.
+            :rtype: <BaseBundle>
+            :exceptions:
+                | ATSValueError: info_file must be provided.
+                | ATSValueError: context_bundle must be provided.
+                | ATSTypeError: info_file must be a string.
+                | ATSTypeError: context_bundle must be a ContextBundle instance.
+                | ATSTypeError: use generator must be a boolean.
+        '''
+        info_file: str = kwargs.get('info_file')
+        context_bundle: ContextBundle = kwargs.get('context_bundle')
+        use_generator: bool = kwargs.get('use_generator', False)
+
+        return cls.create_default_base_bundle(
+            info_file=info_file,
+            context_bundle=context_bundle,
+            use_generator=use_generator
+        )
 
     @classmethod
     def create_default_base_bundle(
