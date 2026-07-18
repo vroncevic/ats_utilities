@@ -24,6 +24,7 @@ Info
 from __future__ import annotations
 
 from collections.abc import Mapping
+from typing import override
 from pathlib import Path
 
 from ats_utilities.config_io.processor.iconfig_processor import IConfigProcessor
@@ -73,6 +74,7 @@ class ConfigProcessorFactory:
     }
 
     @classmethod
+    @override
     def get_processor_class(cls, extension: str) -> type[IConfigProcessor]:
         '''
             Returns the processor class for a specific file extension.
@@ -101,6 +103,7 @@ class ConfigProcessorFactory:
         return cls._PROCESSOR_MAP[formatted_ext]
 
     @classmethod
+    @override
     def create_from_extension(
         cls, 
         extension: str | None = None,
@@ -152,6 +155,7 @@ class ConfigProcessorFactory:
         return resolved_processor
 
     @classmethod
+    @override
     def create_from_file_path(
         cls, 
         file_path: str | None = None,
